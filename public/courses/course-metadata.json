@@ -1,0 +1,19 @@
+{
+  "defaultCourseId": "mi-tutora-python-course",
+  "courses": [
+    {
+      "id": "course-placeholder",
+      "title": "Course name",
+      "description": "Local placeholder course for the learning platform.",
+      "version": "1.0.0",
+      "source": "/courses/learning-platform.json"
+    },
+    {
+      "id": "mi-tutora-python-course",
+      "title": "MI Tutora Python Course",
+      "description": "Beginner Python course converted from the provided course document.",
+      "version": "1.0.0",
+      "source": "/courses/python-course.json"
+    }
+  ]
+}

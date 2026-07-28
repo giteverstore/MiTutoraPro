@@ -1,0 +1,292 @@
+{
+  "id": "course-placeholder",
+  "name": "Course name",
+  "shortMark": "L",
+  "categoryLabel": "Placeholder course",
+  "progress": 48,
+  "ui": {
+    "emptyLesson": {
+      "title": "Nothing here yet",
+      "description": "Lesson content will appear here when blocks are available."
+    },
+    "emptyCourse": {
+      "title": "No lesson selected",
+      "description": "Choose an available lesson to begin learning."
+    },
+    "emptyModules": {
+      "title": "No modules yet",
+      "description": "Course modules will appear here when available."
+    },
+    "shortcuts": {
+      "menu": "M",
+      "theme": "D",
+      "run": "Ctrl + Enter",
+      "close": "Escape"
+    },
+    "resizeLabels": {
+      "sidebar": "Resize course sidebar",
+      "compiler": "Resize compiler panel",
+      "output": "Resize editor and output panels"
+    }
+  },
+  "navigation": {
+    "currentLessonLabel": "Current lesson",
+    "progressLabel": "Course progress",
+    "previousLabel": "Previous",
+    "nextLabel": "Next lesson",
+    "openMenuLabel": "Open course navigation",
+    "darkModeLabel": "Use dark mode",
+    "lightModeLabel": "Use light mode"
+  },
+  "sidebar": {
+    "eyebrow": "Your learning path",
+    "completedSummary": "12 of 24 lessons",
+    "remainingSummary": "6h remaining",
+    "navigationLabel": "Course modules",
+    "closeLabel": "Close course navigation",
+    "support": {
+      "icon": "?",
+      "title": "Need a hand?",
+      "description": "View learning resources"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-foundations",
+      "title": "Module 01 · Foundations",
+      "meta": "3 lessons",
+      "initiallyOpen": true,
+      "lessons": [
+        {
+          "id": "lesson-complete",
+          "numberLabel": "Lesson 01",
+          "title": "Lesson placeholder",
+          "status": "complete",
+          "blocks": []
+        },
+        {
+          "id": "lesson-active",
+          "numberLabel": "Lesson 02",
+          "title": "Lesson title placeholder",
+          "status": "active",
+          "summary": "A concise lesson summary can be displayed here to orient the learner before they begin.",
+          "details": [
+            "12 min read",
+            "Concept",
+            "Beginner"
+          ],
+          "blocks": [
+            {
+              "id": "heading",
+              "type": "heading",
+              "kicker": "Concept heading",
+              "title": "A clear heading for the next lesson concept"
+            },
+            {
+              "id": "paragraph",
+              "type": "paragraph",
+              "paragraphs": [
+                "This is placeholder lesson copy designed to demonstrate comfortable line length, hierarchy, and spacing. Dynamic educational content can be supplied to this reusable block later.",
+                "A second paragraph shows how longer explanations flow within the lesson canvas while remaining focused and easy to scan."
+              ]
+            },
+            {
+              "id": "code",
+              "type": "code",
+              "label": "Code example",
+              "language": "LANGUAGE",
+              "ariaLabel": "Placeholder code example",
+              "lines": [
+                {
+                  "number": "01",
+                  "segments": [
+                    {
+                      "text": "function",
+                      "tone": "keyword"
+                    },
+                    {
+                      "text": " example",
+                      "tone": "name"
+                    },
+                    {
+                      "text": "() {"
+                    }
+                  ]
+                },
+                {
+                  "number": "02",
+                  "segments": [
+                    {
+                      "text": "  return",
+                      "tone": "keyword"
+                    },
+                    {
+                      "text": " 'Placeholder output'",
+                      "tone": "string"
+                    },
+                    {
+                      "text": ";"
+                    }
+                  ]
+                },
+                {
+                  "number": "03",
+                  "segments": [
+                    {
+                      "text": "}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "image",
+              "type": "image",
+              "title": "Lesson visual placeholder",
+              "description": "Diagram, illustration, or supporting image"
+            },
+            {
+              "id": "quiz",
+              "type": "quiz",
+              "kicker": "Quick check",
+              "title": "Quiz placeholder",
+              "description": "A short knowledge check will appear in this reusable lesson block.",
+              "actionLabel": "Start quiz"
+            },
+            {
+              "id": "exercise",
+              "type": "exercise",
+              "badge": "Practice",
+              "title": "Exercise placeholder",
+              "description": "Apply the lesson concept in a guided coding task. Instructions and starter code will render here.",
+              "objectives": [
+                "Clear objective",
+                "Guided steps"
+              ],
+              "actionLabel": "Open exercise"
+            },
+            {
+              "id": "ai-explanation",
+              "type": "ai_explanation",
+              "kicker": "Learning assistant",
+              "title": "AI explanation placeholder",
+              "description": "Request a focused explanation of this concept when AI learning support is connected.",
+              "actionLabel": "Explain this concept"
+            }
+          ]
+        },
+        {
+          "id": "lesson-default",
+          "numberLabel": "Lesson 03",
+          "title": "Lesson placeholder",
+          "status": "default",
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-core",
+      "title": "Module 02 · Core concepts",
+      "meta": "3 lessons",
+      "initiallyOpen": true,
+      "lessons": [
+        {
+          "id": "lesson-core-1",
+          "numberLabel": "Lesson 01",
+          "title": "Lesson placeholder",
+          "status": "default",
+          "blocks": []
+        },
+        {
+          "id": "lesson-core-2",
+          "numberLabel": "Lesson 02",
+          "title": "Lesson placeholder",
+          "status": "locked",
+          "blocks": []
+        },
+        {
+          "id": "lesson-core-3",
+          "numberLabel": "Lesson 03",
+          "title": "Lesson placeholder",
+          "status": "locked",
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-practice",
+      "title": "Module 03 · Practice",
+      "meta": "2 lessons",
+      "initiallyOpen": false,
+      "lessons": [
+        {
+          "id": "lesson-practice-1",
+          "numberLabel": "Lesson 01",
+          "title": "Lesson placeholder",
+          "status": "locked",
+          "blocks": []
+        },
+        {
+          "id": "lesson-practice-2",
+          "numberLabel": "Lesson 02",
+          "title": "Lesson placeholder",
+          "status": "locked",
+          "blocks": []
+        }
+      ]
+    }
+  ],
+  "compiler": {
+    "ariaLabel": "Practice compiler",
+    "eyebrow": "Practice workspace",
+    "title": "Compiler",
+    "status": "Ready",
+    "languageLabel": "Language",
+    "language": "Placeholder",
+    "resetLabel": "Reset code",
+    "runLabel": "Run",
+    "runningLabel": "Running…",
+    "runShortcut": "Ctrl + Enter",
+    "resizeLabel": "Resize editor and output panels",
+    "editor": {
+      "fileName": "main.ext",
+      "unsavedLabel": "Unsaved changes",
+      "ariaLabel": "Code editor placeholder",
+      "lines": [
+        {
+          "number": 1,
+          "text": "// Write your code here",
+          "tone": "comment"
+        },
+        {
+          "number": 2,
+          "cursor": true
+        },
+        {
+          "number": 3
+        },
+        {
+          "number": 4
+        },
+        {
+          "number": 5
+        }
+      ]
+    },
+    "output": {
+      "outputTabLabel": "Output",
+      "errorsTabLabel": "Errors",
+      "errorCount": 0,
+      "prompt": ">_",
+      "emptyTitle": "Output will appear here",
+      "emptyDescription": "Run your code to see the result.",
+      "errorTitle": "Error placeholder",
+      "errorDescription": "Compiler errors will be shown in this area."
+    },
+    "footerItems": [
+      "Spaces: 2",
+      "Ln 2, Col 1"
+    ]
+  },
+  "defaultLessonId": "lesson-active"
+}

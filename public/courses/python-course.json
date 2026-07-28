@@ -1,0 +1,4439 @@
+{
+  "$schema": "../../schemas/learning-course.schema.json",
+  "schemaVersion": "1.0.0",
+  "id": "mi-tutora-python-course",
+  "slug": "mi-tutora-python-course",
+  "title": "MI Tutora Python Course",
+  "description": "A beginner Python course converted from the MI Tutora course document.",
+  "locale": "en-US",
+  "status": "draft",
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "MI Tutora"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 340,
+    "tags": [
+      "python",
+      "programming",
+      "beginner"
+    ],
+    "updatedAt": "2026-07-28T14:54:09.869Z"
+  },
+  "navigation": {
+    "defaultLessonId": "lesson-1-1-introduction-to-python",
+    "sequence": "module-order",
+    "skipLockedLessons": true,
+    "labels": {
+      "previous": "Previous lesson",
+      "next": "Next lesson",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-1-getting-started-with-python",
+      "title": "Module 1: Getting Started with Python",
+      "description": "Lessons 1.1 through 1.6",
+      "initiallyExpanded": true,
+      "lessons": [
+        {
+          "id": "lesson-1-1-introduction-to-python",
+          "number": "1.1",
+          "title": "Introduction to Python",
+          "summary": "Welcome to the Python course!",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "getting-started-with-python"
+          ],
+          "blocks": [
+            {
+              "id": "page-1-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Welcome to the Python course!",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-2",
+              "type": "paragraph",
+              "content": "You're about to start learning Python—one of the most popular and widely used programming languages in the world.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Why Python?"
+            },
+            {
+              "id": "page-1-1-paragraph-4",
+              "type": "paragraph",
+              "content": "It's not just easy to learn—it's also incredibly powerful.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-5",
+              "type": "paragraph",
+              "content": "People use it to build websites, create apps, analyze data, automate tasks, and even work on AI.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-6",
+              "type": "paragraph",
+              "content": "Whether you're aiming for a career in tech or just curious about coding, Python is a great place to start.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-7",
+              "type": "paragraph",
+              "content": "On this page, you don't need to write any code yet.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-8",
+              "type": "paragraph",
+              "content": "See the editor on the right?",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-9",
+              "type": "paragraph",
+              "content": "You'll be using it soon to write your own Python code.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-10",
+              "type": "paragraph",
+              "content": "And don't worry—you can't break anything. Just follow along, explore, and have fun with it.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-paragraph-11",
+              "type": "paragraph",
+              "content": "This course will guide you step by step in a friendly and easy way—no pressure, and no prior experience needed.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-1-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "When you're ready, click Next Lesson, and we'll run your very first Python code together."
+            }
+          ]
+        },
+        {
+          "id": "lesson-1-2-run-your-first-python-program",
+          "number": "1.2",
+          "title": "Run Your First Python Program",
+          "summary": "You're about to run your very first Python program.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "getting-started-with-python"
+          ],
+          "blocks": [
+            {
+              "id": "page-1-2-paragraph-1",
+              "type": "paragraph",
+              "content": "You're about to run your very first Python program.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-2-paragraph-2",
+              "type": "paragraph",
+              "content": "Here is a simple program that prints Hello, World!.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-2-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Hello, World!\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-1-2-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "All you have to do is click the Run Code button."
+            },
+            {
+              "id": "page-1-2-paragraph-5",
+              "type": "paragraph",
+              "content": "You'll see Hello, World! in the Output section.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-2-paragraph-6",
+              "type": "paragraph",
+              "content": "Awesome—you've just run your very first Python program.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-2-paragraph-7",
+              "type": "paragraph",
+              "content": "Don't worry if it doesn't make complete sense yet. We'll walk through how this code works step-by-step on the next page.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-2-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Go ahead and click Next Lesson to keep going."
+            }
+          ]
+        },
+        {
+          "id": "lesson-1-3-working-of-the-program",
+          "number": "1.3",
+          "title": "Working of the Program",
+          "summary": "Let's take a closer look at the program you just ran.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "getting-started-with-python"
+          ],
+          "blocks": [
+            {
+              "id": "page-1-3-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's take a closer look at the program you just ran.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-2",
+              "type": "paragraph",
+              "content": "In Python, we use the function print() whenever we want to display something on the screen.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-3",
+              "type": "paragraph",
+              "content": "The print() function shows whatever is inside it.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-4",
+              "type": "paragraph",
+              "content": "For example, this program you ran earlier:",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-image-5",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-01.png",
+              "alt": "print() displays the text inside double quotes",
+              "caption": "Figure: Print Hello World",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-1-3-paragraph-6",
+              "type": "paragraph",
+              "content": "When you run the code, the output will show the text without the quotation marks.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-7",
+              "type": "paragraph",
+              "content": "The quotation marks \" \" around the text tell Python that this is plain text and should be shown exactly as written.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-8",
+              "type": "paragraph",
+              "content": "Without those quotes, Python would get confused, wouldn't recognize the text, and would show an error.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-9",
+              "type": "paragraph",
+              "content": "Next, you'll do a quick quiz to help you remember what you've learned.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-paragraph-10",
+              "type": "paragraph",
+              "content": "After that, you'll get to write your very first Python code yourself.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-3-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Click Next Lesson to keep going."
+            }
+          ]
+        },
+        {
+          "id": "lesson-1-4-quiz-which-of-the-following-is-the-valid-way-to-display",
+          "number": "1.4",
+          "title": "Quiz: Which of the following is the valid way to display Welcome to Programiz on the screen?",
+          "summary": "Which of the following is the valid way to display Welcome to Programiz on the screen?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "getting-started-with-python"
+          ],
+          "blocks": [
+            {
+              "id": "page-1-4-quiz-1",
+              "type": "quiz",
+              "question": "Which of the following is the valid way to display Welcome to Programiz on the screen?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "print(Welcome to Programiz)"
+                },
+                {
+                  "id": "option-b",
+                  "text": "print\"Welcome to Programiz\""
+                },
+                {
+                  "id": "option-c",
+                  "text": "print(\"Welcome to Programiz\")"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Print(\"Welcome to Programiz\")"
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-1-5-your-first-python-program",
+          "number": "1.5",
+          "title": "Your First Python Program",
+          "summary": "Problem Description",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "getting-started-with-python"
+          ],
+          "blocks": [
+            {
+              "id": "page-1-5-exercise-4",
+              "type": "exercise",
+              "title": "Your First Python Program",
+              "instructions": {
+                "content": "Problem Description\n\nWrite a program that displays the word welcome on the screen.\n\nOn the right, you'll see a code editor where you can write your program.\n\nRemember:\n\nWhen you're done, hit the Run button to see your program in action.\n\nGood luck!Example",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Use the print() function to display the text.",
+                "Put the word welcome inside quotation marks \" \" — this tells Python it's text.",
+                "Be careful with capitalization — welcome is different from Welcome, WELCOME, or WelCome in Python. You need to match welcome exactly."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Your First Python Program\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-1-5-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Your First Python Program\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "welcome",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-1-5-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "welcome",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-1-5-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"welcome\")",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-1-5-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Welcome to the world of coding, where every line matters! Here's how it works:\n\nThis line of code is a simple print statement that displays the text \"welcome\" on the screen. It's like saying hello to everyone who opens your program.\n\nIn programming, the print function outputs whatever you put inside the parentheses. It’s often the first step to ensuring everything is running smoothly.\n\nSo, think of this as your starting point in learning to communicate with computers.\n\nReady to explore what else you can express in code?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-1-6-course-overview",
+          "number": "1.6",
+          "title": "Course Overview",
+          "summary": "Congratulations on writing your first Python program!",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "getting-started-with-python"
+          ],
+          "blocks": [
+            {
+              "id": "page-1-6-paragraph-1",
+              "type": "paragraph",
+              "content": "Congratulations on writing your first Python program!",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-6-paragraph-2",
+              "type": "paragraph",
+              "content": "You'll learn and write lots more code throughout this course. Here's what to expect:",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-6-image-3",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-02.png",
+              "alt": "Course Flow",
+              "caption": "Figure: Course Flow",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-1-6-paragraph-4",
+              "type": "paragraph",
+              "content": "By the end, you'll write hundreds of programs and create projects, including the rock-paper-scissors game, and become ready to work on real-world projects.",
+              "format": "plain"
+            },
+            {
+              "id": "page-1-6-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Click the Next Lesson button to continue your learning journey!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-2-python-data-types",
+      "title": "Module 2: Python Data Types",
+      "description": "Lessons 2.1 through 2.12",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-2-1-introduction-to-data-types",
+          "number": "2.1",
+          "title": "Introduction to Data Types",
+          "summary": "Hey! Remember this from the last lesson?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Hey! Remember this from the last lesson?",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-1-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"welcome\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-1-paragraph-3",
+              "type": "paragraph",
+              "content": "Anything inside quotation marks (\" \") is treated as text. In programming, text is called string.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-1-paragraph-4",
+              "type": "paragraph",
+              "content": "In this lesson, you'll learn about two of the most commonly used types of data:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-1-paragraph-5",
+              "type": "paragraph",
+              "content": "- Strings — used for text (like the \"welcome\" above)\n- Numbers — used for doing math and calculations",
+              "format": "markdown"
+            },
+            {
+              "id": "page-2-1-image-6",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-03.png",
+              "alt": "Idea Emoji",
+              "caption": "Note: You don't need to be a math genius. We're just talking about basic things—adding, subtracting, multiplying. So don't overthink the numbers. You've got this!",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-2-1-paragraph-7",
+              "type": "paragraph",
+              "content": "Next, let's explore strings in more detail.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-1-paragraph-8",
+              "type": "paragraph",
+              "content": "Click Next Lesson to continue.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-2-strings",
+          "number": "2.2",
+          "title": "Strings",
+          "summary": "So now you know — anything inside quotes is a string in Python. Like this:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-2-paragraph-1",
+              "type": "paragraph",
+              "content": "So now you know — anything inside quotes is a string in Python. Like this:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "\"This is a string.\"",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-2-paragraph-3",
+              "type": "paragraph",
+              "content": "But guess what? You can also use single quotes:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-code-4",
+              "type": "code",
+              "language": "python",
+              "code": "'This is also a string.'",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-2-paragraph-5",
+              "type": "paragraph",
+              "content": "To show them on the screen, just wrap them inside the print() function, like this:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-table-6",
+              "type": "table",
+              "caption": "",
+              "columns": [
+                {
+                  "key": "column-1",
+                  "header": "Column 1",
+                  "align": "left"
+                },
+                {
+                  "key": "column-2",
+                  "header": "Column 2",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "column-1": "print(\"This is a string.\")"
+                },
+                {
+                  "column-1": "print('This is also a string.')"
+                },
+                {
+                  "column-1": "Run Code >>",
+                  "column-2": "Run Code >>"
+                },
+                {
+                  "column-1": "Run Code >>"
+                }
+              ]
+            },
+            {
+              "id": "page-2-2-paragraph-7",
+              "type": "paragraph",
+              "content": "Go ahead — click the Run Code button to see the output.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-paragraph-8",
+              "type": "paragraph",
+              "content": "You can use single or double quotes — just try to be consistent so your code stays nice and tidy.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-paragraph-9",
+              "type": "paragraph",
+              "content": "But what if you don't use quotes at all?",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-paragraph-10",
+              "type": "paragraph",
+              "content": "Let's find out in the next lesson.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-2-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Click Next Lesson to continue."
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-3-be-careful-when-using-strings",
+          "number": "2.3",
+          "title": "Be Careful When Using Strings",
+          "summary": "If you do not wrap text inside quotation marks, it is not recognized as a string. For example:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-3-paragraph-1",
+              "type": "paragraph",
+              "content": "If you do not wrap text inside quotation marks, it is not recognized as a string. For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-3-table-2",
+              "type": "table",
+              "caption": "",
+              "columns": [
+                {
+                  "key": "column-1",
+                  "header": "Column 1",
+                  "align": "left"
+                },
+                {
+                  "key": "column-2",
+                  "header": "Column 2",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "column-1": "print(Hey there)"
+                },
+                {
+                  "column-1": "Run Code >>",
+                  "column-2": "Run Code >>"
+                },
+                {
+                  "column-1": "Run Code >>"
+                }
+              ]
+            },
+            {
+              "id": "page-2-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "print(Hey there)\n^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-3-paragraph-4",
+              "type": "paragraph",
+              "content": "If you execute this program, you will get an error.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-3-paragraph-5",
+              "type": "paragraph",
+              "content": "Here is another example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-3-table-6",
+              "type": "table",
+              "caption": "",
+              "columns": [
+                {
+                  "key": "column-1",
+                  "header": "Column 1",
+                  "align": "left"
+                },
+                {
+                  "key": "column-2",
+                  "header": "Column 2",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "column-1": "print(\"Hey)"
+                },
+                {
+                  "column-1": "Run Code >>",
+                  "column-2": "Run Code >>"
+                },
+                {
+                  "column-1": "Run Code >>"
+                }
+              ]
+            },
+            {
+              "id": "page-2-3-code-7",
+              "type": "code",
+              "language": "text",
+              "code": "print(\"Hey)\n^\nSyntaxError: unterminated string literal (detected at line 1)",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-3-paragraph-8",
+              "type": "paragraph",
+              "content": "You will get an error here because the closing quotation mark is missing at the end of \"Hey.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-3-paragraph-9",
+              "type": "paragraph",
+              "content": "These kinds of errors are super common when you're starting out, so don't worry — you'll get the hang of it!",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-3-paragraph-10",
+              "type": "paragraph",
+              "content": "Ready to move on? Next, you'll look at how even tiny things — like a capital letter or an extra space — can make a big difference.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-3-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Click Next Lesson to continue!"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-4-strings-are-fixed-values",
+          "number": "2.4",
+          "title": "Strings are Fixed Values",
+          "summary": "Remember the very first Python code you wrote?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-4-paragraph-1",
+              "type": "paragraph",
+              "content": "Remember the very first Python code you wrote?",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-table-2",
+              "type": "table",
+              "caption": "",
+              "columns": [
+                {
+                  "key": "column-1",
+                  "header": "Column 1",
+                  "align": "left"
+                },
+                {
+                  "key": "column-2",
+                  "header": "Column 2",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "column-1": "print(\"welcome\")"
+                },
+                {
+                  "column-1": "Run Code >>",
+                  "column-2": "Run Code >>"
+                },
+                {
+                  "column-1": "Run Code >>"
+                }
+              ]
+            },
+            {
+              "id": "page-2-4-paragraph-3",
+              "type": "paragraph",
+              "content": "We asked you to type it exactly like that — and here's why.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-4",
+              "type": "paragraph",
+              "content": "In Python, strings are case sensitive. That means uppercase and lowercase letters are treated as completely different.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-5",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-6",
+              "type": "paragraph",
+              "content": "- \"welcome\" is not the same as \"WELCOME\"\n- \"welcome\" is not the same as \"Welcome\"\n- \"welcome\" is not the same as \"WelCome\"",
+              "format": "markdown"
+            },
+            {
+              "id": "page-2-4-paragraph-7",
+              "type": "paragraph",
+              "content": "The letters have to match exactly — same spelling, same case.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-8",
+              "type": "paragraph",
+              "content": "Similarly, spaces matter too.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-9",
+              "type": "paragraph",
+              "content": "Even a small space can change the string completely.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-10",
+              "type": "paragraph",
+              "content": "- \"welcome\" is not the same as \"wel come\" (there's a space in the middle)\n- \"welcome\" is not the same as \" welcome\" (space at the beginning)\n- \"welcome\" is not the same as \"welcome \" (space at the end)",
+              "format": "markdown"
+            },
+            {
+              "id": "page-2-4-paragraph-11",
+              "type": "paragraph",
+              "content": "To us, it might look similar — but Python sees it as something totally different.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-12",
+              "type": "paragraph",
+              "content": "So always double-check your spelling, your casing, and your spacing.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-4-paragraph-13",
+              "type": "paragraph",
+              "content": "Next, let's learn about numbers in Python.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-5-numbers",
+          "number": "2.5",
+          "title": "Numbers",
+          "summary": "The two common types of numbers in Python are:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-5-paragraph-1",
+              "type": "paragraph",
+              "content": "The two common types of numbers in Python are:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-5-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "1. Integers"
+            },
+            {
+              "id": "page-2-5-paragraph-3",
+              "type": "paragraph",
+              "content": "Integers are numbers without decimal points. They can be positive, negative, or zero. Examples include 5, -11, 0 and 12.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-5-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "2. Floating-Point Numbers"
+            },
+            {
+              "id": "page-2-5-paragraph-5",
+              "type": "paragraph",
+              "content": "Floating-point numbers contain decimal points. Like integers, they can also be positive, negative, or zero. Examples include 2.5, 6.76, 0.0, and -9.45.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-5-paragraph-6",
+              "type": "paragraph",
+              "content": "You'll learn how to print these numbers—but first, take a quick quiz on floating-point numbers.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-6-quiz-which-of-the-following-is-not-a-floating-point-num",
+          "number": "2.6",
+          "title": "Quiz: Which of the following is not a floating-point number in Python?",
+          "summary": "Which of the following is not a floating-point number in Python?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-6-quiz-1",
+              "type": "quiz",
+              "question": "Which of the following is not a floating-point number in Python?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "3.14"
+                },
+                {
+                  "id": "option-b",
+                  "text": "-2.0"
+                },
+                {
+                  "id": "option-c",
+                  "text": "5"
+                },
+                {
+                  "id": "option-d",
+                  "text": "0.001"
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-7-print-numbers",
+          "number": "2.7",
+          "title": "Print Numbers",
+          "summary": "In Python, you don't need to use quotation marks to print numbers. Unlike strings, numbers can be printed directly.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-7-paragraph-1",
+              "type": "paragraph",
+              "content": "In Python, you don't need to use quotation marks to print numbers. Unlike strings, numbers can be printed directly.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-7-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "For example, to print the number 5:"
+            },
+            {
+              "id": "page-2-7-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(5)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-7-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "5",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-7-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Click the Run Code button, and you should see 5 printed on the Output screen."
+            },
+            {
+              "id": "page-2-7-paragraph-6",
+              "type": "paragraph",
+              "content": "You can also print floating-point numbers (numbers with decimals) the same way:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-7-code-7",
+              "type": "code",
+              "language": "python",
+              "code": "print(343.44)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-7-code-8",
+              "type": "code",
+              "language": "text",
+              "code": "343.44",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-7-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Click the Run Code button, and you should see 343.44 printed on the Output screen."
+            },
+            {
+              "id": "page-2-7-paragraph-10",
+              "type": "paragraph",
+              "content": "No quotes needed — Python understands that you're working with numbers, not text.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-7-paragraph-11",
+              "type": "paragraph",
+              "content": "But what happens if you print numbers with quotation marks?",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-7-paragraph-12",
+              "type": "paragraph",
+              "content": "Let's find out next!",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-8-understanding-numbers-and-strings",
+          "number": "2.8",
+          "title": "Understanding Numbers and Strings",
+          "summary": "Let's print 5 inside quotation marks:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-8-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's print 5 inside quotation marks:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"5\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-8-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "5",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-8-paragraph-4",
+              "type": "paragraph",
+              "content": "Go ahead — click the Run Code button.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-5",
+              "type": "paragraph",
+              "content": "Looks the same as before, right? But here's the catch:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-6",
+              "type": "paragraph",
+              "content": "Even though it looks the same to us, Python sees it differently.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-7",
+              "type": "paragraph",
+              "content": "- When you write print(5), Python treats it as a number.\n- When you write print(\"5\"), it's a string — just plain text.",
+              "format": "markdown"
+            },
+            {
+              "id": "page-2-8-paragraph-8",
+              "type": "paragraph",
+              "content": "And this matters when you try to do math.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-9",
+              "type": "paragraph",
+              "content": "Let's see the difference:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-10",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-code-11",
+              "type": "code",
+              "language": "python",
+              "code": "print(5 + 3)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-8-code-12",
+              "type": "code",
+              "language": "text",
+              "code": "8",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-8-paragraph-13",
+              "type": "paragraph",
+              "content": "Now try this:",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-code-14",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"5\" + \"3\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-8-code-15",
+              "type": "code",
+              "language": "text",
+              "code": "53",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-8-paragraph-16",
+              "type": "paragraph",
+              "content": "When you add numbers without quotation marks, Python performs a mathematical calculation.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-17",
+              "type": "paragraph",
+              "content": "But when you add numbers with quotes, Python treats them as text and joins them together.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-image-18",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-04.png",
+              "alt": "Idea Emoji",
+              "caption": "Idea Emoji",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-2-8-note-19",
+              "type": "note",
+              "title": "Note",
+              "content": "Don't worry if the + symbol is new to you — you'll learn more about this and other operators later in the course (in the Arithmetic Operators lesson). For now, it's just a simple example to help you see the difference between numbers and strings.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-8-paragraph-20",
+              "type": "paragraph",
+              "content": "Next, you'll take a quick quiz followed by a short practice exercise to reinforce what you've learned.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-9-quiz-which-of-the-following-is-not-a-string-in-python",
+          "number": "2.9",
+          "title": "Quiz: Which of the following is not a string in Python?",
+          "summary": "Which of the following is not a string in Python?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-9-quiz-1",
+              "type": "quiz",
+              "question": "Which of the following is not a string in Python?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "'123'"
+                },
+                {
+                  "id": "option-b",
+                  "text": "\"Hello, World!\""
+                },
+                {
+                  "id": "option-c",
+                  "text": "Python"
+                },
+                {
+                  "id": "option-d",
+                  "text": "\"52\""
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-10-problem",
+          "number": "2.10",
+          "title": "Problem",
+          "summary": "Print Number",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-10-exercise-4",
+              "type": "exercise",
+              "title": "Print Number",
+              "instructions": {
+                "content": "Print Number\n\nWrite a program to print the number 65.6.\n\nIf you're not sure what to do, you can check the Solution tab for help.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Print Number"
+              ],
+              "difficulty": "easy",
+              "hints": [
+                "Use the print() function to show the number.",
+                "Put 65.6 inside the print() function.",
+                "Don't use quotation marks — we're printing a number, not text."
+              ],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Print Number\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-2-10-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Print Number\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "65.6",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-2-10-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "65.6",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-2-10-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(65.6)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-10-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Pixel-perfect, isn't it? Here's how it works:\n\nWhen you encounter print(65.6), this piece of code helps the computer display the number 65.6 right on your screen. So easy, it's barely an excuse to munch on any snacks!\n\nExactly why does it show this number? The print() function is your magician, where everything inside the parentheses is revealed like a magic trick – just for you!\n\nEver tried playing around by changing the number? See how it changes the output. Now you're in the programmer's playground.\n\nSo, feeling inspired to dive deeper into the world of Python? Where will your curiosity take you next?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-11-print-numbers-and-strings",
+          "number": "2.11",
+          "title": "Print Numbers and Strings",
+          "summary": "You've already used print() a few times — great job so far!",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-11-paragraph-1",
+              "type": "paragraph",
+              "content": "You've already used print() a few times — great job so far!",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-11-paragraph-2",
+              "type": "paragraph",
+              "content": "Let's look at one more example — just to help you get more comfortable using print():",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-11-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(11)\nprint(\"How are you?\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-2-11-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "How are you?",
+              "caption": "Output"
+            },
+            {
+              "id": "page-2-11-paragraph-5",
+              "type": "paragraph",
+              "content": "Each time you use print(), Python moves to a new line automatically.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-11-paragraph-6",
+              "type": "paragraph",
+              "content": "That's why 11 appears on the first line, and \"How are you?\" on the second.",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-11-image-7",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-05.png",
+              "alt": "Idea Emoji",
+              "caption": "Idea Emoji",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-2-11-note-8",
+              "type": "note",
+              "title": "Note",
+              "content": "You'll learn more ways to use print() later (in the Output section). For now, don't worry — we've got you covered. This course is designed to guide you step by step without overwhelming you. Just keep going — you're doing great!",
+              "format": "plain"
+            },
+            {
+              "id": "page-2-11-paragraph-9",
+              "type": "paragraph",
+              "content": "Next up, you'll do a quick practice using the same idea — printing a string and a number.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2-12-print-numbers-and-strings",
+          "number": "2.12",
+          "title": "Print Numbers and Strings",
+          "summary": "Write a program to print a string and an integer.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-data-types"
+          ],
+          "blocks": [
+            {
+              "id": "page-2-12-exercise-4",
+              "type": "exercise",
+              "title": "Print Numbers and Strings",
+              "instructions": {
+                "content": "Write a program to print a string and an integer.\n\nIf you're unsure, feel free to check the Solution tab to guide you.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Print Python on the first line.",
+                "Print 75 on the next line."
+              ],
+              "difficulty": "easy",
+              "hints": [
+                "Use the print() function twice — once for each line.",
+                "Put quotes around Python (it's a string).",
+                "Don't use quotes for 75 (it's a number).",
+                "Each print() will automatically go to a new line — no need to add anything extra.",
+                "If your answer isn't working, double-check and match the spelling and capitalization exactly."
+              ],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Print Numbers and Strings\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-2-12-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Print Numbers and Strings\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "Python\n75",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-2-12-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "Python\n75",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-2-12-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Python\")\nprint(75)",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-2-12-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Looks like we're off to a \"printastic\" start! Here's how it works:\n\nOur code calls upon Python's print() function, the superhero of the coding world, to display output directly to the screen.\n\nThe first line enlists the keyword \"Python\" as our spokesperson and puts it up front and center between quotation marks. It's like giving Python a voice!\n\nNext, the code boldly declares the number 75. Python shows it's never shy of crunching numbers or basking in numerical glory.\n\nTogether, these two lines create a harmonious symphony of text and numbers, proving Python can cover both words and math with ease.\n\nSo why wait? What magic will you print with Python next?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-3-python-comments",
+      "title": "Module 3: Python Comments",
+      "description": "Lessons 3.1 through 3.5",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-3-1-introduction-to-comments",
+          "number": "3.1",
+          "title": "Introduction to Comments",
+          "summary": "As you start writing more code, you might want to add short explanations inside your program—not for the computer, but for yourself or anyone else reading it later.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-comments"
+          ],
+          "blocks": [
+            {
+              "id": "page-3-1-paragraph-1",
+              "type": "paragraph",
+              "content": "As you start writing more code, you might want to add short explanations inside your program—not for the computer, but for yourself or anyone else reading it later.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose you write this line in your code:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(34.0)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-1-paragraph-4",
+              "type": "paragraph",
+              "content": "This will simply print the number 34.0.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-paragraph-5",
+              "type": "paragraph",
+              "content": "Now let's say you want to explain what this number means. Maybe it's the temperature or the result of a calculation. You might try writing it like this:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-code-6",
+              "type": "code",
+              "language": "python",
+              "code": "print(34.0) this shows the temperature",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-1-paragraph-7",
+              "type": "paragraph",
+              "content": "But Python won't understand that extra text, and it will give you an error.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-paragraph-8",
+              "type": "paragraph",
+              "content": "So how do you include extra information in your code without breaking it?",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-paragraph-9",
+              "type": "paragraph",
+              "content": "That's where comments come in. Comments let you add helpful notes right inside your code, and Python will simply ignore them when running the program.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-paragraph-10",
+              "type": "paragraph",
+              "content": "You don't need to worry about how to write them just yet.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-1-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Click Next Lesson to learn how to add comments properly in Python."
+            }
+          ]
+        },
+        {
+          "id": "lesson-3-2-python-comments",
+          "number": "3.2",
+          "title": "Python Comments",
+          "summary": "In Python, we use the # symbol to write comments in our code.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-comments"
+          ],
+          "blocks": [
+            {
+              "id": "page-3-2-paragraph-1",
+              "type": "paragraph",
+              "content": "In Python, we use the # symbol to write comments in our code.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-paragraph-2",
+              "type": "paragraph",
+              "content": "On the last page, we saw that writing something like this:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(34.0) this shows the temperature",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-2-paragraph-4",
+              "type": "paragraph",
+              "content": "will give you an error. That's because Python tries to read everything on the line, and it doesn't know what to do with the extra text.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-paragraph-5",
+              "type": "paragraph",
+              "content": "But sometimes, you do want to write a quick note to explain what a line of code is doing. To do that without causing an error, you can use a comment.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-paragraph-6",
+              "type": "paragraph",
+              "content": "Just add a # before the explanation, like this:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-code-7",
+              "type": "code",
+              "language": "python",
+              "code": "print(34.0) # This shows the temperature",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-2-paragraph-8",
+              "type": "paragraph",
+              "content": "Now Python will run the first part (print(34.0)) and completely ignore anything after the #. In fact, Python skips any line that starts with #—it doesn't run it, and it won't appear in the output at all.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-paragraph-9",
+              "type": "paragraph",
+              "content": "Next, you'll look at more examples of comments.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-2-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Click Next Lesson to continue."
+            }
+          ]
+        },
+        {
+          "id": "lesson-3-3-understanding-python-comments",
+          "number": "3.3",
+          "title": "Understanding Python Comments",
+          "summary": "Let's look at another example:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-comments"
+          ],
+          "blocks": [
+            {
+              "id": "page-3-3-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's look at another example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Print a number\nprint(6)\nprint(8) # Print another number\n# Print third number\nprint(88.3)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-3-paragraph-3",
+              "type": "paragraph",
+              "content": "This code has three comments:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-code-4",
+              "type": "code",
+              "language": "python",
+              "code": "# Print a number\n# Print another number\n# Print third number",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-3-paragraph-5",
+              "type": "paragraph",
+              "content": "Python skips all of them when running the program. Only the print() lines are executed.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-paragraph-6",
+              "type": "paragraph",
+              "content": "So this is the same as:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-code-7",
+              "type": "code",
+              "language": "python",
+              "code": "print(6)\nprint(8)\nprint(88.3)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-3-paragraph-8",
+              "type": "paragraph",
+              "content": "The output will be:",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-code-9",
+              "type": "code",
+              "language": "python",
+              "code": "6\n8\n88.3",
+              "caption": "Example"
+            },
+            {
+              "id": "page-3-3-paragraph-10",
+              "type": "paragraph",
+              "content": "The comments help explain the code, but do not affect what the program does.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-image-11",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-06.png",
+              "alt": "Idea Emoji",
+              "caption": "Idea Emoji",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-3-3-note-12",
+              "type": "note",
+              "title": "Note",
+              "content": "You'll find comments throughout this course, which we'll use to explain the code examples.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-paragraph-13",
+              "type": "paragraph",
+              "content": "Next, you'll check your understanding with two short quizzes on identifying comments and understanding their effect.",
+              "format": "plain"
+            },
+            {
+              "id": "page-3-3-paragraph-14",
+              "type": "paragraph",
+              "content": "Click Next Lesson to continue.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-3-4-quiz-identify-the-comment-from-the-given-lines-of-code",
+          "number": "3.4",
+          "title": "Quiz: Identify the comment from the given lines of code.",
+          "summary": "Identify the comment from the given lines of code.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-comments"
+          ],
+          "blocks": [
+            {
+              "id": "page-3-4-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "# print Hello World\nprint(\"Hello World\")",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-3-4-quiz-2",
+              "type": "quiz",
+              "question": "Identify the comment from the given lines of code.",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "print(\"Hello World\")"
+                },
+                {
+                  "id": "option-b",
+                  "text": "# print Hello World"
+                },
+                {
+                  "id": "option-c",
+                  "text": "#"
+                },
+                {
+                  "id": "option-d",
+                  "text": "# print Hello World\nprint(\"Hello World\")"
+                }
+              ],
+              "correctOptionIds": [
+                "option-b"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-3-5-quiz-what-is-the-output-of-the-following-code",
+          "number": "3.5",
+          "title": "Quiz: What is the output of the following code?",
+          "summary": "What is the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-comments"
+          ],
+          "blocks": [
+            {
+              "id": "page-3-5-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "# print(\"Hello World\")\nprint(5)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-3-5-quiz-2",
+              "type": "quiz",
+              "question": "What is the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "# print(\"Hello World\")"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Hello World"
+                },
+                {
+                  "id": "option-c",
+                  "text": "Hello World\n5"
+                },
+                {
+                  "id": "option-d",
+                  "text": "5"
+                }
+              ],
+              "correctOptionIds": [
+                "option-d"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-4-python-variables",
+      "title": "Module 4: Python Variables",
+      "description": "Lessons 4.1 through 4.21",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-4-1-variables-introduction",
+          "number": "4.1",
+          "title": "Variables Introduction",
+          "summary": "In our previous lessons, you learned about numbers and strings and how to print them.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-1-paragraph-1",
+              "type": "paragraph",
+              "content": "In our previous lessons, you learned about numbers and strings and how to print them.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-1-paragraph-2",
+              "type": "paragraph",
+              "content": "As you begin working on more complex programs, you'll need to store and use this data, not just print it. That's where variables come in.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-1-paragraph-3",
+              "type": "paragraph",
+              "content": "A variable is a container used for storing data.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-1-paragraph-4",
+              "type": "paragraph",
+              "content": "In this lesson, you'll learn to:",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-1-paragraph-5",
+              "type": "paragraph",
+              "content": "- Create variables\n- Print variables\n- Change the values assigned to variables",
+              "format": "markdown"
+            },
+            {
+              "id": "page-4-1-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's start with creating variables."
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-2-create-variables",
+          "number": "4.2",
+          "title": "Create Variables",
+          "summary": "We create variables by assigning data to them. For example,",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-2-paragraph-1",
+              "type": "paragraph",
+              "content": "We create variables by assigning data to them. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-2-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "greeting = \"Merry Christmas\"",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-2-paragraph-3",
+              "type": "paragraph",
+              "content": "Here,",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-2-paragraph-4",
+              "type": "paragraph",
+              "content": "- greeting is a variable.\n- greeting is assigned the string value \"Merry Christmas\".\n- The = sign is used to assign values to variables.",
+              "format": "markdown"
+            },
+            {
+              "id": "page-4-2-image-5",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-07.png",
+              "alt": "Assign ",
+              "caption": "Figure: Assign Value to Variable",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-4-2-paragraph-6",
+              "type": "paragraph",
+              "content": "Next, let's see if you can correctly identify variables.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-3-quiz-whats-the-variable-in-the-following-code",
+          "number": "4.3",
+          "title": "Quiz: What's the variable in the following code?",
+          "summary": "What's the variable in the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-3-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "jack = \"name\"",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-4-3-quiz-2",
+              "type": "quiz",
+              "question": "What's the variable in the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "jack"
+                },
+                {
+                  "id": "option-b",
+                  "text": "\"name\""
+                },
+                {
+                  "id": "option-c",
+                  "text": "name"
+                },
+                {
+                  "id": "option-d",
+                  "text": "="
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-4-printing-variables",
+          "number": "4.4",
+          "title": "Printing Variables",
+          "summary": "Like numbers and strings, you can use print() to display variables.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-4-paragraph-1",
+              "type": "paragraph",
+              "content": "Like numbers and strings, you can use print() to display variables.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-4-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Create a variable\ngreeting = \"Merry Christmas\"\n# Display the variable\nprint(greeting)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-4-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Merry Christmas",
+              "caption": "Output"
+            },
+            {
+              "id": "page-4-4-paragraph-4",
+              "type": "paragraph",
+              "content": "Here,",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-4-paragraph-5",
+              "type": "paragraph",
+              "content": "- greeting = \"Merry Christmas\" – Creates a variable named greeting and assigns it the string \"Merry Christmas\".\n- print(greeting) – Prints the value stored in the greeting variable.",
+              "format": "markdown"
+            },
+            {
+              "id": "page-4-4-image-6",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-08.png",
+              "alt": "Idea Emoji",
+              "caption": "Idea Emoji",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-4-4-note-7",
+              "type": "note",
+              "title": "Remember",
+              "content": "Line 1 and Line 4 are comments. They are ignored by Python.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-4-paragraph-8",
+              "type": "paragraph",
+              "content": "Wondering why print(greeting) displays Merry Christmas instead of greeting? The next example will clarify this.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-5-printing-variables",
+          "number": "4.5",
+          "title": "Printing Variables",
+          "summary": "Let's look at another example of printing variables.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-5-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's look at another example of printing variables.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-5-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "greeting = \"Merry Christmas\"\nprint(\"greeting\") # Output: greeting\nprint(greeting) # Output: Merry Christmas",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-5-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Merry Christmas",
+              "caption": "Output"
+            },
+            {
+              "id": "page-4-5-paragraph-4",
+              "type": "paragraph",
+              "content": "Let's analyze each print() separately.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-5-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "print(\"greeting\")"
+            },
+            {
+              "id": "page-4-5-paragraph-6",
+              "type": "paragraph",
+              "content": "Here, \"greeting\" is a string. Therefore, the text greeting is displayed as it is.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-5-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "print(greeting)"
+            },
+            {
+              "id": "page-4-5-paragraph-8",
+              "type": "paragraph",
+              "content": "Here, greeting is not wrapped inside quotation marks. Hence, greeting is recognized as a variable.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-5-paragraph-9",
+              "type": "paragraph",
+              "content": "In this case, the value stored in the greeting variable is printed.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-6-a-common-mistake",
+          "number": "4.6",
+          "title": "A Common Mistake",
+          "summary": "Consider the following program:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-6-paragraph-1",
+              "type": "paragraph",
+              "content": "Consider the following program:",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-6-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(age)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-6-paragraph-3",
+              "type": "paragraph",
+              "content": "Here, age is not wrapped inside quotation marks. Therefore, it is treated as a variable.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-6-paragraph-4",
+              "type": "paragraph",
+              "content": "However, the age variable doesn't exist in the program because we haven't defined what this variable is storing. That's why the above program results in an error.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-6-paragraph-5",
+              "type": "paragraph",
+              "content": "To fix this error, you can add a line of code at the beginning to define the age variable.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-7-quiz-whats-the-output-of-the-following-code",
+          "number": "4.7",
+          "title": "Quiz: What's the output of the following code?",
+          "summary": "What's the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-7-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "name = \"Jack\"\nprint(name)\nprint(\"Jackie\")",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-4-7-quiz-2",
+              "type": "quiz",
+              "question": "What's the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "Jackie"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Jack\nJackie"
+                },
+                {
+                  "id": "option-c",
+                  "text": "name\nJackie"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Jackie\nJack"
+                }
+              ],
+              "correctOptionIds": [
+                "option-b"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-8-quiz-whats-the-output-of-the-following-code",
+          "number": "4.8",
+          "title": "Quiz: What's the output of the following code?",
+          "summary": "What's the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-8-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "name = \"Jack\"\nprint(age)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-4-8-quiz-2",
+              "type": "quiz",
+              "question": "What's the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "age"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Jack"
+                },
+                {
+                  "id": "option-c",
+                  "text": "name"
+                },
+                {
+                  "id": "option-d",
+                  "text": "The code results in an error."
+                }
+              ],
+              "correctOptionIds": [
+                "option-d"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-9-print-variables",
+          "number": "4.9",
+          "title": "Print Variables",
+          "summary": "Write a program to print a variable.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-9-exercise-4",
+              "type": "exercise",
+              "title": "Print Variables",
+              "instructions": {
+                "content": "Write a program to print a variable.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Create a variable named salary and assign 4950.5 to it.",
+                "Print the variable."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Print Variables\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-4-9-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Print Variables\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "4950.5",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-4-9-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "4950.5",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-4-9-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "salary = 4950.5\nprint(salary)",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-4-9-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Who's looking to keep track of their riches? Here's how it works:\n\nIn this piece of code, we set the variable salary to the value of 4950.5. Pretty straightforward, right? This is akin to putting a sticky note on a virtual board named \"salary\" with that number on it—essential in the world of programming.\n\nNext, print(salary) will display 4950.5 on your screen. It's like shouting your bank balance across a quiet room. Necessary, sometimes!\n\nThis tiny snippet is a gentle introduction to variables and output in programming. With every code line, you're crafting the tools you'll use to build more complex logic.\n\nReady to code your way to bigger ideas?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-10-change-values-stored-in-variables",
+          "number": "4.10",
+          "title": "Change Values Stored in Variables",
+          "summary": "The value of a variable can change as the program runs, which is why it is called a variable. For example,",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-10-paragraph-1",
+              "type": "paragraph",
+              "content": "The value of a variable can change as the program runs, which is why it is called a variable. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-10-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "age = 25\nprint(age)\nage = 100\nprint(age)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-10-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "100",
+              "caption": "Output"
+            },
+            {
+              "id": "page-4-10-paragraph-4",
+              "type": "paragraph",
+              "content": "Here,",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-10-paragraph-5",
+              "type": "paragraph",
+              "content": "- The initial value of age is 25. So, the first print(age) prints 25.\n- Its value is then changed to 100. So, the second print(age) prints 100.",
+              "format": "markdown"
+            },
+            {
+              "id": "page-4-10-image-6",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-09.png",
+              "alt": "The value of the age variable is changed from 25 to 100",
+              "caption": "Figure: Change Values Stored in Variable",
+              "loading": "lazy"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-11-visualizing-changing-variables",
+          "number": "4.11",
+          "title": "Visualizing Changing Variables",
+          "summary": "To help you understand how a Python program works, we've created a code visualizer.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-11-paragraph-1",
+              "type": "paragraph",
+              "content": "To help you understand how a Python program works, we've created a code visualizer.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-11-paragraph-2",
+              "type": "paragraph",
+              "content": "Click the \"Visualize this code\" button to see how the value stored in variables changes from one line to the next.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-11-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "age = 25\nprint(age)\nage = 100\nprint(age)",
+              "caption": "Example"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-12-problem",
+          "number": "4.12",
+          "title": "PROBLEM",
+          "summary": "Change Values Stored in a Variable",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-12-exercise-4",
+              "type": "exercise",
+              "title": "Change Values Stored in a Variable",
+              "instructions": {
+                "content": "Change Values Stored in a Variable\n\nWrite a program to change the value assigned to a variable.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Create a variable named var and assign the value of 25 to it.",
+                "Print var.",
+                "Assign the value \"John\" to variable var.",
+                "Print the variable var again."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Change Values Stored in a Variable\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-4-12-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Change Values Stored in a Variable\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "25\nJohn",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-4-12-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "25\nJohn",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-4-12-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Assign 25 to the variable var\nvar = 25\n# Print var\nprint(var)\n# Assign \"John\" to the variable var\nvar = \"John\"\n# Print var again\nprint(var)",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-4-12-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "You see, code is like magic! Here's how it works:\n\nFirst, our mystical friend 'var' receives the numerical treasure of 25. A quick command makes it reveal the number in its magical window, also known as printing.\n\nIntroducing twists of fate and plot, 'var' sheds its numeric skin and wraps itself in the name \"John\" like it's dressing up for a party.\n\nOnce more, the curtain rises, and lo - \"John\" appears in the show, starring 'var' as the constant shapeshifter.\n\nIn the Realm of Python, variables are malleable, effortlessly transitioning their form, and that is its true sorcery. The power to adapt!\n\nAnd there, my coding companion, is the story of how var morphs between a number and a string, performing like an actor on stage.\n\nAre you ready to code your own adventures and let the variables play different roles?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-13-quiz-whats-the-output-of-this-code",
+          "number": "4.13",
+          "title": "Quiz: What's the output of this code?",
+          "summary": "What's the output of this code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-13-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "var = 50\nvar = \"Jack\"\nvar = 25.5\nprint(var)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-4-13-quiz-2",
+              "type": "quiz",
+              "question": "What's the output of this code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "25.5"
+                },
+                {
+                  "id": "option-b",
+                  "text": "50\nJack\n25.5"
+                },
+                {
+                  "id": "option-c",
+                  "text": "Jack"
+                },
+                {
+                  "id": "option-d",
+                  "text": "None of the above"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-14-assign-value-of-one-variable-to-another",
+          "number": "4.14",
+          "title": "Assign Value of One Variable to Another",
+          "summary": "You can also assign the value of one variable to another.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-14-paragraph-1",
+              "type": "paragraph",
+              "content": "You can also assign the value of one variable to another.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-14-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "color1 = \"blue\"\nprint(color1) # Output: blue\ncolor2 = \"pink\"\n# Assign the value stored in color2 to color1\ncolor1 = color2\nprint(color1) # Output: pink\nprint(color2) # Output: pink",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-14-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "pink\npink",
+              "caption": "Output"
+            },
+            {
+              "id": "page-4-14-paragraph-4",
+              "type": "paragraph",
+              "content": "Here's how the above program works.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-14-image-5",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-10.png",
+              "alt": "Assign Value of color2 to color1",
+              "caption": "Figure: Assign Value of color2 to color1",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-4-14-image-6",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-11.png",
+              "alt": "Idea Emoji",
+              "caption": "Idea Emoji",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-4-14-note-7",
+              "type": "note",
+              "title": "Note",
+              "content": "color1 = color2 assigns the value of the variable color2 to color1. However, this does not affect the value of color2; it remains unchanged.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-15-visualizing-changing-variables",
+          "number": "4.15",
+          "title": "Visualizing Changing Variables",
+          "summary": "Run this visualizer to see the values stored in the variables at each step of the program.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-15-paragraph-1",
+              "type": "paragraph",
+              "content": "Run this visualizer to see the values stored in the variables at each step of the program.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-15-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "color1 = \"blue\"\nprint(color1)\ncolor2 = \"pink\"\ncolor1 = color2\nprint(color1)\nprint(color2)",
+              "caption": "Example"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-16-assign-value-of-one-variable-to-another",
+          "number": "4.16",
+          "title": "Assign Value of One Variable to Another",
+          "summary": "Consider the example below:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-16-paragraph-1",
+              "type": "paragraph",
+              "content": "Consider the example below:",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-16-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Create a variable\ncity1 = \"Paris\"\n# Assign city2 to city1\ncity1 = city2\nprint(city1)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-16-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "NameError: name 'city2' is not defined",
+              "caption": "Output"
+            },
+            {
+              "id": "page-4-16-paragraph-4",
+              "type": "paragraph",
+              "content": "In the program, the line city1 = city2 tries to assign the value of city2 to city1.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-16-paragraph-5",
+              "type": "paragraph",
+              "content": "However, since city2 is not defined, the code produces an error.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-17-quiz-whats-the-output-of-this-code",
+          "number": "4.17",
+          "title": "Quiz: What's the output of this code?",
+          "summary": "What's the output of this code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-17-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "fruit1 = \"apple\"\nfruit2 = \"banana\"\nfruit1 = fruit2\nprint(fruit1)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-4-17-quiz-2",
+              "type": "quiz",
+              "question": "What's the output of this code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "apple"
+                },
+                {
+                  "id": "option-b",
+                  "text": "banana"
+                },
+                {
+                  "id": "option-c",
+                  "text": "applebanana"
+                },
+                {
+                  "id": "option-d",
+                  "text": "The code results in an error."
+                }
+              ],
+              "correctOptionIds": [
+                "option-b"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-18-quiz-whats-the-output-of-this-code",
+          "number": "4.18",
+          "title": "Quiz: What's the output of this code?",
+          "summary": "What's the output of this code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-18-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "city1 = \"London\"\ndallas = \"city3\"\ncity2 = city1\nprint(city3)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-4-18-note-2",
+              "type": "note",
+              "title": "Note",
+              "content": "This is a tricky one! Analyze the code carefully.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-18-quiz-3",
+              "type": "quiz",
+              "question": "What's the output of this code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "Error because city1 is not defined."
+                },
+                {
+                  "id": "option-b",
+                  "text": "Error because city2 is not defined."
+                },
+                {
+                  "id": "option-c",
+                  "text": "London"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Error because city3 is not defined."
+                }
+              ],
+              "correctOptionIds": [
+                "option-d"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-19-program",
+          "number": "4.19",
+          "title": "PROGRAM",
+          "summary": "Assign One Variable to Other",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-19-exercise-4",
+              "type": "exercise",
+              "title": "Assign One Variable to Other",
+              "instructions": {
+                "content": "Assign One Variable to Other\n\nWrite a program to assign one variable to another.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Create a variable named favorite_food with the value \"steak\".",
+                "Print the value of favorite_food.",
+                "Create another variable named food with the value \"pizza\".",
+                "Assign the food variable to the favorite_food variable.",
+                "Print the favorite_food variable again."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Assign One Variable to Other\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-4-19-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Assign One Variable to Other\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "steak\npizza",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-4-19-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "steak\npizza",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-4-19-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Create the favorite_food variable\nfavorite_food = \"steak\"\nprint(favorite_food)\n# Create the food variable\nfood = \"pizza\"\n# Assign food to favorite_food\nfavorite_food = food\n# Print the favorite_food variable\nprint(favorite_food)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-19-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Code with a side of steak and pizza! Here's how it works:\n\nFirst, the code creates a variable favorite_food and sets it to \"steak.\" It prints this, showcasing the current favorite.\n\nNext, it introduces a new variable food with the value \"pizza.\" Then, it updates favorite_food to be\n\n\"pizza,\" effectively changing the favorite from steak to pizza. Finally, it prints the new favorite food.\n\nIn just a few lines, it demonstrates variable assignment and updating, which are key concepts in programming.\n\nSo, are you ready to cook up more code recipes?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-20-legal-variables-name",
+          "number": "4.20",
+          "title": "Legal Variables Name",
+          "summary": "There are certain rules for naming variables. Let's learn about them.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-20-paragraph-1",
+              "type": "paragraph",
+              "content": "There are certain rules for naming variables. Let's learn about them.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-20-paragraph-2",
+              "type": "paragraph",
+              "content": "A variable name can only consist of three elements:",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-20-paragraph-3",
+              "type": "paragraph",
+              "content": "- alphabets\n- numbers\n- underscores",
+              "format": "markdown"
+            },
+            {
+              "id": "page-4-20-paragraph-4",
+              "type": "paragraph",
+              "content": "Do not use spaces or any other symbols when naming a variable. If a variable name consists of two words, separate them with an underscore, _ or use camelCase.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-20-paragraph-5",
+              "type": "paragraph",
+              "content": "For example, first name and first-name are not valid variable names, but first_name and firstName are valid.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-20-image-6",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-12.png",
+              "alt": "If the name consists of two or more words, use underscores to separate them. We cannot use spaces or other symbols in variable names.",
+              "caption": "Figure: Legal and Illegal Variable Names",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-4-20-paragraph-7",
+              "type": "paragraph",
+              "content": "It's important to note that a valid variable name doesn't necessarily mean it's a good name. For example, lkc is a valid variable name, but it's not meaningful.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-20-paragraph-8",
+              "type": "paragraph",
+              "content": "Refer to this article to learn how and why you should assign clear and meaningful names to variables.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4-21-recap-variable-basics",
+          "number": "4.21",
+          "title": "Recap: Variable Basics",
+          "summary": "We create variables by assigning values to them.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-variables"
+          ],
+          "blocks": [
+            {
+              "id": "page-4-21-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Create Variables"
+            },
+            {
+              "id": "page-4-21-paragraph-2",
+              "type": "paragraph",
+              "content": "We create variables by assigning values to them.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-21-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "age = 25\nprint(age) # Output: 25",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-21-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Change Values of Variables"
+            },
+            {
+              "id": "page-4-21-paragraph-5",
+              "type": "paragraph",
+              "content": "It's possible to change values stored in variables.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-21-code-6",
+              "type": "code",
+              "language": "python",
+              "code": "current_salary = 77287.5\nprint(current_salary) # Output: 77287.5\n# Change the value stored in the variable\ncurrent_salary = 80000.5\nprint(current_salary) # Output: 80000.5",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-21-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Assign One Variable to Another"
+            },
+            {
+              "id": "page-4-21-paragraph-8",
+              "type": "paragraph",
+              "content": "We can also assign the value of one variable to another.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-21-code-9",
+              "type": "code",
+              "language": "python",
+              "code": "color1 = \"blue\"\ncolor2 = \"pink\"\n# Assign the value stored in color2 to color1\ncolor1 = color2\nprint(color1) # Output: pink",
+              "caption": "Example"
+            },
+            {
+              "id": "page-4-21-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Don't Confuse Strings and Variables"
+            },
+            {
+              "id": "page-4-21-paragraph-11",
+              "type": "paragraph",
+              "content": "Strings are always wrapped inside quotation marks, but variable names are not.",
+              "format": "plain"
+            },
+            {
+              "id": "page-4-21-code-12",
+              "type": "code",
+              "language": "python",
+              "code": "city = \"San Francisco\"\n# Print the value stored in the city variable\nprint(city) # Output: San Francisco\n# Print the \"city\" string\nprint(\"city\") # Output: city",
+              "caption": "Example"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-5-python-output-and-f-strings",
+      "title": "Module 5: Python Output and f-strings",
+      "description": "Lessons 5.1 through 5.14",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-5-1-introduction-to-output",
+          "number": "5.1",
+          "title": "Introduction to Output",
+          "summary": "We have previously used print() to display a single value or variable. Here's a quick recap:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-1-paragraph-1",
+              "type": "paragraph",
+              "content": "We have previously used print() to display a single value or variable. Here's a quick recap:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-1-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Print an integer\nprint(34) # Output: 34\n# Print a string\nprint(\"Squid Game\") # Output: Squid Game\n# Create a variable\ncity = \"London\"\n# Print the city variable\nprint(city) # Output: London",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-1-paragraph-3",
+              "type": "paragraph",
+              "content": "Now, you'll learn how to print multiple values and variables. You'll also explore f-strings, which makes it easier to print multiple data in the desired format.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-2-print-multiple-values",
+          "number": "5.2",
+          "title": "Print Multiple Values",
+          "summary": "We can print multiple pieces of data at once by separating them with commas. For example:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-2-paragraph-1",
+              "type": "paragraph",
+              "content": "We can print multiple pieces of data at once by separating them with commas. For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-2-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Display three numbers\nprint(67, -5, 19)\n# Display two strings\nprint(\"Hey.\", \"Are you enjoying the course?\")\n# Display numbers and strings\nprint(\"Rating:\", 8.5)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-2-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Hey. Are you enjoying the course?\nRating: 8.5",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-2-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, the comma is used for separation and is not printed.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-2-paragraph-5",
+              "type": "paragraph",
+              "content": "Additionally, spaces before or after the comma don't affect the output. By default, print() always inserts a single space between the values.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-3-print-strings-and-variables",
+          "number": "5.3",
+          "title": "Print Strings and Variables",
+          "summary": "You can also display values and variables using a single print() function. For example:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-3-paragraph-1",
+              "type": "paragraph",
+              "content": "You can also display values and variables using a single print() function. For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-3-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "name = \"Jack\"\nprint(\"Name:\", name)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Name: Jack",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-3-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, the print() function displays the string \"Name:\" as it is, and displays the value stored in the variable name .",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-3-image-5",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-13.png",
+              "alt": "The print() function treats string and variable as two separate parts because they are separated by a comma.",
+              "caption": "Figure: Print Strings and Variables in the Same Line",
+              "loading": "lazy"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-4-quiz-what-is-the-output-of-the-following-code",
+          "number": "5.4",
+          "title": "Quiz: What is the output of the following code?",
+          "summary": "What is the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-4-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "favorite_actor = \"Andrew\"\nprint(\"Favorite actor:\", favorite_actor)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-5-4-quiz-2",
+              "type": "quiz",
+              "question": "What is the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "Favorite actor: Andrew"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Favorite actor: favorite_actor"
+                },
+                {
+                  "id": "option-c",
+                  "text": "\"Favorite actor:\" Andrew"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Favorite actor: Andrew"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-5-problem",
+          "number": "5.5",
+          "title": "PROBLEM",
+          "summary": "Print a String and a Number",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-5-exercise-4",
+              "type": "exercise",
+              "title": "Print a String and a Number",
+              "instructions": {
+                "content": "Print a String and a Number\n\nWrite a program to print a string and a number using a single print() function.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Define a variable age with value 19.",
+                "Create another variable message to store the string \"My age is:\".",
+                "Use a single print() function to display the message and age variables together."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Print a String and a Number\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-5-5-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Print a String and a Number\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "My age is: 19",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-5-5-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "My age is: 19",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-5-5-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Create the age variable\nage = 19\n# Create the message variable\nmessage = \"My age is:\"\n# Print message and age variables\nprint(message, age)",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-5-5-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "You're becoming a coding whiz! Here's how it works:\n\nFirst up, we have an age variable, storing the number 19. Imagine it as your handy virtual sticky note, holding the data tight.\n\nNext, the string \"My age is:\" gets wrapped in a message variable, like saving your favorite quote in a treasure chest.\n\nFinally, we make magic happen with the print function. It joins message and age, weaving them into a statement: \"My age is: 19\".\n\nNow, isn't that a neat way to display your age to the virtual world? Feel ready to age up your skills and tackle some new coding challenges?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-6-print-newline-enter-key",
+          "number": "5.6",
+          "title": "Print Newline (Enter Key)",
+          "summary": "It's possible to use a single print() function to display output in multiple lines.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-6-paragraph-1",
+              "type": "paragraph",
+              "content": "It's possible to use a single print() function to display output in multiple lines.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-6-paragraph-2",
+              "type": "paragraph",
+              "content": "To do this, we use the newline character \\n in the position where we want to break the line:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-6-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Welcome to Programiz\\nThe Amazing Spider-Man\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-6-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "The Amazing Spider-Man",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-6-paragraph-5",
+              "type": "paragraph",
+              "content": "Every use of \\n adds a newline. So, if we use another \\n, it will add a space between the separated lines.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-6-code-6",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Welcome to Programiz\\n\\nThe Amazing Spider-Man\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-6-code-7",
+              "type": "code",
+              "language": "text",
+              "code": "The Amazing Spider-Man",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-6-image-8",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-14.png",
+              "alt": "Print Newline Character",
+              "caption": "Figure: Print Newline Character",
+              "loading": "lazy"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-7-quiz-whats-the-output-of-the-following-code",
+          "number": "5.7",
+          "title": "Quiz: What's the output of the following code?",
+          "summary": "What's the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-7-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"London\\nis beautiful\")",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-5-7-quiz-2",
+              "type": "quiz",
+              "question": "What's the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "London\\nis beautiful"
+                },
+                {
+                  "id": "option-b",
+                  "text": "London is beautiful"
+                },
+                {
+                  "id": "option-c",
+                  "text": "London\nis beautiful"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Londonis beautiful"
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-8-problem",
+          "number": "5.8",
+          "title": "PROBLEM",
+          "summary": "Newline",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-8-exercise-4",
+              "type": "exercise",
+              "title": "Newline",
+              "instructions": {
+                "content": "Newline\n\nWrite a program to display Hey and How are you in two different lines using a single print() function.\n\nHint: Use \\n between Hey and How are you. Also, make sure you don't use any spaces after Hey, as it will cause the exercise to fail.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Newline"
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Newline\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-5-8-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Newline\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "Hey\nHow are you",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-5-8-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "Hey\nHow are you",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-5-8-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Hey\\nHow are you\")",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-5-8-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Prints a friendly greeting with a splash of formatting! Here's how it works:\n\nThis code uses the print() function to display text.\n\nThe special character creates a new line, so \"How are you\" appears below \"Hey\".\n\nIt's a simple way to separate lines in your output!\n\nSo, next time you want to keep things tidy, remember this trick.\n\nAre you ready to add more flair to your coding skills?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-9-python-f-strings",
+          "number": "5.9",
+          "title": "Python f-strings",
+          "summary": "Python offers another way to format and print strings: f-strings, which simplify printing multiple values and variables.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-9-paragraph-1",
+              "type": "paragraph",
+              "content": "Python offers another way to format and print strings: f-strings, which simplify printing multiple values and variables.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-9-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "To specify an f-string, simply put an f before the starting quotation marks. For example,"
+            },
+            {
+              "id": "page-5-9-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(f\"Hello\")\nRunCode >>",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-9-paragraph-4",
+              "type": "paragraph",
+              "content": "This code is equivalent to:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-9-code-5",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Hello\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-9-paragraph-6",
+              "type": "paragraph",
+              "content": "The true power of the f-string becomes evident when you use it with variables. Let's explore it next.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-10-print-variables-using-f-strings",
+          "number": "5.10",
+          "title": "Print Variables Using f-strings",
+          "summary": "To print variables using f-strings, you need to wrap them inside curly braces {}.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-10-paragraph-1",
+              "type": "paragraph",
+              "content": "To print variables using f-strings, you need to wrap them inside curly braces {}.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-10-paragraph-2",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-10-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "name = \"Alice\"\nlocation = \"Wonderland\"\nprint(f\"My name is {name} and I live in {location}.\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-10-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "My name is Alice and I live in Wonderland.",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-10-paragraph-5",
+              "type": "paragraph",
+              "content": "Here's how this program works:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-10-image-6",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-15.png",
+              "alt": "Working of fstrings",
+              "caption": "Figure: Working of fstrings",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-5-10-paragraph-7",
+              "type": "paragraph",
+              "content": "F-strings also allow you to control the spaces and formatting in your output. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-10-code-8",
+              "type": "code",
+              "language": "python",
+              "code": "name = \"Alice\"\nid = 12\nprint(f\"# {id}->{name} #\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-10-code-9",
+              "type": "code",
+              "language": "text",
+              "code": "# 12->Alice #",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-10-paragraph-10",
+              "type": "paragraph",
+              "content": "This flexibility makes f-strings a preferred way to format and print strings.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-11-quiz-whats-the-output-of-the-following-code",
+          "number": "5.11",
+          "title": "Quiz: What's the output of the following code?",
+          "summary": "What's the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-11-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "name = \"Alice\"\nage = 30\nprint(f\"{name} is age years old.\")",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-5-11-quiz-2",
+              "type": "quiz",
+              "question": "What's the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "name is age years old."
+                },
+                {
+                  "id": "option-b",
+                  "text": "Alice is 30 years old."
+                },
+                {
+                  "id": "option-c",
+                  "text": "Alice is age years old."
+                },
+                {
+                  "id": "option-d",
+                  "text": "{name} is age years old."
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-12-problem",
+          "number": "5.12",
+          "title": "PROBLEM",
+          "summary": "Python f-strings",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-12-exercise-4",
+              "type": "exercise",
+              "title": "Python f-strings",
+              "instructions": {
+                "content": "Python f-strings\n\nWrite a program to display the output in the specified format using f-strings.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Create a variable title with the value \"The Great Gatsby\".",
+                "Create a variable author with the value \"Fitzgerald\".",
+                "Use an f-string to display the output in the format below."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Python f-strings\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-5-12-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Python f-strings\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "The Great Gatsby by Fitzgerald.",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-5-12-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "The Great Gatsby by Fitzgerald.",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-5-12-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "title = \"The Great Gatsby\"\nauthor = \"Fitzgerald\"\nprint(f\"{title} by {author}.\")",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-12-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "Why did the string cross the function? To get concatenated! 🌟 Here's how it works:\n\nIn this coding exercise, we're playing with strings. We're using the print() function to display a beautifully formatted sentence.\n\nThe code uses f-string formatting, a Python feature that allows us to easily insert variables into a string. All you need are curly braces and a dream!\n\nThe variables title and author hold specific text values, which, in this case, are book details. Once fed into the f-string, they transform into a coherent sentence.\n\nAs a result, the output will be: \"The Great Gatsby by Fitzgerald.\" Isn't it elegant how a few simple lines can convey so much?\n\nProgramming is full of small wonders like this. What mini code masterpiece will you create next?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-13-common-mistakes-i",
+          "number": "5.13",
+          "title": "Common Mistakes (I)",
+          "summary": "Before moving to the next lesson, let's discuss common mistakes beginners may make.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-13-paragraph-1",
+              "type": "paragraph",
+              "content": "Before moving to the next lesson, let's discuss common mistakes beginners may make.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-2",
+              "type": "paragraph",
+              "content": "1. Spelling Error",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-3",
+              "type": "paragraph",
+              "content": "This one is obvious—using wrong variable names and misspelling words will cause an error. For example:",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-code-4",
+              "type": "code",
+              "language": "python",
+              "code": "annual_income = 95000\n# error because of a spelling mistake\nprint(annual_icome)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-13-code-5",
+              "type": "code",
+              "language": "text",
+              "code": "NameError: name 'annual_icome' is not defined. Did you mean: 'annual_income'?",
+              "caption": "Output"
+            },
+            {
+              "id": "page-5-13-paragraph-6",
+              "type": "paragraph",
+              "content": "In most cases, carefully reading the error message helps us fix these problems easily.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-7",
+              "type": "paragraph",
+              "content": "For instance, the output clearly states that annual_icome is not defined in line 4.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-8",
+              "type": "paragraph",
+              "content": "Also, Python is case-sensitive. So annual_income and Annual_income are also not the same.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-9",
+              "type": "paragraph",
+              "content": "The same rule applies to print() as well—writing it as Print() or any other way will result in an error.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-10",
+              "type": "paragraph",
+              "content": "2. Adding Spaces at the Beginning",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-paragraph-11",
+              "type": "paragraph",
+              "content": "In Python, indentation has a specific meaning. So, if we add unnecessary spaces at the beginning, we will get an error. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-13-code-12",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Hello\") # Error",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-13-paragraph-13",
+              "type": "paragraph",
+              "content": "If you run the program, you will get an error because there are spaces before print().",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-5-14-common-mistakes-ii",
+          "number": "5.14",
+          "title": "Common Mistakes (II)",
+          "summary": "We have seen many beginners make this mistake. They usually forget to close the string with quotation marks. For example,",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-output-and-f-strings"
+          ],
+          "blocks": [
+            {
+              "id": "page-5-14-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "3. Error because of Quotation Marks"
+            },
+            {
+              "id": "page-5-14-paragraph-2",
+              "type": "paragraph",
+              "content": "We have seen many beginners make this mistake. They usually forget to close the string with quotation marks. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-14-code-3",
+              "type": "code",
+              "language": "python",
+              "code": "print(\"Hello) # Error",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-14-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, Python doesn't understand what \"Hello is.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-14-paragraph-5",
+              "type": "paragraph",
+              "content": "\"Hello is not a string because it doesn't have the closing quotation mark. And it's not a variable because we cannot use quotation marks in variable names.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-14-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "4. Forgetting Commas in the print() Function"
+            },
+            {
+              "id": "page-5-14-code-7",
+              "type": "code",
+              "language": "python",
+              "code": "age = 20\nprint(\"Age:\" age) # Error",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-14-paragraph-8",
+              "type": "paragraph",
+              "content": "Here, Python interprets \"Age:\" age as a single item. Since it's neither a string nor a variable, we get an error.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-14-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "5. Forgetting to use f in a f-string"
+            },
+            {
+              "id": "page-5-14-code-10",
+              "type": "code",
+              "language": "python",
+              "code": "age = 20\nprint(\"Age = {age}\") # Output: Age = {age}",
+              "caption": "Example"
+            },
+            {
+              "id": "page-5-14-paragraph-11",
+              "type": "paragraph",
+              "content": "If you forget to include f before the quotation marks, the string is treated as a normal string. As a result, {age} is interpreted as plain text instead of being evaluated as a variable.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-14-paragraph-12",
+              "type": "paragraph",
+              "content": "Avoid these five common mistakes and enjoy a smoother programming experience.",
+              "format": "plain"
+            },
+            {
+              "id": "page-5-14-paragraph-13",
+              "type": "paragraph",
+              "content": "You can improve your Python skills by practicing regularly and staying mindful of common mistakes. To learn more about printing in Python, check out the Printing Basics in Python article.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-6-python-operators",
+      "title": "Module 6: Python Operators",
+      "description": "Lessons 6.1 through 6.10",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-6-1-introduction-to-operators",
+          "number": "6.1",
+          "title": "Introduction to Operators",
+          "summary": "So far in this course, we've focused on just printing values and variables to keep things simple.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-1-paragraph-1",
+              "type": "paragraph",
+              "content": "So far in this course, we've focused on just printing values and variables to keep things simple.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-1-paragraph-2",
+              "type": "paragraph",
+              "content": "However, to solve problems, you often need to perform calculations on variables and values, not just print them. To achieve this, we use operators.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-1-paragraph-3",
+              "type": "paragraph",
+              "content": "An operator is a special symbol that performs operations on values and variables. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-1-code-4",
+              "type": "code",
+              "language": "python",
+              "code": "total = 5 + 10\nprint(total) # Output: 15",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-1-paragraph-5",
+              "type": "paragraph",
+              "content": "In the program, + is an operator that is used to perform addition.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-1-paragraph-6",
+              "type": "paragraph",
+              "content": "Let's learn about different types of operators and how to use them in this lesson.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-2-arithmetic-operators",
+          "number": "6.2",
+          "title": "Arithmetic Operators",
+          "summary": "As the title suggests, we'll only deal with operators that perform basic mathematical operations; they are summarized in the table below:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-2-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's look at the operators we'll learn in this lesson."
+            },
+            {
+              "id": "page-6-2-paragraph-2",
+              "type": "paragraph",
+              "content": "As the title suggests, we'll only deal with operators that perform basic mathematical operations; they are summarized in the table below:",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-2-table-3",
+              "type": "table",
+              "caption": "",
+              "columns": [
+                {
+                  "key": "column-1",
+                  "header": "Column 1",
+                  "align": "left"
+                },
+                {
+                  "key": "column-2",
+                  "header": "Column 2",
+                  "align": "left"
+                },
+                {
+                  "key": "column-3",
+                  "header": "Column 3",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "column-1": "Operator",
+                  "column-2": "Syntax",
+                  "column-3": "Meaning"
+                },
+                {
+                  "column-1": "+",
+                  "column-2": "x + y",
+                  "column-3": "Addition"
+                },
+                {
+                  "column-1": "-",
+                  "column-2": "x - y",
+                  "column-3": "Subtraction"
+                },
+                {
+                  "column-1": "*",
+                  "column-2": "x * y",
+                  "column-3": "Multiplication"
+                },
+                {
+                  "column-1": "/",
+                  "column-2": "x / y",
+                  "column-3": "Division"
+                },
+                {
+                  "column-1": "%",
+                  "column-2": "x % y",
+                  "column-3": "Remainder"
+                },
+                {
+                  "column-1": "//",
+                  "column-2": "x // y",
+                  "column-3": "Quotient"
+                },
+                {
+                  "column-1": "**",
+                  "column-2": "x ** y",
+                  "column-3": "Exponentiation"
+                }
+              ]
+            },
+            {
+              "id": "page-6-2-paragraph-4",
+              "type": "paragraph",
+              "content": "Let's start with the + operator.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-3-operator",
+          "number": "6.3",
+          "title": "+ Operator",
+          "summary": "As we have seen from the last example, the + operator is used to add operands (values and variables).",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-3-paragraph-1",
+              "type": "paragraph",
+              "content": "As we have seen from the last example, the + operator is used to add operands (values and variables).",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-3-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "x = 10\ny = 20\n# Use + to perform addition\ntotal = x + y + 30\nprint(total) # Output: 60",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-3-paragraph-3",
+              "type": "paragraph",
+              "content": "In the program, total = x + y + 30 first computes the sum of x, y, and 30. Then, the result is assigned to the total variable.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-3-paragraph-4",
+              "type": "paragraph",
+              "content": "Run the visualizer to see how variables are utilized in this program.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-3-code-5",
+              "type": "code",
+              "language": "python",
+              "code": "x = 10\ny = 20\n# Use + to perform addition\ntotal = x + y + 30\nprint(total) # Output: 60",
+              "caption": "Example"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-4-perform-operation-and-print",
+          "number": "6.4",
+          "title": "Perform Operation and Print",
+          "summary": "We can also perform addition directly without using the extra variable. Let's take an example.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-4-paragraph-1",
+              "type": "paragraph",
+              "content": "We can also perform addition directly without using the extra variable. Let's take an example.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-4-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "x = 12.5\ny = 10\nprint(x + y) # Output: 22.5",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-4-paragraph-3",
+              "type": "paragraph",
+              "content": "Here, the line print(x + y) first computes the sum of x and y. Then, the result is directly printed on the screen.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-5-quiz-what-is-the-output-of-the-following-code",
+          "number": "6.5",
+          "title": "Quiz: What is the output of the following code?",
+          "summary": "What is the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-5-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "x = -1\ny = 10\nprint(y + x)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-6-5-quiz-2",
+              "type": "quiz",
+              "question": "What is the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "11"
+                },
+                {
+                  "id": "option-b",
+                  "text": "10-1"
+                },
+                {
+                  "id": "option-c",
+                  "text": "9"
+                },
+                {
+                  "id": "option-d",
+                  "text": "-9"
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-6-operator",
+          "number": "6.6",
+          "title": "- Operator",
+          "summary": "The - operator subtracts the value on the right from the value on the left.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-6-paragraph-1",
+              "type": "paragraph",
+              "content": "The - operator subtracts the value on the right from the value on the left.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-6-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "x = 10\ny = 6\nresult = x - y\nprint(result) # Output: 4",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-6-paragraph-3",
+              "type": "paragraph",
+              "content": "Here, result = x - y first subtracts y from x. Then, the result is assigned to the result variable.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-7-problem",
+          "number": "6.7",
+          "title": "PROBLEM",
+          "summary": "Calculate Profit",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-7-exercise-4",
+              "type": "exercise",
+              "title": "Calculate Profit",
+              "instructions": {
+                "content": "Calculate Profit\n\nWrite a program to calculate the profit made from selling a book.\n\nHint: The profit amount is calculated by subtracting the cost price from the selling price.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "The cost price of a book is 25 dollars.",
+                "The selling price of the book is 35 dollars.",
+                "Calculate the profit amount and print it."
+              ],
+              "difficulty": "easy",
+              "hints": [],
+              "starterFiles": [
+                {
+                  "name": "main.py",
+                  "content": "# Calculate Profit\n# Write your solution below\n"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "page-6-7-compiler-5",
+              "type": "compiler",
+              "language": "python",
+              "runtime": "python3",
+              "files": [
+                {
+                  "name": "main.py",
+                  "content": "# Calculate Profit\n# Write your solution below\n"
+                }
+              ],
+              "activeFile": "main.py",
+              "expectedOutput": "10",
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "page-6-7-code-1",
+              "type": "code",
+              "language": "text",
+              "code": "10",
+              "caption": "Expected Output"
+            },
+            {
+              "id": "page-6-7-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "# Create the cost_price variable\ncost_price = 25\n# create the selling_price variable\nselling_price = 35\n# Computer the profit\nprofit = selling_price - cost_price\nprint(profit)",
+              "caption": "Solution"
+            },
+            {
+              "id": "page-6-7-ai-explanation-3",
+              "type": "ai_explanation",
+              "title": "AI Explanation",
+              "context": "No profit without a sale! Here's how it works:\n\nThis little piece of code is tackling the age-old business problem of calculating profit. Sounds fancy, right? But it's actually pretty straightforward.\n\nFirst, we set cost_price to 25, representing what it costs to create or purchase a product. Then, we set selling_price to 35, which is how much we sell it for.\n\nThe fun happens in the line where profit is calculated by subtracting cost_price from selling_price. This simple math tells us we make a tidy profit of 10.\n\nFinally, we display the profit with a quick print function.\n\nEver thought coders and entrepreneurs share the thrill of a great profit margin? Ready to dive into more?",
+              "actionLabel": "Explain this code",
+              "suggestedPrompts": [
+                "Explain the solution step by step."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-8-operator",
+          "number": "6.8",
+          "title": "* Operator",
+          "summary": "The * operator multiplies two values or variables.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-8-paragraph-1",
+              "type": "paragraph",
+              "content": "The * operator multiplies two values or variables.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-8-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "number1 = 5\nnumber2 = 10\n# Compute the product of number1 and number2\nproduct = number1 * number2\nprint(product)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-8-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "50",
+              "caption": "Output"
+            },
+            {
+              "id": "page-6-8-paragraph-4",
+              "type": "paragraph",
+              "content": "Let's take one more example.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-8-code-5",
+              "type": "code",
+              "language": "python",
+              "code": "number = 5.5\n# Compute the product of number and 10\nproduct = number * 10\nprint(product)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-8-code-6",
+              "type": "code",
+              "language": "text",
+              "code": "55.0",
+              "caption": "Output"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-9-quiz-what-is-the-output-of-the-following-code",
+          "number": "6.9",
+          "title": "Quiz: What is the output of the following code?",
+          "summary": "What is the output of the following code?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-9-code-1",
+              "type": "code",
+              "language": "python",
+              "code": "a = 20\nb = 6.5\nprint(a * b)",
+              "caption": "Quiz code"
+            },
+            {
+              "id": "page-6-9-quiz-2",
+              "type": "quiz",
+              "question": "What is the output of the following code?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "20"
+                },
+                {
+                  "id": "option-b",
+                  "text": "130"
+                },
+                {
+                  "id": "option-c",
+                  "text": "130.0"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Error"
+                }
+              ],
+              "correctOptionIds": [
+                "option-c"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6-10-operator",
+          "number": "6.10",
+          "title": "/ Operator",
+          "summary": "The / operator is used for division. For example,",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "python-operators"
+          ],
+          "blocks": [
+            {
+              "id": "page-6-10-paragraph-1",
+              "type": "paragraph",
+              "content": "The / operator is used for division. For example,",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-10-code-2",
+              "type": "code",
+              "language": "python",
+              "code": "number = 25\nresult = number / 4\nprint(result)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-10-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "6.25",
+              "caption": "Output"
+            },
+            {
+              "id": "page-6-10-paragraph-4",
+              "type": "paragraph",
+              "content": "Let's take another example.",
+              "format": "plain"
+            },
+            {
+              "id": "page-6-10-code-5",
+              "type": "code",
+              "language": "python",
+              "code": "number = 25\nresult = number / 5\nprint(result)",
+              "caption": "Example"
+            },
+            {
+              "id": "page-6-10-code-6",
+              "type": "code",
+              "language": "text",
+              "code": "5.0",
+              "caption": "Output"
+            },
+            {
+              "id": "page-6-10-image-7",
+              "type": "image",
+              "src": "/assets/courses/python-course/python-course-image-16.png",
+              "alt": "Idea Emoji",
+              "caption": "Idea Emoji",
+              "loading": "lazy"
+            },
+            {
+              "id": "page-6-10-note-8",
+              "type": "note",
+              "title": "Note",
+              "content": "The / operator always returns a floating-point value. In the above program, 25 / 5 results in 5.0 and not 5.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

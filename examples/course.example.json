@@ -1,0 +1,263 @@
+{
+  "$schema": "../schemas/learning-course.schema.json",
+  "schemaVersion": "1.0.0",
+  "id": "javascript-foundations",
+  "slug": "javascript-foundations",
+  "title": "JavaScript Foundations",
+  "description": "A compact example course demonstrating the complete Learning Engine authoring format.",
+  "locale": "en-US",
+  "status": "draft",
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "Learning Platform Team",
+        "url": "https://example.com/authors/learning-team"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 90,
+    "tags": ["javascript", "programming", "foundations"],
+    "thumbnail": {
+      "src": "/assets/courses/javascript-foundations.webp",
+      "alt": "Abstract JavaScript course illustration"
+    },
+    "createdAt": "2026-07-01T09:00:00Z",
+    "updatedAt": "2026-07-28T09:00:00Z"
+  },
+  "navigation": {
+    "defaultLessonId": "values-and-variables",
+    "sequence": "module-order",
+    "skipLockedLessons": true,
+    "labels": {
+      "previous": "Previous lesson",
+      "next": "Next lesson",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "language-basics",
+      "title": "Language basics",
+      "description": "Learn how JavaScript represents data and executes instructions.",
+      "initiallyExpanded": true,
+      "lessons": [
+        {
+          "id": "values-and-variables",
+          "title": "Values and variables",
+          "summary": "Create values, store them under meaningful names, and inspect the results.",
+          "status": "available",
+          "estimatedMinutes": 45,
+          "tags": ["values", "variables"],
+          "blocks": [
+            {
+              "id": "lesson-heading",
+              "type": "heading",
+              "anchor": "values-and-variables",
+              "level": 2,
+              "eyebrow": "Core concept",
+              "text": "Values give programs something to work with"
+            },
+            {
+              "id": "lesson-introduction",
+              "type": "paragraph",
+              "content": "A value is a piece of data. A variable gives that value a reusable name.",
+              "format": "plain"
+            },
+            {
+              "id": "variable-example",
+              "type": "code",
+              "language": "javascript",
+              "filename": "main.js",
+              "caption": "Declare and read a variable.",
+              "code": "const learner = 'Ari';\nconsole.log(learner);",
+              "highlightLines": [1]
+            },
+            {
+              "id": "memory-diagram",
+              "type": "image",
+              "src": "/assets/lessons/variable-memory.webp",
+              "alt": "A variable name pointing to a value in memory",
+              "caption": "A variable associates a name with a stored value.",
+              "aspectRatio": "16:9",
+              "loading": "lazy"
+            },
+            {
+              "id": "naming-note",
+              "type": "note",
+              "title": "Naming tip",
+              "content": "Choose names that describe the value's role in the program.",
+              "format": "plain"
+            },
+            {
+              "id": "case-warning",
+              "type": "warning",
+              "title": "JavaScript is case-sensitive",
+              "content": "`learnerName` and `learnername` are different identifiers.",
+              "format": "markdown"
+            },
+            {
+              "id": "variable-quiz",
+              "type": "quiz",
+              "question": "Which declaration creates a variable that cannot be reassigned?",
+              "selectionMode": "single",
+              "options": [
+                { "id": "option-const", "text": "const score = 10;" },
+                { "id": "option-let", "text": "let score = 10;" },
+                { "id": "option-assign", "text": "score = 10;" }
+              ],
+              "correctOptionIds": ["option-const"],
+              "explanation": "A const binding cannot be reassigned after declaration.",
+              "submitLabel": "Check answer"
+            },
+            {
+              "id": "variable-exercise",
+              "type": "exercise",
+              "title": "Create a learner profile",
+              "instructions": {
+                "content": "Declare variables for a learner's **name** and **completed lesson count**, then print both values.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Declare values with meaningful names",
+                "Print stored values"
+              ],
+              "difficulty": "easy",
+              "hints": [
+                "Use const for values that will not be reassigned.",
+                "Use console.log to display a value."
+              ],
+              "starterFiles": [
+                {
+                  "name": "main.js",
+                  "content": "// Declare your variables here\n",
+                  "readOnly": false
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "variable-compiler",
+              "type": "compiler",
+              "language": "javascript",
+              "runtime": "browser",
+              "files": [
+                {
+                  "name": "main.js",
+                  "content": "const topic = 'variables';\nconsole.log(topic);",
+                  "readOnly": false
+                }
+              ],
+              "activeFile": "main.js",
+              "stdin": "",
+              "expectedOutput": "variables",
+              "runLabel": "Run code",
+              "resetLabel": "Reset"
+            },
+            {
+              "id": "practice-divider",
+              "type": "divider",
+              "label": "Explore further"
+            },
+            {
+              "id": "practice-callout",
+              "type": "callout",
+              "tone": "tip",
+              "title": "Practice in small steps",
+              "content": "Change one value at a time and rerun the example to observe the result.",
+              "format": "plain",
+              "action": {
+                "label": "Open the language guide",
+                "href": "/guides/javascript/variables"
+              }
+            },
+            {
+              "id": "concept-video",
+              "type": "video",
+              "title": "Variables in three minutes",
+              "src": "/assets/video/variables-introduction.mp4",
+              "poster": "/assets/video/variables-introduction.webp",
+              "caption": "A visual introduction to bindings and values.",
+              "transcript": "In this video, we connect variable names to values and inspect them in the console.",
+              "durationSeconds": 180,
+              "captions": [
+                {
+                  "src": "/assets/video/variables-introduction.en.vtt",
+                  "label": "English",
+                  "language": "en"
+                }
+              ]
+            },
+            {
+              "id": "declaration-table",
+              "type": "table",
+              "caption": "Common variable declarations",
+              "columns": [
+                { "key": "keyword", "header": "Keyword", "align": "left" },
+                { "key": "reassignable", "header": "Reassignable", "align": "center" },
+                { "key": "scope", "header": "Scope", "align": "left" }
+              ],
+              "rows": [
+                { "keyword": "const", "reassignable": false, "scope": "block" },
+                { "keyword": "let", "reassignable": true, "scope": "block" }
+              ]
+            },
+            {
+              "id": "variable-ai-help",
+              "type": "ai_explanation",
+              "title": "Explain variables another way",
+              "context": "The learner is studying JavaScript values, const declarations, and variable naming.",
+              "actionLabel": "Ask for an explanation",
+              "suggestedPrompts": [
+                "Explain variables with a real-world analogy.",
+                "Compare const and let in simple terms.",
+                "Give me one more practice question."
+              ],
+              "disclaimer": "AI explanations may contain mistakes; compare them with the lesson examples."
+            }
+          ]
+        },
+        {
+          "id": "operators-and-expressions",
+          "title": "Operators and expressions",
+          "summary": "Combine values to calculate new results.",
+          "status": "available",
+          "estimatedMinutes": 30,
+          "tags": ["operators", "expressions"],
+          "blocks": [
+            {
+              "id": "operators-heading",
+              "type": "heading",
+              "level": 2,
+              "text": "Expressions produce values"
+            },
+            {
+              "id": "operators-copy",
+              "type": "paragraph",
+              "content": "Operators such as + and * combine operands and return a new value.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guided-practice",
+      "title": "Guided practice",
+      "description": "Apply the foundational concepts in a longer task.",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "mini-project",
+          "title": "Mini project",
+          "summary": "Combine values, variables, and expressions in one program.",
+          "status": "locked",
+          "estimatedMinutes": 15,
+          "tags": ["project"],
+          "blocks": []
+        }
+      ]
+    }
+  ]
+}

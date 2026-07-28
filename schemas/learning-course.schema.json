@@ -1,0 +1,639 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.learning-platform.local/learning-course.schema.json",
+  "title": "Learning Engine Course",
+  "description": "Versioned authoring contract for a completely JSON-renderable learning course.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "slug",
+    "title",
+    "description",
+    "locale",
+    "metadata",
+    "navigation",
+    "modules"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional editor hint pointing to this schema document."
+    },
+    "schemaVersion": {
+      "const": "1.0.0",
+      "description": "Version of this content contract, independent from the course content version."
+    },
+    "id": { "$ref": "#/$defs/id" },
+    "slug": { "$ref": "#/$defs/slug" },
+    "title": { "$ref": "#/$defs/nonEmptyString" },
+    "description": { "$ref": "#/$defs/nonEmptyString" },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$",
+      "examples": ["en", "en-US"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "published", "archived"],
+      "default": "draft"
+    },
+    "metadata": { "$ref": "#/$defs/courseMetadata" },
+    "navigation": { "$ref": "#/$defs/navigation" },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/module" }
+    }
+  },
+  "$comment": "IDs must be unique across the course. Cross-document ID uniqueness and navigation target existence should be checked by the Course Loader because JSON Schema cannot express those constraints portably.",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 100
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "richText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content"],
+      "properties": {
+        "content": { "$ref": "#/$defs/nonEmptyString" },
+        "format": {
+          "type": "string",
+          "enum": ["plain", "markdown"],
+          "default": "plain"
+        }
+      }
+    },
+    "courseMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "authors", "level", "estimatedMinutes", "tags", "updatedAt"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": { "$ref": "#/$defs/nonEmptyString" },
+              "url": { "type": "string", "format": "uri-reference" }
+            }
+          }
+        },
+        "level": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced", "mixed"]
+        },
+        "estimatedMinutes": { "type": "integer", "minimum": 1 },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "thumbnail": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["src", "alt"],
+          "properties": {
+            "src": { "type": "string", "format": "uri-reference" },
+            "alt": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "defaultLessonId",
+        "sequence",
+        "skipLockedLessons",
+        "labels"
+      ],
+      "properties": {
+        "defaultLessonId": { "$ref": "#/$defs/id" },
+        "sequence": {
+          "const": "module-order",
+          "description": "Modules and lessons are traversed in their array order."
+        },
+        "skipLockedLessons": { "type": "boolean" },
+        "labels": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["previous", "next", "progress", "currentLesson"],
+          "properties": {
+            "previous": { "$ref": "#/$defs/nonEmptyString" },
+            "next": { "$ref": "#/$defs/nonEmptyString" },
+            "progress": { "$ref": "#/$defs/nonEmptyString" },
+            "currentLesson": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        }
+      }
+    },
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "lessons"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "type": "string" },
+        "initiallyExpanded": { "type": "boolean", "default": false },
+        "lessons": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/lesson" }
+        }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "summary",
+        "status",
+        "estimatedMinutes",
+        "blocks"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "number": {
+          "type": "string",
+          "description": "Author-facing lesson number such as 2.10."
+        },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "summary": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["available", "locked", "coming-soon"]
+        },
+        "estimatedMinutes": { "type": "integer", "minimum": 1 },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "navigation": { "$ref": "#/$defs/lessonNavigation" },
+        "blocks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/block" }
+        }
+      }
+    },
+    "lessonNavigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "previousLessonId": {
+          "$ref": "#/$defs/id",
+          "description": "Optional explicit back-navigation override."
+        },
+        "nextLessonId": {
+          "$ref": "#/$defs/id",
+          "description": "Optional explicit next-navigation override."
+        },
+        "branches": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "label", "targetLessonId"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "label": { "$ref": "#/$defs/nonEmptyString" },
+              "targetLessonId": { "$ref": "#/$defs/id" },
+              "isDefault": { "type": "boolean", "default": false }
+            }
+          }
+        }
+      },
+      "not": {
+        "type": "object",
+        "properties": {
+          "nextLessonId": true,
+          "branches": true
+        },
+        "required": ["nextLessonId", "branches"]
+      }
+    },
+    "blockBase": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "$ref": "#/$defs/blockType" },
+        "anchor": { "$ref": "#/$defs/slug" }
+      }
+    },
+    "blockType": {
+      "type": "string",
+      "enum": [
+        "heading",
+        "paragraph",
+        "code",
+        "image",
+        "note",
+        "warning",
+        "quiz",
+        "exercise",
+        "compiler",
+        "divider",
+        "callout",
+        "video",
+        "table",
+        "ai_explanation"
+      ]
+    },
+    "block": {
+      "oneOf": [
+        { "$ref": "#/$defs/headingBlock" },
+        { "$ref": "#/$defs/paragraphBlock" },
+        { "$ref": "#/$defs/codeBlock" },
+        { "$ref": "#/$defs/imageBlock" },
+        { "$ref": "#/$defs/noteBlock" },
+        { "$ref": "#/$defs/warningBlock" },
+        { "$ref": "#/$defs/quizBlock" },
+        { "$ref": "#/$defs/exerciseBlock" },
+        { "$ref": "#/$defs/compilerBlock" },
+        { "$ref": "#/$defs/dividerBlock" },
+        { "$ref": "#/$defs/calloutBlock" },
+        { "$ref": "#/$defs/videoBlock" },
+        { "$ref": "#/$defs/tableBlock" },
+        { "$ref": "#/$defs/aiExplanationBlock" }
+      ]
+    },
+    "headingBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["level", "text"],
+          "properties": {
+            "type": { "const": "heading" },
+            "level": { "type": "integer", "minimum": 2, "maximum": 6 },
+            "text": { "$ref": "#/$defs/nonEmptyString" },
+            "eyebrow": { "type": "string" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "paragraphBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["content"],
+          "properties": {
+            "type": { "const": "paragraph" },
+            "content": { "$ref": "#/$defs/nonEmptyString" },
+            "format": { "type": "string", "enum": ["plain", "markdown"], "default": "plain" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "codeBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["language", "code"],
+          "properties": {
+            "type": { "const": "code" },
+            "language": { "$ref": "#/$defs/nonEmptyString" },
+            "code": { "type": "string" },
+            "filename": { "type": "string" },
+            "caption": { "type": "string" },
+            "highlightLines": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "type": "integer", "minimum": 1 }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "imageBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["src", "alt"],
+          "properties": {
+            "type": { "const": "image" },
+            "src": { "type": "string", "format": "uri-reference" },
+            "alt": { "type": "string" },
+            "caption": { "type": "string" },
+            "aspectRatio": { "type": "string", "pattern": "^\\d+:\\d+$" },
+            "loading": { "type": "string", "enum": ["lazy", "eager"], "default": "lazy" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "noteBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["content"],
+          "properties": {
+            "type": { "const": "note" },
+            "title": { "type": "string" },
+            "content": { "$ref": "#/$defs/nonEmptyString" },
+            "format": { "type": "string", "enum": ["plain", "markdown"], "default": "plain" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "warningBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["title", "content"],
+          "properties": {
+            "type": { "const": "warning" },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "content": { "$ref": "#/$defs/nonEmptyString" },
+            "format": { "type": "string", "enum": ["plain", "markdown"], "default": "plain" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "quizOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "text": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "quizBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["question", "selectionMode", "options", "correctOptionIds"],
+          "properties": {
+            "type": { "const": "quiz" },
+            "question": { "$ref": "#/$defs/nonEmptyString" },
+            "selectionMode": { "type": "string", "enum": ["single", "multiple"] },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/quizOption" }
+            },
+            "correctOptionIds": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/id" }
+            },
+            "explanation": { "type": "string" },
+            "submitLabel": { "type": "string" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "codeFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "content"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "content": { "type": "string" },
+        "readOnly": { "type": "boolean", "default": false }
+      }
+    },
+    "exerciseBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["title", "instructions", "objectives"],
+          "properties": {
+            "type": { "const": "exercise" },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "instructions": { "$ref": "#/$defs/richText" },
+            "objectives": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/nonEmptyString" }
+            },
+            "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] },
+            "hints": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/nonEmptyString" }
+            },
+            "starterFiles": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/codeFile" }
+            },
+            "actionLabel": { "type": "string" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "compilerBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["language", "files", "activeFile"],
+          "properties": {
+            "type": { "const": "compiler" },
+            "language": { "$ref": "#/$defs/nonEmptyString" },
+            "runtime": { "type": "string" },
+            "files": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/codeFile" }
+            },
+            "activeFile": { "$ref": "#/$defs/nonEmptyString" },
+            "stdin": { "type": "string" },
+            "expectedOutput": { "type": "string" },
+            "runLabel": { "type": "string" },
+            "resetLabel": { "type": "string" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "dividerBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "properties": {
+            "type": { "const": "divider" },
+            "label": { "type": "string" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "calloutBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["tone", "title", "content"],
+          "properties": {
+            "type": { "const": "callout" },
+            "tone": { "type": "string", "enum": ["info", "tip", "success"] },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "content": { "$ref": "#/$defs/nonEmptyString" },
+            "format": { "type": "string", "enum": ["plain", "markdown"], "default": "plain" },
+            "action": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["label", "href"],
+              "properties": {
+                "label": { "$ref": "#/$defs/nonEmptyString" },
+                "href": { "type": "string", "format": "uri-reference" }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "videoBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["title", "src"],
+          "properties": {
+            "type": { "const": "video" },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "src": { "type": "string", "format": "uri-reference" },
+            "poster": { "type": "string", "format": "uri-reference" },
+            "caption": { "type": "string" },
+            "transcript": { "type": "string" },
+            "durationSeconds": { "type": "integer", "minimum": 1 },
+            "captions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["src", "label", "language"],
+                "properties": {
+                  "src": { "type": "string", "format": "uri-reference" },
+                  "label": { "$ref": "#/$defs/nonEmptyString" },
+                  "language": { "type": "string", "minLength": 2 }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "tableBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["columns", "rows"],
+          "properties": {
+            "type": { "const": "table" },
+            "caption": { "type": "string" },
+            "columns": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["key", "header"],
+                "properties": {
+                  "key": { "$ref": "#/$defs/id" },
+                  "header": { "$ref": "#/$defs/nonEmptyString" },
+                  "align": { "type": "string", "enum": ["left", "center", "right"], "default": "left" }
+                }
+              }
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": ["string", "number", "boolean", "null"]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "aiExplanationBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["title", "context", "actionLabel"],
+          "properties": {
+            "type": { "const": "ai_explanation" },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "context": { "$ref": "#/$defs/nonEmptyString" },
+            "actionLabel": { "$ref": "#/$defs/nonEmptyString" },
+            "suggestedPrompts": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/nonEmptyString" }
+            },
+            "disclaimer": { "type": "string" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

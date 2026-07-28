@@ -1,0 +1,28 @@
+{
+  "name": "learning-platform-shell",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "validate:course": "node scripts/validate-course-schema.mjs",
+    "validate:python-course": "node scripts/validate-python-course.mjs",
+    "convert:python-course": "node scripts/convert-python-course.mjs",
+    "test:navigation": "node scripts/test-course-navigation.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.0.7"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "cheerio": "^1.2.0",
+    "mammoth": "^1.12.0"
+  }
+}
