@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Bookmark, Menu, Moon, Sun } from 'lucide-react';
+import { Bookmark, Menu, Moon, Sun } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 
@@ -8,14 +8,9 @@ export function TopNavigation({
   lesson,
   onThemeToggle,
   theme,
-  previousLesson,
-  nextLesson,
-  onPreviousLesson,
-  onNextLesson,
   user,
   onSignOut,
   progress,
-  isCurrentLessonComplete,
   isBookmarked,
   onToggleBookmark,
   onExitCourse,
@@ -74,24 +69,6 @@ export function TopNavigation({
             Sign out
           </button>
         </div>
-        <button
-          className="button button--secondary nav-button nav-button-secondary"
-          type="button"
-          disabled={!previousLesson}
-          onClick={onPreviousLesson}
-        >
-          <ArrowLeft size={ICON_SIZE.md} />
-          <span>{navigation.previousLabel}</span>
-        </button>
-        <button
-          className="button button--primary nav-button nav-button-primary"
-          type="button"
-          disabled={!lesson || (!nextLesson && isCurrentLessonComplete)}
-          onClick={onNextLesson}
-        >
-          <span>{nextLesson ? navigation.nextLabel : 'Complete lesson'}</span>
-          <ArrowRight size={ICON_SIZE.md} />
-        </button>
       </div>
     </header>
   );

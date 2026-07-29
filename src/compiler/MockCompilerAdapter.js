@@ -13,10 +13,56 @@ function wait(duration, signal) {
   });
 }
 
+function decodeString(value) {
+  return value
+    .replace(/\\n/g, '\n')
+    .replace(/\\t/g, '\t')
+    .replace(/\\(["'\\])/g, '$1');
+}
+
+function resolveValue(expression, variables) {
+  const value = expression.trim();
+  const stringMatch = value.match(/^f?(["'])([\s\S]*)\1$/);
+  if (stringMatch) {
+    const decoded = decodeString(stringMatch[2]);
+    return value.startsWith('f')
+      ? decoded.replace(/\{([A-Za-z_]\w*)\}/g, (_, name) => variables.get(name) ?? `{${name}}`)
+      : decoded;
+  }
+  if (/^-?\d+(?:\.\d+)?$/.test(value)) return value;
+  if (variables.has(value)) return variables.get(value);
+  const subtraction = value.match(/^([A-Za-z_]\w*|-?\d+(?:\.\d+)?)\s*-\s*([A-Za-z_]\w*|-?\d+(?:\.\d+)?)$/);
+  if (subtraction) {
+    const left = Number(variables.get(subtraction[1]) ?? subtraction[1]);
+    const right = Number(variables.get(subtraction[2]) ?? subtraction[2]);
+    return String(left - right);
+  }
+  return value;
+}
+
+function splitArguments(value) {
+  return value.match(/(?:f?["'][^"']*["']|[^,])+/g)?.map((part) => part.trim()) ?? [];
+}
+
 function extractPrintedOutput(source) {
-  return [...source.matchAll(/print\s*\(\s*["'](.*?)["']\s*\)/g)]
-    .map((match) => match[1])
-    .join('\n');
+  const variables = new Map();
+  const output = [];
+  for (const rawLine of source.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('#')) continue;
+    const assignment = line.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
+    if (assignment) {
+      variables.set(assignment[1], resolveValue(assignment[2], variables));
+      continue;
+    }
+    const printCall = line.match(/^print\s*\(([\s\S]*)\)\s*$/);
+    if (printCall) {
+      output.push(splitArguments(printCall[1])
+        .map((argument) => resolveValue(argument, variables))
+        .join(' '));
+    }
+  }
+  return output.join('\n');
 }
 
 function detectMockError(source) {

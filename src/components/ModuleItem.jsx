@@ -8,6 +8,7 @@ export function ModuleItem({
   currentLessonId,
   onSelectLesson,
   completedLessonIds,
+  visitedLessonIds,
   isCompleted,
 }) {
   const [isExpanded, setIsExpanded] = useState(module.initiallyOpen);
@@ -45,6 +46,7 @@ export function ModuleItem({
               isActive={lesson.id === currentLessonId}
               onSelect={onSelectLesson}
               isCompleted={completedLessonIds.has(lesson.id)}
+              isVisited={visitedLessonIds.has(lesson.id)}
               key={lesson.id}
             />
           ))}

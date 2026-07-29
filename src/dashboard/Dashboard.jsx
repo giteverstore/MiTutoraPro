@@ -27,7 +27,11 @@ export function Dashboard({ onOpenCourse }) {
   const [notice, setNotice] = useState('');
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const continueCourse = dashboardCourses[0];
+  const courses = useMemo(() => dashboardCourses.map((course) =>
+    course.id === 'mi-tutora-python-course'
+      ? { ...course, progress: user.courseProgress ?? 0 }
+      : course), [user.courseProgress]);
+  const continueCourse = courses[0];
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsLoading(false), 550);
@@ -61,7 +65,7 @@ export function Dashboard({ onOpenCourse }) {
     return dashboardSections.map((section) => ({
       ...section,
       courses: section.courseIds
-        .map((courseId) => dashboardCourses.find((course) => course.id === courseId))
+        .map((courseId) => courses.find((course) => course.id === courseId))
         .filter(Boolean)
         .filter((course) => !activeCategory || course.category === activeCategory)
         .filter((course) =>
@@ -70,7 +74,7 @@ export function Dashboard({ onOpenCourse }) {
             .toLowerCase()
             .includes(normalizedQuery)),
     })).filter((section) => section.courses.length > 0);
-  }, [activeCategory, query]);
+  }, [activeCategory, courses, query]);
 
   const handleCourseAction = (course) => {
     if (course.available) {
@@ -146,8 +150,14 @@ export function Dashboard({ onOpenCourse }) {
                 <p>Keep building momentum with a focused lesson, or discover something new.</p>
               </div>
               <div className="welcome-stat">
-                <strong>{user.completedLessons.length}</strong>
-                <span>Lessons completed</span>
+                <div>
+                  <strong>{user.sequentialCompletedLessons ?? 0}</strong>
+                  <span>Sequential progress</span>
+                </div>
+                <div>
+                  <strong>{user.visitedLessons?.length ?? 0}</strong>
+                  <span>Lessons visited</span>
+                </div>
               </div>
             </section>
             <ContinueLearningCard course={continueCourse} onContinue={handleCourseAction} />

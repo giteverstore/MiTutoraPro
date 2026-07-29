@@ -25,8 +25,11 @@ function createUserProfile(profile) {
       dailyGoalMinutes: profile.learningPreferences?.dailyGoalMinutes ?? 20,
     },
     completedLessons: profile.completedLessons ?? [],
+    visitedLessons: profile.visitedLessons ?? [],
     bookmarks: profile.bookmarks ?? [],
     currentLesson: profile.currentLesson ?? null,
+    sequentialCompletedLessons: profile.sequentialCompletedLessons ?? 0,
+    courseProgress: profile.courseProgress ?? 0,
   };
 }
 

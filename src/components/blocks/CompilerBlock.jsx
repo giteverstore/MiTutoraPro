@@ -1,15 +1,16 @@
 import { CompilerPanel } from '../CompilerPanel';
+import { normalizeCompilerDefinition } from '../../compiler/core/normalizeCompilerDefinition';
 
-export function createCompilerData({
-  language,
-  files,
-  activeFile,
-  expectedOutput,
-  runLabel,
-  resetLabel,
-  compiler,
-}) {
-  const activeDocument = files?.find((file) => file.name === activeFile);
+export function createCompilerData(definition) {
+  const {
+    language,
+    fileName,
+    starterCode,
+    stdin,
+    expectedOutput,
+    validatorType,
+  } = normalizeCompilerDefinition(definition);
+  const { runLabel, resetLabel, compiler } = definition;
   return compiler ?? {
     ariaLabel: `${language} practice compiler`,
     eyebrow: 'Practice workspace',
@@ -23,10 +24,10 @@ export function createCompilerData({
     runShortcut: 'Ctrl + Enter',
     resizeLabel: 'Resize editor and output panels',
     editor: {
-      fileName: activeFile,
+      fileName,
       unsavedLabel: 'Unsaved changes',
-      ariaLabel: `${activeFile} code editor`,
-      lines: (activeDocument?.content ?? '').split('\n').map((text, index) => ({
+      ariaLabel: `${fileName} code editor`,
+      lines: starterCode.split('\n').map((text, index) => ({
         number: index + 1,
         text,
         tone: text.trim().startsWith('#') ? 'comment' : 'source',
@@ -42,8 +43,11 @@ export function createCompilerData({
       errorTitle: 'No errors',
       errorDescription: 'Compiler errors will appear here.',
     },
-    footerItems: [`File: ${activeFile}`, `Language: ${language}`],
+    footerItems: [`File: ${fileName}`, `Language: ${language}`],
+    starterCode,
+    stdin,
     expectedOutput,
+    validatorType,
   };
 }
 

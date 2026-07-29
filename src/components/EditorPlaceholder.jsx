@@ -1,17 +1,25 @@
+import { lazy, Suspense } from 'react';
+
+const MonacoCodeEditor = lazy(() => import('./MonacoCodeEditor'));
+
 export function EditorPlaceholder({ editor, value, onChange }) {
   return (
     <div className="editor-window">
-      <div className="editor-tabs">
-        <span className="active">{editor.fileName}</span>
-        <span className="unsaved-dot" aria-label={editor.unsavedLabel} />
-      </div>
-      <textarea
-        className="editor-input"
-        aria-label={editor.ariaLabel}
-        spellCheck="false"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
+      <Suspense fallback={<EditorLoadingState />}>
+        <MonacoCodeEditor editor={editor} value={value} onChange={onChange} />
+      </Suspense>
+    </div>
+  );
+}
+
+function EditorLoadingState() {
+  return (
+    <div className="monaco-loading-state" role="status">
+      <span className="skeleton-line skeleton-short" />
+      <span className="skeleton-line skeleton-medium" />
+      <span className="skeleton-line" />
+      <span className="skeleton-line skeleton-medium" />
+      <span>Loading code editor…</span>
     </div>
   );
 }

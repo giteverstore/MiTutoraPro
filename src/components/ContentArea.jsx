@@ -11,6 +11,7 @@ export function ContentArea({
   isLoading = false,
   emptyState,
   unavailableState,
+  footer,
 }) {
   return (
     <main className="lesson-panel">
@@ -27,6 +28,8 @@ export function ContentArea({
             lesson={{ ...lesson, blocks }}
             emptyState={emptyState}
           />
+          {children}
+          {footer}
         </article>
       ) : (
         <div className="lesson-document">
@@ -36,7 +39,6 @@ export function ContentArea({
           />
         </div>
       )}
-      {children}
     </main>
   );
 }

@@ -19,9 +19,7 @@ function getEstimatedMinutes(lesson) {
 
 function getCourseLessons(course) {
   return course.modules.flatMap((module) =>
-    module.lessons
-      .filter((lesson) => !['locked', 'coming-soon'].includes(lesson.status))
-      .map((lesson) => ({ lesson, module })),
+    module.lessons.map((lesson) => ({ lesson, module })),
   );
 }
 
@@ -31,6 +29,15 @@ function deriveProgress(course, stored) {
   const completedLessons = [...new Set(stored.completedLessons ?? [])]
     .filter((lessonId) => lessonIds.has(lessonId));
   const completedSet = new Set(completedLessons);
+  const visitedLessons = [...new Set([
+    ...(stored.visitedLessons ?? []),
+    ...completedLessons,
+  ])].filter((lessonId) => lessonIds.has(lessonId));
+  let sequentialCompletedLessons = 0;
+  for (const { lesson } of entries) {
+    if (!completedSet.has(lesson.id)) break;
+    sequentialCompletedLessons += 1;
+  }
   const completedModules = course.modules
     .filter((module) => {
       const availableLessons = module.lessons.filter((lesson) => lessonIds.has(lesson.id));
@@ -47,12 +54,16 @@ function deriveProgress(course, stored) {
   return {
     ...stored,
     completedLessons,
+    visitedLessons,
     completedModules,
     bookmarks: [...new Set(stored.bookmarks ?? [])].filter((lessonId) => lessonIds.has(lessonId)),
     quizScores: stored.quizScores ?? {},
     exerciseCompletion: stored.exerciseCompletion ?? {},
+    sequentialCompletedLessons,
+    visitedLessonCount: visitedLessons.length,
+    completedLessonCount: completedLessons.length,
     courseProgress: entries.length
-      ? Math.round((completedLessons.length / entries.length) * 100)
+      ? Math.round((sequentialCompletedLessons / entries.length) * 100)
       : 0,
     estimatedTimeRemaining,
   };
@@ -63,6 +74,7 @@ function createInitialProgress(
   currentLessonId,
   existingCompletedLessons = [],
   existingBookmarks = [],
+  existingVisitedLessons = [],
 ) {
   const completedLessons = [...existingCompletedLessons, ...course.modules.flatMap((module) =>
     module.lessons
@@ -73,11 +85,15 @@ function createInitialProgress(
   return deriveProgress(course, {
     currentLesson: currentLessonId ?? course.navigation?.defaultLessonId ?? course.defaultLessonId,
     completedLessons,
+    visitedLessons: [...new Set(existingVisitedLessons)],
     completedModules: [],
     quizScores: {},
     exerciseCompletion: {},
     bookmarks: [...new Set(existingBookmarks)],
     courseProgress: 0,
+    sequentialCompletedLessons: 0,
+    visitedLessonCount: 0,
+    completedLessonCount: 0,
     estimatedTimeRemaining: 0,
     updatedAt: null,
   });
@@ -90,17 +106,20 @@ export function LearningProgressProvider({
   initialLessonId,
   initialCompletedLessons = [],
   initialBookmarks = [],
+  initialVisitedLessons = [],
   repository = defaultRepository,
 }) {
   const initialLessonIdRef = useRef(initialLessonId);
   const initialCompletedLessonsRef = useRef(initialCompletedLessons);
   const initialBookmarksRef = useRef(initialBookmarks);
+  const initialVisitedLessonsRef = useRef(initialVisitedLessons);
   const [progress, setProgress] = useState(() =>
     createInitialProgress(
       course,
       initialLessonIdRef.current,
       initialCompletedLessonsRef.current,
       initialBookmarksRef.current,
+      initialVisitedLessonsRef.current,
     ));
   const [status, setStatus] = useState('loading');
 
@@ -114,6 +133,7 @@ export function LearningProgressProvider({
         initialLessonIdRef.current,
         initialCompletedLessonsRef.current,
         initialBookmarksRef.current,
+        initialVisitedLessonsRef.current,
       );
       const restored = stored
         ? {
@@ -122,6 +142,10 @@ export function LearningProgressProvider({
             completedLessons: [
               ...initial.completedLessons,
               ...(stored.completedLessons ?? []),
+            ],
+            visitedLessons: [
+              ...initialVisitedLessonsRef.current,
+              ...(stored.visitedLessons ?? []),
             ],
             bookmarks: [
               ...initial.bookmarks,
@@ -165,7 +189,19 @@ export function LearningProgressProvider({
     }));
   }, [updateProgress]);
 
-  const recordQuizScore = useCallback((quizId, score, maxScore = 1) => {
+  const markLessonVisited = useCallback((lessonId) => {
+    updateProgress((current) =>
+      current.visitedLessons.includes(lessonId)
+        ? current
+        : { ...current, visitedLessons: [...current.visitedLessons, lessonId] });
+  }, [updateProgress]);
+
+  const recordQuizScore = useCallback((
+    quizId,
+    score,
+    maxScore = 1,
+    passed = score === maxScore,
+  ) => {
     updateProgress((current) => {
       const previous = current.quizScores[quizId];
       return {
@@ -176,6 +212,7 @@ export function LearningProgressProvider({
             score,
             maxScore,
             percentage: maxScore ? Math.round((score / maxScore) * 100) : 0,
+            passed,
             attempts: (previous?.attempts ?? 0) + 1,
             lastAttemptAt: new Date().toISOString(),
           },
@@ -185,16 +222,56 @@ export function LearningProgressProvider({
   }, [updateProgress]);
 
   const completeExercise = useCallback((exerciseId) => {
+    updateProgress((current) => {
+      const exercise = current.exerciseCompletion[exerciseId];
+      if (!exercise?.verified) return current;
+      return {
+        ...current,
+        exerciseCompletion: {
+          ...current.exerciseCompletion,
+          [exerciseId]: {
+            ...exercise,
+            completed: true,
+            completedAt: new Date().toISOString(),
+          },
+        },
+      };
+    });
+  }, [updateProgress]);
+
+  const verifyExercise = useCallback((exerciseId, verification) => {
     updateProgress((current) => ({
       ...current,
       exerciseCompletion: {
         ...current.exerciseCompletion,
         [exerciseId]: {
-          completed: true,
-          completedAt: new Date().toISOString(),
+          ...current.exerciseCompletion[exerciseId],
+          completed: current.exerciseCompletion[exerciseId]?.completed ?? false,
+          verified: true,
+          expectedOutput: verification.expectedOutput,
+          programOutput: verification.programOutput,
+          verifiedAt: new Date().toISOString(),
         },
       },
     }));
+  }, [updateProgress]);
+
+  const invalidateExerciseVerification = useCallback((exerciseId) => {
+    updateProgress((current) => {
+      const exercise = current.exerciseCompletion[exerciseId];
+      if (!exercise?.verified || exercise.completed) return current;
+      return {
+        ...current,
+        exerciseCompletion: {
+          ...current.exerciseCompletion,
+          [exerciseId]: {
+            ...exercise,
+            verified: false,
+            verifiedAt: null,
+          },
+        },
+      };
+    });
   }, [updateProgress]);
 
   const toggleBookmark = useCallback((lessonId) => {
@@ -206,14 +283,61 @@ export function LearningProgressProvider({
     }));
   }, [updateProgress]);
 
+  const resetCourse = useCallback(() => {
+    updateProgress((current) => ({
+      ...current,
+      currentLesson: course.navigation?.defaultLessonId ?? course.defaultLessonId,
+      completedLessons: [],
+      visitedLessons: [],
+      completedModules: [],
+      quizScores: {},
+      exerciseCompletion: {},
+    }));
+  }, [course, updateProgress]);
+
+  const markAllLessonsComplete = useCallback(() => {
+    const lessonIds = getCourseLessons(course).map(({ lesson }) => lesson.id);
+    updateProgress((current) => ({
+      ...current,
+      completedLessons: lessonIds,
+      visitedLessons: lessonIds,
+    }));
+  }, [course, updateProgress]);
+
+  const resetLearningProgress = useCallback(() => {
+    updateProgress((current) => ({
+      ...current,
+      currentLesson: course.navigation?.defaultLessonId ?? course.defaultLessonId,
+      completedLessons: [],
+      visitedLessons: [],
+      completedModules: [],
+    }));
+  }, [course, updateProgress]);
+
+  const resetQuizAttempts = useCallback(() => {
+    updateProgress((current) => ({ ...current, quizScores: {} }));
+  }, [updateProgress]);
+
+  const resetExerciseAttempts = useCallback(() => {
+    updateProgress((current) => ({ ...current, exerciseCompletion: {} }));
+  }, [updateProgress]);
+
   const value = useMemo(() => ({
     ...progress,
     status,
     setCurrentLesson,
     completeLesson,
+    markLessonVisited,
     recordQuizScore,
     completeExercise,
+    verifyExercise,
+    invalidateExerciseVerification,
     toggleBookmark,
+    resetCourse,
+    markAllLessonsComplete,
+    resetLearningProgress,
+    resetQuizAttempts,
+    resetExerciseAttempts,
     isLessonComplete: (lessonId) => progress.completedLessons.includes(lessonId),
     isModuleComplete: (moduleId) => progress.completedModules.includes(moduleId),
     isBookmarked: (lessonId) => progress.bookmarks.includes(lessonId),
@@ -222,9 +346,17 @@ export function LearningProgressProvider({
     status,
     setCurrentLesson,
     completeLesson,
+    markLessonVisited,
     recordQuizScore,
     completeExercise,
+    verifyExercise,
+    invalidateExerciseVerification,
     toggleBookmark,
+    resetCourse,
+    markAllLessonsComplete,
+    resetLearningProgress,
+    resetQuizAttempts,
+    resetExerciseAttempts,
   ]);
 
   return (

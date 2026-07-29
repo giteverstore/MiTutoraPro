@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, ChevronRight, Dumbbell } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
 import { useLearningProgress } from '../../progress/LearningProgressContext';
@@ -16,25 +16,17 @@ export function ExerciseBlock({
   blockId,
 }) {
   const [isStarted, setIsStarted] = useState(false);
-  const [hasSuccessfulRun, setHasSuccessfulRun] = useState(false);
   const { exerciseCompletion, completeExercise } = useLearningProgress();
-  const isCompleted = Boolean(exerciseCompletion[blockId]?.completed);
-
-  useEffect(() => {
-    if (!isStarted || isCompleted) return undefined;
-    const handleExecution = (event) => {
-      if (event.detail?.status === 'success') setHasSuccessfulRun(true);
-    };
-    window.addEventListener('learning-platform:execution-complete', handleExecution);
-    return () => window.removeEventListener('learning-platform:execution-complete', handleExecution);
-  }, [isCompleted, isStarted]);
+  const exerciseState = exerciseCompletion[blockId] ?? {};
+  const isCompleted = Boolean(exerciseState.completed);
+  const isVerified = Boolean(exerciseState.verified);
 
   const startExercise = () => {
-    if (isStarted) {
-      if (!hasSuccessfulRun) return;
+    if (isVerified) {
       completeExercise(blockId);
       return;
     }
+    if (isStarted) return;
     setIsStarted(true);
     const selector = window.matchMedia('(max-width: 840px)').matches
       ? '.mobile-compiler textarea'
@@ -67,17 +59,17 @@ export function ExerciseBlock({
           <ul>{hints.map((hint) => <li key={hint}>{hint}</li>)}</ul>
         </details>
       ) : null}
-      {isStarted ? (
+      {isStarted || isVerified ? (
         <p className="activity-feedback is-success" role="status">
           {isCompleted
             ? 'Exercise completed and saved locally.'
-            : hasSuccessfulRun
-              ? 'Your code ran successfully. You can now mark the exercise complete.'
-              : 'Exercise opened. Write your solution in the compiler and run it successfully.'}
+            : isVerified
+              ? 'Output verified. Mark the exercise complete when you are ready.'
+              : 'Write your solution, run it, then use Check Output in the workspace.'}
         </p>
       ) : null}
-      <button className="button button--primary inline-action" type="button" onClick={startExercise} disabled={isCompleted || (isStarted && !hasSuccessfulRun)}>
-        {isCompleted ? 'Completed' : isStarted ? hasSuccessfulRun ? 'Mark complete' : 'Run code to continue' : actionLabel} <ChevronRight size={ICON_SIZE.base} />
+      <button className="button button--primary inline-action" type="button" onClick={startExercise} disabled={isCompleted || (isStarted && !isVerified)}>
+        {isCompleted ? 'Completed' : isVerified ? 'Mark Complete' : isStarted ? 'Check output to continue' : actionLabel} <ChevronRight size={ICON_SIZE.base} />
       </button>
     </section>
   );

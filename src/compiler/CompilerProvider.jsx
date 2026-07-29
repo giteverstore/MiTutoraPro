@@ -1,26 +1,29 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 
 const CompilerContext = createContext(null);
 
-export function CompilerProvider({ adapter, children }) {
-  if (!adapter) {
-    throw new Error('CompilerProvider requires a CompilerAdapter instance.');
+export function CompilerProvider({ manager, children }) {
+  useEffect(() => () => {
+    void manager?.dispose();
+  }, [manager]);
+
+  if (!manager) {
+    throw new Error('CompilerProvider requires a CompilerManager instance.');
   }
 
   return (
-    <CompilerContext.Provider value={adapter}>
+    <CompilerContext.Provider value={manager}>
       {children}
     </CompilerContext.Provider>
   );
 }
 
-export function useCompilerAdapter() {
-  const adapter = useContext(CompilerContext);
+export function useCompilerManager() {
+  const manager = useContext(CompilerContext);
 
-  if (!adapter) {
-    throw new Error('useCompilerAdapter must be used inside CompilerProvider.');
+  if (!manager) {
+    throw new Error('useCompilerManager must be used inside CompilerProvider.');
   }
 
-  return adapter;
+  return manager;
 }
-

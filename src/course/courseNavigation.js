@@ -5,10 +5,7 @@ export function createCourseNavigation(course) {
   const entryByLessonId = new Map(
     entries.map((entry, index) => [entry.lesson.id, { ...entry, index }]),
   );
-  const skipLocked = course.navigation?.skipLockedLessons ?? true;
-
-  const isNavigable = (lesson) =>
-    !skipLocked || !['locked', 'coming-soon'].includes(lesson.status);
+  const isNavigable = () => true;
 
   const resolveEntry = (lessonId) => {
     const entry = entryByLessonId.get(lessonId);

@@ -5,18 +5,21 @@ import { OutputPanel } from './OutputPanel';
 import { ResizeHandle } from './ResizeHandle';
 import { useDragResize } from '../hooks/useDragResize';
 import { LAYOUT_SIZE } from '../design-system/theme';
-import { useCompilerAdapter } from '../compiler/CompilerProvider';
+import { useCompilerManager } from '../compiler/CompilerProvider';
+import { useLearningProgress } from '../progress/LearningProgressContext';
 
 export function CompilerPanel({ compiler }) {
   const panelRef = useRef(null);
-  const adapter = useCompilerAdapter();
+  const compilerManager = useCompilerManager();
+  const { verifyExercise, invalidateExerciseVerification } = useLearningProgress();
   const [isRunning, setIsRunning] = useState(false);
   const initialCode = compiler.editor.lines.map((line) => line.text ?? '').join('\n');
   const [code, setCode] = useState(initialCode);
   const currentCodeRef = useRef(initialCode);
-  const [activeTab, setActiveTab] = useState('output');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
+  const [executionStatus, setExecutionStatus] = useState('idle');
+  const [verificationStatus, setVerificationStatus] = useState('idle');
   const [executionTimeMs, setExecutionTimeMs] = useState(null);
   const executionControllerRef = useRef(null);
   const outputResize = useDragResize({
@@ -30,20 +33,25 @@ export function CompilerPanel({ compiler }) {
     const controller = new AbortController();
     executionControllerRef.current = controller;
     setIsRunning(true);
+    setExecutionStatus('running');
+    setVerificationStatus('idle');
+    if (compiler.exerciseId) invalidateExerciseVerification(compiler.exerciseId);
     setError('');
     setExecutionTimeMs(null);
 
     try {
-      const execution = await adapter.execute({
+      const execution = await compilerManager.execute({
         source: currentCodeRef.current,
         language: compiler.language,
+        stdin: compiler.stdin,
+        filename: compiler.editor.fileName,
         signal: controller.signal,
       });
 
       setResult(execution.output);
       setError(execution.errors.join('\n'));
       setExecutionTimeMs(execution.executionTimeMs);
-      setActiveTab(execution.status === 'error' ? 'errors' : 'output');
+      setExecutionStatus(execution.status);
       window.dispatchEvent(new CustomEvent('learning-platform:execution-complete', {
         detail: execution,
       }));
@@ -51,7 +59,7 @@ export function CompilerPanel({ compiler }) {
       if (executionError.name !== 'AbortError') {
         setResult('');
         setError(executionError.message || 'The compiler adapter could not complete the request.');
-        setActiveTab('errors');
+        setExecutionStatus('error');
       }
     } finally {
       if (executionControllerRef.current === controller) {
@@ -59,25 +67,68 @@ export function CompilerPanel({ compiler }) {
         setIsRunning(false);
       }
     }
-  }, [adapter, compiler.language]);
+  }, [
+    compilerManager,
+    compiler.exerciseId,
+    compiler.stdin,
+    compiler.language,
+    invalidateExerciseVerification,
+  ]);
 
   const handleCodeChange = useCallback((nextCode) => {
     currentCodeRef.current = nextCode;
     setCode(nextCode);
-  }, []);
+    setVerificationStatus('idle');
+    if (compiler.exerciseId) invalidateExerciseVerification(compiler.exerciseId);
+  }, [compiler.exerciseId, invalidateExerciseVerification]);
+
+  const checkOutput = useCallback(() => {
+    if (executionStatus !== 'success') return;
+    const matches = compilerManager.validateOutput({
+      expectedOutput: compiler.expectedOutput,
+      programOutput: result,
+      validatorType: compiler.validatorType,
+    });
+    setVerificationStatus(matches ? 'matched' : 'mismatched');
+    if (matches && compiler.exerciseId) {
+      verifyExercise(compiler.exerciseId, {
+        expectedOutput: compiler.expectedOutput,
+        programOutput: result,
+      });
+    } else if (compiler.exerciseId) {
+      invalidateExerciseVerification(compiler.exerciseId);
+    }
+  }, [
+    compiler.exerciseId,
+    compiler.expectedOutput,
+    compiler.validatorType,
+    compilerManager,
+    executionStatus,
+    invalidateExerciseVerification,
+    result,
+    verifyExercise,
+  ]);
 
   const resetEditor = useCallback(async () => {
     executionControllerRef.current?.abort();
     executionControllerRef.current = null;
-    await adapter.reset();
+    await compilerManager.reset(compiler.language);
     setIsRunning(false);
     currentCodeRef.current = initialCode;
     setCode(initialCode);
     setResult('');
     setError('');
+    setExecutionStatus('idle');
+    setVerificationStatus('idle');
+    if (compiler.exerciseId) invalidateExerciseVerification(compiler.exerciseId);
     setExecutionTimeMs(null);
-    setActiveTab('output');
-  }, [adapter, initialCode]);
+  }, [
+    compiler.exerciseId,
+    compiler.language,
+    compilerManager,
+    initialCode,
+    invalidateExerciseVerification,
+  ]);
 
   useEffect(() => {
     const handleKeyboardRun = () => {
@@ -92,31 +143,40 @@ export function CompilerPanel({ compiler }) {
 
   return (
     <div className="compiler-panel" ref={panelRef}>
-      <EditorHeader data={compiler} isRunning={isRunning} onRun={showRunFeedback} onReset={resetEditor} />
-      <EditorPlaceholder editor={compiler.editor} value={code} onChange={handleCodeChange} />
-      <ResizeHandle
-        className="output-resize-handle"
-        label={compiler.resizeLabel}
-        min={LAYOUT_SIZE.output.min}
-        max={LAYOUT_SIZE.output.max}
-        value={outputResize.value}
-        orientation="horizontal"
-        onPointerDown={outputResize.startDragging}
-        onKeyDown={outputResize.handleKeyDown}
-      />
-      <OutputPanel
-        output={compiler.output}
-        height={outputResize.value}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        result={result}
-        error={error}
-        isRunning={isRunning}
-        executionTimeMs={executionTimeMs}
-        expectedOutput={compiler.expectedOutput}
-      />
-      <div className="compiler-footer">
-        {compiler.footerItems.map((item) => <span key={item}>{item}</span>)}
+      <div className="compiler-ide">
+        <EditorHeader
+          data={compiler}
+          isRunning={isRunning}
+          executionStatus={executionStatus}
+          verificationStatus={verificationStatus}
+          onRun={showRunFeedback}
+          onReset={resetEditor}
+        />
+        <EditorPlaceholder editor={compiler.editor} value={code} onChange={handleCodeChange} />
+        <ResizeHandle
+          className="output-resize-handle"
+          label={compiler.resizeLabel}
+          min={LAYOUT_SIZE.output.min}
+          max={LAYOUT_SIZE.output.max}
+          value={outputResize.value}
+          orientation="horizontal"
+          onPointerDown={outputResize.startDragging}
+          onKeyDown={outputResize.handleKeyDown}
+        />
+        <OutputPanel
+          output={compiler.output}
+          height={outputResize.value}
+          result={result}
+          error={error}
+          isRunning={isRunning}
+          executionTimeMs={executionTimeMs}
+          expectedOutput={compiler.expectedOutput}
+          inputs={compiler.stdin}
+          executionStatus={executionStatus}
+          verificationStatus={verificationStatus}
+          onCheckOutput={checkOutput}
+          canCheckOutput={executionStatus === 'success' && compiler.expectedOutput !== undefined}
+        />
       </div>
     </div>
   );

@@ -481,7 +481,22 @@
         { "$ref": "#/$defs/blockBase" },
         {
           "type": "object",
-          "required": ["language", "files", "activeFile"],
+          "required": ["language"],
+          "anyOf": [
+            {
+              "required": ["files", "activeFile"],
+              "properties": {
+                "files": {},
+                "activeFile": {}
+              }
+            },
+            {
+              "required": ["starterCode"],
+              "properties": {
+                "starterCode": {}
+              }
+            }
+          ],
           "properties": {
             "type": { "const": "compiler" },
             "language": { "$ref": "#/$defs/nonEmptyString" },
@@ -492,8 +507,48 @@
               "items": { "$ref": "#/$defs/codeFile" }
             },
             "activeFile": { "$ref": "#/$defs/nonEmptyString" },
+            "starterCode": { "type": "string" },
             "stdin": { "type": "string" },
+            "inputs": {
+              "oneOf": [
+                { "type": "string" },
+                {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              ]
+            },
             "expectedOutput": { "type": "string" },
+            "validation": {
+              "type": "object",
+              "required": ["type"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["normalized", "normalized_output"]
+                }
+              },
+              "additionalProperties": false
+            },
+            "validator": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": ["normalized", "normalized_output"]
+                },
+                {
+                  "type": "object",
+                  "required": ["type"],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": ["normalized", "normalized_output"]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            },
             "runLabel": { "type": "string" },
             "resetLabel": { "type": "string" }
           }

@@ -42,7 +42,12 @@ export function QuizBlock({
     const isCorrect = selectedOptions.length === correctOptionIds.length
       && correctSelections.length === correctOptionIds.length;
 
-    recordQuizScore(blockId, correctSelections.length, correctOptionIds.length);
+    recordQuizScore(
+      blockId,
+      correctSelections.length,
+      correctOptionIds.length,
+      isCorrect,
+    );
     setIsSubmitted(true);
     setFeedback(
       isCorrect

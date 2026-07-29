@@ -13,6 +13,7 @@ export function Sidebar({
   onSelectLesson,
   isLoading,
   completedLessonIds,
+  visitedLessonIds,
   completedCount,
   lessonCount,
   completedModuleIds,
@@ -67,6 +68,7 @@ export function Sidebar({
                 currentLessonId={currentLessonId}
                 onSelectLesson={onSelectLesson}
                 completedLessonIds={completedLessonIds}
+                visitedLessonIds={visitedLessonIds}
                 isCompleted={completedModuleIds.has(module.id)}
                 key={module.id}
               />

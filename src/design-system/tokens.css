@@ -112,7 +112,7 @@
   --compiler-width: var(--layout-compiler-width);
 }
 
-:is(.app-shell, .dashboard-shell)[data-theme="dark"] {
+:is(.app-shell, .dashboard-shell, .course-overview-shell)[data-theme="dark"] {
   --color-canvas: #171a18;
   --color-surface: #222522;
   --color-surface-subtle: #272a27;

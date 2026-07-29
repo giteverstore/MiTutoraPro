@@ -13,8 +13,11 @@
     "test:navigation": "node scripts/test-course-navigation.mjs"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
     "@vitejs/plugin-react": "^4.3.4",
     "lucide-react": "^0.468.0",
+    "monaco-editor": "^0.56.0",
+    "pyodide": "^314.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "^6.0.7"

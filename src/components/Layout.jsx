@@ -10,6 +10,7 @@ import { LAYOUT_SIZE } from '../design-system/theme';
 import { useUser } from '../auth/UserContext';
 import { useLearningProgress } from '../progress/LearningProgressContext';
 import { createCompilerData } from './blocks/CompilerBlock';
+import { LessonFooter } from './LessonFooter';
 
 export function Layout({ courseLoader, onExitCourse }) {
   const { user, signOut } = useUser();
@@ -29,13 +30,19 @@ export function Layout({ courseLoader, onExitCourse }) {
     () => currentBlockList.find((block) => block.type === 'compiler') ?? null,
     [currentBlockList],
   );
+  const exerciseBlock = useMemo(
+    () => currentBlockList.find((block) => block.type === 'exercise') ?? null,
+    [currentBlockList],
+  );
   const lessonContentBlocks = useMemo(
     () => currentBlockList.filter((block) => block.type !== 'compiler'),
     [currentBlockList],
   );
   const compilerData = useMemo(
-    () => compilerBlock ? createCompilerData(compilerBlock) : null,
-    [compilerBlock],
+    () => compilerBlock
+      ? { ...createCompilerData(compilerBlock), exerciseId: exerciseBlock?.id ?? null }
+      : null,
+    [compilerBlock, exerciseBlock?.id],
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
@@ -87,9 +94,12 @@ export function Layout({ courseLoader, onExitCourse }) {
     () => new Set(learningProgress.completedLessons),
     [learningProgress.completedLessons],
   );
+  const visitedLessonIds = useMemo(
+    () => new Set(learningProgress.visitedLessons),
+    [learningProgress.visitedLessons],
+  );
   const lessonCount = useMemo(
-    () => course.modules.reduce((total, module) =>
-      total + module.lessons.filter((lesson) => !['locked', 'coming-soon'].includes(lesson.status)).length, 0),
+    () => course.modules.reduce((total, module) => total + module.lessons.length, 0),
     [course.modules],
   );
   const toggleTheme = useCallback(() => {
@@ -99,11 +109,6 @@ export function Layout({ courseLoader, onExitCourse }) {
       return nextTheme;
     });
   }, []);
-
-  const handleNextLesson = useCallback(() => {
-    if (currentLesson) learningProgress.completeLesson(currentLesson.id);
-    goToNextLesson();
-  }, [currentLesson, goToNextLesson, learningProgress.completeLesson]);
 
   const workspaceStyle = {
     '--sidebar-width': `${isSidebarCollapsed ? 76 : sidebarResize.value}px`,
@@ -115,15 +120,10 @@ export function Layout({ courseLoader, onExitCourse }) {
       <TopNavigation
         course={course}
         lesson={currentLesson}
-        previousLesson={previousLesson}
-        nextLesson={nextLesson}
-        onPreviousLesson={goToPreviousLesson}
-        onNextLesson={handleNextLesson}
         onMenuClick={() => setIsDrawerOpen(true)}
         onThemeToggle={toggleTheme}
         theme={theme}
         progress={learningProgress.courseProgress}
-        isCurrentLessonComplete={completedLessonIds.has(currentLesson?.id)}
         isBookmarked={learningProgress.isBookmarked(currentLesson?.id)}
         onToggleBookmark={() => learningProgress.toggleBookmark(currentLesson.id)}
         user={user}
@@ -144,7 +144,8 @@ export function Layout({ courseLoader, onExitCourse }) {
           isOpen={isDrawerOpen}
           onClose={() => setIsDrawerOpen(false)}
           completedLessonIds={completedLessonIds}
-          completedCount={completedLessonIds.size}
+          visitedLessonIds={visitedLessonIds}
+          completedCount={learningProgress.sequentialCompletedLessons}
           lessonCount={lessonCount}
           completedModuleIds={new Set(learningProgress.completedModules)}
           estimatedTimeRemaining={learningProgress.estimatedTimeRemaining}
@@ -169,6 +170,15 @@ export function Layout({ courseLoader, onExitCourse }) {
           isLoading={false}
           emptyState={course.ui.emptyLesson}
           unavailableState={course.ui.emptyCourse}
+          footer={(
+            <LessonFooter
+              lesson={currentLesson}
+              previousLesson={previousLesson}
+              nextLesson={nextLesson}
+              onPrevious={goToPreviousLesson}
+              onNext={() => goToNextLesson()}
+            />
+          )}
         >
           {compilerData ? (
             <div className="mobile-compiler">
