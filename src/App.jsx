@@ -1,19 +1,35 @@
 import { useEffect, useState } from 'react';
-import { Layout } from './components/Layout';
+import { LearningEnginePage } from './pages/LearningEnginePage';
 import { CourseLoaderProvider, useCourseLoader } from './course/CourseLoader';
 import { CourseLoadState } from './components/CourseLoadState';
 import { AuthFlow } from './components/auth/AuthFlow';
 import { UserProvider, useUser } from './auth/UserContext';
 import { CompilerProvider } from './compiler/CompilerProvider';
 import { createCompilerManager } from './compiler/createCompilerManager';
-import { Dashboard } from './dashboard/Dashboard';
-import { CourseOverview } from './course-overview/CourseOverview';
+import { HomePage } from './pages/HomePage';
+import { CourseOverviewPage } from './pages/CourseOverviewPage';
+import { PracticePage } from './pages/PracticePage';
+import { ChallengesPage } from './pages/ChallengesPage';
+import { BookmarksPage } from './pages/BookmarksPage';
+import { CertificatesPage } from './pages/CertificatesPage';
+import { ReferralsPage } from './pages/ReferralsPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { AppShell } from './app-shell/AppShell';
+import { BookmarkProvider } from './bookmarks/BookmarkContext';
 import {
   LearningProgressProvider,
   useLearningProgress,
 } from './progress/LearningProgressContext';
 
 const compilerManager = createCompilerManager();
+const APPLICATION_PAGES = {
+  practice: PracticePage,
+  challenges: ChallengesPage,
+  bookmarks: BookmarksPage,
+  certificates: CertificatesPage,
+  referrals: ReferralsPage,
+  settings: SettingsPage,
+};
 
 export default function App() {
   return (
@@ -36,31 +52,84 @@ function UserGate() {
     return <AuthFlow />;
   }
 
-  return <AuthenticatedApplication user={user} />;
+  return (
+    <BookmarkProvider userId={user.id}>
+      <AuthenticatedApplication user={user} />
+    </BookmarkProvider>
+  );
 }
 
 function AuthenticatedApplication({ user }) {
   const [activeCourseId, setActiveCourseId] = useState(null);
   const [courseStage, setCourseStage] = useState('overview');
+  const [activePage, setActivePage] = useState('home');
+  const [navigationTarget, setNavigationTarget] = useState(null);
+  const [launchLessonId, setLaunchLessonId] = useState(null);
+  const ActivePage = APPLICATION_PAGES[activePage];
+
+  const handlePageNavigation = (page) => {
+    setNavigationTarget(null);
+    setActivePage(page);
+  };
+
+  const openBookmark = (bookmark) => {
+    const { target } = bookmark;
+    if (target.page === 'course') {
+      setLaunchLessonId(target.lessonId);
+      setCourseStage('learning');
+      setActiveCourseId(target.courseId);
+      return;
+    }
+    setNavigationTarget(target);
+    setActivePage(target.page);
+  };
 
   if (!activeCourseId) {
     return (
-      <Dashboard
-        onOpenCourse={(courseId) => {
-          setActiveCourseId(courseId);
-          setCourseStage('overview');
-        }}
-      />
+      <AppShell activePage={activePage} onNavigate={handlePageNavigation}>
+        {activePage === 'home' ? (
+          <HomePage
+            onOpenCourse={(courseId) => {
+              setLaunchLessonId(null);
+              setActiveCourseId(courseId);
+              setCourseStage('overview');
+            }}
+          />
+        ) : activePage === 'practice' ? (
+          <PracticePage
+            initialQuestionId={navigationTarget?.page === 'practice'
+              ? navigationTarget.questionId
+              : null}
+            key={navigationTarget?.questionId ?? 'practice'}
+          />
+        ) : activePage === 'bookmarks' ? (
+          <BookmarksPage onOpenBookmark={openBookmark} />
+        ) : activePage === 'certificates' ? (
+          <CertificatesPage
+            onContinueCourse={(courseId) => {
+              setLaunchLessonId(null);
+              setCourseStage('overview');
+              setActiveCourseId(courseId);
+            }}
+          />
+        ) : <ActivePage />}
+      </AppShell>
     );
   }
 
   return (
-    <CourseLoaderProvider courseId={activeCourseId} initialLessonId={user.currentLesson}>
+    <CourseLoaderProvider
+      courseId={activeCourseId}
+      initialLessonId={launchLessonId ?? user.currentLesson}
+    >
       <LoadedCourseApplication
         stage={courseStage}
         onEnterCourse={() => setCourseStage('learning')}
         onShowOverview={() => setCourseStage('overview')}
-        onExitCourse={() => setActiveCourseId(null)}
+        onExitCourse={() => {
+          setLaunchLessonId(null);
+          setActiveCourseId(null);
+        }}
       />
     </CourseLoaderProvider>
   );
@@ -94,7 +163,7 @@ function LoadedCourseApplication({
     >
       <ProgressProfileSync courseLoader={courseLoader} />
       {stage === 'overview' ? (
-        <CourseOverview
+        <CourseOverviewPage
           course={courseLoader.currentCourse}
           onBack={onExitCourse}
           onEnterCourse={onEnterCourse}
@@ -171,5 +240,5 @@ function ProgressAwareApplication({ courseLoader, onExitCourse }) {
     setProgressCurrentLesson,
   ]);
 
-  return <Layout courseLoader={courseLoader} onExitCourse={onExitCourse} />;
+  return <LearningEnginePage courseLoader={courseLoader} onExitCourse={onExitCourse} />;
 }

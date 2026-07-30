@@ -11,6 +11,7 @@ import { useUser } from '../auth/UserContext';
 import { useLearningProgress } from '../progress/LearningProgressContext';
 import { createCompilerData } from './blocks/CompilerBlock';
 import { LessonFooter } from './LessonFooter';
+import { createCourseLessonBookmark } from '../bookmarks/bookmarkModel';
 
 export function Layout({ courseLoader, onExitCourse }) {
   const { user, signOut } = useUser();
@@ -102,6 +103,14 @@ export function Layout({ courseLoader, onExitCourse }) {
     () => course.modules.reduce((total, module) => total + module.lessons.length, 0),
     [course.modules],
   );
+  const lessonBookmark = useMemo(
+    () => currentLesson ? createCourseLessonBookmark({
+      course,
+      module: currentModule,
+      lesson: currentLesson,
+    }) : null,
+    [course, currentLesson, currentModule],
+  );
   const toggleTheme = useCallback(() => {
     setTheme((current) => {
       const nextTheme = current === 'light' ? 'dark' : 'light';
@@ -124,8 +133,12 @@ export function Layout({ courseLoader, onExitCourse }) {
         onThemeToggle={toggleTheme}
         theme={theme}
         progress={learningProgress.courseProgress}
-        isBookmarked={learningProgress.isBookmarked(currentLesson?.id)}
-        onToggleBookmark={() => learningProgress.toggleBookmark(currentLesson.id)}
+        bookmark={lessonBookmark}
+        onBookmarkChange={(saved) => {
+          if (currentLesson && learningProgress.isBookmarked(currentLesson.id) !== saved) {
+            learningProgress.toggleBookmark(currentLesson.id);
+          }
+        }}
         user={user}
         onSignOut={signOut}
         onExitCourse={onExitCourse}

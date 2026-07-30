@@ -9,6 +9,7 @@ import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching';
 import 'monaco-editor/editor/contrib/comment/browser/comment';
 import 'monaco-editor/editor/contrib/find/browser/findController';
 import 'monaco-editor/editor/contrib/linesOperations/browser/linesOperations';
+import { useSettings } from '../settings/useSettings';
 
 const EDITOR_THEME = 'mi-tutora-editor';
 
@@ -61,6 +62,12 @@ function configureMonaco(monacoInstance) {
 }
 
 export default function MonacoCodeEditor({ editor, value, onChange }) {
+  const settings = useSettings();
+  const editorTheme = {
+    'mitutora-dark': EDITOR_THEME,
+    'vs-dark': 'vs-dark',
+    light: 'vs',
+  }[settings.editor.theme] ?? EDITOR_THEME;
   const handleMount = (instance, monacoInstance) => {
     instance.addCommand(monacoInstance.KeyMod.CtrlCmd | monacoInstance.KeyCode.Enter, () => {
       window.dispatchEvent(new CustomEvent('learning-platform:run'));
@@ -82,7 +89,7 @@ export default function MonacoCodeEditor({ editor, value, onChange }) {
       <Editor
         height="100%"
         language="python"
-        theme={EDITOR_THEME}
+        theme={editorTheme}
         value={value}
         beforeMount={configureMonaco}
         onMount={handleMount}
@@ -100,15 +107,15 @@ export default function MonacoCodeEditor({ editor, value, onChange }) {
           detectIndentation: false,
           folding: true,
           fontFamily: "'DM Mono', monospace",
-          fontSize: 13,
+          fontSize: settings.editor.fontSize,
           glyphMargin: false,
           guides: { bracketPairs: true, indentation: true },
           insertSpaces: true,
           lineHeight: 24,
-          lineNumbers: 'on',
+          lineNumbers: settings.editor.lineNumbers ? 'on' : 'off',
           lineNumbersMinChars: 3,
           matchBrackets: 'always',
-          minimap: { enabled: false },
+          minimap: { enabled: settings.editor.minimap },
           padding: { top: 18, bottom: 18 },
           renderLineHighlight: 'line',
           renderWhitespace: 'selection',
@@ -116,8 +123,8 @@ export default function MonacoCodeEditor({ editor, value, onChange }) {
           smoothScrolling: true,
           stickyScroll: { enabled: false },
           tabFocusMode: false,
-          tabSize: 4,
-          wordWrap: 'on',
+          tabSize: settings.editor.tabSize,
+          wordWrap: settings.editor.wordWrap ? 'on' : 'off',
         }}
       />
     </div>

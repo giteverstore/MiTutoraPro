@@ -373,3 +373,7 @@ export function useLearningProgress() {
   }
   return context;
 }
+
+export function useOptionalLearningProgress() {
+  return useContext(LearningProgressContext);
+}

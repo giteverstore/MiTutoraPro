@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.learning-platform.local/daily-challenge.schema.json",
+  "title": "MiTutora Daily Challenge",
+  "description": "A single daily challenge rendered with shared lesson blocks and compiler infrastructure.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "date",
+    "title",
+    "summary",
+    "motivation",
+    "language",
+    "difficulty",
+    "topic",
+    "estimatedMinutes",
+    "reward",
+    "blocks"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "id": { "$ref": "learning-course.schema.json#/$defs/id" },
+    "date": { "type": "string", "format": "date" },
+    "title": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "summary": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "motivation": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "language": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "topic": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "estimatedMinutes": { "type": "integer", "minimum": 1 },
+    "reward": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coins", "streakIncrement"],
+      "properties": {
+        "coins": { "type": "integer", "minimum": 1 },
+        "streakIncrement": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "learning-course.schema.json#/$defs/block" },
+      "contains": {
+        "type": "object",
+        "properties": { "type": { "const": "compiler" } },
+        "required": ["type"]
+      },
+      "minContains": 1,
+      "maxContains": 1
+    }
+  }
+}

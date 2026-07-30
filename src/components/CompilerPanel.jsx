@@ -6,12 +6,16 @@ import { ResizeHandle } from './ResizeHandle';
 import { useDragResize } from '../hooks/useDragResize';
 import { LAYOUT_SIZE } from '../design-system/theme';
 import { useCompilerManager } from '../compiler/CompilerProvider';
-import { useLearningProgress } from '../progress/LearningProgressContext';
+import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
+import { useSettings } from '../settings/useSettings';
 
-export function CompilerPanel({ compiler }) {
+export function CompilerPanel({ compiler, onVerificationChange }) {
   const panelRef = useRef(null);
   const compilerManager = useCompilerManager();
-  const { verifyExercise, invalidateExerciseVerification } = useLearningProgress();
+  const learningProgress = useOptionalLearningProgress();
+  const settings = useSettings();
+  const verifyExercise = learningProgress?.verifyExercise;
+  const invalidateExerciseVerification = learningProgress?.invalidateExerciseVerification;
   const [isRunning, setIsRunning] = useState(false);
   const initialCode = compiler.editor.lines.map((line) => line.text ?? '').join('\n');
   const [code, setCode] = useState(initialCode);
@@ -35,13 +39,23 @@ export function CompilerPanel({ compiler }) {
     setIsRunning(true);
     setExecutionStatus('running');
     setVerificationStatus('idle');
-    if (compiler.exerciseId) invalidateExerciseVerification(compiler.exerciseId);
+    if (compiler.exerciseId) invalidateExerciseVerification?.(compiler.exerciseId);
+    onVerificationChange?.('idle');
     setError('');
     setExecutionTimeMs(null);
 
     try {
+      let source = currentCodeRef.current;
+      if (settings.editor.autoFormatOnRun) {
+        source = await compilerManager.format({
+          language: compiler.language,
+          source,
+        });
+        currentCodeRef.current = source;
+        setCode(source);
+      }
       const execution = await compilerManager.execute({
-        source: currentCodeRef.current,
+        source,
         language: compiler.language,
         stdin: compiler.stdin,
         filename: compiler.editor.fileName,
@@ -73,14 +87,17 @@ export function CompilerPanel({ compiler }) {
     compiler.stdin,
     compiler.language,
     invalidateExerciseVerification,
+    onVerificationChange,
+    settings.editor.autoFormatOnRun,
   ]);
 
   const handleCodeChange = useCallback((nextCode) => {
     currentCodeRef.current = nextCode;
     setCode(nextCode);
     setVerificationStatus('idle');
-    if (compiler.exerciseId) invalidateExerciseVerification(compiler.exerciseId);
-  }, [compiler.exerciseId, invalidateExerciseVerification]);
+    if (compiler.exerciseId) invalidateExerciseVerification?.(compiler.exerciseId);
+    onVerificationChange?.('idle');
+  }, [compiler.exerciseId, invalidateExerciseVerification, onVerificationChange]);
 
   const checkOutput = useCallback(() => {
     if (executionStatus !== 'success') return;
@@ -90,13 +107,14 @@ export function CompilerPanel({ compiler }) {
       validatorType: compiler.validatorType,
     });
     setVerificationStatus(matches ? 'matched' : 'mismatched');
+    onVerificationChange?.(matches ? 'matched' : 'mismatched');
     if (matches && compiler.exerciseId) {
-      verifyExercise(compiler.exerciseId, {
+      verifyExercise?.(compiler.exerciseId, {
         expectedOutput: compiler.expectedOutput,
         programOutput: result,
       });
     } else if (compiler.exerciseId) {
-      invalidateExerciseVerification(compiler.exerciseId);
+      invalidateExerciseVerification?.(compiler.exerciseId);
     }
   }, [
     compiler.exerciseId,
@@ -107,6 +125,7 @@ export function CompilerPanel({ compiler }) {
     invalidateExerciseVerification,
     result,
     verifyExercise,
+    onVerificationChange,
   ]);
 
   const resetEditor = useCallback(async () => {
@@ -120,7 +139,8 @@ export function CompilerPanel({ compiler }) {
     setError('');
     setExecutionStatus('idle');
     setVerificationStatus('idle');
-    if (compiler.exerciseId) invalidateExerciseVerification(compiler.exerciseId);
+    if (compiler.exerciseId) invalidateExerciseVerification?.(compiler.exerciseId);
+    onVerificationChange?.('idle');
     setExecutionTimeMs(null);
   }, [
     compiler.exerciseId,
@@ -128,6 +148,7 @@ export function CompilerPanel({ compiler }) {
     compilerManager,
     initialCode,
     invalidateExerciseVerification,
+    onVerificationChange,
   ]);
 
   useEffect(() => {

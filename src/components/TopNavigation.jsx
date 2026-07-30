@@ -1,6 +1,7 @@
-import { Bookmark, Menu, Moon, Sun } from 'lucide-react';
+import { Menu, Moon, Sun } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
+import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 
 export function TopNavigation({
   onMenuClick,
@@ -11,8 +12,8 @@ export function TopNavigation({
   user,
   onSignOut,
   progress,
-  isBookmarked,
-  onToggleBookmark,
+  bookmark,
+  onBookmarkChange,
   onExitCourse,
 }) {
   const { navigation } = course;
@@ -55,13 +56,14 @@ export function TopNavigation({
         >
           {theme === 'light' ? <Moon size={ICON_SIZE.md} /> : <Sun size={ICON_SIZE.md} />}
         </IconButton>
-        <IconButton
-          label={isBookmarked ? 'Remove lesson bookmark' : 'Bookmark this lesson'}
-          onClick={onToggleBookmark}
-          aria-pressed={isBookmarked}
-        >
-          <Bookmark size={ICON_SIZE.md} fill={isBookmarked ? 'currentColor' : 'none'} />
-        </IconButton>
+        {bookmark ? (
+          <BookmarkToggle
+            bookmark={bookmark}
+            onChange={onBookmarkChange}
+            iconOnly
+            className="topbar-bookmark-toggle"
+          />
+        ) : null}
         <div className="topbar-user">
           <span className="user-avatar" aria-hidden="true">{user.avatar}</span>
           <span className="user-name">{user.name}</span>

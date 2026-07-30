@@ -1,0 +1,61 @@
+import { CERTIFICATE_STATUS, createCertificate } from './certificateModel';
+
+export const mockCertificates = [
+  createCertificate({
+    id: 'certificate-python-foundations',
+    courseId: 'mi-tutora-python-course',
+    courseTitle: 'Python Foundations',
+    description: 'Core Python syntax, data structures, functions, and practical problem solving.',
+    status: CERTIFICATE_STATUS.earned,
+    language: 'Python',
+    progress: 100,
+    certifiedHours: 18,
+    completionDate: '2026-06-18',
+    issueDate: '2026-06-18',
+    credentialId: 'MIT-PY-2026-10482',
+    verificationStatus: 'verified',
+    verificationUrl: 'https://verify.mitutora.example/MIT-PY-2026-10482',
+  }),
+  createCertificate({
+    id: 'certificate-web-essentials',
+    courseId: 'web-development',
+    courseTitle: 'Web Development Essentials',
+    description: 'Accessible interfaces built with semantic HTML, modern CSS, and JavaScript.',
+    status: CERTIFICATE_STATUS.earned,
+    language: 'JavaScript',
+    progress: 100,
+    certifiedHours: 22,
+    completionDate: '2026-04-02',
+    issueDate: '2026-04-02',
+    credentialId: 'MIT-WEB-2026-08317',
+    verificationStatus: 'verified',
+    verificationUrl: 'https://verify.mitutora.example/MIT-WEB-2026-08317',
+  }),
+  createCertificate({
+    id: 'progress-data-science',
+    courseId: 'mi-tutora-python-course',
+    courseTitle: 'Data Science Essentials',
+    description: 'Analysis workflows, visualization, and practical data reasoning.',
+    status: CERTIFICATE_STATUS.inProgress,
+    language: 'Python',
+    progress: 64,
+    certifiedHours: 0,
+  }),
+  createCertificate({
+    id: 'progress-javascript',
+    courseId: 'course-placeholder',
+    courseTitle: 'JavaScript Patterns',
+    description: 'Reusable patterns for maintainable modern JavaScript applications.',
+    status: CERTIFICATE_STATUS.inProgress,
+    language: 'JavaScript',
+    progress: 32,
+    certifiedHours: 0,
+  }),
+];
+
+export const certificateOverview = {
+  certificatesEarned: 2,
+  coursesInProgress: 2,
+  hoursCertified: 40,
+  completionRate: 50,
+};

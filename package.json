@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "validate:course": "node scripts/validate-course-schema.mjs",
     "validate:python-course": "node scripts/validate-python-course.mjs",
+    "validate:practice": "node scripts/validate-practice-schema.mjs",
+    "validate:challenge": "node scripts/validate-challenge-schema.mjs",
     "convert:python-course": "node scripts/convert-python-course.mjs",
     "test:navigation": "node scripts/test-course-navigation.mjs"
   },
