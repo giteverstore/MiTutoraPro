@@ -1,4 +1,5 @@
 import { authRepository as defaultRepository } from './AuthRepository';
+import { logAuthenticationError, logAuthenticationEvent } from './authDiagnostics';
 
 function normalizeUser(firebaseUser, document = null) {
   if (!firebaseUser) return null;
@@ -19,14 +20,25 @@ function normalizeUser(firebaseUser, document = null) {
 export function getAuthenticationErrorMessage(error) {
   const messages = {
     'auth/email-already-in-use': 'An account already exists for this email.',
+    'auth/account-exists-with-different-credential': 'An account already exists with a different sign-in method.',
+    'auth/credential-already-in-use': 'This sign-in method is already connected to another account.',
     'auth/invalid-credential': 'The email or password is incorrect.',
+    'auth/invalid-login-credentials': 'The email or password is incorrect.',
     'auth/invalid-email': 'Enter a valid email address.',
+    'auth/missing-password': 'Password is required.',
+    'auth/user-not-found': 'The email or password is incorrect.',
+    'auth/wrong-password': 'The email or password is incorrect.',
+    'auth/user-disabled': 'This account has been disabled. Contact support for help.',
     'auth/popup-closed-by-user': 'Google sign-in was cancelled.',
     'auth/popup-blocked': 'Allow popups to continue with Google.',
+    'auth/cancelled-popup-request': 'A sign-in request is already in progress.',
+    'auth/unauthorized-domain': 'Google sign-in is not available from this domain.',
+    'auth/operation-not-allowed': 'This sign-in method is not currently available.',
+    'auth/network-request-failed': 'Check your internet connection and try again.',
     'auth/too-many-requests': 'Too many attempts. Please try again later.',
-    'auth/weak-password': 'Choose a stronger password with at least eight characters.',
+    'auth/weak-password': 'Password must be at least 6 characters.',
   };
-  return messages[error?.code] ?? error?.message ?? 'Authentication could not be completed.';
+  return messages[error?.code] ?? 'Authentication could not be completed. Please try again.';
 }
 
 function authenticationError(error) {
@@ -84,12 +96,25 @@ export class AuthService {
     return this.repository.observeAuthState(async (firebaseUser) => {
       try {
         if (!firebaseUser) {
+          logAuthenticationEvent('Auth state resolved without an authenticated user.');
           next(null);
           return;
         }
+        logAuthenticationEvent('Authenticated Firebase user received by AuthService.', {
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+        });
         const document = await this.repository.synchronizeUserDocument(firebaseUser);
-        next(normalizeUser(firebaseUser, document));
+        logAuthenticationEvent('Firestore synchronization awaited successfully.', {
+          uid: firebaseUser.uid,
+        });
+        const user = normalizeUser(firebaseUser, document);
+        logAuthenticationEvent('Publishing authenticated user to AuthContext.', {
+          uid: user.uid,
+        });
+        next(user);
       } catch (authError) {
+        logAuthenticationError('Auth-state user synchronization failed.', authError);
         error?.(authError);
       }
     }, error);

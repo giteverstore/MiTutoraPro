@@ -15,3 +15,5 @@ export const courseConverter = createIdentityConverter();
 export const progressConverter = createIdentityConverter();
 export const settingsConverter = createIdentityConverter();
 export const bookmarkConverter = createIdentityConverter();
+export const certificateConverter = createIdentityConverter();
+export const referralConverter = createIdentityConverter();

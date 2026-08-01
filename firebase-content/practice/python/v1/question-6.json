@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "practice-palindrome",
+  "title": "Palindrome Check",
+  "summary": "Combine normalization and comparison to inspect text.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Strings",
+  "estimatedMinutes": 20,
+  "xp": 120,
+  "blocks": [
+    {
+      "id": "palindrome-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "palindrome-copy",
+      "type": "paragraph",
+      "content": "Read a phrase, ignore spaces and letter case, then print `True` if it is a palindrome and `False` otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "palindrome-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "palindrome-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nNever odd or even\n\nOutput\nTrue"
+    },
+    {
+      "id": "palindrome-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "phrase = input()\n# Normalize the phrase and check it\n",
+      "stdin": "Never odd or even",
+      "expectedOutput": "True",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,13 +1,14 @@
 import { useMemo, useState } from 'react';
+import { useContentResource } from '../content/hooks/useContentResource';
 import { PracticeDetail } from './PracticeDetail';
 import { PracticeFilters } from './PracticeFilters';
 import { PracticeQuestionCard } from './PracticeQuestionCard';
 import { PracticeStatistics } from './PracticeStatistics';
 import {
   initiallySolvedQuestionIds,
-  practiceQuestions,
   practiceStatistics,
 } from './practiceData';
+import { loadPracticeQuestions } from './practiceContentSource';
 
 const initialFilters = {
   difficulty: 'all',
@@ -20,6 +21,8 @@ function uniqueValues(items, property) {
 }
 
 export function PracticePage({ initialQuestionId = null }) {
+  const { data: loadedQuestions, error, loading } = useContentResource(loadPracticeQuestions);
+  const practiceQuestions = loadedQuestions ?? [];
   const [filters, setFilters] = useState(initialFilters);
   const [openQuestionId, setOpenQuestionId] = useState(initialQuestionId);
   const [solvedQuestionIds, setSolvedQuestionIds] = useState(
@@ -28,7 +31,7 @@ export function PracticePage({ initialQuestionId = null }) {
   const filterOptions = useMemo(() => ({
     difficulties: uniqueValues(practiceQuestions, 'difficulty'),
     topics: uniqueValues(practiceQuestions, 'topic'),
-  }), []);
+  }), [practiceQuestions]);
   const visibleQuestions = useMemo(() => {
     const query = filters.search.trim().toLowerCase();
     return practiceQuestions.filter((question) =>
@@ -37,6 +40,17 @@ export function PracticePage({ initialQuestionId = null }) {
       && (!query || `${question.title} ${question.summary} ${question.topic}`.toLowerCase().includes(query)));
   }, [filters]);
   const openQuestion = practiceQuestions.find(({ id }) => id === openQuestionId) ?? null;
+
+  if (loading || error) {
+    return (
+      <div className="practice-page">
+        <header className="practice-page-heading">
+          <h1>Sharpen your coding skills.</h1>
+          <p>{error ? error.message : 'Loading practice questions…'}</p>
+        </header>
+      </div>
+    );
+  }
 
   if (openQuestion) {
     return (

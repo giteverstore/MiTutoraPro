@@ -28,6 +28,8 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Certificates](architecture/certificates.md)
 - [Referrals](architecture/referrals.md)
 - [Firebase foundation](architecture/firebase.md)
+- [Firebase content infrastructure](architecture/firebase-content.md)
+- [User data persistence](architecture/user-data.md)
 - [Monaco integration](architecture/monaco-integration.md)
 - [Pyodide runtime](architecture/pyodide-runtime.md)
 

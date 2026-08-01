@@ -29,7 +29,7 @@ export function CourseLoaderProvider({ children, courseId, initialLessonId = nul
       setError(null);
 
       try {
-        const loadedMetadata = await loadCourseMetadata(controller.signal);
+        const loadedMetadata = await loadCourseMetadata(controller.signal, courseId);
         const { course: courseDocument } = await loadCourseDocument(
           loadedMetadata,
           courseId,

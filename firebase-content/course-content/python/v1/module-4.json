@@ -1,0 +1,1183 @@
+{
+  "id": "module-4-python-variables",
+  "title": "Module 4: Python Variables",
+  "description": "Lessons 4.1 through 4.21",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-4-1-variables-introduction",
+      "number": "4.1",
+      "title": "Variables Introduction",
+      "summary": "In our previous lessons, you learned about numbers and strings and how to print them.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-1-paragraph-1",
+          "type": "paragraph",
+          "content": "In our previous lessons, you learned about numbers and strings and how to print them.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-1-paragraph-2",
+          "type": "paragraph",
+          "content": "As you begin working on more complex programs, you'll need to store and use this data, not just print it. That's where variables come in.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-1-paragraph-3",
+          "type": "paragraph",
+          "content": "A variable is a container used for storing data.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-1-paragraph-4",
+          "type": "paragraph",
+          "content": "In this lesson, you'll learn to:",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-1-paragraph-5",
+          "type": "paragraph",
+          "content": "- Create variables\n- Print variables\n- Change the values assigned to variables",
+          "format": "markdown"
+        },
+        {
+          "id": "page-4-1-heading-6",
+          "type": "heading",
+          "level": 3,
+          "text": "Let's start with creating variables."
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-2-create-variables",
+      "number": "4.2",
+      "title": "Create Variables",
+      "summary": "We create variables by assigning data to them. For example,",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-2-paragraph-1",
+          "type": "paragraph",
+          "content": "We create variables by assigning data to them. For example,",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-2-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "greeting = \"Merry Christmas\"",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-2-paragraph-3",
+          "type": "paragraph",
+          "content": "Here,",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-2-paragraph-4",
+          "type": "paragraph",
+          "content": "- greeting is a variable.\n- greeting is assigned the string value \"Merry Christmas\".\n- The = sign is used to assign values to variables.",
+          "format": "markdown"
+        },
+        {
+          "id": "page-4-2-image-5",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-07.png",
+          "alt": "Assign ",
+          "caption": "Figure: Assign Value to Variable",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-4-2-paragraph-6",
+          "type": "paragraph",
+          "content": "Next, let's see if you can correctly identify variables.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-3-quiz-whats-the-variable-in-the-following-code",
+      "number": "4.3",
+      "title": "Quiz: What's the variable in the following code?",
+      "summary": "What's the variable in the following code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-3-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "jack = \"name\"",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-4-3-quiz-2",
+          "type": "quiz",
+          "question": "What's the variable in the following code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "jack"
+            },
+            {
+              "id": "option-b",
+              "text": "\"name\""
+            },
+            {
+              "id": "option-c",
+              "text": "name"
+            },
+            {
+              "id": "option-d",
+              "text": "="
+            }
+          ],
+          "correctOptionIds": [
+            "option-a"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-4-printing-variables",
+      "number": "4.4",
+      "title": "Printing Variables",
+      "summary": "Like numbers and strings, you can use print() to display variables.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-4-paragraph-1",
+          "type": "paragraph",
+          "content": "Like numbers and strings, you can use print() to display variables.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-4-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "# Create a variable\ngreeting = \"Merry Christmas\"\n# Display the variable\nprint(greeting)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-4-code-3",
+          "type": "code",
+          "language": "text",
+          "code": "Merry Christmas",
+          "caption": "Output"
+        },
+        {
+          "id": "page-4-4-paragraph-4",
+          "type": "paragraph",
+          "content": "Here,",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-4-paragraph-5",
+          "type": "paragraph",
+          "content": "- greeting = \"Merry Christmas\" – Creates a variable named greeting and assigns it the string \"Merry Christmas\".\n- print(greeting) – Prints the value stored in the greeting variable.",
+          "format": "markdown"
+        },
+        {
+          "id": "page-4-4-image-6",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-08.png",
+          "alt": "Idea Emoji",
+          "caption": "Idea Emoji",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-4-4-note-7",
+          "type": "note",
+          "title": "Remember",
+          "content": "Line 1 and Line 4 are comments. They are ignored by Python.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-4-paragraph-8",
+          "type": "paragraph",
+          "content": "Wondering why print(greeting) displays Merry Christmas instead of greeting? The next example will clarify this.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-5-printing-variables",
+      "number": "4.5",
+      "title": "Printing Variables",
+      "summary": "Let's look at another example of printing variables.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-5-paragraph-1",
+          "type": "paragraph",
+          "content": "Let's look at another example of printing variables.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-5-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "greeting = \"Merry Christmas\"\nprint(\"greeting\") # Output: greeting\nprint(greeting) # Output: Merry Christmas",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-5-code-3",
+          "type": "code",
+          "language": "text",
+          "code": "Merry Christmas",
+          "caption": "Output"
+        },
+        {
+          "id": "page-4-5-paragraph-4",
+          "type": "paragraph",
+          "content": "Let's analyze each print() separately.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-5-heading-5",
+          "type": "heading",
+          "level": 3,
+          "text": "print(\"greeting\")"
+        },
+        {
+          "id": "page-4-5-paragraph-6",
+          "type": "paragraph",
+          "content": "Here, \"greeting\" is a string. Therefore, the text greeting is displayed as it is.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-5-heading-7",
+          "type": "heading",
+          "level": 3,
+          "text": "print(greeting)"
+        },
+        {
+          "id": "page-4-5-paragraph-8",
+          "type": "paragraph",
+          "content": "Here, greeting is not wrapped inside quotation marks. Hence, greeting is recognized as a variable.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-5-paragraph-9",
+          "type": "paragraph",
+          "content": "In this case, the value stored in the greeting variable is printed.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-6-a-common-mistake",
+      "number": "4.6",
+      "title": "A Common Mistake",
+      "summary": "Consider the following program:",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-6-paragraph-1",
+          "type": "paragraph",
+          "content": "Consider the following program:",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-6-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "print(age)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-6-paragraph-3",
+          "type": "paragraph",
+          "content": "Here, age is not wrapped inside quotation marks. Therefore, it is treated as a variable.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-6-paragraph-4",
+          "type": "paragraph",
+          "content": "However, the age variable doesn't exist in the program because we haven't defined what this variable is storing. That's why the above program results in an error.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-6-paragraph-5",
+          "type": "paragraph",
+          "content": "To fix this error, you can add a line of code at the beginning to define the age variable.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-7-quiz-whats-the-output-of-the-following-code",
+      "number": "4.7",
+      "title": "Quiz: What's the output of the following code?",
+      "summary": "What's the output of the following code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-7-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "name = \"Jack\"\nprint(name)\nprint(\"Jackie\")",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-4-7-quiz-2",
+          "type": "quiz",
+          "question": "What's the output of the following code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "Jackie"
+            },
+            {
+              "id": "option-b",
+              "text": "Jack\nJackie"
+            },
+            {
+              "id": "option-c",
+              "text": "name\nJackie"
+            },
+            {
+              "id": "option-d",
+              "text": "Jackie\nJack"
+            }
+          ],
+          "correctOptionIds": [
+            "option-b"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-8-quiz-whats-the-output-of-the-following-code",
+      "number": "4.8",
+      "title": "Quiz: What's the output of the following code?",
+      "summary": "What's the output of the following code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-8-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "name = \"Jack\"\nprint(age)",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-4-8-quiz-2",
+          "type": "quiz",
+          "question": "What's the output of the following code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "age"
+            },
+            {
+              "id": "option-b",
+              "text": "Jack"
+            },
+            {
+              "id": "option-c",
+              "text": "name"
+            },
+            {
+              "id": "option-d",
+              "text": "The code results in an error."
+            }
+          ],
+          "correctOptionIds": [
+            "option-d"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-9-print-variables",
+      "number": "4.9",
+      "title": "Print Variables",
+      "summary": "Write a program to print a variable.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-9-exercise-4",
+          "type": "exercise",
+          "title": "Print Variables",
+          "instructions": {
+            "content": "Write a program to print a variable.",
+            "format": "markdown"
+          },
+          "objectives": [
+            "Create a variable named salary and assign 4950.5 to it.",
+            "Print the variable."
+          ],
+          "difficulty": "easy",
+          "hints": [],
+          "starterFiles": [
+            {
+              "name": "main.py",
+              "content": "# Print Variables\n# Write your solution below\n"
+            }
+          ],
+          "actionLabel": "Start exercise"
+        },
+        {
+          "id": "page-4-9-compiler-5",
+          "type": "compiler",
+          "language": "python",
+          "runtime": "python3",
+          "files": [
+            {
+              "name": "main.py",
+              "content": "# Print Variables\n# Write your solution below\n"
+            }
+          ],
+          "activeFile": "main.py",
+          "expectedOutput": "4950.5",
+          "runLabel": "Run code",
+          "resetLabel": "Reset starter code"
+        },
+        {
+          "id": "page-4-9-code-1",
+          "type": "code",
+          "language": "text",
+          "code": "4950.5",
+          "caption": "Expected Output"
+        },
+        {
+          "id": "page-4-9-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "salary = 4950.5\nprint(salary)",
+          "caption": "Solution"
+        },
+        {
+          "id": "page-4-9-ai-explanation-3",
+          "type": "ai_explanation",
+          "title": "AI Explanation",
+          "context": "Who's looking to keep track of their riches? Here's how it works:\n\nIn this piece of code, we set the variable salary to the value of 4950.5. Pretty straightforward, right? This is akin to putting a sticky note on a virtual board named \"salary\" with that number on it—essential in the world of programming.\n\nNext, print(salary) will display 4950.5 on your screen. It's like shouting your bank balance across a quiet room. Necessary, sometimes!\n\nThis tiny snippet is a gentle introduction to variables and output in programming. With every code line, you're crafting the tools you'll use to build more complex logic.\n\nReady to code your way to bigger ideas?",
+          "actionLabel": "Explain this code",
+          "suggestedPrompts": [
+            "Explain the solution step by step."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-10-change-values-stored-in-variables",
+      "number": "4.10",
+      "title": "Change Values Stored in Variables",
+      "summary": "The value of a variable can change as the program runs, which is why it is called a variable. For example,",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-10-paragraph-1",
+          "type": "paragraph",
+          "content": "The value of a variable can change as the program runs, which is why it is called a variable. For example,",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-10-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "age = 25\nprint(age)\nage = 100\nprint(age)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-10-code-3",
+          "type": "code",
+          "language": "text",
+          "code": "100",
+          "caption": "Output"
+        },
+        {
+          "id": "page-4-10-paragraph-4",
+          "type": "paragraph",
+          "content": "Here,",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-10-paragraph-5",
+          "type": "paragraph",
+          "content": "- The initial value of age is 25. So, the first print(age) prints 25.\n- Its value is then changed to 100. So, the second print(age) prints 100.",
+          "format": "markdown"
+        },
+        {
+          "id": "page-4-10-image-6",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-09.png",
+          "alt": "The value of the age variable is changed from 25 to 100",
+          "caption": "Figure: Change Values Stored in Variable",
+          "loading": "lazy"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-11-visualizing-changing-variables",
+      "number": "4.11",
+      "title": "Visualizing Changing Variables",
+      "summary": "To help you understand how a Python program works, we've created a code visualizer.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-11-paragraph-1",
+          "type": "paragraph",
+          "content": "To help you understand how a Python program works, we've created a code visualizer.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-11-paragraph-2",
+          "type": "paragraph",
+          "content": "Click the \"Visualize this code\" button to see how the value stored in variables changes from one line to the next.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-11-code-3",
+          "type": "code",
+          "language": "python",
+          "code": "age = 25\nprint(age)\nage = 100\nprint(age)",
+          "caption": "Example"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-12-problem",
+      "number": "4.12",
+      "title": "PROBLEM",
+      "summary": "Change Values Stored in a Variable",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-12-exercise-4",
+          "type": "exercise",
+          "title": "Change Values Stored in a Variable",
+          "instructions": {
+            "content": "Change Values Stored in a Variable\n\nWrite a program to change the value assigned to a variable.",
+            "format": "markdown"
+          },
+          "objectives": [
+            "Create a variable named var and assign the value of 25 to it.",
+            "Print var.",
+            "Assign the value \"John\" to variable var.",
+            "Print the variable var again."
+          ],
+          "difficulty": "easy",
+          "hints": [],
+          "starterFiles": [
+            {
+              "name": "main.py",
+              "content": "# Change Values Stored in a Variable\n# Write your solution below\n"
+            }
+          ],
+          "actionLabel": "Start exercise"
+        },
+        {
+          "id": "page-4-12-compiler-5",
+          "type": "compiler",
+          "language": "python",
+          "runtime": "python3",
+          "files": [
+            {
+              "name": "main.py",
+              "content": "# Change Values Stored in a Variable\n# Write your solution below\n"
+            }
+          ],
+          "activeFile": "main.py",
+          "expectedOutput": "25\nJohn",
+          "runLabel": "Run code",
+          "resetLabel": "Reset starter code"
+        },
+        {
+          "id": "page-4-12-code-1",
+          "type": "code",
+          "language": "text",
+          "code": "25\nJohn",
+          "caption": "Expected Output"
+        },
+        {
+          "id": "page-4-12-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "# Assign 25 to the variable var\nvar = 25\n# Print var\nprint(var)\n# Assign \"John\" to the variable var\nvar = \"John\"\n# Print var again\nprint(var)",
+          "caption": "Solution"
+        },
+        {
+          "id": "page-4-12-ai-explanation-3",
+          "type": "ai_explanation",
+          "title": "AI Explanation",
+          "context": "You see, code is like magic! Here's how it works:\n\nFirst, our mystical friend 'var' receives the numerical treasure of 25. A quick command makes it reveal the number in its magical window, also known as printing.\n\nIntroducing twists of fate and plot, 'var' sheds its numeric skin and wraps itself in the name \"John\" like it's dressing up for a party.\n\nOnce more, the curtain rises, and lo - \"John\" appears in the show, starring 'var' as the constant shapeshifter.\n\nIn the Realm of Python, variables are malleable, effortlessly transitioning their form, and that is its true sorcery. The power to adapt!\n\nAnd there, my coding companion, is the story of how var morphs between a number and a string, performing like an actor on stage.\n\nAre you ready to code your own adventures and let the variables play different roles?",
+          "actionLabel": "Explain this code",
+          "suggestedPrompts": [
+            "Explain the solution step by step."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-13-quiz-whats-the-output-of-this-code",
+      "number": "4.13",
+      "title": "Quiz: What's the output of this code?",
+      "summary": "What's the output of this code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-13-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "var = 50\nvar = \"Jack\"\nvar = 25.5\nprint(var)",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-4-13-quiz-2",
+          "type": "quiz",
+          "question": "What's the output of this code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "25.5"
+            },
+            {
+              "id": "option-b",
+              "text": "50\nJack\n25.5"
+            },
+            {
+              "id": "option-c",
+              "text": "Jack"
+            },
+            {
+              "id": "option-d",
+              "text": "None of the above"
+            }
+          ],
+          "correctOptionIds": [
+            "option-a"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-14-assign-value-of-one-variable-to-another",
+      "number": "4.14",
+      "title": "Assign Value of One Variable to Another",
+      "summary": "You can also assign the value of one variable to another.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-14-paragraph-1",
+          "type": "paragraph",
+          "content": "You can also assign the value of one variable to another.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-14-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "color1 = \"blue\"\nprint(color1) # Output: blue\ncolor2 = \"pink\"\n# Assign the value stored in color2 to color1\ncolor1 = color2\nprint(color1) # Output: pink\nprint(color2) # Output: pink",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-14-code-3",
+          "type": "code",
+          "language": "text",
+          "code": "pink\npink",
+          "caption": "Output"
+        },
+        {
+          "id": "page-4-14-paragraph-4",
+          "type": "paragraph",
+          "content": "Here's how the above program works.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-14-image-5",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-10.png",
+          "alt": "Assign Value of color2 to color1",
+          "caption": "Figure: Assign Value of color2 to color1",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-4-14-image-6",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-11.png",
+          "alt": "Idea Emoji",
+          "caption": "Idea Emoji",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-4-14-note-7",
+          "type": "note",
+          "title": "Note",
+          "content": "color1 = color2 assigns the value of the variable color2 to color1. However, this does not affect the value of color2; it remains unchanged.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-15-visualizing-changing-variables",
+      "number": "4.15",
+      "title": "Visualizing Changing Variables",
+      "summary": "Run this visualizer to see the values stored in the variables at each step of the program.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-15-paragraph-1",
+          "type": "paragraph",
+          "content": "Run this visualizer to see the values stored in the variables at each step of the program.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-15-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "color1 = \"blue\"\nprint(color1)\ncolor2 = \"pink\"\ncolor1 = color2\nprint(color1)\nprint(color2)",
+          "caption": "Example"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-16-assign-value-of-one-variable-to-another",
+      "number": "4.16",
+      "title": "Assign Value of One Variable to Another",
+      "summary": "Consider the example below:",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-16-paragraph-1",
+          "type": "paragraph",
+          "content": "Consider the example below:",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-16-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "# Create a variable\ncity1 = \"Paris\"\n# Assign city2 to city1\ncity1 = city2\nprint(city1)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-16-code-3",
+          "type": "code",
+          "language": "text",
+          "code": "NameError: name 'city2' is not defined",
+          "caption": "Output"
+        },
+        {
+          "id": "page-4-16-paragraph-4",
+          "type": "paragraph",
+          "content": "In the program, the line city1 = city2 tries to assign the value of city2 to city1.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-16-paragraph-5",
+          "type": "paragraph",
+          "content": "However, since city2 is not defined, the code produces an error.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-17-quiz-whats-the-output-of-this-code",
+      "number": "4.17",
+      "title": "Quiz: What's the output of this code?",
+      "summary": "What's the output of this code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-17-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "fruit1 = \"apple\"\nfruit2 = \"banana\"\nfruit1 = fruit2\nprint(fruit1)",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-4-17-quiz-2",
+          "type": "quiz",
+          "question": "What's the output of this code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "apple"
+            },
+            {
+              "id": "option-b",
+              "text": "banana"
+            },
+            {
+              "id": "option-c",
+              "text": "applebanana"
+            },
+            {
+              "id": "option-d",
+              "text": "The code results in an error."
+            }
+          ],
+          "correctOptionIds": [
+            "option-b"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-18-quiz-whats-the-output-of-this-code",
+      "number": "4.18",
+      "title": "Quiz: What's the output of this code?",
+      "summary": "What's the output of this code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-18-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "city1 = \"London\"\ndallas = \"city3\"\ncity2 = city1\nprint(city3)",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-4-18-note-2",
+          "type": "note",
+          "title": "Note",
+          "content": "This is a tricky one! Analyze the code carefully.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-18-quiz-3",
+          "type": "quiz",
+          "question": "What's the output of this code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "Error because city1 is not defined."
+            },
+            {
+              "id": "option-b",
+              "text": "Error because city2 is not defined."
+            },
+            {
+              "id": "option-c",
+              "text": "London"
+            },
+            {
+              "id": "option-d",
+              "text": "Error because city3 is not defined."
+            }
+          ],
+          "correctOptionIds": [
+            "option-d"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-19-program",
+      "number": "4.19",
+      "title": "PROGRAM",
+      "summary": "Assign One Variable to Other",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-19-exercise-4",
+          "type": "exercise",
+          "title": "Assign One Variable to Other",
+          "instructions": {
+            "content": "Assign One Variable to Other\n\nWrite a program to assign one variable to another.",
+            "format": "markdown"
+          },
+          "objectives": [
+            "Create a variable named favorite_food with the value \"steak\".",
+            "Print the value of favorite_food.",
+            "Create another variable named food with the value \"pizza\".",
+            "Assign the food variable to the favorite_food variable.",
+            "Print the favorite_food variable again."
+          ],
+          "difficulty": "easy",
+          "hints": [],
+          "starterFiles": [
+            {
+              "name": "main.py",
+              "content": "# Assign One Variable to Other\n# Write your solution below\n"
+            }
+          ],
+          "actionLabel": "Start exercise"
+        },
+        {
+          "id": "page-4-19-compiler-5",
+          "type": "compiler",
+          "language": "python",
+          "runtime": "python3",
+          "files": [
+            {
+              "name": "main.py",
+              "content": "# Assign One Variable to Other\n# Write your solution below\n"
+            }
+          ],
+          "activeFile": "main.py",
+          "expectedOutput": "steak\npizza",
+          "runLabel": "Run code",
+          "resetLabel": "Reset starter code"
+        },
+        {
+          "id": "page-4-19-code-1",
+          "type": "code",
+          "language": "text",
+          "code": "steak\npizza",
+          "caption": "Expected Output"
+        },
+        {
+          "id": "page-4-19-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "# Create the favorite_food variable\nfavorite_food = \"steak\"\nprint(favorite_food)\n# Create the food variable\nfood = \"pizza\"\n# Assign food to favorite_food\nfavorite_food = food\n# Print the favorite_food variable\nprint(favorite_food)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-19-ai-explanation-3",
+          "type": "ai_explanation",
+          "title": "AI Explanation",
+          "context": "Code with a side of steak and pizza! Here's how it works:\n\nFirst, the code creates a variable favorite_food and sets it to \"steak.\" It prints this, showcasing the current favorite.\n\nNext, it introduces a new variable food with the value \"pizza.\" Then, it updates favorite_food to be\n\n\"pizza,\" effectively changing the favorite from steak to pizza. Finally, it prints the new favorite food.\n\nIn just a few lines, it demonstrates variable assignment and updating, which are key concepts in programming.\n\nSo, are you ready to cook up more code recipes?",
+          "actionLabel": "Explain this code",
+          "suggestedPrompts": [
+            "Explain the solution step by step."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-20-legal-variables-name",
+      "number": "4.20",
+      "title": "Legal Variables Name",
+      "summary": "There are certain rules for naming variables. Let's learn about them.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-20-paragraph-1",
+          "type": "paragraph",
+          "content": "There are certain rules for naming variables. Let's learn about them.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-20-paragraph-2",
+          "type": "paragraph",
+          "content": "A variable name can only consist of three elements:",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-20-paragraph-3",
+          "type": "paragraph",
+          "content": "- alphabets\n- numbers\n- underscores",
+          "format": "markdown"
+        },
+        {
+          "id": "page-4-20-paragraph-4",
+          "type": "paragraph",
+          "content": "Do not use spaces or any other symbols when naming a variable. If a variable name consists of two words, separate them with an underscore, _ or use camelCase.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-20-paragraph-5",
+          "type": "paragraph",
+          "content": "For example, first name and first-name are not valid variable names, but first_name and firstName are valid.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-20-image-6",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-12.png",
+          "alt": "If the name consists of two or more words, use underscores to separate them. We cannot use spaces or other symbols in variable names.",
+          "caption": "Figure: Legal and Illegal Variable Names",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-4-20-paragraph-7",
+          "type": "paragraph",
+          "content": "It's important to note that a valid variable name doesn't necessarily mean it's a good name. For example, lkc is a valid variable name, but it's not meaningful.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-20-paragraph-8",
+          "type": "paragraph",
+          "content": "Refer to this article to learn how and why you should assign clear and meaningful names to variables.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-21-recap-variable-basics",
+      "number": "4.21",
+      "title": "Recap: Variable Basics",
+      "summary": "We create variables by assigning values to them.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-variables"
+      ],
+      "blocks": [
+        {
+          "id": "page-4-21-heading-1",
+          "type": "heading",
+          "level": 3,
+          "text": "Create Variables"
+        },
+        {
+          "id": "page-4-21-paragraph-2",
+          "type": "paragraph",
+          "content": "We create variables by assigning values to them.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-21-code-3",
+          "type": "code",
+          "language": "python",
+          "code": "age = 25\nprint(age) # Output: 25",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-21-heading-4",
+          "type": "heading",
+          "level": 3,
+          "text": "Change Values of Variables"
+        },
+        {
+          "id": "page-4-21-paragraph-5",
+          "type": "paragraph",
+          "content": "It's possible to change values stored in variables.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-21-code-6",
+          "type": "code",
+          "language": "python",
+          "code": "current_salary = 77287.5\nprint(current_salary) # Output: 77287.5\n# Change the value stored in the variable\ncurrent_salary = 80000.5\nprint(current_salary) # Output: 80000.5",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-21-heading-7",
+          "type": "heading",
+          "level": 3,
+          "text": "Assign One Variable to Another"
+        },
+        {
+          "id": "page-4-21-paragraph-8",
+          "type": "paragraph",
+          "content": "We can also assign the value of one variable to another.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-21-code-9",
+          "type": "code",
+          "language": "python",
+          "code": "color1 = \"blue\"\ncolor2 = \"pink\"\n# Assign the value stored in color2 to color1\ncolor1 = color2\nprint(color1) # Output: pink",
+          "caption": "Example"
+        },
+        {
+          "id": "page-4-21-heading-10",
+          "type": "heading",
+          "level": 3,
+          "text": "Don't Confuse Strings and Variables"
+        },
+        {
+          "id": "page-4-21-paragraph-11",
+          "type": "paragraph",
+          "content": "Strings are always wrapped inside quotation marks, but variable names are not.",
+          "format": "plain"
+        },
+        {
+          "id": "page-4-21-code-12",
+          "type": "code",
+          "language": "python",
+          "code": "city = \"San Francisco\"\n# Print the value stored in the city variable\nprint(city) # Output: San Francisco\n# Print the \"city\" string\nprint(\"city\") # Output: city",
+          "caption": "Example"
+        }
+      ]
+    }
+  ]
+}

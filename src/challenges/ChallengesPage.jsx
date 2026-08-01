@@ -8,27 +8,40 @@ import { createChallengeBookmark } from '../bookmarks/bookmarkModel';
 import { ChallengeHero } from './ChallengeHero';
 import { ChallengeHistory } from './ChallengeHistory';
 import { CurrentStreak, RewardSummary } from './ChallengeSummary';
+import { useContentResource } from '../content/hooks/useContentResource';
+import { loadDailyChallenge } from './challengeContentSource';
 import {
   challengeHistory,
   challengeStats,
-  dailyChallenge,
 } from './challengeData';
 
 export function ChallengesPage() {
+  const { data: dailyChallenge, error, loading } = useContentResource(loadDailyChallenge);
   const [verificationStatus, setVerificationStatus] = useState('idle');
   const [completed, setCompleted] = useState(false);
   const compilerBlock = useMemo(
-    () => dailyChallenge.blocks.find((block) => block.type === 'compiler'),
-    [],
+    () => dailyChallenge?.blocks.find((block) => block.type === 'compiler') ?? null,
+    [dailyChallenge],
   );
   const problemBlocks = useMemo(
-    () => dailyChallenge.blocks.filter((block) => block.type !== 'compiler'),
-    [],
+    () => dailyChallenge?.blocks.filter((block) => block.type !== 'compiler') ?? [],
+    [dailyChallenge],
   );
-  const compiler = useMemo(() => createCompilerData(compilerBlock), [compilerBlock]);
+  const compiler = useMemo(() => compilerBlock ? createCompilerData(compilerBlock) : null, [compilerBlock]);
   const rewardReady = verificationStatus === 'matched';
   const currentStreak = challengeStats.currentStreak
-    + (completed ? dailyChallenge.reward.streakIncrement : 0);
+    + (completed ? dailyChallenge?.reward.streakIncrement ?? 0 : 0);
+
+  if (loading || error || !dailyChallenge || !compiler) {
+    return (
+      <div className="challenges-page">
+        <header className="practice-page-heading">
+          <h1>Daily Challenge</h1>
+          <p>{error ? error.message : 'Loading today’s challenge…'}</p>
+        </header>
+      </div>
+    );
+  }
 
   return (
     <div className="challenges-page">

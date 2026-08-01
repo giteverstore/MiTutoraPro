@@ -151,3 +151,11 @@ User, Course, Progress, Settings, and Bookmark repositories each use a registere
 ### Isolation rationale
 
 Keeping Firebase behind initialization wrappers and repositories prevents SDK snapshots, references, query constraints, and persistence-specific errors from spreading through components and services. A future migration can replace a local repository implementation at the service boundary without changing application screens or domain behavior. Sprint 8.2 does not perform that migration.
+
+## Firebase content layer
+
+Sprint 9.1 adds a dormant repository and service boundary for public course, practice, and daily challenge metadata plus Storage-hosted JSON. Existing local loaders remain unchanged. See [Firebase content infrastructure](firebase-content.md) for collection paths, Storage conventions, caching, typed errors, and the loading pipeline.
+
+## User data migration
+
+Authenticated progress, bookmarks, settings, certificates, and referrals now persist through the user-scoped Firestore layer. See [User data persistence](user-data.md) for document layouts, cache behavior, serialized writes, offline fallback, and logout cleanup.

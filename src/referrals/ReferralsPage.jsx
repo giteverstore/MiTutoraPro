@@ -11,12 +11,15 @@ import { referralService } from './ReferralService';
 export function ReferralsPage() {
   const { user } = useUser();
   const [profile, setProfile] = useState(null);
+  const [loadError, setLoadError] = useState(null);
   const [notice, setNotice] = useState('');
 
   useEffect(() => {
     let active = true;
     referralService.getReferralProfile(user.id).then((loaded) => {
       if (active) setProfile(loaded);
+    }).catch((error) => {
+      if (active) setLoadError(error);
     });
     return () => { active = false; };
   }, [user.id]);
@@ -49,7 +52,7 @@ export function ReferralsPage() {
   };
 
   if (!profile) {
-    return <div className="referrals-page"><div className="referrals-loading" role="status">Loading referral details…</div></div>;
+    return <div className="referrals-page"><div className="referrals-loading" role={loadError ? 'alert' : 'status'}>{loadError?.message ?? 'Loading referral details…'}</div></div>;
   }
 
   return (

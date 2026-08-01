@@ -1,17 +1,17 @@
 import { mockCertificates } from './certificateData';
 import { createCertificate } from './certificateModel';
-import { createLocalCertificateRepository } from './localCertificateRepository';
+import { userDataService } from '../user-data/UserDataService';
 
 export class CertificateService {
-  constructor({ repository = createLocalCertificateRepository() } = {}) {
-    this.repository = repository;
+  constructor({ dataService = userDataService } = {}) {
+    this.dataService = dataService;
   }
 
   async getCertificates(userId) {
-    const stored = await this.repository.load(userId);
-    if (stored) return stored.map(createCertificate);
+    const stored = await this.dataService.loadCertificates(userId);
+    if (stored.length) return stored.map(createCertificate);
     const initial = mockCertificates.map(createCertificate);
-    await this.repository.save(userId, initial);
+    await this.dataService.saveCertificates(userId, initial);
     return initial;
   }
 
@@ -21,11 +21,11 @@ export class CertificateService {
   }
 
   async saveCertificates(userId, certificates) {
-    return this.repository.save(userId, certificates.map(createCertificate));
+    return this.dataService.saveCertificates(userId, certificates.map(createCertificate));
   }
 
   async resetCertificates(userId) {
-    await this.repository.clear(userId);
+    await this.dataService.clearCertificates(userId);
     return this.getCertificates(userId);
   }
 

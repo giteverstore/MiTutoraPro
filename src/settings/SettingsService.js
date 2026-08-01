@@ -1,6 +1,5 @@
 import { DEFAULT_SETTINGS } from './settingsDefaults';
-
-const STORAGE_KEY = 'mi-tutora:settings:v1';
+import { userDataService } from '../user-data/UserDataService';
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -16,17 +15,36 @@ function mergeSettings(defaults, stored) {
 }
 
 export class SettingsService {
-  constructor({ storage = window.localStorage } = {}) {
-    this.storage = storage;
+  constructor({ dataService = userDataService } = {}) {
+    this.dataService = dataService;
     this.listeners = new Set();
-    this.settings = this.load();
+    this.settings = clone(DEFAULT_SETTINGS);
+    this.userId = null;
+    this.error = null;
   }
 
-  load() {
+  async setUser(userId) {
+    this.userId = userId ?? null;
+    const requestedUserId = this.userId;
+    this.error = null;
+    if (!this.userId) {
+      this.settings = clone(DEFAULT_SETTINGS);
+      this.notify();
+      return this.settings;
+    }
     try {
-      return mergeSettings(DEFAULT_SETTINGS, JSON.parse(this.storage.getItem(STORAGE_KEY)));
-    } catch {
-      return clone(DEFAULT_SETTINGS);
+      const stored = await this.dataService.loadSettings(this.userId);
+      if (this.userId !== requestedUserId) return this.settings;
+      this.settings = mergeSettings(DEFAULT_SETTINGS, stored);
+      if (!stored) await this.dataService.saveSettings(this.userId, this.settings);
+      if (this.userId !== requestedUserId) return this.settings;
+      this.notify();
+      return this.settings;
+    } catch (error) {
+      if (this.userId !== requestedUserId) return this.settings;
+      this.error = error;
+      this.notify();
+      throw error;
     }
   }
 
@@ -70,7 +88,17 @@ export class SettingsService {
   }
 
   persist() {
-    this.storage.setItem(STORAGE_KEY, JSON.stringify(this.settings));
+    this.notify();
+    if (!this.userId) return Promise.resolve(this.settings);
+    return this.dataService.saveSettings(this.userId, this.settings).catch((error) => {
+      this.error = error;
+      console.error('[Settings] Unable to persist preferences.', error);
+      this.notify();
+      return this.settings;
+    });
+  }
+
+  notify() {
     this.listeners.forEach((listener) => listener());
   }
 }

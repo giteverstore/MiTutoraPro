@@ -18,6 +18,7 @@ import { ReferralsPage } from './pages/ReferralsPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AppShell } from './app-shell/AppShell';
 import { BookmarkProvider } from './bookmarks/BookmarkContext';
+import { UserDataLifecycle } from './user-data/UserDataLifecycle';
 import {
   LearningProgressProvider,
   useLearningProgress,
@@ -37,6 +38,7 @@ export default function App() {
   return (
     <CompilerProvider manager={compilerManager}>
       <AuthProvider>
+        <UserDataLifecycle />
         <UserProvider>
           <UserGate />
         </UserProvider>

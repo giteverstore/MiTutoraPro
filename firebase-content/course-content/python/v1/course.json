@@ -1,0 +1,45 @@
+{
+  "$schema": "../../schemas/learning-course.schema.json",
+  "schemaVersion": "1.0.0",
+  "id": "mi-tutora-python-course",
+  "slug": "mi-tutora-python-course",
+  "title": "MI Tutora Python Course",
+  "description": "A beginner Python course converted from the MI Tutora course document.",
+  "locale": "en-US",
+  "status": "draft",
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "MI Tutora"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 340,
+    "tags": [
+      "python",
+      "programming",
+      "beginner"
+    ],
+    "updatedAt": "2026-08-01T17:43:13.043Z"
+  },
+  "navigation": {
+    "defaultLessonId": "lesson-1-1-introduction-to-python",
+    "sequence": "module-order",
+    "skipLockedLessons": true,
+    "labels": {
+      "previous": "Previous lesson",
+      "next": "Next lesson",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "moduleFiles": [
+    "module-1.json",
+    "module-2.json",
+    "module-3.json",
+    "module-4.json",
+    "module-5.json",
+    "module-6.json"
+  ]
+}

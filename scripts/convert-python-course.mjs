@@ -1,12 +1,12 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, extname, resolve } from 'node:path';
+import { extname, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { load } from 'cheerio';
 import mammoth from 'mammoth';
 
 const SOURCE_PATH = resolve('MI TUtora PythonCourse.docx');
-const OUTPUT_PATH = resolve('public/courses/python-course.json');
+const FIREBASE_OUTPUT_ROOT = resolve('firebase-content/course-content/python');
 const ASSET_DIRECTORY = resolve('public/assets/courses/python-course');
 const SCHEMA_PATH = resolve('schemas/learning-course.schema.json');
 
@@ -534,11 +534,23 @@ if (!validate(course)) {
   throw new Error(ajv.errorsText(validate.errors, { separator: '\n' }));
 }
 
-await mkdir(dirname(OUTPUT_PATH), { recursive: true });
-await writeFile(OUTPUT_PATH, `${JSON.stringify(course, null, 2)}\n`);
+const firebaseVersion = `v${course.metadata.version.split('.')[0]}`;
+const outputDirectory = resolve(FIREBASE_OUTPUT_ROOT, firebaseVersion);
+const moduleFiles = course.modules.map((_, index) => `module-${index + 1}.json`);
+const { modules: courseModules, ...courseManifest } = course;
+
+await mkdir(outputDirectory, { recursive: true });
+await writeFile(
+  resolve(outputDirectory, 'course.json'),
+  `${JSON.stringify({ ...courseManifest, moduleFiles }, null, 2)}\n`,
+);
+await Promise.all(courseModules.map((module, index) =>
+  writeFile(resolve(outputDirectory, moduleFiles[index]), `${JSON.stringify(module, null, 2)}\n`)));
 
 console.log(JSON.stringify({
-  output: OUTPUT_PATH,
+  output: outputDirectory,
+  manifest: 'course.json',
+  moduleFiles,
   modules: course.modules.length,
   lessons: lessonCount,
   blocks: course.modules.flatMap((module) => module.lessons).flatMap((lesson) => lesson.blocks).length,

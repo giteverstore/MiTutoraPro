@@ -15,6 +15,7 @@ export function AuthFlow() {
   if (screen === 'sign-up') {
     return (
       <SignUp
+        onGoogle={signInWithGoogle}
         onContinue={(account) => {
           setPendingAccount(account);
           setScreen('profile');

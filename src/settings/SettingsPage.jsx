@@ -11,6 +11,7 @@ import {
   UserRound,
 } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
+import { userDataService } from '../user-data/UserDataService';
 import { settingsService } from './SettingsService';
 import { SettingRow, SelectSetting, SwitchSetting } from './SettingsControls';
 import { useSettings } from './useSettings';
@@ -33,12 +34,6 @@ const versions = [
   ['Pyodide Version', '314.0.3'],
 ];
 
-function clearStoragePrefix(prefix) {
-  Object.keys(window.localStorage)
-    .filter((key) => key.startsWith(prefix))
-    .forEach((key) => window.localStorage.removeItem(key));
-}
-
 function Section({ id, title, description, children }) {
   return (
     <section className="settings-section" aria-labelledby={`${id}-settings-title`}>
@@ -58,15 +53,15 @@ export function SettingsPage() {
 
   const confirmReset = (message, action) => {
     if (!window.confirm(message)) return;
-    action();
+    Promise.resolve(action()).catch((error) => setNotice(error.message));
   };
 
   const reloadAfterReset = () => window.setTimeout(() => window.location.reload(), 50);
 
   const resetLearning = () => confirmReset(
     'Reset all lesson visits, completions, quiz attempts, exercise attempts, and course progress?',
-    () => {
-      clearStoragePrefix(`mi-tutora:learning-progress:v1:${user.id}`);
+    async () => {
+      await userDataService.clearAllProgress(user.id);
       updateProfile({
         currentLesson: null,
         completedLessons: [],
@@ -77,10 +72,10 @@ export function SettingsPage() {
       reloadAfterReset();
     },
   );
-  const resetLocalFeature = (label, prefix) => confirmReset(
-    `Reset all local ${label}? This cannot be undone.`,
-    () => {
-      clearStoragePrefix(prefix);
+  const resetFeature = (label, action) => confirmReset(
+    `Reset all ${label}? This cannot be undone.`,
+    async () => {
+      await action();
       reloadAfterReset();
     },
   );
@@ -128,13 +123,13 @@ export function SettingsPage() {
       </Section>
     ),
     learning: (
-      <Section id="learning" title="Learning" description="Choose defaults and manage locally stored learning data.">
+      <Section id="learning" title="Learning" description="Choose defaults and manage your saved learning data.">
         <SettingRow title="Default Programming Language"><SelectSetting label="Default programming language" value={settings.learning.defaultLanguage} onChange={(value) => setSetting('learning.defaultLanguage', value)}><option>Python</option><option>JavaScript</option><option>Java</option><option>C++</option></SelectSetting></SettingRow>
         <SettingRow title="Auto-open Continue Learning" description="Open your current course automatically after login."><SwitchSetting label="Auto-open continue learning" checked={settings.learning.autoOpenContinueLearning} onChange={(value) => setSetting('learning.autoOpenContinueLearning', value)} /></SettingRow>
         <SettingRow title="Reset Learning Progress" description="Clears lesson, quiz, exercise, and course progress." danger><button className="button button--secondary settings-danger-button" type="button" onClick={resetLearning}>Reset</button></SettingRow>
-        <SettingRow title="Reset Practice Progress" description="Clears locally stored Practice attempts and completions." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => resetLocalFeature('Practice progress', `mi-tutora:practice-progress:${user.id}`)}>Reset</button></SettingRow>
-        <SettingRow title="Reset Challenge History" description="Clears local challenge claims, rewards, and streak history." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => resetLocalFeature('Challenge history', `mi-tutora:challenge-progress:${user.id}`)}>Reset</button></SettingRow>
-        <SettingRow title="Reset Bookmarks" description="Removes every item from your local Library." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => resetLocalFeature('bookmark', `mi-tutora:bookmarks:v1:${user.id}`)}>Reset</button></SettingRow>
+        <SettingRow title="Reset Practice Progress" description="Clears Practice attempts and completions." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => setNotice('Practice attempt persistence is not part of this migration.')}>Reset</button></SettingRow>
+        <SettingRow title="Reset Challenge History" description="Clears challenge claims, rewards, and streak history." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => setNotice('Challenge reward persistence is not part of this migration.')}>Reset</button></SettingRow>
+        <SettingRow title="Reset Bookmarks" description="Removes every item from your Library." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => resetFeature('bookmarks', () => userDataService.clearBookmarks(user.id))}>Reset</button></SettingRow>
       </Section>
     ),
     notifications: (

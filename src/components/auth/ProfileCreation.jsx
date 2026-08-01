@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
 import { AuthLayout } from './AuthLayout';
+import { AuthButtonLabel } from './AuthButtonLabel';
 
 const avatars = ['🧑‍💻', '🐍', '🚀', '💡'];
 
@@ -35,6 +36,7 @@ export function ProfileCreation({ account, onComplete }) {
       });
     } catch (authError) {
       setError(authError.message || 'Unable to create your account.');
+    } finally {
       setSubmitting(false);
     }
   };
@@ -84,7 +86,9 @@ export function ProfileCreation({ account, onComplete }) {
         </label>
         {error ? <p className="form-error" role="alert">{error}</p> : null}
         <button className="button button--primary auth-submit" type="submit" disabled={submitting}>
-          {submitting ? 'Creating account…' : 'Start learning'} {!submitting ? <ArrowRight size={ICON_SIZE.base} /> : null}
+          <AuthButtonLabel loading={submitting} loadingLabel="Creating account…">
+            Start learning <ArrowRight size={ICON_SIZE.base} />
+          </AuthButtonLabel>
         </button>
       </form>
     </AuthLayout>

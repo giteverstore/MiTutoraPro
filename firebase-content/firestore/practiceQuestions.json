@@ -1,0 +1,74 @@
+[
+  {
+    "id": "practice-even-or-odd",
+    "title": "Even or Odd",
+    "language": "Python",
+    "topic": "Conditionals",
+    "difficulty": "easy",
+    "estimatedMinutes": 8,
+    "xp": 40,
+    "published": true,
+    "version": "v1",
+    "storagePath": "practice/python/question-1.json"
+  },
+  {
+    "id": "practice-sum-range",
+    "title": "Sum from 1 to N",
+    "language": "Python",
+    "topic": "Loops",
+    "difficulty": "easy",
+    "estimatedMinutes": 10,
+    "xp": 50,
+    "published": true,
+    "version": "v1",
+    "storagePath": "practice/python/question-2.json"
+  },
+  {
+    "id": "practice-reverse-text",
+    "title": "Reverse a String",
+    "language": "Python",
+    "topic": "Strings",
+    "difficulty": "easy",
+    "estimatedMinutes": 8,
+    "xp": 45,
+    "published": true,
+    "version": "v1",
+    "storagePath": "practice/python/question-3.json"
+  },
+  {
+    "id": "practice-largest-number",
+    "title": "Largest Number",
+    "language": "Python",
+    "topic": "Lists",
+    "difficulty": "medium",
+    "estimatedMinutes": 12,
+    "xp": 70,
+    "published": true,
+    "version": "v1",
+    "storagePath": "practice/python/question-4.json"
+  },
+  {
+    "id": "practice-word-frequency",
+    "title": "Word Frequency",
+    "language": "Python",
+    "topic": "Dictionaries",
+    "difficulty": "medium",
+    "estimatedMinutes": 16,
+    "xp": 90,
+    "published": true,
+    "version": "v1",
+    "storagePath": "practice/python/question-5.json"
+  },
+  {
+    "id": "practice-palindrome",
+    "title": "Palindrome Check",
+    "language": "Python",
+    "topic": "Strings",
+    "difficulty": "hard",
+    "estimatedMinutes": 20,
+    "xp": 120,
+    "published": true,
+    "version": "v1",
+    "storagePath": "practice/python/question-6.json"
+  }
+]

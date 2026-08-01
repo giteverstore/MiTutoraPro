@@ -10,6 +10,7 @@ import {
   setDoc,
   updateDoc,
   where,
+  writeBatch,
 } from 'firebase/firestore';
 import { db } from '../../firebase/firestore';
 
@@ -63,14 +64,22 @@ export class BaseRepository {
 
   async set(id, data) {
     const reference = this.#document(id);
+    console.info('[Firestore] Awaiting setDoc.', { path: reference.path });
     await setDoc(reference, data);
-    return toEntity(await getDoc(reference));
+    console.info('[Firestore] setDoc completed. Awaiting document read-back.', { path: reference.path });
+    const snapshot = await getDoc(reference);
+    console.info('[Firestore] Document read-back completed.', { path: reference.path });
+    return toEntity(snapshot);
   }
 
   async update(id, partial) {
     const reference = this.#document(id);
+    console.info('[Firestore] Awaiting updateDoc.', { path: reference.path });
     await updateDoc(reference, partial);
-    return toEntity(await getDoc(reference));
+    console.info('[Firestore] updateDoc completed. Awaiting document read-back.', { path: reference.path });
+    const snapshot = await getDoc(reference);
+    console.info('[Firestore] Document read-back completed.', { path: reference.path });
+    return toEntity(snapshot);
   }
 
   async remove(id) {
@@ -78,7 +87,14 @@ export class BaseRepository {
   }
 
   async exists(id) {
-    return (await getDoc(this.#document(id))).exists();
+    const reference = this.#document(id);
+    console.info('[Firestore] Awaiting existence read.', { path: reference.path });
+    const snapshot = await getDoc(reference);
+    console.info('[Firestore] Existence read completed.', {
+      path: reference.path,
+      exists: snapshot.exists(),
+    });
+    return snapshot.exists();
   }
 
   async list() {
@@ -90,5 +106,14 @@ export class BaseRepository {
     const reference = buildQuery(this.#collection, ...createQueryConstraints(descriptor));
     const snapshot = await getDocs(reference);
     return snapshot.docs.map(toEntity);
+  }
+
+  async replaceAll(items, getId = (item) => item.id) {
+    const snapshot = await getDocs(this.#collection);
+    const batch = writeBatch(db);
+    snapshot.docs.forEach((document) => batch.delete(document.ref));
+    items.forEach((item) => batch.set(this.#document(getId(item)), item));
+    await batch.commit();
+    return items;
   }
 }

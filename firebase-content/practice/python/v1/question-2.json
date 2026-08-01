@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "practice-sum-range",
+  "title": "Sum from 1 to N",
+  "summary": "Use iteration to calculate a simple arithmetic total.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Loops",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "blocks": [
+    {
+      "id": "sum-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "sum-copy",
+      "type": "paragraph",
+      "content": "Read a positive integer `n` and print the sum of every integer from 1 through `n`.",
+      "format": "markdown"
+    },
+    {
+      "id": "sum-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "sum-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\n5\n\nOutput\n15"
+    },
+    {
+      "id": "sum-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n ≤ 10,000",
+      "format": "plain"
+    },
+    {
+      "id": "sum-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "n = int(input())\ntotal = 0\n# Add the numbers from 1 to n\nprint(total)\n",
+      "stdin": "5",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

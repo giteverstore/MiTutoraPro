@@ -1,5 +1,20 @@
-import { createLocalProgressRepository } from './localProgressRepository';
+import { userDataService } from '../user-data/UserDataService';
 
-// Replace this export with an API repository implementing load/save/clear.
-export const progressRepository = createLocalProgressRepository();
-
+export const progressRepository = {
+  async load(userId, courseId) {
+    const stored = await userDataService.loadProgress(userId, courseId);
+    if (!stored) return null;
+    return {
+      ...stored,
+      quizScores: stored.quizScores ?? stored.completedQuizzes ?? {},
+      exerciseCompletion: stored.exerciseCompletion ?? stored.completedExercises ?? {},
+      courseProgress: stored.courseProgress ?? stored.completion ?? 0,
+    };
+  },
+  save(userId, courseId, progress) {
+    return userDataService.saveProgress(userId, courseId, progress);
+  },
+  clear(userId, courseId) {
+    return userDataService.clearProgress(userId, courseId);
+  },
+};

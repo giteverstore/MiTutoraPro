@@ -26,6 +26,10 @@ export function CertificatesPage({ onContinueCourse }) {
       setSelectedCertificate(records.find(({ status: recordStatus }) =>
         recordStatus === CERTIFICATE_STATUS.earned) ?? null);
       setStatus('ready');
+    }).catch((loadError) => {
+      if (!active) return;
+      setNotice(loadError.message);
+      setStatus('error');
     });
     return () => { active = false; };
   }, [user.id]);

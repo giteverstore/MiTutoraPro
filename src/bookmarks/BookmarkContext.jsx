@@ -20,6 +20,10 @@ export function BookmarkProvider({ userId, children, repository = defaultReposit
       if (!active) return;
       setBookmarks(Array.isArray(stored) ? stored : []);
       setStatus('ready');
+    }).catch((loadError) => {
+      if (!active) return;
+      console.error('[Bookmarks] Unable to load saved bookmarks.', loadError);
+      setStatus('error');
     });
     return () => { active = false; };
   }, [repository, userId]);
@@ -30,7 +34,9 @@ export function BookmarkProvider({ userId, children, repository = defaultReposit
       const next = exists
         ? current.filter(({ id }) => id !== bookmark.id)
         : [{ ...bookmark, savedAt: new Date().toISOString() }, ...current];
-      repository.save(userId, next);
+      repository.save(userId, next).catch((saveError) => {
+        console.error('[Bookmarks] Unable to save bookmarks.', saveError);
+      });
       return next;
     });
   }, [repository, userId]);

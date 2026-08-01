@@ -1,7 +1,7 @@
 export const dailyChallenge = {
   schemaVersion: '1.0.0',
   id: 'challenge-balanced-brackets',
-  date: '2026-07-30',
+  date: '2026-08-01',
   title: 'Balanced Brackets',
   summary: 'Use a stack to decide whether every opening bracket is closed in the correct order.',
   motivation: 'One focused problem today keeps your problem-solving momentum alive.',

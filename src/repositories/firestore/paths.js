@@ -22,6 +22,8 @@ export const userCertificatesPath = (uid) => `${userPath(uid)}/certificates`;
 export const userStatisticsPath = (uid) => `${userPath(uid)}/statistics`;
 export const userStatisticsOverviewPath = (uid) => `${userStatisticsPath(uid)}/${FIRESTORE_DOCUMENT_IDS.statisticsOverview}`;
 export const userCoinTransactionsPath = (uid) => `${userPath(uid)}/coinTransactions`;
+export const userReferralsPath = (uid) => `${userPath(uid)}/referrals`;
+export const userReferralProfilePath = (uid) => `${userReferralsPath(uid)}/profile`;
 
 export const coursesPath = () => 'courses';
 export const coursePath = (courseId) => `${coursesPath()}/${pathSegment(courseId, 'courseId')}`;

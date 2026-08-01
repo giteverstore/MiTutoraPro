@@ -1129,6 +1129,10 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
   font-weight: var(--font-weight-regular);
 }
 .auth-submit { width: 100%; }
+.auth-button-spinner { animation: auth-button-spin .75s linear infinite; }
+@keyframes auth-button-spin { to { transform: rotate(360deg); } }
+.auth-text-button:disabled,
+.auth-switch button:disabled { opacity: .5; cursor: not-allowed; }
 .auth-text-button {
   width: max-content;
   padding: 0;

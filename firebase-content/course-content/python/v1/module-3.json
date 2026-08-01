@@ -1,0 +1,364 @@
+{
+  "id": "module-3-python-comments",
+  "title": "Module 3: Python Comments",
+  "description": "Lessons 3.1 through 3.5",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-3-1-introduction-to-comments",
+      "number": "3.1",
+      "title": "Introduction to Comments",
+      "summary": "As you start writing more code, you might want to add short explanations inside your program—not for the computer, but for yourself or anyone else reading it later.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-comments"
+      ],
+      "blocks": [
+        {
+          "id": "page-3-1-paragraph-1",
+          "type": "paragraph",
+          "content": "As you start writing more code, you might want to add short explanations inside your program—not for the computer, but for yourself or anyone else reading it later.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-paragraph-2",
+          "type": "paragraph",
+          "content": "Suppose you write this line in your code:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-code-3",
+          "type": "code",
+          "language": "python",
+          "code": "print(34.0)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-1-paragraph-4",
+          "type": "paragraph",
+          "content": "This will simply print the number 34.0.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-paragraph-5",
+          "type": "paragraph",
+          "content": "Now let's say you want to explain what this number means. Maybe it's the temperature or the result of a calculation. You might try writing it like this:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-code-6",
+          "type": "code",
+          "language": "python",
+          "code": "print(34.0) this shows the temperature",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-1-paragraph-7",
+          "type": "paragraph",
+          "content": "But Python won't understand that extra text, and it will give you an error.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-paragraph-8",
+          "type": "paragraph",
+          "content": "So how do you include extra information in your code without breaking it?",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-paragraph-9",
+          "type": "paragraph",
+          "content": "That's where comments come in. Comments let you add helpful notes right inside your code, and Python will simply ignore them when running the program.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-paragraph-10",
+          "type": "paragraph",
+          "content": "You don't need to worry about how to write them just yet.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-1-heading-11",
+          "type": "heading",
+          "level": 3,
+          "text": "Click Next Lesson to learn how to add comments properly in Python."
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-2-python-comments",
+      "number": "3.2",
+      "title": "Python Comments",
+      "summary": "In Python, we use the # symbol to write comments in our code.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-comments"
+      ],
+      "blocks": [
+        {
+          "id": "page-3-2-paragraph-1",
+          "type": "paragraph",
+          "content": "In Python, we use the # symbol to write comments in our code.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-paragraph-2",
+          "type": "paragraph",
+          "content": "On the last page, we saw that writing something like this:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-code-3",
+          "type": "code",
+          "language": "python",
+          "code": "print(34.0) this shows the temperature",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-2-paragraph-4",
+          "type": "paragraph",
+          "content": "will give you an error. That's because Python tries to read everything on the line, and it doesn't know what to do with the extra text.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-paragraph-5",
+          "type": "paragraph",
+          "content": "But sometimes, you do want to write a quick note to explain what a line of code is doing. To do that without causing an error, you can use a comment.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-paragraph-6",
+          "type": "paragraph",
+          "content": "Just add a # before the explanation, like this:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-code-7",
+          "type": "code",
+          "language": "python",
+          "code": "print(34.0) # This shows the temperature",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-2-paragraph-8",
+          "type": "paragraph",
+          "content": "Now Python will run the first part (print(34.0)) and completely ignore anything after the #. In fact, Python skips any line that starts with #—it doesn't run it, and it won't appear in the output at all.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-paragraph-9",
+          "type": "paragraph",
+          "content": "Next, you'll look at more examples of comments.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-2-heading-10",
+          "type": "heading",
+          "level": 3,
+          "text": "Click Next Lesson to continue."
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-3-understanding-python-comments",
+      "number": "3.3",
+      "title": "Understanding Python Comments",
+      "summary": "Let's look at another example:",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-comments"
+      ],
+      "blocks": [
+        {
+          "id": "page-3-3-paragraph-1",
+          "type": "paragraph",
+          "content": "Let's look at another example:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "# Print a number\nprint(6)\nprint(8) # Print another number\n# Print third number\nprint(88.3)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-3-paragraph-3",
+          "type": "paragraph",
+          "content": "This code has three comments:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-code-4",
+          "type": "code",
+          "language": "python",
+          "code": "# Print a number\n# Print another number\n# Print third number",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-3-paragraph-5",
+          "type": "paragraph",
+          "content": "Python skips all of them when running the program. Only the print() lines are executed.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-paragraph-6",
+          "type": "paragraph",
+          "content": "So this is the same as:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-code-7",
+          "type": "code",
+          "language": "python",
+          "code": "print(6)\nprint(8)\nprint(88.3)",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-3-paragraph-8",
+          "type": "paragraph",
+          "content": "The output will be:",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-code-9",
+          "type": "code",
+          "language": "python",
+          "code": "6\n8\n88.3",
+          "caption": "Example"
+        },
+        {
+          "id": "page-3-3-paragraph-10",
+          "type": "paragraph",
+          "content": "The comments help explain the code, but do not affect what the program does.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-image-11",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-06.png",
+          "alt": "Idea Emoji",
+          "caption": "Idea Emoji",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-3-3-note-12",
+          "type": "note",
+          "title": "Note",
+          "content": "You'll find comments throughout this course, which we'll use to explain the code examples.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-paragraph-13",
+          "type": "paragraph",
+          "content": "Next, you'll check your understanding with two short quizzes on identifying comments and understanding their effect.",
+          "format": "plain"
+        },
+        {
+          "id": "page-3-3-paragraph-14",
+          "type": "paragraph",
+          "content": "Click Next Lesson to continue.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-4-quiz-identify-the-comment-from-the-given-lines-of-code",
+      "number": "3.4",
+      "title": "Quiz: Identify the comment from the given lines of code.",
+      "summary": "Identify the comment from the given lines of code.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-comments"
+      ],
+      "blocks": [
+        {
+          "id": "page-3-4-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "# print Hello World\nprint(\"Hello World\")",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-3-4-quiz-2",
+          "type": "quiz",
+          "question": "Identify the comment from the given lines of code.",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "print(\"Hello World\")"
+            },
+            {
+              "id": "option-b",
+              "text": "# print Hello World"
+            },
+            {
+              "id": "option-c",
+              "text": "#"
+            },
+            {
+              "id": "option-d",
+              "text": "# print Hello World\nprint(\"Hello World\")"
+            }
+          ],
+          "correctOptionIds": [
+            "option-b"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-5-quiz-what-is-the-output-of-the-following-code",
+      "number": "3.5",
+      "title": "Quiz: What is the output of the following code?",
+      "summary": "What is the output of the following code?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "python-comments"
+      ],
+      "blocks": [
+        {
+          "id": "page-3-5-code-1",
+          "type": "code",
+          "language": "python",
+          "code": "# print(\"Hello World\")\nprint(5)",
+          "caption": "Quiz code"
+        },
+        {
+          "id": "page-3-5-quiz-2",
+          "type": "quiz",
+          "question": "What is the output of the following code?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "# print(\"Hello World\")"
+            },
+            {
+              "id": "option-b",
+              "text": "Hello World"
+            },
+            {
+              "id": "option-c",
+              "text": "Hello World\n5"
+            },
+            {
+              "id": "option-d",
+              "text": "5"
+            }
+          ],
+          "correctOptionIds": [
+            "option-d"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    }
+  ]
+}

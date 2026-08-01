@@ -23,6 +23,11 @@ function getCourseLessons(course) {
   );
 }
 
+function getModuleIdForLesson(course, lessonId) {
+  return course.modules.find((module) =>
+    module.lessons.some((lesson) => lesson.id === lessonId))?.id ?? null;
+}
+
 function deriveProgress(course, stored) {
   const entries = getCourseLessons(course);
   const lessonIds = new Set(entries.map(({ lesson }) => lesson.id));
@@ -82,8 +87,10 @@ function createInitialProgress(
       .map((lesson) => lesson.id),
   )];
 
+  const currentLesson = currentLessonId ?? course.navigation?.defaultLessonId ?? course.defaultLessonId;
   return deriveProgress(course, {
-    currentLesson: currentLessonId ?? course.navigation?.defaultLessonId ?? course.defaultLessonId,
+    currentLesson,
+    currentModule: getModuleIdForLesson(course, currentLesson),
     completedLessons,
     visitedLessons: [...new Set(existingVisitedLessons)],
     completedModules: [],
@@ -155,6 +162,10 @@ export function LearningProgressProvider({
         : initial;
       setProgress(deriveProgress(course, restored));
       setStatus('ready');
+    }).catch((loadError) => {
+      if (!active) return;
+      console.error('[Progress] Unable to load saved progress.', loadError);
+      setStatus('error');
     });
 
     return () => {
@@ -170,15 +181,21 @@ export function LearningProgressProvider({
         ...updated,
         updatedAt: new Date().toISOString(),
       });
-      repository.save(userId, course.id, next);
+      repository.save(userId, course.id, next).catch((saveError) => {
+        console.error('[Progress] Unable to save progress.', saveError);
+      });
       return next;
     });
   }, [course, repository, userId]);
 
   const setCurrentLesson = useCallback((lessonId) => {
     updateProgress((current) =>
-      current.currentLesson === lessonId ? current : { ...current, currentLesson: lessonId });
-  }, [updateProgress]);
+      current.currentLesson === lessonId ? current : {
+        ...current,
+        currentLesson: lessonId,
+        currentModule: getModuleIdForLesson(course, lessonId),
+      });
+  }, [course, updateProgress]);
 
   const completeLesson = useCallback((lessonId) => {
     updateProgress((current) => ({
@@ -284,9 +301,11 @@ export function LearningProgressProvider({
   }, [updateProgress]);
 
   const resetCourse = useCallback(() => {
+    const defaultLesson = course.navigation?.defaultLessonId ?? course.defaultLessonId;
     updateProgress((current) => ({
       ...current,
-      currentLesson: course.navigation?.defaultLessonId ?? course.defaultLessonId,
+      currentLesson: defaultLesson,
+      currentModule: getModuleIdForLesson(course, defaultLesson),
       completedLessons: [],
       visitedLessons: [],
       completedModules: [],
@@ -305,9 +324,11 @@ export function LearningProgressProvider({
   }, [course, updateProgress]);
 
   const resetLearningProgress = useCallback(() => {
+    const defaultLesson = course.navigation?.defaultLessonId ?? course.defaultLessonId;
     updateProgress((current) => ({
       ...current,
-      currentLesson: course.navigation?.defaultLessonId ?? course.defaultLessonId,
+      currentLesson: defaultLesson,
+      currentModule: getModuleIdForLesson(course, defaultLesson),
       completedLessons: [],
       visitedLessons: [],
       completedModules: [],

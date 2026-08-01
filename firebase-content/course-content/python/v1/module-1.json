@@ -1,0 +1,398 @@
+{
+  "id": "module-1-getting-started-with-python",
+  "title": "Module 1: Getting Started with Python",
+  "description": "Lessons 1.1 through 1.6",
+  "initiallyExpanded": true,
+  "lessons": [
+    {
+      "id": "lesson-1-1-introduction-to-python",
+      "number": "1.1",
+      "title": "Introduction to Python",
+      "summary": "Welcome to the Python course!",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "getting-started-with-python"
+      ],
+      "blocks": [
+        {
+          "id": "page-1-1-paragraph-1",
+          "type": "paragraph",
+          "content": "Welcome to the Python course!",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-2",
+          "type": "paragraph",
+          "content": "You're about to start learning Python—one of the most popular and widely used programming languages in the world.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-heading-3",
+          "type": "heading",
+          "level": 3,
+          "text": "Why Python?"
+        },
+        {
+          "id": "page-1-1-paragraph-4",
+          "type": "paragraph",
+          "content": "It's not just easy to learn—it's also incredibly powerful.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-5",
+          "type": "paragraph",
+          "content": "People use it to build websites, create apps, analyze data, automate tasks, and even work on AI.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-6",
+          "type": "paragraph",
+          "content": "Whether you're aiming for a career in tech or just curious about coding, Python is a great place to start.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-7",
+          "type": "paragraph",
+          "content": "On this page, you don't need to write any code yet.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-8",
+          "type": "paragraph",
+          "content": "See the editor on the right?",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-9",
+          "type": "paragraph",
+          "content": "You'll be using it soon to write your own Python code.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-10",
+          "type": "paragraph",
+          "content": "And don't worry—you can't break anything. Just follow along, explore, and have fun with it.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-paragraph-11",
+          "type": "paragraph",
+          "content": "This course will guide you step by step in a friendly and easy way—no pressure, and no prior experience needed.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-1-heading-12",
+          "type": "heading",
+          "level": 3,
+          "text": "When you're ready, click Next Lesson, and we'll run your very first Python code together."
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-2-run-your-first-python-program",
+      "number": "1.2",
+      "title": "Run Your First Python Program",
+      "summary": "You're about to run your very first Python program.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "getting-started-with-python"
+      ],
+      "blocks": [
+        {
+          "id": "page-1-2-paragraph-1",
+          "type": "paragraph",
+          "content": "You're about to run your very first Python program.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-2-paragraph-2",
+          "type": "paragraph",
+          "content": "Here is a simple program that prints Hello, World!.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-2-code-3",
+          "type": "code",
+          "language": "python",
+          "code": "print(\"Hello, World!\")",
+          "caption": "Example"
+        },
+        {
+          "id": "page-1-2-heading-4",
+          "type": "heading",
+          "level": 3,
+          "text": "All you have to do is click the Run Code button."
+        },
+        {
+          "id": "page-1-2-paragraph-5",
+          "type": "paragraph",
+          "content": "You'll see Hello, World! in the Output section.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-2-paragraph-6",
+          "type": "paragraph",
+          "content": "Awesome—you've just run your very first Python program.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-2-paragraph-7",
+          "type": "paragraph",
+          "content": "Don't worry if it doesn't make complete sense yet. We'll walk through how this code works step-by-step on the next page.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-2-heading-8",
+          "type": "heading",
+          "level": 3,
+          "text": "Go ahead and click Next Lesson to keep going."
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-3-working-of-the-program",
+      "number": "1.3",
+      "title": "Working of the Program",
+      "summary": "Let's take a closer look at the program you just ran.",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "getting-started-with-python"
+      ],
+      "blocks": [
+        {
+          "id": "page-1-3-paragraph-1",
+          "type": "paragraph",
+          "content": "Let's take a closer look at the program you just ran.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-2",
+          "type": "paragraph",
+          "content": "In Python, we use the function print() whenever we want to display something on the screen.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-3",
+          "type": "paragraph",
+          "content": "The print() function shows whatever is inside it.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-4",
+          "type": "paragraph",
+          "content": "For example, this program you ran earlier:",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-image-5",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-01.png",
+          "alt": "print() displays the text inside double quotes",
+          "caption": "Figure: Print Hello World",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-1-3-paragraph-6",
+          "type": "paragraph",
+          "content": "When you run the code, the output will show the text without the quotation marks.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-7",
+          "type": "paragraph",
+          "content": "The quotation marks \" \" around the text tell Python that this is plain text and should be shown exactly as written.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-8",
+          "type": "paragraph",
+          "content": "Without those quotes, Python would get confused, wouldn't recognize the text, and would show an error.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-9",
+          "type": "paragraph",
+          "content": "Next, you'll do a quick quiz to help you remember what you've learned.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-paragraph-10",
+          "type": "paragraph",
+          "content": "After that, you'll get to write your very first Python code yourself.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-3-heading-11",
+          "type": "heading",
+          "level": 3,
+          "text": "Click Next Lesson to keep going."
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-4-quiz-which-of-the-following-is-the-valid-way-to-display",
+      "number": "1.4",
+      "title": "Quiz: Which of the following is the valid way to display Welcome to Programiz on the screen?",
+      "summary": "Which of the following is the valid way to display Welcome to Programiz on the screen?",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "getting-started-with-python"
+      ],
+      "blocks": [
+        {
+          "id": "page-1-4-quiz-1",
+          "type": "quiz",
+          "question": "Which of the following is the valid way to display Welcome to Programiz on the screen?",
+          "selectionMode": "single",
+          "options": [
+            {
+              "id": "option-a",
+              "text": "print(Welcome to Programiz)"
+            },
+            {
+              "id": "option-b",
+              "text": "print\"Welcome to Programiz\""
+            },
+            {
+              "id": "option-c",
+              "text": "print(\"Welcome to Programiz\")"
+            },
+            {
+              "id": "option-d",
+              "text": "Print(\"Welcome to Programiz\")"
+            }
+          ],
+          "correctOptionIds": [
+            "option-c"
+          ],
+          "submitLabel": "Check answer"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-5-your-first-python-program",
+      "number": "1.5",
+      "title": "Your First Python Program",
+      "summary": "Problem Description",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "getting-started-with-python"
+      ],
+      "blocks": [
+        {
+          "id": "page-1-5-exercise-4",
+          "type": "exercise",
+          "title": "Your First Python Program",
+          "instructions": {
+            "content": "Problem Description\n\nWrite a program that displays the word welcome on the screen.\n\nOn the right, you'll see a code editor where you can write your program.\n\nRemember:\n\nWhen you're done, hit the Run button to see your program in action.\n\nGood luck!Example",
+            "format": "markdown"
+          },
+          "objectives": [
+            "Use the print() function to display the text.",
+            "Put the word welcome inside quotation marks \" \" — this tells Python it's text.",
+            "Be careful with capitalization — welcome is different from Welcome, WELCOME, or WelCome in Python. You need to match welcome exactly."
+          ],
+          "difficulty": "easy",
+          "hints": [],
+          "starterFiles": [
+            {
+              "name": "main.py",
+              "content": "# Your First Python Program\n# Write your solution below\n"
+            }
+          ],
+          "actionLabel": "Start exercise"
+        },
+        {
+          "id": "page-1-5-compiler-5",
+          "type": "compiler",
+          "language": "python",
+          "runtime": "python3",
+          "files": [
+            {
+              "name": "main.py",
+              "content": "# Your First Python Program\n# Write your solution below\n"
+            }
+          ],
+          "activeFile": "main.py",
+          "expectedOutput": "welcome",
+          "runLabel": "Run code",
+          "resetLabel": "Reset starter code"
+        },
+        {
+          "id": "page-1-5-code-1",
+          "type": "code",
+          "language": "text",
+          "code": "welcome",
+          "caption": "Expected Output"
+        },
+        {
+          "id": "page-1-5-code-2",
+          "type": "code",
+          "language": "python",
+          "code": "print(\"welcome\")",
+          "caption": "Solution"
+        },
+        {
+          "id": "page-1-5-ai-explanation-3",
+          "type": "ai_explanation",
+          "title": "AI Explanation",
+          "context": "Welcome to the world of coding, where every line matters! Here's how it works:\n\nThis line of code is a simple print statement that displays the text \"welcome\" on the screen. It's like saying hello to everyone who opens your program.\n\nIn programming, the print function outputs whatever you put inside the parentheses. It’s often the first step to ensuring everything is running smoothly.\n\nSo, think of this as your starting point in learning to communicate with computers.\n\nReady to explore what else you can express in code?",
+          "actionLabel": "Explain this code",
+          "suggestedPrompts": [
+            "Explain the solution step by step."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-6-course-overview",
+      "number": "1.6",
+      "title": "Course Overview",
+      "summary": "Congratulations on writing your first Python program!",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "tags": [
+        "getting-started-with-python"
+      ],
+      "blocks": [
+        {
+          "id": "page-1-6-paragraph-1",
+          "type": "paragraph",
+          "content": "Congratulations on writing your first Python program!",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-6-paragraph-2",
+          "type": "paragraph",
+          "content": "You'll learn and write lots more code throughout this course. Here's what to expect:",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-6-image-3",
+          "type": "image",
+          "src": "/assets/courses/python-course/python-course-image-02.png",
+          "alt": "Course Flow",
+          "caption": "Figure: Course Flow",
+          "loading": "lazy"
+        },
+        {
+          "id": "page-1-6-paragraph-4",
+          "type": "paragraph",
+          "content": "By the end, you'll write hundreds of programs and create projects, including the rock-paper-scissors game, and become ready to work on real-world projects.",
+          "format": "plain"
+        },
+        {
+          "id": "page-1-6-heading-5",
+          "type": "heading",
+          "level": 3,
+          "text": "Click the Next Lesson button to continue your learning journey!"
+        }
+      ]
+    }
+  ]
+}

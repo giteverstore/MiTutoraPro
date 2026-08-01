@@ -1,27 +1,27 @@
 import { mockReferralProfile } from './referralData';
-import { createLocalReferralRepository } from './localReferralRepository';
+import { userDataService } from '../user-data/UserDataService';
 import { createReferralProfile } from './referralModel';
 
 export class ReferralService {
-  constructor({ repository = createLocalReferralRepository() } = {}) {
-    this.repository = repository;
+  constructor({ dataService = userDataService } = {}) {
+    this.dataService = dataService;
   }
 
   async getReferralProfile(userId) {
-    const stored = await this.repository.load(userId);
+    const stored = await this.dataService.loadReferral(userId);
     if (stored) return createReferralProfile(stored);
     const initial = createReferralProfile(mockReferralProfile);
-    await this.repository.save(userId, initial);
+    await this.dataService.saveReferral(userId, initial);
     return initial;
   }
 
   async saveReferralProfile(userId, profile) {
     const normalized = createReferralProfile(profile);
-    return this.repository.save(userId, normalized);
+    return this.dataService.saveReferral(userId, normalized);
   }
 
   async resetReferralProfile(userId) {
-    await this.repository.clear(userId);
+    await this.dataService.clearReferral(userId);
     return this.getReferralProfile(userId);
   }
 
