@@ -17,6 +17,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "firebase": "^12.17.0",
     "lucide-react": "^0.468.0",
     "monaco-editor": "^0.56.0",
     "pyodide": "^314.0.3",

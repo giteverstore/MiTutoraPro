@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useUser } from '../auth/UserContext';
+import { useAuth } from '../auth/AuthContext';
 import { AppSidebar } from './AppSidebar';
 import { AppTopNavigation } from './AppTopNavigation';
 import { APP_NAVIGATION } from './navigation';
@@ -7,7 +8,8 @@ import { settingsService } from '../settings/SettingsService';
 import { useSettings } from '../settings/useSettings';
 
 export function AppShell({ activePage, onNavigate, children }) {
-  const { user, signOut } = useUser();
+  const { user } = useUser();
+  const { signOut } = useAuth();
   const settings = useSettings();
   const [systemTheme, setSystemTheme] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',

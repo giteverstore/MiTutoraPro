@@ -6,6 +6,8 @@ import { AuthLayout } from './AuthLayout';
 const avatars = ['🧑‍💻', '🐍', '🚀', '💡'];
 
 export function ProfileCreation({ account, onComplete }) {
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const [profile, setProfile] = useState({
     avatar: avatars[0],
     experienceLevel: 'beginner',
@@ -17,17 +19,24 @@ export function ProfileCreation({ account, onComplete }) {
     setProfile((current) => ({ ...current, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onComplete({
-      ...account,
-      avatar: profile.avatar,
-      learningPreferences: {
-        experienceLevel: profile.experienceLevel,
-        preferredLanguage: profile.preferredLanguage,
-        dailyGoalMinutes: Number(profile.dailyGoalMinutes),
-      },
-    });
+    setSubmitting(true);
+    setError('');
+    try {
+      await onComplete({
+        ...account,
+        avatar: profile.avatar,
+        learningPreferences: {
+          experienceLevel: profile.experienceLevel,
+          preferredLanguage: profile.preferredLanguage,
+          dailyGoalMinutes: Number(profile.dailyGoalMinutes),
+        },
+      });
+    } catch (authError) {
+      setError(authError.message || 'Unable to create your account.');
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -73,8 +82,9 @@ export function ProfileCreation({ account, onComplete }) {
             <option value="45">45 minutes</option>
           </select>
         </label>
-        <button className="button button--primary auth-submit" type="submit">
-          Start learning <ArrowRight size={ICON_SIZE.base} />
+        {error ? <p className="form-error" role="alert">{error}</p> : null}
+        <button className="button button--primary auth-submit" type="submit" disabled={submitting}>
+          {submitting ? 'Creating account…' : 'Start learning'} {!submitting ? <ArrowRight size={ICON_SIZE.base} /> : null}
         </button>
       </form>
     </AuthLayout>

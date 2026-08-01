@@ -27,6 +27,7 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Settings](architecture/settings.md)
 - [Certificates](architecture/certificates.md)
 - [Referrals](architecture/referrals.md)
+- [Firebase foundation](architecture/firebase.md)
 - [Monaco integration](architecture/monaco-integration.md)
 - [Pyodide runtime](architecture/pyodide-runtime.md)
 

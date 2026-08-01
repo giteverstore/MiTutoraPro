@@ -8,13 +8,15 @@ import { useDragResize } from '../hooks/useDragResize';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { LAYOUT_SIZE } from '../design-system/theme';
 import { useUser } from '../auth/UserContext';
+import { useAuth } from '../auth/AuthContext';
 import { useLearningProgress } from '../progress/LearningProgressContext';
 import { createCompilerData } from './blocks/CompilerBlock';
 import { LessonFooter } from './LessonFooter';
 import { createCourseLessonBookmark } from '../bookmarks/bookmarkModel';
 
 export function Layout({ courseLoader, onExitCourse }) {
-  const { user, signOut } = useUser();
+  const { user } = useUser();
+  const { signOut } = useAuth();
   const learningProgress = useLearningProgress();
   const {
     currentCourse: course,

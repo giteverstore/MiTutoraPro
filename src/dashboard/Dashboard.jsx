@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
+import { useAuth } from '../auth/AuthContext';
 import { ICON_SIZE } from '../design-system/theme';
 import { CategoryGrid } from './CategoryGrid';
 import { ContinueLearningCard } from './ContinueLearningCard';
@@ -15,7 +16,8 @@ import {
 } from './dashboardData';
 
 export function Dashboard({ onOpenCourse }) {
-  const { user, signOut } = useUser();
+  const { user } = useUser();
+  const { signOut } = useAuth();
   const [theme, setTheme] = useState(
     () => window.localStorage.getItem('mi-tutora:theme') ?? 'light',
   );

@@ -4,7 +4,7 @@ import { ICON_SIZE } from '../../design-system/theme';
 import { AuthLayout } from './AuthLayout';
 import { FormField } from './FormField';
 
-export function SignIn({ onSubmit, onSignUp, onForgotPassword }) {
+export function SignIn({ onSubmit, onGoogle, onSignUp, onForgotPassword }) {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
@@ -15,15 +15,27 @@ export function SignIn({ onSubmit, onSignUp, onForgotPassword }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await onSubmit({ email: form.email });
-    if (!result.success) setError(result.message);
+    try {
+      await onSubmit(form);
+    } catch (authError) {
+      setError(authError.message || 'Unable to sign in.');
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError('');
+    try {
+      await onGoogle();
+    } catch (authError) {
+      setError(authError.message || 'Unable to sign in with Google.');
+    }
   };
 
   return (
     <AuthLayout
       eyebrow="Welcome back"
       title="Sign in to continue"
-      description="Use the email connected to your local learning profile."
+      description="Use your email and password or continue with Google."
     >
       <form className="auth-form" onSubmit={handleSubmit}>
         <FormField
@@ -37,7 +49,6 @@ export function SignIn({ onSubmit, onSignUp, onForgotPassword }) {
         />
         <FormField
           label="Password"
-          hint="Demo only. Passwords are not stored or authenticated."
           name="password"
           type="password"
           autoComplete="current-password"
@@ -51,6 +62,9 @@ export function SignIn({ onSubmit, onSignUp, onForgotPassword }) {
         {error ? <p className="form-error" role="alert">{error}</p> : null}
         <button className="button button--primary auth-submit" type="submit">
           Sign in <ArrowRight size={ICON_SIZE.base} />
+        </button>
+        <button className="button button--secondary auth-submit" type="button" onClick={handleGoogleSignIn}>
+          Continue with Google
         </button>
       </form>
       <p className="auth-switch">

@@ -24,7 +24,7 @@ export function SignUp({ onContinue, onSignIn }) {
       setError('Passwords do not match.');
       return;
     }
-    onContinue({ name: form.name.trim(), email: form.email.trim() });
+    onContinue({ name: form.name.trim(), email: form.email.trim(), password: form.password });
   };
 
   return (
@@ -38,7 +38,6 @@ export function SignUp({ onContinue, onSignIn }) {
         <FormField label="Email" name="email" type="email" autoComplete="email" value={form.email} onChange={updateField} required />
         <FormField
           label="Password"
-          hint="Demo only. This value will not be saved."
           name="password"
           type="password"
           autoComplete="new-password"

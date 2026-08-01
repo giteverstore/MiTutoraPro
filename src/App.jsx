@@ -4,6 +4,8 @@ import { CourseLoaderProvider, useCourseLoader } from './course/CourseLoader';
 import { CourseLoadState } from './components/CourseLoadState';
 import { AuthFlow } from './components/auth/AuthFlow';
 import { UserProvider, useUser } from './auth/UserContext';
+import { AuthProvider } from './auth/AuthProvider';
+import { useAuth } from './auth/AuthContext';
 import { CompilerProvider } from './compiler/CompilerProvider';
 import { createCompilerManager } from './compiler/createCompilerManager';
 import { HomePage } from './pages/HomePage';
@@ -34,23 +36,85 @@ const APPLICATION_PAGES = {
 export default function App() {
   return (
     <CompilerProvider manager={compilerManager}>
-      <UserProvider>
-        <UserGate />
-      </UserProvider>
+      <AuthProvider>
+        <UserProvider>
+          <UserGate />
+        </UserProvider>
+      </AuthProvider>
     </CompilerProvider>
   );
 }
 
 function UserGate() {
-  const { user, status, isAuthenticated } = useUser();
+  const auth = useAuth();
+  const {
+    user,
+    status,
+    isAuthenticated: hasLocalProfile,
+    signIn: restoreLocalProfile,
+    signOut: clearLocalSession,
+    createProfile,
+    updateProfile,
+  } = useUser();
+  const [isSynchronizingProfile, setIsSynchronizingProfile] = useState(false);
 
-  if (status === 'loading') {
+  useEffect(() => {
+    if (auth.loading || status === 'loading') return;
+    let active = true;
+
+    const synchronizeProfile = async () => {
+      if (!auth.isAuthenticated) {
+        if (hasLocalProfile) await clearLocalSession();
+        return;
+      }
+      if (user?.id === auth.user.id) return;
+
+      setIsSynchronizingProfile(true);
+      if (user?.email?.toLowerCase() === auth.user.email.toLowerCase()) {
+        updateProfile({
+          id: auth.user.id,
+          email: auth.user.email,
+          name: user.name || auth.user.name,
+          avatar: user.avatar || auth.user.avatar,
+        });
+      } else {
+        const restored = await restoreLocalProfile({ email: auth.user.email });
+        if (!restored.success) {
+          await createProfile({
+            id: auth.user.id,
+            name: auth.user.name,
+            email: auth.user.email,
+            avatar: auth.user.avatar,
+          });
+        }
+      }
+      if (active) setIsSynchronizingProfile(false);
+    };
+
+    synchronizeProfile();
+    return () => { active = false; };
+  }, [
+    auth.isAuthenticated,
+    auth.loading,
+    auth.user,
+    clearLocalSession,
+    createProfile,
+    hasLocalProfile,
+    restoreLocalProfile,
+    status,
+    updateProfile,
+    user,
+  ]);
+
+  if (auth.loading || status === 'loading' || isSynchronizingProfile) {
     return <CourseLoadState state="loading" />;
   }
 
-  if (!isAuthenticated) {
+  if (!auth.isAuthenticated) {
     return <AuthFlow />;
   }
+
+  if (!user || user.id !== auth.user.id) return <CourseLoadState state="loading" />;
 
   return (
     <BookmarkProvider userId={user.id}>
