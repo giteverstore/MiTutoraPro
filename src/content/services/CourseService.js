@@ -19,6 +19,7 @@ const validateManifest = (value) => Boolean(
   && typeof value.id === 'string'
   && typeof value.title === 'string'
   && value.navigation
+  && Array.isArray(value.modules)
   && Array.isArray(value.moduleFiles),
 );
 
@@ -31,6 +32,17 @@ function validateManifestAgainstMetadata(manifest, metadata) {
     throw new ContentError(
       CONTENT_ERROR_CODES.malformedJson,
       'The course manifest does not match its published metadata.',
+      { details: { courseId: metadata.id, storagePath: metadata.storagePath, version: metadata.version } },
+    );
+  }
+  const outlineIsValid = manifest.modules.length === metadata.moduleCount
+    && manifest.modules.every((module) => validateModule(module))
+    && manifest.modules.every((module) =>
+      module.lessons.every((lesson) => Array.isArray(lesson.blocks) && lesson.blocks.length === 0));
+  if (!outlineIsValid) {
+    throw new ContentError(
+      CONTENT_ERROR_CODES.malformedJson,
+      'The course manifest does not contain a valid content-free course outline.',
       { details: { courseId: metadata.id, storagePath: metadata.storagePath, version: metadata.version } },
     );
   }
@@ -83,11 +95,13 @@ export class CourseService extends BaseContentService {
     const initialModules = initialModuleNumber
       ? [await this.getCourseModule(metadata, initialModuleNumber)]
       : [];
-    const { moduleFiles: _moduleFiles, modules: _embeddedModules, ...courseFields } = manifest;
+    const { moduleFiles: _moduleFiles, modules: outlineModules, ...courseFields } = manifest;
+    const modules = outlineModules.map((module, index) =>
+      index + 1 === initialModuleNumber ? initialModules[0] : module);
     return Object.freeze({
       metadata,
       initialModuleNumber,
-      course: Object.freeze({ ...courseFields, modules: Object.freeze(initialModules) }),
+      course: Object.freeze({ ...courseFields, modules: Object.freeze(modules) }),
     });
   }
 

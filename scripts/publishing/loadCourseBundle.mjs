@@ -54,12 +54,20 @@ export async function loadAndValidateCourseBundle(courseKey) {
   if (manifest.moduleFiles.some((file) => basename(file) !== file || !/^module-[1-9]\d*\.json$/.test(file))) {
     throw new Error('course.json contains an invalid module filename.');
   }
+  if (!Array.isArray(manifest.modules) || manifest.modules.length !== manifest.moduleFiles.length) {
+    throw new Error('course.json must contain one outline module for every module file.');
+  }
+  if (manifest.modules.some((module) =>
+    !Array.isArray(module.lessons)
+    || module.lessons.some((lesson) => !Array.isArray(lesson.blocks) || lesson.blocks.length))) {
+    throw new Error('course.json outline lessons must contain empty blocks arrays.');
+  }
 
   const moduleEntries = await Promise.all(manifest.moduleFiles.map(async (fileName) => {
     const localPath = resolve(bundleDirectory, fileName);
     return { fileName, localPath, content: await readJson(localPath, fileName) };
   }));
-  const { moduleFiles: _moduleFiles, ...courseFields } = manifest;
+  const { moduleFiles: _moduleFiles, modules: _outlineModules, ...courseFields } = manifest;
   const course = { ...courseFields, modules: moduleEntries.map(({ content }) => content) };
 
   const schema = await readJson(resolve(projectRoot, 'schemas/learning-course.schema.json'), 'course schema');

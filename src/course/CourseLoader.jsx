@@ -101,12 +101,15 @@ export function CourseLoaderProvider({
           courseEntryRef.current = courseEntry;
           const session = new CourseSession({
             moduleCount: courseEntry.moduleCount,
+            outlineModules: modules,
             cacheWindow,
             loadModule: (moduleNumber) => loadCourseModule(courseEntry, moduleNumber),
             evictModule: (moduleNumber) => evictCourseModule(courseEntry, moduleNumber),
             onError: (moduleError) => setBackgroundError(moduleError),
           });
-          if (initialModuleNumber && modules[0]) session.prime(initialModuleNumber, modules[0]);
+          if (initialModuleNumber && modules[initialModuleNumber - 1]) {
+            session.prime(initialModuleNumber, modules[initialModuleNumber - 1]);
+          }
           sessionRef.current = session;
           course = createSessionCourseModel(session);
           setSessionState(session.getSnapshot());

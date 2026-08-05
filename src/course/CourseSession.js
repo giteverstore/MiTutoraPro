@@ -21,6 +21,7 @@ function createModuleSummary(module) {
 export class CourseSession {
   constructor({
     moduleCount,
+    outlineModules = [],
     cacheWindow = DEFAULT_CACHE_WINDOW,
     loadModule,
     evictModule = () => undefined,
@@ -50,6 +51,12 @@ export class CourseSession {
     this.accessOrder = new Map();
     this.accessSequence = 0;
     this.disposed = false;
+    outlineModules.forEach((module, index) => {
+      const moduleNumber = index + 1;
+      const summary = createModuleSummary(module);
+      this.moduleCatalog.set(moduleNumber, summary);
+    });
+    this.moduleOutline = new Map(this.moduleCatalog);
   }
 
   prime(moduleNumber, module) {
@@ -184,9 +191,10 @@ export class CourseSession {
         });
       const moduleNumber = candidates[0];
       if (moduleNumber === undefined) return;
-      const module = this.loadedModules.get(moduleNumber);
       this.loadedModules.delete(moduleNumber);
-      this.moduleCatalog.set(moduleNumber, createModuleSummary(module));
+      const outline = this.moduleOutline.get(moduleNumber);
+      if (outline) this.moduleCatalog.set(moduleNumber, outline);
+      else this.moduleCatalog.delete(moduleNumber);
       this.accessOrder.delete(moduleNumber);
       this.evictModule(moduleNumber);
     }

@@ -539,11 +539,15 @@ const firebaseVersion = `v${course.metadata.version.split('.')[0]}`;
 const outputDirectory = resolve(FIREBASE_OUTPUT_ROOT, firebaseVersion);
 const moduleFiles = course.modules.map((_, index) => `module-${index + 1}.json`);
 const { modules: courseModules, ...courseManifest } = course;
+const courseOutline = courseModules.map((module) => ({
+  ...module,
+  lessons: module.lessons.map((lesson) => ({ ...lesson, blocks: [] })),
+}));
 
 await mkdir(outputDirectory, { recursive: true });
 await writeFile(
   resolve(outputDirectory, 'course.json'),
-  `${JSON.stringify({ ...courseManifest, moduleFiles }, null, 2)}\n`,
+  `${JSON.stringify({ ...courseManifest, modules: courseOutline, moduleFiles }, null, 2)}\n`,
 );
 await Promise.all(courseModules.map((module, index) =>
   writeFile(resolve(outputDirectory, moduleFiles[index]), `${JSON.stringify(module, null, 2)}\n`)));

@@ -8,7 +8,10 @@ const bundleRoot = resolve('firebase-content/course-content/python/v1');
 const manifest = JSON.parse(await readFile(resolve(bundleRoot, 'course.json'), 'utf8'));
 const modules = await Promise.all(manifest.moduleFiles.map(async (file) =>
   JSON.parse(await readFile(resolve(bundleRoot, file), 'utf8'))));
-const { moduleFiles: _moduleFiles, ...courseFields } = manifest;
+assert.equal(manifest.modules.length, manifest.moduleFiles.length);
+assert.equal(manifest.modules.every((module) =>
+  module.lessons.every((lesson) => Array.isArray(lesson.blocks) && lesson.blocks.length === 0)), true);
+const { moduleFiles: _moduleFiles, modules: _outlineModules, ...courseFields } = manifest;
 const mergedCourse = { ...courseFields, modules };
 const localCourse = JSON.parse(await readFile(resolve('public/courses/python-course.json'), 'utf8'));
 
