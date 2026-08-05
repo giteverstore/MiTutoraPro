@@ -59,27 +59,20 @@ export class BaseRepository {
   }
 
   async get(id) {
-    console.log('[TRACE] BaseRepository.get');
     return toEntity(await getDoc(this.#document(id)));
   }
 
   async set(id, data) {
     const reference = this.#document(id);
-    console.info('[Firestore] Awaiting setDoc.', { path: reference.path });
     await setDoc(reference, data);
-    console.info('[Firestore] setDoc completed. Awaiting document read-back.', { path: reference.path });
     const snapshot = await getDoc(reference);
-    console.info('[Firestore] Document read-back completed.', { path: reference.path });
     return toEntity(snapshot);
   }
 
   async update(id, partial) {
     const reference = this.#document(id);
-    console.info('[Firestore] Awaiting updateDoc.', { path: reference.path });
     await updateDoc(reference, partial);
-    console.info('[Firestore] updateDoc completed. Awaiting document read-back.', { path: reference.path });
     const snapshot = await getDoc(reference);
-    console.info('[Firestore] Document read-back completed.', { path: reference.path });
     return toEntity(snapshot);
   }
 
@@ -89,12 +82,7 @@ export class BaseRepository {
 
   async exists(id) {
     const reference = this.#document(id);
-    console.info('[Firestore] Awaiting existence read.', { path: reference.path });
     const snapshot = await getDoc(reference);
-    console.info('[Firestore] Existence read completed.', {
-      path: reference.path,
-      exists: snapshot.exists(),
-    });
     return snapshot.exists();
   }
 

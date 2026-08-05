@@ -2,7 +2,6 @@ import { applicationDefault, cert, getApp, getApps, initializeApp } from 'fireba
 import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 import { loadEnv } from 'vite';
-import { parseJson } from '../utils/parseJson.mjs';
 
 function loadPublisherEnvironment() {
   const fileEnvironment = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
@@ -12,7 +11,7 @@ function loadPublisherEnvironment() {
 function createCredential(environment) {
   if (!environment.FIREBASE_SERVICE_ACCOUNT_JSON) return applicationDefault();
   try {
-    return cert(parseJson(environment.FIREBASE_SERVICE_ACCOUNT_JSON, import.meta.url));
+    return cert(JSON.parse(environment.FIREBASE_SERVICE_ACCOUNT_JSON));
   } catch (error) {
     throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON.', { cause: error });
   }

@@ -4,7 +4,6 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { load } from 'cheerio';
 import mammoth from 'mammoth';
-import { parseJson } from './utils/parseJson.mjs';
 
 const SOURCE_PATH = resolve('MI TUtora PythonCourse.docx');
 const FIREBASE_OUTPUT_ROOT = resolve('firebase-content/course-content/python');
@@ -527,7 +526,7 @@ const course = {
 
 repairConvertedBlocks(course.modules);
 
-const schema = parseJson(await readFile(SCHEMA_PATH, 'utf8'), import.meta.url);
+const schema = JSON.parse(await readFile(SCHEMA_PATH, 'utf8'));
 const ajv = new Ajv2020({ allErrors: true, strict: true, allowUnionTypes: true });
 addFormats(ajv);
 const validate = ajv.compile(schema);

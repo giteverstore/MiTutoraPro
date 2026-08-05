@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { authService as defaultService } from './AuthService';
-import { logAuthenticationError, logAuthenticationEvent } from './authDiagnostics';
 
 export function createExclusiveAuthenticationRunner() {
   let activeRequest = null;
@@ -27,14 +26,10 @@ export function AuthProvider({ children, service = defaultService }) {
 
   useEffect(() => service.onAuthStateChanged(
     (nextUser) => {
-      logAuthenticationEvent('AuthProvider received resolved user.', {
-        uid: nextUser?.uid ?? null,
-      });
       setUser(nextUser);
       setLoading(false);
     },
-    (error) => {
-      logAuthenticationError('AuthProvider received an authentication-state error.', error);
+    () => {
       setUser(null);
       setLoading(false);
     },

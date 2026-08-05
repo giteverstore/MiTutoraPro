@@ -2,6 +2,7 @@ import { Menu, Moon, Sun } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
+import { UserAvatar } from './UserAvatar';
 
 export function TopNavigation({
   onMenuClick,
@@ -65,7 +66,7 @@ export function TopNavigation({
           />
         ) : null}
         <div className="topbar-user">
-          <span className="user-avatar" aria-hidden="true">{user.avatar}</span>
+          <UserAvatar avatar={user.avatar} name={user.name} className="user-avatar" />
           <span className="user-name">{user.name}</span>
           <button className="auth-text-button" type="button" onClick={onSignOut}>
             Sign out

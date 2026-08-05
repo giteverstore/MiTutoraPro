@@ -807,6 +807,7 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
   background: var(--color-accent-soft);
   border-radius: var(--radius-full);
 }
+.profile-avatar-image { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .dashboard-profile-button > span:last-child { display: grid; text-align: left; }
 .dashboard-profile-button strong { max-width: 8rem; overflow: hidden; font-size: var(--font-size-sm); text-overflow: ellipsis; white-space: nowrap; }
 .dashboard-profile-button small { max-width: 8rem; overflow: hidden; color: var(--color-text-muted); font-size: var(--font-size-xs); text-overflow: ellipsis; white-space: nowrap; }

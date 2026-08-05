@@ -31,17 +31,28 @@ function getModuleIdForLesson(course, lessonId) {
 function deriveProgress(course, stored) {
   const entries = getCourseLessons(course);
   const lessonIds = new Set(entries.map(({ lesson }) => lesson.id));
+  const contentIsComplete = course.contentLoadState?.isComplete !== false;
   const completedLessons = [...new Set(stored.completedLessons ?? [])]
-    .filter((lessonId) => lessonIds.has(lessonId));
+    .filter((lessonId) => !contentIsComplete || lessonIds.has(lessonId));
   const completedSet = new Set(completedLessons);
   const visitedLessons = [...new Set([
     ...(stored.visitedLessons ?? []),
     ...completedLessons,
-  ])].filter((lessonId) => lessonIds.has(lessonId));
+  ])].filter((lessonId) => !contentIsComplete || lessonIds.has(lessonId));
   let sequentialCompletedLessons = 0;
-  for (const { lesson } of entries) {
+  const contiguousModuleCount = course.contentLoadState?.contiguousModuleCount
+    ?? course.modules.length;
+  const sequentialEntries = contentIsComplete
+    ? entries
+    : course.modules
+      .slice(0, contiguousModuleCount)
+      .flatMap((module) => module.lessons.map((lesson) => ({ lesson, module })));
+  for (const { lesson } of sequentialEntries) {
     if (!completedSet.has(lesson.id)) break;
     sequentialCompletedLessons += 1;
+  }
+  if (!contentIsComplete && sequentialEntries.length === 0) {
+    sequentialCompletedLessons = stored.sequentialCompletedLessons ?? 0;
   }
   const completedModules = course.modules
     .filter((module) => {
@@ -50,6 +61,12 @@ function deriveProgress(course, stored) {
         && availableLessons.every((lesson) => completedSet.has(lesson.id));
     })
     .map((module) => module.id);
+  if (!contentIsComplete) {
+    const loadedModuleIds = new Set(course.modules.map((module) => module.id));
+    for (const moduleId of stored.completedModules ?? []) {
+      if (!loadedModuleIds.has(moduleId)) completedModules.push(moduleId);
+    }
+  }
   const estimatedTimeRemaining = entries.reduce(
     (minutes, { lesson }) =>
       completedSet.has(lesson.id) ? minutes : minutes + getEstimatedMinutes(lesson),
@@ -61,16 +78,22 @@ function deriveProgress(course, stored) {
     completedLessons,
     visitedLessons,
     completedModules,
-    bookmarks: [...new Set(stored.bookmarks ?? [])].filter((lessonId) => lessonIds.has(lessonId)),
+    bookmarks: [...new Set(stored.bookmarks ?? [])]
+      .filter((lessonId) => !contentIsComplete || lessonIds.has(lessonId)),
     quizScores: stored.quizScores ?? {},
     exerciseCompletion: stored.exerciseCompletion ?? {},
     sequentialCompletedLessons,
     visitedLessonCount: visitedLessons.length,
     completedLessonCount: completedLessons.length,
-    courseProgress: entries.length
-      ? Math.round((sequentialCompletedLessons / entries.length) * 100)
+    courseProgress: (course.contentLoadState?.totalLessonCount ?? entries.length)
+      ? Math.round((
+        sequentialCompletedLessons
+        / (course.contentLoadState?.totalLessonCount ?? entries.length)
+      ) * 100)
       : 0,
-    estimatedTimeRemaining,
+    estimatedTimeRemaining: contentIsComplete
+      ? estimatedTimeRemaining
+      : stored.estimatedTimeRemaining ?? estimatedTimeRemaining,
   };
 }
 
@@ -116,6 +139,8 @@ export function LearningProgressProvider({
   initialVisitedLessons = [],
   repository = defaultRepository,
 }) {
+  const courseRef = useRef(course);
+  courseRef.current = course;
   const initialLessonIdRef = useRef(initialLessonId);
   const initialCompletedLessonsRef = useRef(initialCompletedLessons);
   const initialBookmarksRef = useRef(initialBookmarks);
@@ -135,8 +160,9 @@ export function LearningProgressProvider({
 
     repository.load(userId, course.id).then((stored) => {
       if (!active) return;
+      const activeCourse = courseRef.current;
       const initial = createInitialProgress(
-        course,
+        activeCourse,
         initialLessonIdRef.current,
         initialCompletedLessonsRef.current,
         initialBookmarksRef.current,
@@ -160,7 +186,7 @@ export function LearningProgressProvider({
             ],
           }
         : initial;
-      setProgress(deriveProgress(course, restored));
+      setProgress(deriveProgress(activeCourse, restored));
       setStatus('ready');
     }).catch((loadError) => {
       if (!active) return;
@@ -171,7 +197,11 @@ export function LearningProgressProvider({
     return () => {
       active = false;
     };
-  }, [course, repository, userId]);
+  }, [course.id, repository, userId]);
+
+  useEffect(() => {
+    setProgress((current) => deriveProgress(course, current));
+  }, [course]);
 
   const updateProgress = useCallback((updater) => {
     setProgress((current) => {

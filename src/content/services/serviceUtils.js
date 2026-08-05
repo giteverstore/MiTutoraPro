@@ -15,7 +15,6 @@ export function requirePublished(metadata, contentType) {
 }
 
 export async function getNormalizedMetadata(repository, id, createModel, contentType, includeUnpublished = false) {
-  console.log('[TRACE] getNormalizedMetadata');
   const metadata = createModel(requireMetadata(await repository.getMetadata(id), contentType, id));
   return includeUnpublished ? metadata : requirePublished(metadata, contentType);
 }

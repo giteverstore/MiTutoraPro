@@ -2,7 +2,6 @@ import { readFile, stat } from 'node:fs/promises';
 import { basename, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
-import { parseJson } from '../utils/parseJson.mjs';
 
 const projectRoot = resolve(import.meta.dirname, '../..');
 const requiredMetadataFields = [
@@ -19,7 +18,7 @@ async function readJson(path, label) {
     throw new Error(`Unable to read ${label} at ${path}.`, { cause: error });
   }
   try {
-    return parseJson(source, import.meta.url);
+    return JSON.parse(source);
   } catch (error) {
     throw new Error(`${label} contains malformed JSON.`, { cause: error });
   }

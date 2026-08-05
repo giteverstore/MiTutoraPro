@@ -15,7 +15,6 @@ export class ContentCache {
   }
 
   getOrCreate(storagePath, factory) {
-    console.log('[TRACE] ContentCache.getOrCreate');
     if (this.has(storagePath)) return this.get(storagePath);
     const pending = Promise.resolve().then(factory);
     this.set(storagePath, pending);

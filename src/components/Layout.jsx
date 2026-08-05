@@ -102,8 +102,9 @@ export function Layout({ courseLoader, onExitCourse }) {
     [learningProgress.visitedLessons],
   );
   const lessonCount = useMemo(
-    () => course.modules.reduce((total, module) => total + module.lessons.length, 0),
-    [course.modules],
+    () => course.contentLoadState?.totalLessonCount
+      ?? course.modules.reduce((total, module) => total + module.lessons.length, 0),
+    [course.contentLoadState?.totalLessonCount, course.modules],
   );
   const lessonBookmark = useMemo(
     () => currentLesson ? createCourseLessonBookmark({

@@ -1,6 +1,7 @@
 import { Bell, Menu, Moon, Search, Sun } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from '../components/IconButton';
+import { UserAvatar } from '../components/UserAvatar';
 
 export function DashboardTopNavigation({
   user,
@@ -53,7 +54,7 @@ export function DashboardTopNavigation({
         </IconButton>
         <div className="dashboard-popover-wrap">
           <button className="dashboard-profile-button" type="button" aria-expanded={isProfileOpen} onClick={onProfileToggle}>
-            <span>{user.avatar}</span>
+            <UserAvatar avatar={user.avatar} name={user.name} />
             <span><strong>{user.name}</strong><small>{user.email}</small></span>
           </button>
           {isProfileOpen ? (
@@ -68,4 +69,3 @@ export function DashboardTopNavigation({
     </header>
   );
 }
-

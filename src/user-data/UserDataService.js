@@ -5,10 +5,45 @@ import { ReferralRepository } from '../repositories/firestore/ReferralRepository
 import { SettingsRepository } from '../repositories/firestore/SettingsRepository';
 import { USER_DATA_ERROR_CODES, UserDataError } from './UserDataError';
 
-import { parseJson } from '../utils/parseJson';
-
-const clone = (value) => value == null ? value : parseJson(JSON.stringify(value), import.meta.url);
+const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
 const cacheKey = (...segments) => segments.join(':');
+
+function stableValue(value) {
+  if (Array.isArray(value)) return value.map(stableValue);
+  if (value && typeof value === 'object') {
+    return Object.keys(value)
+      .sort()
+      .reduce((result, key) => {
+        if (value[key] !== undefined) result[key] = stableValue(value[key]);
+        return result;
+      }, {});
+  }
+  return value;
+}
+
+function stableSerialize(value) {
+  return JSON.stringify(stableValue(value));
+}
+
+function createProgressData(progress, courseId) {
+  const {
+    id: _id,
+    startedAt: _startedAt,
+    lastOpened: _lastOpened,
+    updatedAt: _updatedAt,
+    ...data
+  } = progress ?? {};
+  return {
+    ...data,
+    courseId,
+    currentModule: data.currentModule ?? null,
+    currentLesson: data.currentLesson ?? null,
+    completedLessons: data.completedLessons ?? [],
+    completedExercises: data.exerciseCompletion ?? data.completedExercises ?? {},
+    completedQuizzes: data.quizScores ?? data.completedQuizzes ?? {},
+    completion: data.courseProgress ?? data.completion ?? 0,
+  };
+}
 
 function friendlyError(error, operation, write = false) {
   if (error instanceof UserDataError) return error;
@@ -28,6 +63,7 @@ export class UserDataService {
     this.cache = new Map();
     this.repositories = new Map();
     this.writeQueues = new Map();
+    this.persistedProgressSnapshots = new Map();
     this.activeUserId = null;
     this.repositoryFactories = repositoryFactories;
     this.cacheGeneration = 0;
@@ -44,6 +80,7 @@ export class UserDataService {
     this.cache.clear();
     this.repositories.clear();
     this.writeQueues.clear();
+    this.persistedProgressSnapshots.clear();
     this.activeUserId = null;
   }
 
@@ -90,28 +127,42 @@ export class UserDataService {
 
   async loadProgress(uid, courseId) {
     const key = cacheKey(uid, 'progress', courseId);
-    return this.read(key, () => this.repository(uid, 'progress', ProgressRepository).get(courseId));
+    const progress = await this.read(
+      key,
+      () => this.repository(uid, 'progress', ProgressRepository).get(courseId),
+    );
+    if (progress) {
+      this.persistedProgressSnapshots.set(
+        key,
+        stableSerialize(createProgressData(progress, courseId)),
+      );
+    } else this.persistedProgressSnapshots.delete(key);
+    return progress;
   }
 
   async saveProgress(uid, courseId, progress) {
     const key = cacheKey(uid, 'progress', courseId);
+    const generation = this.cacheGeneration;
     return this.write(key, async () => {
       const existing = this.cache.get(key) ?? await this.repository(uid, 'progress', ProgressRepository).get(courseId);
+      const progressData = createProgressData(progress, courseId);
+      const serializedProgress = stableSerialize(progressData);
+      const persistedSnapshot = this.persistedProgressSnapshots.get(key)
+        ?? (existing ? stableSerialize(createProgressData(existing, courseId)) : null);
+      if (serializedProgress === persistedSnapshot) return existing;
+
       const now = new Date().toISOString();
       const document = {
-        ...progress,
-        courseId,
-        currentModule: progress.currentModule ?? null,
-        currentLesson: progress.currentLesson ?? null,
-        completedLessons: progress.completedLessons ?? [],
-        completedExercises: progress.exerciseCompletion ?? progress.completedExercises ?? {},
-        completedQuizzes: progress.quizScores ?? progress.completedQuizzes ?? {},
-        completion: progress.courseProgress ?? progress.completion ?? 0,
+        ...progressData,
         startedAt: existing?.startedAt ?? now,
         lastOpened: now,
         updatedAt: now,
       };
-      return this.repository(uid, 'progress', ProgressRepository).set(courseId, document);
+      const saved = await this.repository(uid, 'progress', ProgressRepository).set(courseId, document);
+      if (this.cacheGeneration === generation) {
+        this.persistedProgressSnapshots.set(key, serializedProgress);
+      }
+      return saved;
     });
   }
 
@@ -122,6 +173,7 @@ export class UserDataService {
       return null;
     });
     this.cache.delete(key);
+    this.persistedProgressSnapshots.delete(key);
   }
 
   async clearAllProgress(uid) {
@@ -130,6 +182,9 @@ export class UserDataService {
       this.repository(uid, 'progress', ProgressRepository).replaceAll([]));
     for (const key of this.cache.keys()) {
       if (key.startsWith(keyPrefix)) this.cache.delete(key);
+    }
+    for (const key of this.persistedProgressSnapshots.keys()) {
+      if (key.startsWith(keyPrefix)) this.persistedProgressSnapshots.delete(key);
     }
   }
 

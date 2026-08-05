@@ -1,8 +1,5 @@
 import { Bell, LogOut, Menu, Moon, Sun, UserRound } from 'lucide-react';
-
-function getInitials(name) {
-  return name.split(' ').map((part) => part[0]).slice(0, 2).join('').toUpperCase();
-}
+import { UserAvatar } from '../components/UserAvatar';
 
 export function AppTopNavigation({
   pageLabel,
@@ -51,7 +48,7 @@ export function AppTopNavigation({
             aria-label="Open user menu"
             aria-expanded={userMenuOpen}
           >
-            <span>{getInitials(user.name)}</span>
+            <UserAvatar avatar={user.avatar} name={user.name} />
             <div><strong>{user.name}</strong><small>Learner</small></div>
           </button>
           {userMenuOpen ? (

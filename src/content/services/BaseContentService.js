@@ -11,7 +11,6 @@ export class BaseContentService {
   }
 
   getMetadata(id, { includeUnpublished = false } = {}) {
-    console.log('[TRACE] BaseContentService.getMetadata');
     return getNormalizedMetadata(
       this.repository,
       id,
@@ -26,7 +25,6 @@ export class BaseContentService {
   }
 
   resolveVersion(metadata) {
-    console.log('[TRACE] BaseContentService.resolveVersion');
     return metadata.version;
   }
 

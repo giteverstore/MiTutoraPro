@@ -6,7 +6,7 @@ function keyFor(userId) {
 
 function parse(value) {
   try {
-    return value ? parseJson(value, import.meta.url) : null;
+    return value ? JSON.parse(value) : null;
   } catch {
     return null;
   }
@@ -26,4 +26,3 @@ export function createLocalReferralRepository(storage = window.localStorage) {
     },
   };
 }
-import { parseJson } from '../utils/parseJson';

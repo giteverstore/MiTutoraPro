@@ -1,5 +1,4 @@
 import { authRepository as defaultRepository } from './AuthRepository';
-import { logAuthenticationError, logAuthenticationEvent } from './authDiagnostics';
 
 function normalizeUser(firebaseUser, document = null) {
   if (!firebaseUser) return null;
@@ -96,25 +95,13 @@ export class AuthService {
     return this.repository.observeAuthState(async (firebaseUser) => {
       try {
         if (!firebaseUser) {
-          logAuthenticationEvent('Auth state resolved without an authenticated user.');
           next(null);
           return;
         }
-        logAuthenticationEvent('Authenticated Firebase user received by AuthService.', {
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-        });
         const document = await this.repository.synchronizeUserDocument(firebaseUser);
-        logAuthenticationEvent('Firestore synchronization awaited successfully.', {
-          uid: firebaseUser.uid,
-        });
         const user = normalizeUser(firebaseUser, document);
-        logAuthenticationEvent('Publishing authenticated user to AuthContext.', {
-          uid: user.uid,
-        });
         next(user);
       } catch (authError) {
-        logAuthenticationError('Auth-state user synchronization failed.', authError);
         error?.(authError);
       }
     }, error);

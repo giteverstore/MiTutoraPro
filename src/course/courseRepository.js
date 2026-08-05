@@ -1,4 +1,4 @@
-import { CourseService } from '../content/services/CourseService';
+import { CourseService, resolveLessonModuleNumber } from '../content/services/CourseService';
 
 const LOCAL_METADATA_URL = '/courses/course-metadata.json';
 const LOCAL_FALLBACK_ENABLED = import.meta.env.DEV
@@ -21,7 +21,6 @@ async function loadLocalMetadata(signal) {
 }
 
 export async function loadCourseMetadata(signal, courseId) {
-  console.log('[TRACE] loadCourseMetadata');
   throwIfAborted(signal);
   if (!courseId) {
     if (LOCAL_FALLBACK_ENABLED) return loadLocalMetadata(signal);
@@ -50,22 +49,36 @@ async function loadLocalCourse(metadata, selectedId, signal) {
   };
 }
 
-export async function loadCourseDocument(metadata, courseId, signal) {
-  console.log('[TRACE] loadCourseDocument');
+export async function loadCourseDocument(metadata, courseId, signal, initialLessonId) {
   const selectedId = courseId ?? metadata.defaultCourseId;
   throwIfAborted(signal);
 
   if (metadata.provider === 'local-fallback') return loadLocalCourse(metadata, selectedId, signal);
 
   try {
-    const { metadata: courseEntry, course } = await courseService.getCourse(selectedId);
+    const { metadata: courseEntry, course, initialModuleNumber } = await courseService.getCourse(
+      selectedId,
+      { initialLessonId },
+    );
     throwIfAborted(signal);
-    return { course, courseEntry, provider: 'firebase' };
+    return { course, courseEntry, initialModuleNumber, provider: 'firebase' };
   } catch (error) {
     if (!LOCAL_FALLBACK_ENABLED) throw error;
     console.warn('[CourseLoader] Firebase course content unavailable; using the development-only local fallback.', error);
     return loadLocalCourse(metadata, selectedId, signal);
   }
+}
+
+export function loadCourseModule(courseEntry, moduleNumber) {
+  return courseService.getCourseModule(courseEntry, moduleNumber);
+}
+
+export function evictCourseModule(courseEntry, moduleNumber) {
+  return courseService.evictCourseModule(courseEntry, moduleNumber);
+}
+
+export function resolveCourseLessonModuleNumber(lessonId, moduleCount) {
+  return resolveLessonModuleNumber(lessonId, moduleCount);
 }
 
 export function invalidateFirebaseCourse(courseId, metadata) {
