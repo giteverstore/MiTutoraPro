@@ -3,7 +3,7 @@ const SESSION_KEY = 'mi-tutora:user-session:v1';
 
 function safelyParse(value) {
   try {
-    return value ? JSON.parse(value) : null;
+    return value ? parseJson(value, import.meta.url) : null;
   } catch {
     return null;
   }
@@ -37,3 +37,4 @@ export function createLocalUserRepository(storage = window.localStorage) {
     },
   };
 }
+import { parseJson } from '../utils/parseJson';

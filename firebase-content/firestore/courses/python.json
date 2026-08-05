@@ -1,0 +1,16 @@
+{
+  "id": "python",
+  "slug": "python",
+  "title": "MI Tutora Python Course",
+  "description": "A beginner Python course converted from the MI Tutora course document.",
+  "thumbnail": "/assets/courses/python-course/python-course-image-01.png",
+  "language": "python",
+  "domain": "programming",
+  "difficulty": "beginner",
+  "estimatedMinutes": 340,
+  "moduleCount": 6,
+  "lessonCount": 68,
+  "published": true,
+  "version": "v1",
+  "storagePath": "course-content/python"
+}

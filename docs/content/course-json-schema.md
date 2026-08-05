@@ -58,10 +58,10 @@ The schema cannot portably enforce document-wide ID uniqueness or target existen
 
 ```json
 {
-  "defaultCourseId": "mi-tutora-python-course",
+  "defaultCourseId": "python",
   "courses": [
     {
-      "id": "mi-tutora-python-course",
+      "id": "python",
       "title": "MI Tutora Python Course",
       "description": "Beginner Python course.",
       "version": "1.0.0",

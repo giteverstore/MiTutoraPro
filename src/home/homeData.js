@@ -33,7 +33,7 @@ const languageNames = [
 
 const courseDetails = {
   Python: {
-    id: 'mi-tutora-python-course',
+    id: 'python',
     title: 'Python Foundations',
     description: 'Build a practical foundation through guided lessons, quizzes, and exercises.',
     level: 'Beginner',

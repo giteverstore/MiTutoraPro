@@ -30,7 +30,7 @@ export function Dashboard({ onOpenCourse }) {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const courses = useMemo(() => dashboardCourses.map((course) =>
-    course.id === 'mi-tutora-python-course'
+    course.id === 'python'
       ? { ...course, progress: user.courseProgress ?? 0 }
       : course), [user.courseProgress]);
   const continueCourse = courses[0];

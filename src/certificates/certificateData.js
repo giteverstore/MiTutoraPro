@@ -3,7 +3,7 @@ import { CERTIFICATE_STATUS, createCertificate } from './certificateModel';
 export const mockCertificates = [
   createCertificate({
     id: 'certificate-python-foundations',
-    courseId: 'mi-tutora-python-course',
+    courseId: 'python',
     courseTitle: 'Python Foundations',
     description: 'Core Python syntax, data structures, functions, and practical problem solving.',
     status: CERTIFICATE_STATUS.earned,
@@ -33,7 +33,7 @@ export const mockCertificates = [
   }),
   createCertificate({
     id: 'progress-data-science',
-    courseId: 'mi-tutora-python-course',
+    courseId: 'python',
     courseTitle: 'Data Science Essentials',
     description: 'Analysis workflows, visualization, and practical data reasoning.',
     status: CERTIFICATE_STATUS.inProgress,

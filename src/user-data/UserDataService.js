@@ -5,7 +5,9 @@ import { ReferralRepository } from '../repositories/firestore/ReferralRepository
 import { SettingsRepository } from '../repositories/firestore/SettingsRepository';
 import { USER_DATA_ERROR_CODES, UserDataError } from './UserDataError';
 
-const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
+import { parseJson } from '../utils/parseJson';
+
+const clone = (value) => value == null ? value : parseJson(JSON.stringify(value), import.meta.url);
 const cacheKey = (...segments) => segments.join(':');
 
 function friendlyError(error, operation, write = false) {

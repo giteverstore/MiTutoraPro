@@ -6,7 +6,7 @@ function keyFor(userId) {
 
 function parse(value) {
   try {
-    return value ? JSON.parse(value) : null;
+    return value ? parseJson(value, import.meta.url) : null;
   } catch {
     return null;
   }
@@ -26,3 +26,4 @@ export function createLocalCertificateRepository(storage = window.localStorage) 
     },
   };
 }
+import { parseJson } from '../utils/parseJson';

@@ -2,7 +2,7 @@ import { CourseService } from '../content/services/CourseService';
 
 const LOCAL_METADATA_URL = '/courses/course-metadata.json';
 const LOCAL_FALLBACK_ENABLED = import.meta.env.DEV
-  && import.meta.env.VITE_ENABLE_LOCAL_COURSE_FALLBACK !== 'false';
+  && import.meta.env.VITE_ENABLE_LOCAL_COURSE_FALLBACK === 'true';
 const courseService = new CourseService();
 
 function throwIfAborted(signal) {
@@ -21,6 +21,7 @@ async function loadLocalMetadata(signal) {
 }
 
 export async function loadCourseMetadata(signal, courseId) {
+  console.log('[TRACE] loadCourseMetadata');
   throwIfAborted(signal);
   if (!courseId) {
     if (LOCAL_FALLBACK_ENABLED) return loadLocalMetadata(signal);
@@ -50,6 +51,7 @@ async function loadLocalCourse(metadata, selectedId, signal) {
 }
 
 export async function loadCourseDocument(metadata, courseId, signal) {
+  console.log('[TRACE] loadCourseDocument');
   const selectedId = courseId ?? metadata.defaultCourseId;
   throwIfAborted(signal);
 

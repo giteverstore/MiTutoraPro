@@ -15,12 +15,14 @@
     "validate:challenge": "node scripts/validate-challenge-schema.mjs",
     "convert:python-course": "node scripts/convert-python-course.mjs",
     "build:firebase-interactive-content": "node scripts/build-firebase-interactive-content.mjs",
+    "publish-course": "node scripts/publish-course.mjs",
     "test:navigation": "node scripts/test-course-navigation.mjs"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "@vitejs/plugin-react": "^4.3.4",
     "firebase": "^12.17.0",
+    "firebase-admin": "^14.2.0",
     "lucide-react": "^0.468.0",
     "monaco-editor": "^0.56.0",
     "pyodide": "^314.0.3",

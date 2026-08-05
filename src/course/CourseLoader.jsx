@@ -14,6 +14,7 @@ import { createCourseModel } from './createCourseModel';
 const CourseLoaderContext = createContext(null);
 
 export function CourseLoaderProvider({ children, courseId, initialLessonId = null }) {
+  console.log('[TRACE] CourseLoaderProvider');
   const initialLessonIdRef = useRef(initialLessonId);
   const [metadata, setMetadata] = useState(null);
   const [currentCourse, setCurrentCourse] = useState(null);
@@ -25,6 +26,7 @@ export function CourseLoaderProvider({ children, courseId, initialLessonId = nul
     const controller = new AbortController();
 
     async function loadCourse() {
+      console.log('[TRACE] CourseLoaderProvider.loadCourse');
       setStatus('loading');
       setError(null);
 

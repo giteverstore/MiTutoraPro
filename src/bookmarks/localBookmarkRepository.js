@@ -6,7 +6,7 @@ function storageKey(userId) {
 
 function parse(value) {
   try {
-    return value ? JSON.parse(value) : [];
+    return value ? parseJson(value, import.meta.url) : [];
   } catch {
     return [];
   }
@@ -26,3 +26,4 @@ export function createLocalBookmarkRepository(storage = window.localStorage) {
     },
   };
 }
+import { parseJson } from '../utils/parseJson';

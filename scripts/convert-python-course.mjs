@@ -4,9 +4,11 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { load } from 'cheerio';
 import mammoth from 'mammoth';
+import { parseJson } from './utils/parseJson.mjs';
 
 const SOURCE_PATH = resolve('MI TUtora PythonCourse.docx');
 const FIREBASE_OUTPUT_ROOT = resolve('firebase-content/course-content/python');
+const FIREBASE_METADATA_ROOT = resolve('firebase-content/firestore/courses');
 const ASSET_DIRECTORY = resolve('public/assets/courses/python-course');
 const SCHEMA_PATH = resolve('schemas/learning-course.schema.json');
 
@@ -495,8 +497,8 @@ for (const [moduleNumber, module] of modules) {
 const course = {
   $schema: '../../schemas/learning-course.schema.json',
   schemaVersion: '1.0.0',
-  id: 'mi-tutora-python-course',
-  slug: 'mi-tutora-python-course',
+  id: 'python',
+  slug: 'python',
   title: 'MI Tutora Python Course',
   description: 'A beginner Python course converted from the MI Tutora course document.',
   locale: 'en-US',
@@ -525,7 +527,7 @@ const course = {
 
 repairConvertedBlocks(course.modules);
 
-const schema = JSON.parse(await readFile(SCHEMA_PATH, 'utf8'));
+const schema = parseJson(await readFile(SCHEMA_PATH, 'utf8'), import.meta.url);
 const ajv = new Ajv2020({ allErrors: true, strict: true, allowUnionTypes: true });
 addFormats(ajv);
 const validate = ajv.compile(schema);
@@ -546,11 +548,33 @@ await writeFile(
 );
 await Promise.all(courseModules.map((module, index) =>
   writeFile(resolve(outputDirectory, moduleFiles[index]), `${JSON.stringify(module, null, 2)}\n`)));
+const publishingMetadata = {
+  id: course.id,
+  slug: course.slug,
+  title: course.title,
+  description: course.description,
+  thumbnail: '/assets/courses/python-course/python-course-image-01.png',
+  language: 'python',
+  domain: 'programming',
+  difficulty: course.metadata.level,
+  estimatedMinutes: course.metadata.estimatedMinutes,
+  moduleCount: course.modules.length,
+  lessonCount,
+  published: true,
+  version: firebaseVersion,
+  storagePath: 'course-content/python',
+};
+await mkdir(FIREBASE_METADATA_ROOT, { recursive: true });
+await writeFile(
+  resolve(FIREBASE_METADATA_ROOT, 'python.json'),
+  `${JSON.stringify(publishingMetadata, null, 2)}\n`,
+);
 
 console.log(JSON.stringify({
   output: outputDirectory,
   manifest: 'course.json',
   moduleFiles,
+  metadata: resolve(FIREBASE_METADATA_ROOT, 'python.json'),
   modules: course.modules.length,
   lessons: lessonCount,
   blocks: course.modules.flatMap((module) => module.lessons).flatMap((lesson) => lesson.blocks).length,

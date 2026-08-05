@@ -2,12 +2,15 @@ import { readFile } from 'node:fs/promises';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { practiceQuestions } from '../src/practice/practiceData.js';
+import { parseJson } from './utils/parseJson.mjs';
 
-const courseSchema = JSON.parse(
+const courseSchema = parseJson(
   await readFile(new URL('../schemas/learning-course.schema.json', import.meta.url)),
+  import.meta.url,
 );
-const practiceSchema = JSON.parse(
+const practiceSchema = parseJson(
   await readFile(new URL('../schemas/practice-question.schema.json', import.meta.url)),
+  import.meta.url,
 );
 const ajv = new Ajv2020({
   allErrors: true,

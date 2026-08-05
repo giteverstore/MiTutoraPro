@@ -59,6 +59,7 @@ export class BaseRepository {
   }
 
   async get(id) {
+    console.log('[TRACE] BaseRepository.get');
     return toEntity(await getDoc(this.#document(id)));
   }
 

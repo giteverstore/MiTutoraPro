@@ -80,6 +80,8 @@ Stable `ContentError` codes distinguish missing metadata, missing Storage object
 
 Adding a course requires uploading its manifest and module JSON files using the convention and creating one `courses/{courseId}` metadata document with matching `storagePath` and `version`. No course-specific frontend source change is required.
 
+The upload and metadata update are automated by the [Firebase course publisher](../development/content-publishing.md). It validates the fully merged course before remote writes and verifies Storage objects and Firestore metadata after publication.
+
 ## Metadata lookup and fallback
 
 Opening the Python course queries its Firestore document ID, rejects missing or unpublished metadata, derives the versioned Storage paths, downloads and merges content, and then invokes the existing Learning Engine model. Typed errors reach the existing `CourseLoadState` friendly error UI rather than crashing the application.

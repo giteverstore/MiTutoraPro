@@ -1,8 +1,8 @@
 {
   "$schema": "../../schemas/learning-course.schema.json",
   "schemaVersion": "1.0.0",
-  "id": "mi-tutora-python-course",
-  "slug": "mi-tutora-python-course",
+  "id": "python",
+  "slug": "python",
   "title": "MI Tutora Python Course",
   "description": "A beginner Python course converted from the MI Tutora course document.",
   "locale": "en-US",

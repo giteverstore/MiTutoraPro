@@ -2,7 +2,7 @@ import { DEFAULT_SETTINGS } from './settingsDefaults';
 import { userDataService } from '../user-data/UserDataService';
 
 function clone(value) {
-  return JSON.parse(JSON.stringify(value));
+  return parseJson(JSON.stringify(value), import.meta.url);
 }
 
 function mergeSettings(defaults, stored) {
@@ -104,3 +104,4 @@ export class SettingsService {
 }
 
 export const settingsService = new SettingsService();
+import { parseJson } from '../utils/parseJson';

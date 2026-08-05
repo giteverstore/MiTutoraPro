@@ -34,6 +34,7 @@ export class CourseService extends BaseContentService {
   }
 
   async getCourse(courseId, options) {
+    console.log('[TRACE] CourseService.getCourse');
     const metadata = await this.getMetadata(courseId, options);
     const [manifest, ...modules] = await Promise.all([
       this.repository.loadManifest(metadata.storagePath, this.resolveVersion(metadata), { validate: validateManifest }),

@@ -48,6 +48,7 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Adding a course](development/adding-a-course.md)
 - [Adding a language](development/adding-a-language.md)
 - [Release process](development/release-process.md)
+- [Firebase content publishing](development/content-publishing.md)
 
 ### Architecture decisions
 

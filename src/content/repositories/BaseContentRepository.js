@@ -14,6 +14,7 @@ export class BaseContentRepository {
   }
 
   getMetadata(id) {
+    console.log('[TRACE] BaseContentRepository.getMetadata');
     const cacheKey = `${this.collectionPath}/${id}`;
     return metadataCache.getOrCreate(cacheKey, () => this.metadata.get(id));
   }
@@ -29,6 +30,7 @@ export class BaseContentRepository {
   }
 
   downloadJson(storagePath, options) {
+    console.log('[TRACE] BaseContentRepository.downloadJson');
     return this.loader.load(storagePath, options);
   }
 

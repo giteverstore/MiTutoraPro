@@ -6,7 +6,7 @@ function getStorageKey(userId, courseId) {
 
 function safelyParse(value) {
   try {
-    return value ? JSON.parse(value) : null;
+    return value ? parseJson(value, import.meta.url) : null;
   } catch {
     return null;
   }
@@ -28,4 +28,5 @@ export function createLocalProgressRepository(storage = window.localStorage) {
     },
   };
 }
+import { parseJson } from '../utils/parseJson';
 

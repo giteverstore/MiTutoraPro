@@ -4,14 +4,15 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { createCourseModel } from '../src/course/createCourseModel.js';
 import { createCourseNavigation } from '../src/course/courseNavigation.js';
+import { parseJson } from './utils/parseJson.mjs';
 
 const coursePath = resolve('public/courses/python-course.json');
 const metadataPath = resolve('public/courses/course-metadata.json');
 const schemaPath = resolve('schemas/learning-course.schema.json');
 const registryPath = resolve('src/components/blockRegistry.js');
-const course = JSON.parse(await readFile(coursePath, 'utf8'));
-const metadata = JSON.parse(await readFile(metadataPath, 'utf8'));
-const schema = JSON.parse(await readFile(schemaPath, 'utf8'));
+const course = parseJson(await readFile(coursePath, 'utf8'), import.meta.url);
+const metadata = parseJson(await readFile(metadataPath, 'utf8'), import.meta.url);
+const schema = parseJson(await readFile(schemaPath, 'utf8'), import.meta.url);
 const registrySource = await readFile(registryPath, 'utf8');
 const failures = [];
 
@@ -122,4 +123,3 @@ console.log(JSON.stringify({
   navigationLessonsReached: visited.length,
   validation: 'passed',
 }, null, 2));
-

@@ -19,7 +19,7 @@ export const courseCategories = [
 
 export const dashboardCourses = [
   {
-    id: 'mi-tutora-python-course',
+    id: 'python',
     name: 'Python Foundations',
     description: 'Learn core Python concepts through concise lessons and practical exercises.',
     category: 'programming',
@@ -112,7 +112,7 @@ export const dashboardSections = [
     eyebrow: 'Curated by MiTutora',
     title: 'Featured courses',
     description: 'Structured paths designed to build useful skills.',
-    courseIds: ['mi-tutora-python-course', 'ai-literacy', 'frontend-interviews'],
+    courseIds: ['python', 'ai-literacy', 'frontend-interviews'],
   },
   {
     id: 'recommended',
@@ -126,14 +126,13 @@ export const dashboardSections = [
     eyebrow: 'Jump back in',
     title: 'Recently viewed',
     description: 'Continue exploring where you last left off.',
-    courseIds: ['algebra-essentials', 'javascript-patterns', 'mi-tutora-python-course'],
+    courseIds: ['algebra-essentials', 'javascript-patterns', 'python'],
   },
   {
     id: 'my-courses',
     eyebrow: 'Your library',
     title: 'My courses',
     description: 'Courses currently saved to your learning plan.',
-    courseIds: ['mi-tutora-python-course', 'algebra-essentials', 'spoken-english'],
+    courseIds: ['python', 'algebra-essentials', 'spoken-english'],
   },
 ];
-
