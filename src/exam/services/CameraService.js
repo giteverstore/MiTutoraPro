@@ -1,8 +1,9 @@
 export class CameraService {
-  constructor({ mediaDevices = globalThis.navigator?.mediaDevices } = {}) {
+  constructor({ mediaDevices = globalThis.navigator?.mediaDevices, defaultVideoConstraints = {} } = {}) {
     this.mediaDevices = mediaDevices;
     this.stream = null;
     this.constraints = null;
+    this.defaultVideoConstraints = defaultVideoConstraints;
   }
 
   async requestPermission(constraints = {}) {
@@ -15,6 +16,7 @@ export class CameraService {
         width: { ideal: 1280 },
         height: { ideal: 720 },
         facingMode: 'user',
+        ...this.defaultVideoConstraints,
         ...constraints,
       },
     };

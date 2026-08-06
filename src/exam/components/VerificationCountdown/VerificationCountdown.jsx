@@ -11,10 +11,11 @@ export function VerificationCountdown({ vision, durationMs, stabilityDurationMs 
   const stableProgress = Math.min(100, (vision.consecutiveValidMs / stabilityDurationMs) * 100);
   const paused = vision.status === VISION_VERIFICATION_STATUS.PAUSED;
   return (
-    <section className={`verification-countdown ${paused ? 'is-paused' : ''}`} aria-live="polite">
+    <section className={`verification-countdown ${paused ? 'is-paused' : ''}`}>
+      <p className="sr-only" role="status">{paused ? `Verification paused. ${vision.pauseReasons.join(' ')}` : 'Environment verification is running.'}</p>
       <div className="verification-time"><span>{paused ? <Pause aria-hidden="true" /> : <ShieldCheck aria-hidden="true" />}{paused ? 'Verification paused' : 'Verification in progress'}</span><strong>{formatDuration(vision.remainingMs)}</strong></div>
       <div className="verification-progress" role="progressbar" aria-label="Environment verification progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(progress)}><span style={{ width: `${progress}%` }} /></div>
-      {paused ? <p>Resolve: {vision.pauseReasons.join(', ')}. The timer will resume automatically.</p> : <p>Stable environment: {Math.round(stableProgress)}% of the required final 30 seconds.</p>}
+      {paused ? <div className="verification-guidance"><strong>Waiting for recovery…</strong>{vision.pauseReasons.map((reason) => <p key={reason}>{reason}</p>)}</div> : <div className="verification-guidance"><strong>{formatDuration(vision.remainingMs)} remaining</strong><p>Maintain a stable environment. The final {Math.round(stabilityDurationMs / 1000)} seconds must remain valid ({Math.round(stableProgress)}% stable).</p></div>}
     </section>
   );
 }

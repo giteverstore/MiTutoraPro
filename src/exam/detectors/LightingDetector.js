@@ -1,4 +1,5 @@
 import { ExamEvent, EXAM_EVENT_TYPES, EXAM_SEVERITIES } from '../models/ExamEvent.js';
+import { DetectorStatus, DETECTOR_SEVERITY } from '../models/DetectorStatus.js';
 
 export const LIGHTING_STATUS = Object.freeze({
   UNKNOWN: 'UNKNOWN',
@@ -7,14 +8,27 @@ export const LIGHTING_STATUS = Object.freeze({
   TOO_BRIGHT: 'TOO_BRIGHT',
 });
 
+const lightingMessages = {
+  [LIGHTING_STATUS.UNKNOWN]: ['Analyzing room lighting…', DETECTOR_SEVERITY.PENDING],
+  [LIGHTING_STATUS.TOO_DARK]: ['Lighting is too dark. Move to a brighter room or face a light source.', DETECTOR_SEVERITY.ERROR],
+  [LIGHTING_STATUS.GOOD]: ['Lighting is clear and balanced.', DETECTOR_SEVERITY.SUCCESS],
+  [LIGHTING_STATUS.TOO_BRIGHT]: ['Lighting is too bright. Reduce glare or move away from direct light.', DETECTOR_SEVERITY.WARNING],
+};
+
+export function createLightingStatus(status, quality = status === LIGHTING_STATUS.GOOD ? 100 : 0, brightness = null) {
+  const [message, severity] = lightingMessages[status];
+  return new DetectorStatus({ status, message, severity, quality, details: { brightness } });
+}
+
 export class LightingDetector {
-  constructor({ eventBus, videoProvider, darkThreshold = 55, brightThreshold = 210, intervalMs = 500 }) {
+  constructor({ eventBus, videoProvider, darkThreshold = 55, brightThreshold = 210, idealBrightness = 132, intervalMs = 500 }) {
     this.eventBus = eventBus;
     this.videoProvider = videoProvider;
     this.darkThreshold = darkThreshold;
     this.brightThreshold = brightThreshold;
+    this.idealBrightness = idealBrightness;
     this.intervalMs = intervalMs;
-    this.status = LIGHTING_STATUS.UNKNOWN;
+    this.status = createLightingStatus(LIGHTING_STATUS.UNKNOWN);
     this.timer = null;
     this.canvas = null;
     this.context = null;
@@ -39,15 +53,21 @@ export class LightingDetector {
       brightness += (pixels[index] * 0.2126) + (pixels[index + 1] * 0.7152) + (pixels[index + 2] * 0.0722);
     }
     const average = brightness / (pixels.length / 4);
-    this.publish(average < this.darkThreshold
+    const status = average < this.darkThreshold
       ? LIGHTING_STATUS.TOO_DARK
-      : average > this.brightThreshold ? LIGHTING_STATUS.TOO_BRIGHT : LIGHTING_STATUS.GOOD);
+      : average > this.brightThreshold ? LIGHTING_STATUS.TOO_BRIGHT : LIGHTING_STATUS.GOOD;
+    const range = Math.max(this.idealBrightness - this.darkThreshold, this.brightThreshold - this.idealBrightness);
+    const quality = Math.max(0, 100 - (Math.abs(average - this.idealBrightness) / range) * 100);
+    this.publish(status, quality, average);
   }
 
   stop() {
     if (this.timer) globalThis.clearInterval(this.timer);
     this.timer = null;
   }
+
+  pause() { this.stop(); }
+  resume() { this.start(); }
 
   reset() {
     this.stop();
@@ -64,13 +84,13 @@ export class LightingDetector {
     this.context = null;
   }
 
-  publish(status) {
-    if (this.status === status) return;
-    this.status = status;
+  publish(status, quality, brightness) {
+    if (this.status.status === status && quality === undefined) return;
+    this.status = createLightingStatus(status, quality, brightness);
     this.eventBus.emit(new ExamEvent({
       type: EXAM_EVENT_TYPES.CUSTOM,
       severity: status === LIGHTING_STATUS.GOOD ? EXAM_SEVERITIES.INFO : EXAM_SEVERITIES.LOW,
-      metadata: { channel: 'vision', detector: 'lighting', status },
+      metadata: { channel: 'vision', detector: 'lighting', status: this.status },
     }));
   }
 }

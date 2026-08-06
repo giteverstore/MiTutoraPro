@@ -29,6 +29,50 @@ export const defaultExamConfig = Object.freeze({
   vision: Object.freeze({
     verificationDurationMs: 2 * 60 * 1000,
     stabilityDurationMs: 30 * 1000,
+    tickIntervalMs: 250,
+    recoveryRetryIntervalMs: 3000,
+    recoveryTimeoutMs: 30000,
+    detectors: Object.freeze({
+      camera: Object.freeze({ width: 1280, height: 720 }),
+      face: Object.freeze({ intervalMs: 350, minDetectionConfidence: 0.5, stabilitySampleCount: 12 }),
+      lighting: Object.freeze({ minimumBrightness: 55, maximumBrightness: 210, idealBrightness: 132, intervalMs: 500 }),
+    }),
+    readiness: Object.freeze({
+      minimumScore: 90,
+      contributors: Object.freeze({
+        camera: Object.freeze({ weight: 20, passingStatuses: Object.freeze(['CONNECTED']) }),
+        face: Object.freeze({ weight: 25, passingStatuses: Object.freeze(['ONE_FACE']) }),
+        lighting: Object.freeze({ weight: 20, passingStatuses: Object.freeze(['GOOD']) }),
+        background: Object.freeze({ weight: 5, passingStatuses: Object.freeze(['CLEAR']), warningStatuses: Object.freeze(['UNKNOWN']), warningFactor: 0.5 }),
+        browser: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['FOCUSED']) }),
+        fullscreen: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['ENABLED']) }),
+        internet: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['ONLINE']) }),
+      }),
+      requiredStatuses: Object.freeze({
+        camera: Object.freeze(['CONNECTED']),
+        face: Object.freeze(['ONE_FACE']),
+        lighting: Object.freeze(['GOOD']),
+        browser: Object.freeze(['FOCUSED']),
+        fullscreen: Object.freeze(['ENABLED']),
+        internet: Object.freeze(['ONLINE']),
+      }),
+    }),
+  }),
+  monitoring: Object.freeze({
+    lifecycleUpdateIntervalMs: 1000,
+    gracePeriodMs: 2000,
+    recoveryTimeoutMs: 30000,
+    escalation: Object.freeze([
+      Object.freeze({ id: 'reminder', afterMs: 2000, label: 'Reminder', deduction: 0, warning: true }),
+      Object.freeze({ id: 'warning', afterMs: 5000, label: 'Warning', deduction: 5, warning: true }),
+      Object.freeze({ id: 'final-warning', afterMs: 15000, label: 'Final Warning', deduction: 10, warning: true }),
+      Object.freeze({ id: 'violation-recorded', label: 'Violation Recorded', deduction: 15, warning: true }),
+    ]),
+    instantPenalties: Object.freeze({
+      COPY: Object.freeze({ deduction: 5, warning: true }),
+      PASTE: Object.freeze({ deduction: 5, warning: true }),
+      RIGHT_CLICK: Object.freeze({ deduction: 3, warning: false }),
+    }),
   }),
 });
 
@@ -45,6 +89,28 @@ export function createExamConfig(overrides = {}) {
         ?? defaultExamConfig.integrity.ignoredEventChannels,
     },
     eventDefaults: { ...defaultExamConfig.eventDefaults, ...overrides.eventDefaults },
-    vision: { ...defaultExamConfig.vision, ...overrides.vision },
+    vision: {
+      ...defaultExamConfig.vision,
+      ...overrides.vision,
+      detectors: {
+        ...defaultExamConfig.vision.detectors,
+        ...overrides.vision?.detectors,
+        camera: { ...defaultExamConfig.vision.detectors.camera, ...overrides.vision?.detectors?.camera },
+        face: { ...defaultExamConfig.vision.detectors.face, ...overrides.vision?.detectors?.face },
+        lighting: { ...defaultExamConfig.vision.detectors.lighting, ...overrides.vision?.detectors?.lighting },
+      },
+      readiness: {
+        ...defaultExamConfig.vision.readiness,
+        ...overrides.vision?.readiness,
+        contributors: { ...defaultExamConfig.vision.readiness.contributors, ...overrides.vision?.readiness?.contributors },
+        requiredStatuses: { ...defaultExamConfig.vision.readiness.requiredStatuses, ...overrides.vision?.readiness?.requiredStatuses },
+      },
+    },
+    monitoring: {
+      ...defaultExamConfig.monitoring,
+      ...overrides.monitoring,
+      escalation: overrides.monitoring?.escalation ?? defaultExamConfig.monitoring.escalation,
+      instantPenalties: { ...defaultExamConfig.monitoring.instantPenalties, ...overrides.monitoring?.instantPenalties },
+    },
   };
 }

@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { CameraMonitor } from '../src/exam/detectors/CameraMonitor.js';
-import { FaceDetector, FACE_STATUS } from '../src/exam/detectors/FaceDetector.js';
-import { LightingDetector, LIGHTING_STATUS } from '../src/exam/detectors/LightingDetector.js';
+import { createFaceStatus, FaceDetector, FACE_STATUS } from '../src/exam/detectors/FaceDetector.js';
+import { createLightingStatus, LightingDetector, LIGHTING_STATUS } from '../src/exam/detectors/LightingDetector.js';
+import { createBackgroundStatus, BACKGROUND_STATUS } from '../src/exam/detectors/BackgroundDetector.js';
 import { createExamConfig } from '../src/exam/engine/ExamConfig.js';
 import { EventBus } from '../src/exam/engine/EventBus.js';
 import { IntegrityEngine } from '../src/exam/engine/IntegrityEngine.js';
@@ -80,11 +81,11 @@ bus.subscribe((event) => emitted.push(event));
 const face = new FaceDetector({ eventBus: bus, videoProvider: () => ({ readyState: 2, currentTime: 1 }) });
 face.detector = { detectForVideo: () => ({ detections: [{}] }), close() {} };
 face.detectFrame();
-assert.equal(face.getStatus(), FACE_STATUS.ONE_FACE);
+assert.equal(face.getStatus().status, FACE_STATUS.ONE_FACE);
 face.videoProvider = () => ({ readyState: 2, currentTime: 2 });
 face.detector.detectForVideo = () => ({ detections: [{}, {}] });
 face.detectFrame();
-assert.equal(face.getStatus(), FACE_STATUS.MULTIPLE_FACES);
+assert.equal(face.getStatus().status, FACE_STATUS.MULTIPLE_FACES);
 
 const originalDocument = globalThis.document;
 const pixel = (brightness) => new Uint8ClampedArray([brightness, brightness, brightness, 255]);
@@ -93,13 +94,13 @@ globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext:
 const lighting = new LightingDetector({ eventBus: bus, videoProvider: () => ({ readyState: 2 }), intervalMs: 100000 });
 lighting.start();
 lighting.analyzeFrame();
-assert.equal(lighting.getStatus(), LIGHTING_STATUS.TOO_DARK);
+assert.equal(lighting.getStatus().status, LIGHTING_STATUS.TOO_DARK);
 currentPixels = pixel(120);
 lighting.analyzeFrame();
-assert.equal(lighting.getStatus(), LIGHTING_STATUS.GOOD);
+assert.equal(lighting.getStatus().status, LIGHTING_STATUS.GOOD);
 currentPixels = pixel(240);
 lighting.analyzeFrame();
-assert.equal(lighting.getStatus(), LIGHTING_STATUS.TOO_BRIGHT);
+assert.equal(lighting.getStatus().status, LIGHTING_STATUS.TOO_BRIGHT);
 lighting.destroy();
 globalThis.document = originalDocument;
 
@@ -107,6 +108,8 @@ class StubDetector {
   constructor(onStart) { this.onStart = onStart; this.status = 'IDLE'; }
   async start() { this.status = 'RUNNING'; this.onStart?.(); }
   stop() { this.status = 'STOPPED'; }
+  pause() { this.status = 'PAUSED'; }
+  resume() { this.status = 'RUNNING'; }
   reset() { this.status = 'IDLE'; }
   getStatus() { return this.status; }
   destroy() { this.status = 'DESTROYED'; }
@@ -120,9 +123,9 @@ const cameraStatus = new CameraStatus({ permission: CAMERA_PERMISSION.GRANTED, c
 const emitVision = (detector, status) => bus.emit(new ExamEvent({ type: EXAM_EVENT_TYPES.CUSTOM, metadata: { channel: 'vision', detector, status } }));
 const detectors = {
   camera: new StubDetector(() => emitVision('camera', cameraStatus)),
-  face: new StubDetector(() => emitVision('face', FACE_STATUS.ONE_FACE)),
-  lighting: new StubDetector(() => emitVision('lighting', LIGHTING_STATUS.GOOD)),
-  background: new StubDetector(() => emitVision('background', 'CLEAR')),
+  face: new StubDetector(() => emitVision('face', createFaceStatus(FACE_STATUS.ONE_FACE))),
+  lighting: new StubDetector(() => emitVision('lighting', createLightingStatus(LIGHTING_STATUS.GOOD))),
+  background: new StubDetector(() => emitVision('background', createBackgroundStatus(BACKGROUND_STATUS.UNKNOWN))),
 };
 const vision = new VisionManager({
   eventBus: bus,
@@ -136,6 +139,11 @@ const vision = new VisionManager({
   documentObject: documentStub,
 });
 await vision.start();
+const detectorStatus = vision.getSnapshot().face;
+assert.equal(typeof detectorStatus.lastUpdated, 'number');
+assert.equal(typeof detectorStatus.message, 'string');
+assert.equal(typeof detectorStatus.severity, 'string');
+assert.equal(vision.getSnapshot().readinessScore, 98, 'Readiness must use configured weighted contributors.');
 now = 400;
 vision.tick();
 assert.equal(vision.getSnapshot().elapsedMs, 400);
@@ -149,20 +157,60 @@ windowStub.dispatch('focus');
 now = 1300;
 vision.tick();
 assert.equal(vision.getStatus(), VISION_VERIFICATION_STATUS.VERIFIED, 'Valid consecutive environment window must complete verification.');
+assert.equal(vision.getSnapshot().summary.readinessScore, 98);
+
+vision.destroy();
+const recoveryBus = new EventBus();
+const recoveryDocument = new EventTargetStub();
+const recoveryWindow = new EventTargetStub();
+let recoveryRequests = 0;
+const recoveryTracks = [createTrack(), createTrack()];
+const recoveryService = new CameraService({ mediaDevices: {
+  async getUserMedia() {
+    const track = recoveryTracks[recoveryRequests];
+    recoveryRequests += 1;
+    return { getTracks: () => [track], getVideoTracks: () => [track] };
+  },
+} });
+const recoveryEmit = (detector, status) => recoveryBus.emit(new ExamEvent({ type: EXAM_EVENT_TYPES.CUSTOM, metadata: { channel: 'vision', detector, status } }));
+const recoveryMonitor = new CameraMonitor({ eventBus: recoveryBus, cameraService: recoveryService });
+const recoveryVision = new VisionManager({
+  eventBus: recoveryBus,
+  cameraService: recoveryService,
+  config: { vision: { recoveryRetryIntervalMs: 1, recoveryTimeoutMs: 100 } },
+  detectors: {
+    camera: recoveryMonitor,
+    face: new StubDetector(() => recoveryEmit('face', createFaceStatus(FACE_STATUS.ONE_FACE))),
+    lighting: new StubDetector(() => recoveryEmit('lighting', createLightingStatus(LIGHTING_STATUS.GOOD))),
+    background: new StubDetector(() => recoveryEmit('background', createBackgroundStatus(BACKGROUND_STATUS.UNKNOWN))),
+  },
+  tickIntervalMs: 100000,
+  windowObject: recoveryWindow,
+  documentObject: recoveryDocument,
+});
+await recoveryVision.start();
+recoveryTracks[0].dispatch('ended');
+await new Promise((resolve) => setTimeout(resolve, 20));
+assert.equal(recoveryRequests, 2, 'Disconnected camera must recover automatically without restarting verification.');
+assert.equal(recoveryVision.getSnapshot().camera.status, CAMERA_CONNECTION.CONNECTED);
 
 const config = createExamConfig();
 const warningManager = new WarningManager();
 const integrity = new IntegrityEngine({ eventBus: bus, warningManager, config });
 integrity.start();
-emitVision('face', FACE_STATUS.NO_FACE);
+emitVision('face', createFaceStatus(FACE_STATUS.NO_FACE));
 assert.equal(integrity.score, 100, 'Vision status must not alter integrity score.');
 assert.equal(warningManager.count, 0, 'Vision status must not create exam warnings.');
 assert.equal(integrity.timeline.length, 0, 'Vision status must remain outside the integrity report timeline.');
 
-vision.destroy();
+const setupSource = await import('node:fs/promises').then(({ readFile }) =>
+  readFile(new URL('../src/exam/pages/SetupVerificationExperience.jsx', import.meta.url), 'utf8'));
+assert.doesNotMatch(setupSource, /ExamSession|IntegrityEngine|WarningManager/, 'Standalone setup must not create exam or integrity state.');
+
+recoveryVision.destroy();
 face.destroy();
 deniedMonitor.destroy();
 cameraService.destroy();
 integrity.dispose();
 bus.clear();
-process.stdout.write('Vision engine validation passed: permission, reconnect, face count, lighting, detector contract, countdown, and integrity isolation.\n');
+process.stdout.write('Vision engine validation passed: status API, readiness, recovery, face count, lighting, countdown, standalone isolation, and integrity isolation.\n');

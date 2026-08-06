@@ -3,6 +3,7 @@ import { ShieldCheck } from 'lucide-react';
 import { EnvironmentCheck } from '../components/EnvironmentCheck/EnvironmentCheck';
 import { useExam } from '../hooks/useExam';
 import { EXAM_SESSION_STATES } from '../engine/ExamSession';
+import { VerificationSummary } from '../components/VerificationSummary/VerificationSummary';
 
 export function EnvironmentCheckPage({ onExit }) {
   const {
@@ -36,12 +37,10 @@ export function EnvironmentCheckPage({ onExit }) {
             onEmit={emitEvent}
           />
         ) : (
-          <section className="exam-card exam-ready-card">
-            <ShieldCheck aria-hidden="true" />
-            <h2>Your environment is ready</h2>
-            <p>The timer begins when you start. Your answers are submitted when time expires.</p>
-            <button className="button button--primary" type="button" onClick={startExam}>Start certification exam</button>
-          </section>
+          <VerificationSummary
+            summary={vision.summary}
+            action={<button className="button button--primary" type="button" onClick={startExam}>Start certification exam</button>}
+          />
         )}
       </main>
     </div>

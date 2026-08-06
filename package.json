@@ -18,7 +18,8 @@
     "publish-course": "node scripts/publish-course.mjs",
     "test:navigation": "node scripts/test-course-navigation.mjs",
     "validate:exam": "node scripts/validate-exam-engine.mjs",
-    "validate:vision": "node scripts/validate-vision-engine.mjs"
+    "validate:vision": "node scripts/validate-vision-engine.mjs",
+    "validate:monitoring": "node scripts/validate-monitoring-engine.mjs"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.0.1",

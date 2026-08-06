@@ -9,12 +9,18 @@ export class CameraMonitor {
     this.track = null;
     this.trackHandlers = null;
     this.startPromise = null;
+    this.runId = 0;
+    this.permissionGranted = false;
   }
 
   async start() {
     if (this.status.streamActive) return this.status;
-    if (this.startPromise) return this.startPromise;
-    this.startPromise = this.connect();
+    if (this.startPromise) {
+      await this.startPromise;
+      return this.status.streamActive ? this.status : this.start();
+    }
+    const runId = ++this.runId;
+    this.startPromise = this.connect(runId);
     try {
       return await this.startPromise;
     } finally {
@@ -22,12 +28,18 @@ export class CameraMonitor {
     }
   }
 
-  async connect() {
+  async connect(runId) {
     this.publish({ permission: CAMERA_PERMISSION.REQUESTING, connection: CAMERA_CONNECTION.CONNECTING });
     try {
       const stream = await this.cameraService.open();
+      if (runId !== this.runId) {
+        stream.getTracks().forEach((track) => track.stop());
+        if (this.cameraService.stream === stream) this.cameraService.stream = null;
+        return this.status;
+      }
       this.attachTrack(stream.getVideoTracks()[0]);
       const settings = this.track?.getSettings?.() ?? {};
+      this.permissionGranted = true;
       return this.publish({
         permission: CAMERA_PERMISSION.GRANTED,
         connection: CAMERA_CONNECTION.CONNECTED,
@@ -36,16 +48,21 @@ export class CameraMonitor {
         deviceId: settings.deviceId ?? null,
       });
     } catch (error) {
+      if (runId !== this.runId) return this.status;
       const denied = error?.name === 'NotAllowedError' || error?.name === 'PermissionDeniedError';
+      if (denied) this.permissionGranted = false;
       return this.publish({
-        permission: denied ? CAMERA_PERMISSION.DENIED : CAMERA_PERMISSION.UNKNOWN,
+        permission: denied ? CAMERA_PERMISSION.DENIED : this.permissionGranted ? CAMERA_PERMISSION.GRANTED : CAMERA_PERMISSION.UNKNOWN,
         connection: denied ? CAMERA_CONNECTION.ERROR : CAMERA_CONNECTION.DISCONNECTED,
-        error: denied ? 'Camera permission was denied.' : 'The camera could not be connected.',
+        error: denied
+          ? 'Camera permission denied. Grant camera access in browser settings and retry.'
+          : 'Camera unavailable. Check the connection and retry.',
       });
     }
   }
 
   stop() {
+    this.runId += 1;
     this.detachTrack();
     this.cameraService.stop();
     this.publish({
@@ -53,6 +70,14 @@ export class CameraMonitor {
       connection: CAMERA_CONNECTION.IDLE,
       streamActive: false,
     });
+  }
+
+  pause() {
+    this.detachTrack();
+  }
+
+  resume() {
+    if (this.cameraService.stream) this.attachTrack(this.cameraService.stream.getVideoTracks()[0]);
   }
 
   reset() {
@@ -78,7 +103,7 @@ export class CameraMonitor {
         permission: this.status.permission,
         connection: CAMERA_CONNECTION.DISCONNECTED,
         streamActive: false,
-        error: 'The camera was disconnected.',
+        error: 'Camera disconnected. Reconnect it to resume verification.',
       }),
       mute: () => this.publish({ ...this.status, streamActive: false }),
       unmute: () => this.publish({

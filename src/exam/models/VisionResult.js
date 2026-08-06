@@ -20,6 +20,11 @@ export class VisionResult {
     consecutiveValidMs = 0,
     pauseReasons = [],
     verifiedAt = null,
+    readinessScore = 0,
+    quality = {},
+    summary = null,
+    health = {},
+    minimumReadinessScore = 0,
   }) {
     this.status = status;
     this.camera = camera;
@@ -32,6 +37,11 @@ export class VisionResult {
     this.consecutiveValidMs = consecutiveValidMs;
     this.pauseReasons = Object.freeze([...pauseReasons]);
     this.verifiedAt = verifiedAt;
+    this.readinessScore = readinessScore;
+    this.quality = Object.freeze({ ...quality });
+    this.summary = summary;
+    this.health = Object.freeze({ ...health });
+    this.minimumReadinessScore = minimumReadinessScore;
     Object.freeze(this);
   }
 }

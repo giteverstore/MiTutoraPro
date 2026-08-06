@@ -28,7 +28,7 @@ export function EnvironmentCheck({ vision, config, onAttachVideo, onReconnectCam
         <VerificationCountdown vision={vision} durationMs={config.vision.verificationDurationMs} stabilityDurationMs={config.vision.stabilityDurationMs} />
       </div>
       <EnvironmentChecklist vision={vision} />
-      {import.meta.env.DEV ? <DeveloperSimulator mode="vision" onEmit={onEmit} /> : null}
+      {import.meta.env.DEV ? <DeveloperSimulator mode="vision" vision={vision} onEmit={onEmit} /> : null}
     </section>
   );
 }

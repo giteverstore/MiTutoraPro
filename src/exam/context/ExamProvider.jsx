@@ -8,6 +8,7 @@ import { WarningManager } from '../engine/WarningManager';
 import { ExamEvent, EXAM_EVENT_TYPES } from '../models/ExamEvent';
 import { VisionManager } from '../vision/VisionManager';
 import { VISION_VERIFICATION_STATUS } from '../models/VisionResult';
+import { MonitoringSession, MONITORING_STATUS } from '../monitoring/MonitoringSession';
 
 export const ExamContext = createContext(null);
 
@@ -19,6 +20,7 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
   const sessionRef = useRef(null);
   const visionManagerRef = useRef(null);
   const visionDestroyTimerRef = useRef(null);
+  const monitoringSessionRef = useRef(null);
 
   if (!eventBusRef.current) eventBusRef.current = new EventBus();
   if (!warningManagerRef.current) {
@@ -41,9 +43,21 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
   if (!visionManagerRef.current) {
     visionManagerRef.current = new VisionManager({
       eventBus: eventBusRef.current,
+      config,
       fullscreenRequired: config.browser.fullscreenRequired,
       durationMs: config.vision.verificationDurationMs,
       stabilityDurationMs: config.vision.stabilityDurationMs,
+    });
+  }
+  if (!monitoringSessionRef.current) {
+    monitoringSessionRef.current = new MonitoringSession({
+      eventBus: eventBusRef.current,
+      config,
+      detectors: {
+        vision: visionManagerRef.current,
+        browser: new BrowserMonitor({ eventBus: eventBusRef.current, config }),
+      },
+      onLifecycleEvent: (event, change) => integrityEngineRef.current.processLifecycleEvent(event, change),
     });
   }
 
@@ -54,6 +68,7 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [result, setResult] = useState(null);
   const [vision, setVision] = useState(visionManagerRef.current.getSnapshot());
+  const [monitoring, setMonitoring] = useState(monitoringSessionRef.current.getSnapshot());
 
   useEffect(() => {
     integrityEngineRef.current.start();
@@ -63,27 +78,34 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
   useEffect(() => integrityEngineRef.current.subscribe(setIntegrity), []);
   useEffect(() => warningManagerRef.current.subscribe(setWarnings), []);
   useEffect(() => visionManagerRef.current.subscribe(setVision), []);
+  useEffect(() => monitoringSessionRef.current.subscribe(setMonitoring), []);
   useEffect(() => eventBusRef.current.subscribe((event) => {
     if (event.type === EXAM_EVENT_TYPES.CUSTOM && event.metadata.action === 'DEVELOPER_RESET') {
       integrityEngineRef.current.reset();
-      visionManagerRef.current.reset();
+      if (monitoringSessionRef.current.status === MONITORING_STATUS.RUNNING) {
+        monitoringSessionRef.current.reset();
+      }
     }
   }), []);
 
   useEffect(() => {
-    const monitor = new BrowserMonitor({ eventBus: eventBusRef.current, config });
-    if (session.state === EXAM_SESSION_STATES.RUNNING) monitor.start();
-    return () => monitor.stop();
-  }, [config, session.state]);
-
-  useEffect(() => {
     if (visionDestroyTimerRef.current) globalThis.clearTimeout(visionDestroyTimerRef.current);
-    if (session.state === EXAM_SESSION_STATES.ENVIRONMENT_CHECK) {
+    if ([EXAM_SESSION_STATES.ENVIRONMENT_CHECK, EXAM_SESSION_STATES.READY].includes(session.state)) {
       visionManagerRef.current.start();
-    } else {
+    } else if ([EXAM_SESSION_STATES.IDLE, EXAM_SESSION_STATES.COMPLETED].includes(session.state)) {
       visionManagerRef.current.stop();
     }
-    return () => visionManagerRef.current.stop();
+  }, [session.state]);
+
+  useEffect(() => {
+    if (session.state === EXAM_SESSION_STATES.RUNNING) {
+      integrityEngineRef.current.setLifecycleMode(true);
+      monitoringSessionRef.current.start();
+    } else {
+      monitoringSessionRef.current.stop();
+      integrityEngineRef.current.setLifecycleMode(false);
+    }
+    return () => monitoringSessionRef.current.stop();
   }, [session.state]);
 
   useEffect(() => {
@@ -94,10 +116,11 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
   }, [vision.status]);
 
   useEffect(() => () => {
-    visionDestroyTimerRef.current = globalThis.setTimeout(() => visionManagerRef.current.destroy(), 0);
+    visionDestroyTimerRef.current = globalThis.setTimeout(() => {
+      monitoringSessionRef.current.destroy();
+      eventBusRef.current.clear();
+    }, 0);
   }, []);
-
-  useEffect(() => () => eventBusRef.current.clear(), []);
 
   const beginEnvironmentCheck = useCallback(() => {
     sessionRef.current.transition(EXAM_SESSION_STATES.ENVIRONMENT_CHECK);
@@ -117,6 +140,8 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
 
   const submitExam = useCallback(() => {
     if (sessionRef.current.state !== EXAM_SESSION_STATES.RUNNING) return null;
+    monitoringSessionRef.current.stop();
+    integrityEngineRef.current.setLifecycleMode(false);
     sessionRef.current.transition(EXAM_SESSION_STATES.COMPLETED);
     const correctAnswers = exam.questions.reduce(
       (score, question) => score + (answers[question.id] === question.correctOptionId ? 1 : 0),
@@ -136,11 +161,29 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
     return generatedResult;
   }, [answers, exam]);
 
+  const cancelExam = useCallback(() => {
+    if (sessionRef.current.state !== EXAM_SESSION_STATES.RUNNING) return;
+    monitoringSessionRef.current.stop();
+    integrityEngineRef.current.setLifecycleMode(false);
+    sessionRef.current.transition(EXAM_SESSION_STATES.COMPLETED);
+    setResult(Object.freeze({
+      examId: exam.id,
+      cancelled: true,
+      score: 0,
+      correctAnswers: 0,
+      totalQuestions: exam.questions.length,
+      answers: Object.freeze({ ...answers }),
+      integrityReport: integrityEngineRef.current.createReport(),
+      submittedAt: Date.now(),
+    }));
+  }, [answers, exam]);
+
   const resetExam = useCallback(() => {
     if (sessionRef.current.state === EXAM_SESSION_STATES.COMPLETED) {
       sessionRef.current.transition(EXAM_SESSION_STATES.IDLE);
     }
     integrityEngineRef.current.reset();
+    monitoringSessionRef.current.reset();
     setAnswers({});
     setCurrentQuestionIndex(0);
     setResult(null);
@@ -166,21 +209,23 @@ export function ExamProvider({ exam, candidateId, config: configOverrides, child
     currentQuestionIndex,
     result,
     vision,
+    monitoring,
     beginEnvironmentCheck,
     markEnvironmentReady,
     startExam,
     answerQuestion,
     setCurrentQuestionIndex,
     submitExam,
+    cancelExam,
     resetExam,
     emitEvent,
     attachVerificationVideo,
     reconnectCamera,
     acknowledgeWarning: () => warningManagerRef.current.acknowledge(),
   }), [
-    exam, config, session, integrity, warnings, answers, currentQuestionIndex, result, vision,
+    exam, config, session, integrity, warnings, answers, currentQuestionIndex, result, vision, monitoring,
     beginEnvironmentCheck, markEnvironmentReady, startExam, answerQuestion,
-    submitExam, resetExam, emitEvent, attachVerificationVideo, reconnectCamera,
+    submitExam, cancelExam, resetExam, emitEvent, attachVerificationVideo, reconnectCamera,
   ]);
 
   return <ExamContext.Provider value={value}>{children}</ExamContext.Provider>;

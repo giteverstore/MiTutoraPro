@@ -7,6 +7,7 @@ export class BrowserMonitor {
     this.window = windowObject;
     this.document = documentObject;
     this.started = false;
+    this.paused = false;
     this.hiddenAt = null;
     this.handlers = {
       visibilitychange: () => this.handleVisibilityChange(),
@@ -44,6 +45,30 @@ export class BrowserMonitor {
     this.started = false;
   }
 
+  pause() {
+    if (!this.started) return;
+    this.stop();
+    this.paused = true;
+  }
+
+  resume() {
+    if (!this.paused) return;
+    this.paused = false;
+    this.start();
+  }
+
+  reset() {
+    this.hiddenAt = null;
+  }
+
+  getStatus() {
+    return Object.freeze({ status: this.started ? 'RUNNING' : this.paused ? 'PAUSED' : 'STOPPED' });
+  }
+
+  destroy() {
+    this.stop();
+  }
+
   handleVisibilityChange() {
     if (this.document.hidden) {
       this.hiddenAt = Date.now();
@@ -62,6 +87,8 @@ export class BrowserMonitor {
   handleFullscreenChange() {
     if (this.config.browser.fullscreenRequired && !this.document.fullscreenElement) {
       this.emit(EXAM_EVENT_TYPES.FULLSCREEN_EXIT, EXAM_SEVERITIES.HIGH);
+    } else if (this.document.fullscreenElement) {
+      this.emit(EXAM_EVENT_TYPES.CUSTOM, EXAM_SEVERITIES.INFO, { action: 'FULLSCREEN_RESTORED' });
     }
   }
 

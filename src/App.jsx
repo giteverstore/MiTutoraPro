@@ -18,6 +18,7 @@ import { ReferralsPage } from './pages/ReferralsPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AppShell } from './app-shell/AppShell';
 import { ExamExperience } from './exam/pages/ExamExperience';
+import { SetupVerificationExperience } from './exam/pages/SetupVerificationExperience';
 import { BookmarkProvider } from './bookmarks/BookmarkContext';
 import { UserDataLifecycle } from './user-data/UserDataLifecycle';
 import {
@@ -133,6 +134,7 @@ function AuthenticatedApplication({ user }) {
   const [navigationTarget, setNavigationTarget] = useState(null);
   const [launchLessonId, setLaunchLessonId] = useState(null);
   const [examOpen, setExamOpen] = useState(false);
+  const [setupVerificationOpen, setSetupVerificationOpen] = useState(false);
   const ActivePage = APPLICATION_PAGES[activePage];
 
   const handlePageNavigation = (page) => {
@@ -154,6 +156,10 @@ function AuthenticatedApplication({ user }) {
 
   if (examOpen) {
     return <ExamExperience candidateId={user.id} onExit={() => setExamOpen(false)} />;
+  }
+
+  if (setupVerificationOpen) {
+    return <SetupVerificationExperience onExit={() => setSetupVerificationOpen(false)} />;
   }
 
   if (!activeCourseId) {
@@ -179,6 +185,7 @@ function AuthenticatedApplication({ user }) {
         ) : activePage === 'certificates' ? (
           <CertificatesPage
             onStartExam={() => setExamOpen(true)}
+            onTestSetup={() => setSetupVerificationOpen(true)}
             onContinueCourse={(courseId) => {
               setLaunchLessonId(null);
               setCourseStage('overview');

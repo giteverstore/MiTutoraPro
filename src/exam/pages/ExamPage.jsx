@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Clock3, ShieldCheck } from 'lucide-react';
 import { DeveloperSimulator } from '../components/DeveloperSimulator/DeveloperSimulator';
 import { WarningDialog } from '../components/WarningDialog/WarningDialog';
 import { useExam } from '../hooks/useExam';
+import { IntegrityPanel } from '../components/IntegrityPanel/IntegrityPanel';
 
 function formatTime(milliseconds) {
   const seconds = Math.max(0, Math.ceil(milliseconds / 1000));
@@ -12,7 +13,7 @@ function formatTime(milliseconds) {
 export function ExamPage() {
   const {
     exam, config, session, integrity, warnings, answers, currentQuestionIndex,
-    setCurrentQuestionIndex, answerQuestion, submitExam, emitEvent,
+    setCurrentQuestionIndex, answerQuestion, submitExam, cancelExam, emitEvent,
     acknowledgeWarning,
   } = useExam();
   const [remainingTime, setRemainingTime] = useState(session.duration);
@@ -36,7 +37,7 @@ export function ExamPage() {
     <div className="exam-page exam-running-page">
       <header className="exam-toolbar">
         <div><ShieldCheck aria-hidden="true" /><span><strong>{exam.title}</strong><small>Question {currentQuestionIndex + 1} of {exam.questions.length}</small></span></div>
-        <div className="exam-runtime-metrics"><span><ShieldCheck /> Integrity {integrity.score}</span><span className={remainingTime < 60000 ? 'is-urgent' : ''}><Clock3 /> {formatTime(remainingTime)}</span></div>
+        <div className="exam-runtime-metrics"><button className="button button--ghost exam-cancel-button" type="button" onClick={cancelExam}>Cancel exam</button><span><ShieldCheck /> Integrity {integrity.score}</span><span className={remainingTime < 60000 ? 'is-urgent' : ''}><Clock3 /> {formatTime(remainingTime)}</span></div>
       </header>
       <main className="exam-workspace">
         <nav className="exam-question-map" aria-label="Exam questions">
@@ -61,7 +62,8 @@ export function ExamPage() {
         </section>
       </main>
       <WarningDialog warning={warnings.activeWarning} count={warnings.count} maximum={config.integrity.maxWarnings} onAcknowledge={acknowledgeWarning} />
-      {import.meta.env.DEV ? <DeveloperSimulator onEmit={emitEvent} /> : null}
+      <IntegrityPanel />
+      {import.meta.env.DEV ? <DeveloperSimulator mode="monitoring" onEmit={emitEvent} /> : null}
     </div>
   );
 }
