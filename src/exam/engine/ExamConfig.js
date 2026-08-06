@@ -1,4 +1,5 @@
 import { EXAM_EVENT_TYPES, EXAM_SEVERITIES } from '../models/ExamEvent.js';
+import { detectorConfig } from '../config/detectorConfig.js';
 
 export const defaultExamConfig = Object.freeze({
   browser: Object.freeze({
@@ -36,6 +37,7 @@ export const defaultExamConfig = Object.freeze({
       camera: Object.freeze({ width: 1280, height: 720 }),
       face: Object.freeze({ intervalMs: 350, minDetectionConfidence: 0.5, stabilitySampleCount: 12 }),
       lighting: Object.freeze({ minimumBrightness: 55, maximumBrightness: 210, idealBrightness: 132, intervalMs: 500 }),
+      ...detectorConfig,
     }),
     readiness: Object.freeze({
       minimumScore: 90,
@@ -43,10 +45,11 @@ export const defaultExamConfig = Object.freeze({
         camera: Object.freeze({ weight: 20, passingStatuses: Object.freeze(['CONNECTED']) }),
         face: Object.freeze({ weight: 25, passingStatuses: Object.freeze(['ONE_FACE']) }),
         lighting: Object.freeze({ weight: 20, passingStatuses: Object.freeze(['GOOD']) }),
-        background: Object.freeze({ weight: 5, passingStatuses: Object.freeze(['CLEAR']), warningStatuses: Object.freeze(['UNKNOWN']), warningFactor: 0.5 }),
+        background: Object.freeze({ weight: 5, passingStatuses: Object.freeze(['GOOD']), warningStatuses: Object.freeze(['INITIALIZING', 'ACCEPTABLE']), warningFactor: 0.5 }),
         browser: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['FOCUSED']) }),
         fullscreen: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['ENABLED']) }),
         internet: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['ONLINE']) }),
+        audio: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['SILENCE']), warningStatuses: Object.freeze(['SPEECH']), warningFactor: 0.5 }),
       }),
       requiredStatuses: Object.freeze({
         camera: Object.freeze(['CONNECTED']),
@@ -55,6 +58,7 @@ export const defaultExamConfig = Object.freeze({
         browser: Object.freeze(['FOCUSED']),
         fullscreen: Object.freeze(['ENABLED']),
         internet: Object.freeze(['ONLINE']),
+        audio: Object.freeze(['SILENCE']),
       }),
     }),
   }),
@@ -72,6 +76,18 @@ export const defaultExamConfig = Object.freeze({
       COPY: Object.freeze({ deduction: 5, warning: true }),
       PASTE: Object.freeze({ deduction: 5, warning: true }),
       RIGHT_CLICK: Object.freeze({ deduction: 3, warning: false }),
+    }),
+    escalationByViolation: Object.freeze({
+      VOICE_ACTIVITY: Object.freeze([
+        Object.freeze({ id: 'reminder', afterMs: detectorConfig.audio.minimumVoiceDuration, label: 'Reminder', deduction: 0, warning: true }),
+        Object.freeze({ id: 'warning', afterMs: detectorConfig.audio.warningDuration, label: 'Warning', deduction: 5, warning: true }),
+        Object.freeze({ id: 'violation-recorded', afterMs: detectorConfig.audio.violationDuration, label: 'Violation Recorded', deduction: 15, warning: true }),
+      ]),
+      LOUD_AMBIENT_NOISE: Object.freeze([
+        Object.freeze({ id: 'reminder', afterMs: detectorConfig.audio.minimumVoiceDuration, label: 'Reminder', deduction: 0, warning: true }),
+        Object.freeze({ id: 'warning', afterMs: detectorConfig.audio.warningDuration, label: 'Warning', deduction: 5, warning: true }),
+        Object.freeze({ id: 'violation-recorded', afterMs: detectorConfig.audio.violationDuration, label: 'Violation Recorded', deduction: 15, warning: true }),
+      ]),
     }),
   }),
 });
@@ -98,6 +114,14 @@ export function createExamConfig(overrides = {}) {
         camera: { ...defaultExamConfig.vision.detectors.camera, ...overrides.vision?.detectors?.camera },
         face: { ...defaultExamConfig.vision.detectors.face, ...overrides.vision?.detectors?.face },
         lighting: { ...defaultExamConfig.vision.detectors.lighting, ...overrides.vision?.detectors?.lighting },
+        background: { ...defaultExamConfig.vision.detectors.background, ...overrides.vision?.detectors?.background },
+        audio: { ...defaultExamConfig.vision.detectors.audio, ...overrides.vision?.detectors?.audio },
+        inference: { ...defaultExamConfig.vision.detectors.inference, ...overrides.vision?.detectors?.inference },
+        facePresence: { ...defaultExamConfig.vision.detectors.facePresence, ...overrides.vision?.detectors?.facePresence },
+        headPose: { ...defaultExamConfig.vision.detectors.headPose, ...overrides.vision?.detectors?.headPose },
+        lookingAway: { ...defaultExamConfig.vision.detectors.lookingAway, ...overrides.vision?.detectors?.lookingAway },
+        phone: { ...defaultExamConfig.vision.detectors.phone, ...overrides.vision?.detectors?.phone },
+        objects: { ...defaultExamConfig.vision.detectors.objects, ...overrides.vision?.detectors?.objects },
       },
       readiness: {
         ...defaultExamConfig.vision.readiness,
@@ -111,6 +135,7 @@ export function createExamConfig(overrides = {}) {
       ...overrides.monitoring,
       escalation: overrides.monitoring?.escalation ?? defaultExamConfig.monitoring.escalation,
       instantPenalties: { ...defaultExamConfig.monitoring.instantPenalties, ...overrides.monitoring?.instantPenalties },
+      escalationByViolation: { ...defaultExamConfig.monitoring.escalationByViolation, ...overrides.monitoring?.escalationByViolation },
     },
   };
 }

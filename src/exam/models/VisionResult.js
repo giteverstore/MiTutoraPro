@@ -14,6 +14,7 @@ export class VisionResult {
     face,
     lighting,
     background,
+    audio,
     browser,
     elapsedMs = 0,
     remainingMs = 0,
@@ -25,12 +26,14 @@ export class VisionResult {
     summary = null,
     health = {},
     minimumReadinessScore = 0,
+    detectors = {},
   }) {
     this.status = status;
     this.camera = camera;
     this.face = face;
     this.lighting = lighting;
     this.background = background;
+    this.audio = audio;
     this.browser = Object.freeze({ ...browser });
     this.elapsedMs = elapsedMs;
     this.remainingMs = remainingMs;
@@ -42,6 +45,7 @@ export class VisionResult {
     this.summary = summary;
     this.health = Object.freeze({ ...health });
     this.minimumReadinessScore = minimumReadinessScore;
+    this.detectors = Object.freeze({ ...detectors });
     Object.freeze(this);
   }
 }

@@ -46,7 +46,7 @@ export function SetupVerificationExperience({ onExit }) {
       <div className="exam-page exam-environment-page">
         <header className="exam-page-header"><button className="button button--ghost" type="button" onClick={onExit}>Back to certificates</button><div className="exam-brand"><ShieldCheck /><span>Test My Setup</span></div></header>
         <main className="exam-environment-main exam-vision-main">
-          <div className="exam-intro"><span>Pre-exam system check</span><h1>Test your certification setup</h1><p>Verify your browser, camera, lighting, and environment before booking or attempting a certification exam.</p></div>
+          <div className="exam-intro"><span>Pre-exam system check</span><h1>Test your certification setup</h1><p>Verify your browser, camera, lighting, background, connectivity, and audio before booking or attempting a certification exam.</p></div>
           {vision.status === VISION_VERIFICATION_STATUS.VERIFIED || manualReport ? (
             <VerificationSummary summary={vision.summary ?? manualReport} title="Your setup is ready" action={<div className="setup-report-actions">{manualReport ? <button className="button button--secondary" type="button" onClick={() => { setManualReport(null); managerRef.current.reset(); managerRef.current.start(); }}>Test again</button> : null}<button className="button button--primary" type="button" onClick={onExit}>Done</button></div>} />
           ) : (

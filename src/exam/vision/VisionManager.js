@@ -1,6 +1,10 @@
 import { BackgroundDetector, createBackgroundStatus, BACKGROUND_STATUS } from '../detectors/BackgroundDetector.js';
 import { CameraMonitor } from '../detectors/CameraMonitor.js';
-import { FaceDetector, createFaceStatus, FACE_STATUS } from '../detectors/FaceDetector.js';
+import { createFaceStatus, FACE_STATUS } from '../detectors/FaceDetector.js';
+import { FacePresenceDetector } from '../detectors/FacePresenceDetector.js';
+import { HeadPoseDetector } from '../detectors/HeadPoseDetector.js';
+import { LookingAwayDetector } from '../detectors/LookingAwayDetector.js';
+import { PhoneDetector } from '../detectors/PhoneDetector.js';
 import { LightingDetector, createLightingStatus, LIGHTING_STATUS } from '../detectors/LightingDetector.js';
 import { CameraService } from '../services/CameraService.js';
 import { CAMERA_CONNECTION, CameraStatus } from '../models/CameraStatus.js';
@@ -9,6 +13,11 @@ import { EXAM_EVENT_TYPES } from '../models/ExamEvent.js';
 import { DetectorStatus, DETECTOR_SEVERITY } from '../models/DetectorStatus.js';
 import { createExamConfig } from '../engine/ExamConfig.js';
 import { DetectorManager } from './DetectorManager.js';
+import { VisionInferenceService } from '../services/VisionInferenceService.js';
+import { AudioService } from '../services/AudioService.js';
+import { VadInferenceService } from '../services/VadInferenceService.js';
+import { AudioDetector, createAudioStatus, AUDIO_STATUS } from '../detectors/AudioDetector.js';
+import { ExamObjectDetector } from '../detectors/ExamObjectDetector.js';
 
 export const DEFAULT_VERIFICATION_DURATION_MS = 2 * 60 * 1000;
 export const DEFAULT_STABILITY_DURATION_MS = 30 * 1000;
@@ -56,6 +65,7 @@ export class VisionManager {
       face: createFaceStatus(FACE_STATUS.INITIALIZING),
       lighting: createLightingStatus(LIGHTING_STATUS.UNKNOWN),
       background: createBackgroundStatus(BACKGROUND_STATUS.UNKNOWN),
+      audio: createAudioStatus(AUDIO_STATUS.INITIALIZING),
     };
     this.browser = this.readBrowserState();
     this.elapsedMs = 0;
@@ -76,25 +86,30 @@ export class VisionManager {
       offline: () => this.updateBrowserState(),
     };
 
+    const inferenceService = new VisionInferenceService({
+      videoProvider: () => this.videoElement,
+      config: visionConfig.detectors.inference,
+    });
+    const headPoseDetector = new HeadPoseDetector({ eventBus, inferenceService, config: visionConfig.detectors.headPose });
+    const audioService = new AudioService({});
+    const vadService = new VadInferenceService({ audioService, config: visionConfig.detectors.audio });
     const defaultDetectors = detectors ?? {
       camera: new CameraMonitor({ cameraService: this.cameraService, eventBus }),
-      face: new FaceDetector({
-        eventBus,
-        videoProvider: () => this.videoElement,
-        intervalMs: visionConfig.detectors.face.intervalMs,
-        minDetectionConfidence: visionConfig.detectors.face.minDetectionConfidence,
-        stabilitySampleCount: visionConfig.detectors.face.stabilitySampleCount,
-      }),
+      inference: inferenceService,
+      face: new FacePresenceDetector({ eventBus, inferenceService, config: visionConfig.detectors.facePresence }),
+      headPose: headPoseDetector,
+      lookingAway: new LookingAwayDetector({ eventBus, inferenceService, headPoseDetector, config: visionConfig.detectors.lookingAway }),
+      phone: new PhoneDetector({ eventBus, inferenceService, config: visionConfig.detectors.phone }),
+      objects: new ExamObjectDetector({ eventBus, inferenceService, config: visionConfig.detectors.objects }),
       lighting: new LightingDetector({
         eventBus,
-        videoProvider: () => this.videoElement,
-        darkThreshold: visionConfig.detectors.lighting.minimumBrightness,
-        brightThreshold: visionConfig.detectors.lighting.maximumBrightness,
-        idealBrightness: visionConfig.detectors.lighting.idealBrightness,
-        intervalMs: visionConfig.detectors.lighting.intervalMs,
+        inferenceService,
+        config: visionConfig.detectors.lighting,
       }),
-      background: new BackgroundDetector({ eventBus, streamProvider: () => this.cameraService.stream }),
+      background: new BackgroundDetector({ eventBus, inferenceService, config: visionConfig.detectors.background }),
+      audio: new AudioDetector({ eventBus, audioService, vadService, config: visionConfig.detectors.audio }),
     };
+    this.enabledDetectorIds = new Set(Object.keys(defaultDetectors));
     this.detectorManager = new DetectorManager(defaultDetectors);
   }
 
@@ -225,10 +240,13 @@ export class VisionManager {
         camera: state.camera.quality,
         face: state.face.quality,
         lighting: state.lighting.quality,
+        background: state.background.quality,
+        audio: state.audio.quality,
       },
       summary: this.summary,
       health: this.getHealthStatuses(state),
       minimumReadinessScore: this.config.vision.readiness.minimumScore,
+      detectors: this.detectorManager.getStatus(),
     });
   }
 
@@ -236,6 +254,10 @@ export class VisionManager {
     if (event.type !== EXAM_EVENT_TYPES.CUSTOM) return;
     if (event.metadata.action === 'DEVELOPER_RESET') {
       this.reset();
+      return;
+    }
+    if (event.metadata.action === 'AUDIO_CALIBRATION' && import.meta.env.DEV) {
+      this.detectorManager.detectors.get('audio')?.updateCalibration(event.metadata.values ?? {});
       return;
     }
     if (event.metadata.channel !== 'vision') return;
@@ -285,6 +307,7 @@ export class VisionManager {
       face: this.overrides.get('face') ?? this.detectorState.face,
       lighting: this.overrides.get('lighting') ?? this.detectorState.lighting,
       background: this.overrides.get('background') ?? this.detectorState.background,
+      audio: this.overrides.get('audio') ?? this.detectorState.audio,
     };
   }
 
@@ -301,6 +324,7 @@ export class VisionManager {
     return this.getPauseReasons(state).length === 0
       && this.calculateReadinessScore(state) >= this.config.vision.readiness.minimumScore
       && Object.entries(this.config.vision.readiness.requiredStatuses)
+        .filter(([id]) => id !== 'audio' || this.enabledDetectorIds.has('audio'))
         .every(([id, accepted]) => accepted.includes(statuses[id]));
   }
 
@@ -344,6 +368,7 @@ export class VisionManager {
       face: state.face.status,
       lighting: state.lighting.status,
       background: state.background.status,
+      audio: state.audio.status,
       browser: this.browser.focused ? 'FOCUSED' : 'UNFOCUSED',
       fullscreen: this.browser.fullscreen ? 'ENABLED' : 'DISABLED',
       internet: this.browser.online ? 'ONLINE' : 'OFFLINE',
@@ -352,7 +377,8 @@ export class VisionManager {
 
   calculateReadinessScore(state = this.getEffectiveState()) {
     const statuses = this.getContributorStatuses(state);
-    const contributors = this.config.vision.readiness.contributors;
+    const contributors = Object.fromEntries(Object.entries(this.config.vision.readiness.contributors)
+      .filter(([id]) => id !== 'audio' || this.enabledDetectorIds.has('audio')));
     const totalWeight = Object.values(contributors).reduce((total, contributor) => total + contributor.weight, 0);
     const earned = Object.entries(contributors).reduce((total, [id, contributor]) => {
       const status = statuses[id];
@@ -380,7 +406,7 @@ export class VisionManager {
       browser: virtual(this.browser.focused ? 'FOCUSED' : 'UNFOCUSED', this.browser.focused ? 'Browser window is focused.' : 'Return to the exam window to continue.', this.browser.focused),
       fullscreen: virtual(this.browser.fullscreen ? 'ENABLED' : 'DISABLED', this.browser.fullscreen ? 'Fullscreen mode is enabled.' : 'Return to fullscreen to continue.', this.browser.fullscreen),
       internet: virtual(this.browser.online ? 'ONLINE' : 'OFFLINE', this.browser.online ? 'Internet connection is available.' : 'Check your internet connection.', this.browser.online),
-      microphone: new DetectorStatus({ status: 'COMING_SOON', message: 'Microphone verification is coming soon.', severity: DETECTOR_SEVERITY.INFO, quality: 0 }),
+      audio: state.audio,
     };
   }
 
@@ -391,7 +417,7 @@ export class VisionManager {
   createSummary(state = this.getEffectiveState(), ready = false) {
     const checks = this.getHealthStatuses(state);
     const recommendations = Object.values(checks)
-      .filter(({ severity, status }) => severity !== DETECTOR_SEVERITY.SUCCESS && status !== 'COMING_SOON')
+      .filter(({ severity }) => severity !== DETECTOR_SEVERITY.SUCCESS)
       .map(({ message }) => message);
     if (!ready && recommendations.length === 0) {
       recommendations.push(`Maintain the required conditions for ${Math.round(this.stabilityDurationMs / 1000)} consecutive seconds.`);

@@ -3,6 +3,11 @@ import { EXAM_EVENT_TYPES } from '../models/ExamEvent.js';
 import { FACE_STATUS } from '../detectors/FaceDetector.js';
 import { LIGHTING_STATUS } from '../detectors/LightingDetector.js';
 import { BACKGROUND_STATUS } from '../detectors/BackgroundDetector.js';
+import { HEAD_POSE_STATUS } from '../detectors/HeadPoseDetector.js';
+import { LOOKING_AWAY_STATUS } from '../detectors/LookingAwayDetector.js';
+import { PHONE_STATUS } from '../detectors/PhoneDetector.js';
+import { AUDIO_STATUS } from '../detectors/AudioDetector.js';
+import { OBJECT_STATUS } from '../detectors/ExamObjectDetector.js';
 import { DetectorManager } from '../engine/DetectorManager.js';
 import { EventLifecycleManager } from '../engine/EventLifecycleManager.js';
 import { MonitoringTimeline } from './MonitoringTimeline.js';
@@ -20,6 +25,16 @@ export const MONITORING_VIOLATIONS = Object.freeze({
   CAMERA_DISCONNECTED: 'CAMERA_DISCONNECTED',
   LIGHTING_ISSUE: 'LIGHTING_ISSUE',
   BACKGROUND_BLOCKED: 'BACKGROUND_BLOCKED',
+  HEAD_POSE: 'HEAD_POSE',
+  LOOKING_AWAY: 'LOOKING_AWAY',
+  PHONE_DETECTED: 'PHONE_DETECTED',
+  VOICE_ACTIVITY: 'VOICE_ACTIVITY',
+  LOUD_AMBIENT_NOISE: 'LOUD_AMBIENT_NOISE',
+  MICROPHONE_UNAVAILABLE: 'MICROPHONE_UNAVAILABLE',
+  PROHIBITED_OBJECT: 'PROHIBITED_OBJECT',
+  BACKGROUND_MEDIA: 'BACKGROUND_MEDIA',
+  KEYBOARD_ACTIVITY: 'KEYBOARD_ACTIVITY',
+  AUDIO_INPUT_UNHEALTHY: 'AUDIO_INPUT_UNHEALTHY',
   TAB_SWITCH: EXAM_EVENT_TYPES.TAB_SWITCH,
   WINDOW_BLUR: EXAM_EVENT_TYPES.WINDOW_BLUR,
   FULLSCREEN_EXIT: EXAM_EVENT_TYPES.FULLSCREEN_EXIT,
@@ -142,15 +157,32 @@ export class MonitoringSession {
   }
 
   handleVisionStatus(detector, state) {
+    const evidence = state.details?.evidence;
     if (detector === 'face') {
-      this.syncViolation(MONITORING_VIOLATIONS.FACE_LOST, state.status === FACE_STATUS.NO_FACE, { detector, message: state.message });
-      this.syncViolation(MONITORING_VIOLATIONS.MULTIPLE_FACES, state.status === FACE_STATUS.MULTIPLE_FACES, { detector, message: state.message });
+      this.syncViolation(MONITORING_VIOLATIONS.FACE_LOST, state.status === FACE_STATUS.NO_FACE, { detector, message: state.message, evidence });
+      this.syncViolation(MONITORING_VIOLATIONS.MULTIPLE_FACES, state.status === FACE_STATUS.MULTIPLE_FACES, { detector, message: state.message, evidence });
     } else if (detector === 'camera') {
       this.syncViolation(MONITORING_VIOLATIONS.CAMERA_DISCONNECTED, state.status !== CAMERA_CONNECTION.CONNECTED || !state.streamActive, { detector, message: state.message });
     } else if (detector === 'lighting') {
       this.syncViolation(MONITORING_VIOLATIONS.LIGHTING_ISSUE, state.status !== LIGHTING_STATUS.GOOD, { detector, condition: state.status, message: state.message });
     } else if (detector === 'background') {
-      this.syncViolation(MONITORING_VIOLATIONS.BACKGROUND_BLOCKED, state.status === BACKGROUND_STATUS.BLOCKED, { detector, message: state.message });
+      this.syncViolation(MONITORING_VIOLATIONS.BACKGROUND_BLOCKED, state.status === BACKGROUND_STATUS.UNABLE_TO_VERIFY, { detector, message: state.message });
+    } else if (detector === 'headPose') {
+      this.syncViolation(MONITORING_VIOLATIONS.HEAD_POSE, ![HEAD_POSE_STATUS.CENTERED, HEAD_POSE_STATUS.UNKNOWN].includes(state.status), { detector, condition: state.status, message: state.message, evidence });
+    } else if (detector === 'lookingAway') {
+      this.syncViolation(MONITORING_VIOLATIONS.LOOKING_AWAY, state.status === LOOKING_AWAY_STATUS.LOOKING_AWAY, { detector, message: state.message, evidence });
+    } else if (detector === 'phone') {
+      this.syncViolation(MONITORING_VIOLATIONS.PHONE_DETECTED, state.status === PHONE_STATUS.PHONE_DETECTED, { detector, message: state.message, evidence });
+    } else if (detector === 'audio') {
+      this.syncViolation(MONITORING_VIOLATIONS.VOICE_ACTIVITY, [AUDIO_STATUS.CANDIDATE_SPEAKING, AUDIO_STATUS.OTHER_SPEAKER_ESTIMATED, AUDIO_STATUS.CONTINUOUS_CONVERSATION].includes(state.status), { detector, condition: state.status, message: state.message, evidence });
+      this.syncViolation(MONITORING_VIOLATIONS.LOUD_AMBIENT_NOISE, state.status === AUDIO_STATUS.LOUD_BACKGROUND_NOISE, { detector, message: state.message, evidence });
+      this.syncViolation(MONITORING_VIOLATIONS.BACKGROUND_MEDIA, [AUDIO_STATUS.MUSIC_ESTIMATED, AUDIO_STATUS.MEDIA_PLAYBACK_ESTIMATED].includes(state.status), { detector, condition: state.status, message: state.message, evidence });
+      this.syncViolation(MONITORING_VIOLATIONS.KEYBOARD_ACTIVITY, state.status === AUDIO_STATUS.KEYBOARD_TYPING_ESTIMATED, { detector, message: state.message, evidence });
+      this.syncViolation(MONITORING_VIOLATIONS.AUDIO_INPUT_UNHEALTHY, [AUDIO_STATUS.ZERO_INPUT, AUDIO_STATUS.SATURATED].includes(state.status), { detector, condition: state.status, message: state.message, evidence });
+      this.syncViolation(MONITORING_VIOLATIONS.MICROPHONE_UNAVAILABLE, [AUDIO_STATUS.MUTED, AUDIO_STATUS.DISCONNECTED, AUDIO_STATUS.UNAVAILABLE].includes(state.status), { detector, condition: state.status, message: state.message });
+    } else if (detector === 'objects') {
+      const dedicatedPhoneEvent = state.details?.evidence?.labels?.[0] === 'phone';
+      this.syncViolation(MONITORING_VIOLATIONS.PROHIBITED_OBJECT, state.status === OBJECT_STATUS.OBJECT_DETECTED && !dedicatedPhoneEvent, { detector, message: state.message, evidence });
     }
   }
 

@@ -9,7 +9,7 @@ function formatDuration(milliseconds) {
 export function VerificationSummary({ summary, title = 'Environment verified', action }) {
   if (!summary) return null;
   const ready = summary.ready;
-  const checks = ['camera', 'lighting', 'face', 'browser', 'fullscreen'];
+  const checks = ['camera', 'lighting', 'face', 'background', 'browser', 'fullscreen', 'internet', 'audio'];
   return (
     <section className="verification-summary exam-card" aria-labelledby="verification-summary-title">
       <div className="verification-summary-hero"><ShieldCheck aria-hidden="true" /><span>Verification report</span><h2 id="verification-summary-title">{ready ? title : 'Setup needs attention'}</h2><p>{ready ? 'Your setup meets the requirements for a certification exam.' : 'Review the recommendations below, make adjustments, and test again.'}</p></div>

@@ -4,6 +4,9 @@ import { CameraPreview } from '../CameraPreview/CameraPreview';
 import { EnvironmentChecklist } from '../EnvironmentChecklist/EnvironmentChecklist';
 import { VerificationCountdown } from '../VerificationCountdown/VerificationCountdown';
 import { DeveloperSimulator } from '../DeveloperSimulator/DeveloperSimulator';
+import { DeveloperCalibrationPanel } from '../DeveloperCalibrationPanel/DeveloperCalibrationPanel';
+import { ExamEvent, EXAM_EVENT_TYPES } from '../../models/ExamEvent';
+import { AcousticFeedback } from '../AcousticFeedback/AcousticFeedback';
 
 export function EnvironmentCheck({ vision, config, onAttachVideo, onReconnectCamera, onEmit }) {
   const [fullscreenError, setFullscreenError] = useState('');
@@ -28,7 +31,9 @@ export function EnvironmentCheck({ vision, config, onAttachVideo, onReconnectCam
         <VerificationCountdown vision={vision} durationMs={config.vision.verificationDurationMs} stabilityDurationMs={config.vision.stabilityDurationMs} />
       </div>
       <EnvironmentChecklist vision={vision} />
+      <AcousticFeedback audio={vision.audio} />
       {import.meta.env.DEV ? <DeveloperSimulator mode="vision" vision={vision} onEmit={onEmit} /> : null}
+      {import.meta.env.DEV ? <DeveloperCalibrationPanel vision={vision} onTune={(values) => onEmit(new ExamEvent({ type: EXAM_EVENT_TYPES.CUSTOM, metadata: { action: 'AUDIO_CALIBRATION', values } }))} /> : null}
     </section>
   );
 }

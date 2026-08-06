@@ -4,6 +4,7 @@ import { useExam } from '../../hooks/useExam';
 import { useIntegrityMonitor } from '../../hooks/useIntegrityMonitor';
 import { ActiveViolations } from '../ActiveViolations/ActiveViolations';
 import { TimelinePanel } from '../TimelinePanel/TimelinePanel';
+import { DeveloperCalibrationPanel } from '../DeveloperCalibrationPanel/DeveloperCalibrationPanel';
 
 function formatTime(milliseconds) {
   const seconds = Math.floor(milliseconds / 1000);
@@ -12,7 +13,7 @@ function formatTime(milliseconds) {
 
 export function IntegrityPanel() {
   const monitor = useIntegrityMonitor();
-  const { attachVerificationVideo } = useExam();
+  const { attachVerificationVideo, vision, emitEvent } = useExam();
   const videoRef = useRef(null);
   useEffect(() => {
     attachVerificationVideo(videoRef.current);
@@ -26,5 +27,6 @@ export function IntegrityPanel() {
     <section className="monitor-section"><h3>Detector status</h3><div className="monitor-detector-grid">{Object.entries(monitor.detectorStatus).map(([id, status]) => <span key={id}><strong>{id}</strong>{status.status}</span>)}</div></section>
     <ActiveViolations violations={monitor.activeViolations} />
     <TimelinePanel timeline={monitor.timeline} />
+    <DeveloperCalibrationPanel vision={vision} onTune={(values) => emitEvent({ type: 'CUSTOM', metadata: { action: 'AUDIO_CALIBRATION', values } })} />
   </aside>;
 }

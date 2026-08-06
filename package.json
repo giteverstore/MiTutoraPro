@@ -19,16 +19,22 @@
     "test:navigation": "node scripts/test-course-navigation.mjs",
     "validate:exam": "node scripts/validate-exam-engine.mjs",
     "validate:vision": "node scripts/validate-vision-engine.mjs",
-    "validate:monitoring": "node scripts/validate-monitoring-engine.mjs"
+    "validate:monitoring": "node scripts/validate-monitoring-engine.mjs",
+    "validate:ai-detectors": "node scripts/validate-ai-detectors.mjs",
+    "validate:secure-exam": "node scripts/validate-secure-exam-v1.mjs",
+    "validate:audio-stability": "node scripts/validate-audio-stability.mjs",
+    "validate:acoustic-integrity": "node scripts/validate-acoustic-integrity.mjs"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.0.1",
     "@monaco-editor/react": "^4.7.0",
+    "@ricky0123/vad-web": "^0.0.30",
     "@vitejs/plugin-react": "^4.3.4",
     "firebase": "^12.17.0",
     "firebase-admin": "^14.2.0",
     "lucide-react": "^0.468.0",
     "monaco-editor": "^0.56.0",
+    "onnxruntime-web": "^1.27.0",
     "pyodide": "^314.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

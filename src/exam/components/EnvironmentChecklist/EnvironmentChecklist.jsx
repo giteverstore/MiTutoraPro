@@ -12,7 +12,7 @@ const healthDefinitions = [
   ['browser', 'Browser', Monitor],
   ['fullscreen', 'Fullscreen', Maximize2],
   ['internet', 'Internet', Wifi],
-  ['microphone', 'Microphone', Mic],
+  ['audio', 'Audio', Mic],
 ];
 
 function StateIcon({ severity }) {
@@ -41,7 +41,7 @@ export function EnvironmentChecklist({ vision }) {
         })}
       </div>
       <div className="quality-indicators" aria-label="Live camera quality">
-        {[['Lighting', vision.quality.lighting], ['Face stability', vision.quality.face], ['Camera stability', vision.quality.camera]].map(([label, quality]) => <div key={label}><span><strong>{label}</strong><em>{quality}%</em></span><div role="meter" aria-label={`${label} ${quality}%`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={quality}><span style={{ width: `${quality}%` }} /></div></div>)}
+        {[['Lighting', vision.quality.lighting], ['Background', vision.quality.background], ['Audio', vision.quality.audio], ['Face stability', vision.quality.face], ['Camera stability', vision.quality.camera]].map(([label, quality]) => <div key={label}><span><strong>{label}</strong><em>{quality}%</em></span><div role="meter" aria-label={`${label} ${quality}%`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={quality}><span style={{ width: `${quality}%` }} /></div></div>)}
       </div>
     </section>
   );

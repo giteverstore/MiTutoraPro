@@ -59,7 +59,8 @@ export class IntegrityEngine {
       applied.add('instant');
     }
     if (!instantRule) {
-      this.config.monitoring.escalation.forEach((level) => {
+      const escalation = this.config.monitoring.escalationByViolation?.[event.type] ?? this.config.monitoring.escalation;
+      escalation.forEach((level) => {
         const configuredThreshold = level.id === 'violation-recorded'
           ? level.afterMs ?? this.config.monitoring.recoveryTimeoutMs
           : level.afterMs ?? 0;
