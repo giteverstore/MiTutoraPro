@@ -16,9 +16,12 @@
     "convert:python-course": "node scripts/convert-python-course.mjs",
     "build:firebase-interactive-content": "node scripts/build-firebase-interactive-content.mjs",
     "publish-course": "node scripts/publish-course.mjs",
-    "test:navigation": "node scripts/test-course-navigation.mjs"
+    "test:navigation": "node scripts/test-course-navigation.mjs",
+    "validate:exam": "node scripts/validate-exam-engine.mjs",
+    "validate:vision": "node scripts/validate-vision-engine.mjs"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
     "@monaco-editor/react": "^4.7.0",
     "@vitejs/plugin-react": "^4.3.4",
     "firebase": "^12.17.0",

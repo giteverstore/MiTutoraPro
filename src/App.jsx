@@ -17,6 +17,7 @@ import { CertificatesPage } from './pages/CertificatesPage';
 import { ReferralsPage } from './pages/ReferralsPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AppShell } from './app-shell/AppShell';
+import { ExamExperience } from './exam/pages/ExamExperience';
 import { BookmarkProvider } from './bookmarks/BookmarkContext';
 import { UserDataLifecycle } from './user-data/UserDataLifecycle';
 import {
@@ -131,6 +132,7 @@ function AuthenticatedApplication({ user }) {
   const [activePage, setActivePage] = useState('home');
   const [navigationTarget, setNavigationTarget] = useState(null);
   const [launchLessonId, setLaunchLessonId] = useState(null);
+  const [examOpen, setExamOpen] = useState(false);
   const ActivePage = APPLICATION_PAGES[activePage];
 
   const handlePageNavigation = (page) => {
@@ -149,6 +151,10 @@ function AuthenticatedApplication({ user }) {
     setNavigationTarget(target);
     setActivePage(target.page);
   };
+
+  if (examOpen) {
+    return <ExamExperience candidateId={user.id} onExit={() => setExamOpen(false)} />;
+  }
 
   if (!activeCourseId) {
     return (
@@ -172,6 +178,7 @@ function AuthenticatedApplication({ user }) {
           <BookmarksPage onOpenBookmark={openBookmark} />
         ) : activePage === 'certificates' ? (
           <CertificatesPage
+            onStartExam={() => setExamOpen(true)}
             onContinueCourse={(courseId) => {
               setLaunchLessonId(null);
               setCourseStage('overview');

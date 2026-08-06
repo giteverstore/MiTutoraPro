@@ -10,7 +10,7 @@ import { CertificateVerification } from './CertificateVerification';
 import { CertificateViewer } from './CertificateViewer';
 import { InProgressCertificateCard } from './InProgressCertificateCard';
 
-export function CertificatesPage({ onContinueCourse }) {
+export function CertificatesPage({ onContinueCourse, onStartExam }) {
   const { user } = useUser();
   const [certificates, setCertificates] = useState([]);
   const [status, setStatus] = useState('loading');
@@ -80,9 +80,10 @@ export function CertificatesPage({ onContinueCourse }) {
 
   return (
     <div className="certificates-page">
-      <header className="certificates-heading">
+      <header className="certificates-heading certificates-heading--with-action">
         <h1>Credentials for the skills you’ve earned.</h1>
         <p>View, verify, and share your completed MiTutora learning achievements.</p>
+        <button className="button button--primary" type="button" onClick={onStartExam}>Take sample certification exam</button>
       </header>
 
       <CertificateOverview overview={certificateOverview} />

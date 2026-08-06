@@ -1,0 +1,19 @@
+{
+  "id": "sample-python-certification",
+  "title": "Python Foundations Certification",
+  "description": "A short certification exam covering core Python concepts.",
+  "durationMinutes": 15,
+  "passingScore": 70,
+  "questions": [
+    { "id": "q1", "prompt": "Which keyword defines a function in Python?", "options": [{ "id": "a", "label": "func" }, { "id": "b", "label": "def" }, { "id": "c", "label": "function" }, { "id": "d", "label": "lambda" }], "correctOptionId": "b" },
+    { "id": "q2", "prompt": "Which value is a Python Boolean?", "options": [{ "id": "a", "label": "true" }, { "id": "b", "label": "TRUE" }, { "id": "c", "label": "True" }, { "id": "d", "label": "boolean" }], "correctOptionId": "c" },
+    { "id": "q3", "prompt": "Which collection stores key-value pairs?", "options": [{ "id": "a", "label": "List" }, { "id": "b", "label": "Tuple" }, { "id": "c", "label": "Set" }, { "id": "d", "label": "Dictionary" }], "correctOptionId": "d" },
+    { "id": "q4", "prompt": "What does len([1, 2, 3]) return?", "options": [{ "id": "a", "label": "2" }, { "id": "b", "label": "3" }, { "id": "c", "label": "4" }, { "id": "d", "label": "An error" }], "correctOptionId": "b" },
+    { "id": "q5", "prompt": "Which operator performs exponentiation?", "options": [{ "id": "a", "label": "^" }, { "id": "b", "label": "*" }, { "id": "c", "label": "**" }, { "id": "d", "label": "//" }], "correctOptionId": "c" },
+    { "id": "q6", "prompt": "Which statement skips to the next loop iteration?", "options": [{ "id": "a", "label": "break" }, { "id": "b", "label": "continue" }, { "id": "c", "label": "pass" }, { "id": "d", "label": "return" }], "correctOptionId": "b" },
+    { "id": "q7", "prompt": "What is the result of 7 // 2?", "options": [{ "id": "a", "label": "3" }, { "id": "b", "label": "3.5" }, { "id": "c", "label": "4" }, { "id": "d", "label": "1" }], "correctOptionId": "a" },
+    { "id": "q8", "prompt": "Which type is immutable?", "options": [{ "id": "a", "label": "List" }, { "id": "b", "label": "Dictionary" }, { "id": "c", "label": "Set" }, { "id": "d", "label": "Tuple" }], "correctOptionId": "d" },
+    { "id": "q9", "prompt": "Which function converts text to an integer?", "options": [{ "id": "a", "label": "str()" }, { "id": "b", "label": "float()" }, { "id": "c", "label": "int()" }, { "id": "d", "label": "number()" }], "correctOptionId": "c" },
+    { "id": "q10", "prompt": "What begins a single-line comment in Python?", "options": [{ "id": "a", "label": "//" }, { "id": "b", "label": "#" }, { "id": "c", "label": "--" }, { "id": "d", "label": "/*" }], "correctOptionId": "b" }
+  ]
+}
