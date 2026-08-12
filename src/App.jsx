@@ -16,6 +16,7 @@ import { BookmarksPage } from './pages/BookmarksPage';
 import { CertificatesPage } from './pages/CertificatesPage';
 import { ReferralsPage } from './pages/ReferralsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { ProjectsPage } from './pages/ProjectsPage';
 import { AppShell } from './app-shell/AppShell';
 import { ExamExperience } from './exam/pages/ExamExperience';
 import { SetupVerificationExperience } from './exam/pages/SetupVerificationExperience';
@@ -34,6 +35,7 @@ const APPLICATION_PAGES = {
   certificates: CertificatesPage,
   referrals: ReferralsPage,
   settings: SettingsPage,
+  projects: ProjectsPage,
 };
 
 export default function App() {

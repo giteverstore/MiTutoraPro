@@ -28,6 +28,7 @@
     "validate:acoustic-integrity": "node scripts/validate-acoustic-integrity.mjs",
     "validate:certification": "node scripts/validate-certification.mjs",
     "validate:certificate-dates": "node scripts/validate-certificate-dates.mjs",
+    "validate:projects": "node scripts/validate-projects.mjs",
     "validate:certification-trust": "node scripts/validate-certification-trust.mjs",
     "validate:certification-security": "firebase emulators:exec --only firestore \"node tests/firestore/certification.rules.test.mjs\""
   },
@@ -38,6 +39,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "firebase": "^12.17.0",
     "firebase-admin": "^14.2.0",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.468.0",
     "monaco-editor": "^0.56.0",
     "onnxruntime-web": "^1.27.0",

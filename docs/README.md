@@ -33,6 +33,7 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Certification lifecycle](architecture/certification-lifecycle.md)
 - [Certification review](architecture/certification-review.md)
 - [Proctoring audio evidence](architecture/proctoring-audio.md)
+- [Easy Project Engine](architecture/easy-project-engine.md)
 - [Monaco integration](architecture/monaco-integration.md)
 - [Pyodide runtime](architecture/pyodide-runtime.md)
 
