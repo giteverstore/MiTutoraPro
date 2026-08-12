@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import JSZip from 'jszip';
 import { ProjectCatalog } from '../src/projects/repositories/ProjectCatalog.js';
-import { ProjectExporter } from '../src/projects/export/ProjectExporter.js';
+import { ProjectExporter, removeStarterArtifacts } from '../src/projects/export/ProjectExporter.js';
 import { ProjectProgressService } from '../src/projects/services/ProjectProgressService.js';
 import { semanticValuesEqual } from '../src/projects/validation/semanticComparison.js';
 import { ProjectValidator } from '../src/projects/validation/ProjectValidator.js';
@@ -79,10 +79,21 @@ progress.recordValidation('simple-calculator', { passed: true, score: 100 }, 'co
 assert.equal(progress.get('simple-calculator').submission, 'completed source');
 
 for (const project of projects) {
-  const archive = await new ProjectExporter().createArchive(project, project.starterCode, 'uint8array');
+  const starterMarker = project.starterCode.split('\n').find((line) => line.includes('# TODO:'));
+  const learnerBody = '    # Keep this learner-authored comment\n    return None\n';
+  const submittedCode = project.starterCode.replace(starterMarker, `${learnerBody}${starterMarker}`);
+  const expectedImplementation = submittedCode.replace(`${starterMarker}\n`, '');
+  assert.equal(removeStarterArtifacts(project, submittedCode), expectedImplementation, `${project.id} must remove only its starter marker.`);
+  assert.ok(removeStarterArtifacts(project, `${submittedCode}    # TODO: learner follow-up\n`).includes('# TODO: learner follow-up'), `${project.id} must preserve learner comments.`);
+  const archive = await new ProjectExporter().createArchive(project, submittedCode, 'uint8array');
   const zip = await JSZip.loadAsync(archive); const names = Object.keys(zip.files); const root = project.export.repositoryName;
   assert.ok(names.includes(`${root}/README.md`) && names.includes(`${root}/${project.template.sourcePath}`));
   assert.ok(names.includes(`${root}/${project.template.testPath}`) && names.includes(`${root}/requirements.txt`) && names.includes(`${root}/.gitignore`));
+  const exportedImplementation = await zip.file(`${root}/${project.template.sourcePath}`).async('string');
+  assert.equal(exportedImplementation, expectedImplementation, `${project.id} export must preserve learner code and remove the starter artifact.`);
+  assert.ok(exportedImplementation.includes('# Keep this learner-authored comment'));
+  assert.ok(!/\bTODO:\s*implement\b/i.test(exportedImplementation));
+  assert.ok(!/^\s*pass\s*$/m.test(exportedImplementation));
   const exportedTests = await zip.file(`${root}/${project.template.testPath}`).async('string');
   const exportedMethods = [...exportedTests.matchAll(/^    def (test_[a-z][a-z0-9_]*?)\(self\):$/gm)].map((match) => match[1]);
   const publicTests = project.validation.tests.filter(({ visible }) => visible);
