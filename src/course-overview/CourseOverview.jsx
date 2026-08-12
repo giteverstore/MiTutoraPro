@@ -19,6 +19,7 @@ import {
 import { createCourseOverviewModel } from '../course/createCourseOverviewModel';
 import { ICON_SIZE } from '../design-system/theme';
 import { useLearningProgress } from '../progress/LearningProgressContext';
+import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
 
 const STAT_DEFINITIONS = [
   { key: 'estimatedDuration', label: 'Estimated duration', icon: Clock3 },
@@ -118,7 +119,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
         <ModuleList modules={model.modules} />
 
         {import.meta.env.DEV ? (
-          <DevelopmentControls progress={progress} onResetCourse={onResetCourse} />
+          <DevelopmentControls course={course} progress={progress} onResetCourse={onResetCourse} />
         ) : null}
 
         <section className="overview-bottom-cta">
@@ -208,7 +209,29 @@ function ModuleList({ modules }) {
   );
 }
 
-function DevelopmentControls({ progress, onResetCourse }) {
+function DevelopmentControls({ course, progress, onResetCourse }) {
+  const [trustedState, setTrustedState] = useState({ status: 'idle', message: '' });
+  const recordTrustedCompletion = async () => {
+    if (trustedState.status === 'recording') return;
+    setTrustedState({ status: 'recording', message: 'Preparing trusted completionâ€¦' });
+    try {
+      const result = await trustedCompletionDevelopmentService.completeCourse(
+        course,
+        ({ completed, total }) => setTrustedState({
+          status: 'recording',
+          message: `Recording trusted completion: ${completed} / ${total}`,
+        }),
+      );
+      const elapsedSeconds = (result.durationMs / 1000).toFixed(1);
+      setTrustedState({
+        status: 'success',
+        message: `Trusted completion recorded in ${elapsedSeconds}s. Certification status: ${result.certification.eligibilityStatus}.`,
+      });
+    } catch (error) {
+      setTrustedState({ status: 'error', message: error.message });
+    }
+  };
+
   const actions = [
     {
       label: 'Reset Course',
@@ -219,6 +242,7 @@ function DevelopmentControls({ progress, onResetCourse }) {
       danger: true,
     },
     { label: 'Mark All Lessons Complete', action: progress.markAllLessonsComplete },
+    { label: 'Mark Course Trusted-Complete', action: recordTrustedCompletion },
     { label: 'Reset Progress', action: progress.resetLearningProgress },
     { label: 'Reset Quiz Attempts', action: progress.resetQuizAttempts },
     { label: 'Reset Exercise Attempts', action: progress.resetExerciseAttempts },
@@ -237,12 +261,18 @@ function DevelopmentControls({ progress, onResetCourse }) {
             className={`button button--secondary${danger ? ' overview-danger-button' : ''}`}
             type="button"
             onClick={action}
+            disabled={trustedState.status === 'recording'}
             key={label}
           >
             <RotateCcw size={ICON_SIZE.sm} aria-hidden="true" /> {label}
           </button>
         ))}
       </div>
+      {trustedState.message ? (
+        <p className={`overview-development-status is-${trustedState.status}`} role={trustedState.status === 'error' ? 'alert' : 'status'}>
+          {trustedState.message}
+        </p>
+      ) : null}
     </section>
   );
 }

@@ -70,6 +70,22 @@ export class EventLifecycleManager {
     return () => this.listeners.delete(listener);
   }
 
+  restore(events = []) {
+    this.events.clear();
+    this.activeByType.clear();
+    events.forEach((record) => {
+      const event = record instanceof IntegrityEvent ? record : new IntegrityEvent({
+        ...record,
+        duration: record.duration ?? record.durationMs ?? 0,
+        metadata: record.metadata ?? { evidence: record.evidence, detector: record.detectorId },
+      });
+      this.events.set(event.id, event);
+      if (event.status === INTEGRITY_EVENT_STATUS.ACTIVE) this.activeByType.set(event.type, event.id);
+    });
+    this.publish(null, 'restored');
+    return this.getSnapshot();
+  }
+
   getSnapshot() {
     const events = [...this.events.values()].sort((a, b) => a.startedAt - b.startedAt);
     return Object.freeze({

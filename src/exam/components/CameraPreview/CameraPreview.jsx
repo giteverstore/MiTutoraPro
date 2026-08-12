@@ -23,6 +23,7 @@ export function CameraPreview({ camera, onAttach, onReconnect }) {
       </div> : null}
       <div className="camera-preview-badge"><span /> {connected ? 'Camera connected' : 'Camera unavailable'}</div>
       {camera.resolution ? <small>{camera.resolution.width} × {camera.resolution.height}</small> : null}
+      <p className="camera-preview-privacy">Your camera feed is processed locally for exam integrity monitoring. Video is not recorded or uploaded.</p>
     </section>
   );
 }

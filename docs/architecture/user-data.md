@@ -1,6 +1,6 @@
 # User data persistence
 
-User-owned progress, bookmarks, settings, certificates, and referrals are persisted in Firestore through `UserDataService`. Components and domain services do not import Firebase or Firestore repositories.
+User-owned progress, bookmarks, settings, and referrals are persisted in Firestore through `UserDataService`. Authoritative certificates are read through the same cache boundary but can only be issued by the trusted certification backend. Components and domain services do not import Firebase or Firestore repositories.
 
 ## Flow
 
@@ -22,15 +22,16 @@ Firestore
 
 ```text
 users/{uid}/progress/{courseId}
+users/{uid}/trustedCourseProgress/{courseId}  # server-written certification evidence
 users/{uid}/bookmarks/{bookmarkId}
 users/{uid}/settings/preferences
-users/{uid}/certificates/{certificateId}
 users/{uid}/referrals/profile
+certificates/{credentialId}  # server-written, owner-readable
 ```
 
 Progress documents contain `courseId`, `currentModule`, `currentLesson`, completed lesson/exercise/quiz state, completion percentage, `startedAt`, `lastOpened`, and `updatedAt`. Compatibility fields used by the existing progress engine are retained so lesson-state calculations do not change.
 
-Bookmarks and certificates use one document per model ID. Collection replacements use an atomic Firestore batch, preventing partially updated lists. Settings and referrals use fixed document IDs.
+Bookmarks use one document per model ID, and collection replacements use an atomic Firestore batch. Settings and referrals use fixed document IDs. Certificates are immutable credentials queried by `ownerUid`; `UserDataService` exposes no certificate write or reset operation.
 
 ## Cache and offline behavior
 

@@ -49,7 +49,7 @@ export const defaultExamConfig = Object.freeze({
         browser: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['FOCUSED']) }),
         fullscreen: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['ENABLED']) }),
         internet: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['ONLINE']) }),
-        audio: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['SILENCE']), warningStatuses: Object.freeze(['SPEECH']), warningFactor: 0.5 }),
+        audio: Object.freeze({ weight: 10, passingStatuses: Object.freeze(['READY']) }),
       }),
       requiredStatuses: Object.freeze({
         camera: Object.freeze(['CONNECTED']),
@@ -58,7 +58,7 @@ export const defaultExamConfig = Object.freeze({
         browser: Object.freeze(['FOCUSED']),
         fullscreen: Object.freeze(['ENABLED']),
         internet: Object.freeze(['ONLINE']),
-        audio: Object.freeze(['SILENCE']),
+        audio: Object.freeze(['READY']),
       }),
     }),
   }),

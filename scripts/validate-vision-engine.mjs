@@ -3,6 +3,7 @@ import { CameraMonitor } from '../src/exam/detectors/CameraMonitor.js';
 import { createFaceStatus, FaceDetector, FACE_STATUS } from '../src/exam/detectors/FaceDetector.js';
 import { createLightingStatus, LightingDetector, LIGHTING_STATUS } from '../src/exam/detectors/LightingDetector.js';
 import { createBackgroundStatus, BACKGROUND_STATUS } from '../src/exam/detectors/BackgroundDetector.js';
+import { createAudioStatus, AUDIO_HEALTH, AUDIO_STATUS } from '../src/exam/detectors/AudioDetector.js';
 import { createExamConfig } from '../src/exam/engine/ExamConfig.js';
 import { EventBus } from '../src/exam/engine/EventBus.js';
 import { IntegrityEngine } from '../src/exam/engine/IntegrityEngine.js';
@@ -120,17 +121,20 @@ const documentStub = new EventTargetStub();
 const windowStub = new EventTargetStub();
 let now = 0;
 const cameraStatus = new CameraStatus({ permission: CAMERA_PERMISSION.GRANTED, connection: CAMERA_CONNECTION.CONNECTED, streamActive: true });
+const healthyAudio = (status = AUDIO_STATUS.SILENCE) => createAudioStatus(status, 100, { audioHealth: AUDIO_HEALTH.READY, audioActivity: status === AUDIO_STATUS.SILENCE ? 'SILENT' : 'ACTIVE' });
 const emitVision = (detector, status) => bus.emit(new ExamEvent({ type: EXAM_EVENT_TYPES.CUSTOM, metadata: { channel: 'vision', detector, status } }));
 const detectors = {
   camera: new StubDetector(() => emitVision('camera', cameraStatus)),
   face: new StubDetector(() => emitVision('face', createFaceStatus(FACE_STATUS.ONE_FACE))),
   lighting: new StubDetector(() => emitVision('lighting', createLightingStatus(LIGHTING_STATUS.GOOD))),
   background: new StubDetector(() => emitVision('background', createBackgroundStatus(BACKGROUND_STATUS.UNKNOWN))),
+  audio: new StubDetector(() => emitVision('audio', healthyAudio())),
 };
+const sharedCameraStream = { id: 'shared-camera-stream' };
 const vision = new VisionManager({
   eventBus: bus,
   detectors,
-  cameraService: { stream: null },
+  cameraService: { stream: sharedCameraStream },
   durationMs: 1000,
   stabilityDurationMs: 300,
   tickIntervalMs: 100000,
@@ -138,7 +142,12 @@ const vision = new VisionManager({
   windowObject: windowStub,
   documentObject: documentStub,
 });
+let previewPlayCount = 0;
+const preview = { srcObject: null, play: async () => { previewPlayCount += 1; } };
+vision.attachVideoElement(preview);
 await vision.start();
+assert.equal(preview.srcObject, sharedCameraStream, 'Camera preview must reuse the detector CameraService stream.');
+assert.equal(previewPlayCount, 1, 'Attaching the same stream must not repeatedly restart playback.');
 const detectorStatus = vision.getSnapshot().face;
 assert.equal(typeof detectorStatus.lastUpdated, 'number');
 assert.equal(typeof detectorStatus.message, 'string');
@@ -154,12 +163,25 @@ vision.tick();
 assert.equal(vision.getSnapshot().elapsedMs, 400, 'Verification timer must pause when browser focus is lost.');
 documentStub.focused = true;
 windowStub.dispatch('focus');
-now = 1300;
+emitVision('audio', healthyAudio(AUDIO_STATUS.CANDIDATE_SPEAKING));
+now = 900;
+vision.tick();
+assert.equal(vision.getSnapshot().consecutiveValidMs, 200, 'Healthy speech must continue environment stability after focus recovery.');
+emitVision('audio', createAudioStatus(AUDIO_STATUS.DISCONNECTED, 0, { audioHealth: AUDIO_HEALTH.DISCONNECTED }));
+now = 1000;
+vision.tick();
+assert.equal(vision.getSnapshot().consecutiveValidMs, 0, 'Microphone disconnection must reset environment stability.');
+emitVision('audio', healthyAudio());
+now = 1400;
+vision.tick();
+assert.equal(vision.getSnapshot().consecutiveValidMs, 400, 'Healthy silent audio must resume environment stability.');
+now = 1700;
 vision.tick();
 assert.equal(vision.getStatus(), VISION_VERIFICATION_STATUS.VERIFIED, 'Valid consecutive environment window must complete verification.');
 assert.equal(vision.getSnapshot().summary.readinessScore, 98);
 
 vision.destroy();
+assert.equal(preview.srcObject, null, 'Destroying vision monitoring must detach the camera preview.');
 const recoveryBus = new EventBus();
 const recoveryDocument = new EventTargetStub();
 const recoveryWindow = new EventTargetStub();

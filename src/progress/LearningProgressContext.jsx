@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { progressRepository as defaultRepository } from './progressRepository';
+import { trustedCompletionService as defaultTrustedCompletionService } from './TrustedCompletionService';
 
 const LearningProgressContext = createContext(null);
 
@@ -138,6 +139,7 @@ export function LearningProgressProvider({
   initialBookmarks = [],
   initialVisitedLessons = [],
   repository = defaultRepository,
+  trustedCompletionService = defaultTrustedCompletionService,
 }) {
   const courseRef = useRef(course);
   courseRef.current = course;
@@ -227,14 +229,15 @@ export function LearningProgressProvider({
       });
   }, [course, updateProgress]);
 
-  const completeLesson = useCallback((lessonId) => {
+  const completeLesson = useCallback(async (lessonId, completionType = 'reading') => {
+    await trustedCompletionService.recordLessonCompletion(course.id, lessonId, completionType);
     updateProgress((current) => ({
       ...current,
       completedLessons: current.completedLessons.includes(lessonId)
         ? current.completedLessons
         : [...current.completedLessons, lessonId],
     }));
-  }, [updateProgress]);
+  }, [course.id, trustedCompletionService, updateProgress]);
 
   const markLessonVisited = useCallback((lessonId) => {
     updateProgress((current) =>

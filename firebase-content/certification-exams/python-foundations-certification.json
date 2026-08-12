@@ -1,0 +1,14 @@
+{
+  "id": "python-foundations-certification",
+  "courseId": "python",
+  "title": "Python Foundations Certification",
+  "version": "1.0.0",
+  "durationMs": 900000,
+  "passingScore": 70,
+  "integrityPolicyId": "standard-v1",
+  "questionSetVersion": "1.0.0",
+  "questionCount": 10,
+  "published": true,
+  "effectiveFrom": "2026-08-11T00:00:00.000Z",
+  "schemaVersion": "1.0.0"
+}

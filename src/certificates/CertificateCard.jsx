@@ -1,12 +1,5 @@
 import { CalendarDays, Download, Eye, Share2 } from 'lucide-react';
-
-function formatDate(value) {
-  return new Intl.DateTimeFormat(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(new Date(value));
-}
+import { formatCertificateDate } from './certificateModel';
 
 export function CertificateCard({ certificate, onView, onDownload, onShare }) {
   return (
@@ -17,7 +10,7 @@ export function CertificateCard({ certificate, onView, onDownload, onShare }) {
         <h3>{certificate.courseTitle}</h3>
         <p>{certificate.description}</p>
         <div className="certificate-card-meta">
-          <span><CalendarDays /> {formatDate(certificate.completionDate)}</span>
+          <span><CalendarDays /> {formatCertificateDate(certificate.completionDate)}</span>
           <span>Credential <code>{certificate.credentialId}</code></span>
         </div>
       </div>

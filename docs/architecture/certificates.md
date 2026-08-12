@@ -1,23 +1,18 @@
 # Certificates
 
-Certificates is an AppShell module under `src/certificates/`. It presents earned credentials, in-progress courses, a responsive certificate viewer, and credential verification without depending on Learning Engine internals.
+Certificates is an AppShell module under `src/certificates/`. It presents authoritative credentials, certification eligibility, attempt status, and a responsive credential viewer without depending on Learning Engine internals.
 
-## Model and service
+## Source of truth
 
-`certificateModel.js` normalizes earned and in-progress records. Stable fields include course identity, status, progress, certified hours, issue/completion dates, credential ID, verification status, and verification URL.
+`CertificateService` is read-only. It queries `certificates/{credentialId}` records whose `ownerUid` matches the authenticated user. Candidate code cannot create, update, reset, or delete credentials. Trusted certification Functions issue deterministic credentials after a finalized `CERTIFIED` decision.
 
-`CertificateService` exposes certificate retrieval, lookup, saving, reset, and export behavior through a replaceable repository. The local repository stores user-scoped records at `mi-tutora:certificates:v1:<userId>` and initializes the mock records on first use. A backend implementation can replace the repository without changing page components.
+The page also reads `users/{uid}/certifications/{courseId}` through `CertificationService` and distinguishes locked, eligible/exam available, active attempt, evaluation, certified, not certified, review required, and incomplete states. No mock credential is seeded in production.
 
 ## Page composition
 
-- `CertificateOverview` displays mock aggregate values.
-- `CertificateCard` is shared by all earned credentials.
-- `InProgressCertificateCard` renders progress and delegates Continue to the existing application course-opening callback.
-- `CertificateViewer` is an accessible modal-style preview with Escape/backdrop close behavior.
-- `CertificateVerification` displays the selected credential’s ID, verified status, URL, and QR placeholder.
+- `CertificateOverview` derives aggregate values from authoritative records.
+- `CertificateCard` renders issued credentials.
+- `CertificateViewer` provides an accessible preview with Escape/backdrop close behavior.
+- `CertificateVerification` displays the credential ID and status. Public verification links and PDF generation remain deferred.
 
-The viewer’s PDF action is intentionally a placeholder for a future document service. Browser share and clipboard actions are used when available, with user-facing fallback status.
-
-## Boundaries
-
-Certificates does not calculate course completion or issue credentials from Learning Progress yet. Mock service records are the source for this sprint. Future issuance should consume a backend credential service rather than introducing certificate-generation logic into the Learning Engine.
+See [Certification lifecycle](certification-lifecycle.md) for issuance, security, and trust-boundary details.

@@ -134,12 +134,17 @@ users/{uid}/settings/preferences
 users/{uid}/progress/{courseId}
 users/{uid}/bookmarks/{bookmarkId}
 users/{uid}/achievements/{achievementId}
-users/{uid}/certificates/{certificateId}
+users/{uid}/trustedCourseProgress/{courseId}
+users/{uid}/certifications/{courseId}
 users/{uid}/statistics/overview
 users/{uid}/coinTransactions/{transactionId}
 courses/{courseId}
 practiceQuestions/{questionId}
 dailyChallenges/{challengeId}
+examAttempts/{attemptId}
+integrityReports/{reportId}
+certificationReviews/{reviewId}
+certificates/{credentialId}
 ```
 
 Collection names and fixed document IDs must be added to `paths.js`; they must not be repeated in repositories or consumers.

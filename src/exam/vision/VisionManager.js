@@ -368,7 +368,7 @@ export class VisionManager {
       face: state.face.status,
       lighting: state.lighting.status,
       background: state.background.status,
-      audio: state.audio.status,
+      audio: state.audio.details?.audioHealth ?? 'INITIALIZING',
       browser: this.browser.focused ? 'FOCUSED' : 'UNFOCUSED',
       fullscreen: this.browser.fullscreen ? 'ENABLED' : 'DISABLED',
       internet: this.browser.online ? 'ONLINE' : 'OFFLINE',

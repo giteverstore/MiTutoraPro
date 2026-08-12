@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function owns(uid) { return signedIn() && request.auth.uid == uid; }
+    function attemptOwner(attemptId) {
+      return signedIn() && get(/databases/$(database)/documents/examAttempts/$(attemptId)).data.ownerUid == request.auth.uid;
+    }
+    function runningAttemptOwner(attemptId) {
+      let attempt = get(/databases/$(database)/documents/examAttempts/$(attemptId)).data;
+      return signedIn() && attempt.ownerUid == request.auth.uid && attempt.state == 'RUNNING';
+    }
+
+    match /users/{uid} {
+      allow read, create, update: if owns(uid);
+      allow delete: if false;
+
+      match /progress/{courseId} { allow read, write: if owns(uid); }
+      match /bookmarks/{bookmarkId} { allow read, write: if owns(uid); }
+      match /settings/{settingId} { allow read, write: if owns(uid); }
+      match /referrals/{referralId} { allow read, write: if owns(uid); }
+      match /achievements/{achievementId} { allow read, write: if owns(uid); }
+      match /statistics/{statisticsId} { allow read, write: if owns(uid); }
+      match /coinTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
+      match /certifications/{courseId} { allow read: if owns(uid); allow write: if false; }
+      match /trustedCourseProgress/{courseId} { allow read: if owns(uid); allow write: if false; }
+      match /certificates/{certificateId} { allow read: if owns(uid); allow write: if false; }
+    }
+
+    match /courses/{courseId} { allow read: if resource.data.published == true; allow write: if false; }
+    match /practiceQuestions/{questionId} { allow read: if resource.data.published == true; allow write: if false; }
+    match /dailyChallenges/{challengeId} { allow read: if resource.data.published == true; allow write: if false; }
+    match /certificationExams/{examId} { allow read: if signedIn() && resource.data.published == true; allow write: if false; }
+
+    match /examAttempts/{attemptId} {
+      allow read: if signedIn() && resource.data.ownerUid == request.auth.uid;
+      allow create, update, delete: if false;
+      match /responses/{responseId} { allow read: if attemptOwner(attemptId); allow write: if false; }
+      match /integrityEvents/{eventId} { allow read: if runningAttemptOwner(attemptId); allow write: if false; }
+      match /auditEvents/{eventId} { allow read: if attemptOwner(attemptId); allow write: if false; }
+    }
+
+    match /integrityReports/{reportId} {
+      allow read: if signedIn() && resource.data.ownerUid == request.auth.uid;
+      allow create, update, delete: if false;
+    }
+
+    match /certificationReviews/{reviewId} {
+      allow read: if signedIn() && resource.data.candidateUid == request.auth.uid;
+      allow create, update, delete: if false;
+    }
+
+    match /certificates/{credentialId} {
+      allow read: if signedIn() && resource.data.ownerUid == request.auth.uid;
+      allow create, update, delete: if false;
+    }
+  }
+}

@@ -42,6 +42,15 @@ export class ExamSession {
     return this.getSnapshot();
   }
 
+  restore({ state, startTime = null, endTime = null }) {
+    if (!Object.values(EXAM_SESSION_STATES).includes(state)) throw new TypeError(`Unsupported restored exam session state: ${state}`);
+    this.state = state;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.notify();
+    return this.getSnapshot();
+  }
+
   subscribe(listener) {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);

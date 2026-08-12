@@ -16,6 +16,7 @@
     "convert:python-course": "node scripts/convert-python-course.mjs",
     "build:firebase-interactive-content": "node scripts/build-firebase-interactive-content.mjs",
     "publish-course": "node scripts/publish-course.mjs",
+    "publish:certification-exam": "node scripts/publish-certification-exam.mjs",
     "test:navigation": "node scripts/test-course-navigation.mjs",
     "validate:exam": "node scripts/validate-exam-engine.mjs",
     "validate:vision": "node scripts/validate-vision-engine.mjs",
@@ -23,7 +24,12 @@
     "validate:ai-detectors": "node scripts/validate-ai-detectors.mjs",
     "validate:secure-exam": "node scripts/validate-secure-exam-v1.mjs",
     "validate:audio-stability": "node scripts/validate-audio-stability.mjs",
-    "validate:acoustic-integrity": "node scripts/validate-acoustic-integrity.mjs"
+    "validate:audio-readiness": "node scripts/validate-audio-readiness.mjs",
+    "validate:acoustic-integrity": "node scripts/validate-acoustic-integrity.mjs",
+    "validate:certification": "node scripts/validate-certification.mjs",
+    "validate:certificate-dates": "node scripts/validate-certificate-dates.mjs",
+    "validate:certification-trust": "node scripts/validate-certification-trust.mjs",
+    "validate:certification-security": "firebase emulators:exec --only firestore \"node tests/firestore/certification.rules.test.mjs\""
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.0.1",
@@ -41,9 +47,11 @@
     "vite": "^6.0.7"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.1",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "cheerio": "^1.2.0",
+    "firebase-tools": "^15.26.0",
     "mammoth": "^1.12.0"
   }
 }

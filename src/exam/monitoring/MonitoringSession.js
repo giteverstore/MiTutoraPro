@@ -124,6 +124,15 @@ export class MonitoringSession {
     return () => this.listeners.delete(listener);
   }
 
+  restore(events = []) {
+    const snapshot = this.lifecycle.restore(events);
+    this.timeline.reset();
+    snapshot.events.forEach((event) => this.timeline.update(event));
+    snapshot.events.forEach((event) => this.onLifecycleEvent?.(event, 'restored'));
+    this.notify();
+    return this.getSnapshot();
+  }
+
   getSnapshot() {
     const lifecycle = this.lifecycle.getSnapshot();
     const end = this.endedAt ?? this.clock();

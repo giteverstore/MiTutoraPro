@@ -214,15 +214,6 @@ export class UserDataService {
     return this.read(cacheKey(uid, 'certificates'), () => this.repository(uid, 'certificates', CertificateRepository).list());
   }
 
-  async saveCertificates(uid, certificates) {
-    const key = cacheKey(uid, 'certificates');
-    return this.write(key, () => this.repository(uid, 'certificates', CertificateRepository).replaceAll(certificates));
-  }
-
-  async clearCertificates(uid) {
-    return this.saveCertificates(uid, []);
-  }
-
   async loadReferral(uid) {
     return this.read(cacheKey(uid, 'referral'), () => this.repository(uid, 'referral', ReferralRepository).getProfile());
   }

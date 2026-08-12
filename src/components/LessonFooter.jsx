@@ -17,6 +17,7 @@ export function LessonFooter({
     completeLesson,
   } = useLearningProgress();
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
+  const [completionState, setCompletionState] = useState({ status: 'idle', message: '' });
   const footerRef = useRef(null);
   const isCompleted = completedLessons.includes(lesson.id);
 
@@ -56,6 +57,17 @@ export function LessonFooter({
       ? 'Run your code, verify its output, and mark the exercise complete.'
       : 'Read to the end of the lesson to enable completion.';
 
+  const handleComplete = async () => {
+    if (!canComplete || completionState.status === 'saving') return;
+    setCompletionState({ status: 'saving', message: 'Recording trusted completion…' });
+    try {
+      await completeLesson(lesson.id, requirement.type);
+      setCompletionState({ status: 'complete', message: 'Lesson completion verified.' });
+    } catch (error) {
+      setCompletionState({ status: 'error', message: error.message || 'Lesson completion could not be verified.' });
+    }
+  };
+
   return (
     <footer className="lesson-completion-footer" ref={footerRef}>
       <div className="lesson-footer-status">
@@ -65,6 +77,7 @@ export function LessonFooter({
             ? <CheckCircle2 size={ICON_SIZE.md} />
             : <LockKeyhole size={ICON_SIZE.md} />}
         <span>{isCompleted ? 'Lesson completed' : canComplete ? 'Ready to complete' : lockedMessage}</span>
+        {completionState.message ? <small role={completionState.status === 'error' ? 'alert' : 'status'}>{completionState.message}</small> : null}
       </div>
       <div className="lesson-footer-actions">
         <button
@@ -89,8 +102,8 @@ export function LessonFooter({
           <button
             className="button button--primary lesson-footer-button"
             type="button"
-            disabled={!canComplete}
-            onClick={() => completeLesson(lesson.id)}
+            disabled={!canComplete || completionState.status === 'saving'}
+            onClick={handleComplete}
           >
             <CheckCircle2 size={ICON_SIZE.md} /> Complete Lesson
           </button>

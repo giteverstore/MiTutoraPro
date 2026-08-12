@@ -10,7 +10,7 @@ export function CertificateVerification({ certificate }) {
         <dl>
           <div><dt>Credential ID</dt><dd>{certificate.credentialId}</dd></div>
           <div><dt>Verification Status</dt><dd className="is-verified"><BadgeCheck /> Verified</dd></div>
-          <div><dt>Verification URL</dt><dd><Link2 /> {certificate.verificationUrl}</dd></div>
+          <div><dt>Verification URL</dt><dd><Link2 /> {certificate.verificationUrl ?? 'Public verification will be available in a future release.'}</dd></div>
         </dl>
       </div>
       <div className="certificate-qr-placeholder" role="img" aria-label="QR code placeholder for certificate verification">

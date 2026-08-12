@@ -30,6 +30,9 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Firebase foundation](architecture/firebase.md)
 - [Firebase content infrastructure](architecture/firebase-content.md)
 - [User data persistence](architecture/user-data.md)
+- [Certification lifecycle](architecture/certification-lifecycle.md)
+- [Certification review](architecture/certification-review.md)
+- [Proctoring audio evidence](architecture/proctoring-audio.md)
 - [Monaco integration](architecture/monaco-integration.md)
 - [Pyodide runtime](architecture/pyodide-runtime.md)
 

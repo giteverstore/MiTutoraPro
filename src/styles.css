@@ -121,6 +121,7 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
 .camera-preview-badge span { width: .45rem; height: .45rem; background: var(--color-danger); border-radius: 50%; }
 .camera-preview.is-connected .camera-preview-badge span { background: #78c49e; box-shadow: 0 0 0 4px rgba(120, 196, 158, .14); }
 .camera-preview > small { position: absolute; right: var(--space-3); bottom: var(--space-3); padding: var(--space-2); background: rgba(17, 22, 19, .76); border-radius: var(--radius-sm); }
+.camera-preview-privacy { position: absolute; right: var(--space-3); top: var(--space-3); max-width: 22rem; margin: 0; padding: var(--space-2) var(--space-3); color: #dce6e1; background: rgba(17, 22, 19, .76); border-radius: var(--radius-md); font-size: var(--font-size-xs); backdrop-filter: blur(10px); }
 .vision-fullscreen-button { width: 100%; margin-top: var(--space-3); }
 .environment-checklist .exam-card-heading h2 { font-size: var(--font-size-xl); }
 .environment-checklist ul { display: grid; gap: var(--space-1); margin: var(--space-5) 0 0; padding: 0; list-style: none; }
@@ -198,7 +199,13 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
 .certificates-heading-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
 .certificates-heading-actions .button { margin-top: 0; }
 .exam-experience[data-reduced-motion="true"] *, .exam-experience[data-reduced-motion="true"] *::before, .exam-experience[data-reduced-motion="true"] *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-.monitoring-camera-feed { position: fixed; z-index: -1; left: 0; bottom: 0; width: 2px; height: 2px; opacity: .01; pointer-events: none; }
+.exam-camera-preview { position: fixed; z-index: 18; right: var(--space-5); bottom: var(--space-5); width: clamp(11rem, 16vw, 15rem); overflow: hidden; color: white; background: #151917; border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.monitoring-camera-feed { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transform: scaleX(-1); background: #151917; }
+.exam-camera-status { position: absolute; top: var(--space-2); left: var(--space-2); display: flex; align-items: center; gap: var(--space-2); padding: .35rem .55rem; background: rgba(17, 22, 19, .8); border-radius: var(--radius-full); font-size: var(--font-size-xs); backdrop-filter: blur(8px); }
+.exam-camera-status span { width: .45rem; height: .45rem; background: var(--color-danger); border-radius: 50%; }
+.exam-camera-preview.is-connected .exam-camera-status span { background: #78c49e; }
+.exam-camera-preview > p { margin: 0; padding: var(--space-2) var(--space-3); color: #c8d3ce; font-size: .68rem; line-height: 1.4; }
+.exam-camera-preview > .button { margin: var(--space-2); }
 .integrity-monitor-panel { position: fixed; z-index: 45; top: calc(var(--layout-topbar-height) + var(--space-3)); right: var(--space-3); display: flex; width: min(23rem, calc(100% - 2rem)); max-height: calc(100vh - var(--layout-topbar-height) - 1.5rem); flex-direction: column; overflow-y: auto; color: var(--color-text-on-inverse); background: color-mix(in srgb, var(--color-surface-inverse) 96%, transparent); border: 1px solid color-mix(in srgb, var(--color-text-on-inverse) 16%, transparent); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); backdrop-filter: blur(18px); }
 .integrity-monitor-panel > header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-4); background: inherit; border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-inverse) 14%, transparent); }
 .integrity-monitor-panel > header > div { display: flex; align-items: center; gap: var(--space-3); }
@@ -244,6 +251,7 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
   .exam-result-actions { flex-direction: column-reverse; }
   .exam-result-actions .button { width: 100%; }
   .camera-preview, .camera-preview video { min-height: 15rem; }
+  .exam-camera-preview { position: relative; right: auto; bottom: auto; width: min(100%, 18rem); margin: var(--space-4) auto; }
   .environment-health-header { flex-direction: column; }
   .readiness-score { width: 100%; align-items: flex-start; }
   .verification-summary-meta, .verification-summary > ul { grid-template-columns: 1fr; }
@@ -1717,6 +1725,9 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
 .overview-development h2 { margin: var(--space-2) 0; }
 .overview-development p { margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
 .overview-development-actions { display: flex; flex-wrap: wrap; align-content: center; gap: var(--space-3); }
+.overview-development-status { grid-column: 1 / -1; }
+.overview-development-status.is-success { color: var(--color-accent); }
+.overview-development-status.is-error { color: var(--color-danger); }
 .overview-danger-button { color: var(--color-danger); border-color: color-mix(in srgb, var(--color-danger) 40%, var(--color-border)); }
 .overview-bottom-cta { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); margin-top: var(--space-16); padding: var(--space-8); color: var(--color-text-on-inverse); background: var(--color-surface-inverse); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); }
 .overview-bottom-cta h2 { max-width: 30ch; margin: var(--space-2) 0 0; font-size: clamp(var(--font-size-xl), 2.5vw, var(--font-size-2xl)); }
