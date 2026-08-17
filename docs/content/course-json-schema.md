@@ -34,7 +34,17 @@ The current runtime allows navigation to all known lessons. `skipLockedLessons` 
 
 ## Module and lesson hierarchy
 
-Modules require a unique `id`, title, and non-empty lesson list. Lessons require:
+Modules require a unique `id`, title, and either a non-empty lesson list or a non-empty section list. Sections provide a reusable grouping level between a module and its lessons; they require a unique `id`, title, and non-empty `lessons` array. Courses that do not need section headings may continue using the direct module-to-lesson shape.
+
+The canonical hierarchy is:
+
+```text
+Course -> Module -> Section -> Lesson -> Block
+```
+
+The runtime flattens section lessons only for navigation and progress indexing. It retains the section structure for the sidebar and course overview.
+
+Lessons require:
 
 - stable unique `id`
 - title and summary

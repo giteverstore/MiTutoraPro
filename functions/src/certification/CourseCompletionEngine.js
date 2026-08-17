@@ -1,9 +1,13 @@
 export const COURSE_COMPLETION_SCHEMA_VERSION = '1.0.0';
 
+const moduleLessons = (module) => Array.isArray(module.sections)
+  ? module.sections.flatMap((section) => section.lessons ?? [])
+  : module.lessons ?? [];
+
 export class CourseCompletionEngine {
   requirements(manifest) {
     if (!manifest?.id || !Array.isArray(manifest.modules)) throw new TypeError('A valid published course manifest is required.');
-    const lessons = manifest.modules.flatMap((module) => (module.lessons ?? []).map((lesson) => ({
+    const lessons = manifest.modules.flatMap((module) => moduleLessons(module).map((lesson) => ({
       id: lesson.id,
       moduleId: module.id,
       required: lesson.required !== false,

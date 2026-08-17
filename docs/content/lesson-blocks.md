@@ -20,6 +20,7 @@ Every lesson is rendered from its ordered `blocks` array. Each block has a stabl
 | `video` | title, source | Media, poster, captions, transcript |
 | `table` | columns, rows | Structured comparison data |
 | `ai_explanation` | title, context, action label | Local explanation interaction |
+| `solution` | title, language, code | Learner-requested solution disclosure |
 
 The exact constraints live in `schemas/learning-course.schema.json`.
 
@@ -32,7 +33,7 @@ The exact constraints live in `schemas/learning-course.schema.json`.
 - Supply meaningful image alt text; use an empty string only for truly decorative images.
 - Store public course assets under `/assets/courses/<course>/`.
 - Give interactive blocks stable IDs because progress is keyed by block ID.
-- Use `code` for examples and `compiler` only when editing/execution is required.
+- Use `code` for examples and always choose an explicit `mode`: `display` for syntax, reference, output, incomplete, or non-executable teaching fragments; `runnable` only when execution intentionally produces a useful learner-visible result. Runnable input examples may provide `stdin`. Use `compiler` for lesson or exercise workspace definitions that include starter code, input, or validation metadata.
 
 ## Registering a new block
 
@@ -49,3 +50,6 @@ Do not add a `switch` to `BlockRenderer`. It deliberately contains no type-speci
 ## Empty and unknown behavior
 
 An empty blocks array produces the lesson empty state configured by the course model. Production courses should avoid this; `validate:python-course` rejects empty lessons. An unknown type renders `UnknownBlock` rather than failing the entire lesson, but schema validation should catch it before release.
+## Solution blocks
+
+Use `solution` for author-supplied answer code that must remain hidden until the learner chooses to reveal it. The block renders as an accessible collapsed disclosure and supports `title`, optional `description`, `language`, and `code`. Do not place protected validator cases in this block.

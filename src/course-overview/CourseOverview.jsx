@@ -178,7 +178,7 @@ function ModuleList({ modules }) {
     <section className="overview-modules">
       <div className="overview-section-heading">
         <div><span className="section-kicker">Curriculum</span><h2>What you’ll learn</h2></div>
-        <span>{modules.length} modules</span>
+        <span>{modules.length} {modules.length === 1 ? 'module' : 'modules'}</span>
       </div>
       <div className="overview-module-list">
         {modules.map((module, index) => (
@@ -192,7 +192,27 @@ function ModuleList({ modules }) {
               <span className="overview-module-progress">{module.completedCount}/{module.lessonCount}</span>
               <ChevronDown className="overview-module-chevron" size={ICON_SIZE.md} aria-hidden="true" />
             </summary>
-            <ul>
+            {module.sections.length ? module.sections.map((section) => (
+              <details className="overview-curriculum-section" key={section.id}>
+                <summary>
+                  <span>
+                    <strong>{section.title}</strong>
+                    <small>{section.completedCount}/{section.lessonCount} lessons</small>
+                  </span>
+                  <ChevronDown className="overview-section-chevron" size={ICON_SIZE.sm} aria-hidden="true" />
+                </summary>
+                <ul>
+                  {section.lessons.map((lesson) => (
+                    <li key={lesson.id}>
+                      <span className={lesson.completed ? 'is-completed' : ''}>
+                        {lesson.completed ? <Check size={ICON_SIZE.xs} /> : lesson.number}
+                      </span>
+                      {lesson.title}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )) : <ul>
               {module.lessons.map((lesson) => (
                 <li key={lesson.id}>
                   <span className={lesson.completed ? 'is-completed' : ''}>
@@ -201,7 +221,7 @@ function ModuleList({ modules }) {
                   {lesson.title}
                 </li>
               ))}
-            </ul>
+            </ul>}
           </details>
         ))}
       </div>

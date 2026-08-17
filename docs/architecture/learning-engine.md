@@ -16,13 +16,13 @@ Loading is abortable with `AbortController`. Fetch failures become the loader er
 
 ## Course model
 
-`createCourseModel` preserves author-provided IDs, modules, lessons, navigation, and blocks. It adds view defaults such as labels, shortcut copy, sidebar text, lesson details, and a fallback compiler display model.
+`createCourseModel` preserves author-provided IDs, modules, optional module sections, lessons, navigation, and blocks. It adds view defaults such as labels, shortcut copy, sidebar text, lesson details, and a fallback compiler display model. `courseStructure.js` is the generic compatibility boundary: direct module lessons remain supported, while sectioned modules are flattened only for runtime indexing and retain their authored hierarchy for presentation.
 
 Content fields should not be added in UI components. Add them to the schema and model only when a view-level normalization is required.
 
 ## Navigation
 
-`createCourseNavigation` flattens modules and lessons in author order and indexes them by lesson ID. It supports:
+`createCourseNavigation` receives the normalized runtime model and traverses section lessons in authored order through each module's flattened navigation index. It supports:
 
 - linear previous/next traversal
 - explicit `previousLessonId` and `nextLessonId`
@@ -35,7 +35,9 @@ The current implementation treats every known lesson as navigable, regardless of
 
 `Layout.jsx` receives the loader object and composes the lesson sidebar, content area, optional compiler workspace, resizers, keyboard shortcuts, and course-specific top navigation. `BlockRenderer` looks up each `block.type` in `blockRegistry.js`. Unknown types render `UnknownBlock`; an empty block array renders the configured empty state.
 
-The compiler panel appears only when the current lesson contains a `compiler` block. The compiler block is removed from the normal content list and rendered in the workspace region.
+The learning layout owns one persistent compiler panel for the lifetime of the course experience. It remains mounted while minimized and across lesson navigation, preserving Monaco content and output without creating another runtime. Lesson `compiler` blocks update this workspace through its imperative boundary while remaining absent from the normal block list.
+
+Runnable `code` blocks opt in with `runnable: true`. Their action delegates through `LearningCompilerContext` to the persistent panel, which expands, loads the exact example source, and executes through the existing `CompilerManager`. Dirty editor content is compared with the last source loaded by the platform and requires confirmation before replacement. Non-runnable code blocks remain display-only.
 
 ## Completion
 

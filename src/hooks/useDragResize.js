@@ -5,9 +5,28 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-export function useDragResize({ initialValue, min, max, direction = 1, axis = 'x' }) {
-  const [value, setValue] = useState(initialValue);
+export function useDragResize({
+  initialValue,
+  min,
+  max,
+  direction = 1,
+  axis = 'x',
+  storageKey,
+}) {
+  const [value, setValue] = useState(() => {
+    if (!storageKey) return initialValue;
+    const storedValue = Number.parseFloat(window.localStorage.getItem(storageKey));
+    return Number.isFinite(storedValue) ? clamp(storedValue, min, max) : initialValue;
+  });
   const dragState = useRef(null);
+
+  useEffect(() => {
+    setValue((current) => clamp(current, min, max));
+  }, [max, min]);
+
+  useEffect(() => {
+    if (storageKey) window.localStorage.setItem(storageKey, String(value));
+  }, [storageKey, value]);
 
   const stopDragging = useCallback(() => {
     dragState.current = null;

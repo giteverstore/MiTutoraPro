@@ -3,6 +3,7 @@ import { CourseContentRepository } from '../repositories/CourseContentRepository
 import { courseManifestPath, versionedCourseModulePath } from '../utils/contentPaths';
 import { CONTENT_ERROR_CODES, ContentError } from '../utils/ContentError';
 import { BaseContentService } from './BaseContentService';
+import { getModuleLessons } from '../../course/courseStructure.js';
 
 const validateModule = (value) => Boolean(
   value
@@ -10,7 +11,8 @@ const validateModule = (value) => Boolean(
   && typeof value === 'object'
   && typeof value.id === 'string'
   && typeof value.title === 'string'
-  && Array.isArray(value.lessons),
+  && (Array.isArray(value.lessons) || Array.isArray(value.sections))
+  && getModuleLessons(value).length > 0,
 );
 const validateManifest = (value) => Boolean(
   value
@@ -38,7 +40,7 @@ function validateManifestAgainstMetadata(manifest, metadata) {
   const outlineIsValid = manifest.modules.length === metadata.moduleCount
     && manifest.modules.every((module) => validateModule(module))
     && manifest.modules.every((module) =>
-      module.lessons.every((lesson) => Array.isArray(lesson.blocks) && lesson.blocks.length === 0));
+      getModuleLessons(module).every((lesson) => Array.isArray(lesson.blocks) && lesson.blocks.length === 0));
   if (!outlineIsValid) {
     throw new ContentError(
       CONTENT_ERROR_CODES.malformedJson,

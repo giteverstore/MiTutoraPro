@@ -10,7 +10,8 @@ export const ICON_SIZE = Object.freeze({
 
 export const LAYOUT_SIZE = Object.freeze({
   sidebar: { initialValue: 278, min: 230, max: 380 },
-  compiler: { initialValue: 400, min: 320, max: 580 },
+  lesson: { min: 320 },
+  compiler: { initialValue: 400, min: 320 },
   output: { initialValue: 300, min: 240, max: 480 },
   resizeStep: 10,
 });

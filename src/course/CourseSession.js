@@ -1,3 +1,5 @@
+import { mapModuleLessons } from './courseStructure.js';
+
 const DEFAULT_CACHE_WINDOW = 3;
 
 function assertModuleNumber(moduleNumber, moduleCount) {
@@ -7,15 +9,21 @@ function assertModuleNumber(moduleNumber, moduleCount) {
 }
 
 function createModuleSummary(module) {
-  return Object.freeze({
-    ...module,
-    lessons: Object.freeze(module.lessons.map((lesson) => Object.freeze({
+  const summary = mapModuleLessons(module, (lesson) => Object.freeze({
       ...lesson,
       blocks: Object.freeze([]),
       contentLoaded: false,
-    }))),
+    }));
+  return Object.freeze({
+    ...summary,
+    sections: summary.sections ? Object.freeze(summary.sections.map(Object.freeze)) : undefined,
+    lessons: Object.freeze(summary.lessons),
     contentLoaded: false,
   });
+}
+
+function createLoadedModule(module) {
+  return mapModuleLessons(module, (lesson) => lesson);
 }
 
 export class CourseSession {
@@ -62,8 +70,9 @@ export class CourseSession {
   prime(moduleNumber, module) {
     if (!moduleNumber || !module) return;
     assertModuleNumber(moduleNumber, this.moduleCount);
-    this.loadedModules.set(moduleNumber, module);
-    this.moduleCatalog.set(moduleNumber, module);
+    const loadedModule = createLoadedModule(module);
+    this.loadedModules.set(moduleNumber, loadedModule);
+    this.moduleCatalog.set(moduleNumber, loadedModule);
     this.activeModuleNumber = moduleNumber;
     this.touch(moduleNumber);
   }
@@ -116,12 +125,13 @@ export class CourseSession {
       .then(() => this.loadModule(moduleNumber))
       .then((module) => {
         if (this.disposed) return module;
-        this.loadedModules.set(moduleNumber, module);
-        this.moduleCatalog.set(moduleNumber, module);
+        const loadedModule = createLoadedModule(module);
+        this.loadedModules.set(moduleNumber, loadedModule);
+        this.moduleCatalog.set(moduleNumber, loadedModule);
         this.touch(moduleNumber);
         this.enforceCacheWindow(retain ? [moduleNumber] : []);
         this.emit();
-        return module;
+        return loadedModule;
       })
       .finally(() => this.inFlight.delete(moduleNumber));
     this.inFlight.set(moduleNumber, pending);

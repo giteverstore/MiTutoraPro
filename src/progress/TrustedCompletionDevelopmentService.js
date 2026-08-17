@@ -1,4 +1,5 @@
 import { certificationService } from '../certification/services/CertificationService';
+import { getModuleLessons } from '../course/courseStructure.js';
 import { trustedCompletionService } from './TrustedCompletionService';
 
 function requiredLessons(course) {
@@ -6,7 +7,7 @@ function requiredLessons(course) {
     throw new TypeError('A loaded course manifest is required.');
   }
 
-  return course.modules.flatMap((module) => (module.lessons ?? []))
+  return course.modules.flatMap(getModuleLessons)
     .filter((lesson) => lesson.required !== false);
 }
 
@@ -48,4 +49,3 @@ export class TrustedCompletionDevelopmentService {
 }
 
 export const trustedCompletionDevelopmentService = new TrustedCompletionDevelopmentService();
-

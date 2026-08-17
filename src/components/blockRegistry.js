@@ -13,6 +13,7 @@ import { TableBlock } from './blocks/TableBlock';
 import { UnknownBlock } from './blocks/UnknownBlock';
 import { VideoBlock } from './blocks/VideoBlock';
 import { WarningBlock } from './blocks/WarningBlock';
+import { SolutionBlock } from './blocks/SolutionBlock';
 
 const blockRegistry = Object.freeze({
   heading: HeadingBlock,
@@ -29,6 +30,7 @@ const blockRegistry = Object.freeze({
   callout: CalloutBlock,
   video: VideoBlock,
   table: TableBlock,
+  solution: SolutionBlock,
 });
 
 export function resolveBlockComponent(type) {

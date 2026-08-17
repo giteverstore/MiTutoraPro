@@ -1,3 +1,5 @@
+import { getModuleLessons, mapModuleLessons } from './courseStructure.js';
+
 const DEFAULT_UI = Object.freeze({
   emptyLesson: {
     title: 'Nothing here yet',
@@ -123,11 +125,13 @@ export function createCourseModel(course) {
     },
     sidebar: createSidebarModel(course),
     compiler: course.compiler ?? createCompilerModel(course),
-    modules: course.modules.map((module) => ({
-      ...module,
-      meta: module.meta ?? `${module.lessons.length} lessons`,
-      initiallyOpen: module.initiallyOpen ?? module.initiallyExpanded ?? false,
-      lessons: module.lessons.map((lesson) => ({
+    modules: course.modules.map((module) => {
+      const lessons = getModuleLessons(module);
+      return mapModuleLessons({
+        ...module,
+        meta: module.meta ?? `${lessons.length} lessons`,
+        initiallyOpen: module.initiallyOpen ?? module.initiallyExpanded ?? false,
+      }, (lesson) => ({
         ...lesson,
         numberLabel:
           lesson.numberLabel ?? (lesson.number ? `Lesson ${lesson.number}` : 'Lesson'),
@@ -136,8 +140,7 @@ export function createCourseModel(course) {
           ...(lesson.tags?.slice(0, 1) ?? []),
           ...(level ? [level] : []),
         ],
-      })),
-    })),
+      }));
+    }),
   };
 }
-

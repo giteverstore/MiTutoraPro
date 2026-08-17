@@ -30,24 +30,29 @@ if (!metadataEntry || metadataEntry.source !== '/courses/python-course.json') {
 const registeredTypes = new Set(
   [...registrySource.matchAll(/^\s{2}([a-z_]+):\s*\w+/gm)].map((match) => match[1]),
 );
-const lessons = course.modules.flatMap((module) =>
-  module.lessons.map((lesson) => ({ module, lesson })),
-);
+const lessons = course.modules.flatMap((module) => {
+  if (module.sections?.length) {
+    return module.sections.flatMap((section) =>
+      section.lessons.map((lesson) => ({ module, section, lesson })));
+  }
+  return (module.lessons ?? []).map((lesson) => ({ module, section: null, lesson }));
+});
 const blocks = lessons.flatMap(({ module, lesson }) =>
   lesson.blocks.map((block) => ({ module, lesson, block })),
 );
 const allIds = [
   course.id,
   ...course.modules.map((module) => module.id),
+  ...course.modules.flatMap((module) => module.sections?.map((section) => section.id) ?? []),
   ...lessons.map(({ lesson }) => lesson.id),
   ...blocks.map(({ block }) => block.id),
 ];
 const duplicateIds = allIds.filter((id, index) => allIds.indexOf(id) !== index);
 if (duplicateIds.length) failures.push(`Duplicate IDs: ${[...new Set(duplicateIds)].join(', ')}`);
 
-for (const { module, lesson } of lessons) {
-  if (!lesson.number?.startsWith(`${course.modules.indexOf(module) + 1}.`)) {
-    failures.push(`Lesson number ${lesson.number} does not match module ${module.id}.`);
+for (const { lesson } of lessons) {
+  if (typeof lesson.number !== 'string' || !lesson.number.trim()) {
+    failures.push(`Lesson ${lesson.id} requires an author-facing number.`);
   }
   if (!lesson.blocks.length) failures.push(`Lesson ${lesson.id} has no blocks.`);
 }

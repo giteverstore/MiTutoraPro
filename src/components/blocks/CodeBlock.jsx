@@ -1,5 +1,6 @@
-import { Braces } from 'lucide-react';
+import { Braces, Play } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
+import { useOptionalLearningCompiler } from '../../compiler/LearningCompilerContext';
 
 const toneClassNames = {
   keyword: 'code-keyword',
@@ -53,8 +54,12 @@ export function CodeBlock({
   filename,
   caption,
   highlightLines = [],
+  mode = 'display',
+  stdin = '',
 }) {
+  const learningCompiler = useOptionalLearningCompiler();
   const codeLines = lines ?? createCodeLines(code, language);
+  const canRun = mode === 'runnable' && Boolean(code) && Boolean(learningCompiler);
 
   return (
     <section className="card card--inverse content-section code-card">
@@ -80,6 +85,18 @@ export function CodeBlock({
           ))}
         </code>
       </pre>
+      {canRun ? (
+        <footer className="code-card-actions">
+          <button
+            className="button button--ghost code-run-button"
+            type="button"
+            onClick={() => learningCompiler.runExample({ source: code, language, filename, stdin })}
+          >
+            <Play size={ICON_SIZE.sm} aria-hidden="true" />
+            Run Code
+          </button>
+        </footer>
+      ) : null}
     </section>
   );
 }

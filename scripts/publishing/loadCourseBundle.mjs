@@ -10,6 +10,10 @@ const requiredMetadataFields = [
   'version', 'storagePath',
 ];
 
+const moduleLessons = (module) => Array.isArray(module.sections)
+  ? module.sections.flatMap((section) => section.lessons ?? [])
+  : module.lessons ?? [];
+
 async function readJson(path, label) {
   let source;
   try {
@@ -58,8 +62,8 @@ export async function loadAndValidateCourseBundle(courseKey) {
     throw new Error('course.json must contain one outline module for every module file.');
   }
   if (manifest.modules.some((module) =>
-    !Array.isArray(module.lessons)
-    || module.lessons.some((lesson) => !Array.isArray(lesson.blocks) || lesson.blocks.length))) {
+    !moduleLessons(module).length
+    || moduleLessons(module).some((lesson) => !Array.isArray(lesson.blocks) || lesson.blocks.length))) {
     throw new Error('course.json outline lessons must contain empty blocks arrays.');
   }
 
@@ -76,7 +80,7 @@ export async function loadAndValidateCourseBundle(courseKey) {
   const validate = ajv.compile(schema);
   if (!validate(course)) throw new Error(`Course schema validation failed:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`);
 
-  const lessonCount = course.modules.reduce((total, module) => total + module.lessons.length, 0);
+  const lessonCount = course.modules.reduce((total, module) => total + moduleLessons(module).length, 0);
   if (metadata.id !== course.id || metadata.title !== course.title) {
     throw new Error('Firestore metadata identity does not match course.json.');
   }
@@ -105,7 +109,7 @@ export async function loadAndValidateCourseBundle(courseKey) {
     metrics: {
       modules: course.modules.length,
       lessons: lessonCount,
-      blocks: course.modules.flatMap((module) => module.lessons).flatMap((lesson) => lesson.blocks).length,
+      blocks: course.modules.flatMap(moduleLessons).flatMap((lesson) => lesson.blocks).length,
     },
   };
 }

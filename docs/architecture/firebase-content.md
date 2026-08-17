@@ -50,21 +50,16 @@ The active Python layout is:
 ```text
 course-content/python/v1/
 ├── course.json
-├── module-1.json
-├── module-2.json
-├── module-3.json
-├── module-4.json
-├── module-5.json
-└── module-6.json
+└── module-1.json
 ```
 
-`course.json` contains the course-level schema and ordered `moduleFiles`. Each module file contains one unchanged Learning Engine module. The service replaces the manifest file list with the downloaded module objects before calling the existing course model.
+The canonical Python bundle contains `course.json` and `module-1.json`. The manifest contains the course-level schema, complete content-free outline, and ordered `moduleFiles`. Its single top-level chapter module contains ten generic section records used as learner-facing chapter groups. Each group owns its lessons directly.
 
 ## Responsibilities
 
 Repositories read Firestore metadata and download JSON through the shared loader. `BaseContentRepository` keeps these operations free of UI and application rules. Repositories reuse the existing Firestore `BaseRepository` and do not expose SDK references or snapshots.
 
-`CourseService`, `PracticeService`, and `ChallengeService` normalize metadata, enforce publication state, deserialize JSON, and return clean content objects. They contain no rendering, progress, or completion behavior. For Python, `CourseService.getCourse(id)` reads `courses/{id}`, loads the versioned manifest and all modules, and returns the same complete course shape previously supplied by the local loader.
+`CourseService`, `PracticeService`, and `ChallengeService` normalize metadata, enforce publication state, deserialize JSON, and return clean content objects. They contain no rendering, progress, or completion behavior. For Python, `CourseService.getCourse(id)` reads `courses/{id}`, loads the versioned manifest and initial required module, and returns the existing course contract. The course session retains the full outline independently from lazily loaded lesson content.
 
 All three services extend `BaseContentService`. The base owns metadata retrieval, normalized model creation, publication checks, version resolution, and the shared metadata-to-JSON loading sequence. Specialized services provide only their repository download operation and lightweight content-shape validator.
 
@@ -86,7 +81,7 @@ The upload and metadata update are automated by the [Firebase course publisher](
 
 Opening the Python course queries its Firestore document ID, rejects missing or unpublished metadata, derives the versioned Storage paths, downloads and merges content, and then invokes the existing Learning Engine model. Typed errors reach the existing `CourseLoadState` friendly error UI rather than crashing the application.
 
-During Vite development only, a Firebase failure falls back to `public/courses/python-course.json`. Set `VITE_ENABLE_LOCAL_COURSE_FALLBACK=false` to disable it. Production builds never enable this fallback, regardless of the variable value.
+During Vite development, `VITE_COURSE_CONTENT_SOURCE=local` makes the course loader read `public/courses/course-metadata.json` and its referenced course document before contacting Firebase. This is the intended mode for verifying unpublished generated bundles. The default value is `firebase`. When Firebase is selected, a failed request falls back to local content only when `VITE_ENABLE_LOCAL_COURSE_FALLBACK=true`. Production builds always use Firebase regardless of either development setting.
 
 Practice and Challenge have equivalent development-only controls:
 

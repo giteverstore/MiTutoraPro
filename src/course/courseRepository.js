@@ -3,6 +3,8 @@ import { CourseService, resolveLessonModuleNumber } from '../content/services/Co
 const LOCAL_METADATA_URL = '/courses/course-metadata.json';
 const LOCAL_FALLBACK_ENABLED = import.meta.env.DEV
   && import.meta.env.VITE_ENABLE_LOCAL_COURSE_FALLBACK === 'true';
+const LOCAL_CONTENT_PREFERRED = import.meta.env.DEV
+  && import.meta.env.VITE_COURSE_CONTENT_SOURCE === 'local';
 const courseService = new CourseService();
 
 function throwIfAborted(signal) {
@@ -22,6 +24,7 @@ async function loadLocalMetadata(signal) {
 
 export async function loadCourseMetadata(signal, courseId) {
   throwIfAborted(signal);
+  if (LOCAL_CONTENT_PREFERRED) return loadLocalMetadata(signal);
   if (!courseId) {
     if (LOCAL_FALLBACK_ENABLED) return loadLocalMetadata(signal);
     throw new Error('A course ID is required to load Firebase course metadata.');

@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Code2, Maximize2, Minus } from 'lucide-react';
 import { CompilerPanel } from './CompilerPanel';
 import { ContentArea } from './ContentArea';
 import { ResizeHandle } from './ResizeHandle';
@@ -6,13 +7,14 @@ import { Sidebar } from './Sidebar';
 import { TopNavigation } from './TopNavigation';
 import { useDragResize } from '../hooks/useDragResize';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
-import { LAYOUT_SIZE } from '../design-system/theme';
+import { ICON_SIZE, LAYOUT_SIZE } from '../design-system/theme';
 import { useUser } from '../auth/UserContext';
 import { useAuth } from '../auth/AuthContext';
 import { useLearningProgress } from '../progress/LearningProgressContext';
 import { createCompilerData } from './blocks/CompilerBlock';
 import { LessonFooter } from './LessonFooter';
 import { createCourseLessonBookmark } from '../bookmarks/bookmarkModel';
+import { LearningCompilerProvider } from '../compiler/LearningCompilerContext';
 
 export function Layout({ courseLoader, onExitCourse }) {
   const { user } = useUser();
@@ -48,14 +50,91 @@ export function Layout({ courseLoader, onExitCourse }) {
     [compilerBlock, exerciseBlock?.id],
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const workspaceRef = useRef(null);
+  const compilerPanelRef = useRef(null);
+  const [isCompilerMinimized, setIsCompilerMinimized] = useState(
+    () => window.localStorage.getItem('mi-tutora:compiler-minimized') === 'true',
+  );
+  const [compilerStatus, setCompilerStatus] = useState('ready');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     () => window.localStorage.getItem('mi-tutora:sidebar-collapsed') === 'true',
   );
   const [theme, setTheme] = useState(
     () => window.localStorage.getItem('mi-tutora:theme') ?? 'light',
   );
-  const sidebarResize = useDragResize(LAYOUT_SIZE.sidebar);
-  const compilerResize = useDragResize({ ...LAYOUT_SIZE.compiler, direction: -1 });
+  const [workspaceWidth, setWorkspaceWidth] = useState(() => window.innerWidth);
+  const [isSidebarOverlay, setIsSidebarOverlay] = useState(
+    () => window.matchMedia('(max-width: 1180px)').matches,
+  );
+  const sidebarResize = useDragResize({
+    ...LAYOUT_SIZE.sidebar,
+    storageKey: 'mi-tutora:sidebar-width',
+  });
+  const sidebarPaneWidth = isSidebarCollapsed ? 76 : sidebarResize.value;
+  const compilerMaxWidth = Math.max(
+    LAYOUT_SIZE.compiler.min,
+    Math.floor(
+      workspaceWidth
+      - (isSidebarOverlay ? 0 : sidebarPaneWidth)
+      - LAYOUT_SIZE.lesson.min,
+    ),
+  );
+  const compilerResize = useDragResize({
+    ...LAYOUT_SIZE.compiler,
+    max: compilerMaxWidth,
+    direction: -1,
+    storageKey: 'mi-tutora:compiler-width',
+  });
+  const persistentCompilerData = compilerData ?? course.compiler;
+
+  useEffect(() => {
+    const workspace = workspaceRef.current;
+    if (!workspace) return undefined;
+    const updateWidth = () => setWorkspaceWidth(workspace.getBoundingClientRect().width);
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(workspace);
+    updateWidth();
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 1180px)');
+    const updateMode = ({ matches }) => setIsSidebarOverlay(matches);
+    mediaQuery.addEventListener('change', updateMode);
+    return () => mediaQuery.removeEventListener('change', updateMode);
+  }, []);
+
+  useEffect(() => {
+    if (compilerData) compilerPanelRef.current?.loadDefinition(compilerData);
+  }, [compilerData]);
+
+  const toggleCompilerMinimized = useCallback(() => {
+    setIsCompilerMinimized((current) => {
+      const next = !current;
+      window.localStorage.setItem('mi-tutora:compiler-minimized', String(next));
+      return next;
+    });
+  }, []);
+
+  const minimizeCompiler = useCallback(() => {
+    setIsCompilerMinimized(true);
+    window.localStorage.setItem('mi-tutora:compiler-minimized', 'true');
+  }, []);
+
+  const learningCompiler = useMemo(() => ({
+    isMinimized: isCompilerMinimized,
+    expand: () => {
+      setIsCompilerMinimized(false);
+      window.localStorage.setItem('mi-tutora:compiler-minimized', 'false');
+    },
+    runExample: (example) => {
+      setIsCompilerMinimized(false);
+      window.localStorage.setItem('mi-tutora:compiler-minimized', 'false');
+      return new Promise((resolve) => {
+        requestAnimationFrame(() => resolve(compilerPanelRef.current?.loadExample(example)));
+      });
+    },
+  }), [isCompilerMinimized]);
   const shortcuts = useMemo(() => [
     { key: 'm', action: () => setIsDrawerOpen((current) => !current) },
     {
@@ -66,17 +145,21 @@ export function Layout({ courseLoader, onExitCourse }) {
         return nextTheme;
       }),
     },
-    { key: 'Escape', action: () => setIsDrawerOpen(false) },
+    {
+      key: 'Escape',
+      action: () => {
+        setIsDrawerOpen(false);
+        minimizeCompiler();
+      },
+    },
     {
       key: 'Enter',
       ctrlOrMeta: true,
       action: () => {
-        if (compilerBlock) {
-          window.dispatchEvent(new CustomEvent('learning-platform:run'));
-        }
+        window.dispatchEvent(new CustomEvent('learning-platform:run'));
       },
     },
-  ], [compilerBlock]);
+  ], [minimizeCompiler]);
 
   useKeyboardShortcuts(shortcuts);
 
@@ -123,11 +206,13 @@ export function Layout({ courseLoader, onExitCourse }) {
   }, []);
 
   const workspaceStyle = {
-    '--sidebar-width': `${isSidebarCollapsed ? 76 : sidebarResize.value}px`,
+    '--sidebar-width': `${sidebarPaneWidth}px`,
     '--compiler-width': `${compilerResize.value}px`,
+    '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px`,
   };
 
   return (
+    <LearningCompilerProvider controller={learningCompiler}>
     <div className="app-shell" data-theme={theme}>
       <TopNavigation
         course={course}
@@ -147,7 +232,8 @@ export function Layout({ courseLoader, onExitCourse }) {
         onExitCourse={onExitCourse}
       />
       <div
-        className={`workspace ${compilerBlock ? 'has-compiler' : ''} ${
+        ref={workspaceRef}
+        className={`workspace ${!isCompilerMinimized ? 'has-compiler' : 'is-compiler-minimized'} ${
           isSidebarCollapsed ? 'is-sidebar-collapsed' : ''
         }`}
         style={workspaceStyle}
@@ -195,23 +281,56 @@ export function Layout({ courseLoader, onExitCourse }) {
               onNext={() => goToNextLesson()}
             />
           )}
+        />
+        <aside
+          className={`desktop-compiler compiler-dock ${isCompilerMinimized ? 'is-minimized' : 'is-expanded compiler-enter'} is-${compilerStatus}`}
+          aria-label={persistentCompilerData.ariaLabel}
         >
-          {compilerData ? (
-            <div className="mobile-compiler">
-              <CompilerPanel compiler={compilerData} key={`mobile-${compilerBlock.id}`} />
+          {isCompilerMinimized ? (
+            <button
+              className="compiler-dock-launcher"
+              type="button"
+              onClick={toggleCompilerMinimized}
+              aria-expanded="false"
+              aria-label={compilerStatus === 'running' ? 'Open compiler, code is running' : 'Open compiler'}
+              title={compilerStatus === 'running' ? 'Running…' : 'Compiler ready'}
+            >
+              <span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span>
+              <span className="compiler-dock-word" aria-hidden="true">Compiler</span>
+              <Maximize2 size={ICON_SIZE.sm} aria-hidden="true" />
+            </button>
+          ) : (
+            <div className="compiler-dock-header">
+              <span className="compiler-dock-identity">
+                <span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span>
+                <span><strong>Compiler Dock</strong><small>{persistentCompilerData.language} · {compilerStatus}</small></span>
+              </span>
+              <button
+                className="compiler-dock-minimize"
+                type="button"
+                onClick={minimizeCompiler}
+                aria-label="Minimize compiler"
+                title="Minimize compiler"
+              >
+                <Minus size={ICON_SIZE.md} aria-hidden="true" />
+              </button>
             </div>
-          ) : null}
-        </ContentArea>
-        {compilerData ? (
+          )}
+          <div className="compiler-dock-body" aria-hidden={isCompilerMinimized}>
+            <CompilerPanel
+              ref={compilerPanelRef}
+              compiler={persistentCompilerData}
+              onExecutionStateChange={setCompilerStatus}
+            />
+          </div>
+        </aside>
+        {!isCompilerMinimized ? (
           <>
-            <aside className="desktop-compiler compiler-enter" aria-label={compilerData.ariaLabel}>
-              <CompilerPanel compiler={compilerData} key={compilerBlock.id} />
-            </aside>
             <ResizeHandle
               className="compiler-resize-handle"
               label={course.ui.resizeLabels.compiler}
               min={LAYOUT_SIZE.compiler.min}
-              max={LAYOUT_SIZE.compiler.max}
+              max={compilerMaxWidth}
               value={compilerResize.value}
               onPointerDown={compilerResize.startDragging}
               onKeyDown={compilerResize.handleKeyDown}
@@ -220,5 +339,6 @@ export function Layout({ courseLoader, onExitCourse }) {
         ) : null}
       </div>
     </div>
+    </LearningCompilerProvider>
   );
 }

@@ -1,3 +1,5 @@
+import { getModuleLessons, getModuleSections } from './courseStructure.js';
+
 function titleCase(value) {
   return String(value)
     .replace(/[-_]/g, ' ')
@@ -12,7 +14,7 @@ function formatDuration(minutes = 0) {
 }
 
 export function createCourseOverviewModel(course, progress) {
-  const lessons = course.modules.flatMap((module) => module.lessons);
+  const lessons = course.modules.flatMap(getModuleLessons);
   const blocks = lessons.flatMap((lesson) => lesson.blocks ?? []);
   const completedSet = new Set(progress.completedLessons);
   const skills = [...new Set(course.metadata?.tags ?? [])]
@@ -34,18 +36,30 @@ export function createCourseOverviewModel(course, progress) {
     prerequisites: course.metadata?.level === 'beginner'
       ? ['No prior programming experience required', 'A computer and a willingness to practise']
       : ['Foundational subject knowledge is recommended'],
-    modules: course.modules.map((module) => ({
-      id: module.id,
-      title: module.title,
-      description: module.description,
-      lessonCount: module.lessons.length,
-      completedCount: module.lessons.filter((lesson) => completedSet.has(lesson.id)).length,
-      lessons: module.lessons.map((lesson) => ({
+    modules: course.modules.map((module) => {
+      const moduleLessons = getModuleLessons(module);
+      const mapLesson = (lesson) => ({
         id: lesson.id,
         number: lesson.number,
         title: lesson.title,
         completed: completedSet.has(lesson.id),
-      })),
-    })),
+      });
+      return {
+        id: module.id,
+        title: module.title,
+        description: module.description,
+        lessonCount: moduleLessons.length,
+        completedCount: moduleLessons.filter((lesson) => completedSet.has(lesson.id)).length,
+        lessons: moduleLessons.map(mapLesson),
+        sections: getModuleSections(module).map((section) => ({
+          id: section.id,
+          title: section.title,
+          description: section.description,
+          lessonCount: section.lessons.length,
+          completedCount: section.lessons.filter((lesson) => completedSet.has(lesson.id)).length,
+          lessons: section.lessons.map(mapLesson),
+        })),
+      };
+    }),
   };
 }

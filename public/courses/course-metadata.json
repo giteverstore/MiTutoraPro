@@ -10,8 +10,8 @@
     },
     {
       "id": "python",
-      "title": "MI Tutora Python Course",
-      "description": "Beginner Python course converted from the provided course document.",
+      "title": "Python Foundations",
+      "description": "Learn Python fundamentals through explanations, runnable examples, quizzes, and guided coding exercises. No prior programming experience is required.",
       "version": "1.0.0",
       "source": "/courses/python-course.json"
     }

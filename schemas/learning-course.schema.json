@@ -155,6 +155,31 @@
     "module": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["id", "title"],
+      "oneOf": [
+        { "properties": { "lessons": {} }, "required": ["lessons"] },
+        { "properties": { "sections": {} }, "required": ["sections"] }
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "type": "string" },
+        "initiallyExpanded": { "type": "boolean", "default": false },
+        "lessons": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/lesson" }
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/section" }
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
       "required": ["id", "title", "lessons"],
       "properties": {
         "id": { "$ref": "#/$defs/id" },
@@ -266,7 +291,8 @@
         "callout",
         "video",
         "table",
-        "ai_explanation"
+        "ai_explanation",
+        "solution"
       ]
     },
     "block": {
@@ -284,7 +310,8 @@
         { "$ref": "#/$defs/calloutBlock" },
         { "$ref": "#/$defs/videoBlock" },
         { "$ref": "#/$defs/tableBlock" },
-        { "$ref": "#/$defs/aiExplanationBlock" }
+        { "$ref": "#/$defs/aiExplanationBlock" },
+        { "$ref": "#/$defs/solutionBlock" }
       ]
     },
     "headingBlock": {
@@ -333,6 +360,8 @@
             "code": { "type": "string" },
             "filename": { "type": "string" },
             "caption": { "type": "string" },
+            "mode": { "type": "string", "enum": ["display", "runnable"], "default": "display" },
+            "stdin": { "type": "string" },
             "highlightLines": {
               "type": "array",
               "uniqueItems": true,
@@ -373,7 +402,9 @@
             "type": { "const": "note" },
             "title": { "type": "string" },
             "content": { "$ref": "#/$defs/nonEmptyString" },
-            "format": { "type": "string", "enum": ["plain", "markdown"], "default": "plain" }
+            "format": { "type": "string", "enum": ["plain", "markdown"], "default": "plain" },
+            "iconSrc": { "type": "string", "format": "uri-reference" },
+            "iconAlt": { "type": "string" }
           }
         }
       ],
@@ -663,6 +694,24 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "solutionBlock": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/blockBase" },
+        {
+          "type": "object",
+          "required": ["title", "language", "code"],
+          "properties": {
+            "type": { "const": "solution" },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "description": { "type": "string" },
+            "language": { "$ref": "#/$defs/nonEmptyString" },
+            "code": { "type": "string" }
           }
         }
       ],

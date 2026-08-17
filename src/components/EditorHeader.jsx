@@ -33,19 +33,17 @@ export function EditorHeader({
         {stateLabel}
       </span>
       <div className="ide-header-actions">
-        <IconButton label={data.resetLabel} onClick={onReset}>
-          <RotateCcw size={ICON_SIZE.md} />
+        <IconButton label="Reset code" onClick={onReset}>
+          <RotateCcw size={ICON_SIZE.md} aria-hidden="true" />
         </IconButton>
-        <button
-          className="button button--primary run-button"
-          type="button"
-          title={`${data.runLabel} (${data.runShortcut})`}
+        <IconButton
+          className="compiler-run-button"
+          label="Run code"
           onClick={onRun}
           disabled={isRunning}
         >
-          <Play size={ICON_SIZE.sm} fill="currentColor" />
-          {isRunning ? data.runningLabel : data.runLabel}
-        </button>
+          <Play size={ICON_SIZE.sm} fill="currentColor" aria-hidden="true" />
+        </IconButton>
       </div>
     </header>
   );

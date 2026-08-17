@@ -1,14 +1,17 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { extname, resolve } from 'node:path';
+import { mkdir, readFile, readdir, unlink, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { load } from 'cheerio';
 import mammoth from 'mammoth';
 
-const SOURCE_PATH = resolve('MI TUtora PythonCourse.docx');
+const SOURCE_PATH = resolve('Python Module 1.docx');
 const FIREBASE_OUTPUT_ROOT = resolve('firebase-content/course-content/python');
 const FIREBASE_METADATA_ROOT = resolve('firebase-content/firestore/courses');
-const ASSET_DIRECTORY = resolve('public/assets/courses/python-course');
+const ASSET_DIRECTORY = resolve('public/assets/courses/python-foundations');
+const PUBLIC_COURSE_PATH = resolve('public/courses/python-course.json');
+const LOCAL_METADATA_PATH = resolve('public/courses/course-metadata.json');
 const SCHEMA_PATH = resolve('schemas/learning-course.schema.json');
 
 const moduleTitles = {
@@ -18,6 +21,22 @@ const moduleTitles = {
   4: 'Python Variables',
   5: 'Python Output and f-strings',
   6: 'Python Operators',
+  7: 'Data Conversion',
+  8: 'User Input',
+  9: 'Introduction Examples and Review',
+};
+
+const chapterGroupTitles = {
+  1: '1.1 Get Started',
+  2: '1.2 Numbers and Strings',
+  3: '1.3 Comments',
+  4: '1.4 Variables',
+  5: '1.5 Output',
+  6: '1.6 Arithmetic Operators',
+  7: '1.7 Data Conversion',
+  8: '1.8 Get User Input',
+  9: '1.9 Introduction Examples',
+  10: '1.10 Recall',
 };
 
 const quizAnswers = {
@@ -37,53 +56,34 @@ const quizAnswers = {
   '5.11': 'C',
   '6.5': 'C',
   '6.9': 'C',
+  '6.11': 'B',
+  '6.15': 'B',
+  '7.9': 'A',
+  '8.8': 'B',
 };
 
-const repairedCodeOutput = {
-  'page-2-7-code-4': '5',
-  'page-2-7-code-8': '343.44',
-  'page-2-8-code-3': '5',
-  'page-2-8-code-12': '8',
-  'page-2-8-code-15': '53',
-  'page-4-4-code-3': 'Merry Christmas',
-  'page-4-16-code-3': "NameError: name 'city2' is not defined",
-  'page-5-3-code-3': 'Name: Jack',
-  'page-5-10-code-4': 'My name is Alice and I live in Wonderland.',
-  'page-5-10-code-9': '# 12->Alice #',
-  'page-6-8-code-3': '50',
-  'page-6-8-code-6': '55.0',
-  'page-6-10-code-3': '6.25',
-  'page-6-10-code-6': '5.0',
-};
-
-function repairConvertedBlocks(modules) {
-  for (const module of modules) {
-    for (const lesson of module.lessons) {
-      lesson.blocks = lesson.blocks.map((block) => {
-        if (block.type === 'code' && repairedCodeOutput[block.id]) {
-          return { ...block, code: repairedCodeOutput[block.id] };
-        }
-
-        if (
-          block.type === 'code'
-          && block.language === 'python'
-          && /^(Note:|Remember:)/.test(block.code.trim())
-        ) {
-          const [label, ...content] = block.code.split(':');
-          return {
-            id: block.id.replace('-code-', '-note-'),
-            type: 'note',
-            title: label,
-            content: content.join(':').trim(),
-            format: 'plain',
-          };
-        }
-
-        return block;
-      });
-    }
-  }
-}
+// Runnable examples are an explicit content-authoring decision. Every other code block is display-only.
+const runnableExamples = new Map([
+  ['page-1-2-code-3'],
+  ['page-2-1-code-2'], ['page-2-2-code-6'], ['page-2-7-code-3'], ['page-2-7-code-6'],
+  ['page-2-8-code-2'], ['page-2-8-code-9'], ['page-2-8-code-11'], ['page-2-11-code-3'],
+  ['page-3-1-code-3'], ['page-3-2-code-7'], ['page-3-3-code-2'], ['page-3-3-code-7'],
+  ['page-4-4-code-2'], ['page-4-5-code-2'], ['page-4-10-code-2'], ['page-4-14-code-2'],
+  ['page-4-21-code-3'], ['page-4-21-code-6'], ['page-4-21-code-9'], ['page-4-21-code-12'],
+  ['page-5-1-code-2'], ['page-5-2-code-2'], ['page-5-3-code-2'], ['page-5-6-code-3'],
+  ['page-5-6-code-6'], ['page-5-9-code-5'], ['page-5-10-code-3'], ['page-5-10-code-8'],
+  ['page-5-13-code-12'], ['page-5-14-code-10'],
+  ['page-6-1-code-4'], ['page-6-3-code-2'], ['page-6-4-code-3'], ['page-6-6-code-2'],
+  ['page-6-8-code-2'], ['page-6-8-code-4'], ['page-6-10-code-2'], ['page-6-10-code-4'],
+  ['page-6-12-code-5'], ['page-6-12-code-8'], ['page-6-14-code-5'], ['page-6-14-code-7'],
+  ['page-6-17-code-2'], ['page-6-17-code-5'], ['page-6-19-code-2'], ['page-6-19-code-5'],
+  ['page-7-2-code-3'], ['page-7-2-code-6'], ['page-7-4-code-3'], ['page-7-4-code-6'],
+  ['page-7-7-code-2'], ['page-7-8-code-3'],
+  ['page-8-2-code-2', 'Sara'], ['page-8-3-code-2', 'Ali khan'],
+  ['page-8-6-code-2', '5\n10'], ['page-8-7-code-2', '5\n10'],
+  ['page-9-4-code-5'], ['page-9-6-code-6'], ['page-9-7-code-2'],
+  ['page-9-10-code-2'], ['page-9-11-code-2'],
+].map(([id, stdin = '']) => [id, { stdin }]));
 
 function slugify(value) {
   return value
@@ -94,7 +94,24 @@ function slugify(value) {
 }
 
 function normalizedText($, element) {
-  return $(element).text().replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ').trim();
+  const copy = $(element).clone();
+  copy.find('br').replaceWith('\n');
+  return copy.text().replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ').trim();
+}
+
+function paragraphText($, element) {
+  const copy = $(element).clone();
+  copy.find('br').replaceWith('\n');
+  let hasLinks = false;
+  copy.find('a[href]').each((_, anchor) => {
+    hasLinks = true;
+    const link = $(anchor);
+    link.replaceWith(`[${link.text()}](${link.attr('href')})`);
+  });
+  return {
+    content: copy.text().replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ').trim(),
+    format: hasLinks ? 'markdown' : 'plain',
+  };
 }
 
 function tableLines($, table) {
@@ -102,23 +119,31 @@ function tableLines($, table) {
     .find('p')
     .map((_, paragraph) => normalizedText($, paragraph))
     .get()
+    .flatMap((line) => line.split('\n').map((part) => part.trim()))
     .filter(Boolean)
-    .filter((line) => !/^Run Code\s*>>$/i.test(line));
+    .filter((line) => !/^Run\s*Code\s*>>$/i.test(line));
 }
 
 function tableGrid($, table) {
-  return $(table).find('tr').toArray().map((row) =>
-    $(row).find('td, th').toArray().map((cell) => normalizedText($, cell)),
-  );
+  return $(table).find('tr').toArray()
+    .map((row) => $(row).find('td, th').toArray().map((cell) => {
+      const value = normalizedText($, cell);
+      return /^Run\s*Code\s*>>$/i.test(value) ? '' : value;
+    }))
+    .filter((row) => row.some(Boolean));
 }
 
 function createBlockFactory(pageNumber) {
   let sequence = 0;
-  return (type, data) => ({
-    id: `${slugify(`page-${pageNumber}`)}-${slugify(type)}-${++sequence}`,
-    type,
-    ...data,
-  });
+  return (type, data) => {
+    const createdBlock = {
+      id: `${slugify(`page-${pageNumber}`)}-${slugify(type)}-${++sequence}`,
+      type,
+      ...data,
+    };
+    if (type === 'code') createdBlock.mode = 'display';
+    return createdBlock;
+  };
 }
 
 function createQuizLesson($, pageNumber, title, nodes, block) {
@@ -186,7 +211,7 @@ function createQuizLesson($, pageNumber, title, nodes, block) {
   return blocks;
 }
 
-function createExerciseLesson($, title, nodes, block) {
+function createExerciseLesson($, pageNumber, title, nodes, block) {
   const blocks = [];
   const instructions = [];
   const objectives = [];
@@ -197,6 +222,9 @@ function createExerciseLesson($, title, nodes, block) {
   let aiMode = false;
   let collectingExpectedOutput = false;
   const expectedOutputLines = [];
+  const inputLines = [];
+  let solutionCode = '';
+  let solutionExplanation = '';
   let pendingCaption = '';
 
   for (const node of nodes) {
@@ -212,6 +240,7 @@ function createExerciseLesson($, title, nodes, block) {
       const lines = tableLines($, node);
       const firstLine = lines[0] ?? '';
       const isExpectedOutput = /^Expected Output$/i.test(firstLine);
+      const isTestInput = /^Test Input$/i.test(firstLine);
 
       if (isExpectedOutput) {
         blocks.push(block('code', {
@@ -220,14 +249,13 @@ function createExerciseLesson($, title, nodes, block) {
           caption: 'Expected Output',
         }));
         collectingExpectedOutput = false;
+      } else if (isTestInput) {
+        inputLines.push(...lines.slice(1));
       } else if (aiMode) {
-        blocks.push(block('ai_explanation', {
-          title: 'AI Explanation',
-          context: lines.join('\n\n'),
-          actionLabel: 'Explain this code',
-          suggestedPrompts: ['Explain the solution step by step.'],
-        }));
+        solutionExplanation = lines.join('\n\n');
         aiMode = false;
+      } else if (afterSolution) {
+        solutionCode = lines.join('\n');
       } else {
         blocks.push(block('code', {
           language: 'python',
@@ -295,12 +323,22 @@ function createExerciseLesson($, title, nodes, block) {
   });
   const expectedOutput = blocks.find((item) =>
     item.type === 'code' && /Expected Output/i.test(item.caption))?.code ?? '';
+  if (solutionCode) {
+    blocks.push(block('solution', {
+      title: 'View solution',
+      description: solutionExplanation,
+      language: 'python',
+      code: solutionCode,
+    }));
+  }
   const compilerBlock = block('compiler', {
     language: 'python',
     runtime: 'python3',
     files: [{ name: 'main.py', content: starterCode }],
     activeFile: 'main.py',
     expectedOutput,
+    ...(inputLines.length ? { stdin: inputLines.join('\n') } : {}),
+    validation: { type: 'normalized_output' },
     runLabel: 'Run code',
     resetLabel: 'Reset starter code',
   });
@@ -356,11 +394,23 @@ function createStandardLesson($, nodes, block) {
         }));
       } else {
         const output = /^(Expected )?Output$/i.test(firstLine) || /output/i.test(pendingCaption);
-        blocks.push(block('code', {
-          language: output ? 'text' : 'python',
-          code: (output ? lines.slice(1) : lines).join('\n'),
-          caption: output ? (pendingCaption || firstLine) : (pendingCaption || 'Example'),
-        }));
+        const code = (output ? lines.slice(1) : lines).join('\n');
+        if (/^(Note:|Remember:)/i.test(code)) {
+          const [label, ...content] = code.split(':');
+          const iconSrc = $(node).find('img').first().attr('src');
+          blocks.push(block('note', {
+            title: label,
+            content: content.join(':').trim(),
+            format: 'plain',
+            ...(iconSrc ? { iconSrc, iconAlt: '' } : {}),
+          }));
+        } else if (code) {
+          blocks.push(block('code', {
+            language: output ? 'text' : 'python',
+            code,
+            caption: output ? (pendingCaption || firstLine) : (pendingCaption || 'Example'),
+          }));
+        }
       }
       pendingCaption = '';
       continue;
@@ -368,10 +418,14 @@ function createStandardLesson($, nodes, block) {
 
     const image = $(node).find('img').first();
     if (image.length) {
+      const precedingCaption = blocks.at(-1)?.type === 'paragraph'
+        && /^Figure:/i.test(blocks.at(-1).content)
+        ? blocks.pop().content
+        : '';
       blocks.push(block('image', {
         src: image.attr('src'),
-        alt: image.attr('alt') || text.replace(/^Figure:\s*/i, ''),
-        caption: text || image.attr('alt') || '',
+        alt: image.attr('alt') || (precedingCaption || text).replace(/^Figure:\s*/i, ''),
+        caption: precedingCaption || text || image.attr('alt') || '',
         loading: 'lazy',
       }));
       continue;
@@ -396,27 +450,69 @@ function createStandardLesson($, nodes, block) {
     } else if ($(node).find('strong').length && text.length < 90) {
       blocks.push(block('heading', { level: 3, text }));
     } else {
-      blocks.push(block('paragraph', { content: text, format: 'plain' }));
+      blocks.push(block('paragraph', paragraphText($, node)));
     }
+  }
+
+  for (let index = 0; index < blocks.length - 1; index += 1) {
+    const image = blocks[index];
+    const caption = blocks[index + 1];
+    if (image.type === 'image' && !image.alt && caption.type === 'paragraph' && /^Figure:/i.test(caption.content)) {
+      image.alt = caption.content.replace(/^Figure:\s*/i, '');
+      image.caption = caption.content;
+      blocks.splice(index + 1, 1);
+    }
+  }
+
+  for (const codeBlock of blocks.filter(({ type }) => type === 'code')) {
+    const runnableConfig = runnableExamples.get(codeBlock.id);
+    if (!runnableConfig) continue;
+    codeBlock.mode = 'runnable';
+    if (runnableConfig.stdin) codeBlock.stdin = runnableConfig.stdin;
+  }
+
+  const runnableExample = blocks.find((item) => item.type === 'code' && item.mode === 'runnable');
+  if (runnableExample) {
+    const index = blocks.indexOf(runnableExample);
+    blocks.splice(index + 1, 0, block('compiler', {
+      language: 'python',
+      runtime: 'python3',
+      starterCode: runnableExample.code,
+      ...(runnableExample.stdin ? { stdin: runnableExample.stdin } : {}),
+      runLabel: 'Run example',
+      resetLabel: 'Reset example',
+    }));
   }
 
   return blocks;
 }
 
+function estimateLessonMinutes(blocks) {
+  if (blocks.some(({ type }) => type === 'exercise')) return 12;
+  if (blocks.some(({ type }) => type === 'quiz')) return 4;
+  return Math.max(4, Math.min(10, Math.ceil(blocks.length * 0.8)));
+}
+
 await mkdir(ASSET_DIRECTORY, { recursive: true });
 let imageNumber = 0;
+const extractedImages = new Map();
 
 const conversion = await mammoth.convertToHtml(
   { path: SOURCE_PATH },
   {
     convertImage: mammoth.images.imgElement(async (image) => {
+      const content = await image.readAsBuffer();
+      const hash = createHash('sha256').update(content).digest('hex');
+      if (extractedImages.has(hash)) return { src: extractedImages.get(hash) };
       const extension = image.contentType === 'image/jpeg'
         ? 'jpg'
         : image.contentType.split('/')[1];
-      const filename = `python-course-image-${String(++imageNumber).padStart(2, '0')}.${extension}`;
+      const filename = `python-foundations-image-${String(++imageNumber).padStart(2, '0')}.${extension}`;
       const destination = resolve(ASSET_DIRECTORY, filename);
-      await writeFile(destination, await image.readAsBuffer());
-      return { src: `/assets/courses/python-course/${filename}` };
+      await writeFile(destination, content);
+      const source = `/assets/courses/python-foundations/${filename}`;
+      extractedImages.set(hash, source);
+      return { src: source };
     }),
   },
 );
@@ -442,7 +538,8 @@ for (let index = 0; index < children.length; index += 1) {
   const nodes = [];
 
   for (let cursor = index + 2; cursor < children.length; cursor += 1) {
-    if (/^PAGE\s+\d+\.\d+$/i.test(normalizedText($, children[cursor]))) break;
+    const cursorText = normalizedText($, children[cursor]);
+    if (/^PAGE\s+\d+\.\d+$/i.test(cursorText) || (pageNumber === '9.7' && cursorText === 'Congratulations')) break;
     nodes.push(children[cursor]);
   }
 
@@ -453,7 +550,7 @@ for (let index = 0; index < children.length; index += 1) {
   const blocks = isQuiz
     ? createQuizLesson($, pageNumber, title, nodes, block)
     : isExercise
-      ? createExerciseLesson($, title, nodes, block)
+      ? createExerciseLesson($, pageNumber, title, nodes, block)
       : createStandardLesson($, nodes, block);
 
   const firstParagraph = blocks.find((item) =>
@@ -468,7 +565,7 @@ for (let index = 0; index < children.length; index += 1) {
   if (!modules.has(moduleNumber)) {
     modules.set(moduleNumber, {
       id: `module-${moduleNumber}-${slugify(moduleTitles[moduleNumber])}`,
-      title: `Module ${moduleNumber}: ${moduleTitles[moduleNumber]}`,
+      title: `Module ${moduleNumber} — ${moduleTitles[moduleNumber]}`,
       description: `Lessons ${moduleNumber}.1 through ${moduleNumber}.${lessonNumber}`,
       initiallyExpanded: moduleNumber === 1,
       lessons: [],
@@ -481,11 +578,55 @@ for (let index = 0; index < children.length; index += 1) {
     title,
     summary: summary.slice(0, 280),
     status: 'available',
-    estimatedMinutes: 5,
+    estimatedMinutes: estimateLessonMinutes(blocks),
     tags: [slugify(moduleTitles[moduleNumber])],
     blocks,
   });
   lessonCount += 1;
+}
+
+const tailStart = children.findIndex((element) => normalizedText($, element) === 'Congratulations');
+const tailSections = [
+  ['9.8', 'Congratulations', 'Congratulations', 'Data Types'],
+  ['9.9', 'Review: Data Types', 'Data Types', 'Variables'],
+  ['9.10', 'Review: Variables', 'Variables', 'Operators'],
+  ['9.11', 'Review: Operators', 'Operators', 'Take input'],
+  ['9.12', 'Review: User Input', 'Take input', 'Data conversion'],
+  ['9.13', 'Review: Data Conversion', 'Data conversion', 'Moving Forward'],
+  ['9.14', 'Moving Forward', 'Moving Forward', 'FINISH'],
+  ['9.15', 'Finish', 'FINISH', null],
+];
+
+if (tailStart >= 0) {
+  for (const [number, title, startLabel, endLabel] of tailSections) {
+    const start = children.findIndex((element, index) =>
+      index >= tailStart && normalizedText($, element) === startLabel);
+    const end = endLabel
+      ? children.findIndex((element, index) =>
+        index > start && normalizedText($, element) === endLabel)
+      : children.length;
+    if (start < 0) continue;
+    const nodes = children.slice(start + 1, end < 0 ? children.length : end);
+    const block = createBlockFactory(number);
+    const blocks = createStandardLesson($, nodes, block);
+    if (!blocks.length) blocks.push(block('callout', {
+      tone: 'success',
+      title: 'Finish',
+      content: 'FINISH',
+      format: 'plain',
+    }));
+    modules.get(9).lessons.push({
+      id: `lesson-${number.replace('.', '-')}-${slugify(title)}`,
+      number,
+      title,
+      summary: normalizedText($, nodes.find((node) => normalizedText($, node))) || title,
+      status: 'available',
+      estimatedMinutes: estimateLessonMinutes(blocks),
+      tags: [slugify(moduleTitles[9])],
+      blocks,
+    });
+    lessonCount += 1;
+  }
 }
 
 for (const [moduleNumber, module] of modules) {
@@ -493,25 +634,48 @@ for (const [moduleNumber, module] of modules) {
   module.description = `Lessons ${moduleNumber}.1 through ${lastLesson.number}`;
 }
 
+const chapterGroups = [...modules.entries()].flatMap(([sourceGroupNumber, sourceGroup]) => {
+  const groups = sourceGroupNumber === 9
+    ? [
+        { groupNumber: 9, lessons: sourceGroup.lessons.slice(0, 7) },
+        { groupNumber: 10, lessons: sourceGroup.lessons.slice(7) },
+      ]
+    : [{ groupNumber: sourceGroupNumber, lessons: sourceGroup.lessons }];
+  return groups.map(({ groupNumber, lessons }) => ({
+    id: `chapter-1-${groupNumber}-${slugify(chapterGroupTitles[groupNumber].replace(/^1\.\d+\s+/, ''))}`,
+    title: chapterGroupTitles[groupNumber],
+    description: `Lessons ${lessons[0].number} through ${lessons.at(-1).number}`,
+    initiallyExpanded: groupNumber === 1,
+    lessons,
+  }));
+});
+const courseModules = [{
+  id: 'module-1-getting-started-with-python',
+  title: 'CH 1: Getting Started with Python',
+  description: 'Python foundations organized into ten chapter groups.',
+  initiallyExpanded: true,
+  sections: chapterGroups,
+}];
+
 const course = {
   $schema: '../../schemas/learning-course.schema.json',
   schemaVersion: '1.0.0',
   id: 'python',
   slug: 'python',
-  title: 'MI Tutora Python Course',
-  description: 'A beginner Python course converted from the MI Tutora course document.',
+  title: 'Python Foundations',
+  description: 'Learn Python fundamentals through explanations, runnable examples, quizzes, and guided coding exercises. No prior programming experience is required.',
   locale: 'en-US',
-  status: 'draft',
+  status: 'published',
   metadata: {
     version: '1.0.0',
     authors: [{ name: 'MI Tutora' }],
     level: 'beginner',
-    estimatedMinutes: lessonCount * 5,
-    tags: ['python', 'programming', 'beginner'],
-    updatedAt: new Date().toISOString(),
+    estimatedMinutes: 752,
+    tags: ['python', 'programming', 'fundamentals'],
+    updatedAt: '2026-08-16T00:00:00.000Z',
   },
   navigation: {
-    defaultLessonId: modules.get(1).lessons[0].id,
+    defaultLessonId: chapterGroups[0].lessons[0].id,
     sequence: 'module-order',
     skipLockedLessons: true,
     labels: {
@@ -521,10 +685,8 @@ const course = {
       currentLesson: 'Current lesson',
     },
   },
-  modules: [...modules.values()],
+  modules: courseModules,
 };
-
-repairConvertedBlocks(course.modules);
 
 const schema = JSON.parse(await readFile(SCHEMA_PATH, 'utf8'));
 const ajv = new Ajv2020({ allErrors: true, strict: true, allowUnionTypes: true });
@@ -538,25 +700,43 @@ if (!validate(course)) {
 const firebaseVersion = `v${course.metadata.version.split('.')[0]}`;
 const outputDirectory = resolve(FIREBASE_OUTPUT_ROOT, firebaseVersion);
 const moduleFiles = course.modules.map((_, index) => `module-${index + 1}.json`);
-const { modules: courseModules, ...courseManifest } = course;
-const courseOutline = courseModules.map((module) => ({
+const { modules: generatedModules, ...courseManifest } = course;
+const courseOutline = generatedModules.map((module) => ({
   ...module,
-  lessons: module.lessons.map((lesson) => ({ ...lesson, blocks: [] })),
+  sections: module.sections.map((section) => ({
+    ...section,
+    lessons: section.lessons.map((lesson) => ({ ...lesson, blocks: [] })),
+  })),
 }));
 
 await mkdir(outputDirectory, { recursive: true });
+for (const filename of await readdir(outputDirectory)) {
+  if (/^module-\d+\.json$/.test(filename) && !moduleFiles.includes(filename)) {
+    await unlink(resolve(outputDirectory, filename));
+  }
+}
+await writeFile(PUBLIC_COURSE_PATH, `${JSON.stringify(course, null, 2)}\n`);
+const localMetadata = JSON.parse(await readFile(LOCAL_METADATA_PATH, 'utf8'));
+localMetadata.courses = localMetadata.courses.map((entry) => entry.id === course.id ? {
+  ...entry,
+  title: course.title,
+  description: course.description,
+  version: course.metadata.version,
+  source: '/courses/python-course.json',
+} : entry);
+await writeFile(LOCAL_METADATA_PATH, `${JSON.stringify(localMetadata, null, 2)}\n`);
 await writeFile(
   resolve(outputDirectory, 'course.json'),
   `${JSON.stringify({ ...courseManifest, modules: courseOutline, moduleFiles }, null, 2)}\n`,
 );
-await Promise.all(courseModules.map((module, index) =>
+await Promise.all(generatedModules.map((module, index) =>
   writeFile(resolve(outputDirectory, moduleFiles[index]), `${JSON.stringify(module, null, 2)}\n`)));
 const publishingMetadata = {
   id: course.id,
   slug: course.slug,
   title: course.title,
   description: course.description,
-  thumbnail: '/assets/courses/python-course/python-course-image-01.png',
+  thumbnail: '/assets/courses/python-foundations/python-foundations-image-01.png',
   language: 'python',
   domain: 'programming',
   difficulty: course.metadata.level,
@@ -580,7 +760,8 @@ console.log(JSON.stringify({
   metadata: resolve(FIREBASE_METADATA_ROOT, 'python.json'),
   modules: course.modules.length,
   lessons: lessonCount,
-  blocks: course.modules.flatMap((module) => module.lessons).flatMap((lesson) => lesson.blocks).length,
+  sections: chapterGroups.length,
+  blocks: chapterGroups.flatMap((group) => group.lessons).flatMap((lesson) => lesson.blocks).length,
   images: imageNumber,
   validation: 'passed',
 }, null, 2));

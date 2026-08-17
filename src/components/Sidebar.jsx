@@ -37,22 +37,24 @@ export function Sidebar({
             <span className="eyebrow">{sidebar.eyebrow}</span>
             <h2>{course.name}</h2>
           </div>
-          <IconButton
-            label={isCollapsed ? 'Expand learning sidebar' : 'Collapse learning sidebar'}
-            className="sidebar-collapse-button"
-            onClick={onToggleCollapsed}
-          >
-            {isCollapsed
-              ? <PanelLeftOpen size={ICON_SIZE.md} />
-              : <PanelLeftClose size={ICON_SIZE.md} />}
-          </IconButton>
-          <IconButton
-            label={`${sidebar.closeLabel} (${course.ui.shortcuts.close})`}
-            className="drawer-close"
-            onClick={onClose}
-          >
-            <X size={ICON_SIZE.md} />
-          </IconButton>
+          <div className="sidebar-header-actions">
+            <IconButton
+              label={isCollapsed ? 'Expand learning sidebar' : 'Collapse learning sidebar'}
+              className="sidebar-collapse-button"
+              onClick={onToggleCollapsed}
+            >
+              {isCollapsed
+                ? <PanelLeftOpen size={ICON_SIZE.md} />
+                : <PanelLeftClose size={ICON_SIZE.md} />}
+            </IconButton>
+            <IconButton
+              label={`${sidebar.closeLabel} (${course.ui.shortcuts.close})`}
+              className="drawer-close"
+              onClick={onClose}
+            >
+              <X size={ICON_SIZE.md} />
+            </IconButton>
+          </div>
         </div>
         <div className="sidebar-summary">
           <span>{completedCount} of {lessonCount} lessons</span>

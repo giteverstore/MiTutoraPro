@@ -3,6 +3,7 @@ import { CheckCircle2, ChevronRight, Dumbbell } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
 import { useLearningProgress } from '../../progress/LearningProgressContext';
 import { RichText } from '../RichText';
+import { useOptionalLearningCompiler } from '../../compiler/LearningCompilerContext';
 
 export function ExerciseBlock({
   badge,
@@ -16,6 +17,7 @@ export function ExerciseBlock({
   blockId,
 }) {
   const [isStarted, setIsStarted] = useState(false);
+  const learningCompiler = useOptionalLearningCompiler();
   const { exerciseCompletion, completeExercise } = useLearningProgress();
   const exerciseState = exerciseCompletion[blockId] ?? {};
   const isCompleted = Boolean(exerciseState.completed);
@@ -28,12 +30,12 @@ export function ExerciseBlock({
     }
     if (isStarted) return;
     setIsStarted(true);
-    const selector = window.matchMedia('(max-width: 840px)').matches
-      ? '.mobile-compiler textarea'
-      : '.desktop-compiler textarea';
-    const editor = document.querySelector(selector);
-    editor?.closest('.compiler-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    editor?.focus({ preventScroll: true });
+    learningCompiler?.expand();
+    window.requestAnimationFrame(() => {
+      const editor = document.querySelector('.compiler-dock .monaco-editor-shell textarea');
+      document.querySelector('.compiler-dock')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      editor?.focus({ preventScroll: true });
+    });
   };
 
   return (
