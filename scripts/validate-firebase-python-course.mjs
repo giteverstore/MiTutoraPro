@@ -5,7 +5,8 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 
 const moduleLessons = (module) => module.sections?.flatMap((section) => section.lessons) ?? module.lessons ?? [];
-const bundleRoot = resolve('firebase-content/course-content/python/v1');
+const publishingMetadata = JSON.parse(await readFile(resolve('firebase-content/firestore/courses/python.json'), 'utf8'));
+const bundleRoot = resolve('firebase-content/course-content/python', publishingMetadata.version);
 const manifest = JSON.parse(await readFile(resolve(bundleRoot, 'course.json'), 'utf8'));
 const modules = await Promise.all(manifest.moduleFiles.map(async (file) =>
   JSON.parse(await readFile(resolve(bundleRoot, file), 'utf8'))));
@@ -41,7 +42,7 @@ assert.deepEqual(modules[0].sections.map((section) => section.lessons.length), [
 assert.equal(lessons.length, 109);
 assert.equal(blocks.filter((block) => block.type === 'quiz').length, 20);
 assert.equal(blocks.filter((block) => block.type === 'exercise').length, 18);
-assert.equal(blocks.filter((block) => block.type === 'compiler').length, 70);
+assert.equal(blocks.filter((block) => block.type === 'compiler').length, 63);
 
 console.log(JSON.stringify({
   modules: modules.length,

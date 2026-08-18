@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { LessonItem } from './LessonItem';
+import { getModuleLessons } from '../course/courseStructure';
 
 function ChapterGroup({
   group,
@@ -64,7 +65,7 @@ export function ModuleItem({
   const [isExpanded, setIsExpanded] = useState(module.initiallyOpen);
   const reactId = useId();
   const contentId = `module-${reactId.replaceAll(':', '')}`;
-  const containsCurrentLesson = module.lessons.some(
+  const containsCurrentLesson = getModuleLessons(module).some(
     (lesson) => lesson.id === currentLessonId,
   );
 

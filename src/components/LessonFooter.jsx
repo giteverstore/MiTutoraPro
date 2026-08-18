@@ -1,7 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, LockKeyhole } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { useLearningProgress } from '../progress/LearningProgressContext';
+
+function completionErrorMessage(error) {
+  const code = String(error?.code ?? '').replace(/^functions\//, '');
+  if (code === 'unauthenticated') return 'Lesson was not completed. Sign in again and retry.';
+  if (code === 'invalid-argument' || code === 'not-found') return 'Lesson was not completed because it does not match the published course version. Refresh the course and retry.';
+  if (code === 'unavailable' || code === 'deadline-exceeded') return 'Lesson was not completed because trusted verification is temporarily unavailable. Try again.';
+  return 'Lesson was not completed because trusted verification failed. Try again.';
+}
 
 export function LessonFooter({
   lesson,
@@ -9,6 +17,9 @@ export function LessonFooter({
   nextLesson,
   onPrevious,
   onNext,
+  lessonCount,
+  currentLessonIndex,
+  scopeLabel,
 }) {
   const {
     completedLessons,
@@ -18,7 +29,6 @@ export function LessonFooter({
   } = useLearningProgress();
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
   const [completionState, setCompletionState] = useState({ status: 'idle', message: '' });
-  const footerRef = useRef(null);
   const isCompleted = completedLessons.includes(lesson.id);
 
   const requirement = useMemo(() => {
@@ -31,8 +41,9 @@ export function LessonFooter({
 
   useEffect(() => {
     setHasReachedEnd(false);
-    const footer = footerRef.current;
-    if (!footer || requirement.type !== 'reading') return undefined;
+    setCompletionState({ status: 'idle', message: '' });
+    const sentinel = document.querySelector(`[data-lesson-end="${CSS.escape(lesson.id)}"]`);
+    if (!sentinel || requirement.type !== 'reading') return undefined;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -40,7 +51,7 @@ export function LessonFooter({
       },
       { threshold: 0.65 },
     );
-    observer.observe(footer);
+    observer.observe(sentinel);
     return () => observer.disconnect();
   }, [lesson.id, requirement.type]);
 
@@ -64,38 +75,61 @@ export function LessonFooter({
       await completeLesson(lesson.id, requirement.type);
       setCompletionState({ status: 'complete', message: 'Lesson completion verified.' });
     } catch (error) {
-      setCompletionState({ status: 'error', message: error.message || 'Lesson completion could not be verified.' });
+      setCompletionState({ status: 'error', message: completionErrorMessage(error) });
     }
   };
 
+  const statusLabel = completionState.status === 'error'
+    ? 'Lesson not completed'
+    : isCompleted
+      ? 'Lesson completed'
+      : canComplete
+        ? 'Ready to complete'
+        : lockedMessage;
+  const lessonPosition = currentLessonIndex >= 0 && lessonCount
+    ? `Lesson ${currentLessonIndex + 1} of ${lessonCount}`
+    : statusLabel;
+  const primaryStatus = completionState.status === 'saving'
+    ? 'Verifying…'
+    : isCompleted
+      ? 'Lesson completed'
+      : lessonPosition;
+
   return (
-    <footer className="lesson-completion-footer" ref={footerRef}>
-      <div className="lesson-footer-status">
-        {isCompleted
-          ? <CheckCircle2 size={ICON_SIZE.md} />
-          : canComplete
+    <footer className="lesson-completion-footer">
+      <button
+        className="button button--secondary lesson-footer-button"
+        type="button"
+        disabled={!previousLesson}
+        onClick={onPrevious}
+      >
+        <ArrowLeft size={ICON_SIZE.md} /> <span>Previous Lesson</span>
+      </button>
+      <div className={`lesson-footer-status is-${completionState.status}`}>
+        <span className="lesson-footer-status-main">
+          {isCompleted
             ? <CheckCircle2 size={ICON_SIZE.md} />
-            : <LockKeyhole size={ICON_SIZE.md} />}
-        <span>{isCompleted ? 'Lesson completed' : canComplete ? 'Ready to complete' : lockedMessage}</span>
-        {completionState.message ? <small role={completionState.status === 'error' ? 'alert' : 'status'}>{completionState.message}</small> : null}
-      </div>
-      <div className="lesson-footer-actions">
-        <button
-          className="button button--secondary lesson-footer-button"
-          type="button"
-          disabled={!previousLesson}
-          onClick={onPrevious}
+            : canComplete
+              ? <CheckCircle2 size={ICON_SIZE.md} />
+              : <LockKeyhole size={ICON_SIZE.md} />}
+          <span>{primaryStatus}</span>
+        </span>
+        <small
+          className="lesson-footer-status-detail"
+          role={completionState.status === 'error' ? 'alert' : 'status'}
+          title={completionState.message || statusLabel}
         >
-          <ArrowLeft size={ICON_SIZE.md} /> Previous Lesson
-        </button>
-        {isCompleted ? (
+          {completionState.message || [scopeLabel, statusLabel].filter(Boolean).join(' · ')}
+        </small>
+      </div>
+      {isCompleted ? (
           <button
             className="button button--primary lesson-footer-button"
             type="button"
             disabled={!nextLesson}
             onClick={onNext}
           >
-            {nextLesson ? 'Next Lesson' : 'Course Complete'}
+            <span>{nextLesson ? 'Next Lesson' : 'Course Complete'}</span>
             {nextLesson ? <ArrowRight size={ICON_SIZE.md} /> : <CheckCircle2 size={ICON_SIZE.md} />}
           </button>
         ) : (
@@ -105,10 +139,9 @@ export function LessonFooter({
             disabled={!canComplete || completionState.status === 'saving'}
             onClick={handleComplete}
           >
-            <CheckCircle2 size={ICON_SIZE.md} /> Complete Lesson
+            <CheckCircle2 size={ICON_SIZE.md} /> <span>{completionState.status === 'error' ? 'Try Again' : 'Complete Lesson'}</span>
           </button>
         )}
-      </div>
     </footer>
   );
 }

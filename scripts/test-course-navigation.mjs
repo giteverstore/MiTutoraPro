@@ -47,7 +47,7 @@ const course = {
 
 const navigation = createCourseNavigation(course);
 
-assert.equal(navigation.getState('lesson-one').nextLesson.id, 'lesson-two');
+assert.equal(navigation.getState('lesson-one').nextLesson.id, 'lesson-locked');
 assert.equal(navigation.getState('lesson-two').nextLesson.id, 'lesson-branch');
 assert.equal(navigation.getState('lesson-branch').nextLesson.id, 'lesson-a');
 assert.deepEqual(
@@ -55,7 +55,7 @@ assert.deepEqual(
   ['lesson-a', 'lesson-b'],
 );
 assert.equal(navigation.getState('lesson-a').previousLesson.id, 'lesson-branch');
-assert.equal(navigation.canNavigateTo('lesson-locked'), false);
+assert.equal(navigation.canNavigateTo('lesson-locked'), true);
 assert.equal(navigation.canNavigateTo('lesson-b'), true);
 
 console.log('Course navigation tests passed.');

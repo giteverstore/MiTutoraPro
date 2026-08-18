@@ -1,0 +1,1438 @@
+{
+  "$schema": "../../schemas/learning-course.schema.json",
+  "schemaVersion": "1.0.0",
+  "id": "python",
+  "slug": "python",
+  "title": "Python Foundations",
+  "description": "Learn Python fundamentals through explanations, runnable examples, quizzes, and guided coding exercises. No prior programming experience is required.",
+  "locale": "en-US",
+  "status": "published",
+  "metadata": {
+    "version": "2.0.0",
+    "authors": [
+      {
+        "name": "MI Tutora"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 752,
+    "tags": [
+      "python",
+      "programming",
+      "fundamentals"
+    ],
+    "updatedAt": "2026-08-16T00:00:00.000Z"
+  },
+  "navigation": {
+    "defaultLessonId": "lesson-1-1-introduction-to-python",
+    "sequence": "module-order",
+    "skipLockedLessons": true,
+    "labels": {
+      "previous": "Previous lesson",
+      "next": "Next lesson",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-1-getting-started-with-python",
+      "title": "CH 1: Getting Started with Python",
+      "description": "Python foundations organized into ten chapter groups.",
+      "initiallyExpanded": true,
+      "sections": [
+        {
+          "id": "chapter-1-1-get-started",
+          "title": "1.1 Get Started",
+          "description": "Lessons 1.1 through 1.6",
+          "initiallyExpanded": true,
+          "lessons": [
+            {
+              "id": "lesson-1-1-introduction-to-python",
+              "number": "1.1",
+              "title": "Introduction to Python",
+              "summary": "Welcome to the Python course!",
+              "status": "available",
+              "estimatedMinutes": 9,
+              "tags": [
+                "getting-started-with-python"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-1-2-run-your-first-python-program",
+              "number": "1.2",
+              "title": "Run Your First Python Program",
+              "summary": "It's time to run your very first Python program!",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "getting-started-with-python"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-1-3-working-of-the-program",
+              "number": "1.3",
+              "title": "Working of the Program",
+              "summary": "Let's take a closer look at the Python program you just ran.",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "getting-started-with-python"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-1-4-quiz-which-of-the-following-is-the-correct-way-to-displ",
+              "number": "1.4",
+              "title": "Quiz: Which of the following is the correct way to display Welcome to Go Coder on the screen?",
+              "summary": "Which of the following is the correct way to display Welcome to Go Coder on the screen?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "getting-started-with-python"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-1-5-your-first-python-greeting",
+              "number": "1.5",
+              "title": "Your First Python Greeting",
+              "summary": "Problem Description",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "getting-started-with-python"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-1-6-course-overview",
+              "number": "1.6",
+              "title": "Course Overview",
+              "summary": "Great job completing your first Python program!",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "getting-started-with-python"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-2-numbers-and-strings",
+          "title": "1.2 Numbers and Strings",
+          "description": "Lessons 2.1 through 2.12",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-2-1-introduction-to-data-types",
+              "number": "2.1",
+              "title": "Introduction to Data Types",
+              "summary": "Hii! Do you remember this from the previous lesson?",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-2-working-with-strings",
+              "number": "2.2",
+              "title": "Working with Strings",
+              "summary": "Now you know that any text placed inside quotation marks is called a string in Python. For example:",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-3-be-careful-when-using-strings",
+              "number": "2.3",
+              "title": "Be Careful When Using Strings",
+              "summary": "If you write text without putting it inside quotation marks, Python will not treat it as a string. For example:",
+              "status": "available",
+              "estimatedMinutes": 9,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-4-strings-are-fixed-values",
+              "number": "2.4",
+              "title": "Strings are Fixed Values",
+              "summary": "Do you remember the first Python program you created?",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-5-understanding-numbers",
+              "number": "2.5",
+              "title": "Understanding Numbers",
+              "summary": "Python has two commonly used kinds of numbers:",
+              "status": "available",
+              "estimatedMinutes": 5,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-6-quiz-which-of-the-following-is-not-a-floating-point-num",
+              "number": "2.6",
+              "title": "Quiz: Which of the following is not a floating-point number in Python?",
+              "summary": "Which of the following is not a floating-point number in Python?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-7-print-numbers",
+              "number": "2.7",
+              "title": "Print Numbers",
+              "summary": "When you want to display a number in Python, you do not need to place it inside quotation marks. Numbers can be printed directly, unlike strings.",
+              "status": "available",
+              "estimatedMinutes": 9,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-8-understanding-numbers-and-strings",
+              "number": "2.8",
+              "title": "Understanding Numbers and Strings",
+              "summary": "It looks the same as before, doesn't it? But there is an important difference:",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-9-quiz-which-of-the-following-is-not-a-string-in-python",
+              "number": "2.9",
+              "title": "Quiz: Which of the following is not a string in Python?",
+              "summary": "Which of the following is not a string in Python?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-10-write-a-program-to-display-the-number-78-9",
+              "number": "2.10",
+              "title": "Write a program to display the number 78.9.",
+              "summary": "If you need help, you can check the Solution tab.",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-11-print-numbers-and-strings",
+              "number": "2.11",
+              "title": "Print Numbers and Strings",
+              "summary": "You've already used the print() function several times — great work!",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-2-12-problem",
+              "number": "2.12",
+              "title": "Problem",
+              "summary": "Write a program to print a string and a number.",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-data-types"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-3-comments",
+          "title": "1.3 Comments",
+          "description": "Lessons 3.1 through 3.5",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-3-1-introduction-to-comments",
+              "number": "3.1",
+              "title": "Introduction to Comments",
+              "summary": "As you begin writing more programs, you may want to include short notes in your code—not for Python, but for yourself or other people who read your code later.",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-comments"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-3-2-python-comments",
+              "number": "3.2",
+              "title": "Python Comments",
+              "summary": "In Python, the # symbol is used to add comments to your code.",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-comments"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-3-3-understanding-python-comments",
+              "number": "3.3",
+              "title": "Understanding Python Comments",
+              "summary": "Let's look at one more example:",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-comments"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-3-4-quiz-identify-the-comment-from-the-following-lines-of-p",
+              "number": "3.4",
+              "title": "Quiz: Identify the comment from the following lines of Python code:",
+              "summary": "Identify the comment from the following lines of Python code:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-comments"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-3-5-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "3.5",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-comments"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-4-variables",
+          "title": "1.4 Variables",
+          "description": "Lessons 4.1 through 4.21",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-4-1-introduction-to-variables",
+              "number": "4.1",
+              "title": "Introduction to Variables",
+              "summary": "In the earlier lessons, you learned about strings and numbers and how to display them using Python.",
+              "status": "available",
+              "estimatedMinutes": 5,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-2-create-variables",
+              "number": "4.2",
+              "title": "Create Variables",
+              "summary": "You can create a variable by assigning a value to it. For example:",
+              "status": "available",
+              "estimatedMinutes": 5,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-3-quiz-what-is-the-variable-in-the-following-python-code",
+              "number": "4.3",
+              "title": "Quiz: What is the variable in the following Python code?",
+              "summary": "What is the variable in the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-4-printing-variables",
+              "number": "4.4",
+              "title": "Printing Variables",
+              "summary": "Just like numbers and strings, you can use the print() function to display the value stored in a variable.",
+              "status": "available",
+              "estimatedMinutes": 7,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-5-printing-variables",
+              "number": "4.5",
+              "title": "Printing Variables",
+              "summary": "Let's explore another example of how variables can be printed.",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-6-a-common-mistake",
+              "number": "4.6",
+              "title": "A Common Mistake",
+              "summary": "Consider the following program:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-7-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "4.7",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-8-quiz-what-is-the-result-of-the-following-python-code",
+              "number": "4.8",
+              "title": "Quiz: What is the result of the following Python code?",
+              "summary": "What is the result of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-9-print-variables",
+              "number": "4.9",
+              "title": "Print Variables",
+              "summary": "Write a program to display the value stored in a variable.",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-10-change-values-stored-in-variables",
+              "number": "4.10",
+              "title": "Change Values Stored in Variables",
+              "summary": "A variable's value can be updated while a program is running. That's why it is called a variable. For example:",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-12-problem",
+              "number": "4.12",
+              "title": "PROBLEM",
+              "summary": "Change Values Stored in a Variable",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-13-quiz-whats-the-output-of-this-python-code",
+              "number": "4.13",
+              "title": "Quiz: What's the output of this Python code?",
+              "summary": "What's the output of this Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-14-assign-value-of-one-variable-to-another",
+              "number": "4.14",
+              "title": "Assign Value of One Variable to Another",
+              "summary": "You can also assign the value of one variable to another.",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-16-assign-value-of-one-variable-to-another",
+              "number": "4.16",
+              "title": "Assign Value of One Variable to Another",
+              "summary": "Consider the example below:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-17-quiz-whats-the-output-of-the-following-code",
+              "number": "4.17",
+              "title": "Quiz: What's the output of the following code?",
+              "summary": "What's the output of the following code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-18-quiz-whats-the-output-of-the-following-code",
+              "number": "4.18",
+              "title": "Quiz: What's the output of the following code?",
+              "summary": "What's the output of the following code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-19-program",
+              "number": "4.19",
+              "title": "PROGRAM",
+              "summary": "Assign One Variable to Another",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-20-legal-variables-names",
+              "number": "4.20",
+              "title": "Legal Variables Names",
+              "summary": "Python has some rules that you need to follow when naming variables. Let's take a look at them.",
+              "status": "available",
+              "estimatedMinutes": 7,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-4-21-review-variable-basics",
+              "number": "4.21",
+              "title": "Review: Variable Basics",
+              "summary": "We create variables by assigning values to them.",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-variables"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-5-output",
+          "title": "1.5 Output",
+          "description": "Lessons 5.1 through 5.14",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-5-1-introduction-to-output",
+              "number": "5.1",
+              "title": "Introduction to Output",
+              "summary": "We have already used print() to display one value or variable at a time. Here's a quick review:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-2-print-multiple-values",
+              "number": "5.2",
+              "title": "Print Multiple Values",
+              "summary": "You can display more than one piece of data in a single print() statement by separating the values with commas. For example:",
+              "status": "available",
+              "estimatedMinutes": 5,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-3-print-strings-and-variables",
+              "number": "5.3",
+              "title": "Print Strings and Variables",
+              "summary": "You can also display values and variables using a single print() function. For example:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-4-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "5.4",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-5-problem",
+              "number": "5.5",
+              "title": "PROBLEM",
+              "summary": "Print a String and a Number",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-6-print-newline-enter-key",
+              "number": "5.6",
+              "title": "Print Newline (Enter Key)",
+              "summary": "It's possible to use a single print() function to display output in multiple lines.",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-7-quiz-whats-the-output-of-the-following-python-code",
+              "number": "5.7",
+              "title": "Quiz: What's the output of the following Python code?",
+              "summary": "What's the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-8-problem",
+              "number": "5.8",
+              "title": "PROBLEM",
+              "summary": "Newline",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-9-python-f-strings",
+              "number": "5.9",
+              "title": "Python f-strings",
+              "summary": "Python provides another way to format and display strings called f-strings. They make it easier to include multiple values and variables in your output.",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-10-print-variables-using-f-strings",
+              "number": "5.10",
+              "title": "Print Variables Using f-strings",
+              "summary": "You can include variables in an f-string by placing their names inside curly braces {}.",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-11-quiz-whats-the-output-of-the-following-python-code",
+              "number": "5.11",
+              "title": "Quiz: What's the output of the following Python code?",
+              "summary": "What's the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-12-problem",
+              "number": "5.12",
+              "title": "PROBLEM",
+              "summary": "Python f-strings",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-13-common-errors-i",
+              "number": "5.13",
+              "title": "Common Errors (I)",
+              "summary": "Before continuing to the next lesson, let's look at some common mistakes that beginners often make.",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-5-14-common-errors-ii",
+              "number": "5.14",
+              "title": "Common Errors (II)",
+              "summary": "Another common mistake is forgetting to close a string with quotation marks. For example:",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "python-output-and-f-strings"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-6-arithmetic-operators",
+          "title": "1.6 Arithmetic Operators",
+          "description": "Lessons 6.1 through 6.20",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-6-1-introduction-to-operators",
+              "number": "6.1",
+              "title": "Introduction to Operators",
+              "summary": "So far, we have mainly focused on displaying values and variables using print().",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-2-arithmetic-operators",
+              "number": "6.2",
+              "title": "Arithmetic Operators",
+              "summary": "Let's explore the operators covered in this lesson.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-3-operator",
+              "number": "6.3",
+              "title": "+ Operator",
+              "summary": "As we learned in the previous example, the + operator is used to add operands, such as values and variables.",
+              "status": "available",
+              "estimatedMinutes": 5,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-4-perform-an-operation-and-print",
+              "number": "6.4",
+              "title": "Perform an Operation and Print",
+              "summary": "You can also perform addition directly inside print() without creating an extra variable.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-5-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "6.5",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-6-operator",
+              "number": "6.6",
+              "title": "- Operator",
+              "summary": "The - operator is used to subtract the value on the right from the value on the left.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-7-problem",
+              "number": "6.7",
+              "title": "PROBLEM",
+              "summary": "Calculate Profit",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-8-operator",
+              "number": "6.8",
+              "title": "* Operator",
+              "summary": "The * operator is used to multiply two values or variables.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-9-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "6.9",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-10-operator",
+              "number": "6.10",
+              "title": "/ Operator",
+              "summary": "The / operator is used to divide one value by another. For example:",
+              "status": "available",
+              "estimatedMinutes": 5,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-11-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "6.11",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-12-and-operator",
+              "number": "6.12",
+              "title": "// and % Operator",
+              "summary": "The / operator performs division. However, if you need to find the quotient instead, use the // operator.",
+              "status": "available",
+              "estimatedMinutes": 7,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-13-problem",
+              "number": "6.13",
+              "title": "PROBLEM",
+              "summary": "Divide Candies Among Children",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-14-operator",
+              "number": "6.14",
+              "title": "** Operator",
+              "summary": "The ** operator computes the exponential (power) of a number.",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-15-quiz-what-is-the-output-of-the-following-code",
+              "number": "6.15",
+              "title": "Quiz: What is the output of the following code?",
+              "summary": "What is the output of the following code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-16-problem",
+              "number": "6.16",
+              "title": "PROBLEM",
+              "summary": "Volume of Cube",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-17-using-parentheses-in-arithmetic-operations",
+              "number": "6.17",
+              "title": "Using Parentheses in Arithmetic Operations",
+              "summary": "Can you predict the output of the following program?",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-18-problem",
+              "number": "6.18",
+              "title": "PROBLEM",
+              "summary": "Calculate Shopping Discount",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-19-arithmetic-assignment-operators",
+              "number": "6.19",
+              "title": "Arithmetic Assignment Operators",
+              "summary": "Consider this program:",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-6-20-review-operators",
+              "number": "6.20",
+              "title": "Review : Operators",
+              "summary": "We've now completed our lesson on arithmetic operators.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "python-operators"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-7-data-conversion",
+          "title": "1.7 Data Conversion",
+          "description": "Lessons 7.1 through 7.9",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-7-1-introduction-to-data-conversion",
+              "number": "7.1",
+              "title": "Introduction to Data Conversion",
+              "summary": "So far in this course, you have worked with three common data types:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-2-convert-to-integer",
+              "number": "7.2",
+              "title": "Convert to Integer",
+              "summary": "We use the int() function to change data from another type into an integer.",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-3-error-converting-a-string-to-an-integer",
+              "number": "7.3",
+              "title": "Error Converting a String to an Integer",
+              "summary": "We cannot convert all types of strings to integers. Let's take an example.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-4-convert-to-float",
+              "number": "7.4",
+              "title": "Convert to Float",
+              "summary": "We use the float() function to convert data from other types into floating-point numbers.",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-5-error-converting-a-string-to-a-float",
+              "number": "7.5",
+              "title": "Error Converting a String to a Float",
+              "summary": "Just as not every string can be converted to an integer, some strings also cannot be changed into floating-point numbers. Let's look at an example:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-6-problem",
+              "number": "7.6",
+              "title": "PROBLEM",
+              "summary": "Convert Type",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-7-convert-to-string",
+              "number": "7.7",
+              "title": "Convert to String",
+              "summary": "We use the str() function to convert data from other types into strings. For example,",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-8-implicit-type-conversion",
+              "number": "7.8",
+              "title": "Implicit Type Conversion",
+              "summary": "There's more to conversion.",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-7-9-quiz-what-is-the-output-of-the-following-python-code",
+              "number": "7.9",
+              "title": "Quiz: What is the output of the following Python code?",
+              "summary": "What is the output of the following Python code?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "data-conversion"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-8-get-user-input",
+          "title": "1.8 Get User Input",
+          "description": "Lessons 8.1 through 8.9",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-8-1-introduction-to-user-input",
+              "number": "8.1",
+              "title": "Introduction to User Input",
+              "summary": "So far, we have assigned values directly to variables, like this:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-2-take-user-input",
+              "number": "8.2",
+              "title": "Take User Input",
+              "summary": "You can ask the user to enter a value and store it in a variable using the input() function. For example,",
+              "status": "available",
+              "estimatedMinutes": 9,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-3-user-input-without-a-prompt",
+              "number": "8.3",
+              "title": "User Input Without a Prompt",
+              "summary": "Let's look at another example of taking user input.",
+              "status": "available",
+              "estimatedMinutes": 7,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-4-problem",
+              "number": "8.4",
+              "title": "PROBLEM",
+              "summary": "User Input",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-5-use-input-with-numbers",
+              "number": "8.5",
+              "title": "Use input() With Numbers",
+              "summary": "The input() function always receives user input as a string. Even when the user enters a number, Python stores it as text.",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-6-use-input-with-numbers",
+              "number": "8.6",
+              "title": "Use input() With Numbers",
+              "summary": "Let's fix the error from the previous example.",
+              "status": "available",
+              "estimatedMinutes": 7,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-7-a-general-tip",
+              "number": "8.7",
+              "title": "A General Tip",
+              "summary": "By the way, We can also write the previous program in a shorter way:",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-8-quiz-given-the-python-code-snippet-below-which-of-the-f",
+              "number": "8.8",
+              "title": "Quiz: Given the Python code snippet below, which of the following values can be stored in the variable number after user input?",
+              "summary": "Given the Python code snippet below, which of the following values can be stored in the variable number after user input?",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-8-9-problem",
+              "number": "8.9",
+              "title": "PROBLEM",
+              "summary": "User Input",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "user-input"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-9-introduction-examples",
+          "title": "1.9 Introduction Examples",
+          "description": "Lessons 9.1 through 9.7",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-9-1-introduction-examples",
+              "number": "9.1",
+              "title": "Introduction Examples",
+              "summary": "Take a moment to appreciate how much you have learned so far—you're almost at the end of the first chapter!",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-2-convert-kilometers-to-miles",
+              "number": "9.2",
+              "title": "Convert Kilometers to Miles",
+              "summary": "We can change a distance from kilometers into miles using the following conversion:",
+              "status": "available",
+              "estimatedMinutes": 8,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-3-problem",
+              "number": "9.3",
+              "title": "PROBLEM",
+              "summary": "Fahrenheit to Celsius",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-4-find-the-square-root",
+              "number": "9.4",
+              "title": "Find the Square Root",
+              "summary": "The square root of a number is a value that, when multiplied by itself, gives the original number.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-5-problem",
+              "number": "9.5",
+              "title": "PROBLEM",
+              "summary": "Calculate the Area of a Triangle",
+              "status": "available",
+              "estimatedMinutes": 12,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-6-swap-two-variables",
+              "number": "9.6",
+              "title": "Swap Two Variables",
+              "summary": "Suppose we have two variables like this :",
+              "status": "available",
+              "estimatedMinutes": 10,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-7-swap-two-variables",
+              "number": "9.7",
+              "title": "Swap Two Variables",
+              "summary": "To solve the previous problem, you need to store the value of phone1 temporarily in another variable. This prevents the original value of phone1 from being lost during the swap.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "id": "chapter-1-10-recall",
+          "title": "1.10 Recall",
+          "description": "Lessons 9.8 through 9.15",
+          "initiallyExpanded": false,
+          "lessons": [
+            {
+              "id": "lesson-9-8-congratulations",
+              "number": "9.8",
+              "title": "Congratulations",
+              "summary": "Congratulations🏆!",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-9-review-data-types",
+              "number": "9.9",
+              "title": "Review: Data Types",
+              "summary": "We started by learning different types of data:",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-10-review-variables",
+              "number": "9.10",
+              "title": "Review: Variables",
+              "summary": "To store and use these data later in the program, you can store them in variables.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-11-review-operators",
+              "number": "9.11",
+              "title": "Review: Operators",
+              "summary": "In programming, you often need to perform calculations on values and variables, not just print them. To handle mathematical calculations, we use operators.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-12-review-user-input",
+              "number": "9.12",
+              "title": "Review: User Input",
+              "summary": "You can collect information from the user during program execution with the input() function. The entered value can then be stored in a variable and used in the program.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-13-review-data-conversion",
+              "number": "9.13",
+              "title": "Review: Data Conversion",
+              "summary": "The data you work with may not always be in the format you need. In such cases, you can convert the data from one type to another.",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-14-moving-forward",
+              "number": "9.14",
+              "title": "Moving Forward",
+              "summary": "Feeling confident about what you've learned in this chapter? Great! Click the \"Next Lesson\" button to move on to the next chapter: Control Flow and Loops. In this chapter, you'll learn about the logic that helps programs make decisions and repeat tasks.",
+              "status": "available",
+              "estimatedMinutes": 6,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            },
+            {
+              "id": "lesson-9-15-finish",
+              "number": "9.15",
+              "title": "Finish",
+              "summary": "Finish",
+              "status": "available",
+              "estimatedMinutes": 4,
+              "tags": [
+                "introduction-examples-and-review"
+              ],
+              "blocks": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "moduleFiles": [
+    "module-1.json"
+  ]
+}

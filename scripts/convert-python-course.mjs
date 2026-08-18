@@ -146,6 +146,16 @@ function createBlockFactory(pageNumber) {
   };
 }
 
+function isLessonActionCta(text) {
+  return /\bclick(?:\s+the)?\s+["“]?next lesson["”]?(?:\s+button)?\b/i.test(text);
+}
+
+function isLessonContinuationCta(text) {
+  return /^(?:next,\s+(?:let['’]s|you(?:'ll| will))|ready for the next lesson\b)/i.test(text)
+    || /\b(?:let['’]s|we(?:'ll| will))\b[^.!?]*\bnext[.!?]?$/i.test(text)
+    || /\bready to move on to the next lesson\b/i.test(text);
+}
+
 function createQuizLesson($, pageNumber, title, nodes, block) {
   const blocks = [];
   const optionRecords = [];
@@ -435,6 +445,13 @@ function createStandardLesson($, nodes, block) {
       pendingCaption = text;
     } else if (/^sensAI$/i.test(text) || /^Explain this code$/i.test(text)) {
       aiMode = true;
+    } else if (isLessonActionCta(text)) {
+      blocks.push(block('callout', {
+        tone: 'info',
+        title: 'Next step',
+        content: text,
+        format: 'plain',
+      }));
     } else if (/^Note:/i.test(text)) {
       blocks.push(block('note', {
         title: 'Note',
@@ -462,6 +479,23 @@ function createStandardLesson($, nodes, block) {
       image.caption = caption.content;
       blocks.splice(index + 1, 1);
     }
+  }
+
+  const finalNarrativeBlock = blocks.findLast(({ type }) =>
+    ['paragraph', 'heading', 'callout'].includes(type));
+  const finalNarrativeText = finalNarrativeBlock?.content ?? finalNarrativeBlock?.text ?? '';
+  if (
+    finalNarrativeBlock
+    && finalNarrativeBlock.type !== 'callout'
+    && isLessonContinuationCta(finalNarrativeText)
+  ) {
+    finalNarrativeBlock.type = 'callout';
+    finalNarrativeBlock.tone = 'info';
+    finalNarrativeBlock.title = 'Next step';
+    finalNarrativeBlock.content = finalNarrativeText;
+    finalNarrativeBlock.format = 'plain';
+    delete finalNarrativeBlock.text;
+    delete finalNarrativeBlock.level;
   }
 
   for (const codeBlock of blocks.filter(({ type }) => type === 'code')) {
@@ -667,7 +701,7 @@ const course = {
   locale: 'en-US',
   status: 'published',
   metadata: {
-    version: '1.0.0',
+    version: '2.0.0',
     authors: [{ name: 'MI Tutora' }],
     level: 'beginner',
     estimatedMinutes: 752,

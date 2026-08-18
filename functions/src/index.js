@@ -19,7 +19,7 @@ function endpoint(handler) {
     try { return await handler(authenticated(request), request.data ?? {}); }
     catch (error) {
       logger.error('certification.endpoint.failed', { code: error.code, message: error.message });
-      const supported = new Set(['invalid-argument', 'not-found', 'permission-denied', 'failed-precondition', 'already-exists', 'aborted', 'deadline-exceeded', 'unavailable']);
+      const supported = new Set(['invalid-argument', 'not-found', 'permission-denied', 'failed-precondition', 'already-exists', 'aborted', 'deadline-exceeded', 'unavailable', 'data-loss']);
       throw new HttpsError(supported.has(error.code) ? error.code : 'internal', supported.has(error.code) ? error.message : 'Certification operation failed.');
     }
   });

@@ -43,17 +43,19 @@ practice/{language}/{version}/{questionSlug}.json
 daily-challenges/{language}/{version}/{YYYY-MM-DD}.json
 ```
 
-Course metadata stores its root, such as `course-content/python`, and its version folder, such as `v1`. Practice and challenge metadata store an unversioned object path such as `practice/python/question-1.json`; repositories insert the metadata version before the filename. No active loader embeds `v1` in application code.
+Course metadata stores its root, such as `course-content/python`, and its version folder, such as `v2`. Practice and challenge metadata store an unversioned object path such as `practice/python/question-1.json`; repositories insert the metadata version before the filename. No active loader embeds a course version in application code.
 
 The active Python layout is:
 
 ```text
-course-content/python/v1/
+course-content/python/v2/
 ├── course.json
 └── module-1.json
 ```
 
 The canonical Python bundle contains `course.json` and `module-1.json`. The manifest contains the course-level schema, complete content-free outline, and ordered `moduleFiles`. Its single top-level chapter module contains ten generic section records used as learner-facing chapter groups. Each group owns its lessons directly.
+
+Published course version folders are immutable. Content changes require a new version folder; the publisher refuses to replace an existing object with different bytes. It uploads and verifies every versioned object before updating the Firestore metadata pointer, preventing clients from observing new metadata with an older cached manifest.
 
 ## Responsibilities
 

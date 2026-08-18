@@ -11,6 +11,7 @@
     "validate:python-course": "node scripts/validate-python-course.mjs",
     "validate:python-foundations": "node scripts/validate-python-foundations.mjs",
     "validate:learning-compiler": "node scripts/validate-learning-compiler.mjs",
+    "validate:learning-layout": "node scripts/validate-learning-layout.mjs",
     "validate:firebase-python-course": "node scripts/validate-firebase-python-course.mjs",
     "validate:firebase-interactive-content": "node scripts/validate-firebase-interactive-content.mjs",
     "validate:practice": "node scripts/validate-practice-schema.mjs",
@@ -32,6 +33,7 @@
     "validate:certificate-dates": "node scripts/validate-certificate-dates.mjs",
     "validate:projects": "node scripts/validate-projects.mjs",
     "validate:certification-trust": "node scripts/validate-certification-trust.mjs",
+    "validate:trusted-completion": "node scripts/validate-trusted-lesson-completion.mjs",
     "validate:certification-security": "firebase emulators:exec --only firestore \"node tests/firestore/certification.rules.test.mjs\""
   },
   "dependencies": {

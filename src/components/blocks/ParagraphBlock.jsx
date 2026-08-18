@@ -3,14 +3,14 @@ import { RichText } from '../RichText';
 export function ParagraphBlock({ content, paragraphs, format = 'plain' }) {
   if (!paragraphs) {
     return (
-      <section className="content-section reading-copy">
+      <section className="content-section reading-copy lesson-text-block">
         <RichText content={content} format={format} />
       </section>
     );
   }
 
   return (
-    <section className="content-section reading-copy">
+    <section className="content-section reading-copy lesson-text-block">
       {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
     </section>
   );

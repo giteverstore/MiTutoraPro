@@ -12,8 +12,10 @@ import { CourseCompletionEngine } from '../functions/src/certification/CourseCom
 
 const course = JSON.parse(await readFile(resolve('public/courses/python-course.json'), 'utf8'));
 const metadata = JSON.parse(await readFile(resolve('public/courses/course-metadata.json'), 'utf8'));
+const publishingMetadata = JSON.parse(await readFile(resolve('firebase-content/firestore/courses/python.json'), 'utf8'));
 const schema = JSON.parse(await readFile(resolve('schemas/learning-course.schema.json'), 'utf8'));
-const manifest = JSON.parse(await readFile(resolve('firebase-content/course-content/python/v1/course.json'), 'utf8'));
+const firebaseBundleRoot = resolve('firebase-content/course-content/python', publishingMetadata.version);
+const manifest = JSON.parse(await readFile(resolve(firebaseBundleRoot, 'course.json'), 'utf8'));
 const registry = await readFile(resolve('src/components/blockRegistry.js'), 'utf8');
 const solutionRenderer = await readFile(resolve('src/components/blocks/SolutionBlock.jsx'), 'utf8');
 const moduleItemSource = await readFile(resolve('src/components/ModuleItem.jsx'), 'utf8');
@@ -63,12 +65,30 @@ const lessons = foundationsModule.sections.flatMap((section) => section.lessons)
 const blocks = lessons.flatMap((lesson) => lesson.blocks);
 const codeBlocks = blocks.filter(({ type }) => type === 'code');
 const runnableExamples = codeBlocks.filter(({ mode }) => mode === 'runnable');
+const nextLessonInstruction = /\bclick(?:\s+the)?\s+["“]?next lesson["”]?(?:\s+button)?\b/i;
+const lessonActionCallouts = blocks.filter(({ type, tone, title }) =>
+  type === 'callout'
+  && tone === 'info'
+  && title === 'Next step');
 const lessonNumbers = new Set(lessons.map(({ number }) => number));
 sourcePageNumbers.forEach((number) => assert.ok(lessonNumbers.has(number), `Source page ${number} must be represented.`));
 const ids = [course.id, foundationsModule.id, ...foundationsModule.sections.map(({ id }) => id), ...lessons.map(({ id }) => id), ...blocks.map(({ id }) => id)];
 assert.equal(new Set(ids).size, ids.length, 'Every course, module, lesson, and block ID must be unique.');
 assert.equal(lessons.length, 109);
 assert.equal(blocks.filter(({ type }) => type === 'quiz').length, 20);
+assert.equal(lessonActionCallouts.length, 26, 'Every learner continuation instruction must use a semantic callout.');
+assert.equal(
+  new Set(foundationsModule.sections.filter((section) =>
+    section.lessons.some((lesson) => lesson.blocks.some((block) => lessonActionCallouts.includes(block)))).map(({ id }) => id)).size,
+  foundationsModule.sections.length,
+  'Learner continuation instructions must be represented across all Python Foundations sections.',
+);
+assert.equal(
+  blocks.filter(({ type, content, text }) =>
+    ['paragraph', 'heading'].includes(type) && nextLessonInstruction.test(content ?? text ?? '')).length,
+  0,
+  'Explicit Next Lesson actions must not remain ordinary prose or headings.',
+);
 assert.ok(codeBlocks.every(({ mode }) => ['display', 'runnable'].includes(mode)), 'Every Python example requires an explicit mode.');
 assert.equal(runnableExamples.length, 62);
 assert.equal(codeBlocks.find(({ code }) => code === '"This is a string."')?.mode, 'display');
@@ -116,11 +136,11 @@ assert.equal(manifest.id, course.id);
 assert.deepEqual(manifest.moduleFiles, ['module-1.json']);
 assert.equal(manifest.modules.length, 1);
 assert.equal(manifest.modules[0].sections.length, 10);
-const moduleFile = JSON.parse(await readFile(resolve('firebase-content/course-content/python/v1/module-1.json'), 'utf8'));
+const moduleFile = JSON.parse(await readFile(resolve(firebaseBundleRoot, 'module-1.json'), 'utf8'));
 assert.deepEqual(moduleFile, foundationsModule);
 assert.ok(manifest.modules[0].sections.every((section) =>
   section.lessons.every(({ blocks: outlineBlocks }) => outlineBlocks.length === 0)));
-const generatedModuleFiles = (await readdir(resolve('firebase-content/course-content/python/v1')))
+const generatedModuleFiles = (await readdir(firebaseBundleRoot))
   .filter((file) => /^module-\d+\.json$/.test(file));
 assert.deepEqual(generatedModuleFiles, ['module-1.json'], 'The generated bundle must contain exactly one module file.');
 
@@ -190,6 +210,7 @@ console.log(JSON.stringify({
   quizzes: blocks.filter(({ type }) => type === 'quiz').length,
   exercises: blocks.filter(({ type }) => type === 'exercise').length,
   runnableExamples: runnableExamples.length,
+  lessonActionCallouts: lessonActionCallouts.length,
   solutions: blocks.filter(({ type }) => type === 'solution').length,
   extractedAssets: extractedAssets.length,
   navigationLessonsReached: visited.length,

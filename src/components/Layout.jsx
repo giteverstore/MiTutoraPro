@@ -15,6 +15,7 @@ import { createCompilerData } from './blocks/CompilerBlock';
 import { LessonFooter } from './LessonFooter';
 import { createCourseLessonBookmark } from '../bookmarks/bookmarkModel';
 import { LearningCompilerProvider } from '../compiler/LearningCompilerContext';
+import { findLessonProgressScope, getModuleLessons } from '../course/courseStructure';
 
 export function Layout({ courseLoader, onExitCourse }) {
   const { user } = useUser();
@@ -99,7 +100,10 @@ export function Layout({ courseLoader, onExitCourse }) {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 1180px)');
-    const updateMode = ({ matches }) => setIsSidebarOverlay(matches);
+    const updateMode = ({ matches }) => {
+      setIsSidebarOverlay(matches);
+      setIsDrawerOpen(false);
+    };
     mediaQuery.addEventListener('change', updateMode);
     return () => mediaQuery.removeEventListener('change', updateMode);
   }, []);
@@ -186,8 +190,12 @@ export function Layout({ courseLoader, onExitCourse }) {
   );
   const lessonCount = useMemo(
     () => course.contentLoadState?.totalLessonCount
-      ?? course.modules.reduce((total, module) => total + module.lessons.length, 0),
+      ?? course.modules.reduce((total, module) => total + getModuleLessons(module).length, 0),
     [course.contentLoadState?.totalLessonCount, course.modules],
+  );
+  const lessonProgressScope = useMemo(
+    () => findLessonProgressScope(course, currentLesson?.id),
+    [course, currentLesson?.id],
   );
   const lessonBookmark = useMemo(
     () => currentLesson ? createCourseLessonBookmark({
@@ -253,6 +261,7 @@ export function Layout({ courseLoader, onExitCourse }) {
           estimatedTimeRemaining={learningProgress.estimatedTimeRemaining}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapsed={toggleSidebarCollapsed}
+          isOverlay={isSidebarOverlay}
         />
         {!isSidebarCollapsed ? (
           <ResizeHandle
@@ -265,23 +274,26 @@ export function Layout({ courseLoader, onExitCourse }) {
             onKeyDown={sidebarResize.handleKeyDown}
           />
         ) : null}
-        <ContentArea
-          lesson={currentLesson}
-          module={currentModule}
-          blocks={lessonContentBlocks}
-          isLoading={false}
-          emptyState={course.ui.emptyLesson}
-          unavailableState={course.ui.emptyCourse}
-          footer={(
-            <LessonFooter
-              lesson={currentLesson}
-              previousLesson={previousLesson}
-              nextLesson={nextLesson}
-              onPrevious={goToPreviousLesson}
-              onNext={() => goToNextLesson()}
-            />
-          )}
-        />
+        <section className="lesson-region" aria-label="Lesson content and navigation">
+          <ContentArea
+            lesson={currentLesson}
+            module={currentModule}
+            blocks={lessonContentBlocks}
+            isLoading={false}
+            emptyState={course.ui.emptyLesson}
+            unavailableState={course.ui.emptyCourse}
+          />
+          <LessonFooter
+            lesson={currentLesson}
+            previousLesson={previousLesson}
+            nextLesson={nextLesson}
+            onPrevious={goToPreviousLesson}
+            onNext={() => goToNextLesson()}
+            lessonCount={lessonProgressScope?.lessons.length ?? lessonCount}
+            currentLessonIndex={lessonProgressScope?.index ?? -1}
+            scopeLabel={lessonProgressScope?.title}
+          />
+        </section>
         <aside
           className={`desktop-compiler compiler-dock ${isCompilerMinimized ? 'is-minimized' : 'is-expanded compiler-enter'} is-${compilerStatus}`}
           aria-label={persistentCompilerData.ariaLabel}

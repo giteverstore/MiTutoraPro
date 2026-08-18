@@ -3,15 +3,15 @@ import { BookOpen, Check, Circle, FileQuestion, SquareTerminal } from 'lucide-re
 import { ICON_SIZE } from '../design-system/theme';
 
 function LessonStatusIcon({ state, lesson }) {
-  if (state === 'complete') return <Check size={ICON_SIZE.xs} strokeWidth={3} />;
-  if (state === 'not-started') return <Circle size={ICON_SIZE.sm} />;
+  if (state === 'complete') return <Check size={ICON_SIZE.xs} strokeWidth={2.5} aria-hidden="true" />;
   if (lesson.blocks?.some((block) => block.type === 'quiz')) {
-    return <FileQuestion size={ICON_SIZE.sm} />;
+    return <FileQuestion size={ICON_SIZE.xs} strokeWidth={1.8} aria-hidden="true" />;
   }
   if (lesson.blocks?.some((block) => block.type === 'exercise')) {
-    return <SquareTerminal size={ICON_SIZE.sm} />;
+    return <SquareTerminal size={ICON_SIZE.xs} strokeWidth={1.8} aria-hidden="true" />;
   }
-  return <BookOpen size={ICON_SIZE.sm} />;
+  if (state === 'not-started') return <Circle size={ICON_SIZE.xs} strokeWidth={1.6} aria-hidden="true" />;
+  return <BookOpen size={ICON_SIZE.xs} strokeWidth={1.8} aria-hidden="true" />;
 }
 
 export function LessonItem({ lesson, isActive, isCompleted, isVisited, onSelect }) {

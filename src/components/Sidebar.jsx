@@ -20,6 +20,7 @@ export function Sidebar({
   estimatedTimeRemaining,
   isCollapsed,
   onToggleCollapsed,
+  isOverlay,
 }) {
   const { sidebar } = course;
 
@@ -38,22 +39,25 @@ export function Sidebar({
             <h2>{course.name}</h2>
           </div>
           <div className="sidebar-header-actions">
-            <IconButton
-              label={isCollapsed ? 'Expand learning sidebar' : 'Collapse learning sidebar'}
-              className="sidebar-collapse-button"
-              onClick={onToggleCollapsed}
-            >
-              {isCollapsed
-                ? <PanelLeftOpen size={ICON_SIZE.md} />
-                : <PanelLeftClose size={ICON_SIZE.md} />}
-            </IconButton>
-            <IconButton
-              label={`${sidebar.closeLabel} (${course.ui.shortcuts.close})`}
-              className="drawer-close"
-              onClick={onClose}
-            >
-              <X size={ICON_SIZE.md} />
-            </IconButton>
+            {isOverlay ? (
+              <IconButton
+                label="Close learning sidebar"
+                className="drawer-close"
+                onClick={onClose}
+              >
+                <X size={ICON_SIZE.md} aria-hidden="true" />
+              </IconButton>
+            ) : (
+              <IconButton
+                label={isCollapsed ? 'Expand learning sidebar' : 'Collapse learning sidebar'}
+                className="sidebar-collapse-button"
+                onClick={onToggleCollapsed}
+              >
+                {isCollapsed
+                  ? <PanelLeftOpen size={ICON_SIZE.md} aria-hidden="true" />
+                  : <PanelLeftClose size={ICON_SIZE.md} aria-hidden="true" />}
+              </IconButton>
+            )}
           </div>
         </div>
         <div className="sidebar-summary">

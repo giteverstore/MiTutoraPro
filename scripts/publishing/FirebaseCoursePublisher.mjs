@@ -2,6 +2,10 @@ import { applicationDefault, cert, getApp, getApps, initializeApp } from 'fireba
 import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 import { loadEnv } from 'vite';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+
+const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 
 function loadPublisherEnvironment() {
   const fileEnvironment = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
@@ -51,6 +55,21 @@ export class FirebaseCoursePublisher {
     }
     onProgress({ stage: 'credentials', path: this.app.options.projectId, status: 'complete' });
 
+    for (const file of bundle.files) {
+      const remoteFile = this.bucket.file(file.remotePath);
+      const [exists] = await remoteFile.exists();
+      if (!exists) continue;
+      const [localBytes, [remoteBytes]] = await Promise.all([
+        readFile(file.localPath),
+        remoteFile.download(),
+      ]);
+      if (sha256(localBytes) !== sha256(remoteBytes)) {
+        throw new Error(
+          `Published content is immutable: ${file.remotePath} already exists with different bytes. Bump the course version before publishing.`,
+        );
+      }
+    }
+
     const uploaded = [];
     for (const file of bundle.files) {
       onProgress({ stage: 'upload', path: file.remotePath, status: 'running' });
@@ -59,7 +78,7 @@ export class FirebaseCoursePublisher {
         resumable: false,
         metadata: {
           contentType: 'application/json; charset=utf-8',
-          cacheControl: 'public, max-age=300',
+          cacheControl: 'public, max-age=31536000, immutable',
           metadata: { courseId: bundle.metadata.id, version: bundle.metadata.version },
         },
       });

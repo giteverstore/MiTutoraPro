@@ -11,7 +11,6 @@ export function ContentArea({
   isLoading = false,
   emptyState,
   unavailableState,
-  footer,
 }) {
   return (
     <main className="lesson-panel">
@@ -29,7 +28,11 @@ export function ContentArea({
             emptyState={emptyState}
           />
           {children}
-          {footer}
+          <span
+            className="lesson-end-sentinel"
+            data-lesson-end={lesson.id}
+            aria-hidden="true"
+          />
         </article>
       ) : (
         <div className="lesson-document">

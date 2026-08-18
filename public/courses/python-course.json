@@ -8,7 +8,7 @@
   "locale": "en-US",
   "status": "published",
   "metadata": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "authors": [
       {
         "name": "MI Tutora"
@@ -119,8 +119,10 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-1-1-paragraph-11",
-                  "type": "paragraph",
+                  "id": "page-1-1-callout-11",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
                   "content": "When you're ready, click Next Lesson, and let's run your very first Python program together.",
                   "format": "plain"
                 }
@@ -191,10 +193,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-1-2-heading-8",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Ready to continue? Click Next Lesson and let's keep learning!"
+                  "id": "page-1-2-callout-8",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Ready to continue? Click Next Lesson and let's keep learning!",
+                  "format": "plain"
                 }
               ]
             },
@@ -266,10 +270,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-1-3-heading-10",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to continue."
+                  "id": "page-1-3-callout-10",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to continue.",
+                  "format": "plain"
                 }
               ]
             },
@@ -423,10 +429,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-1-6-heading-6",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click the Next Lesson button to continue your learning journey!"
+                  "id": "page-1-6-callout-6",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click the Next Lesson button to continue your learning journey!",
+                  "format": "plain"
                 }
               ]
             }
@@ -504,10 +512,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-2-1-heading-8",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to continue."
+                  "id": "page-2-1-callout-8",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to continue.",
+                  "format": "plain"
                 }
               ]
             },
@@ -598,10 +608,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-2-2-heading-11",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to continue."
+                  "id": "page-2-2-callout-11",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to continue.",
+                  "format": "plain"
                 }
               ]
             },
@@ -685,10 +697,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-2-3-heading-11",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to continue!"
+                  "id": "page-2-3-callout-11",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to continue!",
+                  "format": "plain"
                 }
               ]
             },
@@ -779,9 +793,11 @@
                 },
                 {
                   "id": "page-2-4-paragraph-13",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, let's explore how numbers work in Python.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -955,9 +971,11 @@
                 },
                 {
                   "id": "page-2-7-paragraph-10",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Let's discover that next!",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -1076,9 +1094,11 @@
                 },
                 {
                   "id": "page-2-8-paragraph-15",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, you'll answer a quick quiz and then complete a short practice exercise to strengthen what you've learned.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -1267,9 +1287,11 @@
                 },
                 {
                   "id": "page-2-11-paragraph-8",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, you'll complete a quick practice exercise using the same concept — printing both a string and a number.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -1442,10 +1464,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-3-1-heading-11",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to discover how to write comments correctly in Python."
+                  "id": "page-3-1-callout-11",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to discover how to write comments correctly in Python.",
+                  "format": "plain"
                 }
               ]
             },
@@ -1534,10 +1558,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-3-2-heading-11",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to continue."
+                  "id": "page-3-2-callout-11",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to continue.",
+                  "format": "plain"
                 }
               ]
             },
@@ -1645,10 +1671,12 @@
                   "format": "plain"
                 },
                 {
-                  "id": "page-3-3-heading-13",
-                  "type": "heading",
-                  "level": 3,
-                  "text": "Click Next Lesson to continue."
+                  "id": "page-3-3-callout-13",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
+                  "content": "Click Next Lesson to continue.",
+                  "format": "plain"
                 }
               ]
             },
@@ -1854,9 +1882,11 @@
                 },
                 {
                   "id": "page-4-2-paragraph-7",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, let's see if you can identify variables correctly.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -2949,9 +2979,11 @@
                 },
                 {
                   "id": "page-5-1-paragraph-3",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, you'll learn how to display multiple values and variables using print(). You'll also explore f-strings, which provide an easy way to combine and format different pieces of data in your output.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -3435,9 +3467,11 @@
                 },
                 {
                   "id": "page-5-9-paragraph-6",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "The real benefit of f-strings becomes clear when you use them with variables. Let's explore that next.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -3911,9 +3945,11 @@
                 },
                 {
                   "id": "page-6-1-paragraph-6",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, let's explore different types of operators and learn how to use them.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -5099,9 +5135,11 @@
                 },
                 {
                   "id": "page-6-20-paragraph-4",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Ready for the next lesson? You'll now learn how to convert data from one type to another.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             }
@@ -5227,9 +5265,11 @@
                 },
                 {
                   "id": "page-7-2-paragraph-9",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, let's look at an example.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -5343,9 +5383,11 @@
                 },
                 {
                   "id": "page-7-4-paragraph-9",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Next, let's look at another example of an invalid conversion.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -5658,9 +5700,11 @@
                 },
                 {
                   "id": "page-8-1-paragraph-5",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Let's see how to do that next.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -5993,9 +6037,11 @@
                 },
                 {
                   "id": "page-8-5-paragraph-15",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "Let's see how to do that next.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -6727,9 +6773,11 @@
                 },
                 {
                   "id": "page-9-6-paragraph-21",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "This is why both variables end up with \"Lenovo vibe\". To swap the values correctly, we need to use a different method, which we'll learn next.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -6985,9 +7033,11 @@
                 },
                 {
                   "id": "page-9-13-paragraph-3",
-                  "type": "paragraph",
+                  "type": "callout",
                   "content": "With these basic concepts covered, you're now ready to move on to the next lesson.",
-                  "format": "plain"
+                  "format": "plain",
+                  "tone": "info",
+                  "title": "Next step"
                 }
               ]
             },
@@ -7003,8 +7053,10 @@
               ],
               "blocks": [
                 {
-                  "id": "page-9-14-paragraph-1",
-                  "type": "paragraph",
+                  "id": "page-9-14-callout-1",
+                  "type": "callout",
+                  "tone": "info",
+                  "title": "Next step",
                   "content": "Feeling confident about what you've learned in this chapter? Great! Click the \"Next Lesson\" button to move on to the next chapter: Control Flow and Loops. In this chapter, you'll learn about the logic that helps programs make decisions and repeat tasks.",
                   "format": "plain"
                 },

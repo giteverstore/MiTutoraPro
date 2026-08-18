@@ -8,11 +8,19 @@ const toneIcons = {
 };
 
 export function CalloutBlock({ tone, title, content, action }) {
+  if (tone === 'info' && title === 'Next step') {
+    return (
+      <section className="content-section reading-copy lesson-text-block lesson-action-cta">
+        <p><strong>{content}</strong></p>
+      </section>
+    );
+  }
+
   const ToneIcon = toneIcons[tone] ?? Info;
 
   return (
     <aside className={`card card--accent content-section callout-card is-${tone}`}>
-      <span className="callout-icon"><ToneIcon size={ICON_SIZE.md} /></span>
+      <span className="callout-icon"><ToneIcon size={ICON_SIZE.md} aria-hidden="true" /></span>
       <div>
         <strong>{title}</strong>
         <p>{content}</p>

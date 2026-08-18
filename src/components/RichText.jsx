@@ -1,3 +1,11 @@
+function renderInline(content) {
+  return content.split(/(`[^`]+`)/g).map((part, index) => (
+    part.startsWith('`') && part.endsWith('`')
+      ? <code key={`${part}-${index}`}>{part.slice(1, -1)}</code>
+      : part
+  ));
+}
+
 function renderMarkdown(content) {
   const nodes = [];
   const lines = content.split('\n');
@@ -7,7 +15,7 @@ function renderMarkdown(content) {
     if (!listItems.length) return;
     nodes.push(
       <ul key={`list-${nodes.length}`}>
-        {listItems.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}
+        {listItems.map((item, index) => <li key={`${item}-${index}`}>{renderInline(item)}</li>)}
       </ul>,
     );
     listItems = [];
@@ -23,7 +31,7 @@ function renderMarkdown(content) {
     }
 
     flushList();
-    if (trimmed) nodes.push(<p key={`paragraph-${nodes.length}`}>{trimmed}</p>);
+    if (trimmed) nodes.push(<p key={`paragraph-${nodes.length}`}>{renderInline(trimmed)}</p>);
   });
   flushList();
 
@@ -39,4 +47,3 @@ export function RichText({ content, format = 'plain', className = '' }) {
 
   return <p className={`rich-text rich-text-plain ${className}`.trim()}>{content}</p>;
 }
-
