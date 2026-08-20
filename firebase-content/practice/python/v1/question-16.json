@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-016",
+  "title": "Convert a Quantity",
+  "summary": "Convert a whole-number value stored as text before calculation.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "type-conversion",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "quantity_with_bonus",
+    "signature": "quantity_with_bonus(quantity_text, bonus)",
+    "input": "Whole-number text and a whole-number bonus.",
+    "output": "Their whole-number sum."
+  },
+  "examples": [
+    {
+      "input": "quantity_text = \"25\", bonus = 10",
+      "output": "35",
+      "explanation": "The text is converted before addition."
+    }
+  ],
+  "constraints": [
+    "quantity_text contains digits with an optional leading minus sign",
+    "-10000 <= bonus <= 10000"
+  ],
+  "concepts": [
+    "string-to-integer",
+    "explicit-conversion"
+  ],
+  "skills": [
+    "convert-before-calculation"
+  ],
+  "prerequisites": [
+    "strings",
+    "integers"
+  ],
+  "commonMistakes": [
+    "Concatenating the values as text",
+    "Returning the converted quantity without the bonus"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive quantity",
+      "arguments": [
+        "25",
+        10
+      ],
+      "expected": 35
+    },
+    {
+      "name": "negative quantity",
+      "arguments": [
+        "-3",
+        5
+      ],
+      "expected": 2
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "quantity_with_bonus(quantity_text, bonus)",
+      "entryPoint": "quantity_with_bonus"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-016-statement",
+      "type": "paragraph",
+      "content": "A quantity is supplied as numeric text. Convert it to a whole number and add the supplied bonus.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-016-contract",
+      "type": "note",
+      "title": "quantity_with_bonus(quantity_text, bonus)",
+      "content": "Input: Whole-number text and a whole-number bonus.\n\nOutput: Their whole-number sum.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nquantity_text = \"25\", bonus = 10\n\nOutput\n35",
+      "caption": "The text is converted before addition."
+    },
+    {
+      "id": "fund-variables-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "quantity_text contains digits with an optional leading minus sign\n-10000 <= bonus <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def quantity_with_bonus(quantity_text, bonus):\n    # Convert quantity_text, then add bonus\n    pass\n\nprint(quantity_with_bonus('25', 10))\n",
+      "stdin": "",
+      "expectedOutput": "35",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

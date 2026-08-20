@@ -25,11 +25,105 @@
     "language": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
     "difficulty": {
       "type": "string",
-      "enum": ["easy", "medium", "hard"]
+      "enum": ["very_easy", "easy", "medium", "hard"]
     },
     "topic": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
     "estimatedMinutes": { "type": "integer", "minimum": 1 },
     "xp": { "type": "integer", "minimum": 1 },
+    "category": { "type": "string", "enum": ["fundamentals", "dsa", "general"] },
+    "subtopic": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "questionType": { "type": "string", "enum": ["implementation", "debugging", "reasoning"] },
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["functionName", "signature", "input", "output"],
+      "properties": {
+        "functionName": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+        "signature": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+        "input": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+        "output": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["input", "output"],
+        "properties": {
+          "input": { "type": "string" },
+          "output": { "type": "string" },
+          "explanation": { "type": "string" }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
+    "concepts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
+    "commonMistakes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
+    "expectedComplexity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["time", "space"],
+      "properties": {
+        "time": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+        "space": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+      }
+    },
+    "publicTests": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "arguments", "expected"],
+        "properties": {
+          "name": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+          "arguments": { "type": "array" },
+          "expected": {}
+        }
+      }
+    },
+    "implementations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python"],
+      "properties": {
+        "python": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["languageId", "signature", "entryPoint"],
+          "properties": {
+            "languageId": { "const": "python" },
+            "signature": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+            "entryPoint": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+          }
+        }
+      }
+    },
     "blocks": {
       "type": "array",
       "minItems": 2,

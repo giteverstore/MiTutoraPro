@@ -1,10 +1,18 @@
 import { useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, LockKeyhole } from 'lucide-react';
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Clock3,
+  Circle,
+  LockKeyhole,
+  Zap,
+} from 'lucide-react';
 import { BlockRenderer } from '../components/BlockRenderer';
 import { CompilerPanel } from '../components/CompilerPanel';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
+import { PracticeTestPanel } from './PracticeTestPanel';
 
 export function PracticeDetail({ question, solved, onBack, onComplete }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
@@ -29,10 +37,16 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
           <button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Practice</button>
           <BookmarkToggle bookmark={createPracticeBookmark(question)} />
         </div>
-        <div>
+        <div className="practice-detail-heading">
           <span>{question.language} · {question.topic}</span>
           <h1>{question.title}</h1>
           <p>{question.summary}</p>
+          <div className="practice-detail-meta" aria-label="Question details">
+            <span className={`practice-difficulty is-${question.difficulty}`}><Circle aria-hidden="true" /> {question.difficulty.replace('_', ' ')}</span>
+            <span><Clock3 aria-hidden="true" /> {question.estimatedMinutes} min</span>
+            <span><Zap aria-hidden="true" /> {question.xp} XP</span>
+            <span className={solved ? 'is-solved' : ''}><CheckCircle2 aria-hidden="true" /> {solved ? 'Solved' : 'Unsolved'}</span>
+          </div>
         </div>
       </header>
       <div className="practice-detail-grid">
@@ -46,6 +60,13 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
           <CompilerPanel
             compiler={compiler}
             onVerificationChange={setVerificationStatus}
+            renderOutput={(outputProps) => (
+              <PracticeTestPanel
+                {...outputProps}
+                contract={question.contract}
+                tests={question.publicTests ?? []}
+              />
+            )}
             key={question.id}
           />
           <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-014",
+  "title": "Validate a Contact Record",
+  "summary": "Validate a small delimited record before using it.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "input-validation-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "valid_contact_record",
+    "signature": "valid_contact_record(text)",
+    "input": "Arbitrary text intended as name|email, with no escaping.",
+    "output": "True for the explicitly defined valid record; otherwise false."
+  },
+  "examples": [
+    {
+      "input": "text = \" Mira | mira@example.com \"",
+      "output": "true",
+      "explanation": "Both trimmed fields are present and the email has one valid @ split."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "record delimiter is exactly pipe"
+  ],
+  "concepts": [
+    "record-validation",
+    "delimiter",
+    "missing-fields"
+  ],
+  "skills": [
+    "data-validation",
+    "structured-input-processing"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting missing fields",
+    "accepting multiple separators or @ characters"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "valid record",
+      "arguments": [
+        " Mira | mira@example.com "
+      ],
+      "expected": true
+    },
+    {
+      "name": "missing email",
+      "arguments": [
+        "Mira|"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "valid_contact_record(text)",
+      "entryPoint": "valid_contact_record"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-014-statement",
+      "type": "paragraph",
+      "content": "A valid contact record contains exactly one pipe separating a non-empty trimmed name and email. The email must contain exactly one @ with non-empty text on both sides. Return true only for this format; otherwise return false.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-014-contract",
+      "type": "note",
+      "title": "valid_contact_record(text)",
+      "content": "Input: Arbitrary text intended as name|email, with no escaping.\n\nOutput: True for the explicitly defined valid record; otherwise false.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" Mira | mira@example.com \"\n\nOutput\ntrue",
+      "caption": "Both trimmed fields are present and the email has one valid @ split."
+    },
+    {
+      "id": "fund-io-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\nrecord delimiter is exactly pipe",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def valid_contact_record(text):\n    # Validate delimiter, fields, and email shape\n    pass\n\nprint(valid_contact_record(' Mira | mira@example.com '))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

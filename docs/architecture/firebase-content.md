@@ -85,7 +85,15 @@ Opening the Python course queries its Firestore document ID, rejects missing or 
 
 During Vite development, `VITE_COURSE_CONTENT_SOURCE=local` makes the course loader read `public/courses/course-metadata.json` and its referenced course document before contacting Firebase. This is the intended mode for verifying unpublished generated bundles. The default value is `firebase`. When Firebase is selected, a failed request falls back to local content only when `VITE_ENABLE_LOCAL_COURSE_FALLBACK=true`. Production builds always use Firebase regardless of either development setting.
 
-Practice and Challenge have equivalent development-only controls:
+Practice supports an explicit development-only source selector. Add this to an untracked `.env.local` file and restart Vite to test the canonical catalog from `src/practice/practiceData.js` without publishing it:
+
+```dotenv
+VITE_PRACTICE_CONTENT_SOURCE=local
+```
+
+Remove the variable or set it to `firebase` to restore the normal Firebase-first loading path. Production builds always use Firebase, even if `VITE_PRACTICE_CONTENT_SOURCE=local` is configured accidentally. The selected source is authoritative; Firebase and local questions are never merged. Files under `firebase-content/` remain publishing and validation artifacts and are not a runtime content source.
+
+Practice and Challenge retain development-only failure fallbacks:
 
 ```dotenv
 VITE_ENABLE_LOCAL_PRACTICE_FALLBACK=true

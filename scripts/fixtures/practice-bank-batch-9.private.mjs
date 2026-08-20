@@ -1,0 +1,36 @@
+// Validator-only material. This module is never imported by the browser bundle.
+export const referenceImplementations = Object.freeze({
+  'fund-io-001': "def format_user_greeting(name):\n    return f'Hello, {name}!'",
+  'fund-io-002': "def profile_summary(name, age):\n    return f'Name: {name}, Age: {age}'",
+  'fund-io-003': "def score_message(player, score):\n    return f'{player} scored {score} points.'",
+  'fund-io-004': 'def parsed_integer_plus(integer_text, offset):\n    return int(integer_text.strip()) + offset',
+  'fund-io-005': 'def total_from_price_text(price_text, quantity):\n    return float(price_text.strip()) * quantity',
+  'fund-io-006': "def safe_integer_input(text):\n    value = text.strip()\n    if value.startswith('-'):\n        digits = value[1:]\n    else:\n        digits = value\n    if not digits or not digits.isdigit():\n        return None\n    return int(value)",
+  'fund-io-007': "def name_age_label(name, age):\n    return f'{name} ({age} years)'",
+  'fund-io-008': 'def three_measurement_total(first, second, third):\n    return first + second + third',
+  'fund-io-009': "def product_input_summary(product, quantity, status):\n    return f'Product: {product} | Quantity: {quantity} | Status: {status}'",
+  'fund-io-010': "def parse_comma_tags(text):\n    trimmed = text.strip()\n    if not trimmed:\n        return []\n    fields = [field.strip() for field in text.split(',')]\n    if any(not field for field in fields):\n        return []\n    return fields",
+  'fund-io-011': "def parse_key_value(text):\n    if text.count(':') != 1:\n        return []\n    fields = [field.strip() for field in text.split(':')]\n    if any(not field for field in fields):\n        return []\n    return fields",
+  'fund-io-012': "def parse_profile_fields(text):\n    fields = [field.strip() for field in text.split('|')]\n    if len(fields) != 3 or any(not field for field in fields):\n        return []\n    return fields",
+  'fund-io-013': "def is_valid_integer_input(text):\n    value = text.strip()\n    if value.startswith(('+', '-')):\n        value = value[1:]\n    return bool(value) and value.isdigit()",
+  'fund-io-014': "def valid_contact_record(text):\n    if text.count('|') != 1:\n        return False\n    name, email = [field.strip() for field in text.split('|')]\n    if not name or not email or email.count('@') != 1:\n        return False\n    left, right = email.split('@')\n    return bool(left) and bool(right)",
+  'fund-io-015': "def safe_welcome_message(name_text):\n    name = name_text.strip()\n    if not name:\n        return 'Welcome, Guest!'\n    return f'Welcome, {name}!'",
+});
+
+export const protectedTests = Object.freeze({
+  'fund-io-001': [{ arguments: ['Z'], expected: 'Hello, Z!' }, { arguments: ['A B'], expected: 'Hello, A B!' }],
+  'fund-io-002': [{ arguments: ['A', 1], expected: 'Name: A, Age: 1' }, { arguments: ['Long Name', 150], expected: 'Name: Long Name, Age: 150' }],
+  'fund-io-003': [{ arguments: ['Z', -2], expected: 'Z scored -2 points.' }, { arguments: ['A B', 1000], expected: 'A B scored 1000 points.' }],
+  'fund-io-004': [{ arguments: [' 0 ', 0], expected: 0 }, { arguments: ['+12', -2], expected: 10 }],
+  'fund-io-005': [{ arguments: ['-2.5', 2], expected: -5.0 }, { arguments: ['0', 99], expected: 0.0 }],
+  'fund-io-006': [{ arguments: [''], expected: null }, { arguments: ['-'], expected: null }],
+  'fund-io-007': [{ arguments: ['Z', 1], expected: 'Z (1 years)' }, { arguments: ['Long Name', 150], expected: 'Long Name (150 years)' }],
+  'fund-io-008': [{ arguments: [0, 0, 0], expected: 0 }, { arguments: [-1.5, 1, 0.5], expected: 0.0 }],
+  'fund-io-009': [{ arguments: ['X', -1, 'Backorder'], expected: 'Product: X | Quantity: -1 | Status: Backorder' }, { arguments: ['A B', 1, 'In stock'], expected: 'Product: A B | Quantity: 1 | Status: In stock' }],
+  'fund-io-010': [{ arguments: ['   '], expected: [] }, { arguments: [' one , two '], expected: ['one', 'two'] }],
+  'fund-io-011': [{ arguments: [' key: '], expected: [] }, { arguments: ['x:0'], expected: ['x', '0'] }],
+  'fund-io-012': [{ arguments: ['A||Role'], expected: [] }, { arguments: ['A|B|C|D'], expected: [] }],
+  'fund-io-013': [{ arguments: ['0'], expected: true }, { arguments: ['1 2'], expected: false }],
+  'fund-io-014': [{ arguments: ['Name|a@@b'], expected: false }, { arguments: ['|a@b'], expected: false }],
+  'fund-io-015': [{ arguments: [''], expected: 'Welcome, Guest!' }, { arguments: [' A B '], expected: 'Welcome, A B!' }],
+});

@@ -1,4 +1,4 @@
-import { Menu, Moon, Sun } from 'lucide-react';
+import { ArrowLeft, Moon, PanelLeftOpen, Sun } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
@@ -7,7 +7,6 @@ import { UserAvatar } from './UserAvatar';
 export function TopNavigation({
   onMenuClick,
   course,
-  lesson,
   onThemeToggle,
   theme,
   user,
@@ -16,6 +15,7 @@ export function TopNavigation({
   bookmark,
   onBookmarkChange,
   onExitCourse,
+  isSidebarOverlay,
 }) {
   const { navigation } = course;
 
@@ -23,22 +23,25 @@ export function TopNavigation({
     <header className="topbar">
       <div className="topbar-context">
         <IconButton
-          label={`${navigation.openMenuLabel} (${course.ui.shortcuts.menu})`}
-          className="menu-trigger"
-          onClick={onMenuClick}
+          label="Back to course overview"
+          className="lesson-back-button"
+          onClick={onExitCourse}
         >
-          <Menu size={ICON_SIZE.lg} />
+          <ArrowLeft size={ICON_SIZE.lg} aria-hidden="true" />
         </IconButton>
-        <button className="course-mark course-mark-button" type="button" aria-label="Return to dashboard" onClick={onExitCourse}>{course.shortMark}</button>
-        <div className="course-context-copy">
-          <span className="eyebrow">{course.categoryLabel}</span>
-          <strong>{course.name}</strong>
-        </div>
-        <span className="context-divider" aria-hidden="true" />
-        <div className="lesson-context">
-          <span className="eyebrow">{navigation.currentLessonLabel}</span>
-          <span>{lesson?.title ?? course.ui.emptyCourse.title}</span>
-        </div>
+        <span className="overview-brand lesson-topbar-brand" aria-label="MiTutora">
+          <span aria-hidden="true">Mi</span>
+          MiTutora
+        </span>
+        {isSidebarOverlay ? (
+          <IconButton
+            label={`${navigation.openMenuLabel} (${course.ui.shortcuts.menu})`}
+            className="lesson-sidebar-trigger"
+            onClick={onMenuClick}
+          >
+            <PanelLeftOpen size={ICON_SIZE.md} aria-hidden="true" />
+          </IconButton>
+        ) : null}
       </div>
 
       <div className="lesson-navigation">

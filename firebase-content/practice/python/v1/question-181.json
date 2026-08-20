@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-015",
+  "title": "Handle an Empty Name Input",
+  "summary": "Validate user text before producing formatted output.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "input-validation-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "safe_welcome_message",
+    "signature": "safe_welcome_message(name_text)",
+    "input": "Name text that may be empty or whitespace-only.",
+    "output": "The exact Guest fallback or trimmed-name welcome message."
+  },
+  "examples": [
+    {
+      "input": "name_text = \"  Avi  \"",
+      "output": "Welcome, Avi!",
+      "explanation": "Outer whitespace is removed before formatting."
+    }
+  ],
+  "constraints": [
+    "0 <= name_text length <= 100"
+  ],
+  "concepts": [
+    "input-validation",
+    "whitespace",
+    "output-formatting"
+  ],
+  "skills": [
+    "input-processing",
+    "error-prevention",
+    "output-formatting"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting whitespace as a name",
+    "forgetting exact punctuation"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "trimmed name",
+      "arguments": [
+        "  Avi  "
+      ],
+      "expected": "Welcome, Avi!"
+    },
+    {
+      "name": "whitespace only",
+      "arguments": [
+        "   "
+      ],
+      "expected": "Welcome, Guest!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_welcome_message(name_text)",
+      "entryPoint": "safe_welcome_message"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-015-statement",
+      "type": "paragraph",
+      "content": "Trim surrounding whitespace from the supplied name. If nothing remains, return exactly “Welcome, Guest!”. Otherwise return exactly “Welcome, NAME!” using the trimmed name.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-015-contract",
+      "type": "note",
+      "title": "safe_welcome_message(name_text)",
+      "content": "Input: Name text that may be empty or whitespace-only.\n\nOutput: The exact Guest fallback or trimmed-name welcome message.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname_text = \"  Avi  \"\n\nOutput\nWelcome, Avi!",
+      "caption": "Outer whitespace is removed before formatting."
+    },
+    {
+      "id": "fund-io-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= name_text length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_welcome_message(name_text):\n    # Use Guest only when trimmed input is empty\n    pass\n\nprint(safe_welcome_message('  Avi  '))\n",
+      "stdin": "",
+      "expectedOutput": "Welcome, Avi!",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

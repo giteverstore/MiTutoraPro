@@ -34,9 +34,9 @@ for (const question of firebaseQuestions) {
   assert.equal(validatePractice(question), true, ajv.errorsText(validatePractice.errors));
 }
 assert.equal(validateChallenge(firebaseChallenge), true, ajv.errorsText(validateChallenge.errors));
-assert.deepEqual(firebaseQuestions, practiceQuestions, 'Firebase practice content must match the existing six questions.');
+assert.deepEqual(firebaseQuestions, practiceQuestions, 'Firebase practice content must match the canonical practice bank.');
 assert.deepEqual(firebaseChallenge, dailyChallenge, 'Firebase challenge content must match the existing challenge.');
-assert.equal(firebaseQuestions.length, 6);
+assert.equal(firebaseQuestions.length, practiceQuestions.length);
 
 const validator = new NormalizedOutputValidator();
 for (const content of [...firebaseQuestions, firebaseChallenge]) {

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-006",
+  "title": "Collect Uppercase Characters",
+  "summary": "Build text from selected characters during traversal.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-traversal",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 35,
+  "contract": {
+    "functionName": "uppercase_characters",
+    "signature": "uppercase_characters(text)",
+    "input": "Text that may contain letters, digits, spaces, and punctuation.",
+    "output": "Uppercase English letters in original order."
+  },
+  "examples": [
+    {
+      "input": "text = MiTutora PRO",
+      "output": "MTPRO",
+      "explanation": "Only existing uppercase letters are collected."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-traversal",
+    "string-construction"
+  ],
+  "skills": [
+    "character-selection",
+    "order-preservation"
+  ],
+  "prerequisites": [
+    "conditions"
+  ],
+  "commonMistakes": [
+    "converting lowercase letters instead of selecting",
+    "changing the character order"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed case",
+      "arguments": [
+        "MiTutora PRO"
+      ],
+      "expected": "MTPRO"
+    },
+    {
+      "name": "no uppercase",
+      "arguments": [
+        "quiet 7"
+      ],
+      "expected": ""
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "uppercase_characters(text)",
+      "entryPoint": "uppercase_characters"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-006-statement",
+      "type": "paragraph",
+      "content": "Return a new string containing only uppercase English letters from the source text, preserving their original order.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-006-contract",
+      "type": "note",
+      "title": "uppercase_characters(text)",
+      "content": "Input: Text that may contain letters, digits, spaces, and punctuation.\n\nOutput: Uppercase English letters in original order.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = MiTutora PRO\n\nOutput\nMTPRO",
+      "caption": "Only existing uppercase letters are collected."
+    },
+    {
+      "id": "fund-strings-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def uppercase_characters(text):\n    result = ''\n    # Append only uppercase English letters\n    return result\n\nprint(uppercase_characters('MiTutora PRO'))\n",
+      "stdin": "",
+      "expectedOutput": "MTPRO",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

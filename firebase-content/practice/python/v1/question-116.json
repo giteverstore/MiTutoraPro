@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-010",
+  "title": "Repair First-item Removal",
+  "summary": "Fix removal so only the first matching item is removed.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-updating-elements",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "without_first_item",
+    "signature": "without_first_item(items, target)",
+    "input": "A collection and a target item.",
+    "output": "A new collection without the first target occurrence."
+  },
+  "examples": [
+    {
+      "input": "items = [pen, book, pen], target = pen",
+      "output": "book,pen",
+      "explanation": "Only the first pen is removed."
+    }
+  ],
+  "constraints": [
+    "0 <= number of items <= 1000"
+  ],
+  "concepts": [
+    "removing-elements",
+    "duplicate-values"
+  ],
+  "skills": [
+    "debugging-mutation",
+    "state-tracking"
+  ],
+  "prerequisites": [
+    "traversal",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "removing every duplicate",
+    "changing the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "duplicate target",
+      "arguments": [
+        [
+          "pen",
+          "book",
+          "pen"
+        ],
+        "pen"
+      ],
+      "expected": [
+        "book",
+        "pen"
+      ]
+    },
+    {
+      "name": "target absent",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        9
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "without_first_item(items, target)",
+      "entryPoint": "without_first_item"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-010-statement",
+      "type": "paragraph",
+      "content": "Return a new collection with only the first occurrence of the target removed. If the target is absent, return an unchanged copy. The current implementation removes every occurrence. Do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-010-contract",
+      "type": "note",
+      "title": "without_first_item(items, target)",
+      "content": "Input: A collection and a target item.\n\nOutput: A new collection without the first target occurrence.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitems = [pen, book, pen], target = pen\n\nOutput\nbook,pen",
+      "caption": "Only the first pen is removed."
+    },
+    {
+      "id": "fund-arrays-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of items <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def without_first_item(items, target):\n    return [item for item in items if item != target]  # Remove only the first match\n\nprint(without_first_item(['pen', 'book', 'pen'], 'pen'))\n",
+      "stdin": "",
+      "expectedOutput": "book,pen",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

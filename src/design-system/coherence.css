@@ -1,0 +1,259 @@
+/*
+ * MiTutora product coherence layer.
+ * This file intentionally refines shared visual relationships without owning
+ * feature behavior. Feature styles remain in styles.css.
+ */
+
+html { scroll-behavior: smooth; }
+
+body {
+  color: var(--color-text);
+  background: var(--color-canvas);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { color: var(--color-text); background: var(--color-accent-soft); }
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+:where(h1, h2, h3, h4) {
+  color: var(--color-text);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  text-wrap: balance;
+}
+
+:where(p, li) { text-wrap: pretty; }
+
+/* Shared page rhythm */
+:is(.home-main, .practice-page, .practice-detail, .challenges-page, .library-page,
+  .settings-page, .certificates-page, .referrals-page, .projects-page, .placeholder-page) {
+  width: min(calc(100% - clamp(2rem, 6vw, 6rem)), 86rem);
+  margin-inline: auto;
+}
+
+:is(.home-main, .practice-page, .challenges-page, .library-page, .certificates-page,
+  .referrals-page, .projects-page) :is(h1, .page-title) {
+  font-size: var(--font-size-page-title);
+  line-height: 1.08;
+}
+
+:is(.home-section, .practice-section, .challenge-section, .library-section,
+  .certificates-section, .referrals-section) > :is(header, .section-heading) {
+  margin-block-end: var(--space-6);
+}
+
+/* App shell: clear location, calm navigation, local controls. */
+.application-shell { background: var(--color-canvas); }
+.application-sidebar { border-inline-end-color: var(--color-border); box-shadow: none; }
+.application-topbar {
+  background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+  border-block-end: 1px solid var(--color-border);
+  box-shadow: none;
+  backdrop-filter: saturate(115%) blur(8px);
+}
+
+.application-navigation button,
+.application-icon-button,
+.application-profile-button {
+  transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+}
+
+.application-navigation button:hover,
+.application-icon-button:hover,
+.application-profile-button:hover { transform: none; }
+
+.application-navigation button.is-active {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow: inset 3px 0 0 var(--color-accent);
+}
+
+.application-popover {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  transform-origin: top right;
+}
+
+/* Home and course discovery */
+.home-main { gap: 0; }
+.home-section { margin-block-end: clamp(var(--space-12), 6vw, var(--space-20)); }
+.home-section { scroll-margin-top: calc(var(--layout-topbar-height) + var(--space-6)); }
+.home-section-heading { margin-block-end: var(--space-6); }
+.continue-learning-card,
+.home-course-card,
+.home-recent-card,
+.learning-stat-card {
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+.home-course-card:hover,
+.home-recent-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.home-course-card:focus-within { border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-focus); }
+.course-filter-chip { min-height: var(--control-height-md); }
+.browse-search-input { height: 3rem; }
+.home-course-pagination { margin-block-start: var(--space-8); justify-content: center; }
+
+/* Course overview */
+.course-overview-main { background: var(--color-canvas); }
+.overview-stat-card,
+.overview-module,
+.overview-development {
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+.overview-stat-card { background: var(--color-surface); }
+
+/* Learning workspace and reading surface */
+.workspace { background: var(--color-canvas); }
+.course-sidebar { box-shadow: none; }
+.sidebar-header,
+.sidebar-summary,
+.sidebar-footer { background: var(--color-surface); }
+.module-trigger,
+.course-section-trigger { letter-spacing: -.012em; }
+.lesson-link {
+  min-height: 2.5rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.lesson-link:hover { transform: none; }
+.lesson-link.is-active { box-shadow: inset 3px 0 0 var(--color-accent); }
+
+.lesson-document { width: min(100%, 49rem); }
+.lesson-document .lesson-header h1 { font-size: clamp(2.2rem, 4.4vw, 3.7rem); line-height: 1.04; }
+.lesson-body { font-size: var(--font-size-body); }
+.reading-copy { max-width: 68ch; line-height: var(--line-height-body); }
+.content-section + .content-section { margin-block-start: clamp(var(--space-5), 2.5vw, var(--space-8)); }
+.lesson-divider { border-color: var(--color-border); }
+
+.note-card,
+.callout-card,
+.exercise-card,
+.interactive-card,
+.ai-card,
+.lesson-image,
+.visual-placeholder {
+  box-shadow: none;
+}
+
+.quiz-option {
+  min-height: 2.75rem;
+  transition: border-color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.quiz-option:focus-within { border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-focus); }
+.activity-feedback.is-success { color: var(--color-success); background: var(--color-success-soft); }
+
+.lesson-completion-footer {
+  border-color: var(--color-border);
+  box-shadow: 0 -8px 20px rgba(32, 35, 33, .04);
+}
+
+/* Code and compiler are one purposeful work surface, not floating decoration. */
+.code-card,
+.compiler-ide,
+.ide-results { border-color: var(--color-code-border); box-shadow: none; }
+.code-card,
+.compiler-ide { background: var(--color-code-surface); color: var(--color-code-text); }
+.compiler-dock { border-inline-start-color: var(--color-border); box-shadow: none; }
+.compiler-dock-header { background: var(--color-surface); }
+.ide-header { background: var(--color-code-surface-raised); }
+.ide-result-tabs,
+.ide-result-footer { background: var(--color-code-surface-raised); }
+.compiler-run-button:active:not(:disabled),
+.compiler-reset-button:active:not(:disabled) { transform: scale(.96); }
+
+/* Catalog and utility pages */
+:is(.practice-question-card, .challenge-summary-card, .saved-item-card, .certificate-card, .referral-card,
+  .settings-content, .settings-navigation, .project-card, .practice-stat-card,
+  .challenge-stat-card, .library-stat-card, .certificate-stat-card) {
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+:is(.practice-question-card, .challenge-summary-card, .saved-item-card, .certificate-card, .project-card):hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* State clarity */
+.empty-state { max-width: 34rem; margin-inline: auto; text-align: center; }
+.form-error, [role="alert"] { line-height: 1.5; }
+.skeleton-line, .skeleton-card {
+  background: linear-gradient(100deg, var(--color-surface-subtle) 20%, var(--color-surface) 45%, var(--color-surface-subtle) 70%);
+  background-size: 220% 100%;
+}
+
+/* User preferences are global contracts, including feature-owned animation. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+.application-shell[data-reduced-motion="true"] *,
+.application-shell[data-reduced-motion="true"] *::before,
+.application-shell[data-reduced-motion="true"] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+}
+
+.application-shell[data-reduced-transparency="true"] :is(.application-topbar, .application-popover) {
+  background: var(--color-surface);
+  backdrop-filter: none;
+}
+
+.application-shell[data-contrast="more"] {
+  --color-border: var(--color-border-strong);
+  --color-text-muted: color-mix(in srgb, var(--color-text) 74%, var(--color-canvas));
+}
+
+@media (pointer: coarse) {
+  :where(button, [role="button"], .application-navigation button, .lesson-link) { min-height: 2.75rem; }
+}
+
+@media (max-width: 64rem) {
+  :is(.home-main, .practice-page, .practice-detail, .challenges-page, .library-page,
+    .settings-page, .certificates-page, .referrals-page, .projects-page, .placeholder-page) {
+    width: min(calc(100% - 2.5rem), 86rem);
+  }
+  .home-main { gap: var(--space-12); }
+}
+
+@media (max-width: 45rem) {
+  :is(.home-main, .practice-page, .practice-detail, .challenges-page, .library-page,
+    .settings-page, .certificates-page, .referrals-page, .projects-page, .placeholder-page) {
+    width: min(calc(100% - 2rem), 86rem);
+  }
+  .home-main { gap: var(--space-10); }
+  .lesson-document .lesson-header h1 { font-size: clamp(2rem, 10vw, 2.75rem); }
+  .content-section + .content-section { margin-block-start: var(--space-6); }
+  .lesson-completion-footer { box-shadow: 0 -5px 14px rgba(32, 35, 33, .04); }
+  .application-topbar { backdrop-filter: none; }
+}
+
+@media (max-width: 25rem) {
+  :is(.home-main, .practice-page, .practice-detail, .challenges-page, .library-page,
+    .settings-page, .certificates-page, .referrals-page, .projects-page, .placeholder-page) {
+    width: min(calc(100% - 1.5rem), 86rem);
+  }
+}

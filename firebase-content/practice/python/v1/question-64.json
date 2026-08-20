@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-018",
+  "title": "Repair an Inclusive Total",
+  "summary": "Correct an off-by-one loop boundary.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "loop-edge-cases-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "inclusive_total_from_zero",
+    "signature": "inclusive_total_from_zero(limit)",
+    "input": "A non-negative whole-number limit.",
+    "output": "The inclusive sum from zero through limit."
+  },
+  "examples": [
+    {
+      "input": "limit = 3",
+      "output": "6",
+      "explanation": "0 + 1 + 2 + 3 equals 6."
+    }
+  ],
+  "constraints": [
+    "0 <= limit <= 10000"
+  ],
+  "concepts": [
+    "off-by-one",
+    "inclusive-boundary"
+  ],
+  "skills": [
+    "debugging-loop-boundaries"
+  ],
+  "prerequisites": [
+    "basic-loops"
+  ],
+  "commonMistakes": [
+    "excluding the limit",
+    "adding the limit separately after a correct loop"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "limit three",
+      "arguments": [
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "name": "zero limit",
+      "arguments": [
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "inclusive_total_from_zero(limit)",
+      "entryPoint": "inclusive_total_from_zero"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-018-statement",
+      "type": "paragraph",
+      "content": "The function should sum from zero through the supplied limit, including the limit. Its current iteration excludes the final value. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-018-contract",
+      "type": "note",
+      "title": "inclusive_total_from_zero(limit)",
+      "content": "Input: A non-negative whole-number limit.\n\nOutput: The inclusive sum from zero through limit.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nlimit = 3\n\nOutput\n6",
+      "caption": "0 + 1 + 2 + 3 equals 6."
+    },
+    {
+      "id": "fund-loops-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= limit <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def inclusive_total_from_zero(limit):\n    total = 0\n    for value in range(limit):  # Include limit\n        total += value\n    return total\n\nprint(inclusive_total_from_zero(3))\n",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

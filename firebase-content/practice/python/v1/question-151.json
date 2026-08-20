@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-005",
+  "title": "Check a Registered Username",
+  "summary": "Test membership in a unique-value collection.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "membership-lookup",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "username_registered",
+    "signature": "username_registered(usernames, username)",
+    "input": "A collection of registered usernames and a target username.",
+    "output": "A boolean membership result."
+  },
+  "examples": [
+    {
+      "input": "username = leo",
+      "output": "true",
+      "explanation": "Leo is present."
+    }
+  ],
+  "constraints": [
+    "0 <= number of usernames <= 1000"
+  ],
+  "concepts": [
+    "set-membership",
+    "case-sensitivity"
+  ],
+  "skills": [
+    "membership-checking",
+    "exact-matching"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "ignoring letter case",
+    "checking only one value"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "present username",
+      "arguments": [
+        [
+          "ava",
+          "leo",
+          "mira"
+        ],
+        "leo"
+      ],
+      "expected": true
+    },
+    {
+      "name": "case mismatch",
+      "arguments": [
+        [
+          "ava"
+        ],
+        "Ava"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "username_registered(usernames, username)",
+      "entryPoint": "username_registered"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-005-statement",
+      "type": "paragraph",
+      "content": "Return whether the supplied username is present among the registered unique values. Matching is case-sensitive.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-005-contract",
+      "type": "note",
+      "title": "username_registered(usernames, username)",
+      "content": "Input: A collection of registered usernames and a target username.\n\nOutput: A boolean membership result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nusername = leo\n\nOutput\ntrue",
+      "caption": "Leo is present."
+    },
+    {
+      "id": "fund-sets-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of usernames <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def username_registered(usernames, username):\n    # Return whether username is present\n    pass\n\nprint(username_registered(['ava', 'leo', 'mira'], 'leo'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

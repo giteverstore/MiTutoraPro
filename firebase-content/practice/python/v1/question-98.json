@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-012",
+  "title": "Normalize to Uppercase",
+  "summary": "Return an uppercase version without changing other characters.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-transformation",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "uppercase_label",
+    "signature": "uppercase_label(text)",
+    "input": "Text that may be empty.",
+    "output": "Its uppercase form."
+  },
+  "examples": [
+    {
+      "input": "text = Box 7-a!",
+      "output": "BOX 7-A!",
+      "explanation": "Only letter case changes."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "case-transformation",
+    "string-immutability"
+  ],
+  "skills": [
+    "text-transformation",
+    "character-preservation"
+  ],
+  "prerequisites": [
+    "strings"
+  ],
+  "commonMistakes": [
+    "removing punctuation",
+    "changing digits"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed label",
+      "arguments": [
+        "Box 7-a!"
+      ],
+      "expected": "BOX 7-A!"
+    },
+    {
+      "name": "empty text",
+      "arguments": [
+        ""
+      ],
+      "expected": ""
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "uppercase_label(text)",
+      "entryPoint": "uppercase_label"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-012-statement",
+      "type": "paragraph",
+      "content": "Return the source text with letters converted to uppercase. Preserve digits, spaces, and punctuation.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-012-contract",
+      "type": "note",
+      "title": "uppercase_label(text)",
+      "content": "Input: Text that may be empty.\n\nOutput: Its uppercase form.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = Box 7-a!\n\nOutput\nBOX 7-A!",
+      "caption": "Only letter case changes."
+    },
+    {
+      "id": "fund-strings-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def uppercase_label(text):\n    # Return an uppercase copy\n    pass\n\nprint(uppercase_label('Box 7-a!'))\n",
+      "stdin": "",
+      "expectedOutput": "BOX 7-A!",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

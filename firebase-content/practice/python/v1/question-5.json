@@ -1,44 +1,127 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "practice-word-frequency",
-  "title": "Word Frequency",
-  "summary": "Count repeated words with a dictionary.",
+  "id": "fund-variables-005",
+  "title": "Describe a Numeric Value",
+  "summary": "Distinguish whole numbers from decimal numbers.",
   "language": "Python",
-  "difficulty": "medium",
-  "topic": "Dictionaries",
-  "estimatedMinutes": 16,
-  "xp": 90,
+  "difficulty": "very_easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "data-types",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "describe_number",
+    "signature": "describe_number(value)",
+    "input": "A whole number or decimal number.",
+    "output": "Either `whole number` or `decimal number`."
+  },
+  "examples": [
+    {
+      "input": "value = 42",
+      "output": "whole number",
+      "explanation": "42 is stored as a whole number."
+    }
+  ],
+  "constraints": [
+    "value is a whole number or decimal number",
+    "boolean values are not supplied"
+  ],
+  "concepts": [
+    "integer-type",
+    "floating-point-type"
+  ],
+  "skills": [
+    "type-identification"
+  ],
+  "prerequisites": [
+    "values"
+  ],
+  "commonMistakes": [
+    "Treating 42 and 42.0 as the same type",
+    "Returning the value instead of its description"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "whole number",
+      "arguments": [
+        42
+      ],
+      "expected": "whole number"
+    },
+    {
+      "name": "decimal number",
+      "arguments": [
+        42.5
+      ],
+      "expected": "decimal number"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "describe_number(value)",
+      "entryPoint": "describe_number"
+    }
+  },
   "blocks": [
     {
-      "id": "frequency-heading",
+      "id": "fund-variables-005-heading",
       "type": "heading",
       "level": 2,
       "text": "Problem Statement"
     },
     {
-      "id": "frequency-copy",
+      "id": "fund-variables-005-statement",
       "type": "paragraph",
-      "content": "Read a line of lowercase words. Print the count of `python`."
+      "content": "Return `whole number` when the supplied value has a whole-number type and `decimal number` when it has a decimal-number type.",
+      "format": "markdown"
     },
     {
-      "id": "frequency-example-heading",
+      "id": "fund-variables-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-005-contract",
+      "type": "note",
+      "title": "describe_number(value)",
+      "content": "Input: A whole number or decimal number.\n\nOutput: Either `whole number` or `decimal number`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-005-example-heading",
       "type": "heading",
       "level": 3,
       "text": "Example"
     },
     {
-      "id": "frequency-example",
+      "id": "fund-variables-005-example",
       "type": "code",
       "language": "text",
-      "code": "Input\npython makes python approachable\n\nOutput\n2"
+      "code": "Input\nvalue = 42\n\nOutput\nwhole number",
+      "caption": "42 is stored as a whole number."
     },
     {
-      "id": "frequency-compiler",
+      "id": "fund-variables-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "value is a whole number or decimal number\nboolean values are not supplied",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-005-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "words = input().split()\n# Count the word python\n",
-      "stdin": "python makes python approachable",
-      "expectedOutput": "2",
+      "starterCode": "def describe_number(value):\n    # Return 'whole number' or 'decimal number'\n    pass\n\nprint(describe_number(42))\n",
+      "stdin": "",
+      "expectedOutput": "whole number",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

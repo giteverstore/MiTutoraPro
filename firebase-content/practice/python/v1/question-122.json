@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-016",
+  "title": "Reason About an Average Score",
+  "summary": "Compute a simple average with defined empty behavior.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "aggregation-simple-transformations",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "average_score",
+    "signature": "average_score(scores)",
+    "input": "A collection of numeric scores that may be empty.",
+    "output": "The arithmetic average, or 0 when empty."
+  },
+  "examples": [
+    {
+      "input": "scores = [60, 80, 100]",
+      "output": "80",
+      "explanation": "The total 240 divided by 3 is 80."
+    }
+  ],
+  "constraints": [
+    "0 <= number of scores <= 1000"
+  ],
+  "concepts": [
+    "aggregation",
+    "average",
+    "empty-collection"
+  ],
+  "skills": [
+    "aggregation",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "sum",
+    "division"
+  ],
+  "commonMistakes": [
+    "dividing by zero",
+    "using the wrong element count"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "integer average",
+      "arguments": [
+        [
+          60,
+          80,
+          100
+        ]
+      ],
+      "expected": 80
+    },
+    {
+      "name": "empty scores",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "average_score(scores)",
+      "entryPoint": "average_score"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-016-statement",
+      "type": "paragraph",
+      "content": "Return the arithmetic average of all scores. Return 0 when the collection is empty.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-016-contract",
+      "type": "note",
+      "title": "average_score(scores)",
+      "content": "Input: A collection of numeric scores that may be empty.\n\nOutput: The arithmetic average, or 0 when empty.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscores = [60, 80, 100]\n\nOutput\n80",
+      "caption": "The total 240 divided by 3 is 80."
+    },
+    {
+      "id": "fund-arrays-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of scores <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def average_score(scores):\n    # Return 0 when empty, otherwise compute the average\n    pass\n\nprint(average_score([60, 80, 100]))\n",
+      "stdin": "",
+      "expectedOutput": "80",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-018",
+  "title": "Repair Minimum Ticket Age",
+  "summary": "Fix an off-by-one eligibility boundary.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "boundary-conditions-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "ticket_available",
+    "signature": "ticket_available(age)",
+    "input": "A non-negative whole-number age.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "age = 12",
+      "output": "true",
+      "explanation": "The minimum is included."
+    }
+  ],
+  "constraints": [
+    "0 <= age <= 150"
+  ],
+  "concepts": [
+    "boundary-condition",
+    "off-by-one"
+  ],
+  "skills": [
+    "debugging-comparison",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "greater-than-or-equal"
+  ],
+  "commonMistakes": [
+    "using greater-than instead of greater-than-or-equal",
+    "changing the threshold value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "minimum age",
+      "arguments": [
+        12
+      ],
+      "expected": true
+    },
+    {
+      "name": "one below",
+      "arguments": [
+        11
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "ticket_available(age)",
+      "entryPoint": "ticket_available"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-018-statement",
+      "type": "paragraph",
+      "content": "A ticket is available from age 12 onward. The current implementation rejects age 12. Correct the boundary comparison.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-018-contract",
+      "type": "note",
+      "title": "ticket_available(age)",
+      "content": "Input: A non-negative whole-number age.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nage = 12\n\nOutput\ntrue",
+      "caption": "The minimum is included."
+    },
+    {
+      "id": "fund-conditionals-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= age <= 150",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def ticket_available(age):\n    return age > 12  # Fix the boundary\n\nprint(ticket_available(12))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

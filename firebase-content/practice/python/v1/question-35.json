@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-009",
+  "title": "Confirm Event Entry",
+  "summary": "Require both age and permission conditions.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "multiple-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "can_enter_event",
+    "signature": "can_enter_event(age, has_permission)",
+    "input": "A non-negative age and a boolean permission value.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "age = 12, has_permission = True",
+      "output": "true",
+      "explanation": "Both conditions are satisfied."
+    }
+  ],
+  "constraints": [
+    "0 <= age <= 150",
+    "has_permission is boolean"
+  ],
+  "concepts": [
+    "and-condition",
+    "multiple-requirements"
+  ],
+  "skills": [
+    "boolean-reasoning",
+    "eligibility-check"
+  ],
+  "prerequisites": [
+    "boolean-values",
+    "comparison"
+  ],
+  "commonMistakes": [
+    "allowing either requirement alone",
+    "excluding age 12"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "both requirements met",
+      "arguments": [
+        12,
+        true
+      ],
+      "expected": true
+    },
+    {
+      "name": "permission missing",
+      "arguments": [
+        15,
+        false
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "can_enter_event(age, has_permission)",
+      "entryPoint": "can_enter_event"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-009-statement",
+      "type": "paragraph",
+      "content": "A visitor may enter only when their age is at least 12 and permission has been granted. Return whether entry is allowed.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-009-contract",
+      "type": "note",
+      "title": "can_enter_event(age, has_permission)",
+      "content": "Input: A non-negative age and a boolean permission value.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nage = 12, has_permission = True\n\nOutput\ntrue",
+      "caption": "Both conditions are satisfied."
+    },
+    {
+      "id": "fund-conditionals-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= age <= 150\nhas_permission is boolean",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def can_enter_event(age, has_permission):\n    # Require both conditions\n    pass\n\nprint(can_enter_event(12, True))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-009",
+  "title": "Remove an Interest Safely",
+  "summary": "Remove a value while handling absence explicitly.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-elements",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "without_interest",
+    "signature": "without_interest(interests, target)",
+    "input": "A collection of interest values and a target.",
+    "output": "An alphabetically ordered collection without target."
+  },
+  "examples": [
+    {
+      "input": "target = music",
+      "output": "coding",
+      "explanation": "Music is removed and duplicate coding values collapse."
+    }
+  ],
+  "constraints": [
+    "0 <= number of interests <= 1000"
+  ],
+  "concepts": [
+    "set-removal",
+    "missing-value"
+  ],
+  "skills": [
+    "collection-manipulation",
+    "missing-data-handling"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "failing on an absent value",
+    "retaining a duplicate target"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "existing interest",
+      "arguments": [
+        [
+          "coding",
+          "music",
+          "coding"
+        ],
+        "music"
+      ],
+      "expected": [
+        "coding"
+      ]
+    },
+    {
+      "name": "missing interest",
+      "arguments": [
+        [
+          "coding"
+        ],
+        "travel"
+      ],
+      "expected": [
+        "coding"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "without_interest(interests, target)",
+      "entryPoint": "without_interest"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-009-statement",
+      "type": "paragraph",
+      "content": "Return the unique interests after removing the supplied value. If absent, return the same unique values. Present results alphabetically and do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-009-contract",
+      "type": "note",
+      "title": "without_interest(interests, target)",
+      "content": "Input: A collection of interest values and a target.\n\nOutput: An alphabetically ordered collection without target.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntarget = music\n\nOutput\ncoding",
+      "caption": "Music is removed and duplicate coding values collapse."
+    },
+    {
+      "id": "fund-sets-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of interests <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def without_interest(interests, target):\n    # Remove target if present and return sorted unique values\n    pass\n\nprint(without_interest(['coding', 'music', 'coding'], 'music'))\n",
+      "stdin": "",
+      "expectedOutput": "coding",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

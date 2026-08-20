@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "practice-reverse-text",
+  "title": "Reverse a String",
+  "summary": "Transform a string while preserving every character.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Strings",
+  "estimatedMinutes": 8,
+  "xp": 45,
+  "blocks": [
+    {
+      "id": "reverse-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "reverse-copy",
+      "type": "paragraph",
+      "content": "Read one line of text and print its characters in reverse order."
+    },
+    {
+      "id": "reverse-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "reverse-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nMiTutora\n\nOutput\narotuTiM"
+    },
+    {
+      "id": "reverse-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "text = input()\n# Print text in reverse\n",
+      "stdin": "MiTutora",
+      "expectedOutput": "arotuTiM",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

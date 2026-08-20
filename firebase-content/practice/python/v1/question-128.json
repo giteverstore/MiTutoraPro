@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-002",
+  "title": "Look Up a Product Price",
+  "summary": "Retrieve a value through its existing key.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "dictionary-map-basics",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "product_price",
+    "signature": "product_price(prices, product)",
+    "input": "A product-to-price mapping and an existing product key.",
+    "output": "The associated price."
+  },
+  "examples": [
+    {
+      "input": "prices = {book: 12, pen: 3}, product = pen",
+      "output": "3",
+      "explanation": "The pen key is associated with 3."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000",
+    "product is an existing key"
+  ],
+  "concepts": [
+    "key-value-mapping",
+    "lookup"
+  ],
+  "skills": [
+    "key-lookup",
+    "mapping-reasoning"
+  ],
+  "prerequisites": [
+    "mapping-basics"
+  ],
+  "commonMistakes": [
+    "searching the values for the product",
+    "returning the key instead of its value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "multiple products",
+      "arguments": [
+        {
+          "book": 12,
+          "pen": 3
+        },
+        "pen"
+      ],
+      "expected": 3
+    },
+    {
+      "name": "one product",
+      "arguments": [
+        {
+          "cable": 9.5
+        },
+        "cable"
+      ],
+      "expected": 9.5
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "product_price(prices, product)",
+      "entryPoint": "product_price"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-002-statement",
+      "type": "paragraph",
+      "content": "Return the price associated with the supplied product key. The product key always exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-002-contract",
+      "type": "note",
+      "title": "product_price(prices, product)",
+      "content": "Input: A product-to-price mapping and an existing product key.\n\nOutput: The associated price.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprices = {book: 12, pen: 3}, product = pen\n\nOutput\n3",
+      "caption": "The pen key is associated with 3."
+    },
+    {
+      "id": "fund-dictionaries-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000\nproduct is an existing key",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def product_price(prices, product):\n    # Return the value associated with product\n    pass\n\nprint(product_price({'book': 12, 'pen': 3}, 'pen'))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

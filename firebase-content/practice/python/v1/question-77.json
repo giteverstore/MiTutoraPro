@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-011",
+  "title": "Combine Three Measurements",
+  "summary": "Calculate a result from three clearly defined parameters.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "multiple-parameters",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "combined_measurement",
+    "signature": "combined_measurement(length, width, height)",
+    "input": "Three numeric measurements in the stated order.",
+    "output": "Their numeric sum."
+  },
+  "examples": [
+    {
+      "input": "length = 2, width = 3, height = 4",
+      "output": "9",
+      "explanation": "Each parameter contributes once."
+    }
+  ],
+  "constraints": [
+    "0 <= length, width, height <= 1000000"
+  ],
+  "concepts": [
+    "multiple-parameters",
+    "arguments"
+  ],
+  "skills": [
+    "contract-following",
+    "combine-inputs"
+  ],
+  "prerequisites": [
+    "addition"
+  ],
+  "commonMistakes": [
+    "omitting one parameter",
+    "using one parameter twice"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "three measurements",
+      "arguments": [
+        2,
+        3,
+        4
+      ],
+      "expected": 9
+    },
+    {
+      "name": "zero measurements",
+      "arguments": [
+        0,
+        0,
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "combined_measurement(length, width, height)",
+      "entryPoint": "combined_measurement"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-011-statement",
+      "type": "paragraph",
+      "content": "Return the combined measurement obtained by adding length, width, and height. Each parameter represents one independent measurement.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-011-contract",
+      "type": "note",
+      "title": "combined_measurement(length, width, height)",
+      "content": "Input: Three numeric measurements in the stated order.\n\nOutput: Their numeric sum.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nlength = 2, width = 3, height = 4\n\nOutput\n9",
+      "caption": "Each parameter contributes once."
+    },
+    {
+      "id": "fund-functions-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= length, width, height <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def combined_measurement(length, width, height):\n    # Combine each parameter exactly once\n    pass\n\nprint(combined_measurement(2, 3, 4))\n",
+      "stdin": "",
+      "expectedOutput": "9",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

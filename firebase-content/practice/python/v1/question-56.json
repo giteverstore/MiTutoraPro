@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-010",
+  "title": "Repair a Passing Counter",
+  "summary": "Fix a counter that is reset during iteration.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "accumulators-counters",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "count_passing_scores",
+    "signature": "count_passing_scores(scores)",
+    "input": "A sequence of scores from 0 to 100.",
+    "output": "The number of passing scores."
+  },
+  "examples": [
+    {
+      "input": "scores = [50, 20, 80, 49]",
+      "output": "2",
+      "explanation": "Scores 50 and 80 pass."
+    }
+  ],
+  "constraints": [
+    "0 <= number of scores <= 1000"
+  ],
+  "concepts": [
+    "counter",
+    "accumulator-reset"
+  ],
+  "skills": [
+    "debugging-state",
+    "conditional-counting"
+  ],
+  "prerequisites": [
+    "conditions",
+    "iteration"
+  ],
+  "commonMistakes": [
+    "initializing the counter inside the iteration",
+    "excluding score 50"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "multiple passing scores",
+      "arguments": [
+        [
+          50,
+          20,
+          80,
+          49
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "none passing",
+      "arguments": [
+        [
+          0,
+          49
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "count_passing_scores(scores)",
+      "entryPoint": "count_passing_scores"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-010-statement",
+      "type": "paragraph",
+      "content": "Return how many scores are at least 50. The current implementation resets its counter during every iteration. Correct the state management.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-010-contract",
+      "type": "note",
+      "title": "count_passing_scores(scores)",
+      "content": "Input: A sequence of scores from 0 to 100.\n\nOutput: The number of passing scores.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscores = [50, 20, 80, 49]\n\nOutput\n2",
+      "caption": "Scores 50 and 80 pass."
+    },
+    {
+      "id": "fund-loops-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of scores <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def count_passing_scores(scores):\n    count = 0\n    for score in scores:\n        count = 0  # Do not reset the counter here\n        if score >= 50:\n            count += 1\n    return count\n\nprint(count_passing_scores([50, 20, 80, 49]))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

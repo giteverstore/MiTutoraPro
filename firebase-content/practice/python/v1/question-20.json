@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-020",
+  "title": "Resolve an Assignment Order",
+  "summary": "Reason about defining a value before another variable uses it.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "total_with_delivery",
+    "signature": "total_with_delivery(price, quantity, delivery)",
+    "input": "A price, whole-number quantity, and delivery amount.",
+    "output": "The numeric total `price * quantity + delivery`."
+  },
+  "examples": [
+    {
+      "input": "price = 8, quantity = 3, delivery = 4",
+      "output": "28",
+      "explanation": "The subtotal is 24 before delivery is added."
+    }
+  ],
+  "constraints": [
+    "All inputs are non-negative",
+    "0 <= quantity <= 10000"
+  ],
+  "concepts": [
+    "assignment-order",
+    "defined-before-use"
+  ],
+  "skills": [
+    "reason-about-execution",
+    "dependency-order"
+  ],
+  "prerequisites": [
+    "variables",
+    "expressions"
+  ],
+  "commonMistakes": [
+    "Using subtotal before assigning it",
+    "Adding delivery before calculating the item total incorrectly"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "order with delivery",
+      "arguments": [
+        8,
+        3,
+        4
+      ],
+      "expected": 28
+    },
+    {
+      "name": "free delivery",
+      "arguments": [
+        2.5,
+        2,
+        0
+      ],
+      "expected": 5
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "total_with_delivery(price, quantity, delivery)",
+      "entryPoint": "total_with_delivery"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-020-statement",
+      "type": "paragraph",
+      "content": "A calculation needs a subtotal before it can add delivery. Arrange the assignments through your implementation so the returned total uses the supplied price and quantity before delivery is added.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-020-contract",
+      "type": "note",
+      "title": "total_with_delivery(price, quantity, delivery)",
+      "content": "Input: A price, whole-number quantity, and delivery amount.\n\nOutput: The numeric total `price * quantity + delivery`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice = 8, quantity = 3, delivery = 4\n\nOutput\n28",
+      "caption": "The subtotal is 24 before delivery is added."
+    },
+    {
+      "id": "fund-variables-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "All inputs are non-negative\n0 <= quantity <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def total_with_delivery(price, quantity, delivery):\n    # Define subtotal before using it in total\n    pass\n\nprint(total_with_delivery(8, 3, 4))\n",
+      "stdin": "",
+      "expectedOutput": "28",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

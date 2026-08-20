@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-007",
+  "title": "Repair Selected Character Building",
+  "summary": "Fix a result that resets during traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-traversal",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "remove_spaces_by_traversal",
+    "signature": "remove_spaces_by_traversal(text)",
+    "input": "Text that may contain spaces.",
+    "output": "The text with space characters removed."
+  },
+  "examples": [
+    {
+      "input": "text = a b c",
+      "output": "abc",
+      "explanation": "Every non-space character is retained."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-construction",
+    "accumulator-state"
+  ],
+  "skills": [
+    "debugging-traversal",
+    "state-tracking"
+  ],
+  "prerequisites": [
+    "loops",
+    "strings"
+  ],
+  "commonMistakes": [
+    "resetting the result inside traversal",
+    "removing non-space punctuation"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "several spaces",
+      "arguments": [
+        "a b c"
+      ],
+      "expected": "abc"
+    },
+    {
+      "name": "no spaces",
+      "arguments": [
+        "code!"
+      ],
+      "expected": "code!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "remove_spaces_by_traversal(text)",
+      "entryPoint": "remove_spaces_by_traversal"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-007-statement",
+      "type": "paragraph",
+      "content": "Return all non-space characters in their original order. The current implementation resets its result during every step. Correct the construction.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-007-contract",
+      "type": "note",
+      "title": "remove_spaces_by_traversal(text)",
+      "content": "Input: Text that may contain spaces.\n\nOutput: The text with space characters removed.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = a b c\n\nOutput\nabc",
+      "caption": "Every non-space character is retained."
+    },
+    {
+      "id": "fund-strings-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def remove_spaces_by_traversal(text):\n    result = ''\n    for character in text:\n        result = ''  # Do not reset the result here\n        if character != ' ':\n            result += character\n    return result\n\nprint(remove_spaces_by_traversal('a b c'))\n",
+      "stdin": "",
+      "expectedOutput": "abc",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

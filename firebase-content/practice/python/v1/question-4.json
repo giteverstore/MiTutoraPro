@@ -1,50 +1,129 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "practice-largest-number",
-  "title": "Largest Number",
-  "summary": "Find the maximum value without changing the input order.",
+  "id": "fund-variables-004",
+  "title": "Repair a Reassignment",
+  "summary": "Correct a broken update to an account balance.",
   "language": "Python",
-  "difficulty": "medium",
-  "topic": "Lists",
-  "estimatedMinutes": 12,
-  "xp": 70,
+  "difficulty": "very_easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-creation-assignment",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "remaining_balance",
+    "signature": "remaining_balance(balance, payment)",
+    "input": "A balance and a payment not greater than the balance.",
+    "output": "The balance remaining after payment."
+  },
+  "examples": [
+    {
+      "input": "balance = 80, payment = 25",
+      "output": "55",
+      "explanation": "The payment reduces the original balance."
+    }
+  ],
+  "constraints": [
+    "0 <= payment <= balance <= 100000"
+  ],
+  "concepts": [
+    "reassignment",
+    "subtraction"
+  ],
+  "skills": [
+    "debugging-state",
+    "trace-values"
+  ],
+  "prerequisites": [
+    "assignment"
+  ],
+  "commonMistakes": [
+    "Assigning the payment directly to balance",
+    "Subtracting the balance from the payment"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "partial payment",
+      "arguments": [
+        80,
+        25
+      ],
+      "expected": 55
+    },
+    {
+      "name": "full payment",
+      "arguments": [
+        40,
+        40
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "remaining_balance(balance, payment)",
+      "entryPoint": "remaining_balance"
+    }
+  },
   "blocks": [
     {
-      "id": "largest-heading",
+      "id": "fund-variables-004-heading",
       "type": "heading",
       "level": 2,
       "text": "Problem Statement"
     },
     {
-      "id": "largest-copy",
+      "id": "fund-variables-004-statement",
       "type": "paragraph",
-      "content": "Read space-separated integers and print the largest value."
+      "content": "The function should subtract a payment from the current balance, but the broken implementation replaces the balance with the payment. Correct the reassignment.",
+      "format": "markdown"
     },
     {
-      "id": "largest-example-heading",
+      "id": "fund-variables-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-004-contract",
+      "type": "note",
+      "title": "remaining_balance(balance, payment)",
+      "content": "Input: A balance and a payment not greater than the balance.\n\nOutput: The balance remaining after payment.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-004-example-heading",
       "type": "heading",
       "level": 3,
       "text": "Example"
     },
     {
-      "id": "largest-example",
+      "id": "fund-variables-004-example",
       "type": "code",
       "language": "text",
-      "code": "Input\n4 9 2 7\n\nOutput\n9"
+      "code": "Input\nbalance = 80, payment = 25\n\nOutput\n55",
+      "caption": "The payment reduces the original balance."
     },
     {
-      "id": "largest-constraints",
+      "id": "fund-variables-004-constraints",
       "type": "note",
       "title": "Constraints",
-      "content": "The list contains between 1 and 1,000 integers."
+      "content": "0 <= payment <= balance <= 100000",
+      "format": "plain"
     },
     {
-      "id": "largest-compiler",
+      "id": "fund-variables-004-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "numbers = list(map(int, input().split()))\n# Find and print the largest number\n",
-      "stdin": "4 9 2 7",
-      "expectedOutput": "9",
+      "starterCode": "def remaining_balance(balance, payment):\n    balance = payment  # Fix this reassignment\n    return balance\n\nprint(remaining_balance(80, 25))\n",
+      "stdin": "",
+      "expectedOutput": "55",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

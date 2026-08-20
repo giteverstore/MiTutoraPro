@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-004",
+  "title": "Apply Repeated Growth",
+  "summary": "Update a value by the same amount for a fixed number of steps.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "basic-loops",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "repeated_growth",
+    "signature": "repeated_growth(initial, growth, steps)",
+    "input": "Two numeric values and a non-negative whole-number step count.",
+    "output": "The value after all steps."
+  },
+  "examples": [
+    {
+      "input": "initial = 10, growth = 2, steps = 3",
+      "output": "16",
+      "explanation": "The value changes to 12, 14, then 16."
+    }
+  ],
+  "constraints": [
+    "0 <= steps <= 10000",
+    "-100000 <= initial, growth <= 100000"
+  ],
+  "concepts": [
+    "iteration",
+    "loop-state"
+  ],
+  "skills": [
+    "state-tracking",
+    "fixed-repetition"
+  ],
+  "prerequisites": [
+    "reassignment"
+  ],
+  "commonMistakes": [
+    "adding growth only once",
+    "performing one extra update"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "three growth steps",
+      "arguments": [
+        10,
+        2,
+        3
+      ],
+      "expected": 16
+    },
+    {
+      "name": "zero steps",
+      "arguments": [
+        10,
+        2,
+        0
+      ],
+      "expected": 10
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "repeated_growth(initial, growth, steps)",
+      "entryPoint": "repeated_growth"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-004-statement",
+      "type": "paragraph",
+      "content": "Begin with an initial value. Add the growth amount once per step and return the final value.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-004-contract",
+      "type": "note",
+      "title": "repeated_growth(initial, growth, steps)",
+      "content": "Input: Two numeric values and a non-negative whole-number step count.\n\nOutput: The value after all steps.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ninitial = 10, growth = 2, steps = 3\n\nOutput\n16",
+      "caption": "The value changes to 12, 14, then 16."
+    },
+    {
+      "id": "fund-loops-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= steps <= 10000\n-100000 <= initial, growth <= 100000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def repeated_growth(initial, growth, steps):\n    value = initial\n    # Apply growth once per step\n    return value\n\nprint(repeated_growth(10, 2, 3))\n",
+      "stdin": "",
+      "expectedOutput": "16",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

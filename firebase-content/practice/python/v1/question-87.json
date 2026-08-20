@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-001",
+  "title": "Read the First Character",
+  "summary": "Access the first position of non-empty text.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-basics-indexing",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "first_character",
+    "signature": "first_character(text)",
+    "input": "Non-empty text.",
+    "output": "Its first character."
+  },
+  "examples": [
+    {
+      "input": "text = course",
+      "output": "c",
+      "explanation": "The first valid position contains c."
+    }
+  ],
+  "constraints": [
+    "1 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-basics",
+    "indexing"
+  ],
+  "skills": [
+    "sequence-reasoning",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "text-values"
+  ],
+  "commonMistakes": [
+    "using the second position",
+    "returning the complete text"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "word",
+      "arguments": [
+        "course"
+      ],
+      "expected": "c"
+    },
+    {
+      "name": "single character",
+      "arguments": [
+        "Z"
+      ],
+      "expected": "Z"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "first_character(text)",
+      "entryPoint": "first_character"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-001-statement",
+      "type": "paragraph",
+      "content": "Return the first character of the supplied non-empty text.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-001-contract",
+      "type": "note",
+      "title": "first_character(text)",
+      "content": "Input: Non-empty text.\n\nOutput: Its first character.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = course\n\nOutput\nc",
+      "caption": "The first valid position contains c."
+    },
+    {
+      "id": "fund-strings-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def first_character(text):\n    # Return the first character\n    pass\n\nprint(first_character('course'))\n",
+      "stdin": "",
+      "expectedOutput": "c",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

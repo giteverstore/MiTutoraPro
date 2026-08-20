@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-016",
+  "title": "Find the First Matching Position",
+  "summary": "Stop searching as soon as the first target is found.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "loop-control",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "first_match_position",
+    "signature": "first_match_position(values, target)",
+    "input": "A sequence of values and a target value.",
+    "output": "The first matching position, or -1."
+  },
+  "examples": [
+    {
+      "input": "values = [4, 2, 4], target = 4",
+      "output": "0",
+      "explanation": "The search stops at the first position."
+    }
+  ],
+  "constraints": [
+    "0 <= sequence length <= 1000"
+  ],
+  "concepts": [
+    "early-termination",
+    "sequence-search"
+  ],
+  "skills": [
+    "loop-control",
+    "first-match-reasoning"
+  ],
+  "prerequisites": [
+    "sequence-traversal",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "returning the last match",
+    "returning zero when no match exists"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "first of repeated matches",
+      "arguments": [
+        [
+          4,
+          2,
+          4
+        ],
+        4
+      ],
+      "expected": 0
+    },
+    {
+      "name": "no match",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        7
+      ],
+      "expected": -1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "first_match_position(values, target)",
+      "entryPoint": "first_match_position"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-016-statement",
+      "type": "paragraph",
+      "content": "Return the zero-based position of the first target value in a sequence. Stop searching after the first match. Return -1 when no match exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-016-contract",
+      "type": "note",
+      "title": "first_match_position(values, target)",
+      "content": "Input: A sequence of values and a target value.\n\nOutput: The first matching position, or -1.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [4, 2, 4], target = 4\n\nOutput\n0",
+      "caption": "The search stops at the first position."
+    },
+    {
+      "id": "fund-loops-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= sequence length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def first_match_position(values, target):\n    # Return immediately after the first match\n    pass\n\nprint(first_match_position([4, 2, 4], 4))\n",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-008",
+  "title": "Trace Three Supplied Measurements",
+  "summary": "Reason about processing multiple numeric inputs.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "multiple-values-structured-input",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "three_measurement_total",
+    "signature": "three_measurement_total(first, second, third)",
+    "input": "Three numeric measurement values.",
+    "output": "Their numeric sum."
+  },
+  "examples": [
+    {
+      "input": "first = 4, second = -2, third = 7",
+      "output": "9",
+      "explanation": "All three supplied values contribute to the total."
+    }
+  ],
+  "constraints": [
+    "Each value is between -1000000 and 1000000"
+  ],
+  "concepts": [
+    "multiple-inputs",
+    "processing"
+  ],
+  "skills": [
+    "structured-input-processing",
+    "type-reasoning"
+  ],
+  "prerequisites": [
+    "addition",
+    "functions"
+  ],
+  "commonMistakes": [
+    "omitting one field",
+    "combining fields as text"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed measurements",
+      "arguments": [
+        4,
+        -2,
+        7
+      ],
+      "expected": 9
+    },
+    {
+      "name": "decimal measurements",
+      "arguments": [
+        1.5,
+        2.5,
+        0
+      ],
+      "expected": 4
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "three_measurement_total(first, second, third)",
+      "entryPoint": "three_measurement_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-008-statement",
+      "type": "paragraph",
+      "content": "Given three numeric measurements supplied as separate input fields, return their total.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-008-contract",
+      "type": "note",
+      "title": "three_measurement_total(first, second, third)",
+      "content": "Input: Three numeric measurement values.\n\nOutput: Their numeric sum.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = 4, second = -2, third = 7\n\nOutput\n9",
+      "caption": "All three supplied values contribute to the total."
+    },
+    {
+      "id": "fund-io-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each value is between -1000000 and 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def three_measurement_total(first, second, third):\n    # Process all three input values\n    pass\n\nprint(three_measurement_total(4, -2, 7))\n",
+      "stdin": "",
+      "expectedOutput": "9",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

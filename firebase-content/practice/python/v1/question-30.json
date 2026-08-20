@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-004",
+  "title": "Check a Required Score",
+  "summary": "Determine whether a score satisfies a configurable requirement.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "basic-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "qualification_status",
+    "signature": "qualification_status(score, required_score)",
+    "input": "A score and required score from 0 to 100.",
+    "output": "The appropriate status text."
+  },
+  "examples": [
+    {
+      "input": "score = 82, required_score = 75",
+      "output": "qualified",
+      "explanation": "The score exceeds the requirement."
+    }
+  ],
+  "constraints": [
+    "0 <= score, required_score <= 100"
+  ],
+  "concepts": [
+    "threshold-condition",
+    "conditional-result"
+  ],
+  "skills": [
+    "comparison",
+    "decision-making"
+  ],
+  "prerequisites": [
+    "text-values"
+  ],
+  "commonMistakes": [
+    "using a fixed requirement",
+    "excluding equality"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "above requirement",
+      "arguments": [
+        82,
+        75
+      ],
+      "expected": "qualified"
+    },
+    {
+      "name": "below requirement",
+      "arguments": [
+        74,
+        75
+      ],
+      "expected": "not qualified"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "qualification_status(score, required_score)",
+      "entryPoint": "qualification_status"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-004-statement",
+      "type": "paragraph",
+      "content": "Return `qualified` when a score is at least the required score. Otherwise return `not qualified`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-004-contract",
+      "type": "note",
+      "title": "qualification_status(score, required_score)",
+      "content": "Input: A score and required score from 0 to 100.\n\nOutput: The appropriate status text.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 82, required_score = 75\n\nOutput\nqualified",
+      "caption": "The score exceeds the requirement."
+    },
+    {
+      "id": "fund-conditionals-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= score, required_score <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def qualification_status(score, required_score):\n    # Return the correct status\n    pass\n\nprint(qualification_status(82, 75))\n",
+      "stdin": "",
+      "expectedOutput": "qualified",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

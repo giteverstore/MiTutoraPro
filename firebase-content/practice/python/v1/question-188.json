@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-007",
+  "title": "Validate a Product Record Before Processing",
+  "summary": "Check required mapping fields and values before formatting.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "defensive-programming-validation",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "process_product_record",
+    "signature": "process_product_record(record)",
+    "input": "A key-value record that may lack or contain invalid required fields.",
+    "output": "The exact formatted record or Invalid record."
+  },
+  "examples": [
+    {
+      "input": "record has name = \" Cable \" and quantity = 3",
+      "output": "Cable: 3",
+      "explanation": "Required fields are valid and the name is trimmed."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 100"
+  ],
+  "concepts": [
+    "required-fields",
+    "validation",
+    "formatted-output"
+  ],
+  "skills": [
+    "defensive-programming",
+    "structured-data-validation"
+  ],
+  "prerequisites": [
+    "mappings",
+    "strings",
+    "conditionals"
+  ],
+  "commonMistakes": [
+    "formatting before checking fields",
+    "accepting empty names or negative quantities"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "valid record",
+      "arguments": [
+        {
+          "name": " Cable ",
+          "quantity": 3
+        }
+      ],
+      "expected": "Cable: 3"
+    },
+    {
+      "name": "missing quantity",
+      "arguments": [
+        {
+          "name": "Cable"
+        }
+      ],
+      "expected": "Invalid record"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "process_product_record(record)",
+      "entryPoint": "process_product_record"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-007-statement",
+      "type": "paragraph",
+      "content": "A valid record has a present name key containing non-empty text after trimming and a present quantity key containing a non-negative whole number. Return exactly “NAME: QUANTITY” using the trimmed name when valid. Return “Invalid record” otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-007-contract",
+      "type": "note",
+      "title": "process_product_record(record)",
+      "content": "Input: A key-value record that may lack or contain invalid required fields.\n\nOutput: The exact formatted record or Invalid record.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrecord has name = \" Cable \" and quantity = 3\n\nOutput\nCable: 3",
+      "caption": "Required fields are valid and the name is trimmed."
+    },
+    {
+      "id": "fund-errors-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def process_product_record(record):\n    # Validate required fields before formatting\n    pass\n\nprint(process_product_record({'name': ' Cable ', 'quantity': 3}))\n",
+      "stdin": "",
+      "expectedOutput": "Cable: 3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

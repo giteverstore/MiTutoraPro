@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-004",
+  "title": "Repair the Unique Tag Count",
+  "summary": "Fix counting that incorrectly includes duplicate positions.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "set-basics-uniqueness",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "distinct_tag_count",
+    "signature": "distinct_tag_count(tags)",
+    "input": "A collection of tag values.",
+    "output": "The number of distinct tags."
+  },
+  "examples": [
+    {
+      "input": "tags = [new, sale, new, new]",
+      "output": "2",
+      "explanation": "Only new and sale are distinct."
+    }
+  ],
+  "constraints": [
+    "0 <= number of tags <= 1000"
+  ],
+  "concepts": [
+    "uniqueness",
+    "duplicate-assumption"
+  ],
+  "skills": [
+    "debugging-collections",
+    "uniqueness-reasoning"
+  ],
+  "prerequisites": [
+    "collection-length"
+  ],
+  "commonMistakes": [
+    "using the original collection size",
+    "assuming duplicates survive in a set"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "duplicate tag",
+      "arguments": [
+        [
+          "new",
+          "sale",
+          "new",
+          "new"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "empty tags",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "distinct_tag_count(tags)",
+      "entryPoint": "distinct_tag_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-004-statement",
+      "type": "paragraph",
+      "content": "Return the number of unique tags. The current implementation returns the number of input positions and therefore counts duplicates repeatedly. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-004-contract",
+      "type": "note",
+      "title": "distinct_tag_count(tags)",
+      "content": "Input: A collection of tag values.\n\nOutput: The number of distinct tags.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntags = [new, sale, new, new]\n\nOutput\n2",
+      "caption": "Only new and sale are distinct."
+    },
+    {
+      "id": "fund-sets-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of tags <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def distinct_tag_count(tags):\n    return len(tags)  # Count unique values instead\n\nprint(distinct_tag_count(['new', 'sale', 'new', 'new']))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

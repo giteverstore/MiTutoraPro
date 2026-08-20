@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-007",
+  "title": "Repair the Collected Even Values",
+  "summary": "Fix a result collection that resets during traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "traversing-lists",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "collect_even_values",
+    "signature": "collect_even_values(values)",
+    "input": "A collection of whole numbers.",
+    "output": "A new collection containing every even value."
+  },
+  "examples": [
+    {
+      "input": "values = [2, 3, 4, 7, 8]",
+      "output": "2,4,8",
+      "explanation": "Every even value is retained in order."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "collection-traversal",
+    "accumulator-state"
+  ],
+  "skills": [
+    "debugging-traversal",
+    "result-construction"
+  ],
+  "prerequisites": [
+    "loops",
+    "remainder"
+  ],
+  "commonMistakes": [
+    "resetting the result inside the loop",
+    "returning only the final match"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "several evens",
+      "arguments": [
+        [
+          2,
+          3,
+          4,
+          7,
+          8
+        ]
+      ],
+      "expected": [
+        2,
+        4,
+        8
+      ]
+    },
+    {
+      "name": "no evens",
+      "arguments": [
+        [
+          1,
+          3
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "collect_even_values(values)",
+      "entryPoint": "collect_even_values"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-007-statement",
+      "type": "paragraph",
+      "content": "Return a new collection containing all even values in their original order. The current implementation resets the result during each step. Correct it without modifying the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-007-contract",
+      "type": "note",
+      "title": "collect_even_values(values)",
+      "content": "Input: A collection of whole numbers.\n\nOutput: A new collection containing every even value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [2, 3, 4, 7, 8]\n\nOutput\n2,4,8",
+      "caption": "Every even value is retained in order."
+    },
+    {
+      "id": "fund-arrays-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def collect_even_values(values):\n    result = []\n    for value in values:\n        result = []  # Do not reset the result here\n        if value % 2 == 0:\n            result.append(value)\n    return result\n\nprint(collect_even_values([2, 3, 4, 7, 8]))\n",
+      "stdin": "",
+      "expectedOutput": "2,4,8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

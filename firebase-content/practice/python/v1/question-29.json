@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-003",
+  "title": "Trace a Threshold Reward",
+  "summary": "Reason about logic that runs only above a threshold.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "basic-conditions",
+  "questionType": "reasoning",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "threshold_reward",
+    "signature": "threshold_reward(score, target)",
+    "input": "Two whole-number scores.",
+    "output": "Either 10 or 0."
+  },
+  "examples": [
+    {
+      "input": "score = 70, target = 70",
+      "output": "10",
+      "explanation": "The condition is satisfied at the boundary."
+    }
+  ],
+  "constraints": [
+    "0 <= score, target <= 100"
+  ],
+  "concepts": [
+    "conditional-execution",
+    "threshold"
+  ],
+  "skills": [
+    "trace-conditional-state"
+  ],
+  "prerequisites": [
+    "assignment"
+  ],
+  "commonMistakes": [
+    "awarding the reward below the target",
+    "excluding the exact target"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "target reached",
+      "arguments": [
+        70,
+        70
+      ],
+      "expected": 10
+    },
+    {
+      "name": "target missed",
+      "arguments": [
+        69,
+        70
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "threshold_reward(score, target)",
+      "entryPoint": "threshold_reward"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-003-statement",
+      "type": "paragraph",
+      "content": "A reward starts at zero and becomes 10 only when the score is at least the target. Return the resulting reward.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-003-contract",
+      "type": "note",
+      "title": "threshold_reward(score, target)",
+      "content": "Input: Two whole-number scores.\n\nOutput: Either 10 or 0.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 70, target = 70\n\nOutput\n10",
+      "caption": "The condition is satisfied at the boundary."
+    },
+    {
+      "id": "fund-conditionals-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= score, target <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def threshold_reward(score, target):\n    reward = 0\n    # Update reward only when the condition is satisfied\n    return reward\n\nprint(threshold_reward(70, 70))\n",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

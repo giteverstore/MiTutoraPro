@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-005",
+  "title": "Count Positive Measurements",
+  "summary": "Traverse a collection and count values above zero.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "traversing-lists",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "count_positive_measurements",
+    "signature": "count_positive_measurements(measurements)",
+    "input": "A collection of numeric measurements.",
+    "output": "The number of positive values."
+  },
+  "examples": [
+    {
+      "input": "measurements = [-2, 0, 5, 8, -1]",
+      "output": "2",
+      "explanation": "Only 5 and 8 are positive."
+    }
+  ],
+  "constraints": [
+    "0 <= number of measurements <= 1000"
+  ],
+  "concepts": [
+    "collection-traversal",
+    "counting"
+  ],
+  "skills": [
+    "collection-traversal",
+    "condition-evaluation"
+  ],
+  "prerequisites": [
+    "loops",
+    "comparisons"
+  ],
+  "commonMistakes": [
+    "counting zero as positive",
+    "stopping after the first positive value"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed values",
+      "arguments": [
+        [
+          -2,
+          0,
+          5,
+          8,
+          -1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "no positives",
+      "arguments": [
+        [
+          0,
+          -3,
+          -7
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "count_positive_measurements(measurements)",
+      "entryPoint": "count_positive_measurements"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-005-statement",
+      "type": "paragraph",
+      "content": "Return how many measurements are greater than zero. Zero is not positive.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-005-contract",
+      "type": "note",
+      "title": "count_positive_measurements(measurements)",
+      "content": "Input: A collection of numeric measurements.\n\nOutput: The number of positive values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nmeasurements = [-2, 0, 5, 8, -1]\n\nOutput\n2",
+      "caption": "Only 5 and 8 are positive."
+    },
+    {
+      "id": "fund-arrays-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of measurements <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def count_positive_measurements(measurements):\n    count = 0\n    # Count values greater than zero\n    return count\n\nprint(count_positive_measurements([-2, 0, 5, 8, -1]))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

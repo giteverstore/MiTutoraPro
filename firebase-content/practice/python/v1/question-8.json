@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-008",
+  "title": "Reason About Four Values",
+  "summary": "Identify the distinct types represented by common values.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "data-types",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "value_type_sequence",
+    "signature": "value_type_sequence(values)",
+    "input": "A sequence of four integer, decimal, text, or boolean values.",
+    "output": "The four type descriptions in order."
+  },
+  "examples": [
+    {
+      "input": "42, 42.5, \"42\", True",
+      "output": "integer, decimal, text, boolean",
+      "explanation": "The values look related but have four distinct types."
+    }
+  ],
+  "constraints": [
+    "values contains exactly four items",
+    "Use the labels integer, decimal, text, boolean"
+  ],
+  "concepts": [
+    "type-distinction",
+    "literal-values"
+  ],
+  "skills": [
+    "reasoning-about-types"
+  ],
+  "prerequisites": [
+    "basic-data-types"
+  ],
+  "commonMistakes": [
+    "Treating numeric text as a number",
+    "Treating a decimal value as an integer"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "type sequence",
+      "arguments": [
+        [
+          42,
+          42.5,
+          "42",
+          true
+        ]
+      ],
+      "expected": "integer, decimal, text, boolean"
+    },
+    {
+      "name": "different order",
+      "arguments": [
+        [
+          false,
+          "7",
+          7.5,
+          7
+        ]
+      ],
+      "expected": "boolean, text, decimal, integer"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "value_type_sequence(values)",
+      "entryPoint": "value_type_sequence"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-008-statement",
+      "type": "paragraph",
+      "content": "Return the type descriptions for four supplied values in order, separated by commas. For `42`, `42.0`, `\"42\"`, and `True`, identify how each value is represented.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-008-contract",
+      "type": "note",
+      "title": "value_type_sequence(values)",
+      "content": "Input: A sequence of four integer, decimal, text, or boolean values.\n\nOutput: The four type descriptions in order.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\n42, 42.5, \"42\", True\n\nOutput\ninteger, decimal, text, boolean",
+      "caption": "The values look related but have four distinct types."
+    },
+    {
+      "id": "fund-variables-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "values contains exactly four items\nUse the labels integer, decimal, text, boolean",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def value_type_sequence(values):\n    # Reason about the values and return their type labels\n    pass\n\nprint(value_type_sequence([42, 42.0, '42', True]))\n",
+      "stdin": "",
+      "expectedOutput": "integer, decimal, text, boolean",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

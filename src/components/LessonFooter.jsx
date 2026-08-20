@@ -19,7 +19,6 @@ export function LessonFooter({
   onNext,
   lessonCount,
   currentLessonIndex,
-  scopeLabel,
 }) {
   const {
     completedLessons,
@@ -103,7 +102,8 @@ export function LessonFooter({
         disabled={!previousLesson}
         onClick={onPrevious}
       >
-        <ArrowLeft size={ICON_SIZE.md} /> <span>Previous Lesson</span>
+        <ArrowLeft size={ICON_SIZE.md} aria-hidden="true" />
+        <span className="lesson-footer-button-label">Previous Lesson</span>
       </button>
       <div className={`lesson-footer-status is-${completionState.status}`}>
         <span className="lesson-footer-status-main">
@@ -119,7 +119,7 @@ export function LessonFooter({
           role={completionState.status === 'error' ? 'alert' : 'status'}
           title={completionState.message || statusLabel}
         >
-          {completionState.message || [scopeLabel, statusLabel].filter(Boolean).join(' · ')}
+          {completionState.message || statusLabel}
         </small>
       </div>
       {isCompleted ? (
@@ -129,8 +129,8 @@ export function LessonFooter({
             disabled={!nextLesson}
             onClick={onNext}
           >
-            <span>{nextLesson ? 'Next Lesson' : 'Course Complete'}</span>
-            {nextLesson ? <ArrowRight size={ICON_SIZE.md} /> : <CheckCircle2 size={ICON_SIZE.md} />}
+            <span className="lesson-footer-button-label">{nextLesson ? 'Next Lesson' : 'Course Complete'}</span>
+            {nextLesson ? <ArrowRight size={ICON_SIZE.md} aria-hidden="true" /> : <CheckCircle2 size={ICON_SIZE.md} aria-hidden="true" />}
           </button>
         ) : (
           <button
@@ -139,7 +139,8 @@ export function LessonFooter({
             disabled={!canComplete || completionState.status === 'saving'}
             onClick={handleComplete}
           >
-            <CheckCircle2 size={ICON_SIZE.md} /> <span>{completionState.status === 'error' ? 'Try Again' : 'Complete Lesson'}</span>
+            <CheckCircle2 size={ICON_SIZE.md} aria-hidden="true" />
+            <span className="lesson-footer-button-label">{completionState.status === 'error' ? 'Try Again' : 'Complete Lesson'}</span>
           </button>
         )}
     </footer>

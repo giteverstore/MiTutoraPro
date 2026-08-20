@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-009",
+  "title": "Format a Product Input Record",
+  "summary": "Produce exact output from several typed fields.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "multiple-values-structured-input",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "product_input_summary",
+    "signature": "product_input_summary(product, quantity, status)",
+    "input": "Product text, whole-number quantity, and status text.",
+    "output": "The exact pipe-separated labeled summary."
+  },
+  "examples": [
+    {
+      "input": "product = Cable, quantity = 3, status = Ready",
+      "output": "Product: Cable | Quantity: 3 | Status: Ready",
+      "explanation": "Labels, pipes, and spaces match exactly."
+    }
+  ],
+  "constraints": [
+    "product and status are non-empty",
+    "quantity is a whole number"
+  ],
+  "concepts": [
+    "structured-input",
+    "output-formatting"
+  ],
+  "skills": [
+    "structured-input-processing",
+    "output-formatting"
+  ],
+  "prerequisites": [
+    "strings",
+    "numbers"
+  ],
+  "commonMistakes": [
+    "using a different delimiter",
+    "omitting labels or required spaces"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "available product",
+      "arguments": [
+        "Cable",
+        3,
+        "Ready"
+      ],
+      "expected": "Product: Cable | Quantity: 3 | Status: Ready"
+    },
+    {
+      "name": "zero quantity",
+      "arguments": [
+        "Sample",
+        0,
+        "Held"
+      ],
+      "expected": "Product: Sample | Quantity: 0 | Status: Held"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "product_input_summary(product, quantity, status)",
+      "entryPoint": "product_input_summary"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-009-statement",
+      "type": "paragraph",
+      "content": "Given product, quantity, and status input fields, return exactly “Product: PRODUCT | Quantity: QUANTITY | Status: STATUS”. Preserve text fields exactly.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-009-contract",
+      "type": "note",
+      "title": "product_input_summary(product, quantity, status)",
+      "content": "Input: Product text, whole-number quantity, and status text.\n\nOutput: The exact pipe-separated labeled summary.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nproduct = Cable, quantity = 3, status = Ready\n\nOutput\nProduct: Cable | Quantity: 3 | Status: Ready",
+      "caption": "Labels, pipes, and spaces match exactly."
+    },
+    {
+      "id": "fund-io-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "product and status are non-empty\nquantity is a whole number",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def product_input_summary(product, quantity, status):\n    # Return the exact labeled summary\n    pass\n\nprint(product_input_summary('Cable', 3, 'Ready'))\n",
+      "stdin": "",
+      "expectedOutput": "Product: Cable | Quantity: 3 | Status: Ready",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-015",
+  "title": "Count Words in Simple Text",
+  "summary": "Split text on whitespace and count resulting words.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "splitting-joining-parsing",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "simple_word_count",
+    "signature": "simple_word_count(text)",
+    "input": "Text that may be empty or contain repeated whitespace.",
+    "output": "The number of words."
+  },
+  "examples": [
+    {
+      "input": "text = \"  learn   by doing  \"",
+      "output": "3",
+      "explanation": "Whitespace separates three words."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "splitting",
+    "whitespace-normalization"
+  ],
+  "skills": [
+    "simple-parsing",
+    "input-normalization"
+  ],
+  "prerequisites": [
+    "strings"
+  ],
+  "commonMistakes": [
+    "counting spaces instead of words",
+    "creating empty words from repeated spaces"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated spaces",
+      "arguments": [
+        "  learn   by doing  "
+      ],
+      "expected": 3
+    },
+    {
+      "name": "empty text",
+      "arguments": [
+        ""
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "simple_word_count(text)",
+      "entryPoint": "simple_word_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-015-statement",
+      "type": "paragraph",
+      "content": "Return the number of whitespace-separated words. Leading, trailing, or repeated whitespace does not create empty words.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-015-contract",
+      "type": "note",
+      "title": "simple_word_count(text)",
+      "content": "Input: Text that may be empty or contain repeated whitespace.\n\nOutput: The number of words.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \"  learn   by doing  \"\n\nOutput\n3",
+      "caption": "Whitespace separates three words."
+    },
+    {
+      "id": "fund-strings-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def simple_word_count(text):\n    # Split on whitespace and count words\n    pass\n\nprint(simple_word_count('  learn   by doing  '))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

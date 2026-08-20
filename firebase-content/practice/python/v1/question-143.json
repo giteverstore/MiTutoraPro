@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-017",
+  "title": "Trace Label Frequencies",
+  "summary": "Reason about mapping state across repeated labels.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "counting-frequency-tracking",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "label_frequencies",
+    "signature": "label_frequencies(labels)",
+    "input": "A collection of labels.",
+    "output": "A label-to-count mapping."
+  },
+  "examples": [
+    {
+      "input": "labels = [new, open, new, closed, open]",
+      "output": "[object Object]",
+      "explanation": "Counts update even when repeated labels are separated."
+    }
+  ],
+  "constraints": [
+    "0 <= number of labels <= 1000"
+  ],
+  "concepts": [
+    "frequency-counting",
+    "mapping-state"
+  ],
+  "skills": [
+    "state-tracking",
+    "frequency-tracking"
+  ],
+  "prerequisites": [
+    "loops",
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "counting only adjacent repeats",
+    "omitting labels that occur once"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "separated repeats",
+      "arguments": [
+        [
+          "new",
+          "open",
+          "new",
+          "closed",
+          "open"
+        ]
+      ],
+      "expected": {
+        "closed": 1,
+        "new": 2,
+        "open": 2
+      }
+    },
+    {
+      "name": "all distinct",
+      "arguments": [
+        [
+          "a",
+          "b"
+        ]
+      ],
+      "expected": {
+        "a": 1,
+        "b": 1
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "label_frequencies(labels)",
+      "entryPoint": "label_frequencies"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-017-statement",
+      "type": "paragraph",
+      "content": "Return a mapping associating every distinct label with its number of occurrences.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-017-contract",
+      "type": "note",
+      "title": "label_frequencies(labels)",
+      "content": "Input: A collection of labels.\n\nOutput: A label-to-count mapping.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nlabels = [new, open, new, closed, open]\n\nOutput\n[object Object]",
+      "caption": "Counts update even when repeated labels are separated."
+    },
+    {
+      "id": "fund-dictionaries-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of labels <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def label_frequencies(labels):\n    counts = {}\n    # Track the mapping state after each label\n    return counts\n\nprint(label_frequencies(['new', 'open', 'new', 'closed', 'open']))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

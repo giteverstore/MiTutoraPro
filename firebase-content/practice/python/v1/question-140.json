@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-014",
+  "title": "Check for a Registered Value",
+  "summary": "Search stored values without confusing them with keys.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "searching-membership",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "contains_stored_value",
+    "signature": "contains_stored_value(mapping, target)",
+    "input": "A key-value mapping and a target value.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "target = held",
+      "output": "true",
+      "explanation": "Held appears as the value for B."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "value-search",
+    "key-value-distinction"
+  ],
+  "skills": [
+    "mapping-traversal",
+    "exact-matching"
+  ],
+  "prerequisites": [
+    "mapping-basics"
+  ],
+  "commonMistakes": [
+    "checking keys instead of values",
+    "stopping after examining one value"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "value found",
+      "arguments": [
+        {
+          "A": "ready",
+          "B": "held"
+        },
+        "held"
+      ],
+      "expected": true
+    },
+    {
+      "name": "key-only match",
+      "arguments": [
+        {
+          "ready": "open"
+        },
+        "ready"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "contains_stored_value(mapping, target)",
+      "entryPoint": "contains_stored_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-014-statement",
+      "type": "paragraph",
+      "content": "Return whether the exact target value appears among the values stored in the mapping. Do not treat a matching key as a value match.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-014-contract",
+      "type": "note",
+      "title": "contains_stored_value(mapping, target)",
+      "content": "Input: A key-value mapping and a target value.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntarget = held\n\nOutput\ntrue",
+      "caption": "Held appears as the value for B."
+    },
+    {
+      "id": "fund-dictionaries-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def contains_stored_value(mapping, target):\n    # Search the stored values\n    pass\n\nprint(contains_stored_value({'A': 'ready', 'B': 'held'}, 'held'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

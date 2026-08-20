@@ -1,53 +1,128 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "practice-even-or-odd",
-  "title": "Even or Odd",
-  "summary": "Determine whether a given integer is even or odd.",
+  "id": "fund-variables-001",
+  "title": "Create a User Label",
+  "summary": "Store two values and combine them into a concise user label.",
   "language": "Python",
-  "difficulty": "easy",
-  "topic": "Conditionals",
-  "estimatedMinutes": 8,
-  "xp": 40,
+  "difficulty": "very_easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-creation-assignment",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "create_user_label",
+    "signature": "create_user_label(name, age)",
+    "input": "A name and a non-negative whole-number age.",
+    "output": "Text formatted as `name: age`."
+  },
+  "examples": [
+    {
+      "input": "name = Mira, age = 12",
+      "output": "Mira: 12",
+      "explanation": "Both assigned values appear in the label."
+    }
+  ],
+  "constraints": [
+    "name contains at least one character",
+    "0 <= age <= 150"
+  ],
+  "concepts": [
+    "variable-assignment",
+    "value-combination"
+  ],
+  "skills": [
+    "state-creation",
+    "basic-expression"
+  ],
+  "prerequisites": [],
+  "commonMistakes": [
+    "Returning only one of the supplied values",
+    "Adding a number to text without conversion"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "learner label",
+      "arguments": [
+        "Mira",
+        12
+      ],
+      "expected": "Mira: 12"
+    },
+    {
+      "name": "zero age",
+      "arguments": [
+        "Neo",
+        0
+      ],
+      "expected": "Neo: 0"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "create_user_label(name, age)",
+      "entryPoint": "create_user_label"
+    }
+  },
   "blocks": [
     {
-      "id": "even-heading",
+      "id": "fund-variables-001-heading",
       "type": "heading",
       "level": 2,
       "text": "Problem Statement"
     },
     {
-      "id": "even-copy",
+      "id": "fund-variables-001-statement",
       "type": "paragraph",
-      "content": "Read one integer and print `Even` when it is divisible by 2. Otherwise, print `Odd`.",
+      "content": "Create variables from the supplied name and age, then return a label in the format `name: age`.",
       "format": "markdown"
     },
     {
-      "id": "even-example-heading",
+      "id": "fund-variables-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-001-contract",
+      "type": "note",
+      "title": "create_user_label(name, age)",
+      "content": "Input: A name and a non-negative whole-number age.\n\nOutput: Text formatted as `name: age`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-001-example-heading",
       "type": "heading",
       "level": 3,
       "text": "Example"
     },
     {
-      "id": "even-example",
+      "id": "fund-variables-001-example",
       "type": "code",
       "language": "text",
-      "code": "Input\n8\n\nOutput\nEven",
-      "caption": "A single even input"
+      "code": "Input\nname = Mira, age = 12\n\nOutput\nMira: 12",
+      "caption": "Both assigned values appear in the label."
     },
     {
-      "id": "even-constraints",
+      "id": "fund-variables-001-constraints",
       "type": "note",
       "title": "Constraints",
-      "content": "The input is an integer between -1,000,000 and 1,000,000.",
+      "content": "name contains at least one character\n0 <= age <= 150",
       "format": "plain"
     },
     {
-      "id": "even-compiler",
+      "id": "fund-variables-001-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "number = int(input())\n# Print Even or Odd\n",
-      "stdin": "8",
-      "expectedOutput": "Even",
+      "starterCode": "def create_user_label(name, age):\n    # Create and return the user label\n    pass\n\nprint(create_user_label('Mira', 12))\n",
+      "stdin": "",
+      "expectedOutput": "Mira: 12",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

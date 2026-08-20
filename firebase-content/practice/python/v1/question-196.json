@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-015",
+  "title": "Summarize Valid Category Amounts",
+  "summary": "Build aggregate mapping state from validated records.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "combining-multiple-fundamentals",
+  "questionType": "implementation",
+  "estimatedMinutes": 15,
+  "xp": 75,
+  "contract": {
+    "functionName": "category_amount_summary",
+    "signature": "category_amount_summary(records)",
+    "input": "A collection of arbitrary category:amount text records.",
+    "output": "A category-to-total mapping built from valid records."
+  },
+  "examples": [
+    {
+      "input": "records mix repeated valid categories and invalid data",
+      "output": "[object Object]",
+      "explanation": "Valid food amounts accumulate to seventeen."
+    }
+  ],
+  "constraints": [
+    "0 <= number of records <= 1000",
+    "delimiter is exactly colon",
+    "no escaping rules"
+  ],
+  "concepts": [
+    "parsing",
+    "validation",
+    "mapping-aggregation"
+  ],
+  "skills": [
+    "problem-decomposition",
+    "state-management"
+  ],
+  "prerequisites": [
+    "strings",
+    "loops",
+    "mappings"
+  ],
+  "commonMistakes": [
+    "resetting a category total",
+    "accepting malformed or negative amounts"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated valid categories",
+      "arguments": [
+        [
+          "food:10",
+          "travel:5",
+          "food:7",
+          "bad",
+          "food:-1"
+        ]
+      ],
+      "expected": {
+        "food": 17,
+        "travel": 5
+      }
+    },
+    {
+      "name": "empty records",
+      "arguments": [
+        []
+      ],
+      "expected": {}
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "category_amount_summary(records)",
+      "entryPoint": "category_amount_summary"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-015-statement",
+      "type": "paragraph",
+      "content": "Each record should contain exactly one colon separating a non-empty trimmed category and digits-only non-negative whole-number amount. Ignore invalid records. Return a mapping from each valid category to the sum of its amounts.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-015-contract",
+      "type": "note",
+      "title": "category_amount_summary(records)",
+      "content": "Input: A collection of arbitrary category:amount text records.\n\nOutput: A category-to-total mapping built from valid records.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrecords mix repeated valid categories and invalid data\n\nOutput\n[object Object]",
+      "caption": "Valid food amounts accumulate to seventeen."
+    },
+    {
+      "id": "fund-errors-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of records <= 1000\ndelimiter is exactly colon\nno escaping rules",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def category_amount_summary(records):\n    totals = {}\n    # Parse valid records and accumulate category totals\n    return totals\n\nprint(category_amount_summary(['food:10', 'travel:5', 'food:7', 'bad']))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

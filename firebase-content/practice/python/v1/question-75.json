@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-009",
+  "title": "Calculate Remaining Distance",
+  "summary": "Use ordered parameters whose positions affect the result.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "multiple-parameters",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "remaining_distance",
+    "signature": "remaining_distance(total_distance, traveled_distance)",
+    "input": "A total distance followed by a traveled distance.",
+    "output": "The numeric remaining distance."
+  },
+  "examples": [
+    {
+      "input": "total_distance = 100, traveled_distance = 35",
+      "output": "65",
+      "explanation": "The contract defines total distance first."
+    }
+  ],
+  "constraints": [
+    "0 <= traveled_distance <= total_distance <= 1000000"
+  ],
+  "concepts": [
+    "multiple-parameters",
+    "parameter-order"
+  ],
+  "skills": [
+    "parameter-reasoning",
+    "contract-following"
+  ],
+  "prerequisites": [
+    "subtraction"
+  ],
+  "commonMistakes": [
+    "swapping the arguments",
+    "returning traveled distance"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "partial journey",
+      "arguments": [
+        100,
+        35
+      ],
+      "expected": 65
+    },
+    {
+      "name": "complete journey",
+      "arguments": [
+        40,
+        40
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "remaining_distance(total_distance, traveled_distance)",
+      "entryPoint": "remaining_distance"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-009-statement",
+      "type": "paragraph",
+      "content": "Return the distance remaining by subtracting traveled distance from total distance. Parameter order is significant.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-009-contract",
+      "type": "note",
+      "title": "remaining_distance(total_distance, traveled_distance)",
+      "content": "Input: A total distance followed by a traveled distance.\n\nOutput: The numeric remaining distance.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntotal_distance = 100, traveled_distance = 35\n\nOutput\n65",
+      "caption": "The contract defines total distance first."
+    },
+    {
+      "id": "fund-functions-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= traveled_distance <= total_distance <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def remaining_distance(total_distance, traveled_distance):\n    # Respect the parameter order\n    pass\n\nprint(remaining_distance(100, 35))\n",
+      "stdin": "",
+      "expectedOutput": "65",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

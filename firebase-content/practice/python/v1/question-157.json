@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-011",
+  "title": "Create Unique Student IDs",
+  "summary": "Deduplicate simple identifiers deterministically.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "duplicate-elimination",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "sorted_unique_student_ids",
+    "signature": "sorted_unique_student_ids(ids)",
+    "input": "A collection of whole-number student IDs.",
+    "output": "An ascending collection of unique IDs."
+  },
+  "examples": [
+    {
+      "input": "ids = [30, 10, 30, 20]",
+      "output": "10,20,30",
+      "explanation": "Each ID appears once in ascending order."
+    }
+  ],
+  "constraints": [
+    "0 <= number of IDs <= 1000"
+  ],
+  "concepts": [
+    "deduplication",
+    "uniqueness"
+  ],
+  "skills": [
+    "duplicate-elimination",
+    "deterministic-representation"
+  ],
+  "prerequisites": [
+    "sets",
+    "numbers"
+  ],
+  "commonMistakes": [
+    "retaining duplicates",
+    "depending on arbitrary iteration order"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed duplicate IDs",
+      "arguments": [
+        [
+          30,
+          10,
+          30,
+          20
+        ]
+      ],
+      "expected": [
+        10,
+        20,
+        30
+      ]
+    },
+    {
+      "name": "empty IDs",
+      "arguments": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "sorted_unique_student_ids(ids)",
+      "entryPoint": "sorted_unique_student_ids"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-011-statement",
+      "type": "paragraph",
+      "content": "Return the unique student IDs in ascending order. Repeated IDs must appear once.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-011-contract",
+      "type": "note",
+      "title": "sorted_unique_student_ids(ids)",
+      "content": "Input: A collection of whole-number student IDs.\n\nOutput: An ascending collection of unique IDs.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nids = [30, 10, 30, 20]\n\nOutput\n10,20,30",
+      "caption": "Each ID appears once in ascending order."
+    },
+    {
+      "id": "fund-sets-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of IDs <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sorted_unique_student_ids(ids):\n    # Return ascending unique IDs\n    pass\n\nprint(sorted_unique_student_ids([30, 10, 30, 20]))\n",
+      "stdin": "",
+      "expectedOutput": "10,20,30",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-005",
+  "title": "Return a Temperature Difference",
+  "summary": "Produce a calculated value that callers can reuse.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "return-values",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "temperature_difference",
+    "signature": "temperature_difference(measured, target)",
+    "input": "Two numeric temperatures.",
+    "output": "The numeric value `measured - target`."
+  },
+  "examples": [
+    {
+      "input": "measured = 24, target = 20",
+      "output": "4",
+      "explanation": "The returned difference can be reused by a caller."
+    }
+  ],
+  "constraints": [
+    "-1000 <= measured, target <= 1000"
+  ],
+  "concepts": [
+    "return-values",
+    "calculated-result"
+  ],
+  "skills": [
+    "return-value-reasoning"
+  ],
+  "prerequisites": [
+    "subtraction"
+  ],
+  "commonMistakes": [
+    "displaying the difference without returning it",
+    "subtracting measured from target"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "above target",
+      "arguments": [
+        24,
+        20
+      ],
+      "expected": 4
+    },
+    {
+      "name": "below target",
+      "arguments": [
+        18,
+        20
+      ],
+      "expected": -2
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "temperature_difference(measured, target)",
+      "entryPoint": "temperature_difference"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-005-statement",
+      "type": "paragraph",
+      "content": "Return the difference between a measured temperature and a target temperature so another operation can use the result.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-005-contract",
+      "type": "note",
+      "title": "temperature_difference(measured, target)",
+      "content": "Input: Two numeric temperatures.\n\nOutput: The numeric value `measured - target`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nmeasured = 24, target = 20\n\nOutput\n4",
+      "caption": "The returned difference can be reused by a caller."
+    },
+    {
+      "id": "fund-functions-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-1000 <= measured, target <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def temperature_difference(measured, target):\n    # Return the calculated difference\n    pass\n\nprint(temperature_difference(24, 20))\n",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

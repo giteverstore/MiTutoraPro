@@ -1,3 +1,14 @@
+import { fundamentalsVariablesBatch1 } from './data/fundamentalsVariablesBatch1.js';
+import { fundamentalsConditionalsBatch2 } from './data/fundamentalsConditionalsBatch2.js';
+import { fundamentalsLoopsBatch3 } from './data/fundamentalsLoopsBatch3.js';
+import { fundamentalsFunctionsBatch4 } from './data/fundamentalsFunctionsBatch4.js';
+import { fundamentalsStringsBatch5 } from './data/fundamentalsStringsBatch5.js';
+import { fundamentalsArraysBatch6 } from './data/fundamentalsArraysBatch6.js';
+import { fundamentalsDictionariesBatch7 } from './data/fundamentalsDictionariesBatch7.js';
+import { fundamentalsSetsBatch8 } from './data/fundamentalsSetsBatch8.js';
+import { fundamentalsInputOutputBatch9 } from './data/fundamentalsInputOutputBatch9.js';
+import { fundamentalsErrorsMixedBatch10 } from './data/fundamentalsErrorsMixedBatch10.js';
+
 const compiler = (id, starterCode, expectedOutput, stdin = '') => ({
   id,
   type: 'compiler',
@@ -10,7 +21,7 @@ const compiler = (id, starterCode, expectedOutput, stdin = '') => ({
   resetLabel: 'Reset',
 });
 
-export const practiceQuestions = [
+const legacyPracticeQuestions = [
   {
     schemaVersion: '1.0.0',
     id: 'practice-even-or-odd',
@@ -122,6 +133,20 @@ export const practiceQuestions = [
       compiler('palindrome-compiler', 'phrase = input()\n# Normalize the phrase and check it\n', 'True', 'Never odd or even'),
     ],
   },
+];
+
+export const practiceQuestions = [
+  ...fundamentalsVariablesBatch1,
+  ...legacyPracticeQuestions,
+  ...fundamentalsConditionalsBatch2,
+  ...fundamentalsLoopsBatch3,
+  ...fundamentalsFunctionsBatch4,
+  ...fundamentalsStringsBatch5,
+  ...fundamentalsArraysBatch6,
+  ...fundamentalsDictionariesBatch7,
+  ...fundamentalsSetsBatch8,
+  ...fundamentalsInputOutputBatch9,
+  ...fundamentalsErrorsMixedBatch10,
 ];
 
 export const practiceStatistics = {

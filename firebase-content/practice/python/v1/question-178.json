@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-012",
+  "title": "Trace a Pipe-delimited Profile",
+  "summary": "Reason about a fixed three-field text format.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "parsing-text-delimiters",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "parse_profile_fields",
+    "signature": "parse_profile_fields(text)",
+    "input": "Pipe-delimited text with exactly three non-empty fields and no escaping.",
+    "output": "A three-item [name, city, role] collection, or empty when invalid."
+  },
+  "examples": [
+    {
+      "input": "text = \" Mira | Pune | Learner \"",
+      "output": "Mira,Pune,Learner",
+      "explanation": "Two pipes define three trimmed fields."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "delimiter is exactly pipe",
+    "valid input has exactly three non-empty trimmed fields"
+  ],
+  "concepts": [
+    "structured-parsing",
+    "multiple-fields",
+    "delimiter"
+  ],
+  "skills": [
+    "parsing",
+    "structured-input-processing"
+  ],
+  "prerequisites": [
+    "strings",
+    "collections"
+  ],
+  "commonMistakes": [
+    "reading the wrong field",
+    "accepting missing or extra fields"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "valid profile",
+      "arguments": [
+        " Mira | Pune | Learner "
+      ],
+      "expected": [
+        "Mira",
+        "Pune",
+        "Learner"
+      ]
+    },
+    {
+      "name": "missing role",
+      "arguments": [
+        "Mira|Pune"
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "parse_profile_fields(text)",
+      "entryPoint": "parse_profile_fields"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-012-statement",
+      "type": "paragraph",
+      "content": "The raw input must contain exactly three fields separated by two pipe characters: name, city, and role. Trim each field and return them in that order. Return an empty collection if the field count is not three or any trimmed field is empty.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-012-contract",
+      "type": "note",
+      "title": "parse_profile_fields(text)",
+      "content": "Input: Pipe-delimited text with exactly three non-empty fields and no escaping.\n\nOutput: A three-item [name, city, role] collection, or empty when invalid.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" Mira | Pune | Learner \"\n\nOutput\nMira,Pune,Learner",
+      "caption": "Two pipes define three trimmed fields."
+    },
+    {
+      "id": "fund-io-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\ndelimiter is exactly pipe\nvalid input has exactly three non-empty trimmed fields",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def parse_profile_fields(text):\n    # Parse exactly three non-empty pipe-separated fields\n    pass\n\nprint(parse_profile_fields(' Mira | Pune | Learner '))\n",
+      "stdin": "",
+      "expectedOutput": "Mira,Pune,Learner",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

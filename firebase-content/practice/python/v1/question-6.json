@@ -1,45 +1,130 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "practice-palindrome",
-  "title": "Palindrome Check",
-  "summary": "Combine normalization and comparison to inspect text.",
+  "id": "fund-variables-006",
+  "title": "Repair a Text Quantity",
+  "summary": "Fix an operation that confuses numeric text with a number.",
   "language": "Python",
-  "difficulty": "hard",
-  "topic": "Strings",
-  "estimatedMinutes": 20,
-  "xp": 120,
+  "difficulty": "very_easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "data-types",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "add_quantity_bonus",
+    "signature": "add_quantity_bonus(quantity_text, bonus)",
+    "input": "Numeric text and a whole-number bonus.",
+    "output": "Their whole-number sum."
+  },
+  "examples": [
+    {
+      "input": "quantity_text = \"42\", bonus = 8",
+      "output": "50",
+      "explanation": "The text value is interpreted as a whole number before addition."
+    }
+  ],
+  "constraints": [
+    "quantity_text represents a non-negative whole number",
+    "0 <= bonus <= 10000"
+  ],
+  "concepts": [
+    "string-type",
+    "integer-type",
+    "explicit-conversion"
+  ],
+  "skills": [
+    "debugging-types"
+  ],
+  "prerequisites": [
+    "basic-data-types"
+  ],
+  "commonMistakes": [
+    "Combining numeric text without conversion",
+    "Converting the bonus to text and concatenating"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "numeric text",
+      "arguments": [
+        "42",
+        8
+      ],
+      "expected": 50
+    },
+    {
+      "name": "zero quantity",
+      "arguments": [
+        "0",
+        5
+      ],
+      "expected": 5
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "add_quantity_bonus(quantity_text, bonus)",
+      "entryPoint": "add_quantity_bonus"
+    }
+  },
   "blocks": [
     {
-      "id": "palindrome-heading",
+      "id": "fund-variables-006-heading",
       "type": "heading",
       "level": 2,
       "text": "Problem Statement"
     },
     {
-      "id": "palindrome-copy",
+      "id": "fund-variables-006-statement",
       "type": "paragraph",
-      "content": "Read a phrase, ignore spaces and letter case, then print `True` if it is a palindrome and `False` otherwise.",
+      "content": "A quantity arrives as text. The function should add the numeric bonus, but the current implementation combines incompatible value types. Correct it.",
       "format": "markdown"
     },
     {
-      "id": "palindrome-example-heading",
+      "id": "fund-variables-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-006-contract",
+      "type": "note",
+      "title": "add_quantity_bonus(quantity_text, bonus)",
+      "content": "Input: Numeric text and a whole-number bonus.\n\nOutput: Their whole-number sum.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-006-example-heading",
       "type": "heading",
       "level": 3,
       "text": "Example"
     },
     {
-      "id": "palindrome-example",
+      "id": "fund-variables-006-example",
       "type": "code",
       "language": "text",
-      "code": "Input\nNever odd or even\n\nOutput\nTrue"
+      "code": "Input\nquantity_text = \"42\", bonus = 8\n\nOutput\n50",
+      "caption": "The text value is interpreted as a whole number before addition."
     },
     {
-      "id": "palindrome-compiler",
+      "id": "fund-variables-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "quantity_text represents a non-negative whole number\n0 <= bonus <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-006-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "phrase = input()\n# Normalize the phrase and check it\n",
-      "stdin": "Never odd or even",
-      "expectedOutput": "True",
+      "starterCode": "def add_quantity_bonus(quantity_text, bonus):\n    return quantity_text + bonus  # Fix the type mismatch\n\nprint(add_quantity_bonus('42', 8))\n",
+      "stdin": "",
+      "expectedOutput": "50",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

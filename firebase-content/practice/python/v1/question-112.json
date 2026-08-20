@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-006",
+  "title": "Collect Scores Above a Target",
+  "summary": "Select qualifying elements while preserving order.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "traversing-lists",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 35,
+  "contract": {
+    "functionName": "scores_above",
+    "signature": "scores_above(scores, target)",
+    "input": "A collection of scores and a numeric target.",
+    "output": "A new collection of scores greater than target."
+  },
+  "examples": [
+    {
+      "input": "scores = [40, 75, 60, 91], target = 60",
+      "output": "75,91",
+      "explanation": "Only values strictly greater than 60 are selected."
+    }
+  ],
+  "constraints": [
+    "0 <= number of scores <= 1000"
+  ],
+  "concepts": [
+    "collection-traversal",
+    "selection"
+  ],
+  "skills": [
+    "result-construction",
+    "order-preservation"
+  ],
+  "prerequisites": [
+    "loops",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "including values equal to the target",
+    "changing the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "selected scores",
+      "arguments": [
+        [
+          40,
+          75,
+          60,
+          91
+        ],
+        60
+      ],
+      "expected": [
+        75,
+        91
+      ]
+    },
+    {
+      "name": "none selected",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        5
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "scores_above(scores, target)",
+      "entryPoint": "scores_above"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-006-statement",
+      "type": "paragraph",
+      "content": "Return a new collection containing every score strictly greater than the target, in its original order. Do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-006-contract",
+      "type": "note",
+      "title": "scores_above(scores, target)",
+      "content": "Input: A collection of scores and a numeric target.\n\nOutput: A new collection of scores greater than target.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscores = [40, 75, 60, 91], target = 60\n\nOutput\n75,91",
+      "caption": "Only values strictly greater than 60 are selected."
+    },
+    {
+      "id": "fund-arrays-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of scores <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def scores_above(scores, target):\n    result = []\n    # Add qualifying scores to result\n    return result\n\nprint(scores_above([40, 75, 60, 91], 60))\n",
+      "stdin": "",
+      "expectedOutput": "75,91",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

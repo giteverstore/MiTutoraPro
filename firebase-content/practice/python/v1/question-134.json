@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-008",
+  "title": "Trace a Preference Change",
+  "summary": "Reason about mapping state after one update.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "accessing-updating-values",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "with_preference_changed",
+    "signature": "with_preference_changed(preferences, key, value)",
+    "input": "A preference mapping, an existing key, and a replacement value.",
+    "output": "A new mapping after the change."
+  },
+  "examples": [
+    {
+      "input": "key = theme, value = dark",
+      "output": "[object Object]",
+      "explanation": "Theme changes while language remains."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000",
+    "key exists"
+  ],
+  "concepts": [
+    "mapping-state",
+    "update"
+  ],
+  "skills": [
+    "state-tracking",
+    "mapping-reasoning"
+  ],
+  "prerequisites": [
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "removing other preferences",
+    "changing the key rather than its value"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "change theme",
+      "arguments": [
+        {
+          "language": "English",
+          "theme": "light"
+        },
+        "theme",
+        "dark"
+      ],
+      "expected": {
+        "language": "English",
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "empty value",
+      "arguments": [
+        {
+          "note": "old"
+        },
+        "note",
+        ""
+      ],
+      "expected": {
+        "note": ""
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_preference_changed(preferences, key, value)",
+      "entryPoint": "with_preference_changed"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-008-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping with the existing preference key associated with the replacement value. Preserve other entries and do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-008-contract",
+      "type": "note",
+      "title": "with_preference_changed(preferences, key, value)",
+      "content": "Input: A preference mapping, an existing key, and a replacement value.\n\nOutput: A new mapping after the change.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nkey = theme, value = dark\n\nOutput\n[object Object]",
+      "caption": "Theme changes while language remains."
+    },
+    {
+      "id": "fund-dictionaries-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000\nkey exists",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_preference_changed(preferences, key, value):\n    # Return an updated copy\n    pass\n\nprint(with_preference_changed({'language': 'English', 'theme': 'light'}, 'theme', 'dark'))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

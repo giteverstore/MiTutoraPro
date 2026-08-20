@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-003",
+  "title": "Trace a Character Position",
+  "summary": "Reason about zero-based positions in text.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-basics-indexing",
+  "questionType": "reasoning",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "character_at",
+    "signature": "character_at(text, position)",
+    "input": "Non-empty text and a valid zero-based position.",
+    "output": "The character at that position."
+  },
+  "examples": [
+    {
+      "input": "text = label, position = 2",
+      "output": "b",
+      "explanation": "Positions are 0:l, 1:a, 2:b."
+    }
+  ],
+  "constraints": [
+    "0 <= position < text length",
+    "1 <= text length <= 1000"
+  ],
+  "concepts": [
+    "indexing",
+    "character-position"
+  ],
+  "skills": [
+    "sequence-reasoning",
+    "index-boundary"
+  ],
+  "prerequisites": [
+    "whole-numbers"
+  ],
+  "commonMistakes": [
+    "counting positions from one",
+    "excluding the final valid position"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "middle position",
+      "arguments": [
+        "label",
+        2
+      ],
+      "expected": "b"
+    },
+    {
+      "name": "first position",
+      "arguments": [
+        "label",
+        0
+      ],
+      "expected": "l"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "character_at(text, position)",
+      "entryPoint": "character_at"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-003-statement",
+      "type": "paragraph",
+      "content": "Return the character at the supplied zero-based position in non-empty text.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-003-contract",
+      "type": "note",
+      "title": "character_at(text, position)",
+      "content": "Input: Non-empty text and a valid zero-based position.\n\nOutput: The character at that position.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = label, position = 2\n\nOutput\nb",
+      "caption": "Positions are 0:l, 1:a, 2:b."
+    },
+    {
+      "id": "fund-strings-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= position < text length\n1 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def character_at(text, position):\n    # Return the character at the supplied position\n    pass\n\nprint(character_at('label', 2))\n",
+      "stdin": "",
+      "expectedOutput": "b",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

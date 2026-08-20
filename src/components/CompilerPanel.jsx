@@ -13,6 +13,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
   onVerificationChange,
   onExecutionStateChange,
+  renderOutput,
 }, forwardedRef) {
   const panelRef = useRef(null);
   const compilerManager = useCompilerManager();
@@ -239,20 +240,34 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           onPointerDown={outputResize.startDragging}
           onKeyDown={outputResize.handleKeyDown}
         />
-        <OutputPanel
-          output={activeCompiler.output}
-          height={outputResize.value}
-          result={result}
-          error={error}
-          isRunning={isRunning}
-          executionTimeMs={executionTimeMs}
-          expectedOutput={activeCompiler.expectedOutput}
-          inputs={activeCompiler.stdin}
-          executionStatus={executionStatus}
-          verificationStatus={verificationStatus}
-          onCheckOutput={checkOutput}
-          canCheckOutput={executionStatus === 'success' && activeCompiler.expectedOutput !== undefined}
-        />
+        {renderOutput?.({
+          height: outputResize.value,
+          result,
+          error,
+          isRunning,
+          executionTimeMs,
+          expectedOutput: activeCompiler.expectedOutput,
+          inputs: activeCompiler.stdin,
+          executionStatus,
+          verificationStatus,
+          onCheckOutput: checkOutput,
+          canCheckOutput: executionStatus === 'success' && activeCompiler.expectedOutput !== undefined,
+        }) ?? (
+          <OutputPanel
+            output={activeCompiler.output}
+            height={outputResize.value}
+            result={result}
+            error={error}
+            isRunning={isRunning}
+            executionTimeMs={executionTimeMs}
+            expectedOutput={activeCompiler.expectedOutput}
+            inputs={activeCompiler.stdin}
+            executionStatus={executionStatus}
+            verificationStatus={verificationStatus}
+            onCheckOutput={checkOutput}
+            canCheckOutput={executionStatus === 'success' && activeCompiler.expectedOutput !== undefined}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-014",
+  "title": "Clean and Validate Score Inputs",
+  "summary": "Combine textual conversion, range validation, uniqueness, and deterministic output.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "combining-multiple-fundamentals",
+  "questionType": "implementation",
+  "estimatedMinutes": 14,
+  "xp": 70,
+  "contract": {
+    "functionName": "clean_score_inputs",
+    "signature": "clean_score_inputs(score_texts)",
+    "input": "A collection of arbitrary score text values.",
+    "output": "An ascending collection of unique valid whole-number scores."
+  },
+  "examples": [
+    {
+      "input": "score_texts include valid, invalid, duplicate, and boundary values",
+      "output": "0,80",
+      "explanation": "Only unique valid scores zero and eighty remain."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "conversion",
+    "validation",
+    "sets",
+    "collections"
+  ],
+  "skills": [
+    "problem-decomposition",
+    "multi-concept-reasoning"
+  ],
+  "prerequisites": [
+    "strings",
+    "lists",
+    "sets"
+  ],
+  "commonMistakes": [
+    "converting before validation",
+    "retaining duplicates or out-of-range scores"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed score text",
+      "arguments": [
+        [
+          " 80 ",
+          "bad",
+          "101",
+          "80",
+          "0"
+        ]
+      ],
+      "expected": [
+        0,
+        80
+      ]
+    },
+    {
+      "name": "no valid scores",
+      "arguments": [
+        [
+          "-1",
+          "4.5",
+          ""
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "clean_score_inputs(score_texts)",
+      "entryPoint": "clean_score_inputs"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-014-statement",
+      "type": "paragraph",
+      "content": "Trim every text value. Keep values containing digits only whose represented score is from 0 through 100 inclusive. Remove duplicate scores and return the valid scores in ascending order. Ignore all invalid values.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-014-contract",
+      "type": "note",
+      "title": "clean_score_inputs(score_texts)",
+      "content": "Input: A collection of arbitrary score text values.\n\nOutput: An ascending collection of unique valid whole-number scores.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore_texts include valid, invalid, duplicate, and boundary values\n\nOutput\n0,80",
+      "caption": "Only unique valid scores zero and eighty remain."
+    },
+    {
+      "id": "fund-errors-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def clean_score_inputs(score_texts):\n    # Validate, convert, deduplicate, and order scores\n    pass\n\nprint(clean_score_inputs([' 80 ', 'bad', '101', '80', '0']))\n",
+      "stdin": "",
+      "expectedOutput": "0,80",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

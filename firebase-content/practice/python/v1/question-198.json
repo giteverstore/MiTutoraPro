@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-017",
+  "title": "Trace Reward State Changes",
+  "summary": "Reason across variables, conditions, and traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "mixed-reasoning-practical-problems",
+  "questionType": "reasoning",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "reward_points",
+    "signature": "reward_points(purchases)",
+    "input": "A collection of numeric purchase values.",
+    "output": "The final reward point total."
+  },
+  "examples": [
+    {
+      "input": "purchases = [5, 10, -2, 20]",
+      "output": "5",
+      "explanation": "The valid purchases add one, two, and two points."
+    }
+  ],
+  "constraints": [
+    "0 <= number of purchases <= 1000"
+  ],
+  "concepts": [
+    "state-management",
+    "conditionals",
+    "traversal"
+  ],
+  "skills": [
+    "state-tracing",
+    "multi-concept-reasoning"
+  ],
+  "prerequisites": [
+    "variables",
+    "loops",
+    "conditionals"
+  ],
+  "commonMistakes": [
+    "counting negative purchases",
+    "misapplying the boundary at ten"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "sequential changes",
+      "arguments": [
+        [
+          5,
+          10,
+          -2,
+          20
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "name": "all ignored",
+      "arguments": [
+        [
+          -1,
+          -5
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "reward_points(purchases)",
+      "entryPoint": "reward_points"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-017-statement",
+      "type": "paragraph",
+      "content": "Start with zero reward points. For each numeric purchase, ignore negative values, add two points when the purchase is at least 10, and otherwise add one point. Return the final point total.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-017-contract",
+      "type": "note",
+      "title": "reward_points(purchases)",
+      "content": "Input: A collection of numeric purchase values.\n\nOutput: The final reward point total.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\npurchases = [5, 10, -2, 20]\n\nOutput\n5",
+      "caption": "The valid purchases add one, two, and two points."
+    },
+    {
+      "id": "fund-errors-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of purchases <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def reward_points(purchases):\n    points = 0\n    # Trace each valid state change\n    return points\n\nprint(reward_points([5, 10, -2, 20]))\n",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

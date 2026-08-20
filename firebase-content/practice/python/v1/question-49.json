@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-003",
+  "title": "Repair an Iteration Count",
+  "summary": "Fix a loop that omits its final boundary.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "basic-loops",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "inclusive_count",
+    "signature": "inclusive_count(start, end)",
+    "input": "Two whole numbers where start is not greater than end.",
+    "output": "The number of values in the inclusive interval."
+  },
+  "examples": [
+    {
+      "input": "start = 2, end = 5",
+      "output": "4",
+      "explanation": "The values are 2, 3, 4, and 5."
+    }
+  ],
+  "constraints": [
+    "-10000 <= start <= end <= 10000"
+  ],
+  "concepts": [
+    "loop-boundaries",
+    "off-by-one"
+  ],
+  "skills": [
+    "debugging-iteration",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "counting"
+  ],
+  "commonMistakes": [
+    "using an exclusive upper boundary",
+    "forgetting that a single-value interval has one item"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "four values",
+      "arguments": [
+        2,
+        5
+      ],
+      "expected": 4
+    },
+    {
+      "name": "single value",
+      "arguments": [
+        7,
+        7
+      ],
+      "expected": 1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "inclusive_count(start, end)",
+      "entryPoint": "inclusive_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-003-statement",
+      "type": "paragraph",
+      "content": "The function should count every whole number from start through end, including both boundaries. Its current iteration omits the end value. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-003-contract",
+      "type": "note",
+      "title": "inclusive_count(start, end)",
+      "content": "Input: Two whole numbers where start is not greater than end.\n\nOutput: The number of values in the inclusive interval.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nstart = 2, end = 5\n\nOutput\n4",
+      "caption": "The values are 2, 3, 4, and 5."
+    },
+    {
+      "id": "fund-loops-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-10000 <= start <= end <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def inclusive_count(start, end):\n    count = 0\n    for value in range(start, end):  # Include the end boundary\n        count += 1\n    return count\n\nprint(inclusive_count(2, 5))\n",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

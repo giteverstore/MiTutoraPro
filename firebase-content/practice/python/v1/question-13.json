@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-013",
+  "title": "Build an Order Total",
+  "summary": "Combine price, quantity, delivery, and discount values.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-interaction",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "order_total",
+    "signature": "order_total(price, quantity, delivery, discount)",
+    "input": "Four non-negative numeric values; quantity is a whole number.",
+    "output": "The final numeric order total."
+  },
+  "examples": [
+    {
+      "input": "price = 15, quantity = 2, delivery = 5, discount = 3",
+      "output": "32",
+      "explanation": "The item total is 30, then delivery and discount produce 32."
+    }
+  ],
+  "constraints": [
+    "discount <= price * quantity + delivery",
+    "0 <= quantity <= 10000"
+  ],
+  "concepts": [
+    "multiple-variables",
+    "compound-calculation"
+  ],
+  "skills": [
+    "coordinate-values",
+    "expression-construction"
+  ],
+  "prerequisites": [
+    "arithmetic-expressions"
+  ],
+  "commonMistakes": [
+    "Applying delivery or discount to each item",
+    "Adding the discount"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "discounted delivery order",
+      "arguments": [
+        15,
+        2,
+        5,
+        3
+      ],
+      "expected": 32
+    },
+    {
+      "name": "no extras",
+      "arguments": [
+        7,
+        3,
+        0,
+        0
+      ],
+      "expected": 21
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "order_total(price, quantity, delivery, discount)",
+      "entryPoint": "order_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-013-statement",
+      "type": "paragraph",
+      "content": "Return an order total calculated as `price * quantity + delivery - discount`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-013-contract",
+      "type": "note",
+      "title": "order_total(price, quantity, delivery, discount)",
+      "content": "Input: Four non-negative numeric values; quantity is a whole number.\n\nOutput: The final numeric order total.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice = 15, quantity = 2, delivery = 5, discount = 3\n\nOutput\n32",
+      "caption": "The item total is 30, then delivery and discount produce 32."
+    },
+    {
+      "id": "fund-variables-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "discount <= price * quantity + delivery\n0 <= quantity <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def order_total(price, quantity, delivery, discount):\n    # Combine all four values\n    pass\n\nprint(order_total(15, 2, 5, 3))\n",
+      "stdin": "",
+      "expectedOutput": "32",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

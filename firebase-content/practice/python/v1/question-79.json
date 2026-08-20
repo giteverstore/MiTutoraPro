@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-013",
+  "title": "Trace an Optional Greeting",
+  "summary": "Reason about supplied and default behavior.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "default-optional-behavior",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "custom_greeting",
+    "signature": "custom_greeting(name, greeting = \"Hello\")",
+    "input": "A name and optional greeting text.",
+    "output": "The formatted greeting."
+  },
+  "examples": [
+    {
+      "input": "name = Nia, greeting omitted",
+      "output": "Hello, Nia!",
+      "explanation": "The omitted value uses the documented default."
+    }
+  ],
+  "constraints": [
+    "name and greeting are non-empty text"
+  ],
+  "concepts": [
+    "default-behavior",
+    "optional-parameter"
+  ],
+  "skills": [
+    "trace-default-values",
+    "parameter-reasoning"
+  ],
+  "prerequisites": [
+    "function-parameters"
+  ],
+  "commonMistakes": [
+    "using an empty default",
+    "ignoring an explicitly supplied greeting"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "default greeting",
+      "arguments": [
+        "Nia"
+      ],
+      "expected": "Hello, Nia!"
+    },
+    {
+      "name": "custom greeting",
+      "arguments": [
+        "Nia",
+        "Welcome"
+      ],
+      "expected": "Welcome, Nia!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "custom_greeting(name, greeting = \"Hello\")",
+      "entryPoint": "custom_greeting"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-013-statement",
+      "type": "paragraph",
+      "content": "Return a greeting in the format `greeting, name!`. When the optional greeting is omitted, use `Hello`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-013-contract",
+      "type": "note",
+      "title": "custom_greeting(name, greeting = \"Hello\")",
+      "content": "Input: A name and optional greeting text.\n\nOutput: The formatted greeting.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Nia, greeting omitted\n\nOutput\nHello, Nia!",
+      "caption": "The omitted value uses the documented default."
+    },
+    {
+      "id": "fund-functions-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "name and greeting are non-empty text",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def custom_greeting(name, greeting='Hello'):\n    # Use the supplied or default greeting\n    pass\n\nprint(custom_greeting('Nia'))\n",
+      "stdin": "",
+      "expectedOutput": "Hello, Nia!",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

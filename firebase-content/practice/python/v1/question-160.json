@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-014",
+  "title": "Combine Activity Enrollments",
+  "summary": "Form the union of two value collections.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "basic-set-operations",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "students_in_either_activity",
+    "signature": "students_in_either_activity(first, second)",
+    "input": "Two collections of student names.",
+    "output": "An alphabetical union of unique names."
+  },
+  "examples": [
+    {
+      "input": "first = [Ana, Leo], second = [Leo, Mira]",
+      "output": "Ana,Leo,Mira",
+      "explanation": "Union includes names from either activity once."
+    }
+  ],
+  "constraints": [
+    "0 <= names in each collection <= 1000"
+  ],
+  "concepts": [
+    "union",
+    "uniqueness"
+  ],
+  "skills": [
+    "set-operation-reasoning",
+    "collection-comparison"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "keeping only common names",
+    "returning duplicate names"
+  ],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "publicTests": [
+    {
+      "name": "partial overlap",
+      "arguments": [
+        [
+          "Ana",
+          "Leo"
+        ],
+        [
+          "Leo",
+          "Mira"
+        ]
+      ],
+      "expected": [
+        "Ana",
+        "Leo",
+        "Mira"
+      ]
+    },
+    {
+      "name": "empty second group",
+      "arguments": [
+        [
+          "Ana"
+        ],
+        []
+      ],
+      "expected": [
+        "Ana"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "students_in_either_activity(first, second)",
+      "entryPoint": "students_in_either_activity"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-014-statement",
+      "type": "paragraph",
+      "content": "Return every student appearing in either activity, with each student once. Present names alphabetically for deterministic output.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-014-contract",
+      "type": "note",
+      "title": "students_in_either_activity(first, second)",
+      "content": "Input: Two collections of student names.\n\nOutput: An alphabetical union of unique names.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = [Ana, Leo], second = [Leo, Mira]\n\nOutput\nAna,Leo,Mira",
+      "caption": "Union includes names from either activity once."
+    },
+    {
+      "id": "fund-sets-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= names in each collection <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def students_in_either_activity(first, second):\n    # Return the alphabetical union\n    pass\n\nprint(students_in_either_activity(['Ana', 'Leo'], ['Leo', 'Mira']))\n",
+      "stdin": "",
+      "expectedOutput": "Ana,Leo,Mira",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

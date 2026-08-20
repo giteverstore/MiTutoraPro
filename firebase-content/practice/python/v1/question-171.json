@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-005",
+  "title": "Calculate a Total from Decimal Text",
+  "summary": "Interpret decimal input and apply arithmetic.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "numeric-input-conversion",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "total_from_price_text",
+    "signature": "total_from_price_text(price_text, quantity)",
+    "input": "Valid decimal text and a non-negative whole-number quantity.",
+    "output": "The numeric price multiplied by quantity."
+  },
+  "examples": [
+    {
+      "input": "price_text = \"12.50\", quantity = 3",
+      "output": "37.5",
+      "explanation": "Numeric 12.5 multiplied by 3 is 37.5."
+    }
+  ],
+  "constraints": [
+    "price_text becomes a valid decimal number after trimming",
+    "0 <= quantity <= 1000"
+  ],
+  "concepts": [
+    "decimal-conversion",
+    "numeric-input"
+  ],
+  "skills": [
+    "input-processing",
+    "type-reasoning"
+  ],
+  "prerequisites": [
+    "decimals",
+    "multiplication"
+  ],
+  "commonMistakes": [
+    "repeating text instead of multiplying numbers",
+    "converting the quantity rather than the price text"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "decimal price",
+      "arguments": [
+        "12.50",
+        3
+      ],
+      "expected": 37.5
+    },
+    {
+      "name": "zero quantity",
+      "arguments": [
+        " 4.25 ",
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "total_from_price_text(price_text, quantity)",
+      "entryPoint": "total_from_price_text"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-005-statement",
+      "type": "paragraph",
+      "content": "The supplied price input is valid decimal text with optional surrounding whitespace. Convert it to a numeric value and return the total for the supplied whole-number quantity.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-005-contract",
+      "type": "note",
+      "title": "total_from_price_text(price_text, quantity)",
+      "content": "Input: Valid decimal text and a non-negative whole-number quantity.\n\nOutput: The numeric price multiplied by quantity.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice_text = \"12.50\", quantity = 3\n\nOutput\n37.5",
+      "caption": "Numeric 12.5 multiplied by 3 is 37.5."
+    },
+    {
+      "id": "fund-io-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "price_text becomes a valid decimal number after trimming\n0 <= quantity <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def total_from_price_text(price_text, quantity):\n    # Convert decimal text and calculate the total\n    pass\n\nprint(total_from_price_text('12.50', 3))\n",
+      "stdin": "",
+      "expectedOutput": "37.5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

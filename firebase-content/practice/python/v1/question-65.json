@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-019",
+  "title": "Average Available Measurements",
+  "summary": "Handle empty input and maintain both total and count.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "loop-edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "measurement_average",
+    "signature": "measurement_average(measurements)",
+    "input": "A sequence of numeric measurements.",
+    "output": "Their numeric average, or 0 for an empty sequence."
+  },
+  "examples": [
+    {
+      "input": "measurements = [2, 4, 6]",
+      "output": "4",
+      "explanation": "The total 12 is divided by three measurements."
+    }
+  ],
+  "constraints": [
+    "0 <= sequence length <= 1000"
+  ],
+  "concepts": [
+    "empty-sequence",
+    "accumulator-initialization",
+    "counter"
+  ],
+  "skills": [
+    "edge-case-handling",
+    "state-tracking"
+  ],
+  "prerequisites": [
+    "accumulation",
+    "division"
+  ],
+  "commonMistakes": [
+    "dividing by zero for empty input",
+    "using an incorrect count"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "three measurements",
+      "arguments": [
+        [
+          2,
+          4,
+          6
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "name": "empty measurements",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "measurement_average(measurements)",
+      "entryPoint": "measurement_average"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-019-statement",
+      "type": "paragraph",
+      "content": "Return the average of the supplied measurements. Return 0 when the sequence is empty.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-019-contract",
+      "type": "note",
+      "title": "measurement_average(measurements)",
+      "content": "Input: A sequence of numeric measurements.\n\nOutput: Their numeric average, or 0 for an empty sequence.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nmeasurements = [2, 4, 6]\n\nOutput\n4",
+      "caption": "The total 12 is divided by three measurements."
+    },
+    {
+      "id": "fund-loops-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= sequence length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def measurement_average(measurements):\n    # Handle empty input, then track total and count\n    pass\n\nprint(measurement_average([2, 4, 6]))\n",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

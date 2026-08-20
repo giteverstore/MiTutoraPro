@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-019",
+  "title": "Find the Smallest Unique Value",
+  "summary": "Use an explicit comparison instead of arbitrary set order.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "traversal-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "smallest_unique_value",
+    "signature": "smallest_unique_value(values)",
+    "input": "A collection of numeric values that may be empty.",
+    "output": "The smallest unique value, or no value when empty."
+  },
+  "examples": [
+    {
+      "input": "values = [8, 3, 8, -2, 3]",
+      "output": "-2",
+      "explanation": "Negative two is selected by comparison."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "set-traversal",
+    "order-assumption",
+    "empty-set"
+  ],
+  "skills": [
+    "edge-case-analysis",
+    "comparison-reasoning"
+  ],
+  "prerequisites": [
+    "sets",
+    "minimum"
+  ],
+  "commonMistakes": [
+    "returning an arbitrary iterated value",
+    "failing on empty input"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "unordered repeated values",
+      "arguments": [
+        [
+          8,
+          3,
+          8,
+          -2,
+          3
+        ]
+      ],
+      "expected": -2
+    },
+    {
+      "name": "empty values",
+      "arguments": [
+        []
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "smallest_unique_value(values)",
+      "entryPoint": "smallest_unique_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-019-statement",
+      "type": "paragraph",
+      "content": "Return the smallest distinct numeric value. Return no value when the collection is empty. The result is chosen by numeric comparison, not by treating a set as an ordered sequence.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-019-contract",
+      "type": "note",
+      "title": "smallest_unique_value(values)",
+      "content": "Input: A collection of numeric values that may be empty.\n\nOutput: The smallest unique value, or no value when empty.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [8, 3, 8, -2, 3]\n\nOutput\n-2",
+      "caption": "Negative two is selected by comparison."
+    },
+    {
+      "id": "fund-sets-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def smallest_unique_value(values):\n    # Return None when empty; do not rely on set order\n    pass\n\nprint(smallest_unique_value([8, 3, 8, -2, 3]))\n",
+      "stdin": "",
+      "expectedOutput": "-2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

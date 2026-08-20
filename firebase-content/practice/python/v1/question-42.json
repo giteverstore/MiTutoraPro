@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-016",
+  "title": "Choose a Member Discount",
+  "summary": "Make a dependent decision after confirming membership.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "nested-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "member_discount",
+    "signature": "member_discount(is_member, cart_total)",
+    "input": "A boolean membership value and non-negative cart total.",
+    "output": "One of `none`, `standard`, or `premium`."
+  },
+  "examples": [
+    {
+      "input": "is_member = True, cart_total = 100",
+      "output": "premium",
+      "explanation": "Membership is checked before the cart threshold."
+    }
+  ],
+  "constraints": [
+    "cart_total >= 0",
+    "is_member is boolean"
+  ],
+  "concepts": [
+    "nested-conditions",
+    "dependent-decision"
+  ],
+  "skills": [
+    "multi-stage-eligibility"
+  ],
+  "prerequisites": [
+    "if-else",
+    "thresholds"
+  ],
+  "commonMistakes": [
+    "giving non-members a cart-based discount",
+    "excluding cart total 100"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "premium member",
+      "arguments": [
+        true,
+        100
+      ],
+      "expected": "premium"
+    },
+    {
+      "name": "non-member",
+      "arguments": [
+        false,
+        200
+      ],
+      "expected": "none"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "member_discount(is_member, cart_total)",
+      "entryPoint": "member_discount"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-016-statement",
+      "type": "paragraph",
+      "content": "Non-members receive `none`. Members receive `standard` unless their cart total is at least 100, in which case they receive `premium`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-016-contract",
+      "type": "note",
+      "title": "member_discount(is_member, cart_total)",
+      "content": "Input: A boolean membership value and non-negative cart total.\n\nOutput: One of `none`, `standard`, or `premium`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nis_member = True, cart_total = 100\n\nOutput\npremium",
+      "caption": "Membership is checked before the cart threshold."
+    },
+    {
+      "id": "fund-conditionals-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "cart_total >= 0\nis_member is boolean",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def member_discount(is_member, cart_total):\n    # Make the membership decision, then the cart decision\n    pass\n\nprint(member_discount(True, 100))\n",
+      "stdin": "",
+      "expectedOutput": "premium",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "practice-even-or-odd",
+  "title": "Even or Odd",
+  "summary": "Determine whether a given integer is even or odd.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Conditionals",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "blocks": [
+    {
+      "id": "even-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "even-copy",
+      "type": "paragraph",
+      "content": "Read one integer and print `Even` when it is divisible by 2. Otherwise, print `Odd`.",
+      "format": "markdown"
+    },
+    {
+      "id": "even-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "even-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\n8\n\nOutput\nEven",
+      "caption": "A single even input"
+    },
+    {
+      "id": "even-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The input is an integer between -1,000,000 and 1,000,000.",
+      "format": "plain"
+    },
+    {
+      "id": "even-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "number = int(input())\n# Print Even or Odd\n",
+      "stdin": "8",
+      "expectedOutput": "Even",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

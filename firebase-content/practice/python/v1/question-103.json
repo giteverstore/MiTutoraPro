@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-017",
+  "title": "Extract a Middle Field",
+  "summary": "Parse a simple three-field delimited value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "splitting-joining-parsing",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "middle_field",
+    "signature": "middle_field(record)",
+    "input": "Text containing exactly two vertical-bar delimiters.",
+    "output": "The second field."
+  },
+  "examples": [
+    {
+      "input": "record = A17|active|north",
+      "output": "active",
+      "explanation": "The middle field lies between the two delimiters."
+    }
+  ],
+  "constraints": [
+    "The record contains exactly three fields",
+    "Fields may be empty"
+  ],
+  "concepts": [
+    "splitting",
+    "field-extraction"
+  ],
+  "skills": [
+    "simple-parsing",
+    "index-reasoning"
+  ],
+  "prerequisites": [
+    "string-indexing"
+  ],
+  "commonMistakes": [
+    "returning the first or final field",
+    "splitting on a different delimiter"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "standard record",
+      "arguments": [
+        "A17|active|north"
+      ],
+      "expected": "active"
+    },
+    {
+      "name": "empty middle field",
+      "arguments": [
+        "left||right"
+      ],
+      "expected": ""
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "middle_field(record)",
+      "entryPoint": "middle_field"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-017-statement",
+      "type": "paragraph",
+      "content": "The input contains exactly three fields separated by vertical bars. Return the middle field exactly as written.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-017-contract",
+      "type": "note",
+      "title": "middle_field(record)",
+      "content": "Input: Text containing exactly two vertical-bar delimiters.\n\nOutput: The second field.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrecord = A17|active|north\n\nOutput\nactive",
+      "caption": "The middle field lies between the two delimiters."
+    },
+    {
+      "id": "fund-strings-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The record contains exactly three fields\nFields may be empty",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def middle_field(record):\n    # Split on vertical bars and return the middle field\n    pass\n\nprint(middle_field('A17|active|north'))\n",
+      "stdin": "",
+      "expectedOutput": "active",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

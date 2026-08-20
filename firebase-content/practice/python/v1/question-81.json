@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-015",
+  "title": "Repair Undefined Local State",
+  "summary": "Fix an incorrectly assumed outside variable.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "scope-local-state",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "tax_amount",
+    "signature": "tax_amount(amount, rate)",
+    "input": "A non-negative amount and decimal tax rate.",
+    "output": "The numeric tax amount."
+  },
+  "examples": [
+    {
+      "input": "amount = 50, rate = 0.1",
+      "output": "5",
+      "explanation": "Both values come from the function contract."
+    }
+  ],
+  "constraints": [
+    "0 <= amount <= 1000000",
+    "0 <= rate <= 1"
+  ],
+  "concepts": [
+    "local-scope",
+    "parameters"
+  ],
+  "skills": [
+    "debugging-scope",
+    "scope-awareness"
+  ],
+  "prerequisites": [
+    "functions"
+  ],
+  "commonMistakes": [
+    "using an undefined outside variable",
+    "ignoring the amount parameter"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "ten percent tax",
+      "arguments": [
+        50,
+        0.1
+      ],
+      "expected": 5
+    },
+    {
+      "name": "zero amount",
+      "arguments": [
+        0,
+        0.2
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "tax_amount(amount, rate)",
+      "entryPoint": "tax_amount"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-015-statement",
+      "type": "paragraph",
+      "content": "The operation should calculate tax from its amount parameter. Its current implementation uses an undefined value instead. Correct it to rely only on the parameter and local state.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-015-contract",
+      "type": "note",
+      "title": "tax_amount(amount, rate)",
+      "content": "Input: A non-negative amount and decimal tax rate.\n\nOutput: The numeric tax amount.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\namount = 50, rate = 0.1\n\nOutput\n5",
+      "caption": "Both values come from the function contract."
+    },
+    {
+      "id": "fund-functions-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= amount <= 1000000\n0 <= rate <= 1",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def tax_amount(amount, rate):\n    tax = outside_amount * rate  # Use the parameter, not undefined outside state\n    return tax\n\nprint(tax_amount(50, 0.1))\n",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

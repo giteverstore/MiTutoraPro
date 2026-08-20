@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-011",
+  "title": "Repair a Key-value Parser",
+  "summary": "Fix parsing that uses the wrong delimiter.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "parsing-text-delimiters",
+  "questionType": "debugging",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "parse_key_value",
+    "signature": "parse_key_value(text)",
+    "input": "Text using exactly one colon delimiter and no escaping.",
+    "output": "A two-item [key, value] collection, or empty when invalid."
+  },
+  "examples": [
+    {
+      "input": "text = \" theme : dark \"",
+      "output": "theme,dark",
+      "explanation": "The single colon separates two trimmed fields."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "delimiter is exactly colon",
+    "valid input has exactly two non-empty trimmed fields"
+  ],
+  "concepts": [
+    "parsing",
+    "delimiter",
+    "validation"
+  ],
+  "skills": [
+    "debugging-parsing",
+    "data-validation"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "using the wrong delimiter",
+    "assuming both fields always exist"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "trimmed pair",
+      "arguments": [
+        " theme : dark "
+      ],
+      "expected": [
+        "theme",
+        "dark"
+      ]
+    },
+    {
+      "name": "extra delimiter",
+      "arguments": [
+        "a:b:c"
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "parse_key_value(text)",
+      "entryPoint": "parse_key_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-011-statement",
+      "type": "paragraph",
+      "content": "The raw input must contain exactly one colon separating a non-empty key and non-empty value. Trim both fields and return them as a two-item collection. Return an empty collection when the colon count or either field is invalid. The current implementation splits on a comma. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-011-contract",
+      "type": "note",
+      "title": "parse_key_value(text)",
+      "content": "Input: Text using exactly one colon delimiter and no escaping.\n\nOutput: A two-item [key, value] collection, or empty when invalid.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" theme : dark \"\n\nOutput\ntheme,dark",
+      "caption": "The single colon separates two trimmed fields."
+    },
+    {
+      "id": "fund-io-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\ndelimiter is exactly colon\nvalid input has exactly two non-empty trimmed fields",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def parse_key_value(text):\n    fields = text.split(',')  # Use the declared delimiter and validate fields\n    return fields\n\nprint(parse_key_value(' theme : dark '))\n",
+      "stdin": "",
+      "expectedOutput": "theme,dark",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

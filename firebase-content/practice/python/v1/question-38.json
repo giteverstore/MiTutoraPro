@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-012",
+  "title": "Validate Registration Requirements",
+  "summary": "Combine three independent eligibility requirements.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "multiple-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "registration_valid",
+    "signature": "registration_valid(age, terms_accepted, contact_verified)",
+    "input": "An age and two boolean values.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "age = 13, terms_accepted = True, contact_verified = True",
+      "output": "true",
+      "explanation": "All three requirements are satisfied."
+    }
+  ],
+  "constraints": [
+    "0 <= age <= 150",
+    "Both flags are boolean"
+  ],
+  "concepts": [
+    "and-condition",
+    "multiple-requirements"
+  ],
+  "skills": [
+    "compound-eligibility"
+  ],
+  "prerequisites": [
+    "booleans",
+    "comparison"
+  ],
+  "commonMistakes": [
+    "accepting any one requirement",
+    "excluding age 13"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "all requirements met",
+      "arguments": [
+        13,
+        true,
+        true
+      ],
+      "expected": true
+    },
+    {
+      "name": "contact unverified",
+      "arguments": [
+        20,
+        true,
+        false
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "registration_valid(age, terms_accepted, contact_verified)",
+      "entryPoint": "registration_valid"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-012-statement",
+      "type": "paragraph",
+      "content": "Registration is valid only when age is at least 13, terms are accepted, and the contact is verified. Return whether all requirements are met.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-012-contract",
+      "type": "note",
+      "title": "registration_valid(age, terms_accepted, contact_verified)",
+      "content": "Input: An age and two boolean values.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nage = 13, terms_accepted = True, contact_verified = True\n\nOutput\ntrue",
+      "caption": "All three requirements are satisfied."
+    },
+    {
+      "id": "fund-conditionals-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= age <= 150\nBoth flags are boolean",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def registration_valid(age, terms_accepted, contact_verified):\n    # Require all three conditions\n    pass\n\nprint(registration_valid(13, True, True))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

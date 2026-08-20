@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-006",
+  "title": "Classify Adult or Minor",
+  "summary": "Select an age category with two exclusive branches.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "if-else",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "age_category",
+    "signature": "age_category(age)",
+    "input": "A non-negative whole-number age.",
+    "output": "Either `adult` or `minor`."
+  },
+  "examples": [
+    {
+      "input": "age = 18",
+      "output": "adult",
+      "explanation": "Age 18 belongs to the adult branch."
+    }
+  ],
+  "constraints": [
+    "0 <= age <= 150"
+  ],
+  "concepts": [
+    "if-else",
+    "age-boundary"
+  ],
+  "skills": [
+    "branch-selection"
+  ],
+  "prerequisites": [
+    "comparison"
+  ],
+  "commonMistakes": [
+    "excluding age 18",
+    "returning both outcomes"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "adult boundary",
+      "arguments": [
+        18
+      ],
+      "expected": "adult"
+    },
+    {
+      "name": "minor",
+      "arguments": [
+        17
+      ],
+      "expected": "minor"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "age_category(age)",
+      "entryPoint": "age_category"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-006-statement",
+      "type": "paragraph",
+      "content": "Return `adult` when age is at least 18. Return `minor` otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-006-contract",
+      "type": "note",
+      "title": "age_category(age)",
+      "content": "Input: A non-negative whole-number age.\n\nOutput: Either `adult` or `minor`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nage = 18\n\nOutput\nadult",
+      "caption": "Age 18 belongs to the adult branch."
+    },
+    {
+      "id": "fund-conditionals-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= age <= 150",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def age_category(age):\n    # Return 'adult' or 'minor'\n    pass\n\nprint(age_category(18))\n",
+      "stdin": "",
+      "expectedOutput": "adult",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

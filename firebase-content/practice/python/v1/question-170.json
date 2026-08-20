@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-004",
+  "title": "Convert Integer Text and Add",
+  "summary": "Convert textual input before arithmetic.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "numeric-input-conversion",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "parsed_integer_plus",
+    "signature": "parsed_integer_plus(integer_text, offset)",
+    "input": "Valid signed integer text and a whole-number offset.",
+    "output": "Their numeric sum."
+  },
+  "examples": [
+    {
+      "input": "integer_text = \"42\", offset = 8",
+      "output": "50",
+      "explanation": "Textual 42 is converted before addition."
+    }
+  ],
+  "constraints": [
+    "integer_text becomes a valid signed integer after trimming",
+    "absolute values <= 1000000"
+  ],
+  "concepts": [
+    "input",
+    "type-conversion",
+    "integer-text"
+  ],
+  "skills": [
+    "input-processing",
+    "type-reasoning"
+  ],
+  "prerequisites": [
+    "integers",
+    "strings"
+  ],
+  "commonMistakes": [
+    "joining text instead of adding numbers",
+    "ignoring surrounding whitespace"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "positive text",
+      "arguments": [
+        "42",
+        8
+      ],
+      "expected": 50
+    },
+    {
+      "name": "trimmed negative",
+      "arguments": [
+        "  -5  ",
+        2
+      ],
+      "expected": -3
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "parsed_integer_plus(integer_text, offset)",
+      "entryPoint": "parsed_integer_plus"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-004-statement",
+      "type": "paragraph",
+      "content": "The first input is valid integer text with optional surrounding whitespace; the second is a whole-number offset. Convert the text to a number and return their numeric sum. For example, textual “42” must be interpreted before adding.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-004-contract",
+      "type": "note",
+      "title": "parsed_integer_plus(integer_text, offset)",
+      "content": "Input: Valid signed integer text and a whole-number offset.\n\nOutput: Their numeric sum.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ninteger_text = \"42\", offset = 8\n\nOutput\n50",
+      "caption": "Textual 42 is converted before addition."
+    },
+    {
+      "id": "fund-io-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "integer_text becomes a valid signed integer after trimming\nabsolute values <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def parsed_integer_plus(integer_text, offset):\n    # Convert the input text before adding\n    pass\n\nprint(parsed_integer_plus('42', 8))\n",
+      "stdin": "",
+      "expectedOutput": "50",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

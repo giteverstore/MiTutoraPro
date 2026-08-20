@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-002",
+  "title": "Trace a Profile Summary",
+  "summary": "Reason about combining separately supplied input fields.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "basic-input-output",
+  "questionType": "reasoning",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "profile_summary",
+    "signature": "profile_summary(name, age)",
+    "input": "A name as text and an age as a whole number.",
+    "output": "Text in the exact format Name: NAME, Age: AGE."
+  },
+  "examples": [
+    {
+      "input": "name = Mira, age = 28",
+      "output": "Name: Mira, Age: 28",
+      "explanation": "Both supplied fields appear in the required format."
+    }
+  ],
+  "constraints": [
+    "1 <= name length <= 100",
+    "0 <= age <= 150"
+  ],
+  "concepts": [
+    "input-fields",
+    "formatted-output"
+  ],
+  "skills": [
+    "type-reasoning",
+    "output-formatting"
+  ],
+  "prerequisites": [
+    "strings",
+    "numbers"
+  ],
+  "commonMistakes": [
+    "omitting required spaces",
+    "reversing the fields"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "adult profile",
+      "arguments": [
+        "Mira",
+        28
+      ],
+      "expected": "Name: Mira, Age: 28"
+    },
+    {
+      "name": "zero age",
+      "arguments": [
+        "Noor",
+        0
+      ],
+      "expected": "Name: Noor, Age: 0"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "profile_summary(name, age)",
+      "entryPoint": "profile_summary"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-002-statement",
+      "type": "paragraph",
+      "content": "Given a user name and age, return exactly “Name: NAME, Age: AGE”. Use one space after each colon and after the comma.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-002-contract",
+      "type": "note",
+      "title": "profile_summary(name, age)",
+      "content": "Input: A name as text and an age as a whole number.\n\nOutput: Text in the exact format Name: NAME, Age: AGE.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Mira, age = 28\n\nOutput\nName: Mira, Age: 28",
+      "caption": "Both supplied fields appear in the required format."
+    },
+    {
+      "id": "fund-io-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= name length <= 100\n0 <= age <= 150",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def profile_summary(name, age):\n    # Build the exact profile summary\n    pass\n\nprint(profile_summary('Mira', 28))\n",
+      "stdin": "",
+      "expectedOutput": "Name: Mira, Age: 28",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

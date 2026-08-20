@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-001",
+  "title": "Read the First Inventory Item",
+  "summary": "Access the first element of an ordered collection.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "list-array-basics-indexing",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "first_inventory_item",
+    "signature": "first_inventory_item(items)",
+    "input": "A non-empty ordered collection of items.",
+    "output": "The first item."
+  },
+  "examples": [
+    {
+      "input": "items = [notebook, pen, eraser]",
+      "output": "notebook",
+      "explanation": "Notebook occupies the first valid position."
+    }
+  ],
+  "constraints": [
+    "1 <= number of items <= 1000"
+  ],
+  "concepts": [
+    "collections",
+    "indexing"
+  ],
+  "skills": [
+    "sequence-reasoning",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "ordered-sequences"
+  ],
+  "commonMistakes": [
+    "reading the second item",
+    "returning the entire collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "several items",
+      "arguments": [
+        [
+          "notebook",
+          "pen",
+          "eraser"
+        ]
+      ],
+      "expected": "notebook"
+    },
+    {
+      "name": "single item",
+      "arguments": [
+        [
+          "marker"
+        ]
+      ],
+      "expected": "marker"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "first_inventory_item(items)",
+      "entryPoint": "first_inventory_item"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-001-statement",
+      "type": "paragraph",
+      "content": "Return the first item in the supplied non-empty inventory collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-001-contract",
+      "type": "note",
+      "title": "first_inventory_item(items)",
+      "content": "Input: A non-empty ordered collection of items.\n\nOutput: The first item.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitems = [notebook, pen, eraser]\n\nOutput\nnotebook",
+      "caption": "Notebook occupies the first valid position."
+    },
+    {
+      "id": "fund-arrays-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of items <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def first_inventory_item(items):\n    # Return the first item\n    pass\n\nprint(first_inventory_item(['notebook', 'pen', 'eraser']))\n",
+      "stdin": "",
+      "expectedOutput": "notebook",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

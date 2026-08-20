@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-018",
+  "title": "Read a Setting Safely",
+  "summary": "Provide an explicit fallback for a missing key.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "setting_or_fallback",
+    "signature": "setting_or_fallback(settings, key, fallback)",
+    "input": "A settings mapping, a key, and a fallback value.",
+    "output": "The stored value or fallback when missing."
+  },
+  "examples": [
+    {
+      "input": "key = language is missing",
+      "output": "English",
+      "explanation": "The missing language key uses the supplied fallback."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "safe-lookup",
+    "missing-key",
+    "empty-value"
+  ],
+  "skills": [
+    "missing-data-handling",
+    "key-lookup"
+  ],
+  "prerequisites": [
+    "membership",
+    "lookup"
+  ],
+  "commonMistakes": [
+    "treating zero as missing",
+    "accessing a missing key without handling it"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "missing key",
+      "arguments": [
+        {
+          "theme": "dark"
+        },
+        "language",
+        "English"
+      ],
+      "expected": "English"
+    },
+    {
+      "name": "empty stored value",
+      "arguments": [
+        {
+          "nickname": ""
+        },
+        "nickname",
+        "Guest"
+      ],
+      "expected": ""
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "setting_or_fallback(settings, key, fallback)",
+      "entryPoint": "setting_or_fallback"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-018-statement",
+      "type": "paragraph",
+      "content": "Return the value associated with the supplied setting key. Return the supplied fallback when the key is missing. Stored zero or empty-text values must be returned rather than replaced by the fallback.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-018-contract",
+      "type": "note",
+      "title": "setting_or_fallback(settings, key, fallback)",
+      "content": "Input: A settings mapping, a key, and a fallback value.\n\nOutput: The stored value or fallback when missing.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nkey = language is missing\n\nOutput\nEnglish",
+      "caption": "The missing language key uses the supplied fallback."
+    },
+    {
+      "id": "fund-dictionaries-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def setting_or_fallback(settings, key, fallback):\n    # Return fallback only when key is missing\n    pass\n\nprint(setting_or_fallback({'theme': 'dark'}, 'language', 'English'))\n",
+      "stdin": "",
+      "expectedOutput": "English",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

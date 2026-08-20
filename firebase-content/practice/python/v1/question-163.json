@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-017",
+  "title": "Check Required Tag Availability",
+  "summary": "Determine whether one unique-value collection is contained in another.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "basic-set-operations",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "required_tags_available",
+    "signature": "required_tags_available(available, required)",
+    "input": "Collections of available and required tags.",
+    "output": "A boolean containment result."
+  },
+  "examples": [
+    {
+      "input": "required = [sale, new]",
+      "output": "true",
+      "explanation": "Every required tag is available."
+    }
+  ],
+  "constraints": [
+    "0 <= tags in each collection <= 1000"
+  ],
+  "concepts": [
+    "subset",
+    "containment"
+  ],
+  "skills": [
+    "collection-comparison",
+    "set-operation-reasoning"
+  ],
+  "prerequisites": [
+    "membership",
+    "sets"
+  ],
+  "commonMistakes": [
+    "checking whether any tag exists",
+    "rejecting empty requirements"
+  ],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "publicTests": [
+    {
+      "name": "all required available",
+      "arguments": [
+        [
+          "new",
+          "sale",
+          "featured"
+        ],
+        [
+          "sale",
+          "new"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "name": "required tag missing",
+      "arguments": [
+        [
+          "new"
+        ],
+        [
+          "new",
+          "sale"
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "required_tags_available(available, required)",
+      "entryPoint": "required_tags_available"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-017-statement",
+      "type": "paragraph",
+      "content": "Return whether every required tag is available. Duplicate inputs do not change the result, and an empty required collection is satisfied.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-017-contract",
+      "type": "note",
+      "title": "required_tags_available(available, required)",
+      "content": "Input: Collections of available and required tags.\n\nOutput: A boolean containment result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrequired = [sale, new]\n\nOutput\ntrue",
+      "caption": "Every required tag is available."
+    },
+    {
+      "id": "fund-sets-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= tags in each collection <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def required_tags_available(available, required):\n    # Return whether required is contained in available\n    pass\n\nprint(required_tags_available(['new', 'sale', 'featured'], ['sale', 'new']))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

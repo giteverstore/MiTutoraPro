@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-019",
+  "title": "Trace an Exact Code Match",
+  "summary": "Reason about case-sensitive equality.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-validation-edge-cases",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "codes_match_exactly",
+    "signature": "codes_match_exactly(first, second)",
+    "input": "Two text product codes.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "first = Mi-7, second = Mi-7",
+      "output": "true",
+      "explanation": "Every character and case position matches."
+    }
+  ],
+  "constraints": [
+    "0 <= each code length <= 100"
+  ],
+  "concepts": [
+    "exact-matching",
+    "case-sensitivity"
+  ],
+  "skills": [
+    "comparison-reasoning",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "strings"
+  ],
+  "commonMistakes": [
+    "ignoring letter case",
+    "removing punctuation before comparison"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "exact match",
+      "arguments": [
+        "Mi-7",
+        "Mi-7"
+      ],
+      "expected": true
+    },
+    {
+      "name": "case difference",
+      "arguments": [
+        "Mi-7",
+        "MI-7"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "codes_match_exactly(first, second)",
+      "entryPoint": "codes_match_exactly"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-019-statement",
+      "type": "paragraph",
+      "content": "Return whether two product codes match exactly, including letter case, digits, and punctuation.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-019-contract",
+      "type": "note",
+      "title": "codes_match_exactly(first, second)",
+      "content": "Input: Two text product codes.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = Mi-7, second = Mi-7\n\nOutput\ntrue",
+      "caption": "Every character and case position matches."
+    },
+    {
+      "id": "fund-strings-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= each code length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def codes_match_exactly(first, second):\n    # Compare every part exactly\n    pass\n\nprint(codes_match_exactly('Mi-7', 'Mi-7'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

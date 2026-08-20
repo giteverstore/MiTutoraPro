@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-014",
+  "title": "Remove a Selected Character",
+  "summary": "Construct text while excluding one exact character.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-transformation",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "remove_character",
+    "signature": "remove_character(text, selected)",
+    "input": "Text and one selected character.",
+    "output": "Text without exact occurrences of selected."
+  },
+  "examples": [
+    {
+      "input": "text = balloon, selected = l",
+      "output": "baoon",
+      "explanation": "Both lowercase l characters are removed."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "selected contains exactly one character"
+  ],
+  "concepts": [
+    "string-transformation",
+    "character-removal"
+  ],
+  "skills": [
+    "string-construction",
+    "exact-matching"
+  ],
+  "prerequisites": [
+    "traversal"
+  ],
+  "commonMistakes": [
+    "removing similar characters with different case",
+    "removing only one occurrence"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated character",
+      "arguments": [
+        "balloon",
+        "l"
+      ],
+      "expected": "baoon"
+    },
+    {
+      "name": "selected absent",
+      "arguments": [
+        "code!",
+        "x"
+      ],
+      "expected": "code!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "remove_character(text, selected)",
+      "entryPoint": "remove_character"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-014-statement",
+      "type": "paragraph",
+      "content": "Return a new string with every occurrence of the selected character removed. Preserve all other characters and their order.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-014-contract",
+      "type": "note",
+      "title": "remove_character(text, selected)",
+      "content": "Input: Text and one selected character.\n\nOutput: Text without exact occurrences of selected.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = balloon, selected = l\n\nOutput\nbaoon",
+      "caption": "Both lowercase l characters are removed."
+    },
+    {
+      "id": "fund-strings-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\nselected contains exactly one character",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def remove_character(text, selected):\n    result = ''\n    # Preserve every non-selected character\n    return result\n\nprint(remove_character('balloon', 'l'))\n",
+      "stdin": "",
+      "expectedOutput": "baoon",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

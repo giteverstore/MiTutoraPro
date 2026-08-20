@@ -1,52 +1,132 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "practice-sum-range",
-  "title": "Sum from 1 to N",
-  "summary": "Use iteration to calculate a simple arithmetic total.",
+  "id": "fund-variables-002",
+  "title": "Track Store Inventory",
+  "summary": "Update an assigned quantity after sales and restocking.",
   "language": "Python",
-  "difficulty": "easy",
-  "topic": "Loops",
-  "estimatedMinutes": 10,
-  "xp": 50,
+  "difficulty": "very_easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-creation-assignment",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "final_inventory",
+    "signature": "final_inventory(initial, sold, restocked)",
+    "input": "Three non-negative whole-number quantities.",
+    "output": "The final whole-number inventory."
+  },
+  "examples": [
+    {
+      "input": "initial = 20, sold = 6, restocked = 4",
+      "output": "18",
+      "explanation": "The stock becomes 14 after the sale and 18 after restocking."
+    }
+  ],
+  "constraints": [
+    "0 <= sold <= initial",
+    "0 <= initial, restocked <= 10000"
+  ],
+  "concepts": [
+    "assignment",
+    "reassignment"
+  ],
+  "skills": [
+    "state-tracking",
+    "subtraction-and-addition"
+  ],
+  "prerequisites": [
+    "variable-assignment"
+  ],
+  "commonMistakes": [
+    "Adding sold items instead of subtracting them",
+    "Ignoring the restocked quantity"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "sale and restock",
+      "arguments": [
+        20,
+        6,
+        4
+      ],
+      "expected": 18
+    },
+    {
+      "name": "no changes",
+      "arguments": [
+        7,
+        0,
+        0
+      ],
+      "expected": 7
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "final_inventory(initial, sold, restocked)",
+      "entryPoint": "final_inventory"
+    }
+  },
   "blocks": [
     {
-      "id": "sum-heading",
+      "id": "fund-variables-002-heading",
       "type": "heading",
       "level": 2,
       "text": "Problem Statement"
     },
     {
-      "id": "sum-copy",
+      "id": "fund-variables-002-statement",
       "type": "paragraph",
-      "content": "Read a positive integer `n` and print the sum of every integer from 1 through `n`.",
+      "content": "A shop begins with an inventory count, sells some items, and then receives a restock. Return the final inventory.",
       "format": "markdown"
     },
     {
-      "id": "sum-example-heading",
+      "id": "fund-variables-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-002-contract",
+      "type": "note",
+      "title": "final_inventory(initial, sold, restocked)",
+      "content": "Input: Three non-negative whole-number quantities.\n\nOutput: The final whole-number inventory.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-002-example-heading",
       "type": "heading",
       "level": 3,
       "text": "Example"
     },
     {
-      "id": "sum-example",
+      "id": "fund-variables-002-example",
       "type": "code",
       "language": "text",
-      "code": "Input\n5\n\nOutput\n15"
+      "code": "Input\ninitial = 20, sold = 6, restocked = 4\n\nOutput\n18",
+      "caption": "The stock becomes 14 after the sale and 18 after restocking."
     },
     {
-      "id": "sum-constraints",
+      "id": "fund-variables-002-constraints",
       "type": "note",
       "title": "Constraints",
-      "content": "1 ≤ n ≤ 10,000",
+      "content": "0 <= sold <= initial\n0 <= initial, restocked <= 10000",
       "format": "plain"
     },
     {
-      "id": "sum-compiler",
+      "id": "fund-variables-002-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "n = int(input())\ntotal = 0\n# Add the numbers from 1 to n\nprint(total)\n",
-      "stdin": "5",
-      "expectedOutput": "15",
+      "starterCode": "def final_inventory(initial, sold, restocked):\n    inventory = initial\n    # Update inventory for the sale and restock\n    return inventory\n\nprint(final_inventory(20, 6, 4))\n",
+      "stdin": "",
+      "expectedOutput": "18",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

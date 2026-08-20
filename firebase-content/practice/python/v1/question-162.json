@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-016",
+  "title": "Trace Group Difference",
+  "summary": "Reason about values unique to the first group.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "basic-set-operations",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "only_in_first_group",
+    "signature": "only_in_first_group(first, second)",
+    "input": "Two value collections.",
+    "output": "An alphabetical difference of unique values."
+  },
+  "examples": [
+    {
+      "input": "first = [red, blue, green], second = [blue, yellow]",
+      "output": "green,red",
+      "explanation": "Green and red occur only in the first group."
+    }
+  ],
+  "constraints": [
+    "0 <= values in each collection <= 1000"
+  ],
+  "concepts": [
+    "difference",
+    "set-operation"
+  ],
+  "skills": [
+    "set-operation-reasoning",
+    "collection-comparison"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "reversing the groups",
+    "including common values"
+  ],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "publicTests": [
+    {
+      "name": "partial overlap",
+      "arguments": [
+        [
+          "red",
+          "blue",
+          "green"
+        ],
+        [
+          "blue",
+          "yellow"
+        ]
+      ],
+      "expected": [
+        "green",
+        "red"
+      ]
+    },
+    {
+      "name": "complete overlap",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "only_in_first_group(first, second)",
+      "entryPoint": "only_in_first_group"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-016-statement",
+      "type": "paragraph",
+      "content": "Return values present in the first group but absent from the second, once each and alphabetically.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-016-contract",
+      "type": "note",
+      "title": "only_in_first_group(first, second)",
+      "content": "Input: Two value collections.\n\nOutput: An alphabetical difference of unique values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = [red, blue, green], second = [blue, yellow]\n\nOutput\ngreen,red",
+      "caption": "Green and red occur only in the first group."
+    },
+    {
+      "id": "fund-sets-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= values in each collection <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def only_in_first_group(first, second):\n    # Return first minus second, alphabetically\n    pass\n\nprint(only_in_first_group(['red', 'blue', 'green'], ['blue', 'yellow']))\n",
+      "stdin": "",
+      "expectedOutput": "green,red",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

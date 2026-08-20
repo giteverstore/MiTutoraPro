@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-015",
+  "title": "Repair Common Inventory Items",
+  "summary": "Fix a union used where intersection is required.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "basic-set-operations",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "common_inventory_items",
+    "signature": "common_inventory_items(first, second)",
+    "input": "Two collections of item values.",
+    "output": "An alphabetical intersection of unique values."
+  },
+  "examples": [
+    {
+      "input": "first and second both contain book",
+      "output": "book",
+      "explanation": "Only book occurs in both groups."
+    }
+  ],
+  "constraints": [
+    "0 <= items in each collection <= 1000"
+  ],
+  "concepts": [
+    "intersection",
+    "set-operation"
+  ],
+  "skills": [
+    "debugging-set-operations",
+    "collection-comparison"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "using union instead of intersection",
+    "retaining duplicates"
+  ],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "publicTests": [
+    {
+      "name": "partial overlap",
+      "arguments": [
+        [
+          "pen",
+          "book"
+        ],
+        [
+          "book",
+          "lamp"
+        ]
+      ],
+      "expected": [
+        "book"
+      ]
+    },
+    {
+      "name": "no overlap",
+      "arguments": [
+        [
+          "a"
+        ],
+        [
+          "b"
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "common_inventory_items(first, second)",
+      "entryPoint": "common_inventory_items"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-015-statement",
+      "type": "paragraph",
+      "content": "Return values present in both inventory groups, once each and alphabetically. The current implementation returns values present in either group. Correct the operation.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-015-contract",
+      "type": "note",
+      "title": "common_inventory_items(first, second)",
+      "content": "Input: Two collections of item values.\n\nOutput: An alphabetical intersection of unique values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst and second both contain book\n\nOutput\nbook",
+      "caption": "Only book occurs in both groups."
+    },
+    {
+      "id": "fund-sets-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= items in each collection <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def common_inventory_items(first, second):\n    return sorted(set(first) | set(second))  # Use the common values instead\n\nprint(common_inventory_items(['pen', 'book'], ['book', 'lamp']))\n",
+      "stdin": "",
+      "expectedOutput": "book",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

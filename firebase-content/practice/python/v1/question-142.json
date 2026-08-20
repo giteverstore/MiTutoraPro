@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-016",
+  "title": "Repair Category Counting",
+  "summary": "Fix frequency initialization that resets repeated categories.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "counting-frequency-tracking",
+  "questionType": "debugging",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "category_counts",
+    "signature": "category_counts(categories)",
+    "input": "A collection of category labels.",
+    "output": "A category-to-count mapping."
+  },
+  "examples": [
+    {
+      "input": "categories = [food, travel, food, food]",
+      "output": "[object Object]",
+      "explanation": "Food is incremented to three."
+    }
+  ],
+  "constraints": [
+    "0 <= number of categories <= 1000"
+  ],
+  "concepts": [
+    "frequency-counting",
+    "frequency-initialization"
+  ],
+  "skills": [
+    "debugging-accumulators",
+    "frequency-tracking"
+  ],
+  "prerequisites": [
+    "loops",
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "resetting an existing count",
+    "failing to initialize a new key"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated categories",
+      "arguments": [
+        [
+          "food",
+          "travel",
+          "food",
+          "food"
+        ]
+      ],
+      "expected": {
+        "food": 3,
+        "travel": 1
+      }
+    },
+    {
+      "name": "one category",
+      "arguments": [
+        [
+          "study"
+        ]
+      ],
+      "expected": {
+        "study": 1
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "category_counts(categories)",
+      "entryPoint": "category_counts"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-016-statement",
+      "type": "paragraph",
+      "content": "Return a mapping from each category to its occurrence count. The current implementation resets a category’s count to one every time it appears. Correct the frequency update.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-016-contract",
+      "type": "note",
+      "title": "category_counts(categories)",
+      "content": "Input: A collection of category labels.\n\nOutput: A category-to-count mapping.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncategories = [food, travel, food, food]\n\nOutput\n[object Object]",
+      "caption": "Food is incremented to three."
+    },
+    {
+      "id": "fund-dictionaries-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of categories <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def category_counts(categories):\n    counts = {}\n    for category in categories:\n        counts[category] = 1  # Increment an existing count\n    return counts\n\nprint(category_counts(['food', 'travel', 'food', 'food']))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

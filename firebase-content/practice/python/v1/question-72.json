@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-006",
+  "title": "Repair a Missing Return",
+  "summary": "Replace display-only behavior with a reusable return value.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "return-values",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "square_value",
+    "signature": "square_value(value)",
+    "input": "A numeric value.",
+    "output": "The value multiplied by itself."
+  },
+  "examples": [
+    {
+      "input": "value = 5",
+      "output": "25",
+      "explanation": "The caller must receive 25 as the returned value."
+    }
+  ],
+  "constraints": [
+    "-10000 <= value <= 10000"
+  ],
+  "concepts": [
+    "return-values",
+    "side-effects"
+  ],
+  "skills": [
+    "debugging-return-values"
+  ],
+  "prerequisites": [
+    "functions"
+  ],
+  "commonMistakes": [
+    "printing instead of returning",
+    "omitting the return value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive square",
+      "arguments": [
+        5
+      ],
+      "expected": 25
+    },
+    {
+      "name": "zero square",
+      "arguments": [
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "square_value(value)",
+      "entryPoint": "square_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-006-statement",
+      "type": "paragraph",
+      "content": "The operation should return the squared value for use elsewhere. The current implementation only displays it. Correct the operation so callers receive the result.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-006-contract",
+      "type": "note",
+      "title": "square_value(value)",
+      "content": "Input: A numeric value.\n\nOutput: The value multiplied by itself.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 5\n\nOutput\n25",
+      "caption": "The caller must receive 25 as the returned value."
+    },
+    {
+      "id": "fund-functions-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-10000 <= value <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def square_value(value):\n    print(value * value)  # Return the value instead\n\nprint(square_value(5))\n",
+      "stdin": "",
+      "expectedOutput": "25",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

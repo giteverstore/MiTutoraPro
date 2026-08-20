@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-020",
+  "title": "Count Common Unique Values",
+  "summary": "Handle intersections involving empty or repeated inputs.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "traversal-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "common_unique_count",
+    "signature": "common_unique_count(first, second)",
+    "input": "Two value collections.",
+    "output": "The size of their unique-value intersection."
+  },
+  "examples": [
+    {
+      "input": "common values are 1 and 3",
+      "output": "2",
+      "explanation": "Repeated 1 contributes one common unique value."
+    }
+  ],
+  "constraints": [
+    "0 <= values in each collection <= 1000"
+  ],
+  "concepts": [
+    "intersection",
+    "empty-set",
+    "uniqueness"
+  ],
+  "skills": [
+    "set-operation-reasoning",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "counting repeated matches",
+    "assuming non-empty inputs"
+  ],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "publicTests": [
+    {
+      "name": "duplicates and overlap",
+      "arguments": [
+        [
+          1,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          1,
+          3,
+          4
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "empty first collection",
+      "arguments": [
+        [],
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "common_unique_count(first, second)",
+      "entryPoint": "common_unique_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-020-statement",
+      "type": "paragraph",
+      "content": "Return the number of distinct values present in both supplied collections. Duplicate inputs count once.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-020-contract",
+      "type": "note",
+      "title": "common_unique_count(first, second)",
+      "content": "Input: Two value collections.\n\nOutput: The size of their unique-value intersection.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncommon values are 1 and 3\n\nOutput\n2",
+      "caption": "Repeated 1 contributes one common unique value."
+    },
+    {
+      "id": "fund-sets-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= values in each collection <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def common_unique_count(first, second):\n    # Count distinct values present in both\n    pass\n\nprint(common_unique_count([1, 1, 2, 3], [1, 1, 3, 4]))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

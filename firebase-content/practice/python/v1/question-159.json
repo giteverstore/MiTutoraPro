@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-013",
+  "title": "Deduplicate Words",
+  "summary": "Return deterministic unique words with case preserved.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "duplicate-elimination",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "sorted_unique_words",
+    "signature": "sorted_unique_words(words)",
+    "input": "A collection of words.",
+    "output": "An alphabetically ordered collection of unique words."
+  },
+  "examples": [
+    {
+      "input": "words = [code, Code, code]",
+      "output": "Code,code",
+      "explanation": "Code and code are distinct values."
+    }
+  ],
+  "constraints": [
+    "0 <= number of words <= 1000"
+  ],
+  "concepts": [
+    "deduplication",
+    "case-sensitivity"
+  ],
+  "skills": [
+    "duplicate-elimination",
+    "exact-matching"
+  ],
+  "prerequisites": [
+    "strings",
+    "sets"
+  ],
+  "commonMistakes": [
+    "combining different letter cases",
+    "depending on set iteration order"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "case-sensitive words",
+      "arguments": [
+        [
+          "code",
+          "Code",
+          "code"
+        ]
+      ],
+      "expected": [
+        "Code",
+        "code"
+      ]
+    },
+    {
+      "name": "all unique",
+      "arguments": [
+        [
+          "beta",
+          "alpha"
+        ]
+      ],
+      "expected": [
+        "alpha",
+        "beta"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "sorted_unique_words(words)",
+      "entryPoint": "sorted_unique_words"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-013-statement",
+      "type": "paragraph",
+      "content": "Return the unique words in alphabetical order. Matching is case-sensitive, so differently cased words remain distinct.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-013-contract",
+      "type": "note",
+      "title": "sorted_unique_words(words)",
+      "content": "Input: A collection of words.\n\nOutput: An alphabetically ordered collection of unique words.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nwords = [code, Code, code]\n\nOutput\nCode,code",
+      "caption": "Code and code are distinct values."
+    },
+    {
+      "id": "fund-sets-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of words <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sorted_unique_words(words):\n    # Return unique words alphabetically\n    pass\n\nprint(sorted_unique_words(['code', 'Code', 'code']))\n",
+      "stdin": "",
+      "expectedOutput": "Code,code",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

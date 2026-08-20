@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-010",
+  "title": "Repair the First Match Position",
+  "summary": "Fix search behavior for matches at the first position.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "searching-matching",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "first_character_position",
+    "signature": "first_character_position(text, target)",
+    "input": "Text and a single target character.",
+    "output": "The first matching position, or -1."
+  },
+  "examples": [
+    {
+      "input": "text = level, target = l",
+      "output": "0",
+      "explanation": "Zero is a valid found position."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "target contains exactly one character"
+  ],
+  "concepts": [
+    "searching",
+    "first-occurrence",
+    "zero-position"
+  ],
+  "skills": [
+    "debugging-search-results",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "indexing"
+  ],
+  "commonMistakes": [
+    "treating zero as no match",
+    "returning the last occurrence"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "match at first position",
+      "arguments": [
+        "level",
+        "l"
+      ],
+      "expected": 0
+    },
+    {
+      "name": "not found",
+      "arguments": [
+        "level",
+        "x"
+      ],
+      "expected": -1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "first_character_position(text, target)",
+      "entryPoint": "first_character_position"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-010-statement",
+      "type": "paragraph",
+      "content": "Return the zero-based position of the first target character, or -1 when absent. The current implementation incorrectly treats position zero as not found. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-010-contract",
+      "type": "note",
+      "title": "first_character_position(text, target)",
+      "content": "Input: Text and a single target character.\n\nOutput: The first matching position, or -1.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = level, target = l\n\nOutput\n0",
+      "caption": "Zero is a valid found position."
+    },
+    {
+      "id": "fund-strings-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\ntarget contains exactly one character",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def first_character_position(text, target):\n    position = text.find(target)\n    if not position:  # Position zero is a valid match\n        return -1\n    return position\n\nprint(first_character_position('level', 'l'))\n",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

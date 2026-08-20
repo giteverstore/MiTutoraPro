@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-004",
+  "title": "Repair a Fixed Parameter",
+  "summary": "Fix reusable logic that ignores its input.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "function-basics-parameters",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "double_value",
+    "signature": "double_value(value)",
+    "input": "A numeric value.",
+    "output": "Twice the supplied value."
+  },
+  "examples": [
+    {
+      "input": "value = 7",
+      "output": "14",
+      "explanation": "The result must depend on the argument."
+    }
+  ],
+  "constraints": [
+    "-100000 <= value <= 100000"
+  ],
+  "concepts": [
+    "parameter-use",
+    "reusable-logic"
+  ],
+  "skills": [
+    "debugging-functions",
+    "parameter-reasoning"
+  ],
+  "prerequisites": [
+    "function-parameters"
+  ],
+  "commonMistakes": [
+    "using a fixed literal instead of the parameter",
+    "changing the parameter before using it"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "non-fixed input",
+      "arguments": [
+        7
+      ],
+      "expected": 14
+    },
+    {
+      "name": "negative input",
+      "arguments": [
+        -3
+      ],
+      "expected": -6
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "double_value(value)",
+      "entryPoint": "double_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-004-statement",
+      "type": "paragraph",
+      "content": "The operation should return twice the supplied value, but the current implementation always doubles a fixed value. Correct it to use the parameter.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-004-contract",
+      "type": "note",
+      "title": "double_value(value)",
+      "content": "Input: A numeric value.\n\nOutput: Twice the supplied value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 7\n\nOutput\n14",
+      "caption": "The result must depend on the argument."
+    },
+    {
+      "id": "fund-functions-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-100000 <= value <= 100000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def double_value(value):\n    return 10 * 2  # Use the parameter instead of a fixed value\n\nprint(double_value(7))\n",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

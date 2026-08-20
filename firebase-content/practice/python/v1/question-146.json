@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-020",
+  "title": "Add Defaults Without Overwriting",
+  "summary": "Fill missing keys while preserving existing values.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "with_missing_defaults",
+    "signature": "with_missing_defaults(settings, defaults)",
+    "input": "A settings mapping and a defaults mapping.",
+    "output": "A new mapping with only missing defaults added."
+  },
+  "examples": [
+    {
+      "input": "settings has an empty language; defaults adds size",
+      "output": "[object Object]",
+      "explanation": "The existing empty language is preserved and size is added."
+    }
+  ],
+  "constraints": [
+    "0 <= entries in each mapping <= 1000"
+  ],
+  "concepts": [
+    "missing-key",
+    "insertion",
+    "overwrite-prevention"
+  ],
+  "skills": [
+    "mapping-reasoning",
+    "collection-manipulation"
+  ],
+  "prerequisites": [
+    "membership",
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "overwriting existing values",
+    "modifying a supplied mapping"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "preserve existing value",
+      "arguments": [
+        {
+          "language": "",
+          "theme": "dark"
+        },
+        {
+          "language": "English",
+          "size": 14
+        }
+      ],
+      "expected": {
+        "language": "",
+        "size": 14,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "empty defaults",
+      "arguments": [
+        {
+          "mode": "quiet"
+        },
+        {}
+      ],
+      "expected": {
+        "mode": "quiet"
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_missing_defaults(settings, defaults)",
+      "entryPoint": "with_missing_defaults"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-020-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping containing the supplied settings plus every missing default entry. Never overwrite a key already present in the settings, even when its value is zero or empty text. Do not modify either supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-020-contract",
+      "type": "note",
+      "title": "with_missing_defaults(settings, defaults)",
+      "content": "Input: A settings mapping and a defaults mapping.\n\nOutput: A new mapping with only missing defaults added.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nsettings has an empty language; defaults adds size\n\nOutput\n[object Object]",
+      "caption": "The existing empty language is preserved and size is added."
+    },
+    {
+      "id": "fund-dictionaries-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= entries in each mapping <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_missing_defaults(settings, defaults):\n    # Add only default keys that are absent\n    pass\n\nprint(with_missing_defaults({'language': '', 'theme': 'dark'}, {'language': 'English', 'size': 14}))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

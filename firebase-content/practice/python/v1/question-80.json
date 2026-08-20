@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-014",
+  "title": "Calculate with Local State",
+  "summary": "Keep intermediate values inside the reusable operation.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "scope-local-state",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "local_order_total",
+    "signature": "local_order_total(price, quantity, fee)",
+    "input": "A price, whole-number quantity, and fee.",
+    "output": "The numeric order total."
+  },
+  "examples": [
+    {
+      "input": "price = 4, quantity = 3, fee = 2",
+      "output": "14",
+      "explanation": "Subtotal and final total are local intermediate values."
+    }
+  ],
+  "constraints": [
+    "All inputs are non-negative",
+    "quantity is a whole number"
+  ],
+  "concepts": [
+    "local-scope",
+    "local-variables"
+  ],
+  "skills": [
+    "scope-awareness",
+    "intermediate-state"
+  ],
+  "prerequisites": [
+    "functions",
+    "variables"
+  ],
+  "commonMistakes": [
+    "relying on an outside subtotal",
+    "returning an intermediate instead of final value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "local calculation",
+      "arguments": [
+        4,
+        3,
+        2
+      ],
+      "expected": 14
+    },
+    {
+      "name": "zero quantity",
+      "arguments": [
+        4,
+        0,
+        2
+      ],
+      "expected": 2
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "local_order_total(price, quantity, fee)",
+      "entryPoint": "local_order_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-014-statement",
+      "type": "paragraph",
+      "content": "Calculate item subtotal and final total using values created inside the operation. Return `price * quantity + fee` without relying on outside state.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-014-contract",
+      "type": "note",
+      "title": "local_order_total(price, quantity, fee)",
+      "content": "Input: A price, whole-number quantity, and fee.\n\nOutput: The numeric order total.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice = 4, quantity = 3, fee = 2\n\nOutput\n14",
+      "caption": "Subtotal and final total are local intermediate values."
+    },
+    {
+      "id": "fund-functions-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "All inputs are non-negative\nquantity is a whole number",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def local_order_total(price, quantity, fee):\n    # Create subtotal and total locally\n    pass\n\nprint(local_order_total(4, 3, 2))\n",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

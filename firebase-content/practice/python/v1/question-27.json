@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-001",
+  "title": "Meet a Minimum Age",
+  "summary": "Check whether an age reaches a required minimum.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "basic-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "meets_minimum_age",
+    "signature": "meets_minimum_age(age, minimum_age)",
+    "input": "Two non-negative whole-number ages.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "age = 18, minimum_age = 18",
+      "output": "true",
+      "explanation": "Meeting the minimum includes equality."
+    }
+  ],
+  "constraints": [
+    "0 <= age, minimum_age <= 150"
+  ],
+  "concepts": [
+    "conditional-logic",
+    "greater-than-or-equal"
+  ],
+  "skills": [
+    "comparison",
+    "boundary-reasoning"
+  ],
+  "prerequisites": [
+    "boolean-values"
+  ],
+  "commonMistakes": [
+    "excluding an age equal to the minimum",
+    "comparing the values in reverse"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "exact minimum",
+      "arguments": [
+        18,
+        18
+      ],
+      "expected": true
+    },
+    {
+      "name": "below minimum",
+      "arguments": [
+        17,
+        18
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "meets_minimum_age(age, minimum_age)",
+      "entryPoint": "meets_minimum_age"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-001-statement",
+      "type": "paragraph",
+      "content": "Given a person’s age and a minimum age, return whether the person meets the requirement.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-001-contract",
+      "type": "note",
+      "title": "meets_minimum_age(age, minimum_age)",
+      "content": "Input: Two non-negative whole-number ages.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nage = 18, minimum_age = 18\n\nOutput\ntrue",
+      "caption": "Meeting the minimum includes equality."
+    },
+    {
+      "id": "fund-conditionals-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= age, minimum_age <= 150",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def meets_minimum_age(age, minimum_age):\n    # Return whether age meets the minimum\n    pass\n\nprint(meets_minimum_age(18, 18))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

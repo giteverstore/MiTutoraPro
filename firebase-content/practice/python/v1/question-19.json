@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-019",
+  "title": "Handle an Invalid Whole Number",
+  "summary": "Return a deterministic result when text cannot become a whole number.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "parse_whole_number",
+    "signature": "parse_whole_number(value_text)",
+    "input": "Any non-empty text.",
+    "output": "A whole number, or `invalid` when conversion is not possible."
+  },
+  "examples": [
+    {
+      "input": "value_text = \"7.5\"",
+      "output": "invalid",
+      "explanation": "Decimal text is not a whole-number representation."
+    }
+  ],
+  "constraints": [
+    "value_text contains 1 to 100 characters"
+  ],
+  "concepts": [
+    "invalid-conversion",
+    "error-handling"
+  ],
+  "skills": [
+    "edge-case-handling",
+    "deterministic-output"
+  ],
+  "prerequisites": [
+    "string-to-integer"
+  ],
+  "commonMistakes": [
+    "Allowing invalid conversion to stop the program",
+    "Returning zero for every invalid value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "invalid decimal text",
+      "arguments": [
+        "7.5"
+      ],
+      "expected": "invalid"
+    },
+    {
+      "name": "valid negative integer",
+      "arguments": [
+        "-8"
+      ],
+      "expected": -8
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "parse_whole_number(value_text)",
+      "entryPoint": "parse_whole_number"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-019-statement",
+      "type": "paragraph",
+      "content": "Convert the supplied text to a whole number. If it is not a valid whole-number representation, return the text `invalid` instead of failing.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-019-contract",
+      "type": "note",
+      "title": "parse_whole_number(value_text)",
+      "content": "Input: Any non-empty text.\n\nOutput: A whole number, or `invalid` when conversion is not possible.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue_text = \"7.5\"\n\nOutput\ninvalid",
+      "caption": "Decimal text is not a whole-number representation."
+    },
+    {
+      "id": "fund-variables-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "value_text contains 1 to 100 characters",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def parse_whole_number(value_text):\n    # Return the converted value or 'invalid'\n    pass\n\nprint(parse_whole_number('7.5'))\n",
+      "stdin": "",
+      "expectedOutput": "invalid",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

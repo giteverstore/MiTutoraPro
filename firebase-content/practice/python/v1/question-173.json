@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-007",
+  "title": "Format a Name and Age Input Pair",
+  "summary": "Process two typed fields received together.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "multiple-values-structured-input",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "name_age_label",
+    "signature": "name_age_label(name, age)",
+    "input": "A non-empty name and a whole-number age.",
+    "output": "Text in the exact format NAME (AGE years)."
+  },
+  "examples": [
+    {
+      "input": "name = Avi, age = 24",
+      "output": "Avi (24 years)",
+      "explanation": "Both input fields appear in the exact required layout."
+    }
+  ],
+  "constraints": [
+    "1 <= name length <= 100",
+    "0 <= age <= 150"
+  ],
+  "concepts": [
+    "multiple-inputs",
+    "formatted-output"
+  ],
+  "skills": [
+    "structured-input-processing",
+    "output-formatting"
+  ],
+  "prerequisites": [
+    "strings",
+    "numbers"
+  ],
+  "commonMistakes": [
+    "reversing the fields",
+    "omitting parentheses or spaces"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "standard label",
+      "arguments": [
+        "Avi",
+        24
+      ],
+      "expected": "Avi (24 years)"
+    },
+    {
+      "name": "zero age",
+      "arguments": [
+        "Newborn",
+        0
+      ],
+      "expected": "Newborn (0 years)"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "name_age_label(name, age)",
+      "entryPoint": "name_age_label"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-007-statement",
+      "type": "paragraph",
+      "content": "Given a name text field and a whole-number age field, return exactly “NAME (AGE years)”. Preserve the supplied name and use one space before the opening parenthesis.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-007-contract",
+      "type": "note",
+      "title": "name_age_label(name, age)",
+      "content": "Input: A non-empty name and a whole-number age.\n\nOutput: Text in the exact format NAME (AGE years).",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Avi, age = 24\n\nOutput\nAvi (24 years)",
+      "caption": "Both input fields appear in the exact required layout."
+    },
+    {
+      "id": "fund-io-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= name length <= 100\n0 <= age <= 150",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def name_age_label(name, age):\n    # Format both supplied fields\n    pass\n\nprint(name_age_label('Avi', 24))\n",
+      "stdin": "",
+      "expectedOutput": "Avi (24 years)",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

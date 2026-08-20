@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-007",
+  "title": "Repair the Account Update",
+  "summary": "Fix an update that changes the wrong key.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "accessing-updating-values",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "with_account_balance",
+    "signature": "with_account_balance(balances, account, balance)",
+    "input": "A balance mapping, an existing account key, and a replacement balance.",
+    "output": "A new mapping with the selected account updated."
+  },
+  "examples": [
+    {
+      "input": "account = savings, balance = 100",
+      "output": "[object Object]",
+      "explanation": "Only savings changes."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000",
+    "account is an existing key"
+  ],
+  "concepts": [
+    "mapping-update",
+    "dynamic-key"
+  ],
+  "skills": [
+    "debugging-updates",
+    "key-selection"
+  ],
+  "prerequisites": [
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "using a fixed key",
+    "changing unrelated entries"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "second account",
+      "arguments": [
+        {
+          "primary": 50,
+          "savings": 90
+        },
+        "savings",
+        100
+      ],
+      "expected": {
+        "primary": 50,
+        "savings": 100
+      }
+    },
+    {
+      "name": "zero balance",
+      "arguments": [
+        {
+          "main": 8
+        },
+        "main",
+        0
+      ],
+      "expected": {
+        "main": 0
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_account_balance(balances, account, balance)",
+      "entryPoint": "with_account_balance"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-007-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping with only the selected account balance replaced. The current implementation always updates a different fixed account. Do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-007-contract",
+      "type": "note",
+      "title": "with_account_balance(balances, account, balance)",
+      "content": "Input: A balance mapping, an existing account key, and a replacement balance.\n\nOutput: A new mapping with the selected account updated.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\naccount = savings, balance = 100\n\nOutput\n[object Object]",
+      "caption": "Only savings changes."
+    },
+    {
+      "id": "fund-dictionaries-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000\naccount is an existing key",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_account_balance(balances, account, balance):\n    result = dict(balances)\n    result['primary'] = balance  # Update the selected account\n    return result\n\nprint(with_account_balance({'primary': 50, 'savings': 90}, 'savings', 100))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

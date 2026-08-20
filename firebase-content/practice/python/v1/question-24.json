@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "practice-largest-number",
+  "title": "Largest Number",
+  "summary": "Find the maximum value without changing the input order.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Lists",
+  "estimatedMinutes": 12,
+  "xp": 70,
+  "blocks": [
+    {
+      "id": "largest-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "largest-copy",
+      "type": "paragraph",
+      "content": "Read space-separated integers and print the largest value."
+    },
+    {
+      "id": "largest-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "largest-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\n4 9 2 7\n\nOutput\n9"
+    },
+    {
+      "id": "largest-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The list contains between 1 and 1,000 integers."
+    },
+    {
+      "id": "largest-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "numbers = list(map(int, input().split()))\n# Find and print the largest number\n",
+      "stdin": "4 9 2 7",
+      "expectedOutput": "9",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

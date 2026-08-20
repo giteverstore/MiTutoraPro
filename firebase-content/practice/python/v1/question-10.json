@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-010",
+  "title": "Predict the Expression Result",
+  "summary": "Apply multiplication-before-addition precedence.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "expressions-evaluation",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "evaluate_charge",
+    "signature": "evaluate_charge(base, rate, hours)",
+    "input": "Three numeric values.",
+    "output": "The evaluated numeric charge."
+  },
+  "examples": [
+    {
+      "input": "base = 5, rate = 3, hours = 4",
+      "output": "17",
+      "explanation": "The multiplication produces 12 before the base is added."
+    }
+  ],
+  "constraints": [
+    "Inputs are between -10000 and 10000"
+  ],
+  "concepts": [
+    "operator-precedence",
+    "expression-evaluation"
+  ],
+  "skills": [
+    "trace-evaluation-order"
+  ],
+  "prerequisites": [
+    "arithmetic-operators"
+  ],
+  "commonMistakes": [
+    "Adding base and rate before multiplying",
+    "Ignoring one operand"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "standard charge",
+      "arguments": [
+        5,
+        3,
+        4
+      ],
+      "expected": 17
+    },
+    {
+      "name": "zero hours",
+      "arguments": [
+        5,
+        3,
+        0
+      ],
+      "expected": 5
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "evaluate_charge(base, rate, hours)",
+      "entryPoint": "evaluate_charge"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-010-statement",
+      "type": "paragraph",
+      "content": "Evaluate `base + rate * hours` using the supplied values. Multiplication is evaluated before addition.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-010-contract",
+      "type": "note",
+      "title": "evaluate_charge(base, rate, hours)",
+      "content": "Input: Three numeric values.\n\nOutput: The evaluated numeric charge.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nbase = 5, rate = 3, hours = 4\n\nOutput\n17",
+      "caption": "The multiplication produces 12 before the base is added."
+    },
+    {
+      "id": "fund-variables-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Inputs are between -10000 and 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def evaluate_charge(base, rate, hours):\n    # Return the value of base + rate * hours\n    pass\n\nprint(evaluate_charge(5, 3, 4))\n",
+      "stdin": "",
+      "expectedOutput": "17",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

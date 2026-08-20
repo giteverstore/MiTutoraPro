@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-013",
+  "title": "Validate Integer Input Text",
+  "summary": "Define valid signed integer input precisely.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "input-validation-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "is_valid_integer_input",
+    "signature": "is_valid_integer_input(text)",
+    "input": "Arbitrary text with optional surrounding whitespace.",
+    "output": "True for the defined valid integer format; otherwise false."
+  },
+  "examples": [
+    {
+      "input": "text = \" +42 \"",
+      "output": "true",
+      "explanation": "One optional sign followed by digits is valid."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 100"
+  ],
+  "concepts": [
+    "input-validation",
+    "numeric-text"
+  ],
+  "skills": [
+    "data-validation",
+    "error-prevention"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting a sign without digits",
+    "accepting decimal punctuation"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "signed integer",
+      "arguments": [
+        " +42 "
+      ],
+      "expected": true
+    },
+    {
+      "name": "sign only",
+      "arguments": [
+        "-"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "is_valid_integer_input(text)",
+      "entryPoint": "is_valid_integer_input"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-013-statement",
+      "type": "paragraph",
+      "content": "Return true when trimmed input contains one or more digits, optionally preceded by exactly one plus or minus sign. Return false for empty, whitespace-only, sign-only, decimal, or other malformed text.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-013-contract",
+      "type": "note",
+      "title": "is_valid_integer_input(text)",
+      "content": "Input: Arbitrary text with optional surrounding whitespace.\n\nOutput: True for the defined valid integer format; otherwise false.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" +42 \"\n\nOutput\ntrue",
+      "caption": "One optional sign followed by digits is valid."
+    },
+    {
+      "id": "fund-io-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def is_valid_integer_input(text):\n    # Trim and validate the complete format\n    pass\n\nprint(is_valid_integer_input(' +42 '))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

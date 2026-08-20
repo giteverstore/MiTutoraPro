@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-007",
+  "title": "Repair a Sequence Total",
+  "summary": "Fix traversal that skips the last value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "looping-over-sequences",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "sequence_total",
+    "signature": "sequence_total(values)",
+    "input": "A non-empty sequence of numbers.",
+    "output": "The sum of every value."
+  },
+  "examples": [
+    {
+      "input": "values = [2, 3, 10]",
+      "output": "15",
+      "explanation": "All three values contribute to the total."
+    }
+  ],
+  "constraints": [
+    "1 <= number of values <= 1000",
+    "Each value is between -100000 and 100000"
+  ],
+  "concepts": [
+    "sequence-traversal",
+    "skipped-final-element"
+  ],
+  "skills": [
+    "debugging-loop-boundaries"
+  ],
+  "prerequisites": [
+    "accumulation"
+  ],
+  "commonMistakes": [
+    "using length minus one as an exclusive boundary",
+    "special-casing the final value incorrectly"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "final value matters",
+      "arguments": [
+        [
+          2,
+          3,
+          10
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "name": "single element",
+      "arguments": [
+        [
+          7
+        ]
+      ],
+      "expected": 7
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "sequence_total(values)",
+      "entryPoint": "sequence_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-007-statement",
+      "type": "paragraph",
+      "content": "The function should total every value in a sequence. Its current traversal stops before the final element. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-007-contract",
+      "type": "note",
+      "title": "sequence_total(values)",
+      "content": "Input: A non-empty sequence of numbers.\n\nOutput: The sum of every value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [2, 3, 10]\n\nOutput\n15",
+      "caption": "All three values contribute to the total."
+    },
+    {
+      "id": "fund-loops-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of values <= 1000\nEach value is between -100000 and 100000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sequence_total(values):\n    total = 0\n    for index in range(len(values) - 1):  # Do not skip the final value\n        total += values[index]\n    return total\n\nprint(sequence_total([2, 3, 10]))\n",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

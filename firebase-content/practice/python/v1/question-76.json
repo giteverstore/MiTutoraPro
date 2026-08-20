@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-010",
+  "title": "Repair Discount Parameter Order",
+  "summary": "Fix a calculation that uses its parameters in the wrong roles.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "multiple-parameters",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "price_after_discount",
+    "signature": "price_after_discount(price, discount_percent)",
+    "input": "A non-negative price followed by a percentage from 0 to 100.",
+    "output": "The numeric discounted price."
+  },
+  "examples": [
+    {
+      "input": "price = 50, discount_percent = 20",
+      "output": "40",
+      "explanation": "Twenty percent of 50 is removed."
+    }
+  ],
+  "constraints": [
+    "0 <= price <= 1000000",
+    "0 <= discount_percent <= 100"
+  ],
+  "concepts": [
+    "multiple-parameters",
+    "parameter-order"
+  ],
+  "skills": [
+    "debugging-arguments",
+    "contract-reasoning"
+  ],
+  "prerequisites": [
+    "percentages",
+    "functions"
+  ],
+  "commonMistakes": [
+    "swapping parameter roles",
+    "subtracting the percentage as a fixed amount"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "twenty percent discount",
+      "arguments": [
+        50,
+        20
+      ],
+      "expected": 40
+    },
+    {
+      "name": "no discount",
+      "arguments": [
+        50,
+        0
+      ],
+      "expected": 50
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "price_after_discount(price, discount_percent)",
+      "entryPoint": "price_after_discount"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-010-statement",
+      "type": "paragraph",
+      "content": "Return a price after subtracting a percentage discount. The current implementation treats price as the percentage and discount as the price. Correct the parameter usage.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-010-contract",
+      "type": "note",
+      "title": "price_after_discount(price, discount_percent)",
+      "content": "Input: A non-negative price followed by a percentage from 0 to 100.\n\nOutput: The numeric discounted price.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice = 50, discount_percent = 20\n\nOutput\n40",
+      "caption": "Twenty percent of 50 is removed."
+    },
+    {
+      "id": "fund-functions-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= price <= 1000000\n0 <= discount_percent <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def price_after_discount(price, discount_percent):\n    return discount_percent - discount_percent * price / 100  # Fix parameter roles\n\nprint(price_after_discount(50, 20))\n",
+      "stdin": "",
+      "expectedOutput": "40",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

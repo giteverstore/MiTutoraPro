@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-020",
+  "title": "Replace Only the Final Item",
+  "summary": "Reason about the final boundary while preserving other values.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "with_last_replaced",
+    "signature": "with_last_replaced(items, replacement)",
+    "input": "A collection that may be empty and a replacement item.",
+    "output": "A new collection with its final item replaced, or empty."
+  },
+  "examples": [
+    {
+      "input": "items = [1, 2, 3], replacement = 9",
+      "output": "1,2,9",
+      "explanation": "Only the final item changes."
+    }
+  ],
+  "constraints": [
+    "0 <= number of items <= 1000"
+  ],
+  "concepts": [
+    "last-position",
+    "collection-update",
+    "empty-collection"
+  ],
+  "skills": [
+    "boundary-analysis",
+    "state-reasoning"
+  ],
+  "prerequisites": [
+    "indexing",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "updating the first item",
+    "failing on an empty collection",
+    "modifying the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "replace final",
+      "arguments": [
+        [
+          1,
+          2,
+          3
+        ],
+        9
+      ],
+      "expected": [
+        1,
+        2,
+        9
+      ]
+    },
+    {
+      "name": "empty collection",
+      "arguments": [
+        [],
+        "x"
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_last_replaced(items, replacement)",
+      "entryPoint": "with_last_replaced"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-020-statement",
+      "type": "paragraph",
+      "content": "Return a new collection with only its final item replaced. If the supplied collection is empty, return an empty collection. Do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-020-contract",
+      "type": "note",
+      "title": "with_last_replaced(items, replacement)",
+      "content": "Input: A collection that may be empty and a replacement item.\n\nOutput: A new collection with its final item replaced, or empty.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitems = [1, 2, 3], replacement = 9\n\nOutput\n1,2,9",
+      "caption": "Only the final item changes."
+    },
+    {
+      "id": "fund-arrays-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of items <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_last_replaced(items, replacement):\n    # Return a new collection and handle empty input\n    pass\n\nprint(with_last_replaced([1, 2, 3], 9))\n",
+      "stdin": "",
+      "expectedOutput": "1,2,9",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

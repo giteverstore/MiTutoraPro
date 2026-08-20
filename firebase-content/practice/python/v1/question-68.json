@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-002",
+  "title": "Convert a Distance",
+  "summary": "Apply reusable conversion logic to one parameter.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "function-basics-parameters",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "kilometers_to_meters",
+    "signature": "kilometers_to_meters(kilometers)",
+    "input": "A non-negative numeric distance in kilometers.",
+    "output": "The numeric distance in meters."
+  },
+  "examples": [
+    {
+      "input": "kilometers = 1.5",
+      "output": "1500",
+      "explanation": "Each kilometer contains 1000 meters."
+    }
+  ],
+  "constraints": [
+    "0 <= kilometers <= 1000000"
+  ],
+  "concepts": [
+    "function-definition",
+    "single-parameter"
+  ],
+  "skills": [
+    "reusable-logic",
+    "parameter-use"
+  ],
+  "prerequisites": [
+    "multiplication"
+  ],
+  "commonMistakes": [
+    "ignoring the parameter",
+    "returning kilometers unchanged"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "decimal distance",
+      "arguments": [
+        1.5
+      ],
+      "expected": 1500
+    },
+    {
+      "name": "zero distance",
+      "arguments": [
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "kilometers_to_meters(kilometers)",
+      "entryPoint": "kilometers_to_meters"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-002-statement",
+      "type": "paragraph",
+      "content": "Create a reusable operation that receives a distance in kilometers and returns the equivalent number of meters.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-002-contract",
+      "type": "note",
+      "title": "kilometers_to_meters(kilometers)",
+      "content": "Input: A non-negative numeric distance in kilometers.\n\nOutput: The numeric distance in meters.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nkilometers = 1.5\n\nOutput\n1500",
+      "caption": "Each kilometer contains 1000 meters."
+    },
+    {
+      "id": "fund-functions-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= kilometers <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def kilometers_to_meters(kilometers):\n    # Return the converted distance\n    pass\n\nprint(kilometers_to_meters(1.5))\n",
+      "stdin": "",
+      "expectedOutput": "1500",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-020",
+  "title": "Trace Overlapping Discount Tiers",
+  "summary": "Reason about branch order at exact discount thresholds.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "boundary-conditions-common-mistakes",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "discount_percent",
+    "signature": "discount_percent(total)",
+    "input": "A non-negative purchase total.",
+    "output": "The whole-number discount percentage."
+  },
+  "examples": [
+    {
+      "input": "total = 200",
+      "output": "20",
+      "explanation": "The highest matching tier must be evaluated first."
+    }
+  ],
+  "constraints": [
+    "0 <= total <= 1000000"
+  ],
+  "concepts": [
+    "overlapping-conditions",
+    "branch-order",
+    "inclusive-boundary"
+  ],
+  "skills": [
+    "condition-ordering",
+    "boundary-reasoning"
+  ],
+  "prerequisites": [
+    "elif-branching"
+  ],
+  "commonMistakes": [
+    "checking 100 before 200",
+    "excluding an exact threshold"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "highest exact threshold",
+      "arguments": [
+        200
+      ],
+      "expected": 20
+    },
+    {
+      "name": "lower exact threshold",
+      "arguments": [
+        100
+      ],
+      "expected": 10
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "discount_percent(total)",
+      "entryPoint": "discount_percent"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-020-statement",
+      "type": "paragraph",
+      "content": "Return discount 20 for totals at least 200, discount 10 for totals at least 100, and 0 otherwise. Evaluate the highest threshold first.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-020-contract",
+      "type": "note",
+      "title": "discount_percent(total)",
+      "content": "Input: A non-negative purchase total.\n\nOutput: The whole-number discount percentage.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntotal = 200\n\nOutput\n20",
+      "caption": "The highest matching tier must be evaluated first."
+    },
+    {
+      "id": "fund-conditionals-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= total <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def discount_percent(total):\n    # Evaluate discount tiers in the correct order\n    pass\n\nprint(discount_percent(200))\n",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

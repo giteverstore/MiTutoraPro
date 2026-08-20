@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-001",
+  "title": "Count Completed Repetitions",
+  "summary": "Track how many times a repeated task completes.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "basic-loops",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "completed_repetitions",
+    "signature": "completed_repetitions(times)",
+    "input": "A non-negative whole-number repetition count.",
+    "output": "The number of repetitions completed."
+  },
+  "examples": [
+    {
+      "input": "times = 4",
+      "output": "4",
+      "explanation": "The counter advances once per repetition."
+    }
+  ],
+  "constraints": [
+    "0 <= times <= 10000"
+  ],
+  "concepts": [
+    "iteration",
+    "fixed-repetition"
+  ],
+  "skills": [
+    "iterative-reasoning",
+    "counter-update"
+  ],
+  "prerequisites": [
+    "variables"
+  ],
+  "commonMistakes": [
+    "starting the counter at one",
+    "performing one extra repetition"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "four repetitions",
+      "arguments": [
+        4
+      ],
+      "expected": 4
+    },
+    {
+      "name": "no repetitions",
+      "arguments": [
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "completed_repetitions(times)",
+      "entryPoint": "completed_repetitions"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-001-statement",
+      "type": "paragraph",
+      "content": "Repeat a task the requested number of times and return the number of completed repetitions.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-001-contract",
+      "type": "note",
+      "title": "completed_repetitions(times)",
+      "content": "Input: A non-negative whole-number repetition count.\n\nOutput: The number of repetitions completed.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntimes = 4\n\nOutput\n4",
+      "caption": "The counter advances once per repetition."
+    },
+    {
+      "id": "fund-loops-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= times <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def completed_repetitions(times):\n    completed = 0\n    # Repeat times times and update completed\n    return completed\n\nprint(completed_repetitions(4))\n",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

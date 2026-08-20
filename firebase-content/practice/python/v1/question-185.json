@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-004",
+  "title": "Read Configuration with a Fallback",
+  "summary": "Handle a missing mapping key without losing stored empty values.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "basic-error-handling-invalid-input",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "configuration_value",
+    "signature": "configuration_value(config, key, fallback)",
+    "input": "A key-value configuration, a key, and a fallback value.",
+    "output": "The stored value when the key exists; otherwise fallback."
+  },
+  "examples": [
+    {
+      "input": "config contains alerts = false",
+      "output": "false",
+      "explanation": "False is stored data, not a missing value."
+    }
+  ],
+  "constraints": [
+    "0 <= number of configuration entries <= 1000"
+  ],
+  "concepts": [
+    "missing-key",
+    "fallback",
+    "defensive-lookup"
+  ],
+  "skills": [
+    "missing-data-handling",
+    "defensive-programming"
+  ],
+  "prerequisites": [
+    "mappings",
+    "membership"
+  ],
+  "commonMistakes": [
+    "treating zero as missing",
+    "accessing a missing key unsafely"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "stored false value",
+      "arguments": [
+        {
+          "alerts": false
+        },
+        "alerts",
+        true
+      ],
+      "expected": false
+    },
+    {
+      "name": "missing key",
+      "arguments": [
+        {
+          "theme": "dark"
+        },
+        "language",
+        "English"
+      ],
+      "expected": "English"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "configuration_value(config, key, fallback)",
+      "entryPoint": "configuration_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-004-statement",
+      "type": "paragraph",
+      "content": "Return the value stored under the supplied configuration key. If the key is missing, return the supplied fallback. A present key whose value is zero, false, or empty text is valid and must not use the fallback.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-004-contract",
+      "type": "note",
+      "title": "configuration_value(config, key, fallback)",
+      "content": "Input: A key-value configuration, a key, and a fallback value.\n\nOutput: The stored value when the key exists; otherwise fallback.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nconfig contains alerts = false\n\nOutput\nfalse",
+      "caption": "False is stored data, not a missing value."
+    },
+    {
+      "id": "fund-errors-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of configuration entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def configuration_value(config, key, fallback):\n    # Use fallback only for a missing key\n    pass\n\nprint(configuration_value({'alerts': False}, 'alerts', True))\n",
+      "stdin": "",
+      "expectedOutput": "false",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

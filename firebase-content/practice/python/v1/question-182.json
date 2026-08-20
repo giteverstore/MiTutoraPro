@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-001",
+  "title": "Convert Decimal Input Safely",
+  "summary": "Return a defined failure value for malformed numeric text.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "basic-error-handling-invalid-input",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 35,
+  "contract": {
+    "functionName": "safe_decimal_value",
+    "signature": "safe_decimal_value(text)",
+    "input": "Arbitrary text with optional surrounding whitespace.",
+    "output": "The represented numeric value when valid; otherwise no value."
+  },
+  "examples": [
+    {
+      "input": "text = \" -12.50 \"",
+      "output": "-12.5",
+      "explanation": "The trimmed signed decimal satisfies the complete format."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 100"
+  ],
+  "concepts": [
+    "validation",
+    "error-handling",
+    "numeric-conversion"
+  ],
+  "skills": [
+    "defensive-programming",
+    "error-prevention"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions",
+    "conversion"
+  ],
+  "commonMistakes": [
+    "converting before validation",
+    "accepting a trailing decimal point"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "valid signed decimal",
+      "arguments": [
+        " -12.50 "
+      ],
+      "expected": -12.5
+    },
+    {
+      "name": "incomplete decimal",
+      "arguments": [
+        "4."
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_decimal_value(text)",
+      "entryPoint": "safe_decimal_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-001-statement",
+      "type": "paragraph",
+      "content": "Trim the supplied text and return its numeric decimal value when the entire result is a valid signed decimal representation. Valid input has an optional sign, at least one digit before an optional decimal point, and at least one digit after a present decimal point. Return no value for empty, sign-only, incomplete, or otherwise malformed input.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-001-contract",
+      "type": "note",
+      "title": "safe_decimal_value(text)",
+      "content": "Input: Arbitrary text with optional surrounding whitespace.\n\nOutput: The represented numeric value when valid; otherwise no value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" -12.50 \"\n\nOutput\n-12.5",
+      "caption": "The trimmed signed decimal satisfies the complete format."
+    },
+    {
+      "id": "fund-errors-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_decimal_value(text):\n    # Validate the complete representation before conversion\n    pass\n\nprint(safe_decimal_value(' -12.50 '))\n",
+      "stdin": "",
+      "expectedOutput": "-12.5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

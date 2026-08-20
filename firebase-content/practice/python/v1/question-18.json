@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-018",
+  "title": "Repair a Price Conversion",
+  "summary": "Correct a conversion when numeric text contains a currency symbol.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "type-conversion",
+  "questionType": "debugging",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "parse_price",
+    "signature": "parse_price(price_text)",
+    "input": "Price text beginning with `$`, followed by a valid non-negative decimal value.",
+    "output": "The numeric price."
+  },
+  "examples": [
+    {
+      "input": "price_text = \"$12.50\"",
+      "output": "12.5",
+      "explanation": "Only the leading currency symbol is excluded from conversion."
+    }
+  ],
+  "constraints": [
+    "price_text begins with exactly one $ symbol",
+    "The remaining text represents 0 to 1000000"
+  ],
+  "concepts": [
+    "invalid-conversion",
+    "string-cleaning",
+    "string-to-float"
+  ],
+  "skills": [
+    "debugging-conversion"
+  ],
+  "prerequisites": [
+    "strings",
+    "explicit-conversion"
+  ],
+  "commonMistakes": [
+    "Converting the currency symbol",
+    "Removing a fixed number of decimal digits"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "decimal price",
+      "arguments": [
+        "$12.50"
+      ],
+      "expected": 12.5
+    },
+    {
+      "name": "zero price",
+      "arguments": [
+        "$0"
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "parse_price(price_text)",
+      "entryPoint": "parse_price"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-018-statement",
+      "type": "paragraph",
+      "content": "The supplied price text begins with a currency symbol. The current conversion fails. Remove the leading symbol before converting the remaining value to a decimal number.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-018-contract",
+      "type": "note",
+      "title": "parse_price(price_text)",
+      "content": "Input: Price text beginning with `$`, followed by a valid non-negative decimal value.\n\nOutput: The numeric price.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice_text = \"$12.50\"\n\nOutput\n12.5",
+      "caption": "Only the leading currency symbol is excluded from conversion."
+    },
+    {
+      "id": "fund-variables-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "price_text begins with exactly one $ symbol\nThe remaining text represents 0 to 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def parse_price(price_text):\n    return float(price_text)  # Fix the invalid conversion\n\nprint(parse_price('$12.50'))\n",
+      "stdin": "",
+      "expectedOutput": "12.5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

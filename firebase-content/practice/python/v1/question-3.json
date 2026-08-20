@@ -1,44 +1,128 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "practice-reverse-text",
-  "title": "Reverse a String",
-  "summary": "Transform a string while preserving every character.",
+  "id": "fund-variables-003",
+  "title": "Swap Two Scores",
+  "summary": "Exchange the values held by two variables.",
   "language": "Python",
-  "difficulty": "easy",
-  "topic": "Strings",
-  "estimatedMinutes": 8,
-  "xp": 45,
+  "difficulty": "very_easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-creation-assignment",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "swap_scores",
+    "signature": "swap_scores(first, second)",
+    "input": "Two whole-number scores.",
+    "output": "Text containing the swapped scores separated by a comma and space."
+  },
+  "examples": [
+    {
+      "input": "first = 3, second = 9",
+      "output": "9, 3",
+      "explanation": "The second score becomes first."
+    }
+  ],
+  "constraints": [
+    "-1000 <= first, second <= 1000"
+  ],
+  "concepts": [
+    "variable-assignment",
+    "value-swapping"
+  ],
+  "skills": [
+    "state-transformation"
+  ],
+  "prerequisites": [
+    "variable-assignment"
+  ],
+  "commonMistakes": [
+    "Overwriting the first value before preserving it",
+    "Returning the original order"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "different scores",
+      "arguments": [
+        3,
+        9
+      ],
+      "expected": "9, 3"
+    },
+    {
+      "name": "equal scores",
+      "arguments": [
+        5,
+        5
+      ],
+      "expected": "5, 5"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "swap_scores(first, second)",
+      "entryPoint": "swap_scores"
+    }
+  },
   "blocks": [
     {
-      "id": "reverse-heading",
+      "id": "fund-variables-003-heading",
       "type": "heading",
       "level": 2,
       "text": "Problem Statement"
     },
     {
-      "id": "reverse-copy",
+      "id": "fund-variables-003-statement",
       "type": "paragraph",
-      "content": "Read one line of text and print its characters in reverse order."
+      "content": "Exchange two score values and return them as text in the format `second, first`.",
+      "format": "markdown"
     },
     {
-      "id": "reverse-example-heading",
+      "id": "fund-variables-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-003-contract",
+      "type": "note",
+      "title": "swap_scores(first, second)",
+      "content": "Input: Two whole-number scores.\n\nOutput: Text containing the swapped scores separated by a comma and space.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-003-example-heading",
       "type": "heading",
       "level": 3,
       "text": "Example"
     },
     {
-      "id": "reverse-example",
+      "id": "fund-variables-003-example",
       "type": "code",
       "language": "text",
-      "code": "Input\nMiTutora\n\nOutput\narotuTiM"
+      "code": "Input\nfirst = 3, second = 9\n\nOutput\n9, 3",
+      "caption": "The second score becomes first."
     },
     {
-      "id": "reverse-compiler",
+      "id": "fund-variables-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-1000 <= first, second <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-003-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "text = input()\n# Print text in reverse\n",
-      "stdin": "MiTutora",
-      "expectedOutput": "arotuTiM",
+      "starterCode": "def swap_scores(first, second):\n    # Swap the values and return \"second, first\"\n    pass\n\nprint(swap_scores(3, 9))\n",
+      "stdin": "",
+      "expectedOutput": "9, 3",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

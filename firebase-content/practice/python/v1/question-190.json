@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-009",
+  "title": "Repair the Passing Boundary",
+  "summary": "Fix one incorrect conditional boundary.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "debugging-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "pass_status",
+    "signature": "pass_status(score)",
+    "input": "A whole-number score from 0 through 100.",
+    "output": "Exactly Pass or Retry."
+  },
+  "examples": [
+    {
+      "input": "score = 60",
+      "output": "Pass",
+      "explanation": "Sixty belongs to the passing range."
+    }
+  ],
+  "constraints": [
+    "0 <= score <= 100"
+  ],
+  "concepts": [
+    "debugging",
+    "boundary-condition"
+  ],
+  "skills": [
+    "debugging",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "conditionals"
+  ],
+  "commonMistakes": [
+    "using a strict comparison at an inclusive boundary"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "passing boundary",
+      "arguments": [
+        60
+      ],
+      "expected": "Pass"
+    },
+    {
+      "name": "below boundary",
+      "arguments": [
+        59
+      ],
+      "expected": "Retry"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "pass_status(score)",
+      "entryPoint": "pass_status"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-009-statement",
+      "type": "paragraph",
+      "content": "Return “Pass” for scores from 60 through 100 inclusive and “Retry” for scores from 0 through 59. Inputs are guaranteed within 0 through 100. The current condition incorrectly rejects the passing boundary. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-009-contract",
+      "type": "note",
+      "title": "pass_status(score)",
+      "content": "Input: A whole-number score from 0 through 100.\n\nOutput: Exactly Pass or Retry.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 60\n\nOutput\nPass",
+      "caption": "Sixty belongs to the passing range."
+    },
+    {
+      "id": "fund-errors-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= score <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def pass_status(score):\n    if score > 60:  # Fix the inclusive boundary\n        return 'Pass'\n    return 'Retry'\n\nprint(pass_status(60))\n",
+      "stdin": "",
+      "expectedOutput": "Pass",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

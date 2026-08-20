@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-006",
+  "title": "Calculate a Validated Average",
+  "summary": "Validate a collection before aggregation.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "defensive-programming-validation",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "validated_average",
+    "signature": "validated_average(scores)",
+    "input": "A collection of numeric scores.",
+    "output": "The numeric average when valid; otherwise no value."
+  },
+  "examples": [
+    {
+      "input": "scores = [60, 80, 100]",
+      "output": "80",
+      "explanation": "All scores are valid before the average is calculated."
+    }
+  ],
+  "constraints": [
+    "0 <= number of scores <= 1000"
+  ],
+  "concepts": [
+    "precondition-validation",
+    "aggregation",
+    "empty-collection"
+  ],
+  "skills": [
+    "defensive-programming",
+    "collection-validation"
+  ],
+  "prerequisites": [
+    "lists",
+    "loops",
+    "average"
+  ],
+  "commonMistakes": [
+    "dividing before checking emptiness",
+    "ignoring one invalid score"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "valid scores",
+      "arguments": [
+        [
+          60,
+          80,
+          100
+        ]
+      ],
+      "expected": 80
+    },
+    {
+      "name": "empty scores",
+      "arguments": [
+        []
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "validated_average(scores)",
+      "entryPoint": "validated_average"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-006-statement",
+      "type": "paragraph",
+      "content": "A valid score collection is non-empty and every score is from 0 through 100 inclusive. Return its arithmetic average when valid. Return no value when the collection is empty or any score is outside the valid range.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-006-contract",
+      "type": "note",
+      "title": "validated_average(scores)",
+      "content": "Input: A collection of numeric scores.\n\nOutput: The numeric average when valid; otherwise no value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscores = [60, 80, 100]\n\nOutput\n80",
+      "caption": "All scores are valid before the average is calculated."
+    },
+    {
+      "id": "fund-errors-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of scores <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def validated_average(scores):\n    # Validate the whole collection before averaging\n    pass\n\nprint(validated_average([60, 80, 100]))\n",
+      "stdin": "",
+      "expectedOutput": "80",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

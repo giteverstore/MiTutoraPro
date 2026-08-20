@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-002",
+  "title": "Detect a Positive Measurement",
+  "summary": "Check whether a measurement is above zero.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "basic-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "is_positive",
+    "signature": "is_positive(value)",
+    "input": "A numeric measurement.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "value = 4.5",
+      "output": "true",
+      "explanation": "A value above zero is positive."
+    }
+  ],
+  "constraints": [
+    "-1000000 <= value <= 1000000"
+  ],
+  "concepts": [
+    "comparison",
+    "boolean-condition"
+  ],
+  "skills": [
+    "classify-a-value"
+  ],
+  "prerequisites": [
+    "numbers"
+  ],
+  "commonMistakes": [
+    "including zero as positive",
+    "checking only whether the value exists"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive value",
+      "arguments": [
+        4.5
+      ],
+      "expected": true
+    },
+    {
+      "name": "zero boundary",
+      "arguments": [
+        0
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "is_positive(value)",
+      "entryPoint": "is_positive"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-002-statement",
+      "type": "paragraph",
+      "content": "Return whether the supplied measurement is positive. Zero is not positive.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-002-contract",
+      "type": "note",
+      "title": "is_positive(value)",
+      "content": "Input: A numeric measurement.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 4.5\n\nOutput\ntrue",
+      "caption": "A value above zero is positive."
+    },
+    {
+      "id": "fund-conditionals-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-1000000 <= value <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def is_positive(value):\n    # Return whether value is positive\n    pass\n\nprint(is_positive(4.5))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

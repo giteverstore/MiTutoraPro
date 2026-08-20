@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-020",
+  "title": "Validate a Display Name",
+  "summary": "Reject empty, whitespace-only, and punctuated names.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-validation-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "valid_display_name",
+    "signature": "valid_display_name(name)",
+    "input": "Text that may contain letters and spaces.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "name = \"  Mira Sen  \"",
+      "output": "true",
+      "explanation": "Outer whitespace is ignored and internal space is allowed."
+    }
+  ],
+  "constraints": [
+    "0 <= name length <= 100",
+    "Letters are English A through Z in either case"
+  ],
+  "concepts": [
+    "string-validation",
+    "whitespace",
+    "character-rules"
+  ],
+  "skills": [
+    "input-validation",
+    "character-processing"
+  ],
+  "prerequisites": [
+    "traversal",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting whitespace-only text",
+    "accepting punctuation or digits"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "trimmed valid name",
+      "arguments": [
+        "  Mira Sen  "
+      ],
+      "expected": true
+    },
+    {
+      "name": "punctuated name",
+      "arguments": [
+        "Mira!"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "valid_display_name(name)",
+      "entryPoint": "valid_display_name"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-020-statement",
+      "type": "paragraph",
+      "content": "Ignore leading and trailing whitespace, then return whether a display name is non-empty and contains only letters or internal spaces.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-020-contract",
+      "type": "note",
+      "title": "valid_display_name(name)",
+      "content": "Input: Text that may contain letters and spaces.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = \"  Mira Sen  \"\n\nOutput\ntrue",
+      "caption": "Outer whitespace is ignored and internal space is allowed."
+    },
+    {
+      "id": "fund-strings-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= name length <= 100\nLetters are English A through Z in either case",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def valid_display_name(name):\n    # Ignore outer whitespace, then validate each character\n    pass\n\nprint(valid_display_name('  Mira Sen  '))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

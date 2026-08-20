@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-014",
+  "title": "Combine Assessment Scores",
+  "summary": "Build a weighted result from two score variables.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-interaction",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "weighted_score",
+    "signature": "weighted_score(coursework, exam)",
+    "input": "Two scores from 0 to 100.",
+    "output": "The weighted numeric score."
+  },
+  "examples": [
+    {
+      "input": "coursework = 80, exam = 90",
+      "output": "86",
+      "explanation": "32 coursework points plus 54 exam points produce 86."
+    }
+  ],
+  "constraints": [
+    "0 <= coursework, exam <= 100"
+  ],
+  "concepts": [
+    "multiple-variables",
+    "decimal-multiplication"
+  ],
+  "skills": [
+    "weighted-calculation"
+  ],
+  "prerequisites": [
+    "multiplication",
+    "addition"
+  ],
+  "commonMistakes": [
+    "Using equal weights",
+    "Using 40 and 60 instead of 0.4 and 0.6"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "different scores",
+      "arguments": [
+        80,
+        90
+      ],
+      "expected": 86
+    },
+    {
+      "name": "same scores",
+      "arguments": [
+        70,
+        70
+      ],
+      "expected": 70
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "weighted_score(coursework, exam)",
+      "entryPoint": "weighted_score"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-014-statement",
+      "type": "paragraph",
+      "content": "Coursework contributes 40 percent and an exam contributes 60 percent. Return the weighted score.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-014-contract",
+      "type": "note",
+      "title": "weighted_score(coursework, exam)",
+      "content": "Input: Two scores from 0 to 100.\n\nOutput: The weighted numeric score.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncoursework = 80, exam = 90\n\nOutput\n86",
+      "caption": "32 coursework points plus 54 exam points produce 86."
+    },
+    {
+      "id": "fund-variables-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= coursework, exam <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def weighted_score(coursework, exam):\n    # Apply the 40% and 60% weights\n    pass\n\nprint(weighted_score(80, 90))\n",
+      "stdin": "",
+      "expectedOutput": "86",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

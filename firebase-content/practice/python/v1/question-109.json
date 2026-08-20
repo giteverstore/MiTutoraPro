@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-003",
+  "title": "Trace a Rating Position",
+  "summary": "Reason about zero-based positions in a collection.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "list-array-basics-indexing",
+  "questionType": "reasoning",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "rating_at",
+    "signature": "rating_at(ratings, position)",
+    "input": "A non-empty collection and a valid zero-based position.",
+    "output": "The rating at that position."
+  },
+  "examples": [
+    {
+      "input": "ratings = [4, 2, 5, 3], position = 2",
+      "output": "5",
+      "explanation": "Zero-based position 2 contains 5."
+    }
+  ],
+  "constraints": [
+    "1 <= number of ratings <= 1000",
+    "0 <= position < number of ratings"
+  ],
+  "concepts": [
+    "collections",
+    "indexing"
+  ],
+  "skills": [
+    "sequence-reasoning",
+    "index-reasoning"
+  ],
+  "prerequisites": [
+    "whole-numbers"
+  ],
+  "commonMistakes": [
+    "counting positions from one",
+    "excluding the last valid position"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "middle position",
+      "arguments": [
+        [
+          4,
+          2,
+          5,
+          3
+        ],
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "name": "first position",
+      "arguments": [
+        [
+          7,
+          8
+        ],
+        0
+      ],
+      "expected": 7
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "rating_at(ratings, position)",
+      "entryPoint": "rating_at"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-003-statement",
+      "type": "paragraph",
+      "content": "Return the rating at the supplied zero-based position. The supplied position is always valid.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-003-contract",
+      "type": "note",
+      "title": "rating_at(ratings, position)",
+      "content": "Input: A non-empty collection and a valid zero-based position.\n\nOutput: The rating at that position.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nratings = [4, 2, 5, 3], position = 2\n\nOutput\n5",
+      "caption": "Zero-based position 2 contains 5."
+    },
+    {
+      "id": "fund-arrays-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of ratings <= 1000\n0 <= position < number of ratings",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def rating_at(ratings, position):\n    # Return the value at the supplied position\n    pass\n\nprint(rating_at([4, 2, 5, 3], 2))\n",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

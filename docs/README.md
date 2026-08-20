@@ -47,6 +47,7 @@ This directory is the living technical reference for MiTutora. It describes the 
 
 ### Development
 
+- [UI design system](development/ui-design-system.md)
 - [Project structure](development/project-structure.md)
 - [Coding guidelines](development/coding-guidelines.md)
 - [Adding a course](development/adding-a-course.md)

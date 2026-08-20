@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-018",
+  "title": "Total Unique Measurements",
+  "summary": "Traverse unique numeric values exactly once.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "traversal-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "sum_unique_measurements",
+    "signature": "sum_unique_measurements(measurements)",
+    "input": "A collection of numeric measurements.",
+    "output": "The sum of unique values."
+  },
+  "examples": [
+    {
+      "input": "measurements = [2, 2, 5, -1, 5]",
+      "output": "6",
+      "explanation": "The unique values 2, 5, and -1 total 6."
+    }
+  ],
+  "constraints": [
+    "0 <= number of measurements <= 1000"
+  ],
+  "concepts": [
+    "set-traversal",
+    "uniqueness",
+    "aggregation"
+  ],
+  "skills": [
+    "uniqueness-reasoning",
+    "aggregation"
+  ],
+  "prerequisites": [
+    "sets",
+    "addition"
+  ],
+  "commonMistakes": [
+    "adding duplicates repeatedly",
+    "assuming a first element exists"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated values",
+      "arguments": [
+        [
+          2,
+          2,
+          5,
+          -1,
+          5
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "name": "empty measurements",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "sum_unique_measurements(measurements)",
+      "entryPoint": "sum_unique_measurements"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-018-statement",
+      "type": "paragraph",
+      "content": "Return the sum of the distinct measurement values. Repeated measurements contribute once, and an empty collection totals zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-018-contract",
+      "type": "note",
+      "title": "sum_unique_measurements(measurements)",
+      "content": "Input: A collection of numeric measurements.\n\nOutput: The sum of unique values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nmeasurements = [2, 2, 5, -1, 5]\n\nOutput\n6",
+      "caption": "The unique values 2, 5, and -1 total 6."
+    },
+    {
+      "id": "fund-sets-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of measurements <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sum_unique_measurements(measurements):\n    # Add each distinct value once\n    pass\n\nprint(sum_unique_measurements([2, 2, 5, -1, 5]))\n",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

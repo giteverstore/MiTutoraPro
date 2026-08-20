@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-011",
+  "title": "Repair the Average",
+  "summary": "Correct a precedence error in a two-value average.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "expressions-evaluation",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "average_score",
+    "signature": "average_score(first, second)",
+    "input": "Two numeric scores.",
+    "output": "Their arithmetic mean."
+  },
+  "examples": [
+    {
+      "input": "first = 10, second = 20",
+      "output": "15",
+      "explanation": "The complete sum must be divided by two."
+    }
+  ],
+  "constraints": [
+    "-10000 <= first, second <= 10000"
+  ],
+  "concepts": [
+    "parentheses",
+    "operator-precedence",
+    "division"
+  ],
+  "skills": [
+    "debugging-expressions"
+  ],
+  "prerequisites": [
+    "arithmetic-expressions"
+  ],
+  "commonMistakes": [
+    "Dividing only the second value",
+    "Dividing the sum by the wrong count"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "two scores",
+      "arguments": [
+        10,
+        20
+      ],
+      "expected": 15
+    },
+    {
+      "name": "negative and positive",
+      "arguments": [
+        -4,
+        4
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "average_score(first, second)",
+      "entryPoint": "average_score"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-011-statement",
+      "type": "paragraph",
+      "content": "The function should return the average of two scores. Its current expression divides only the second score. Add the necessary grouping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-011-contract",
+      "type": "note",
+      "title": "average_score(first, second)",
+      "content": "Input: Two numeric scores.\n\nOutput: Their arithmetic mean.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = 10, second = 20\n\nOutput\n15",
+      "caption": "The complete sum must be divided by two."
+    },
+    {
+      "id": "fund-variables-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-10000 <= first, second <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def average_score(first, second):\n    return first + second / 2  # Fix the expression\n\nprint(average_score(10, 20))\n",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

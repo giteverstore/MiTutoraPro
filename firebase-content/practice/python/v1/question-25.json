@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "practice-word-frequency",
+  "title": "Word Frequency",
+  "summary": "Count repeated words with a dictionary.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Dictionaries",
+  "estimatedMinutes": 16,
+  "xp": 90,
+  "blocks": [
+    {
+      "id": "frequency-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "frequency-copy",
+      "type": "paragraph",
+      "content": "Read a line of lowercase words. Print the count of `python`."
+    },
+    {
+      "id": "frequency-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "frequency-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\npython makes python approachable\n\nOutput\n2"
+    },
+    {
+      "id": "frequency-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "words = input().split()\n# Count the word python\n",
+      "stdin": "python makes python approachable",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

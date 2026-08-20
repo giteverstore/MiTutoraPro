@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-012",
+  "title": "Trace Unique Product Categories",
+  "summary": "Reason about deduplication without relying on order.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "duplicate-elimination",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "distinct_product_category_count",
+    "signature": "distinct_product_category_count(categories)",
+    "input": "A collection of product categories.",
+    "output": "The distinct category count."
+  },
+  "examples": [
+    {
+      "input": "categories = [home, tech, home, food, tech]",
+      "output": "3",
+      "explanation": "Home, tech, and food are the three distinct values."
+    }
+  ],
+  "constraints": [
+    "0 <= number of categories <= 1000"
+  ],
+  "concepts": [
+    "deduplication",
+    "unique-count"
+  ],
+  "skills": [
+    "uniqueness-reasoning",
+    "duplicate-elimination"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "counting positions",
+    "assuming only adjacent duplicates collapse"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "separated repeats",
+      "arguments": [
+        [
+          "home",
+          "tech",
+          "home",
+          "food",
+          "tech"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "name": "single category",
+      "arguments": [
+        [
+          "home"
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "distinct_product_category_count(categories)",
+      "entryPoint": "distinct_product_category_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-012-statement",
+      "type": "paragraph",
+      "content": "Return the number of distinct product categories represented in the input.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-012-contract",
+      "type": "note",
+      "title": "distinct_product_category_count(categories)",
+      "content": "Input: A collection of product categories.\n\nOutput: The distinct category count.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncategories = [home, tech, home, food, tech]\n\nOutput\n3",
+      "caption": "Home, tech, and food are the three distinct values."
+    },
+    {
+      "id": "fund-sets-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of categories <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def distinct_product_category_count(categories):\n    # Count unique categories\n    pass\n\nprint(distinct_product_category_count(['home', 'tech', 'home', 'food', 'tech']))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

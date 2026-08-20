@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-017",
+  "title": "Adjust Every Measurement",
+  "summary": "Build a transformed collection element by element.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "aggregation-simple-transformations",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "adjust_measurements",
+    "signature": "adjust_measurements(measurements, adjustment)",
+    "input": "A collection of numbers and a numeric adjustment.",
+    "output": "A new adjusted collection."
+  },
+  "examples": [
+    {
+      "input": "measurements = [2, 5, -1], adjustment = 3",
+      "output": "5,8,2",
+      "explanation": "Three is added to every value."
+    }
+  ],
+  "constraints": [
+    "0 <= number of measurements <= 1000"
+  ],
+  "concepts": [
+    "collection-transformation",
+    "traversal"
+  ],
+  "skills": [
+    "result-construction",
+    "collection-manipulation"
+  ],
+  "prerequisites": [
+    "loops",
+    "addition"
+  ],
+  "commonMistakes": [
+    "changing only one element",
+    "modifying the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "positive adjustment",
+      "arguments": [
+        [
+          2,
+          5,
+          -1
+        ],
+        3
+      ],
+      "expected": [
+        5,
+        8,
+        2
+      ]
+    },
+    {
+      "name": "empty collection",
+      "arguments": [
+        [],
+        4
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "adjust_measurements(measurements, adjustment)",
+      "entryPoint": "adjust_measurements"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-017-statement",
+      "type": "paragraph",
+      "content": "Return a new collection where the adjustment is added to every measurement. Preserve order and do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-017-contract",
+      "type": "note",
+      "title": "adjust_measurements(measurements, adjustment)",
+      "content": "Input: A collection of numbers and a numeric adjustment.\n\nOutput: A new adjusted collection.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nmeasurements = [2, 5, -1], adjustment = 3\n\nOutput\n5,8,2",
+      "caption": "Three is added to every value."
+    },
+    {
+      "id": "fund-arrays-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of measurements <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def adjust_measurements(measurements, adjustment):\n    result = []\n    # Add one adjusted value for every measurement\n    return result\n\nprint(adjust_measurements([2, 5, -1], 3))\n",
+      "stdin": "",
+      "expectedOutput": "5,8,2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

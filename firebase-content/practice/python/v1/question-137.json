@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-011",
+  "title": "Rename a Catalog Key",
+  "summary": "Remove one key and insert its value under a new key.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-entries",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "with_key_renamed",
+    "signature": "with_key_renamed(catalog, old_key, new_key)",
+    "input": "A mapping, an old key, and a new key.",
+    "output": "A new renamed or unchanged mapping."
+  },
+  "examples": [
+    {
+      "input": "old_key = old, new_key = new",
+      "output": "[object Object]",
+      "explanation": "The value 7 moves from old to new."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "insertion",
+    "deletion",
+    "key-validation"
+  ],
+  "skills": [
+    "collection-manipulation",
+    "missing-data-handling"
+  ],
+  "prerequisites": [
+    "membership",
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "overwriting an existing new key",
+    "leaving both keys in the result"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "valid rename",
+      "arguments": [
+        {
+          "old": 7,
+          "stable": 2
+        },
+        "old",
+        "new"
+      ],
+      "expected": {
+        "new": 7,
+        "stable": 2
+      }
+    },
+    {
+      "name": "old key missing",
+      "arguments": [
+        {
+          "stable": 2
+        },
+        "old",
+        "new"
+      ],
+      "expected": {
+        "stable": 2
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_key_renamed(catalog, old_key, new_key)",
+      "entryPoint": "with_key_renamed"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-011-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping where an existing old key is replaced by the new key while preserving its value. If the old key is missing or the new key already exists, return an unchanged copy. Do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-011-contract",
+      "type": "note",
+      "title": "with_key_renamed(catalog, old_key, new_key)",
+      "content": "Input: A mapping, an old key, and a new key.\n\nOutput: A new renamed or unchanged mapping.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nold_key = old, new_key = new\n\nOutput\n[object Object]",
+      "caption": "The value 7 moves from old to new."
+    },
+    {
+      "id": "fund-dictionaries-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_key_renamed(catalog, old_key, new_key):\n    # Return a renamed copy only when allowed\n    pass\n\nprint(with_key_renamed({'old': 7, 'stable': 2}, 'old', 'new'))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

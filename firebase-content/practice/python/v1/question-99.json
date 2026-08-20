@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-013",
+  "title": "Trace Character Replacement",
+  "summary": "Reason about replacing every exact selected character.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-transformation",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "dashes_to_spaces",
+    "signature": "dashes_to_spaces(text)",
+    "input": "Text that may contain dash characters.",
+    "output": "Text with every dash replaced by a space."
+  },
+  "examples": [
+    {
+      "input": "text = north-east-zone",
+      "output": "north east zone",
+      "explanation": "Each dash becomes one space."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "character-replacement",
+    "string-construction"
+  ],
+  "skills": [
+    "transformation-reasoning",
+    "character-preservation"
+  ],
+  "prerequisites": [
+    "string-traversal"
+  ],
+  "commonMistakes": [
+    "replacing only the first dash",
+    "removing dashes without inserting spaces"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "several dashes",
+      "arguments": [
+        "north-east-zone"
+      ],
+      "expected": "north east zone"
+    },
+    {
+      "name": "no dashes",
+      "arguments": [
+        "ready!"
+      ],
+      "expected": "ready!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "dashes_to_spaces(text)",
+      "entryPoint": "dashes_to_spaces"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-013-statement",
+      "type": "paragraph",
+      "content": "Return a new string in which every dash character is replaced by a space. Preserve every other character.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-013-contract",
+      "type": "note",
+      "title": "dashes_to_spaces(text)",
+      "content": "Input: Text that may contain dash characters.\n\nOutput: Text with every dash replaced by a space.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = north-east-zone\n\nOutput\nnorth east zone",
+      "caption": "Each dash becomes one space."
+    },
+    {
+      "id": "fund-strings-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def dashes_to_spaces(text):\n    # Replace every dash and preserve other characters\n    pass\n\nprint(dashes_to_spaces('north-east-zone'))\n",
+      "stdin": "",
+      "expectedOutput": "north east zone",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

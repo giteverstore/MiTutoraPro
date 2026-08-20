@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-013",
+  "title": "Trace Duplicate Score Counts",
+  "summary": "Reason about zero, one, and multiple matches.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "searching-counting",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "score_occurrences",
+    "signature": "score_occurrences(scores, target)",
+    "input": "A collection of scores and a target score.",
+    "output": "The number of exact occurrences."
+  },
+  "examples": [
+    {
+      "input": "scores = [8, 5, 8, 8, 3], target = 8",
+      "output": "3",
+      "explanation": "The target occurs three times."
+    }
+  ],
+  "constraints": [
+    "0 <= number of scores <= 1000"
+  ],
+  "concepts": [
+    "counting",
+    "duplicate-values"
+  ],
+  "skills": [
+    "exact-matching",
+    "accumulator-reasoning"
+  ],
+  "prerequisites": [
+    "traversal"
+  ],
+  "commonMistakes": [
+    "returning only whether a match exists",
+    "stopping after the first match"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "several matches",
+      "arguments": [
+        [
+          8,
+          5,
+          8,
+          8,
+          3
+        ],
+        8
+      ],
+      "expected": 3
+    },
+    {
+      "name": "no matches",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        4
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "score_occurrences(scores, target)",
+      "entryPoint": "score_occurrences"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-013-statement",
+      "type": "paragraph",
+      "content": "Return the number of times the target score occurs in the collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-013-contract",
+      "type": "note",
+      "title": "score_occurrences(scores, target)",
+      "content": "Input: A collection of scores and a target score.\n\nOutput: The number of exact occurrences.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscores = [8, 5, 8, 8, 3], target = 8\n\nOutput\n3",
+      "caption": "The target occurs three times."
+    },
+    {
+      "id": "fund-arrays-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of scores <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def score_occurrences(scores, target):\n    count = 0\n    # Count every target occurrence\n    return count\n\nprint(score_occurrences([8, 5, 8, 8, 3], 8))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

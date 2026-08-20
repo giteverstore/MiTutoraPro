@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-014",
+  "title": "Trace Nested Visit Counts",
+  "summary": "Reason about how often inner work occurs.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "nested-loops",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "nested_visit_count",
+    "signature": "nested_visit_count(rows, columns)",
+    "input": "Two non-negative whole-number counts.",
+    "output": "The number of inner visits."
+  },
+  "examples": [
+    {
+      "input": "rows = 3, columns = 4",
+      "output": "12",
+      "explanation": "Four inner visits occur for each of three rows."
+    }
+  ],
+  "constraints": [
+    "0 <= rows, columns <= 100"
+  ],
+  "concepts": [
+    "nested-iteration",
+    "iteration-count"
+  ],
+  "skills": [
+    "trace-nested-loops"
+  ],
+  "prerequisites": [
+    "fixed-repetition"
+  ],
+  "commonMistakes": [
+    "adding row and column counts",
+    "performing an inner visit when either count is zero"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "three by four",
+      "arguments": [
+        3,
+        4
+      ],
+      "expected": 12
+    },
+    {
+      "name": "zero rows",
+      "arguments": [
+        0,
+        5
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "nested_visit_count(rows, columns)",
+      "entryPoint": "nested_visit_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-014-statement",
+      "type": "paragraph",
+      "content": "An outer process visits each row and an inner process visits each column for that row. Return the total number of inner visits for the supplied row and column counts.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-014-contract",
+      "type": "note",
+      "title": "nested_visit_count(rows, columns)",
+      "content": "Input: Two non-negative whole-number counts.\n\nOutput: The number of inner visits.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrows = 3, columns = 4\n\nOutput\n12",
+      "caption": "Four inner visits occur for each of three rows."
+    },
+    {
+      "id": "fund-loops-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= rows, columns <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def nested_visit_count(rows, columns):\n    visits = 0\n    # Trace the outer and inner repetitions\n    return visits\n\nprint(nested_visit_count(3, 4))\n",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

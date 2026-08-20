@@ -224,7 +224,6 @@ export function Layout({ courseLoader, onExitCourse }) {
     <div className="app-shell" data-theme={theme}>
       <TopNavigation
         course={course}
-        lesson={currentLesson}
         onMenuClick={() => setIsDrawerOpen(true)}
         onThemeToggle={toggleTheme}
         theme={theme}
@@ -238,6 +237,7 @@ export function Layout({ courseLoader, onExitCourse }) {
         user={user}
         onSignOut={signOut}
         onExitCourse={onExitCourse}
+        isSidebarOverlay={isSidebarOverlay}
       />
       <div
         ref={workspaceRef}
@@ -291,7 +291,6 @@ export function Layout({ courseLoader, onExitCourse }) {
             onNext={() => goToNextLesson()}
             lessonCount={lessonProgressScope?.lessons.length ?? lessonCount}
             currentLessonIndex={lessonProgressScope?.index ?? -1}
-            scopeLabel={lessonProgressScope?.title}
           />
         </section>
         <aside

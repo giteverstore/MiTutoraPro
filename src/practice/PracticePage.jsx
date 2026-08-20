@@ -38,7 +38,7 @@ export function PracticePage({ initialQuestionId = null }) {
       (filters.difficulty === 'all' || question.difficulty === filters.difficulty)
       && (filters.topic === 'all' || question.topic === filters.topic)
       && (!query || `${question.title} ${question.summary} ${question.topic}`.toLowerCase().includes(query)));
-  }, [filters]);
+  }, [filters, practiceQuestions]);
   const openQuestion = practiceQuestions.find(({ id }) => id === openQuestionId) ?? null;
 
   if (loading || error) {
@@ -76,7 +76,7 @@ export function PracticePage({ initialQuestionId = null }) {
       />
       <div className="practice-catalog">
         <section className="practice-question-list" aria-labelledby="practice-question-list-title">
-          <header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{visibleQuestions.length} questions</h2></div><small>Mock catalog</small></header>
+          <header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{visibleQuestions.length} questions</h2></div></header>
           <div>
             {visibleQuestions.map((question) => (
               <PracticeQuestionCard
