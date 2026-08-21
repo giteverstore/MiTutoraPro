@@ -18,7 +18,7 @@ export class CompilerManager {
     return runtime;
   }
 
-  async execute({ language, source, stdin, inputs, filename, signal }) {
+  async execute({ language, source, stdin, inputs, filename, execution, signal, timeoutMs }) {
     if (!this.runtimeRegistry.has(language)) {
       return {
         status: 'error',
@@ -32,8 +32,29 @@ export class CompilerManager {
       source,
       stdin: stdin ?? inputs ?? '',
       filename,
+      execution,
       signal,
+      timeoutMs,
     });
+  }
+
+  async executeTests({ testCases = [], ...request }) {
+    const results = [];
+    for (const testCase of testCases) {
+      const result = await this.execute({
+        ...request,
+        stdin: testCase.stdin ?? testCase.inputs ?? request.stdin,
+        execution: { ...request.execution, ...testCase.execution },
+      });
+      const passed = result.status === 'success' && this.validateOutput({
+        expectedOutput: testCase.expectedOutput,
+        programOutput: result.output,
+        validatorType: testCase.validatorType ?? request.validatorType,
+        validatorOptions: testCase.validatorOptions ?? request.validatorOptions,
+      });
+      results.push({ id: testCase.id, passed, ...result });
+    }
+    return results;
   }
 
   async format({ language, source, options }) {
@@ -45,10 +66,11 @@ export class CompilerManager {
     expectedOutput,
     programOutput,
     validatorType = 'normalized',
+    validatorOptions,
   }) {
     const validator = this.validatorRegistry.resolve(validatorType);
     if (!validator) throw new Error(`No output validator is registered for "${validatorType}".`);
-    return validator.validate(expectedOutput, programOutput);
+    return validator.validate(expectedOutput, programOutput, validatorOptions);
   }
 
   async reset(language) {

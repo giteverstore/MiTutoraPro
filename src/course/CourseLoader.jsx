@@ -183,7 +183,7 @@ export function CourseLoaderProvider({
     }
 
     const courseEntry = courseEntryRef.current;
-    const moduleNumber = resolveCourseLessonModuleNumber(lessonId, courseEntry.moduleCount);
+    const moduleNumber = resolveCourseLessonModuleNumber(lessonId, currentCourse.modules);
     if (!moduleNumber) return;
     if (session.hasModule(moduleNumber) && courseNavigation?.canNavigateTo(lessonId)) {
       session.activate(moduleNumber);
@@ -200,7 +200,7 @@ export function CourseLoaderProvider({
     } catch (moduleError) {
       if (sessionRef.current === session) setBackgroundError(moduleError);
     }
-  }, [courseNavigation]);
+  }, [courseNavigation, currentCourse]);
 
   const goToPreviousLesson = useCallback(() => {
     if (lessonState.previousLesson) selectLesson(lessonState.previousLesson.id);

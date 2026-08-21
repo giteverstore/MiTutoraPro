@@ -80,8 +80,8 @@ export function evictCourseModule(courseEntry, moduleNumber) {
   return courseService.evictCourseModule(courseEntry, moduleNumber);
 }
 
-export function resolveCourseLessonModuleNumber(lessonId, moduleCount) {
-  return resolveLessonModuleNumber(lessonId, moduleCount);
+export function resolveCourseLessonModuleNumber(lessonId, modulesOrCount) {
+  return resolveLessonModuleNumber(lessonId, modulesOrCount);
 }
 
 export function invalidateFirebaseCourse(courseId, metadata) {

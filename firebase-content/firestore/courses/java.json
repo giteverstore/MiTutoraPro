@@ -1,0 +1,16 @@
+{
+  "id": "java",
+  "slug": "java",
+  "title": "Java Basics",
+  "description": "Build a practical Java foundation through structured explanations, examples, quizzes, and programming problems.",
+  "thumbnail": "/assets/courses/java-basics/java-basics-image-01.png",
+  "language": "java",
+  "domain": "programming",
+  "difficulty": "beginner",
+  "estimatedMinutes": 2597,
+  "moduleCount": 5,
+  "lessonCount": 363,
+  "published": true,
+  "version": "v1",
+  "storagePath": "course-content/java"
+}

@@ -9,6 +9,10 @@ export function createCompilerData(definition) {
     stdin,
     expectedOutput,
     validatorType,
+    validatorOptions,
+    execution,
+    timeoutMs,
+    testCases,
   } = normalizeCompilerDefinition(definition);
   const { runLabel, resetLabel, compiler } = definition;
   return compiler ?? {
@@ -27,6 +31,7 @@ export function createCompilerData(definition) {
       fileName,
       unsavedLabel: 'Unsaved changes',
       ariaLabel: `${fileName} code editor`,
+      language,
       lines: starterCode.split('\n').map((text, index) => ({
         number: index + 1,
         text,
@@ -48,6 +53,10 @@ export function createCompilerData(definition) {
     stdin,
     expectedOutput,
     validatorType,
+    validatorOptions,
+    execution,
+    timeoutMs,
+    testCases,
   };
 }
 

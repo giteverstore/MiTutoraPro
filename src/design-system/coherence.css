@@ -136,7 +136,6 @@ body {
 .lesson-document .lesson-header h1 { font-size: clamp(2.2rem, 4.4vw, 3.7rem); line-height: 1.04; }
 .lesson-body { font-size: var(--font-size-body); }
 .reading-copy { max-width: 68ch; line-height: var(--line-height-body); }
-.content-section + .content-section { margin-block-start: clamp(var(--space-5), 2.5vw, var(--space-8)); }
 .lesson-divider { border-color: var(--color-border); }
 
 .note-card,
@@ -246,7 +245,6 @@ body {
   }
   .home-main { gap: var(--space-10); }
   .lesson-document .lesson-header h1 { font-size: clamp(2rem, 10vw, 2.75rem); }
-  .content-section + .content-section { margin-block-start: var(--space-6); }
   .lesson-completion-footer { box-shadow: 0 -5px 14px rgba(32, 35, 33, .04); }
   .application-topbar { backdrop-filter: none; }
 }

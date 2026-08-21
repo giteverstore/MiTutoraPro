@@ -11,6 +11,13 @@ function resolveValidatorType(validator, validation) {
   return validator?.type ?? validation?.type ?? 'normalized';
 }
 
+function resolveValidatorOptions(validator, validation) {
+  const definition = typeof validator === 'object' ? validator : validation;
+  if (!definition) return undefined;
+  const { type: _type, ...options } = definition;
+  return options;
+}
+
 /**
  * Converts both the canonical compiler JSON shape and legacy course blocks
  * into the language-agnostic definition consumed by CompilerManager.
@@ -28,5 +35,9 @@ export function normalizeCompilerDefinition(definition) {
     stdin: definition.stdin ?? definition.inputs ?? '',
     expectedOutput: definition.expectedOutput,
     validatorType: resolveValidatorType(definition.validator, definition.validation),
+    validatorOptions: resolveValidatorOptions(definition.validator, definition.validation),
+    execution: definition.execution,
+    timeoutMs: definition.timeoutMs,
+    testCases: definition.testCases ?? [],
   };
 }

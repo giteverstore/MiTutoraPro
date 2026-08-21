@@ -1,0 +1,2411 @@
+{
+  "id": "module-5-strings",
+  "title": "CH 5: STRINGS",
+  "description": "",
+  "initiallyExpanded": false,
+  "sections": [
+    {
+      "id": "section-5-1-strings",
+      "title": "5.1 STRINGS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-5-1-1-strings-introduction",
+          "number": "5.1.1",
+          "title": "Strings Introduction",
+          "summary": "Java programs often need to work with text—such as a student name, course title, message, or address. Java provides the String type for storing this kind of data.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Java programs often need to work with text—such as a student name, course title, message, or address. Java provides the String type for storing this kind of data.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-1-paragraph-2",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString studentName = \"Aisha\";\nString course = \"Java Programming\";\nSystem.out.println(studentName);\nSystem.out.println(course);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-1-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Aisha\nJava Programming",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-1-paragraph-5",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-1-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "String studentName = \"Aisha\";",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-1-paragraph-7",
+              "type": "paragraph",
+              "content": "String tells Java that studentName stores text, while \"Aisha\" is the actual string value.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-1-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "A string can contain multiple characters, including letters, numbers, spaces, and symbols:"
+            },
+            {
+              "id": "java-5-1-1-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "\"Hello\"\n\"Java 2026\"\n\"Welcome!\"",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-1-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "String values are written inside double quotes \"\"."
+            },
+            {
+              "id": "java-5-1-1-paragraph-11",
+              "type": "paragraph",
+              "content": "Now let's see the different ways we can create strings in Java.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-2-creating-strings",
+          "number": "5.1.2",
+          "title": "Creating Strings",
+          "summary": "Just like we create an int variable to store numbers, we can use String to store text.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-2-paragraph-1",
+              "type": "paragraph",
+              "content": "Just like we create an int variable to store numbers, we can use String to store text.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-2-paragraph-2",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "String city = \"Bengaluru\";",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-2-paragraph-4",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-2-paragraph-5",
+              "type": "paragraph",
+              "content": "- String → data type\n- city → variable name\n- \"Bengaluru\" → stored text",
+              "format": "markdown"
+            },
+            {
+              "id": "java-5-1-2-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Displaying String Values"
+            },
+            {
+              "id": "java-5-1-2-paragraph-7",
+              "type": "paragraph",
+              "content": "Once a string is stored in a variable, we can display it using System.out.println().",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-2-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString name = \"Rahul\";\nString subject = \"Java\";\nSystem.out.println(name);\nSystem.out.println(subject);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-2-code-9",
+              "type": "code",
+              "language": "text",
+              "code": "Rahul\nJava",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-2-paragraph-10",
+              "type": "paragraph",
+              "content": "The variable stores the text, and println() displays its value.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-2-paragraph-11",
+              "type": "paragraph",
+              "content": "So, creating a string follows the same basic pattern as other variables:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-2-code-12",
+              "type": "code",
+              "language": "java",
+              "code": "Data type → Variable → Value",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-2-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "For strings, the value is written inside double quotes."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-3-problem-create-and-display-a-string",
+          "number": "5.1.3",
+          "title": "Problem: Create and Display a String",
+          "summary": "Problem: Create and Display a String",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-3-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Create and Display a String",
+              "instructions": {
+                "content": "Write a Java program that stores a course name in a string variable and displays it.\n\nYour Task\n\n- Create a string variable named courseName.\n- Assign \"Java Basics\" to it.\n- Print the value of courseName.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a Java program that stores a course name in a string variable and displays it."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-1-3-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "Java Basics",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-1-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Java Basics",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-3-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The program creates a String variable called courseName and stores the text \"Java Basics\" in it.\n\nThe println() statement then displays the value stored in the variable:\n\nKey idea: A String variable lets us store text and use that text later in the program.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\n// Store the course name\nString courseName = \"Java Basics\";\n// Display the course name\nSystem.out.println(courseName);\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-4-escape-sequences",
+          "number": "5.1.4",
+          "title": "Escape Sequences",
+          "summary": "Sometimes we need to include special characters or formatting inside a string. Java provides escape sequences for this purpose.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-4-paragraph-1",
+              "type": "paragraph",
+              "content": "Sometimes we need to include special characters or formatting inside a string. Java provides escape sequences for this purpose.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-4-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, to include quotation marks inside a string, use \\\".",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-4-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString message = \"She said, \\\"Welcome to Java!\\\"\";\nSystem.out.println(message);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-4-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "She said, \"Welcome to Java!\"",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-4-paragraph-5",
+              "type": "paragraph",
+              "content": "Here, \\\" tells Java to treat the quotation mark as part of the text instead of ending the string.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-4-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "We can also use \\n to move text to a new line."
+            },
+            {
+              "id": "java-5-1-4-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString message = \"Java\\nPython\\nC++\";\nSystem.out.println(message);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-4-code-8",
+              "type": "code",
+              "language": "text",
+              "code": "Java\nPython\nC++",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-4-paragraph-9",
+              "type": "paragraph",
+              "content": "When Java encounters \\n, it starts printing from the next line.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-4-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "These special combinations, such as \\\" and \\n, are called escape sequences."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-5-quiz-escape-sequences",
+          "number": "5.1.5",
+          "title": "Quiz: Escape Sequences",
+          "summary": "Quiz: Escape Sequences",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-5-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString message = \"Java\\nRocks!\";\nSystem.out.println(message);\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-5-quiz-2",
+              "type": "quiz",
+              "question": "class Main { public static void main(String[] args) { String message = \"Java\\nRocks!\"; System.out.println(message); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "Java\\nRocks!"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Java\nRocks!"
+                },
+                {
+                  "id": "option-c",
+                  "text": "Java Rocks!"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Java\nRocks"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-6-problem-print-quotation-marks",
+          "number": "5.1.6",
+          "title": "Problem: Print Quotation Marks",
+          "summary": "Problem: Print Quotation Marks",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-6-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Print Quotation Marks",
+              "instructions": {
+                "content": "Write a Java program that displays a sentence containing double quotation marks.\n\nYour Task\n\n- Print the text: He said, \"Java is easy!\"\n- Use the escape sequence \\\" to include the quotation marks.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a Java program that displays a sentence containing double quotation marks."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-1-6-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "He said, \"Java is easy!\"",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-1-6-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "He said, \"Java is easy!\"",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-6-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Normally, double quotes tell Java where a string begins and ends. To display quotation marks as part of the text, we use \\\".\n\nThe \\ tells Java that the following \" should be treated as a character inside the string.\n\nKey idea: Use \\\" whenever you need to print double quotation marks inside a Java string.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\n// Print quotation marks using an escape sequence\nSystem.out.println(\"He said, \\\"Java is easy!\\\"\");\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-7-reading-text-input-in-java",
+          "number": "5.1.7",
+          "title": "Reading Text Input in Java",
+          "summary": "When a program needs information such as a username, subject, or city, we can read text using Java's Scanner.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-7-paragraph-1",
+              "type": "paragraph",
+              "content": "When a program needs information such as a username, subject, or city, we can read text using Java's Scanner.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-7-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "The next() method is useful when the input contains one word."
+            },
+            {
+              "id": "java-5-1-7-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nSystem.out.println(\"Enter your username:\");\nString username = input.next();\nSystem.out.println(\"Welcome, \" + username);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-7-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output"
+            },
+            {
+              "id": "java-5-1-7-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "Enter your username:\nArjun\nWelcome, Arjun",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-7-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "What happens with spaces?"
+            },
+            {
+              "id": "java-5-1-7-paragraph-7",
+              "type": "paragraph",
+              "content": "Suppose the user enters:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-7-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "Arjun Kumar",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-7-paragraph-9",
+              "type": "paragraph",
+              "content": "next() reads only the first part:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-7-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "Arjun",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-7-paragraph-11",
+              "type": "paragraph",
+              "content": "It stops when it reaches the space.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-7-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "So, next() is suitable for single-word input."
+            },
+            {
+              "id": "java-5-1-7-paragraph-13",
+              "type": "paragraph",
+              "content": "When the input may contain multiple words, such as a full name or address, we need a different method:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-7-code-14",
+              "type": "code",
+              "language": "java",
+              "code": "nextLine()",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-7-heading-15",
+              "type": "heading",
+              "level": 3,
+              "text": "nextLine() reads the entire line, including spaces."
+            },
+            {
+              "id": "java-5-1-7-paragraph-16",
+              "type": "paragraph",
+              "content": "We'll use it in the next example.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-8-reading-a-complete-line",
+          "number": "5.1.8",
+          "title": "Reading a Complete Line",
+          "summary": "When the user enters text containing spaces, we can use the nextLine() method of Scanner to capture the entire line.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-8-paragraph-1",
+              "type": "paragraph",
+              "content": "When the user enters text containing spaces, we can use the nextLine() method of Scanner to capture the entire line.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-8-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nSystem.out.println(\"Enter your full name:\");\nString fullName = input.nextLine();\nSystem.out.println(\"Student: \" + fullName);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-8-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output"
+            },
+            {
+              "id": "java-5-1-8-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "Enter your full name:\nRahul Sharma\nStudent: Rahul Sharma",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-8-paragraph-5",
+              "type": "paragraph",
+              "content": "Here, nextLine() reads everything entered on that line, including spaces.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-8-paragraph-6",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-8-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "Rahul Sharma",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-8-paragraph-8",
+              "type": "paragraph",
+              "content": "is stored completely in fullName.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-8-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "next() vs nextLine()"
+            },
+            {
+              "id": "java-5-1-8-paragraph-10",
+              "type": "paragraph",
+              "content": "- next() → reads only one word.\n- nextLine() → reads the complete line.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-5-1-8-paragraph-11",
+              "type": "paragraph",
+              "content": "For string input that may contain spaces, nextLine() is generally the better choice.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-9-quiz-string-input",
+          "number": "5.1.9",
+          "title": "Quiz: String Input",
+          "summary": "A: String location = input.next();\nB: String location = input.nextLine();\nC: String location = input.nextInt();\nD: String location = input.nextDouble();",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-9-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "Bengaluru Karnataka",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-9-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "A user enters the following:"
+            },
+            {
+              "id": "java-5-1-9-paragraph-3",
+              "type": "paragraph",
+              "content": "A: String location = input.next();\nB: String location = input.nextLine();\nC: String location = input.nextInt();\nD: String location = input.nextDouble();",
+              "format": "markdown"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-10-string-arrays",
+          "number": "5.1.10",
+          "title": "String Arrays",
+          "summary": "We can store several text values together using a String array. The idea is similar to an integer array, but the elements contain text.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-10-paragraph-1",
+              "type": "paragraph",
+              "content": "We can store several text values together using a String array. The idea is similar to an integer array, but the elements contain text.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-10-paragraph-2",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-10-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "String[] subjects = {\"Java\", \"Python\", \"HTML\", \"SQL\"};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-10-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, subjects stores four string values.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-10-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "We can use a for-each loop to visit each element and print it."
+            },
+            {
+              "id": "java-5-1-10-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString[] subjects = {\"Java\", \"Python\", \"HTML\", \"SQL\"};\nfor (String subject : subjects) {\nSystem.out.println(subject);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-10-code-7",
+              "type": "code",
+              "language": "text",
+              "code": "Java\nPython\nHTML\nSQL",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-10-paragraph-8",
+              "type": "paragraph",
+              "content": "The loop takes each string from the subjects array and stores it temporarily in subject.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-11-taking-input-for-a-string-array",
+          "number": "5.1.11",
+          "title": "Taking Input for a String Array",
+          "summary": "A String array can also be filled with values entered by the user. First, create the array with the required size, then use a loop to store each input.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-11-paragraph-1",
+              "type": "paragraph",
+              "content": "A String array can also be filled with values entered by the user. First, create the array with the required size, then use a loop to store each input.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-11-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nString[] courses = new String[3];\nSystem.out.println(\"Enter course names:\");\nfor (int i = 0; i < courses.length; i++) {\ncourses[i] = input.nextLine();\n}\nSystem.out.println(\"\\nCourses:\");\nfor (String course : courses) {\nSystem.out.println(course);\n}\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-11-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output"
+            },
+            {
+              "id": "java-5-1-11-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "Enter course names:\nJava\nPython\nWeb Development\nCourses:\nJava\nPython\nWeb Development",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-11-paragraph-5",
+              "type": "paragraph",
+              "content": "Here, the first loop collects the input and stores each value in the courses array. The second loop displays all the stored strings.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-1-12-using-strings-with-methods",
+          "number": "5.1.12",
+          "title": "Using Strings with Methods",
+          "summary": "Think of it like this:",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "5-1-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-1-12-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "A String can travel into a method as input and can also come out of a method as a result."
+            },
+            {
+              "id": "java-5-1-12-paragraph-2",
+              "type": "paragraph",
+              "content": "Think of it like this:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-12-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "String → Method → String",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-12-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Sending Text to a Method"
+            },
+            {
+              "id": "java-5-1-12-paragraph-5",
+              "type": "paragraph",
+              "content": "Suppose we want a method to display a student's course.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-12-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid displayCourse(String course) {\nSystem.out.println(\"Selected course: \" + course);\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.displayCourse(\"Java\");\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-12-code-7",
+              "type": "code",
+              "language": "text",
+              "code": "Selected course: Java",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-12-paragraph-8",
+              "type": "paragraph",
+              "content": "The string \"Java\" is passed to the method through the course parameter.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-12-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Getting Text Back from a Method"
+            },
+            {
+              "id": "java-5-1-12-paragraph-10",
+              "type": "paragraph",
+              "content": "A method can also prepare a string and return it to main().",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-12-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nString createMessage() {\nString message = \"Keep Learning!\";\nreturn message;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nString message = obj.createMessage();\nSystem.out.println(message);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-12-code-12",
+              "type": "code",
+              "language": "text",
+              "code": "Keep Learning!",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-1-12-paragraph-13",
+              "type": "paragraph",
+              "content": "Here, the returned string is stored in message and then displayed.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-1-12-heading-14",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-5-1-12-code-15",
+              "type": "code",
+              "language": "java",
+              "code": "Argument → sends a String into a method\nreturn → sends a String back from a method",
+              "caption": "Example",
+              "mode": "display"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-5-2-string-methods",
+      "title": "5.2 STRING METHODS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-5-2-1-string-methods",
+          "number": "5.2.1",
+          "title": "String Methods",
+          "summary": "Java provides several built-in methods that make working with strings easier. Instead of writing the logic ourselves, we can call these methods whenever we need them.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Java provides several built-in methods that make working with strings easier. Instead of writing the logic ourselves, we can call these methods whenever we need them.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-1-paragraph-2",
+              "type": "paragraph",
+              "content": "In this section, we'll explore four useful string methods:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-1-paragraph-3",
+              "type": "paragraph",
+              "content": "- length() → counts the characters in a string\n- charAt() → gets a character at a specific position\n- concat() → combines two strings\n- equals() → checks whether two strings are equal",
+              "format": "markdown"
+            },
+            {
+              "id": "java-5-2-1-paragraph-4",
+              "type": "paragraph",
+              "content": "We'll begin with the length() method and learn how it counts characters in a string.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-2-counting-characters-in-a-string",
+          "number": "5.2.2",
+          "title": "Counting Characters in a String",
+          "summary": "Want to know how much text a string contains? Java's length() method can do it for us.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-2-paragraph-1",
+              "type": "paragraph",
+              "content": "Want to know how much text a string contains? Java's length() method can do it for us.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-2-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString message = \"Learn Java\";\nSystem.out.println(\"Characters: \" + message.length());\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-2-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Characters: 10",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-2-paragraph-4",
+              "type": "paragraph",
+              "content": "The statement:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-2-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "message.length()",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-2-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "counts every character in the string, including the space between Learn and Java."
+            },
+            {
+              "id": "java-5-2-2-paragraph-7",
+              "type": "paragraph",
+              "content": "So:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-2-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "Learn Java",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-2-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "contains 10 characters."
+            },
+            {
+              "id": "java-5-2-2-warning-10",
+              "type": "warning",
+              "title": "Remember",
+              "content": "length() returns the total number of characters as an int.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-3-comparing-string-lengths",
+          "number": "5.2.3",
+          "title": "Comparing String Lengths",
+          "summary": "We can use length() to compare two strings and determine which one contains more characters.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-3-paragraph-1",
+              "type": "paragraph",
+              "content": "We can use length() to compare two strings and determine which one contains more characters.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-3-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString title1 = \"Java Programming\";\nString title2 = \"Python\";\nif (title1.length() > title2.length()) {\nSystem.out.println(title1);\n} else {\nSystem.out.println(title2);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Java Programming",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-3-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, length() gives the number of characters in each string. The if...else statement then compares those lengths and prints the string with more characters.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-3-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Key idea:"
+            },
+            {
+              "id": "java-5-2-3-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "String → length() → compare → longer String",
+              "caption": "Example",
+              "mode": "display"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-4-problem-compare-string-lengths",
+          "number": "5.2.4",
+          "title": "Problem: Compare String Lengths",
+          "summary": "Problem: Compare String Lengths",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-4-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Compare String Lengths",
+              "instructions": {
+                "content": "Write a program to find the shorter of two sentences entered by the user.\n\nYour Task\n\n- Read two string inputs and store them in text1 and text2.\n- Find the length of each string.\n- Compare their lengths.\n- Print the shorter string.\n- If both have the same length, print text1.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to find the shorter of two sentences entered by the user."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-2-4-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "Java is easy\nCoding is fun and useful",
+              "expectedOutput": "Java is easy",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-2-4-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Java is easy\nCoding is fun and useful",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-4-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Java is easy",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-4-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The program first reads two complete lines using nextLine().\n\nIt then uses:\n\nto find the number of characters in each string.\n\nFinally, an if...else condition compares the two lengths and prints the shorter text. If both lengths are equal, the first string is printed.\n\nKey idea: length() can be combined with comparison operators to compare strings by their size.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nString text1 = input.nextLine();\nString text2 = input.nextLine();\nint length1 = text1.length();\nint length2 = text2.length();\nif (length1 <= length2) {\nSystem.out.println(text1);\n} else {\nSystem.out.println(text2);\n}\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-5-accessing-characters-in-a-string",
+          "number": "5.2.5",
+          "title": "Accessing Characters in a String",
+          "summary": "A String contains characters arranged in a specific order. Java's charAt() method lets us retrieve a character using its index.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-5-paragraph-1",
+              "type": "paragraph",
+              "content": "A String contains characters arranged in a specific order. Java's charAt() method lets us retrieve a character using its index.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-5-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString word = \"Code\";\nSystem.out.println(word.charAt(0));\nSystem.out.println(word.charAt(2));\nSystem.out.println(word.charAt(3));\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-5-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "C\nd\ne",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-5-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "The index of a string starts from 0, just like an array."
+            },
+            {
+              "id": "java-5-2-5-paragraph-5",
+              "type": "paragraph",
+              "content": "For \"Code\":",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-5-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "Index: 0 1 2 3\nCharacter: C o d e",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-5-image-7",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-41.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-5-2-5-paragraph-8",
+              "type": "paragraph",
+              "content": "Now, consider:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-5-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "word.charAt(0)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-5-paragraph-10",
+              "type": "paragraph",
+              "content": "It returns C, while:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-5-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "word.charAt(2)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-5-paragraph-12",
+              "type": "paragraph",
+              "content": "returns d.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-5-paragraph-13",
+              "type": "paragraph",
+              "content": "Writing a separate statement for every character can become repetitive. In the next example, we'll use a loop to access the characters more efficiently.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-6-printing-every-character-with-a-loop",
+          "number": "5.2.6",
+          "title": "Printing Every Character with a Loop",
+          "summary": "Instead of accessing each character separately, we can use a for loop to move through the string one index at a time.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-6-paragraph-1",
+              "type": "paragraph",
+              "content": "Instead of accessing each character separately, we can use a for loop to move through the string one index at a time.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-6-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString word = \"Code\";\nfor (int i = 0; i < word.length(); i++) {\nSystem.out.println(word.charAt(i));\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-6-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "C\no\nd\ne",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-6-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, i starts at 0 and increases until it reaches the end of the string.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-6-paragraph-5",
+              "type": "paragraph",
+              "content": "The expression:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-6-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "word.charAt(i)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-6-paragraph-7",
+              "type": "paragraph",
+              "content": "gets the character at the current index.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-6-paragraph-8",
+              "type": "paragraph",
+              "content": "Using a loop allows us to process every character automatically, without writing separate charAt() statements.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-7-problem-get-the-last-character",
+          "number": "5.2.7",
+          "title": "Problem: Get the Last Character",
+          "summary": "Problem: Get the Last Character",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-7-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Get the Last Character",
+              "instructions": {
+                "content": "Write a program that reads a string and prints its last character.\n\nYour Task\n\n- Read a line of text and store it in text.\n- Find the position of the last character.\n- Use charAt() to retrieve it.\n- Print the character.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program that reads a string and prints its last character."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-2-7-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "Developer",
+              "expectedOutput": "r",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-2-7-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Developer",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-7-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "r",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-7-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The program first reads the complete line using nextLine().\n\nThen:\n\ngives the index of the final character because string indexes begin at 0.\n\nThat index is passed to:\n\nwhich retrieves the last character.\n\nKey idea: charAt() uses an index, and the last character is always at length() - 1.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nString text = input.nextLine();\nint lastIndex = text.length() - 1;\nchar lastCharacter = text.charAt(lastIndex);\nSystem.out.println(lastCharacter);\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-8-combining-strings-with-concat",
+          "number": "5.2.8",
+          "title": "Combining Strings with concat()",
+          "summary": "Sometimes we have pieces of text stored separately and need to turn them into one string. Java's concat() method can join them.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-8-paragraph-1",
+              "type": "paragraph",
+              "content": "Sometimes we have pieces of text stored separately and need to turn them into one string. Java's concat() method can join them.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-8-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString city = \"New \";\nString country = \"York\";\nString place = city.concat(country);\nSystem.out.println(place);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-8-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "New York",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-8-paragraph-4",
+              "type": "paragraph",
+              "content": "The statement:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-8-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "city.concat(country)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-8-paragraph-6",
+              "type": "paragraph",
+              "content": "takes the value of country and attaches it to the end of city.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-8-paragraph-7",
+              "type": "paragraph",
+              "content": "The original strings are not changed. The combined text is stored in place.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-8-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember:"
+            },
+            {
+              "id": "java-5-2-8-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "\"New \" + \"York\" → \"New York\"",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-8-paragraph-10",
+              "type": "paragraph",
+              "content": "The space must be included in one of the strings if you want a space between the joined values.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-9-combining-text-with",
+          "number": "5.2.9",
+          "title": "Combining Text with +",
+          "summary": "The + operator has another use in Java. When at least one side is a String, Java treats + as a way to combine text.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-9-paragraph-1",
+              "type": "paragraph",
+              "content": "The + operator has another use in Java. When at least one side is a String, Java treats + as a way to combine text.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-9-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString user = \"Irfan\";\nint score = 95;\nSystem.out.println(user + \" scored \" + score);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-9-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Irfan scored 95",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-9-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, Java combines the text and the value of score to create one message.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-9-paragraph-5",
+              "type": "paragraph",
+              "content": "You can also join two string variables:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-9-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "String first = \"Go \";\nString second = \"Coder\";\nSystem.out.println(first + second);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-9-code-7",
+              "type": "code",
+              "language": "text",
+              "code": "Go Coder",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-9-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-5-2-9-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "String + String → joined text\nString + number → text with the number",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-9-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "So, whenever + is used with a string, think combine, not mathematical addition."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-10-quiz-join-two-strings",
+          "number": "5.2.10",
+          "title": "Quiz: Join Two Strings",
+          "summary": "Quiz: Join Two Strings",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-10-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "String first = \"Go \";\nString second = \"Coder\";\nString result = first ______ second;",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-10-quiz-2",
+              "type": "quiz",
+              "question": "Which option correctly combines two strings in Java?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "+"
+                },
+                {
+                  "id": "option-b",
+                  "text": "-"
+                },
+                {
+                  "id": "option-c",
+                  "text": "*"
+                },
+                {
+                  "id": "option-d",
+                  "text": "/"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-11-problem-build-a-full-address",
+          "number": "5.2.11",
+          "title": "Problem: Build a Full Address",
+          "summary": "Problem: Build a Full Address",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-11-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Build a Full Address",
+              "instructions": {
+                "content": "Create a program that combines two text inputs into one address.\n\nTask\n\n- Read the street and area from the user.\n- Use concat() to combine them.\n- Keep a space between the two inputs.\n- Display the final address.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Create a program that combines two text inputs into one address."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-2-11-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "MG Road\nBangalore",
+              "expectedOutput": "MG Road Bangalore",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-2-11-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "MG Road\nBangalore",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-11-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "MG Road Bangalore",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-11-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The two lines are stored separately in street and area.\n\nadds the required space, and:\n\nattaches the second input.\n\nThe completed address is then printed.\n\nKey idea: concat() joins string values without changing the original strings.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nString street = input.nextLine();\nString area = input.nextLine();\nString address = street.concat(\" \").concat(area);\nSystem.out.println(address);\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-12-checking-whether-strings-match",
+          "number": "5.2.12",
+          "title": "Checking Whether Strings Match",
+          "summary": "The equals() method helps us check whether two String values contain exactly the same characters.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-12-paragraph-1",
+              "type": "paragraph",
+              "content": "The equals() method helps us check whether two String values contain exactly the same characters.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-12-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString answer = \"Yes\";\nString input = \"yes\";\nboolean matched = answer.equals(input);\nSystem.out.println(\"Match: \" + matched);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-12-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Match: false",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-12-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Java compares the characters exactly, including their uppercase and lowercase forms."
+            },
+            {
+              "id": "java-5-2-12-paragraph-5",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-2-12-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "\"Yes\".equals(\"Yes\") // true\n\"Yes\".equals(\"yes\") // false",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-12-paragraph-7",
+              "type": "paragraph",
+              "content": "So, equals() is useful whenever a program needs to check whether two pieces of text are the same.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-13-quiz-string-concatenation",
+          "number": "5.2.13",
+          "title": "Quiz: String Concatenation",
+          "summary": "Quiz: String Concatenation",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-13-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "String first = \"7\";\nString second = \"3\";\nSystem.out.println(first + second);",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-13-quiz-2",
+              "type": "quiz",
+              "question": "What will this code print?",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "10"
+                },
+                {
+                  "id": "option-b",
+                  "text": "73"
+                },
+                {
+                  "id": "option-c",
+                  "text": "7 + 3"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Error"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-2-14-problem-check-string-match",
+          "number": "5.2.14",
+          "title": "Problem: Check String Match",
+          "summary": "Problem: Check String Match",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-2-string-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-2-14-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Check String Match",
+              "instructions": {
+                "content": "Write a program that checks whether two entered strings are identical.\n\nTask\n\n- Read two lines and store them in text1 and text2.\n- Use equals() to compare them.\n- Store the boolean result in isSame.\n- Display the result.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program that checks whether two entered strings are identical."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-2-14-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "Java\nJava",
+              "expectedOutput": "true",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-2-14-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Java\nJava",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-14-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "true",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-2-14-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The two inputs are stored separately and compared with:\n\nIf both contain the same text, the method returns true; otherwise, it returns false.\n\nKey idea: equals() compares the actual contents of two strings.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nString text1 = input.nextLine();\nString text2 = input.nextLine();\nboolean isSame = text1.equals(text2);\nSystem.out.println(isSame);\ninput.close();\n}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-5-3-strings-examples",
+      "title": "5.3 STRINGS EXAMPLES",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-5-3-1-string-practice-programs",
+          "number": "5.3.1",
+          "title": "String Practice Programs",
+          "summary": "Now that we know the basic string methods, let's use them to solve a few practical problems.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-3-strings-examples"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-3-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Now that we know the basic string methods, let's use them to solve a few practical problems.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-1-paragraph-2",
+              "type": "paragraph",
+              "content": "In this section, we'll work on:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-1-paragraph-3",
+              "type": "paragraph",
+              "content": "- Count how often a character appears\n- Replace part of a string with replace()\n- Convert text to uppercase or lowercase\n- Practice: Count the vowels in a string",
+              "format": "markdown"
+            },
+            {
+              "id": "java-5-3-1-paragraph-4",
+              "type": "paragraph",
+              "content": "These examples will help you apply string concepts in different situations.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-3-2-counting-a-character-in-a-string",
+          "number": "5.3.2",
+          "title": "Counting a Character in a String",
+          "summary": "The loop checks each character using charAt(i). Whenever it matches target, the count variable increases by 1.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-3-strings-examples"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-3-2-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's use a loop to find how many times a particular character occurs in a string."
+            },
+            {
+              "id": "java-5-3-2-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString message = \"Welcome to Go Coder\";\nchar target = 'o';\nint count = 0;\nfor (int i = 0; i < message.length(); i++) {\nif (message.charAt(i) == target) {\ncount++;\n}\n}\nSystem.out.println(\"Count: \" + count);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-2-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Count: 3",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-2-paragraph-4",
+              "type": "paragraph",
+              "content": "The loop checks each character using charAt(i). Whenever it matches target, the count variable increases by 1.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-2-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Key idea: charAt() helps us inspect each character, while a counter keeps track of the matches."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-3-3-replacing-part-of-a-string",
+          "number": "5.3.3",
+          "title": "Replacing Part of a String",
+          "summary": "Suppose we want to change \"Java Class\" into \"Java Course\".",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "5-3-strings-examples"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-3-3-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "The replace() method is useful when we need to change specific characters or text inside a string."
+            },
+            {
+              "id": "java-5-3-3-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose we want to change \"Java Class\" into \"Java Course\".",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-3-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString text = \"Java Class\";\nSystem.out.println(\"Before: \" + text);\ntext = text.replace(\"Class\", \"Course\");\nSystem.out.println(\"After: \" + text);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-3-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Before: Java Class\nAfter: Java Course",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-3-paragraph-5",
+              "type": "paragraph",
+              "content": "The statement:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-3-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "text.replace(\"Class\", \"Course\")",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-3-paragraph-7",
+              "type": "paragraph",
+              "content": "finds \"Class\" and replaces it with \"Course\".",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-3-paragraph-8",
+              "type": "paragraph",
+              "content": "You can also replace individual characters:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-3-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "char result = 'a';\nString word = \"Java\";\nword = word.replace('a', 'o');\nSystem.out.println(word);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-3-code-10",
+              "type": "code",
+              "language": "text",
+              "code": "Jovo",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-3-warning-11",
+              "type": "warning",
+              "title": "Remember",
+              "content": "replace() creates a new string with the requested changes; it does not modify the original string directly.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-3-4-changing-string-case",
+          "number": "5.3.4",
+          "title": "Changing String Case",
+          "summary": "Java provides two useful methods for changing the letter case of a string:",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "5-3-strings-examples"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-3-4-paragraph-1",
+              "type": "paragraph",
+              "content": "Java provides two useful methods for changing the letter case of a string:",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-4-paragraph-2",
+              "type": "paragraph",
+              "content": "- toLowerCase() → converts letters to lowercase\n- toUpperCase() → converts letters to uppercase",
+              "format": "markdown"
+            },
+            {
+              "id": "java-5-3-4-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString title = \"WELCOME TO GO CODER\";\nString small = title.toLowerCase();\nSystem.out.println(small);\nString capital = small.toUpperCase();\nSystem.out.println(capital);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-4-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "welcome to go coder\nWELCOME TO GO CODER",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-4-paragraph-5",
+              "type": "paragraph",
+              "content": "First, toLowerCase() changes the text to lowercase. We then use toUpperCase() on that result to convert it back.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-3-4-warning-6",
+              "type": "warning",
+              "title": "Remember",
+              "content": "These methods return a new string with the requested case.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-3-5-problem-count-the-vowels",
+          "number": "5.3.5",
+          "title": "Problem: Count the Vowels",
+          "summary": "Problem: Count the Vowels",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "5-3-strings-examples"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-3-5-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Count the Vowels",
+              "instructions": {
+                "content": "Write a program to find how many vowels are present in a given string.\n\nTask\n\n- Read a string and store it in sentence.\n- Convert sentence to lowercase.\n- Create a vowels counter starting at 0.\n- Use a for loop and charAt() to inspect each character.\n- Increase vowels whenever the character is a, e, i, o, or u.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to find how many vowels are present in a given string."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-5-3-5-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "Welcome to Java",
+              "expectedOutput": "6",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-5-3-5-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Welcome to Java",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-5-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "6",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-3-5-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The input is first converted to lowercase so both uppercase and lowercase vowels are handled the same way.\n\nThe loop examines one character at a time using charAt(). When the character is a vowel, vowels increases by 1.\n\nFinally, the counter is printed to show the total number of vowels.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nString sentence = input.nextLine().toLowerCase();\nint vowels = 0;\nfor (int i = 0; i < sentence.length(); i++) {\nchar ch = sentence.charAt(i);\nif (ch == 'a' || ch == 'e' || ch == 'i' ||\nch == 'o' || ch == 'u') {\nvowels++;\n}\n}\nSystem.out.println(vowels);\ninput.close();\n}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-5-4-review-strings",
+      "title": "5.4 REVIEW: STRINGS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-5-4-1-review-creating-and-reading-strings",
+          "number": "5.4.1",
+          "title": "Review: Creating and Reading Strings",
+          "summary": "A string variable is declared using the String data type.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "5-4-review-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-4-1-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Creating a String"
+            },
+            {
+              "id": "java-5-4-1-paragraph-2",
+              "type": "paragraph",
+              "content": "A string variable is declared using the String data type.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-4-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nString message = \"Welcome!\";\nSystem.out.println(message);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-4-1-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Reading One Word"
+            },
+            {
+              "id": "java-5-4-1-paragraph-5",
+              "type": "paragraph",
+              "content": "Use next() when the input contains a single word.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-4-1-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "Scanner input = new Scanner(System.in);\nString name = input.next();\nSystem.out.println(name);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-4-1-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Reading a Complete Line"
+            },
+            {
+              "id": "java-5-4-1-paragraph-8",
+              "type": "paragraph",
+              "content": "Use nextLine() when the input may contain spaces.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-4-1-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "Scanner input = new Scanner(System.in);\nString address = input.nextLine();\nSystem.out.println(address);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-4-1-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember:"
+            },
+            {
+              "id": "java-5-4-1-paragraph-11",
+              "type": "paragraph",
+              "content": "- next() → reads up to whitespace\n- nextLine() → reads the complete line",
+              "format": "markdown"
+            },
+            {
+              "id": "java-5-4-1-paragraph-12",
+              "type": "paragraph",
+              "content": "Now let's continue with more string concepts.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-5-4-2-review-useful-string-methods",
+          "number": "5.4.2",
+          "title": "Review: Useful String Methods",
+          "summary": "Java provides several built-in methods that make working with strings easier.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "5-4-review-strings"
+          ],
+          "blocks": [
+            {
+              "id": "java-5-4-2-paragraph-1",
+              "type": "paragraph",
+              "content": "Java provides several built-in methods that make working with strings easier.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-4-2-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "Method\nPurpose\nlength()\nCounts the characters\ncharAt()\nGets a character at an index\nconcat()\nCombines strings\nequals()\nChecks whether strings match\nreplace()\nReplaces characters or text\ntoLowerCase()\nChanges text to lowercase\ntoUpperCase()\nChanges text to uppercase",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-5-4-2-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-5-4-2-paragraph-4",
+              "type": "paragraph",
+              "content": "These methods help us perform common string operations without writing the logic from scratch.",
+              "format": "plain"
+            },
+            {
+              "id": "java-5-4-2-paragraph-5",
+              "type": "paragraph",
+              "content": "Great work! You've completed this section. Now put your string skills into practice with the exercises in Practice: Java Basics.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

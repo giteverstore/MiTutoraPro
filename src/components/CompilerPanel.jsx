@@ -73,6 +73,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         language: definition.language,
         stdin: definition.stdin,
         filename: definition.editor.fileName,
+        execution: definition.execution,
+        timeoutMs: definition.timeoutMs,
         signal: controller.signal,
       });
 
@@ -118,6 +120,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       expectedOutput: definition.expectedOutput,
       programOutput: result,
       validatorType: definition.validatorType,
+      validatorOptions: definition.validatorOptions,
     });
     setVerificationStatus(matches ? 'matched' : 'mismatched');
     onVerificationChange?.(matches ? 'matched' : 'mismatched');

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createCourseNavigation } from '../src/course/courseNavigation.js';
+import { resolveLessonModuleNumber } from '../src/course/courseStructure.js';
 
 const lesson = (id, status = 'available', navigation) => ({
   id,
@@ -57,5 +58,10 @@ assert.deepEqual(
 assert.equal(navigation.getState('lesson-a').previousLesson.id, 'lesson-branch');
 assert.equal(navigation.canNavigateTo('lesson-locked'), true);
 assert.equal(navigation.canNavigateTo('lesson-b'), true);
+
+assert.equal(resolveLessonModuleNumber('lesson-two', course.modules), 1);
+assert.equal(resolveLessonModuleNumber('lesson-branch', course.modules), 2);
+assert.equal(resolveLessonModuleNumber('java-lesson-5-1-3-problem', 5), 5);
+assert.equal(resolveLessonModuleNumber('missing-lesson', course.modules), null);
 
 console.log('Course navigation tests passed.');

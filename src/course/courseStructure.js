@@ -13,6 +13,22 @@ export function getCourseLessons(course) {
   return (course?.modules ?? []).flatMap(getModuleLessons);
 }
 
+export function resolveLessonModuleNumber(lessonId, modulesOrCount) {
+  if (Array.isArray(modulesOrCount)) {
+    const moduleIndex = modulesOrCount.findIndex((module) =>
+      getModuleLessons(module).some((lesson) => lesson.id === lessonId));
+    return moduleIndex >= 0 ? moduleIndex + 1 : null;
+  }
+
+  const moduleCount = modulesOrCount;
+  if (!Number.isInteger(moduleCount) || moduleCount < 1) return null;
+  const match = String(lessonId ?? '').match(/(?:^|-)(\d+)(?:-|$)/);
+  const moduleNumber = Number(match?.[1]);
+  return Number.isInteger(moduleNumber) && moduleNumber >= 1 && moduleNumber <= moduleCount
+    ? moduleNumber
+    : 1;
+}
+
 export function findLessonProgressScope(course, lessonId) {
   for (const module of course?.modules ?? []) {
     const section = getModuleSections(module).find((candidate) =>

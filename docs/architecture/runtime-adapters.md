@@ -20,6 +20,7 @@ Defined in `src/compiler/core/RuntimeAdapter.js`:
 
 ```js
 runtimeRegistry.register('python', () => new PythonRuntime());
+runtimeRegistry.register('java', () => new JavaRuntime());
 ```
 
 Language metadata belongs under `src/compiler/languages/`; implementation code belongs under `src/compiler/runtimes/<language>/`.
@@ -31,5 +32,7 @@ Language metadata belongs under `src/compiler/languages/`; implementation code b
 ## Error behavior
 
 An unregistered language produces an error result from `execute`. Validator lookup failures throw because they represent an invalid application/content configuration. Runtime adapters should convert language/runtime failures into the standard result when execution has begun, while initialization failures may reject.
+
+Python uses Pyodide in `python.worker.js`. Java uses the TeaVM javac/WebAssembly pipeline in `java.worker.js`. Both preserve the same manager-facing lifecycle and normalized result contract; React imports neither runtime directly.
 
 For the complete extension workflow, see [Adding a language](../development/adding-a-language.md).

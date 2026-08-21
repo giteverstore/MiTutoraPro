@@ -27,28 +27,37 @@ const DEFAULT_UI = Object.freeze({
 });
 
 function createCompilerModel(course) {
-  const language = course.metadata?.tags?.includes('python') ? 'Python' : 'Code';
+  const languageId = ['python', 'java'].find((candidate) =>
+    course.metadata?.tags?.includes(candidate)) ?? 'plaintext';
+  const languageLabel = languageId === 'plaintext'
+    ? 'Code'
+    : `${languageId.charAt(0).toUpperCase()}${languageId.slice(1)}`;
+  const fileName = languageId === 'python'
+    ? 'main.py'
+    : languageId === 'java'
+      ? 'Main.java'
+      : 'main.txt';
 
   return {
-    ariaLabel: `${language} practice compiler`,
+    ariaLabel: `${languageLabel} practice compiler`,
     eyebrow: 'Practice workspace',
     title: 'Compiler',
     status: 'Ready',
     languageLabel: 'Language',
-    language,
+    language: languageId,
     resetLabel: 'Reset code',
     runLabel: 'Run',
     runningLabel: 'Running…',
     runShortcut: 'Ctrl + Enter',
     resizeLabel: DEFAULT_UI.resizeLabels.output,
     editor: {
-      fileName: language === 'Python' ? 'main.py' : 'main.txt',
+      fileName,
       unsavedLabel: 'Unsaved changes',
-      ariaLabel: `${language} code editor`,
+      ariaLabel: `${languageLabel} code editor`,
       lines: [
         {
           number: 1,
-          text: language === 'Python' ? '# Write your Python code here' : '// Write your code here',
+          text: languageId === 'python' ? '# Write your Python code here' : '// Write your code here',
           tone: 'comment',
         },
         { number: 2, text: '', tone: 'source' },
@@ -64,7 +73,7 @@ function createCompilerModel(course) {
       errorTitle: 'No errors',
       errorDescription: 'Compiler errors will appear here.',
     },
-    footerItems: [`Language: ${language}`],
+    footerItems: [`Language: ${languageLabel}`],
   };
 }
 

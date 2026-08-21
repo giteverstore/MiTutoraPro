@@ -1,0 +1,2889 @@
+{
+  "id": "module-3-array",
+  "title": "CH 3: ARRAY",
+  "description": "",
+  "initiallyExpanded": false,
+  "sections": [
+    {
+      "id": "section-3-1-array",
+      "title": "3.1 ARRAY",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-3-1-1-array-introduction",
+          "number": "3.1.1",
+          "title": "Array Introduction",
+          "summary": "Until now, we've used variables to hold individual values. But what if a program needs to manage many values of the same type?",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Until now, we've used variables to hold individual values. But what if a program needs to manage many values of the same type?",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-1-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, storing the scores of 50 students in separate variables would make the program unnecessarily long.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-1-paragraph-3",
+              "type": "paragraph",
+              "content": "An array provides a simpler solution. It lets us keep multiple values of the same data type together under one variable.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-1-paragraph-4",
+              "type": "paragraph",
+              "content": "In this lesson, you'll learn how to:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-1-paragraph-5",
+              "type": "paragraph",
+              "content": "- Create an array.\n- Access values stored in an array.\n- Update array elements.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-3-1-1-paragraph-6",
+              "type": "paragraph",
+              "content": "Let's begin by learning how to create an array",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-2-creating-an-array",
+          "number": "3.1.2",
+          "title": "Creating an Array",
+          "summary": "An array lets us keep several values of the same data type under one variable. We can create an array by placing the values inside {} and separating them with commas.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-2-paragraph-1",
+              "type": "paragraph",
+              "content": "An array lets us keep several values of the same data type under one variable. We can create an array by placing the values inside {} and separating them with commas.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-2-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {75, 82, 68, 91, 88};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-2-paragraph-3",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-2-paragraph-4",
+              "type": "paragraph",
+              "content": "- int — specifies that the array stores integer values.\n- [] — indicates that scores is an array.\n- scores — the name given to the array.\n- {75, 82, 68, 91, 88} — the values stored in the array.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-3-1-2-image-5",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-31.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-3-1-2-paragraph-6",
+              "type": "paragraph",
+              "content": "Each value in an array has a position called an index. We can use this index to access individual elements.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-2-paragraph-7",
+              "type": "paragraph",
+              "content": "Let's see how array indexing works next.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-3-accessing-array-elements",
+          "number": "3.1.3",
+          "title": "Accessing Array Elements",
+          "summary": "For example:",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-3-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Each array element in Java has an index that represents its position."
+            },
+            {
+              "id": "java-3-1-3-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Array indexing starts from 0, so the first element is at index 0."
+            },
+            {
+              "id": "java-3-1-3-paragraph-3",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-3-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {72, 85, 91, 68, 77};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-3-image-5",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-32.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-3-1-3-paragraph-6",
+              "type": "paragraph",
+              "content": "Here, the array indexes are:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-3-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "Index\n0\n1\n2\n3\n4\nscores\n72\n85\n91\n68\n77",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-3-paragraph-8",
+              "type": "paragraph",
+              "content": "To access an element, use the array name followed by the index inside [].",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-3-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "// Access the first element\nscores[0];\n// Access the third element\nscores[2];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-3-warning-10",
+              "type": "warning",
+              "title": "Remember",
+              "content": "Array indexing always starts from 0.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-4-quiz-creating-an-array",
+          "number": "3.1.4",
+          "title": "Quiz: Creating An Array",
+          "summary": "Quiz: Creating An Array",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-4-quiz-1",
+              "type": "quiz",
+              "question": "Tap an option below to answer:",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "int[] scores = {72, 85, 91};"
+                },
+                {
+                  "id": "option-b",
+                  "text": "int scores = {72, 85, 91};"
+                },
+                {
+                  "id": "option-c",
+                  "text": "int scores[] = (72, 85, 91);"
+                },
+                {
+                  "id": "option-d",
+                  "text": "int[3] scores = {72, 85, 91};"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-5-example-printing-array-elements",
+          "number": "3.1.5",
+          "title": "Example: Printing Array Elements",
+          "summary": "Let's print all the values stored in an array.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-5-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's print all the values stored in an array.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-5-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\n// Create an array\nint[] scores = {72, 85, 91, 68, 77};\n// Print each element\nSystem.out.println(scores[0]);\nSystem.out.println(scores[1]);\nSystem.out.println(scores[2]);\nSystem.out.println(scores[3]);\nSystem.out.println(scores[4]);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-5-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "72\n85\n91\n68\n77",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-5-paragraph-4",
+              "type": "paragraph",
+              "content": "The program works, but there is a problem: we need a separate println() statement for every element.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-5-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "If the array contained 100 values, writing 100 print statements would be inefficient."
+            },
+            {
+              "id": "java-3-1-5-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Can we use a loop to print all the elements instead?"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-6-improving-the-code",
+          "number": "3.1.6",
+          "title": "Improving the Code",
+          "summary": "Our array is:",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-6-paragraph-1",
+              "type": "paragraph",
+              "content": "Our array is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-6-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {72, 85, 91, 68, 77};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-6-paragraph-3",
+              "type": "paragraph",
+              "content": "Each element can be accessed using:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-6-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "scores[index]",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-6-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember:"
+            },
+            {
+              "id": "java-3-1-6-paragraph-6",
+              "type": "paragraph",
+              "content": "- Array indexing begins at 0.\n- This array contains 5 elements, so its last index is 4.\n- Therefore, the indexes range from 0 to 4.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-3-1-6-paragraph-7",
+              "type": "paragraph",
+              "content": "Instead of writing a separate println() statement for every element, we can use a for loop to move through the indexes.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-6-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "for (int index = 0; index < 5; ++index) {\nSystem.out.println(scores[index]);\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-6-paragraph-9",
+              "type": "paragraph",
+              "content": "The loop starts at 0, prints the element at that index, and increases index by 1 each time until all five elements are printed.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-6-paragraph-10",
+              "type": "paragraph",
+              "content": "Next, let's see the complete program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-7-array-elements-using-a-for-loop",
+          "number": "3.1.7",
+          "title": "Array Elements Using a for Loop",
+          "summary": "A for loop makes it easier to access every element in an array without repeating print statements.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-7-paragraph-1",
+              "type": "paragraph",
+              "content": "A for loop makes it easier to access every element in an array without repeating print statements.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-7-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\n// Create an array\nint[] scores = {72, 85, 91, 68, 77};\n// Visit each array index\nfor (int index = 0; index < 5; ++index) {\nSystem.out.println(scores[index]);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-7-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "72\n85\n91\n68\n77",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-7-paragraph-4",
+              "type": "paragraph",
+              "content": "Here's how the loop works:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-7-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "index\nindex < 5\nscores[index]\n0\ntrue\n72\n1\ntrue\n85\n2\ntrue\n91\n3\ntrue\n68\n4\ntrue\n77\n5\nfalse\nLoop terminates",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-7-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "The loop starts at index 0 and moves through each position until the condition becomes false."
+            },
+            {
+              "id": "java-3-1-7-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Using a loop makes the code shorter, cleaner, and easier to maintain."
+            },
+            {
+              "id": "java-3-1-7-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Tip: Whenever you notice the same operation being repeated, consider whether a loop can handle it."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-8-quiz-accessing-an-array",
+          "number": "3.1.8",
+          "title": "Quiz: Accessing An Array",
+          "summary": "Quiz: Accessing An Array",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-8-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] marks = {64, 79, 88, 93, 71};\nSystem.out.println(marks[2]);\nSystem.out.println(marks[0]);\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-8-quiz-2",
+              "type": "quiz",
+              "question": "class Main { public static void main(String[] args) { int[] marks = {64, 79, 88, 93, 71}; System.out.println(marks[2]); System.out.println(marks[0]); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "88\n64"
+                },
+                {
+                  "id": "option-b",
+                  "text": "64\n88"
+                },
+                {
+                  "id": "option-c",
+                  "text": "79\n93"
+                },
+                {
+                  "id": "option-d",
+                  "text": "93\n71"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-9-problem-java-array",
+          "number": "3.1.9",
+          "title": "Problem: Java Array",
+          "summary": "Problem: Java Array",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-9-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Java Array",
+              "instructions": {
+                "content": "Write a program to display selected values from a double type array.\n\n- Create a double type array named prices with values: 12.5, 7.8, 15.2, 9.6.\n- Use a for loop to access the array elements.\n- Print only the values at even indexes (0, 2).\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to display selected values from a double type array."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-3-1-9-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "12.5\n15.2",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-3-1-9-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "12.5\n15.2",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-9-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program creates a double array named prices with four decimal values.\n\nThe for loop starts at index 0 and increases the index by 2 each time. Therefore, it accesses indexes 0 and 2, printing 12.5 and 15.2.\n\nThis gives you practice with arrays, indexes, double values, and for loops while using a different problem from the source.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\n// Create double array\ndouble[] prices = {12.5, 7.8, 15.2, 9.6};\n// Access elements at even indexes\nfor (int index = 0; index < 4; index += 2) {\nSystem.out.println(prices[index]);\n}\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-10-finding-the-total-of-array-values",
+          "number": "3.1.10",
+          "title": "Finding the Total of Array Values",
+          "summary": "Here's how the calculation progresses:",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-10-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's calculate the total of all values stored in an array."
+            },
+            {
+              "id": "java-3-1-10-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\n// Create an array\ndouble[] values = {14.5, 6.25, 27.8, -8.4};\n// Start the total at 0\ndouble sum = 0;\n// Visit each array element\nfor (int i = 0; i < 4; ++i) {\nsum += values[i];\n}\nSystem.out.println(\"Sum: \" + sum);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-10-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Sum: 40.15",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-10-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "The variable sum initially contains 0. The for loop then visits each element and adds it to sum."
+            },
+            {
+              "id": "java-3-1-10-paragraph-5",
+              "type": "paragraph",
+              "content": "Here's how the calculation progresses:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-10-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "Iteration\nvalues[i]\nsum\ni = 0\n14.5\n14.5\ni = 1\n6.25\n20.75\ni = 2\n27.8\n48.55\ni = 3\n-8.4\n40.15",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-10-paragraph-7",
+              "type": "paragraph",
+              "content": "After all four elements have been processed, the loop ends and the final sum is printed.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-11-quiz-array-index",
+          "number": "3.1.11",
+          "title": "Quiz: Array Index",
+          "summary": "Quiz: Array Index",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-11-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] marks = {41, 56, 73, 89};\n// Choose the correct statement\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-11-quiz-2",
+              "type": "quiz",
+              "question": "class Main { public static void main(String[] args) { int[] marks = {41, 56, 73, 89}; // Choose the correct statement }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "System.out.println(marks[0]);"
+                },
+                {
+                  "id": "option-b",
+                  "text": "System.out.println(marks[1]);"
+                },
+                {
+                  "id": "option-c",
+                  "text": "System.out.println(marks[2]);"
+                },
+                {
+                  "id": "option-d",
+                  "text": "System.out.println(marks[3]);"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-12-updating-an-array-element",
+          "number": "3.1.12",
+          "title": "Updating an Array Element",
+          "summary": "Suppose an array stores the number of books available in four sections:",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-12-paragraph-1",
+              "type": "paragraph",
+              "content": "Suppose an array stores the number of books available in four sections:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-12-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "int[] books = {12, 8, 15, 10};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-12-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "The library receives 5 new books for the section at index 2."
+            },
+            {
+              "id": "java-3-1-12-paragraph-4",
+              "type": "paragraph",
+              "content": "Instead of creating another array, we can directly update that element:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-12-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "books[2] = books[2] + 5;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-12-paragraph-6",
+              "type": "paragraph",
+              "content": "Now let's display the updated values.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-12-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] books = {12, 8, 15, 10};\n// Add 5 books to the third section\nbooks[2] = books[2] + 5;\nfor (int i = 0; i < 4; ++i) {\nSystem.out.println(books[i]);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-12-code-8",
+              "type": "code",
+              "language": "text",
+              "code": "12\n8\n20\n10",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-12-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, books[2] originally contained 15."
+            },
+            {
+              "id": "java-3-1-12-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "books[2] = books[2] + 5;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-12-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "changes it to 20."
+            },
+            {
+              "id": "java-3-1-12-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "The important idea is that an array element can be updated directly using its index."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-13-quiz-updating-array-values",
+          "number": "3.1.13",
+          "title": "Quiz: Updating Array Values",
+          "summary": "Quiz: Updating Array Values",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-13-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] prices = {20, 35, 40, 55};\nprices[1] = 50;\nSystem.out.println(prices[0] + prices[1]);\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-13-quiz-2",
+              "type": "quiz",
+              "question": "class Main { public static void main(String[] args) { int[] prices = {20, 35, 40, 55}; prices[1] = 50; System.out.println(prices[0] + prices[1]); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "55"
+                },
+                {
+                  "id": "option-b",
+                  "text": "70"
+                },
+                {
+                  "id": "option-c",
+                  "text": "75"
+                },
+                {
+                  "id": "option-d",
+                  "text": "90"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-14-problem-update-an-array-element",
+          "number": "3.1.14",
+          "title": "Problem: Update An Array Element",
+          "summary": "Problem: Update An Array Element",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-14-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Update An Array Element",
+              "instructions": {
+                "content": "Write a program to update one element of an integer array.\n\n- Create an integer array named scores with the values {45, 62, 78, 91}.\n- Take an integer input from the user and store it in newScore.\n- Replace the second element of the array with newScore.\n- Print all the elements of the updated array.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to update one element of an integer array."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-3-1-14-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "85",
+              "expectedOutput": "45\n85\n78\n91",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-3-1-14-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "85",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-14-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "45\n85\n78\n91",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-14-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program begins with four scores stored in the scores array.\n\nIt then takes a new score from the user. Since the second element has index 1, the statement scores[1] = newScore replaces its previous value.\n\nFinally, the for loop goes through the array and prints all four updated values.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\n// Create integer array\nint[] scores = {45, 62, 78, 91};\n// Get new score from the user\nScanner input = new Scanner(System.in);\nint newScore = input.nextInt();\n// Update the second element\nscores[1] = newScore;\n// Print the updated array\nfor (int i = 0; i < 4; ++i) {\nSystem.out.println(scores[i]);\n}\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-15-finding-the-size-of-an-array",
+          "number": "3.1.15",
+          "title": "Finding the Size of an Array",
+          "summary": "When using a for loop with an array, we need to know how many elements it contains.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-15-paragraph-1",
+              "type": "paragraph",
+              "content": "When using a for loop with an array, we need to know how many elements it contains.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-15-paragraph-2",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-15-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {72, 85, 91, 68, 77};\nfor (int i = 0; i < 5; ++i) {\n...\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-15-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, the array contains 5 elements, so the loop runs from index 0 to 4."
+            },
+            {
+              "id": "java-3-1-15-paragraph-5",
+              "type": "paragraph",
+              "content": "However, manually counting elements becomes inconvenient when an array contains many values.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-15-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Java provides the length property to find the number of elements automatically."
+            },
+            {
+              "id": "java-3-1-15-paragraph-7",
+              "type": "paragraph",
+              "content": "For the scores array:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-15-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "scores.length",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-15-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "gives 5."
+            },
+            {
+              "id": "java-3-1-15-paragraph-10",
+              "type": "paragraph",
+              "content": "We can then use length in our loop instead of manually writing the array size.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-15-paragraph-11",
+              "type": "paragraph",
+              "content": "Let's see how this works next.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-16-using-length-to-find-the-last-index",
+          "number": "3.1.16",
+          "title": "Using length to Find the Last Index",
+          "summary": "Consider this array:",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-16-paragraph-1",
+              "type": "paragraph",
+              "content": "Consider this array:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-16-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {64, 78, 85, 92, 71};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-16-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "We know the array contains 5 elements, but its indexes start from 0."
+            },
+            {
+              "id": "java-3-1-16-paragraph-4",
+              "type": "paragraph",
+              "content": "Instead of manually calculating the last index, we can use the length property:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-16-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "int lastIndex = scores.length - 1;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-16-paragraph-6",
+              "type": "paragraph",
+              "content": "Let's print the last element of the array.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-16-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] scores = {64, 78, 85, 92, 71};\nint lastIndex = scores.length - 1;\nSystem.out.println(scores[lastIndex]);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-16-code-8",
+              "type": "code",
+              "language": "text",
+              "code": "71",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-16-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, scores.length gives 5, which is the number of elements."
+            },
+            {
+              "id": "java-3-1-16-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Since array indexing begins at 0, the last index is:"
+            },
+            {
+              "id": "java-3-1-16-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "5 - 1 = 4",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-16-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "Therefore, scores[4] gives us 71."
+            },
+            {
+              "id": "java-3-1-16-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "Key idea: length gives the number of elements, while length - 1 gives the last index."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-17-using-length-with-a-for-loop",
+          "number": "3.1.17",
+          "title": "Using length with a for Loop",
+          "summary": "When we use an array with a for loop, we don't need to know the number of elements beforehand.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-17-paragraph-1",
+              "type": "paragraph",
+              "content": "When we use an array with a for loop, we don't need to know the number of elements beforehand.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-17-paragraph-2",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-17-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] marks = {56, 73, 89, 64, 92};\nfor (int i = 0; i < marks.length; i++) {\nSystem.out.println(marks[i]);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-17-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "56\n73\n89\n64\n92",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-17-paragraph-5",
+              "type": "paragraph",
+              "content": "The important part is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-17-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "i < marks.length",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-17-paragraph-7",
+              "type": "paragraph",
+              "content": "marks.length automatically gives the number of elements in the array.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-17-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, marks.length is 5, so the loop accesses indexes 0 through 4."
+            },
+            {
+              "id": "java-3-1-17-paragraph-9",
+              "type": "paragraph",
+              "content": "This is better than writing:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-17-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "i < 5",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-17-paragraph-11",
+              "type": "paragraph",
+              "content": "because if we later add or remove elements from the array, the loop automatically adjusts to the new size.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-17-paragraph-12",
+              "type": "paragraph",
+              "content": "Key idea: Use array.length when you want a loop to work with the entire array without manually counting its elements.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-18-creating-an-array-with-a-fixed-size",
+          "number": "3.1.18",
+          "title": "Creating an Array with a Fixed Size",
+          "summary": "In Java, we can create the array by specifying its size:",
+          "status": "available",
+          "estimatedMinutes": 7,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-18-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Sometimes, we know how many values an array should hold, but we don't have the values yet."
+            },
+            {
+              "id": "java-3-1-18-paragraph-2",
+              "type": "paragraph",
+              "content": "In Java, we can create the array by specifying its size:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-18-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = new int[4]; int[] scores = new int[4];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-18-paragraph-4",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-18-paragraph-5",
+              "type": "paragraph",
+              "content": "- int[] means the array stores integer values.\n- scores is the array name.\n- new int[4] creates space for 4 integers.\n- The valid indexes are 0, 1, 2, and 3.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-3-1-18-paragraph-6",
+              "type": "paragraph",
+              "content": "We can assign values to the array later using their indexes:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-18-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "scores[0] = 72;\nscores[1] = 85;\nscores[2] = 91;\nscores[3] = 68;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-18-paragraph-8",
+              "type": "paragraph",
+              "content": "So, unlike creating an array with values immediately, this approach lets us create the required space first and fill it afterward.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-18-paragraph-9",
+              "type": "paragraph",
+              "content": "Next, let's see how this works in a complete program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-1-19-example-filling-an-array-with-values",
+          "number": "3.1.19",
+          "title": "Example: Filling an Array with Values",
+          "summary": "Here, new int[5] first creates an integer array with 5 positions. We then place a value into each position using its index.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "3-1-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-1-19-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's create an array with space for 5 temperatures and assign the values one by one."
+            },
+            {
+              "id": "java-3-1-19-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] temperatures = new int[5];\n// Store values in the array\ntemperatures[0] = 28;\ntemperatures[1] = 31;\ntemperatures[2] = 29;\ntemperatures[3] = 33;\ntemperatures[4] = 27;\n// Print all values\nfor (int i = 0; i < temperatures.length; i++) {\nSystem.out.println(temperatures[i]);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-19-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "28\n31\n29\n33\n27",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-1-19-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, new int[5] first creates an integer array with 5 positions. We then place a value into each position using its index.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-19-paragraph-5",
+              "type": "paragraph",
+              "content": "The for loop uses temperatures.length, so it automatically visits every position in the array.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-1-19-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "In the next lesson, we'll use this approach to store values entered by the user."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-3-2-array-input",
+      "title": "3.2 ARRAY INPUT",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-3-2-1-storing-user-input-in-an-array",
+          "number": "3.2.1",
+          "title": "Storing User Input in an Array",
+          "summary": "An array can hold several values entered by the user.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-1-paragraph-1",
+              "type": "paragraph",
+              "content": "An array can hold several values entered by the user.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-1-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose we want to record the ages of three participants. First, we reserve three positions in an integer array:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "int[] ages = new int[3];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-1-paragraph-4",
+              "type": "paragraph",
+              "content": "Each position can then receive a value from the user.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-1-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nint[] ages = new int[3];\nSystem.out.println(\"Enter three ages:\");\nages[0] = input.nextInt();\nages[1] = input.nextInt();\nages[2] = input.nextInt();\nSystem.out.println(\"Stored ages:\");\nSystem.out.println(ages[0]);\nSystem.out.println(ages[1]);\nSystem.out.println(ages[2]);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-1-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Input"
+            },
+            {
+              "id": "java-3-2-1-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "19\n22\n25",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-1-code-8",
+              "type": "code",
+              "language": "text",
+              "code": "Stored ages:\n19\n22\n25",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-1-paragraph-9",
+              "type": "paragraph",
+              "content": "Here, each input is placed directly into a different array position:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-1-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "ages[0] = input.nextInt();\nages[1] = input.nextInt();\nages[2] = input.nextInt();",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-1-paragraph-11",
+              "type": "paragraph",
+              "content": "The first value goes to index 0, the second to index 1, and the third to index 2.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-1-paragraph-12",
+              "type": "paragraph",
+              "content": "This works for a small array, but repeating the same statement becomes inconvenient when there are many elements.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-1-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "Next, we'll see how a for loop can handle the input for every array position."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-2-2-filling-an-array-with-a-for-loop",
+          "number": "3.2.2",
+          "title": "Filling an Array with a for Loop",
+          "summary": "A for loop lets us collect all the array values without writing a separate input statement for every index.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-2-paragraph-1",
+              "type": "paragraph",
+              "content": "A for loop lets us collect all the array values without writing a separate input statement for every index.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-2-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "For example, let's store four item quantities entered by the user:"
+            },
+            {
+              "id": "java-3-2-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nint[] quantities = new int[4];\nSystem.out.println(\"Enter four quantities:\");\n// Fill the array using a loop\nfor (int i = 0; i < quantities.length; i++) {\nquantities[i] = input.nextInt();\n}\n// Display the stored values\nSystem.out.println(\"Quantities:\");\nfor (int i = 0; i < quantities.length; i++) {\nSystem.out.println(quantities[i]);\n}\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-2-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Input"
+            },
+            {
+              "id": "java-3-2-2-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "7\n15\n4\n11",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-2-code-6",
+              "type": "code",
+              "language": "text",
+              "code": "Quantities:\n7\n15\n4\n11",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-2-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "The first for loop is responsible for storing the input:"
+            },
+            {
+              "id": "java-3-2-2-paragraph-8",
+              "type": "paragraph",
+              "content": "As i changes, the input is placed into a different position:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-2-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "i\nStored value\n0\n7\n1\n15\n2\n4\n3\n11",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-2-paragraph-10",
+              "type": "paragraph",
+              "content": "When i becomes 4, the condition i < quantities.length becomes 4 < 4, which is false, so the loop ends.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-2-paragraph-11",
+              "type": "paragraph",
+              "content": "The second loop then visits each position and displays the stored values.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-2-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "Key idea: One for loop can handle input for every element, regardless of the array's size."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-2-3-finding-the-total-of-array-values",
+          "number": "3.2.3",
+          "title": "Finding the Total of Array Values",
+          "summary": "An array can be processed directly with a loop to calculate a result.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-3-paragraph-1",
+              "type": "paragraph",
+              "content": "An array can be processed directly with a loop to calculate a result.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-3-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose we want to find the total cost of five items. We can first store the values entered by the user and then add them one by one.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-3-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nint[] prices = new int[5];\nSystem.out.println(\"Enter five prices:\");\n// Store user input\nfor (int i = 0; i < prices.length; i++) {\nprices[i] = input.nextInt();\n}\nint total = 0;\n// Calculate the total\nfor (int i = 0; i < prices.length; i++) {\ntotal += prices[i];\n}\nSystem.out.println(\"Total: \" + total);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-3-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Input"
+            },
+            {
+              "id": "java-3-2-3-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "25\n40\n15\n30\n50",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-3-code-6",
+              "type": "code",
+              "language": "text",
+              "code": "Total: 160",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-3-paragraph-7",
+              "type": "paragraph",
+              "content": "The first loop fills the prices array with user input.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-3-paragraph-8",
+              "type": "paragraph",
+              "content": "The second loop processes each stored value and adds it to total:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-3-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "total += prices[i];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-3-paragraph-10",
+              "type": "paragraph",
+              "content": "For these values, the calculation is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-3-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "25 + 40 + 15 + 30 + 50 = 160",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-3-paragraph-12",
+              "type": "paragraph",
+              "content": "Key idea: One loop can collect the array values, while another loop can process those values to calculate their total.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-2-4-problem-calculate-class-average",
+          "number": "3.2.4",
+          "title": "Problem: Calculate Class Average",
+          "summary": "Problem: Calculate Class Average",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-4-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Calculate Class Average",
+              "instructions": {
+                "content": "Write a program to calculate the average score of 6 students.\n\n- Create a double array named scores with size 6.\n- Read 6 scores from the user and store them in the array.\n- Use a variable named total to keep track of the combined score.\n- Use a for loop to add each score to total.\n- Calculate the average after the loop.\n- Print the average.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to calculate the average score of 6 students."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-3-2-4-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "72\n81\n65\n90\n76\n86",
+              "expectedOutput": "78.33333333333333",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-3-2-4-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "72\n81\n65\n90\n76\n86",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-4-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "78.33333333333333",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-4-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution works?\n\nThe program first reserves space for 6 student scores and fills the array using a loop.\n\nInstead of accessing the array with an index during the calculation, the second loop directly takes each value from scores:\n\nAfter all six scores are added, the program divides the total by the number of scores:\n\nFor the sample:\n\nThere are 6 scores, so:\n\nThis version is more genuinely different because it uses a different scenario, different array size, different data, different variable names, and a for-each loop for the calculation while preserving the same learning objective.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\ndouble[] scores = new double[6];\n// Read student scores\nfor (int i = 0; i < scores.length; i++) {\nscores[i] = input.nextDouble();\n}\ndouble total = 0;\n// Add all scores\nfor (double score : scores) {\ntotal += score;\n}\ndouble average = total / scores.length;\nSystem.out.println(average);\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-2-5-more-on-arrays-i",
+          "number": "3.2.5",
+          "title": "More on Arrays (I)",
+          "summary": "When Java creates an array using new, every position receives a value automatically.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-5-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "What Happens to Empty Array Positions?"
+            },
+            {
+              "id": "java-3-2-5-paragraph-2",
+              "type": "paragraph",
+              "content": "When Java creates an array using new, every position receives a value automatically.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-5-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's create an array that can hold 5 decimal values:"
+            },
+            {
+              "id": "java-3-2-5-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\ndouble[] prices = new double[5];\nprices[0] = 12.5;\nprices[2] = 8.75;\nfor (int i = 0; i < prices.length; i++) {\nSystem.out.println(prices[i]);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-5-code-5",
+              "type": "code",
+              "language": "text",
+              "code": "12.5\n0.0\n8.75\n0.0\n0.0",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-5-paragraph-6",
+              "type": "paragraph",
+              "content": "Notice that we assigned values only to positions 0 and 2.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-5-paragraph-7",
+              "type": "paragraph",
+              "content": "The other positions were never assigned a value, but Java still gives them a default value.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-5-paragraph-8",
+              "type": "paragraph",
+              "content": "For a double array, that default value is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-5-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "0.0",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-5-paragraph-10",
+              "type": "paragraph",
+              "content": "So the array effectively contains:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-5-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "Index Value\n0 12.5\n1 0.0\n2 8.75\n3 0.0\n4 0.0",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-5-warning-12",
+              "type": "warning",
+              "title": "Remember",
+              "content": "When an array is created with new, its elements are automatically initialized with their type's default value.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-2-6-more-on-arrays-ii",
+          "number": "3.2.6",
+          "title": "More on Arrays (II)",
+          "summary": "Java gives us flexibility in how we write an array declaration.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-6-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Two Ways to Write an Array Declaration"
+            },
+            {
+              "id": "java-3-2-6-paragraph-2",
+              "type": "paragraph",
+              "content": "Java gives us flexibility in how we write an array declaration.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-paragraph-3",
+              "type": "paragraph",
+              "content": "For example, these two declarations are both valid:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-paragraph-5",
+              "type": "paragraph",
+              "content": "and",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "int scores[];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-paragraph-7",
+              "type": "paragraph",
+              "content": "The position of [] changes, but both mean that scores will refer to an integer array.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Creating the Array Later"
+            },
+            {
+              "id": "java-3-2-6-paragraph-9",
+              "type": "paragraph",
+              "content": "The array variable does not have to be created at the same time it is declared.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores;\nscores = new int[3];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-paragraph-11",
+              "type": "paragraph",
+              "content": "Now scores has space for three integers.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-paragraph-12",
+              "type": "paragraph",
+              "content": "We can fill those positions afterward:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-code-13",
+              "type": "code",
+              "language": "java",
+              "code": "scores[0] = 82;\nscores[1] = 74;\nscores[2] = 95;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-heading-14",
+              "type": "heading",
+              "level": 3,
+              "text": "Complete Example"
+            },
+            {
+              "id": "java-3-2-6-code-15",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint scores[];\nscores = new int[3];\nscores[0] = 82;\nscores[1] = 74;\nscores[2] = 95;\nfor (int i = 0; i < scores.length; i++) {\nSystem.out.println(scores[i]);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-code-16",
+              "type": "code",
+              "language": "text",
+              "code": "82\n74\n95",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-paragraph-17",
+              "type": "paragraph",
+              "content": "So, Java supports both:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-code-18",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-paragraph-19",
+              "type": "paragraph",
+              "content": "and",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-code-20",
+              "type": "code",
+              "language": "java",
+              "code": "int scores[];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-6-paragraph-21",
+              "type": "paragraph",
+              "content": "The first style is generally preferred because it makes it clearer that scores is an array type.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-6-paragraph-22",
+              "type": "paragraph",
+              "content": "Key idea: An array can be declared first and created later, and the [] can be written either before or after the variable name.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-2-7-common-errors-with-arrays",
+          "number": "3.2.7",
+          "title": "Common Errors with Arrays",
+          "summary": "There are two array mistakes beginners commonly encounter.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-2-array-input"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-2-7-paragraph-1",
+              "type": "paragraph",
+              "content": "There are two array mistakes beginners commonly encounter.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-7-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "1. Reassigning an Array with {}"
+            },
+            {
+              "id": "java-3-2-7-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "This does not work after the array has already been created:"
+            },
+            {
+              "id": "java-3-2-7-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = new int[3];\nscores = {78, 85, 92}; // Invalid",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-7-paragraph-5",
+              "type": "paragraph",
+              "content": "If the values are already known, initialize the array directly:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-7-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {78, 85, 92};",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-7-paragraph-7",
+              "type": "paragraph",
+              "content": "Or fill the existing array through its indexes:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-7-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "scores[0] = 78;\nscores[1] = 85;\nscores[2] = 92;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-7-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "2. Going Beyond the Last Index"
+            },
+            {
+              "id": "java-3-2-7-paragraph-10",
+              "type": "paragraph",
+              "content": "Consider this example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-7-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "int[] scores = {78, 85, 92, 66};\nfor (int i = 0; i <= scores.length; i++) {\nSystem.out.println(scores[i]);\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-7-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "The array has 4 elements, so its indexes are only:"
+            },
+            {
+              "id": "java-3-2-7-code-13",
+              "type": "code",
+              "language": "java",
+              "code": "0 1 2 3",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-7-heading-14",
+              "type": "heading",
+              "level": 3,
+              "text": "When i becomes 4, scores[4] doesn't exist. Java therefore throws an ArrayIndexOutOfBoundsException."
+            },
+            {
+              "id": "java-3-2-7-paragraph-15",
+              "type": "paragraph",
+              "content": "Use < instead of <=:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-2-7-code-16",
+              "type": "code",
+              "language": "java",
+              "code": "for (int i = 0; i < scores.length; i++) {\nSystem.out.println(scores[i]);\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-2-7-warning-17",
+              "type": "warning",
+              "title": "Remember",
+              "content": "If an array contains n elements, its last valid index is n - 1.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-3-3-for-each-loop",
+      "title": "3.3 FOR-EACH LOOP",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-3-3-1-for-each-loop",
+          "number": "3.3.1",
+          "title": "for-each Loop",
+          "summary": "When you only need to read every value in an array, Java provides a simpler form of the for loop called the for-each loop.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-1-paragraph-1",
+              "type": "paragraph",
+              "content": "When you only need to read every value in an array, Java provides a simpler form of the for loop called the for-each loop.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-1-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, suppose we have a list of temperatures:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] temperatures = {28, 31, 26, 30};\nfor (int temperature : temperatures) {\nSystem.out.println(temperature);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-1-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "28\n31\n26\n30",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-1-paragraph-5",
+              "type": "paragraph",
+              "content": "The important part is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-1-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "for (int temperature : temperatures)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-1-paragraph-7",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-1-paragraph-8",
+              "type": "paragraph",
+              "content": "- temperatures is the array being visited.\n- temperature is a temporary variable that receives one element at a time.\n- int indicates the type of each array element.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-3-3-1-paragraph-9",
+              "type": "paragraph",
+              "content": "The loop automatically goes through every element, so you don't need an index or numbers.length.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-1-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "Turn\ntemperature\nResult\n1\n28\nPrints 28\n2\n31\nPrints 31\n3\n26\nPrints 26\n4\n30\nPrints 30",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-1-paragraph-11",
+              "type": "paragraph",
+              "content": "You can read the statement as:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-1-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "For each temperature in the temperatures array, execute the loop body."
+            },
+            {
+              "id": "java-3-3-1-paragraph-13",
+              "type": "paragraph",
+              "content": "Tip: Use a for-each loop when you simply need to process each array element and don't need its index.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-2-calculating-total-distance",
+          "number": "3.3.2",
+          "title": "Calculating Total Distance",
+          "summary": "A for-each loop is useful when we want to process every value in an array without working with indexes.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-2-paragraph-1",
+              "type": "paragraph",
+              "content": "A for-each loop is useful when we want to process every value in an array without working with indexes.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-2-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose a runner records the distance covered during 5 training sessions. We can calculate the total distance using a for-each loop.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\ndouble[] distance = {3.2, 4.5, 2.8, 5.1, 3.9};\ndouble totalDistance = 0;\nfor (double km : distance) {\ntotalDistance += km;\n}\nSystem.out.println(\"Distance: \" + totalDistance + \" km\");\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-2-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Distance: 19.5 km",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-2-paragraph-5",
+              "type": "paragraph",
+              "content": "The statement:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-2-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "for (double km : distance)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-2-paragraph-7",
+              "type": "paragraph",
+              "content": "means that Java takes each value from the distance array and temporarily stores it in km.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-2-paragraph-8",
+              "type": "paragraph",
+              "content": "The values are processed as:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-2-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "3.2 → 4.5 → 2.8 → 5.1 → 3.9",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-2-paragraph-10",
+              "type": "paragraph",
+              "content": "Each value is then added to totalDistance.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-2-paragraph-11",
+              "type": "paragraph",
+              "content": "Key idea: A for-each loop is convenient when you need to work with every array element but don't need to know its index.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-3-problem-for-each-loop",
+          "number": "3.3.3",
+          "title": "Problem: For-Each Loop",
+          "summary": "Problem: For-Each Loop",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-3-exercise-1",
+              "type": "exercise",
+              "title": "Problem: For-Each Loop",
+              "instructions": {
+                "content": "Write a program to count how many numbers in an array are greater than 50.\n\n- Create an integer array named marks with the values 42, 67, 51, 38, 74.\n- Use a for-each loop to examine every mark.\n- Increase a counter whenever the mark is greater than 50.\n- Print the final count.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to count how many numbers in an array are greater than 50."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-3-3-3-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "3",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-3-3-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "3",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-3-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program stores five marks in an integer array.\n\nThe for-each loop picks up each mark one at a time. Whenever the current mark is greater than 50, the count variable increases by one.\n\nFor the given values:\n\nSo, 3 values are greater than 50.\n\nThe important part is that we don't need an index variable. The for-each loop gives us each array value directly.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] marks = {42, 67, 51, 38, 74};\nint count = 0;\nfor (int mark : marks) {\nif (mark > 50) {\ncount++;\n}\n}\nSystem.out.println(count);\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-4-working-with-arrays-practical-problems",
+          "number": "3.3.4",
+          "title": "Working with Arrays: Practical Problems",
+          "summary": "Now that you've learned how to create, access, modify, and loop through arrays, it's time to put those skills together.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-4-paragraph-1",
+              "type": "paragraph",
+              "content": "Now that you've learned how to create, access, modify, and loop through arrays, it's time to put those skills together.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-4-paragraph-2",
+              "type": "paragraph",
+              "content": "In this lesson, we'll solve problems such as:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-4-paragraph-3",
+              "type": "paragraph",
+              "content": "- Determine the highest value stored in an array.\n- Practice: Determine the lowest value.\n- Build a new array using values from an existing array.\n- Practice: Change every value in an array by multiplying it by 5.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-3-3-4-paragraph-4",
+              "type": "paragraph",
+              "content": "These examples will help you become more comfortable with processing array data using loops.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-5-finding-the-highest-value-in-an-array",
+          "number": "3.3.5",
+          "title": "Finding the Highest Value in an Array",
+          "summary": "Suppose an array stores the scores obtained by players. We can scan through the values and keep track of the highest score found so far.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-5-paragraph-1",
+              "type": "paragraph",
+              "content": "Suppose an array stores the scores obtained by players. We can scan through the values and keep track of the highest score found so far.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-5-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] scores = {42, 76, 58, 91, 67};\nint highest = scores[0];\nfor (int position = 1; position < scores.length; position++) {\nif (scores[position] > highest) {\nhighest = scores[position];\n}\n}\nSystem.out.println(\"Highest Score: \" + highest);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-5-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Highest Score: 91",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-5-paragraph-4",
+              "type": "paragraph",
+              "content": "We begin by treating the first score as the current highest:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-5-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "int highest = scores[0];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-5-paragraph-6",
+              "type": "paragraph",
+              "content": "The loop then checks the remaining elements. Whenever the current score is greater than highest, we update the variable.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-5-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "if (scores[position] > highest) {\nhighest = scores[position];\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-5-paragraph-8",
+              "type": "paragraph",
+              "content": "For this array, the comparison progresses like this:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-5-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "Current score\nComparison\nhighest after checking\n76\n76 > 42\n76\n58\n58 > 76\n76\n91\n91 > 76\n91\n67\n67 > 91\n91",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-5-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "After the loop finishes, highest contains 91, the highest value stored in the array."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-6-problem-determine-the-lowest-value",
+          "number": "3.3.6",
+          "title": "Problem: Determine the Lowest Value",
+          "summary": "Problem: Determine the Lowest Value",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-6-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Determine the Lowest Value",
+              "instructions": {
+                "content": "Write a program to determine the lowest value stored in an array.\n\n- Create an integer array named values with the elements {48, 27, 63, 35, 52}.\n- Find the lowest value in the array.\n- Use the first element as the initial lowest value.\n- Compare the remaining elements and update the lowest value whenever a smaller number is found.\n- Print the lowest value.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to determine the lowest value stored in an array."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-3-3-6-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "27",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-3-3-6-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "27",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-6-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program starts by assuming that the first value, 48, is the lowest.\n\nThe loop then checks the remaining values one at a time. Whenever it finds a value smaller than lowest, that value replaces the current lowest value.\n\nFor the given array:\n\nAfter all the values have been checked, lowest contains 27, which is the lowest value in the array.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] values = {48, 27, 63, 35, 52};\nint lowest = values[0];\nfor (int i = 1; i < values.length; i++) {\nif (values[i] < lowest) {\nlowest = values[i];\n}\n}\nSystem.out.println(lowest);\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-7-building-a-new-array-from-existing-values",
+          "number": "3.3.7",
+          "title": "Building a New Array from Existing Values",
+          "summary": "Suppose we have an array containing product prices. We can create another array and place the same values into it.",
+          "status": "available",
+          "estimatedMinutes": 7,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-7-paragraph-1",
+              "type": "paragraph",
+              "content": "Suppose we have an array containing product prices. We can create another array and place the same values into it.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-7-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] prices = {120, 250, 180, 320};\n// Create a new array with the same size\nint[] copiedPrices = new int[prices.length];\n// Transfer each value to the new array\nfor (int index = 0; index < prices.length; index++) {\ncopiedPrices[index] = prices[index];\n}\n// Display the new array\nSystem.out.println(\"Copied Prices:\");\nfor (int price : copiedPrices) {\nSystem.out.println(price);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-7-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Copied Prices:\n120\n250\n180\n320",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-7-paragraph-4",
+              "type": "paragraph",
+              "content": "The first loop takes each value from prices and places it at the same position in copiedPrices.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-7-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "copiedPrices[index] = prices[index];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-7-paragraph-6",
+              "type": "paragraph",
+              "content": "For example, when index is 0, the value 120 is transferred to copiedPrices[0].",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-7-paragraph-7",
+              "type": "paragraph",
+              "content": "The new array is created using:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-3-7-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "int[] copiedPrices = new int[prices.length];",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-7-paragraph-9",
+              "type": "paragraph",
+              "content": "Using prices.length ensures that the new array has enough space for every value from the original array.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-3-8-problem-multiply-each-value-by-5",
+          "number": "3.3.8",
+          "title": "Problem: Multiply Each Value By 5",
+          "summary": "Problem: Multiply Each Value By 5",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "3-3-for-each-loop"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-3-8-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Multiply Each Value By 5",
+              "instructions": {
+                "content": "Write a program to multiply every value in an array by 5.\n\n- Create an integer array named values with the elements 16, 24, 31, 42.\n- Create another integer array named result with the same size.\n- Use a for loop to process each value in values.\n- Multiply each value by 5 and store the result in result.\n- Print all elements of result.\n\nHint: Create a new array and store the transformed values at the same indexes.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to multiply every value in an array by 5."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-3-3-8-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "80\n120\n155\n210",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-3-3-8-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "80\n120\n155\n210",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-3-8-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program starts with an array containing four values.\n\nA second array, result, is created with the same size as values. The for loop then takes each value, multiplies it by 5, and stores the new value at the corresponding position in result.\n\nFor example:\n\nFinally, a for-each loop displays the transformed values.\n\nThis is a useful array pattern: read values from one array, transform them, and store the results in another array.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] values = {16, 24, 31, 42};\n// Create a new array with the same size\nint[] result = new int[values.length];\n// Multiply each value by 5\nfor (int index = 0; index < values.length; index++) {\nresult[index] = values[index] * 5;\n}\n// Display the result\nfor (int value : result) {\nSystem.out.println(value);\n}\n}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-3-4-review-array",
+      "title": "3.4 REVIEW: ARRAY",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-3-4-1-review-i",
+          "number": "3.4.1",
+          "title": "REVIEW (I)",
+          "summary": "You've now learned several important ways to work with arrays.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-4-review-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-4-1-paragraph-1",
+              "type": "paragraph",
+              "content": "You've now learned several important ways to work with arrays.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-1-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Array Basics"
+            },
+            {
+              "id": "java-3-4-1-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "An array lets us keep multiple values of the same type under one variable."
+            },
+            {
+              "id": "java-3-4-1-paragraph-4",
+              "type": "paragraph",
+              "content": "For example, this array stores four temperatures:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-1-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] temperatures = {28, 31, 26, 34};\nfor (int temperature : temperatures) {\nSystem.out.println(temperature);\n}\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-1-paragraph-6",
+              "type": "paragraph",
+              "content": "The number of values stored in an array can be found using its length property.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-1-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "temperatures.length",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-1-paragraph-8",
+              "type": "paragraph",
+              "content": "For this array, the result is 4.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-1-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Filling an Array with User Input"
+            },
+            {
+              "id": "java-3-4-1-paragraph-10",
+              "type": "paragraph",
+              "content": "When the values are not known beforehand, we can create an array with a fixed size and fill it using Scanner.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-1-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nint[] temperatures = new int[3];\nfor (int index = 0; index < temperatures.length; index++) {\ntemperatures[index] = input.nextInt();\n}\nfor (int temperature : temperatures) {\nSystem.out.println(temperature);\n}\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-1-paragraph-12",
+              "type": "paragraph",
+              "content": "Here, the first loop stores the user's input, while the second loop reads the stored values and displays them.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-1-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "Key idea: An array gives us one convenient way to store and process a collection of values."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-3-4-2-review-ii",
+          "number": "3.4.2",
+          "title": "REVIEW (II)",
+          "summary": "When we need to work with every value in an array, we don't always need to keep track of its index. Java's for-each loop lets us directly receive each element one by one.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "3-4-review-array"
+          ],
+          "blocks": [
+            {
+              "id": "java-3-4-2-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Processing Array Values with for-each"
+            },
+            {
+              "id": "java-3-4-2-paragraph-2",
+              "type": "paragraph",
+              "content": "When we need to work with every value in an array, we don't always need to keep track of its index. Java's for-each loop lets us directly receive each element one by one.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint[] ratings = {4, 5, 3, 5};\nint total = 0;\nfor (int rating : ratings) {\ntotal = total + rating;\n}\nSystem.out.println(\"Total: \" + total);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-2-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Total: 17",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-2-paragraph-5",
+              "type": "paragraph",
+              "content": "In this loop:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-2-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "for (int rating : ratings)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-2-paragraph-7",
+              "type": "paragraph",
+              "content": "rating temporarily holds the current element from the ratings array.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-2-paragraph-8",
+              "type": "paragraph",
+              "content": "The loop processes the values in this order:",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-2-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "4 → 5 → 3 → 5",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-3-4-2-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-3-4-2-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Use a regular for loop when you need the array index."
+            },
+            {
+              "id": "java-3-4-2-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "Use a for-each loop when you simply want to visit each element."
+            },
+            {
+              "id": "java-3-4-2-paragraph-13",
+              "type": "paragraph",
+              "content": "You now have the basic tools needed to work with arrays. The next step is to apply them to programming problems.",
+              "format": "plain"
+            },
+            {
+              "id": "java-3-4-2-paragraph-14",
+              "type": "paragraph",
+              "content": "Reminder: Great job on completing this section! Now, practice what you've learned with the problems in Practice: Java Basics.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

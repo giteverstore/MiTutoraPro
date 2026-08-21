@@ -1,0 +1,4418 @@
+{
+  "id": "module-4-methods",
+  "title": "CH 4: METHODS",
+  "description": "",
+  "initiallyExpanded": false,
+  "sections": [
+    {
+      "id": "section-4-1-java-methods",
+      "title": "4.1 JAVA METHODS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-4-1-1-methods-introduction",
+          "number": "4.1.1",
+          "title": "Methods Introduction",
+          "summary": "As programs grow, writing the same instructions again and again can make the code difficult to read and maintain.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-1-paragraph-1",
+              "type": "paragraph",
+              "content": "As programs grow, writing the same instructions again and again can make the code difficult to read and maintain.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-1-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose a program needs to calculate the delivery charge for several orders. We could write the calculation separately every time:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nSystem.out.print(\"Order amount: \");\ndouble amount = input.nextDouble();\ndouble deliveryCharge = 50;\nif (amount >= 500) {\ndeliveryCharge = 0;\n}\ndouble finalAmount = amount + deliveryCharge;\nSystem.out.printf(\"Final amount: %.2f%n\", finalAmount);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-1-paragraph-4",
+              "type": "paragraph",
+              "content": "If the same calculation is required for many orders, repeating these instructions would make the program unnecessarily long.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-1-paragraph-5",
+              "type": "paragraph",
+              "content": "Instead, Java allows us to place a group of related instructions inside a method and call that method whenever we need the same task.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-1-paragraph-6",
+              "type": "paragraph",
+              "content": "Methods help us:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-1-paragraph-7",
+              "type": "paragraph",
+              "content": "- Reduce repeated code.\n- Keep programs organized.\n- Make code easier to read and maintain.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-1-paragraph-8",
+              "type": "paragraph",
+              "content": "Let's learn how to create and use methods next.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-2-creating-a-method",
+          "number": "4.1.2",
+          "title": "Creating a Method",
+          "summary": "A method is a named block of code that performs a particular task. Instead of writing the same instructions in different places, we can group them together and reuse them.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-2-paragraph-1",
+              "type": "paragraph",
+              "content": "A method is a named block of code that performs a particular task. Instead of writing the same instructions in different places, we can group them together and reuse them.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-2-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, suppose we want to display a short welcome message:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "System.out.println(\"Welcome to Go Coder!\");\nSystem.out.println(\"Let's start learning Java.\");",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-2-paragraph-4",
+              "type": "paragraph",
+              "content": "These statements belong to the same task, so we can place them inside a method named showWelcome.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-2-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "void showWelcome() {\nSystem.out.println(\"Welcome to Go Coder!\");\nSystem.out.println(\"Let's start learning Java.\");\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-2-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, showWelcome is the method name, while the statements between { and } form the method body."
+            },
+            {
+              "id": "java-4-1-2-paragraph-7",
+              "type": "paragraph",
+              "content": "You may notice void and () in the method declaration. Each part has a specific meaning.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-2-paragraph-8",
+              "type": "paragraph",
+              "content": "Let's break down the syntax of a method next.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-3-method-syntax",
+          "number": "4.1.3",
+          "title": "Method Syntax",
+          "summary": "A Java method follows a specific structure. The basic form is:",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-3-paragraph-1",
+              "type": "paragraph",
+              "content": "A Java method follows a specific structure. The basic form is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-3-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "returnType methodName() {\n// statements\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-3-paragraph-3",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-3-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "void showMessage() {\nSystem.out.println(\"Welcome!\");\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-3-image-5",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-33.png",
+              "alt": "Parts of a Java method",
+              "caption": "Figure: Parts of a Java method",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-3-paragraph-6",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-3-paragraph-7",
+              "type": "paragraph",
+              "content": "- returnType tells Java what kind of value the method gives back.\n- methodName identifies the method and is followed by ().\n- { } contains the instructions that belong to the method.\n- void is used when the method does not return a value.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-3-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-1-3-paragraph-9",
+              "type": "paragraph",
+              "content": "A method name can be chosen by the programmer, just like a variable name. The parentheses are part of the method declaration, even when the method doesn't need any input.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-3-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Next, let's see how to call a method so that its code actually runs."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-4-running-a-method",
+          "number": "4.1.4",
+          "title": "Running a Method",
+          "summary": "Writing a method only defines what the program should do. The instructions inside the method run only when the method is called.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-4-paragraph-1",
+              "type": "paragraph",
+              "content": "Writing a method only defines what the program should do. The instructions inside the method run only when the method is called.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-4-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, let's create a method that displays a short course message:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-4-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid showInfo() {\nSystem.out.println(\"Welcome to Java!\");\nSystem.out.println(\"Keep practicing.\");\n}\npublic static void main(String[] args) {\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-4-paragraph-4",
+              "type": "paragraph",
+              "content": "The method is written inside the Main class because methods belong to a class.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-4-paragraph-5",
+              "type": "paragraph",
+              "content": "If you run this program as it is, nothing will be displayed. The reason is that showInfo() has been created, but it has not been called.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-4-paragraph-6",
+              "type": "paragraph",
+              "content": "To execute the method, we need to create an object of the Main class and use that object to call showInfo().",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-4-paragraph-7",
+              "type": "paragraph",
+              "content": "This is similar to creating a Scanner object before using methods of the Scanner class.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-4-paragraph-8",
+              "type": "paragraph",
+              "content": "Next, let's see how to create the object and call our method.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-5-calling-a-method",
+          "number": "4.1.5",
+          "title": "Calling a Method",
+          "summary": "Suppose we have a method that displays a course reminder:",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-5-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "A method does not execute simply because it has been written. We need to call it from the program."
+            },
+            {
+              "id": "java-4-1-5-paragraph-2",
+              "type": "paragraph",
+              "content": "Suppose we have a method that displays a course reminder:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-5-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid displayReminder() {\nSystem.out.println(\"Practice Java every day.\");\nSystem.out.println(\"Small steps lead to progress.\");\n}\npublic static void main(String[] args) {\nMain course = new Main();\ncourse.displayReminder();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-5-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Practice Java every day.\nSmall steps lead to progress.",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-5-paragraph-5",
+              "type": "paragraph",
+              "content": "The statement",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-5-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "Main course = new Main();",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-5-paragraph-7",
+              "type": "paragraph",
+              "content": "creates an object of the Main class.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-5-paragraph-8",
+              "type": "paragraph",
+              "content": "We then use that object to access the method",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-5-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "course.displayReminder();",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-5-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "The dot (.) operator connects the object with the method we want to execute."
+            },
+            {
+              "id": "java-4-1-5-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-1-5-paragraph-12",
+              "type": "paragraph",
+              "content": "There are two separate steps:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-5-paragraph-13",
+              "type": "paragraph",
+              "content": "- Define the method — describe what the method should do.\n- Call the method — tell Java to execute those instructions.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-5-paragraph-14",
+              "type": "paragraph",
+              "content": "So, creating a method does not run it automatically. The method must be called when we want its code to execute.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-6-how-a-method-call-works",
+          "number": "4.1.6",
+          "title": "How a Method Call Works",
+          "summary": "When Java reaches a method call, control moves to that method and executes its instructions. After the method finishes, control returns to the code following the method call.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-6-paragraph-1",
+              "type": "paragraph",
+              "content": "When Java reaches a method call, control moves to that method and executes its instructions. After the method finishes, control returns to the code following the method call.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-paragraph-2",
+              "type": "paragraph",
+              "content": "Consider this example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid displayMessage() {\nSystem.out.println(\"Practice Java every day.\");\nSystem.out.println(\"Small steps lead to progress.\");\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.displayMessage();\n// Next code\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-6-image-4",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-34.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-6-paragraph-5",
+              "type": "paragraph",
+              "content": "Figure: Working of a method call",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-paragraph-6",
+              "type": "paragraph",
+              "content": "The execution takes place in three main steps:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-paragraph-7",
+              "type": "paragraph",
+              "content": "- When obj.displayMessage(); is reached, control moves to the displayMessage() method.\n- The statements inside displayMessage() are executed.\n- After the method finishes, control returns to the next statement after the method call.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-6-paragraph-8",
+              "type": "paragraph",
+              "content": "The output is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "Practice Java every day.\nSmall steps lead to progress.",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-6-paragraph-10",
+              "type": "paragraph",
+              "content": "The flow can be understood as:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "obj.displayMessage()\n↓\ndisplayMessage()\n↓\nExecute method statements\n↓\nReturn to // Next code",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-6-note-12",
+              "type": "note",
+              "title": "Note",
+              "content": "Java begins execution from the main() method:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-6-code-13",
+              "type": "code",
+              "language": "java",
+              "code": "public static void main(String[] args)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-6-paragraph-14",
+              "type": "paragraph",
+              "content": "That's why the object is created and the method is called from inside main().",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-7-quiz-calling-a-java-method",
+          "number": "4.1.7",
+          "title": "Quiz: Calling a Java Method",
+          "summary": "Quiz: Calling a Java Method",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-7-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Printer {\nvoid display() {\nSystem.out.println(\"Printing...\");\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-7-quiz-2",
+              "type": "quiz",
+              "question": "class Printer { void display() { System.out.println(\"Printing...\"); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "Printer printer = new Printer();\nprinter.display;"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Printer printer = new Printer();\nprinter.display();"
+                },
+                {
+                  "id": "option-c",
+                  "text": "Printer printer = Printer();\nprinter.display();"
+                },
+                {
+                  "id": "option-d",
+                  "text": "Printer.display();"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-8-reusing-a-method",
+          "number": "4.1.8",
+          "title": "Reusing a Method",
+          "summary": "A method can be called more than once from different points in a program. This allows us to reuse the same set of instructions without writing them again.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-8-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can be called more than once from different points in a program. This allows us to reuse the same set of instructions without writing them again.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-8-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid printLine() {\nSystem.out.println(\"----------------\");\n}\npublic static void main(String[] args) {\nMain app = new Main();\napp.printLine();\nSystem.out.println(\"Java Methods\");\napp.printLine();\nSystem.out.println(\"End of lesson\");\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-8-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "----------------\nJava Methods\n----------------\nEnd of lesson",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-8-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, the printLine() method is called two times. Each call executes the statements inside the method.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-8-paragraph-5",
+              "type": "paragraph",
+              "content": "The important idea is that a method can be reused whenever the same task is required, helping us avoid writing the same code repeatedly.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-9-problem-display-message-using-method",
+          "number": "4.1.9",
+          "title": "Problem: Display Message Using Method",
+          "summary": "Problem: Display Message Using Method",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-9-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Display Message Using Method",
+              "instructions": {
+                "content": "Write a program to display a message using a method.\n\n- Create a method named showMessage().\n- Inside the method, print Welcome to Java and Keep practicing.\n- In the main() method, call the method two times.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to display a message using a method."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-1-9-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "Welcome to Java\nKeep practicing\nWelcome to Java\nKeep practicing",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-1-9-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Welcome to Java\nKeep practicing\nWelcome to Java\nKeep practicing",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-9-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program places two related messages inside the showMessage() method.\n\nAn object named app is created in main(). We then use the same object to call showMessage() twice.\n\nEach call runs the statements inside the method, so the two messages appear two times.\n\nThis shows how methods help us reuse the same code whenever needed.",
+              "language": "java",
+              "code": "class Main {\n// Create showMessage method\nvoid showMessage() {\nSystem.out.println(\"Welcome to Java\");\nSystem.out.println(\"Keep practicing\");\n}\npublic static void main(String[] args) {\nMain app = new Main();\n// Call the method twice\napp.showMessage();\napp.showMessage();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-10-calculating-a-cube-using-a-method",
+          "number": "4.1.10",
+          "title": "Calculating a Cube Using a Method",
+          "summary": "Let's create a method that calculates the cube of a number.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-10-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's create a method that calculates the cube of a number.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-10-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\n// Method to calculate cube\nvoid calculateCube() {\nint number = 6;\nint cube = number * number * number;\nSystem.out.println(\"Cube of \" + number + \" is \" + cube);\n}\npublic static void main(String[] args) {\nMain calculator = new Main();\n// Call the method\ncalculator.calculateCube();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-10-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "Cube of 6 is 216",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-10-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, the calculateCube() method stores a number, calculates its cube, and displays the result.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-10-paragraph-5",
+              "type": "paragraph",
+              "content": "The method performs the complete calculation whenever it is called.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-11-problem-calculate-total-price",
+          "number": "4.1.11",
+          "title": "Problem: Calculate Total Price",
+          "summary": "Problem: Calculate Total Price",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-11-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Calculate Total Price",
+              "instructions": {
+                "content": "Write a program to calculate the total price of two items using a method.\n\n- Create a method named calculateTotal().\n- Inside the method, create two integer variables: price1 with value 35 and price2 with value 45.\n- Add the two prices and store the result in total.\n- Print total.\n- Create an object in main() and call the method.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to calculate the total price of two items using a method."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-1-11-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "80",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-1-11-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "80",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-11-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe calculateTotal() method contains two item prices and adds them together.\n\nThe sum is stored in the total variable and then displayed.\n\nInside main(), an object of Main is created and used to call the method.\n\nThis example shows how a method can group a small calculation into one reusable block of code.",
+              "language": "java",
+              "code": "class Main {\n// Calculate the total price\nvoid calculateTotal() {\nint price1 = 35;\nint price2 = 45;\nint total = price1 + price2;\nSystem.out.println(total);\n}\npublic static void main(String[] args) {\n// Create object\nMain shop = new Main();\n// Call the method\nshop.calculateTotal();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-12-making-methods-flexible",
+          "number": "4.1.12",
+          "title": "Making Methods Flexible",
+          "summary": "A method becomes more useful when it can work with different values instead of using the same value every time.",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-12-paragraph-1",
+              "type": "paragraph",
+              "content": "A method becomes more useful when it can work with different values instead of using the same value every time.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-12-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, a method that always calculates the total of the same two prices is limited. We can make it more flexible by allowing the method to receive input.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-12-paragraph-3",
+              "type": "paragraph",
+              "content": "In Java methods:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-12-paragraph-4",
+              "type": "paragraph",
+              "content": "- Argument — a value supplied when calling a method.\n- Return value — the result a method sends back to the code that called it.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-12-paragraph-5",
+              "type": "paragraph",
+              "content": "For example, instead of creating a method that works with only one fixed value, we can design it to accept different values whenever we call it.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-12-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "First, let's learn how to pass arguments to a method."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-13-method-arguments",
+          "number": "4.1.13",
+          "title": "Method Arguments",
+          "summary": "A method can receive information when we call it. This allows the same method to work with different data.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-13-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can receive information when we call it. This allows the same method to work with different data.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-13-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, let's create a method that displays a student's name:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-13-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid showStudent(String name) {\nSystem.out.println(\"Student: \" + name);\n}\npublic static void main(String[] args) {\nMain school = new Main();\nschool.showStudent(\"Aisha\");\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-13-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Student: Aisha",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-13-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, name is the parameter of the method:"
+            },
+            {
+              "id": "java-4-1-13-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "void showStudent(String name)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-13-paragraph-7",
+              "type": "paragraph",
+              "content": "When we call the method:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-13-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "school.showStudent(\"Aisha\");",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-13-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Aisha\" is the argument passed to the method."
+            },
+            {
+              "id": "java-4-1-13-paragraph-10",
+              "type": "paragraph",
+              "content": "The important advantage is that we can call the same method with another name:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-13-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "school.showStudent(\"Rahul\");",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-13-paragraph-12",
+              "type": "paragraph",
+              "content": "So, instead of creating a separate method for every student, one method can handle different values.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-13-paragraph-13",
+              "type": "paragraph",
+              "content": "Next, let's see how Java passes arguments to methods.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-14-how-method-arguments-work",
+          "number": "4.1.14",
+          "title": "How Method Arguments Work",
+          "summary": "When we call a method with an argument, the value we provide is passed into the method's parameter.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-14-paragraph-1",
+              "type": "paragraph",
+              "content": "When we call a method with an argument, the value we provide is passed into the method's parameter.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-14-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, using our showStudent() method:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-14-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "school.showStudent(\"Aisha\");",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-14-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, \"Aisha\" is the argument, and it is assigned to the name parameter:"
+            },
+            {
+              "id": "java-4-1-14-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "void showStudent(String name)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-14-image-6",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-35.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-14-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Figure: Passing an argument to a method"
+            },
+            {
+              "id": "java-4-1-14-paragraph-8",
+              "type": "paragraph",
+              "content": "So, during this method call:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-14-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "\"Aisha\" → name",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-14-paragraph-10",
+              "type": "paragraph",
+              "content": "The method then uses the value stored in name:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-14-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "System.out.println(\"Student: \" + name);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-14-paragraph-12",
+              "type": "paragraph",
+              "content": "This means the same method can work with different values. For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-14-code-13",
+              "type": "code",
+              "language": "java",
+              "code": "school.showStudent(\"Rahul\");\nschool.showStudent(\"Sara\");",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-14-paragraph-14",
+              "type": "paragraph",
+              "content": "The method doesn't need to be rewritten for each student—the argument changes the data it works with.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-14-paragraph-15",
+              "type": "paragraph",
+              "content": "Next, let's see how passing different arguments can produce different results.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-15-using-different-arguments",
+          "number": "4.1.15",
+          "title": "Using Different Arguments",
+          "summary": "A method can be reused with different values each time it is called.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-15-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can be reused with different values each time it is called.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-15-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, let's create a method that displays the number of books a student has:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-15-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\n// Method definition\nvoid showBooks(String student, int books) {\nSystem.out.println(student + \" has \" + books + \" books.\");\n}\npublic static void main(String[] args) {\nMain obj = new Main();\n// Call the method with different arguments\nobj.showBooks(\"Arun\", 4);\nobj.showBooks(\"Meera\", 7);\nobj.showBooks(\"Zoya\", 3);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-15-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Arun has 4 books.\nMeera has 7 books.\nZoya has 3 books.",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-15-paragraph-5",
+              "type": "paragraph",
+              "content": "Here, the same method is used three times, but different arguments are supplied each time:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-15-paragraph-6",
+              "type": "paragraph",
+              "content": "- obj.showBooks(\"Arun\", 4) → student is Arun and books is 4.\n- obj.showBooks(\"Meera\", 7) → student is Meera and books is 7.\n- obj.showBooks(\"Zoya\", 3) → student is Zoya and books is 3.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-15-paragraph-7",
+              "type": "paragraph",
+              "content": "The method doesn't need to be written again for each student. Different arguments allow the same method to work with different data.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-16-quiz-using-different-method-arguments",
+          "number": "4.1.16",
+          "title": "Quiz: Using Different Method Arguments",
+          "summary": "Quiz: Using Different Method Arguments",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-16-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid showScore(String name, int score) {\nSystem.out.println(name + \": \" + score);\n}\npublic static void main(String[] args) {\nMain game = new Main();\ngame.showScore(\"Ali\", 15);\ngame.showScore(\"Nina\", 22);\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-16-quiz-2",
+              "type": "quiz",
+              "question": "class Main { void showScore(String name, int score) { System.out.println(name + \": \" + score); } public static void main(String[] args) { Main game = new Main(); game.showScore(\"Ali\", 15); game.showScore(\"Nina\", 22); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "Ali: 22\nNina: 15"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Ali: 15\nNina: 22"
+                },
+                {
+                  "id": "option-c",
+                  "text": "Ali: 15\nAli: 22"
+                },
+                {
+                  "id": "option-d",
+                  "text": "15\n22"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-17-passing-multiple-arguments",
+          "number": "4.1.17",
+          "title": "Passing Multiple Arguments",
+          "summary": "A method can receive more than one piece of information. When calling it, provide the values in the same order as the method parameters.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-17-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can receive more than one piece of information. When calling it, provide the values in the same order as the method parameters.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-17-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, let's create a method that displays a product and its quantity:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-17-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid showOrder(String item, int quantity) {\nSystem.out.println(item + \" - \" + quantity);\n}\npublic static void main(String[] args) {\nMain shop = new Main();\nshop.showOrder(\"Notebook\", 3);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-17-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Notebook - 3",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-17-image-5",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-36.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-17-paragraph-6",
+              "type": "paragraph",
+              "content": "Figure: Passing multiple arguments to a method",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-17-paragraph-7",
+              "type": "paragraph",
+              "content": "Here, two arguments are passed:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-17-paragraph-8",
+              "type": "paragraph",
+              "content": "- \"Notebook\" is assigned to item.\n- 3 is assigned to quantity.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-17-paragraph-9",
+              "type": "paragraph",
+              "content": "The values are separated by a comma:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-17-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "shop.showOrder(\"Notebook\", 3);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-17-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "The order and data type of the arguments must match the method parameters."
+            },
+            {
+              "id": "java-4-1-17-paragraph-12",
+              "type": "paragraph",
+              "content": "For example, the same method can display another order:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-17-code-13",
+              "type": "code",
+              "language": "java",
+              "code": "shop.showOrder(\"Pen\", 6);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-17-paragraph-14",
+              "type": "paragraph",
+              "content": "This lets one method handle different combinations of values.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-18-problem-calculate-rectangle-area-using-a-method",
+          "number": "4.1.18",
+          "title": "Problem: Calculate Rectangle Area Using a Method",
+          "summary": "Problem: Calculate Rectangle Area Using a Method",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-18-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Calculate Rectangle Area Using a Method",
+              "instructions": {
+                "content": "Write a program to calculate the area of a rectangle using a method.\n\n- Create a method named findArea().\n- The method should accept two double arguments: length and width.\n- Calculate the area using length * width.\n- Print the area.\n\nInside main()\n\n- Take two double inputs from the user.\n- Store them in length and width.\n- Create an object of the Main class.\n- Call findArea() using the two input values.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to calculate the area of a rectangle using a method."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-1-18-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "12.5\n4.0",
+              "expectedOutput": "50.0",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-1-18-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "12.5\n4.0",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-18-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "50.0",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-18-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The program reads the length and width from the user.\n\nBoth values are then passed to findArea() as arguments:\n\nInside the method, the two parameters are multiplied to calculate the rectangle's area.\n\nThis demonstrates how multiple arguments allow one method to work with different sets of input values.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\n// Calculate the area of a rectangle\nvoid findArea(double length, double width) {\ndouble area = length * width;\nSystem.out.println(area);\n}\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\ndouble length = input.nextDouble();\ndouble width = input.nextDouble();\nMain obj = new Main();\n// Pass both inputs to the method\nobj.findArea(length, width);\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-19-the-return-statement",
+          "number": "4.1.19",
+          "title": "The return Statement",
+          "summary": "So far, our methods have used void because they only perform an action and don't send a value back.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-19-paragraph-1",
+              "type": "paragraph",
+              "content": "So far, our methods have used void because they only perform an action and don't send a value back.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-19-paragraph-2",
+              "type": "paragraph",
+              "content": "But sometimes, we need a method to calculate something and give the result back to the code that called it.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-19-paragraph-3",
+              "type": "paragraph",
+              "content": "Java provides the return statement for this purpose.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-19-paragraph-4",
+              "type": "paragraph",
+              "content": "The return statement:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-19-paragraph-5",
+              "type": "paragraph",
+              "content": "- Sends a value back from the method.\n- Immediately stops the method's execution.\n- Returns control to the statement where the method was called.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-19-paragraph-6",
+              "type": "paragraph",
+              "content": "For example, a method can calculate a product and return the result instead of printing it directly.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-19-paragraph-7",
+              "type": "paragraph",
+              "content": "Let's see how the return statement works in the next example.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-20-returning-a-value-from-a-method",
+          "number": "4.1.20",
+          "title": "Returning a Value From a Method",
+          "summary": "A method can return information to the code that called it. The returned value can then be stored and used elsewhere in the program.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-20-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can return information to the code that called it. The returned value can then be stored and used elsewhere in the program.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-20-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, let's create a method that checks whether a student has passed.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-20-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\n// Method that returns a result\nboolean hasPassed(int marks) {\nreturn marks >= 40;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nboolean result = obj.hasPassed(67);\nSystem.out.println(\"Passed: \" + result);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-20-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Passed: true",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-20-paragraph-5",
+              "type": "paragraph",
+              "content": "Here, the method returns a boolean value:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-20-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "boolean hasPassed(int marks)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-20-paragraph-7",
+              "type": "paragraph",
+              "content": "The return statement sends the result back to main():",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-20-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "return marks >= 40;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-20-paragraph-9",
+              "type": "paragraph",
+              "content": "The returned value is stored in result:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-20-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "boolean result = obj.hasPassed(67);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-20-paragraph-11",
+              "type": "paragraph",
+              "content": "Since 67 >= 40 is true, the method returns true.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-20-paragraph-12",
+              "type": "paragraph",
+              "content": "The important point is that the method returns a value instead of printing it directly. That returned value can then be stored, displayed, or used in another part of the program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-21-how-the-return-statement-works",
+          "number": "4.1.21",
+          "title": "How the return Statement Works",
+          "summary": "Here's how the program works:",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-21-paragraph-1",
+              "type": "paragraph",
+              "content": "Here's how the program works:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-21-paragraph-2",
+              "type": "paragraph",
+              "content": "- hasPassed() is called with the argument 67.\n- The value 67 is assigned to the marks parameter.\n- The method checks whether marks >= 40.\n- The result of this check, true, is returned to main().\n- Since the method returns a boolean, the returned value is stored in the result variable.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-21-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "boolean result = obj.hasPassed(67);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-21-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Flow"
+            },
+            {
+              "id": "java-4-1-21-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "67 → marks → marks >= 40 → true → result",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-21-image-6",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-37.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-21-paragraph-7",
+              "type": "paragraph",
+              "content": "The returned value can then be used elsewhere in the program, such as in a println statement or an if condition.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-21-paragraph-8",
+              "type": "paragraph",
+              "content": "Let's look at another example to understand returned values more clearly.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-22-calculating-remaining-balance-using-a-method",
+          "number": "4.1.22",
+          "title": "Calculating Remaining Balance Using a Method",
+          "summary": "A method can return a calculated value so that the calling code can use it later.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-22-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can return a calculated value so that the calling code can use it later.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-22-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's create a method that finds the remaining balance after a payment."
+            },
+            {
+              "id": "java-4-1-22-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\n// Find remaining balance\nint getBalance(int amount, int payment) {\nreturn amount - payment;\n}\npublic static void main(String[] args) {\nMain account = new Main();\nint balance = account.getBalance(500, 175);\nSystem.out.println(\"Remaining Balance: \" + balance);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-22-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Remaining Balance: 325",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-22-paragraph-5",
+              "type": "paragraph",
+              "content": "The method receives the total amount and payment:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-22-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "getBalance(500, 175)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-22-paragraph-7",
+              "type": "paragraph",
+              "content": "It calculates the remaining amount and sends the value back using:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-22-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "return amount - payment;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-22-paragraph-9",
+              "type": "paragraph",
+              "content": "The returned value is stored in balance:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-22-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "int balance = account.getBalance(500, 175);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-22-paragraph-11",
+              "type": "paragraph",
+              "content": "So the method is not responsible for printing the result. It simply calculates and returns a value, which can then be used elsewhere in the program.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-22-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "Key idea: A method with an int return type must return an integer value."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-23-how-the-program-works",
+          "number": "4.1.23",
+          "title": "How the Program Works",
+          "summary": "Here's how the program works:",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-23-paragraph-1",
+              "type": "paragraph",
+              "content": "Here's how the program works:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-23-paragraph-2",
+              "type": "paragraph",
+              "content": "- getBalance() is called with 500 and 175.\n- These values are assigned to amount and payment.\n- The method subtracts the payment from the amount.\n- The calculated value 325 is returned using the return statement.\n- The returned value is stored in the balance variable.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-23-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "int balance = account.getBalance(500, 175);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-23-paragraph-4",
+              "type": "paragraph",
+              "content": "So the flow is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-23-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "500 → amount\n175 → payment\namount - payment → 325\n325 → balance",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-23-image-6",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-38.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-23-paragraph-7",
+              "type": "paragraph",
+              "content": "Figure: Working of the return statement",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-24-be-careful-when-using-return",
+          "number": "4.1.24",
+          "title": "Be Careful When Using return",
+          "summary": "For example, suppose we create a method that checks a user's account status:",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-24-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "A return statement does not just send a value back—it also ends the method immediately."
+            },
+            {
+              "id": "java-4-1-24-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, suppose we create a method that checks a user's account status:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-24-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nString getStatus() {\nreturn \"Active\";\nSystem.out.println(\"Checking account...\");\n}\npublic static void main(String[] args) {\nMain user = new Main();\nString status = user.getStatus();\nSystem.out.println(\"Status: \" + status);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-24-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "This code produces an error."
+            },
+            {
+              "id": "java-4-1-24-paragraph-5",
+              "type": "paragraph",
+              "content": "The problem is:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-24-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "return \"Active\";",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-24-paragraph-7",
+              "type": "paragraph",
+              "content": "Once Java reaches return, the method ends. Therefore, this statement can never run:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-24-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "System.out.println(\"Checking account...\");",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-24-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Java reports this as an unreachable statement."
+            },
+            {
+              "id": "java-4-1-24-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-1-24-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Think of return as an exit door:"
+            },
+            {
+              "id": "java-4-1-24-code-12",
+              "type": "code",
+              "language": "java",
+              "code": "Method starts\n↓\nExecute statements\n↓\nreturn value\n↓\nMethod ends immediately\n↓\nBack to caller",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-24-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "So, do not place executable code after a return statement."
+            },
+            {
+              "id": "java-4-1-24-paragraph-14",
+              "type": "paragraph",
+              "content": "This is an important rule to remember when working with methods that return values.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-25-why-use-arguments-and-return-values",
+          "number": "4.1.25",
+          "title": "Why Use Arguments and Return Values?",
+          "summary": "For example, imagine a method that calculates the total cost of two items:",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-25-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Arguments and return values make methods reusable and independent."
+            },
+            {
+              "id": "java-4-1-25-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, imagine a method that calculates the total cost of two items:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-25-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "double calculateTotal(double item1, double item2) {\nreturn item1 + item2;\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-25-paragraph-4",
+              "type": "paragraph",
+              "content": "Anyone using this method only needs to know:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-25-paragraph-5",
+              "type": "paragraph",
+              "content": "- What arguments it accepts.\n- What value it returns.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-25-paragraph-6",
+              "type": "paragraph",
+              "content": "They don't need to know how the calculation is performed inside the method.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-25-image-7",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-39.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-1-25-paragraph-8",
+              "type": "paragraph",
+              "content": "We've already used this idea with Java's built-in methods such as:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-25-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "System.out.println()\ninput.nextInt()\ninput.nextDouble()",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-25-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "These are standard library methods provided by Java."
+            },
+            {
+              "id": "java-4-1-25-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-1-25-paragraph-12",
+              "type": "paragraph",
+              "content": "When creating a method, ask:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-25-paragraph-13",
+              "type": "paragraph",
+              "content": "- What information does the method need?\n- What result should the method give back?",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-25-heading-14",
+              "type": "heading",
+              "level": 3,
+              "text": "This helps you design methods that are easier to reuse and understand."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-26-quiz-java-methods",
+          "number": "4.1.26",
+          "title": "Quiz: Java Methods",
+          "summary": "Quiz: Java Methods",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-26-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\ndouble calculateDiscount(double price) {\nreturn price * 0.10;\n}\npublic static void main(String[] args) {\nMain shop = new Main();\ndouble discount = shop.calculateDiscount(200);\nSystem.out.println(discount);\ndiscount = shop.calculateDiscount(500);\nSystem.out.println(discount);\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-26-quiz-2",
+              "type": "quiz",
+              "question": "class Main { double calculateDiscount(double price) { return price * 0.10; } public static void main(String[] args) { Main shop = new Main(); double discount = shop.calculateDiscount(200); System.out.println(discount); discount = shop.calculateDiscount(500); System.out.println(discount); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "20.0\n50.0"
+                },
+                {
+                  "id": "option-b",
+                  "text": "200.0\n500.0"
+                },
+                {
+                  "id": "option-c",
+                  "text": "180.0\n450.0"
+                },
+                {
+                  "id": "option-d",
+                  "text": "10.0\n10.0"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-27-problem-java-methods",
+          "number": "4.1.27",
+          "title": "Problem: Java Methods",
+          "summary": "Problem: Java Methods",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-27-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Java Methods",
+              "instructions": {
+                "content": "Write a program to calculate the remaining balance using a method.\n\nStep 1\n\n- Create a method named getBalance().\n- The method should accept two integer arguments: amount and spent.\n- Subtract spent from amount and return the result.\n\nStep 2\n\nInside the main() method:\n\n- Get two integer inputs from the user and store them in wallet and expense.\n- Create an object of the class.\n- Call getBalance() with wallet and expense.\n- Store the returned value in balance.\n- Print balance.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to calculate the remaining balance using a method."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-1-27-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "750\n285",
+              "expectedOutput": "465",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-1-27-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "750\n285",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-27-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "465",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-27-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution code works? Let me explain.\n\nThe program takes the available amount and the amount spent as input.\n\nThe getBalance() method receives both values as arguments and calculates what remains:\n\n750 - 285 = 465\n\nThe method returns this value to main(), where it is stored in balance and printed.\n\nConcept covered: passing multiple arguments to a method and using its returned value.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\n// Find the remaining balance\nint getBalance(int amount, int spent) {\nreturn amount - spent;\n}\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nint wallet = input.nextInt();\nint expense = input.nextInt();\nMain account = new Main();\nint balance = account.getBalance(wallet, expense);\nSystem.out.println(balance);\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-28-the-reusable-calculation",
+          "number": "4.1.28",
+          "title": "The Reusable Calculation",
+          "summary": "Suppose a program needs to calculate the final delivery charge for different orders. If we write the same calculation repeatedly, the code becomes harder to maintain.",
+          "status": "available",
+          "estimatedMinutes": 7,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-28-paragraph-1",
+              "type": "paragraph",
+              "content": "Suppose a program needs to calculate the final delivery charge for different orders. If we write the same calculation repeatedly, the code becomes harder to maintain.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-28-paragraph-2",
+              "type": "paragraph",
+              "content": "We can place the calculation inside a method and reuse it whenever needed.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-28-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\nstatic double calculateDeliveryCost(double orderAmount) {\ndouble deliveryFee = 40.0;\nif (orderAmount >= 500) {\ndeliveryFee = 0;\n}\nreturn orderAmount + deliveryFee;\n}\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\n// First order\ndouble order1 = input.nextDouble();\ndouble finalAmount1 = calculateDeliveryCost(order1);\nSystem.out.println(\"Final Amount: \" + finalAmount1);\n// Second order\ndouble order2 = input.nextDouble();\ndouble finalAmount2 = calculateDeliveryCost(order2);\nSystem.out.println(\"Final Amount: \" + finalAmount2);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-28-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "Test Input\n350\n600",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-28-code-5",
+              "type": "code",
+              "language": "text",
+              "code": "Final Amount: 390.0\nFinal Amount: 600.0",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-28-paragraph-6",
+              "type": "paragraph",
+              "content": "Here, the delivery-charge logic is written only once inside calculateDeliveryCost().",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-28-paragraph-7",
+              "type": "paragraph",
+              "content": "The method can then be called for different orders:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-28-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "calculateDeliveryCost(order1);\ncalculateDeliveryCost(order2);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-28-paragraph-9",
+              "type": "paragraph",
+              "content": "This avoids repeating the same calculation and makes the program easier to reuse and maintain.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-29-the-delivery-cost-with-different-fees",
+          "number": "4.1.29",
+          "title": "The Delivery Cost with Different Fees",
+          "summary": "Sometimes the same calculation needs to work with different delivery fees. Instead of fixing the fee inside the method, we can pass it as an argument.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-29-paragraph-1",
+              "type": "paragraph",
+              "content": "Sometimes the same calculation needs to work with different delivery fees. Instead of fixing the fee inside the method, we can pass it as an argument.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-29-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\nstatic double calculateFinalAmount(double orderAmount, double deliveryFee) {\nreturn orderAmount + deliveryFee;\n}\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\n// First order\ndouble amount1 = input.nextDouble();\ndouble fee1 = input.nextDouble();\ndouble finalAmount1 = calculateFinalAmount(amount1, fee1);\nSystem.out.println(\"Final Amount: \" + finalAmount1);\n// Second order\ndouble amount2 = input.nextDouble();\ndouble fee2 = input.nextDouble();\ndouble finalAmount2 = calculateFinalAmount(amount2, fee2);\nSystem.out.println(\"Final Amount: \" + finalAmount2);\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-29-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "Test Input\n250\n30\n480\n50",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-29-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Final Amount: 280.0\nFinal Amount: 530.0",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-29-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Here, the method accepts two arguments:"
+            },
+            {
+              "id": "java-4-1-29-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "calculateFinalAmount(double orderAmount, double deliveryFee)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-29-paragraph-7",
+              "type": "paragraph",
+              "content": "This allows the same method to work with different order amounts and delivery fees.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-29-paragraph-8",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-29-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "calculateFinalAmount(250, 30);\ncalculateFinalAmount(480, 50);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-29-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Takeaway 💡"
+            },
+            {
+              "id": "java-4-1-29-paragraph-11",
+              "type": "paragraph",
+              "content": "A method can be designed with the number of arguments your problem requires. By passing different values, the same method can perform the calculation for different situations.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-30-common-method-mistakes",
+          "number": "4.1.30",
+          "title": "Common Method Mistakes",
+          "summary": "Methods are useful, but small mistakes in their declaration or use can cause errors. Here are three things to watch for.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-30-paragraph-1",
+              "type": "paragraph",
+              "content": "Methods are useful, but small mistakes in their declaration or use can cause errors. Here are three things to watch for.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "1. Return Type Doesn't Match"
+            },
+            {
+              "id": "java-4-1-30-paragraph-3",
+              "type": "paragraph",
+              "content": "The method below is declared to return an int, but the calculated value is a double.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nint calculateAverage(int total, int count) {\ndouble average = (double) total / count;\nreturn average;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nint average = obj.calculateAverage(85, 2);\nSystem.out.println(average);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-30-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "This gives an error because the method promises to return an int, but average is a double."
+            },
+            {
+              "id": "java-4-1-30-paragraph-6",
+              "type": "paragraph",
+              "content": "The method's return type must be compatible with the value returned.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "2. Ignoring a Returned Value"
+            },
+            {
+              "id": "java-4-1-30-paragraph-8",
+              "type": "paragraph",
+              "content": "A method may calculate and return a value, but the returned value won't automatically appear on the screen.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nString createMessage(String name) {\nreturn \"Welcome, \" + name;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.createMessage(\"Aisha\");\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-30-paragraph-10",
+              "type": "paragraph",
+              "content": "The method returns:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "Welcome, Aisha",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-30-paragraph-12",
+              "type": "paragraph",
+              "content": "But nothing is printed because the returned value isn't used.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-paragraph-13",
+              "type": "paragraph",
+              "content": "We could store it:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-code-14",
+              "type": "code",
+              "language": "java",
+              "code": "String message = obj.createMessage(\"Aisha\");\nSystem.out.println(message);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-30-heading-15",
+              "type": "heading",
+              "level": 3,
+              "text": "3. Passing the Wrong Number of Arguments"
+            },
+            {
+              "id": "java-4-1-30-paragraph-16",
+              "type": "paragraph",
+              "content": "The method call must provide the arguments required by the method.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-code-17",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nString formatName(String firstName, String lastName) {\nreturn firstName + \" \" + lastName;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nString name = obj.formatName(\"Aisha\");\nSystem.out.println(name);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-30-paragraph-18",
+              "type": "paragraph",
+              "content": "This produces an error because formatName() requires two arguments, but the method call provides only one.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-heading-19",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-1-30-paragraph-20",
+              "type": "paragraph",
+              "content": "Before calling a method, check three things:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-30-paragraph-21",
+              "type": "paragraph",
+              "content": "- Return type → Does it match the returned value?\n- Returned value → Are you actually using it?\n- Arguments → Did you provide all required arguments?",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-30-paragraph-22",
+              "type": "paragraph",
+              "content": "These simple checks can help you avoid many beginner-level method errors.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-31-the-main-method",
+          "number": "4.1.31",
+          "title": "The main() Method",
+          "summary": "Every Java program we've written so far has used the main() method. It may look different from the methods we've created, but it is a method too.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-31-paragraph-1",
+              "type": "paragraph",
+              "content": "Every Java program we've written so far has used the main() method. It may look different from the methods we've created, but it is a method too.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-31-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "public static void main(String[] args) {\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-1-31-paragraph-3",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-31-paragraph-4",
+              "type": "paragraph",
+              "content": "- main → name of the method\n- void → return type\n- String[] args → parameter",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-31-paragraph-5",
+              "type": "paragraph",
+              "content": "The public and static keywords have special purposes that we'll learn about later.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-31-paragraph-6",
+              "type": "paragraph",
+              "content": "Java begins executing a program from the main() method, so a program needs a valid main() method to start execution.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-31-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-1-31-paragraph-8",
+              "type": "paragraph",
+              "content": "For now, simply remember:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-31-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "main() is the starting point of a Java program, and it is also a method."
+            },
+            {
+              "id": "java-4-1-31-paragraph-10",
+              "type": "paragraph",
+              "content": "You don't need to worry about static or String[] args yet. We'll understand them in later chapters.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-1-32-next-step-java-methods",
+          "number": "4.1.32",
+          "title": "Next Step: Java Methods",
+          "summary": "You now know how methods can help you break a program into smaller, reusable tasks.",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-1-java-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-1-32-paragraph-1",
+              "type": "paragraph",
+              "content": "You now know how methods can help you break a program into smaller, reusable tasks.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-32-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, a method can:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-32-paragraph-3",
+              "type": "paragraph",
+              "content": "- Receive information through arguments.\n- Perform a specific operation.\n- Send a result back using return.",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-1-32-paragraph-4",
+              "type": "paragraph",
+              "content": "But methods aren't limited to the ones we create ourselves. Java already provides many ready-to-use methods for common tasks.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-1-32-paragraph-5",
+              "type": "paragraph",
+              "content": "In the next section, we'll start working with these standard library methods and see how they can make our programs simpler.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-4-2-standard-library-methods",
+      "title": "4.2 STANDARD LIBRARY METHODS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-4-2-1-using-javas-ready-made-methods",
+          "number": "4.2.1",
+          "title": "Using Java's Ready-Made Methods",
+          "summary": "Not every method in a Java program has to be written by the programmer.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Not every method in a Java program has to be written by the programmer.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-paragraph-2",
+              "type": "paragraph",
+              "content": "Java comes with a collection of pre-built methods that perform common tasks for us. These are called standard library methods.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-paragraph-3",
+              "type": "paragraph",
+              "content": "For example, we can use Math.max() to find the larger of two values:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint first = 18;\nint second = 27;\nint larger = Math.max(first, second);\nSystem.out.println(\"Larger number: \" + larger);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-1-code-5",
+              "type": "code",
+              "language": "text",
+              "code": "Larger number: 27",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-1-paragraph-6",
+              "type": "paragraph",
+              "content": "We didn't create the max() method ourselves. Java already provides it through the Math class.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-paragraph-7",
+              "type": "paragraph",
+              "content": "We simply call it and give it the values it needs:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "Math.max(first, second);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-1-paragraph-9",
+              "type": "paragraph",
+              "content": "This is the main advantage of library methods: we can use existing functionality instead of writing the same logic ourselves.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-paragraph-10",
+              "type": "paragraph",
+              "content": "For example, we've also used methods such as nextInt() while taking input. These methods are provided by Java's libraries.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-1-heading-11",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-2-1-heading-12",
+              "type": "heading",
+              "level": 3,
+              "text": "User-defined method: You write the method yourself."
+            },
+            {
+              "id": "java-4-2-1-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "Standard library method: Java provides the method, and you simply use it."
+            },
+            {
+              "id": "java-4-2-1-paragraph-14",
+              "type": "paragraph",
+              "content": "Next, let's explore more useful methods that Java provides.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-2-mathematical-methods-in-java",
+          "number": "4.2.2",
+          "title": "Mathematical Methods in Java",
+          "summary": "Java's Math class contains ready-to-use methods for common mathematical tasks.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-2-paragraph-1",
+              "type": "paragraph",
+              "content": "Java's Math class contains ready-to-use methods for common mathematical tasks.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-2-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, Math.sqrt() can calculate the square root of a number without us writing the calculation ourselves.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "double result = Math.sqrt(81);\nSystem.out.println(result);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-2-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "9.0",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-2-paragraph-5",
+              "type": "paragraph",
+              "content": "The method is called using the class name:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-2-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "Math.sqrt(81);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-2-paragraph-7",
+              "type": "paragraph",
+              "content": "The Math class includes many other useful operations for working with numbers.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-2-paragraph-8",
+              "type": "paragraph",
+              "content": "Next, let's explore some of the most useful mathematical methods one by one.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-3-finding-the-square-root",
+          "number": "4.2.3",
+          "title": "Finding the Square Root",
+          "summary": "The Math.sqrt() method is useful when we need the square root of a value. Java performs the calculation for us, so we only need to provide the number.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-3-paragraph-1",
+              "type": "paragraph",
+              "content": "The Math.sqrt() method is useful when we need the square root of a value. Java performs the calculation for us, so we only need to provide the number.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-3-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, suppose we want to calculate the side length of a square when its area is known.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-3-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\ndouble area = 196.0;\ndouble side = Math.sqrt(area);\nSystem.out.println(\"Side length: \" + side);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-3-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Side length: 14.0",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-3-paragraph-5",
+              "type": "paragraph",
+              "content": "Here, Math.sqrt(area) takes 196.0 and returns its square root:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-3-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "√196 = 14",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-3-paragraph-7",
+              "type": "paragraph",
+              "content": "The returned value is stored in the side variable.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-3-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "double side = Math.sqrt(area);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-3-paragraph-9",
+              "type": "paragraph",
+              "content": "Notice that we don't need to create our own square-root calculation. The Math class already provides sqrt() for this purpose.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-3-warning-10",
+              "type": "warning",
+              "title": "Remember",
+              "content": "Use Math.sqrt() whenever you need to calculate the square root of a number.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-4-problem-calculate-a-cube-root",
+          "number": "4.2.4",
+          "title": "Problem: Calculate a Cube Root",
+          "summary": "Problem: Calculate a Cube Root",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-4-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Calculate a Cube Root",
+              "instructions": {
+                "content": "A cube has a volume of 216 cubic units. Write a program to find the length of one side.\n\n- Read an integer representing the cube's volume.\n- Store it in a variable named volume.\n- Use Math.cbrt() to find the cube root.\n- Store the answer in side.\n- Display the side length.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "A cube has a volume of 216 cubic units. Write a program to find the length of one side."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-2-4-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "216",
+              "expectedOutput": "6.0",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "numeric_tolerance",
+                "tolerance": 1e-9
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-2-4-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "216",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-4-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "6.0",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-4-solution-5",
+              "type": "solution",
+              "title": "View solution",
+              "description": "Want to understand how the solution works?\n\nThe program reads the volume of a cube.\n\nFor a cube:\n\nTherefore, the side length can be found using the cube root:\n\nJava's Math.cbrt() performs this calculation:\n\nThe resulting value is then stored in side and displayed.\n\nKey idea: Math.cbrt() can be used whenever a program needs to calculate the cube root of a value.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\npublic static void main(String[] args) {\nScanner scanner = new Scanner(System.in);\nint volume = scanner.nextInt();\ndouble side = Math.cbrt(volume);\nSystem.out.println(\"Side length: \" + side);\nscanner.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-5-calculating-a-numbers-power",
+          "number": "4.2.5",
+          "title": "Calculating a Number's Power",
+          "summary": "Java's Math.pow() method can calculate powers without requiring us to multiply the same number repeatedly.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-5-paragraph-1",
+              "type": "paragraph",
+              "content": "Java's Math.pow() method can calculate powers without requiring us to multiply the same number repeatedly.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "It accepts two values:"
+            },
+            {
+              "id": "java-4-2-5-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "Math.pow(base, exponent)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "The first value is the base, and the second is the exponent."
+            },
+            {
+              "id": "java-4-2-5-paragraph-5",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\ndouble base = 4;\ndouble exponent = 3;\ndouble answer = Math.pow(base, exponent);\nSystem.out.println(\"Result: \" + answer);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-code-7",
+              "type": "code",
+              "language": "text",
+              "code": "Result: 64.0",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-paragraph-8",
+              "type": "paragraph",
+              "content": "Here:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "4³ = 4 × 4 × 4 = 64",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-paragraph-10",
+              "type": "paragraph",
+              "content": "The calculation is performed by:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "Math.pow(base, exponent);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-paragraph-12",
+              "type": "paragraph",
+              "content": "The returned value is stored in answer.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-paragraph-13",
+              "type": "paragraph",
+              "content": "You can use different values without changing the method itself:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-code-14",
+              "type": "code",
+              "language": "java",
+              "code": "Math.pow(10, 2); // 100.0\nMath.pow(2, 5); // 32.0",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-heading-15",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-2-5-paragraph-16",
+              "type": "paragraph",
+              "content": "Math.pow() follows this format:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-5-code-17",
+              "type": "code",
+              "language": "java",
+              "code": "Math.pow(base, exponent)",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-5-paragraph-18",
+              "type": "paragraph",
+              "content": "It returns the calculated result as a double.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-6-generating-random-numbers",
+          "number": "4.2.6",
+          "title": "Generating Random Numbers",
+          "summary": "The value will usually be different each time the program runs.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-6-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "The Math.random() method generates a random double value from 0.0 to less than 1.0."
+            },
+            {
+              "id": "java-4-2-6-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\ndouble number = Math.random();\nSystem.out.println(\"Random value: \" + number);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-6-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output"
+            },
+            {
+              "id": "java-4-2-6-code-4",
+              "type": "code",
+              "language": "java",
+              "code": "Random value: 0.6842157",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-6-paragraph-5",
+              "type": "paragraph",
+              "content": "The value will usually be different each time the program runs.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-6-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Creating a Larger Range"
+            },
+            {
+              "id": "java-4-2-6-paragraph-7",
+              "type": "paragraph",
+              "content": "We can multiply the result to change its range.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-6-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "double number = Math.random() * 20;\nSystem.out.println(number);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-6-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output"
+            },
+            {
+              "id": "java-4-2-6-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "14.627381",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-6-paragraph-11",
+              "type": "paragraph",
+              "content": "Here, Math.random() first produces a value between 0.0 and 1.0. Multiplying it by 20 gives a value from 0.0 to less than 20.0.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-6-paragraph-12",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-6-code-13",
+              "type": "code",
+              "language": "java",
+              "code": "Math.random() * 20",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-6-paragraph-14",
+              "type": "paragraph",
+              "content": "So, the multiplication allows us to control the range of random values.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-6-warning-15",
+              "type": "warning",
+              "title": "Remember",
+              "content": "The exact random value can change every time you run the program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-7-generating-random-integers",
+          "number": "4.2.7",
+          "title": "Generating Random Integers",
+          "summary": "Math.random() gives a decimal value, but we can convert it into an integer and set a specific range.",
+          "status": "available",
+          "estimatedMinutes": 7,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-7-paragraph-1",
+              "type": "paragraph",
+              "content": "Math.random() gives a decimal value, but we can convert it into an integer and set a specific range.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-7-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "For example, to generate a number from 20 to 30:"
+            },
+            {
+              "id": "java-4-2-7-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint randomNumber = (int) (Math.random() * 11 + 20);\nSystem.out.println(\"Random number: \" + randomNumber);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-7-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output"
+            },
+            {
+              "id": "java-4-2-7-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "Random number: 27",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-7-paragraph-6",
+              "type": "paragraph",
+              "content": "Here's what happens:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-2-7-paragraph-7",
+              "type": "paragraph",
+              "content": "- Math.random() → gives a value from 0.0 to less than 1.0\n- * 11 → changes the range to 0.0–less than 11.0\n- + 20 → shifts the range to 20.0–less than 31.0\n- (int) → removes the decimal part",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-2-7-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "So the final result can be any integer from 20 to 30."
+            },
+            {
+              "id": "java-4-2-7-warning-9",
+              "type": "warning",
+              "title": "Remember",
+              "content": "The number generated can be different each time you run the program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-2-8-problem-random-lucky-number",
+          "number": "4.2.8",
+          "title": "Problem: Random Lucky Number",
+          "summary": "Problem: Random Lucky Number",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-2-standard-library-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-2-8-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Random Lucky Number",
+              "instructions": {
+                "content": "Create a program that generates a random lucky number from 1 to 50.\n\nYour Task\n\n- Generate a random decimal value using Math.random().\n- Convert it into a whole number.\n- Make sure the final number is between 1 and 50.\n- Display the generated lucky number.\n\nThe output may be different each time the program runs.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Create a program that generates a random lucky number from 1 to 50."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-2-8-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "",
+              "expectedOutput": "37",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "integer_range",
+                "min": 1,
+                "max": 50
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-2-8-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "37",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-2-8-solution-4",
+              "type": "solution",
+              "title": "View solution",
+              "description": "How does it work?\n\nMath.random() starts with a value between 0.0 and 1.0.\n\nWe multiply it by 50:\n\nThis gives a value from 0.0 up to, but not including, 50.0.\n\nThe (int) conversion removes the decimal part, producing values from 0 to 49.\n\nFinally, adding 1 shifts the range:\n\nSo luckyNumber can contain any whole number from 1 to 50.",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\nint luckyNumber = (int) (Math.random() * 50) + 1;\nSystem.out.println(luckyNumber);\n}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-4-3-local-variables",
+      "title": "4.3 LOCAL VARIABLES",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-4-3-1-variables-inside-a-method",
+          "number": "4.3.1",
+          "title": "Variables Inside a Method",
+          "summary": "Let's see what happens when a variable is created inside a method.",
+          "status": "available",
+          "estimatedMinutes": 7,
+          "tags": [
+            "4-3-local-variables"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-3-1-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's see what happens when a variable is created inside a method.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-1-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Can you predict the output?"
+            },
+            {
+              "id": "java-4-3-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid calculateTotal(int price, int quantity) {\nint total = price * quantity;\nSystem.out.println(total);\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.calculateTotal(6, 4);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-1-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "24",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-1-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "The total variable is created inside calculateTotal()."
+            },
+            {
+              "id": "java-4-3-1-paragraph-6",
+              "type": "paragraph",
+              "content": "Now, what happens if we try to access total from main() after calling the method?",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-1-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "System.out.println(total);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-1-paragraph-8",
+              "type": "paragraph",
+              "content": "Will Java allow us to use this variable outside the method?",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-1-paragraph-9",
+              "type": "paragraph",
+              "content": "Let's find out next.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-3-2-local-variables",
+          "number": "4.3.2",
+          "title": "Local Variables",
+          "summary": "A variable created inside a method has a limited reach. It belongs only to that method.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "4-3-local-variables"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-3-2-paragraph-1",
+              "type": "paragraph",
+              "content": "A variable created inside a method has a limited reach. It belongs only to that method.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-2-paragraph-2",
+              "type": "paragraph",
+              "content": "Consider a method that calculates the total marks:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid calculateMarks(int theory, int practical) {\nint totalMarks = theory + practical;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.calculateMarks(70, 25);\nSystem.out.println(totalMarks);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-2-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "This program gives an error because totalMarks was created inside calculateMarks()."
+            },
+            {
+              "id": "java-4-3-2-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "ERROR: cannot find symbol",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-2-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-3-2-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "A variable declared inside a method is called a local variable."
+            },
+            {
+              "id": "java-4-3-2-paragraph-8",
+              "type": "paragraph",
+              "content": "Its scope is limited to the method where it is declared.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-2-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "calculateMarks()\n↓\ntotalMarks ✓\n↓\nmain() ✗",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-2-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Next, let's explore the scope of local variables."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-3-3-local-variables-and-their-scope",
+          "number": "4.3.3",
+          "title": "Local Variables and Their Scope",
+          "summary": "Let's look at a method that checks whether a person is eligible for a discount.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-3-local-variables"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-3-3-paragraph-1",
+              "type": "paragraph",
+              "content": "Let's look at a method that checks whether a person is eligible for a discount.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-3-code-2",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nboolean checkDiscount(int age) {\nboolean eligible = age < 18;\nreturn eligible;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nboolean status = obj.checkDiscount(16);\nSystem.out.println(status);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "true",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-3-paragraph-4",
+              "type": "paragraph",
+              "content": "The variable eligible is created inside checkDiscount(). It is a local variable, so main() cannot directly use it.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-3-paragraph-5",
+              "type": "paragraph",
+              "content": "Instead, the method sends its value back:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-3-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "return eligible;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-3-paragraph-7",
+              "type": "paragraph",
+              "content": "The returned value is then stored in status:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-3-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "boolean status = obj.checkDiscount(16);",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-3-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember"
+            },
+            {
+              "id": "java-4-3-3-paragraph-10",
+              "type": "paragraph",
+              "content": "A local variable belongs to the method where it is declared.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-3-paragraph-11",
+              "type": "paragraph",
+              "content": "If another method needs its value, return the value instead of trying to access the local variable directly.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-3-code-12",
+              "type": "code",
+              "language": "java",
+              "code": "checkDiscount()\n↓\neligible\n↓ return\nmain()\n↓\nstatus",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-3-heading-13",
+              "type": "heading",
+              "level": 3,
+              "text": "This is why understanding local variables and scope is important when working with methods."
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-3-4-keeping-method-data-separate",
+          "number": "4.3.4",
+          "title": "Keeping Method Data Separate",
+          "summary": "A method can create and use its own temporary variables without exposing them to the rest of the program.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "4-3-local-variables"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-3-4-paragraph-1",
+              "type": "paragraph",
+              "content": "A method can create and use its own temporary variables without exposing them to the rest of the program.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-4-paragraph-2",
+              "type": "paragraph",
+              "content": "For example, this method calculates the time needed for a trip:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-4-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nint calculateTime(int distance, int speed) {\nint hours = distance / speed;\nreturn hours;\n}\npublic static void main(String[] args) {\nMain trip = new Main();\nint time = trip.calculateTime(240, 60);\nSystem.out.println(\"Travel time: \" + time + \" hours\");\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-4-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "Travel time: 4 hours",
+              "caption": "Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-4-paragraph-5",
+              "type": "paragraph",
+              "content": "The hours variable is created only to perform the calculation inside calculateTime().",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-4-paragraph-6",
+              "type": "paragraph",
+              "content": "The main() method doesn't need to know how hours is calculated. It only receives the final value through return.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-4-paragraph-7",
+              "type": "paragraph",
+              "content": "This separation means we can change the internal calculation without changing the code that calls the method.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-3-4-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Key Idea"
+            },
+            {
+              "id": "java-4-3-4-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Think of a method like a small workspace:"
+            },
+            {
+              "id": "java-4-3-4-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "main()\n↓\ncalculateTime()\n├── distance\n├── speed\n└── hours\n↓\nreturn 4\n↓\nmain()",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-4-paragraph-11",
+              "type": "paragraph",
+              "content": "The variables inside that workspace are local to the method. This keeps different parts of a program from interfering with one another.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-3-5-quiz-local-variables",
+          "number": "4.3.5",
+          "title": "Quiz: Local Variables",
+          "summary": "Quiz: Local Variables",
+          "status": "available",
+          "estimatedMinutes": 4,
+          "tags": [
+            "4-3-local-variables"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-3-5-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid showPrice() {\nint price = 250;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.showPrice();\nSystem.out.println(price);\n}\n}",
+              "caption": "Quiz code",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-3-5-quiz-2",
+              "type": "quiz",
+              "question": "class Main { void showPrice() { int price = 250; } public static void main(String[] args) { Main obj = new Main(); obj.showPrice(); System.out.println(price); }}",
+              "selectionMode": "single",
+              "options": [
+                {
+                  "id": "option-a",
+                  "text": "250"
+                },
+                {
+                  "id": "option-b",
+                  "text": "Error"
+                },
+                {
+                  "id": "option-c",
+                  "text": "price"
+                },
+                {
+                  "id": "option-d",
+                  "text": "0"
+                }
+              ],
+              "correctOptionIds": [
+                "option-a"
+              ],
+              "submitLabel": "Check answer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-4-4-think-methods",
+      "title": "4.4 THINK METHODS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-4-4-1-think-in-terms-of-methods",
+          "number": "4.4.1",
+          "title": "Think in Terms of Methods",
+          "summary": "When designing a method, don't start with the code immediately. First decide what information goes into the method and what result should come out.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-1-paragraph-1",
+              "type": "paragraph",
+              "content": "When designing a method, don't start with the code immediately. First decide what information goes into the method and what result should come out.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-1-paragraph-2",
+              "type": "paragraph",
+              "content": "Ask yourself two questions:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-1-paragraph-3",
+              "type": "paragraph",
+              "content": "- Arguments: What data does the method need?\n- Return value: What result should the method give back?",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-4-1-image-4",
+              "type": "image",
+              "src": "/assets/courses/java-basics/java-basics-image-40.png",
+              "alt": "Java course figure",
+              "caption": "",
+              "loading": "lazy"
+            },
+            {
+              "id": "java-4-4-1-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Figure: Method with Arguments and Return Value"
+            },
+            {
+              "id": "java-4-4-1-paragraph-6",
+              "type": "paragraph",
+              "content": "Then continue:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-1-paragraph-7",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-1-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "Input → Method → Result",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-1-paragraph-9",
+              "type": "paragraph",
+              "content": "This approach will help us build methods for different problems without mixing the calculation with the rest of the program.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-1-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "What We'll Build"
+            },
+            {
+              "id": "java-4-4-1-paragraph-11",
+              "type": "paragraph",
+              "content": "In this section, we'll apply this idea to:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-1-paragraph-12",
+              "type": "paragraph",
+              "content": "- Calculate the sum from 1 to n\n- Practice: Calculate the factorial of a number\n- Find the largest of three numbers\n- Determine whether a number is odd or even",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-4-1-paragraph-13",
+              "type": "paragraph",
+              "content": "Let's start by building our first problem with a method.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-4-2-calculating-total-steps",
+          "number": "4.4.2",
+          "title": "Calculating Total Steps",
+          "summary": "Create a program to calculate the total number of steps taken over n days, where the steps increase by the day number.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-2-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Program Summary"
+            },
+            {
+              "id": "java-4-4-2-paragraph-2",
+              "type": "paragraph",
+              "content": "Create a program to calculate the total number of steps taken over n days, where the steps increase by the day number.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "total = 1 + 2 + 3 + ..... + n",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-2-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Arguments"
+            },
+            {
+              "id": "java-4-4-2-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "The method needs only one argument, days, because the calculation always starts from 1."
+            },
+            {
+              "id": "java-4-4-2-heading-6",
+              "type": "heading",
+              "level": 3,
+              "text": "Return Value"
+            },
+            {
+              "id": "java-4-4-2-paragraph-7",
+              "type": "paragraph",
+              "content": "The method should return the calculated total.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-2-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "Source Code"
+            },
+            {
+              "id": "java-4-4-2-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nint calculateSteps(int days) {\nint steps = 0;\nfor (int day = 1; day <= days; day++) {\nsteps = steps + day;\n}\nreturn steps;\n}\npublic static void main(String[] args) {\nMain tracker = new Main();\nint result = tracker.calculateSteps(7);\nSystem.out.println(result); // Output: 28\nresult = tracker.calculateSteps(10);\nSystem.out.println(result); // Output: 55\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-2-paragraph-10",
+              "type": "paragraph",
+              "content": "Here, calculateSteps() receives the number of days as an argument and sends the calculated total back using return.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-2-paragraph-11",
+              "type": "paragraph",
+              "content": "The important part is how the method is designed:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-2-code-12",
+              "type": "code",
+              "language": "java",
+              "code": "days → calculateSteps() → result",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-2-paragraph-13",
+              "type": "paragraph",
+              "content": "The same method can therefore be reused with different values without rewriting the calculation.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-4-3-problem-total-of-even-numbers",
+          "number": "4.4.3",
+          "title": "Problem: Total Of Even Numbers",
+          "summary": "Problem: Total Of Even Numbers",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-3-exercise-1",
+              "type": "exercise",
+              "title": "Problem: Total Of Even Numbers",
+              "instructions": {
+                "content": "Write a program to calculate the sum of the first n even numbers.\n\nThe first n even numbers are:\n\nStep 1\n\n- Create a method named calculateEvenSum().\n- The method should accept one argument, n.\n- Calculate the sum of the first n even numbers.\n- Return the calculated sum.\n\nStep 2\n\n- Create the main() method.\n- Get an integer input from the user and store it in the number variable.\n- Call calculateEvenSum() using number as the argument.\n- Store the returned value in the total variable.\n- Print total.\n\nWould you like to view the full solution? Click below to see it.",
+                "format": "markdown"
+              },
+              "objectives": [
+                "Write a program to calculate the sum of the first n even numbers."
+              ],
+              "difficulty": "easy",
+              "starterFiles": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "actionLabel": "Start exercise"
+            },
+            {
+              "id": "java-4-4-3-compiler-2",
+              "type": "compiler",
+              "language": "java",
+              "runtime": "teavm",
+              "files": [
+                {
+                  "name": "Main.java",
+                  "content": "class Main {\n    public static void main(String[] args) {\n        // Write your solution here\n    }\n}"
+                }
+              ],
+              "activeFile": "Main.java",
+              "stdin": "5",
+              "expectedOutput": "30",
+              "execution": {
+                "mode": "program",
+                "mainClass": "Main"
+              },
+              "timeoutMs": 10000,
+              "validation": {
+                "type": "normalized_output"
+              },
+              "runLabel": "Run code",
+              "resetLabel": "Reset starter code"
+            },
+            {
+              "id": "java-4-4-3-code-3",
+              "type": "code",
+              "language": "text",
+              "code": "2 + 4 + 6 + .....",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-3-code-4",
+              "type": "code",
+              "language": "text",
+              "code": "5",
+              "caption": "Input",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-3-code-5",
+              "type": "code",
+              "language": "text",
+              "code": "30",
+              "caption": "Expected Output",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-3-solution-6",
+              "type": "solution",
+              "title": "View solution",
+              "description": "The calculateEvenSum() method receives n and calculates the required total.\n\nFor input 5, the method adds:\n\nThe calculated value is returned to main() and stored in total.\n\nThe important part is the flow:\n\nThis lets the same method work with different input values.",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\nint calculateEvenSum(int n) {\nint total = 0;\n// Add the first n even numbers\nfor (int i = 1; i <= n; i++) {\ntotal = total + (i * 2);\n}\nreturn total;\n}\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nint number = input.nextInt();\nMain obj = new Main();\nint total = obj.calculateEvenSum(number);\nSystem.out.println(total);\ninput.close();\n}\n}"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-4-4-highest-score-among-three-players",
+          "number": "4.4.4",
+          "title": "Highest Score Among Three Players",
+          "summary": "Let's create a method that finds the highest score among three players. The method should work with any three scores.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-4-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Program Summary"
+            },
+            {
+              "id": "java-4-4-4-paragraph-2",
+              "type": "paragraph",
+              "content": "Let's create a method that finds the highest score among three players. The method should work with any three scores.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-4-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Arguments"
+            },
+            {
+              "id": "java-4-4-4-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "The method needs three arguments, one for each player's score."
+            },
+            {
+              "id": "java-4-4-4-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Return Value"
+            },
+            {
+              "id": "java-4-4-4-paragraph-6",
+              "type": "paragraph",
+              "content": "The method returns the highest score.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-4-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Source Code"
+            },
+            {
+              "id": "java-4-4-4-code-8",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nint getHighestScore(int score1, int score2, int score3) {\n// Find the highest score\nif (score1 >= score2 && score1 >= score3) {\nreturn score1;\n}\nelse if (score2 >= score1 && score2 >= score3) {\nreturn score2;\n}\nelse {\nreturn score3;\n}\n}\npublic static void main(String[] args) {\nMain game = new Main();\nint highest = game.getHighestScore(72, 91, 68);\nSystem.out.println(highest); // Output: 91\nhighest = game.getHighestScore(84, 77, 95);\nSystem.out.println(highest); // Output: 95\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-4-paragraph-9",
+              "type": "paragraph",
+              "content": "For each method call, only one return statement is executed. Once the correct score is returned, the method immediately ends.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-4-paragraph-10",
+              "type": "paragraph",
+              "content": "However, having several return statements can make the method harder to read. Let's see how we can rewrite it using a single return statement.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-4-5-using-one-return-statement",
+          "number": "4.4.5",
+          "title": "Using One Return Statement",
+          "summary": "Instead of returning a value from each condition, we can first store the selected value in a variable. Then, return that variable once after all the conditions are checked.",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-5-paragraph-1",
+              "type": "paragraph",
+              "content": "Instead of returning a value from each condition, we can first store the selected value in a variable. Then, return that variable once after all the conditions are checked.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-5-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's use a movie rating example to find the highest rating among three movies."
+            },
+            {
+              "id": "java-4-4-5-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nint getHighestRating(int rating1, int rating2, int rating3) {\nint highest;\nif (rating1 >= rating2 && rating1 >= rating3) {\nhighest = rating1;\n}\nelse if (rating2 >= rating1 && rating2 >= rating3) {\nhighest = rating2;\n}\nelse {\nhighest = rating3;\n}\nreturn highest;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nint result = obj.getHighestRating(7, 9, 6);\nSystem.out.println(result); // Output: 9\nresult = obj.getHighestRating(8, 5, 10);\nSystem.out.println(result); // Output: 10\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-5-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, highest temporarily stores the largest value.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-5-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "The method has only one return statement, placed at the end:"
+            },
+            {
+              "id": "java-4-4-5-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "return highest;",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-5-paragraph-7",
+              "type": "paragraph",
+              "content": "This makes the method easier to follow because the decision is made first and the result is returned afterward.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-4-6-checking-for-a-multiple-of-five",
+          "number": "4.4.6",
+          "title": "Checking for a Multiple of Five",
+          "summary": "The method will take one argument: the number we want to check.",
+          "status": "available",
+          "estimatedMinutes": 9,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-6-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Program Summary"
+            },
+            {
+              "id": "java-4-4-6-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Let's create a method that checks whether a number is a multiple of 5."
+            },
+            {
+              "id": "java-4-4-6-heading-3",
+              "type": "heading",
+              "level": 3,
+              "text": "Arguments"
+            },
+            {
+              "id": "java-4-4-6-paragraph-4",
+              "type": "paragraph",
+              "content": "The method will take one argument: the number we want to check.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-6-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Return Value"
+            },
+            {
+              "id": "java-4-4-6-paragraph-6",
+              "type": "paragraph",
+              "content": "The method will return:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-6-paragraph-7",
+              "type": "paragraph",
+              "content": "- true if the number is divisible by 5\n- false otherwise",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-4-6-note-8",
+              "type": "note",
+              "title": "Note",
+              "content": "When a method has only two possible outcomes, a boolean return value is often a good choice.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-6-paragraph-9",
+              "type": "paragraph",
+              "content": "For example:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-6-code-10",
+              "type": "code",
+              "language": "java",
+              "code": "25 → true\n18 → false",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-6-paragraph-11",
+              "type": "paragraph",
+              "content": "Next, let's implement this using a Java method.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-4-7-source-code-multiple-of-five",
+          "number": "4.4.7",
+          "title": "Source Code: Multiple of Five",
+          "summary": "The isMultipleOfFive() method checks whether the number leaves a remainder of 0 when divided by 5.",
+          "status": "available",
+          "estimatedMinutes": 7,
+          "tags": [
+            "4-4-think-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-4-7-code-1",
+              "type": "code",
+              "language": "java",
+              "code": "import java.util.Scanner;\nclass Main {\n// Method to check whether a number is a multiple of 5\nboolean isMultipleOfFive(int number) {\nif (number % 5 == 0) {\nreturn true;\n}\nelse {\nreturn false;\n}\n}\npublic static void main(String[] args) {\nScanner input = new Scanner(System.in);\nMain obj = new Main();\nSystem.out.println(\"Enter a number\");\nint number = input.nextInt();\nboolean result = obj.isMultipleOfFive(number);\nif (result) {\nSystem.out.println(number + \" is a multiple of 5\");\n}\nelse {\nSystem.out.println(number + \" is not a multiple of 5\");\n}\ninput.close();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-7-heading-2",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output 1"
+            },
+            {
+              "id": "java-4-4-7-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "Enter a number\n35\n35 is a multiple of 5",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-7-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Sample Output 2"
+            },
+            {
+              "id": "java-4-4-7-code-5",
+              "type": "code",
+              "language": "java",
+              "code": "Enter a number\n22\n22 is not a multiple of 5",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-4-7-paragraph-6",
+              "type": "paragraph",
+              "content": "The isMultipleOfFive() method checks whether the number leaves a remainder of 0 when divided by 5.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-7-paragraph-7",
+              "type": "paragraph",
+              "content": "If the condition is true, the method returns true; otherwise, it returns false.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-7-paragraph-8",
+              "type": "paragraph",
+              "content": "The returned boolean value is then used by main() to decide which message to display.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-4-7-note-9",
+              "type": "note",
+              "title": "Note",
+              "content": "Although creating a method adds a few lines, it keeps the checking logic separate and makes the method reusable whenever we need to test another number.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-4-5-review-methods",
+      "title": "4.5 REVIEW: METHODS",
+      "description": "",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "java-lesson-4-5-1-review-i",
+          "number": "4.5.1",
+          "title": "REVIEW(I)",
+          "summary": "A method is a reusable block of code designed to perform a particular task.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-5-review-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-5-1-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Creating a Method"
+            },
+            {
+              "id": "java-4-5-1-paragraph-2",
+              "type": "paragraph",
+              "content": "A method is a reusable block of code designed to perform a particular task.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-1-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "// Method to display a message\nvoid showMessage() {\nSystem.out.println(\"Welcome to Java!\");\nSystem.out.println(\"Let's learn methods.\");\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-5-1-heading-4",
+              "type": "heading",
+              "level": 3,
+              "text": "Calling a Method"
+            },
+            {
+              "id": "java-4-5-1-paragraph-5",
+              "type": "paragraph",
+              "content": "Writing a method alone does not execute it. We need to call the method. For a non-static method, we can use an object of the class.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-1-code-6",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid showMessage() {\nSystem.out.println(\"Welcome to Java!\");\nSystem.out.println(\"Let's learn methods.\");\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nobj.showMessage();\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-5-1-heading-7",
+              "type": "heading",
+              "level": 3,
+              "text": "Arguments and Return Values"
+            },
+            {
+              "id": "java-4-5-1-heading-8",
+              "type": "heading",
+              "level": 3,
+              "text": "A method can receive information through arguments and send a result back using a return value."
+            },
+            {
+              "id": "java-4-5-1-code-9",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\n// Takes two numbers and returns their product\nint multiply(int a, int b) {\nint product = a * b;\nreturn product;\n}\npublic static void main(String[] args) {\nMain obj = new Main();\nint answer = obj.multiply(6, 7);\nSystem.out.println(answer); // 42\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-5-1-heading-10",
+              "type": "heading",
+              "level": 3,
+              "text": "Remember:"
+            },
+            {
+              "id": "java-4-5-1-code-11",
+              "type": "code",
+              "language": "java",
+              "code": "Arguments → Method → Return Value",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-5-1-paragraph-12",
+              "type": "paragraph",
+              "content": "Arguments provide the data a method needs, while the return value gives the result back to the calling code.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-1-paragraph-13",
+              "type": "paragraph",
+              "content": "Let's put these concepts together with a few questions on the next page.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "java-lesson-4-5-2-review-ii",
+          "number": "4.5.2",
+          "title": "REVIEW(II)",
+          "summary": "A variable declared inside a method belongs to that method. Code outside the method cannot directly access it.",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "tags": [
+            "4-5-review-methods"
+          ],
+          "blocks": [
+            {
+              "id": "java-4-5-2-heading-1",
+              "type": "heading",
+              "level": 3,
+              "text": "Local Variables"
+            },
+            {
+              "id": "java-4-5-2-paragraph-2",
+              "type": "paragraph",
+              "content": "A variable declared inside a method belongs to that method. Code outside the method cannot directly access it.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-2-code-3",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\nvoid displayName() {\nString name = \"Alex\";\n}\npublic static void main(String[] args) {\nMain obj = new Main();\n// Error: name is local to displayName()\nSystem.out.println(name);\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-5-2-paragraph-4",
+              "type": "paragraph",
+              "content": "Here, name can only be used inside displayName().",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-2-heading-5",
+              "type": "heading",
+              "level": 3,
+              "text": "Standard Library Methods"
+            },
+            {
+              "id": "java-4-5-2-paragraph-6",
+              "type": "paragraph",
+              "content": "Java includes many ready-made methods that we can use without creating their definitions ourselves.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-2-code-7",
+              "type": "code",
+              "language": "java",
+              "code": "class Main {\npublic static void main(String[] args) {\ndouble value = Math.pow(2, 5);\nSystem.out.println(value); // 32.0\n}\n}",
+              "caption": "Example",
+              "mode": "display"
+            },
+            {
+              "id": "java-4-5-2-paragraph-8",
+              "type": "paragraph",
+              "content": "Math.pow() is a standard library method that calculates the power of a number.",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-2-heading-9",
+              "type": "heading",
+              "level": 3,
+              "text": "Reminder"
+            },
+            {
+              "id": "java-4-5-2-paragraph-10",
+              "type": "paragraph",
+              "content": "Great work completing this section! 🎉",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-2-paragraph-11",
+              "type": "paragraph",
+              "content": "You've learned how to:",
+              "format": "plain"
+            },
+            {
+              "id": "java-4-5-2-paragraph-12",
+              "type": "paragraph",
+              "content": "- Create and call methods\n- Pass arguments\n- Return values\n- Work with local variables\n- Use standard library methods",
+              "format": "markdown"
+            },
+            {
+              "id": "java-4-5-2-paragraph-13",
+              "type": "paragraph",
+              "content": "Now it's time to put these concepts into practice with Practice: Java Basics.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

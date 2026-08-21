@@ -5,6 +5,10 @@ import {
   conf as pythonConfiguration,
   language as pythonLanguage,
 } from 'monaco-editor/languages/definitions/python/python';
+import {
+  conf as javaConfiguration,
+  language as javaLanguage,
+} from 'monaco-editor/languages/definitions/java/java';
 import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching';
 import 'monaco-editor/editor/contrib/comment/browser/comment';
 import 'monaco-editor/editor/contrib/find/browser/findController';
@@ -31,6 +35,15 @@ function configureMonaco(monacoInstance) {
   }
   monacoInstance.languages.setLanguageConfiguration('python', pythonConfiguration);
   monacoInstance.languages.setMonarchTokensProvider('python', pythonLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'java')) {
+    monacoInstance.languages.register({
+      id: 'java',
+      extensions: ['.java'],
+      aliases: ['Java', 'java'],
+    });
+  }
+  monacoInstance.languages.setLanguageConfiguration('java', javaConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('java', javaLanguage);
   monacoInstance.editor.defineTheme(EDITOR_THEME, {
     base: 'vs-dark',
     inherit: true,
@@ -88,7 +101,7 @@ export default function MonacoCodeEditor({ editor, value, onChange }) {
     <div className="monaco-editor-shell" onKeyDown={(event) => event.stopPropagation()}>
       <Editor
         height="100%"
-        language="python"
+        language={editor.language || 'plaintext'}
         theme={editorTheme}
         value={value}
         beforeMount={configureMonaco}

@@ -42,6 +42,16 @@ const courseDetails = {
     progress: 38,
     available: true,
   },
+  Java: {
+    id: 'java',
+    title: 'Java Basics',
+    description: 'Build a practical Java foundation through lessons, examples, quizzes, and programming problems.',
+    level: 'Beginner',
+    duration: '43h 17m',
+    lessonCount: 363,
+    progress: 0,
+    available: true,
+  },
   'Artificial Intelligence': {
     title: 'AI Foundations',
     description: 'Understand intelligent systems, modern models, and responsible AI workflows.',

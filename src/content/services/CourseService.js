@@ -3,7 +3,7 @@ import { CourseContentRepository } from '../repositories/CourseContentRepository
 import { courseManifestPath, versionedCourseModulePath } from '../utils/contentPaths';
 import { CONTENT_ERROR_CODES, ContentError } from '../utils/ContentError';
 import { BaseContentService } from './BaseContentService';
-import { getModuleLessons } from '../../course/courseStructure.js';
+import { getModuleLessons, resolveLessonModuleNumber } from '../../course/courseStructure.js';
 
 const validateModule = (value) => Boolean(
   value
@@ -50,14 +50,7 @@ function validateManifestAgainstMetadata(manifest, metadata) {
   }
 }
 
-export function resolveLessonModuleNumber(lessonId, moduleCount) {
-  if (!Number.isInteger(moduleCount) || moduleCount < 1) return null;
-  const match = String(lessonId ?? '').match(/^[^-]+-(\d+)(?:-|$)/);
-  const moduleNumber = Number(match?.[1]);
-  return Number.isInteger(moduleNumber) && moduleNumber >= 1 && moduleNumber <= moduleCount
-    ? moduleNumber
-    : 1;
-}
+export { resolveLessonModuleNumber } from '../../course/courseStructure.js';
 
 export class CourseService extends BaseContentService {
   constructor(repository = new CourseContentRepository()) {
@@ -92,7 +85,7 @@ export class CourseService extends BaseContentService {
     validateManifestAgainstMetadata(manifest, metadata);
     const initialModuleNumber = resolveLessonModuleNumber(
       initialLessonId ?? manifest.navigation.defaultLessonId,
-      metadata.moduleCount,
+      manifest.modules,
     );
     const initialModules = initialModuleNumber
       ? [await this.getCourseModule(metadata, initialModuleNumber)]

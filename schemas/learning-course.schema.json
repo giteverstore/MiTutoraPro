@@ -550,14 +550,61 @@
               ]
             },
             "expectedOutput": { "type": "string" },
+            "timeoutMs": { "type": "integer", "minimum": 1000 },
+            "execution": {
+              "type": "object",
+              "required": ["mode"],
+              "properties": {
+                "mode": { "type": "string", "enum": ["program", "method"] },
+                "mainClass": { "$ref": "#/$defs/nonEmptyString" },
+                "className": { "$ref": "#/$defs/nonEmptyString" },
+                "methodName": { "$ref": "#/$defs/nonEmptyString" },
+                "arguments": { "type": "array" },
+                "printResult": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            },
+            "testCases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "expectedOutput"],
+                "properties": {
+                  "id": { "$ref": "#/$defs/nonEmptyString" },
+                  "stdin": { "type": "string" },
+                  "expectedOutput": { "type": "string" },
+                  "validatorType": { "type": "string", "enum": ["normalized", "normalized_output", "numeric_tolerance", "integer_range"] },
+                  "validatorOptions": {
+                    "type": "object",
+                    "properties": {
+                      "tolerance": { "type": "number", "minimum": 0 },
+                      "min": { "type": "number" },
+                      "max": { "type": "number" }
+                    },
+                    "additionalProperties": false
+                  },
+                  "execution": {
+                    "type": "object",
+                    "properties": {
+                      "arguments": { "type": "array" }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
             "validation": {
               "type": "object",
               "required": ["type"],
               "properties": {
                 "type": {
                   "type": "string",
-                  "enum": ["normalized", "normalized_output"]
-                }
+                  "enum": ["normalized", "normalized_output", "numeric_tolerance", "integer_range"]
+                },
+                "tolerance": { "type": "number", "minimum": 0 },
+                "min": { "type": "number" },
+                "max": { "type": "number" }
               },
               "additionalProperties": false
             },
@@ -565,7 +612,7 @@
               "oneOf": [
                 {
                   "type": "string",
-                  "enum": ["normalized", "normalized_output"]
+                  "enum": ["normalized", "normalized_output", "numeric_tolerance", "integer_range"]
                 },
                 {
                   "type": "object",
@@ -573,8 +620,11 @@
                   "properties": {
                     "type": {
                       "type": "string",
-                      "enum": ["normalized", "normalized_output"]
-                    }
+                      "enum": ["normalized", "normalized_output", "numeric_tolerance", "integer_range"]
+                    },
+                    "tolerance": { "type": "number", "minimum": 0 },
+                    "min": { "type": "number" },
+                    "max": { "type": "number" }
                   },
                   "additionalProperties": false
                 }
