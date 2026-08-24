@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import mammoth from 'mammoth';
 import { load } from 'cheerio';
+import { validateCourseComplexity } from '../src/content/validation/contentLimits.js';
 
 const SOURCE = resolve('JAVA BASICS UPDATED.docx');
 const PUBLIC = resolve('public/courses/java-course.json');
@@ -151,6 +152,7 @@ for (let index = 0; index < children.length; index += 1) {
 
 const lessons = modules.flatMap(lessonList); const estimatedMinutes = lessons.reduce((sum, lesson) => sum + lesson.estimatedMinutes, 0);
 const course = { $schema: '../../schemas/learning-course.schema.json', schemaVersion: '1.0.0', id: 'java', slug: 'java', title: 'Java Basics', description: 'Build a practical Java foundation through structured explanations, examples, quizzes, and programming problems.', locale: 'en-US', status: 'published', metadata: { version: '1.0.0', authors: [{ name: 'MI Tutora' }], level: 'beginner', estimatedMinutes, tags: ['java', 'programming', 'fundamentals'], updatedAt: '2026-08-21T00:00:00.000Z' }, navigation: { defaultLessonId: lessons[0].id, sequence: 'module-order', skipLockedLessons: true, labels: { previous: 'Previous lesson', next: 'Next lesson', progress: 'Course progress', currentLesson: 'Current lesson' } }, modules };
+validateCourseComplexity(course);
 await writeFile(PUBLIC, `${JSON.stringify(course, null, 2)}\n`);
 await mkdir(BUNDLE, { recursive: true });
 for (let i = 0; i < modules.length; i++) await writeFile(resolve(BUNDLE, `module-${i + 1}.json`), `${JSON.stringify(modules[i], null, 2)}\n`);

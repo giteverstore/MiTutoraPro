@@ -1,7 +1,9 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 import { practiceQuestions } from '../src/practice/practiceData.js';
 import { dailyChallenge } from '../src/challenges/challengeData.js';
+import { validatePracticeComplexity } from '../src/content/validation/contentLimits.js';
 
 const version = 'v1';
 const root = resolve('firebase-content');
@@ -12,24 +14,38 @@ const firestoreRoot = resolve(root, 'firestore');
 await Promise.all([practiceRoot, challengeRoot, firestoreRoot].map((directory) =>
   mkdir(directory, { recursive: true })));
 
-const practiceMetadata = practiceQuestions.map((question, index) => {
+const sha256 = (value) => createHash('sha256').update(value).digest('hex');
+practiceQuestions.forEach((question) => validatePracticeComplexity(question));
+const practiceArtifacts = practiceQuestions.map((question, index) => ({
+  question,
+  index,
+  text: `${JSON.stringify(question, null, 2)}\n`,
+}));
+const practiceMetadata = practiceArtifacts.map(({ question, index, text }) => {
   const fileName = `question-${index + 1}.json`;
   return {
     id: question.id,
     title: question.title,
+    summary: question.summary,
     language: question.language,
     topic: question.topic,
+    category: question.category,
+    subtopic: question.subtopic,
+    questionType: question.questionType,
+    skills: question.skills,
     difficulty: question.difficulty,
     estimatedMinutes: question.estimatedMinutes,
     xp: question.xp,
+    position: index + 1,
     published: true,
     version,
     storagePath: `practice/python/${fileName}`,
+    contentHash: sha256(text),
   };
 });
 
-await Promise.all(practiceQuestions.map((question, index) =>
-  writeFile(resolve(practiceRoot, `question-${index + 1}.json`), `${JSON.stringify(question, null, 2)}\n`)));
+await Promise.all(practiceArtifacts.map(({ index, text }) =>
+  writeFile(resolve(practiceRoot, `question-${index + 1}.json`), text)));
 
 const challengeFile = `${dailyChallenge.date}.json`;
 const challengeMetadata = [{

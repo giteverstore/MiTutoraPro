@@ -134,7 +134,7 @@ export function ExamProvider({ exam, candidateId, certification, config: configO
   useEffect(() => {
     const attempt = certification.attempt;
     if (attempt?.state !== 'RUNNING' || !attempt.sessionId) return undefined;
-    const persistence = new ExamPersistenceCoordinator({ service: certification.service, attemptId: attempt.id, sessionId: attempt.sessionId, revision: recovered?.revision ?? attempt.responseRevision ?? 0, onStatus: setSync });
+    const persistence = new ExamPersistenceCoordinator({ service: certification.service, attemptId: attempt.id, sessionId: attempt.sessionId, revision: recovered?.revision ?? attempt.responseRevision ?? 0, eventSequence: attempt.integrityEventSequence ?? 0, onStatus: setSync });
     persistence.startHeartbeat(attempt.heartbeatSequence ?? 0); persistenceRef.current = persistence;
     submissionRef.current = new SubmissionCoordinator({ service: certification.service, persistence, attemptId: attempt.id, sessionId: attempt.sessionId });
     return () => { persistence.destroy(); if (persistenceRef.current === persistence) persistenceRef.current = null; submissionRef.current = null; };

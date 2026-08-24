@@ -6,7 +6,7 @@ export class CompilerManager {
   }
 
   async initialize(language, options = {}) {
-    const runtime = this.runtimeRegistry.resolve(language);
+    const runtime = this.runtimeRegistry.resolve(language, options.instanceId);
     if (!this.runtimeInitialization.has(runtime)) {
       const initialization = runtime.initialize(options).catch((error) => {
         this.runtimeInitialization.delete(runtime);
@@ -18,7 +18,7 @@ export class CompilerManager {
     return runtime;
   }
 
-  async execute({ language, source, stdin, inputs, filename, execution, signal, timeoutMs }) {
+  async execute({ language, source, stdin, inputs, filename, execution, signal, timeoutMs, instanceId }) {
     if (!this.runtimeRegistry.has(language)) {
       return {
         status: 'error',
@@ -27,7 +27,7 @@ export class CompilerManager {
         executionTimeMs: 0,
       };
     }
-    const runtime = await this.initialize(language, { signal });
+    const runtime = await this.initialize(language, { signal, instanceId });
     return runtime.execute({
       source,
       stdin: stdin ?? inputs ?? '',
@@ -57,8 +57,8 @@ export class CompilerManager {
     return results;
   }
 
-  async format({ language, source, options }) {
-    const runtime = await this.initialize(language);
+  async format({ language, source, options, instanceId }) {
+    const runtime = await this.initialize(language, { instanceId });
     return runtime.format(source, options);
   }
 
@@ -73,9 +73,11 @@ export class CompilerManager {
     return validator.validate(expectedOutput, programOutput, validatorOptions);
   }
 
-  async reset(language) {
+  async reset(language, instanceId) {
     if (language && this.runtimeRegistry.has(language)) {
-      return this.runtimeRegistry.resolve(language).reset();
+      const runtime = this.runtimeRegistry.resolve(language, instanceId);
+      this.runtimeInitialization.delete(runtime);
+      return runtime.reset();
     }
     await Promise.all(
       this.runtimeRegistry.getInitializedRuntimes().map((runtime) => runtime.reset()),

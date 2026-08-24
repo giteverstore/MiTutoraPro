@@ -13,6 +13,7 @@ import { createCompilerData } from '../components/blocks/CompilerBlock';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
 import { PracticeTestPanel } from './PracticeTestPanel';
+import { DomainErrorBoundary } from '../errors/ErrorBoundary';
 
 export function PracticeDetail({ question, solved, onBack, onComplete }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
@@ -57,18 +58,27 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
           />
         </article>
         <section className="practice-workspace" aria-label="Code workspace">
-          <CompilerPanel
-            compiler={compiler}
-            onVerificationChange={setVerificationStatus}
-            renderOutput={(outputProps) => (
-              <PracticeTestPanel
-                {...outputProps}
-                contract={question.contract}
-                tests={question.publicTests ?? []}
-              />
-            )}
-            key={question.id}
-          />
+          <DomainErrorBoundary
+            name="practice-compiler"
+            title="The code workspace could not be displayed."
+            description="The problem statement is still available. Retry the workspace when you are ready."
+            resetKeys={[question.id]}
+            compact
+          >
+            <CompilerPanel
+              compiler={compiler}
+              instanceId={`practice-${question.id}`}
+              onVerificationChange={setVerificationStatus}
+              renderOutput={(outputProps) => (
+                <PracticeTestPanel
+                  {...outputProps}
+                  contract={question.contract}
+                  tests={question.publicTests ?? []}
+                />
+              )}
+              key={question.id}
+            />
+          </DomainErrorBoundary>
           <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>
             <span>
               {canComplete ? <CheckCircle2 /> : <LockKeyhole />}

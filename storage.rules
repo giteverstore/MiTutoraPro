@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isActiveJson() {
+      return resource != null
+        && resource.contentType.matches('application/json.*')
+        && resource.metadata.publicationState == 'ACTIVE';
+    }
+
+    match /course-content/{courseId}/{version}/{fileName} {
+      allow read: if isActiveJson()
+        && (fileName == 'course.json' || fileName.matches('module-[0-9]+\\.json'));
+      allow write: if false;
+    }
+
+    match /practice/{language}/{version}/{fileName} {
+      allow read: if isActiveJson() && fileName.matches('question-[0-9]+\\.json');
+      allow write: if false;
+    }
+
+    match /daily-challenges/{language}/{version}/{fileName} {
+      allow read: if isActiveJson() && fileName.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}\\.json');
+      allow write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

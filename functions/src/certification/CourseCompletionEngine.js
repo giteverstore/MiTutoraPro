@@ -1,4 +1,5 @@
-export const COURSE_COMPLETION_SCHEMA_VERSION = '1.0.0';
+export const COURSE_COMPLETION_SCHEMA_VERSION = '2.0.0';
+const TRUSTED_EVIDENCE_ASSURANCE = new Set(['PROTOCOL_OBSERVED', 'SERVER_GRADED', 'SERVER_VALIDATED_CLIENT_EXECUTION']);
 
 const moduleLessons = (module) => Array.isArray(module.sections)
   ? module.sections.flatMap((section) => section.lessons ?? [])
@@ -24,7 +25,13 @@ export class CourseCompletionEngine {
 
   evaluate(manifest, completion = {}) {
     const requirements = this.requirements(manifest);
-    const completed = new Set((completion.completedLessons ?? []).filter((id) => requirements.lessonIds.includes(id)));
+    const completed = new Set((completion.completedLessons ?? []).filter((id) => {
+      const evidence = completion.lessonEvidence?.[id];
+      return completion.schemaVersion === '2.0.0'
+        && requirements.lessonIds.includes(id)
+        && evidence?.sessionId
+        && TRUSTED_EVIDENCE_ASSURANCE.has(evidence.assurance);
+    }));
     const completedRequired = requirements.requiredLessonIds.filter((id) => completed.has(id));
     const requiredLessons = requirements.requiredLessonIds.length;
     const completionPercentage = requiredLessons ? Math.floor((completedRequired.length / requiredLessons) * 100) : 0;

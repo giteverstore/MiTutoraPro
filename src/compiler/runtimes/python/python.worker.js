@@ -1,13 +1,14 @@
-import { loadPyodide, version as pyodideVersion } from 'pyodide';
+import { PYODIDE_CDN_BASE } from './pythonRuntimeConfig.js';
 
 let runtimePromise;
 
 function getRuntime() {
   if (!runtimePromise) {
-    runtimePromise = loadPyodide({
-      indexURL: `https://cdn.jsdelivr.net/pyodide/v${pyodideVersion}/full/`,
-      packageBaseUrl: `https://cdn.jsdelivr.net/pyodide/v${pyodideVersion}/full/`,
-    });
+    runtimePromise = import(/* @vite-ignore */ `${PYODIDE_CDN_BASE}pyodide.mjs`)
+      .then(({ loadPyodide }) => loadPyodide({
+        indexURL: PYODIDE_CDN_BASE,
+        packageBaseUrl: PYODIDE_CDN_BASE,
+      }));
   }
   return runtimePromise;
 }

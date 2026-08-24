@@ -5,6 +5,9 @@ export const CONTENT_ERROR_CODES = Object.freeze({
   invalidMetadata: 'content/invalid-metadata',
   unpublished: 'content/unpublished',
   downloadFailed: 'content/download-failed',
+  networkTimeout: 'content/network-timeout',
+  integrityFailed: 'content/integrity-failed',
+  sizeExceeded: 'content/size-exceeded',
 });
 
 export class ContentError extends Error {

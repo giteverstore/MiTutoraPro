@@ -7,6 +7,7 @@ import { ExamResultPage } from './ExamResultPage';
 import { useSettings } from '../../settings/useSettings';
 import { CertificationProvider } from '../../certification/context/CertificationProvider';
 import { useCertification } from '../../certification/hooks/useCertification';
+import { useApplicationTheme } from '../../theme/useApplicationTheme';
 
 function ExamScreen({ onExit }) {
   const { session, result } = useExam();
@@ -24,7 +25,6 @@ function CertificationRuntime({ candidateId, onExit }) {
 
 export function ExamExperience({ candidateId, courseId = 'python', examId = 'python-foundations-certification', onExit }) {
   const settings = useSettings();
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  const theme = settings.appearance.theme === 'system' ? systemTheme : settings.appearance.theme;
+  const { theme } = useApplicationTheme();
   return <div className="exam-experience" data-theme={theme} data-reduced-motion={settings.appearance.reducedMotion}><CertificationProvider candidateId={candidateId} courseId={courseId} examId={examId}><CertificationRuntime candidateId={candidateId} onExit={onExit} /></CertificationProvider></div>;
 }

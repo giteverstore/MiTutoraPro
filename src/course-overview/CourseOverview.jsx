@@ -20,6 +20,8 @@ import { createCourseOverviewModel } from '../course/createCourseOverviewModel';
 import { ICON_SIZE } from '../design-system/theme';
 import { useLearningProgress } from '../progress/LearningProgressContext';
 import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
+import { useApplicationTheme } from '../theme/useApplicationTheme';
+import { getCourseOverviewPresentation } from './courseOverviewPresentation';
 
 const STAT_DEFINITIONS = [
   { key: 'estimatedDuration', label: 'Estimated duration', icon: Clock3 },
@@ -32,9 +34,7 @@ const STAT_DEFINITIONS = [
 
 export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse }) {
   const progress = useLearningProgress();
-  const [theme, setTheme] = useState(
-    () => window.localStorage.getItem('mi-tutora:theme') ?? 'light',
-  );
+  const { theme, toggleTheme } = useApplicationTheme();
   const model = useMemo(
     () => createCourseOverviewModel(course, progress),
     [course, progress],
@@ -42,23 +42,16 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
   const isCompleted = model.lessonCount > 0
     && progress.sequentialCompletedLessons === model.lessonCount;
   const isStarted = progress.visitedLessonCount > 0 || progress.completedLessonCount > 0;
+  const presentation = getCourseOverviewPresentation(model.id);
   const actionLabel = isCompleted
     ? 'Review Course'
     : isStarted
       ? 'Continue Learning'
-      : 'Start Course';
+      : presentation?.startLabel ?? 'Start Course';
 
   useEffect(() => {
     document.title = `${model.title} · MiTutora`;
   }, [model.title]);
-
-  const toggleTheme = () => {
-    setTheme((current) => {
-      const next = current === 'dark' ? 'light' : 'dark';
-      window.localStorage.setItem('mi-tutora:theme', next);
-      return next;
-    });
-  };
 
   const stats = STAT_DEFINITIONS.map((stat) => ({
     ...stat,
@@ -78,7 +71,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
         <button
           className="icon-button"
           type="button"
-          onClick={toggleTheme}
+          onClick={() => { void toggleTheme().catch(() => undefined); }}
           aria-label={theme === 'dark' ? 'Use light mode' : 'Use dark mode'}
         >
           {theme === 'dark'
@@ -88,18 +81,28 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
       </header>
 
       <main className="course-overview-main">
-        <section className="overview-hero">
-          <div className="overview-hero-copy">
-            <span className="overview-kicker"><Sparkles size={ICON_SIZE.sm} /> Course overview</span>
-            <span className="overview-level">{model.difficulty}</span>
-            <h1>{model.title}</h1>
-            <p>{model.description}</p>
-            <button className="button button--primary overview-primary-action" type="button" onClick={onEnterCourse}>
-              {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
-            </button>
-          </div>
-          <ProgressSummary model={model} progress={progress} />
-        </section>
+        {presentation ? (
+          <CourseArtworkHero
+            model={model}
+            progress={progress}
+            presentation={presentation}
+            actionLabel={actionLabel}
+            onEnterCourse={onEnterCourse}
+          />
+        ) : (
+          <section className="overview-hero">
+            <div className="overview-hero-copy">
+              <span className="overview-kicker"><Sparkles size={ICON_SIZE.sm} /> Course overview</span>
+              <span className="overview-level">{model.difficulty}</span>
+              <h1>{model.title}</h1>
+              <p>{model.description}</p>
+              <button className="button button--primary overview-primary-action" type="button" onClick={onEnterCourse}>
+                {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
+              </button>
+            </div>
+            <ProgressSummary model={model} progress={progress} />
+          </section>
+        )}
 
         <section className="overview-stat-grid" aria-label="Course details">
           {stats.map(({ key, label, value, icon: Icon }) => (
@@ -133,6 +136,45 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
         </section>
       </main>
     </div>
+  );
+}
+
+function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnterCourse }) {
+  const heroStyle = { '--course-hero-artwork': `url("${presentation.artwork}")` };
+  const highlights = [
+    { label: model.difficulty, detail: 'Level', icon: Sparkles },
+    { label: `${model.exerciseCount} Coding Exercises`, detail: 'Hands-on practice', icon: Code2 },
+    { label: `${model.quizCount} Quizzes`, detail: 'Knowledge checks', icon: CheckCircle2 },
+  ];
+
+  return (
+    <section className="overview-hero overview-hero--artwork" style={heroStyle}>
+      <div className="overview-hero-artwork-space" aria-hidden="true" />
+      <div className="overview-hero-copy overview-hero-copy--artwork">
+        <span className="overview-artwork-eyebrow">{presentation.eyebrow}</span>
+        <h1>{presentation.heading}</h1>
+        <p>{presentation.description}</p>
+        <div className="overview-hero-highlights" aria-label="Course highlights">
+          {highlights.map(({ label, detail, icon: Icon }) => (
+            <div className="overview-hero-highlight" key={detail}>
+              <Icon size={ICON_SIZE.base} aria-hidden="true" />
+              <span><strong>{label}</strong><small>{detail}</small></span>
+            </div>
+          ))}
+        </div>
+        <button className="button overview-primary-action overview-artwork-action" type="button" onClick={onEnterCourse}>
+          {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
+        </button>
+        {progress.courseProgress > 0 ? (
+          <div className="overview-artwork-progress">
+            <span><strong>{progress.courseProgress}%</strong> complete</span>
+            <div role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress.courseProgress}>
+              <span style={{ width: `${progress.courseProgress}%` }} />
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </section>
   );
 }
 

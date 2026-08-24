@@ -8,13 +8,18 @@ import {
   LockKeyhole,
   Palette,
   RotateCcw,
+  Save,
+  CheckCircle2,
+  AlertCircle,
   UserRound,
 } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { userDataService } from '../user-data/UserDataService';
 import { settingsService } from './SettingsService';
 import { SettingRow, SelectSetting, SwitchSetting } from './SettingsControls';
-import { useSettings } from './useSettings';
+import { useSettings, useSettingsPersistence } from './useSettings';
+import { SETTINGS_PERSISTENCE_STATUS } from './SettingsService';
+import { ConfirmDialog } from '../components/Dialog';
 
 const sections = [
   { id: 'profile', label: 'Profile', icon: UserRound },
@@ -45,15 +50,24 @@ function Section({ id, title, description, children }) {
 
 export function SettingsPage() {
   const settings = useSettings();
+  const persistence = useSettingsPersistence();
   const { user, updateProfile } = useUser();
   const [activeSection, setActiveSection] = useState('profile');
   const [profileName, setProfileName] = useState(user.name);
   const [notice, setNotice] = useState('');
-  const setSetting = (path, value) => settingsService.setSetting(path, value);
+  const [confirmation, setConfirmation] = useState(null);
+  const setSetting = (path, value) => {
+    void settingsService.setSetting(path, value).catch(() => undefined);
+  };
 
   const confirmReset = (message, action) => {
-    if (!window.confirm(message)) return;
-    Promise.resolve(action()).catch((error) => setNotice(error.message));
+    setConfirmation({ title: 'Confirm reset', description: message, action });
+  };
+  const cancelConfirmation = () => setConfirmation(null);
+  const acceptConfirmation = () => {
+    const action = confirmation?.action;
+    setConfirmation(null);
+    if (action) Promise.resolve(action()).catch((error) => setNotice(error.message));
   };
 
   const reloadAfterReset = () => window.setTimeout(() => window.location.reload(), 50);
@@ -163,18 +177,62 @@ export function SettingsPage() {
 
   return (
     <div className="settings-page">
-      <header className="settings-heading"><h1>Make MiTutora yours.</h1><p>Configure your workspace, learning defaults, and local data.</p></header>
+      <header className="settings-heading">
+        <div>
+          <h1>Make MiTutora yours.</h1>
+          <p>Configure your workspace, learning defaults, and saved preferences.</p>
+        </div>
+        <SettingsPersistenceStatus persistence={persistence} />
+      </header>
       <div className="settings-layout">
         <aside className="settings-navigation" aria-label="Settings sections">
-          <nav>{sections.map(({ id, label, icon: Icon }) => <button className={activeSection === id ? 'is-active' : ''} type="button" onClick={() => setActiveSection(id)} aria-current={activeSection === id ? 'page' : undefined} key={id}><Icon /> <span>{label}</span></button>)}</nav>
+          <nav>{sections.map(({ id, label, icon: Icon }) => <button className={activeSection === id ? 'is-active' : ''} type="button" onClick={() => setActiveSection(id)} aria-label={label} aria-current={activeSection === id ? 'page' : undefined} key={id}><Icon /> <span>{label}</span></button>)}</nav>
           <div>
             <button type="button" onClick={exportSettings}><Download /> Export Settings</button>
-            <button type="button" onClick={() => confirmReset('Reset all application and editor settings to their defaults?', () => { settingsService.resetSettings(); setNotice('Settings reset to defaults.'); })}><RotateCcw /> Reset Settings</button>
+            <button type="button" onClick={() => confirmReset('Reset all application and editor settings to their defaults?', async () => { await settingsService.resetSettings(); setNotice('Settings reset to defaults.'); })}><RotateCcw /> Reset Settings</button>
           </div>
         </aside>
         <main className="settings-content">{content}</main>
       </div>
+      <ConfirmDialog
+        open={Boolean(confirmation)}
+        title={confirmation?.title ?? ''}
+        description={confirmation?.description}
+        confirmLabel="Reset"
+        destructive
+        onConfirm={acceptConfirmation}
+        onCancel={cancelConfirmation}
+      />
       {notice ? <div className="settings-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="Dismiss notification">×</button></div> : null}
+    </div>
+  );
+}
+
+function SettingsPersistenceStatus({ persistence }) {
+  const presentation = {
+    [SETTINGS_PERSISTENCE_STATUS.IDLE]: { icon: Save, label: 'No changes to save' },
+    [SETTINGS_PERSISTENCE_STATUS.SAVING]: { icon: Save, label: 'Saving…' },
+    [SETTINGS_PERSISTENCE_STATUS.SAVED]: { icon: CheckCircle2, label: 'Saved' },
+    [SETTINGS_PERSISTENCE_STATUS.ERROR]: { icon: AlertCircle, label: 'Couldn’t save' },
+  }[persistence.status];
+  const Icon = presentation.icon;
+  return (
+    <div
+      className={`settings-persistence is-${persistence.status.toLowerCase()}`}
+      role={persistence.status === SETTINGS_PERSISTENCE_STATUS.ERROR ? 'alert' : 'status'}
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <Icon aria-hidden="true" />
+      <span>{presentation.label}</span>
+      {persistence.status === SETTINGS_PERSISTENCE_STATUS.ERROR ? (
+        <button
+          type="button"
+          onClick={() => { void settingsService.retry().catch(() => undefined); }}
+        >
+          Retry
+        </button>
+      ) : null}
     </div>
   );
 }

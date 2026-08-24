@@ -4,16 +4,12 @@ import { useAuth } from '../auth/AuthContext';
 import { AppSidebar } from './AppSidebar';
 import { AppTopNavigation } from './AppTopNavigation';
 import { APP_NAVIGATION } from './navigation';
-import { settingsService } from '../settings/SettingsService';
-import { useSettings } from '../settings/useSettings';
+import { useApplicationTheme } from '../theme/useApplicationTheme';
 
 export function AppShell({ activePage, onNavigate, children }) {
   const { user } = useUser();
   const { signOut } = useAuth();
-  const settings = useSettings();
-  const [systemTheme, setSystemTheme] = useState(
-    () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
-  );
+  const { theme, reducedMotion, toggleTheme } = useApplicationTheme();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
     () => window.localStorage.getItem('mi-tutora:app-sidebar-collapsed') === 'true',
   );
@@ -24,17 +20,6 @@ export function AppShell({ activePage, onNavigate, children }) {
     () => APP_NAVIGATION.find((item) => item.id === activePage)?.label ?? 'Home',
     [activePage],
   );
-  const theme = settings.appearance.theme === 'system'
-    ? systemTheme
-    : settings.appearance.theme;
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateSystemTheme = ({ matches }) => setSystemTheme(matches ? 'dark' : 'light');
-    media.addEventListener('change', updateSystemTheme);
-    return () => media.removeEventListener('change', updateSystemTheme);
-  }, []);
-
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
@@ -54,10 +39,6 @@ export function AppShell({ activePage, onNavigate, children }) {
     onNavigate(page);
   };
 
-  const toggleTheme = () => {
-    settingsService.setSetting('appearance.theme', theme === 'dark' ? 'light' : 'dark');
-  };
-
   const toggleSidebar = () => {
     setSidebarCollapsed((current) => {
       const next = !current;
@@ -70,7 +51,7 @@ export function AppShell({ activePage, onNavigate, children }) {
     <div
       className={`application-shell ${sidebarCollapsed ? 'is-sidebar-collapsed' : ''}`}
       data-theme={theme}
-      data-reduced-motion={settings.appearance.reducedMotion}
+      data-reduced-motion={reducedMotion}
     >
       <AppSidebar
         activePage={activePage}
@@ -87,7 +68,7 @@ export function AppShell({ activePage, onNavigate, children }) {
         notificationsOpen={notificationsOpen}
         userMenuOpen={userMenuOpen}
         onMenuOpen={() => setMobileDrawerOpen(true)}
-        onThemeToggle={toggleTheme}
+        onThemeToggle={() => { void toggleTheme().catch(() => undefined); }}
         onNotificationsToggle={() => {
           setUserMenuOpen(false);
           setNotificationsOpen((current) => !current);

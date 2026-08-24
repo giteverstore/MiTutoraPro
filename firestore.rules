@@ -10,17 +10,60 @@ service cloud.firestore {
       let attempt = get(/databases/$(database)/documents/examAttempts/$(attemptId)).data;
       return signedIn() && attempt.ownerUid == request.auth.uid && attempt.state == 'RUNNING';
     }
+    function validUserCreate(uid) {
+      return request.resource.data.keys().hasOnly([
+          'uid', 'email', 'name', 'avatar', 'emailVerified', 'providers',
+          'createdAt', 'lastLogin', 'learningPreferences'
+        ])
+        && request.resource.data.uid == uid
+        && request.resource.data.email is string
+        && request.resource.data.name is string
+        && request.resource.data.avatar is string
+        && request.resource.data.emailVerified is bool
+        && request.resource.data.providers is list
+        && request.resource.data.createdAt is string
+        && request.resource.data.lastLogin is string
+        && (!('email' in request.auth.token) || request.resource.data.email == request.auth.token.email)
+        && (!('email_verified' in request.auth.token) || request.resource.data.emailVerified == request.auth.token.email_verified);
+    }
+    function validUserUpdate() {
+      return request.resource.data.keys().hasOnly([
+          'uid', 'email', 'name', 'avatar', 'emailVerified', 'providers',
+          'createdAt', 'lastLogin', 'learningPreferences'
+        ])
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['name', 'avatar', 'learningPreferences', 'lastLogin'])
+        && request.resource.data.name is string
+        && request.resource.data.avatar is string
+        && request.resource.data.lastLogin is string;
+    }
+    function validProgressRevision(courseId) {
+      return request.resource.data.courseId == courseId
+        && request.resource.data.revision is int
+        && request.resource.data.revision >= 1;
+    }
 
     match /users/{uid} {
-      allow read, create, update: if owns(uid);
+      allow read: if owns(uid);
+      allow create: if owns(uid) && validUserCreate(uid);
+      allow update: if owns(uid) && validUserUpdate();
       allow delete: if false;
 
-      match /progress/{courseId} { allow read, write: if owns(uid); }
+      match /progress/{courseId} {
+        allow read: if owns(uid);
+        allow create: if owns(uid) && validProgressRevision(courseId) && request.resource.data.revision == 1;
+        allow update: if owns(uid) && validProgressRevision(courseId)
+          && (
+            (!('revision' in resource.data) && request.resource.data.revision == 1)
+            || (resource.data.revision is int && request.resource.data.revision == resource.data.revision + 1)
+          );
+        allow delete: if owns(uid);
+      }
       match /bookmarks/{bookmarkId} { allow read, write: if owns(uid); }
       match /settings/{settingId} { allow read, write: if owns(uid); }
-      match /referrals/{referralId} { allow read, write: if owns(uid); }
-      match /achievements/{achievementId} { allow read, write: if owns(uid); }
-      match /statistics/{statisticsId} { allow read, write: if owns(uid); }
+      match /referrals/{referralId} { allow read: if owns(uid); allow write: if false; }
+      match /achievements/{achievementId} { allow read: if owns(uid); allow write: if false; }
+      match /statistics/{statisticsId} { allow read: if owns(uid); allow write: if false; }
       match /coinTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
       match /certifications/{courseId} { allow read: if owns(uid); allow write: if false; }
       match /trustedCourseProgress/{courseId} { allow read: if owns(uid); allow write: if false; }
@@ -29,6 +72,7 @@ service cloud.firestore {
 
     match /courses/{courseId} { allow read: if resource.data.published == true; allow write: if false; }
     match /practiceQuestions/{questionId} { allow read: if resource.data.published == true; allow write: if false; }
+    match /contentPublications/{publicationId} { allow read: if resource.data.status == 'ACTIVE'; allow write: if false; }
     match /dailyChallenges/{challengeId} { allow read: if resource.data.published == true; allow write: if false; }
     match /certificationExams/{examId} { allow read: if signedIn() && resource.data.published == true; allow write: if false; }
 

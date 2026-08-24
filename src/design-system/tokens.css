@@ -133,7 +133,7 @@
   --compiler-width: var(--layout-compiler-width);
 }
 
-:is(.app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience)[data-theme="dark"] {
+:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience)[data-theme="dark"] {
   --color-canvas: #171a18;
   --color-surface: #222522;
   --color-surface-subtle: #272a27;

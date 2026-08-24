@@ -12,12 +12,13 @@ export class PythonRuntime extends RuntimeAdapter {
     await this.client.initialize(signal);
   }
 
-  async execute({ source, stdin, filename, signal }) {
-    const payload = await this.client.execute({ source, stdin, filename, signal });
+  async execute({ source, stdin, filename, signal, timeoutMs }) {
+    const payload = await this.client.execute({ source, stdin, filename, signal, timeoutMs });
     return createPythonExecutionResult(payload);
   }
 
   async reset() {
+    this.client.reset();
     return super.reset();
   }
 

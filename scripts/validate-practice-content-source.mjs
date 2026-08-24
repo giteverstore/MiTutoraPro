@@ -21,6 +21,11 @@ assert(
   'Development must remain Firebase-first when the explicit source selector is absent.',
 );
 assert(
+  resolvePracticeContentSource({ isDevelopment: true, configuredSource: 'firebase' })
+    === PRACTICE_CONTENT_SOURCES.FIREBASE,
+  'Explicit Firebase selection must remain Firebase-backed.',
+);
+assert(
   resolvePracticeContentSource({ isDevelopment: false, configuredSource: 'local' })
     === PRACTICE_CONTENT_SOURCES.FIREBASE,
   'Production must ignore the local Practice source override.',
@@ -35,10 +40,8 @@ assert(
 );
 
 const practicePageSource = await readFile(new URL('../src/practice/PracticePage.jsx', import.meta.url), 'utf8');
-assert(
-  /\[filters,\s*practiceQuestions\]/.test(practicePageSource),
-  'Practice filtering must recompute when asynchronously loaded questions change.',
-);
+assert(practicePageSource.includes('practiceContentSource.listPage'), 'Practice must load paged metadata through its content source.');
+assert(!practicePageSource.includes('loadPracticeQuestions('), 'Practice must not eagerly load the complete question bank.');
 assert(
   !practicePageSource.includes('Mock catalog'),
   'Practice must not present a static mock-source label for canonical or Firebase content.',
@@ -56,6 +59,6 @@ console.log(JSON.stringify({
   canonicalLocalQuestions: practiceQuestions.length,
   batch10Range: `${batch10Ids[0]} through ${batch10Ids.at(-1)}`,
   generatedPositions: '182 through 200',
-  asynchronousCatalogRefresh: 'passed',
+  metadataFirstPagination: 'passed',
   catalogSourceLabel: 'accurate',
 }, null, 2));

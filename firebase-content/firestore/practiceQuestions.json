@@ -2,2401 +2,4329 @@
   {
     "id": "fund-variables-001",
     "title": "Create a User Label",
+    "summary": "Store two values and combine them into a concise user label.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-creation-assignment",
+    "questionType": "implementation",
+    "skills": [
+      "state-creation",
+      "basic-expression"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 1,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-1.json"
+    "storagePath": "practice/python/question-1.json",
+    "contentHash": "f82864abec10ea3c150af37372e32011ca53fb87868b0d57114230821bc48524"
   },
   {
     "id": "fund-variables-002",
     "title": "Track Store Inventory",
+    "summary": "Update an assigned quantity after sales and restocking.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-creation-assignment",
+    "questionType": "implementation",
+    "skills": [
+      "state-tracking",
+      "subtraction-and-addition"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 2,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-2.json"
+    "storagePath": "practice/python/question-2.json",
+    "contentHash": "f0705f0c0468fd43cfb4f00c912140625b12cdc0bcbb46dc18f8115a238f65c3"
   },
   {
     "id": "fund-variables-003",
     "title": "Swap Two Scores",
+    "summary": "Exchange the values held by two variables.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-creation-assignment",
+    "questionType": "implementation",
+    "skills": [
+      "state-transformation"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 3,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-3.json"
+    "storagePath": "practice/python/question-3.json",
+    "contentHash": "7ea549ca061596f27c0555e89be8d16294bb767a93ec8925e1f828a7ab8ca252"
   },
   {
     "id": "fund-variables-004",
     "title": "Repair a Reassignment",
+    "summary": "Correct a broken update to an account balance.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-creation-assignment",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-state",
+      "trace-values"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 4,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-4.json"
+    "storagePath": "practice/python/question-4.json",
+    "contentHash": "b47cca2b8b070bb5d3b952daa6e179b60a1d928d3b577e9c5d25662bf9fb7a46"
   },
   {
     "id": "fund-variables-005",
     "title": "Describe a Numeric Value",
+    "summary": "Distinguish whole numbers from decimal numbers.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "data-types",
+    "questionType": "implementation",
+    "skills": [
+      "type-identification"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 5,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-5.json"
+    "storagePath": "practice/python/question-5.json",
+    "contentHash": "ab6c01ab0e39cb3df09262c3d7a7953b6d35e2833fa3a9b77b1baaf62f5df84e"
   },
   {
     "id": "fund-variables-006",
     "title": "Repair a Text Quantity",
+    "summary": "Fix an operation that confuses numeric text with a number.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "data-types",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-types"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 6,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-6.json"
+    "storagePath": "practice/python/question-6.json",
+    "contentHash": "a55e172296cc49171ef7c7c2eb9d846d43291e480d12c1d58d9f3b477f216d48"
   },
   {
     "id": "fund-variables-007",
     "title": "Format Account Status",
+    "summary": "Use a boolean value as part of a status label.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "data-types",
+    "questionType": "implementation",
+    "skills": [
+      "value-representation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 7,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-7.json"
+    "storagePath": "practice/python/question-7.json",
+    "contentHash": "9b86a43efd6831ae6d036ab01bec0ce580780f93f839b8e5b407110c1982e973"
   },
   {
     "id": "fund-variables-008",
     "title": "Reason About Four Values",
+    "summary": "Identify the distinct types represented by common values.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "data-types",
+    "questionType": "reasoning",
+    "skills": [
+      "reasoning-about-types"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 8,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-8.json"
+    "storagePath": "practice/python/question-8.json",
+    "contentHash": "ef060648f4e4e33dd311dcafaa7eb6cda45cfcfa1e3fdffb35de2d2a0e79884c"
   },
   {
     "id": "fund-variables-009",
     "title": "Calculate a Line Total",
+    "summary": "Evaluate a multiplication expression using price and quantity.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "expressions-evaluation",
+    "questionType": "implementation",
+    "skills": [
+      "expression-construction"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 30,
+    "position": 9,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-9.json"
+    "storagePath": "practice/python/question-9.json",
+    "contentHash": "cf8b4ca6049176627c08e4cb9b7732f6fd08c325221ed8602f17ff081bbf5ec4"
   },
   {
     "id": "fund-variables-010",
     "title": "Predict the Expression Result",
+    "summary": "Apply multiplication-before-addition precedence.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "expressions-evaluation",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-evaluation-order"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 10,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-10.json"
+    "storagePath": "practice/python/question-10.json",
+    "contentHash": "c3e51bf65b4dba34c0f6e79d13a55a36d222a27a0347ee1a0214dd8b3170c40f"
   },
   {
     "id": "fund-variables-011",
     "title": "Repair the Average",
+    "summary": "Correct a precedence error in a two-value average.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "expressions-evaluation",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-expressions"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 11,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-11.json"
+    "storagePath": "practice/python/question-11.json",
+    "contentHash": "30e5d8dcfdfcae7fa0ace0dffda6f55398c98fc4cf494ac1bf09a7bc63b24d9c"
   },
   {
     "id": "fund-variables-012",
     "title": "Calculate Remaining Budget",
+    "summary": "Combine multiplication and subtraction in one expression.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "expressions-evaluation",
+    "questionType": "implementation",
+    "skills": [
+      "translate-calculation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 12,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-12.json"
+    "storagePath": "practice/python/question-12.json",
+    "contentHash": "d41aa3be394ffe838ccd3ea1ddc93091db91957db72141a65cb71235afdb8a7a"
   },
   {
     "id": "fund-variables-013",
     "title": "Build an Order Total",
+    "summary": "Combine price, quantity, delivery, and discount values.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-interaction",
+    "questionType": "implementation",
+    "skills": [
+      "coordinate-values",
+      "expression-construction"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 13,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-13.json"
+    "storagePath": "practice/python/question-13.json",
+    "contentHash": "a4a1c349572337b638ab9d791103551858336f7c89526d1b5f3cb64e399e2119"
   },
   {
     "id": "fund-variables-014",
     "title": "Combine Assessment Scores",
+    "summary": "Build a weighted result from two score variables.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-interaction",
+    "questionType": "implementation",
+    "skills": [
+      "weighted-calculation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 14,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-14.json"
+    "storagePath": "practice/python/question-14.json",
+    "contentHash": "1152b5e57f18f273da920d82658b15ded10025d9ae4b6fa5a35251ad36c26ba1"
   },
   {
     "id": "fund-variables-015",
     "title": "Trace a Running Measurement",
+    "summary": "Reason through a sequence of updates to one value.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "variable-interaction",
+    "questionType": "reasoning",
+    "skills": [
+      "state-tracking",
+      "execution-order"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 15,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-15.json"
+    "storagePath": "practice/python/question-15.json",
+    "contentHash": "918b45ba07d55aaa1cef1e59ee6dfe80dc48c484579dbb86848d2f0e003adfcd"
   },
   {
     "id": "fund-variables-016",
     "title": "Convert a Quantity",
+    "summary": "Convert a whole-number value stored as text before calculation.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "type-conversion",
+    "questionType": "implementation",
+    "skills": [
+      "convert-before-calculation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 16,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-16.json"
+    "storagePath": "practice/python/question-16.json",
+    "contentHash": "6c9cd2fdf48704f132de894ef9a8de12cd429b79f8e9ddf7fa62a2e3facb0883"
   },
   {
     "id": "fund-variables-017",
     "title": "Convert a Temperature Reading",
+    "summary": "Convert decimal text before applying a temperature formula.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "type-conversion",
+    "questionType": "implementation",
+    "skills": [
+      "type-conversion",
+      "numeric-expression"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 17,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-17.json"
+    "storagePath": "practice/python/question-17.json",
+    "contentHash": "37a84a6d9f0419c790d4a8716cadf709e94215192828045197a365a6b644ed35"
   },
   {
     "id": "fund-variables-018",
     "title": "Repair a Price Conversion",
+    "summary": "Correct a conversion when numeric text contains a currency symbol.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "type-conversion",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-conversion"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 18,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-18.json"
+    "storagePath": "practice/python/question-18.json",
+    "contentHash": "5857fa714bff42a44bf256f0dc1dde977f94c52ed451bf4578c6751349ac5db9"
   },
   {
     "id": "fund-variables-019",
     "title": "Handle an Invalid Whole Number",
+    "summary": "Return a deterministic result when text cannot become a whole number.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "edge-case-handling",
+      "deterministic-output"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 19,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-19.json"
+    "storagePath": "practice/python/question-19.json",
+    "contentHash": "5f41cc21c514fff4ca7eee87807d3d1f60b3d4ba7939f340fbeb6ea4936e5ee5"
   },
   {
     "id": "fund-variables-020",
     "title": "Resolve an Assignment Order",
+    "summary": "Reason about defining a value before another variable uses it.",
     "language": "Python",
     "topic": "variables-data-types-expressions",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "reasoning",
+    "skills": [
+      "reason-about-execution",
+      "dependency-order"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 20,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-20.json"
+    "storagePath": "practice/python/question-20.json",
+    "contentHash": "85c09dd519e42b0ea122c589ab5b10dbe41d4662e9363b6b0b69c7a4abf43515"
   },
   {
     "id": "practice-even-or-odd",
     "title": "Even or Odd",
+    "summary": "Determine whether a given integer is even or odd.",
     "language": "Python",
     "topic": "Conditionals",
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 21,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-21.json"
+    "storagePath": "practice/python/question-21.json",
+    "contentHash": "51de673e98871d962542b5a118cbed23ba846baea5a6c00ebb62daa38f3bd580"
   },
   {
     "id": "practice-sum-range",
     "title": "Sum from 1 to N",
+    "summary": "Use iteration to calculate a simple arithmetic total.",
     "language": "Python",
     "topic": "Loops",
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 22,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-22.json"
+    "storagePath": "practice/python/question-22.json",
+    "contentHash": "ba95f2f39f82a2447b580a50ad211a6b22cfed7bd8adec5ca2ca5dccf0c85e81"
   },
   {
     "id": "practice-reverse-text",
     "title": "Reverse a String",
+    "summary": "Transform a string while preserving every character.",
     "language": "Python",
     "topic": "Strings",
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 45,
+    "position": 23,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-23.json"
+    "storagePath": "practice/python/question-23.json",
+    "contentHash": "c019beff3546b6b3d3d18e3da9d2cb05f67184f29266f6f3427e11f16b1b479e"
   },
   {
     "id": "practice-largest-number",
     "title": "Largest Number",
+    "summary": "Find the maximum value without changing the input order.",
     "language": "Python",
     "topic": "Lists",
     "difficulty": "medium",
     "estimatedMinutes": 12,
     "xp": 70,
+    "position": 24,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-24.json"
+    "storagePath": "practice/python/question-24.json",
+    "contentHash": "2caafe754b9281ae5dbd2adab83bf2a96e6fb493b934472538479d522c61daa8"
   },
   {
     "id": "practice-word-frequency",
     "title": "Word Frequency",
+    "summary": "Count repeated words with a dictionary.",
     "language": "Python",
     "topic": "Dictionaries",
     "difficulty": "medium",
     "estimatedMinutes": 16,
     "xp": 90,
+    "position": 25,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-25.json"
+    "storagePath": "practice/python/question-25.json",
+    "contentHash": "9e5738948ec593c60d9888ea79a3acee5d72198997acf143ea243ff1d7f4cb71"
   },
   {
     "id": "practice-palindrome",
     "title": "Palindrome Check",
+    "summary": "Combine normalization and comparison to inspect text.",
     "language": "Python",
     "topic": "Strings",
     "difficulty": "hard",
     "estimatedMinutes": 20,
     "xp": 120,
+    "position": 26,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-26.json"
+    "storagePath": "practice/python/question-26.json",
+    "contentHash": "4185b735142d3fcf1ebdd8c575583890f4021ea046eebd687793fd70c4820a2e"
   },
   {
     "id": "fund-conditionals-001",
     "title": "Meet a Minimum Age",
+    "summary": "Check whether an age reaches a required minimum.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "basic-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "comparison",
+      "boundary-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 27,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-27.json"
+    "storagePath": "practice/python/question-27.json",
+    "contentHash": "fe8ae47c1e4af8efa45ee9457c30ab407daa0a16759f04ce7f0cb86bcfc1f53a"
   },
   {
     "id": "fund-conditionals-002",
     "title": "Detect a Positive Measurement",
+    "summary": "Check whether a measurement is above zero.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "basic-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "classify-a-value"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 28,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-28.json"
+    "storagePath": "practice/python/question-28.json",
+    "contentHash": "7978a6e8059563c303ac0d13a7f23d1419d1874143de704defbb3167cb2a6344"
   },
   {
     "id": "fund-conditionals-003",
     "title": "Trace a Threshold Reward",
+    "summary": "Reason about logic that runs only above a threshold.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "basic-conditions",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-conditional-state"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 29,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-29.json"
+    "storagePath": "practice/python/question-29.json",
+    "contentHash": "2fdd5ff0b3a96aba03ef5b13518a41f8e0dc4b8e839542554406ef98a6fcd143"
   },
   {
     "id": "fund-conditionals-004",
     "title": "Check a Required Score",
+    "summary": "Determine whether a score satisfies a configurable requirement.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "basic-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "comparison",
+      "decision-making"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 30,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-30.json"
+    "storagePath": "practice/python/question-30.json",
+    "contentHash": "e8d53bf8318d89085b0630c65022786d3ce7b17231e640c54374f1fa28455d4f"
   },
   {
     "id": "fund-conditionals-005",
     "title": "Return Pass or Fail",
+    "summary": "Choose one of two outcomes from an exam score.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "if-else",
+    "questionType": "implementation",
+    "skills": [
+      "two-way-branching"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 31,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-31.json"
+    "storagePath": "practice/python/question-31.json",
+    "contentHash": "a87702518203eb6608d94607bec7fab1fd616ec95907e212b677d573a13989da"
   },
   {
     "id": "fund-conditionals-006",
     "title": "Classify Adult or Minor",
+    "summary": "Select an age category with two exclusive branches.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "if-else",
+    "questionType": "implementation",
+    "skills": [
+      "branch-selection"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 32,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-32.json"
+    "storagePath": "practice/python/question-32.json",
+    "contentHash": "d3bf3d3b517d5799055cb4fb59e8044f9dae6f963700db300f8cef9c013460a0"
   },
   {
     "id": "fund-conditionals-007",
     "title": "Repair a Balance Check",
+    "summary": "Fix the branch used when a balance exactly covers a purchase.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "if-else",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-comparisons"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 33,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-33.json"
+    "storagePath": "practice/python/question-33.json",
+    "contentHash": "17231e2f8ad266f5d841a336c491527b4bb70aad1ada7488c82dff72a004ec42"
   },
   {
     "id": "fund-conditionals-008",
     "title": "Label Positive or Non-positive",
+    "summary": "Choose a label that handles zero explicitly.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "if-else",
+    "questionType": "implementation",
+    "skills": [
+      "two-way-classification"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 30,
+    "position": 34,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-34.json"
+    "storagePath": "practice/python/question-34.json",
+    "contentHash": "de216091c77726426feb565252f2f6a41d6aa4f7532857ada0bf5c00b61bb8ba"
   },
   {
     "id": "fund-conditionals-009",
     "title": "Confirm Event Entry",
+    "summary": "Require both age and permission conditions.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "multiple-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "boolean-reasoning",
+      "eligibility-check"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 35,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-35.json"
+    "storagePath": "practice/python/question-35.json",
+    "contentHash": "6af09bdcc65e87d14d75ede0ba7c71f65bc7a15e71e607fd088d69923c9e3e01"
   },
   {
     "id": "fund-conditionals-010",
     "title": "Repair an Inclusive Range",
+    "summary": "Fix incorrect boolean logic in a range check.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "multiple-conditions",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-boolean-logic",
+      "boundary-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 36,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-36.json"
+    "storagePath": "practice/python/question-36.json",
+    "contentHash": "084263914d31b516275f26a891a3ab90c22cec223965b7a0e4b6c41f7e34d3d9"
   },
   {
     "id": "fund-conditionals-011",
     "title": "Accept Multiple Service States",
+    "summary": "Allow either of two acceptable status values.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "multiple-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "boolean-reasoning",
+      "state-validation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 37,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-37.json"
+    "storagePath": "practice/python/question-37.json",
+    "contentHash": "c9d55e5bbf4d41c809ff7e7747023fc256b7aaee49e322e53a303603ec79d20f"
   },
   {
     "id": "fund-conditionals-012",
     "title": "Validate Registration Requirements",
+    "summary": "Combine three independent eligibility requirements.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "multiple-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "compound-eligibility"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 38,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-38.json"
+    "storagePath": "practice/python/question-38.json",
+    "contentHash": "b735bdb030ae685fc8e46680cdc4061f9c68376d4406b9dfc1b2ce7f57cc3b47"
   },
   {
     "id": "fund-conditionals-013",
     "title": "Assign a Grade Band",
+    "summary": "Select one of four ordered score categories.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "elif-branching",
+    "questionType": "implementation",
+    "skills": [
+      "condition-ordering",
+      "multi-way-classification"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 39,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-39.json"
+    "storagePath": "practice/python/question-39.json",
+    "contentHash": "fdce55d628e382733595d363b916eef2be43c29bcf75134caf59260ad397ec74"
   },
   {
     "id": "fund-conditionals-014",
     "title": "Repair Shipping Priority",
+    "summary": "Correct branch ordering for shipping categories.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "elif-branching",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-branching",
+      "condition-ordering"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 40,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-40.json"
+    "storagePath": "practice/python/question-40.json",
+    "contentHash": "4831bda75c519a1c0c26be1ddc77380042846494b0b5b1aa8e3b70c907367f63"
   },
   {
     "id": "fund-conditionals-015",
     "title": "Trace Temperature Categories",
+    "summary": "Reason through ordered temperature branches.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "elif-branching",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-branch-order"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 41,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-41.json"
+    "storagePath": "practice/python/question-41.json",
+    "contentHash": "79184a7fd3e40b34d289cc3dcb3893725a45979ba295488df7152c259204202a"
   },
   {
     "id": "fund-conditionals-016",
     "title": "Choose a Member Discount",
+    "summary": "Make a dependent decision after confirming membership.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "nested-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "multi-stage-eligibility"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 42,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-42.json"
+    "storagePath": "practice/python/question-42.json",
+    "contentHash": "0e00e44303f9623cbe58c1a61b18ae0f14b37b8694fee036a663d10218bef6c0"
   },
   {
     "id": "fund-conditionals-017",
     "title": "Trace Ticket Admission",
+    "summary": "Reason through two dependent admission checks.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "nested-conditions",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-multi-stage-decision"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 43,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-43.json"
+    "storagePath": "practice/python/question-43.json",
+    "contentHash": "2f027e94c0db893a626b93bf75d87978f08b35439949f063c65e49de3e55ad0d"
   },
   {
     "id": "fund-conditionals-018",
     "title": "Repair Minimum Ticket Age",
+    "summary": "Fix an off-by-one eligibility boundary.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "boundary-conditions-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-comparison",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 44,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-44.json"
+    "storagePath": "practice/python/question-44.json",
+    "contentHash": "ea3f9e54ec37f3b3168afecbea5d7c4eba42076ccb313dc1274544c6734375cf"
   },
   {
     "id": "fund-conditionals-019",
     "title": "Validate a Safe Temperature",
+    "summary": "Check both inclusive limits of a safe range.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "boundary-conditions-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "range-validation",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 45,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-45.json"
+    "storagePath": "practice/python/question-45.json",
+    "contentHash": "c838fdddbf5f60ee86b6753d548ec17552e87ecf43f5ba2eb99c05421d91f09a"
   },
   {
     "id": "fund-conditionals-020",
     "title": "Trace Overlapping Discount Tiers",
+    "summary": "Reason about branch order at exact discount thresholds.",
     "language": "Python",
     "topic": "conditionals",
+    "category": "fundamentals",
+    "subtopic": "boundary-conditions-common-mistakes",
+    "questionType": "reasoning",
+    "skills": [
+      "condition-ordering",
+      "boundary-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 46,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-46.json"
+    "storagePath": "practice/python/question-46.json",
+    "contentHash": "f44622fe499cc7878b003bdf70d35e7965bba7bcd0bd8196ceca19b74ca539de"
   },
   {
     "id": "fund-loops-001",
     "title": "Count Completed Repetitions",
+    "summary": "Track how many times a repeated task completes.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "basic-loops",
+    "questionType": "implementation",
+    "skills": [
+      "iterative-reasoning",
+      "counter-update"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 47,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-47.json"
+    "storagePath": "practice/python/question-47.json",
+    "contentHash": "b0fa08ae3ffb3c422f3c2946249b12907576dda9d17d092e3a5eb93b932c9c08"
   },
   {
     "id": "fund-loops-002",
     "title": "Sum Through a Boundary",
+    "summary": "Accumulate every whole number from one through a boundary.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "basic-loops",
+    "questionType": "implementation",
+    "skills": [
+      "accumulation",
+      "boundary-analysis"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 48,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-48.json"
+    "storagePath": "practice/python/question-48.json",
+    "contentHash": "855148021ec524abc60049ba717ee1d3139bd0ead72c8efa9de7e7f5d3a897f4"
   },
   {
     "id": "fund-loops-003",
     "title": "Repair an Iteration Count",
+    "summary": "Fix a loop that omits its final boundary.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "basic-loops",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-iteration",
+      "boundary-analysis"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 49,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-49.json"
+    "storagePath": "practice/python/question-49.json",
+    "contentHash": "d0049220f71be7522153e401d10995b69645c0be72569a2e785eb8526c25df76"
   },
   {
     "id": "fund-loops-004",
     "title": "Apply Repeated Growth",
+    "summary": "Update a value by the same amount for a fixed number of steps.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "basic-loops",
+    "questionType": "implementation",
+    "skills": [
+      "state-tracking",
+      "fixed-repetition"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 50,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-50.json"
+    "storagePath": "practice/python/question-50.json",
+    "contentHash": "18702cb0160fe1c35185905a4d444f9699299b409f1f772dd37e8314213e98b2"
   },
   {
     "id": "fund-loops-005",
     "title": "Count Matching Inventory Codes",
+    "summary": "Traverse a sequence and count a selected value.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "looping-over-sequences",
+    "questionType": "implementation",
+    "skills": [
+      "sequence-processing",
+      "conditional-counting"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 51,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-51.json"
+    "storagePath": "practice/python/question-51.json",
+    "contentHash": "0f462f7915b8c712930dcbce7fe916ab298cbb4e7be5300b0feae1f097a2970a"
   },
   {
     "id": "fund-loops-006",
     "title": "Count Vowels in a Name",
+    "summary": "Inspect each character in text and count vowels.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "looping-over-sequences",
+    "questionType": "implementation",
+    "skills": [
+      "character-inspection",
+      "sequence-processing"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 8,
     "xp": 35,
+    "position": 52,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-52.json"
+    "storagePath": "practice/python/question-52.json",
+    "contentHash": "d83a9b649301dd7a3876168708d9e52d45d7f35caa5a07ab4a5b27e17ef47660"
   },
   {
     "id": "fund-loops-007",
     "title": "Repair a Sequence Total",
+    "summary": "Fix traversal that skips the last value.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "looping-over-sequences",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-loop-boundaries"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 53,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-53.json"
+    "storagePath": "practice/python/question-53.json",
+    "contentHash": "a2f0e0c6ccfdc5bce398a83885c76836ef92b2c70f4d60b16f696b4e64fb8863"
   },
   {
     "id": "fund-loops-008",
     "title": "Check Every Sensor Reading",
+    "summary": "Traverse an entire sequence to verify a property.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "looping-over-sequences",
+    "questionType": "implementation",
+    "skills": [
+      "sequence-validation",
+      "iterative-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 54,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-54.json"
+    "storagePath": "practice/python/question-54.json",
+    "contentHash": "b6bc4026e8d8d8e320b84e926abe71f3986df83acce6713155d4943751e246fc"
   },
   {
     "id": "fund-loops-009",
     "title": "Total Monthly Expenses",
+    "summary": "Maintain a running total across expense values.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "accumulators-counters",
+    "questionType": "implementation",
+    "skills": [
+      "state-tracking",
+      "sequence-processing"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 55,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-55.json"
+    "storagePath": "practice/python/question-55.json",
+    "contentHash": "827c5b31d1e5589647be27996260ff228faf4a8cf609458377cf66abdfd8ce37"
   },
   {
     "id": "fund-loops-010",
     "title": "Repair a Passing Counter",
+    "summary": "Fix a counter that is reset during iteration.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "accumulators-counters",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-state",
+      "conditional-counting"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 56,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-56.json"
+    "storagePath": "practice/python/question-56.json",
+    "contentHash": "35075f9460a9b2928e1ffcfa65defce29c3c278c838e06067e3254c7d2188578"
   },
   {
     "id": "fund-loops-011",
     "title": "Sum Approved Transactions",
+    "summary": "Accumulate only values that satisfy a condition.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "accumulators-counters",
+    "questionType": "implementation",
+    "skills": [
+      "filter-and-accumulate"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 57,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-57.json"
+    "storagePath": "practice/python/question-57.json",
+    "contentHash": "bf9604a08d46e98b4ea64df7f5882f8be6ac22cfbbe82e5e5fa87fa461a53fd5"
   },
   {
     "id": "fund-loops-012",
     "title": "Track the Highest Reading",
+    "summary": "Maintain the highest value seen during traversal.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "accumulators-counters",
+    "questionType": "implementation",
+    "skills": [
+      "iterative-comparison",
+      "correct-initialization"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 58,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-58.json"
+    "storagePath": "practice/python/question-58.json",
+    "contentHash": "55339ae8dda0a712ec9e3de5c24a4e8ee8504c7e863893e62fb5bb05f4daeac3"
   },
   {
     "id": "fund-loops-013",
     "title": "Total a Reading Grid",
+    "summary": "Use outer and inner iteration to total a small grid.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "nested-loops",
+    "questionType": "implementation",
+    "skills": [
+      "outer-inner-reasoning",
+      "accumulation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 59,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-59.json"
+    "storagePath": "practice/python/question-59.json",
+    "contentHash": "af0d7fc8887aa90c8bd9fb93d9a5c40ff1fae9923ecb76fb04336b904513c6f9"
   },
   {
     "id": "fund-loops-014",
     "title": "Trace Nested Visit Counts",
+    "summary": "Reason about how often inner work occurs.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "nested-loops",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-nested-loops"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 60,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-60.json"
+    "storagePath": "practice/python/question-60.json",
+    "contentHash": "bd23cf7fd4ebfd48cea3c647c9a45aef8d3e4bf4e5a4824d90b9caee92198b46"
   },
   {
     "id": "fund-loops-015",
     "title": "Count Matching Pairs",
+    "summary": "Compare every value from one small sequence with every value from another.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "nested-loops",
+    "questionType": "reasoning",
+    "skills": [
+      "outer-inner-reasoning",
+      "conditional-counting"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 61,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-61.json"
+    "storagePath": "practice/python/question-61.json",
+    "contentHash": "4929d254844fae575fa60ca4bd932407841570ecfbed2f4bee45c45fdaa24e4b"
   },
   {
     "id": "fund-loops-016",
     "title": "Find the First Matching Position",
+    "summary": "Stop searching as soon as the first target is found.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "loop-control",
+    "questionType": "implementation",
+    "skills": [
+      "loop-control",
+      "first-match-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 62,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-62.json"
+    "storagePath": "practice/python/question-62.json",
+    "contentHash": "16d47b35e55f7af5b1d38b1536d268bfb01100c53a5a46d27e2d690ef33fbac9"
   },
   {
     "id": "fund-loops-017",
     "title": "Trace Skipped Readings",
+    "summary": "Reason about ignoring invalid values while accumulating.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "loop-control",
+    "questionType": "reasoning",
+    "skills": [
+      "loop-control",
+      "state-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 63,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-63.json"
+    "storagePath": "practice/python/question-63.json",
+    "contentHash": "11c87d4b391aef389fbce22681371efe1649b98eaf3146e41c776d8ea58e5797"
   },
   {
     "id": "fund-loops-018",
     "title": "Repair an Inclusive Total",
+    "summary": "Correct an off-by-one loop boundary.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "loop-edge-cases-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-loop-boundaries"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 64,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-64.json"
+    "storagePath": "practice/python/question-64.json",
+    "contentHash": "3069dd1a5dafd8e41dd298e385b133cf412ad459098aa335cb22c0e884eab209"
   },
   {
     "id": "fund-loops-019",
     "title": "Average Available Measurements",
+    "summary": "Handle empty input and maintain both total and count.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "loop-edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "edge-case-handling",
+      "state-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 65,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-65.json"
+    "storagePath": "practice/python/question-65.json",
+    "contentHash": "b41b337655dc2c68ed36350d0eba341ee68e579f1a5f15ee55bc391c02050e23"
   },
   {
     "id": "fund-loops-020",
     "title": "Trace the Final Processed Value",
+    "summary": "Reason about empty, single-value, and final-element behavior.",
     "language": "Python",
     "topic": "loops",
+    "category": "fundamentals",
+    "subtopic": "loop-edge-cases-common-mistakes",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-iteration-state",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 66,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-66.json"
+    "storagePath": "practice/python/question-66.json",
+    "contentHash": "145b0c7a540b059cc37a6f0f96ca4841cb2342b1f9a1d2cb4bda333ad078243c"
   },
   {
     "id": "fund-functions-001",
     "title": "Create a Personal Greeting",
+    "summary": "Use a parameter to make reusable greeting logic.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "function-basics-parameters",
+    "questionType": "implementation",
+    "skills": [
+      "abstraction",
+      "parameter-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 67,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-67.json"
+    "storagePath": "practice/python/question-67.json",
+    "contentHash": "99b65cbeb04bc8de39f076f34cca41630fbce2fa628c3c4e030fe55bd124acd7"
   },
   {
     "id": "fund-functions-002",
     "title": "Convert a Distance",
+    "summary": "Apply reusable conversion logic to one parameter.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "function-basics-parameters",
+    "questionType": "implementation",
+    "skills": [
+      "reusable-logic",
+      "parameter-use"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 68,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-68.json"
+    "storagePath": "practice/python/question-68.json",
+    "contentHash": "2ea476e1b8c4ba1e76afe593eb8de3d11a8973c34805874a1548c568ec4afe3b"
   },
   {
     "id": "fund-functions-003",
     "title": "Trace Parameter Values",
+    "summary": "Reason about arguments becoming parameter values.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "function-basics-parameters",
+    "questionType": "reasoning",
+    "skills": [
+      "parameter-reasoning",
+      "execution-tracing"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 69,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-69.json"
+    "storagePath": "practice/python/question-69.json",
+    "contentHash": "9991477f3e93566afacf72de13deae39aca8b921cf61cc8a55f0bb650fa0ad5b"
   },
   {
     "id": "fund-functions-004",
     "title": "Repair a Fixed Parameter",
+    "summary": "Fix reusable logic that ignores its input.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "function-basics-parameters",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-functions",
+      "parameter-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 70,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-70.json"
+    "storagePath": "practice/python/question-70.json",
+    "contentHash": "7bf1a184fae5f3c97acfe99fcb52959bb3d096cd4031821a1e5e5f2fa41ee342"
   },
   {
     "id": "fund-functions-005",
     "title": "Return a Temperature Difference",
+    "summary": "Produce a calculated value that callers can reuse.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "return-values",
+    "questionType": "implementation",
+    "skills": [
+      "return-value-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 71,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-71.json"
+    "storagePath": "practice/python/question-71.json",
+    "contentHash": "176b2d1d44f3eb0be0297196660a62608509a3be2c6550187a8de1e16feb2ec5"
   },
   {
     "id": "fund-functions-006",
     "title": "Repair a Missing Return",
+    "summary": "Replace display-only behavior with a reusable return value.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "return-values",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-return-values"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 72,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-72.json"
+    "storagePath": "practice/python/question-72.json",
+    "contentHash": "0757cf3f6c19a98c858aa540e69481e13156374fce6c20bed562f057e4b36849"
   },
   {
     "id": "fund-functions-007",
     "title": "Use a Returned Subtotal",
+    "summary": "Return a result and use it in a subsequent operation.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "return-values",
+    "questionType": "implementation",
+    "skills": [
+      "reusable-operation",
+      "value-flow"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 73,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-73.json"
+    "storagePath": "practice/python/question-73.json",
+    "contentHash": "d21bad7550a4fd0dfe3e6b0cbcd541663ae50592f08b50efedc25715d73ee39f"
   },
   {
     "id": "fund-functions-008",
     "title": "Trace a Returned Value",
+    "summary": "Reason about a returned result used by another calculation.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "return-values",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-value-flow",
+      "return-value-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 74,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-74.json"
+    "storagePath": "practice/python/question-74.json",
+    "contentHash": "b23c0aef208fe001677f1ce0bc28152f24e4f6899231e7782505dc3ec7384e20"
   },
   {
     "id": "fund-functions-009",
     "title": "Calculate Remaining Distance",
+    "summary": "Use ordered parameters whose positions affect the result.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "multiple-parameters",
+    "questionType": "implementation",
+    "skills": [
+      "parameter-reasoning",
+      "contract-following"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 75,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-75.json"
+    "storagePath": "practice/python/question-75.json",
+    "contentHash": "1e750fa58573c87cdf64763345dea2f910c8ac41b019fb3143b94fc3990c3542"
   },
   {
     "id": "fund-functions-010",
     "title": "Repair Discount Parameter Order",
+    "summary": "Fix a calculation that uses its parameters in the wrong roles.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "multiple-parameters",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-arguments",
+      "contract-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 76,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-76.json"
+    "storagePath": "practice/python/question-76.json",
+    "contentHash": "85dd0daa234e58b01844a870094950dcab4b36f3eb64ffdec44af1f741325a84"
   },
   {
     "id": "fund-functions-011",
     "title": "Combine Three Measurements",
+    "summary": "Calculate a result from three clearly defined parameters.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "multiple-parameters",
+    "questionType": "implementation",
+    "skills": [
+      "contract-following",
+      "combine-inputs"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 77,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-77.json"
+    "storagePath": "practice/python/question-77.json",
+    "contentHash": "377d3c790abc636fc3d0a45cfa3f697c9e6d1dd4c5b37b27448c9b917927befb"
   },
   {
     "id": "fund-functions-012",
     "title": "Apply an Optional Discount",
+    "summary": "Provide predictable behavior when an optional input is omitted.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "default-optional-behavior",
+    "questionType": "implementation",
+    "skills": [
+      "default-reasoning",
+      "reusable-logic"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 78,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-78.json"
+    "storagePath": "practice/python/question-78.json",
+    "contentHash": "f2247bd34b9898efdc9ef1e88495147e17196351674a5b742d5108d88b76b1cf"
   },
   {
     "id": "fund-functions-013",
     "title": "Trace an Optional Greeting",
+    "summary": "Reason about supplied and default behavior.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "default-optional-behavior",
+    "questionType": "reasoning",
+    "skills": [
+      "trace-default-values",
+      "parameter-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 79,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-79.json"
+    "storagePath": "practice/python/question-79.json",
+    "contentHash": "dbe2e378028da231cfcb70c96890c5a1c74cb6a2b345034b79ebcf03c6e55a67"
   },
   {
     "id": "fund-functions-014",
     "title": "Calculate with Local State",
+    "summary": "Keep intermediate values inside the reusable operation.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "scope-local-state",
+    "questionType": "implementation",
+    "skills": [
+      "scope-awareness",
+      "intermediate-state"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 80,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-80.json"
+    "storagePath": "practice/python/question-80.json",
+    "contentHash": "622a848def0fb33a5a1ffb8a4db67cde4845320834143ebef56c86922c3045a5"
   },
   {
     "id": "fund-functions-015",
     "title": "Repair Undefined Local State",
+    "summary": "Fix an incorrectly assumed outside variable.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "scope-local-state",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-scope",
+      "scope-awareness"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 81,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-81.json"
+    "storagePath": "practice/python/question-81.json",
+    "contentHash": "a8711cd82b66654178112e445db784364dfb0c2ee22b9eeafa378e98417e3260"
   },
   {
     "id": "fund-functions-016",
     "title": "Trace a Local Adjustment",
+    "summary": "Reason about a local value that does not replace its input.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "scope-local-state",
+    "questionType": "reasoning",
+    "skills": [
+      "scope-awareness",
+      "execution-tracing"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 82,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-82.json"
+    "storagePath": "practice/python/question-82.json",
+    "contentHash": "86296ff7b1ceb6b5046c3015c16ee8807a7d52ecff2ee337909ad26bf80fea45"
   },
   {
     "id": "fund-functions-017",
     "title": "Compose Subtotal and Tax",
+    "summary": "Pass one function result into another calculation.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "combining-functions",
+    "questionType": "implementation",
+    "skills": [
+      "decomposition",
+      "value-flow"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 83,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-83.json"
+    "storagePath": "practice/python/question-83.json",
+    "contentHash": "8b0bc75333853852eeb4b94a1e023659352dac1e749a9ae0a349f0845b2f8a9b"
   },
   {
     "id": "fund-functions-018",
     "title": "Convert Then Classify Temperature",
+    "summary": "Compose a conversion with a simple classification.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "combining-functions",
+    "questionType": "implementation",
+    "skills": [
+      "decomposition",
+      "return-value-use"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 84,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-84.json"
+    "storagePath": "practice/python/question-84.json",
+    "contentHash": "1c15097ce62199492b4b5c63d763f009af4592e9705c4f6d421b8c860bcbde76"
   },
   {
     "id": "fund-functions-019",
     "title": "Return a Safe Ratio",
+    "summary": "Handle a zero divisor with an explicit return value.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "function-edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "defensive-contract-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 85,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-85.json"
+    "storagePath": "practice/python/question-85.json",
+    "contentHash": "8951c26581769b159c983b287cf519e1a877487c541ac2d0fcbd6be46d89ce37"
   },
   {
     "id": "fund-functions-020",
     "title": "Format Name Parameters",
+    "summary": "Respect parameter meaning and handle an empty optional part.",
     "language": "Python",
     "topic": "functions",
+    "category": "fundamentals",
+    "subtopic": "function-edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "contract-following",
+      "edge-case-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 86,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-86.json"
+    "storagePath": "practice/python/question-86.json",
+    "contentHash": "8d73f24e3bdd61cc1670e9900fe2e4492899b9f98b78083f13082d7dba579b89"
   },
   {
     "id": "fund-strings-001",
     "title": "Read the First Character",
+    "summary": "Access the first position of non-empty text.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-basics-indexing",
+    "questionType": "implementation",
+    "skills": [
+      "sequence-reasoning",
+      "boundary-analysis"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 87,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-87.json"
+    "storagePath": "practice/python/question-87.json",
+    "contentHash": "1282bc69f5fb5049ad61cd00f0f3ab9cf5fbf822e99b653f885ccbae90977b20"
   },
   {
     "id": "fund-strings-002",
     "title": "Read the Last Character",
+    "summary": "Access the final valid position of text.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-basics-indexing",
+    "questionType": "implementation",
+    "skills": [
+      "sequence-reasoning",
+      "boundary-analysis"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 88,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-88.json"
+    "storagePath": "practice/python/question-88.json",
+    "contentHash": "66a828adc8eebce6404edac8b49d69ae65864344316c6428e971854437f45b28"
   },
   {
     "id": "fund-strings-003",
     "title": "Trace a Character Position",
+    "summary": "Reason about zero-based positions in text.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-basics-indexing",
+    "questionType": "reasoning",
+    "skills": [
+      "sequence-reasoning",
+      "index-boundary"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 89,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-89.json"
+    "storagePath": "practice/python/question-89.json",
+    "contentHash": "ee6f60d6a43a2a6b6e1765457810e3db4294ee1a214f13c725e41e8200f1904b"
   },
   {
     "id": "fund-strings-004",
     "title": "Repair the Final Position",
+    "summary": "Fix an off-by-one index used for the last character.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-basics-indexing",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-indexing"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 90,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-90.json"
+    "storagePath": "practice/python/question-90.json",
+    "contentHash": "c5be868077250b7812a7e7d5788a91bfd609e12075ce486f1cd2d5459d32ef0b"
   },
   {
     "id": "fund-strings-005",
     "title": "Count Numeric Characters",
+    "summary": "Inspect every character and count digits.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-traversal",
+    "questionType": "implementation",
+    "skills": [
+      "character-processing",
+      "counting"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 91,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-91.json"
+    "storagePath": "practice/python/question-91.json",
+    "contentHash": "5a66415d144d5756bb00e46131e3f13104c9d1b1ef70550247dd224e326e2bc3"
   },
   {
     "id": "fund-strings-006",
     "title": "Collect Uppercase Characters",
+    "summary": "Build text from selected characters during traversal.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-traversal",
+    "questionType": "implementation",
+    "skills": [
+      "character-selection",
+      "order-preservation"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 8,
     "xp": 35,
+    "position": 92,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-92.json"
+    "storagePath": "practice/python/question-92.json",
+    "contentHash": "98c377dc98ba69b14d758cdcc802f75ed51d4889056af0f6f4784efd10c03db6"
   },
   {
     "id": "fund-strings-007",
     "title": "Repair Selected Character Building",
+    "summary": "Fix a result that resets during traversal.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-traversal",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-traversal",
+      "state-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 93,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-93.json"
+    "storagePath": "practice/python/question-93.json",
+    "contentHash": "0b1df17096293c0c37d10224ec439145e230f7a6ef67c4b5d9fba40b99eb9228"
   },
   {
     "id": "fund-strings-008",
     "title": "Trace Alternating Characters",
+    "summary": "Reason about selected positions while traversing text.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-traversal",
+    "questionType": "reasoning",
+    "skills": [
+      "index-reasoning",
+      "string-construction"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 94,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-94.json"
+    "storagePath": "practice/python/question-94.json",
+    "contentHash": "0b842092c9b7d91f052c02b3323dd7f112ae1a0b21ac89c581d16f816cb23334"
   },
   {
     "id": "fund-strings-009",
     "title": "Check for a Search Term",
+    "summary": "Determine whether exact text occurs within a message.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "searching-matching",
+    "questionType": "implementation",
+    "skills": [
+      "exact-matching",
+      "search-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 95,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-95.json"
+    "storagePath": "practice/python/question-95.json",
+    "contentHash": "bf373ed66f7f3a5b7fdf45c98fca180bca82ee7095d3199f1e82ad1f5c4d80fe"
   },
   {
     "id": "fund-strings-010",
     "title": "Repair the First Match Position",
+    "summary": "Fix search behavior for matches at the first position.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "searching-matching",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-search-results",
+      "boundary-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 96,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-96.json"
+    "storagePath": "practice/python/question-96.json",
+    "contentHash": "25e7a73a3bc5265063a8bdb5bf160091938a13592344cd7be0549c421ac91f87"
   },
   {
     "id": "fund-strings-011",
     "title": "Count Exact Character Matches",
+    "summary": "Count zero, one, or several occurrences of a character.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "searching-matching",
+    "questionType": "implementation",
+    "skills": [
+      "exact-matching",
+      "counting"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 97,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-97.json"
+    "storagePath": "practice/python/question-97.json",
+    "contentHash": "74096fe95b37b2a4d10ec8e15b58f633252531d3eb6f4c3c35194cb006200cae"
   },
   {
     "id": "fund-strings-012",
     "title": "Normalize to Uppercase",
+    "summary": "Return an uppercase version without changing other characters.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-transformation",
+    "questionType": "implementation",
+    "skills": [
+      "text-transformation",
+      "character-preservation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 98,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-98.json"
+    "storagePath": "practice/python/question-98.json",
+    "contentHash": "873e40b8c77ffc2f4edd10a469ad158bca50bb1dd85196faf0fdd59d3db32e99"
   },
   {
     "id": "fund-strings-013",
     "title": "Trace Character Replacement",
+    "summary": "Reason about replacing every exact selected character.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-transformation",
+    "questionType": "reasoning",
+    "skills": [
+      "transformation-reasoning",
+      "character-preservation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 99,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-99.json"
+    "storagePath": "practice/python/question-99.json",
+    "contentHash": "c66aef6835797988953aff8c8d6caa6783d9e9e8943539c0a9dd090aace79802"
   },
   {
     "id": "fund-strings-014",
     "title": "Remove a Selected Character",
+    "summary": "Construct text while excluding one exact character.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-transformation",
+    "questionType": "implementation",
+    "skills": [
+      "string-construction",
+      "exact-matching"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 100,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-100.json"
+    "storagePath": "practice/python/question-100.json",
+    "contentHash": "161e92399a40fb726afc6deabf717fbfd2cab69feb087d8c8d9e2ed41ee82b40"
   },
   {
     "id": "fund-strings-015",
     "title": "Count Words in Simple Text",
+    "summary": "Split text on whitespace and count resulting words.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "splitting-joining-parsing",
+    "questionType": "implementation",
+    "skills": [
+      "simple-parsing",
+      "input-normalization"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 101,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-101.json"
+    "storagePath": "practice/python/question-101.json",
+    "contentHash": "b3c64a60311a1834701320fcaf8f12341f5eac97c38e5345724c06b9b8e363a4"
   },
   {
     "id": "fund-strings-016",
     "title": "Repair Word Joining",
+    "summary": "Fix reconstruction that uses the wrong separator.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "splitting-joining-parsing",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-string-construction"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 102,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-102.json"
+    "storagePath": "practice/python/question-102.json",
+    "contentHash": "c2333d996070fb020983c7415bcc254ebf09d3f0eed17b4a491081fd31cb4d13"
   },
   {
     "id": "fund-strings-017",
     "title": "Extract a Middle Field",
+    "summary": "Parse a simple three-field delimited value.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "splitting-joining-parsing",
+    "questionType": "implementation",
+    "skills": [
+      "simple-parsing",
+      "index-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 103,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-103.json"
+    "storagePath": "practice/python/question-103.json",
+    "contentHash": "f7ced4a84d01d6e40667c5d87535cf042212722014d74c5146ae0ef64c36ca97"
   },
   {
     "id": "fund-strings-018",
     "title": "Validate Digit-only Text",
+    "summary": "Require at least one character and accept digits only.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-validation-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "input-validation",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 104,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-104.json"
+    "storagePath": "practice/python/question-104.json",
+    "contentHash": "53e4d3a4df7ea4566b085e3955425fc7b6f57a2ff2104b639f85ddff6992095f"
   },
   {
     "id": "fund-strings-019",
     "title": "Trace an Exact Code Match",
+    "summary": "Reason about case-sensitive equality.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-validation-edge-cases",
+    "questionType": "reasoning",
+    "skills": [
+      "comparison-reasoning",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 105,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-105.json"
+    "storagePath": "practice/python/question-105.json",
+    "contentHash": "e5580bf1de918b8666d68bb876c7dbb334f3f91238053ba9759f76b4971ff37f"
   },
   {
     "id": "fund-strings-020",
     "title": "Validate a Display Name",
+    "summary": "Reject empty, whitespace-only, and punctuated names.",
     "language": "Python",
     "topic": "strings",
+    "category": "fundamentals",
+    "subtopic": "string-validation-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "input-validation",
+      "character-processing"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 106,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-106.json"
+    "storagePath": "practice/python/question-106.json",
+    "contentHash": "00e17a7f95fbb19ed32d02490912eb0050d1c2e6148b3964b912d1e6da9b12b2"
   },
   {
     "id": "fund-arrays-001",
     "title": "Read the First Inventory Item",
+    "summary": "Access the first element of an ordered collection.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "list-array-basics-indexing",
+    "questionType": "implementation",
+    "skills": [
+      "sequence-reasoning",
+      "boundary-analysis"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 107,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-107.json"
+    "storagePath": "practice/python/question-107.json",
+    "contentHash": "69b83a0ffc26f7d280dee3920fb4f62676ba5ed12da31829f3e23fc67a9c7aea"
   },
   {
     "id": "fund-arrays-002",
     "title": "Read the Last Temperature",
+    "summary": "Access the final element of a non-empty collection.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "list-array-basics-indexing",
+    "questionType": "implementation",
+    "skills": [
+      "index-reasoning",
+      "boundary-analysis"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 5,
     "xp": 20,
+    "position": 108,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-108.json"
+    "storagePath": "practice/python/question-108.json",
+    "contentHash": "947ec6afe93fa5837dec596ddb62c0a9334aa36cb7d2aba7c21a69ea271fbadf"
   },
   {
     "id": "fund-arrays-003",
     "title": "Trace a Rating Position",
+    "summary": "Reason about zero-based positions in a collection.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "list-array-basics-indexing",
+    "questionType": "reasoning",
+    "skills": [
+      "sequence-reasoning",
+      "index-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 109,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-109.json"
+    "storagePath": "practice/python/question-109.json",
+    "contentHash": "f68f6ac807bcba9013b6d37ad166d255833e210fe773a6d7483f153a11a3b15b"
   },
   {
     "id": "fund-arrays-004",
     "title": "Repair the Collection Size",
+    "summary": "Fix an off-by-one error in a collection count.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "list-array-basics-indexing",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-boundaries",
+      "collection-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 110,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-110.json"
+    "storagePath": "practice/python/question-110.json",
+    "contentHash": "5099b358dc1256038c21abd50d3aa4fd5f46a549d8bf021919333f490749c0ab"
   },
   {
     "id": "fund-arrays-005",
     "title": "Count Positive Measurements",
+    "summary": "Traverse a collection and count values above zero.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "traversing-lists",
+    "questionType": "implementation",
+    "skills": [
+      "collection-traversal",
+      "condition-evaluation"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 111,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-111.json"
+    "storagePath": "practice/python/question-111.json",
+    "contentHash": "feba144748d4505a90f01e2e21344e424fa6b03df3b2c04e31de37ce3a0b6821"
   },
   {
     "id": "fund-arrays-006",
     "title": "Collect Scores Above a Target",
+    "summary": "Select qualifying elements while preserving order.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "traversing-lists",
+    "questionType": "implementation",
+    "skills": [
+      "result-construction",
+      "order-preservation"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 8,
     "xp": 35,
+    "position": 112,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-112.json"
+    "storagePath": "practice/python/question-112.json",
+    "contentHash": "a851367a9ca249b2dc20cfb4ca701788f7c8d5d7f0bb6665d08544aa87a0cb1d"
   },
   {
     "id": "fund-arrays-007",
     "title": "Repair the Collected Even Values",
+    "summary": "Fix a result collection that resets during traversal.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "traversing-lists",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-traversal",
+      "result-construction"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 113,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-113.json"
+    "storagePath": "practice/python/question-113.json",
+    "contentHash": "68b7e3b4e58bef9b110b9fa3b0ca96d9c2dd2d586fce1d618b332d3a3849c236"
   },
   {
     "id": "fund-arrays-008",
     "title": "Count Zero Readings",
+    "summary": "Count every exact zero during traversal.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "traversing-lists",
+    "questionType": "implementation",
+    "skills": [
+      "exact-matching",
+      "accumulator-management"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 114,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-114.json"
+    "storagePath": "practice/python/question-114.json",
+    "contentHash": "51abd531131651263264cda11cf077a203e46dad9408928cfc409b4f6f77dc85"
   },
   {
     "id": "fund-arrays-009",
     "title": "Add an Item to the End",
+    "summary": "Create an updated collection with one appended item.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-updating-elements",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "state-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 115,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-115.json"
+    "storagePath": "practice/python/question-115.json",
+    "contentHash": "eb4cae8b17ea99966020f3f7830de84d624fc291621bf2cf77f5b6c3ae788bef"
   },
   {
     "id": "fund-arrays-010",
     "title": "Repair First-item Removal",
+    "summary": "Fix removal so only the first matching item is removed.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-updating-elements",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-mutation",
+      "state-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 116,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-116.json"
+    "storagePath": "practice/python/question-116.json",
+    "contentHash": "e1eba3841e780a3314a546341f6501b6e7da22d19350c3042e31fce2fbceec36"
   },
   {
     "id": "fund-arrays-011",
     "title": "Update a Known Position Safely",
+    "summary": "Return an updated copy or an unchanged copy for an invalid position.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-updating-elements",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "boundary-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 117,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-117.json"
+    "storagePath": "practice/python/question-117.json",
+    "contentHash": "12a4a1f42088e14744a84d5765babd31124b2a947f9e14adf9a9382f0b3a923c"
   },
   {
     "id": "fund-arrays-012",
     "title": "Check Inventory Availability",
+    "summary": "Determine whether an exact value exists in a collection.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "searching-counting",
+    "questionType": "implementation",
+    "skills": [
+      "collection-traversal",
+      "search-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 118,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-118.json"
+    "storagePath": "practice/python/question-118.json",
+    "contentHash": "8609e350e3f620b3478d1677591822e6a3ea0170920a9ca407df08ea46ca5199"
   },
   {
     "id": "fund-arrays-013",
     "title": "Trace Duplicate Score Counts",
+    "summary": "Reason about zero, one, and multiple matches.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "searching-counting",
+    "questionType": "reasoning",
+    "skills": [
+      "exact-matching",
+      "accumulator-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 119,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-119.json"
+    "storagePath": "practice/python/question-119.json",
+    "contentHash": "b3e7b455ba40e0e972d22fddfa4c67ca2787a7e4cb3a4ff5172d116509a4d865"
   },
   {
     "id": "fund-arrays-014",
     "title": "Find the First Matching Position",
+    "summary": "Find the first occurrence or report a missing target.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "searching-counting",
+    "questionType": "implementation",
+    "skills": [
+      "search-reasoning",
+      "boundary-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 120,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-120.json"
+    "storagePath": "practice/python/question-120.json",
+    "contentHash": "40d93ca8fe38666d0f29f9b138071ffc70c3d47cb5ad8a14876363c4304eb9c8"
   },
   {
     "id": "fund-arrays-015",
     "title": "Total the Expenses",
+    "summary": "Aggregate numeric values with a running total.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "aggregation-simple-transformations",
+    "questionType": "implementation",
+    "skills": [
+      "accumulator-management",
+      "collection-traversal"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 121,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-121.json"
+    "storagePath": "practice/python/question-121.json",
+    "contentHash": "35ff6e09d24a3a385d1fb77eb83704b83f06ea209137c7bc03958aaa399646ae"
   },
   {
     "id": "fund-arrays-016",
     "title": "Reason About an Average Score",
+    "summary": "Compute a simple average with defined empty behavior.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "aggregation-simple-transformations",
+    "questionType": "reasoning",
+    "skills": [
+      "aggregation",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 122,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-122.json"
+    "storagePath": "practice/python/question-122.json",
+    "contentHash": "091380e59a9a7f2a48001cb861e8e7c29ce8a5c0d9acb4119c2a62281ca76621"
   },
   {
     "id": "fund-arrays-017",
     "title": "Adjust Every Measurement",
+    "summary": "Build a transformed collection element by element.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "aggregation-simple-transformations",
+    "questionType": "implementation",
+    "skills": [
+      "result-construction",
+      "collection-manipulation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 123,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-123.json"
+    "storagePath": "practice/python/question-123.json",
+    "contentHash": "ffec20eb1f64fd9bd0a22d3b53eb8ed93f63a2332a131b693fc78f99045e5903"
   },
   {
     "id": "fund-arrays-018",
     "title": "Repair the Highest Reading",
+    "summary": "Fix maximum aggregation for empty and negative collections.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-aggregation",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 124,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-124.json"
+    "storagePath": "practice/python/question-124.json",
+    "contentHash": "e5f99d68982a75aaec5a2b6e91ac253d9ad47c6d184da6fc2a65145660f363a6"
   },
   {
     "id": "fund-arrays-019",
     "title": "Read a Position Safely",
+    "summary": "Handle valid and invalid collection positions explicitly.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "boundary-analysis",
+      "defensive-access"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 125,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-125.json"
+    "storagePath": "practice/python/question-125.json",
+    "contentHash": "dae8b990e2f9b16bacf3fc67d526f4f83b19159f2fad9075861c01efb4f38386"
   },
   {
     "id": "fund-arrays-020",
     "title": "Replace Only the Final Item",
+    "summary": "Reason about the final boundary while preserving other values.",
     "language": "Python",
     "topic": "arrays-lists",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "reasoning",
+    "skills": [
+      "boundary-analysis",
+      "state-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 126,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-126.json"
+    "storagePath": "practice/python/question-126.json",
+    "contentHash": "67c51a468cfae675d6203a992434df4428a2e64666ea5461d172c35f0a8d1185"
   },
   {
     "id": "fund-dictionaries-001",
     "title": "Create a Person-to-Age Mapping",
+    "summary": "Create one key-value relationship.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "dictionary-map-basics",
+    "questionType": "implementation",
+    "skills": [
+      "mapping-reasoning",
+      "key-value-association"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 127,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-127.json"
+    "storagePath": "practice/python/question-127.json",
+    "contentHash": "245b4222c9622bf48c671be5c14556af344c532270df259838149ae54f7e9420"
   },
   {
     "id": "fund-dictionaries-002",
     "title": "Look Up a Product Price",
+    "summary": "Retrieve a value through its existing key.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "dictionary-map-basics",
+    "questionType": "implementation",
+    "skills": [
+      "key-lookup",
+      "mapping-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 128,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-128.json"
+    "storagePath": "practice/python/question-128.json",
+    "contentHash": "628585a3a49536be617a55c91d54d43ad0b1a1eb3b33eb8cad481bfac65526c6"
   },
   {
     "id": "fund-dictionaries-003",
     "title": "Trace a Capital Lookup",
+    "summary": "Reason about selecting one value from multiple keys.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "dictionary-map-basics",
+    "questionType": "reasoning",
+    "skills": [
+      "mapping-reasoning",
+      "key-lookup"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 129,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-129.json"
+    "storagePath": "practice/python/question-129.json",
+    "contentHash": "bd0d73b72305e5741b0a15f89ebd94b01faef3ebfa1022f57af9effd5f849496"
   },
   {
     "id": "fund-dictionaries-004",
     "title": "Repair a Label Lookup",
+    "summary": "Fix confusion between keys and values.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "dictionary-map-basics",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-lookups",
+      "mapping-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 130,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-130.json"
+    "storagePath": "practice/python/question-130.json",
+    "contentHash": "ae206162e453d848a0a665a5fb42a473aca195deddc68b5724da813aa4c8acab"
   },
   {
     "id": "fund-dictionaries-005",
     "title": "Update a Product Price",
+    "summary": "Change one existing value in a copied mapping.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "accessing-updating-values",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "state-tracking"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 8,
     "xp": 35,
+    "position": 131,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-131.json"
+    "storagePath": "practice/python/question-131.json",
+    "contentHash": "79d87629eaff64d6eb61b17e4bd7ff726973254298e5959567a3d7f8916950ff"
   },
   {
     "id": "fund-dictionaries-006",
     "title": "Add Points to a Student Score",
+    "summary": "Read and update an existing mapping value.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "accessing-updating-values",
+    "questionType": "implementation",
+    "skills": [
+      "key-lookup",
+      "state-tracking"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 8,
     "xp": 35,
+    "position": 132,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-132.json"
+    "storagePath": "practice/python/question-132.json",
+    "contentHash": "b7d0fa6688f3a83b6918820b23bef1dd7f028e88919ee656d1b24044515ed3ac"
   },
   {
     "id": "fund-dictionaries-007",
     "title": "Repair the Account Update",
+    "summary": "Fix an update that changes the wrong key.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "accessing-updating-values",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-updates",
+      "key-selection"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 133,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-133.json"
+    "storagePath": "practice/python/question-133.json",
+    "contentHash": "68156ad83402664ddeb1f03f779160d9bd03764815d5d89e3b4c88475ce3e1bd"
   },
   {
     "id": "fund-dictionaries-008",
     "title": "Trace a Preference Change",
+    "summary": "Reason about mapping state after one update.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "accessing-updating-values",
+    "questionType": "reasoning",
+    "skills": [
+      "state-tracking",
+      "mapping-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 134,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-134.json"
+    "storagePath": "practice/python/question-134.json",
+    "contentHash": "f58cdf937bf5e999a864fb03ed284eb028d93b3a847dd770d7ad0f59af01dcf9"
   },
   {
     "id": "fund-dictionaries-009",
     "title": "Register a Product Entry",
+    "summary": "Add or replace one key-value entry in a copied mapping.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-entries",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "state-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 135,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-135.json"
+    "storagePath": "practice/python/question-135.json",
+    "contentHash": "61dc0aafcc258068193322ffe827220c1978350f1464425a12a42369102801f0"
   },
   {
     "id": "fund-dictionaries-010",
     "title": "Repair Contact Removal",
+    "summary": "Remove an entry by key rather than by value.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-entries",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-removal",
+      "missing-data-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 136,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-136.json"
+    "storagePath": "practice/python/question-136.json",
+    "contentHash": "aeb3b988e244d9c9d265c6bd3bddc08b8372ac9910bfd1d072511e298a1258b0"
   },
   {
     "id": "fund-dictionaries-011",
     "title": "Rename a Catalog Key",
+    "summary": "Remove one key and insert its value under a new key.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-entries",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "missing-data-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 137,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-137.json"
+    "storagePath": "practice/python/question-137.json",
+    "contentHash": "747c7966072faeea6d8f898f1bee5709de3eba510178db7756a736f8ea1a75a5"
   },
   {
     "id": "fund-dictionaries-012",
     "title": "Check Username Membership",
+    "summary": "Check whether a key exists regardless of its value.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "searching-membership",
+    "questionType": "implementation",
+    "skills": [
+      "membership-checking",
+      "key-value-distinction"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 138,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-138.json"
+    "storagePath": "practice/python/question-138.json",
+    "contentHash": "b7efe2cbd00dcb0de05b1480405c10d461114a40b518add3d04c4be2dbde0e87"
   },
   {
     "id": "fund-dictionaries-013",
     "title": "Trace a Safe Score Lookup",
+    "summary": "Distinguish a missing key from a stored zero.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "searching-membership",
+    "questionType": "reasoning",
+    "skills": [
+      "missing-data-handling",
+      "mapping-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 139,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-139.json"
+    "storagePath": "practice/python/question-139.json",
+    "contentHash": "ad183d3344a7d7d6f583fa7e9c6b0d82ee1d5ab790412598d46ad7684248576b"
   },
   {
     "id": "fund-dictionaries-014",
     "title": "Check for a Registered Value",
+    "summary": "Search stored values without confusing them with keys.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "searching-membership",
+    "questionType": "implementation",
+    "skills": [
+      "mapping-traversal",
+      "exact-matching"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 140,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-140.json"
+    "storagePath": "practice/python/question-140.json",
+    "contentHash": "c375d64b9bae72d4e6c7d87b14aab3730bdc8c4da02dfde6aee471ef88f28719"
   },
   {
     "id": "fund-dictionaries-015",
     "title": "Count Word Frequencies",
+    "summary": "Build an item-to-count mapping.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "counting-frequency-tracking",
+    "questionType": "implementation",
+    "skills": [
+      "frequency-tracking",
+      "collection-traversal"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 141,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-141.json"
+    "storagePath": "practice/python/question-141.json",
+    "contentHash": "9d99fa36f1e0c5ba049a5b7780814904bfcd6a40cee92069d3ef270851a4ccc6"
   },
   {
     "id": "fund-dictionaries-016",
     "title": "Repair Category Counting",
+    "summary": "Fix frequency initialization that resets repeated categories.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "counting-frequency-tracking",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-accumulators",
+      "frequency-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 142,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-142.json"
+    "storagePath": "practice/python/question-142.json",
+    "contentHash": "dae5f800e4220db47f7f57b61b811d33b63d5403204d67ac1a870a9171d2cb0a"
   },
   {
     "id": "fund-dictionaries-017",
     "title": "Trace Label Frequencies",
+    "summary": "Reason about mapping state across repeated labels.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "counting-frequency-tracking",
+    "questionType": "reasoning",
+    "skills": [
+      "state-tracking",
+      "frequency-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 143,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-143.json"
+    "storagePath": "practice/python/question-143.json",
+    "contentHash": "8528dfe9c9f47bbc725cfdf448cece2166a34b49d5991a66065643c0ceef7d86"
   },
   {
     "id": "fund-dictionaries-018",
     "title": "Read a Setting Safely",
+    "summary": "Provide an explicit fallback for a missing key.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "missing-data-handling",
+      "key-lookup"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 144,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-144.json"
+    "storagePath": "practice/python/question-144.json",
+    "contentHash": "9752affa776f7a0d4530c8bcff8750ce17dc182263c8b0ccd9d50cdae47427da"
   },
   {
     "id": "fund-dictionaries-019",
     "title": "Increment a Tracked Count",
+    "summary": "Handle both existing and missing frequency keys.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "frequency-tracking",
+      "missing-data-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 145,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-145.json"
+    "storagePath": "practice/python/question-145.json",
+    "contentHash": "68ab4326c6550bfa722969b7deeb73bae8e7b41921332a176a288be9cf485219"
   },
   {
     "id": "fund-dictionaries-020",
     "title": "Add Defaults Without Overwriting",
+    "summary": "Fill missing keys while preserving existing values.",
     "language": "Python",
     "topic": "dictionaries-hash-maps",
+    "category": "fundamentals",
+    "subtopic": "edge-cases-common-mistakes",
+    "questionType": "implementation",
+    "skills": [
+      "mapping-reasoning",
+      "collection-manipulation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 146,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-146.json"
+    "storagePath": "practice/python/question-146.json",
+    "contentHash": "de170b3d12870f839f4cef3c740318cead88a8e4a24d2d6b55ededd13fc119f8"
   },
   {
     "id": "fund-sets-001",
     "title": "Count Unique Categories",
+    "summary": "Count distinct values rather than input positions.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "set-basics-uniqueness",
+    "questionType": "implementation",
+    "skills": [
+      "uniqueness-reasoning",
+      "collection-conversion"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 147,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-147.json"
+    "storagePath": "practice/python/question-147.json",
+    "contentHash": "52106fc9cb528c9b2db036fd9cf50b8c06e1cb1ca5438d679654247886f97d5d"
   },
   {
     "id": "fund-sets-002",
     "title": "Trace Unique Labels",
+    "summary": "Reason about duplicate values collapsing into one.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "set-basics-uniqueness",
+    "questionType": "reasoning",
+    "skills": [
+      "uniqueness-reasoning",
+      "duplicate-elimination"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 148,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-148.json"
+    "storagePath": "practice/python/question-148.json",
+    "contentHash": "0ce828dc29fb5ff215fb98cbba08cddc0cbed52d69cc6b32563405d40876dc02"
   },
   {
     "id": "fund-sets-003",
     "title": "Count Unique Registered IDs",
+    "summary": "Recognize repeated identifiers as one unique value.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "set-basics-uniqueness",
+    "questionType": "implementation",
+    "skills": [
+      "duplicate-elimination",
+      "uniqueness-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 149,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-149.json"
+    "storagePath": "practice/python/question-149.json",
+    "contentHash": "3ba85dbeb582caea09999af93334367ec02cb26edd682bb436f876a016e3e5e0"
   },
   {
     "id": "fund-sets-004",
     "title": "Repair the Unique Tag Count",
+    "summary": "Fix counting that incorrectly includes duplicate positions.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "set-basics-uniqueness",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-collections",
+      "uniqueness-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 150,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-150.json"
+    "storagePath": "practice/python/question-150.json",
+    "contentHash": "d6d713c6531de5c396ff588dc09af68fc6a9cc0544a54c00a7c1e20517b3b011"
   },
   {
     "id": "fund-sets-005",
     "title": "Check a Registered Username",
+    "summary": "Test membership in a unique-value collection.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "membership-lookup",
+    "questionType": "implementation",
+    "skills": [
+      "membership-checking",
+      "exact-matching"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 151,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-151.json"
+    "storagePath": "practice/python/question-151.json",
+    "contentHash": "7e5e215f5464e9f7a93330496ee7a3113ebe3830ba6e60aae1c773a06ae0984b"
   },
   {
     "id": "fund-sets-006",
     "title": "Trace Required Feature Membership",
+    "summary": "Reason about whether several required values are present.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "membership-lookup",
+    "questionType": "reasoning",
+    "skills": [
+      "membership-checking",
+      "collection-comparison"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 152,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-152.json"
+    "storagePath": "practice/python/question-152.json",
+    "contentHash": "e469702827cc1501c34e04cc4a25785add318dfc8a1a913cfdad664f99af03a4"
   },
   {
     "id": "fund-sets-007",
     "title": "Repair Category Membership",
+    "summary": "Fix a membership check that searches the wrong value.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "membership-lookup",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-membership",
+      "exact-matching"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 153,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-153.json"
+    "storagePath": "practice/python/question-153.json",
+    "contentHash": "0762920431109f9a73d7b577440625b19bad76c3947972c6a8d0ab01d97cf33d"
   },
   {
     "id": "fund-sets-008",
     "title": "Add a Permission Value",
+    "summary": "Return a new unique-value collection after insertion.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-elements",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "duplicate-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 154,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-154.json"
+    "storagePath": "practice/python/question-154.json",
+    "contentHash": "a383e4b0ec10c9c94ac55188f766ea8bf16f90fa5682b5e9807f25367942dddf"
   },
   {
     "id": "fund-sets-009",
     "title": "Remove an Interest Safely",
+    "summary": "Remove a value while handling absence explicitly.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-elements",
+    "questionType": "implementation",
+    "skills": [
+      "collection-manipulation",
+      "missing-data-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 155,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-155.json"
+    "storagePath": "practice/python/question-155.json",
+    "contentHash": "425b85a6ecd240b953843e7f35624a575f314c18794052267b7988fe9df3371b"
   },
   {
     "id": "fund-sets-010",
     "title": "Repair Safe Attendee Removal",
+    "summary": "Fix removal that fails when a value is absent.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "adding-removing-elements",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-removal",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 156,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-156.json"
+    "storagePath": "practice/python/question-156.json",
+    "contentHash": "d80d6960e2748693505fbf4b7958248150ec3374c9131f1aca079913f4969c04"
   },
   {
     "id": "fund-sets-011",
     "title": "Create Unique Student IDs",
+    "summary": "Deduplicate simple identifiers deterministically.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "duplicate-elimination",
+    "questionType": "implementation",
+    "skills": [
+      "duplicate-elimination",
+      "deterministic-representation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 157,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-157.json"
+    "storagePath": "practice/python/question-157.json",
+    "contentHash": "a8fa49b88d518c53ffe31a127e418fd9a6f007d8c10d2086d42a6436f2945952"
   },
   {
     "id": "fund-sets-012",
     "title": "Trace Unique Product Categories",
+    "summary": "Reason about deduplication without relying on order.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "duplicate-elimination",
+    "questionType": "reasoning",
+    "skills": [
+      "uniqueness-reasoning",
+      "duplicate-elimination"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 158,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-158.json"
+    "storagePath": "practice/python/question-158.json",
+    "contentHash": "4c64eac09ed7c1767079c997bdd6715e9ca8631ecc3b69ab8254ef5e22513ea4"
   },
   {
     "id": "fund-sets-013",
     "title": "Deduplicate Words",
+    "summary": "Return deterministic unique words with case preserved.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "duplicate-elimination",
+    "questionType": "implementation",
+    "skills": [
+      "duplicate-elimination",
+      "exact-matching"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 159,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-159.json"
+    "storagePath": "practice/python/question-159.json",
+    "contentHash": "a91a45a8040cfcb5fbea0b27803db74ba69f6bcc2941bc0632243c7d7e589953"
   },
   {
     "id": "fund-sets-014",
     "title": "Combine Activity Enrollments",
+    "summary": "Form the union of two value collections.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "basic-set-operations",
+    "questionType": "implementation",
+    "skills": [
+      "set-operation-reasoning",
+      "collection-comparison"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 160,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-160.json"
+    "storagePath": "practice/python/question-160.json",
+    "contentHash": "613e543db28557d03614cf4b283b6249bec2ed7d70113c5bd529e07da7e3c83c"
   },
   {
     "id": "fund-sets-015",
     "title": "Repair Common Inventory Items",
+    "summary": "Fix a union used where intersection is required.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "basic-set-operations",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-set-operations",
+      "collection-comparison"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 161,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-161.json"
+    "storagePath": "practice/python/question-161.json",
+    "contentHash": "784a3c82f320bdd512a3939119b65f3379829099b4875e7e86a3dd4df56a127c"
   },
   {
     "id": "fund-sets-016",
     "title": "Trace Group Difference",
+    "summary": "Reason about values unique to the first group.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "basic-set-operations",
+    "questionType": "reasoning",
+    "skills": [
+      "set-operation-reasoning",
+      "collection-comparison"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 162,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-162.json"
+    "storagePath": "practice/python/question-162.json",
+    "contentHash": "c247919c5aaf2b523278b1d066855b3a7cc92482885bad0bd7cd93e3ea853c60"
   },
   {
     "id": "fund-sets-017",
     "title": "Check Required Tag Availability",
+    "summary": "Determine whether one unique-value collection is contained in another.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "basic-set-operations",
+    "questionType": "implementation",
+    "skills": [
+      "collection-comparison",
+      "set-operation-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 163,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-163.json"
+    "storagePath": "practice/python/question-163.json",
+    "contentHash": "a653396b0b6d0e301b9d0e00681f7452b0029b82a667f58e1ab520a826811d0c"
   },
   {
     "id": "fund-sets-018",
     "title": "Total Unique Measurements",
+    "summary": "Traverse unique numeric values exactly once.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "traversal-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "uniqueness-reasoning",
+      "aggregation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 164,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-164.json"
+    "storagePath": "practice/python/question-164.json",
+    "contentHash": "05e3f2c97c8b8003a01411d53e519e4b1afe2965da20d104aaf9a4822805a2bb"
   },
   {
     "id": "fund-sets-019",
     "title": "Find the Smallest Unique Value",
+    "summary": "Use an explicit comparison instead of arbitrary set order.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "traversal-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "edge-case-analysis",
+      "comparison-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 165,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-165.json"
+    "storagePath": "practice/python/question-165.json",
+    "contentHash": "1d1a97a12e915ed118932f403506b77c6346fd0a4decc352b055a9c400d0b571"
   },
   {
     "id": "fund-sets-020",
     "title": "Count Common Unique Values",
+    "summary": "Handle intersections involving empty or repeated inputs.",
     "language": "Python",
     "topic": "sets",
+    "category": "fundamentals",
+    "subtopic": "traversal-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "set-operation-reasoning",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 166,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-166.json"
+    "storagePath": "practice/python/question-166.json",
+    "contentHash": "b4857cc962288561bd52c90e0bd1903d7d8127139e2c74deb203135e44f5397b"
   },
   {
     "id": "fund-io-001",
     "title": "Format a User Greeting",
+    "summary": "Transform supplied user input into exact output text.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "basic-input-output",
+    "questionType": "implementation",
+    "skills": [
+      "input-processing",
+      "output-formatting"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 167,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-167.json"
+    "storagePath": "practice/python/question-167.json",
+    "contentHash": "e2b2f0ed742d786d68c4cf5449d6e06f7e792df8694088d8da62b3d3da026a44"
   },
   {
     "id": "fund-io-002",
     "title": "Trace a Profile Summary",
+    "summary": "Reason about combining separately supplied input fields.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "basic-input-output",
+    "questionType": "reasoning",
+    "skills": [
+      "type-reasoning",
+      "output-formatting"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 168,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-168.json"
+    "storagePath": "practice/python/question-168.json",
+    "contentHash": "9c5478c10a39c0a339753762e7536912e7e43827f024e4d2fbad4348024986ea"
   },
   {
     "id": "fund-io-003",
     "title": "Repair a Score Message",
+    "summary": "Fix exact output formatting for supplied data.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "basic-input-output",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-formatting",
+      "output-formatting"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 169,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-169.json"
+    "storagePath": "practice/python/question-169.json",
+    "contentHash": "9e065f6c6c9047e32cdccf49f875465f07644362834225b583bbf0fae02f1a90"
   },
   {
     "id": "fund-io-004",
     "title": "Convert Integer Text and Add",
+    "summary": "Convert textual input before arithmetic.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "numeric-input-conversion",
+    "questionType": "implementation",
+    "skills": [
+      "input-processing",
+      "type-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 170,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-170.json"
+    "storagePath": "practice/python/question-170.json",
+    "contentHash": "76644e1724ed979b73f01a8fc98ccd982946bd5d46c7728d3cddaa81c1404ca6"
   },
   {
     "id": "fund-io-005",
     "title": "Calculate a Total from Decimal Text",
+    "summary": "Interpret decimal input and apply arithmetic.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "numeric-input-conversion",
+    "questionType": "implementation",
+    "skills": [
+      "input-processing",
+      "type-reasoning"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 171,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-171.json"
+    "storagePath": "practice/python/question-171.json",
+    "contentHash": "a13d0dbc06178f01def7cd5f958db5b73453def0d4f64c2dffbb8db17103ab02"
   },
   {
     "id": "fund-io-006",
     "title": "Repair Safe Integer Conversion",
+    "summary": "Validate textual input before conversion.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "numeric-input-conversion",
+    "questionType": "debugging",
+    "skills": [
+      "data-validation",
+      "error-prevention"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 172,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-172.json"
+    "storagePath": "practice/python/question-172.json",
+    "contentHash": "264abe08de4fa158e4ab5c2670b8efd15557696364e4c55b1a7849aab165e1e9"
   },
   {
     "id": "fund-io-007",
     "title": "Format a Name and Age Input Pair",
+    "summary": "Process two typed fields received together.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "multiple-values-structured-input",
+    "questionType": "implementation",
+    "skills": [
+      "structured-input-processing",
+      "output-formatting"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 173,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-173.json"
+    "storagePath": "practice/python/question-173.json",
+    "contentHash": "c7e442b959fa3c85516b020b90b33a27a4bca2b681fb6af98e151a7730e03756"
   },
   {
     "id": "fund-io-008",
     "title": "Trace Three Supplied Measurements",
+    "summary": "Reason about processing multiple numeric inputs.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "multiple-values-structured-input",
+    "questionType": "reasoning",
+    "skills": [
+      "structured-input-processing",
+      "type-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 174,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-174.json"
+    "storagePath": "practice/python/question-174.json",
+    "contentHash": "d3bafc0f7aa142e0ea6dd8e11856d0221441cdb5180ad07d0ae1993e941d7c37"
   },
   {
     "id": "fund-io-009",
     "title": "Format a Product Input Record",
+    "summary": "Produce exact output from several typed fields.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "multiple-values-structured-input",
+    "questionType": "implementation",
+    "skills": [
+      "structured-input-processing",
+      "output-formatting"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 175,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-175.json"
+    "storagePath": "practice/python/question-175.json",
+    "contentHash": "c8191211d1f2801cb1f3567b4a487a2344a2e8ac754613352bbb114b4977e37d"
   },
   {
     "id": "fund-io-010",
     "title": "Parse Comma-separated Tags",
+    "summary": "Split and trim a simple delimited input.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "parsing-text-delimiters",
+    "questionType": "implementation",
+    "skills": [
+      "parsing",
+      "structured-input-processing"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 176,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-176.json"
+    "storagePath": "practice/python/question-176.json",
+    "contentHash": "7394dbb3598d7d7f740211e8fe048e07edcf71590b60011725464622b9e80ff4"
   },
   {
     "id": "fund-io-011",
     "title": "Repair a Key-value Parser",
+    "summary": "Fix parsing that uses the wrong delimiter.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "parsing-text-delimiters",
+    "questionType": "debugging",
+    "skills": [
+      "debugging-parsing",
+      "data-validation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 177,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-177.json"
+    "storagePath": "practice/python/question-177.json",
+    "contentHash": "c963cf5afb296fea0445bf8dd500992054c30b20a28d5f39a2effd9548f2e606"
   },
   {
     "id": "fund-io-012",
     "title": "Trace a Pipe-delimited Profile",
+    "summary": "Reason about a fixed three-field text format.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "parsing-text-delimiters",
+    "questionType": "reasoning",
+    "skills": [
+      "parsing",
+      "structured-input-processing"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 178,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-178.json"
+    "storagePath": "practice/python/question-178.json",
+    "contentHash": "9e816e6b0f9dba3cc93b6cf0e753a0fd79db188e72d243982bbc1e9086f4c195"
   },
   {
     "id": "fund-io-013",
     "title": "Validate Integer Input Text",
+    "summary": "Define valid signed integer input precisely.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "input-validation-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "data-validation",
+      "error-prevention"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 179,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-179.json"
+    "storagePath": "practice/python/question-179.json",
+    "contentHash": "98d7515391971181d986c566d3f08359ee2eac0ff54d3342d3892fba13c42b12"
   },
   {
     "id": "fund-io-014",
     "title": "Validate a Contact Record",
+    "summary": "Validate a small delimited record before using it.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "input-validation-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "data-validation",
+      "structured-input-processing"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 180,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-180.json"
+    "storagePath": "practice/python/question-180.json",
+    "contentHash": "06a47a10d1f000ea2d399875195fdb837c27a044fea1954f4d127a50b23757e5"
   },
   {
     "id": "fund-io-015",
     "title": "Handle an Empty Name Input",
+    "summary": "Validate user text before producing formatted output.",
     "language": "Python",
     "topic": "input-output-parsing",
+    "category": "fundamentals",
+    "subtopic": "input-validation-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "input-processing",
+      "error-prevention",
+      "output-formatting"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 181,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-181.json"
+    "storagePath": "practice/python/question-181.json",
+    "contentHash": "d471ee8c2488299af30615994ad2a86231755f582f901b2eab1c05a1ca3de77f"
   },
   {
     "id": "fund-errors-001",
     "title": "Convert Decimal Input Safely",
+    "summary": "Return a defined failure value for malformed numeric text.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "basic-error-handling-invalid-input",
+    "questionType": "implementation",
+    "skills": [
+      "defensive-programming",
+      "error-prevention"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 8,
     "xp": 35,
+    "position": 182,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-182.json"
+    "storagePath": "practice/python/question-182.json",
+    "contentHash": "bc80279a9c5c1f6eebff1e2ed32fe47117dfa47c8d31e24f52f06bd540ef430d"
   },
   {
     "id": "fund-errors-002",
     "title": "Calculate a Ratio Safely",
+    "summary": "Handle a zero denominator with an explicit result.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "basic-error-handling-invalid-input",
+    "questionType": "implementation",
+    "skills": [
+      "defensive-programming",
+      "precondition-checking"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 6,
     "xp": 25,
+    "position": 183,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-183.json"
+    "storagePath": "practice/python/question-183.json",
+    "contentHash": "1bc47460296648de17d36f8e3fe117b9131046865a63616c5f4684f4714afa0f"
   },
   {
     "id": "fund-errors-003",
     "title": "Trace a Safe Quantity Fallback",
+    "summary": "Reason about validation before conversion.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "basic-error-handling-invalid-input",
+    "questionType": "reasoning",
+    "skills": [
+      "state-tracing",
+      "validation"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 184,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-184.json"
+    "storagePath": "practice/python/question-184.json",
+    "contentHash": "f6a2e460b84cd1e20794d29eb5bf29dff1b02a51d8c067011b8acd58587bed69"
   },
   {
     "id": "fund-errors-004",
     "title": "Read Configuration with a Fallback",
+    "summary": "Handle a missing mapping key without losing stored empty values.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "basic-error-handling-invalid-input",
+    "questionType": "implementation",
+    "skills": [
+      "missing-data-handling",
+      "defensive-programming"
+    ],
     "difficulty": "very_easy",
     "estimatedMinutes": 7,
     "xp": 30,
+    "position": 185,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-185.json"
+    "storagePath": "practice/python/question-185.json",
+    "contentHash": "275c61b851f433e5216ad4ff9c90d6fd03f41727fb54a16b83b7b6a49ca4b04c"
   },
   {
     "id": "fund-errors-005",
     "title": "Validate and Grade a Score",
+    "summary": "Check a score range before classification.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "defensive-programming-validation",
+    "questionType": "implementation",
+    "skills": [
+      "defensive-programming",
+      "boundary-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
+    "position": 186,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-186.json"
+    "storagePath": "practice/python/question-186.json",
+    "contentHash": "3095cbee491e2b3abeec3fd68e6402f78384e8dfe16f681d29cf608cfafd7acb"
   },
   {
     "id": "fund-errors-006",
     "title": "Calculate a Validated Average",
+    "summary": "Validate a collection before aggregation.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "defensive-programming-validation",
+    "questionType": "implementation",
+    "skills": [
+      "defensive-programming",
+      "collection-validation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 187,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-187.json"
+    "storagePath": "practice/python/question-187.json",
+    "contentHash": "0ec3f70881217d3146494dfa590ae58b3bd405bb387113159d6b756512acf33d"
   },
   {
     "id": "fund-errors-007",
     "title": "Validate a Product Record Before Processing",
+    "summary": "Check required mapping fields and values before formatting.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "defensive-programming-validation",
+    "questionType": "implementation",
+    "skills": [
+      "defensive-programming",
+      "structured-data-validation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 188,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-188.json"
+    "storagePath": "practice/python/question-188.json",
+    "contentHash": "0dd9a2ded6a5c2c1fd9f833758ea6d35197ea880decf1978cbe203051da885a1"
   },
   {
     "id": "fund-errors-008",
     "title": "Repair Positive Expense Totalling",
+    "summary": "Fix an accumulator reset inside traversal.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "debugging-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging",
+      "state-tracking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 189,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-189.json"
+    "storagePath": "practice/python/question-189.json",
+    "contentHash": "45439d329f51e9de85070a75e321101268892948f3341b5e9b63a5263470dc2d"
   },
   {
     "id": "fund-errors-009",
     "title": "Repair the Passing Boundary",
+    "summary": "Fix one incorrect conditional boundary.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "debugging-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging",
+      "boundary-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 35,
+    "position": 190,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-190.json"
+    "storagePath": "practice/python/question-190.json",
+    "contentHash": "9f7cb2dee180c53685f6b3847d0332c33a99f01b07c895a55d76c7ce7f9e971b"
   },
   {
     "id": "fund-errors-010",
     "title": "Repair Complete Username Counting",
+    "summary": "Fix a return placed before traversal is complete.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "debugging-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging",
+      "control-flow-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 191,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-191.json"
+    "storagePath": "practice/python/question-191.json",
+    "contentHash": "f49ce292d464a61f0074ea216b4bcb64fccbf317e499fa82e367579295c4e4aa"
   },
   {
     "id": "fund-errors-011",
     "title": "Repair Missing Category Totals",
+    "summary": "Fix unsafe access to a missing mapping key.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "debugging-common-mistakes",
+    "questionType": "debugging",
+    "skills": [
+      "debugging",
+      "missing-data-handling"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 9,
     "xp": 45,
+    "position": 192,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-192.json"
+    "storagePath": "practice/python/question-192.json",
+    "contentHash": "80f467f958d1bc45fc77fbfe9945eda843b25afe9cdf7b9b3d5fd2fe76f9eb9e"
   },
   {
     "id": "fund-errors-012",
     "title": "Count Valid Label Records",
+    "summary": "Combine parsing, validation, and traversal.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "combining-multiple-fundamentals",
+    "questionType": "implementation",
+    "skills": [
+      "problem-decomposition",
+      "multi-concept-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 193,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-193.json"
+    "storagePath": "practice/python/question-193.json",
+    "contentHash": "b92a45b41765272db50b18655e0e53684444c68d1fc6f00d955515e1b33e992e"
   },
   {
     "id": "fund-errors-013",
     "title": "Total Valid Transactions",
+    "summary": "Parse, validate, convert, and aggregate transaction text.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "combining-multiple-fundamentals",
+    "questionType": "implementation",
+    "skills": [
+      "problem-decomposition",
+      "multi-concept-reasoning"
+    ],
     "difficulty": "medium",
     "estimatedMinutes": 14,
     "xp": 70,
+    "position": 194,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-194.json"
+    "storagePath": "practice/python/question-194.json",
+    "contentHash": "9a0f90f2c2bf737bde57953d4ccbef2f4afeaa1bb88b16cd179af06e0c93ac2a"
   },
   {
     "id": "fund-errors-014",
     "title": "Clean and Validate Score Inputs",
+    "summary": "Combine textual conversion, range validation, uniqueness, and deterministic output.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "combining-multiple-fundamentals",
+    "questionType": "implementation",
+    "skills": [
+      "problem-decomposition",
+      "multi-concept-reasoning"
+    ],
     "difficulty": "medium",
     "estimatedMinutes": 14,
     "xp": 70,
+    "position": 195,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-195.json"
+    "storagePath": "practice/python/question-195.json",
+    "contentHash": "eb226b669168c1d6bf0e23b491e754973273a953d0e6983f8e06f0ef880c0eb8"
   },
   {
     "id": "fund-errors-015",
     "title": "Summarize Valid Category Amounts",
+    "summary": "Build aggregate mapping state from validated records.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "combining-multiple-fundamentals",
+    "questionType": "implementation",
+    "skills": [
+      "problem-decomposition",
+      "state-management"
+    ],
     "difficulty": "medium",
     "estimatedMinutes": 15,
     "xp": 75,
+    "position": 196,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-196.json"
+    "storagePath": "practice/python/question-196.json",
+    "contentHash": "7ed9b13811178d1c68edf82c95e8ac95dbfc4e030a03452f4222e8fb4bc3ed01"
   },
   {
     "id": "fund-errors-016",
     "title": "Summarize Accepted Usernames",
+    "summary": "Combine trimming, filtering, counting, and uniqueness.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "combining-multiple-fundamentals",
+    "questionType": "implementation",
+    "skills": [
+      "multi-concept-reasoning",
+      "state-management"
+    ],
     "difficulty": "medium",
     "estimatedMinutes": 13,
     "xp": 65,
+    "position": 197,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-197.json"
+    "storagePath": "practice/python/question-197.json",
+    "contentHash": "6ad9cb5897cc96eb9150e3f6ecd16e10594a3b251e25671997b1988f273b3172"
   },
   {
     "id": "fund-errors-017",
     "title": "Trace Reward State Changes",
+    "summary": "Reason across variables, conditions, and traversal.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "mixed-reasoning-practical-problems",
+    "questionType": "reasoning",
+    "skills": [
+      "state-tracing",
+      "multi-concept-reasoning"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
+    "position": 198,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-198.json"
+    "storagePath": "practice/python/question-198.json",
+    "contentHash": "5d4a62fd51874b0a41a844a6c401e0d459fb233b1fdaaf923bdfd4cf245bdc32"
   },
   {
     "id": "fund-errors-018",
     "title": "Trace Inventory Updates",
+    "summary": "Reason about mapping state through sequential updates.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "mixed-reasoning-practical-problems",
+    "questionType": "reasoning",
+    "skills": [
+      "state-tracing",
+      "collection-manipulation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 11,
     "xp": 55,
+    "position": 199,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-199.json"
+    "storagePath": "practice/python/question-199.json",
+    "contentHash": "11e8c95a7d8923dd212f7db7b5dcec24652c3a97a2d6cbc764f40af2c87b977f"
   },
   {
     "id": "fund-errors-019",
     "title": "Reason About the Highest Valid Score",
+    "summary": "Combine invalid-input filtering with boundary-aware collection reasoning.",
     "language": "Python",
     "topic": "error-handling-mixed",
+    "category": "fundamentals",
+    "subtopic": "mixed-reasoning-practical-problems",
+    "questionType": "reasoning",
+    "skills": [
+      "multi-concept-reasoning",
+      "edge-case-analysis"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 11,
     "xp": 55,
+    "position": 200,
     "published": true,
     "version": "v1",
-    "storagePath": "practice/python/question-200.json"
+    "storagePath": "practice/python/question-200.json",
+    "contentHash": "f3ffa384dcc63727b6abeae27acab3c068ce03181e53b8adfc2ba9caa3dff146"
   }
 ]

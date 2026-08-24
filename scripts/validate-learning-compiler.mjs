@@ -42,7 +42,7 @@ assert.doesNotMatch(styles, /compiler-width\),\s*42vw/, 'The compiler pane must 
 assert.match(layout, /max=\{compilerMaxWidth\}/, 'The compiler divider must use the available workspace width as its functional boundary.');
 assert.match(panel, /useImperativeHandle/, 'The persistent panel must accept example load requests without another runtime.');
 assert.match(panel, /currentCodeRef\.current !== lastLoadedCodeRef\.current/, 'Learner edits require semantic dirty detection.');
-assert.match(panel, /Replace the current code with this example\?/, 'Dirty learner code must require confirmation.');
+assert.match(panel, /<ConfirmDialog[\s\S]*title="Replace current code\?"/, 'Dirty learner code must require an accessible shared confirmation dialog.');
 assert.match(manager, /runtimeInitialization = new WeakMap/, 'CompilerManager must deduplicate runtime initialization.');
 assert.equal((app.match(/createCompilerManager\(\)/g) ?? []).length, 1, 'The application must create one CompilerManager.');
 

@@ -1,9 +1,10 @@
 import { CourseService, resolveLessonModuleNumber } from '../content/services/CourseService';
 
 const LOCAL_METADATA_URL = '/courses/course-metadata.json';
-const LOCAL_FALLBACK_ENABLED = import.meta.env.DEV
+const isDevelopmentRuntime = import.meta.env.DEV || import.meta.env.MODE === 'e2e';
+const LOCAL_FALLBACK_ENABLED = isDevelopmentRuntime
   && import.meta.env.VITE_ENABLE_LOCAL_COURSE_FALLBACK === 'true';
-const LOCAL_CONTENT_PREFERRED = import.meta.env.DEV
+const LOCAL_CONTENT_PREFERRED = isDevelopmentRuntime
   && import.meta.env.VITE_COURSE_CONTENT_SOURCE === 'local';
 const courseService = new CourseService();
 

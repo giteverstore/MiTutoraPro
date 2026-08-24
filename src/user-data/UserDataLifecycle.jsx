@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import { useAuth } from '../auth/AuthContext';
-import { settingsService } from '../settings/SettingsService';
-import { userDataService } from './UserDataService';
 
 export function UserDataLifecycle() {
   const { user, loading } = useAuth();
@@ -11,8 +9,14 @@ export function UserDataLifecycle() {
     let active = true;
     const userId = user?.id ?? null;
 
-    userDataService.setAuthenticatedUser(userId)
-      .then(() => active ? settingsService.setUser(userId) : undefined)
+    Promise.all([
+      import('./UserDataService'),
+      import('../settings/SettingsService'),
+    ])
+      .then(([{ userDataService }, { settingsService }]) => (
+        userDataService.setAuthenticatedUser(userId)
+          .then(() => active ? settingsService.setUser(userId) : undefined)
+      ))
       .catch((error) => {
         if (active) console.error('[UserData] Unable to initialize user data.', error);
       });

@@ -2,6 +2,7 @@ import { createPracticeMetadata } from '../models/practiceMetadata';
 import { PracticeRepository } from '../repositories/PracticeRepository';
 import { BaseContentService } from './BaseContentService';
 import { versionedContentPath } from '../utils/contentPaths';
+import { CONTENT_LIMITS } from '../validation/contentLimits';
 
 const validateQuestion = (value) => Boolean(value && !Array.isArray(value) && typeof value === 'object'
   && typeof value.id === 'string' && Array.isArray(value.blocks)
@@ -12,10 +13,12 @@ export class PracticeService extends BaseContentService {
     super({ repository, createMetadata: createPracticeMetadata, contentType: 'Practice question' });
   }
 
+  getPublication() { return this.repository.getPublication(); }
+
   getQuestion(questionId, options) {
     return this.loadById(
       questionId,
-      (metadata, version, loadOptions) => this.repository.loadQuestion(metadata.storagePath, version, loadOptions),
+      (metadata, version, loadOptions) => this.repository.loadQuestion(metadata.storagePath, version, { ...loadOptions, expectedHash: metadata.contentHash, maxBytes: CONTENT_LIMITS.runtime.maxPracticeDownloadBytes }),
       validateQuestion,
       options,
     );
@@ -24,7 +27,7 @@ export class PracticeService extends BaseContentService {
   getQuestionFromMetadata(metadata) {
     return this.loadFromMetadata(
       metadata,
-      (item, version, loadOptions) => this.repository.loadQuestion(item.storagePath, version, loadOptions),
+      (item, version, loadOptions) => this.repository.loadQuestion(item.storagePath, version, { ...loadOptions, expectedHash: item.contentHash, maxBytes: CONTENT_LIMITS.runtime.maxPracticeDownloadBytes }),
       validateQuestion,
     );
   }

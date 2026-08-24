@@ -7,21 +7,18 @@ import { CategoryGrid } from './CategoryGrid';
 import { ContinueLearningCard } from './ContinueLearningCard';
 import { CourseSection } from './CourseSection';
 import { DashboardSidebar } from './DashboardSidebar';
-import { DashboardSkeleton } from './DashboardSkeleton';
 import { DashboardTopNavigation } from './DashboardTopNavigation';
 import {
   courseCategories,
   dashboardCourses,
   dashboardSections,
 } from './dashboardData';
+import { useApplicationTheme } from '../theme/useApplicationTheme';
 
 export function Dashboard({ onOpenCourse }) {
   const { user } = useUser();
   const { signOut } = useAuth();
-  const [theme, setTheme] = useState(
-    () => window.localStorage.getItem('mi-tutora:theme') ?? 'light',
-  );
-  const [isLoading, setIsLoading] = useState(true);
+  const { theme, toggleTheme } = useApplicationTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeNav, setActiveNav] = useState('learn');
   const [activeCategory, setActiveCategory] = useState(null);
@@ -34,11 +31,6 @@ export function Dashboard({ onOpenCourse }) {
       ? { ...course, progress: user.courseProgress ?? 0 }
       : course), [user.courseProgress]);
   const continueCourse = courses[0];
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setIsLoading(false), 550);
-    return () => window.clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -106,14 +98,6 @@ export function Dashboard({ onOpenCourse }) {
     }
   };
 
-  const toggleTheme = () => {
-    setTheme((current) => {
-      const next = current === 'dark' ? 'light' : 'dark';
-      window.localStorage.setItem('mi-tutora:theme', next);
-      return next;
-    });
-  };
-
   return (
     <div className="dashboard-shell" data-theme={theme}>
       <DashboardSidebar
@@ -127,7 +111,7 @@ export function Dashboard({ onOpenCourse }) {
         query={query}
         onQueryChange={setQuery}
         theme={theme}
-        onThemeToggle={toggleTheme}
+        onThemeToggle={() => { void toggleTheme().catch(() => undefined); }}
         onMenuClick={() => setIsSidebarOpen(true)}
         onContinue={() => handleCourseAction(continueCourse)}
         isNotificationsOpen={isNotificationsOpen}
@@ -143,8 +127,7 @@ export function Dashboard({ onOpenCourse }) {
         onSignOut={signOut}
       />
       <main className="dashboard-main" id="dashboard-start">
-        {isLoading ? <DashboardSkeleton /> : (
-          <div className="dashboard-content">
+        <div className="dashboard-content">
             <section className="dashboard-welcome">
               <div>
                 <span className="welcome-pill"><Sparkles size={ICON_SIZE.sm} /> Your learning space</span>
@@ -190,8 +173,7 @@ export function Dashboard({ onOpenCourse }) {
                 </button>
               </section>
             )}
-          </div>
-        )}
+        </div>
       </main>
       {notice ? <div className="dashboard-toast" role="status">{notice}</div> : null}
     </div>

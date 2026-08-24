@@ -1,0 +1,13 @@
+.route-not-found {
+  display: grid;
+  width: min(100% - 2rem, 42rem);
+  min-height: 50vh;
+  margin-inline: auto;
+  place-content: center;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.route-not-found h1,
+.route-not-found p { margin: 0; }
+.route-not-found p { color: var(--color-text-muted); }

@@ -12,7 +12,7 @@ export class SubmissionCoordinator {
     if (this.promise) return this.promise;
     this.promise = Promise.resolve().then(async () => {
       await this.persistence.flushAll();
-      const result = await this.service.submit({ attemptId: this.attemptId, sessionId: this.sessionId, submissionId: this.submissionId, reason });
+      const result = await this.service.submit({ attemptId: this.attemptId, sessionId: this.sessionId, submissionId: this.submissionId, reason, telemetryFinalSequence: this.persistence.getTelemetrySequence() });
       this.storage?.removeItem(this.storageKey); return result;
     });
     this.promise.catch(() => { this.promise = null; });

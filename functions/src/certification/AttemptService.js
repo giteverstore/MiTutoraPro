@@ -12,6 +12,10 @@ import { candidateExam, getTrustedExamDefinition } from './trustedExamDefinition
 
 const ACTIVE_STATES = new Set(['CREATED', 'SCHEDULED', 'VERIFYING', 'READY', 'RUNNING', 'SUBMITTED', 'EVALUATING']);
 const TERMINAL_STATES = new Set(['FINALIZED', 'CANCELLED', 'EXPIRED', 'ABANDONED']);
+const REQUIRED_VERIFICATION_CHECKS = Object.freeze(['camera', 'lighting', 'face', 'background', 'browser', 'fullscreen', 'internet', 'audio']);
+const VERIFICATION_TTL_MS = 10 * 60 * 1000;
+const MAINTENANCE_PAGE_SIZE = 100;
+const MAINTENANCE_MAX_RUNTIME_MS = 8 * 60 * 1000;
 const allowedTransitions = Object.freeze({
   CREATED: new Set(['SCHEDULED', 'VERIFYING', 'CANCELLED', 'EXPIRED']),
   SCHEDULED: new Set(['VERIFYING', 'CANCELLED', 'EXPIRED']),
@@ -29,6 +33,54 @@ function projectionPath(uid, courseId) { return `users/${uid}/certifications/${c
 function projectionChanged(current, next) {
   const fields = ['eligibilityStatus', 'activeAttemptId', 'latestAttemptId', 'latestDecision', 'attemptCount', 'certificateId', 'reviewId', 'courseProgressVersion', 'completionPercentage', 'requiredLessons', 'completedLessons', 'eligibilityPolicyVersion'];
   return fields.some((field) => JSON.stringify(current[field] ?? null) !== JSON.stringify(next[field] ?? null));
+}
+
+export function telemetryIsComplete(attempt, finalSequence) {
+  return Number.isInteger(finalSequence) && finalSequence >= 0
+    && finalSequence === (attempt.integrityEventSequence ?? 0)
+    && attempt.telemetryGapDetected !== true
+    && (attempt.heartbeatSequence ?? 0) > 0;
+}
+
+export function applyTelemetryCompleteness(integrityResult, attempt) {
+  return Object.freeze({
+    ...integrityResult,
+    flags: Object.freeze([...new Set([
+      ...integrityResult.flags,
+      ...(attempt.telemetryComplete === true ? [] : ['TELEMETRY_INCOMPLETE']),
+    ])]),
+    telemetryComplete: attempt.telemetryComplete === true,
+    telemetryLastSequence: attempt.integrityEventSequence ?? 0,
+    telemetryFinalSequence: attempt.telemetryFinalSequence ?? null,
+  });
+}
+
+export async function processMaintenancePages({
+  createQuery,
+  processDocument,
+  pageSize = MAINTENANCE_PAGE_SIZE,
+  maxRuntimeMs = MAINTENANCE_MAX_RUNTIME_MS,
+  now = () => Date.now(),
+  onError = () => {},
+}) {
+  const startedAt = now();
+  let cursor = null;
+  const results = [];
+  const failures = [];
+  let pages = 0;
+  let exhausted = false;
+  while (now() - startedAt < maxRuntimeMs) {
+    const snapshot = await createQuery(cursor, pageSize).get();
+    pages += 1;
+    if (snapshot.empty) { exhausted = true; break; }
+    for (const document of snapshot.docs) {
+      try { results.push(await processDocument(document)); }
+      catch (error) { failures.push({ id: document.id, error }); onError(document, error); }
+    }
+    cursor = snapshot.docs.at(-1);
+    if (snapshot.size < pageSize) { exhausted = true; break; }
+  }
+  return { results, failures, pages, exhausted, cursor };
 }
 
 function sanitizeEnvironment(summary = {}) {
@@ -162,9 +214,11 @@ export class AttemptService {
         id: attemptRef.id, ownerUid: uid, courseId, examId, examVersion: definition.version,
         state: scheduledFor ? 'SCHEDULED' : 'CREATED', createdAt: now,
         scheduledFor: scheduledFor ? Timestamp.fromMillis(new Date(scheduledFor).getTime()) : null,
-        verificationStartedAt: null, verifiedAt: null, startedAt: null, expiresAt: null,
+        verificationStartedAt: null, verificationSessionId: null, verificationChallenge: null,
+        verificationExpiresAt: null, verificationConsumedAt: null, verifiedAt: null, startedAt: null, expiresAt: null,
         submittedAt: null, finalizedAt: null, sessionId: null, lastHeartbeatAt: null,
-        heartbeatSequence: 0, recoveryDeadline: null, environmentSummary: null,
+        heartbeatSequence: 0, integrityEventSequence: 0, telemetryGapDetected: false, telemetryFinalSequence: null,
+        recoveryDeadline: null, environmentSummary: null,
         submissionId: null, submissionReason: null, responseRevision: 0, submittedResponseRevision: null,
         examResult: null, integrityResult: null, certificationDecision: null,
         configVersions: { exam: definition.version, integrity: this.integrity.policy.version, certification: this.certification.policy.version, eligibility: eligibility.courseProgressVersion },
@@ -177,10 +231,10 @@ export class AttemptService {
         attemptCount: (projection.attemptCount ?? 0) + 1, certificateId: projection.certificateId ?? null,
         updatedAt: now, schemaVersion: '1.0.0',
       }, { merge: true });
+      this.audit.write(transaction, attempt.id, 'ATTEMPT_CREATED', { actorType: 'CANDIDATE', actorId: uid, metadata: { courseId, examId }, timestamp: now });
       return attempt;
     });
     this.logger.info?.('certification.attempt.created', { attemptId: result.id, uid, courseId, state: result.state });
-    await this.audit.record(result.id, 'ATTEMPT_CREATED', { actorType: 'CANDIDATE', actorId: uid, metadata: { courseId, examId } });
     return result;
   }
 
@@ -196,12 +250,47 @@ export class AttemptService {
     });
   }
 
-  beginVerification(uid, attemptId) { return this.transition(uid, attemptId, ['CREATED', 'SCHEDULED'], 'VERIFYING', { verificationStartedAt: Timestamp.now() }); }
+  async beginVerification(uid, attemptId) {
+    const reference = this.db.doc(`examAttempts/${attemptId}`);
+    return this.db.runTransaction(async (transaction) => {
+      const snapshot = await transaction.get(reference); if (!snapshot.exists) fail('not-found', 'Exam attempt not found.');
+      const attempt = snapshot.data(); if (attempt.ownerUid !== uid) fail('permission-denied', 'Exam attempt is not owned by this user.');
+      if (attempt.state === 'VERIFYING' && attempt.verificationSessionId) return attempt;
+      if (!['CREATED', 'SCHEDULED'].includes(attempt.state)) fail('failed-precondition', `Attempt is ${attempt.state}.`);
+      assertTransition(attempt.state, 'VERIFYING');
+      const now = Timestamp.now(); const verificationSessionId = randomUUID(); const verificationChallenge = randomUUID();
+      const updates = {
+        state: 'VERIFYING', verificationStartedAt: now, verificationSessionId, verificationChallenge,
+        verificationExpiresAt: Timestamp.fromMillis(now.toMillis() + VERIFICATION_TTL_MS), verificationConsumedAt: null, updatedAt: now,
+      };
+      transaction.update(reference, updates);
+      this.audit.write(transaction, attemptId, 'VERIFICATION_STARTED', { eventId: `verification-started-${verificationSessionId}`, actorType: 'CANDIDATE', actorId: uid, timestamp: now });
+      return { ...attempt, ...updates };
+    });
+  }
 
-  completeVerification(uid, attemptId, summary) {
-    const environmentSummary = sanitizeEnvironment(summary);
+  async completeVerification(uid, attemptId, protocol = {}) {
+    const environmentSummary = sanitizeEnvironment(protocol.summary);
     if (!environmentSummary.ready) fail('failed-precondition', 'Environment verification did not pass.');
-    return this.transition(uid, attemptId, ['VERIFYING'], 'READY', { verifiedAt: Timestamp.now(), environmentSummary });
+    const completedChecks = new Set((protocol.steps ?? []).filter(({ status }) => status === 'COMPLETED').map(({ checkId }) => checkId));
+    if (!REQUIRED_VERIFICATION_CHECKS.every((checkId) => completedChecks.has(checkId))) fail('failed-precondition', 'The required environment verification protocol did not complete.');
+    const reference = this.db.doc(`examAttempts/${attemptId}`);
+    return this.db.runTransaction(async (transaction) => {
+      const snapshot = await transaction.get(reference); if (!snapshot.exists) fail('not-found', 'Exam attempt not found.');
+      const attempt = snapshot.data(); if (attempt.ownerUid !== uid) fail('permission-denied', 'Exam attempt is not owned by this user.');
+      if (attempt.state === 'READY') {
+        if (attempt.verificationSessionId === protocol.sessionId && attempt.verificationConsumedAt) return attempt;
+        fail('failed-precondition', 'A different verification session already completed this attempt.');
+      }
+      if (attempt.state !== 'VERIFYING') fail('failed-precondition', `Attempt is ${attempt.state}.`);
+      if (attempt.verificationSessionId !== protocol.sessionId || attempt.verificationChallenge !== protocol.challenge) fail('permission-denied', 'Verification session is invalid.');
+      const now = Timestamp.now();
+      if (!attempt.verificationExpiresAt || now.toMillis() > timestampMillis(attempt.verificationExpiresAt)) fail('deadline-exceeded', 'Verification session has expired.');
+      const updates = { state: 'READY', verifiedAt: now, verificationConsumedAt: now, environmentSummary, updatedAt: now };
+      transaction.update(reference, updates);
+      this.audit.write(transaction, attemptId, 'VERIFICATION_COMPLETED', { eventId: `verification-completed-${protocol.sessionId}`, actorType: 'CANDIDATE', actorId: uid, timestamp: now, metadata: { checkCount: completedChecks.size } });
+      return { ...attempt, ...updates };
+    });
   }
 
   async startAttempt(uid, attemptId) {
@@ -214,10 +303,11 @@ export class AttemptService {
       const definition = definitionCache.get(attempt.examId) ?? getTrustedExamDefinition(attempt.examId); definitionCache.set(attempt.examId, definition);
       const now = Timestamp.now(); const sessionId = randomUUID();
       const updates = { state: 'RUNNING', startedAt: now, expiresAt: Timestamp.fromMillis(now.toMillis() + definition.durationMs), sessionId, lastHeartbeatAt: now, heartbeatSequence: 0, recoveryDeadline: Timestamp.fromMillis(now.toMillis() + definition.durationMs + this.recoveryWindowMs), updatedAt: now };
-      transaction.update(reference, updates); return { ...attempt, ...updates };
+      transaction.update(reference, updates);
+      this.audit.write(transaction, attemptId, 'ATTEMPT_STARTED', { actorType: 'CANDIDATE', actorId: uid, timestamp: now, metadata: { expiresAt: updates.expiresAt.toMillis() } });
+      return { ...attempt, ...updates };
     });
     this.logger.info?.('certification.attempt.started', { attemptId, uid, expiresAt: result.expiresAt.toMillis() });
-    await this.audit.record(attemptId, 'ATTEMPT_STARTED', { actorType: 'CANDIDATE', actorId: uid, metadata: { expiresAt: result.expiresAt.toMillis() } });
     return result;
   }
 
@@ -233,10 +323,11 @@ export class AttemptService {
       if (!sameSession && !stale) fail('already-exists', 'Another browser session currently owns this exam.');
       const sessionId = sameSession ? attempt.sessionId : randomUUID();
       const updates = { sessionId, lastHeartbeatAt: now, heartbeatSequence: attempt.heartbeatSequence ?? 0, updatedAt: now };
-      transaction.update(reference, updates); return { ...attempt, ...updates };
+      transaction.update(reference, updates);
+      this.audit.write(transaction, attemptId, 'ATTEMPT_RECOVERED', { eventId: `attempt-recovered-${sessionId}`, actorType: 'CANDIDATE', actorId: uid, timestamp: now });
+      return { ...attempt, ...updates };
     });
     this.logger.info?.('certification.attempt.recovered', { attemptId, uid });
-    await this.audit.record(attemptId, 'ATTEMPT_RECOVERED', { eventId: `attempt-recovered-${result.sessionId}`, actorType: 'CANDIDATE', actorId: uid });
     return result;
   }
 
@@ -269,20 +360,39 @@ export class AttemptService {
     });
   }
 
-  async saveIntegrityEvents(uid, attemptId, sessionId, events) {
+  async saveIntegrityEvents(uid, attemptId, sessionId, { events, startSequence, endSequence }) {
     if (!Array.isArray(events) || events.length > 50) fail('invalid-argument', 'At most 50 integrity events may be synchronized at once.');
-    const attemptSnapshot = await this.db.doc(`examAttempts/${attemptId}`).get(); if (!attemptSnapshot.exists) fail('not-found', 'Exam attempt not found.');
-    const attempt = attemptSnapshot.data(); if (attempt.ownerUid !== uid || attempt.sessionId !== sessionId || attempt.state !== 'RUNNING') fail('permission-denied', 'Integrity events are not accepted for this session.');
-    const now = Timestamp.now(); const batch = this.db.batch(); const normalized = events.map((event) => sanitizeIntegrityEvent(event, now));
-    normalized.forEach((event) => batch.set(
-      this.db.doc(`examAttempts/${attemptId}/integrityEvents/${event.id}`),
-      { ...event, createdAt: Timestamp.fromMillis(event.startedAt) },
-      { merge: true },
-    ));
-    await batch.commit(); return { synchronized: normalized.length };
+    if (!Number.isInteger(startSequence) || !Number.isInteger(endSequence) || startSequence < 1 || endSequence !== startSequence + events.length - 1) fail('invalid-argument', 'Integrity event sequence range is invalid.');
+    const attemptRef = this.db.doc(`examAttempts/${attemptId}`); const now = Timestamp.now();
+    const normalized = events.map((event, index) => ({ ...sanitizeIntegrityEvent(event, now), sequence: startSequence + index }));
+    const result = await this.db.runTransaction(async (transaction) => {
+      const attemptSnapshot = await transaction.get(attemptRef); if (!attemptSnapshot.exists) fail('not-found', 'Exam attempt not found.');
+      const attempt = attemptSnapshot.data();
+      if (attempt.ownerUid !== uid || attempt.sessionId !== sessionId) fail('permission-denied', 'Integrity events do not belong to this exam session.');
+      if (attempt.state !== 'RUNNING') fail('failed-precondition', 'Integrity events are not accepted after the exam stops running.');
+      const lastSequence = attempt.integrityEventSequence ?? 0;
+      if (endSequence <= lastSequence) return { synchronized: 0, lastSequence, idempotent: true };
+      if (startSequence !== lastSequence + 1) {
+        normalized.forEach((event) => transaction.set(
+          this.db.doc(`examAttempts/${attemptId}/integrityEvents/${event.id}`),
+          { ...event, createdAt: Timestamp.fromMillis(event.startedAt) },
+          { merge: true },
+        ));
+        transaction.update(attemptRef, { telemetryGapDetected: true, integrityEventSequence: endSequence, updatedAt: now });
+        return { synchronized: normalized.length, lastSequence: endSequence, gapDetected: true, expectedSequence: lastSequence + 1, receivedSequence: startSequence };
+      }
+      normalized.forEach((event) => transaction.set(
+        this.db.doc(`examAttempts/${attemptId}/integrityEvents/${event.id}`),
+        { ...event, createdAt: Timestamp.fromMillis(event.startedAt) },
+        { merge: true },
+      ));
+      transaction.update(attemptRef, { integrityEventSequence: endSequence, updatedAt: now });
+      return { synchronized: normalized.length, lastSequence: endSequence, idempotent: false };
+    });
+    return result;
   }
 
-  async submit(uid, attemptId, sessionId, submissionId, requestedReason = 'MANUAL') {
+  async submit(uid, attemptId, sessionId, submissionId, requestedReason = 'MANUAL', telemetryFinalSequence = 0) {
     if (!submissionId) fail('invalid-argument', 'A stable submissionId is required.'); const reference = this.db.doc(`examAttempts/${attemptId}`);
     const submitted = await this.db.runTransaction(async (transaction) => {
       const snapshot = await transaction.get(reference); if (!snapshot.exists) fail('not-found', 'Exam attempt not found.'); const attempt = snapshot.data();
@@ -293,11 +403,14 @@ export class AttemptService {
       }
       if (attempt.state !== 'RUNNING' || attempt.sessionId !== sessionId) fail('failed-precondition', 'Attempt cannot be submitted from this session.');
       const now = Timestamp.now(); const timedOut = now.toMillis() >= timestampMillis(attempt.expiresAt);
-      const updates = { state: 'SUBMITTED', submittedAt: now, submissionId, submissionReason: timedOut ? 'TIMEOUT' : 'MANUAL', submittedResponseRevision: attempt.responseRevision ?? 0, updatedAt: now };
-      transaction.update(reference, updates); return { ...attempt, ...updates };
+      if (!Number.isInteger(telemetryFinalSequence) || telemetryFinalSequence < 0) fail('invalid-argument', 'Final telemetry sequence is invalid.');
+      const telemetryComplete = telemetryIsComplete(attempt, telemetryFinalSequence);
+      const updates = { state: 'SUBMITTED', submittedAt: now, submissionId, submissionReason: timedOut ? 'TIMEOUT' : 'MANUAL', submittedResponseRevision: attempt.responseRevision ?? 0, telemetryFinalSequence, telemetryComplete, updatedAt: now };
+      transaction.update(reference, updates);
+      this.audit.write(transaction, attemptId, 'SUBMITTED', { eventId: `submitted-${submissionId}`, actorType: 'CANDIDATE', actorId: uid, timestamp: now, metadata: { reason: updates.submissionReason, responseRevision: updates.submittedResponseRevision, telemetryFinalSequence, telemetryComplete } });
+      return { ...attempt, ...updates };
     });
     this.logger.info?.('certification.attempt.submitted', { attemptId, uid, submissionId: submitted.submissionId, reason: submitted.submissionReason });
-    await this.audit.record(attemptId, 'SUBMITTED', { eventId: `submitted-${submitted.submissionId}`, actorType: 'CANDIDATE', actorId: uid, metadata: { reason: submitted.submissionReason, responseRevision: submitted.submittedResponseRevision } });
     return this.finalize(attemptId);
   }
 
@@ -305,14 +418,16 @@ export class AttemptService {
     const reference = this.db.doc(`examAttempts/${attemptId}`);
     await this.db.runTransaction(async (transaction) => {
       const snapshot = await transaction.get(reference); if (!snapshot.exists) fail('not-found', 'Exam attempt not found.');
-      if (snapshot.data().state === 'SUBMITTED') transaction.update(reference, { state: 'EVALUATING', updatedAt: Timestamp.now() });
+      if (snapshot.data().state === 'SUBMITTED') {
+        const now = Timestamp.now();
+        transaction.update(reference, { state: 'EVALUATING', updatedAt: now });
+        this.audit.write(transaction, attemptId, 'EVALUATION_STARTED', { timestamp: now });
+      }
       else if (!['EVALUATING', 'FINALIZED'].includes(snapshot.data().state)) fail('failed-precondition', 'Attempt is not ready for evaluation.');
     });
-    await this.audit.record(attemptId, 'EVALUATION_STARTED');
     let attemptSnapshot = await reference.get(); let attempt = attemptSnapshot.data();
     if (attempt.state === 'FINALIZED') {
       const report = attempt.integrityReportId ? await this.db.doc(`integrityReports/${attempt.integrityReportId}`).get() : null;
-      await this.recordFinalizationAudit(attempt);
       return { ...attempt, integrityReport: report?.exists ? report.data() : null };
     }
     const [responseSnapshot, eventSnapshot, projectionSnapshot] = await Promise.all([
@@ -322,7 +437,8 @@ export class AttemptService {
     const examResult = this.scoring.evaluate(definition, responseSnapshot.data()?.answers ?? {});
     const events = eventSnapshot.docs.map((document) => document.data());
     const monitoringDurationMs = attempt.startedAt && attempt.submittedAt ? timestampMillis(attempt.submittedAt) - timestampMillis(attempt.startedAt) : 0;
-    const integrityResult = this.integrity.evaluate(events, monitoringDurationMs);
+    const evaluatedIntegrity = this.integrity.evaluate(events, monitoringDurationMs);
+    const integrityResult = applyTelemetryCompleteness(evaluatedIntegrity, attempt);
     const now = Timestamp.now();
     const integrityReport = this.integrityReports.create({ attempt, events, integrityResult, certificationPolicyVersion: this.certification.policy.version, createdAt: now });
     const decision = this.certification.evaluate({ eligible: ['ELIGIBLE', 'ATTEMPT_IN_PROGRESS', 'NOT_CERTIFIED', 'REVIEW_REQUIRED'].includes(projectionSnapshot.data()?.eligibilityStatus), attemptState: attempt.state, examResult, integrityResult: { ...integrityResult, overallStatus: integrityReport.overallStatus }, decidedAt: now.toMillis() });
@@ -344,18 +460,13 @@ export class AttemptService {
       transaction.create(this.db.doc(`integrityReports/${integrityReport.reportId}`), integrityReport);
       if (decision.status === DECISION.REVIEW_REQUIRED) transaction.create(this.db.doc(`certificationReviews/review-${attempt.id}`), this.reviews.createRecord(attempt, integrityReport, decision.explanation.headline, now));
       if (certificate) transaction.set(this.db.doc(`certificates/${certificate.credentialId}`), certificate);
+      this.audit.write(transaction, attempt.id, 'EVALUATION_COMPLETED', { timestamp: now, metadata: { integrityReportId: integrityReport.reportId } });
+      this.audit.write(transaction, attempt.id, 'DECISION_MADE', { timestamp: now, metadata: { decision: decision.status } });
+      if (decision.status === DECISION.REVIEW_REQUIRED) this.audit.write(transaction, attempt.id, 'REVIEW_CREATED', { timestamp: now, metadata: { reviewId: `review-${attempt.id}` } });
+      if (certificate) this.audit.write(transaction, attempt.id, 'CERTIFICATE_ISSUED', { eventId: `certificate-issued-${certificate.credentialId}`, timestamp: now, metadata: { credentialId: certificate.credentialId } });
       return { ...latest.data(), ...updates };
     });
-    await this.recordFinalizationAudit({ ...result, integrityReportId: integrityReport.reportId });
     this.logger.info?.('certification.attempt.finalized', { attemptId, decision: result.certificationDecision.status, certificateId: certificate?.credentialId ?? null }); return { ...result, integrityReport };
-  }
-
-  async recordFinalizationAudit(attempt) {
-    await this.audit.record(attempt.id, 'EVALUATION_COMPLETED', { metadata: { integrityReportId: attempt.integrityReportId } });
-    await this.audit.record(attempt.id, 'DECISION_MADE', { metadata: { decision: attempt.certificationDecision?.status } });
-    if (attempt.certificationDecision?.status === DECISION.REVIEW_REQUIRED) await this.audit.record(attempt.id, 'REVIEW_CREATED', { metadata: { reviewId: `review-${attempt.id}` } });
-    const certificateId = attempt.certificationDecision?.status === DECISION.CERTIFIED ? this.issuer.credentialId(attempt) : null;
-    if (certificateId) await this.audit.record(attempt.id, 'CERTIFICATE_ISSUED', { eventId: `certificate-issued-${certificateId}`, metadata: { credentialId: certificateId } });
   }
 
   async abandon(uid, attemptId, sessionId) {
@@ -367,17 +478,30 @@ export class AttemptService {
   }
 
   async expireOverdue() {
-    const now = Timestamp.now(); const snapshot = await this.db.collection('examAttempts').where('state', '==', 'RUNNING').where('expiresAt', '<=', now).limit(100).get();
-    const results = []; for (const document of snapshot.docs) { const attempt = document.data(); try { results.push(await this.submit(attempt.ownerUid, attempt.id, attempt.sessionId, attempt.submissionId ?? `timeout-${attempt.id}`, 'TIMEOUT')); } catch (error) { this.logger.error?.('certification.attempt.expiry_failed', { attemptId: attempt.id, code: error.code, message: error.message }); } } return results;
+    const cutoff = Timestamp.now();
+    return processMaintenancePages({
+      createQuery: (cursor, pageSize) => {
+        let query = this.db.collection('examAttempts').where('state', '==', 'RUNNING').where('expiresAt', '<=', cutoff).orderBy('expiresAt').orderBy('__name__').limit(pageSize);
+        if (cursor) query = query.startAfter(cursor);
+        return query;
+      },
+      processDocument: (document) => {
+        const attempt = document.data();
+        return this.submit(attempt.ownerUid, attempt.id, attempt.sessionId, attempt.submissionId ?? `timeout-${attempt.id}`, 'TIMEOUT', attempt.integrityEventSequence ?? 0);
+      },
+      onError: (document, error) => this.logger.error?.('certification.attempt.expiry_failed', { attemptId: document.id, code: error.code, message: error.message }),
+    });
   }
 
   async finalizePending() {
-    const snapshot = await this.db.collection('examAttempts').where('state', '==', 'EVALUATING').limit(100).get();
-    const results = [];
-    for (const document of snapshot.docs) {
-      try { results.push(await this.finalize(document.id)); }
-      catch (error) { this.logger.error?.('certification.attempt.finalization_retry_failed', { attemptId: document.id, code: error.code, message: error.message }); }
-    }
-    return results;
+    return processMaintenancePages({
+      createQuery: (cursor, pageSize) => {
+        let query = this.db.collection('examAttempts').where('state', '==', 'EVALUATING').orderBy('__name__').limit(pageSize);
+        if (cursor) query = query.startAfter(cursor);
+        return query;
+      },
+      processDocument: (document) => this.finalize(document.id),
+      onError: (document, error) => this.logger.error?.('certification.attempt.finalization_retry_failed', { attemptId: document.id, code: error.code, message: error.message }),
+    });
   }
 }

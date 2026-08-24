@@ -1,7 +1,4 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
 
 const environment = import.meta.env ?? {};
 
@@ -32,6 +29,6 @@ if (missingVariables.length) {
 }
 
 export const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+export const useFirebaseEmulators = (import.meta.env.DEV || import.meta.env.MODE === 'e2e')
+  && environment.VITE_FIREBASE_USE_EMULATORS === 'true';
+export const firebaseEnvironment = environment;

@@ -34,7 +34,15 @@ export function CertificationProvider({ candidateId, courseId, examId, service =
     return () => { active = false; };
   }, [candidateId, courseId, examId, service]);
 
-  const completeVerification = useCallback(async (summary) => { const next = await service.completeVerification(attempt.id, summary); setAttempt(next); return next; }, [attempt?.id, service]);
+  const completeVerification = useCallback(async (summary) => {
+    const protocol = {
+      sessionId: attempt.verificationSessionId,
+      challenge: attempt.verificationChallenge,
+      summary,
+      steps: Object.keys(summary?.checks ?? {}).map((checkId) => ({ checkId, status: 'COMPLETED' })),
+    };
+    const next = await service.completeVerification(attempt.id, protocol); setAttempt(next); return next;
+  }, [attempt?.id, attempt?.verificationChallenge, attempt?.verificationSessionId, service]);
   const startAttempt = useCallback(async () => { const next = await service.startAttempt(attempt.id); globalThis.sessionStorage?.setItem(sessionKey(next.id), next.sessionId); setClockOffsetMs((next.updatedAt ?? Date.now()) - Date.now()); setAttempt(next); return next; }, [attempt?.id, service]);
   const resetAttempt = useCallback(async () => { let next = await service.createAttempt({ courseId, examId }); if (['CREATED', 'SCHEDULED'].includes(next.state)) next = await service.beginVerification(next.id); setRecoveredState(null); setAttempt(next); return next; }, [courseId, examId, service]);
   const updateAttempt = useCallback((next) => setAttempt(next), []);

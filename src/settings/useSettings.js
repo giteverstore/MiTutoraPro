@@ -8,3 +8,11 @@ export function useSettings() {
     settingsService.getSnapshot,
   );
 }
+
+export function useSettingsPersistence() {
+  return useSyncExternalStore(
+    settingsService.subscribe,
+    settingsService.getPersistenceSnapshot,
+    settingsService.getPersistenceSnapshot,
+  );
+}

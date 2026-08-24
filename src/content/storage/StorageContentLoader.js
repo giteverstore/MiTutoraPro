@@ -3,6 +3,8 @@ import { storage } from '../../firebase/storage';
 import { ContentCache, contentCache } from '../cache/ContentCache';
 import { CONTENT_ERROR_CODES, ContentError, isContentError } from '../utils/ContentError';
 import { normalizeStoragePath } from '../utils/contentPaths';
+import { isSha256, verifyContentIntegrity } from '../utils/contentIntegrity';
+import { CONTENT_LIMITS } from '../validation/contentLimits';
 
 function assertJsonStructure(value, path) {
   if (value === null || typeof value !== 'object') {
@@ -33,6 +35,12 @@ function mapStorageError(error, storageReference) {
       details,
     });
   }
+  if (error?.code === 'storage/max-download-size-exceeded') {
+    return new ContentError(CONTENT_ERROR_CODES.sizeExceeded, 'The requested content is larger than the supported safety limit.', { cause: error, details });
+  }
+  if (error?.code === 'storage/retry-limit-exceeded' || error?.name === 'AbortError' || /timed?\s*out/i.test(error?.message ?? '')) {
+    return new ContentError(CONTENT_ERROR_CODES.networkTimeout, 'The content request timed out. Please retry.', { cause: error, details });
+  }
   return new ContentError(CONTENT_ERROR_CODES.downloadFailed, 'The content could not be downloaded. Please try again.', {
     cause: error,
     details,
@@ -51,18 +59,26 @@ export class StorageContentLoader {
     this.downloadBytes = downloadBytes;
   }
 
-  async load(storagePath, { validate } = {}) {
+  async load(storagePath, { validate, expectedHash, maxBytes = CONTENT_LIMITS.runtime.maxCourseDownloadBytes } = {}) {
     const path = normalizeStoragePath(storagePath);
-    return this.cache.getOrCreate(path, async () => {
+    const normalizedHash = expectedHash ? String(expectedHash).toLowerCase() : null;
+    if (normalizedHash && !isSha256(normalizedHash)) {
+      throw new ContentError(CONTENT_ERROR_CODES.integrityFailed, 'The published content integrity information is invalid.', { details: { storagePath: path } });
+    }
+    const cacheKey = normalizedHash ? `${path}#sha256:${normalizedHash}` : path;
+    return this.cache.getOrCreate(cacheKey, async () => {
       const storageReference = ref(this.storage, path);
       let bytes;
       try {
-        bytes = await this.downloadBytes(storageReference);
+        bytes = await this.downloadBytes(storageReference, maxBytes);
       } catch (error) {
         throw mapStorageError(error, storageReference);
       }
 
       const byteArray = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+      if (normalizedHash) {
+        await verifyContentIntegrity(byteArray, normalizedHash, path);
+      }
       const decodedText = new TextDecoder('utf-8').decode(byteArray);
       let parsed;
       try {
@@ -90,7 +106,8 @@ export class StorageContentLoader {
   }
 
   invalidate(storagePath) {
-    return this.cache.invalidate(normalizeStoragePath(storagePath));
+    const path = normalizeStoragePath(storagePath);
+    return this.cache.invalidateMatching((key) => key === path || key.startsWith(`${path}#sha256:`));
   }
 
   clearCache() {

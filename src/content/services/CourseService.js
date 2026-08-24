@@ -4,6 +4,7 @@ import { courseManifestPath, versionedCourseModulePath } from '../utils/contentP
 import { CONTENT_ERROR_CODES, ContentError } from '../utils/ContentError';
 import { BaseContentService } from './BaseContentService';
 import { getModuleLessons, resolveLessonModuleNumber } from '../../course/courseStructure.js';
+import { CONTENT_LIMITS } from '../validation/contentLimits';
 
 const validateModule = (value) => Boolean(
   value
@@ -71,7 +72,7 @@ export class CourseService extends BaseContentService {
       metadata.storagePath,
       this.resolveVersion(metadata),
       moduleNumber,
-      { validate: validateModule },
+      { validate: validateModule, expectedHash: metadata.contentIntegrity?.modules?.[`module-${moduleNumber}.json`], maxBytes: CONTENT_LIMITS.runtime.maxCourseDownloadBytes },
     );
   }
 
@@ -80,7 +81,7 @@ export class CourseService extends BaseContentService {
     const manifest = await this.repository.loadManifest(
       metadata.storagePath,
       this.resolveVersion(metadata),
-      { validate: validateManifest },
+      { validate: validateManifest, expectedHash: metadata.contentIntegrity?.manifest, maxBytes: CONTENT_LIMITS.course.maxManifestBytes },
     );
     validateManifestAgainstMetadata(manifest, metadata);
     const initialModuleNumber = resolveLessonModuleNumber(

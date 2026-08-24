@@ -31,10 +31,10 @@ function eventDto(event) {
 }
 
 export class ExamPersistenceCoordinator {
-  constructor({ service, attemptId, sessionId, revision = 0, debounceMs = 750, eventDebounceMs = 1000, heartbeatMs = 15000, scheduler = globalThis, onStatus = () => {} }) {
+  constructor({ service, attemptId, sessionId, revision = 0, eventSequence = 0, debounceMs = 750, eventDebounceMs = 1000, heartbeatMs = 15000, scheduler = globalThis, onStatus = () => {} }) {
     this.service = service; this.attemptId = attemptId; this.sessionId = sessionId; this.revision = revision;
     this.debounceMs = debounceMs; this.eventDebounceMs = eventDebounceMs; this.heartbeatMs = heartbeatMs; this.scheduler = scheduler; this.onStatus = onStatus;
-    this.responseTimer = null; this.eventTimer = null; this.heartbeatTimer = null; this.pendingResponse = null; this.pendingEvents = new Map(); this.persistedEventStates = new Map(); this.lastResponse = null; this.responsePromise = null; this.eventPromise = null; this.heartbeatSequence = 0; this.destroyed = false;
+    this.responseTimer = null; this.eventTimer = null; this.heartbeatTimer = null; this.heartbeatPromise = null; this.pendingResponse = null; this.pendingEvents = new Map(); this.persistedEventStates = new Map(); this.lastResponse = null; this.responsePromise = null; this.eventPromise = null; this.heartbeatSequence = 0; this.eventSequence = eventSequence; this.destroyed = false;
     this.handleOnline = () => { this.flushAll().catch(() => undefined); };
     globalThis.addEventListener?.('online', this.handleOnline);
   }
@@ -76,10 +76,12 @@ export class ExamPersistenceCoordinator {
   async flushIntegrityEvents() {
     if (this.eventPromise) return this.eventPromise;
     const entries = [...this.pendingEvents.values()]; if (!entries.length) return null;
-    const events = entries.map(({ dto }) => dto);
+    entries.forEach((entry, index) => { if (!entry.sequence) entry.sequence = this.eventSequence + index + 1; });
+    const events = entries.map(({ dto, sequence }) => ({ ...dto, sequence }));
+    const startSequence = entries[0].sequence; const endSequence = entries.at(-1).sequence;
     this.pendingEvents.clear(); this.eventTimer = null; this.notify(EXAM_SYNC_STATUS.SYNCING, 'Synchronizing integrity events…');
-    this.eventPromise = this.service.saveIntegrityEvents({ attemptId: this.attemptId, sessionId: this.sessionId, events })
-      .then((result) => { entries.forEach(({ dto, lifecycleSignature }) => this.persistedEventStates.set(dto.id, lifecycleSignature)); this.notify(EXAM_SYNC_STATUS.SYNCED, 'Exam synchronized'); return result; })
+    this.eventPromise = this.service.saveIntegrityEvents({ attemptId: this.attemptId, sessionId: this.sessionId, events, startSequence, endSequence })
+      .then((result) => { this.eventSequence = Math.max(this.eventSequence, result.lastSequence ?? endSequence); entries.forEach(({ dto, lifecycleSignature }) => this.persistedEventStates.set(dto.id, lifecycleSignature)); this.notify(EXAM_SYNC_STATUS.SYNCED, 'Exam synchronized'); return result; })
       .catch((error) => { entries.forEach((entry) => { if (!this.pendingEvents.has(entry.dto.id)) this.pendingEvents.set(entry.dto.id, entry); }); this.notify(isOnline() ? EXAM_SYNC_STATUS.ERROR : EXAM_SYNC_STATUS.OFFLINE, isOnline() ? error.message : 'Connection lost. Integrity events are waiting to synchronize.'); throw error; })
       .finally(() => { this.eventPromise = null; });
     return this.eventPromise;
@@ -88,7 +90,8 @@ export class ExamPersistenceCoordinator {
   startHeartbeat(initialSequence = 0) {
     this.heartbeatSequence = Math.max(this.heartbeatSequence, initialSequence);
     if (this.heartbeatTimer) return;
-    this.heartbeatTimer = this.scheduler.setInterval(() => this.sendHeartbeat(), this.heartbeatMs);
+    this.heartbeatPromise = this.sendHeartbeat();
+    this.heartbeatTimer = this.scheduler.setInterval(() => { this.heartbeatPromise = this.sendHeartbeat(); }, this.heartbeatMs);
   }
 
   async sendHeartbeat() {
@@ -99,9 +102,11 @@ export class ExamPersistenceCoordinator {
   }
 
   async flushAll() {
+    if (this.heartbeatPromise) await this.heartbeatPromise;
     do { await this.flushResponses(); } while (this.pendingResponse);
     do { await this.flushIntegrityEvents(); } while (this.pendingEvents.size);
   }
+  getTelemetrySequence() { return this.eventSequence; }
   stopHeartbeat() { if (this.heartbeatTimer) this.scheduler.clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
   destroy() { this.destroyed = true; globalThis.removeEventListener?.('online', this.handleOnline); if (this.responseTimer) this.scheduler.clearTimeout(this.responseTimer); if (this.eventTimer) this.scheduler.clearTimeout(this.eventTimer); this.stopHeartbeat(); }
 }

@@ -10,9 +10,10 @@ import { CertificateIssuer } from '../functions/src/certification/CertificateIss
 
 const manifest = { id: 'future-course', schemaVersion: '1.0.0', metadata: { version: '3.0.0' }, modules: [{ id: 'module-a', lessons: [{ id: 'lesson-a' }, { id: 'lesson-b' }, { id: 'optional', required: false }] }] };
 const completion = new CourseCompletionEngine();
+const evidence = (ids) => Object.fromEntries(ids.map((id) => [id, { sessionId: `session-${id}`, assurance: 'PROTOCOL_OBSERVED' }]));
 assert.equal(completion.evaluate(manifest, { completion: 100, completedLessons: [] }).eligibilityStatus, 'LOCKED', 'client aggregate completion must not unlock certification');
-assert.equal(completion.evaluate(manifest, { completedLessons: ['lesson-a'] }).completionPercentage, 50);
-const eligible = completion.evaluate(manifest, { completedLessons: ['lesson-a', 'lesson-b'] });
+assert.equal(completion.evaluate(manifest, { schemaVersion: '2.0.0', completedLessons: ['lesson-a'], lessonEvidence: evidence(['lesson-a']) }).completionPercentage, 50);
+const eligible = completion.evaluate(manifest, { schemaVersion: '2.0.0', completedLessons: ['lesson-a', 'lesson-b'], lessonEvidence: evidence(['lesson-a', 'lesson-b']) });
 assert.equal(eligible.eligibilityStatus, 'ELIGIBLE');
 assert.equal(eligible.requiredLessons, 2);
 
@@ -66,7 +67,13 @@ const reviewDb = new FakeReviewDb({
   'examAttempts/attempt-1': { ...attempt, state: 'FINALIZED' },
 });
 const auditEvents = [];
-const trustedReview = new ReviewService({ db: reviewDb, issuer, audit: { record: async (...args) => auditEvents.push(args) } });
+const trustedReview = new ReviewService({ db: reviewDb, issuer, audit: {
+  write(transaction, attemptId, type, options = {}) {
+    const eventId = options.eventId ?? `${type.toLowerCase()}-${attemptId}`;
+    transaction.set(reviewDb.doc(`examAttempts/${attemptId}/auditEvents/${eventId}`), { attemptId, type, eventId });
+    auditEvents.push([attemptId, type]);
+  },
+} });
 const reviewer = { uid: 'reviewer', token: { certificationReviewer: true } };
 const resolvedOnce = await trustedReview.resolve(reviewer, reviewA.reviewId, 'CERTIFIED');
 const resolvedTwice = await trustedReview.resolve(reviewer, reviewA.reviewId, 'CERTIFIED');

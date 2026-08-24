@@ -24,6 +24,12 @@ export class BaseContentService {
     return listNormalizedMetadata(this.repository, this.createMetadata, options);
   }
 
+
+  async listMetadataPage({ query }) {
+    const page = await this.repository.listMetadataPage(query);
+    return Object.freeze({ ...page, items: Object.freeze(page.items.map(this.createMetadata)) });
+  }
+
   resolveVersion(metadata) {
     return metadata.version;
   }

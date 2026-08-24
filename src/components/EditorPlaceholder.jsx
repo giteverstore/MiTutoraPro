@@ -2,11 +2,11 @@ import { lazy, Suspense } from 'react';
 
 const MonacoCodeEditor = lazy(() => import('./MonacoCodeEditor'));
 
-export function EditorPlaceholder({ editor, value, onChange }) {
+export function EditorPlaceholder({ editor, value, onChange, instanceId }) {
   return (
     <div className="editor-window">
       <Suspense fallback={<EditorLoadingState />}>
-        <MonacoCodeEditor editor={editor} value={value} onChange={onChange} />
+        <MonacoCodeEditor editor={editor} value={value} onChange={onChange} instanceId={instanceId} />
       </Suspense>
     </div>
   );

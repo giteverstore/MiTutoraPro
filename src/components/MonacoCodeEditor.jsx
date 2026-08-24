@@ -14,6 +14,7 @@ import 'monaco-editor/editor/contrib/comment/browser/comment';
 import 'monaco-editor/editor/contrib/find/browser/findController';
 import 'monaco-editor/editor/contrib/linesOperations/browser/linesOperations';
 import { useSettings } from '../settings/useSettings';
+import { dispatchCompilerRun } from '../compiler/core/compilerEvents';
 
 const EDITOR_THEME = 'mi-tutora-editor';
 
@@ -74,7 +75,7 @@ function configureMonaco(monacoInstance) {
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange }) {
+export default function MonacoCodeEditor({ editor, value, onChange, instanceId }) {
   const settings = useSettings();
   const editorTheme = {
     'mitutora-dark': EDITOR_THEME,
@@ -83,7 +84,7 @@ export default function MonacoCodeEditor({ editor, value, onChange }) {
   }[settings.editor.theme] ?? EDITOR_THEME;
   const handleMount = (instance, monacoInstance) => {
     instance.addCommand(monacoInstance.KeyMod.CtrlCmd | monacoInstance.KeyCode.Enter, () => {
-      window.dispatchEvent(new CustomEvent('learning-platform:run'));
+      dispatchCompilerRun(instanceId, 'monaco-shortcut');
     });
     window.requestAnimationFrame(() => {
       const editorNode = instance.getDomNode();

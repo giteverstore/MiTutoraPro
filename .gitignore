@@ -3,3 +3,17 @@ dist/
 .vite/
 *.local
 .env
+test-results/
+playwright-report/
+firebase-debug.log
+firebase-debug.log.*
+firestore-debug.log
+firestore-debug.log.*
+storage-debug.log
+storage-debug.log.*
+*-firebase-adminsdk-*.json
+*service-account*.json
+*serviceAccount*.json
+firebase-admin-credentials*.json
+.env.*
+!.env.example

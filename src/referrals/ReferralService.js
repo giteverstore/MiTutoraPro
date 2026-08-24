@@ -10,19 +10,17 @@ export class ReferralService {
   async getReferralProfile(userId) {
     const stored = await this.dataService.loadReferral(userId);
     if (stored) return createReferralProfile(stored);
-    const initial = createReferralProfile(mockReferralProfile);
-    await this.dataService.saveReferral(userId, initial);
-    return initial;
+    return createReferralProfile(mockReferralProfile);
   }
 
   async saveReferralProfile(userId, profile) {
-    const normalized = createReferralProfile(profile);
-    return this.dataService.saveReferral(userId, normalized);
+    void userId;
+    return createReferralProfile(profile);
   }
 
   async resetReferralProfile(userId) {
-    await this.dataService.clearReferral(userId);
-    return this.getReferralProfile(userId);
+    void userId;
+    return createReferralProfile(mockReferralProfile);
   }
 
   exportReferralProfile(profile) {

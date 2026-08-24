@@ -28,6 +28,10 @@ export class BaseContentRepository {
     );
   }
 
+  listMetadataPage(queryDescriptor) {
+    return this.metadata.queryPage(queryDescriptor);
+  }
+
   downloadJson(storagePath, options) {
     return this.loader.load(storagePath, options);
   }

@@ -2,6 +2,10 @@ function normalizeLanguageId(languageId) {
   return String(languageId ?? '').trim().toLowerCase();
 }
 
+function runtimeKey(languageId, instanceId = 'default') {
+  return `${normalizeLanguageId(languageId)}::${String(instanceId || 'default')}`;
+}
+
 export class RuntimeRegistry {
   constructor() {
     this.factories = new Map();
@@ -22,12 +26,21 @@ export class RuntimeRegistry {
     return this.factories.has(normalizeLanguageId(languageId));
   }
 
-  resolve(languageId) {
+  resolve(languageId, instanceId = 'default') {
     const id = normalizeLanguageId(languageId);
     const factory = this.factories.get(id);
     if (!factory) throw new Error(`No compiler runtime is registered for "${languageId}".`);
-    if (!this.instances.has(id)) this.instances.set(id, factory());
-    return this.instances.get(id);
+    const key = runtimeKey(id, instanceId);
+    if (!this.instances.has(key)) this.instances.set(key, factory());
+    return this.instances.get(key);
+  }
+
+  release(languageId, instanceId = 'default') {
+    const key = runtimeKey(languageId, instanceId);
+    const runtime = this.instances.get(key);
+    if (!runtime) return Promise.resolve();
+    this.instances.delete(key);
+    return runtime.dispose();
   }
 
   getInitializedRuntimes() {

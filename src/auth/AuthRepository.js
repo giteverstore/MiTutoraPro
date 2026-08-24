@@ -6,15 +6,25 @@ import {
   signOutUser,
   signUpWithEmail,
 } from '../firebase/auth';
-import { UserRepository } from '../repositories/firestore/UserRepository';
 
 function providerIds(firebaseUser) {
   return firebaseUser.providerData.map(({ providerId }) => providerId);
 }
 
 export class AuthRepository {
-  constructor(userRepository = new UserRepository()) {
+  constructor(userRepository = null) {
     this.users = userRepository;
+    this.usersPromise = null;
+  }
+
+  async getUsers() {
+    if (this.users) return this.users;
+    if (!this.usersPromise) {
+      this.usersPromise = import('../repositories/firestore/UserRepository')
+        .then(({ UserRepository }) => new UserRepository());
+    }
+    this.users = await this.usersPromise;
+    return this.users;
   }
 
   async signInWithGoogle() {
@@ -41,19 +51,20 @@ export class AuthRepository {
     return onAuthStateChanged(next, error);
   }
 
-  getUserDocument(uid) {
-    return this.users.get(uid);
+  async getUserDocument(uid) {
+    return (await this.getUsers()).get(uid);
   }
 
   async synchronizeUserDocument(firebaseUser) {
+    const users = await this.getUsers();
     const timestamp = new Date().toISOString();
-    const userExists = await this.users.exists(firebaseUser.uid);
+    const userExists = await users.exists(firebaseUser.uid);
 
     if (userExists) {
-      return this.users.update(firebaseUser.uid, { lastLogin: timestamp });
+      return users.update(firebaseUser.uid, { lastLogin: timestamp });
     }
 
-    return this.users.set(firebaseUser.uid, {
+    return users.set(firebaseUser.uid, {
       uid: firebaseUser.uid,
       email: firebaseUser.email ?? '',
       name: firebaseUser.displayName ?? '',

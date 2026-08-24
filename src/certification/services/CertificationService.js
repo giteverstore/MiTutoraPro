@@ -12,7 +12,7 @@ function milliseconds(value) {
 
 function normalizeAttempt(record) {
   if (!record) return null;
-  const timestamps = ['createdAt', 'scheduledFor', 'verificationStartedAt', 'verifiedAt', 'startedAt', 'expiresAt', 'submittedAt', 'finalizedAt', 'lastHeartbeatAt', 'recoveryDeadline', 'updatedAt'];
+  const timestamps = ['createdAt', 'scheduledFor', 'verificationStartedAt', 'verificationExpiresAt', 'verificationConsumedAt', 'verifiedAt', 'startedAt', 'expiresAt', 'submittedAt', 'finalizedAt', 'lastHeartbeatAt', 'recoveryDeadline', 'updatedAt'];
   const normalized = { ...record };
   timestamps.forEach((field) => { normalized[field] = milliseconds(record[field]); });
   return createExamAttempt(normalized);
@@ -40,7 +40,7 @@ export class CertificationService {
   getAttempt(attemptId) { return this.run(async () => { const result = await this.repository.getAttempt(attemptId); return { attempt: normalizeAttempt(result.attempt), responses: result.responses, integrityEvents: result.integrityEvents ?? [], integrityReport: result.integrityReport ?? null }; }); }
   createAttempt(data) { return this.run(async () => normalizeAttempt(await this.repository.createAttempt(data))); }
   beginVerification(id) { return this.run(async () => normalizeAttempt(await this.repository.beginVerification(id))); }
-  completeVerification(id, summary) { return this.run(async () => normalizeAttempt(await this.repository.completeVerification(id, summary))); }
+  completeVerification(id, protocol) { return this.run(async () => normalizeAttempt(await this.repository.completeVerification(id, protocol))); }
   startAttempt(id) { return this.run(async () => normalizeAttempt(await this.repository.startAttempt(id))); }
   acquireLease(id, sessionId) { return this.run(async () => normalizeAttempt(await this.repository.acquireLease(id, sessionId))); }
   heartbeat(id, sessionId, sequence) { return this.run(() => this.repository.heartbeat(id, sessionId, sequence)); }

@@ -28,6 +28,7 @@ function stableSerialize(value) {
 function createProgressData(progress, courseId) {
   const {
     id: _id,
+    revision: _revision,
     startedAt: _startedAt,
     lastOpened: _lastOpened,
     updatedAt: _updatedAt,
@@ -158,9 +159,13 @@ export class UserDataService {
         lastOpened: now,
         updatedAt: now,
       };
-      const saved = await this.repository(uid, 'progress', ProgressRepository).set(courseId, document);
+      const expectedRevision = existing?.revision ?? 0;
+      const repository = this.repository(uid, 'progress', ProgressRepository);
+      const saved = typeof repository.saveWithRevision === 'function'
+        ? await repository.saveWithRevision(courseId, document, expectedRevision)
+        : await repository.set(courseId, { ...document, revision: expectedRevision + 1 });
       if (this.cacheGeneration === generation) {
-        this.persistedProgressSnapshots.set(key, serializedProgress);
+        this.persistedProgressSnapshots.set(key, stableSerialize(createProgressData(saved, courseId)));
       }
       return saved;
     });

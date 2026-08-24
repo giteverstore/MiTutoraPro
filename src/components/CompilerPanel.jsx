@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useImperativeHandle, useRef, useState } from 'react';
 import { EditorHeader } from './EditorHeader';
 import { EditorPlaceholder } from './EditorPlaceholder';
 import { OutputPanel } from './OutputPanel';
@@ -8,13 +8,18 @@ import { LAYOUT_SIZE } from '../design-system/theme';
 import { useCompilerManager } from '../compiler/CompilerProvider';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { useSettings } from '../settings/useSettings';
+import { COMPILER_EVENTS, createCompilerExecutionEvent } from '../compiler/core/compilerEvents';
+import { ConfirmDialog } from './Dialog';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
   onVerificationChange,
   onExecutionStateChange,
   renderOutput,
+  instanceId: requestedInstanceId,
 }, forwardedRef) {
+  const generatedInstanceId = useId();
+  const instanceId = requestedInstanceId ?? `compiler-${generatedInstanceId.replace(/:/g, '')}`;
   const panelRef = useRef(null);
   const compilerManager = useCompilerManager();
   const learningProgress = useOptionalLearningProgress();
@@ -33,6 +38,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const [executionStatus, setExecutionStatus] = useState('idle');
   const [verificationStatus, setVerificationStatus] = useState('idle');
   const [executionTimeMs, setExecutionTimeMs] = useState(null);
+  const [replaceConfirmation, setReplaceConfirmation] = useState(null);
   const executionControllerRef = useRef(null);
   const outputResize = useDragResize({
     ...LAYOUT_SIZE.output,
@@ -64,6 +70,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         source = await compilerManager.format({
           language: definition.language,
           source,
+          instanceId,
         });
         currentCodeRef.current = source;
         setCode(source);
@@ -76,14 +83,15 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         execution: definition.execution,
         timeoutMs: definition.timeoutMs,
         signal: controller.signal,
+        instanceId,
       });
 
       setResult(execution.output);
       setError(execution.errors.join('\n'));
       setExecutionTimeMs(execution.executionTimeMs);
       setExecutionStatus(execution.status);
-      window.dispatchEvent(new CustomEvent('learning-platform:execution-complete', {
-        detail: execution,
+      window.dispatchEvent(createCompilerExecutionEvent(instanceId, execution, {
+        language: definition.language,
       }));
     } catch (executionError) {
       if (executionError.name !== 'AbortError') {
@@ -102,6 +110,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     invalidateExerciseVerification,
     onVerificationChange,
     settings.editor.autoFormatOnRun,
+    instanceId,
   ]);
 
   const handleCodeChange = useCallback((nextCode) => {
@@ -128,6 +137,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       verifyExercise?.(definition.exerciseId, {
         expectedOutput: definition.expectedOutput,
         programOutput: result,
+        sourceCode: currentCodeRef.current,
+        compilerId: definition.id,
       });
     } else if (definition.exerciseId) {
       invalidateExerciseVerification?.(definition.exerciseId);
@@ -145,7 +156,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     executionControllerRef.current?.abort();
     executionControllerRef.current = null;
     const definition = activeCompilerRef.current;
-    await compilerManager.reset(definition.language);
+    await compilerManager.reset(definition.language, instanceId);
     setIsRunning(false);
     currentCodeRef.current = initialCode;
     lastLoadedCodeRef.current = initialCode;
@@ -162,15 +173,11 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     initialCode,
     invalidateExerciseVerification,
     onVerificationChange,
+    instanceId,
   ]);
 
-  const loadCompilerDefinition = useCallback((definition, { confirmReplace = true } = {}) => {
+  const applyCompilerDefinition = useCallback((definition) => {
     const source = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    const hasLearnerEdits = currentCodeRef.current !== lastLoadedCodeRef.current;
-    if (hasLearnerEdits && source !== currentCodeRef.current && confirmReplace
-      && !window.confirm('Replace the current code with this example?')) {
-      return false;
-    }
     executionControllerRef.current?.abort();
     activeCompilerRef.current = definition;
     setActiveCompiler(definition);
@@ -184,6 +191,20 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setExecutionTimeMs(null);
     return true;
   }, []);
+
+  const requestReplaceConfirmation = useCallback(() => new Promise((resolve) => {
+    setReplaceConfirmation({ resolve });
+  }), []);
+
+  const loadCompilerDefinition = useCallback(async (definition, { confirmReplace = true } = {}) => {
+    const source = definition.editor.lines.map((line) => line.text ?? '').join('\n');
+    const hasLearnerEdits = currentCodeRef.current !== lastLoadedCodeRef.current;
+    if (hasLearnerEdits && source !== currentCodeRef.current && confirmReplace) {
+      const accepted = await requestReplaceConfirmation();
+      if (!accepted) return false;
+    }
+    return applyCompilerDefinition(definition);
+  }, [applyCompilerDefinition, requestReplaceConfirmation]);
 
   useImperativeHandle(forwardedRef, () => ({
     isDirty: () => currentCodeRef.current !== lastLoadedCodeRef.current,
@@ -203,7 +224,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           lines: source.split('\n').map((text, index) => ({ number: index + 1, text, tone: 'source' })),
         },
       };
-      if (!loadCompilerDefinition(definition)) return false;
+      if (!await loadCompilerDefinition(definition)) return false;
       panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       await showRunFeedback({ source, compiler: definition });
       return true;
@@ -211,18 +232,20 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   }), [loadCompilerDefinition, showRunFeedback]);
 
   useEffect(() => {
-    const handleKeyboardRun = () => {
-      if (panelRef.current?.getClientRects().length) showRunFeedback();
+    const handleKeyboardRun = (event) => {
+      if (event.detail?.instanceId === instanceId && panelRef.current?.getClientRects().length) {
+        showRunFeedback();
+      }
     };
-    window.addEventListener('learning-platform:run', handleKeyboardRun);
+    window.addEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
     return () => {
-      window.removeEventListener('learning-platform:run', handleKeyboardRun);
+      window.removeEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
       executionControllerRef.current?.abort();
     };
-  }, [showRunFeedback]);
+  }, [instanceId, showRunFeedback]);
 
   return (
-    <div className="compiler-panel" ref={panelRef}>
+    <div className="compiler-panel" ref={panelRef} data-compiler-instance-id={instanceId}>
       <div className="compiler-ide">
         <EditorHeader
           data={activeCompiler}
@@ -232,7 +255,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           onRun={showRunFeedback}
           onReset={resetEditor}
         />
-        <EditorPlaceholder editor={activeCompiler.editor} value={code} onChange={handleCodeChange} />
+        <EditorPlaceholder editor={activeCompiler.editor} value={code} onChange={handleCodeChange} instanceId={instanceId} />
         <ResizeHandle
           className="output-resize-handle"
           label={activeCompiler.resizeLabel}
@@ -272,6 +295,14 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           />
         )}
       </div>
+      <ConfirmDialog
+        open={Boolean(replaceConfirmation)}
+        title="Replace current code?"
+        description="Your current editor changes will be replaced with this example."
+        confirmLabel="Replace code"
+        onConfirm={() => { replaceConfirmation?.resolve(true); setReplaceConfirmation(null); }}
+        onCancel={() => { replaceConfirmation?.resolve(false); setReplaceConfirmation(null); }}
+      />
     </div>
   );
 });

@@ -14,7 +14,7 @@ CompilerPanel (React)
 - `CompilerProvider` supplies one manager instance to React.
 - `normalizeCompilerDefinition` converts canonical and legacy JSON into one internal definition.
 - `CompilerPanel` owns editor text and presentation state for the mounted lesson.
-- `CompilerManager` initializes runtimes once, executes current source, formats optionally, resets, validates output, and disposes runtimes.
+- `CompilerManager` initializes runtimes per compiler instance, executes current source, formats optionally, resets, validates output, and disposes runtimes.
 - registries map stable content IDs to implementations.
 
 ## Execution request
@@ -64,7 +64,7 @@ Two generic validators cover outputs whose source semantics are not exact text: 
 
 ## Lifecycle and lazy behavior
 
-Monaco is loaded through the compiler editor component. A runtime is instantiated and initialized only after its language reaches `CompilerManager.initialize`. Python and Java execute in separate workers; opening or running Python does not load Java assets. A Java worker reuses its compiler instance until cancellation, timeout, disposal, or a fatal worker error. `CompilerProvider` disposes the manager on unmount.
+Monaco is loaded through the compiler editor component. A runtime is instantiated and initialized only after its language and compiler-instance pair reaches `CompilerManager.initialize`. Python and Java execute in separate workers; opening or running Python does not load Java assets. Window-level run events include a required target instance, and cancellation/reset only affects that instance. Workers are reused until cancellation, timeout, disposal, or a fatal worker error. `CompilerProvider` disposes the manager on unmount.
 
 ## Java adapter
 

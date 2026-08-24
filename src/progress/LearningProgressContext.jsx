@@ -230,27 +230,44 @@ export function LearningProgressProvider({
   }, [course, updateProgress]);
 
   const completeLesson = useCallback(async (lessonId, completionType = 'reading') => {
-    await trustedCompletionService.recordLessonCompletion(course.id, lessonId, completionType);
+    const current = progress;
+    const lesson = getCourseLessons(course).find(({ lesson: item }) => item.id === lessonId)?.lesson;
+    const evidence = completionType === 'quiz'
+      ? { answers: Object.fromEntries((lesson?.blocks ?? []).filter(({ type }) => type === 'quiz').map(({ id }) => [id, current.quizScores[id]?.selectedOptionIds ?? []])) }
+      : completionType === 'exercise'
+        ? { artifacts: Object.fromEntries((lesson?.blocks ?? []).filter(({ type }) => type === 'compiler').map((block) => {
+            const exercise = Object.values(current.exerciseCompletion).find((item) => item.compilerId === block.id && item.completed);
+            return [block.id, { sourceCode: exercise?.sourceCode ?? '', programOutput: exercise?.programOutput ?? '' }];
+          })) }
+        : {};
+    if (course.publishedVersion) {
+      await trustedCompletionService.recordLessonCompletion(course.id, course.publishedVersion, lessonId, evidence);
+    }
     updateProgress((current) => ({
       ...current,
       completedLessons: current.completedLessons.includes(lessonId)
         ? current.completedLessons
         : [...current.completedLessons, lessonId],
     }));
-  }, [course.id, trustedCompletionService, updateProgress]);
+  }, [course, progress, trustedCompletionService, updateProgress]);
 
   const markLessonVisited = useCallback((lessonId) => {
+    if (course.publishedVersion) {
+      trustedCompletionService.beginLessonEvidence(course.id, course.publishedVersion, lessonId)
+        .catch((error) => console.error('[Progress] Unable to begin trusted lesson evidence.', error));
+    }
     updateProgress((current) =>
       current.visitedLessons.includes(lessonId)
         ? current
         : { ...current, visitedLessons: [...current.visitedLessons, lessonId] });
-  }, [updateProgress]);
+  }, [course.id, course.publishedVersion, trustedCompletionService, updateProgress]);
 
   const recordQuizScore = useCallback((
     quizId,
     score,
     maxScore = 1,
     passed = score === maxScore,
+    selectedOptionIds = [],
   ) => {
     updateProgress((current) => {
       const previous = current.quizScores[quizId];
@@ -263,6 +280,7 @@ export function LearningProgressProvider({
             maxScore,
             percentage: maxScore ? Math.round((score / maxScore) * 100) : 0,
             passed,
+            selectedOptionIds: [...selectedOptionIds],
             attempts: (previous?.attempts ?? 0) + 1,
             lastAttemptAt: new Date().toISOString(),
           },
@@ -300,6 +318,8 @@ export function LearningProgressProvider({
           verified: true,
           expectedOutput: verification.expectedOutput,
           programOutput: verification.programOutput,
+          sourceCode: verification.sourceCode,
+          compilerId: verification.compilerId,
           verifiedAt: new Date().toISOString(),
         },
       },

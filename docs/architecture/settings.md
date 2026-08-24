@@ -4,9 +4,9 @@ Settings is an AppShell page under `src/settings/`. It provides Profile, Editor,
 
 ## SettingsService
 
-`SettingsService` is a framework-independent service with `getSetting`, `setSetting`, `resetSettings`, `exportSettings`, and a subscription interface used by React.
+`SettingsService` is a framework-independent service with `getSetting`, `setSetting`, `resetSettings`, `exportSettings`, and subscription interfaces used by React. Settings are optimistic in memory, while persistence exposes `IDLE`, `SAVING`, `SAVED`, and `ERROR` through `useSettingsPersistence`.
 
-The local instance persists a versioned settings document at `mi-tutora:settings:v1`. Defaults live in `settingsDefaults.js`. The service accepts a storage adapter through its constructor, providing the replacement seam for a backend or synchronized repository. `useSettings` exposes its snapshot through `useSyncExternalStore`.
+The authenticated instance persists through `UserDataService`; defaults live in `settingsDefaults.js`. Writes are serialized, compare immutable serialized snapshots, and coalesce rapid edits so an older request cannot become the final remote value. Failed writes remain observable and retryable instead of being presented as saved. Switching users invalidates stale in-flight work and resets the persistence status. `useSettings` exposes values through `useSyncExternalStore`.
 
 ## Global consumers
 

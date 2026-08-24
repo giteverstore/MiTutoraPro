@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto';
+import { FieldValue } from 'firebase-admin/firestore';
 import { FirebaseCoursePublisher } from './FirebaseCoursePublisher.mjs';
+import { ContentPublicationProtocol } from './ContentPublicationProtocol.mjs';
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
@@ -12,62 +14,76 @@ export class FirebasePracticePublisher {
   }
 
   async validateCredentials(bundle) {
-    if (this.app.options.projectId !== bundle.projectId) {
-      throw new Error(`Refusing to publish Practice content to unexpected project ${this.app.options.projectId}.`);
-    }
-    if (this.bucket.name !== bundle.bucket) {
-      throw new Error(`Refusing to publish Practice content to unexpected bucket ${this.bucket.name}.`);
-    }
+    if (this.app.options.projectId !== bundle.projectId) throw new Error(`Refusing to publish Practice content to unexpected project ${this.app.options.projectId}.`);
+    if (this.bucket.name !== bundle.bucket) throw new Error(`Refusing to publish Practice content to unexpected bucket ${this.bucket.name}.`);
     await this.app.options.credential.getAccessToken();
+  }
+
+  async verifyFiles(bundle, onProgress) {
+    for (const file of bundle.files) {
+      const remoteFile = this.bucket.file(file.remotePath);
+      const [exists] = await remoteFile.exists();
+      if (!exists) throw new Error(`Upload verification failed: ${file.remotePath} does not exist.`);
+      const [remoteBytes] = await remoteFile.download();
+      if (remoteBytes.byteLength !== file.size || sha256(remoteBytes) !== file.sha256) throw new Error(`Upload integrity verification failed for ${file.remotePath}.`);
+      onProgress({ stage: 'verify', path: file.remotePath, status: 'complete' });
+    }
+    return { artifactCount: bundle.files.length, hashes: Object.fromEntries(bundle.files.map((file) => [file.remotePath, file.sha256])) };
   }
 
   async publish(bundle, onProgress = () => {}) {
     await this.validateCredentials(bundle);
+    const publication = this.db.collection('contentPublications').doc('practice-python');
+    const versionDocument = publication.collection('versions').doc(bundle.version);
+    const protocol = new ContentPublicationProtocol();
+    const verification = await protocol.execute({
+      upload: async () => {
+        for (const file of bundle.files) {
+          const remoteFile = this.bucket.file(file.remotePath);
+          const [exists] = await remoteFile.exists();
+          if (exists) {
+            const [remoteBytes] = await remoteFile.download();
+            if (sha256(remoteBytes) !== file.sha256) throw new Error(`Published Practice content is immutable: ${file.remotePath} differs from local ${bundle.version}. Publish a new version instead.`);
+          } else {
+            await this.bucket.upload(file.localPath, { destination: file.remotePath, resumable: false, metadata: { contentType: 'application/json; charset=utf-8', cacheControl: 'public, max-age=31536000, immutable', metadata: { contentType: 'practice-question', questionId: file.id, version: bundle.version, sha256: file.sha256, publicationState: 'INACTIVE' } } });
+          }
+          onProgress({ stage: 'upload', path: file.remotePath, status: 'complete' });
+        }
+      },
+      verify: () => this.verifyFiles(bundle, onProgress),
+      markReady: async (result) => {
+        await versionDocument.set({ version: bundle.version, status: 'READY', artifactCount: result.artifactCount, hashes: result.hashes, verifiedAt: FieldValue.serverTimestamp() });
+        onProgress({ stage: 'ready', path: versionDocument.path, status: 'complete' });
+      },
+      activate: async () => {
+        await Promise.all(bundle.files.map(async ({ remotePath }) => {
+          const remoteFile = this.bucket.file(remotePath);
+          const [current] = await remoteFile.getMetadata();
+          await remoteFile.setMetadata({ metadata: { ...current.metadata, publicationState: 'ACTIVE' } });
+        }));
+        const batch = this.db.batch();
+        bundle.metadata.forEach((record) => batch.set(this.db.collection(bundle.collection).doc(record.id), record));
+        batch.set(publication, {
+          activeVersion: bundle.version,
+          status: 'ACTIVE',
+          integrityRequired: true,
+          itemCount: bundle.metadata.length,
+          facets: {
+            difficulties: [...new Set(bundle.metadata.map(({ difficulty }) => difficulty))].sort(),
+            topics: [...new Set(bundle.metadata.map(({ topic }) => topic))].sort(),
+          },
+          activatedAt: FieldValue.serverTimestamp(),
+        });
+        await batch.commit();
+        onProgress({ stage: 'activate', path: publication.path, status: 'complete' });
+      },
+    });
 
-    for (const file of bundle.files) {
-      const remoteFile = this.bucket.file(file.remotePath);
-      const [exists] = await remoteFile.exists();
-      if (!exists) continue;
-      const [remoteBytes] = await remoteFile.download();
-      if (sha256(remoteBytes) !== file.sha256) {
-        throw new Error(`Published Practice content is immutable: ${file.remotePath} differs from local v1. Publish a new version instead.`);
-      }
-    }
-
-    for (const file of bundle.files) {
-      onProgress({ stage: 'upload', path: file.remotePath, status: 'running' });
-      await this.bucket.upload(file.localPath, {
-        destination: file.remotePath,
-        resumable: false,
-        metadata: {
-          contentType: 'application/json; charset=utf-8',
-          cacheControl: 'public, max-age=31536000, immutable',
-          metadata: { contentType: 'practice-question', questionId: file.id, version: 'v1' },
-        },
-      });
-      onProgress({ stage: 'upload', path: file.remotePath, status: 'complete' });
-    }
-
-    const batch = this.db.batch();
-    for (const record of bundle.metadata) {
-      batch.set(this.db.collection(bundle.collection).doc(record.id), record);
-    }
-    await batch.commit();
-    onProgress({ stage: 'metadata', path: `${bundle.collection}/*`, status: 'complete' });
-
-    for (const file of bundle.files) {
-      const remoteFile = this.bucket.file(file.remotePath);
-      const [[exists], [remoteMetadata]] = await Promise.all([remoteFile.exists(), remoteFile.getMetadata()]);
-      if (!exists || Number(remoteMetadata.size) !== file.size) {
-        throw new Error(`Upload verification failed for ${file.remotePath}.`);
-      }
-    }
-
-    const snapshots = await Promise.all(bundle.metadata.map(({ id }) => this.db.collection(bundle.collection).doc(id).get()));
-    if (snapshots.some((snapshot, index) => !snapshot.exists || snapshot.id !== bundle.metadata[index].id)) {
-      throw new Error('Firestore Practice metadata verification failed.');
-    }
-
-    return { uploaded: bundle.files.length, metadataDocuments: snapshots.length };
+    const [activeSnapshot, metadataSnapshot] = await Promise.all([
+      publication.get(),
+      this.db.collection(bundle.collection).where('version', '==', bundle.version).get(),
+    ]);
+    if (activeSnapshot.data()?.activeVersion !== bundle.version || metadataSnapshot.size !== bundle.metadata.length) throw new Error('Practice activation verification failed.');
+    return { uploaded: verification.artifactCount, metadataDocuments: metadataSnapshot.size, activeVersion: bundle.version };
   }
 }

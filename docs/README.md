@@ -1,10 +1,20 @@
 # MiTutora Developer Documentation
 
+**Status: CURRENT — canonical documentation index**
+
 This directory is the living technical reference for MiTutora. It describes the code that exists today, the contracts that content and runtime implementations must follow, and the workflows used to extend and release the application.
 
 ## Start here
 
+- [Content safety limits](architecture/content-safety-limits.md)
+- [Dialog and theme ownership](architecture/dialogs-and-theme.md)
+
 - [System overview](architecture/system-overview.md) — application boundaries and data flow
+- [Application routing](architecture/application-routing.md) — stable URLs and history adapter
+- [Startup performance](architecture/startup-performance.md) — route/runtime boundaries and production budgets
+- [Firebase Storage authorization](architecture/storage-authorization.md) — repository-managed access policy
+- [CSS ownership](architecture/style-ownership.md) — domain boundaries and migration status
+- [Documentation lifecycle](architecture/documentation-lifecycle.md) — current/legacy/deprecated/planned convention
 - [Project structure](development/project-structure.md) — where responsibilities live
 - [Course JSON schema](content/course-json-schema.md) — canonical authoring contract
 - [Adding a course](development/adding-a-course.md) — end-to-end content workflow
@@ -19,6 +29,7 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [AppShell](architecture/app-shell.md)
 - [Learning Engine](architecture/learning-engine.md)
 - [Compiler architecture](architecture/compiler-architecture.md)
+- [Error handling and recovery](architecture/error-handling.md)
 - [Runtime adapters](architecture/runtime-adapters.md)
 - [Progress system](architecture/progress-system.md)
 - [Practice](architecture/practice.md)
@@ -47,6 +58,8 @@ This directory is the living technical reference for MiTutora. It describes the 
 
 ### Development
 
+- [Validation conventions](development/validation-conventions.md)
+
 - [UI design system](development/ui-design-system.md)
 - [Project structure](development/project-structure.md)
 - [Coding guidelines](development/coding-guidelines.md)
@@ -54,6 +67,7 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Adding a language](development/adding-a-language.md)
 - [Release process](development/release-process.md)
 - [Firebase content publishing](development/content-publishing.md)
+- [Testing](development/testing.md)
 
 ### Architecture decisions
 

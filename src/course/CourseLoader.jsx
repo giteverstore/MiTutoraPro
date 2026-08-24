@@ -97,7 +97,7 @@ export function CourseLoaderProvider({
         let course;
         if (provider === 'firebase' && courseEntry) {
           const { modules, ...courseFields } = courseDocument;
-          courseDocumentRef.current = courseFields;
+          courseDocumentRef.current = { ...courseFields, publishedVersion: courseEntry.version };
           courseEntryRef.current = courseEntry;
           const session = new CourseSession({
             moduleCount: courseEntry.moduleCount,

@@ -7,9 +7,11 @@ import { EnvironmentCheck } from '../components/EnvironmentCheck/EnvironmentChec
 import { VerificationSummary } from '../components/VerificationSummary/VerificationSummary';
 import { VISION_VERIFICATION_STATUS } from '../models/VisionResult';
 import { useSettings } from '../../settings/useSettings';
+import { useApplicationTheme } from '../../theme/useApplicationTheme';
 
 export function SetupVerificationExperience({ onExit }) {
   const settings = useSettings();
+  const { theme } = useApplicationTheme();
   const config = useMemo(() => createExamConfig(), []);
   const eventBusRef = useRef(null);
   const managerRef = useRef(null);
@@ -18,8 +20,6 @@ export function SetupVerificationExperience({ onExit }) {
   if (!managerRef.current) managerRef.current = new VisionManager({ eventBus: eventBusRef.current, config });
   const [vision, setVision] = useState(managerRef.current.getSnapshot());
   const [manualReport, setManualReport] = useState(null);
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  const theme = settings.appearance.theme === 'system' ? systemTheme : settings.appearance.theme;
 
   useEffect(() => managerRef.current.subscribe(setVision), []);
   useEffect(() => {

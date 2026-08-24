@@ -65,11 +65,11 @@ Repositories read Firestore metadata and download JSON through the shared loader
 
 All three services extend `BaseContentService`. The base owns metadata retrieval, normalized model creation, publication checks, version resolution, and the shared metadata-to-JSON loading sequence. Specialized services provide only their repository download operation and lightweight content-shape validator.
 
-Practice loads the published `practiceQuestions` catalog ordered by `storagePath`, then downloads all six question documents concurrently. Daily Challenges queries the latest published `dailyChallenges` metadata document and downloads its versioned JSON payload. Both pages continue to feed their existing block renderer and compiler components.
+Practice reads the ACTIVE publication pointer, queries only that version's published metadata in stable `position`/document-ID order, and downloads a question body only when selected. Firestore cursors bound every page. Daily Challenges query the latest published metadata document and download its versioned JSON payload. Both pages continue to feed their existing block renderer and compiler components.
 
 ## Cache and errors
 
-`StorageContentLoader` downloads bytes, parses JSON, checks for an object or array, and accepts an optional structural validator. `ContentCache` stores successful results and in-flight promises by normalized Storage path so concurrent calls share one download. Firestore metadata reads use the same cache behavior with a collection/document cache key. Failed requests are evicted. `CourseService.invalidateCourse()` invalidates both metadata and every versioned course object.
+`StorageContentLoader` downloads bytes, verifies an expected SHA-256 from trusted metadata before parsing, checks for an object or array, and accepts an optional structural validator. `ContentCache` is bounded and stores successful results and in-flight promises by normalized Storage path plus hash so concurrent calls share one download. Firestore metadata reads use the same cache behavior with a collection/document cache key. Failed requests are evicted. `CourseService.invalidateCourse()` invalidates both metadata and every versioned course object.
 
 Stable `ContentError` codes distinguish missing metadata, missing Storage objects, malformed JSON, unpublished content, invalid metadata, and other download failures.
 
@@ -108,7 +108,7 @@ Run `npm run build:firebase-interactive-content` to generate:
 
 ```text
 firebase-content/
-├── practice/python/v1/question-1.json ... question-6.json
+├── practice/python/v1/question-1.json ... question-200.json
 ├── daily-challenges/python/v1/2026-08-01.json
 └── firestore/
     ├── practiceQuestions.json

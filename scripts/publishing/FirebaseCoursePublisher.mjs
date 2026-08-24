@@ -1,39 +1,25 @@
-import { applicationDefault, cert, getApp, getApps, initializeApp } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { applicationDefault, cert, getApps, initializeApp } from 'firebase-admin/app';
+import { FieldValue, getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 import { loadEnv } from 'vite';
-import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { ContentPublicationProtocol } from './ContentPublicationProtocol.mjs';
 
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
-
-function loadPublisherEnvironment() {
-  const fileEnvironment = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
-  return { ...fileEnvironment, ...process.env };
-}
-
+function loadPublisherEnvironment() { return { ...loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), ''), ...process.env }; }
 function createCredential(environment) {
   if (!environment.FIREBASE_SERVICE_ACCOUNT_JSON) return applicationDefault();
-  try {
-    return cert(JSON.parse(environment.FIREBASE_SERVICE_ACCOUNT_JSON));
-  } catch (error) {
-    throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON.', { cause: error });
-  }
+  try { return cert(JSON.parse(environment.FIREBASE_SERVICE_ACCOUNT_JSON)); }
+  catch (error) { throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON.', { cause: error }); }
 }
-
 function initializePublisherApp() {
   const environment = loadPublisherEnvironment();
   const projectId = environment.FIREBASE_PROJECT_ID ?? environment.VITE_FIREBASE_PROJECT_ID;
   const storageBucket = environment.FIREBASE_STORAGE_BUCKET ?? environment.VITE_FIREBASE_STORAGE_BUCKET;
-  if (!projectId || !storageBucket) {
-    throw new Error('FIREBASE_PROJECT_ID and FIREBASE_STORAGE_BUCKET are required for publishing.');
-  }
-  if (environment.GOOGLE_APPLICATION_CREDENTIALS && !process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    process.env.GOOGLE_APPLICATION_CREDENTIALS = environment.GOOGLE_APPLICATION_CREDENTIALS;
-  }
-  const name = 'mitutora-content-publisher';
-  const existing = getApps().find((app) => app.name === name);
-  return existing ?? initializeApp({ credential: createCredential(environment), projectId, storageBucket }, name);
+  if (!projectId || !storageBucket) throw new Error('FIREBASE_PROJECT_ID and FIREBASE_STORAGE_BUCKET are required for publishing.');
+  if (environment.GOOGLE_APPLICATION_CREDENTIALS && !process.env.GOOGLE_APPLICATION_CREDENTIALS) process.env.GOOGLE_APPLICATION_CREDENTIALS = environment.GOOGLE_APPLICATION_CREDENTIALS;
+  return getApps().find((app) => app.name === 'mitutora-content-publisher')
+    ?? initializeApp({ credential: createCredential(environment), projectId, storageBucket }, 'mitutora-content-publisher');
 }
 
 export class FirebaseCoursePublisher {
@@ -44,74 +30,55 @@ export class FirebaseCoursePublisher {
   }
 
   async publish(bundle, onProgress = () => {}) {
-    onProgress({ stage: 'credentials', path: this.app.options.projectId, status: 'running' });
-    try {
-      await this.app.options.credential.getAccessToken();
-    } catch (error) {
-      throw new Error(
-        'Firebase Admin credentials are unavailable. Configure GOOGLE_APPLICATION_CREDENTIALS or FIREBASE_SERVICE_ACCOUNT_JSON.',
-        { cause: error },
-      );
-    }
+    try { await this.app.options.credential.getAccessToken(); }
+    catch (error) { throw new Error('Firebase Admin credentials are unavailable. Configure GOOGLE_APPLICATION_CREDENTIALS or FIREBASE_SERVICE_ACCOUNT_JSON.', { cause: error }); }
     onProgress({ stage: 'credentials', path: this.app.options.projectId, status: 'complete' });
 
-    for (const file of bundle.files) {
-      const remoteFile = this.bucket.file(file.remotePath);
-      const [exists] = await remoteFile.exists();
-      if (!exists) continue;
-      const [localBytes, [remoteBytes]] = await Promise.all([
-        readFile(file.localPath),
-        remoteFile.download(),
-      ]);
-      if (sha256(localBytes) !== sha256(remoteBytes)) {
-        throw new Error(
-          `Published content is immutable: ${file.remotePath} already exists with different bytes. Bump the course version before publishing.`,
-        );
-      }
-    }
-
-    const uploaded = [];
-    for (const file of bundle.files) {
-      onProgress({ stage: 'upload', path: file.remotePath, status: 'running' });
-      await this.bucket.upload(file.localPath, {
-        destination: file.remotePath,
-        resumable: false,
-        metadata: {
-          contentType: 'application/json; charset=utf-8',
-          cacheControl: 'public, max-age=31536000, immutable',
-          metadata: { courseId: bundle.metadata.id, version: bundle.metadata.version },
-        },
-      });
-      uploaded.push(file.remotePath);
-      onProgress({ stage: 'upload', path: file.remotePath, status: 'complete' });
-    }
-
     const document = this.db.collection('courses').doc(bundle.metadata.id);
-    onProgress({ stage: 'metadata', path: document.path, status: 'running' });
-    await document.set(bundle.metadata);
-    onProgress({ stage: 'metadata', path: document.path, status: 'complete' });
-
-    const verified = [];
-    for (const file of bundle.files) {
-      const remoteFile = this.bucket.file(file.remotePath);
-      const [exists] = await remoteFile.exists();
-      if (!exists) throw new Error(`Upload verification failed: ${file.remotePath} does not exist.`);
-      const [remoteMetadata] = await remoteFile.getMetadata();
-      if (Number(remoteMetadata.size) !== file.size) {
-        throw new Error(`Upload verification failed: ${file.remotePath} has an unexpected size.`);
-      }
-      verified.push(file.remotePath);
-      onProgress({ stage: 'verify', path: file.remotePath, status: 'complete' });
-    }
-
-    const snapshot = await document.get();
-    const remoteDocument = snapshot.data();
-    const metadataMatches = snapshot.exists && Object.entries(bundle.metadata)
-      .every(([field, value]) => JSON.stringify(remoteDocument?.[field]) === JSON.stringify(value));
-    if (!metadataMatches) {
-      throw new Error(`Firestore verification failed for ${document.path}.`);
-    }
-    onProgress({ stage: 'verify', path: document.path, status: 'complete' });
-    return { uploaded, verified, metadataDocument: document.path };
+    const publication = this.db.collection('contentPublications').doc(`course-${bundle.metadata.id}`);
+    const versionDocument = publication.collection('versions').doc(bundle.metadata.version);
+    const protocol = new ContentPublicationProtocol();
+    const verification = await protocol.execute({
+      upload: async () => {
+        for (const file of bundle.files) {
+          const remoteFile = this.bucket.file(file.remotePath);
+          const [exists] = await remoteFile.exists();
+          if (exists) {
+            const [remoteBytes] = await remoteFile.download();
+            if (sha256(remoteBytes) !== file.sha256) throw new Error(`Published content is immutable: ${file.remotePath} already exists with different bytes. Bump the course version before publishing.`);
+          } else {
+            await this.bucket.upload(file.localPath, { destination: file.remotePath, resumable: false, metadata: { contentType: 'application/json; charset=utf-8', cacheControl: 'public, max-age=31536000, immutable', metadata: { courseId: bundle.metadata.id, version: bundle.metadata.version, sha256: file.sha256, publicationState: 'INACTIVE' } } });
+          }
+          onProgress({ stage: 'upload', path: file.remotePath, status: 'complete' });
+        }
+      },
+      verify: async () => {
+        for (const file of bundle.files) {
+          const [remoteBytes] = await this.bucket.file(file.remotePath).download();
+          if (remoteBytes.byteLength !== file.size || sha256(remoteBytes) !== file.sha256) throw new Error(`Upload integrity verification failed for ${file.remotePath}.`);
+          onProgress({ stage: 'verify', path: file.remotePath, status: 'complete' });
+        }
+        return { artifactCount: bundle.files.length, hashes: Object.fromEntries(bundle.files.map((file) => [file.remotePath, file.sha256])) };
+      },
+      markReady: async (result) => {
+        await versionDocument.set({ version: bundle.metadata.version, status: 'READY', artifactCount: result.artifactCount, hashes: result.hashes, verifiedAt: FieldValue.serverTimestamp() });
+        onProgress({ stage: 'ready', path: versionDocument.path, status: 'complete' });
+      },
+      activate: async () => {
+        await Promise.all(bundle.files.map(async ({ remotePath }) => {
+          const remoteFile = this.bucket.file(remotePath);
+          const [current] = await remoteFile.getMetadata();
+          await remoteFile.setMetadata({ metadata: { ...current.metadata, publicationState: 'ACTIVE' } });
+        }));
+        const batch = this.db.batch();
+        batch.set(document, bundle.metadata);
+        batch.set(publication, { activeVersion: bundle.metadata.version, status: 'ACTIVE', integrityRequired: true, artifactCount: bundle.files.length, activatedAt: FieldValue.serverTimestamp() });
+        await batch.commit();
+        onProgress({ stage: 'activate', path: publication.path, status: 'complete' });
+      },
+    });
+    const [courseSnapshot, publicationSnapshot] = await Promise.all([document.get(), publication.get()]);
+    if (!courseSnapshot.exists || publicationSnapshot.data()?.activeVersion !== bundle.metadata.version) throw new Error(`Firestore activation verification failed for ${document.path}.`);
+    return { uploaded: bundle.files.map(({ remotePath }) => remotePath), verified: Object.keys(verification.hashes), metadataDocument: document.path, activeVersion: bundle.metadata.version };
   }
 }

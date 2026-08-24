@@ -9,6 +9,13 @@ import {
 
 export function createCourseMetadata(value) {
   const metadata = requireMetadataObject(value, 'Course');
+  const integrity = metadata.contentIntegrity && typeof metadata.contentIntegrity === 'object'
+    ? Object.freeze({
+      algorithm: optionalString(metadata.contentIntegrity.algorithm),
+      manifest: optionalString(metadata.contentIntegrity.manifest).toLowerCase(),
+      modules: Object.freeze({ ...(metadata.contentIntegrity.modules ?? {}) }),
+    })
+    : null;
   return Object.freeze({
     id: requiredString(metadata.id, 'id', 'Course'),
     slug: requiredString(metadata.slug, 'slug', 'Course'),
@@ -24,5 +31,6 @@ export function createCourseMetadata(value) {
     published: metadata.published === true,
     version: positiveVersion(metadata.version, 'Course'),
     storagePath: metadataStoragePath(metadata.storagePath, 'Course'),
+    contentIntegrity: integrity,
   });
 }

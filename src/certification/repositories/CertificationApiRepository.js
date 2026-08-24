@@ -7,7 +7,7 @@ export class CertificationApiRepository {
   getAttempt(attemptId) { return this.call('getExamAttempt', { attemptId }); }
   createAttempt(data) { return this.call('createExamAttempt', data); }
   beginVerification(attemptId) { return this.call('beginExamVerification', { attemptId }); }
-  completeVerification(attemptId, summary) { return this.call('completeExamVerification', { attemptId, summary }); }
+  completeVerification(attemptId, protocol) { return this.call('completeExamVerification', { attemptId, ...protocol }); }
   startAttempt(attemptId) { return this.call('startExamAttempt', { attemptId }); }
   acquireLease(attemptId, sessionId) { return this.call('acquireExamLease', { attemptId, sessionId }); }
   heartbeat(attemptId, sessionId, sequence) { return this.call('heartbeatExamAttempt', { attemptId, sessionId, sequence }); }

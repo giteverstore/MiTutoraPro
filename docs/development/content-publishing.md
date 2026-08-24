@@ -49,7 +49,16 @@ Before connecting to Firebase, the CLI verifies:
 - course identity, module count, and lesson count;
 - every local upload file and byte size.
 
-It uploads module files first and `course.json` last, then writes the Firestore metadata document. Finally, it verifies that every Storage object exists with the expected byte size and that Firestore contains the published metadata version and fields. The command exits nonzero on any failure and prints a structured stage summary.
+Course and Practice publishers use a shared activation sequence:
+
+```text
+validate local bundle → upload immutable version → download and verify every SHA-256
+→ mark version READY → atomically write active metadata and active-version pointer
+```
+
+The current active pointer remains unchanged if upload, verification, READY staging, or activation fails. Storage and Firestore are separate systems and are not transactionally atomic; an interrupted upload can leave inactive orphan objects, but an incomplete version cannot become active. Reruns are idempotent when immutable bytes match and refuse an in-place version replacement when they differ.
+
+Practice uses `contentPublications/practice-python`; courses use `contentPublications/course-{courseId}`. Version subdocuments retain verified artifact hashes. Runtime clients query only the active Practice version and verify selected content against metadata hashes.
 
 Storage cannot atomically replace several objects. Publish new content under a new version folder before updating metadata; this keeps the currently published version intact if an upload is interrupted.
 

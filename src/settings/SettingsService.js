@@ -14,6 +14,15 @@ function mergeSettings(defaults, stored) {
   );
 }
 
+export const SETTINGS_PERSISTENCE_STATUS = Object.freeze({
+  IDLE: 'IDLE',
+  SAVING: 'SAVING',
+  SAVED: 'SAVED',
+  ERROR: 'ERROR',
+});
+
+const serialize = (value) => JSON.stringify(value);
+
 export class SettingsService {
   constructor({ dataService = userDataService } = {}) {
     this.dataService = dataService;
@@ -21,34 +30,57 @@ export class SettingsService {
     this.settings = clone(DEFAULT_SETTINGS);
     this.userId = null;
     this.error = null;
+    this.persistence = Object.freeze({
+      status: SETTINGS_PERSISTENCE_STATUS.IDLE,
+      error: null,
+      revision: 0,
+      persistedRevision: 0,
+    });
+    this.persistenceSnapshot = this.persistence;
+    this.revision = 0;
+    this.persistedRevision = 0;
+    this.persistedSettings = serialize(this.settings);
+    this.persistPromise = null;
+    this.userGeneration = 0;
   }
 
   async setUser(userId) {
+    this.userGeneration += 1;
+    const generation = this.userGeneration;
     this.userId = userId ?? null;
     const requestedUserId = this.userId;
     this.error = null;
+    this.persistPromise = null;
+    this.revision = 0;
+    this.persistedRevision = 0;
+    this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.IDLE);
     if (!this.userId) {
       this.settings = clone(DEFAULT_SETTINGS);
+      this.persistedSettings = serialize(this.settings);
+      this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.IDLE);
       this.notify();
       return this.settings;
     }
     try {
       const stored = await this.dataService.loadSettings(this.userId);
-      if (this.userId !== requestedUserId) return this.settings;
+      if (this.userId !== requestedUserId || generation !== this.userGeneration) return this.settings;
       this.settings = mergeSettings(DEFAULT_SETTINGS, stored);
-      if (!stored) await this.dataService.saveSettings(this.userId, this.settings);
-      if (this.userId !== requestedUserId) return this.settings;
+      this.persistedSettings = stored ? serialize(this.settings) : '';
       this.notify();
+      if (!stored) await this.persist();
+      if (this.userId !== requestedUserId || generation !== this.userGeneration) return this.settings;
       return this.settings;
     } catch (error) {
-      if (this.userId !== requestedUserId) return this.settings;
+      if (this.userId !== requestedUserId || generation !== this.userGeneration) return this.settings;
       this.error = error;
+      this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.ERROR, error);
       this.notify();
       throw error;
     }
   }
 
   getSnapshot = () => this.settings;
+  getPersistenceSnapshot = () => this.persistenceSnapshot;
 
   subscribe = (listener) => {
     this.listeners.add(listener);
@@ -69,14 +101,16 @@ export class SettingsService {
       ...this.settings,
       [section]: { ...this.settings[section], [key]: value },
     };
-    this.persist();
-    return value;
+    this.revision += 1;
+    this.notify();
+    return this.persist();
   }
 
   resetSettings() {
     this.settings = clone(DEFAULT_SETTINGS);
-    this.persist();
-    return this.settings;
+    this.revision += 1;
+    this.notify();
+    return this.persist();
   }
 
   exportSettings() {
@@ -88,14 +122,77 @@ export class SettingsService {
   }
 
   persist() {
-    this.notify();
-    if (!this.userId) return Promise.resolve(this.settings);
-    return this.dataService.saveSettings(this.userId, this.settings).catch((error) => {
-      this.error = error;
-      console.error('[Settings] Unable to persist preferences.', error);
+    if (!this.userId) {
+      this.persistedSettings = serialize(this.settings);
+      this.persistedRevision = this.revision;
+      this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.IDLE);
       this.notify();
-      return this.settings;
+      return Promise.resolve(this.settings);
+    }
+    if (serialize(this.settings) === this.persistedSettings) {
+      this.persistedRevision = this.revision;
+      this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.SAVED);
+      this.notify();
+      return Promise.resolve(this.settings);
+    }
+    if (this.persistPromise) return this.persistPromise;
+
+    const generation = this.userGeneration;
+    const userId = this.userId;
+    this.persistPromise = this.drainPersistence({ generation, userId })
+      .finally(() => {
+        this.persistPromise = null;
+      });
+    return this.persistPromise;
+  }
+
+  async drainPersistence({ generation, userId }) {
+    while (generation === this.userGeneration && userId === this.userId) {
+      const snapshot = clone(this.settings);
+      const serialized = serialize(snapshot);
+      const targetRevision = this.revision;
+      if (serialized === this.persistedSettings) break;
+
+      this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.SAVING);
+      this.notify();
+      try {
+        await this.dataService.saveSettings(userId, snapshot);
+      } catch (error) {
+        if (generation === this.userGeneration && userId === this.userId) {
+          this.error = error;
+          this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.ERROR, error);
+          this.notify();
+        }
+        throw error;
+      }
+      if (generation !== this.userGeneration || userId !== this.userId) return this.settings;
+      this.persistedSettings = serialized;
+      this.persistedRevision = targetRevision;
+      this.error = null;
+    }
+
+    if (generation === this.userGeneration && userId === this.userId) {
+      this.updatePersistence(SETTINGS_PERSISTENCE_STATUS.SAVED);
+      this.notify();
+    }
+    return this.settings;
+  }
+
+  retry() {
+    if (this.persistence.status !== SETTINGS_PERSISTENCE_STATUS.ERROR) {
+      return Promise.resolve(this.settings);
+    }
+    return this.persist();
+  }
+
+  updatePersistence(status, error = null) {
+    this.persistence = Object.freeze({
+      status,
+      error,
+      revision: this.revision,
+      persistedRevision: this.persistedRevision,
     });
+    this.persistenceSnapshot = this.persistence;
   }
 
   notify() {

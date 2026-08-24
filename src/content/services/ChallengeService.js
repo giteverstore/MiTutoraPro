@@ -2,6 +2,7 @@ import { createChallengeMetadata } from '../models/challengeMetadata';
 import { ChallengeRepository } from '../repositories/ChallengeRepository';
 import { BaseContentService } from './BaseContentService';
 import { versionedContentPath } from '../utils/contentPaths';
+import { CONTENT_LIMITS } from '../validation/contentLimits';
 
 const validateChallenge = (value) => Boolean(value && !Array.isArray(value) && typeof value === 'object'
   && typeof value.id === 'string' && typeof value.date === 'string' && Array.isArray(value.blocks)
@@ -15,7 +16,7 @@ export class ChallengeService extends BaseContentService {
   getChallenge(challengeId, options) {
     return this.loadById(
       challengeId,
-      (metadata, version, loadOptions) => this.repository.loadChallenge(metadata.storagePath, version, loadOptions),
+      (metadata, version, loadOptions) => this.repository.loadChallenge(metadata.storagePath, version, { ...loadOptions, maxBytes: CONTENT_LIMITS.runtime.maxChallengeDownloadBytes }),
       validateChallenge,
       options,
     );
@@ -24,7 +25,7 @@ export class ChallengeService extends BaseContentService {
   getChallengeFromMetadata(metadata) {
     return this.loadFromMetadata(
       metadata,
-      (item, version, loadOptions) => this.repository.loadChallenge(item.storagePath, version, loadOptions),
+      (item, version, loadOptions) => this.repository.loadChallenge(item.storagePath, version, { ...loadOptions, maxBytes: CONTENT_LIMITS.runtime.maxChallengeDownloadBytes }),
       validateChallenge,
     );
   }

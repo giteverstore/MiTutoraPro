@@ -1,5 +1,6 @@
 import { CompilerPanel } from '../CompilerPanel';
 import { normalizeCompilerDefinition } from '../../compiler/core/normalizeCompilerDefinition';
+import { DomainErrorBoundary } from '../../errors/ErrorBoundary';
 
 export function createCompilerData(definition) {
   const {
@@ -14,8 +15,9 @@ export function createCompilerData(definition) {
     timeoutMs,
     testCases,
   } = normalizeCompilerDefinition(definition);
-  const { runLabel, resetLabel, compiler } = definition;
-  return compiler ?? {
+  const { id, runLabel, resetLabel, compiler } = definition;
+  return compiler ? { id, ...compiler } : {
+    id,
     ariaLabel: `${language} practice compiler`,
     eyebrow: 'Practice workspace',
     title: 'Compiler',
@@ -64,7 +66,15 @@ export function CompilerBlock(props) {
   const compilerData = createCompilerData(props);
   return (
     <section className="content-section lesson-compiler-block">
-      <CompilerPanel compiler={compilerData} />
+      <DomainErrorBoundary
+        name="lesson-compiler-block"
+        title="This compiler could not be displayed."
+        description="The rest of the lesson is still available. Retry this block to continue."
+        resetKeys={[props.id]}
+        compact
+      >
+        <CompilerPanel compiler={compilerData} instanceId={`block-${props.id}`} />
+      </DomainErrorBoundary>
     </section>
   );
 }

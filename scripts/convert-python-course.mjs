@@ -5,6 +5,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { load } from 'cheerio';
 import mammoth from 'mammoth';
+import { validateCourseComplexity } from '../src/content/validation/contentLimits.js';
 
 const SOURCE_PATH = resolve('Python Module 1.docx');
 const FIREBASE_OUTPUT_ROOT = resolve('firebase-content/course-content/python');
@@ -730,6 +731,7 @@ const validate = ajv.compile(schema);
 if (!validate(course)) {
   throw new Error(ajv.errorsText(validate.errors, { separator: '\n' }));
 }
+validateCourseComplexity(course);
 
 const firebaseVersion = `v${course.metadata.version.split('.')[0]}`;
 const outputDirectory = resolve(FIREBASE_OUTPUT_ROOT, firebaseVersion);

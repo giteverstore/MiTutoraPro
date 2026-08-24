@@ -7,6 +7,8 @@ import {
   limit as limitResults,
   orderBy as orderResults,
   query as buildQuery,
+  documentId,
+  startAfter,
   setDoc,
   updateDoc,
   where,
@@ -25,7 +27,7 @@ function toEntity(snapshot) {
   return snapshot.exists() ? { ...snapshot.data(), id: snapshot.id } : null;
 }
 
-function createQueryConstraints({ filters = [], orderBy = [], limit } = {}) {
+function createQueryConstraints({ filters = [], orderBy = [], limit, cursor } = {}) {
   const filterConstraints = filters.map(({ field, operator = '==', value }) => {
     if (!field) throw new Error('Firestore query filters require a field.');
     return where(field, operator, value);
@@ -35,9 +37,13 @@ function createQueryConstraints({ filters = [], orderBy = [], limit } = {}) {
     .filter(Boolean)
     .map(({ field, direction = 'asc' }) => {
       if (!field) throw new Error('Firestore query ordering requires a field.');
-      return orderResults(field, direction);
+      return orderResults(field === '__name__' ? documentId() : field, direction);
     });
   const resultConstraints = [...filterConstraints, ...orderConstraints];
+  if (cursor) {
+    const values = Array.isArray(cursor.values) ? cursor.values : [];
+    resultConstraints.push(startAfter(...values, cursor.id));
+  }
   if (limit !== undefined) {
     if (!Number.isInteger(limit) || limit < 1) throw new Error('Firestore query limit must be a positive integer.');
     resultConstraints.push(limitResults(limit));
@@ -95,6 +101,22 @@ export class BaseRepository {
     const reference = buildQuery(this.#collection, ...createQueryConstraints(descriptor));
     const snapshot = await getDocs(reference);
     return snapshot.docs.map(toEntity);
+  }
+
+  async queryPage(descriptor = {}) {
+    if (!Number.isInteger(descriptor.limit) || descriptor.limit < 1) throw new Error('Paged queries require a positive limit.');
+    const orderBy = [...(Array.isArray(descriptor.orderBy) ? descriptor.orderBy : descriptor.orderBy ? [descriptor.orderBy] : [])];
+    if (!orderBy.some(({ field }) => field === '__name__')) orderBy.push({ field: '__name__', direction: 'asc' });
+    const reference = buildQuery(this.#collection, ...createQueryConstraints({ ...descriptor, orderBy, limit: descriptor.limit + 1 }));
+    const snapshot = await getDocs(reference);
+    const pageDocuments = snapshot.docs.slice(0, descriptor.limit);
+    const last = pageDocuments.at(-1);
+    const valueOrder = orderBy.filter(({ field }) => field !== '__name__');
+    return {
+      items: pageDocuments.map(toEntity),
+      cursor: last ? { id: last.id, values: valueOrder.map(({ field }) => last.get(field)) } : null,
+      hasMore: snapshot.size > descriptor.limit,
+    };
   }
 
   async replaceAll(items, getId = (item) => item.id) {

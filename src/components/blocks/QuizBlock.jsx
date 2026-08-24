@@ -47,6 +47,7 @@ export function QuizBlock({
       correctSelections.length,
       correctOptionIds.length,
       isCorrect,
+      selectedOptions,
     );
     setIsSubmitted(true);
     setFeedback(

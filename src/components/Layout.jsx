@@ -16,8 +16,12 @@ import { LessonFooter } from './LessonFooter';
 import { createCourseLessonBookmark } from '../bookmarks/bookmarkModel';
 import { LearningCompilerProvider } from '../compiler/LearningCompilerContext';
 import { findLessonProgressScope, getModuleLessons } from '../course/courseStructure';
+import { dispatchCompilerRun } from '../compiler/core/compilerEvents';
+import { DomainErrorBoundary } from '../errors/ErrorBoundary';
+import { useApplicationTheme } from '../theme/useApplicationTheme';
 
 export function Layout({ courseLoader, onExitCourse }) {
+  const compilerInstanceId = `course-${courseLoader.currentCourse.id}-workspace`;
   const { user } = useUser();
   const { signOut } = useAuth();
   const learningProgress = useLearningProgress();
@@ -60,9 +64,7 @@ export function Layout({ courseLoader, onExitCourse }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     () => window.localStorage.getItem('mi-tutora:sidebar-collapsed') === 'true',
   );
-  const [theme, setTheme] = useState(
-    () => window.localStorage.getItem('mi-tutora:theme') ?? 'light',
-  );
+  const { theme, toggleTheme } = useApplicationTheme();
   const [workspaceWidth, setWorkspaceWidth] = useState(() => window.innerWidth);
   const [isSidebarOverlay, setIsSidebarOverlay] = useState(
     () => window.matchMedia('(max-width: 1180px)').matches,
@@ -143,11 +145,7 @@ export function Layout({ courseLoader, onExitCourse }) {
     { key: 'm', action: () => setIsDrawerOpen((current) => !current) },
     {
       key: 'd',
-      action: () => setTheme((current) => {
-        const nextTheme = current === 'light' ? 'dark' : 'light';
-        window.localStorage.setItem('mi-tutora:theme', nextTheme);
-        return nextTheme;
-      }),
+      action: () => { void toggleTheme().catch(() => undefined); },
     },
     {
       key: 'Escape',
@@ -160,10 +158,10 @@ export function Layout({ courseLoader, onExitCourse }) {
       key: 'Enter',
       ctrlOrMeta: true,
       action: () => {
-        window.dispatchEvent(new CustomEvent('learning-platform:run'));
+        dispatchCompilerRun(compilerInstanceId, 'learning-shortcut');
       },
     },
-  ], [minimizeCompiler]);
+  ], [minimizeCompiler, toggleTheme]);
 
   useKeyboardShortcuts(shortcuts);
 
@@ -205,14 +203,6 @@ export function Layout({ courseLoader, onExitCourse }) {
     }) : null,
     [course, currentLesson, currentModule],
   );
-  const toggleTheme = useCallback(() => {
-    setTheme((current) => {
-      const nextTheme = current === 'light' ? 'dark' : 'light';
-      window.localStorage.setItem('mi-tutora:theme', nextTheme);
-      return nextTheme;
-    });
-  }, []);
-
   const workspaceStyle = {
     '--sidebar-width': `${sidebarPaneWidth}px`,
     '--compiler-width': `${compilerResize.value}px`,
@@ -225,7 +215,7 @@ export function Layout({ courseLoader, onExitCourse }) {
       <TopNavigation
         course={course}
         onMenuClick={() => setIsDrawerOpen(true)}
-        onThemeToggle={toggleTheme}
+        onThemeToggle={() => { void toggleTheme().catch(() => undefined); }}
         theme={theme}
         progress={learningProgress.courseProgress}
         bookmark={lessonBookmark}
@@ -328,11 +318,20 @@ export function Layout({ courseLoader, onExitCourse }) {
             </div>
           )}
           <div className="compiler-dock-body" aria-hidden={isCompilerMinimized}>
-            <CompilerPanel
-              ref={compilerPanelRef}
-              compiler={persistentCompilerData}
-              onExecutionStateChange={setCompilerStatus}
-            />
+            <DomainErrorBoundary
+              name="course-compiler"
+              title="The compiler could not be displayed."
+              description="Your lesson remains available. Retry the compiler without leaving this lesson."
+              resetKeys={[persistentCompilerData.id]}
+              compact
+            >
+              <CompilerPanel
+                ref={compilerPanelRef}
+                instanceId={compilerInstanceId}
+                compiler={persistentCompilerData}
+                onExecutionStateChange={setCompilerStatus}
+              />
+            </DomainErrorBoundary>
           </div>
         </aside>
         {!isCompilerMinimized ? (

@@ -14,6 +14,7 @@ import {
   challengeHistory,
   challengeStats,
 } from './challengeData';
+import { DomainErrorBoundary } from '../errors/ErrorBoundary';
 
 export function ChallengesPage() {
   const { data: dailyChallenge, error, loading } = useContentResource(loadDailyChallenge);
@@ -88,11 +89,20 @@ export function ChallengesPage() {
           </div>
         </header>
         <div className="challenge-compiler">
-          <CompilerPanel
-            compiler={compiler}
-            onVerificationChange={setVerificationStatus}
-            key={dailyChallenge.id}
-          />
+          <DomainErrorBoundary
+            name="challenge-compiler"
+            title="The code workspace could not be displayed."
+            description="Today’s challenge remains available. Retry the workspace to continue."
+            resetKeys={[dailyChallenge.id]}
+            compact
+          >
+            <CompilerPanel
+              compiler={compiler}
+              instanceId={`challenge-${dailyChallenge.id}`}
+              onVerificationChange={setVerificationStatus}
+              key={dailyChallenge.id}
+            />
+          </DomainErrorBoundary>
         </div>
         <footer className={`challenge-claim ${rewardReady || completed ? 'is-ready' : ''}`}>
           <span>

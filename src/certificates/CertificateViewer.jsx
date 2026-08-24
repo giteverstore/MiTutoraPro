@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { BadgeCheck, Copy, Download, Link2, Share2, X } from 'lucide-react';
 import { formatCertificateDate } from './certificateModel';
+import { Dialog } from '../components/Dialog';
 
 export function CertificateViewer({
   certificate,
@@ -9,25 +9,13 @@ export function CertificateViewer({
   onShare,
   onCopy,
 }) {
-  const closeButtonRef = useRef(null);
-
-  useEffect(() => {
-    closeButtonRef.current?.focus();
-    const closeOnEscape = (event) => {
-      if (event.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
-  }, [onClose]);
-
   if (!certificate) return null;
 
   return (
-    <div className="certificate-viewer-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <div className="certificate-viewer" role="dialog" aria-modal="true" aria-labelledby="certificate-viewer-title">
+    <Dialog open title={certificate.courseTitle} titleHidden description="Certificate preview and credential actions" onClose={onClose} className="certificate-viewer" backdropClassName="certificate-viewer-backdrop">
         <header>
           <div><span>Certificate Viewer</span><h2 id="certificate-viewer-title">{certificate.courseTitle}</h2></div>
-          <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Close certificate viewer"><X /></button>
+          <button type="button" onClick={onClose} aria-label="Close certificate viewer" data-autofocus><X /></button>
         </header>
         <div className="certificate-viewer-body">
           <div className="certificate-preview">
@@ -53,7 +41,6 @@ export function CertificateViewer({
             </div>
           </aside>
         </div>
-      </div>
-    </div>
+    </Dialog>
   );
 }

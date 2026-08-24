@@ -25,8 +25,10 @@ export class ReviewService {
       const review = snapshot.data();
       if (review.status === 'IN_REVIEW') return review;
       if (review.status !== 'PENDING') fail('failed-precondition', 'Certification review is already resolved.');
-      const updates = { status: 'IN_REVIEW', updatedAt: Timestamp.now() };
-      transaction.update(reference, updates); return { ...review, ...updates };
+      const now = Timestamp.now(); const updates = { status: 'IN_REVIEW', updatedAt: now };
+      transaction.update(reference, updates);
+      this.audit.write(transaction, review.attemptId, 'REVIEW_STARTED', { eventId: `review-started-${reviewId}`, actorType: 'REVIEWER', actorId: auth.uid, timestamp: now });
+      return { ...review, ...updates };
     });
   }
 
@@ -55,10 +57,10 @@ export class ReviewService {
         eligibilityStatus: resolution, latestDecision: resolution, certificateId: certificate?.credentialId ?? null,
         reviewId, updatedAt: now,
       }, { merge: true });
+      this.audit.write(transaction, review.attemptId, 'REVIEW_RESOLVED', { eventId: `review-resolved-${reviewId}`, actorType: 'REVIEWER', actorId: auth.uid, metadata: { resolution }, timestamp: now });
+      if (certificate) this.audit.write(transaction, review.attemptId, 'CERTIFICATE_ISSUED', { eventId: `certificate-issued-${certificate.credentialId}`, metadata: { credentialId: certificate.credentialId, source: 'REVIEW_RESOLUTION' }, timestamp: now });
       return { ...review, ...resolved, certificateId: certificate?.credentialId ?? null };
     });
-    await this.audit.record(result.attemptId, 'REVIEW_RESOLVED', { eventId: `review-resolved-${reviewId}`, actorType: 'REVIEWER', actorId: auth.uid, metadata: { resolution } });
-    if (result.certificateId) await this.audit.record(result.attemptId, 'CERTIFICATE_ISSUED', { eventId: `certificate-issued-${result.certificateId}`, metadata: { credentialId: result.certificateId, source: 'REVIEW_RESOLUTION' } });
     return result;
   }
 }

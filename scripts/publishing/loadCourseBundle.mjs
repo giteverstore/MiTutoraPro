@@ -1,9 +1,12 @@
-import { readFile, stat } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { basename, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
+import { CONTENT_LIMITS, assertLimit, validateCourseComplexity } from '../../src/content/validation/contentLimits.js';
 
 const projectRoot = resolve(import.meta.dirname, '../..');
+const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const requiredMetadataFields = [
   'id', 'slug', 'title', 'description', 'thumbnail', 'language', 'domain',
   'difficulty', 'estimatedMinutes', 'moduleCount', 'lessonCount', 'published',
@@ -52,6 +55,7 @@ export async function loadAndValidateCourseBundle(courseKey) {
   const bundleDirectory = resolve(projectRoot, 'firebase-content', metadata.storagePath, metadata.version);
   const manifestPath = resolve(bundleDirectory, 'course.json');
   const manifest = await readJson(manifestPath, 'course manifest');
+  assertLimit((await readFile(manifestPath)).byteLength, CONTENT_LIMITS.course.maxManifestBytes, 'Course manifest');
   if (!Array.isArray(manifest.moduleFiles) || !manifest.moduleFiles.length) {
     throw new Error('course.json must contain a non-empty moduleFiles array.');
   }
@@ -73,6 +77,7 @@ export async function loadAndValidateCourseBundle(courseKey) {
   }));
   const { moduleFiles: _moduleFiles, modules: _outlineModules, ...courseFields } = manifest;
   const course = { ...courseFields, modules: moduleEntries.map(({ content }) => content) };
+  validateCourseComplexity(course);
 
   const schema = await readJson(resolve(projectRoot, 'schemas/learning-course.schema.json'), 'course schema');
   const ajv = new Ajv2020({ allErrors: true, strict: true, allowUnionTypes: true });
@@ -95,14 +100,22 @@ export async function loadAndValidateCourseBundle(courseKey) {
     })),
     { localPath: manifestPath, remotePath: `${metadata.storagePath}/${metadata.version}/course.json` },
   ];
-  const filesWithSize = await Promise.all(files.map(async (file) => ({
-    ...file,
-    size: (await stat(file.localPath)).size,
-  })));
+  const filesWithSize = await Promise.all(files.map(async (file) => {
+    const bytes = await readFile(file.localPath);
+    return { ...file, size: bytes.byteLength, sha256: sha256(bytes) };
+  }));
+  const manifestFile = filesWithSize.find(({ remotePath }) => remotePath.endsWith('/course.json'));
+  const moduleHashes = Object.fromEntries(filesWithSize
+    .filter(({ remotePath }) => !remotePath.endsWith('/course.json'))
+    .map(({ remotePath, sha256: hash }) => [basename(remotePath), hash]));
+  const publicationMetadata = {
+    ...metadata,
+    contentIntegrity: { algorithm: 'sha256', manifest: manifestFile.sha256, modules: moduleHashes },
+  };
 
   return {
     courseKey,
-    metadata,
+    metadata: publicationMetadata,
     metadataPath,
     bundleDirectory,
     files: filesWithSize,
