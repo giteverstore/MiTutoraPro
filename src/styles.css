@@ -2803,6 +2803,39 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
 .practice-question-card:focus-visible { position: relative; z-index: 1; outline: 3px solid var(--color-focus); outline-offset: -3px; }
 .practice-question-card.is-active { background: var(--color-accent-soft); box-shadow: inset 3px 0 var(--color-accent); }
 .practice-question-card > strong { min-width: 0; font-size: var(--font-size-md); }
+.practice-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+.practice-pagination > div { display: flex; align-items: center; gap: var(--space-1); }
+.practice-pagination button {
+  display: inline-flex;
+  min-width: var(--control-height-md);
+  min-height: var(--control-height-md);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  transition: color var(--duration-fast), background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast);
+}
+.practice-pagination > div button { padding: 0; }
+.practice-pagination button:not(:disabled):hover { color: var(--color-text); background: var(--color-surface-subtle); border-color: var(--color-border); }
+.practice-pagination button:not(:disabled):active { transform: scale(.97); }
+.practice-pagination button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.practice-pagination button.is-active { color: var(--color-text-on-accent); background: var(--color-accent); border-color: var(--color-accent); }
+.practice-pagination button:disabled { opacity: .45; cursor: not-allowed; }
+.practice-pagination svg { width: var(--icon-sm); height: var(--icon-sm); }
 .practice-difficulty {
   padding: var(--space-1) var(--space-2);
   color: var(--color-text-muted);
@@ -2934,6 +2967,9 @@ button:focus-visible, [role="separator"]:focus-visible, a:focus-visible { outlin
 @media (max-width: 600px) {
   .practice-page, .practice-detail { width: min(100% - 2rem, 38rem); padding-top: var(--space-6); }
   .practice-filters { grid-template-columns: 1fr; padding: var(--space-4); }
+  .practice-pagination { justify-content: space-between; gap: var(--space-1); }
+  .practice-pagination > button { padding: 0 var(--space-2); }
+  .practice-pagination > button span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .practice-question-card { grid-template-columns: auto minmax(0, 1fr); }
   .practice-question-meta { grid-column: 1 / -1; }
   .practice-statistics > div { grid-template-columns: 1fr; }

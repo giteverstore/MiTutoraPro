@@ -4,6 +4,7 @@ import { getStorage } from 'firebase-admin/storage';
 import { loadEnv } from 'vite';
 import { createHash } from 'node:crypto';
 import { ContentPublicationProtocol } from './ContentPublicationProtocol.mjs';
+import { activateStorageArtifact, reconcileStorageArtifact } from './StorageArtifactIntegrity.mjs';
 
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 function loadPublisherEnvironment() { return { ...loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), ''), ...process.env }; }
@@ -41,14 +42,12 @@ export class FirebaseCoursePublisher {
     const verification = await protocol.execute({
       upload: async () => {
         for (const file of bundle.files) {
-          const remoteFile = this.bucket.file(file.remotePath);
-          const [exists] = await remoteFile.exists();
-          if (exists) {
-            const [remoteBytes] = await remoteFile.download();
-            if (sha256(remoteBytes) !== file.sha256) throw new Error(`Published content is immutable: ${file.remotePath} already exists with different bytes. Bump the course version before publishing.`);
-          } else {
-            await this.bucket.upload(file.localPath, { destination: file.remotePath, resumable: false, metadata: { contentType: 'application/json; charset=utf-8', cacheControl: 'public, max-age=31536000, immutable', metadata: { courseId: bundle.metadata.id, version: bundle.metadata.version, sha256: file.sha256, publicationState: 'INACTIVE' } } });
-          }
+          await reconcileStorageArtifact({
+            bucket: this.bucket,
+            artifact: file,
+            identifyingMetadata: { courseId: bundle.metadata.id, version: bundle.metadata.version },
+            mismatchMessage: `Published content is immutable: ${file.remotePath} already exists with different bytes. Bump the course version before publishing.`,
+          });
           onProgress({ stage: 'upload', path: file.remotePath, status: 'complete' });
         }
       },
@@ -65,10 +64,12 @@ export class FirebaseCoursePublisher {
         onProgress({ stage: 'ready', path: versionDocument.path, status: 'complete' });
       },
       activate: async () => {
-        await Promise.all(bundle.files.map(async ({ remotePath }) => {
-          const remoteFile = this.bucket.file(remotePath);
-          const [current] = await remoteFile.getMetadata();
-          await remoteFile.setMetadata({ metadata: { ...current.metadata, publicationState: 'ACTIVE' } });
+        await Promise.all(bundle.files.map(async (file) => {
+          await activateStorageArtifact({
+            remoteFile: this.bucket.file(file.remotePath),
+            artifact: file,
+            identifyingMetadata: { courseId: bundle.metadata.id, version: bundle.metadata.version },
+          });
         }));
         const batch = this.db.batch();
         batch.set(document, bundle.metadata);

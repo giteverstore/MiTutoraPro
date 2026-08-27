@@ -62,6 +62,16 @@ const fakeService = {
 const firebase = createPracticeSourceAdapter({ source: 'firebase', firebaseService: fakeService, localQuestions: [] });
 const firstPage = await firebase.listPage({ filters: {}, pageSize: 24 });
 assert(firstPage.items.length === 24 && metadataCalls === 1 && bodyCalls === 0, 'Catalog listing must be metadata-only.');
+let sparseCursor = null;
+const sparseIds = [];
+do {
+  const page = await firebase.listPage({ cursor: sparseCursor, filters: { search: '1' }, pageSize: 5 });
+  sparseIds.push(...page.items.map(({ id }) => id));
+  sparseCursor = page.cursor;
+  if (!page.hasMore) break;
+} while (true);
+const expectedSparseIds = firebaseQuestions.filter((item) => item.title.includes('1')).map(({ id }) => id);
+assert(JSON.stringify(sparseIds) === JSON.stringify(expectedSparseIds), 'Client-side search must not skip or duplicate cursor-paginated metadata.');
 await firebase.loadQuestion(firstPage.items[0]).catch(() => {});
 assert(firstPage.items.length === 24, 'A selected question failure must not destroy catalog metadata.');
 failBody = false;

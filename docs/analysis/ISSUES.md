@@ -554,6 +554,15 @@ Severity definitions: **Critical** enables direct compromise of a primary trust 
 - **Recommended fix:** Add privacy-safe telemetry, correlation IDs, redaction rules, SLOs, alerts, and runbooks.
 - **Remediation:** A fail-open structured Functions logger now supplies stable event/severity/component/environment fields and strips prohibited sensitive fields. Callable rejection and scheduler events use it. Production client reporting, dashboards, alert policies, and deployed-log verification remain pending.
 
+### Practice production loading remains browser-specific after publication verification
+
+- **Status:** OPEN — DIAGNOSTICS ADDED
+- **Category:** Reliability / observability
+- **Evidence:** The production publication has 200 published, contiguous metadata documents and 200 ACTIVE, hash-correct Storage objects. The exact Firebase Web SDK metadata query returns the expected 25 records independently, and a representative question read succeeds. Brave Shields being disabled did not resolve the affected browser. A blocked `TYPE=terminate` WebChannel cleanup request is therefore not established as causal.
+- **Current boundary:** The affected browser still reaches the generic Practice catalog error. The exact exception is not yet captured.
+- **Remediation in worktree:** Practice now records sanitized `publication-read`, `metadata-query`, `metadata-normalization`, and `storage-download` diagnostics while preserving original exceptions, UI copy, retries, and Firebase-only production behavior.
+- **Separate rules drift:** The root ACTIVE publication pointer is allowed by checked-in rules but returned `permission-denied` in the independent production client probe. The nested version record remains intentionally unreadable to clients and is not used by the current browser loader. Rule deployment drift should be reconciled separately; it is not proven to cause the catalog failure because the pointer denial is nonfatal and the exact fallback metadata query succeeds.
+
 ## INFO
 
 No standalone INFO issues were added; non-defect observations are kept in the project analysis so the register remains actionable.

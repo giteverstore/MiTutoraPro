@@ -1,3 +1,5 @@
+import { PRACTICE_DIAGNOSTIC_STAGES, reportPracticeDiagnostic } from './practiceDiagnostics';
+
 export const PRACTICE_PAGE_SIZE = 24;
 
 export function matchesPracticeFilters(question, filters = {}) {
@@ -7,10 +9,11 @@ export function matchesPracticeFilters(question, filters = {}) {
     && (!query || `${question.title} ${question.summary} ${question.topic} ${question.category ?? ''} ${(question.skills ?? []).join(' ')}`.toLowerCase().includes(query));
 }
 
-export function createPracticeSourceAdapter({ source, firebaseService, localQuestions, fallbackEnabled = false }) {
+export function createPracticeSourceAdapter({ source, firebaseService, localQuestions, fallbackEnabled = false, onDiagnostic = reportPracticeDiagnostic }) {
   let publicationPromise;
   const getPublication = () => {
     publicationPromise ??= firebaseService.getPublication().catch((error) => {
+      onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.publicationRead);
       if (error?.code === 'permission-denied' || error?.code === 'firestore/permission-denied') return null;
       throw error;
     });
@@ -42,7 +45,7 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
     let hasMore = true;
     const items = [];
     while (items.length < pageSize && hasMore) {
-      const page = await firebaseService.listMetadataPage({ query: { filters: queryFilters, orderBy: [{ field: 'position', direction: 'asc' }], limit: pageSize, cursor: nextCursor } });
+      const page = await firebaseService.listMetadataPage({ query: { filters: queryFilters, orderBy: [{ field: 'position', direction: 'asc' }], limit: pageSize - items.length, cursor: nextCursor } });
       if (publication?.integrityRequired && page.items.some((item) => !/^[a-f0-9]{64}$/.test(item.contentHash))) throw new Error('Published Practice metadata is missing required content integrity information.');
       items.push(...page.items.filter((item) => matchesPracticeFilters(item, filters)));
       nextCursor = page.cursor;
@@ -54,7 +57,11 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
     source,
     async listPage(options = {}) {
       if (source === 'local') return localPage(options);
-      try { return await firebasePage(options); } catch (error) { if (!fallbackEnabled) throw error; return localPage(options); }
+      try { return await firebasePage(options); } catch (error) {
+        onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.metadataQuery);
+        if (!fallbackEnabled) throw error;
+        return localPage(options);
+      }
     },
     async loadQuestion(metadata) {
       if (source === 'local') {
@@ -62,7 +69,12 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
         if (!question) throw new Error('The local Practice question could not be found.');
         return question;
       }
-      return (await firebaseService.getQuestionFromMetadata(metadata)).content;
+      try {
+        return (await firebaseService.getQuestionFromMetadata(metadata)).content;
+      } catch (error) {
+        onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.storageDownload);
+        throw error;
+      }
     },
     async loadQuestionById(questionId) {
       if (source === 'local') {
@@ -70,10 +82,15 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
         if (!question) throw new Error('The local Practice question could not be found.');
         return question;
       }
-      const [publication, metadata] = await Promise.all([getPublication(), firebaseService.getMetadata(questionId)]);
-      if (publication?.activeVersion && metadata.version !== publication.activeVersion) throw new Error('This Practice question is not part of the active publication.');
-      if (publication?.integrityRequired && !/^[a-f0-9]{64}$/.test(metadata.contentHash)) throw new Error('Published Practice metadata is missing required content integrity information.');
-      return (await firebaseService.getQuestionFromMetadata(metadata)).content;
+      try {
+        const [publication, metadata] = await Promise.all([getPublication(), firebaseService.getMetadata(questionId)]);
+        if (publication?.activeVersion && metadata.version !== publication.activeVersion) throw new Error('This Practice question is not part of the active publication.');
+        if (publication?.integrityRequired && !/^[a-f0-9]{64}$/.test(metadata.contentHash)) throw new Error('Published Practice metadata is missing required content integrity information.');
+        return (await firebaseService.getQuestionFromMetadata(metadata)).content;
+      } catch (error) {
+        onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.storageDownload);
+        throw error;
+      }
     },
     retryQuestion(metadata) {
       if (source === 'firebase') firebaseService.invalidateQuestion(metadata);

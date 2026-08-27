@@ -55,8 +55,9 @@ test.describe('authenticated core journeys', () => {
     await expect(page.getByRole('heading', { name: 'Practice' })).toBeVisible();
     const catalog = page.getByRole('region', { name: '24 questions' });
     await expect(catalog).toBeVisible();
-    await catalog.getByRole('button', { name: 'Load more questions' }).click();
-    await expect(page.getByRole('region', { name: '48 questions' })).toBeVisible();
+    await page.getByRole('button', { name: 'Next page' }).click();
+    await expect(page.getByRole('button', { name: 'Page 2' })).toHaveAttribute('aria-current', 'page');
+    await expect(page.getByRole('region', { name: '24 questions' })).toBeVisible();
   });
 
   test('executes Python in the built Practice workspace @runtime', async ({ page, request }) => {

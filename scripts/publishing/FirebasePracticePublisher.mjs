@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { FieldValue } from 'firebase-admin/firestore';
 import { FirebaseCoursePublisher } from './FirebaseCoursePublisher.mjs';
 import { ContentPublicationProtocol } from './ContentPublicationProtocol.mjs';
+import { activateStorageArtifact, reconcileStorageArtifact } from './StorageArtifactIntegrity.mjs';
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
@@ -39,14 +40,12 @@ export class FirebasePracticePublisher {
     const verification = await protocol.execute({
       upload: async () => {
         for (const file of bundle.files) {
-          const remoteFile = this.bucket.file(file.remotePath);
-          const [exists] = await remoteFile.exists();
-          if (exists) {
-            const [remoteBytes] = await remoteFile.download();
-            if (sha256(remoteBytes) !== file.sha256) throw new Error(`Published Practice content is immutable: ${file.remotePath} differs from local ${bundle.version}. Publish a new version instead.`);
-          } else {
-            await this.bucket.upload(file.localPath, { destination: file.remotePath, resumable: false, metadata: { contentType: 'application/json; charset=utf-8', cacheControl: 'public, max-age=31536000, immutable', metadata: { contentType: 'practice-question', questionId: file.id, version: bundle.version, sha256: file.sha256, publicationState: 'INACTIVE' } } });
-          }
+          await reconcileStorageArtifact({
+            bucket: this.bucket,
+            artifact: file,
+            identifyingMetadata: { contentType: 'practice-question', questionId: file.id, version: bundle.version },
+            mismatchMessage: `Published Practice content is immutable: ${file.remotePath} differs from local ${bundle.version}. Publish a new version instead.`,
+          });
           onProgress({ stage: 'upload', path: file.remotePath, status: 'complete' });
         }
       },
@@ -56,10 +55,12 @@ export class FirebasePracticePublisher {
         onProgress({ stage: 'ready', path: versionDocument.path, status: 'complete' });
       },
       activate: async () => {
-        await Promise.all(bundle.files.map(async ({ remotePath }) => {
-          const remoteFile = this.bucket.file(remotePath);
-          const [current] = await remoteFile.getMetadata();
-          await remoteFile.setMetadata({ metadata: { ...current.metadata, publicationState: 'ACTIVE' } });
+        await Promise.all(bundle.files.map(async (file) => {
+          await activateStorageArtifact({
+            remoteFile: this.bucket.file(file.remotePath),
+            artifact: file,
+            identifyingMetadata: { contentType: 'practice-question', questionId: file.id, version: bundle.version },
+          });
         }));
         const batch = this.db.batch();
         bundle.metadata.forEach((record) => batch.set(this.db.collection(bundle.collection).doc(record.id), record));

@@ -3,6 +3,7 @@ import { PracticeRepository } from '../repositories/PracticeRepository';
 import { BaseContentService } from './BaseContentService';
 import { versionedContentPath } from '../utils/contentPaths';
 import { CONTENT_LIMITS } from '../validation/contentLimits';
+import { annotatePracticeError } from '../../practice/practiceDiagnostics';
 
 const validateQuestion = (value) => Boolean(value && !Array.isArray(value) && typeof value === 'object'
   && typeof value.id === 'string' && Array.isArray(value.blocks)
@@ -10,10 +11,16 @@ const validateQuestion = (value) => Boolean(value && !Array.isArray(value) && ty
 
 export class PracticeService extends BaseContentService {
   constructor(repository = new PracticeRepository()) {
-    super({ repository, createMetadata: createPracticeMetadata, contentType: 'Practice question' });
+    super({ repository, createMetadata: createPracticeMetadata, contentType: 'Practice question', annotateError: annotatePracticeError });
   }
 
-  getPublication() { return this.repository.getPublication(); }
+  async getPublication() {
+    try {
+      return await this.repository.getPublication();
+    } catch (error) {
+      throw annotatePracticeError(error, 'publication-read');
+    }
+  }
 
   getQuestion(questionId, options) {
     return this.loadById(

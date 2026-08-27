@@ -297,6 +297,12 @@ Generated learner artifacts are SHA-256 bound to trusted metadata. Practice ques
 
 Practice source selection is explicit. Production is Firebase-only; development `local` and `firebase` selections are authoritative; implicit fallback is opt-in and defaults off.
 
+## Current Practice production diagnostic checkpoint
+
+Practice production content was independently verified healthy: 200 published metadata records, contiguous positions, an ACTIVE v1 pointer, and 200 ACTIVE hash-correct Storage objects. The exact browser SDK query succeeds outside the affected page, but one production browser still reaches the catalog error; `TYPE=terminate` blocking and Brave Shields are not proven causes. Stage-aware diagnostics now distinguish publication reads, metadata queries, metadata normalization, and Storage downloads without logging raw messages, URLs, identities, session data, response bodies, or content. The browser failure remains open until a failing run supplies the sanitized stage/code.
+
+There is separate Firestore-rules drift: the checked-in rule permits an ACTIVE root publication pointer, while an independent production client read returned `permission-denied`. The nested immutable version document is intentionally outside that rule and is not read by `PracticeRepository`. This drift should be handled as its own deployment checkpoint rather than by weakening rules or changing the working catalog query.
+
 ## Prioritized roadmap
 
 1. Make trusted lesson completion evidence server-verifiable before treating it as certification authority.
