@@ -1,5 +1,6 @@
 import { Buffer } from 'node:buffer';
 import { createActivityCompletionHandler } from './activityCompletionHandler.js';
+import { createDailyLoginHandler } from './dailyLoginHandler.js';
 import { createDevelopmentGrantHandler } from '../subscriptions/developmentGrantHandler.js';
 
 const MAX_BODY_BYTES = 16_384;
@@ -43,6 +44,7 @@ export function assertLocalCoinEnvironment(environment) {
 export function viteActivityCompletionPlugin(environment, {
   handlerFactory = createActivityCompletionHandler,
   subscriptionHandlerFactory = createDevelopmentGrantHandler,
+  dailyLoginHandlerFactory = createDailyLoginHandler,
 } = {}) {
   const enabled = environment.LOCAL_COIN_FULL_STACK === 'true';
   if (enabled) assertLocalCoinEnvironment(environment);
@@ -53,6 +55,10 @@ export function viteActivityCompletionPlugin(environment, {
     }),
   }) : null;
   const subscriptionHandler = enabled ? subscriptionHandlerFactory({ environment }) : null;
+  const dailyLoginHandler = enabled ? dailyLoginHandlerFactory({
+    environment,
+    credentialFactory: () => Object.freeze({ mode: 'emulator', firebaseCredential: null, async preflight() {} }),
+  }) : null;
 
   return {
     name: 'mi-tutora-local-coin-api',
@@ -61,6 +67,7 @@ export function viteActivityCompletionPlugin(environment, {
       server.middlewares.use(async (request, response, next) => {
         const pathname = new URL(request.url || '/', 'http://localhost').pathname;
         const routeHandler = pathname === '/api/activity/complete' ? handler
+          : pathname === '/api/activity/daily-login' ? dailyLoginHandler
           : pathname === '/api/subscriptions/development-grant' ? subscriptionHandler : null;
         if (!routeHandler) return next();
         if (request.method !== 'POST') {

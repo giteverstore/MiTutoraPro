@@ -12,10 +12,12 @@ export function UserDataLifecycle() {
     Promise.all([
       import('./UserDataService'),
       import('../settings/SettingsService'),
+      import('../coins/DailyLoginClient'),
     ])
-      .then(([{ userDataService }, { settingsService }]) => (
+      .then(([{ userDataService }, { settingsService }, { dailyLoginClient }]) => (
         userDataService.setAuthenticatedUser(userId)
           .then(() => active ? settingsService.setUser(userId) : undefined)
+          .then(() => active && userId ? dailyLoginClient.claim() : undefined)
       ))
       .catch((error) => {
         if (active) console.error('[UserData] Unable to initialize user data.', error);

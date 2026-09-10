@@ -4,6 +4,7 @@ import { CoinLedgerService } from '../../functions/src/coins/CoinLedgerService.j
 import { CoinRewardPolicy } from '../../functions/src/coins/CoinRewardPolicy.js';
 import { RewardClaimService } from '../../functions/src/coins/RewardClaimService.js';
 import { MvpActivityRewardClaimService } from '../../functions/src/coins/MvpActivityRewardClaimService.js';
+import { DailyLoginRewardService } from '../../functions/src/coins/DailyLoginRewardService.js';
 
 const PROJECT_ID = 'demo-local-coin-ledger';
 const fixedTime = Timestamp.fromMillis(Date.UTC(2026, 0, 15, 12));
@@ -34,6 +35,7 @@ const debit = (uid, key, amount) => ledger.debitCoins({
 const account = async (uid) => (await db.doc(`users/${uid}/coinAccount/summary`).get()).data();
 const transactions = async (uid) => (await db.collection(`users/${uid}/coinTransactions`).get()).docs.map((item) => item.data());
 const claims = async (uid) => (await db.collection(`users/${uid}/rewardClaims`).get()).docs.map((item) => item.data());
+const idempotencyRecords = async (uid) => (await db.collection('coinIdempotency').where('ownerUid', '==', uid).get()).docs.map((item) => item.data());
 
 async function reset() {
   await db.recursiveDelete(db.collection('users'));
@@ -204,6 +206,54 @@ describe.sequential('server-authoritative MI Coin ledger', () => {
     expect(await account('mvp-user')).toMatchObject({ availableBalance: 4, lifetimeEarned: 4, revision: 1 });
     expect(await transactions('mvp-user')).toEqual([expect.objectContaining({ amount: 4, balanceAfter: 4, accountRevision: 1, policyVersion: 'mvp-test-v1' })]);
     expect(await claims('mvp-user')).toEqual([expect.objectContaining({ evidenceAssurance: 'LOCAL_VERIFIED_ACTIVITY', rewardStatus: 'GRANTED', policyVersion: 'mvp-test-v1' })]);
+  });
+
+  it('atomically collapses concurrent daily-login visits from tabs/devices into one +1 reward', async () => {
+    const policy = new CoinRewardPolicy([{
+      activityType: 'DAILY_LOGIN', activityVersion: 'v1', policyVersion: 'login-test-v1', amount: 1,
+    }]);
+    const service = new DailyLoginRewardService({
+      ledger, policy, timestamp: () => fixedTime, now: () => new Date('2026-09-10T10:00:00.000Z'),
+    });
+    const input = { principal: { authenticated: true, uid: 'daily-login-user' }, request: {} };
+    const results = await Promise.all(Array.from({ length: 8 }, () => service.claim(input)));
+    expect(results.filter(({ status }) => status === 'credited')).toHaveLength(1);
+    expect(results.filter(({ status }) => status === 'already_claimed')).toHaveLength(7);
+    expect(await account('daily-login-user')).toMatchObject({ availableBalance: 1, lifetimeEarned: 1, revision: 1 });
+    expect(await transactions('daily-login-user')).toEqual([expect.objectContaining({
+      amount: 1, sourceType: 'DAILY_LOGIN', sourceId: '2026-09-10', policyVersion: 'login-test-v1',
+    })]);
+    expect(await claims('daily-login-user')).toEqual([expect.objectContaining({
+      activityType: 'DAILY_LOGIN', activityId: '2026-09-10', occurrence: '2026-09-10', rewardStatus: 'GRANTED',
+    })]);
+    expect(await idempotencyRecords('daily-login-user')).toHaveLength(1);
+    expect((await db.doc('users/daily-login-user/activityUsage/2026-09-10').get()).data()).toMatchObject({
+      completionAttempts: 0, successfulCompletions: 0, rewardClaims: 0, rewardCoinsCredited: 1,
+    });
+  });
+
+  it('credits first visit, replays at +0, and credits exactly once after the IST day boundary', async () => {
+    const policy = new CoinRewardPolicy([{
+      activityType: 'DAILY_LOGIN', activityVersion: 'v1', policyVersion: 'login-test-v1', amount: 1,
+    }]);
+    const uid = 'daily-boundary-user';
+    const principal = { authenticated: true, uid };
+    const beforeMidnight = new DailyLoginRewardService({
+      ledger, policy, timestamp: () => fixedTime, now: () => new Date('2026-09-10T18:29:59.000Z'),
+    });
+    const afterMidnight = new DailyLoginRewardService({
+      ledger, policy, timestamp: () => fixedTime, now: () => new Date('2026-09-10T18:30:00.000Z'),
+    });
+    await expect(beforeMidnight.claim({ principal, request: {} })).resolves.toMatchObject({ status: 'credited', rewardAmount: 1, balance: 1 });
+    await expect(beforeMidnight.claim({ principal, request: {} })).resolves.toMatchObject({ status: 'already_claimed', rewardAmount: 0, balance: 1 });
+    await expect(afterMidnight.claim({ principal, request: {} })).resolves.toMatchObject({ status: 'credited', rewardAmount: 1, balance: 2 });
+    await expect(afterMidnight.claim({ principal, request: {} })).resolves.toMatchObject({ status: 'already_claimed', rewardAmount: 0, balance: 2 });
+    expect(await account(uid)).toMatchObject({ availableBalance: 2, lifetimeEarned: 2, revision: 2 });
+    expect(await transactions(uid)).toHaveLength(2);
+    expect(await claims(uid)).toHaveLength(2);
+    expect(await idempotencyRecords(uid)).toHaveLength(2);
+    expect((await db.doc(`users/${uid}/activityUsage/2026-09-10`).get()).data().rewardCoinsCredited).toBe(1);
+    expect((await db.doc(`users/${uid}/activityUsage/2026-09-11`).get()).data().rewardCoinsCredited).toBe(1);
   });
 
   it('leaves all economic state unchanged when transactional canonical eligibility changes', async () => {

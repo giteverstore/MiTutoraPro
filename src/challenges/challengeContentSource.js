@@ -6,6 +6,11 @@ const LOCAL_FALLBACK_ENABLED = import.meta.env.DEV
   && import.meta.env.VITE_ENABLE_LOCAL_CHALLENGE_FALLBACK !== 'false';
 const challengeService = new ChallengeService();
 
+export function selectLatestPublishedChallenge(metadata) {
+  if (!Array.isArray(metadata) || metadata.length === 0) return null;
+  return [...metadata].sort((left, right) => right.date.localeCompare(left.date))[0] ?? null;
+}
+
 export async function loadDailyChallenge() {
   try {
     const metadata = await challengeService.listMetadata({
@@ -16,7 +21,7 @@ export async function loadDailyChallenge() {
     if (!metadata.length) {
       throw new ContentError(CONTENT_ERROR_CODES.metadataMissing, 'Today’s challenge is not available yet.');
     }
-    const latest = [...metadata].sort((left, right) => right.date.localeCompare(left.date))[0];
+    const latest = selectLatestPublishedChallenge(metadata);
     return { ...(await challengeService.getChallengeFromMetadata(latest)).content, version: latest.version };
   } catch (error) {
     if (!LOCAL_FALLBACK_ENABLED) throw error;

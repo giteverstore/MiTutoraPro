@@ -155,8 +155,13 @@ export class CoinLedgerService {
       if (dailyCredit) {
         usageReference = this.db.doc(dailyCredit.path);
         const usageSnapshot = await transaction.get(usageReference);
-        if (!usageSnapshot.exists) failCoin('coin/data-integrity', 'Daily activity usage is missing for this completion.');
-        usage = usageSnapshot.data();
+        if (!usageSnapshot.exists && dailyCredit.createIfMissing !== true) failCoin('coin/data-integrity', 'Daily activity usage is missing for this completion.');
+        usage = usageSnapshot.exists ? usageSnapshot.data() : {
+          completionAttempts: 0,
+          successfulCompletions: 0,
+          rewardClaims: 0,
+          rewardCoinsCredited: 0,
+        };
         const credited = nonNegativeInteger(usage.rewardCoinsCredited ?? 0, 'rewardCoinsCredited');
         const cap = positiveInteger(dailyCredit.cap, 'dailyCreditCap');
         if (credited + mutation.amount > cap) {

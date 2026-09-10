@@ -73,4 +73,5 @@ export class CoinRewardPolicy {
 export const coinRewardPolicy = new CoinRewardPolicy([
   { activityType: COIN_ACTIVITY_TYPES.PRACTICE, activityVersion: 'v2', policyVersion: MVP_COIN_POLICY_VERSION, amount: 5, enabled: true },
   { activityType: COIN_ACTIVITY_TYPES.DAILY_CHALLENGE, activityVersion: 'v1', policyVersion: MVP_COIN_POLICY_VERSION, amount: 20, enabled: true },
+  { activityType: COIN_ACTIVITY_TYPES.DAILY_LOGIN, activityVersion: 'v1', policyVersion: MVP_COIN_POLICY_VERSION, amount: 1, enabled: true },
 ]);

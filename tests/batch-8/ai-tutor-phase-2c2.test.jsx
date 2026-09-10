@@ -22,8 +22,8 @@ describe('outbound sensitive-content boundary', () => {
   it.each([
     ['API key', `api_key = "sk-${'a'.repeat(24)}"`],
     ['bearer', `token = "Bearer ${'a'.repeat(24)}"`],
-    ['private key', '-----BEGIN PRIVATE KEY-----\nabc\n-----END PRIVATE KEY-----'],
-    ['service account', `credentials = '{"private_key":"-----BEGIN PRIVATE KEY-----\\nabc\\n-----END PRIVATE KEY-----"}'`],
+    ['private key', ['-----BEGIN PRIVATE', ' KEY-----\nabc\n-----END PRIVATE', ' KEY-----'].join('')],
+    ['service account', `credentials = '{"private_key":"${['-----BEGIN PRIVATE', ' KEY-----\\nabc\\n-----END PRIVATE', ' KEY-----'].join('')}"}'`],
     ['password', 'password = "correct-horse-battery"'],
     ['database URI', 'url = "postgres://admin:secret-password@db.example/app"'],
     ['JWT', `token = "eyJ${'a'.repeat(12)}.${'b'.repeat(12)}.${'c'.repeat(12)}"`],
