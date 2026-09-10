@@ -10,7 +10,7 @@ export const dailyChallenge = {
   topic: 'Stacks',
   estimatedMinutes: 18,
   reward: {
-    coins: 10,
+    coins: 20,
     streakIncrement: 1,
   },
   blocks: [
@@ -61,11 +61,11 @@ export const dailyChallenge = {
 };
 
 export const challengeHistory = [
-  { id: 'history-1', date: 'Jul 29', title: 'First Unique Character', difficulty: 'medium', reward: 10, completed: true },
-  { id: 'history-2', date: 'Jul 28', title: 'Count the Vowels', difficulty: 'easy', reward: 10, completed: true },
-  { id: 'history-3', date: 'Jul 27', title: 'Rotate a List', difficulty: 'medium', reward: 10, completed: true },
-  { id: 'history-4', date: 'Jul 26', title: 'Prime Number Check', difficulty: 'easy', reward: 10, completed: false },
-  { id: 'history-5', date: 'Jul 25', title: 'Flatten One Level', difficulty: 'hard', reward: 10, completed: true },
+  { id: 'history-1', date: 'Jul 29', title: 'First Unique Character', difficulty: 'medium', reward: 20, completed: true },
+  { id: 'history-2', date: 'Jul 28', title: 'Count the Vowels', difficulty: 'easy', reward: 20, completed: true },
+  { id: 'history-3', date: 'Jul 27', title: 'Rotate a List', difficulty: 'medium', reward: 20, completed: true },
+  { id: 'history-4', date: 'Jul 26', title: 'Prime Number Check', difficulty: 'easy', reward: 20, completed: false },
+  { id: 'history-5', date: 'Jul 25', title: 'Flatten One Level', difficulty: 'hard', reward: 20, completed: true },
 ];
 
 export const challengeStats = {
