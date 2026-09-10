@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-001",
+  "title": "Create a Person-to-Age Mapping",
+  "summary": "Create one key-value relationship.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "dictionary-map-basics",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "person_age_mapping",
+    "signature": "person_age_mapping(name, age)",
+    "input": "A person name and a whole-number age.",
+    "output": "A one-entry key-value mapping."
+  },
+  "examples": [
+    {
+      "input": "name = Mira, age = 28",
+      "output": "[object Object]",
+      "explanation": "Mira is the key associated with 28."
+    }
+  ],
+  "constraints": [
+    "name is non-empty",
+    "0 <= age <= 150"
+  ],
+  "concepts": [
+    "key-value-mapping",
+    "mapping-creation"
+  ],
+  "skills": [
+    "mapping-reasoning",
+    "key-value-association"
+  ],
+  "prerequisites": [
+    "values",
+    "collections"
+  ],
+  "commonMistakes": [
+    "reversing the key and value",
+    "returning two unrelated values"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "adult age",
+      "arguments": [
+        "Mira",
+        28
+      ],
+      "expected": {
+        "Mira": 28
+      }
+    },
+    {
+      "name": "zero age",
+      "arguments": [
+        "Noor",
+        0
+      ],
+      "expected": {
+        "Noor": 0
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "person_age_mapping(name, age)",
+      "entryPoint": "person_age_mapping"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-001-statement",
+      "type": "paragraph",
+      "content": "Return a new key-value mapping containing the supplied person name as its only key and the supplied age as that key’s value.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-001-contract",
+      "type": "note",
+      "title": "person_age_mapping(name, age)",
+      "content": "Input: A person name and a whole-number age.\n\nOutput: A one-entry key-value mapping.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Mira, age = 28\n\nOutput\n[object Object]",
+      "caption": "Mira is the key associated with 28."
+    },
+    {
+      "id": "fund-dictionaries-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "name is non-empty\n0 <= age <= 150",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def person_age_mapping(name, age):\n    # Return a mapping from name to age\n    pass\n\nprint(person_age_mapping('Mira', 28))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

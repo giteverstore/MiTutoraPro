@@ -6,6 +6,8 @@ function pathSegment(value, label) {
 }
 
 export const FIRESTORE_DOCUMENT_IDS = Object.freeze({
+  coinAccountSummary: 'summary',
+  walletAccount: 'account',
   preferences: 'preferences',
   statisticsOverview: 'overview',
 });
@@ -24,8 +26,21 @@ export const userTrustedCourseProgressPath = (uid, courseId) => `${userPath(uid)
 export const userStatisticsPath = (uid) => `${userPath(uid)}/statistics`;
 export const userStatisticsOverviewPath = (uid) => `${userStatisticsPath(uid)}/${FIRESTORE_DOCUMENT_IDS.statisticsOverview}`;
 export const userCoinTransactionsPath = (uid) => `${userPath(uid)}/coinTransactions`;
+export const userCoinAccountPath = (uid) => `${userPath(uid)}/coinAccount`;
+export const userCoinAccountSummaryPath = (uid) => `${userCoinAccountPath(uid)}/${FIRESTORE_DOCUMENT_IDS.coinAccountSummary}`;
+export const userWalletPath = (uid) => `${userPath(uid)}/wallet`;
+export const userWalletAccountPath = (uid) => `${userWalletPath(uid)}/${FIRESTORE_DOCUMENT_IDS.walletAccount}`;
+export const userWalletTransactionsPath = (uid) => `${userPath(uid)}/walletTransactions`;
+export const userSubscriptionsPath = (uid) => `${userPath(uid)}/subscriptions`;
+export const userSubscriptionPath = (uid, subscriptionId) => `${userSubscriptionsPath(uid)}/${pathSegment(subscriptionId, 'subscriptionId')}`;
+export const userPremiumEntitlementPath = (uid) => `${userPath(uid)}/entitlements/premium`;
+export const userRewardClaimsPath = (uid) => `${userPath(uid)}/rewardClaims`;
+export const userRewardClaimPath = (uid, claimId) => `${userRewardClaimsPath(uid)}/${pathSegment(claimId, 'claimId')}`;
 export const userReferralsPath = (uid) => `${userPath(uid)}/referrals`;
 export const userReferralProfilePath = (uid) => `${userReferralsPath(uid)}/profile`;
+export const userReferralIdentityPath = (uid) => `${userPath(uid)}/referralIdentity/current`;
+export const userReferralAttributionPath = (uid) => `${userPath(uid)}/referralAttribution/current`;
+export const userReferralReadModelPath = (uid) => `${userPath(uid)}/referralReadModel`;
 
 export const coursesPath = () => 'courses';
 export const coursePath = (courseId) => `${coursesPath()}/${pathSegment(courseId, 'courseId')}`;

@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-011",
+  "title": "Sum Approved Transactions",
+  "summary": "Accumulate only values that satisfy a condition.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "accumulators-counters",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "approved_transaction_total",
+    "signature": "approved_transaction_total(transactions)",
+    "input": "A sequence of numeric transaction values.",
+    "output": "The sum of positive values."
+  },
+  "examples": [
+    {
+      "input": "transactions = [10, -4, 0, 6]",
+      "output": "16",
+      "explanation": "Only 10 and 6 are accumulated."
+    }
+  ],
+  "constraints": [
+    "0 <= number of transactions <= 1000"
+  ],
+  "concepts": [
+    "conditional-accumulation",
+    "running-total"
+  ],
+  "skills": [
+    "filter-and-accumulate"
+  ],
+  "prerequisites": [
+    "conditions",
+    "iteration"
+  ],
+  "commonMistakes": [
+    "including zero or negative values",
+    "counting approved values instead of summing them"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed transactions",
+      "arguments": [
+        [
+          10,
+          -4,
+          0,
+          6
+        ]
+      ],
+      "expected": 16
+    },
+    {
+      "name": "none approved",
+      "arguments": [
+        [
+          0,
+          -2
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "approved_transaction_total(transactions)",
+      "entryPoint": "approved_transaction_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-011-statement",
+      "type": "paragraph",
+      "content": "Return the sum of transaction values greater than zero. Ignore zero and negative values.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-011-contract",
+      "type": "note",
+      "title": "approved_transaction_total(transactions)",
+      "content": "Input: A sequence of numeric transaction values.\n\nOutput: The sum of positive values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntransactions = [10, -4, 0, 6]\n\nOutput\n16",
+      "caption": "Only 10 and 6 are accumulated."
+    },
+    {
+      "id": "fund-loops-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of transactions <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def approved_transaction_total(transactions):\n    total = 0\n    # Add only positive transactions\n    return total\n\nprint(approved_transaction_total([10, -4, 0, 6]))\n",
+      "stdin": "",
+      "expectedOutput": "16",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+const DEFINITIONS = Object.freeze({
+  'ai/auth-required': { status: 401, retryable: false },
+  'ai/auth-invalid': { status: 401, retryable: false },
+  'ai/auth-unavailable': { status: 503, retryable: true },
+  'ai/forbidden': { status: 403, retryable: false },
+  'ai/premium-required': { status: 403, retryable: false },
+  'ai/invalid-request': { status: 400, retryable: false },
+  'ai/selection-required': { status: 400, retryable: false },
+  'ai/stale-selection': { status: 409, retryable: false },
+  'ai/sensitive-content': { status: 400, retryable: false },
+  'ai/disabled': { status: 503, retryable: false },
+  'ai/request-too-large': { status: 413, retryable: false },
+  'ai/rate-limited': { status: 429, retryable: true },
+  'ai/provider-rate-limited': { status: 429, retryable: true },
+  'ai/provider-unavailable': { status: 502, retryable: true },
+  'ai/provider-rejected': { status: 502, retryable: false },
+  'ai/provider-failed': { status: 502, retryable: true },
+  'ai/provider-refusal': { status: 422, retryable: false },
+  'ai/provider-timeout': { status: 504, retryable: true },
+  'ai/request-timeout': { status: 408, retryable: true },
+  'ai/provider-response-invalid': { status: 502, retryable: true },
+  'ai/empty-response': { status: 502, retryable: true },
+  'ai/unsafe-response': { status: 422, retryable: false },
+  'ai/cancelled': { status: 499, retryable: false },
+  'ai/not-configured': { status: 503, retryable: false },
+  'ai/server-unavailable': { status: 503, retryable: true },
+  'ai/provider-unsupported': { status: 503, retryable: false },
+  'ai/provider-auth': { status: 503, retryable: false },
+  'ai/provider-not-approved': { status: 503, retryable: false },
+  'ai/model-unavailable': { status: 503, retryable: false },
+  'ai/quota-unavailable': { status: 503, retryable: true },
+  'ai/quota-integrity': { status: 503, retryable: false },
+  'ai/duplicate-request': { status: 409, retryable: false },
+  'ai/idempotency-conflict': { status: 409, retryable: false },
+});
+
+export function classifyAIError(error) {
+  const fallback = { status: Number(error?.status) || 500, retryable: false };
+  return Object.freeze({ code: error?.code || 'ai/unavailable', ...(DEFINITIONS[error?.code] ?? fallback) });
+}

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-016",
+  "title": "Repair Word Joining",
+  "summary": "Fix reconstruction that uses the wrong separator.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "splitting-joining-parsing",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "join_code_parts",
+    "signature": "join_code_parts(parts)",
+    "input": "A sequence of non-empty text parts.",
+    "output": "The parts joined by single dashes."
+  },
+  "examples": [
+    {
+      "input": "parts = [MI, PRO, 7]",
+      "output": "MI-PRO-7",
+      "explanation": "One dash appears between adjacent parts."
+    }
+  ],
+  "constraints": [
+    "0 <= number of parts <= 100",
+    "Each part length is at most 100"
+  ],
+  "concepts": [
+    "joining",
+    "separator"
+  ],
+  "skills": [
+    "debugging-string-construction"
+  ],
+  "prerequisites": [
+    "sequences",
+    "strings"
+  ],
+  "commonMistakes": [
+    "omitting separators",
+    "adding a trailing separator"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "three parts",
+      "arguments": [
+        [
+          "MI",
+          "PRO",
+          "7"
+        ]
+      ],
+      "expected": "MI-PRO-7"
+    },
+    {
+      "name": "one part",
+      "arguments": [
+        [
+          "ONLY"
+        ]
+      ],
+      "expected": "ONLY"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "join_code_parts(parts)",
+      "entryPoint": "join_code_parts"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-016-statement",
+      "type": "paragraph",
+      "content": "Return the supplied words joined by one dash between adjacent words. The current implementation joins them without separators. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-016-contract",
+      "type": "note",
+      "title": "join_code_parts(parts)",
+      "content": "Input: A sequence of non-empty text parts.\n\nOutput: The parts joined by single dashes.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nparts = [MI, PRO, 7]\n\nOutput\nMI-PRO-7",
+      "caption": "One dash appears between adjacent parts."
+    },
+    {
+      "id": "fund-strings-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of parts <= 100\nEach part length is at most 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def join_code_parts(parts):\n    return ''.join(parts)  # Use the required separator\n\nprint(join_code_parts(['MI', 'PRO', '7']))\n",
+      "stdin": "",
+      "expectedOutput": "MI-PRO-7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

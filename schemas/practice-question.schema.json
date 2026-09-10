@@ -13,8 +13,12 @@
     "language",
     "difficulty",
     "topic",
+    "category",
+    "subtopic",
+    "questionType",
     "estimatedMinutes",
     "xp",
+    "skills",
     "blocks"
   ],
   "properties": {
@@ -135,6 +139,36 @@
       },
       "minContains": 1,
       "maxContains": 1
+    }
+  },
+  "$defs": {
+    "firestoreMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "title", "summary", "language", "topic", "category", "subtopic",
+        "questionType", "skills", "difficulty", "estimatedMinutes", "xp", "position",
+        "published", "version", "storagePath", "contentHash"
+      ],
+      "properties": {
+        "id": { "$ref": "#/properties/id" },
+        "title": { "$ref": "#/properties/title" },
+        "summary": { "$ref": "#/properties/summary" },
+        "language": { "$ref": "#/properties/language" },
+        "topic": { "$ref": "#/properties/topic" },
+        "category": { "$ref": "#/properties/category" },
+        "subtopic": { "$ref": "#/properties/subtopic" },
+        "questionType": { "$ref": "#/properties/questionType" },
+        "skills": { "$ref": "#/properties/skills" },
+        "difficulty": { "$ref": "#/properties/difficulty" },
+        "estimatedMinutes": { "$ref": "#/properties/estimatedMinutes" },
+        "xp": { "$ref": "#/properties/xp" },
+        "position": { "type": "integer", "minimum": 1 },
+        "published": { "const": true },
+        "version": { "type": "string", "pattern": "^v[1-9][0-9]*$" },
+        "storagePath": { "type": "string", "pattern": "^practice/python/question-[1-9][0-9]*\\.json$" },
+        "contentHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
     }
   }
 }

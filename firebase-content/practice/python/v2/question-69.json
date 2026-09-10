@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-003",
+  "title": "Trace Parameter Values",
+  "summary": "Reason about arguments becoming parameter values.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "function-basics-parameters",
+  "questionType": "reasoning",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "apply_multiplier",
+    "signature": "apply_multiplier(value, multiplier)",
+    "input": "Two numeric values.",
+    "output": "Their product."
+  },
+  "examples": [
+    {
+      "input": "value = 6, multiplier = 4",
+      "output": "24",
+      "explanation": "The arguments become the two parameter values."
+    }
+  ],
+  "constraints": [
+    "-100000 <= value, multiplier <= 100000"
+  ],
+  "concepts": [
+    "parameters",
+    "arguments"
+  ],
+  "skills": [
+    "parameter-reasoning",
+    "execution-tracing"
+  ],
+  "prerequisites": [
+    "multiplication"
+  ],
+  "commonMistakes": [
+    "confusing parameter names with supplied argument values",
+    "using the parameters in reverse for a non-equivalent operation"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive arguments",
+      "arguments": [
+        6,
+        4
+      ],
+      "expected": 24
+    },
+    {
+      "name": "zero multiplier",
+      "arguments": [
+        9,
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "apply_multiplier(value, multiplier)",
+      "entryPoint": "apply_multiplier"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-003-statement",
+      "type": "paragraph",
+      "content": "A reusable operation multiplies its value parameter by its multiplier parameter. Return the result produced by the supplied arguments.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-003-contract",
+      "type": "note",
+      "title": "apply_multiplier(value, multiplier)",
+      "content": "Input: Two numeric values.\n\nOutput: Their product.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 6, multiplier = 4\n\nOutput\n24",
+      "caption": "The arguments become the two parameter values."
+    },
+    {
+      "id": "fund-functions-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-100000 <= value, multiplier <= 100000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def apply_multiplier(value, multiplier):\n    # Return the result produced from the parameters\n    pass\n\nprint(apply_multiplier(6, 4))\n",
+      "stdin": "",
+      "expectedOutput": "24",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

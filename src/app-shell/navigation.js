@@ -7,6 +7,7 @@ import {
   Settings,
   Star,
   Trophy,
+  WalletCards,
 } from 'lucide-react';
 
 export const APP_NAVIGATION = [
@@ -17,5 +18,6 @@ export const APP_NAVIGATION = [
   { id: 'bookmarks', label: 'Bookmarks', icon: Star },
   { id: 'certificates', label: 'Certificates', icon: Award },
   { id: 'referrals', label: 'Referrals', icon: Gift },
+  { id: 'wallet', label: 'Wallet', icon: WalletCards },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];

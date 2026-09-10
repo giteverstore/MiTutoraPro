@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-005",
+  "title": "Count Numeric Characters",
+  "summary": "Inspect every character and count digits.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-traversal",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "count_digits",
+    "signature": "count_digits(text)",
+    "input": "Text that may be empty.",
+    "output": "The number of digit characters."
+  },
+  "examples": [
+    {
+      "input": "text = A12-B3",
+      "output": "3",
+      "explanation": "The digit characters are 1, 2, and 3."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-traversal",
+    "character-classification"
+  ],
+  "skills": [
+    "character-processing",
+    "counting"
+  ],
+  "prerequisites": [
+    "conditions",
+    "strings"
+  ],
+  "commonMistakes": [
+    "converting the entire text to a number",
+    "counting punctuation as digits"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed identifier",
+      "arguments": [
+        "A12-B3"
+      ],
+      "expected": 3
+    },
+    {
+      "name": "empty text",
+      "arguments": [
+        ""
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "count_digits(text)",
+      "entryPoint": "count_digits"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-005-statement",
+      "type": "paragraph",
+      "content": "Return how many characters in the supplied text are digits from 0 through 9.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-005-contract",
+      "type": "note",
+      "title": "count_digits(text)",
+      "content": "Input: Text that may be empty.\n\nOutput: The number of digit characters.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = A12-B3\n\nOutput\n3",
+      "caption": "The digit characters are 1, 2, and 3."
+    },
+    {
+      "id": "fund-strings-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def count_digits(text):\n    count = 0\n    # Inspect every character\n    return count\n\nprint(count_digits('A12-B3'))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

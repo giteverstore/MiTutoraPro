@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-017",
+  "title": "Trace Ticket Admission",
+  "summary": "Reason through two dependent admission checks.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "nested-conditions",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "admission_status",
+    "signature": "admission_status(has_ticket, age)",
+    "input": "A boolean ticket value and non-negative age.",
+    "output": "One of the three stated status values."
+  },
+  "examples": [
+    {
+      "input": "has_ticket = True, age = 16",
+      "output": "admitted",
+      "explanation": "The ticket check succeeds before the inclusive age check."
+    }
+  ],
+  "constraints": [
+    "0 <= age <= 150",
+    "has_ticket is boolean"
+  ],
+  "concepts": [
+    "nested-conditions",
+    "dependent-branching"
+  ],
+  "skills": [
+    "trace-multi-stage-decision"
+  ],
+  "prerequisites": [
+    "if-else"
+  ],
+  "commonMistakes": [
+    "checking age when no ticket exists",
+    "admitting age 15"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "admitted boundary",
+      "arguments": [
+        true,
+        16
+      ],
+      "expected": "admitted"
+    },
+    {
+      "name": "missing ticket",
+      "arguments": [
+        false,
+        30
+      ],
+      "expected": "no ticket"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "admission_status(has_ticket, age)",
+      "entryPoint": "admission_status"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-017-statement",
+      "type": "paragraph",
+      "content": "Return `no ticket` when a visitor lacks a ticket. With a ticket, return `admitted` when age is at least 16 and `age restricted` otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-017-contract",
+      "type": "note",
+      "title": "admission_status(has_ticket, age)",
+      "content": "Input: A boolean ticket value and non-negative age.\n\nOutput: One of the three stated status values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nhas_ticket = True, age = 16\n\nOutput\nadmitted",
+      "caption": "The ticket check succeeds before the inclusive age check."
+    },
+    {
+      "id": "fund-conditionals-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= age <= 150\nhas_ticket is boolean",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def admission_status(has_ticket, age):\n    # Return the correct dependent status\n    pass\n\nprint(admission_status(True, 16))\n",
+      "stdin": "",
+      "expectedOutput": "admitted",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

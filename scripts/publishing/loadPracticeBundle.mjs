@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { CONTENT_LIMITS, assertLimit, utf8ByteLength, validatePracticeComplexity } from '../../src/content/validation/contentLimits.js';
+import { validatePracticeMetadataRecord } from './validatePracticeMetadata.mjs';
 
 const metadataPath = resolve('firebase-content/firestore/practiceQuestions.json');
 const protectedMarkers = ['protectedTests', 'referenceImplementations'];
@@ -16,6 +17,7 @@ function assert(condition, message) {
 export async function loadPracticeBundle() {
   const metadata = JSON.parse(await readFile(metadataPath, 'utf8'));
   assert(Array.isArray(metadata) && metadata.length > 0, 'Practice metadata must be a non-empty array.');
+  metadata.forEach((record) => validatePracticeMetadataRecord(record));
   metadata.forEach((record) => assertLimit(utf8ByteLength(record), CONTENT_LIMITS.practice.maxMetadataBytes, `Practice metadata ${record.id ?? '(unknown)'}`));
   const versions = [...new Set(metadata.map(({ version }) => version))];
   assert(versions.length === 1 && /^v[1-9]\d*$/.test(versions[0]), 'Practice metadata must target one valid version.');

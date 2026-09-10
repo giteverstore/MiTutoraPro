@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-013",
+  "title": "Trace a Safe Score Lookup",
+  "summary": "Distinguish a missing key from a stored zero.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "searching-membership",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "score_if_present",
+    "signature": "score_if_present(scores, student)",
+    "input": "A student-to-score mapping and a student key.",
+    "output": "The stored score, or no value when missing."
+  },
+  "examples": [
+    {
+      "input": "student = Ana",
+      "output": "0",
+      "explanation": "Zero is a stored value, not missing data."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "conditional-lookup",
+    "missing-key",
+    "zero-value"
+  ],
+  "skills": [
+    "missing-data-handling",
+    "mapping-reasoning"
+  ],
+  "prerequisites": [
+    "membership",
+    "lookup"
+  ],
+  "commonMistakes": [
+    "treating zero as missing",
+    "accessing a missing key without checking"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "stored zero",
+      "arguments": [
+        {
+          "Ana": 0,
+          "Leo": 9
+        },
+        "Ana"
+      ],
+      "expected": 0
+    },
+    {
+      "name": "missing student",
+      "arguments": [
+        {
+          "Ana": 0
+        },
+        "Mira"
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "score_if_present(scores, student)",
+      "entryPoint": "score_if_present"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-013-statement",
+      "type": "paragraph",
+      "content": "Return the student’s score when the student key exists. Return no value when the key is missing. A stored score of zero must be returned as zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-013-contract",
+      "type": "note",
+      "title": "score_if_present(scores, student)",
+      "content": "Input: A student-to-score mapping and a student key.\n\nOutput: The stored score, or no value when missing.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nstudent = Ana\n\nOutput\n0",
+      "caption": "Zero is a stored value, not missing data."
+    },
+    {
+      "id": "fund-dictionaries-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def score_if_present(scores, student):\n    # Return None only when the key is missing\n    pass\n\nprint(score_if_present({'Ana': 0, 'Leo': 9}, 'Ana'))\n",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

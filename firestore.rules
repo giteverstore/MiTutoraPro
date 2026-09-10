@@ -62,9 +62,23 @@ service cloud.firestore {
       match /bookmarks/{bookmarkId} { allow read, write: if owns(uid); }
       match /settings/{settingId} { allow read, write: if owns(uid); }
       match /referrals/{referralId} { allow read: if owns(uid); allow write: if false; }
+      match /referralIdentity/{identityId} { allow read: if owns(uid); allow write: if false; }
+      match /referralAttribution/{attributionId} { allow read: if owns(uid); allow write: if false; }
+      match /referralReadModel/{referralId} { allow read: if owns(uid); allow write: if false; }
       match /achievements/{achievementId} { allow read: if owns(uid); allow write: if false; }
       match /statistics/{statisticsId} { allow read: if owns(uid); allow write: if false; }
       match /coinTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
+      match /coinAccount/{accountId} { allow read: if owns(uid); allow write: if false; }
+      match /wallet/{accountId} { allow read: if owns(uid); allow write: if false; }
+      match /walletTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
+      match /withdrawals/{withdrawalId} { allow read: if owns(uid); allow write: if false; }
+      match /subscriptions/{subscriptionId} { allow read: if owns(uid); allow write: if false; }
+      match /entitlements/{entitlementId} { allow read: if owns(uid); allow write: if false; }
+      match /rewardClaims/{claimId} { allow read: if owns(uid); allow write: if false; }
+      match /activityCompletions/{completionId} { allow read: if owns(uid); allow write: if false; }
+      match /streak/{summaryId} { allow read: if owns(uid); allow write: if false; }
+      match /activityUsage/{usageId} { allow read, write: if false; }
+      match /streakEvents/{eventId} { allow read, write: if false; }
       match /certifications/{courseId} { allow read: if owns(uid); allow write: if false; }
       match /trustedCourseProgress/{courseId} { allow read: if owns(uid); allow write: if false; }
       match /certificates/{certificateId} { allow read: if owns(uid); allow write: if false; }
@@ -98,5 +112,16 @@ service cloud.firestore {
       allow read: if signedIn() && resource.data.ownerUid == request.auth.uid;
       allow create, update, delete: if false;
     }
+
+    // Global replay protection is an internal accounting primitive. Its keys and
+    // records are never exposed to browser clients, including their owners.
+    match /coinIdempotency/{idempotencyId} { allow read, write: if false; }
+    match /referralCodes/{code} { allow read, write: if false; }
+    match /referrals/{referralId} { allow read, write: if false; }
+    match /referralPurchaseQualifications/{purchaseId} { allow read, write: if false; }
+    match /walletSettlementIdempotency/{settlementId} { allow read, write: if false; }
+    match /withdrawalIdempotency/{requestId} { allow read, write: if false; }
+    match /withdrawalTransitionIdempotency/{transitionId} { allow read, write: if false; }
+    match /withdrawalLookup/{withdrawalId} { allow read, write: if false; }
   }
 }

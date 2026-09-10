@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-019",
+  "title": "Return a Safe Ratio",
+  "summary": "Handle a zero divisor with an explicit return value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "function-edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "safe_ratio",
+    "signature": "safe_ratio(numerator, denominator)",
+    "input": "Two numeric values.",
+    "output": "The numeric ratio or `undefined` for a zero denominator."
+  },
+  "examples": [
+    {
+      "input": "numerator = 10, denominator = 2",
+      "output": "5",
+      "explanation": "The normal path returns the calculation."
+    }
+  ],
+  "constraints": [
+    "-1000000 <= numerator, denominator <= 1000000"
+  ],
+  "concepts": [
+    "return-values",
+    "edge-case"
+  ],
+  "skills": [
+    "defensive-contract-handling"
+  ],
+  "prerequisites": [
+    "functions",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "forgetting to return from the zero case",
+    "returning zero for every zero-denominator ratio"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "normal ratio",
+      "arguments": [
+        10,
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "name": "zero denominator",
+      "arguments": [
+        10,
+        0
+      ],
+      "expected": "undefined"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_ratio(numerator, denominator)",
+      "entryPoint": "safe_ratio"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-019-statement",
+      "type": "paragraph",
+      "content": "Return numerator divided by denominator. When denominator is zero, return the text `undefined` instead of attempting the calculation.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-019-contract",
+      "type": "note",
+      "title": "safe_ratio(numerator, denominator)",
+      "content": "Input: Two numeric values.\n\nOutput: The numeric ratio or `undefined` for a zero denominator.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nnumerator = 10, denominator = 2\n\nOutput\n5",
+      "caption": "The normal path returns the calculation."
+    },
+    {
+      "id": "fund-functions-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-1000000 <= numerator, denominator <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_ratio(numerator, denominator):\n    # Return 'undefined' for a zero denominator\n    pass\n\nprint(safe_ratio(10, 2))\n",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

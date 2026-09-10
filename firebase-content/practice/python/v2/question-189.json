@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-008",
+  "title": "Repair Positive Expense Totalling",
+  "summary": "Fix an accumulator reset inside traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "debugging-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "positive_expense_total",
+    "signature": "positive_expense_total(expenses)",
+    "input": "A collection of numeric expenses.",
+    "output": "The total of values greater than zero."
+  },
+  "examples": [
+    {
+      "input": "expenses = [5, -2, 7, 0, 3]",
+      "output": "15",
+      "explanation": "Five, seven, and three contribute to the total."
+    }
+  ],
+  "constraints": [
+    "0 <= number of expenses <= 1000"
+  ],
+  "concepts": [
+    "debugging",
+    "accumulator",
+    "traversal"
+  ],
+  "skills": [
+    "debugging",
+    "state-tracking"
+  ],
+  "prerequisites": [
+    "loops",
+    "conditionals"
+  ],
+  "commonMistakes": [
+    "resetting the accumulator",
+    "including zero or negative values"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "several positives",
+      "arguments": [
+        [
+          5,
+          -2,
+          7,
+          0,
+          3
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "name": "none positive",
+      "arguments": [
+        [
+          0,
+          -4
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "positive_expense_total(expenses)",
+      "entryPoint": "positive_expense_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-008-statement",
+      "type": "paragraph",
+      "content": "Return the total of positive expense values, ignoring zero and negative values. The current implementation resets its accumulator during each traversal step. Correct that single state-management bug.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-008-contract",
+      "type": "note",
+      "title": "positive_expense_total(expenses)",
+      "content": "Input: A collection of numeric expenses.\n\nOutput: The total of values greater than zero.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nexpenses = [5, -2, 7, 0, 3]\n\nOutput\n15",
+      "caption": "Five, seven, and three contribute to the total."
+    },
+    {
+      "id": "fund-errors-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of expenses <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def positive_expense_total(expenses):\n    total = 0\n    for expense in expenses:\n        total = 0  # Do not reset accumulated state here\n        if expense > 0:\n            total += expense\n    return total\n\nprint(positive_expense_total([5, -2, 7, 0, 3]))\n",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

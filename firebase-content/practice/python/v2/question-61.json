@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-015",
+  "title": "Count Matching Pairs",
+  "summary": "Compare every value from one small sequence with every value from another.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "nested-loops",
+  "questionType": "reasoning",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "count_equal_pairs",
+    "signature": "count_equal_pairs(first, second)",
+    "input": "Two sequences of whole numbers.",
+    "output": "The number of equal cross-sequence pairs."
+  },
+  "examples": [
+    {
+      "input": "first = [1, 2, 1], second = [1, 3]",
+      "output": "2",
+      "explanation": "Each value 1 in the first sequence matches the 1 in the second."
+    }
+  ],
+  "constraints": [
+    "0 <= each sequence length <= 50"
+  ],
+  "concepts": [
+    "nested-iteration",
+    "pairwise-comparison"
+  ],
+  "skills": [
+    "outer-inner-reasoning",
+    "conditional-counting"
+  ],
+  "prerequisites": [
+    "sequences",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "comparing only values at the same position",
+    "stopping after the first equal pair"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated equal pairs",
+      "arguments": [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "no equal pairs",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "count_equal_pairs(first, second)",
+      "entryPoint": "count_equal_pairs"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-015-statement",
+      "type": "paragraph",
+      "content": "Compare every value in the first sequence with every value in the second sequence. Return the number of equal pairs.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-015-contract",
+      "type": "note",
+      "title": "count_equal_pairs(first, second)",
+      "content": "Input: Two sequences of whole numbers.\n\nOutput: The number of equal cross-sequence pairs.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = [1, 2, 1], second = [1, 3]\n\nOutput\n2",
+      "caption": "Each value 1 in the first sequence matches the 1 in the second."
+    },
+    {
+      "id": "fund-loops-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= each sequence length <= 50",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def count_equal_pairs(first, second):\n    count = 0\n    # Compare every cross-sequence pair\n    return count\n\nprint(count_equal_pairs([1, 2, 1], [1, 3]))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

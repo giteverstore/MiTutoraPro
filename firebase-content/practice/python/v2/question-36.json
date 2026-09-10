@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-010",
+  "title": "Repair an Inclusive Range",
+  "summary": "Fix incorrect boolean logic in a range check.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "multiple-conditions",
+  "questionType": "debugging",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "is_in_range",
+    "signature": "is_in_range(value, lower, upper)",
+    "input": "A numeric value and ordered boundaries.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "value = 10, lower = 10, upper = 20",
+      "output": "true",
+      "explanation": "The range includes its lower boundary."
+    }
+  ],
+  "constraints": [
+    "lower <= upper",
+    "All values are between -1000000 and 1000000"
+  ],
+  "concepts": [
+    "and-condition",
+    "inclusive-range"
+  ],
+  "skills": [
+    "debugging-boolean-logic",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "comparisons"
+  ],
+  "commonMistakes": [
+    "using OR for a bounded range",
+    "excluding either boundary"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "lower boundary",
+      "arguments": [
+        10,
+        10,
+        20
+      ],
+      "expected": true
+    },
+    {
+      "name": "above range",
+      "arguments": [
+        21,
+        10,
+        20
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "is_in_range(value, lower, upper)",
+      "entryPoint": "is_in_range"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-010-statement",
+      "type": "paragraph",
+      "content": "The function should return whether a value is between the lower and upper boundaries, including both. The current combination accepts values outside the range. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-010-contract",
+      "type": "note",
+      "title": "is_in_range(value, lower, upper)",
+      "content": "Input: A numeric value and ordered boundaries.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 10, lower = 10, upper = 20\n\nOutput\ntrue",
+      "caption": "The range includes its lower boundary."
+    },
+    {
+      "id": "fund-conditionals-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "lower <= upper\nAll values are between -1000000 and 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def is_in_range(value, lower, upper):\n    return value >= lower or value <= upper  # Fix the boolean combination\n\nprint(is_in_range(10, 10, 20))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

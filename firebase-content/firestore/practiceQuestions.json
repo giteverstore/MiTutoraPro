@@ -17,7 +17,7 @@
     "xp": 20,
     "position": 1,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-1.json",
     "contentHash": "f82864abec10ea3c150af37372e32011ca53fb87868b0d57114230821bc48524"
   },
@@ -39,7 +39,7 @@
     "xp": 20,
     "position": 2,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-2.json",
     "contentHash": "f0705f0c0468fd43cfb4f00c912140625b12cdc0bcbb46dc18f8115a238f65c3"
   },
@@ -60,7 +60,7 @@
     "xp": 25,
     "position": 3,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-3.json",
     "contentHash": "7ea549ca061596f27c0555e89be8d16294bb767a93ec8925e1f828a7ab8ca252"
   },
@@ -82,7 +82,7 @@
     "xp": 30,
     "position": 4,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-4.json",
     "contentHash": "b47cca2b8b070bb5d3b952daa6e179b60a1d928d3b577e9c5d25662bf9fb7a46"
   },
@@ -103,7 +103,7 @@
     "xp": 25,
     "position": 5,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-5.json",
     "contentHash": "ab6c01ab0e39cb3df09262c3d7a7953b6d35e2833fa3a9b77b1baaf62f5df84e"
   },
@@ -124,7 +124,7 @@
     "xp": 30,
     "position": 6,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-6.json",
     "contentHash": "a55e172296cc49171ef7c7c2eb9d846d43291e480d12c1d58d9f3b477f216d48"
   },
@@ -145,7 +145,7 @@
     "xp": 30,
     "position": 7,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-7.json",
     "contentHash": "9b86a43efd6831ae6d036ab01bec0ce580780f93f839b8e5b407110c1982e973"
   },
@@ -166,7 +166,7 @@
     "xp": 30,
     "position": 8,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-8.json",
     "contentHash": "ef060648f4e4e33dd311dcafaa7eb6cda45cfcfa1e3fdffb35de2d2a0e79884c"
   },
@@ -187,7 +187,7 @@
     "xp": 30,
     "position": 9,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-9.json",
     "contentHash": "cf8b4ca6049176627c08e4cb9b7732f6fd08c325221ed8602f17ff081bbf5ec4"
   },
@@ -208,7 +208,7 @@
     "xp": 35,
     "position": 10,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-10.json",
     "contentHash": "c3e51bf65b4dba34c0f6e79d13a55a36d222a27a0347ee1a0214dd8b3170c40f"
   },
@@ -229,7 +229,7 @@
     "xp": 40,
     "position": 11,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-11.json",
     "contentHash": "30e5d8dcfdfcae7fa0ace0dffda6f55398c98fc4cf494ac1bf09a7bc63b24d9c"
   },
@@ -250,7 +250,7 @@
     "xp": 40,
     "position": 12,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-12.json",
     "contentHash": "d41aa3be394ffe838ccd3ea1ddc93091db91957db72141a65cb71235afdb8a7a"
   },
@@ -272,7 +272,7 @@
     "xp": 45,
     "position": 13,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-13.json",
     "contentHash": "a4a1c349572337b638ab9d791103551858336f7c89526d1b5f3cb64e399e2119"
   },
@@ -293,7 +293,7 @@
     "xp": 45,
     "position": 14,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-14.json",
     "contentHash": "1152b5e57f18f273da920d82658b15ded10025d9ae4b6fa5a35251ad36c26ba1"
   },
@@ -315,7 +315,7 @@
     "xp": 40,
     "position": 15,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-15.json",
     "contentHash": "918b45ba07d55aaa1cef1e59ee6dfe80dc48c484579dbb86848d2f0e003adfcd"
   },
@@ -336,7 +336,7 @@
     "xp": 40,
     "position": 16,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-16.json",
     "contentHash": "6c9cd2fdf48704f132de894ef9a8de12cd429b79f8e9ddf7fa62a2e3facb0883"
   },
@@ -358,7 +358,7 @@
     "xp": 45,
     "position": 17,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-17.json",
     "contentHash": "37a84a6d9f0419c790d4a8716cadf709e94215192828045197a365a6b644ed35"
   },
@@ -379,7 +379,7 @@
     "xp": 50,
     "position": 18,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-18.json",
     "contentHash": "5857fa714bff42a44bf256f0dc1dde977f94c52ed451bf4578c6751349ac5db9"
   },
@@ -401,7 +401,7 @@
     "xp": 50,
     "position": 19,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-19.json",
     "contentHash": "5f41cc21c514fff4ca7eee87807d3d1f60b3d4ba7939f340fbeb6ea4936e5ee5"
   },
@@ -423,7 +423,7 @@
     "xp": 45,
     "position": 20,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-20.json",
     "contentHash": "85c09dd519e42b0ea122c589ab5b10dbe41d4662e9363b6b0b69c7a4abf43515"
   },
@@ -433,14 +433,21 @@
     "summary": "Determine whether a given integer is even or odd.",
     "language": "Python",
     "topic": "Conditionals",
+    "category": "fundamentals",
+    "subtopic": "basic-conditions",
+    "questionType": "implementation",
+    "skills": [
+      "conditional-reasoning",
+      "parity-checking"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 40,
     "position": 21,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-21.json",
-    "contentHash": "51de673e98871d962542b5a118cbed23ba846baea5a6c00ebb62daa38f3bd580"
+    "contentHash": "89ecf59eec8353e86343c0091f3b941184b3bcf1d8c878d39bd8c244452353b6"
   },
   {
     "id": "practice-sum-range",
@@ -448,14 +455,21 @@
     "summary": "Use iteration to calculate a simple arithmetic total.",
     "language": "Python",
     "topic": "Loops",
+    "category": "fundamentals",
+    "subtopic": "accumulators-counters",
+    "questionType": "implementation",
+    "skills": [
+      "loop-iteration",
+      "numeric-accumulation"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 10,
     "xp": 50,
     "position": 22,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-22.json",
-    "contentHash": "ba95f2f39f82a2447b580a50ad211a6b22cfed7bd8adec5ca2ca5dccf0c85e81"
+    "contentHash": "54357a281b2647f54be0f5acad24c8676a7748454b44f773d7d2afe606606ec4"
   },
   {
     "id": "practice-reverse-text",
@@ -463,14 +477,21 @@
     "summary": "Transform a string while preserving every character.",
     "language": "Python",
     "topic": "Strings",
+    "category": "fundamentals",
+    "subtopic": "string-transformation",
+    "questionType": "implementation",
+    "skills": [
+      "string-manipulation",
+      "sequence-reversal"
+    ],
     "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 45,
     "position": 23,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-23.json",
-    "contentHash": "c019beff3546b6b3d3d18e3da9d2cb05f67184f29266f6f3427e11f16b1b479e"
+    "contentHash": "17d0334fcdb4c45ef787ac1d20afb6e991736b83a0e420c961aa42d05d66b124"
   },
   {
     "id": "practice-largest-number",
@@ -478,14 +499,21 @@
     "summary": "Find the maximum value without changing the input order.",
     "language": "Python",
     "topic": "Lists",
+    "category": "fundamentals",
+    "subtopic": "searching-counting",
+    "questionType": "implementation",
+    "skills": [
+      "list-traversal",
+      "maximum-selection"
+    ],
     "difficulty": "medium",
     "estimatedMinutes": 12,
     "xp": 70,
     "position": 24,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-24.json",
-    "contentHash": "2caafe754b9281ae5dbd2adab83bf2a96e6fb493b934472538479d522c61daa8"
+    "contentHash": "bc6c90656360470c462d75bd1cef772801acc745134f11053d59922fd7d02ebf"
   },
   {
     "id": "practice-word-frequency",
@@ -493,14 +521,21 @@
     "summary": "Count repeated words with a dictionary.",
     "language": "Python",
     "topic": "Dictionaries",
+    "category": "fundamentals",
+    "subtopic": "counting-frequency-tracking",
+    "questionType": "implementation",
+    "skills": [
+      "dictionary-counting",
+      "frequency-tracking"
+    ],
     "difficulty": "medium",
     "estimatedMinutes": 16,
     "xp": 90,
     "position": 25,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-25.json",
-    "contentHash": "9e5738948ec593c60d9888ea79a3acee5d72198997acf143ea243ff1d7f4cb71"
+    "contentHash": "468476ca58c7475086531d8d966341e9ec71747790cc4600ecfa4ca555e8b6fd"
   },
   {
     "id": "practice-palindrome",
@@ -508,14 +543,21 @@
     "summary": "Combine normalization and comparison to inspect text.",
     "language": "Python",
     "topic": "Strings",
+    "category": "fundamentals",
+    "subtopic": "string-validation-edge-cases",
+    "questionType": "implementation",
+    "skills": [
+      "string-normalization",
+      "palindrome-validation"
+    ],
     "difficulty": "hard",
     "estimatedMinutes": 20,
     "xp": 120,
     "position": 26,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-26.json",
-    "contentHash": "4185b735142d3fcf1ebdd8c575583890f4021ea046eebd687793fd70c4820a2e"
+    "contentHash": "ea1981c57e7f1976578b7c35602d36e4ff18b9d95d97890458c2d7e1a7b34d57"
   },
   {
     "id": "fund-conditionals-001",
@@ -535,7 +577,7 @@
     "xp": 20,
     "position": 27,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-27.json",
     "contentHash": "fe8ae47c1e4af8efa45ee9457c30ab407daa0a16759f04ce7f0cb86bcfc1f53a"
   },
@@ -556,7 +598,7 @@
     "xp": 20,
     "position": 28,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-28.json",
     "contentHash": "7978a6e8059563c303ac0d13a7f23d1419d1874143de704defbb3167cb2a6344"
   },
@@ -577,7 +619,7 @@
     "xp": 25,
     "position": 29,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-29.json",
     "contentHash": "2fdd5ff0b3a96aba03ef5b13518a41f8e0dc4b8e839542554406ef98a6fcd143"
   },
@@ -599,7 +641,7 @@
     "xp": 25,
     "position": 30,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-30.json",
     "contentHash": "e8d53bf8318d89085b0630c65022786d3ce7b17231e640c54374f1fa28455d4f"
   },
@@ -620,7 +662,7 @@
     "xp": 25,
     "position": 31,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-31.json",
     "contentHash": "a87702518203eb6608d94607bec7fab1fd616ec95907e212b677d573a13989da"
   },
@@ -641,7 +683,7 @@
     "xp": 25,
     "position": 32,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-32.json",
     "contentHash": "d3bf3d3b517d5799055cb4fb59e8044f9dae6f963700db300f8cef9c013460a0"
   },
@@ -662,7 +704,7 @@
     "xp": 30,
     "position": 33,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-33.json",
     "contentHash": "17231e2f8ad266f5d841a336c491527b4bb70aad1ada7488c82dff72a004ec42"
   },
@@ -683,7 +725,7 @@
     "xp": 30,
     "position": 34,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-34.json",
     "contentHash": "de216091c77726426feb565252f2f6a41d6aa4f7532857ada0bf5c00b61bb8ba"
   },
@@ -705,7 +747,7 @@
     "xp": 40,
     "position": 35,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-35.json",
     "contentHash": "6af09bdcc65e87d14d75ede0ba7c71f65bc7a15e71e607fd088d69923c9e3e01"
   },
@@ -727,7 +769,7 @@
     "xp": 40,
     "position": 36,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-36.json",
     "contentHash": "084263914d31b516275f26a891a3ab90c22cec223965b7a0e4b6c41f7e34d3d9"
   },
@@ -749,7 +791,7 @@
     "xp": 35,
     "position": 37,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-37.json",
     "contentHash": "c9d55e5bbf4d41c809ff7e7747023fc256b7aaee49e322e53a303603ec79d20f"
   },
@@ -770,7 +812,7 @@
     "xp": 40,
     "position": 38,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-38.json",
     "contentHash": "b735bdb030ae685fc8e46680cdc4061f9c68376d4406b9dfc1b2ce7f57cc3b47"
   },
@@ -792,7 +834,7 @@
     "xp": 45,
     "position": 39,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-39.json",
     "contentHash": "fdce55d628e382733595d363b916eef2be43c29bcf75134caf59260ad397ec74"
   },
@@ -814,7 +856,7 @@
     "xp": 45,
     "position": 40,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-40.json",
     "contentHash": "4831bda75c519a1c0c26be1ddc77380042846494b0b5b1aa8e3b70c907367f63"
   },
@@ -835,7 +877,7 @@
     "xp": 40,
     "position": 41,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-41.json",
     "contentHash": "79184a7fd3e40b34d289cc3dcb3893725a45979ba295488df7152c259204202a"
   },
@@ -856,7 +898,7 @@
     "xp": 50,
     "position": 42,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-42.json",
     "contentHash": "0e00e44303f9623cbe58c1a61b18ae0f14b37b8694fee036a663d10218bef6c0"
   },
@@ -877,7 +919,7 @@
     "xp": 45,
     "position": 43,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-43.json",
     "contentHash": "2f027e94c0db893a626b93bf75d87978f08b35439949f063c65e49de3e55ad0d"
   },
@@ -899,7 +941,7 @@
     "xp": 40,
     "position": 44,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-44.json",
     "contentHash": "ea3f9e54ec37f3b3168afecbea5d7c4eba42076ccb313dc1274544c6734375cf"
   },
@@ -921,7 +963,7 @@
     "xp": 40,
     "position": 45,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-45.json",
     "contentHash": "c838fdddbf5f60ee86b6753d548ec17552e87ecf43f5ba2eb99c05421d91f09a"
   },
@@ -943,7 +985,7 @@
     "xp": 45,
     "position": 46,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-46.json",
     "contentHash": "f44622fe499cc7878b003bdf70d35e7965bba7bcd0bd8196ceca19b74ca539de"
   },
@@ -965,7 +1007,7 @@
     "xp": 25,
     "position": 47,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-47.json",
     "contentHash": "b0fa08ae3ffb3c422f3c2946249b12907576dda9d17d092e3a5eb93b932c9c08"
   },
@@ -987,7 +1029,7 @@
     "xp": 30,
     "position": 48,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-48.json",
     "contentHash": "855148021ec524abc60049ba717ee1d3139bd0ead72c8efa9de7e7f5d3a897f4"
   },
@@ -1009,7 +1051,7 @@
     "xp": 30,
     "position": 49,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-49.json",
     "contentHash": "d0049220f71be7522153e401d10995b69645c0be72569a2e785eb8526c25df76"
   },
@@ -1031,7 +1073,7 @@
     "xp": 30,
     "position": 50,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-50.json",
     "contentHash": "18702cb0160fe1c35185905a4d444f9699299b409f1f772dd37e8314213e98b2"
   },
@@ -1053,7 +1095,7 @@
     "xp": 30,
     "position": 51,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-51.json",
     "contentHash": "0f462f7915b8c712930dcbce7fe916ab298cbb4e7be5300b0feae1f097a2970a"
   },
@@ -1075,7 +1117,7 @@
     "xp": 35,
     "position": 52,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-52.json",
     "contentHash": "d83a9b649301dd7a3876168708d9e52d45d7f35caa5a07ab4a5b27e17ef47660"
   },
@@ -1096,7 +1138,7 @@
     "xp": 40,
     "position": 53,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-53.json",
     "contentHash": "a2f0e0c6ccfdc5bce398a83885c76836ef92b2c70f4d60b16f696b4e64fb8863"
   },
@@ -1118,7 +1160,7 @@
     "xp": 40,
     "position": 54,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-54.json",
     "contentHash": "b6bc4026e8d8d8e320b84e926abe71f3986df83acce6713155d4943751e246fc"
   },
@@ -1140,7 +1182,7 @@
     "xp": 40,
     "position": 55,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-55.json",
     "contentHash": "827c5b31d1e5589647be27996260ff228faf4a8cf609458377cf66abdfd8ce37"
   },
@@ -1162,7 +1204,7 @@
     "xp": 45,
     "position": 56,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-56.json",
     "contentHash": "35075f9460a9b2928e1ffcfa65defce29c3c278c838e06067e3254c7d2188578"
   },
@@ -1183,7 +1225,7 @@
     "xp": 45,
     "position": 57,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-57.json",
     "contentHash": "bf9604a08d46e98b4ea64df7f5882f8be6ac22cfbbe82e5e5fa87fa461a53fd5"
   },
@@ -1205,7 +1247,7 @@
     "xp": 45,
     "position": 58,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-58.json",
     "contentHash": "55339ae8dda0a712ec9e3de5c24a4e8ee8504c7e863893e62fb5bb05f4daeac3"
   },
@@ -1227,7 +1269,7 @@
     "xp": 50,
     "position": 59,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-59.json",
     "contentHash": "af0d7fc8887aa90c8bd9fb93d9a5c40ff1fae9923ecb76fb04336b904513c6f9"
   },
@@ -1248,7 +1290,7 @@
     "xp": 45,
     "position": 60,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-60.json",
     "contentHash": "bd23cf7fd4ebfd48cea3c647c9a45aef8d3e4bf4e5a4824d90b9caee92198b46"
   },
@@ -1270,7 +1312,7 @@
     "xp": 50,
     "position": 61,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-61.json",
     "contentHash": "4929d254844fae575fa60ca4bd932407841570ecfbed2f4bee45c45fdaa24e4b"
   },
@@ -1292,7 +1334,7 @@
     "xp": 50,
     "position": 62,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-62.json",
     "contentHash": "16d47b35e55f7af5b1d38b1536d268bfb01100c53a5a46d27e2d690ef33fbac9"
   },
@@ -1314,7 +1356,7 @@
     "xp": 45,
     "position": 63,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-63.json",
     "contentHash": "11c87d4b391aef389fbce22681371efe1649b98eaf3146e41c776d8ea58e5797"
   },
@@ -1335,7 +1377,7 @@
     "xp": 40,
     "position": 64,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-64.json",
     "contentHash": "3069dd1a5dafd8e41dd298e385b133cf412ad459098aa335cb22c0e884eab209"
   },
@@ -1357,7 +1399,7 @@
     "xp": 50,
     "position": 65,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-65.json",
     "contentHash": "b41b337655dc2c68ed36350d0eba341ee68e579f1a5f15ee55bc391c02050e23"
   },
@@ -1379,7 +1421,7 @@
     "xp": 45,
     "position": 66,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-66.json",
     "contentHash": "145b0c7a540b059cc37a6f0f96ca4841cb2342b1f9a1d2cb4bda333ad078243c"
   },
@@ -1401,7 +1443,7 @@
     "xp": 25,
     "position": 67,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-67.json",
     "contentHash": "99b65cbeb04bc8de39f076f34cca41630fbce2fa628c3c4e030fe55bd124acd7"
   },
@@ -1423,7 +1465,7 @@
     "xp": 25,
     "position": 68,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-68.json",
     "contentHash": "2ea476e1b8c4ba1e76afe593eb8de3d11a8973c34805874a1548c568ec4afe3b"
   },
@@ -1445,7 +1487,7 @@
     "xp": 25,
     "position": 69,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-69.json",
     "contentHash": "9991477f3e93566afacf72de13deae39aca8b921cf61cc8a55f0bb650fa0ad5b"
   },
@@ -1467,7 +1509,7 @@
     "xp": 30,
     "position": 70,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-70.json",
     "contentHash": "7bf1a184fae5f3c97acfe99fcb52959bb3d096cd4031821a1e5e5f2fa41ee342"
   },
@@ -1488,7 +1530,7 @@
     "xp": 30,
     "position": 71,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-71.json",
     "contentHash": "176b2d1d44f3eb0be0297196660a62608509a3be2c6550187a8de1e16feb2ec5"
   },
@@ -1509,7 +1551,7 @@
     "xp": 30,
     "position": 72,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-72.json",
     "contentHash": "0757cf3f6c19a98c858aa540e69481e13156374fce6c20bed562f057e4b36849"
   },
@@ -1531,7 +1573,7 @@
     "xp": 40,
     "position": 73,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-73.json",
     "contentHash": "d21bad7550a4fd0dfe3e6b0cbcd541663ae50592f08b50efedc25715d73ee39f"
   },
@@ -1553,7 +1595,7 @@
     "xp": 40,
     "position": 74,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-74.json",
     "contentHash": "b23c0aef208fe001677f1ce0bc28152f24e4f6899231e7782505dc3ec7384e20"
   },
@@ -1575,7 +1617,7 @@
     "xp": 40,
     "position": 75,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-75.json",
     "contentHash": "1e750fa58573c87cdf64763345dea2f910c8ac41b019fb3143b94fc3990c3542"
   },
@@ -1597,7 +1639,7 @@
     "xp": 45,
     "position": 76,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-76.json",
     "contentHash": "85dd0daa234e58b01844a870094950dcab4b36f3eb64ffdec44af1f741325a84"
   },
@@ -1619,7 +1661,7 @@
     "xp": 40,
     "position": 77,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-77.json",
     "contentHash": "377d3c790abc636fc3d0a45cfa3f697c9e6d1dd4c5b37b27448c9b917927befb"
   },
@@ -1641,7 +1683,7 @@
     "xp": 45,
     "position": 78,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-78.json",
     "contentHash": "f2247bd34b9898efdc9ef1e88495147e17196351674a5b742d5108d88b76b1cf"
   },
@@ -1663,7 +1705,7 @@
     "xp": 40,
     "position": 79,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-79.json",
     "contentHash": "dbe2e378028da231cfcb70c96890c5a1c74cb6a2b345034b79ebcf03c6e55a67"
   },
@@ -1685,7 +1727,7 @@
     "xp": 45,
     "position": 80,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-80.json",
     "contentHash": "622a848def0fb33a5a1ffb8a4db67cde4845320834143ebef56c86922c3045a5"
   },
@@ -1707,7 +1749,7 @@
     "xp": 45,
     "position": 81,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-81.json",
     "contentHash": "a8711cd82b66654178112e445db784364dfb0c2ee22b9eeafa378e98417e3260"
   },
@@ -1729,7 +1771,7 @@
     "xp": 40,
     "position": 82,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-82.json",
     "contentHash": "86296ff7b1ceb6b5046c3015c16ee8807a7d52ecff2ee337909ad26bf80fea45"
   },
@@ -1751,7 +1793,7 @@
     "xp": 50,
     "position": 83,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-83.json",
     "contentHash": "8b0bc75333853852eeb4b94a1e023659352dac1e749a9ae0a349f0845b2f8a9b"
   },
@@ -1773,7 +1815,7 @@
     "xp": 50,
     "position": 84,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-84.json",
     "contentHash": "1c15097ce62199492b4b5c63d763f009af4592e9705c4f6d421b8c860bcbde76"
   },
@@ -1794,7 +1836,7 @@
     "xp": 45,
     "position": 85,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-85.json",
     "contentHash": "8951c26581769b159c983b287cf519e1a877487c541ac2d0fcbd6be46d89ce37"
   },
@@ -1816,7 +1858,7 @@
     "xp": 45,
     "position": 86,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-86.json",
     "contentHash": "8d73f24e3bdd61cc1670e9900fe2e4492899b9f98b78083f13082d7dba579b89"
   },
@@ -1838,7 +1880,7 @@
     "xp": 20,
     "position": 87,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-87.json",
     "contentHash": "1282bc69f5fb5049ad61cd00f0f3ab9cf5fbf822e99b653f885ccbae90977b20"
   },
@@ -1860,7 +1902,7 @@
     "xp": 20,
     "position": 88,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-88.json",
     "contentHash": "66a828adc8eebce6404edac8b49d69ae65864344316c6428e971854437f45b28"
   },
@@ -1882,7 +1924,7 @@
     "xp": 25,
     "position": 89,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-89.json",
     "contentHash": "ee6f60d6a43a2a6b6e1765457810e3db4294ee1a214f13c725e41e8200f1904b"
   },
@@ -1903,7 +1945,7 @@
     "xp": 30,
     "position": 90,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-90.json",
     "contentHash": "c5be868077250b7812a7e7d5788a91bfd609e12075ce486f1cd2d5459d32ef0b"
   },
@@ -1925,7 +1967,7 @@
     "xp": 30,
     "position": 91,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-91.json",
     "contentHash": "5a66415d144d5756bb00e46131e3f13104c9d1b1ef70550247dd224e326e2bc3"
   },
@@ -1947,7 +1989,7 @@
     "xp": 35,
     "position": 92,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-92.json",
     "contentHash": "98c377dc98ba69b14d758cdcc802f75ed51d4889056af0f6f4784efd10c03db6"
   },
@@ -1969,7 +2011,7 @@
     "xp": 40,
     "position": 93,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-93.json",
     "contentHash": "0b1df17096293c0c37d10224ec439145e230f7a6ef67c4b5d9fba40b99eb9228"
   },
@@ -1991,7 +2033,7 @@
     "xp": 40,
     "position": 94,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-94.json",
     "contentHash": "0b842092c9b7d91f052c02b3323dd7f112ae1a0b21ac89c581d16f816cb23334"
   },
@@ -2013,7 +2055,7 @@
     "xp": 40,
     "position": 95,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-95.json",
     "contentHash": "bf373ed66f7f3a5b7fdf45c98fca180bca82ee7095d3199f1e82ad1f5c4d80fe"
   },
@@ -2035,7 +2077,7 @@
     "xp": 45,
     "position": 96,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-96.json",
     "contentHash": "25e7a73a3bc5265063a8bdb5bf160091938a13592344cd7be0549c421ac91f87"
   },
@@ -2057,7 +2099,7 @@
     "xp": 40,
     "position": 97,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-97.json",
     "contentHash": "74096fe95b37b2a4d10ec8e15b58f633252531d3eb6f4c3c35194cb006200cae"
   },
@@ -2079,7 +2121,7 @@
     "xp": 35,
     "position": 98,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-98.json",
     "contentHash": "873e40b8c77ffc2f4edd10a469ad158bca50bb1dd85196faf0fdd59d3db32e99"
   },
@@ -2101,7 +2143,7 @@
     "xp": 40,
     "position": 99,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-99.json",
     "contentHash": "c66aef6835797988953aff8c8d6caa6783d9e9e8943539c0a9dd090aace79802"
   },
@@ -2123,7 +2165,7 @@
     "xp": 40,
     "position": 100,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-100.json",
     "contentHash": "161e92399a40fb726afc6deabf717fbfd2cab69feb087d8c8d9e2ed41ee82b40"
   },
@@ -2145,7 +2187,7 @@
     "xp": 40,
     "position": 101,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-101.json",
     "contentHash": "b3c64a60311a1834701320fcaf8f12341f5eac97c38e5345724c06b9b8e363a4"
   },
@@ -2166,7 +2208,7 @@
     "xp": 40,
     "position": 102,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-102.json",
     "contentHash": "c2333d996070fb020983c7415bcc254ebf09d3f0eed17b4a491081fd31cb4d13"
   },
@@ -2188,7 +2230,7 @@
     "xp": 45,
     "position": 103,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-103.json",
     "contentHash": "f7ced4a84d01d6e40667c5d87535cf042212722014d74c5146ae0ef64c36ca97"
   },
@@ -2210,7 +2252,7 @@
     "xp": 45,
     "position": 104,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-104.json",
     "contentHash": "53e4d3a4df7ea4566b085e3955425fc7b6f57a2ff2104b639f85ddff6992095f"
   },
@@ -2232,7 +2274,7 @@
     "xp": 35,
     "position": 105,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-105.json",
     "contentHash": "e5580bf1de918b8666d68bb876c7dbb334f3f91238053ba9759f76b4971ff37f"
   },
@@ -2254,7 +2296,7 @@
     "xp": 50,
     "position": 106,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-106.json",
     "contentHash": "00e17a7f95fbb19ed32d02490912eb0050d1c2e6148b3964b912d1e6da9b12b2"
   },
@@ -2276,7 +2318,7 @@
     "xp": 20,
     "position": 107,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-107.json",
     "contentHash": "69b83a0ffc26f7d280dee3920fb4f62676ba5ed12da31829f3e23fc67a9c7aea"
   },
@@ -2298,7 +2340,7 @@
     "xp": 20,
     "position": 108,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-108.json",
     "contentHash": "947ec6afe93fa5837dec596ddb62c0a9334aa36cb7d2aba7c21a69ea271fbadf"
   },
@@ -2320,7 +2362,7 @@
     "xp": 25,
     "position": 109,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-109.json",
     "contentHash": "f68f6ac807bcba9013b6d37ad166d255833e210fe773a6d7483f153a11a3b15b"
   },
@@ -2342,7 +2384,7 @@
     "xp": 25,
     "position": 110,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-110.json",
     "contentHash": "5099b358dc1256038c21abd50d3aa4fd5f46a549d8bf021919333f490749c0ab"
   },
@@ -2364,7 +2406,7 @@
     "xp": 30,
     "position": 111,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-111.json",
     "contentHash": "feba144748d4505a90f01e2e21344e424fa6b03df3b2c04e31de37ce3a0b6821"
   },
@@ -2386,7 +2428,7 @@
     "xp": 35,
     "position": 112,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-112.json",
     "contentHash": "a851367a9ca249b2dc20cfb4ca701788f7c8d5d7f0bb6665d08544aa87a0cb1d"
   },
@@ -2408,7 +2450,7 @@
     "xp": 40,
     "position": 113,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-113.json",
     "contentHash": "68b7e3b4e58bef9b110b9fa3b0ca96d9c2dd2d586fce1d618b332d3a3849c236"
   },
@@ -2430,7 +2472,7 @@
     "xp": 35,
     "position": 114,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-114.json",
     "contentHash": "51abd531131651263264cda11cf077a203e46dad9408928cfc409b4f6f77dc85"
   },
@@ -2452,7 +2494,7 @@
     "xp": 40,
     "position": 115,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-115.json",
     "contentHash": "eb4cae8b17ea99966020f3f7830de84d624fc291621bf2cf77f5b6c3ae788bef"
   },
@@ -2474,7 +2516,7 @@
     "xp": 45,
     "position": 116,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-116.json",
     "contentHash": "e1eba3841e780a3314a546341f6501b6e7da22d19350c3042e31fce2fbceec36"
   },
@@ -2496,7 +2538,7 @@
     "xp": 45,
     "position": 117,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-117.json",
     "contentHash": "12a4a1f42088e14744a84d5765babd31124b2a947f9e14adf9a9382f0b3a923c"
   },
@@ -2518,7 +2560,7 @@
     "xp": 35,
     "position": 118,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-118.json",
     "contentHash": "8609e350e3f620b3478d1677591822e6a3ea0170920a9ca407df08ea46ca5199"
   },
@@ -2540,7 +2582,7 @@
     "xp": 40,
     "position": 119,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-119.json",
     "contentHash": "b3e7b455ba40e0e972d22fddfa4c67ca2787a7e4cb3a4ff5172d116509a4d865"
   },
@@ -2562,7 +2604,7 @@
     "xp": 45,
     "position": 120,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-120.json",
     "contentHash": "40d93ca8fe38666d0f29f9b138071ffc70c3d47cb5ad8a14876363c4304eb9c8"
   },
@@ -2584,7 +2626,7 @@
     "xp": 40,
     "position": 121,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-121.json",
     "contentHash": "35ff6e09d24a3a385d1fb77eb83704b83f06ea209137c7bc03958aaa399646ae"
   },
@@ -2606,7 +2648,7 @@
     "xp": 45,
     "position": 122,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-122.json",
     "contentHash": "091380e59a9a7f2a48001cb861e8e7c29ce8a5c0d9acb4119c2a62281ca76621"
   },
@@ -2628,7 +2670,7 @@
     "xp": 40,
     "position": 123,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-123.json",
     "contentHash": "ffec20eb1f64fd9bd0a22d3b53eb8ed93f63a2332a131b693fc78f99045e5903"
   },
@@ -2650,7 +2692,7 @@
     "xp": 45,
     "position": 124,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-124.json",
     "contentHash": "e5f99d68982a75aaec5a2b6e91ac253d9ad47c6d184da6fc2a65145660f363a6"
   },
@@ -2672,7 +2714,7 @@
     "xp": 40,
     "position": 125,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-125.json",
     "contentHash": "dae8b990e2f9b16bacf3fc67d526f4f83b19159f2fad9075861c01efb4f38386"
   },
@@ -2694,7 +2736,7 @@
     "xp": 45,
     "position": 126,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-126.json",
     "contentHash": "67c51a468cfae675d6203a992434df4428a2e64666ea5461d172c35f0a8d1185"
   },
@@ -2716,7 +2758,7 @@
     "xp": 25,
     "position": 127,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-127.json",
     "contentHash": "245b4222c9622bf48c671be5c14556af344c532270df259838149ae54f7e9420"
   },
@@ -2738,7 +2780,7 @@
     "xp": 25,
     "position": 128,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-128.json",
     "contentHash": "628585a3a49536be617a55c91d54d43ad0b1a1eb3b33eb8cad481bfac65526c6"
   },
@@ -2760,7 +2802,7 @@
     "xp": 25,
     "position": 129,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-129.json",
     "contentHash": "bd0d73b72305e5741b0a15f89ebd94b01faef3ebfa1022f57af9effd5f849496"
   },
@@ -2782,7 +2824,7 @@
     "xp": 30,
     "position": 130,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-130.json",
     "contentHash": "ae206162e453d848a0a665a5fb42a473aca195deddc68b5724da813aa4c8acab"
   },
@@ -2804,7 +2846,7 @@
     "xp": 35,
     "position": 131,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-131.json",
     "contentHash": "79d87629eaff64d6eb61b17e4bd7ff726973254298e5959567a3d7f8916950ff"
   },
@@ -2826,7 +2868,7 @@
     "xp": 35,
     "position": 132,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-132.json",
     "contentHash": "b7d0fa6688f3a83b6918820b23bef1dd7f028e88919ee656d1b24044515ed3ac"
   },
@@ -2848,7 +2890,7 @@
     "xp": 45,
     "position": 133,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-133.json",
     "contentHash": "68156ad83402664ddeb1f03f779160d9bd03764815d5d89e3b4c88475ce3e1bd"
   },
@@ -2870,7 +2912,7 @@
     "xp": 40,
     "position": 134,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-134.json",
     "contentHash": "f58cdf937bf5e999a864fb03ed284eb028d93b3a847dd770d7ad0f59af01dcf9"
   },
@@ -2892,7 +2934,7 @@
     "xp": 40,
     "position": 135,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-135.json",
     "contentHash": "61dc0aafcc258068193322ffe827220c1978350f1464425a12a42369102801f0"
   },
@@ -2914,7 +2956,7 @@
     "xp": 45,
     "position": 136,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-136.json",
     "contentHash": "aeb3b988e244d9c9d265c6bd3bddc08b8372ac9910bfd1d072511e298a1258b0"
   },
@@ -2936,7 +2978,7 @@
     "xp": 50,
     "position": 137,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-137.json",
     "contentHash": "747c7966072faeea6d8f898f1bee5709de3eba510178db7756a736f8ea1a75a5"
   },
@@ -2958,7 +3000,7 @@
     "xp": 35,
     "position": 138,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-138.json",
     "contentHash": "b7efe2cbd00dcb0de05b1480405c10d461114a40b518add3d04c4be2dbde0e87"
   },
@@ -2980,7 +3022,7 @@
     "xp": 40,
     "position": 139,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-139.json",
     "contentHash": "ad183d3344a7d7d6f583fa7e9c6b0d82ee1d5ab790412598d46ad7684248576b"
   },
@@ -3002,7 +3044,7 @@
     "xp": 40,
     "position": 140,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-140.json",
     "contentHash": "c375d64b9bae72d4e6c7d87b14aab3730bdc8c4da02dfde6aee471ef88f28719"
   },
@@ -3024,7 +3066,7 @@
     "xp": 50,
     "position": 141,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-141.json",
     "contentHash": "9d99fa36f1e0c5ba049a5b7780814904bfcd6a40cee92069d3ef270851a4ccc6"
   },
@@ -3046,7 +3088,7 @@
     "xp": 50,
     "position": 142,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-142.json",
     "contentHash": "dae5f800e4220db47f7f57b61b811d33b63d5403204d67ac1a870a9171d2cb0a"
   },
@@ -3068,7 +3110,7 @@
     "xp": 45,
     "position": 143,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-143.json",
     "contentHash": "8528dfe9c9f47bbc725cfdf448cece2166a34b49d5991a66065643c0ceef7d86"
   },
@@ -3090,7 +3132,7 @@
     "xp": 40,
     "position": 144,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-144.json",
     "contentHash": "9752affa776f7a0d4530c8bcff8750ce17dc182263c8b0ccd9d50cdae47427da"
   },
@@ -3112,7 +3154,7 @@
     "xp": 45,
     "position": 145,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-145.json",
     "contentHash": "68ab4326c6550bfa722969b7deeb73bae8e7b41921332a176a288be9cf485219"
   },
@@ -3134,7 +3176,7 @@
     "xp": 50,
     "position": 146,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-146.json",
     "contentHash": "de170b3d12870f839f4cef3c740318cead88a8e4a24d2d6b55ededd13fc119f8"
   },
@@ -3156,7 +3198,7 @@
     "xp": 25,
     "position": 147,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-147.json",
     "contentHash": "52106fc9cb528c9b2db036fd9cf50b8c06e1cb1ca5438d679654247886f97d5d"
   },
@@ -3178,7 +3220,7 @@
     "xp": 30,
     "position": 148,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-148.json",
     "contentHash": "0ce828dc29fb5ff215fb98cbba08cddc0cbed52d69cc6b32563405d40876dc02"
   },
@@ -3200,7 +3242,7 @@
     "xp": 25,
     "position": 149,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-149.json",
     "contentHash": "3ba85dbeb582caea09999af93334367ec02cb26edd682bb436f876a016e3e5e0"
   },
@@ -3222,7 +3264,7 @@
     "xp": 30,
     "position": 150,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-150.json",
     "contentHash": "d6d713c6531de5c396ff588dc09af68fc6a9cc0544a54c00a7c1e20517b3b011"
   },
@@ -3244,7 +3286,7 @@
     "xp": 25,
     "position": 151,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-151.json",
     "contentHash": "7e5e215f5464e9f7a93330496ee7a3113ebe3830ba6e60aae1c773a06ae0984b"
   },
@@ -3266,7 +3308,7 @@
     "xp": 30,
     "position": 152,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-152.json",
     "contentHash": "e469702827cc1501c34e04cc4a25785add318dfc8a1a913cfdad664f99af03a4"
   },
@@ -3288,7 +3330,7 @@
     "xp": 35,
     "position": 153,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-153.json",
     "contentHash": "0762920431109f9a73d7b577440625b19bad76c3947972c6a8d0ab01d97cf33d"
   },
@@ -3310,7 +3352,7 @@
     "xp": 40,
     "position": 154,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-154.json",
     "contentHash": "a383e4b0ec10c9c94ac55188f766ea8bf16f90fa5682b5e9807f25367942dddf"
   },
@@ -3332,7 +3374,7 @@
     "xp": 40,
     "position": 155,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-155.json",
     "contentHash": "425b85a6ecd240b953843e7f35624a575f314c18794052267b7988fe9df3371b"
   },
@@ -3354,7 +3396,7 @@
     "xp": 45,
     "position": 156,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-156.json",
     "contentHash": "d80d6960e2748693505fbf4b7958248150ec3374c9131f1aca079913f4969c04"
   },
@@ -3376,7 +3418,7 @@
     "xp": 40,
     "position": 157,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-157.json",
     "contentHash": "a8fa49b88d518c53ffe31a127e418fd9a6f007d8c10d2086d42a6436f2945952"
   },
@@ -3398,7 +3440,7 @@
     "xp": 40,
     "position": 158,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-158.json",
     "contentHash": "4c64eac09ed7c1767079c997bdd6715e9ca8631ecc3b69ab8254ef5e22513ea4"
   },
@@ -3420,7 +3462,7 @@
     "xp": 40,
     "position": 159,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-159.json",
     "contentHash": "a91a45a8040cfcb5fbea0b27803db74ba69f6bcc2941bc0632243c7d7e589953"
   },
@@ -3442,7 +3484,7 @@
     "xp": 45,
     "position": 160,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-160.json",
     "contentHash": "613e543db28557d03614cf4b283b6249bec2ed7d70113c5bd529e07da7e3c83c"
   },
@@ -3464,7 +3506,7 @@
     "xp": 45,
     "position": 161,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-161.json",
     "contentHash": "784a3c82f320bdd512a3939119b65f3379829099b4875e7e86a3dd4df56a127c"
   },
@@ -3486,7 +3528,7 @@
     "xp": 45,
     "position": 162,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-162.json",
     "contentHash": "c247919c5aaf2b523278b1d066855b3a7cc92482885bad0bd7cd93e3ea853c60"
   },
@@ -3508,7 +3550,7 @@
     "xp": 40,
     "position": 163,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-163.json",
     "contentHash": "a653396b0b6d0e301b9d0e00681f7452b0029b82a667f58e1ab520a826811d0c"
   },
@@ -3530,7 +3572,7 @@
     "xp": 40,
     "position": 164,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-164.json",
     "contentHash": "05e3f2c97c8b8003a01411d53e519e4b1afe2965da20d104aaf9a4822805a2bb"
   },
@@ -3552,7 +3594,7 @@
     "xp": 45,
     "position": 165,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-165.json",
     "contentHash": "1d1a97a12e915ed118932f403506b77c6346fd0a4decc352b055a9c400d0b571"
   },
@@ -3574,7 +3616,7 @@
     "xp": 40,
     "position": 166,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-166.json",
     "contentHash": "b4857cc962288561bd52c90e0bd1903d7d8127139e2c74deb203135e44f5397b"
   },
@@ -3596,7 +3638,7 @@
     "xp": 25,
     "position": 167,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-167.json",
     "contentHash": "e2b2f0ed742d786d68c4cf5449d6e06f7e792df8694088d8da62b3d3da026a44"
   },
@@ -3618,7 +3660,7 @@
     "xp": 25,
     "position": 168,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-168.json",
     "contentHash": "9c5478c10a39c0a339753762e7536912e7e43827f024e4d2fbad4348024986ea"
   },
@@ -3640,7 +3682,7 @@
     "xp": 30,
     "position": 169,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-169.json",
     "contentHash": "9e065f6c6c9047e32cdccf49f875465f07644362834225b583bbf0fae02f1a90"
   },
@@ -3662,7 +3704,7 @@
     "xp": 30,
     "position": 170,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-170.json",
     "contentHash": "76644e1724ed979b73f01a8fc98ccd982946bd5d46c7728d3cddaa81c1404ca6"
   },
@@ -3684,7 +3726,7 @@
     "xp": 30,
     "position": 171,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-171.json",
     "contentHash": "a13d0dbc06178f01def7cd5f958db5b73453def0d4f64c2dffbb8db17103ab02"
   },
@@ -3706,7 +3748,7 @@
     "xp": 45,
     "position": 172,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-172.json",
     "contentHash": "264abe08de4fa158e4ab5c2670b8efd15557696364e4c55b1a7849aab165e1e9"
   },
@@ -3728,7 +3770,7 @@
     "xp": 35,
     "position": 173,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-173.json",
     "contentHash": "c7e442b959fa3c85516b020b90b33a27a4bca2b681fb6af98e151a7730e03756"
   },
@@ -3750,7 +3792,7 @@
     "xp": 35,
     "position": 174,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-174.json",
     "contentHash": "d3bafc0f7aa142e0ea6dd8e11856d0221441cdb5180ad07d0ae1993e941d7c37"
   },
@@ -3772,7 +3814,7 @@
     "xp": 40,
     "position": 175,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-175.json",
     "contentHash": "c8191211d1f2801cb1f3567b4a487a2344a2e8ac754613352bbb114b4977e37d"
   },
@@ -3794,7 +3836,7 @@
     "xp": 45,
     "position": 176,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-176.json",
     "contentHash": "7394dbb3598d7d7f740211e8fe048e07edcf71590b60011725464622b9e80ff4"
   },
@@ -3816,7 +3858,7 @@
     "xp": 50,
     "position": 177,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-177.json",
     "contentHash": "c963cf5afb296fea0445bf8dd500992054c30b20a28d5f39a2effd9548f2e606"
   },
@@ -3838,7 +3880,7 @@
     "xp": 45,
     "position": 178,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-178.json",
     "contentHash": "9e816e6b0f9dba3cc93b6cf0e753a0fd79db188e72d243982bbc1e9086f4c195"
   },
@@ -3860,7 +3902,7 @@
     "xp": 45,
     "position": 179,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-179.json",
     "contentHash": "98d7515391971181d986c566d3f08359ee2eac0ff54d3342d3892fba13c42b12"
   },
@@ -3882,7 +3924,7 @@
     "xp": 50,
     "position": 180,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-180.json",
     "contentHash": "06a47a10d1f000ea2d399875195fdb837c27a044fea1954f4d127a50b23757e5"
   },
@@ -3905,7 +3947,7 @@
     "xp": 40,
     "position": 181,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-181.json",
     "contentHash": "d471ee8c2488299af30615994ad2a86231755f582f901b2eab1c05a1ca3de77f"
   },
@@ -3927,7 +3969,7 @@
     "xp": 35,
     "position": 182,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-182.json",
     "contentHash": "bc80279a9c5c1f6eebff1e2ed32fe47117dfa47c8d31e24f52f06bd540ef430d"
   },
@@ -3949,7 +3991,7 @@
     "xp": 25,
     "position": 183,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-183.json",
     "contentHash": "1bc47460296648de17d36f8e3fe117b9131046865a63616c5f4684f4714afa0f"
   },
@@ -3971,7 +4013,7 @@
     "xp": 30,
     "position": 184,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-184.json",
     "contentHash": "f6a2e460b84cd1e20794d29eb5bf29dff1b02a51d8c067011b8acd58587bed69"
   },
@@ -3993,7 +4035,7 @@
     "xp": 30,
     "position": 185,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-185.json",
     "contentHash": "275c61b851f433e5216ad4ff9c90d6fd03f41727fb54a16b83b7b6a49ca4b04c"
   },
@@ -4015,7 +4057,7 @@
     "xp": 40,
     "position": 186,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-186.json",
     "contentHash": "3095cbee491e2b3abeec3fd68e6402f78384e8dfe16f681d29cf608cfafd7acb"
   },
@@ -4037,7 +4079,7 @@
     "xp": 50,
     "position": 187,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-187.json",
     "contentHash": "0ec3f70881217d3146494dfa590ae58b3bd405bb387113159d6b756512acf33d"
   },
@@ -4059,7 +4101,7 @@
     "xp": 50,
     "position": 188,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-188.json",
     "contentHash": "0dd9a2ded6a5c2c1fd9f833758ea6d35197ea880decf1978cbe203051da885a1"
   },
@@ -4081,7 +4123,7 @@
     "xp": 45,
     "position": 189,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-189.json",
     "contentHash": "45439d329f51e9de85070a75e321101268892948f3341b5e9b63a5263470dc2d"
   },
@@ -4103,7 +4145,7 @@
     "xp": 35,
     "position": 190,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-190.json",
     "contentHash": "9f7cb2dee180c53685f6b3847d0332c33a99f01b07c895a55d76c7ce7f9e971b"
   },
@@ -4125,7 +4167,7 @@
     "xp": 45,
     "position": 191,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-191.json",
     "contentHash": "f49ce292d464a61f0074ea216b4bcb64fccbf317e499fa82e367579295c4e4aa"
   },
@@ -4147,7 +4189,7 @@
     "xp": 45,
     "position": 192,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-192.json",
     "contentHash": "80f467f958d1bc45fc77fbfe9945eda843b25afe9cdf7b9b3d5fd2fe76f9eb9e"
   },
@@ -4169,7 +4211,7 @@
     "xp": 50,
     "position": 193,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-193.json",
     "contentHash": "b92a45b41765272db50b18655e0e53684444c68d1fc6f00d955515e1b33e992e"
   },
@@ -4191,7 +4233,7 @@
     "xp": 70,
     "position": 194,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-194.json",
     "contentHash": "9a0f90f2c2bf737bde57953d4ccbef2f4afeaa1bb88b16cd179af06e0c93ac2a"
   },
@@ -4213,7 +4255,7 @@
     "xp": 70,
     "position": 195,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-195.json",
     "contentHash": "eb226b669168c1d6bf0e23b491e754973273a953d0e6983f8e06f0ef880c0eb8"
   },
@@ -4235,7 +4277,7 @@
     "xp": 75,
     "position": 196,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-196.json",
     "contentHash": "7ed9b13811178d1c68edf82c95e8ac95dbfc4e030a03452f4222e8fb4bc3ed01"
   },
@@ -4257,7 +4299,7 @@
     "xp": 65,
     "position": 197,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-197.json",
     "contentHash": "6ad9cb5897cc96eb9150e3f6ecd16e10594a3b251e25671997b1988f273b3172"
   },
@@ -4279,7 +4321,7 @@
     "xp": 50,
     "position": 198,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-198.json",
     "contentHash": "5d4a62fd51874b0a41a844a6c401e0d459fb233b1fdaaf923bdfd4cf245bdc32"
   },
@@ -4301,7 +4343,7 @@
     "xp": 55,
     "position": 199,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-199.json",
     "contentHash": "11e8c95a7d8923dd212f7db7b5dcec24652c3a97a2d6cbc764f40af2c87b977f"
   },
@@ -4323,7 +4365,7 @@
     "xp": 55,
     "position": 200,
     "published": true,
-    "version": "v1",
+    "version": "v2",
     "storagePath": "practice/python/question-200.json",
     "contentHash": "f3ffa384dcc63727b6abeae27acab3c068ce03181e53b8adfc2ba9caa3dff146"
   }

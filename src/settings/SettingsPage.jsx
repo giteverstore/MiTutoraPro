@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   AlertCircle,
   UserRound,
+  Crown,
 } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { userDataService } from '../user-data/UserDataService';
@@ -20,9 +21,11 @@ import { SettingRow, SelectSetting, SwitchSetting } from './SettingsControls';
 import { useSettings, useSettingsPersistence } from './useSettings';
 import { SETTINGS_PERSISTENCE_STATUS } from './SettingsService';
 import { ConfirmDialog } from '../components/Dialog';
+import { SubscriptionPanel } from '../subscriptions/SubscriptionPanel';
 
 const sections = [
   { id: 'profile', label: 'Profile', icon: UserRound },
+  { id: 'subscription', label: 'Subscription', icon: Crown },
   { id: 'editor', label: 'Editor', icon: Braces },
   { id: 'learning', label: 'Learning', icon: BookOpen },
   { id: 'notifications', label: 'Notifications', icon: Bell },
@@ -39,6 +42,11 @@ const versions = [
   ['Pyodide Version', '314.0.3'],
 ];
 
+function initialSettingsSection() {
+  const requested = new URLSearchParams(window.location.search).get('section');
+  return sections.some(({ id }) => id === requested) ? requested : 'profile';
+}
+
 function Section({ id, title, description, children }) {
   return (
     <section className="settings-section" aria-labelledby={`${id}-settings-title`}>
@@ -52,7 +60,7 @@ export function SettingsPage() {
   const settings = useSettings();
   const persistence = useSettingsPersistence();
   const { user, updateProfile } = useUser();
-  const [activeSection, setActiveSection] = useState('profile');
+  const [activeSection, setActiveSection] = useState(initialSettingsSection);
   const [profileName, setProfileName] = useState(user.name);
   const [notice, setNotice] = useState('');
   const [confirmation, setConfirmation] = useState(null);
@@ -117,6 +125,11 @@ export function SettingsPage() {
         <div className="settings-section-actions">
           <button className="button button--primary" type="button" disabled={!profileName.trim() || profileName.trim() === user.name} onClick={() => { updateProfile({ name: profileName.trim() }); setNotice('Profile updated.'); }}>Save Profile</button>
         </div>
+      </Section>
+    ),
+    subscription: (
+      <Section id="subscription" title="Subscription" description="Review your current access and MiTutora Premium plans.">
+        <SubscriptionPanel />
       </Section>
     ),
     editor: (

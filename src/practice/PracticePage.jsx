@@ -7,6 +7,7 @@ import { PracticeStatistics } from './PracticeStatistics';
 import { initiallySolvedQuestionIds, practiceStatistics } from './practiceData';
 import { practiceContentSource } from './practiceContentSource';
 import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDiagnostics';
+import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 
 const initialFilters = { difficulty: 'all', topic: 'all', search: '' };
 const PAGE_CACHE_LIMIT = 5;
@@ -116,7 +117,11 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
     return <div className="practice-page"><header className="practice-page-heading" data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category}><h1>{questionState.error ? 'This question couldn’t be loaded.' : 'Loading question…'}</h1><p>{questionState.error ? 'The catalog remains available. Retry this question or return to Practice.' : 'Verifying and preparing the question content.'}</p>{questionState.error ? <button className="button button--secondary" type="button" onClick={() => setQuestionState((state) => ({ ...state, retry: state.retry + 1 }))}>Retry</button> : null}<button className="button button--ghost" type="button" onClick={() => setOpenQuestionId(null)}>Back to Practice</button></header></div>;
   }
   if (openQuestion) {
-    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={(questionId) => setSolvedQuestionIds((current) => new Set(current).add(questionId))} />;
+    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
+      const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.version });
+      if (['completed', 'already_completed'].includes(result.completionStatus)) setSolvedQuestionIds((current) => new Set(current).add(question.id));
+      return result;
+    }} />;
   }
 
   return (

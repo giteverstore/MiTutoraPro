@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-009",
+  "title": "Add an Item to the End",
+  "summary": "Create an updated collection with one appended item.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-updating-elements",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "with_item_added",
+    "signature": "with_item_added(items, item)",
+    "input": "A collection and one item.",
+    "output": "A new collection ending with item."
+  },
+  "examples": [
+    {
+      "input": "items = [tea, rice], item = soap",
+      "output": "tea,rice,soap",
+      "explanation": "Soap is added after the existing items."
+    }
+  ],
+  "constraints": [
+    "0 <= number of items <= 1000"
+  ],
+  "concepts": [
+    "collection-update",
+    "adding-elements"
+  ],
+  "skills": [
+    "collection-manipulation",
+    "state-reasoning"
+  ],
+  "prerequisites": [
+    "collections"
+  ],
+  "commonMistakes": [
+    "adding at the beginning",
+    "modifying the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "add to existing",
+      "arguments": [
+        [
+          "tea",
+          "rice"
+        ],
+        "soap"
+      ],
+      "expected": [
+        "tea",
+        "rice",
+        "soap"
+      ]
+    },
+    {
+      "name": "add to empty",
+      "arguments": [
+        [],
+        "first"
+      ],
+      "expected": [
+        "first"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_item_added(items, item)",
+      "entryPoint": "with_item_added"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-009-statement",
+      "type": "paragraph",
+      "content": "Return a new collection with the supplied item added at the end. Do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-009-contract",
+      "type": "note",
+      "title": "with_item_added(items, item)",
+      "content": "Input: A collection and one item.\n\nOutput: A new collection ending with item.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitems = [tea, rice], item = soap\n\nOutput\ntea,rice,soap",
+      "caption": "Soap is added after the existing items."
+    },
+    {
+      "id": "fund-arrays-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of items <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_item_added(items, item):\n    # Return a new collection with item at the end\n    pass\n\nprint(with_item_added(['tea', 'rice'], 'soap'))\n",
+      "stdin": "",
+      "expectedOutput": "tea,rice,soap",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

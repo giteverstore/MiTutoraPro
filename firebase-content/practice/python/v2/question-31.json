@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-005",
+  "title": "Return Pass or Fail",
+  "summary": "Choose one of two outcomes from an exam score.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "if-else",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "exam_result",
+    "signature": "exam_result(score)",
+    "input": "A score from 0 to 100.",
+    "output": "Either `pass` or `fail`."
+  },
+  "examples": [
+    {
+      "input": "score = 50",
+      "output": "pass",
+      "explanation": "The pass mark is inclusive."
+    }
+  ],
+  "constraints": [
+    "0 <= score <= 100"
+  ],
+  "concepts": [
+    "if-else",
+    "mutually-exclusive-outcomes"
+  ],
+  "skills": [
+    "two-way-branching"
+  ],
+  "prerequisites": [
+    "comparison"
+  ],
+  "commonMistakes": [
+    "leaving one outcome unhandled",
+    "failing a score equal to 50"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "pass boundary",
+      "arguments": [
+        50
+      ],
+      "expected": "pass"
+    },
+    {
+      "name": "below pass mark",
+      "arguments": [
+        49
+      ],
+      "expected": "fail"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "exam_result(score)",
+      "entryPoint": "exam_result"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-005-statement",
+      "type": "paragraph",
+      "content": "Return `pass` for a score of at least 50 and `fail` otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-005-contract",
+      "type": "note",
+      "title": "exam_result(score)",
+      "content": "Input: A score from 0 to 100.\n\nOutput: Either `pass` or `fail`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 50\n\nOutput\npass",
+      "caption": "The pass mark is inclusive."
+    },
+    {
+      "id": "fund-conditionals-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= score <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def exam_result(score):\n    # Return 'pass' or 'fail'\n    pass\n\nprint(exam_result(50))\n",
+      "stdin": "",
+      "expectedOutput": "pass",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

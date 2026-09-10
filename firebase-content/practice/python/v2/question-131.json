@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-005",
+  "title": "Update a Product Price",
+  "summary": "Change one existing value in a copied mapping.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "accessing-updating-values",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 35,
+  "contract": {
+    "functionName": "with_updated_price",
+    "signature": "with_updated_price(prices, product, new_price)",
+    "input": "A price mapping, an existing product key, and a new price.",
+    "output": "A new mapping with one updated value."
+  },
+  "examples": [
+    {
+      "input": "product = book, new_price = 15",
+      "output": "[object Object]",
+      "explanation": "Only the book value changes."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000",
+    "product is an existing key"
+  ],
+  "concepts": [
+    "mapping-update",
+    "copying"
+  ],
+  "skills": [
+    "collection-manipulation",
+    "state-tracking"
+  ],
+  "prerequisites": [
+    "lookup",
+    "mapping-creation"
+  ],
+  "commonMistakes": [
+    "adding the price as a key",
+    "modifying the supplied mapping"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "update one product",
+      "arguments": [
+        {
+          "book": 12,
+          "pen": 3
+        },
+        "book",
+        15
+      ],
+      "expected": {
+        "book": 15,
+        "pen": 3
+      }
+    },
+    {
+      "name": "update to zero",
+      "arguments": [
+        {
+          "sample": 5
+        },
+        "sample",
+        0
+      ],
+      "expected": {
+        "sample": 0
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_updated_price(prices, product, new_price)",
+      "entryPoint": "with_updated_price"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-005-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping with the existing product key associated with the new price. Preserve all other entries and do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-005-contract",
+      "type": "note",
+      "title": "with_updated_price(prices, product, new_price)",
+      "content": "Input: A price mapping, an existing product key, and a new price.\n\nOutput: A new mapping with one updated value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nproduct = book, new_price = 15\n\nOutput\n[object Object]",
+      "caption": "Only the book value changes."
+    },
+    {
+      "id": "fund-dictionaries-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000\nproduct is an existing key",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_updated_price(prices, product, new_price):\n    # Return an updated copy\n    pass\n\nprint(with_updated_price({'book': 12, 'pen': 3}, 'book', 15))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

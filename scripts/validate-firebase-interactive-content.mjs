@@ -6,6 +6,7 @@ import addFormats from 'ajv-formats';
 import { practiceQuestions } from '../src/practice/practiceData.js';
 import { dailyChallenge } from '../src/challenges/challengeData.js';
 import { NormalizedOutputValidator } from '../src/compiler/validators/NormalizedOutputValidator.js';
+import { validatePracticeMetadataRecord } from './publishing/validatePracticeMetadata.mjs';
 
 const readJson = (path) => readFile(resolve(path), 'utf8').then(JSON.parse);
 const courseSchema = await readJson('schemas/learning-course.schema.json');
@@ -18,6 +19,7 @@ const ajv = new Ajv2020({ allErrors: true, strict: true, allowUnionTypes: true }
 addFormats(ajv);
 ajv.addSchema(courseSchema);
 const validatePractice = ajv.compile(practiceSchema);
+const validatePracticeMetadata = ajv.compile({ $ref: `${practiceSchema.$id}#/$defs/firestoreMetadata` });
 const validateChallenge = ajv.compile(challengeSchema);
 
 const versionedPath = ({ storagePath, version }) => {
@@ -29,6 +31,11 @@ const firebaseQuestions = await Promise.all(practiceMetadata.map((metadata) => r
 const firebaseChallenge = await readJson(
   `firebase-content/daily-challenges/python/${challengeMetadata[0].version}/${dailyChallenge.date}.json`,
 );
+
+for (const metadata of practiceMetadata) {
+  assert.equal(validatePracticeMetadata(metadata), true, ajv.errorsText(validatePracticeMetadata.errors));
+  validatePracticeMetadataRecord(metadata);
+}
 
 for (const question of firebaseQuestions) {
   assert.equal(validatePractice(question), true, ajv.errorsText(validatePractice.errors));

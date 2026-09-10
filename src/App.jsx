@@ -9,6 +9,9 @@ import { UserDataLifecycle } from './user-data/UserDataLifecycle';
 import { DomainErrorBoundary } from './errors/ErrorBoundary';
 import { parseAppRoute, routePage, writeAppRoute } from './routing/appRoutes';
 import { lazyNamedExport } from './routing/lazyRoute';
+import { SubscriptionAccessProvider, useSubscriptionAccess } from './access/SubscriptionAccessContext';
+import { PremiumFeatureGate } from './access/PremiumFeatureGate';
+import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
 
 const AuthFlow = lazyNamedExport(() => import('./components/auth/AuthFlow'), 'AuthFlow');
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
@@ -19,6 +22,7 @@ const ChallengesPage = lazyNamedExport(() => import('./pages/ChallengesPage'), '
 const BookmarksPage = lazyNamedExport(() => import('./pages/BookmarksPage'), 'BookmarksPage');
 const CertificatesPage = lazyNamedExport(() => import('./pages/CertificatesPage'), 'CertificatesPage');
 const ReferralsPage = lazyNamedExport(() => import('./pages/ReferralsPage'), 'ReferralsPage');
+const WalletPage = lazyNamedExport(() => import('./pages/WalletPage'), 'WalletPage');
 const SettingsPage = lazyNamedExport(() => import('./pages/SettingsPage'), 'SettingsPage');
 const ProjectsPage = lazyNamedExport(() => import('./pages/ProjectsPage'), 'ProjectsPage');
 const ExamExperience = lazyNamedExport(() => import('./exam/pages/ExamExperience'), 'ExamExperience');
@@ -35,6 +39,7 @@ const APPLICATION_PAGES = {
   bookmarks: BookmarksPage,
   certificates: CertificatesPage,
   referrals: ReferralsPage,
+  wallet: WalletPage,
   settings: SettingsPage,
   projects: ProjectsPage,
 };
@@ -123,16 +128,20 @@ function UserGate() {
 
   if (!user || user.id !== auth.user.id) return <CourseLoadState state="loading" />;
 
-  return (
+  return <>
     <Suspense fallback={<CourseLoadState state="loading" />}>
       <BookmarkProvider userId={user.id}>
-        <AuthenticatedApplication user={user} />
+        <SubscriptionAccessProvider userId={user.id}>
+          <AuthenticatedApplication user={user} />
+        </SubscriptionAccessProvider>
       </BookmarkProvider>
     </Suspense>
-  );
+    {auth.referralNotice ? <div className="settings-toast" role="status">{auth.referralNotice}<button type="button" onClick={auth.clearReferralNotice} aria-label="Dismiss referral notification">×</button></div> : null}
+  </>;
 }
 
 function AuthenticatedApplication({ user }) {
+  const { tier } = useSubscriptionAccess();
   const [initialRoute] = useState(() => parseAppRoute(window.location.pathname));
   const [activeCourseId, setActiveCourseId] = useState(() => initialRoute.courseId ?? null);
   const [courseStage, setCourseStage] = useState(() => initialRoute.kind === 'course-lesson' ? 'learning' : 'overview');
@@ -183,7 +192,7 @@ function AuthenticatedApplication({ user }) {
     writeAppRoute(target.questionId ? { kind: 'practice-question', questionId: target.questionId } : { kind: 'page', page: target.page });
   };
 
-  if (examOpen) {
+  if (examOpen && canAccessFeature({ tier, feature: ACCESS_FEATURES.CERTIFICATES })) {
     return (
       <DomainErrorBoundary
         name="certification-exam"
@@ -198,7 +207,7 @@ function AuthenticatedApplication({ user }) {
     );
   }
 
-  if (setupVerificationOpen) {
+  if (setupVerificationOpen && canAccessFeature({ tier, feature: ACCESS_FEATURES.CERTIFICATES })) {
     return (
       <DomainErrorBoundary
         name="setup-verification"
@@ -247,7 +256,7 @@ function AuthenticatedApplication({ user }) {
         ) : activePage === 'bookmarks' ? (
           <BookmarksPage onOpenBookmark={openBookmark} />
         ) : activePage === 'certificates' ? (
-          <CertificatesPage
+          <PremiumFeatureGate feature={ACCESS_FEATURES.CERTIFICATES} context="Certificates"><CertificatesPage
             onStartExam={() => setExamOpen(true)}
             onTestSetup={() => setSetupVerificationOpen(true)}
             onContinueCourse={(courseId) => {
@@ -256,7 +265,9 @@ function AuthenticatedApplication({ user }) {
               setActiveCourseId(courseId);
               writeAppRoute({ kind: 'course-overview', courseId });
             }}
-          />
+          /></PremiumFeatureGate>
+        ) : activePage === 'projects' ? (
+          <PremiumFeatureGate feature={ACCESS_FEATURES.PROJECTS} context="Projects"><ProjectsPage /></PremiumFeatureGate>
         ) : <ActivePage />}
         </Suspense>
         </DomainErrorBoundary>

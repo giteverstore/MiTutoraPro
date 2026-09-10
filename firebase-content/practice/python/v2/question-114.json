@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-008",
+  "title": "Count Zero Readings",
+  "summary": "Count every exact zero during traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "traversing-lists",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "count_zero_readings",
+    "signature": "count_zero_readings(readings)",
+    "input": "A collection of numeric readings.",
+    "output": "The number of exact zero values."
+  },
+  "examples": [
+    {
+      "input": "readings = [0, 3, 0, -1, 0]",
+      "output": "3",
+      "explanation": "Zero occurs three times."
+    }
+  ],
+  "constraints": [
+    "0 <= number of readings <= 1000"
+  ],
+  "concepts": [
+    "collection-traversal",
+    "counting"
+  ],
+  "skills": [
+    "exact-matching",
+    "accumulator-management"
+  ],
+  "prerequisites": [
+    "loops",
+    "equality"
+  ],
+  "commonMistakes": [
+    "stopping after one zero",
+    "counting negative values"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated zeroes",
+      "arguments": [
+        [
+          0,
+          3,
+          0,
+          -1,
+          0
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "name": "empty collection",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "count_zero_readings(readings)",
+      "entryPoint": "count_zero_readings"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-008-statement",
+      "type": "paragraph",
+      "content": "Return how many readings are exactly zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-008-contract",
+      "type": "note",
+      "title": "count_zero_readings(readings)",
+      "content": "Input: A collection of numeric readings.\n\nOutput: The number of exact zero values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nreadings = [0, 3, 0, -1, 0]\n\nOutput\n3",
+      "caption": "Zero occurs three times."
+    },
+    {
+      "id": "fund-arrays-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of readings <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def count_zero_readings(readings):\n    count = 0\n    # Count every exact zero\n    return count\n\nprint(count_zero_readings([0, 3, 0, -1, 0]))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

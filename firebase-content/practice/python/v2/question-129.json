@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-003",
+  "title": "Trace a Capital Lookup",
+  "summary": "Reason about selecting one value from multiple keys.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "dictionary-map-basics",
+  "questionType": "reasoning",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "country_capital",
+    "signature": "country_capital(capitals, country)",
+    "input": "A country-to-capital mapping and an existing country key.",
+    "output": "The associated capital."
+  },
+  "examples": [
+    {
+      "input": "country = India",
+      "output": "New Delhi",
+      "explanation": "India is associated with New Delhi."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "key-value-mapping",
+    "lookup"
+  ],
+  "skills": [
+    "mapping-reasoning",
+    "key-lookup"
+  ],
+  "prerequisites": [
+    "mapping-basics"
+  ],
+  "commonMistakes": [
+    "confusing another country’s value",
+    "returning the country key"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "middle entry",
+      "arguments": [
+        {
+          "France": "Paris",
+          "India": "New Delhi",
+          "Japan": "Tokyo"
+        },
+        "India"
+      ],
+      "expected": "New Delhi"
+    },
+    {
+      "name": "single entry",
+      "arguments": [
+        {
+          "Nepal": "Kathmandu"
+        },
+        "Nepal"
+      ],
+      "expected": "Kathmandu"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "country_capital(capitals, country)",
+      "entryPoint": "country_capital"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-003-statement",
+      "type": "paragraph",
+      "content": "Return the capital associated with the supplied country key. The country always exists in the mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-003-contract",
+      "type": "note",
+      "title": "country_capital(capitals, country)",
+      "content": "Input: A country-to-capital mapping and an existing country key.\n\nOutput: The associated capital.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncountry = India\n\nOutput\nNew Delhi",
+      "caption": "India is associated with New Delhi."
+    },
+    {
+      "id": "fund-dictionaries-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def country_capital(capitals, country):\n    # Return the capital for country\n    pass\n\nprint(country_capital({'France': 'Paris', 'India': 'New Delhi'}, 'India'))\n",
+      "stdin": "",
+      "expectedOutput": "New Delhi",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

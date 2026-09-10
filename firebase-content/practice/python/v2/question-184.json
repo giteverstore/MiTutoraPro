@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-003",
+  "title": "Trace a Safe Quantity Fallback",
+  "summary": "Reason about validation before conversion.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "basic-error-handling-invalid-input",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "safe_quantity",
+    "signature": "safe_quantity(text)",
+    "input": "Arbitrary quantity text.",
+    "output": "The represented non-negative whole number, or zero when invalid."
+  },
+  "examples": [
+    {
+      "input": "text = \" 24 \"",
+      "output": "24",
+      "explanation": "The trimmed input contains digits only."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 100"
+  ],
+  "concepts": [
+    "validation",
+    "fallback",
+    "conversion"
+  ],
+  "skills": [
+    "state-tracing",
+    "validation"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting negative text",
+    "converting before validation"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "trimmed quantity",
+      "arguments": [
+        " 24 "
+      ],
+      "expected": 24
+    },
+    {
+      "name": "negative text",
+      "arguments": [
+        "-3"
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_quantity(text)",
+      "entryPoint": "safe_quantity"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-003-statement",
+      "type": "paragraph",
+      "content": "Trim the supplied text. If it contains one or more digits and no other characters, return the represented non-negative whole number. Otherwise return zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-003-contract",
+      "type": "note",
+      "title": "safe_quantity(text)",
+      "content": "Input: Arbitrary quantity text.\n\nOutput: The represented non-negative whole number, or zero when invalid.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" 24 \"\n\nOutput\n24",
+      "caption": "The trimmed input contains digits only."
+    },
+    {
+      "id": "fund-errors-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_quantity(text):\n    # Return zero when trimmed input is not digits only\n    pass\n\nprint(safe_quantity(' 24 '))\n",
+      "stdin": "",
+      "expectedOutput": "24",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

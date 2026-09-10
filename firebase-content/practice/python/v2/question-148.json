@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-002",
+  "title": "Trace Unique Labels",
+  "summary": "Reason about duplicate values collapsing into one.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "set-basics-uniqueness",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "sorted_unique_labels",
+    "signature": "sorted_unique_labels(labels)",
+    "input": "A collection of text labels.",
+    "output": "An alphabetically ordered collection of unique labels."
+  },
+  "examples": [
+    {
+      "input": "labels = [beta, alpha, beta]",
+      "output": "alpha,beta",
+      "explanation": "Duplicate beta collapses and the result is presented alphabetically."
+    }
+  ],
+  "constraints": [
+    "0 <= number of labels <= 1000"
+  ],
+  "concepts": [
+    "uniqueness",
+    "deterministic-representation"
+  ],
+  "skills": [
+    "uniqueness-reasoning",
+    "duplicate-elimination"
+  ],
+  "prerequisites": [
+    "strings",
+    "collections"
+  ],
+  "commonMistakes": [
+    "retaining duplicates",
+    "assuming arbitrary set iteration is ordered"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "separated duplicates",
+      "arguments": [
+        [
+          "beta",
+          "alpha",
+          "beta"
+        ]
+      ],
+      "expected": [
+        "alpha",
+        "beta"
+      ]
+    },
+    {
+      "name": "single label",
+      "arguments": [
+        [
+          "solo"
+        ]
+      ],
+      "expected": [
+        "solo"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "sorted_unique_labels(labels)",
+      "entryPoint": "sorted_unique_labels"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-002-statement",
+      "type": "paragraph",
+      "content": "Return all unique labels in alphabetical order. The alphabetical output is a deterministic presentation of the unique-value collection; it does not imply the set itself has positions.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-002-contract",
+      "type": "note",
+      "title": "sorted_unique_labels(labels)",
+      "content": "Input: A collection of text labels.\n\nOutput: An alphabetically ordered collection of unique labels.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nlabels = [beta, alpha, beta]\n\nOutput\nalpha,beta",
+      "caption": "Duplicate beta collapses and the result is presented alphabetically."
+    },
+    {
+      "id": "fund-sets-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of labels <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sorted_unique_labels(labels):\n    # Return unique labels in alphabetical order\n    pass\n\nprint(sorted_unique_labels(['beta', 'alpha', 'beta']))\n",
+      "stdin": "",
+      "expectedOutput": "alpha,beta",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

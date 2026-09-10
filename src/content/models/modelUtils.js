@@ -1,5 +1,5 @@
-import { CONTENT_ERROR_CODES, ContentError } from '../utils/ContentError';
-import { normalizeStoragePath } from '../utils/contentPaths';
+import { CONTENT_ERROR_CODES, ContentError } from '../utils/ContentError.js';
+import { normalizeStoragePath } from '../utils/contentPaths.js';
 
 export function requireMetadataObject(value, type) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
@@ -20,6 +20,15 @@ export function requiredString(value, field, type) {
 
 export function optionalString(value) {
   return String(value ?? '').trim();
+}
+
+export function requiredStringArray(value, field, type) {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new ContentError(CONTENT_ERROR_CODES.invalidMetadata, `${type} metadata requires a valid ${field}.`, {
+      details: { field },
+    });
+  }
+  return Object.freeze(value.map((item) => requiredString(item, field, type)));
 }
 
 export function nonNegativeNumber(value, field, type) {

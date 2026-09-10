@@ -4,11 +4,13 @@ import { createHash } from 'node:crypto';
 import { practiceQuestions } from '../src/practice/practiceData.js';
 import { dailyChallenge } from '../src/challenges/challengeData.js';
 import { validatePracticeComplexity } from '../src/content/validation/contentLimits.js';
+import { createPracticeMetadata } from '../src/content/models/practiceMetadata.js';
 
-const version = 'v1';
+const practiceVersion = 'v2';
+const challengeVersion = 'v1';
 const root = resolve('firebase-content');
-const practiceRoot = resolve(root, 'practice/python', version);
-const challengeRoot = resolve(root, 'daily-challenges/python', version);
+const practiceRoot = resolve(root, 'practice/python', practiceVersion);
+const challengeRoot = resolve(root, 'daily-challenges/python', challengeVersion);
 const firestoreRoot = resolve(root, 'firestore');
 
 await Promise.all([practiceRoot, challengeRoot, firestoreRoot].map((directory) =>
@@ -38,11 +40,12 @@ const practiceMetadata = practiceArtifacts.map(({ question, index, text }) => {
     xp: question.xp,
     position: index + 1,
     published: true,
-    version,
+    version: practiceVersion,
     storagePath: `practice/python/${fileName}`,
     contentHash: sha256(text),
   };
 });
+practiceMetadata.forEach((metadata) => createPracticeMetadata(metadata));
 
 await Promise.all(practiceArtifacts.map(({ index, text }) =>
   writeFile(resolve(practiceRoot, `question-${index + 1}.json`), text)));
@@ -56,7 +59,7 @@ const challengeMetadata = [{
   rewardCoins: dailyChallenge.reward.coins,
   rewardXp: 50,
   published: true,
-  version,
+  version: challengeVersion,
   storagePath: `daily-challenges/python/${challengeFile}`,
 }];
 
@@ -67,6 +70,7 @@ await writeFile(resolve(firestoreRoot, 'dailyChallenges.json'), `${JSON.stringif
 console.log(JSON.stringify({
   practiceQuestions: practiceQuestions.length,
   challenge: dailyChallenge.id,
-  version,
+  practiceVersion,
+  challengeVersion,
   output: root,
 }, null, 2));

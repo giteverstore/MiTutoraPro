@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-008",
+  "title": "Trace a Returned Value",
+  "summary": "Reason about a returned result used by another calculation.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "return-values",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "double_then_adjust",
+    "signature": "double_then_adjust(value, adjustment)",
+    "input": "Two numeric values.",
+    "output": "Twice value, plus adjustment."
+  },
+  "examples": [
+    {
+      "input": "value = 5, adjustment = 3",
+      "output": "13",
+      "explanation": "The first result is 10, then 3 is added."
+    }
+  ],
+  "constraints": [
+    "-100000 <= value, adjustment <= 100000"
+  ],
+  "concepts": [
+    "return-values",
+    "execution-order"
+  ],
+  "skills": [
+    "trace-value-flow",
+    "return-value-reasoning"
+  ],
+  "prerequisites": [
+    "functions"
+  ],
+  "commonMistakes": [
+    "adjusting before doubling",
+    "ignoring the returned result"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive adjustment",
+      "arguments": [
+        5,
+        3
+      ],
+      "expected": 13
+    },
+    {
+      "name": "negative adjustment",
+      "arguments": [
+        5,
+        -2
+      ],
+      "expected": 8
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "double_then_adjust(value, adjustment)",
+      "entryPoint": "double_then_adjust"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-008-statement",
+      "type": "paragraph",
+      "content": "First obtain twice the supplied value from one reusable operation, then add the supplied adjustment to that returned result.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-008-contract",
+      "type": "note",
+      "title": "double_then_adjust(value, adjustment)",
+      "content": "Input: Two numeric values.\n\nOutput: Twice value, plus adjustment.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 5, adjustment = 3\n\nOutput\n13",
+      "caption": "The first result is 10, then 3 is added."
+    },
+    {
+      "id": "fund-functions-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-100000 <= value, adjustment <= 100000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def double(value):\n    return value * 2\n\ndef double_then_adjust(value, adjustment):\n    # Use double(value), then apply adjustment\n    pass\n\nprint(double_then_adjust(5, 3))\n",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

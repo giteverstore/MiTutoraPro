@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-003",
+  "title": "Repair a Score Message",
+  "summary": "Fix exact output formatting for supplied data.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "basic-input-output",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "score_message",
+    "signature": "score_message(player, score)",
+    "input": "A player name and whole-number score.",
+    "output": "Text in the exact format PLAYER scored SCORE points."
+  },
+  "examples": [
+    {
+      "input": "player = Ana, score = 95",
+      "output": "Ana scored 95 points.",
+      "explanation": "Words, spaces, and final punctuation match exactly."
+    }
+  ],
+  "constraints": [
+    "1 <= player length <= 100",
+    "score is a whole number"
+  ],
+  "concepts": [
+    "output",
+    "exact-formatting"
+  ],
+  "skills": [
+    "debugging-formatting",
+    "output-formatting"
+  ],
+  "prerequisites": [
+    "strings"
+  ],
+  "commonMistakes": [
+    "missing spaces",
+    "missing final period"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "positive score",
+      "arguments": [
+        "Ana",
+        95
+      ],
+      "expected": "Ana scored 95 points."
+    },
+    {
+      "name": "zero score",
+      "arguments": [
+        "Leo",
+        0
+      ],
+      "expected": "Leo scored 0 points."
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "score_message(player, score)",
+      "entryPoint": "score_message"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-003-statement",
+      "type": "paragraph",
+      "content": "Return exactly “PLAYER scored SCORE points.” using the supplied player and score. The current output omits required spacing and punctuation. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-003-contract",
+      "type": "note",
+      "title": "score_message(player, score)",
+      "content": "Input: A player name and whole-number score.\n\nOutput: Text in the exact format PLAYER scored SCORE points.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nplayer = Ana, score = 95\n\nOutput\nAna scored 95 points.",
+      "caption": "Words, spaces, and final punctuation match exactly."
+    },
+    {
+      "id": "fund-io-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= player length <= 100\nscore is a whole number",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def score_message(player, score):\n    return player + 'scored' + str(score) + 'points'  # Fix exact formatting\n\nprint(score_message('Ana', 95))\n",
+      "stdin": "",
+      "expectedOutput": "Ana scored 95 points.",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

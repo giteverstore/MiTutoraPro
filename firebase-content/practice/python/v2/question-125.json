@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-019",
+  "title": "Read a Position Safely",
+  "summary": "Handle valid and invalid collection positions explicitly.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "safe_item_at",
+    "signature": "safe_item_at(items, position)",
+    "input": "A collection and a position that may be invalid.",
+    "output": "The item at a valid position, otherwise no value."
+  },
+  "examples": [
+    {
+      "input": "items = [a, b, c], position = 2",
+      "output": "c",
+      "explanation": "Position 2 is the final valid position."
+    }
+  ],
+  "constraints": [
+    "0 <= number of items <= 1000",
+    "position may be any whole number"
+  ],
+  "concepts": [
+    "index-validation",
+    "empty-collection"
+  ],
+  "skills": [
+    "boundary-analysis",
+    "defensive-access"
+  ],
+  "prerequisites": [
+    "indexing",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting a negative position",
+    "using the collection size as a valid position"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "last valid position",
+      "arguments": [
+        [
+          "a",
+          "b",
+          "c"
+        ],
+        2
+      ],
+      "expected": "c"
+    },
+    {
+      "name": "position too large",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        2
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_item_at(items, position)",
+      "entryPoint": "safe_item_at"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-019-statement",
+      "type": "paragraph",
+      "content": "Return the item at the supplied zero-based position. Return no value when the position is negative or beyond the last valid position.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-019-contract",
+      "type": "note",
+      "title": "safe_item_at(items, position)",
+      "content": "Input: A collection and a position that may be invalid.\n\nOutput: The item at a valid position, otherwise no value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitems = [a, b, c], position = 2\n\nOutput\nc",
+      "caption": "Position 2 is the final valid position."
+    },
+    {
+      "id": "fund-arrays-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of items <= 1000\nposition may be any whole number",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_item_at(items, position):\n    # Return None for every invalid position\n    pass\n\nprint(safe_item_at(['a', 'b', 'c'], 2))\n",
+      "stdin": "",
+      "expectedOutput": "c",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

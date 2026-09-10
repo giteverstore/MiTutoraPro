@@ -17,6 +17,7 @@ import { DomainErrorBoundary } from '../errors/ErrorBoundary';
 
 export function PracticeDetail({ question, solved, onBack, onComplete }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
+  const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const compilerBlock = useMemo(
     () => question.blocks.find((block) => block.type === 'compiler'),
     [question],
@@ -30,6 +31,24 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
     [compilerBlock],
   );
   const canComplete = verificationStatus === 'matched';
+  const rewardMessage = {
+    credited: `+${completion.rewardAmount} coins earned`,
+    already_claimed: 'reward already claimed',
+    daily_reward_cap_reached: 'daily reward cap reached',
+    unavailable: 'reward reconciliation pending',
+    daily_limit_reached: 'reward unavailable',
+    activity_not_rewardable: 'reward unavailable',
+    policy_disabled: 'reward unavailable',
+  }[completion.rewardStatus] ?? 'completion recorded';
+  const complete = async () => {
+    setCompletion((current) => ({ ...current, pending: true, error: null }));
+    try {
+      const result = await onComplete(question);
+      setCompletion({ pending: false, rewardStatus: result.rewardStatus, rewardAmount: result.rewardAmount ?? 0, error: null });
+    } catch (error) {
+      setCompletion({ pending: false, rewardStatus: null, rewardAmount: 0, error: error.message });
+    }
+  };
 
   return (
     <div className="practice-detail">
@@ -68,6 +87,8 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
             <CompilerPanel
               compiler={compiler}
               instanceId={`practice-${question.id}`}
+              lessonContext={question.title}
+              activityType="practice"
               onVerificationChange={setVerificationStatus}
               renderOutput={(outputProps) => (
                 <PracticeTestPanel
@@ -82,14 +103,16 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
           <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>
             <span>
               {canComplete ? <CheckCircle2 /> : <LockKeyhole />}
-              {solved
-                ? 'This question is solved. You can verify another solution.'
+              {completion.error
+                ? completion.error
+                : solved
+                ? `Completed · ${rewardMessage}`
                 : canComplete
-                  ? 'Output verified. You can complete this question.'
+                  ? 'Output verified. You can mark this local solution complete.'
                   : 'Run your solution and verify its output to continue.'}
             </span>
-            <button className="button button--primary" type="button" disabled={!canComplete || solved} onClick={() => onComplete(question.id)}>
-              <CheckCircle2 /> {solved ? 'Completed' : 'Mark Complete'}
+            <button className="button button--primary" type="button" disabled={!canComplete || solved || completion.pending} onClick={complete}>
+              <CheckCircle2 /> {completion.pending ? 'Saving…' : solved ? 'Completed' : 'Save Completion'}
             </button>
           </footer>
         </section>

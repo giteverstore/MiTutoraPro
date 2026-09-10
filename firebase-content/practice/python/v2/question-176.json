@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-010",
+  "title": "Parse Comma-separated Tags",
+  "summary": "Split and trim a simple delimited input.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "parsing-text-delimiters",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "parse_comma_tags",
+    "signature": "parse_comma_tags(text)",
+    "input": "Comma-delimited text with no quoting or escaping rules.",
+    "output": "Ordered trimmed fields, or an empty collection when invalid."
+  },
+  "examples": [
+    {
+      "input": "text = \"new, sale , featured\"",
+      "output": "new,sale,featured",
+      "explanation": "Comma separates three fields and outer field whitespace is removed."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "delimiter is exactly comma",
+    "valid input has one or more non-empty trimmed fields"
+  ],
+  "concepts": [
+    "parsing",
+    "delimiter",
+    "whitespace"
+  ],
+  "skills": [
+    "parsing",
+    "structured-input-processing"
+  ],
+  "prerequisites": [
+    "strings",
+    "collections"
+  ],
+  "commonMistakes": [
+    "retaining surrounding whitespace",
+    "accepting a missing field"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "three trimmed tags",
+      "arguments": [
+        "new, sale , featured"
+      ],
+      "expected": [
+        "new",
+        "sale",
+        "featured"
+      ]
+    },
+    {
+      "name": "missing middle field",
+      "arguments": [
+        "new,,sale"
+      ],
+      "expected": []
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "parse_comma_tags(text)",
+      "entryPoint": "parse_comma_tags"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-010-statement",
+      "type": "paragraph",
+      "content": "The raw input contains one or more non-empty tag fields separated by commas. Trim surrounding whitespace from every field and return the fields in order. If the trimmed input is empty or any trimmed field is empty, return an empty collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-010-contract",
+      "type": "note",
+      "title": "parse_comma_tags(text)",
+      "content": "Input: Comma-delimited text with no quoting or escaping rules.\n\nOutput: Ordered trimmed fields, or an empty collection when invalid.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \"new, sale , featured\"\n\nOutput\nnew,sale,featured",
+      "caption": "Comma separates three fields and outer field whitespace is removed."
+    },
+    {
+      "id": "fund-io-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\ndelimiter is exactly comma\nvalid input has one or more non-empty trimmed fields",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def parse_comma_tags(text):\n    # Split on commas, trim fields, and reject empty fields\n    pass\n\nprint(parse_comma_tags('new, sale , featured'))\n",
+      "stdin": "",
+      "expectedOutput": "new,sale,featured",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

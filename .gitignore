@@ -17,3 +17,6 @@ storage-debug.log.*
 firebase-admin-credentials*.json
 .env.*
 !.env.example
+
+.vercel
+.env*

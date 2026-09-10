@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-013",
+  "title": "Total a Reading Grid",
+  "summary": "Use outer and inner iteration to total a small grid.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "nested-loops",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "grid_total",
+    "signature": "grid_total(grid)",
+    "input": "A sequence of sequences containing numbers.",
+    "output": "The sum of all grid values."
+  },
+  "examples": [
+    {
+      "input": "grid = [[1, 2], [3, 4]]",
+      "output": "10",
+      "explanation": "Both rows and all four values are included."
+    }
+  ],
+  "constraints": [
+    "0 <= rows <= 50",
+    "0 <= values per row <= 50"
+  ],
+  "concepts": [
+    "nested-iteration",
+    "two-dimensional-traversal"
+  ],
+  "skills": [
+    "outer-inner-reasoning",
+    "accumulation"
+  ],
+  "prerequisites": [
+    "running-total",
+    "sequences"
+  ],
+  "commonMistakes": [
+    "processing only the first row",
+    "resetting the total for each row"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "two rows",
+      "arguments": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "name": "empty grid",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "grid_total(grid)",
+      "entryPoint": "grid_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-013-statement",
+      "type": "paragraph",
+      "content": "Given a grid of numeric readings, return the sum of every value across every row. The grid may contain empty rows.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-013-contract",
+      "type": "note",
+      "title": "grid_total(grid)",
+      "content": "Input: A sequence of sequences containing numbers.\n\nOutput: The sum of all grid values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ngrid = [[1, 2], [3, 4]]\n\nOutput\n10",
+      "caption": "Both rows and all four values are included."
+    },
+    {
+      "id": "fund-loops-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= rows <= 50\n0 <= values per row <= 50",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def grid_total(grid):\n    total = 0\n    # Traverse each row, then each value\n    return total\n\nprint(grid_total([[1, 2], [3, 4]]))\n",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

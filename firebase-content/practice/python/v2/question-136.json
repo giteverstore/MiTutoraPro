@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-010",
+  "title": "Repair Contact Removal",
+  "summary": "Remove an entry by key rather than by value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-entries",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "without_contact",
+    "signature": "without_contact(contacts, name)",
+    "input": "A name-to-contact mapping and a name key.",
+    "output": "A new mapping without that key, or an unchanged copy."
+  },
+  "examples": [
+    {
+      "input": "name = Ana",
+      "output": "[object Object]",
+      "explanation": "The Ana entry is removed."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "deletion",
+    "key-value-distinction"
+  ],
+  "skills": [
+    "debugging-removal",
+    "missing-data-handling"
+  ],
+  "prerequisites": [
+    "membership"
+  ],
+  "commonMistakes": [
+    "removing by value",
+    "failing when the key is missing"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "existing contact",
+      "arguments": [
+        {
+          "Ana": "111",
+          "Leo": "222"
+        },
+        "Ana"
+      ],
+      "expected": {
+        "Leo": "222"
+      }
+    },
+    {
+      "name": "missing contact",
+      "arguments": [
+        {
+          "Ana": "111"
+        },
+        "Mira"
+      ],
+      "expected": {
+        "Ana": "111"
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "without_contact(contacts, name)",
+      "entryPoint": "without_contact"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-010-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping without the supplied contact key. If the key is missing, return an unchanged copy. The current implementation confuses the contact key with its stored value. Do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-010-contract",
+      "type": "note",
+      "title": "without_contact(contacts, name)",
+      "content": "Input: A name-to-contact mapping and a name key.\n\nOutput: A new mapping without that key, or an unchanged copy.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Ana\n\nOutput\n[object Object]",
+      "caption": "The Ana entry is removed."
+    },
+    {
+      "id": "fund-dictionaries-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def without_contact(contacts, name):\n    result = dict(contacts)\n    if name in result:\n        del result[result[name]]  # Remove using the contact key\n    return result\n\nprint(without_contact({'Ana': '111', 'Leo': '222'}, 'Ana'))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

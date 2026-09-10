@@ -35,7 +35,7 @@ export function AuthFlow() {
         account={pendingAccount}
         onComplete={async (profile) => {
           await createProfile(profile);
-          await signUpWithEmail(profile.email, pendingAccount.password);
+          await signUpWithEmail(profile.email, pendingAccount.password, pendingAccount.referralCode);
         }}
       />
     );

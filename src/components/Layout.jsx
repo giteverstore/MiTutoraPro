@@ -329,6 +329,8 @@ export function Layout({ courseLoader, onExitCourse }) {
                 ref={compilerPanelRef}
                 instanceId={compilerInstanceId}
                 compiler={persistentCompilerData}
+                lessonContext={currentLesson?.title ?? ''}
+                activityType="lesson"
                 onExecutionStateChange={setCompilerStatus}
               />
             </DomainErrorBoundary>

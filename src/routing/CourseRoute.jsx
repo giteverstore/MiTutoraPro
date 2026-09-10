@@ -8,6 +8,9 @@ import {
   LearningProgressProvider,
   useLearningProgress,
 } from '../progress/LearningProgressContext';
+import { canonicalLessonIndex, canAccessLesson } from '../access/accessPolicy';
+import { useSubscriptionAccess } from '../access/SubscriptionAccessContext';
+import { PremiumGate } from '../access/PremiumGate';
 
 export function CourseRoute({
   courseId,
@@ -112,19 +115,23 @@ function ProgressProfileSync() {
 }
 
 function ProgressAwareApplication({ courseLoader, onExitCourse, onLessonRoute }) {
+  const { tier } = useSubscriptionAccess();
   const {
     status,
     setCurrentLesson,
     markLessonVisited,
   } = useLearningProgress();
+  const lessonIndex = canonicalLessonIndex(courseLoader.currentCourse, courseLoader.currentLesson?.id);
+  const allowed = canAccessLesson({ tier, lessonIndex });
 
   useEffect(() => {
-    if (status === 'ready' && courseLoader.currentLesson?.id) {
+    if (allowed && status === 'ready' && courseLoader.currentLesson?.id) {
       setCurrentLesson(courseLoader.currentLesson.id);
       markLessonVisited(courseLoader.currentLesson.id);
     }
   }, [
     courseLoader.currentLesson?.id,
+    allowed,
     status,
     markLessonVisited,
     setCurrentLesson,
@@ -134,5 +141,6 @@ function ProgressAwareApplication({ courseLoader, onExitCourse, onLessonRoute })
     if (courseLoader.currentLesson?.id) onLessonRoute(courseLoader.currentLesson.id);
   }, [courseLoader.currentLesson?.id, onLessonRoute]);
 
+  if (!allowed) return <div className="course-premium-gate"><PremiumGate context="lesson" /></div>;
   return <LearningEnginePage courseLoader={courseLoader} onExitCourse={onExitCourse} />;
 }

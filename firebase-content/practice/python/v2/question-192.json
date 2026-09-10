@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-011",
+  "title": "Repair Missing Category Totals",
+  "summary": "Fix unsafe access to a missing mapping key.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "debugging-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "category_total_or_zero",
+    "signature": "category_total_or_zero(totals, category)",
+    "input": "A category-to-total mapping and a category key.",
+    "output": "The stored total, or zero when missing."
+  },
+  "examples": [
+    {
+      "input": "category = travel",
+      "output": "0",
+      "explanation": "Stored zero is returned normally."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "debugging",
+    "missing-key",
+    "fallback"
+  ],
+  "skills": [
+    "debugging",
+    "missing-data-handling"
+  ],
+  "prerequisites": [
+    "mappings",
+    "membership"
+  ],
+  "commonMistakes": [
+    "accessing a missing key directly",
+    "treating stored zero as missing"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "existing category",
+      "arguments": [
+        {
+          "food": 30,
+          "travel": 0
+        },
+        "travel"
+      ],
+      "expected": 0
+    },
+    {
+      "name": "missing category",
+      "arguments": [
+        {
+          "food": 30
+        },
+        "study"
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "category_total_or_zero(totals, category)",
+      "entryPoint": "category_total_or_zero"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-011-statement",
+      "type": "paragraph",
+      "content": "Return the total for the supplied category key, or zero when the category is missing. The current implementation accesses every key as though it exists. Correct that single missing-key bug.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-011-contract",
+      "type": "note",
+      "title": "category_total_or_zero(totals, category)",
+      "content": "Input: A category-to-total mapping and a category key.\n\nOutput: The stored total, or zero when missing.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncategory = travel\n\nOutput\n0",
+      "caption": "Stored zero is returned normally."
+    },
+    {
+      "id": "fund-errors-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def category_total_or_zero(totals, category):\n    return totals[category]  # Handle a missing key safely\n\nprint(category_total_or_zero({'food': 30}, 'study'))\n",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

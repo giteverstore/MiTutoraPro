@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-014",
+  "title": "Repair Shipping Priority",
+  "summary": "Correct branch ordering for shipping categories.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "elif-branching",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "shipping_category",
+    "signature": "shipping_category(order_total)",
+    "input": "A non-negative order total.",
+    "output": "One of `free`, `reduced`, or `standard`."
+  },
+  "examples": [
+    {
+      "input": "order_total = 100",
+      "output": "free",
+      "explanation": "The highest threshold must be checked first."
+    }
+  ],
+  "constraints": [
+    "0 <= order_total <= 1000000"
+  ],
+  "concepts": [
+    "branch-order",
+    "overlapping-conditions"
+  ],
+  "skills": [
+    "debugging-branching",
+    "condition-ordering"
+  ],
+  "prerequisites": [
+    "multi-way-branching"
+  ],
+  "commonMistakes": [
+    "checking the broader threshold first",
+    "excluding exact thresholds"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "free shipping threshold",
+      "arguments": [
+        100
+      ],
+      "expected": "free"
+    },
+    {
+      "name": "reduced shipping",
+      "arguments": [
+        75
+      ],
+      "expected": "reduced"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "shipping_category(order_total)",
+      "entryPoint": "shipping_category"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-014-statement",
+      "type": "paragraph",
+      "content": "Orders of at least 100 receive `free`, orders of at least 50 receive `reduced`, and smaller orders receive `standard`. The current order makes the free branch unreachable. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-014-contract",
+      "type": "note",
+      "title": "shipping_category(order_total)",
+      "content": "Input: A non-negative order total.\n\nOutput: One of `free`, `reduced`, or `standard`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\norder_total = 100\n\nOutput\nfree",
+      "caption": "The highest threshold must be checked first."
+    },
+    {
+      "id": "fund-conditionals-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= order_total <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def shipping_category(order_total):\n    if order_total >= 50:\n        return 'reduced'\n    elif order_total >= 100:  # This branch cannot be reached\n        return 'free'\n    return 'standard'\n\nprint(shipping_category(100))\n",
+      "stdin": "",
+      "expectedOutput": "free",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

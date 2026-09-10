@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-007",
+  "title": "Format Account Status",
+  "summary": "Use a boolean value as part of a status label.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "data-types",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "account_status",
+    "signature": "account_status(name, is_active)",
+    "input": "An account name and a boolean value.",
+    "output": "A status label such as `Ari: True`."
+  },
+  "examples": [
+    {
+      "input": "name = Ari, is_active = True",
+      "output": "Ari: True",
+      "explanation": "The original boolean value is represented in the label."
+    }
+  ],
+  "constraints": [
+    "name is not empty",
+    "is_active is a boolean value"
+  ],
+  "concepts": [
+    "boolean-type",
+    "string-formatting"
+  ],
+  "skills": [
+    "value-representation"
+  ],
+  "prerequisites": [
+    "variables",
+    "data-types"
+  ],
+  "commonMistakes": [
+    "Replacing the boolean with unrelated text",
+    "Omitting the account name"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "active account",
+      "arguments": [
+        "Ari",
+        true
+      ],
+      "expected": "Ari: True"
+    },
+    {
+      "name": "inactive account",
+      "arguments": [
+        "Sam",
+        false
+      ],
+      "expected": "Sam: False"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "account_status(name, is_active)",
+      "entryPoint": "account_status"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-007-statement",
+      "type": "paragraph",
+      "content": "Return a label containing the account name and its boolean active value in the format `name: value`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-007-contract",
+      "type": "note",
+      "title": "account_status(name, is_active)",
+      "content": "Input: An account name and a boolean value.\n\nOutput: A status label such as `Ari: True`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Ari, is_active = True\n\nOutput\nAri: True",
+      "caption": "The original boolean value is represented in the label."
+    },
+    {
+      "id": "fund-variables-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "name is not empty\nis_active is a boolean value",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def account_status(name, is_active):\n    # Return the requested status label\n    pass\n\nprint(account_status('Ari', True))\n",
+      "stdin": "",
+      "expectedOutput": "Ari: True",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

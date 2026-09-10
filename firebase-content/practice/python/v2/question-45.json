@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-019",
+  "title": "Validate a Safe Temperature",
+  "summary": "Check both inclusive limits of a safe range.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "boundary-conditions-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "temperature_is_safe",
+    "signature": "temperature_is_safe(temperature)",
+    "input": "A numeric temperature.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "temperature = 2",
+      "output": "true",
+      "explanation": "The lower limit is included."
+    }
+  ],
+  "constraints": [
+    "-100 <= temperature <= 100"
+  ],
+  "concepts": [
+    "inclusive-range",
+    "and-condition",
+    "boundary-condition"
+  ],
+  "skills": [
+    "range-validation",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "multiple-conditions"
+  ],
+  "commonMistakes": [
+    "excluding 2 or 8",
+    "using OR instead of AND"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "lower safe limit",
+      "arguments": [
+        2
+      ],
+      "expected": true
+    },
+    {
+      "name": "above safe limit",
+      "arguments": [
+        8.1
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "temperature_is_safe(temperature)",
+      "entryPoint": "temperature_is_safe"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-019-statement",
+      "type": "paragraph",
+      "content": "A storage temperature is safe from 2 through 8 degrees, including both limits. Return whether the reading is safe.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-019-contract",
+      "type": "note",
+      "title": "temperature_is_safe(temperature)",
+      "content": "Input: A numeric temperature.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntemperature = 2\n\nOutput\ntrue",
+      "caption": "The lower limit is included."
+    },
+    {
+      "id": "fund-conditionals-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-100 <= temperature <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def temperature_is_safe(temperature):\n    # Include both safe boundaries\n    pass\n\nprint(temperature_is_safe(2))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

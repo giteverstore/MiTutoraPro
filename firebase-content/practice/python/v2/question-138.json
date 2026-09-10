@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-012",
+  "title": "Check Username Membership",
+  "summary": "Check whether a key exists regardless of its value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "searching-membership",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "username_exists",
+    "signature": "username_exists(accounts, username)",
+    "input": "A username-keyed mapping and a username.",
+    "output": "A boolean membership result."
+  },
+  "examples": [
+    {
+      "input": "username = ava",
+      "output": "true",
+      "explanation": "Ava exists even though its value is zero."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000"
+  ],
+  "concepts": [
+    "membership",
+    "key-search"
+  ],
+  "skills": [
+    "membership-checking",
+    "key-value-distinction"
+  ],
+  "prerequisites": [
+    "mapping-basics"
+  ],
+  "commonMistakes": [
+    "checking values instead of keys",
+    "treating an empty value as a missing key"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "zero-valued account",
+      "arguments": [
+        {
+          "ava": 0,
+          "leo": 3
+        },
+        "ava"
+      ],
+      "expected": true
+    },
+    {
+      "name": "missing username",
+      "arguments": [
+        {
+          "ava": 0
+        },
+        "mia"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "username_exists(accounts, username)",
+      "entryPoint": "username_exists"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-012-statement",
+      "type": "paragraph",
+      "content": "Return whether the supplied username exists as a key in the account mapping. A key with an empty or zero value still exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-012-contract",
+      "type": "note",
+      "title": "username_exists(accounts, username)",
+      "content": "Input: A username-keyed mapping and a username.\n\nOutput: A boolean membership result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nusername = ava\n\nOutput\ntrue",
+      "caption": "Ava exists even though its value is zero."
+    },
+    {
+      "id": "fund-dictionaries-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def username_exists(accounts, username):\n    # Check keys, not stored values\n    pass\n\nprint(username_exists({'ava': 0, 'leo': 3}, 'ava'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -6,6 +6,15 @@ This directory is the living technical reference for MiTutora. It describes the 
 
 ## Start here
 
+- [Architecture index](architecture/README.md)
+- [AI Tutor specification](architecture/ai-tutor-specification.md)
+- [AI Tutor implementation](architecture/ai-tutor-implementation.md)
+- [AI Tutor production model selection](architecture/ai-tutor-production-model-selection.md)
+- [AI Tutor production readiness](architecture/ai-tutor-production-readiness.md)
+- [AI Tutor provider and privacy gate](architecture/ai-tutor-provider-privacy-gate.md)
+- [AI Tutor production infrastructure](architecture/ai-tutor-production-infrastructure.md)
+- [Authoritative activity verification](architecture/activity-verification.md)
+- [Isolated code judge (proposed)](architecture/isolated-code-judge.md)
 - [Content safety limits](architecture/content-safety-limits.md)
 - [Dialog and theme ownership](architecture/dialogs-and-theme.md)
 
@@ -29,6 +38,11 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [AppShell](architecture/app-shell.md)
 - [Learning Engine](architecture/learning-engine.md)
 - [Compiler architecture](architecture/compiler-architecture.md)
+- [AI Tutor specification](architecture/ai-tutor-specification.md)
+- [AI Tutor implementation](architecture/ai-tutor-implementation.md)
+- [AI Tutor production model selection](architecture/ai-tutor-production-model-selection.md)
+- [AI Tutor provider and privacy gate](architecture/ai-tutor-provider-privacy-gate.md)
+- [AI Tutor production infrastructure](architecture/ai-tutor-production-infrastructure.md)
 - [Error handling and recovery](architecture/error-handling.md)
 - [Runtime adapters](architecture/runtime-adapters.md)
 - [Progress system](architecture/progress-system.md)
@@ -47,6 +61,8 @@ This directory is the living technical reference for MiTutora. It describes the 
 - [Easy Project Engine](architecture/easy-project-engine.md)
 - [Monaco integration](architecture/monaco-integration.md)
 - [Pyodide runtime](architecture/pyodide-runtime.md)
+- [Authoritative activity verification](architecture/activity-verification.md)
+- [Isolated code judge (proposed)](architecture/isolated-code-judge.md)
 
 ### Content
 

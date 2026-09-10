@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-010",
+  "title": "Repair Safe Attendee Removal",
+  "summary": "Fix removal that fails when a value is absent.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-elements",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "without_attendee",
+    "signature": "without_attendee(attendees, target)",
+    "input": "A collection of attendee values and a target.",
+    "output": "An alphabetically ordered unique-value collection without target."
+  },
+  "examples": [
+    {
+      "input": "target = Mira",
+      "output": "Ana,Leo",
+      "explanation": "An absent target leaves the unique values unchanged."
+    }
+  ],
+  "constraints": [
+    "0 <= number of attendees <= 1000"
+  ],
+  "concepts": [
+    "set-removal",
+    "missing-value"
+  ],
+  "skills": [
+    "debugging-removal",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "relying on an exception for missing data",
+    "modifying the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "target absent",
+      "arguments": [
+        [
+          "Ana",
+          "Leo"
+        ],
+        "Mira"
+      ],
+      "expected": [
+        "Ana",
+        "Leo"
+      ]
+    },
+    {
+      "name": "target present",
+      "arguments": [
+        [
+          "Ana",
+          "Leo",
+          "Ana"
+        ],
+        "Ana"
+      ],
+      "expected": [
+        "Leo"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "without_attendee(attendees, target)",
+      "entryPoint": "without_attendee"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-010-statement",
+      "type": "paragraph",
+      "content": "Return unique attendee values after removing the target when present. If absent, return the same unique values. Present results alphabetically and do not modify the supplied collection. The current implementation fails for a missing target.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-010-contract",
+      "type": "note",
+      "title": "without_attendee(attendees, target)",
+      "content": "Input: A collection of attendee values and a target.\n\nOutput: An alphabetically ordered unique-value collection without target.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntarget = Mira\n\nOutput\nAna,Leo",
+      "caption": "An absent target leaves the unique values unchanged."
+    },
+    {
+      "id": "fund-sets-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of attendees <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def without_attendee(attendees, target):\n    result = set(attendees)\n    result.remove(target)  # Handle an absent target safely\n    return sorted(result)\n\nprint(without_attendee(['Ana', 'Leo'], 'Mira'))\n",
+      "stdin": "",
+      "expectedOutput": "Ana,Leo",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

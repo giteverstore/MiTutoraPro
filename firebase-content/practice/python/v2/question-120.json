@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-014",
+  "title": "Find the First Matching Position",
+  "summary": "Find the first occurrence or report a missing target.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "searching-counting",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "first_match_position",
+    "signature": "first_match_position(values, target)",
+    "input": "A collection and a target value.",
+    "output": "The first matching position, or -1."
+  },
+  "examples": [
+    {
+      "input": "values = [7, 4, 7, 9], target = 7",
+      "output": "0",
+      "explanation": "The first target is at position zero."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "collection-search",
+    "first-occurrence"
+  ],
+  "skills": [
+    "search-reasoning",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "traversal",
+    "indexing"
+  ],
+  "commonMistakes": [
+    "returning the final occurrence",
+    "treating position zero as missing"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated target",
+      "arguments": [
+        [
+          7,
+          4,
+          7,
+          9
+        ],
+        7
+      ],
+      "expected": 0
+    },
+    {
+      "name": "target absent",
+      "arguments": [
+        [
+          2,
+          3
+        ],
+        8
+      ],
+      "expected": -1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "first_match_position(values, target)",
+      "entryPoint": "first_match_position"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-014-statement",
+      "type": "paragraph",
+      "content": "Return the zero-based position of the first exact target value. Return -1 when the target does not occur.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-014-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-014-contract",
+      "type": "note",
+      "title": "first_match_position(values, target)",
+      "content": "Input: A collection and a target value.\n\nOutput: The first matching position, or -1.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-014-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-014-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [7, 4, 7, 9], target = 7\n\nOutput\n0",
+      "caption": "The first target is at position zero."
+    },
+    {
+      "id": "fund-arrays-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-014-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def first_match_position(values, target):\n    # Return the first position, or -1\n    pass\n\nprint(first_match_position([7, 4, 7, 9], 7))\n",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

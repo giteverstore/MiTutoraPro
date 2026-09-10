@@ -47,6 +47,11 @@ export class AuthRepository {
     return getCurrentUser();
   }
 
+  async getIdToken(forceRefresh = false) {
+    const user = this.getCurrentUser();
+    return user ? user.getIdToken(forceRefresh) : null;
+  }
+
   observeAuthState(next, error) {
     return onAuthStateChanged(next, error);
   }

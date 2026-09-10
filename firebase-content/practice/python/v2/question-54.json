@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-008",
+  "title": "Check Every Sensor Reading",
+  "summary": "Traverse an entire sequence to verify a property.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "looping-over-sequences",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "all_readings_valid",
+    "signature": "all_readings_valid(readings)",
+    "input": "A sequence of numeric readings.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "readings = [0, 2.5, 9]",
+      "output": "true",
+      "explanation": "Every reading is non-negative."
+    }
+  ],
+  "constraints": [
+    "0 <= number of readings <= 1000"
+  ],
+  "concepts": [
+    "sequence-traversal",
+    "all-values-condition"
+  ],
+  "skills": [
+    "sequence-validation",
+    "iterative-reasoning"
+  ],
+  "prerequisites": [
+    "conditions"
+  ],
+  "commonMistakes": [
+    "checking only the first reading",
+    "treating an empty sequence as invalid"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "all valid",
+      "arguments": [
+        [
+          0,
+          2.5,
+          9
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "name": "invalid last reading",
+      "arguments": [
+        [
+          1,
+          2,
+          -1
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "all_readings_valid(readings)",
+      "entryPoint": "all_readings_valid"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-008-statement",
+      "type": "paragraph",
+      "content": "Return whether every sensor reading is non-negative. An empty sequence is considered valid.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-008-contract",
+      "type": "note",
+      "title": "all_readings_valid(readings)",
+      "content": "Input: A sequence of numeric readings.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nreadings = [0, 2.5, 9]\n\nOutput\ntrue",
+      "caption": "Every reading is non-negative."
+    },
+    {
+      "id": "fund-loops-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of readings <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def all_readings_valid(readings):\n    # Inspect every reading\n    pass\n\nprint(all_readings_valid([0, 2.5, 9]))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

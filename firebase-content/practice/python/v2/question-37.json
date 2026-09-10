@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-011",
+  "title": "Accept Multiple Service States",
+  "summary": "Allow either of two acceptable status values.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "multiple-conditions",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "can_change_service",
+    "signature": "can_change_service(state)",
+    "input": "A service state as text.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "state = open",
+      "output": "true",
+      "explanation": "Open is one accepted state."
+    }
+  ],
+  "constraints": [
+    "state is non-empty lowercase text"
+  ],
+  "concepts": [
+    "or-condition",
+    "multiple-acceptable-values"
+  ],
+  "skills": [
+    "boolean-reasoning",
+    "state-validation"
+  ],
+  "prerequisites": [
+    "text-comparison"
+  ],
+  "commonMistakes": [
+    "requiring a state to equal both values",
+    "accepting every non-empty state"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "open state",
+      "arguments": [
+        "open"
+      ],
+      "expected": true
+    },
+    {
+      "name": "closed state",
+      "arguments": [
+        "closed"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "can_change_service(state)",
+      "entryPoint": "can_change_service"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-011-statement",
+      "type": "paragraph",
+      "content": "A service can be changed while its state is `open` or `paused`. Return whether changes are allowed for the supplied state.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-011-contract",
+      "type": "note",
+      "title": "can_change_service(state)",
+      "content": "Input: A service state as text.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nstate = open\n\nOutput\ntrue",
+      "caption": "Open is one accepted state."
+    },
+    {
+      "id": "fund-conditionals-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "state is non-empty lowercase text",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def can_change_service(state):\n    # Accept 'open' or 'paused'\n    pass\n\nprint(can_change_service('open'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

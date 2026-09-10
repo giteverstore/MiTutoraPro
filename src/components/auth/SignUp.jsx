@@ -12,6 +12,7 @@ export function SignUp({ onContinue, onGoogle, onSignIn }) {
     email: '',
     password: '',
     confirmPassword: '',
+    referralCode: new URLSearchParams(globalThis.location?.search ?? '').get('ref') ?? '',
   });
   const [error, setError] = useState('');
   const [googlePending, setGooglePending] = useState(false);
@@ -28,7 +29,7 @@ export function SignUp({ onContinue, onGoogle, onSignIn }) {
       setError(validationError);
       return;
     }
-    onContinue({ name: form.name.trim(), email: form.email.trim(), password: form.password });
+    onContinue({ name: form.name.trim(), email: form.email.trim(), password: form.password, referralCode: form.referralCode.trim() });
   };
 
   const handleGoogleRegistration = async () => {
@@ -64,6 +65,7 @@ export function SignUp({ onContinue, onGoogle, onSignIn }) {
           required
         />
         <FormField label="Confirm password" name="confirmPassword" type="password" autoComplete="new-password" value={form.confirmPassword} onChange={updateField} required />
+        <FormField label="Referral code (optional)" name="referralCode" autoComplete="off" value={form.referralCode} onChange={updateField} />
         {error ? <p className="form-error" role="alert">{error}</p> : null}
         <button className="button button--primary auth-submit" type="submit" disabled={googlePending}>
           Continue <ArrowRight size={ICON_SIZE.base} />

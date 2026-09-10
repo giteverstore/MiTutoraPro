@@ -7,9 +7,11 @@ import { ReferralHistory } from './ReferralHistory';
 import { ReferralOverview } from './ReferralOverview';
 import { ReferralRewards } from './ReferralRewards';
 import { referralService } from './ReferralService';
+import { useSubscriptionAccess } from '../access/SubscriptionAccessContext';
 
 export function ReferralsPage() {
   const { user } = useUser();
+  const { tier } = useSubscriptionAccess();
   const [profile, setProfile] = useState(null);
   const [loadError, setLoadError] = useState(null);
   const [notice, setNotice] = useState('');
@@ -59,11 +61,11 @@ export function ReferralsPage() {
     <div className="referrals-page">
       <header className="referrals-heading">
         <h1>Learning is better together.</h1>
-        <p>Invite friends to MiTutora and earn mock MI Coins when they begin their learning journey.</p>
+        <p>Invite friends and earn a calculated referral reward after their first qualifying Premium purchase.</p>
       </header>
       <ReferralOverview profile={profile} />
       <InviteFriends profile={profile} onCopy={copyText} onShare={shareInvite} />
-      <ReferralRewards rewards={profile.rewards} />
+      <ReferralRewards tier={tier} />
       <ReferralHistory history={profile.history} />
       <ReferralFaq faqs={referralFaqs} />
       {notice ? <div className="settings-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="Dismiss notification">×</button></div> : null}

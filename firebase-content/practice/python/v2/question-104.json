@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-018",
+  "title": "Validate Digit-only Text",
+  "summary": "Require at least one character and accept digits only.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-validation-edge-cases",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "is_digit_text",
+    "signature": "is_digit_text(text)",
+    "input": "Text that may be empty.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "text = 0072",
+      "output": "true",
+      "explanation": "Leading zeroes are still digit characters."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-validation",
+    "empty-string",
+    "character-classification"
+  ],
+  "skills": [
+    "input-validation",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "traversal",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting empty text",
+    "accepting decimal punctuation or signs"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "digits only",
+      "arguments": [
+        "0072"
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty text",
+      "arguments": [
+        ""
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "is_digit_text(text)",
+      "entryPoint": "is_digit_text"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-018-statement",
+      "type": "paragraph",
+      "content": "Return whether the text is non-empty and every character is a digit from 0 through 9.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-018-contract",
+      "type": "note",
+      "title": "is_digit_text(text)",
+      "content": "Input: Text that may be empty.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = 0072\n\nOutput\ntrue",
+      "caption": "Leading zeroes are still digit characters."
+    },
+    {
+      "id": "fund-strings-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def is_digit_text(text):\n    # Require non-empty text and validate every character\n    pass\n\nprint(is_digit_text('0072'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

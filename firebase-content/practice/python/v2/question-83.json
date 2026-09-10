@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-017",
+  "title": "Compose Subtotal and Tax",
+  "summary": "Pass one function result into another calculation.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "combining-functions",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "total_with_tax",
+    "signature": "total_with_tax(price, quantity, tax_rate)",
+    "input": "A price, whole-number quantity, and decimal tax rate.",
+    "output": "The numeric subtotal plus tax."
+  },
+  "examples": [
+    {
+      "input": "price = 10, quantity = 2, tax_rate = 0.1",
+      "output": "22",
+      "explanation": "The subtotal 20 flows into the tax operation."
+    }
+  ],
+  "constraints": [
+    "All inputs are non-negative",
+    "0 <= tax_rate <= 1"
+  ],
+  "concepts": [
+    "function-composition",
+    "return-values"
+  ],
+  "skills": [
+    "decomposition",
+    "value-flow"
+  ],
+  "prerequisites": [
+    "functions",
+    "percentages"
+  ],
+  "commonMistakes": [
+    "calculating tax from unit price",
+    "discarding the subtotal result"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "taxed order",
+      "arguments": [
+        10,
+        2,
+        0.1
+      ],
+      "expected": 22
+    },
+    {
+      "name": "zero tax",
+      "arguments": [
+        10,
+        2,
+        0
+      ],
+      "expected": 20
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "total_with_tax(price, quantity, tax_rate)",
+      "entryPoint": "total_with_tax"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-017-statement",
+      "type": "paragraph",
+      "content": "Use one reusable operation to calculate `price * quantity`, then pass that result to another operation that adds tax. Return the final total.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-017-contract",
+      "type": "note",
+      "title": "total_with_tax(price, quantity, tax_rate)",
+      "content": "Input: A price, whole-number quantity, and decimal tax rate.\n\nOutput: The numeric subtotal plus tax.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nprice = 10, quantity = 2, tax_rate = 0.1\n\nOutput\n22",
+      "caption": "The subtotal 20 flows into the tax operation."
+    },
+    {
+      "id": "fund-functions-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "All inputs are non-negative\n0 <= tax_rate <= 1",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def calculate_subtotal(price, quantity):\n    return price * quantity\n\ndef add_tax(amount, tax_rate):\n    return amount + amount * tax_rate\n\ndef total_with_tax(price, quantity, tax_rate):\n    # Compose the two operations\n    pass\n\nprint(total_with_tax(10, 2, 0.1))\n",
+      "stdin": "",
+      "expectedOutput": "22",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

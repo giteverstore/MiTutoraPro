@@ -1,6 +1,6 @@
-import { mockReferralProfile } from './referralData';
 import { userDataService } from '../user-data/UserDataService';
 import { createReferralProfile } from './referralModel';
+import { callFirebaseFunction } from '../firebase/functions';
 
 export class ReferralService {
   constructor({ dataService = userDataService } = {}) {
@@ -8,19 +8,12 @@ export class ReferralService {
   }
 
   async getReferralProfile(userId) {
-    const stored = await this.dataService.loadReferral(userId);
-    if (stored) return createReferralProfile(stored);
-    return createReferralProfile(mockReferralProfile);
-  }
-
-  async saveReferralProfile(userId, profile) {
-    void userId;
-    return createReferralProfile(profile);
-  }
-
-  async resetReferralProfile(userId) {
-    void userId;
-    return createReferralProfile(mockReferralProfile);
+    let stored = await this.dataService.loadReferral(userId);
+    if (!stored?.identity) {
+      await callFirebaseFunction('ensureReferralIdentity', {});
+      stored = await this.dataService.loadReferral(userId);
+    }
+    return createReferralProfile(stored);
   }
 
   exportReferralProfile(profile) {
@@ -33,3 +26,7 @@ export class ReferralService {
 }
 
 export const referralService = new ReferralService();
+
+export function attributeReferralCode(referralCode) {
+  return callFirebaseFunction('attributeReferral', { referralCode });
+}

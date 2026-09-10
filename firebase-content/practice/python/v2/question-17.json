@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-017",
+  "title": "Convert a Temperature Reading",
+  "summary": "Convert decimal text before applying a temperature formula.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "type-conversion",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "celsius_text_to_fahrenheit",
+    "signature": "celsius_text_to_fahrenheit(celsius_text)",
+    "input": "Text representing a valid decimal Celsius value.",
+    "output": "The Fahrenheit value as a number."
+  },
+  "examples": [
+    {
+      "input": "celsius_text = \"0\"",
+      "output": "32",
+      "explanation": "Zero Celsius converts to 32 Fahrenheit."
+    }
+  ],
+  "constraints": [
+    "-273.15 <= represented value <= 10000"
+  ],
+  "concepts": [
+    "string-to-float",
+    "formula-evaluation"
+  ],
+  "skills": [
+    "type-conversion",
+    "numeric-expression"
+  ],
+  "prerequisites": [
+    "decimal-numbers",
+    "arithmetic"
+  ],
+  "commonMistakes": [
+    "Performing arithmetic on the text value",
+    "Using integer-only conversion for decimal input"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "freezing point",
+      "arguments": [
+        "0"
+      ],
+      "expected": 32
+    },
+    {
+      "name": "decimal reading",
+      "arguments": [
+        "12.5"
+      ],
+      "expected": 54.5
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "celsius_text_to_fahrenheit(celsius_text)",
+      "entryPoint": "celsius_text_to_fahrenheit"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-017-statement",
+      "type": "paragraph",
+      "content": "A Celsius reading is supplied as numeric text. Convert it to a decimal number and return `celsius * 9 / 5 + 32`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-017-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-017-contract",
+      "type": "note",
+      "title": "celsius_text_to_fahrenheit(celsius_text)",
+      "content": "Input: Text representing a valid decimal Celsius value.\n\nOutput: The Fahrenheit value as a number.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-017-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-017-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncelsius_text = \"0\"\n\nOutput\n32",
+      "caption": "Zero Celsius converts to 32 Fahrenheit."
+    },
+    {
+      "id": "fund-variables-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-273.15 <= represented value <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-017-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def celsius_text_to_fahrenheit(celsius_text):\n    # Convert the text and apply the formula\n    pass\n\nprint(celsius_text_to_fahrenheit('0'))\n",
+      "stdin": "",
+      "expectedOutput": "32",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

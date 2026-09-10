@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-012",
+  "title": "Count Valid Label Records",
+  "summary": "Combine parsing, validation, and traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "combining-multiple-fundamentals",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "valid_label_record_count",
+    "signature": "valid_label_record_count(records)",
+    "input": "A collection of arbitrary record text values.",
+    "output": "The number of valid label:value records."
+  },
+  "examples": [
+    {
+      "input": "records contain two valid and two invalid values",
+      "output": "2",
+      "explanation": "Only name:Avi and city: Pune contain exactly two non-empty fields."
+    }
+  ],
+  "constraints": [
+    "0 <= number of records <= 1000",
+    "delimiter is exactly colon",
+    "no escaping rules"
+  ],
+  "concepts": [
+    "parsing",
+    "validation",
+    "traversal"
+  ],
+  "skills": [
+    "problem-decomposition",
+    "multi-concept-reasoning"
+  ],
+  "prerequisites": [
+    "strings",
+    "lists",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "accepting extra delimiters",
+    "accepting an empty trimmed field"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed records",
+      "arguments": [
+        [
+          "name:Avi",
+          "bad",
+          "city: Pune ",
+          ":missing"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "empty records",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "valid_label_record_count(records)",
+      "entryPoint": "valid_label_record_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-012-statement",
+      "type": "paragraph",
+      "content": "Each input record should contain exactly one colon separating two non-empty trimmed fields: label and value. Return how many records satisfy this format. Invalid records are ignored.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-012-contract",
+      "type": "note",
+      "title": "valid_label_record_count(records)",
+      "content": "Input: A collection of arbitrary record text values.\n\nOutput: The number of valid label:value records.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrecords contain two valid and two invalid values\n\nOutput\n2",
+      "caption": "Only name:Avi and city: Pune contain exactly two non-empty fields."
+    },
+    {
+      "id": "fund-errors-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of records <= 1000\ndelimiter is exactly colon\nno escaping rules",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def valid_label_record_count(records):\n    # Validate each simple record and count valid ones\n    pass\n\nprint(valid_label_record_count(['name:Avi', 'bad', 'city: Pune ', ':missing']))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

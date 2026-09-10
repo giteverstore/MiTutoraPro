@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-011",
+  "title": "Update a Known Position Safely",
+  "summary": "Return an updated copy or an unchanged copy for an invalid position.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-updating-elements",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "with_updated_value",
+    "signature": "with_updated_value(values, position, replacement)",
+    "input": "A collection, a zero-based position, and a replacement value.",
+    "output": "A new updated or unchanged collection."
+  },
+  "examples": [
+    {
+      "input": "values = [10, 20, 30], position = 1, replacement = 25",
+      "output": "10,25,30",
+      "explanation": "Only position 1 changes."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000",
+    "position may be invalid"
+  ],
+  "concepts": [
+    "updating-elements",
+    "index-validation"
+  ],
+  "skills": [
+    "collection-manipulation",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "indexing",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "modifying the original collection",
+    "updating an invalid position"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "valid update",
+      "arguments": [
+        [
+          10,
+          20,
+          30
+        ],
+        1,
+        25
+      ],
+      "expected": [
+        10,
+        25,
+        30
+      ]
+    },
+    {
+      "name": "invalid update",
+      "arguments": [
+        [
+          10,
+          20
+        ],
+        4,
+        99
+      ],
+      "expected": [
+        10,
+        20
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_updated_value(values, position, replacement)",
+      "entryPoint": "with_updated_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-011-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-011-statement",
+      "type": "paragraph",
+      "content": "Return a new collection with the value at the supplied zero-based position replaced. If the position is invalid, return an unchanged copy. Do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-011-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-011-contract",
+      "type": "note",
+      "title": "with_updated_value(values, position, replacement)",
+      "content": "Input: A collection, a zero-based position, and a replacement value.\n\nOutput: A new updated or unchanged collection.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-011-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-011-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [10, 20, 30], position = 1, replacement = 25\n\nOutput\n10,25,30",
+      "caption": "Only position 1 changes."
+    },
+    {
+      "id": "fund-arrays-011-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000\nposition may be invalid",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-011-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_updated_value(values, position, replacement):\n    # Return an updated copy when position is valid\n    pass\n\nprint(with_updated_value([10, 20, 30], 1, 25))\n",
+      "stdin": "",
+      "expectedOutput": "10,25,30",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

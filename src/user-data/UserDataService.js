@@ -223,19 +223,6 @@ export class UserDataService {
     return this.read(cacheKey(uid, 'referral'), () => this.repository(uid, 'referral', ReferralRepository).getProfile());
   }
 
-  async saveReferral(uid, profile) {
-    const key = cacheKey(uid, 'referral');
-    return this.write(key, () => this.repository(uid, 'referral', ReferralRepository).setProfile(profile));
-  }
-
-  async clearReferral(uid) {
-    const key = cacheKey(uid, 'referral');
-    await this.write(key, async () => {
-      await this.repository(uid, 'referral', ReferralRepository).removeProfile();
-      return null;
-    });
-    this.cache.delete(key);
-  }
 }
 
 export const userDataService = new UserDataService();

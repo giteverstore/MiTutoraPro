@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-008",
+  "title": "Add a Permission Value",
+  "summary": "Return a new unique-value collection after insertion.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "adding-removing-elements",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "with_permission_added",
+    "signature": "with_permission_added(permissions, permission)",
+    "input": "A collection of permission values and one permission.",
+    "output": "An alphabetically ordered collection of resulting unique values."
+  },
+  "examples": [
+    {
+      "input": "permission = share",
+      "output": "read,share,write",
+      "explanation": "Share is added and values are presented alphabetically."
+    }
+  ],
+  "constraints": [
+    "0 <= number of permissions <= 1000"
+  ],
+  "concepts": [
+    "set-insertion",
+    "uniqueness"
+  ],
+  "skills": [
+    "collection-manipulation",
+    "duplicate-handling"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "adding a duplicate copy",
+    "modifying the supplied collection"
+  ],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "new permission",
+      "arguments": [
+        [
+          "read",
+          "write"
+        ],
+        "share"
+      ],
+      "expected": [
+        "read",
+        "share",
+        "write"
+      ]
+    },
+    {
+      "name": "existing permission",
+      "arguments": [
+        [
+          "read",
+          "write"
+        ],
+        "read"
+      ],
+      "expected": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_permission_added(permissions, permission)",
+      "entryPoint": "with_permission_added"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-008-statement",
+      "type": "paragraph",
+      "content": "Return all unique permission values after adding the supplied permission. Return them alphabetically for deterministic presentation. If already present, it remains a single value. Do not modify the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-008-contract",
+      "type": "note",
+      "title": "with_permission_added(permissions, permission)",
+      "content": "Input: A collection of permission values and one permission.\n\nOutput: An alphabetically ordered collection of resulting unique values.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\npermission = share\n\nOutput\nread,share,write",
+      "caption": "Share is added and values are presented alphabetically."
+    },
+    {
+      "id": "fund-sets-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of permissions <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_permission_added(permissions, permission):\n    # Return sorted unique values after adding permission\n    pass\n\nprint(with_permission_added(['read', 'write'], 'share'))\n",
+      "stdin": "",
+      "expectedOutput": "read,share,write",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

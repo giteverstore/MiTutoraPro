@@ -91,6 +91,14 @@ export class AuthService {
     return normalizeUser(firebaseUser, document);
   }
 
+  getIdToken(forceRefresh = false) {
+    return this.repository.getIdToken(forceRefresh);
+  }
+
+  getCurrentUser() {
+    return normalizeUser(this.repository.getCurrentUser());
+  }
+
   onAuthStateChanged(next, error) {
     return this.repository.observeAuthState(async (firebaseUser) => {
       try {

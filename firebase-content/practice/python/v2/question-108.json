@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-002",
+  "title": "Read the Last Temperature",
+  "summary": "Access the final element of a non-empty collection.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "list-array-basics-indexing",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "last_temperature",
+    "signature": "last_temperature(temperatures)",
+    "input": "A non-empty ordered collection of temperatures.",
+    "output": "The final temperature."
+  },
+  "examples": [
+    {
+      "input": "temperatures = [18, 21, 19]",
+      "output": "19",
+      "explanation": "The final recorded value is 19."
+    }
+  ],
+  "constraints": [
+    "1 <= number of temperatures <= 1000"
+  ],
+  "concepts": [
+    "collections",
+    "last-position"
+  ],
+  "skills": [
+    "index-reasoning",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "ordered-sequences"
+  ],
+  "commonMistakes": [
+    "using the collection size as a valid position",
+    "returning the first value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "daily readings",
+      "arguments": [
+        [
+          18,
+          21,
+          19
+        ]
+      ],
+      "expected": 19
+    },
+    {
+      "name": "single reading",
+      "arguments": [
+        [
+          -4
+        ]
+      ],
+      "expected": -4
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "last_temperature(temperatures)",
+      "entryPoint": "last_temperature"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-002-statement",
+      "type": "paragraph",
+      "content": "Return the final recorded temperature from the supplied non-empty collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-002-contract",
+      "type": "note",
+      "title": "last_temperature(temperatures)",
+      "content": "Input: A non-empty ordered collection of temperatures.\n\nOutput: The final temperature.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntemperatures = [18, 21, 19]\n\nOutput\n19",
+      "caption": "The final recorded value is 19."
+    },
+    {
+      "id": "fund-arrays-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of temperatures <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def last_temperature(temperatures):\n    # Return the final reading\n    pass\n\nprint(last_temperature([18, 21, 19]))\n",
+      "stdin": "",
+      "expectedOutput": "19",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

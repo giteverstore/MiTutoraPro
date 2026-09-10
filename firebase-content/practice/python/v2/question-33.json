@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-007",
+  "title": "Repair a Balance Check",
+  "summary": "Fix the branch used when a balance exactly covers a purchase.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "if-else",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "balance_status",
+    "signature": "balance_status(balance, purchase)",
+    "input": "Two non-negative numeric amounts.",
+    "output": "Either `sufficient` or `insufficient`."
+  },
+  "examples": [
+    {
+      "input": "balance = 25, purchase = 25",
+      "output": "sufficient",
+      "explanation": "An exact balance can cover the purchase."
+    }
+  ],
+  "constraints": [
+    "0 <= balance, purchase <= 1000000"
+  ],
+  "concepts": [
+    "if-else",
+    "inclusive-boundary"
+  ],
+  "skills": [
+    "debugging-comparisons"
+  ],
+  "prerequisites": [
+    "comparison-operators"
+  ],
+  "commonMistakes": [
+    "using greater-than instead of greater-than-or-equal",
+    "reversing balance and purchase"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "exact balance",
+      "arguments": [
+        25,
+        25
+      ],
+      "expected": "sufficient"
+    },
+    {
+      "name": "insufficient balance",
+      "arguments": [
+        24.99,
+        25
+      ],
+      "expected": "insufficient"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "balance_status(balance, purchase)",
+      "entryPoint": "balance_status"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-007-statement",
+      "type": "paragraph",
+      "content": "The function should return `sufficient` when balance is at least the purchase amount. The current comparison rejects an exact balance. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-007-contract",
+      "type": "note",
+      "title": "balance_status(balance, purchase)",
+      "content": "Input: Two non-negative numeric amounts.\n\nOutput: Either `sufficient` or `insufficient`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nbalance = 25, purchase = 25\n\nOutput\nsufficient",
+      "caption": "An exact balance can cover the purchase."
+    },
+    {
+      "id": "fund-conditionals-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= balance, purchase <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def balance_status(balance, purchase):\n    if balance > purchase:  # Fix the boundary\n        return 'sufficient'\n    return 'insufficient'\n\nprint(balance_status(25, 25))\n",
+      "stdin": "",
+      "expectedOutput": "sufficient",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

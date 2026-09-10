@@ -12,6 +12,7 @@ const displayExamples = codeBlocks.filter(({ mode }) => mode === 'display');
 const tableBlocks = blocks.filter(({ type }) => type === 'table');
 const layout = await read('src/components/Layout.jsx');
 const panel = await read('src/components/CompilerPanel.jsx');
+const workspace = await read('src/components/CompilerWorkspace.jsx');
 const codeBlock = await read('src/components/blocks/CodeBlock.jsx');
 const editorHeader = await read('src/components/EditorHeader.jsx');
 const manager = await read('src/compiler/core/CompilerManager.js');
@@ -43,6 +44,12 @@ assert.match(layout, /max=\{compilerMaxWidth\}/, 'The compiler divider must use 
 assert.match(panel, /useImperativeHandle/, 'The persistent panel must accept example load requests without another runtime.');
 assert.match(panel, /currentCodeRef\.current !== lastLoadedCodeRef\.current/, 'Learner edits require semantic dirty detection.');
 assert.match(panel, /<ConfirmDialog[\s\S]*title="Replace current code\?"/, 'Dirty learner code must require an accessible shared confirmation dialog.');
+assert.match(panel, /<CompilerWorkspace[\s\S]*editor=\{<EditorPlaceholder[\s\S]*tutor=\{<AITutorPanel/, 'The editor and AI Tutor must share the bounded compiler workspace.');
+assert.match(workspace, /ResizeObserver/, 'The compiler workspace must respond to its actual container width.');
+assert.match(workspace, /role="tablist"[\s\S]*role="tab"[\s\S]*role=\{isNarrow \? 'tabpanel' : 'region'\}/, 'Narrow compiler navigation must use accessible tab semantics.');
+assert.match(workspace, /hidden=\{isNarrow && !isActive\}/, 'Only the inactive narrow view may be hidden without unmounting it.');
+assert.doesNotMatch(styles, /grid-template-rows:\s*minmax\(12rem,\s*1fr\)\s*minmax\(11rem,\s*\.72fr\)/, 'The narrow compiler must not stack fixed-minimum editor and tutor rows.');
+assert.match(styles, /\.compiler-tutor-view\s*>\s*\.ai-tutor-panel\s*\{[^}]*overflow-y:\s*auto/, 'The active tutor must remain internally reachable in short compiler viewports.');
 assert.match(manager, /runtimeInitialization = new WeakMap/, 'CompilerManager must deduplicate runtime initialization.');
 assert.equal((app.match(/createCompilerManager\(\)/g) ?? []).length, 1, 'The application must create one CompilerManager.');
 

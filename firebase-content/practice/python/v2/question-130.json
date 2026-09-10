@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-004",
+  "title": "Repair a Label Lookup",
+  "summary": "Fix confusion between keys and values.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "dictionary-map-basics",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "item_label",
+    "signature": "item_label(labels, item)",
+    "input": "An item-to-label mapping and an existing item key.",
+    "output": "The associated label."
+  },
+  "examples": [
+    {
+      "input": "item = B2",
+      "output": "Reserved",
+      "explanation": "B2 is associated with Reserved."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000",
+    "item is an existing key"
+  ],
+  "concepts": [
+    "key-value-distinction",
+    "lookup"
+  ],
+  "skills": [
+    "debugging-lookups",
+    "mapping-reasoning"
+  ],
+  "prerequisites": [
+    "mapping-basics"
+  ],
+  "commonMistakes": [
+    "returning the key",
+    "searching for the value as a key"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "short code",
+      "arguments": [
+        {
+          "A1": "Available",
+          "B2": "Reserved"
+        },
+        "B2"
+      ],
+      "expected": "Reserved"
+    },
+    {
+      "name": "empty label value",
+      "arguments": [
+        {
+          "X": ""
+        },
+        "X"
+      ],
+      "expected": ""
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "item_label(labels, item)",
+      "entryPoint": "item_label"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-004-statement",
+      "type": "paragraph",
+      "content": "Return the label associated with the supplied item key. The current implementation incorrectly returns the key itself. Correct the lookup.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-004-contract",
+      "type": "note",
+      "title": "item_label(labels, item)",
+      "content": "Input: An item-to-label mapping and an existing item key.\n\nOutput: The associated label.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitem = B2\n\nOutput\nReserved",
+      "caption": "B2 is associated with Reserved."
+    },
+    {
+      "id": "fund-dictionaries-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000\nitem is an existing key",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def item_label(labels, item):\n    return item  # Return the associated value instead\n\nprint(item_label({'A1': 'Available', 'B2': 'Reserved'}, 'B2'))\n",
+      "stdin": "",
+      "expectedOutput": "Reserved",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

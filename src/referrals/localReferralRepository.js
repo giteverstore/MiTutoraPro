@@ -1,28 +1,9 @@
-const STORAGE_PREFIX = 'mi-tutora:referrals:v1';
-
-function keyFor(userId) {
-  return `${STORAGE_PREFIX}:${userId}`;
-}
-
-function parse(value) {
-  try {
-    return value ? JSON.parse(value) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function createLocalReferralRepository(storage = window.localStorage) {
-  return {
-    async load(userId) {
-      return parse(storage.getItem(keyFor(userId)));
-    },
-    async save(userId, profile) {
-      storage.setItem(keyFor(userId), JSON.stringify(profile));
-      return profile;
-    },
-    async clear(userId) {
-      storage.removeItem(keyFor(userId));
-    },
-  };
+// Compatibility-only adapter retained for imports from older local tests.
+// M5.1 deliberately provides no browser-side referral persistence or authority.
+export function createLocalReferralRepository() {
+  return Object.freeze({
+    load: async () => null,
+    save: async () => { throw new Error('Referral records are server-authoritative.'); },
+    clear: async () => { throw new Error('Referral records are server-authoritative.'); },
+  });
 }

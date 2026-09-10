@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-007",
+  "title": "Repair Category Membership",
+  "summary": "Fix a membership check that searches the wrong value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "membership-lookup",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "category_supported",
+    "signature": "category_supported(categories, target)",
+    "input": "A collection of unique categories and a target category.",
+    "output": "A boolean membership result."
+  },
+  "examples": [
+    {
+      "input": "target = music",
+      "output": "true",
+      "explanation": "Music is present."
+    }
+  ],
+  "constraints": [
+    "0 <= number of categories <= 1000"
+  ],
+  "concepts": [
+    "membership",
+    "target-selection"
+  ],
+  "skills": [
+    "debugging-membership",
+    "exact-matching"
+  ],
+  "prerequisites": [
+    "sets"
+  ],
+  "commonMistakes": [
+    "checking a fixed value",
+    "confusing present and absent results"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "target present",
+      "arguments": [
+        [
+          "books",
+          "music"
+        ],
+        "music"
+      ],
+      "expected": true
+    },
+    {
+      "name": "target absent",
+      "arguments": [
+        [
+          "books",
+          "music"
+        ],
+        "games"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "category_supported(categories, target)",
+      "entryPoint": "category_supported"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-007-statement",
+      "type": "paragraph",
+      "content": "Return whether the requested category is present. The current implementation checks a fixed category instead of the supplied target. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-007-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-007-contract",
+      "type": "note",
+      "title": "category_supported(categories, target)",
+      "content": "Input: A collection of unique categories and a target category.\n\nOutput: A boolean membership result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-007-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-007-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntarget = music\n\nOutput\ntrue",
+      "caption": "Music is present."
+    },
+    {
+      "id": "fund-sets-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of categories <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-007-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def category_supported(categories, target):\n    return 'books' in set(categories)  # Check target instead\n\nprint(category_supported(['books', 'music'], 'music'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

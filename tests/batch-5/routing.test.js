@@ -10,6 +10,7 @@ const pageRoutes = [
   ['/bookmarks', 'bookmarks'],
   ['/certificates', 'certificates'],
   ['/referrals', 'referrals'],
+  ['/wallet', 'wallet'],
   ['/settings', 'settings'],
   ['/projects', 'projects'],
 ];

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-009",
+  "title": "Check for a Search Term",
+  "summary": "Determine whether exact text occurs within a message.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "searching-matching",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "contains_term",
+    "signature": "contains_term(text, term)",
+    "input": "Source text and a non-empty search term.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "text = Learn coding today, term = coding",
+      "output": "true",
+      "explanation": "The exact term occurs in the middle."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000",
+    "1 <= term length <= 100"
+  ],
+  "concepts": [
+    "substring-search",
+    "case-sensitivity"
+  ],
+  "skills": [
+    "exact-matching",
+    "search-reasoning"
+  ],
+  "prerequisites": [
+    "strings"
+  ],
+  "commonMistakes": [
+    "ignoring case",
+    "checking only the beginning"
+  ],
+  "expectedComplexity": {
+    "time": "O(n*m)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "term found",
+      "arguments": [
+        "Learn coding today",
+        "coding"
+      ],
+      "expected": true
+    },
+    {
+      "name": "case mismatch",
+      "arguments": [
+        "Learn Coding",
+        "coding"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "contains_term(text, term)",
+      "entryPoint": "contains_term"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-009-statement",
+      "type": "paragraph",
+      "content": "Return whether the exact search term appears anywhere within the supplied text. Matching is case-sensitive.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-009-contract",
+      "type": "note",
+      "title": "contains_term(text, term)",
+      "content": "Input: Source text and a non-empty search term.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = Learn coding today, term = coding\n\nOutput\ntrue",
+      "caption": "The exact term occurs in the middle."
+    },
+    {
+      "id": "fund-strings-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000\n1 <= term length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def contains_term(text, term):\n    # Return whether the exact term occurs\n    pass\n\nprint(contains_term('Learn coding today', 'coding'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

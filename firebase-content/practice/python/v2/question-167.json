@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-001",
+  "title": "Format a User Greeting",
+  "summary": "Transform supplied user input into exact output text.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "basic-input-output",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "format_user_greeting",
+    "signature": "format_user_greeting(name)",
+    "input": "Text supplied as a user name.",
+    "output": "Text in the exact format Hello, NAME!"
+  },
+  "examples": [
+    {
+      "input": "name = Avi",
+      "output": "Hello, Avi!",
+      "explanation": "The exact output includes comma, space, and exclamation mark."
+    }
+  ],
+  "constraints": [
+    "1 <= name length <= 100"
+  ],
+  "concepts": [
+    "input",
+    "output",
+    "formatting"
+  ],
+  "skills": [
+    "input-processing",
+    "output-formatting"
+  ],
+  "prerequisites": [
+    "strings",
+    "functions"
+  ],
+  "commonMistakes": [
+    "omitting punctuation",
+    "changing the supplied name"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "short name",
+      "arguments": [
+        "Avi"
+      ],
+      "expected": "Hello, Avi!"
+    },
+    {
+      "name": "spaced name",
+      "arguments": [
+        "Mira Sen"
+      ],
+      "expected": "Hello, Mira Sen!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "format_user_greeting(name)",
+      "entryPoint": "format_user_greeting"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-001-statement",
+      "type": "paragraph",
+      "content": "Given a name entered by a user, return exactly “Hello, NAME!” with the supplied name replacing NAME. Preserve the name exactly as supplied.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-001-contract",
+      "type": "note",
+      "title": "format_user_greeting(name)",
+      "content": "Input: Text supplied as a user name.\n\nOutput: Text in the exact format Hello, NAME!",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nname = Avi\n\nOutput\nHello, Avi!",
+      "caption": "The exact output includes comma, space, and exclamation mark."
+    },
+    {
+      "id": "fund-io-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= name length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def format_user_greeting(name):\n    # Return the exact greeting format\n    pass\n\nprint(format_user_greeting('Avi'))\n",
+      "stdin": "",
+      "expectedOutput": "Hello, Avi!",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

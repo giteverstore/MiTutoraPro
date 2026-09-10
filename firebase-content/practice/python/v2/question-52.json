@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-006",
+  "title": "Count Vowels in a Name",
+  "summary": "Inspect each character in text and count vowels.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "looping-over-sequences",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 35,
+  "contract": {
+    "functionName": "count_vowels",
+    "signature": "count_vowels(text)",
+    "input": "Lowercase text, which may be empty.",
+    "output": "The number of vowels."
+  },
+  "examples": [
+    {
+      "input": "text = marina",
+      "output": "3",
+      "explanation": "The vowels are a, i, and a."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-traversal",
+    "counting"
+  ],
+  "skills": [
+    "character-inspection",
+    "sequence-processing"
+  ],
+  "prerequisites": [
+    "conditions",
+    "strings"
+  ],
+  "commonMistakes": [
+    "counting each vowel type only once",
+    "ignoring repeated vowels"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed characters",
+      "arguments": [
+        "marina"
+      ],
+      "expected": 3
+    },
+    {
+      "name": "empty text",
+      "arguments": [
+        ""
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "count_vowels(text)",
+      "entryPoint": "count_vowels"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-006-statement",
+      "type": "paragraph",
+      "content": "Return the number of vowel characters in the supplied lowercase text. The vowel set is `a`, `e`, `i`, `o`, and `u`.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-006-contract",
+      "type": "note",
+      "title": "count_vowels(text)",
+      "content": "Input: Lowercase text, which may be empty.\n\nOutput: The number of vowels.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = marina\n\nOutput\n3",
+      "caption": "The vowels are a, i, and a."
+    },
+    {
+      "id": "fund-loops-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def count_vowels(text):\n    count = 0\n    # Inspect each character\n    return count\n\nprint(count_vowels('marina'))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

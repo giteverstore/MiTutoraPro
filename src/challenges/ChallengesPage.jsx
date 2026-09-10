@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CheckCircle2, Clock3, Coins, LockKeyhole } from 'lucide-react';
 import { BlockRenderer } from '../components/BlockRenderer';
 import { CompilerPanel } from '../components/CompilerPanel';
@@ -10,16 +10,27 @@ import { ChallengeHistory } from './ChallengeHistory';
 import { CurrentStreak, RewardSummary } from './ChallengeSummary';
 import { useContentResource } from '../content/hooks/useContentResource';
 import { loadDailyChallenge } from './challengeContentSource';
-import {
-  challengeHistory,
-  challengeStats,
-} from './challengeData';
+import { challengeHistory } from './challengeData';
 import { DomainErrorBoundary } from '../errors/ErrorBoundary';
+import { activityCompletionClient } from '../coins/ActivityCompletionClient';
+import { ActivityStateRepository } from '../repositories/firestore/ActivityStateRepository';
+import { authService } from '../auth/AuthService';
 
 export function ChallengesPage() {
   const { data: dailyChallenge, error, loading } = useContentResource(loadDailyChallenge);
   const [verificationStatus, setVerificationStatus] = useState('idle');
   const [completed, setCompleted] = useState(false);
+  const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null, streak: null });
+  useEffect(() => {
+    const user = authService.getCurrentUser();
+    if (!user) return undefined;
+    let active = true;
+    new ActivityStateRepository(user.uid).getStreakSummary().then(
+      (streak) => { if (active && streak) setCompletion((current) => ({ ...current, streak })); },
+      () => {},
+    );
+    return () => { active = false; };
+  }, []);
   const compilerBlock = useMemo(
     () => dailyChallenge?.blocks.find((block) => block.type === 'compiler') ?? null,
     [dailyChallenge],
@@ -30,8 +41,23 @@ export function ChallengesPage() {
   );
   const compiler = useMemo(() => compilerBlock ? createCompilerData(compilerBlock) : null, [compilerBlock]);
   const rewardReady = verificationStatus === 'matched';
-  const currentStreak = challengeStats.currentStreak
-    + (completed ? dailyChallenge?.reward.streakIncrement ?? 0 : 0);
+  const currentStreak = completion.streak?.currentStreak ?? 0;
+  const rewardMessage = {
+    credited: `+${completion.rewardAmount} coins earned`,
+    already_claimed: 'reward already claimed',
+    daily_reward_cap_reached: 'daily reward cap reached',
+    unavailable: 'reward reconciliation pending',
+  }[completion.rewardStatus] ?? 'reward unavailable';
+  const complete = async () => {
+    setCompletion((current) => ({ ...current, pending: true, error: null }));
+    try {
+      const result = await activityCompletionClient.complete({ activityType: 'DAILY_CHALLENGE', activityId: dailyChallenge.id, activityVersion: dailyChallenge.version });
+      setCompleted(['completed', 'already_completed'].includes(result.completionStatus));
+      setCompletion({ pending: false, rewardStatus: result.rewardStatus, rewardAmount: result.rewardAmount ?? 0, error: null, streak: result.streak });
+    } catch (nextError) {
+      setCompletion((current) => ({ ...current, pending: false, error: nextError.message }));
+    }
+  };
 
   if (loading || error || !dailyChallenge || !compiler) {
     return (
@@ -53,8 +79,8 @@ export function ChallengesPage() {
       />
 
       <div className="challenge-summary-grid">
-        <RewardSummary reward={dailyChallenge.reward} claimed={completed} />
-        <CurrentStreak statistics={challengeStats} completed={completed} />
+        <RewardSummary claimed={completed} rewardStatus={completion.rewardStatus} rewardAmount={completion.rewardAmount} />
+        <CurrentStreak statistics={completion.streak ?? { currentStreak: 0, longestStreak: 0 }} completed={completed} />
       </div>
 
       <section className="today-challenge" aria-labelledby="today-challenge-title">
@@ -99,6 +125,8 @@ export function ChallengesPage() {
             <CompilerPanel
               compiler={compiler}
               instanceId={`challenge-${dailyChallenge.id}`}
+              lessonContext={dailyChallenge.title}
+              activityType="challenge"
               onVerificationChange={setVerificationStatus}
               key={dailyChallenge.id}
             />
@@ -111,20 +139,22 @@ export function ChallengesPage() {
               : rewardReady
                 ? <Coins />
                 : <LockKeyhole />}
-            {completed
-              ? `Challenge completed · ${dailyChallenge.reward.coins} MI Coins claimed`
+            {completion.error
+              ? completion.error
+              : completed
+              ? `Challenge completed · ${rewardMessage}`
               : rewardReady
-                ? 'Output verified. Your reward is ready.'
-                : 'Check the correct output to unlock today’s reward.'}
+                ? 'Output verified. You can mark this local solution complete.'
+                : 'Check the correct output to complete this local solution.'}
           </span>
           <button
             className="button button--primary"
             type="button"
-            disabled={!rewardReady || completed}
-            onClick={() => setCompleted(true)}
+            disabled={!rewardReady || completed || completion.pending}
+            onClick={complete}
           >
             {completed ? <CheckCircle2 /> : <Coins />}
-            {completed ? 'Reward Claimed' : 'Claim Reward'}
+            {completion.pending ? 'Saving…' : completed ? 'Completed' : 'Save Completion'}
           </button>
         </footer>
       </section>

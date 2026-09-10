@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-009",
+  "title": "Calculate a Line Total",
+  "summary": "Evaluate a multiplication expression using price and quantity.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "expressions-evaluation",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 30,
+  "contract": {
+    "functionName": "line_total",
+    "signature": "line_total(unit_price, quantity)",
+    "input": "A non-negative price and whole-number quantity.",
+    "output": "The numeric total."
+  },
+  "examples": [
+    {
+      "input": "unit_price = 2.5, quantity = 4",
+      "output": "10",
+      "explanation": "Four items at 2.5 each total 10.0."
+    }
+  ],
+  "constraints": [
+    "0 <= unit_price <= 100000",
+    "0 <= quantity <= 10000"
+  ],
+  "concepts": [
+    "multiplication-expression",
+    "numeric-evaluation"
+  ],
+  "skills": [
+    "expression-construction"
+  ],
+  "prerequisites": [
+    "variables",
+    "numbers"
+  ],
+  "commonMistakes": [
+    "Adding price and quantity",
+    "Returning one input unchanged"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "decimal price",
+      "arguments": [
+        2.5,
+        4
+      ],
+      "expected": 10
+    },
+    {
+      "name": "zero quantity",
+      "arguments": [
+        8.25,
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "line_total(unit_price, quantity)",
+      "entryPoint": "line_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-009-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-009-statement",
+      "type": "paragraph",
+      "content": "Return the total price for a product by multiplying its unit price by its quantity.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-009-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-009-contract",
+      "type": "note",
+      "title": "line_total(unit_price, quantity)",
+      "content": "Input: A non-negative price and whole-number quantity.\n\nOutput: The numeric total.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-009-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-009-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nunit_price = 2.5, quantity = 4\n\nOutput\n10",
+      "caption": "Four items at 2.5 each total 10.0."
+    },
+    {
+      "id": "fund-variables-009-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= unit_price <= 100000\n0 <= quantity <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-009-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def line_total(unit_price, quantity):\n    # Calculate the line total\n    pass\n\nprint(line_total(2.5, 4))\n",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

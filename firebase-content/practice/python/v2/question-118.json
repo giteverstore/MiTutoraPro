@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-012",
+  "title": "Check Inventory Availability",
+  "summary": "Determine whether an exact value exists in a collection.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "searching-counting",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 35,
+  "contract": {
+    "functionName": "inventory_contains",
+    "signature": "inventory_contains(products, target)",
+    "input": "A collection of product names and a target name.",
+    "output": "A boolean result."
+  },
+  "examples": [
+    {
+      "input": "products = [Cable, Mouse, Stand], target = Mouse",
+      "output": "true",
+      "explanation": "Mouse occurs in the collection."
+    }
+  ],
+  "constraints": [
+    "0 <= number of products <= 1000"
+  ],
+  "concepts": [
+    "collection-search",
+    "exact-matching"
+  ],
+  "skills": [
+    "collection-traversal",
+    "search-reasoning"
+  ],
+  "prerequisites": [
+    "conditions"
+  ],
+  "commonMistakes": [
+    "ignoring case",
+    "checking only the first item"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "product found",
+      "arguments": [
+        [
+          "Cable",
+          "Mouse",
+          "Stand"
+        ],
+        "Mouse"
+      ],
+      "expected": true
+    },
+    {
+      "name": "case mismatch",
+      "arguments": [
+        [
+          "Cable"
+        ],
+        "cable"
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "inventory_contains(products, target)",
+      "entryPoint": "inventory_contains"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-012-statement",
+      "type": "paragraph",
+      "content": "Return whether the exact product name occurs anywhere in the inventory collection. Matching is case-sensitive.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-012-contract",
+      "type": "note",
+      "title": "inventory_contains(products, target)",
+      "content": "Input: A collection of product names and a target name.\n\nOutput: A boolean result.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nproducts = [Cable, Mouse, Stand], target = Mouse\n\nOutput\ntrue",
+      "caption": "Mouse occurs in the collection."
+    },
+    {
+      "id": "fund-arrays-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of products <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def inventory_contains(products, target):\n    # Return whether target occurs exactly\n    pass\n\nprint(inventory_contains(['Cable', 'Mouse', 'Stand'], 'Mouse'))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

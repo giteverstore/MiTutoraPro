@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-015",
+  "title": "Trace Temperature Categories",
+  "summary": "Reason through ordered temperature branches.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "elif-branching",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "temperature_category",
+    "signature": "temperature_category(temperature)",
+    "input": "A numeric temperature.",
+    "output": "One of `hot`, `mild`, or `cold`."
+  },
+  "examples": [
+    {
+      "input": "temperature = 30",
+      "output": "hot",
+      "explanation": "The first branch includes 30."
+    }
+  ],
+  "constraints": [
+    "-100 <= temperature <= 100"
+  ],
+  "concepts": [
+    "ordered-branching",
+    "range-categories"
+  ],
+  "skills": [
+    "trace-branch-order"
+  ],
+  "prerequisites": [
+    "if-else"
+  ],
+  "commonMistakes": [
+    "checking mild before hot",
+    "excluding exact category boundaries"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "hot boundary",
+      "arguments": [
+        30
+      ],
+      "expected": "hot"
+    },
+    {
+      "name": "mild value",
+      "arguments": [
+        20
+      ],
+      "expected": "mild"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "temperature_category(temperature)",
+      "entryPoint": "temperature_category"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-015-statement",
+      "type": "paragraph",
+      "content": "Classify a temperature as `hot` at 30 or above, `mild` at 15 or above, and `cold` otherwise. Return the matching category.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-015-contract",
+      "type": "note",
+      "title": "temperature_category(temperature)",
+      "content": "Input: A numeric temperature.\n\nOutput: One of `hot`, `mild`, or `cold`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntemperature = 30\n\nOutput\nhot",
+      "caption": "The first branch includes 30."
+    },
+    {
+      "id": "fund-conditionals-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-100 <= temperature <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def temperature_category(temperature):\n    # Return 'hot', 'mild', or 'cold'\n    pass\n\nprint(temperature_category(30))\n",
+      "stdin": "",
+      "expectedOutput": "hot",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

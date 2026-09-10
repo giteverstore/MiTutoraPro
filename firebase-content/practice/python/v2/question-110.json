@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-004",
+  "title": "Repair the Collection Size",
+  "summary": "Fix an off-by-one error in a collection count.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "list-array-basics-indexing",
+  "questionType": "debugging",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "collection_size",
+    "signature": "collection_size(values)",
+    "input": "A collection that may be empty.",
+    "output": "The number of elements."
+  },
+  "examples": [
+    {
+      "input": "values = [3, 6, 9, 12]",
+      "output": "4",
+      "explanation": "The collection contains four elements."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "collection-length",
+    "off-by-one"
+  ],
+  "skills": [
+    "debugging-boundaries",
+    "collection-reasoning"
+  ],
+  "prerequisites": [
+    "collections"
+  ],
+  "commonMistakes": [
+    "confusing the final position with the number of elements",
+    "assuming the collection is non-empty"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "four values",
+      "arguments": [
+        [
+          3,
+          6,
+          9,
+          12
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "name": "empty collection",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "collection_size(values)",
+      "entryPoint": "collection_size"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-004-statement",
+      "type": "paragraph",
+      "content": "Return the number of values in the collection. The current implementation incorrectly subtracts one from the count. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-004-contract",
+      "type": "note",
+      "title": "collection_size(values)",
+      "content": "Input: A collection that may be empty.\n\nOutput: The number of elements.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [3, 6, 9, 12]\n\nOutput\n4",
+      "caption": "The collection contains four elements."
+    },
+    {
+      "id": "fund-arrays-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def collection_size(values):\n    return len(values) - 1  # Fix the count\n\nprint(collection_size([3, 6, 9, 12]))\n",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

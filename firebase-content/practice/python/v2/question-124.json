@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-018",
+  "title": "Repair the Highest Reading",
+  "summary": "Fix maximum aggregation for empty and negative collections.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "highest_reading",
+    "signature": "highest_reading(readings)",
+    "input": "A collection of numeric readings that may be empty.",
+    "output": "The highest reading, or no value when empty."
+  },
+  "examples": [
+    {
+      "input": "readings = [-8, -3, -11]",
+      "output": "-3",
+      "explanation": "Negative three is the highest supplied value."
+    }
+  ],
+  "constraints": [
+    "0 <= number of readings <= 1000"
+  ],
+  "concepts": [
+    "maximum",
+    "empty-collection",
+    "negative-values"
+  ],
+  "skills": [
+    "debugging-aggregation",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "traversal",
+    "comparisons"
+  ],
+  "commonMistakes": [
+    "returning zero for all-negative data",
+    "accessing an element when empty"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "negative readings",
+      "arguments": [
+        [
+          -8,
+          -3,
+          -11
+        ]
+      ],
+      "expected": -3
+    },
+    {
+      "name": "empty readings",
+      "arguments": [
+        []
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "highest_reading(readings)",
+      "entryPoint": "highest_reading"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-018-statement",
+      "type": "paragraph",
+      "content": "Return the highest reading, or no value when the collection is empty. The current implementation assumes zero is always a valid starting maximum. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-018-contract",
+      "type": "note",
+      "title": "highest_reading(readings)",
+      "content": "Input: A collection of numeric readings that may be empty.\n\nOutput: The highest reading, or no value when empty.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nreadings = [-8, -3, -11]\n\nOutput\n-3",
+      "caption": "Negative three is the highest supplied value."
+    },
+    {
+      "id": "fund-arrays-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of readings <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def highest_reading(readings):\n    highest = 0  # This fails for empty and all-negative collections\n    for reading in readings:\n        if reading > highest:\n            highest = reading\n    return highest\n\nprint(highest_reading([-8, -3, -11]))\n",
+      "stdin": "",
+      "expectedOutput": "-3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

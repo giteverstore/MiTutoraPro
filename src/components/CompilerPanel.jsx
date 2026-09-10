@@ -10,6 +10,9 @@ import { useOptionalLearningProgress } from '../progress/LearningProgressContext
 import { useSettings } from '../settings/useSettings';
 import { COMPILER_EVENTS, createCompilerExecutionEvent } from '../compiler/core/compilerEvents';
 import { ConfirmDialog } from './Dialog';
+import { AITutorPanel } from '../ai/AITutorPanel';
+import { CompilerWorkspace } from './CompilerWorkspace';
+import { createSourceSnapshotHash } from '../compiler/core/sourceSnapshot';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -17,6 +20,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   onExecutionStateChange,
   renderOutput,
   instanceId: requestedInstanceId,
+  lessonContext = '',
+  activityType = 'unknown',
 }, forwardedRef) {
   const generatedInstanceId = useId();
   const instanceId = requestedInstanceId ?? `compiler-${generatedInstanceId.replace(/:/g, '')}`;
@@ -38,6 +43,9 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const [executionStatus, setExecutionStatus] = useState('idle');
   const [verificationStatus, setVerificationStatus] = useState('idle');
   const [executionTimeMs, setExecutionTimeMs] = useState(null);
+  const [selectionSnapshot, setSelectionSnapshot] = useState(null);
+  const selectionVersionRef = useRef(0);
+  const [compilerEvidence, setCompilerEvidence] = useState(null);
   const [replaceConfirmation, setReplaceConfirmation] = useState(null);
   const executionControllerRef = useRef(null);
   const outputResize = useDragResize({
@@ -63,6 +71,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     onVerificationChange?.('idle');
     setError('');
     setExecutionTimeMs(null);
+    setCompilerEvidence(null);
 
     try {
       let source = requestedSource;
@@ -90,6 +99,17 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       setError(execution.errors.join('\n'));
       setExecutionTimeMs(execution.executionTimeMs);
       setExecutionStatus(execution.status);
+      try {
+        setCompilerEvidence(Object.freeze({
+          source,
+          sourceHash: await createSourceSnapshotHash(source),
+          language: definition.language,
+          status: execution.status,
+          output: execution.errors.length ? execution.errors.join('\n') : execution.output,
+        }));
+      } catch {
+        setCompilerEvidence(null);
+      }
       window.dispatchEvent(createCompilerExecutionEvent(instanceId, execution, {
         language: definition.language,
       }));
@@ -98,6 +118,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         setResult('');
         setError(executionError.message || 'The compiler adapter could not complete the request.');
         setExecutionStatus('error');
+        setCompilerEvidence(null);
       }
     } finally {
       if (executionControllerRef.current === controller) {
@@ -115,12 +136,31 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
 
   const handleCodeChange = useCallback((nextCode) => {
     currentCodeRef.current = nextCode;
+    selectionVersionRef.current += 1;
     setCode(nextCode);
+    setSelectionSnapshot(null);
     setVerificationStatus('idle');
     const definition = activeCompilerRef.current;
     if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     onVerificationChange?.('idle');
   }, [invalidateExerciseVerification, onVerificationChange]);
+
+  const handleSelectionChange = useCallback(async (selection) => {
+    const version = selectionVersionRef.current + 1;
+    selectionVersionRef.current = version;
+    if (!selection?.text?.trim()) { setSelectionSnapshot(null); return; }
+    const sourceHash = await createSourceSnapshotHash(selection.source);
+    const selectionHash = await createSourceSnapshotHash(selection.text);
+    if (selectionVersionRef.current !== version || currentCodeRef.current !== selection.source) return;
+    setSelectionSnapshot(Object.freeze({
+      text: selection.text,
+      startOffset: selection.startOffset,
+      endOffset: selection.endOffset,
+      sourceHash,
+      selectionHash,
+      language: activeCompilerRef.current.language,
+    }));
+  }, []);
 
   const checkOutput = useCallback(() => {
     if (executionStatus !== 'success') return;
@@ -168,6 +208,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     onVerificationChange?.('idle');
     setExecutionTimeMs(null);
+    setSelectionSnapshot(null);
+    setCompilerEvidence(null);
   }, [
     compilerManager,
     initialCode,
@@ -189,6 +231,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setExecutionStatus('idle');
     setVerificationStatus('idle');
     setExecutionTimeMs(null);
+    setSelectionSnapshot(null);
+    setCompilerEvidence(null);
     return true;
   }, []);
 
@@ -255,7 +299,20 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           onRun={showRunFeedback}
           onReset={resetEditor}
         />
-        <EditorPlaceholder editor={activeCompiler.editor} value={code} onChange={handleCodeChange} instanceId={instanceId} />
+        <CompilerWorkspace
+          instanceId={instanceId}
+          editor={<EditorPlaceholder editor={activeCompiler.editor} value={code} onChange={handleCodeChange} onSelectionChange={handleSelectionChange} instanceId={instanceId} />}
+          tutor={<AITutorPanel
+            titleId={`ai-tutor-title-${instanceId}`}
+            language={activeCompiler.language}
+            code={code}
+            selectionSnapshot={selectionSnapshot}
+            compilerEvidence={compilerEvidence}
+            compilerStatus={isRunning ? 'running' : executionStatus}
+            lessonContext={lessonContext}
+            activityType={activityType}
+          />}
+        />
         <ResizeHandle
           className="output-resize-handle"
           label={activeCompiler.resizeLabel}

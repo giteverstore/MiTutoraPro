@@ -73,7 +73,7 @@ export function CompilerBlock(props) {
         resetKeys={[props.id]}
         compact
       >
-        <CompilerPanel compiler={compilerData} instanceId={`block-${props.id}`} />
+        <CompilerPanel compiler={compilerData} instanceId={`block-${props.id}`} activityType="lesson" />
       </DomainErrorBoundary>
     </section>
   );

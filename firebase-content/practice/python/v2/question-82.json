@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-016",
+  "title": "Trace a Local Adjustment",
+  "summary": "Reason about a local value that does not replace its input.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "scope-local-state",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "adjusted_score",
+    "signature": "adjusted_score(score, bonus)",
+    "input": "A score from 0 to 100 and non-negative bonus.",
+    "output": "The adjusted score, capped at 100."
+  },
+  "examples": [
+    {
+      "input": "score = 70, bonus = 10",
+      "output": "80",
+      "explanation": "The local adjusted value is returned."
+    }
+  ],
+  "constraints": [
+    "0 <= score <= 100",
+    "0 <= bonus <= 100"
+  ],
+  "concepts": [
+    "local-state",
+    "parameter-lifetime"
+  ],
+  "skills": [
+    "scope-awareness",
+    "execution-tracing"
+  ],
+  "prerequisites": [
+    "conditions",
+    "functions"
+  ],
+  "commonMistakes": [
+    "assuming local reassignment changes outside state",
+    "failing to cap the local value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "uncapped result",
+      "arguments": [
+        70,
+        10
+      ],
+      "expected": 80
+    },
+    {
+      "name": "capped result",
+      "arguments": [
+        95,
+        10
+      ],
+      "expected": 100
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "adjusted_score(score, bonus)",
+      "entryPoint": "adjusted_score"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-016-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-016-statement",
+      "type": "paragraph",
+      "content": "Create a local adjusted value by adding a bonus to the supplied score, cap it at 100, and return it. The original argument outside the operation is not changed.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-016-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-016-contract",
+      "type": "note",
+      "title": "adjusted_score(score, bonus)",
+      "content": "Input: A score from 0 to 100 and non-negative bonus.\n\nOutput: The adjusted score, capped at 100.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-016-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-016-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 70, bonus = 10\n\nOutput\n80",
+      "caption": "The local adjusted value is returned."
+    },
+    {
+      "id": "fund-functions-016-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= score <= 100\n0 <= bonus <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-016-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def adjusted_score(score, bonus):\n    # Create and return a capped local value\n    pass\n\nprint(adjusted_score(70, 10))\n",
+      "stdin": "",
+      "expectedOutput": "80",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

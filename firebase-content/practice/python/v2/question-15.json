@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-015",
+  "title": "Trace a Running Measurement",
+  "summary": "Reason through a sequence of updates to one value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "variable-interaction",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "adjust_measurement",
+    "signature": "adjust_measurement(value, adjustment, scale)",
+    "input": "Three numeric values.",
+    "output": "The final updated measurement."
+  },
+  "examples": [
+    {
+      "input": "value = 10, adjustment = 5, scale = 2",
+      "output": "30",
+      "explanation": "The value becomes 15 before it is doubled."
+    }
+  ],
+  "constraints": [
+    "Inputs are between -10000 and 10000"
+  ],
+  "concepts": [
+    "sequential-reassignment",
+    "variable-interaction"
+  ],
+  "skills": [
+    "state-tracking",
+    "execution-order"
+  ],
+  "prerequisites": [
+    "reassignment",
+    "arithmetic"
+  ],
+  "commonMistakes": [
+    "Scaling before adding the adjustment",
+    "Using the original value twice"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive adjustment",
+      "arguments": [
+        10,
+        5,
+        2
+      ],
+      "expected": 30
+    },
+    {
+      "name": "negative adjustment",
+      "arguments": [
+        10,
+        -2,
+        3
+      ],
+      "expected": 24
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "adjust_measurement(value, adjustment, scale)",
+      "entryPoint": "adjust_measurement"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-015-statement",
+      "type": "paragraph",
+      "content": "Begin with the supplied measurement, add the adjustment, then multiply the updated value by the scale. Return the final value.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-015-contract",
+      "type": "note",
+      "title": "adjust_measurement(value, adjustment, scale)",
+      "content": "Input: Three numeric values.\n\nOutput: The final updated measurement.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 10, adjustment = 5, scale = 2\n\nOutput\n30",
+      "caption": "The value becomes 15 before it is doubled."
+    },
+    {
+      "id": "fund-variables-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Inputs are between -10000 and 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def adjust_measurement(value, adjustment, scale):\n    # Apply the operations in the stated order\n    pass\n\nprint(adjust_measurement(10, 5, 2))\n",
+      "stdin": "",
+      "expectedOutput": "30",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

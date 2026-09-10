@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-003",
+  "title": "Count Unique Registered IDs",
+  "summary": "Recognize repeated identifiers as one unique value.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "set-basics-uniqueness",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "unique_id_count",
+    "signature": "unique_id_count(ids)",
+    "input": "A collection of identifier values.",
+    "output": "The number of unique IDs."
+  },
+  "examples": [
+    {
+      "input": "ids = [101, 102, 101, 103]",
+      "output": "3",
+      "explanation": "The unique IDs are 101, 102, and 103."
+    }
+  ],
+  "constraints": [
+    "0 <= number of IDs <= 1000"
+  ],
+  "concepts": [
+    "set",
+    "unique-identifiers"
+  ],
+  "skills": [
+    "duplicate-elimination",
+    "uniqueness-reasoning"
+  ],
+  "prerequisites": [
+    "collections"
+  ],
+  "commonMistakes": [
+    "counting repeated registrations",
+    "removing values that occur once"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "duplicate identifiers",
+      "arguments": [
+        [
+          101,
+          102,
+          101,
+          103
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "name": "all equal",
+      "arguments": [
+        [
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "unique_id_count(ids)",
+      "entryPoint": "unique_id_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-003-statement",
+      "type": "paragraph",
+      "content": "Return how many unique registered IDs occur in the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-003-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-003-contract",
+      "type": "note",
+      "title": "unique_id_count(ids)",
+      "content": "Input: A collection of identifier values.\n\nOutput: The number of unique IDs.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-003-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-003-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nids = [101, 102, 101, 103]\n\nOutput\n3",
+      "caption": "The unique IDs are 101, 102, and 103."
+    },
+    {
+      "id": "fund-sets-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of IDs <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-003-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def unique_id_count(ids):\n    # Return the unique ID count\n    pass\n\nprint(unique_id_count([101, 102, 101, 103]))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

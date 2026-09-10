@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-004",
+  "title": "Repair the Final Position",
+  "summary": "Fix an off-by-one index used for the last character.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-basics-indexing",
+  "questionType": "debugging",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "final_code_character",
+    "signature": "final_code_character(code)",
+    "input": "A non-empty product code.",
+    "output": "The final code character."
+  },
+  "examples": [
+    {
+      "input": "code = Q7X",
+      "output": "X",
+      "explanation": "The final valid position is one less than the length."
+    }
+  ],
+  "constraints": [
+    "1 <= code length <= 1000"
+  ],
+  "concepts": [
+    "index-boundary",
+    "off-by-one"
+  ],
+  "skills": [
+    "debugging-indexing"
+  ],
+  "prerequisites": [
+    "string-length"
+  ],
+  "commonMistakes": [
+    "using length as the final valid position",
+    "subtracting more than one"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "three-character code",
+      "arguments": [
+        "Q7X"
+      ],
+      "expected": "X"
+    },
+    {
+      "name": "one-character code",
+      "arguments": [
+        "A"
+      ],
+      "expected": "A"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "final_code_character(code)",
+      "entryPoint": "final_code_character"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-004-statement",
+      "type": "paragraph",
+      "content": "The operation should return the last character, but it uses the text length as a position beyond the valid boundary. Correct the index.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-004-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-004-contract",
+      "type": "note",
+      "title": "final_code_character(code)",
+      "content": "Input: A non-empty product code.\n\nOutput: The final code character.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-004-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-004-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncode = Q7X\n\nOutput\nX",
+      "caption": "The final valid position is one less than the length."
+    },
+    {
+      "id": "fund-strings-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= code length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-004-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def final_code_character(code):\n    return code[len(code)]  # Fix the final position\n\nprint(final_code_character('Q7X'))\n",
+      "stdin": "",
+      "expectedOutput": "X",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

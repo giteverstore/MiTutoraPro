@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-006",
+  "title": "Trace Required Feature Membership",
+  "summary": "Reason about whether several required values are present.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "membership-lookup",
+  "questionType": "reasoning",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "all_features_supported",
+    "signature": "all_features_supported(supported, required)",
+    "input": "Collections of supported and required feature values.",
+    "output": "Whether every required value is present."
+  },
+  "examples": [
+    {
+      "input": "required = [share, export]",
+      "output": "true",
+      "explanation": "Both required features are supported."
+    }
+  ],
+  "constraints": [
+    "0 <= values in each collection <= 1000"
+  ],
+  "concepts": [
+    "membership",
+    "containment"
+  ],
+  "skills": [
+    "membership-checking",
+    "collection-comparison"
+  ],
+  "prerequisites": [
+    "conditions",
+    "sets"
+  ],
+  "commonMistakes": [
+    "accepting when only one required feature is present",
+    "rejecting an empty requirement"
+  ],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "publicTests": [
+    {
+      "name": "all present",
+      "arguments": [
+        [
+          "search",
+          "share",
+          "export"
+        ],
+        [
+          "share",
+          "export"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "name": "one missing",
+      "arguments": [
+        [
+          "search"
+        ],
+        [
+          "search",
+          "share"
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "all_features_supported(supported, required)",
+      "entryPoint": "all_features_supported"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-006-statement",
+      "type": "paragraph",
+      "content": "Return whether every required feature is present in the supported unique-value collection. An empty required collection is satisfied.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-006-contract",
+      "type": "note",
+      "title": "all_features_supported(supported, required)",
+      "content": "Input: Collections of supported and required feature values.\n\nOutput: Whether every required value is present.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nrequired = [share, export]\n\nOutput\ntrue",
+      "caption": "Both required features are supported."
+    },
+    {
+      "id": "fund-sets-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= values in each collection <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def all_features_supported(supported, required):\n    # Check every required value\n    pass\n\nprint(all_features_supported(['search', 'share', 'export'], ['share', 'export']))\n",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

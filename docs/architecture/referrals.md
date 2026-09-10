@@ -1,23 +1,26 @@
-# Referrals
+# Referrals (M5.1)
 
-Referrals is an AppShell module under `src/referrals/`. It presents a user’s referral code and link, mock rewards, invitation history, and common program questions.
+M5.1 replaces the local mock with a server-authoritative attribution and qualification domain. Browser clients only read owner-scoped projections and call authenticated Firebase functions; they cannot author ownership, attribution, status, purchase evidence, or financial fields.
 
-## Model and service
+## Frozen MVP policy
 
-`referralModel.js` normalizes referral profiles and history entries. History status is `invited`, `joined`, or `qualified`; reward status is `pending` or `earned`.
+`functions/src/referrals/ReferralPolicy.js` is the single policy source. Version `m5-v1` is enabled, uses INR minor units, and assigns 1,000 basis points (10%) to a FREE referrer and 1,500 basis points (15%) to a PREMIUM referrer. Integer arithmetic floors any fractional paise.
 
-`ReferralService` exposes profile retrieval, saving, reset, and export through a replaceable repository. The local repository stores user-scoped mock data at `mi-tutora:referrals:v1:<userId>` and initializes the mock profile on first access. A future API repository can replace storage without changing page components.
+The referrer's authoritative tier is evaluated at qualification—not when a code is created or shared and not at signup. Signup earns nothing. `DEVELOPMENT_GRANT`, coin activity, and Premium entitlement alone are not qualifying evidence.
 
-## Page composition
+## Model and privacy
 
-- `ReferralOverview` renders referral code, invite counts, successful referrals, and earned coins.
-- `InviteFriends` provides code/link copy actions and native sharing.
-- `ReferralRewards` explains qualification and rewards for both participants.
-- `ReferralHistory` uses a responsive table/list representation.
-- `ReferralFaq` uses native `details` elements for accessible expandable answers.
+- `referralCodes/{normalizedCode}` maps a stable collision-checked `MIT` plus six-character code to its owner.
+- `users/{uid}/referralIdentity/current` is the owner's readable identity projection.
+- `users/{referredUid}/referralAttribution/current` is immutable attribution and freezes no rate.
+- `referrals/{referralId}` is the private authoritative relationship with only `ATTRIBUTED` and `QUALIFIED` states.
+- `users/{referrerUid}/referralReadModel/{referralId}` excludes referred UID, email, phone, profile, subscription, and payment details.
+- `referralPurchaseQualifications/{purchaseId}` is server-only replay protection.
 
-Clipboard failures return the copyable value in user feedback. When the Web Share API is unavailable or fails, sharing falls back to copying the referral link.
+Rules permit owner reads of identity, attribution, and read model, deny cross-user reads, and deny all client writes. Global records are unavailable to browsers.
 
-## Boundaries
+## Qualification and financial boundaries
 
-Referral data and MI Coins are mock local records. The module does not change course progress, challenge rewards, certificates, or account state. Future attribution and reward issuance should be implemented by a referral API behind `ReferralService`.
+`ReferralService.qualifyReferralFromVerifiedPurchase()` is internal and is not a browser callable. It requires trusted `VERIFIED_PREMIUM_PURCHASE` evidence, resolves the canonical plan price, reads the referrer's backed entitlement transactionally, and commits qualification/read-model/replay state atomically. Duplicate evidence is idempotent and conflicts fail closed. M8 will supply real verified payment events.
+
+A qualified record is only a **calculated referral reward**. M5 creates no wallet, withdrawable balance, payout, withdrawal, payment, settlement, coin reward, or conversion. M6 owns the wallet/ledger, M7 withdrawals, and M8 verified payment authority. Coins remain separate.

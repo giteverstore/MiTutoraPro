@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-008",
+  "title": "Label Positive or Non-positive",
+  "summary": "Choose a label that handles zero explicitly.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "if-else",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 30,
+  "contract": {
+    "functionName": "number_sign_group",
+    "signature": "number_sign_group(value)",
+    "input": "A numeric value.",
+    "output": "Either `positive` or `non-positive`."
+  },
+  "examples": [
+    {
+      "input": "value = 0.1",
+      "output": "positive",
+      "explanation": "Any value above zero is positive."
+    }
+  ],
+  "constraints": [
+    "-1000000 <= value <= 1000000"
+  ],
+  "concepts": [
+    "if-else",
+    "zero-boundary"
+  ],
+  "skills": [
+    "two-way-classification"
+  ],
+  "prerequisites": [
+    "numeric-comparison"
+  ],
+  "commonMistakes": [
+    "leaving zero without a result",
+    "calling zero positive"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "positive decimal",
+      "arguments": [
+        0.1
+      ],
+      "expected": "positive"
+    },
+    {
+      "name": "zero",
+      "arguments": [
+        0
+      ],
+      "expected": "non-positive"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "number_sign_group(value)",
+      "entryPoint": "number_sign_group"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-008-statement",
+      "type": "paragraph",
+      "content": "Return `positive` when a number is greater than zero. Return `non-positive` for zero or a negative number.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-008-contract",
+      "type": "note",
+      "title": "number_sign_group(value)",
+      "content": "Input: A numeric value.\n\nOutput: Either `positive` or `non-positive`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalue = 0.1\n\nOutput\npositive",
+      "caption": "Any value above zero is positive."
+    },
+    {
+      "id": "fund-conditionals-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-1000000 <= value <= 1000000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def number_sign_group(value):\n    # Return the correct label\n    pass\n\nprint(number_sign_group(0.1))\n",
+      "stdin": "",
+      "expectedOutput": "positive",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

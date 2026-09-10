@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-conditionals-013",
+  "title": "Assign a Grade Band",
+  "summary": "Select one of four ordered score categories.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "conditionals",
+  "category": "fundamentals",
+  "subtopic": "elif-branching",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "grade_band",
+    "signature": "grade_band(score)",
+    "input": "A score from 0 to 100.",
+    "output": "One grade label: A, B, C, or D."
+  },
+  "examples": [
+    {
+      "input": "score = 90",
+      "output": "A",
+      "explanation": "The highest matching branch is selected."
+    }
+  ],
+  "constraints": [
+    "0 <= score <= 100"
+  ],
+  "concepts": [
+    "ordered-branching",
+    "elif",
+    "thresholds"
+  ],
+  "skills": [
+    "condition-ordering",
+    "multi-way-classification"
+  ],
+  "prerequisites": [
+    "if-else"
+  ],
+  "commonMistakes": [
+    "checking lower thresholds first",
+    "leaving threshold values between branches"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "A boundary",
+      "arguments": [
+        90
+      ],
+      "expected": "A"
+    },
+    {
+      "name": "C range",
+      "arguments": [
+        74
+      ],
+      "expected": "C"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "grade_band(score)",
+      "entryPoint": "grade_band"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-conditionals-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-conditionals-013-statement",
+      "type": "paragraph",
+      "content": "Return `A` for scores at least 90, `B` for scores at least 75, `C` for scores at least 60, and `D` otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-conditionals-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-conditionals-013-contract",
+      "type": "note",
+      "title": "grade_band(score)",
+      "content": "Input: A score from 0 to 100.\n\nOutput: One grade label: A, B, C, or D.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-conditionals-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 90\n\nOutput\nA",
+      "caption": "The highest matching branch is selected."
+    },
+    {
+      "id": "fund-conditionals-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= score <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-conditionals-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def grade_band(score):\n    # Return A, B, C, or D\n    pass\n\nprint(grade_band(90))\n",
+      "stdin": "",
+      "expectedOutput": "A",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

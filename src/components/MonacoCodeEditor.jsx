@@ -75,7 +75,7 @@ function configureMonaco(monacoInstance) {
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, instanceId }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, instanceId }) {
   const settings = useSettings();
   const editorTheme = {
     'mitutora-dark': EDITOR_THEME,
@@ -85,6 +85,16 @@ export default function MonacoCodeEditor({ editor, value, onChange, instanceId }
   const handleMount = (instance, monacoInstance) => {
     instance.addCommand(monacoInstance.KeyMod.CtrlCmd | monacoInstance.KeyCode.Enter, () => {
       dispatchCompilerRun(instanceId, 'monaco-shortcut');
+    });
+    instance.onDidChangeCursorSelection(({ selection }) => {
+      const model = instance.getModel();
+      const source = model?.getValue() ?? '';
+      onSelectionChange?.({
+        text: model?.getValueInRange(selection) ?? '',
+        source,
+        startOffset: model?.getOffsetAt(selection.getStartPosition()) ?? 0,
+        endOffset: model?.getOffsetAt(selection.getEndPosition()) ?? 0,
+      });
     });
     window.requestAnimationFrame(() => {
       const editorNode = instance.getDomNode();

@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-018",
+  "title": "Trace Inventory Updates",
+  "summary": "Reason about mapping state through sequential updates.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "mixed-reasoning-practical-problems",
+  "questionType": "reasoning",
+  "estimatedMinutes": 11,
+  "xp": 55,
+  "contract": {
+    "functionName": "inventory_after_updates",
+    "signature": "inventory_after_updates(inventory, updates)",
+    "input": "A product-to-quantity mapping and a collection of two-item [product, change] updates.",
+    "output": "A new mapping containing the final quantities."
+  },
+  "examples": [
+    {
+      "input": "updates change pens twice and introduce books",
+      "output": "[object Object]",
+      "explanation": "Updates apply in order to independent product state."
+    }
+  ],
+  "constraints": [
+    "0 <= entries and updates <= 1000",
+    "each update has exactly two fields"
+  ],
+  "concepts": [
+    "mapping-state",
+    "sequential-updates",
+    "collections"
+  ],
+  "skills": [
+    "state-tracing",
+    "collection-manipulation"
+  ],
+  "prerequisites": [
+    "mappings",
+    "lists",
+    "loops"
+  ],
+  "commonMistakes": [
+    "resetting a repeated product",
+    "ignoring missing products"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated and new products",
+      "arguments": [
+        {
+          "pens": 3
+        },
+        [
+          [
+            "pens",
+            2
+          ],
+          [
+            "books",
+            4
+          ],
+          [
+            "pens",
+            -1
+          ]
+        ]
+      ],
+      "expected": {
+        "books": 4,
+        "pens": 4
+      }
+    },
+    {
+      "name": "no updates",
+      "arguments": [
+        {
+          "x": 1
+        },
+        []
+      ],
+      "expected": {
+        "x": 1
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "inventory_after_updates(inventory, updates)",
+      "entryPoint": "inventory_after_updates"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-018-statement",
+      "type": "paragraph",
+      "content": "Return a new inventory mapping after applying each [product, change] update in order. A missing product starts at zero. Add the change to its current quantity, including negative changes. Do not modify the supplied inventory.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-018-contract",
+      "type": "note",
+      "title": "inventory_after_updates(inventory, updates)",
+      "content": "Input: A product-to-quantity mapping and a collection of two-item [product, change] updates.\n\nOutput: A new mapping containing the final quantities.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nupdates change pens twice and introduce books\n\nOutput\n[object Object]",
+      "caption": "Updates apply in order to independent product state."
+    },
+    {
+      "id": "fund-errors-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= entries and updates <= 1000\neach update has exactly two fields",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def inventory_after_updates(inventory, updates):\n    # Return a copied mapping after sequential updates\n    pass\n\nprint(inventory_after_updates({'pens': 3}, [['pens', 2], ['books', 4], ['pens', -1]]))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

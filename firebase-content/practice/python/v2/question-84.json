@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-018",
+  "title": "Convert Then Classify Temperature",
+  "summary": "Compose a conversion with a simple classification.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "combining-functions",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "fahrenheit_state",
+    "signature": "fahrenheit_state(fahrenheit)",
+    "input": "A numeric Fahrenheit temperature.",
+    "output": "Either `freezing` or `above freezing`."
+  },
+  "examples": [
+    {
+      "input": "fahrenheit = 32",
+      "output": "freezing",
+      "explanation": "The conversion returns zero before classification."
+    }
+  ],
+  "constraints": [
+    "-1000 <= fahrenheit <= 1000"
+  ],
+  "concepts": [
+    "function-composition",
+    "conversion",
+    "classification"
+  ],
+  "skills": [
+    "decomposition",
+    "return-value-use"
+  ],
+  "prerequisites": [
+    "functions",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "classifying Fahrenheit before conversion",
+    "excluding zero Celsius from freezing"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "freezing boundary",
+      "arguments": [
+        32
+      ],
+      "expected": "freezing"
+    },
+    {
+      "name": "above freezing",
+      "arguments": [
+        50
+      ],
+      "expected": "above freezing"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "fahrenheit_state(fahrenheit)",
+      "entryPoint": "fahrenheit_state"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-018-statement",
+      "type": "paragraph",
+      "content": "First convert Fahrenheit to Celsius using `(fahrenheit - 32) * 5 / 9`. Then return `freezing` when the converted value is at most zero and `above freezing` otherwise.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-018-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-018-contract",
+      "type": "note",
+      "title": "fahrenheit_state(fahrenheit)",
+      "content": "Input: A numeric Fahrenheit temperature.\n\nOutput: Either `freezing` or `above freezing`.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-018-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-018-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfahrenheit = 32\n\nOutput\nfreezing",
+      "caption": "The conversion returns zero before classification."
+    },
+    {
+      "id": "fund-functions-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "-1000 <= fahrenheit <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-018-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def to_celsius(fahrenheit):\n    return (fahrenheit - 32) * 5 / 9\n\ndef fahrenheit_state(fahrenheit):\n    # Use to_celsius, then classify the result\n    pass\n\nprint(fahrenheit_state(32))\n",
+      "stdin": "",
+      "expectedOutput": "freezing",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

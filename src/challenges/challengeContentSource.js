@@ -17,7 +17,7 @@ export async function loadDailyChallenge() {
       throw new ContentError(CONTENT_ERROR_CODES.metadataMissing, 'Today’s challenge is not available yet.');
     }
     const latest = [...metadata].sort((left, right) => right.date.localeCompare(left.date))[0];
-    return (await challengeService.getChallengeFromMetadata(latest)).content;
+    return { ...(await challengeService.getChallengeFromMetadata(latest)).content, version: latest.version };
   } catch (error) {
     if (!LOCAL_FALLBACK_ENABLED) throw error;
     console.warn('[Challenges] Firebase content unavailable; using the development-only local fallback.', error);

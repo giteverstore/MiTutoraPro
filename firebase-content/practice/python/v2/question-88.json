@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-002",
+  "title": "Read the Last Character",
+  "summary": "Access the final valid position of text.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-basics-indexing",
+  "questionType": "implementation",
+  "estimatedMinutes": 5,
+  "xp": 20,
+  "contract": {
+    "functionName": "last_character",
+    "signature": "last_character(text)",
+    "input": "Non-empty text.",
+    "output": "Its final character."
+  },
+  "examples": [
+    {
+      "input": "text = AX9",
+      "output": "9",
+      "explanation": "The final position contains 9."
+    }
+  ],
+  "constraints": [
+    "1 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-basics",
+    "last-position"
+  ],
+  "skills": [
+    "sequence-reasoning",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "string-indexing"
+  ],
+  "commonMistakes": [
+    "using the text length as a valid position",
+    "returning the first character"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "product code",
+      "arguments": [
+        "AX9"
+      ],
+      "expected": "9"
+    },
+    {
+      "name": "single character",
+      "arguments": [
+        "!"
+      ],
+      "expected": "!"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "last_character(text)",
+      "entryPoint": "last_character"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-002-statement",
+      "type": "paragraph",
+      "content": "Return the last character of the supplied non-empty text.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-002-contract",
+      "type": "note",
+      "title": "last_character(text)",
+      "content": "Input: Non-empty text.\n\nOutput: Its final character.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = AX9\n\nOutput\n9",
+      "caption": "The final position contains 9."
+    },
+    {
+      "id": "fund-strings-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def last_character(text):\n    # Return the final character\n    pass\n\nprint(last_character('AX9'))\n",
+      "stdin": "",
+      "expectedOutput": "9",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

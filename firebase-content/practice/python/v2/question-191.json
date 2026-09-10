@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-010",
+  "title": "Repair Complete Username Counting",
+  "summary": "Fix a return placed before traversal is complete.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "debugging-common-mistakes",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "nonempty_username_count",
+    "signature": "nonempty_username_count(usernames)",
+    "input": "A collection of username text values.",
+    "output": "The number containing non-whitespace text."
+  },
+  "examples": [
+    {
+      "input": "usernames = [Avi, spaces, Mira]",
+      "output": "2",
+      "explanation": "Both non-empty usernames must be examined."
+    }
+  ],
+  "constraints": [
+    "0 <= number of usernames <= 1000"
+  ],
+  "concepts": [
+    "debugging",
+    "loop-completion",
+    "string-validation"
+  ],
+  "skills": [
+    "debugging",
+    "control-flow-reasoning"
+  ],
+  "prerequisites": [
+    "loops",
+    "strings"
+  ],
+  "commonMistakes": [
+    "returning inside the loop",
+    "counting whitespace-only text"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed usernames",
+      "arguments": [
+        [
+          "Avi",
+          "   ",
+          "Mira"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "empty collection",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "nonempty_username_count(usernames)",
+      "entryPoint": "nonempty_username_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-010-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-010-statement",
+      "type": "paragraph",
+      "content": "Return the number of username values that contain non-whitespace text after trimming. The current implementation returns during the first traversal step and therefore ignores later values. Correct that single return-placement bug.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-010-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-010-contract",
+      "type": "note",
+      "title": "nonempty_username_count(usernames)",
+      "content": "Input: A collection of username text values.\n\nOutput: The number containing non-whitespace text.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-010-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-010-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nusernames = [Avi, spaces, Mira]\n\nOutput\n2",
+      "caption": "Both non-empty usernames must be examined."
+    },
+    {
+      "id": "fund-errors-010-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of usernames <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-010-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def nonempty_username_count(usernames):\n    count = 0\n    for username in usernames:\n        if username.strip():\n            count += 1\n        return count  # Return after traversal completes\n    return count\n\nprint(nonempty_username_count(['Avi', '   ', 'Mira']))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

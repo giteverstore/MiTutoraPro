@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-functions-020",
+  "title": "Format Name Parameters",
+  "summary": "Respect parameter meaning and handle an empty optional part.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "functions",
+  "category": "fundamentals",
+  "subtopic": "function-edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "formatted_name",
+    "signature": "formatted_name(first, last)",
+    "input": "A non-empty first name followed by last-name text that may be empty.",
+    "output": "Either `last, first` or first alone."
+  },
+  "examples": [
+    {
+      "input": "first = Mira, last = Sen",
+      "output": "Sen, Mira",
+      "explanation": "The contract accepts first then last but formats last first."
+    }
+  ],
+  "constraints": [
+    "first is non-empty",
+    "0 <= last length <= 100"
+  ],
+  "concepts": [
+    "parameter-order",
+    "empty-input",
+    "return-values"
+  ],
+  "skills": [
+    "contract-following",
+    "edge-case-handling"
+  ],
+  "prerequisites": [
+    "functions",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "swapping the argument meanings",
+    "returning punctuation for an empty last name"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "complete name",
+      "arguments": [
+        "Mira",
+        "Sen"
+      ],
+      "expected": "Sen, Mira"
+    },
+    {
+      "name": "empty last name",
+      "arguments": [
+        "Mira",
+        ""
+      ],
+      "expected": "Mira"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "formatted_name(first, last)",
+      "entryPoint": "formatted_name"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-functions-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-functions-020-statement",
+      "type": "paragraph",
+      "content": "Return a name as `last, first`. When last is empty, return only first. Respect the documented parameter order.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-functions-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-functions-020-contract",
+      "type": "note",
+      "title": "formatted_name(first, last)",
+      "content": "Input: A non-empty first name followed by last-name text that may be empty.\n\nOutput: Either `last, first` or first alone.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-functions-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nfirst = Mira, last = Sen\n\nOutput\nSen, Mira",
+      "caption": "The contract accepts first then last but formats last first."
+    },
+    {
+      "id": "fund-functions-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "first is non-empty\n0 <= last length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-functions-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def formatted_name(first, last):\n    # Respect parameter order and handle empty last\n    pass\n\nprint(formatted_name('Mira', 'Sen'))\n",
+      "stdin": "",
+      "expectedOutput": "Sen, Mira",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

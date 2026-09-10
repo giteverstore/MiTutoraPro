@@ -2,9 +2,10 @@ import {
   metadataStoragePath,
   nonNegativeNumber,
   positiveVersion,
+  requiredStringArray,
   requiredString,
   requireMetadataObject,
-} from './modelUtils';
+} from './modelUtils.js';
 
 export function createPracticeMetadata(value) {
   const metadata = requireMetadataObject(value, 'Practice');
@@ -17,7 +18,7 @@ export function createPracticeMetadata(value) {
     category: requiredString(metadata.category, 'category', 'Practice'),
     subtopic: requiredString(metadata.subtopic, 'subtopic', 'Practice'),
     questionType: requiredString(metadata.questionType, 'questionType', 'Practice'),
-    skills: Object.freeze(Array.isArray(metadata.skills) ? [...metadata.skills] : []),
+    skills: requiredStringArray(metadata.skills, 'skills', 'Practice'),
     difficulty: requiredString(metadata.difficulty, 'difficulty', 'Practice'),
     estimatedMinutes: nonNegativeNumber(metadata.estimatedMinutes, 'estimatedMinutes', 'Practice'),
     xp: nonNegativeNumber(metadata.xp, 'xp', 'Practice'),

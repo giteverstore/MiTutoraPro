@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-012",
+  "title": "Track the Highest Reading",
+  "summary": "Maintain the highest value seen during traversal.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "accumulators-counters",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "highest_reading",
+    "signature": "highest_reading(readings)",
+    "input": "A non-empty sequence of numeric readings.",
+    "output": "The highest reading."
+  },
+  "examples": [
+    {
+      "input": "readings = [3, 9, 4]",
+      "output": "9",
+      "explanation": "Nine remains the highest value seen."
+    }
+  ],
+  "constraints": [
+    "1 <= number of readings <= 1000"
+  ],
+  "concepts": [
+    "state-tracking",
+    "maximum-accumulator"
+  ],
+  "skills": [
+    "iterative-comparison",
+    "correct-initialization"
+  ],
+  "prerequisites": [
+    "conditions",
+    "sequence-traversal"
+  ],
+  "commonMistakes": [
+    "initializing the highest value to zero when all readings are negative",
+    "returning the final reading"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed readings",
+      "arguments": [
+        [
+          3,
+          9,
+          4
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "name": "all negative",
+      "arguments": [
+        [
+          -8,
+          -2,
+          -5
+        ]
+      ],
+      "expected": -2
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "highest_reading(readings)",
+      "entryPoint": "highest_reading"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-012-statement",
+      "type": "paragraph",
+      "content": "Return the highest value in a non-empty sequence of sensor readings by tracking the best value seen so far.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-012-contract",
+      "type": "note",
+      "title": "highest_reading(readings)",
+      "content": "Input: A non-empty sequence of numeric readings.\n\nOutput: The highest reading.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nreadings = [3, 9, 4]\n\nOutput\n9",
+      "caption": "Nine remains the highest value seen."
+    },
+    {
+      "id": "fund-loops-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of readings <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def highest_reading(readings):\n    highest = readings[0]\n    # Compare every remaining reading\n    return highest\n\nprint(highest_reading([3, 9, 4]))\n",
+      "stdin": "",
+      "expectedOutput": "9",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

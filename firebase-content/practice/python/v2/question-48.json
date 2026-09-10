@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-002",
+  "title": "Sum Through a Boundary",
+  "summary": "Accumulate every whole number from one through a boundary.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "basic-loops",
+  "questionType": "implementation",
+  "estimatedMinutes": 7,
+  "xp": 30,
+  "contract": {
+    "functionName": "sum_through",
+    "signature": "sum_through(limit)",
+    "input": "A positive whole-number limit.",
+    "output": "The inclusive sum from 1 through limit."
+  },
+  "examples": [
+    {
+      "input": "limit = 5",
+      "output": "15",
+      "explanation": "1 + 2 + 3 + 4 + 5 equals 15."
+    }
+  ],
+  "constraints": [
+    "1 <= limit <= 10000"
+  ],
+  "concepts": [
+    "iteration",
+    "inclusive-loop-boundary"
+  ],
+  "skills": [
+    "accumulation",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "addition"
+  ],
+  "commonMistakes": [
+    "excluding the final value",
+    "starting the total at one and adding one again"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "sum through five",
+      "arguments": [
+        5
+      ],
+      "expected": 15
+    },
+    {
+      "name": "smallest limit",
+      "arguments": [
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "sum_through(limit)",
+      "entryPoint": "sum_through"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-002-statement",
+      "type": "paragraph",
+      "content": "Given a positive whole number, return the sum of all whole numbers from 1 through that number, including the boundary.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-002-contract",
+      "type": "note",
+      "title": "sum_through(limit)",
+      "content": "Input: A positive whole-number limit.\n\nOutput: The inclusive sum from 1 through limit.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nlimit = 5\n\nOutput\n15",
+      "caption": "1 + 2 + 3 + 4 + 5 equals 15."
+    },
+    {
+      "id": "fund-loops-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= limit <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sum_through(limit):\n    total = 0\n    # Add every value from 1 through limit\n    return total\n\nprint(sum_through(5))\n",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-strings-008",
+  "title": "Trace Alternating Characters",
+  "summary": "Reason about selected positions while traversing text.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "strings",
+  "category": "fundamentals",
+  "subtopic": "string-traversal",
+  "questionType": "reasoning",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "alternating_characters",
+    "signature": "alternating_characters(text)",
+    "input": "Text that may be empty.",
+    "output": "Characters from every second position beginning with zero."
+  },
+  "examples": [
+    {
+      "input": "text = abcdefg",
+      "output": "aceg",
+      "explanation": "Positions 0, 2, 4, and 6 are selected."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 1000"
+  ],
+  "concepts": [
+    "string-traversal",
+    "position-selection"
+  ],
+  "skills": [
+    "index-reasoning",
+    "string-construction"
+  ],
+  "prerequisites": [
+    "indexing",
+    "loops"
+  ],
+  "commonMistakes": [
+    "starting at position one",
+    "skipping the final selected character"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "odd length",
+      "arguments": [
+        "abcdefg"
+      ],
+      "expected": "aceg"
+    },
+    {
+      "name": "empty text",
+      "arguments": [
+        ""
+      ],
+      "expected": ""
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "alternating_characters(text)",
+      "entryPoint": "alternating_characters"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-strings-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-strings-008-statement",
+      "type": "paragraph",
+      "content": "Return characters at zero-based positions 0, 2, 4, and so on, preserving their order.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-strings-008-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-strings-008-contract",
+      "type": "note",
+      "title": "alternating_characters(text)",
+      "content": "Input: Text that may be empty.\n\nOutput: Characters from every second position beginning with zero.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-008-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-strings-008-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = abcdefg\n\nOutput\naceg",
+      "caption": "Positions 0, 2, 4, and 6 are selected."
+    },
+    {
+      "id": "fund-strings-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-strings-008-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def alternating_characters(text):\n    result = ''\n    # Collect positions 0, 2, 4, ...\n    return result\n\nprint(alternating_characters('abcdefg'))\n",
+      "stdin": "",
+      "expectedOutput": "aceg",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

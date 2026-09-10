@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-io-006",
+  "title": "Repair Safe Integer Conversion",
+  "summary": "Validate textual input before conversion.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "input-output-parsing",
+  "category": "fundamentals",
+  "subtopic": "numeric-input-conversion",
+  "questionType": "debugging",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "safe_integer_input",
+    "signature": "safe_integer_input(text)",
+    "input": "Arbitrary text that may contain surrounding whitespace.",
+    "output": "The represented integer when valid; otherwise no value."
+  },
+  "examples": [
+    {
+      "input": "text = \" -17 \"",
+      "output": "-17",
+      "explanation": "Surrounding whitespace is ignored and the signed integer is valid."
+    }
+  ],
+  "constraints": [
+    "0 <= text length <= 100"
+  ],
+  "concepts": [
+    "validation",
+    "integer-conversion",
+    "premature-conversion"
+  ],
+  "skills": [
+    "data-validation",
+    "error-prevention"
+  ],
+  "prerequisites": [
+    "strings",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "converting before validation",
+    "accepting a minus sign without digits"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "valid negative",
+      "arguments": [
+        " -17 "
+      ],
+      "expected": -17
+    },
+    {
+      "name": "malformed decimal",
+      "arguments": [
+        "4.2"
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_integer_input(text)",
+      "entryPoint": "safe_integer_input"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-io-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-io-006-statement",
+      "type": "paragraph",
+      "content": "Return the represented integer when trimmed input contains an optional leading minus sign followed by one or more digits. Return no value for empty, sign-only, decimal, or other malformed input. The current implementation converts before validating and can fail. Correct it.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-io-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-io-006-contract",
+      "type": "note",
+      "title": "safe_integer_input(text)",
+      "content": "Input: Arbitrary text that may contain surrounding whitespace.\n\nOutput: The represented integer when valid; otherwise no value.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-io-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntext = \" -17 \"\n\nOutput\n-17",
+      "caption": "Surrounding whitespace is ignored and the signed integer is valid."
+    },
+    {
+      "id": "fund-io-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= text length <= 100",
+      "format": "plain"
+    },
+    {
+      "id": "fund-io-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_integer_input(text):\n    return int(text)  # Validate before conversion\n\nprint(safe_integer_input(' -17 '))\n",
+      "stdin": "",
+      "expectedOutput": "-17",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

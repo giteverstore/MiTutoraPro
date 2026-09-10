@@ -1,5 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/ai/explain.js": {
+      "maxDuration": 60,
+      "supportsCancellation": true
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",

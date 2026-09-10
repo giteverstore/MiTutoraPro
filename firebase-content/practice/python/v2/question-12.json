@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-variables-012",
+  "title": "Calculate Remaining Budget",
+  "summary": "Combine multiplication and subtraction in one expression.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "variables-data-types-expressions",
+  "category": "fundamentals",
+  "subtopic": "expressions-evaluation",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "remaining_budget",
+    "signature": "remaining_budget(budget, expense, count)",
+    "input": "A budget, expense amount, and non-negative whole-number count.",
+    "output": "The numeric amount remaining."
+  },
+  "examples": [
+    {
+      "input": "budget = 100, expense = 12, count = 3",
+      "output": "64",
+      "explanation": "Three expenses cost 36, leaving 64."
+    }
+  ],
+  "constraints": [
+    "0 <= expense * count <= budget",
+    "0 <= count <= 10000"
+  ],
+  "concepts": [
+    "compound-expression",
+    "operator-precedence"
+  ],
+  "skills": [
+    "translate-calculation"
+  ],
+  "prerequisites": [
+    "multiplication",
+    "subtraction"
+  ],
+  "commonMistakes": [
+    "Subtracting the count instead of total expense",
+    "Multiplying after subtraction"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "three expenses",
+      "arguments": [
+        100,
+        12,
+        3
+      ],
+      "expected": 64
+    },
+    {
+      "name": "no expenses",
+      "arguments": [
+        100,
+        12,
+        0
+      ],
+      "expected": 100
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "remaining_budget(budget, expense, count)",
+      "entryPoint": "remaining_budget"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-variables-012-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-variables-012-statement",
+      "type": "paragraph",
+      "content": "A repeated expense is paid several times. Return the budget remaining after subtracting `expense * count` from the starting budget.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-variables-012-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-variables-012-contract",
+      "type": "note",
+      "title": "remaining_budget(budget, expense, count)",
+      "content": "Input: A budget, expense amount, and non-negative whole-number count.\n\nOutput: The numeric amount remaining.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-012-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-variables-012-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nbudget = 100, expense = 12, count = 3\n\nOutput\n64",
+      "caption": "Three expenses cost 36, leaving 64."
+    },
+    {
+      "id": "fund-variables-012-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= expense * count <= budget\n0 <= count <= 10000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-variables-012-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def remaining_budget(budget, expense, count):\n    # Calculate and return the remaining budget\n    pass\n\nprint(remaining_budget(100, 12, 3))\n",
+      "stdin": "",
+      "expectedOutput": "64",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

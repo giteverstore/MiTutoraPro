@@ -1,0 +1,55 @@
+# Local environment and override files
+.env
+.env.*
+!.env.example
+*.local
+
+# Credentials and private key material
+*-firebase-adminsdk-*.json
+firebase-adminsdk*.json
+*service-account*.json
+*serviceAccount*.json
+google-credentials*.json
+gcp-credentials*.json
+firebase-admin-credentials*.json
+*.pem
+*.key
+
+# Debug and local runtime state
+firebase-debug.log
+firebase-debug.log.*
+firestore-debug.log
+firestore-debug.log.*
+storage-debug.log
+storage-debug.log.*
+debug.log
+
+# Generated build, cache, and test artifacts
+dist
+coverage
+.vite
+.cache
+.tmp
+temp
+test-results
+playwright-report
+reports
+
+# Local Vercel state
+.vercel
+
+# Unrelated local user artifact
+WhatsApp Image 2026-08-24 at 5.28.21 PM.jpeg
+
+# Course authoring sources; generated runtime course data/assets live in public/
+JAVA BASICS UPDATED.docx
+Python Module 1.docx
+MI TUtora PythonCourse.docx
+JAVA BASICS structure.docx
+
+# Design-reference screenshots that are not referenced by the application
+reference image/
+
+# Common operating-system artifacts
+.DS_Store
+Thumbs.db

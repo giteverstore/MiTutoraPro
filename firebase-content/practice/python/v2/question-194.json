@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-013",
+  "title": "Total Valid Transactions",
+  "summary": "Parse, validate, convert, and aggregate transaction text.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "combining-multiple-fundamentals",
+  "questionType": "implementation",
+  "estimatedMinutes": 14,
+  "xp": 70,
+  "contract": {
+    "functionName": "valid_transaction_total",
+    "signature": "valid_transaction_total(transactions)",
+    "input": "A collection of arbitrary transaction text values using name:amount.",
+    "output": "The numeric total of valid transaction amounts."
+  },
+  "examples": [
+    {
+      "input": "two valid and two malformed transactions",
+      "output": "10.5",
+      "explanation": "Only 12.5 and -2 are valid amounts."
+    }
+  ],
+  "constraints": [
+    "0 <= number of transactions <= 1000",
+    "delimiter is exactly colon",
+    "no escaping rules"
+  ],
+  "concepts": [
+    "parsing",
+    "validation",
+    "conversion",
+    "aggregation"
+  ],
+  "skills": [
+    "problem-decomposition",
+    "multi-concept-reasoning"
+  ],
+  "prerequisites": [
+    "strings",
+    "loops",
+    "decimals"
+  ],
+  "commonMistakes": [
+    "converting malformed input",
+    "accepting empty names or incomplete decimals"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed transactions",
+      "arguments": [
+        [
+          "Ana:12.5",
+          "bad",
+          "Leo: -2 ",
+          "Mira:4."
+        ]
+      ],
+      "expected": 10.5
+    },
+    {
+      "name": "no valid transactions",
+      "arguments": [
+        [
+          "x:",
+          ":3",
+          "none"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "valid_transaction_total(transactions)",
+      "entryPoint": "valid_transaction_total"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-013-statement",
+      "type": "paragraph",
+      "content": "Each transaction should contain exactly one colon separating a non-empty trimmed name and valid signed decimal amount text. The decimal format uses an optional sign, digits before an optional decimal point, and digits after a present decimal point. Return the total of valid amounts and ignore malformed transactions.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-013-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-013-contract",
+      "type": "note",
+      "title": "valid_transaction_total(transactions)",
+      "content": "Input: A collection of arbitrary transaction text values using name:amount.\n\nOutput: The numeric total of valid transaction amounts.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-013-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-013-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ntwo valid and two malformed transactions\n\nOutput\n10.5",
+      "caption": "Only 12.5 and -2 are valid amounts."
+    },
+    {
+      "id": "fund-errors-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of transactions <= 1000\ndelimiter is exactly colon\nno escaping rules",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-013-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def valid_transaction_total(transactions):\n    total = 0\n    # Parse, validate, convert, and aggregate valid records\n    return total\n\nprint(valid_transaction_total(['Ana:12.5', 'bad', 'Leo: -2 ', 'Mira:4.']))\n",
+      "stdin": "",
+      "expectedOutput": "10.5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

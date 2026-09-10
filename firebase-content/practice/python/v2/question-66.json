@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-loops-020",
+  "title": "Trace the Final Processed Value",
+  "summary": "Reason about empty, single-value, and final-element behavior.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "loops",
+  "category": "fundamentals",
+  "subtopic": "loop-edge-cases-common-mistakes",
+  "questionType": "reasoning",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "final_processed_value",
+    "signature": "final_processed_value(values)",
+    "input": "A sequence of values.",
+    "output": "The final value, or `none` for an empty sequence."
+  },
+  "examples": [
+    {
+      "input": "values = [first, middle, last]",
+      "output": "last",
+      "explanation": "The state is updated for every value, including the last."
+    }
+  ],
+  "constraints": [
+    "0 <= sequence length <= 1000"
+  ],
+  "concepts": [
+    "empty-sequence",
+    "single-element",
+    "final-element"
+  ],
+  "skills": [
+    "trace-iteration-state",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "sequence-traversal"
+  ],
+  "commonMistakes": [
+    "skipping the final element",
+    "failing on empty input",
+    "returning the first value"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "multiple values",
+      "arguments": [
+        [
+          "first",
+          "middle",
+          "last"
+        ]
+      ],
+      "expected": "last"
+    },
+    {
+      "name": "empty sequence",
+      "arguments": [
+        []
+      ],
+      "expected": "none"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "final_processed_value(values)",
+      "entryPoint": "final_processed_value"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-loops-020-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-loops-020-statement",
+      "type": "paragraph",
+      "content": "Process every value in order and return the final processed value. Return `none` when the sequence is empty.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-loops-020-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-loops-020-contract",
+      "type": "note",
+      "title": "final_processed_value(values)",
+      "content": "Input: A sequence of values.\n\nOutput: The final value, or `none` for an empty sequence.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-020-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-loops-020-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues = [first, middle, last]\n\nOutput\nlast",
+      "caption": "The state is updated for every value, including the last."
+    },
+    {
+      "id": "fund-loops-020-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= sequence length <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-loops-020-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def final_processed_value(values):\n    result = 'none'\n    # Update result for every processed value\n    return result\n\nprint(final_processed_value(['first', 'middle', 'last']))\n",
+      "stdin": "",
+      "expectedOutput": "last",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

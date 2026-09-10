@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-sets-001",
+  "title": "Count Unique Categories",
+  "summary": "Count distinct values rather than input positions.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "sets",
+  "category": "fundamentals",
+  "subtopic": "set-basics-uniqueness",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "unique_category_count",
+    "signature": "unique_category_count(categories)",
+    "input": "A collection of category values.",
+    "output": "The number of distinct categories."
+  },
+  "examples": [
+    {
+      "input": "categories = [books, games, books]",
+      "output": "2",
+      "explanation": "Books contributes one unique value despite appearing twice."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "set",
+    "uniqueness"
+  ],
+  "skills": [
+    "uniqueness-reasoning",
+    "collection-conversion"
+  ],
+  "prerequisites": [
+    "collections"
+  ],
+  "commonMistakes": [
+    "counting every input position",
+    "assuming duplicates remain distinct"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated categories",
+      "arguments": [
+        [
+          "books",
+          "games",
+          "books"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "name": "empty collection",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "unique_category_count(categories)",
+      "entryPoint": "unique_category_count"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-sets-001-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-sets-001-statement",
+      "type": "paragraph",
+      "content": "Return the number of unique category values in the supplied collection.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-sets-001-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-sets-001-contract",
+      "type": "note",
+      "title": "unique_category_count(categories)",
+      "content": "Input: A collection of category values.\n\nOutput: The number of distinct categories.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-001-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-sets-001-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\ncategories = [books, games, books]\n\nOutput\n2",
+      "caption": "Books contributes one unique value despite appearing twice."
+    },
+    {
+      "id": "fund-sets-001-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-sets-001-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def unique_category_count(categories):\n    # Count distinct category values\n    pass\n\nprint(unique_category_count(['books', 'games', 'books']))\n",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

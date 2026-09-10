@@ -45,6 +45,7 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
           <div className="home-course-meta">
             <span><Clock3 size={14} aria-hidden="true" /> {course.duration}</span>
             <span><BookOpen size={14} aria-hidden="true" /> {course.lessonCount} lessons</span>
+            {course.available ? <span>3 lessons free</span> : null}
           </div>
           <div className="home-course-endcap">
             {isList && course.progress > 0 ? (

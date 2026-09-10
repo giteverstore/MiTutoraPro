@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { authService as defaultService } from './AuthService';
+import { attributeReferralCode } from '../referrals/ReferralService';
 
 export function createExclusiveAuthenticationRunner() {
   let activeRequest = null;
@@ -19,6 +20,7 @@ export function createExclusiveAuthenticationRunner() {
 export function AuthProvider({ children, service = defaultService }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [referralNotice, setReferralNotice] = useState('');
   const requestRunnerRef = useRef(null);
   if (!requestRunnerRef.current) {
     requestRunnerRef.current = createExclusiveAuthenticationRunner();
@@ -45,8 +47,17 @@ export function AuthProvider({ children, service = defaultService }) {
     () => service.signInWithEmail(email, password),
   ), [runAuthenticationRequest, service]);
 
-  const signUpWithEmail = useCallback((email, password) => runAuthenticationRequest(
-    () => service.signUpWithEmail(email, password),
+  const signUpWithEmail = useCallback((email, password, referralCode = '') => runAuthenticationRequest(
+    async () => {
+      await service.signUpWithEmail(email, password);
+      if (!referralCode) return;
+      try {
+        await attributeReferralCode(referralCode);
+        setReferralNotice('Referral code applied.');
+      } catch (error) {
+        setReferralNotice(error?.message || 'The referral code could not be applied.');
+      }
+    },
   ), [runAuthenticationRequest, service]);
 
   const signOut = useCallback(async () => {
@@ -74,9 +85,12 @@ export function AuthProvider({ children, service = defaultService }) {
     signUpWithEmail,
     signOut,
     refreshUser,
+    referralNotice,
+    clearReferralNotice: () => setReferralNotice(''),
   }), [
     loading,
     refreshUser,
+    referralNotice,
     signInWithEmail,
     signInWithGoogle,
     signOut,

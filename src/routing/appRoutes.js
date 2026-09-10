@@ -1,5 +1,5 @@
 const SAFE_ID = /^[a-z0-9][a-z0-9._-]{0,127}$/i;
-const PAGE_PATHS = { home: '/', practice: '/practice', challenges: '/challenges', bookmarks: '/bookmarks', certificates: '/certificates', referrals: '/referrals', settings: '/settings', projects: '/projects' };
+const PAGE_PATHS = { home: '/', practice: '/practice', challenges: '/challenges', bookmarks: '/bookmarks', certificates: '/certificates', referrals: '/referrals', wallet: '/wallet', settings: '/settings', projects: '/projects' };
 
 const decodeId = (value) => {
   try { const decoded = decodeURIComponent(value ?? ''); return SAFE_ID.test(decoded) ? decoded : null; }

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-002",
+  "title": "Calculate a Ratio Safely",
+  "summary": "Handle a zero denominator with an explicit result.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "basic-error-handling-invalid-input",
+  "questionType": "implementation",
+  "estimatedMinutes": 6,
+  "xp": 25,
+  "contract": {
+    "functionName": "safe_ratio",
+    "signature": "safe_ratio(numerator, denominator)",
+    "input": "Two numeric values; zero is an invalid denominator.",
+    "output": "The numeric ratio, or no value for a zero denominator."
+  },
+  "examples": [
+    {
+      "input": "numerator = 12, denominator = 4",
+      "output": "3",
+      "explanation": "A non-zero denominator permits division."
+    }
+  ],
+  "constraints": [
+    "numerator and denominator are numeric"
+  ],
+  "concepts": [
+    "division-by-zero",
+    "safe-fallback"
+  ],
+  "skills": [
+    "defensive-programming",
+    "precondition-checking"
+  ],
+  "prerequisites": [
+    "division",
+    "conditions"
+  ],
+  "commonMistakes": [
+    "dividing before checking",
+    "treating a zero numerator as invalid"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "valid ratio",
+      "arguments": [
+        12,
+        4
+      ],
+      "expected": 3
+    },
+    {
+      "name": "zero denominator",
+      "arguments": [
+        12,
+        0
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "safe_ratio(numerator, denominator)",
+      "entryPoint": "safe_ratio"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-002-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-002-statement",
+      "type": "paragraph",
+      "content": "Return numerator divided by denominator when the denominator is not zero. Return no value when the denominator is zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-002-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-002-contract",
+      "type": "note",
+      "title": "safe_ratio(numerator, denominator)",
+      "content": "Input: Two numeric values; zero is an invalid denominator.\n\nOutput: The numeric ratio, or no value for a zero denominator.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-002-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-002-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nnumerator = 12, denominator = 4\n\nOutput\n3",
+      "caption": "A non-zero denominator permits division."
+    },
+    {
+      "id": "fund-errors-002-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "numerator and denominator are numeric",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-002-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def safe_ratio(numerator, denominator):\n    # Return None for a zero denominator\n    pass\n\nprint(safe_ratio(12, 4))\n",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

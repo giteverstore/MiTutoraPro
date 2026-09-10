@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-005",
+  "title": "Validate and Grade a Score",
+  "summary": "Check a score range before classification.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "defensive-programming-validation",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "validated_grade",
+    "signature": "validated_grade(score)",
+    "input": "A numeric score.",
+    "output": "Exactly Pass, Retry, or Invalid according to the defined ranges."
+  },
+  "examples": [
+    {
+      "input": "score = 60",
+      "output": "Pass",
+      "explanation": "Sixty is valid and meets the passing boundary."
+    }
+  ],
+  "constraints": [
+    "score is numeric"
+  ],
+  "concepts": [
+    "validation",
+    "range-checking",
+    "classification"
+  ],
+  "skills": [
+    "defensive-programming",
+    "boundary-analysis"
+  ],
+  "prerequisites": [
+    "conditionals",
+    "numbers"
+  ],
+  "commonMistakes": [
+    "classifying before range validation",
+    "excluding boundary values"
+  ],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "passing boundary",
+      "arguments": [
+        60
+      ],
+      "expected": "Pass"
+    },
+    {
+      "name": "invalid high score",
+      "arguments": [
+        101
+      ],
+      "expected": "Invalid"
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "validated_grade(score)",
+      "entryPoint": "validated_grade"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-005-statement",
+      "type": "paragraph",
+      "content": "A valid score is a numeric value from 0 through 100 inclusive. Return “Pass” for a valid score of at least 60, “Retry” for any other valid score, and “Invalid” for a value outside the valid range.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-005-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-005-contract",
+      "type": "note",
+      "title": "validated_grade(score)",
+      "content": "Input: A numeric score.\n\nOutput: Exactly Pass, Retry, or Invalid according to the defined ranges.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-005-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-005-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nscore = 60\n\nOutput\nPass",
+      "caption": "Sixty is valid and meets the passing boundary."
+    },
+    {
+      "id": "fund-errors-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "score is numeric",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-005-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def validated_grade(score):\n    # Validate the range before classifying\n    pass\n\nprint(validated_grade(60))\n",
+      "stdin": "",
+      "expectedOutput": "Pass",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

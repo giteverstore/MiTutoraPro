@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-019",
+  "title": "Increment a Tracked Count",
+  "summary": "Handle both existing and missing frequency keys.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "edge-cases-common-mistakes",
+  "questionType": "implementation",
+  "estimatedMinutes": 9,
+  "xp": 45,
+  "contract": {
+    "functionName": "with_count_incremented",
+    "signature": "with_count_incremented(counts, item)",
+    "input": "An item-to-count mapping and an item key.",
+    "output": "A new mapping with one count incremented or initialized."
+  },
+  "examples": [
+    {
+      "input": "item = blue",
+      "output": "[object Object]",
+      "explanation": "Blue increases from two to three."
+    }
+  ],
+  "constraints": [
+    "0 <= number of entries <= 1000",
+    "existing counts are non-negative whole numbers"
+  ],
+  "concepts": [
+    "frequency-initialization",
+    "frequency-incrementing"
+  ],
+  "skills": [
+    "frequency-tracking",
+    "missing-data-handling"
+  ],
+  "prerequisites": [
+    "membership",
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "assuming the key exists",
+    "resetting an existing count to one"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "existing item",
+      "arguments": [
+        {
+          "blue": 2,
+          "red": 1
+        },
+        "blue"
+      ],
+      "expected": {
+        "blue": 3,
+        "red": 1
+      }
+    },
+    {
+      "name": "missing item",
+      "arguments": [
+        {
+          "blue": 2
+        },
+        "green"
+      ],
+      "expected": {
+        "blue": 2,
+        "green": 1
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_count_incremented(counts, item)",
+      "entryPoint": "with_count_incremented"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-019-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping where the supplied item’s count is increased by one. If the item key is missing, add it with count one. Preserve other entries and do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-019-contract",
+      "type": "note",
+      "title": "with_count_incremented(counts, item)",
+      "content": "Input: An item-to-count mapping and an item key.\n\nOutput: A new mapping with one count incremented or initialized.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nitem = blue\n\nOutput\n[object Object]",
+      "caption": "Blue increases from two to three."
+    },
+    {
+      "id": "fund-dictionaries-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of entries <= 1000\nexisting counts are non-negative whole numbers",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_count_incremented(counts, item):\n    # Return a copy with item initialized or incremented\n    pass\n\nprint(with_count_incremented({'blue': 2, 'red': 1}, 'blue'))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-arrays-015",
+  "title": "Total the Expenses",
+  "summary": "Aggregate numeric values with a running total.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "arrays-lists",
+  "category": "fundamentals",
+  "subtopic": "aggregation-simple-transformations",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 40,
+  "contract": {
+    "functionName": "total_expenses",
+    "signature": "total_expenses(expenses)",
+    "input": "A collection of numeric expense values.",
+    "output": "Their total, or zero when empty."
+  },
+  "examples": [
+    {
+      "input": "expenses = [12.5, 7.5, 10]",
+      "output": "30",
+      "explanation": "All three values total 30."
+    }
+  ],
+  "constraints": [
+    "0 <= number of expenses <= 1000"
+  ],
+  "concepts": [
+    "aggregation",
+    "sum"
+  ],
+  "skills": [
+    "accumulator-management",
+    "collection-traversal"
+  ],
+  "prerequisites": [
+    "loops",
+    "addition"
+  ],
+  "commonMistakes": [
+    "starting the total with the first item when empty is allowed",
+    "overwriting instead of accumulating"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "several expenses",
+      "arguments": [
+        [
+          12.5,
+          7.5,
+          10
+        ]
+      ],
+      "expected": 30
+    },
+    {
+      "name": "empty expenses",
+      "arguments": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "total_expenses(expenses)",
+      "entryPoint": "total_expenses"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-arrays-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-arrays-015-statement",
+      "type": "paragraph",
+      "content": "Return the sum of all expense values. An empty collection has a total of zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-arrays-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-arrays-015-contract",
+      "type": "note",
+      "title": "total_expenses(expenses)",
+      "content": "Input: A collection of numeric expense values.\n\nOutput: Their total, or zero when empty.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-arrays-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nexpenses = [12.5, 7.5, 10]\n\nOutput\n30",
+      "caption": "All three values total 30."
+    },
+    {
+      "id": "fund-arrays-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of expenses <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-arrays-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def total_expenses(expenses):\n    total = 0\n    # Add each expense\n    return total\n\nprint(total_expenses([12.5, 7.5, 10]))\n",
+      "stdin": "",
+      "expectedOutput": "30",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

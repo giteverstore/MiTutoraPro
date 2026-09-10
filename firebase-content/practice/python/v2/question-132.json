@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-006",
+  "title": "Add Points to a Student Score",
+  "summary": "Read and update an existing mapping value.",
+  "language": "Python",
+  "difficulty": "very_easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "accessing-updating-values",
+  "questionType": "implementation",
+  "estimatedMinutes": 8,
+  "xp": 35,
+  "contract": {
+    "functionName": "with_bonus_points",
+    "signature": "with_bonus_points(scores, student, points)",
+    "input": "A score mapping, an existing student key, and numeric points.",
+    "output": "A new mapping with the adjusted student score."
+  },
+  "examples": [
+    {
+      "input": "student = Ana, points = 5",
+      "output": "[object Object]",
+      "explanation": "Ana’s existing score increases by five."
+    }
+  ],
+  "constraints": [
+    "1 <= number of entries <= 1000",
+    "student is an existing key"
+  ],
+  "concepts": [
+    "lookup",
+    "mapping-update"
+  ],
+  "skills": [
+    "key-lookup",
+    "state-tracking"
+  ],
+  "prerequisites": [
+    "addition",
+    "mapping-update"
+  ],
+  "commonMistakes": [
+    "replacing the score with the bonus",
+    "updating every student"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "positive bonus",
+      "arguments": [
+        {
+          "Ana": 70,
+          "Leo": 65
+        },
+        "Ana",
+        5
+      ],
+      "expected": {
+        "Ana": 75,
+        "Leo": 65
+      }
+    },
+    {
+      "name": "zero bonus",
+      "arguments": [
+        {
+          "Kai": 0
+        },
+        "Kai",
+        0
+      ],
+      "expected": {
+        "Kai": 0
+      }
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "with_bonus_points(scores, student, points)",
+      "entryPoint": "with_bonus_points"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-006-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping where the existing student’s score is increased by the supplied points. Preserve all other entries and do not modify the supplied mapping.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-006-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-006-contract",
+      "type": "note",
+      "title": "with_bonus_points(scores, student, points)",
+      "content": "Input: A score mapping, an existing student key, and numeric points.\n\nOutput: A new mapping with the adjusted student score.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-006-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-006-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nstudent = Ana, points = 5\n\nOutput\n[object Object]",
+      "caption": "Ana’s existing score increases by five."
+    },
+    {
+      "id": "fund-dictionaries-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 <= number of entries <= 1000\nstudent is an existing key",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-006-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def with_bonus_points(scores, student, points):\n    # Return a copy with the adjusted score\n    pass\n\nprint(with_bonus_points({'Ana': 70, 'Leo': 65}, 'Ana', 5))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

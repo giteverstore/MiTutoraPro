@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-dictionaries-015",
+  "title": "Count Word Frequencies",
+  "summary": "Build an item-to-count mapping.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "dictionaries-hash-maps",
+  "category": "fundamentals",
+  "subtopic": "counting-frequency-tracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 10,
+  "xp": 50,
+  "contract": {
+    "functionName": "word_frequencies",
+    "signature": "word_frequencies(words)",
+    "input": "A collection of words.",
+    "output": "A word-to-count mapping."
+  },
+  "examples": [
+    {
+      "input": "words = [apple, banana, apple]",
+      "output": "[object Object]",
+      "explanation": "Apple occurs twice and banana once."
+    }
+  ],
+  "constraints": [
+    "0 <= number of words <= 1000"
+  ],
+  "concepts": [
+    "frequency-counting",
+    "key-value-mapping"
+  ],
+  "skills": [
+    "frequency-tracking",
+    "collection-traversal"
+  ],
+  "prerequisites": [
+    "loops",
+    "membership"
+  ],
+  "commonMistakes": [
+    "resetting every count to one",
+    "combining words with different case"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "publicTests": [
+    {
+      "name": "repeated word",
+      "arguments": [
+        [
+          "apple",
+          "banana",
+          "apple"
+        ]
+      ],
+      "expected": {
+        "apple": 2,
+        "banana": 1
+      }
+    },
+    {
+      "name": "empty words",
+      "arguments": [
+        []
+      ],
+      "expected": {}
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "word_frequencies(words)",
+      "entryPoint": "word_frequencies"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-dictionaries-015-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-dictionaries-015-statement",
+      "type": "paragraph",
+      "content": "Return a new mapping from each distinct word to the number of times it occurs in the supplied collection. Matching is case-sensitive.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-dictionaries-015-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-dictionaries-015-contract",
+      "type": "note",
+      "title": "word_frequencies(words)",
+      "content": "Input: A collection of words.\n\nOutput: A word-to-count mapping.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-015-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-dictionaries-015-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nwords = [apple, banana, apple]\n\nOutput\n[object Object]",
+      "caption": "Apple occurs twice and banana once."
+    },
+    {
+      "id": "fund-dictionaries-015-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of words <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-dictionaries-015-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def word_frequencies(words):\n    counts = {}\n    # Initialize or increment each word count\n    return counts\n\nprint(word_frequencies(['apple', 'banana', 'apple']))\n",
+      "stdin": "",
+      "expectedOutput": "[object Object]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

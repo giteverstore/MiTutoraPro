@@ -1,11 +1,13 @@
-import { Coins, Gift, UserCheck, Users } from 'lucide-react';
+import { BadgeIndianRupee, Gift, UserCheck, Users } from 'lucide-react';
+
+const money = (minor) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(minor / 100);
 
 export function ReferralOverview({ profile }) {
   const items = [
     { label: 'Referral Code', value: profile.referralCode, icon: Gift },
-    { label: 'Total Invites', value: profile.totalInvites, icon: Users },
-    { label: 'Successful Referrals', value: profile.successfulReferrals, icon: UserCheck },
-    { label: 'MI Coins Earned', value: profile.coinsEarned, icon: Coins },
+    { label: 'Referred', value: profile.totalReferred, icon: Users },
+    { label: 'Qualified', value: profile.qualified, icon: UserCheck },
+    { label: 'Calculated rewards', value: money(profile.calculatedRewardsMinor), icon: BadgeIndianRupee },
   ];
   return (
     <section className="referral-overview" aria-labelledby="referral-overview-title">

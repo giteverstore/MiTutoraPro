@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "fund-errors-019",
+  "title": "Reason About the Highest Valid Score",
+  "summary": "Combine invalid-input filtering with boundary-aware collection reasoning.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "error-handling-mixed",
+  "category": "fundamentals",
+  "subtopic": "mixed-reasoning-practical-problems",
+  "questionType": "reasoning",
+  "estimatedMinutes": 11,
+  "xp": 55,
+  "contract": {
+    "functionName": "highest_valid_score",
+    "signature": "highest_valid_score(score_texts)",
+    "input": "A collection of arbitrary score text values.",
+    "output": "The highest valid score, or no value when none is valid."
+  },
+  "examples": [
+    {
+      "input": "values include valid, malformed, and out-of-range text",
+      "output": "100",
+      "explanation": "One hundred is valid and is the highest accepted score."
+    }
+  ],
+  "constraints": [
+    "0 <= number of values <= 1000"
+  ],
+  "concepts": [
+    "validation",
+    "conversion",
+    "collections",
+    "boundary-values"
+  ],
+  "skills": [
+    "multi-concept-reasoning",
+    "edge-case-analysis"
+  ],
+  "prerequisites": [
+    "strings",
+    "lists",
+    "conditionals"
+  ],
+  "commonMistakes": [
+    "accepting negative or decimal text",
+    "rejecting zero or one hundred"
+  ],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "publicTests": [
+    {
+      "name": "mixed boundary values",
+      "arguments": [
+        [
+          " 40 ",
+          "bad",
+          "100",
+          "101",
+          "-2"
+        ]
+      ],
+      "expected": 100
+    },
+    {
+      "name": "no valid values",
+      "arguments": [
+        [
+          "",
+          "-1",
+          "4.5"
+        ]
+      ],
+      "expected": null
+    }
+  ],
+  "implementations": {
+    "python": {
+      "languageId": "python",
+      "signature": "highest_valid_score(score_texts)",
+      "entryPoint": "highest_valid_score"
+    }
+  },
+  "blocks": [
+    {
+      "id": "fund-errors-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "fund-errors-019-statement",
+      "type": "paragraph",
+      "content": "Trim each text value. A valid score contains digits only and represents a value from 0 through 100 inclusive. Ignore invalid values and return the highest valid score. Return no value when no valid score exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "fund-errors-019-contract-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Function Contract"
+    },
+    {
+      "id": "fund-errors-019-contract",
+      "type": "note",
+      "title": "highest_valid_score(score_texts)",
+      "content": "Input: A collection of arbitrary score text values.\n\nOutput: The highest valid score, or no value when none is valid.",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-019-example-heading",
+      "type": "heading",
+      "level": 3,
+      "text": "Example"
+    },
+    {
+      "id": "fund-errors-019-example",
+      "type": "code",
+      "language": "text",
+      "code": "Input\nvalues include valid, malformed, and out-of-range text\n\nOutput\n100",
+      "caption": "One hundred is valid and is the highest accepted score."
+    },
+    {
+      "id": "fund-errors-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 <= number of values <= 1000",
+      "format": "plain"
+    },
+    {
+      "id": "fund-errors-019-compiler",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def highest_valid_score(score_texts):\n    # Filter safely, then track the highest valid score\n    pass\n\nprint(highest_valid_score([' 40 ', 'bad', '100', '101', '-2']))\n",
+      "stdin": "",
+      "expectedOutput": "100",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

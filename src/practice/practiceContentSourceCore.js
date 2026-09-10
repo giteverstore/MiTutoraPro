@@ -67,10 +67,10 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
       if (source === 'local') {
         const question = localQuestions.find(({ id }) => id === metadata.id);
         if (!question) throw new Error('The local Practice question could not be found.');
-        return question;
+        return { ...question, version: metadata.version ?? 'v2' };
       }
       try {
-        return (await firebaseService.getQuestionFromMetadata(metadata)).content;
+        return { ...(await firebaseService.getQuestionFromMetadata(metadata)).content, version: metadata.version };
       } catch (error) {
         onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.storageDownload);
         throw error;
@@ -80,13 +80,13 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
       if (source === 'local') {
         const question = localQuestions.find(({ id }) => id === questionId);
         if (!question) throw new Error('The local Practice question could not be found.');
-        return question;
+        return { ...question, version: question.version ?? 'v2' };
       }
       try {
         const [publication, metadata] = await Promise.all([getPublication(), firebaseService.getMetadata(questionId)]);
         if (publication?.activeVersion && metadata.version !== publication.activeVersion) throw new Error('This Practice question is not part of the active publication.');
         if (publication?.integrityRequired && !/^[a-f0-9]{64}$/.test(metadata.contentHash)) throw new Error('Published Practice metadata is missing required content integrity information.');
-        return (await firebaseService.getQuestionFromMetadata(metadata)).content;
+        return { ...(await firebaseService.getQuestionFromMetadata(metadata)).content, version: metadata.version };
       } catch (error) {
         onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.storageDownload);
         throw error;

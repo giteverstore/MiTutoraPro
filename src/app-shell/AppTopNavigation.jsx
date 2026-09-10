@@ -1,5 +1,6 @@
 import { Bell, LogOut, Menu, Moon, Sun, UserRound } from 'lucide-react';
 import { UserAvatar } from '../components/UserAvatar';
+import { CoinBalanceBadge } from '../coins/CoinBalanceBadge';
 
 export function AppTopNavigation({
   pageLabel,
@@ -20,6 +21,7 @@ export function AppTopNavigation({
       </button>
       <strong className="application-page-title">{pageLabel}</strong>
       <div className="application-topbar-actions">
+        <CoinBalanceBadge />
         <button className="application-icon-button" type="button" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
           {theme === 'dark' ? <Sun /> : <Moon />}
         </button>

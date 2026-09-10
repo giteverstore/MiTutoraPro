@@ -1,36 +1,27 @@
-const REFERRAL_STATUSES = new Set(['invited', 'joined', 'qualified']);
-const REWARD_STATUSES = new Set(['pending', 'earned']);
+const REFERRAL_STATUSES = new Set(['ATTRIBUTED', 'QUALIFIED']);
 
 export function createReferralEntry(entry) {
-  if (!entry.id || !entry.friendName || !REFERRAL_STATUSES.has(entry.status)) {
-    throw new Error('Referral entries require a valid id, friend name, and status.');
-  }
-  if (!REWARD_STATUSES.has(entry.rewardStatus)) {
-    throw new Error(`Invalid referral reward status "${entry.rewardStatus}".`);
-  }
+  if (!entry.referralId || !REFERRAL_STATUSES.has(entry.status)) throw new Error('Referral entries require a valid id and status.');
   return {
-    id: entry.id,
-    friendName: entry.friendName,
-    joinDate: entry.joinDate ?? null,
+    id: entry.referralId,
+    attributedAt: entry.attributedAt ?? null,
+    qualifiedAt: entry.qualifiedAt ?? null,
     status: entry.status,
-    rewardStatus: entry.rewardStatus,
-    rewardCoins: entry.rewardCoins ?? 0,
+    calculatedRewardMinor: entry.calculatedRewardMinor ?? null,
+    currency: entry.currency ?? 'INR',
   };
 }
 
 export function createReferralProfile(profile) {
   return {
     schemaVersion: '1.0.0',
-    referralCode: profile.referralCode,
-    referralLink: profile.referralLink,
-    totalInvites: profile.totalInvites ?? 0,
-    successfulReferrals: profile.successfulReferrals ?? 0,
-    coinsEarned: profile.coinsEarned ?? 0,
-    rewards: {
-      referrerCoins: profile.rewards?.referrerCoins ?? 0,
-      referredUserCoins: profile.rewards?.referredUserCoins ?? 0,
-      qualification: profile.rewards?.qualification ?? '',
-    },
-    history: (profile.history ?? []).map(createReferralEntry),
+    referralCode: profile.identity?.code ?? '',
+    referralLink: `${globalThis.location?.origin ?? 'https://mi-tutora-pro.vercel.app'}/?ref=${profile.identity?.code ?? ''}`,
+    attribution: profile.attribution ?? null,
+    totalReferred: profile.referrals?.length ?? 0,
+    attributed: profile.referrals?.filter(({ status }) => status === 'ATTRIBUTED').length ?? 0,
+    qualified: profile.referrals?.filter(({ status }) => status === 'QUALIFIED').length ?? 0,
+    calculatedRewardsMinor: profile.referrals?.reduce((sum, item) => sum + (item.calculatedRewardMinor ?? 0), 0) ?? 0,
+    history: (profile.referrals ?? []).map(createReferralEntry),
   };
 }
