@@ -49,6 +49,10 @@ export class RazorpayPaymentCoordinator {
 
   async processWebhook({ rawBody, headers }) {
     const normalized = await this.provider.verifyWebhook({ rawBody, headers });
+    return this.processVerifiedWebhook(normalized);
+  }
+
+  async processVerifiedWebhook(normalized) {
     if (normalized.ignored) return normalized;
     const { favorableResolution = false, ...financialEvidence } = normalized;
     const order = await this.paymentService.getOrderByProviderOrderId(normalized.providerOrderId);

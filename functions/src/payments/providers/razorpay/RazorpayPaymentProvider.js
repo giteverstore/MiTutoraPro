@@ -162,10 +162,17 @@ export class RazorpayPaymentProvider {
   }
 
   async verifyWebhook({ rawBody, headers }) {
-    if (!(rawBody instanceof Uint8Array)) fail('payment/invalid-webhook', 'Webhook raw body is required.');
+    return verifyRazorpayWebhook({ rawBody, headers, webhookSecret: this.webhookSecret });
+  }
+
+  getCheckoutKeyId() { return this.keyId; }
+}
+
+export function verifyRazorpayWebhook({ rawBody, headers, webhookSecret }) {
+  if (!(rawBody instanceof Uint8Array)) fail('payment/invalid-webhook', 'Webhook raw body is required.');
     const signature = headers?.['x-razorpay-signature'] ?? headers?.['X-Razorpay-Signature'];
     const eventId = headers?.['x-razorpay-event-id'] ?? headers?.['X-Razorpay-Event-Id'];
-    const expected = createHmac('sha256', this.webhookSecret).update(rawBody).digest('hex');
+    const expected = createHmac('sha256', webhookSecret).update(rawBody).digest('hex');
     if (!safeEqualHex(expected, signature)) fail('payment/invalid-webhook-signature', 'Webhook signature is invalid.', 401);
     if (typeof eventId !== 'string' || !EVENT_ID.test(eventId)) fail('payment/invalid-webhook', 'Webhook event identity is invalid.');
     let payload;
@@ -211,9 +218,18 @@ export class RazorpayPaymentProvider {
     if (!IDENTIFIER.test(providerOrderId ?? '') || !IDENTIFIER.test(providerPaymentId ?? '') || !STATUS[providerStatus]) fail('payment/invalid-webhook', 'Webhook payment data is invalid.');
     if (providerStatus === 'captured' && payment?.captured !== true) fail('payment/invalid-webhook', 'Webhook capture evidence is incomplete.');
     return Object.freeze({ provider: 'razorpay', eventId, eventType: payload.event, providerOrderId, providerPaymentId, status: STATUS[providerStatus], amountMinor: payment?.amount ?? order?.amount_paid, currency: payment?.currency ?? order?.currency, occurredAt: Number(entity.created_at) || null });
+}
+
+export class RazorpayWebhookVerifier {
+  constructor({ environment = process.env } = {}) {
+    if (String(environment.PAYMENT_PROVIDER ?? '').trim() !== 'razorpay') fail('payment/provider-unavailable', 'Payment provider configuration is unavailable.', 503);
+    this.webhookSecret = required(environment, 'RAZORPAY_PAYMENT_WEBHOOK_SECRET');
+    if (Buffer.byteLength(this.webhookSecret, 'utf8') < 16) fail('payment/provider-unavailable', 'Payment provider configuration is unavailable.', 503);
   }
 
-  getCheckoutKeyId() { return this.keyId; }
+  async verifyWebhook({ rawBody, headers }) {
+    return verifyRazorpayWebhook({ rawBody, headers, webhookSecret: this.webhookSecret });
+  }
 }
 
 export function createRazorpayPaymentProvider(options) { return new RazorpayPaymentProvider(options); }
