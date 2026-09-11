@@ -8,6 +8,7 @@ vi.mock('../../src/firebase/firebase', () => ({ useFirebaseEmulators: false }));
 vi.mock('../../src/subscriptions/SubscriptionRepository', () => ({ SubscriptionRepository: class {} }));
 
 const { SubscriptionPanel, subscriptionPlanPresentation } = await import('../../src/subscriptions/SubscriptionPanel.jsx');
+const { loadRazorpayCheckout } = await import('../../src/subscriptions/RazorpayCheckout.js');
 const { openPremiumPlans } = await import('../../src/access/PremiumGate.jsx');
 const free = { tier: 'FREE', active: false, planId: null, expiresAt: null };
 const premium = { tier: 'PREMIUM', active: true, planId: 'monthly', expiresAt: new Date('2026-10-10T00:00:00Z') };
@@ -59,19 +60,70 @@ describe('M4.2 subscription plan actions', () => {
   it('opens one production checkout and waits for verified CAPTURED state before showing Premium', async () => {
     const getCurrent = vi.fn().mockResolvedValueOnce(free).mockResolvedValueOnce(premium);
     const fetchImpl = vi.fn()
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ internalOrderId: 'order_internal', providerOrderId: 'order_12345678', keyId: 'rzp_test_public', amountMinor: 49_900, currency: 'INR' }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ internalOrderId: 'order_internal', providerOrderId: 'order_12345678', keyId: 'rzp_test_public', amountMinor: 49_900, currency: 'INR', planId: 'monthly' }) })
       .mockResolvedValueOnce({ ok: true, json: async () => ({ paymentId: 'payment_internal', status: 'CAPTURED' }) });
     let checkoutOptions;
-    class Checkout { constructor(options) { checkoutOptions = options; } open() {} }
+    const open = vi.fn();
+    class Checkout { constructor(options) { checkoutOptions = options; } open() { open(); } }
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} />);
     fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
     await waitFor(() => expect(checkoutOptions).toBeTruthy());
+    expect(open).toHaveBeenCalledOnce();
     expect(screen.getByText('Free', { selector: 'strong' })).toBeTruthy();
     await checkoutOptions.handler({ razorpay_order_id: 'order_12345678', razorpay_payment_id: 'pay_1234567890', razorpay_signature: 'synthetic-signature' });
     expect(await screen.findByText('Premium', { selector: 'strong' })).toBeTruthy();
     expect(fetchImpl).toHaveBeenCalledTimes(2);
     expect(JSON.parse(fetchImpl.mock.calls[0][1].body)).toEqual({ planId: 'monthly', requestId: 'request-ui-idempotency-0001' });
     expect(JSON.parse(fetchImpl.mock.calls[1][1].body)).not.toHaveProperty('amountMinor');
+  });
+
+  it('does not request an order when Checkout script loading fails', async () => {
+    const fetchImpl = vi.fn(); const tokenProvider = vi.fn(); const logger = { warn: vi.fn() };
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={tokenProvider} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => { throw new Error('blocked'); }} logger={logger} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    const alert = await screen.findByRole('alert');
+    expect(alert.dataset.paymentFailureCategory).toBe('CHECKOUT_SCRIPT_LOAD_FAILED');
+    expect(alert.textContent).toBe('Checkout could not be started. No payment was confirmed.');
+    expect(tokenProvider).not.toHaveBeenCalled();
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(logger.warn).toHaveBeenCalledWith('payment-checkout-failure', { category: 'CHECKOUT_SCRIPT_LOAD_FAILED' });
+  });
+
+  it('does not request an order when Checkout global is unavailable', async () => {
+    const fetchImpl = vi.fn(); const tokenProvider = vi.fn();
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={tokenProvider} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => undefined} logger={{ warn: vi.fn() }} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('CHECKOUT_GLOBAL_UNAVAILABLE');
+    expect(tokenProvider).not.toHaveBeenCalled();
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it('does not request an order when Firebase token acquisition fails', async () => {
+    const fetchImpl = vi.fn(); const Checkout = vi.fn();
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => { throw new Error('private auth detail'); }} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('AUTH_TOKEN_FAILED');
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(Checkout).not.toHaveBeenCalled();
+  });
+
+  it('classifies order request failure without constructing Checkout', async () => {
+    const Checkout = vi.fn();
+    const fetchImpl = vi.fn(async () => ({ ok: false, json: async () => ({ error: { code: 'payment/unavailable' } }) }));
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_REQUEST_FAILED');
+    expect(fetchImpl).toHaveBeenCalledOnce();
+    expect(Checkout).not.toHaveBeenCalled();
+  });
+
+  it('rejects an invalid successful order response before constructing Checkout', async () => {
+    const Checkout = vi.fn();
+    const fetchImpl = vi.fn(async () => ({ ok: true, json: async () => ({ providerOrderId: 'order_12345678' }) }));
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_RESPONSE_INVALID');
+    expect(Checkout).not.toHaveBeenCalled();
   });
 
   it('keeps FREE on grant or entitlement-read failure', async () => {
@@ -82,5 +134,34 @@ describe('M4.2 subscription plan actions', () => {
     rerender(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={{ uid: 'another-user' }} repositoryFactory={() => ({ getCurrent: async () => { throw new Error('unavailable'); } })} />);
     await waitFor(() => expect(screen.getByRole('alert').textContent).toContain('unavailable'));
     expect(screen.queryByText('Premium', { selector: 'strong' })).toBeNull();
+  });
+});
+
+describe('Razorpay Checkout script loading', () => {
+  afterEach(() => { document.head.innerHTML = ''; delete window.Razorpay; });
+
+  it('deduplicates simultaneous loads and resolves only after the global exists', async () => {
+    const first = loadRazorpayCheckout(document, window);
+    const second = loadRazorpayCheckout(document, window);
+    const scripts = document.querySelectorAll('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+    expect(scripts).toHaveLength(1);
+    class Checkout {}
+    window.Razorpay = Checkout;
+    scripts[0].dispatchEvent(new Event('load'));
+    await expect(first).resolves.toBe(Checkout);
+    await expect(second).resolves.toBe(Checkout);
+  });
+
+  it('removes a stale failed element before one bounded fresh load', async () => {
+    const stale = document.createElement('script');
+    stale.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    stale.dataset.mitutoraPaymentState = 'failed';
+    document.head.append(stale);
+    const pending = loadRazorpayCheckout(document, window);
+    const scripts = document.querySelectorAll('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+    expect(scripts).toHaveLength(1);
+    expect(scripts[0]).not.toBe(stale);
+    scripts[0].dispatchEvent(new Event('error'));
+    await expect(pending).rejects.toMatchObject({ category: 'CHECKOUT_SCRIPT_LOAD_FAILED' });
   });
 });
