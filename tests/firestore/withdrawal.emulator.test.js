@@ -4,12 +4,13 @@ import { WithdrawalService } from '../../functions/src/withdrawals/WithdrawalSer
 import { reconcileWalletProjection } from '../../functions/src/wallet/WalletService.js';
 import { WalletService } from '../../functions/src/wallet/WalletService.js';
 import { ReferralService } from '../../functions/src/referrals/ReferralService.js';
+import { createCanonicalCapturedPayment } from './financialFixtures.js';
 
 const PROJECT_ID = 'demo-local-coin-ledger';
 let db;
 const service = () => new WithdrawalService({ db, timestamp: Timestamp, allowWithdrawalRequests: true, allowSyntheticTransitions: true });
 const request = (requestId = 'request-concurrent-001', amountMinor = 50_000) => ({ principal: { uid: 'owner' }, request: { requestId, amountMinor } });
-async function reset() { for (const name of ['users', 'referralCodes', 'referrals', 'referralPurchaseQualifications', 'walletSettlementIdempotency', 'withdrawalIdempotency', 'withdrawalTransitionIdempotency', 'withdrawalLookup']) await db.recursiveDelete(db.collection(name)); }
+async function reset() { for (const name of ['users', 'referralCodes', 'referrals', 'referralPurchaseQualifications', 'walletSettlementIdempotency', 'withdrawalIdempotency', 'withdrawalTransitionIdempotency', 'withdrawalLookup', 'paymentOrders', 'payments']) await db.recursiveDelete(db.collection(name)); }
 beforeAll(() => { if (process.env.COIN_LEDGER_EMULATOR_TEST !== 'true' || !process.env.FIRESTORE_EMULATOR_HOST) throw new Error('Withdrawal emulator isolation marker is missing.'); expect(process.env.FIREBASE_PROJECT_ID).toBe(PROJECT_ID); db = new Firestore({ projectId: PROJECT_ID }); });
 beforeEach(reset); afterAll(async () => { if (db) { await reset(); await db.terminate(); } });
 
@@ -21,6 +22,7 @@ describe.sequential('M7 withdrawal transactional behavior', () => {
     for (let index = 1; index <= 4; index += 1) {
       const purchaserUid = `buyer-${index}`;
       const attributed = await referrals.attributeReferral({ principal: { uid: purchaserUid }, request: { referralCode: 'MITM7E2E1' } });
+      await createCanonicalCapturedPayment(db, Timestamp, { paymentId: `purchase-m7-e2e-${index}`, ownerUid: purchaserUid, planId: 'annual' });
       const qualified = await referrals.qualifyReferralFromVerifiedPurchase({ trusted: true, evidenceType: 'VERIFIED_PREMIUM_PURCHASE', source: 'PAYMENT', purchaserUid, purchaseId: `purchase-m7-e2e-${index}`, planId: 'annual', amountMinor: 149_900, currency: 'INR' });
       expect(qualified).toMatchObject({ qualified: true, calculatedRewardMinor: 14_990 });
       if (index === 1) expect((await db.doc('users/owner/wallet/account').get()).exists).toBe(false);

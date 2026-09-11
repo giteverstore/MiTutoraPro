@@ -10,6 +10,7 @@ const VERIFIED_PURCHASE = 'VERIFIED_PREMIUM_PURCHASE';
 const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function fail(code, message) { throw Object.assign(new Error(message), { code }); }
 function snapshotData(snapshot) { return snapshot?.exists ? snapshot.data() : null; }
+function dateOf(value) { return value?.toDate?.() ?? (value instanceof Date ? value : null); }
 
 export function normalizeReferralCode(value) {
   const code = String(value ?? '').trim().toUpperCase().replace(/[\s-]+/g, '');
@@ -116,8 +117,25 @@ export class ReferralService {
         if (storedEvent.fingerprint !== fingerprint) fail('referral/purchase-conflict', 'Purchase identity was reused with conflicting evidence.');
         return { duplicate: true, qualified: true, ...storedEvent.result };
       }
+      const payment = snapshotData(await tx.get(this.db.doc(`payments/${event.purchaseId}`)));
+      if (!payment
+        || payment.paymentId !== event.purchaseId
+        || payment.ownerUid !== event.purchaserUid
+        || payment.planId !== plan.planId
+        || payment.planVersion !== plan.version
+        || payment.amountMinor !== plan.priceMinor
+        || payment.currency !== plan.currency
+        || !['CAPTURED', 'PARTIALLY_REFUNDED'].includes(payment.status)) {
+        fail('referral/purchase-mismatch', 'Purchase evidence does not match the canonical captured payment.');
+      }
       const attribution = snapshotData(await tx.get(this.db.doc(`users/${event.purchaserUid}/referralAttribution/current`)));
       if (!attribution) return { qualified: false, reason: 'NO_ATTRIBUTION' };
+      const attributedAt = dateOf(attribution.attributedAt);
+      const capturedAt = dateOf(payment.capturedAt);
+      if (!attributedAt || !capturedAt) fail('referral/integrity-failure', 'Referral and payment chronology is incomplete.');
+      if (attributedAt.getTime() > capturedAt.getTime()) {
+        return { qualified: false, reason: 'ATTRIBUTED_AFTER_PURCHASE' };
+      }
       const referralRef = this.db.doc(`referrals/${referralIdFor(event.purchaserUid)}`);
       const record = snapshotData(await tx.get(referralRef));
       if (!record) fail('referral/integrity-failure', 'Referral attribution is incomplete.');

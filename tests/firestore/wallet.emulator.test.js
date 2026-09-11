@@ -2,6 +2,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { Firestore, Timestamp } from '@google-cloud/firestore';
 import { WalletService, reconcileWalletProjection } from '../../functions/src/wallet/WalletService.js';
 import { ReferralService } from '../../functions/src/referrals/ReferralService.js';
+import { createCanonicalCapturedPayment } from './financialFixtures.js';
 
 const PROJECT_ID = 'demo-local-coin-ledger';
 let db;
@@ -9,7 +10,7 @@ const service = () => new WalletService({ db, timestamp: Timestamp, allowSynthet
 const evidence = { trusted: true, evidenceType: 'SYNTHETIC_REFERRAL_SETTLEMENT', settlementId: 'settlement-concurrent-001', referralId: 'referral-concurrent-001' };
 
 async function reset() {
-  for (const name of ['users', 'referrals', 'walletSettlementIdempotency']) await db.recursiveDelete(db.collection(name));
+  for (const name of ['users', 'referralCodes', 'referrals', 'referralPurchaseQualifications', 'walletSettlementIdempotency', 'paymentOrders', 'payments']) await db.recursiveDelete(db.collection(name));
 }
 beforeAll(() => {
   if (process.env.COIN_LEDGER_EMULATOR_TEST !== 'true' || !process.env.FIRESTORE_EMULATOR_HOST) throw new Error('Wallet emulator isolation marker is missing.');
@@ -52,6 +53,7 @@ describe.sequential('M6 wallet transactional settlement', () => {
     await db.doc('users/premium-owner/subscriptions/premium-sub').create({ ownerUid: 'premium-owner', status: 'ACTIVE', planId: 'monthly', expiresAt: Timestamp.fromDate(new Date('2027-01-01T00:00:00Z')) });
     const referrals = new ReferralService({ db, timestamp: Timestamp, now: () => new Date('2026-09-10T00:00:00Z') });
     const attributed = await referrals.attributeReferral({ principal: { uid: 'premium-buyer' }, request: { referralCode: 'MITPREM24' } });
+    await createCanonicalCapturedPayment(db, Timestamp, { paymentId: 'purchase-premium-001', ownerUid: 'premium-buyer', planId: 'monthly' });
     const qualified = await referrals.qualifyReferralFromVerifiedPurchase({ trusted: true, evidenceType: 'VERIFIED_PREMIUM_PURCHASE', source: 'PAYMENT', purchaserUid: 'premium-buyer', purchaseId: 'purchase-premium-001', planId: 'monthly', amountMinor: 49900, currency: 'INR' });
     expect(qualified).toMatchObject({ calculatedRewardMinor: 7485, rewardRateBps: 1500 });
     expect((await db.doc('users/premium-owner/wallet/account').get()).exists).toBe(false);

@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { Firestore, Timestamp } from '@google-cloud/firestore';
 import { ReferralService } from '../../functions/src/referrals/ReferralService.js';
+import { createCanonicalCapturedPayment } from './financialFixtures.js';
 
 const PROJECT_ID = 'demo-local-coin-ledger';
 let db;
@@ -13,7 +14,7 @@ const service = () => new ReferralService({
 });
 
 async function reset() {
-  for (const name of ['users', 'referralCodes', 'referrals', 'referralPurchaseQualifications']) {
+  for (const name of ['users', 'referralCodes', 'referrals', 'referralPurchaseQualifications', 'paymentOrders', 'payments']) {
     await db.recursiveDelete(db.collection(name));
   }
   serial = 0;
@@ -40,6 +41,7 @@ describe.sequential('M5 referral transaction behavior', () => {
     await db.doc('referralCodes/MITABC234').create({ code: 'MITABC234', ownerUid: 'referrer', active: true });
     const referrals = service();
     await referrals.attributeReferral({ principal: { uid: 'buyer' }, request: { referralCode: 'MITABC234' } });
+    await createCanonicalCapturedPayment(db, Timestamp, { paymentId: 'purchase_concurrent_001', ownerUid: 'buyer', planId: 'monthly' });
     const evidence = { trusted: true, evidenceType: 'VERIFIED_PREMIUM_PURCHASE', source: 'PAYMENT', purchaserUid: 'buyer', purchaseId: 'purchase_concurrent_001', planId: 'monthly', amountMinor: 49_900, currency: 'INR' };
     const results = await Promise.all(Array.from({ length: 8 }, () => referrals.qualifyReferralFromVerifiedPurchase(evidence)));
     expect(results.filter(({ duplicate }) => duplicate !== true)).toHaveLength(1);

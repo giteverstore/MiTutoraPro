@@ -24,3 +24,5 @@ Rules permit owner reads of identity, attribution, and read model, deny cross-us
 `ReferralService.qualifyReferralFromVerifiedPurchase()` is internal and is not a browser callable. It requires trusted `VERIFIED_PREMIUM_PURCHASE` evidence, resolves the canonical plan price, reads the referrer's backed entitlement transactionally, and commits qualification/read-model/replay state atomically. Duplicate evidence is idempotent and conflicts fail closed. M8 will supply real verified payment events.
 
 A qualified record is only a **calculated referral reward**. M5 creates no wallet, withdrawable balance, payout, withdrawal, payment, settlement, coin reward, or conversion. M6 owns the wallet/ledger, M7 withdrawals, and M8 verified payment authority. Coins remain separate.
+
+M8.2 connects only canonical CAPTURED payment evidence to this existing qualification seam. A qualified reward enters the monetary wallet as PENDING and is not AVAILABLE or withdrawable until a future trusted financial-settlement/cooling policy authorizes release.

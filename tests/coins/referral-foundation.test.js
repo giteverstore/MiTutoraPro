@@ -29,6 +29,10 @@ describe('M5.1 referral policy', () => {
   });
   it.each([[49900, 1000, 4990], [99900, 1000, 9990], [149900, 1000, 14990], [49900, 1500, 7485], [99900, 1500, 14985], [149900, 1500, 22485]])('calculates %i at %i bps as %i paise', (amount, rate, reward) => expect(calculateReferralReward(amount, rate)).toBe(reward));
   it('floors future fractional paise deterministically', () => expect(calculateReferralReward(101, 333)).toBe(3));
+  it('uses exact bounded integer arithmetic even when the intermediate product exceeds Number safety', () => {
+    expect(calculateReferralReward(Number.MAX_SAFE_INTEGER, 10_000)).toBe(Number.MAX_SAFE_INTEGER);
+    expect(() => calculateReferralReward(49_900, 10_001)).toThrowError(expect.objectContaining({ code: 'referral/invalid-calculation' }));
+  });
 });
 
 describe('M5.1 referral identity and attribution', () => {
@@ -76,6 +80,7 @@ describe('M5.1 trusted qualification', () => {
     db.values.clear();
     db.values.set('referralCodes/MITABC234', { code: 'MITABC234', ownerUid: 'owner', active: true });
     return service(db).attributeReferral({ principal: { uid: 'buyer' }, request: { referralCode: 'MITABC234' } }).then(() => {
+      db.values.set('payments/purchase_00000001', { paymentId: 'purchase_00000001', ownerUid: 'buyer', planId: 'monthly', planVersion: 'm3-v1', amountMinor: 49_900, currency: 'INR', status: 'CAPTURED', capturedAt: stamp() });
       if (premium) {
         db.values.set('users/owner/entitlements/premium', { ownerUid: 'owner', tier: 'PREMIUM', active: true, subscriptionId: 'sub', planId: 'monthly', expiresAt: stamp('2027-01-01T00:00:00Z') });
         db.values.set('users/owner/subscriptions/sub', { ownerUid: 'owner', status: 'ACTIVE', planId: 'monthly', expiresAt: stamp('2027-01-01T00:00:00Z') });
@@ -112,11 +117,13 @@ describe('M5.1 trusted qualification', () => {
     expect(await referrals.qualifyReferralFromVerifiedPurchase(event())).toMatchObject({ duplicate: true, qualified: true, referralId: first.referralId, calculatedRewardMinor: 4990 });
     await expect(referrals.qualifyReferralFromVerifiedPurchase(event({ purchaserUid: 'attacker' }))).rejects.toMatchObject({ code: 'referral/purchase-conflict' });
     expect(first.status).toBe('QUALIFIED');
-    expect([...db.values.keys()].some((path) => /wallet|withdraw|coin|payment/i.test(path))).toBe(false);
+    expect([...db.values.keys()].some((path) => /wallet|withdraw|coin/i.test(path))).toBe(false);
+    expect([...db.values.keys()].filter((path) => path.startsWith('payments/'))).toEqual(['payments/purchase_00000001']);
   });
   it('does not reward a later qualifying purchase', async () => {
     const { db, referrals } = await attributed();
     await referrals.qualifyReferralFromVerifiedPurchase(event());
+    db.values.set('payments/purchase_00000002', { paymentId: 'purchase_00000002', ownerUid: 'buyer', planId: 'annual', planVersion: 'm3-v1', amountMinor: 149_900, currency: 'INR', status: 'CAPTURED', capturedAt: stamp() });
     expect(await referrals.qualifyReferralFromVerifiedPurchase(event({ purchaseId: 'purchase_00000002', planId: 'annual', amountMinor: 149900 }))).toEqual({ qualified: false, reason: 'FIRST_PURCHASE_ALREADY_QUALIFIED' });
     expect([...db.values.values()].filter((value) => value.status === 'QUALIFIED' && value.calculatedRewardMinor != null)).toHaveLength(2); // authoritative record + safe projection
   });
@@ -125,5 +132,14 @@ describe('M5.1 trusted qualification', () => {
     await expect(referrals.qualifyReferralFromVerifiedPurchase(event({ amountMinor: 1, rateBps: 9999, currency: 'USD' }))).rejects.toMatchObject({ code: 'referral/purchase-mismatch' });
     await expect(referrals.qualifyReferralFromVerifiedPurchase({ ...event(), trusted: false })).rejects.toMatchObject({ code: 'referral/untrusted-purchase' });
     expect(readFileSync('functions/src/index.js', 'utf8')).not.toMatch(/export const qualifyReferral/);
+  });
+  it('requires canonical captured payment evidence and rejects attribution added after purchase', async () => {
+    const missing = await attributed();
+    missing.db.values.delete('payments/purchase_00000001');
+    await expect(missing.referrals.qualifyReferralFromVerifiedPurchase(event())).rejects.toMatchObject({ code: 'referral/purchase-mismatch' });
+
+    const late = await attributed();
+    late.db.values.get('users/buyer/referralAttribution/current').attributedAt = stamp('2026-09-10T00:00:01Z');
+    await expect(late.referrals.qualifyReferralFromVerifiedPurchase(event())).resolves.toEqual({ qualified: false, reason: 'ATTRIBUTED_AFTER_PURCHASE' });
   });
 });

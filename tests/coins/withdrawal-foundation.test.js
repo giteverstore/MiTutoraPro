@@ -88,6 +88,12 @@ describe('M7.1 withdrawal policy and reservation', () => {
     await expect(service(db).requestWithdrawal(request())).rejects.toMatchObject({ code: 'withdrawal/insufficient-balance' });
     expect(withdrawals(db)).toHaveLength(0);
   });
+
+  it('does not allow an outstanding referral clawback to be withdrawn', async () => {
+    const db = database({ 'users/owner/wallet/account': { ...account(100_000), outstandingReferralClawbackMinor: 60_000 } });
+    await expect(service(db).requestWithdrawal(request(50_000))).rejects.toMatchObject({ code: 'withdrawal/insufficient-balance' });
+    expect(withdrawals(db)).toHaveLength(0);
+  });
 });
 
 describe('M7.1 terminal transitions', () => {

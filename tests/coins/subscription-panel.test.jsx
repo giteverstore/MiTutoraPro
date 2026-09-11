@@ -24,15 +24,15 @@ describe('M4.2 subscription plan actions', () => {
     expect(window.location.search).toBe('?section=subscription');
   });
 
-  it('renders all canonical plan CTAs as honest disabled production actions', async () => {
+  it('renders all canonical plan CTAs as one-time production purchase actions', async () => {
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} repositoryFactory={() => ({ getCurrent: async () => free })} />);
     expect(subscriptionPlanPresentation.map(({ planId }) => planId)).toEqual(['monthly', 'half_yearly', 'annual']);
     expect(await screen.findByText('Free', { selector: 'strong' })).toBeTruthy();
     expect(screen.getByText('No active Premium subscription')).toBeTruthy();
     expect(screen.queryByText('Subscription status is unavailable.')).toBeNull();
-    expect(screen.getAllByRole('button', { name: 'Get Premium' })).toHaveLength(3);
-    screen.getAllByRole('button', { name: 'Get Premium' }).forEach((button) => expect(button.disabled).toBe(true));
-    expect(screen.getAllByText('Payments coming soon.')).toHaveLength(3);
+    expect(screen.getAllByRole('button', { name: 'Buy Premium' })).toHaveLength(3);
+    screen.getAllByRole('button', { name: 'Buy Premium' }).forEach((button) => expect(button.disabled).toBe(false));
+    expect(screen.getAllByText('Secure one-time payment. No auto-renewal.')).toHaveLength(3);
   });
 
   it('uses one authenticated development grant, blocks double-click, and waits for authoritative Premium', async () => {
@@ -54,6 +54,24 @@ describe('M4.2 subscription plan actions', () => {
     const request = JSON.parse(fetchImpl.mock.calls[0][1].body);
     expect(request).toEqual({ planId: 'monthly', requestId: 'request-ui-idempotency-0001' });
     expect(request).not.toHaveProperty('priceMinor');
+  });
+
+  it('opens one production checkout and waits for verified CAPTURED state before showing Premium', async () => {
+    const getCurrent = vi.fn().mockResolvedValueOnce(free).mockResolvedValueOnce(premium);
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ internalOrderId: 'order_internal', providerOrderId: 'order_12345678', keyId: 'rzp_test_public', amountMinor: 49_900, currency: 'INR' }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ paymentId: 'payment_internal', status: 'CAPTURED' }) });
+    let checkoutOptions;
+    class Checkout { constructor(options) { checkoutOptions = options; } open() {} }
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    await waitFor(() => expect(checkoutOptions).toBeTruthy());
+    expect(screen.getByText('Free', { selector: 'strong' })).toBeTruthy();
+    await checkoutOptions.handler({ razorpay_order_id: 'order_12345678', razorpay_payment_id: 'pay_1234567890', razorpay_signature: 'synthetic-signature' });
+    expect(await screen.findByText('Premium', { selector: 'strong' })).toBeTruthy();
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(JSON.parse(fetchImpl.mock.calls[0][1].body)).toEqual({ planId: 'monthly', requestId: 'request-ui-idempotency-0001' });
+    expect(JSON.parse(fetchImpl.mock.calls[1][1].body)).not.toHaveProperty('amountMinor');
   });
 
   it('keeps FREE on grant or entitlement-read failure', async () => {

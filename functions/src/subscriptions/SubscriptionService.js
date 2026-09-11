@@ -106,4 +106,90 @@ export class SubscriptionService {
       return { duplicate: false, subscriptionId, entitlement: resolvePremiumEntitlement(entitlement, now, subscription) };
     });
   }
+
+  async activateFromVerifiedPayment(paymentId) {
+    if (typeof paymentId !== 'string' || !/^payment_[a-f0-9]{64}$/.test(paymentId)) fail('subscription/invalid-payment', 'A canonical payment identity is required.');
+    const paymentRef = this.db.doc(`payments/${paymentId}`);
+    const activationRef = this.db.doc(`paymentActivations/${paymentId}`);
+    return this.db.runTransaction(async (transaction) => {
+      const paymentSnapshot = await transaction.get(paymentRef);
+      const payment = paymentSnapshot.exists ? paymentSnapshot.data() : null;
+      if (!payment || payment.status !== 'CAPTURED') fail('subscription/payment-not-captured', 'A captured payment is required.');
+      const plan = getSubscriptionPlan(payment.planId);
+      if (payment.planVersion !== plan.version || payment.amountMinor !== plan.priceMinor || payment.currency !== plan.currency || !payment.ownerUid) {
+        fail('subscription/payment-mismatch', 'Payment does not match the canonical plan.');
+      }
+      const existingActivation = await transaction.get(activationRef);
+      if (existingActivation.exists) {
+        const stored = existingActivation.data();
+        if (stored.ownerUid !== payment.ownerUid || stored.planId !== payment.planId) fail('subscription/payment-conflict', 'Payment activation identity conflicts with stored data.');
+        return { ...stored.result, duplicate: true };
+      }
+      const subscriptionId = `pay_${createHash('sha256').update(paymentId).digest('hex')}`;
+      const subscriptionRef = this.db.doc(`users/${payment.ownerUid}/subscriptions/${subscriptionId}`);
+      const entitlementRef = this.db.doc(`users/${payment.ownerUid}/entitlements/premium`);
+      const entitlementSnapshot = await transaction.get(entitlementRef);
+      const storedEntitlement = entitlementSnapshot.exists ? entitlementSnapshot.data() : null;
+      const backingRef = storedEntitlement?.subscriptionId ? this.db.doc(`users/${payment.ownerUid}/subscriptions/${storedEntitlement.subscriptionId}`) : null;
+      const snapshots = await transaction.getAll(subscriptionRef, ...(backingRef ? [backingRef] : []));
+      const [existingSubscription, backingSnapshot] = snapshots;
+      if (existingSubscription.exists) fail('subscription/payment-integrity', 'Payment subscription exists without activation idempotency state.');
+      const current = resolvePremiumEntitlement(storedEntitlement, this.now(), backingSnapshot?.exists ? backingSnapshot.data() : null);
+      const startsAtDate = current.active ? current.expiresAt : this.now();
+      const expiresAtDate = addCalendarMonths(startsAtDate, plan.durationMonths);
+      const startsAt = this.timestamp.fromDate(startsAtDate);
+      const expiresAt = this.timestamp.fromDate(expiresAtDate);
+      const serverNow = this.timestamp.now();
+      const subscription = {
+        ownerUid: payment.ownerUid, planId: plan.planId, planVersion: plan.version,
+        priceMinor: plan.priceMinor, currency: plan.currency, status: SUBSCRIPTION_STATUSES.ACTIVE,
+        startsAt, expiresAt, source: SUBSCRIPTION_SOURCES.PAYMENT, paymentId,
+        createdAt: serverNow, updatedAt: serverNow, schemaVersion: '1.0.0',
+      };
+      const entitlement = {
+        ownerUid: payment.ownerUid, tier: 'PREMIUM', active: true, subscriptionId,
+        planId: plan.planId, startsAt, expiresAt, updatedAt: serverNow, schemaVersion: '1.0.0',
+      };
+      const result = { subscriptionId, ownerUid: payment.ownerUid, planId: plan.planId, startsAt, expiresAt };
+      transaction.create(subscriptionRef, subscription);
+      transaction.set(entitlementRef, entitlement, { merge: false });
+      transaction.create(activationRef, { paymentId, ownerUid: payment.ownerUid, planId: plan.planId, result, createdAt: serverNow, schemaVersion: '1.0.0' });
+      transaction.update(paymentRef, { subscriptionId, subscriptionActivatedAt: serverNow, resultingExpiresAt: expiresAt, updatedAt: serverNow });
+      return { ...result, duplicate: false };
+    });
+  }
+
+  async recomputePremiumEntitlement(ownerUid) {
+    if (!ownerUid) fail('subscription/unauthenticated', 'An authoritative subscription owner is required.');
+    const subscriptionsQuery = this.db.collection(`users/${ownerUid}/subscriptions`);
+    const entitlementRef = this.db.doc(`users/${ownerUid}/entitlements/premium`);
+    return this.db.runTransaction(async (transaction) => {
+      const subscriptionSnapshot = await transaction.get(subscriptionsQuery);
+      const subscriptions = subscriptionSnapshot.docs.map((entry) => ({ subscriptionId: entry.id, ...entry.data() }));
+      const paymentBacked = subscriptions.filter((entry) => entry.source === SUBSCRIPTION_SOURCES.PAYMENT && entry.paymentId);
+      const paymentSnapshots = paymentBacked.length
+        ? await transaction.getAll(...paymentBacked.map((entry) => this.db.doc(`payments/${entry.paymentId}`))) : [];
+      const payments = new Map(paymentBacked.map((entry, index) => [entry.paymentId, paymentSnapshots[index]?.exists ? paymentSnapshots[index].data() : null]));
+      const now = this.now();
+      const eligible = subscriptions.filter((entry) => {
+        const expiresAt = dateOf(entry.expiresAt);
+        if (entry.ownerUid !== ownerUid || entry.status !== SUBSCRIPTION_STATUSES.ACTIVE || !expiresAt || expiresAt.getTime() <= now.getTime()) return false;
+        if (entry.source === SUBSCRIPTION_SOURCES.DEVELOPMENT_GRANT) return true;
+        const payment = payments.get(entry.paymentId);
+        return payment?.ownerUid === ownerUid
+          && payment.subscriptionId === entry.subscriptionId
+          && ['CAPTURED', 'PARTIALLY_REFUNDED'].includes(payment.status);
+      }).sort((left, right) => dateOf(right.expiresAt).getTime() - dateOf(left.expiresAt).getTime());
+      const serverNow = this.timestamp.now();
+      if (!eligible.length) {
+        const entitlement = { ownerUid, tier: 'FREE', active: false, subscriptionId: null, planId: null, startsAt: null, expiresAt: null, updatedAt: serverNow, schemaVersion: '1.0.0' };
+        transaction.set(entitlementRef, entitlement, { merge: false });
+        return { tier: 'FREE', active: false, subscriptionId: null, expiresAt: null };
+      }
+      const selected = eligible[0];
+      const entitlement = { ownerUid, tier: 'PREMIUM', active: true, subscriptionId: selected.subscriptionId, planId: selected.planId, startsAt: selected.startsAt, expiresAt: selected.expiresAt, updatedAt: serverNow, schemaVersion: '1.0.0' };
+      transaction.set(entitlementRef, entitlement, { merge: false });
+      return { tier: 'PREMIUM', active: true, subscriptionId: selected.subscriptionId, planId: selected.planId, expiresAt: selected.expiresAt };
+    });
+  }
 }

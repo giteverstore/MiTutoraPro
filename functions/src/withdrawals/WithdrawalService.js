@@ -24,8 +24,8 @@ function amount(value, policy) {
 }
 function wallet(value, timestamp) {
   const normalized = value ?? { currency: 'INR', pendingBalanceMinor: 0, availableBalanceMinor: 0, lifetimeCreditedMinor: 0, createdAt: timestamp, updatedAt: timestamp, schemaVersion: SCHEMA_VERSION };
-  const result = { ...normalized, reservedBalanceMinor: normalized.reservedBalanceMinor ?? 0 };
-  if (result.currency !== 'INR' || !['pendingBalanceMinor', 'availableBalanceMinor', 'reservedBalanceMinor', 'lifetimeCreditedMinor'].every((field) => Number.isSafeInteger(result[field]) && result[field] >= 0)) fail('withdrawal/wallet-integrity', 'Wallet projection is invalid.');
+  const result = { ...normalized, reservedBalanceMinor: normalized.reservedBalanceMinor ?? 0, outstandingReferralClawbackMinor: normalized.outstandingReferralClawbackMinor ?? 0 };
+  if (result.currency !== 'INR' || !['pendingBalanceMinor', 'availableBalanceMinor', 'reservedBalanceMinor', 'outstandingReferralClawbackMinor', 'lifetimeCreditedMinor'].every((field) => Number.isSafeInteger(result[field]) && result[field] >= 0)) fail('withdrawal/wallet-integrity', 'Wallet projection is invalid.');
   return result;
 }
 
@@ -61,7 +61,7 @@ export class WithdrawalService {
       const timestamp = this.timestamp.now();
       const current = wallet(data(await tx.get(walletRef)), timestamp);
       if ((await tx.get(withdrawalRef)).exists || (await tx.get(ledgerRef)).exists || (await tx.get(lookupRef)).exists) fail('withdrawal/data-integrity', 'Withdrawal state exists without idempotency protection.');
-      if (current.availableBalanceMinor < requestedMinor) fail('withdrawal/insufficient-balance', 'Available wallet balance is insufficient.');
+      if (current.availableBalanceMinor - current.outstandingReferralClawbackMinor < requestedMinor) fail('withdrawal/insufficient-balance', 'Withdrawable wallet balance is insufficient.');
       const next = wallet({ ...current, availableBalanceMinor: current.availableBalanceMinor - requestedMinor, reservedBalanceMinor: current.reservedBalanceMinor + requestedMinor, updatedAt: timestamp }, timestamp);
       const withdrawal = { withdrawalId, ownerUid: uid, amountMinor: requestedMinor, currency: 'INR', status: 'PENDING', policyVersion: this.policy.policyVersion, requestId: request.requestId, requestedAt: timestamp, updatedAt: timestamp, completedAt: null, schemaVersion: SCHEMA_VERSION };
       const ledger = { transactionId: ledgerRef.path.split('/').at(-1), type: 'WITHDRAWAL_RESERVED', amountMinor: requestedMinor, currency: 'INR', sourceType: 'WITHDRAWAL', sourceId: withdrawalId, fromBucket: 'AVAILABLE', balanceBucket: 'RESERVED', createdAt: timestamp, schemaVersion: SCHEMA_VERSION };

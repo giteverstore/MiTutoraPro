@@ -10,6 +10,7 @@ export default defineConfig({
       './tests/firestore/referral.emulator.test.js',
       './tests/firestore/wallet.emulator.test.js',
       './tests/firestore/withdrawal.emulator.test.js',
+      './tests/firestore/m8-financial.emulator.test.js',
     ],
     testTimeout: 30_000,
     hookTimeout: 30_000,

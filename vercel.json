@@ -8,10 +8,19 @@
       "supportsCancellation": true
     }
   },
-  "rewrites": [
+  "crons": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "path": "/api/payments/reconcile",
+      "schedule": "15 2 * * *"
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)",
+      "dest": "/index.html"
     }
   ]
 }

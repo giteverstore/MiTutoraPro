@@ -13,8 +13,10 @@ export function referralRateForTier(tier, policy = REFERRAL_POLICY) {
 }
 
 export function calculateReferralReward(amountMinor, rateBps) {
-  if (!Number.isSafeInteger(amountMinor) || amountMinor < 0 || !Number.isInteger(rateBps) || rateBps < 0) {
+  if (!Number.isSafeInteger(amountMinor) || amountMinor < 0 || !Number.isSafeInteger(rateBps) || rateBps < 0 || rateBps > 10_000) {
     throw Object.assign(new Error('Referral reward inputs are invalid.'), { code: 'referral/invalid-calculation' });
   }
-  return Math.floor((amountMinor * rateBps) / 10_000);
+  const result = Number((BigInt(amountMinor) * BigInt(rateBps)) / 10_000n);
+  if (!Number.isSafeInteger(result)) throw Object.assign(new Error('Referral reward exceeds supported monetary bounds.'), { code: 'referral/invalid-calculation' });
+  return result;
 }

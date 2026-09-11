@@ -40,6 +40,14 @@ try {
     await setDoc(doc(db, 'withdrawalIdempotency/private-key'), { ownerUid: 'owner' });
     await setDoc(doc(db, 'withdrawalTransitionIdempotency/private-key'), { withdrawalId: 'withdrawal-1' });
     await setDoc(doc(db, 'withdrawalLookup/withdrawal-1'), { ownerUid: 'owner' });
+    await setDoc(doc(db, 'paymentOrders/order-1'), { ownerUid: 'owner', status: 'ORDER_CREATED' });
+    await setDoc(doc(db, 'payments/payment-1'), { ownerUid: 'owner', status: 'CAPTURED' });
+    await setDoc(doc(db, 'paymentEvents/event-1'), { paymentId: 'payment-1' });
+    await setDoc(doc(db, 'paymentWebhookEvents/event-1'), { paymentId: 'payment-1' });
+    await setDoc(doc(db, 'paymentActivations/payment-1'), { ownerUid: 'owner' });
+    await setDoc(doc(db, 'payoutWebhookEvents/event-1'), { withdrawalId: 'withdrawal-1' });
+    await setDoc(doc(db, 'payoutOutbox/withdrawal-1'), { ownerUid: 'owner', status: 'PENDING' });
+    await setDoc(doc(db, 'financialReconciliation/record-1'), { status: 'PENDING' });
   });
 
   const owner = environment.authenticatedContext('owner').firestore();
@@ -126,6 +134,18 @@ try {
   await assertFails(getDoc(doc(owner, 'withdrawalIdempotency/private-key')));
   await assertFails(getDoc(doc(owner, 'withdrawalTransitionIdempotency/private-key')));
   await assertFails(getDoc(doc(owner, 'withdrawalLookup/withdrawal-1')));
+  for (const path of [
+    'paymentOrders/order-1', 'paymentOrderLookup/order-1', 'payments/payment-1', 'paymentEvents/event-1',
+    'paymentWebhookEvents/event-1', 'paymentActivations/payment-1', 'purchaseOrchestrations/payment-1',
+    'paymentSettlementEvidence/evidence-1', 'paymentReconciliation/payment-1',
+    'payoutWebhookEvents/event-1', 'payoutOutbox/withdrawal-1',
+    'financialReconciliation/record-1',
+  ]) {
+    await assertFails(getDoc(doc(owner, path)));
+    await assertFails(getDoc(doc(stranger, path)));
+    await assertFails(getDoc(doc(anonymous, path)));
+    await assertFails(setDoc(doc(owner, path), { forged: true }));
+  }
 
   await environment.withSecurityRulesDisabled(async (context) => {
     const snapshot = await getDoc(doc(context.firestore(), 'users/owner/coinAccount/summary'));

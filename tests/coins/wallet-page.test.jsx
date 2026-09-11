@@ -13,8 +13,9 @@ describe('M6 wallet read model', () => {
     render(<WalletPage repositoryFactory={() => ({ getWallet: async () => ({ currency: 'INR', pendingBalanceMinor: 0, availableBalanceMinor: 0, lifetimeCreditedMinor: 0 }), listTransactions: async () => [], listWithdrawals: async () => [] })} />);
     expect(await screen.findByText('No wallet transactions yet.')).toBeTruthy();
     expect(screen.getAllByText('₹0.00')).toHaveLength(3);
-    expect(screen.getByRole('button', { name: 'Request Withdrawal' }).disabled).toBe(true);
-    expect(screen.getByText('Withdrawals are coming soon. No payout provider is connected.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Withdrawals coming soon' }).disabled).toBe(true);
+    expect(screen.queryByRole('spinbutton')).toBeNull();
+    expect(screen.getByText('No funds have been paid out or reserved.')).toBeTruthy();
     expect(screen.queryByRole('button', { name: /add money|send money/i })).toBeNull();
   });
 
@@ -22,6 +23,21 @@ describe('M6 wallet read model', () => {
     render(<WalletPage repositoryFactory={() => ({ getWallet: async () => ({ currency: 'INR', pendingBalanceMinor: 0, availableBalanceMinor: 4990, lifetimeCreditedMinor: 4990 }), listTransactions: async () => [{ transactionId: 'wallet-1', type: 'REFERRAL_REWARD', amountMinor: 4990, createdAt: { seconds: 1 } }], listWithdrawals: async () => [] })} />);
     expect(await screen.findByText('Referral reward')).toBeTruthy();
     expect(screen.getByText('+₹49.90')).toBeTruthy();
+  });
+
+  it('distinguishes pending, released, and cancelled referral value', async () => {
+    render(<WalletPage repositoryFactory={() => ({
+      getWallet: async () => ({ currency: 'INR', pendingBalanceMinor: 0, availableBalanceMinor: 4990, lifetimeCreditedMinor: 4990 }),
+      listTransactions: async () => [
+        { transactionId: 'pending', type: 'REFERRAL_REWARD_PENDING', amountMinor: 4990, createdAt: { seconds: 1 } },
+        { transactionId: 'released', type: 'REFERRAL_REWARD_AVAILABLE', amountMinor: 4990, createdAt: { seconds: 2 } },
+        { transactionId: 'cancelled', type: 'REFERRAL_REWARD_REVERSED', amountMinor: 4990, createdAt: { seconds: 3 } },
+      ],
+      listWithdrawals: async () => [],
+    })} />);
+    expect(await screen.findByText('Referral reward pending')).toBeTruthy();
+    expect(screen.getByText('Referral reward released')).toBeTruthy();
+    expect(screen.getByText('Referral reward cancelled')).toBeTruthy();
   });
   it('renders every authoritative withdrawal status without offering payout controls', async () => {
     const statuses = ['PENDING', 'PAID', 'FAILED', 'CANCELLED'];
@@ -39,6 +55,6 @@ describe('M6 wallet read model', () => {
     expect(screen.getByText('Withdrawal released')).toBeTruthy();
     expect(screen.getByText('Withdrawal completed')).toBeTruthy();
     expect(screen.queryByLabelText(/bank|upi/i)).toBeNull();
-    expect(screen.getByRole('button', { name: 'Request Withdrawal' }).disabled).toBe(true);
+    expect(screen.getByRole('button', { name: 'Withdrawals coming soon' }).disabled).toBe(true);
   });
 });

@@ -123,5 +123,17 @@ service cloud.firestore {
     match /withdrawalIdempotency/{requestId} { allow read, write: if false; }
     match /withdrawalTransitionIdempotency/{transitionId} { allow read, write: if false; }
     match /withdrawalLookup/{withdrawalId} { allow read, write: if false; }
+    match /paymentOrders/{orderId} { allow read, write: if false; }
+    match /paymentOrderLookup/{orderId} { allow read, write: if false; }
+    match /payments/{paymentId} { allow read, write: if false; }
+    match /paymentEvents/{eventId} { allow read, write: if false; }
+    match /paymentWebhookEvents/{eventId} { allow read, write: if false; }
+    match /paymentActivations/{paymentId} { allow read, write: if false; }
+    match /purchaseOrchestrations/{paymentId} { allow read, write: if false; }
+    match /paymentSettlementEvidence/{evidenceId} { allow read, write: if false; }
+    match /paymentReconciliation/{recordId} { allow read, write: if false; }
+    match /payoutWebhookEvents/{eventId} { allow read, write: if false; }
+    match /payoutOutbox/{withdrawalId} { allow read, write: if false; }
+    match /financialReconciliation/{recordId} { allow read, write: if false; }
   }
 }

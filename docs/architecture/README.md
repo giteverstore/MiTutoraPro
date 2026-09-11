@@ -39,6 +39,8 @@ Use these documents for system boundaries, runtime contracts, data ownership, an
 - [Referrals](referrals.md)
 - [Monetary wallet and ledger](wallet.md)
 - [Withdrawal reservation foundation](withdrawals.md)
+- [Provider-independent payment and payout foundation](payment-payout-foundation.md)
+- [Razorpay Payment Gateway](razorpay-payment-gateway.md)
 - [Authoritative activity verification](activity-verification.md)
 - [Isolated code judge (proposed)](isolated-code-judge.md)
 - [Content safety limits](content-safety-limits.md)
