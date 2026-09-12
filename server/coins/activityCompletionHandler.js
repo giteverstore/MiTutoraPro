@@ -1,4 +1,4 @@
-import { getFirestore, Timestamp } from 'firebase-admin/firestore';
+import { Timestamp } from 'firebase-admin/firestore';
 import { CoinError } from '../../functions/src/coins/CoinError.js';
 import { CoinLedgerService } from '../../functions/src/coins/CoinLedgerService.js';
 import { FirestoreMvpActivityMetadataSource } from '../../functions/src/coins/FirestoreMvpActivityMetadataSource.js';
@@ -7,7 +7,7 @@ import { MvpActivityRewardClaimService } from '../../functions/src/coins/MvpActi
 import { MvpActivityCompletionService } from '../../functions/src/coins/MvpActivityCompletionService.js';
 import { firebaseAITutorAuthenticator } from '../ai/auth/FirebaseAITutorAuthenticator.js';
 import { createVercelGoogleCredentialContext } from '../auth/VercelGoogleCredentialAdapter.js';
-import { createRequestFirebaseApp } from '../firebaseAdminApp.js';
+import { createDefaultFirestore } from '../firestore/createDefaultFirestore.js';
 
 const statusFor = (code) => ({
   'coin/unauthenticated': 401,
@@ -23,7 +23,7 @@ export function publicActivityError(error) {
   return { status: 503, body: { error: { code: 'coin/service-unavailable', message: 'Activity completion could not be recorded.' } } };
 }
 
-export function createActivityCompletionHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext } = {}) {
+export function createActivityCompletionHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, firestoreFactory = createDefaultFirestore } = {}) {
   return async function activityCompletionHandler(request, response) {
     if (request.method !== 'POST') {
       response.setHeader('Allow', 'POST');
@@ -34,8 +34,8 @@ export function createActivityCompletionHandler({ environment = process.env, aut
       const googleCredentials = credentialFactory({ request, environment });
       await googleCredentials.preflight();
       const authenticated = await authenticator.authenticate(request, { environment, googleCredentials });
-      session = await createRequestFirebaseApp(environment, { firebaseCredential: googleCredentials.firebaseCredential });
-      const db = getFirestore(session.app);
+      session = await firestoreFactory(environment, googleCredentials);
+      const db = session.db;
       const source = new FirestoreMvpActivityMetadataSource({ db });
       const resolver = new MvpCanonicalActivityResolver({
         loadPracticeMetadata: source.loadPracticeMetadata.bind(source),

@@ -1,10 +1,10 @@
-import { getFirestore, Timestamp } from 'firebase-admin/firestore';
+import { Timestamp } from 'firebase-admin/firestore';
 import { CoinError } from '../../functions/src/coins/CoinError.js';
 import { CoinLedgerService } from '../../functions/src/coins/CoinLedgerService.js';
 import { DailyLoginRewardService } from '../../functions/src/coins/DailyLoginRewardService.js';
 import { firebaseAITutorAuthenticator } from '../ai/auth/FirebaseAITutorAuthenticator.js';
 import { createVercelGoogleCredentialContext } from '../auth/VercelGoogleCredentialAdapter.js';
-import { createRequestFirebaseApp } from '../firebaseAdminApp.js';
+import { createDefaultFirestore } from '../firestore/createDefaultFirestore.js';
 
 function publicError(error) {
   if (error instanceof CoinError) {
@@ -17,7 +17,7 @@ function publicError(error) {
   return { status: 503, body: { error: { code: 'coin/service-unavailable', message: 'The daily login reward could not be claimed.' } } };
 }
 
-export function createDailyLoginHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext } = {}) {
+export function createDailyLoginHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, firestoreFactory = createDefaultFirestore } = {}) {
   return async function dailyLoginHandler(request, response) {
     if (request.method !== 'POST') {
       response.setHeader('Allow', 'POST');
@@ -28,8 +28,8 @@ export function createDailyLoginHandler({ environment = process.env, authenticat
       const googleCredentials = credentialFactory({ request, environment });
       await googleCredentials.preflight();
       const authenticated = await authenticator.authenticate(request, { environment, googleCredentials });
-      session = await createRequestFirebaseApp(environment, { firebaseCredential: googleCredentials.firebaseCredential });
-      const db = getFirestore(session.app);
+      session = await firestoreFactory(environment, googleCredentials);
+      const db = session.db;
       const timestamp = () => Timestamp.now();
       const ledger = new CoinLedgerService({ db, timestamp });
       const service = new DailyLoginRewardService({ ledger, timestamp });
