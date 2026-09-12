@@ -107,13 +107,39 @@ describe('M4.2 subscription plan actions', () => {
     expect(Checkout).not.toHaveBeenCalled();
   });
 
-  it('classifies order request failure without constructing Checkout', async () => {
+  it('classifies an order HTTP failure without constructing Checkout', async () => {
     const Checkout = vi.fn();
-    const fetchImpl = vi.fn(async () => ({ ok: false, json: async () => ({ error: { code: 'payment/unavailable' } }) }));
+    const logger = { warn: vi.fn() };
+    const fetchImpl = vi.fn(async () => ({ ok: false, status: 503, json: async () => ({ error: { code: 'payment/unavailable' } }) }));
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={logger} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_HTTP_FAILED');
+    expect(fetchImpl).toHaveBeenCalledOnce();
+    expect(Checkout).not.toHaveBeenCalled();
+    expect(logger.warn).toHaveBeenCalledWith('payment-checkout-failure', {
+      category: 'ORDER_HTTP_FAILED', endpoint: '/api/payments/orders', method: 'POST', status: 503, serverCode: 'payment/unavailable',
+    });
+  });
+
+  it('fails closed before Fetch when secure request ID generation fails', async () => {
+    vi.stubGlobal('crypto', {});
+    const Checkout = vi.fn(); const fetchImpl = vi.fn();
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
     fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
-    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_REQUEST_FAILED');
-    expect(fetchImpl).toHaveBeenCalledOnce();
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_REQUEST_ID_FAILED');
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(Checkout).not.toHaveBeenCalled();
+  });
+
+  it('classifies a thrown Fetch as an order transport failure', async () => {
+    const Checkout = vi.fn(); const logger = { warn: vi.fn() };
+    const fetchImpl = vi.fn(async () => { throw Object.assign(new Error('private detail'), { name: 'TypeError' }); });
+    render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={logger} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_TRANSPORT_FAILED');
+    expect(logger.warn).toHaveBeenCalledWith('payment-checkout-failure', {
+      category: 'ORDER_TRANSPORT_FAILED', endpoint: '/api/payments/orders', method: 'POST', exceptionName: 'TypeError',
+    });
     expect(Checkout).not.toHaveBeenCalled();
   });
 

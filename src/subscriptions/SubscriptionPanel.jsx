@@ -11,7 +11,7 @@ export const subscriptionPlanPresentation = Object.freeze([
   { planId: 'annual', name: 'Annual', price: '₹1,499', duration: '12 months' },
 ]);
 
-export function SubscriptionPanel({ developmentGrantsEnabled = useFirebaseEmulators, currentUser = authService.getCurrentUser(), tokenProvider = () => authService.getIdToken(), repositoryFactory = (uid) => new SubscriptionRepository(uid), fetchImpl = globalThis.fetch, checkoutLoader = loadRazorpayCheckout, logger = console } = {}) {
+export function SubscriptionPanel({ developmentGrantsEnabled = useFirebaseEmulators, currentUser = authService.getCurrentUser(), tokenProvider = () => authService.getIdToken(), repositoryFactory = (uid) => new SubscriptionRepository(uid), fetchImpl = (...args) => globalThis.fetch(...args), checkoutLoader = loadRazorpayCheckout, logger = console } = {}) {
   const user = currentUser;
   const grantingRef = useRef(false);
   const [state, setState] = useState({ status: 'loading', entitlement: null, error: '', grantingPlanId: null });
@@ -38,8 +38,12 @@ export function SubscriptionPanel({ developmentGrantsEnabled = useFirebaseEmulat
   const purchase = async (plan) => {
     if (developmentGrantsEnabled || grantingRef.current || !user) return;
     grantingRef.current = true;
-    const fail = (category, message = 'Checkout could not be started. No payment was confirmed.') => {
-      logger?.warn?.('payment-checkout-failure', { category });
+    const fail = (category, message = 'Checkout could not be started. No payment was confirmed.', details = {}) => {
+      const diagnostic = { category };
+      for (const field of ['endpoint', 'method', 'exceptionName', 'status', 'serverCode']) {
+        if (details[field] !== undefined) diagnostic[field] = details[field];
+      }
+      logger?.warn?.('payment-checkout-failure', diagnostic);
       grantingRef.current = false;
       setState((current) => ({ ...current, status: 'error', grantingPlanId: null, error: message, failureCategory: category }));
     };
@@ -58,9 +62,14 @@ export function SubscriptionPanel({ developmentGrantsEnabled = useFirebaseEmulat
 
       setState((current) => ({ ...current, status: 'creating-order' }));
       const client = new PaymentClient({ tokenProvider: async () => token, fetchImpl });
+      let requestId;
+      try {
+        if (typeof globalThis.crypto?.randomUUID !== 'function') throw new TypeError('Secure request identity is unavailable.');
+        requestId = globalThis.crypto.randomUUID();
+      } catch { return fail('ORDER_REQUEST_ID_FAILED'); }
       let order;
-      try { order = await client.createOrder(canonicalPlan.planId, crypto.randomUUID()); }
-      catch { return fail('ORDER_REQUEST_FAILED'); }
+      try { order = await client.createOrder(canonicalPlan.planId, requestId); }
+      catch (error) { return fail(error?.category ?? 'ORDER_TRANSPORT_FAILED', undefined, error); }
       try { validateCheckoutOrder(order, canonicalPlan.planId); }
       catch { return fail('ORDER_RESPONSE_INVALID'); }
 
