@@ -4,10 +4,11 @@ import { PracticeFilters } from './PracticeFilters';
 import { PracticePagination } from './PracticePagination';
 import { PracticeQuestionCard } from './PracticeQuestionCard';
 import { PracticeStatistics } from './PracticeStatistics';
-import { initiallySolvedQuestionIds, practiceQuestions, practiceStatistics } from './practiceData';
+import { practiceQuestions } from './practiceData';
 import { practiceContentSource } from './practiceContentSource';
 import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDiagnostics';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
+import { useLearnerActivity } from '../activity/LearnerActivityContext';
 
 const initialFilters = { difficulty: 'all', topic: 'all', search: '' };
 const practiceDifficulties = ['easy', 'medium', 'hard'];
@@ -28,12 +29,15 @@ function scrollCatalogIntoView() {
 }
 
 export function PracticePage({ initialQuestionId = null, onQuestionChange = () => {} }) {
+  const activity = useLearnerActivity();
   const [filters, setFilters] = useState(initialFilters);
   const [catalog, setCatalog] = useState({ items: [], currentPage: 1, reachablePageCount: 1, hasMore: false, loading: true, error: null, facets: null });
   const [openQuestionId, setOpenQuestionId] = useState(initialQuestionId);
   const [openQuestion, setOpenQuestion] = useState(null);
   const [questionState, setQuestionState] = useState({ loading: false, error: null, retry: 0 });
-  const [solvedQuestionIds, setSolvedQuestionIds] = useState(() => new Set(initiallySolvedQuestionIds));
+  const solvedQuestionIds = useMemo(() => new Set(activity.completions
+    .filter((completion) => completion.activityType === 'PRACTICE' && completion.completionStatus === 'COMPLETED')
+    .map((completion) => completion.activityId)), [activity.completions]);
   const catalogRequest = useRef(0);
   const pageCache = useRef(new Map());
   const pageCursors = useRef(new Map([[1, null]]));
@@ -120,14 +124,14 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   if (openQuestion) {
     return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
       const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.version });
-      if (['completed', 'already_completed'].includes(result.completionStatus)) setSolvedQuestionIds((current) => new Set(current).add(question.id));
+      if (['completed', 'already_completed'].includes(result.completionStatus)) await activity.refresh();
       return result;
     }} />;
   }
 
   return (
     <div className="practice-page">
-      <PracticeStatistics statistics={practiceStatistics} questions={practiceQuestions} />
+      <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={practiceQuestions} />
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
       <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{catalog.items.length} questions</h2></div></header><div>
         {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}

@@ -172,11 +172,3 @@ export const practiceQuestions = [
   ...fundamentalsInputOutputBatch9,
   ...fundamentalsErrorsMixedBatch10,
 ];
-
-export const practiceStatistics = {
-  solved: 12,
-  attempted: 18,
-  successRate: 67,
-};
-
-export const initiallySolvedQuestionIds = ['practice-even-or-odd'];

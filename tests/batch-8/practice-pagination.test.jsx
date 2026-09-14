@@ -13,11 +13,14 @@ const questions = Array.from({ length: 49 }, (_, index) => ({
   xp: 10,
 }));
 
-const { listPage, loadQuestion, loadQuestionById } = vi.hoisted(() => ({
+const { activity, listPage, loadQuestion, loadQuestionById } = vi.hoisted(() => ({
+  activity: { completions: [], refresh: vi.fn() },
   listPage: vi.fn(),
   loadQuestion: vi.fn(() => new Promise(() => {})),
   loadQuestionById: vi.fn(() => new Promise(() => {})),
 }));
+
+vi.mock('../../src/activity/LearnerActivityContext', () => ({ useLearnerActivity: () => activity }));
 
 vi.mock('../../src/practice/practiceContentSource', () => ({
   practiceContentSource: { listPage, loadQuestion, loadQuestionById },
@@ -45,6 +48,8 @@ function pageFor({ cursor, filters }) {
 }
 
 beforeEach(() => {
+  activity.completions = [];
+  activity.refresh.mockReset();
   listPage.mockReset();
   listPage.mockImplementation(pageFor);
   loadQuestion.mockClear();

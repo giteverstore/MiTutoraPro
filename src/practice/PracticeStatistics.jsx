@@ -2,15 +2,21 @@ import { BarChart3, CheckCircle2, Gauge, Target } from 'lucide-react';
 
 const difficultyLevels = ['easy', 'medium', 'hard'];
 
-export function PracticeStatistics({ statistics, questions }) {
+export function PracticeStatistics({ completedQuestionIds = new Set(), questions }) {
   const difficultyCounts = difficultyLevels.reduce((counts, difficulty) => ({
     ...counts,
     [difficulty]: questions.filter((question) => question.difficulty === difficulty).length,
   }), {});
+  const solved = completedQuestionIds.size;
+  // The canonical activity store records verified completions, not failed local
+  // compiler runs. Until an authoritative attempt ledger exists, a recorded
+  // Practice attempt is therefore the same durable event as a solved question.
+  const attempted = solved;
+  const successRate = attempted ? Math.round((solved / attempted) * 100) : 0;
   const items = [
-    { label: 'Solved', value: statistics.solved, icon: CheckCircle2 },
-    { label: 'Attempted', value: statistics.attempted, icon: Target },
-    { label: 'Success Rate', value: `${statistics.successRate}%`, icon: BarChart3 },
+    { label: 'Solved', value: solved, icon: CheckCircle2 },
+    { label: 'Attempted', value: attempted, icon: Target },
+    { label: 'Success Rate', value: `${successRate}%`, icon: BarChart3 },
   ];
   return (
     <section className="practice-statistics" aria-labelledby="practice-statistics-title">

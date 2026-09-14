@@ -12,6 +12,10 @@ import {
 
 const { listPage } = vi.hoisted(() => ({ listPage: vi.fn() }));
 
+vi.mock('../../src/activity/LearnerActivityContext', () => ({
+  useLearnerActivity: () => ({ completions: [], refresh: vi.fn() }),
+}));
+
 vi.mock('../../src/practice/practiceContentSource', () => ({
   practiceContentSource: {
     listPage,
