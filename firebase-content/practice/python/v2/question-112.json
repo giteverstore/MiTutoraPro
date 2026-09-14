@@ -4,7 +4,7 @@
   "title": "Collect Scores Above a Target",
   "summary": "Select qualifying elements while preserving order.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "arrays-lists",
   "category": "fundamentals",
   "subtopic": "traversing-lists",

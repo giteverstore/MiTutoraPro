@@ -77,6 +77,68 @@ export class CoinLedgerService {
     return this.#post(normalizeMutation(input, COIN_DIRECTIONS.DEBIT), options);
   }
 
+  async setDevelopmentBalance({ uid: uidValue, targetBalance: targetValue, idempotencyKey: keyValue }) {
+    const uid = requiredUid(uidValue);
+    const targetBalance = nonNegativeInteger(targetValue, 'targetBalance');
+    if (targetBalance > 100_000) failCoin('coin/invalid-amount', 'targetBalance exceeds the development safety limit.');
+    const idempotencyKey = requiredIdentifier(keyValue, 'idempotencyKey');
+    const accountReference = this.db.doc(accountPath(uid));
+    const replayReference = this.db.doc(idempotencyPath(digestIdentifier('idem', idempotencyKey)));
+    const transactionId = digestIdentifier('coin', idempotencyKey);
+    const ledgerReference = this.db.doc(transactionPath(uid, transactionId));
+
+    return this.db.runTransaction(async (transaction) => {
+      const replaySnapshot = await transaction.get(replayReference);
+      if (replaySnapshot.exists) {
+        const replay = replaySnapshot.data();
+        if (replay.ownerUid !== uid || replay.transactionId !== transactionId || replay.targetBalance !== targetBalance) {
+          failCoin('coin/idempotency-conflict', 'The idempotency key is already bound to another adjustment.');
+        }
+        return { transactionId, balance: targetBalance, duplicate: true, adjusted: replay.adjusted };
+      }
+
+      const [accountSnapshot, ledgerSnapshot] = await transaction.getAll(accountReference, ledgerReference);
+      if (ledgerSnapshot.exists) failCoin('coin/data-integrity', 'Ledger entry exists without replay protection.');
+      const timestamp = this.timestamp();
+      const persistedAccount = accountSnapshot.exists ? accountSnapshot.data() : initialAccount(timestamp);
+      const account = validateAccount(persistedAccount) ?? validateAccount(initialAccount(timestamp));
+      const delta = targetBalance - account.availableBalance;
+      if (delta === 0) {
+        transaction.create(replayReference, { ownerUid: uid, transactionId, targetBalance, adjusted: false, createdAt: timestamp, schemaVersion: '1.0.0' });
+        return { transactionId: null, balance: targetBalance, duplicate: false, adjusted: false };
+      }
+
+      const direction = delta > 0 ? COIN_DIRECTIONS.CREDIT : COIN_DIRECTIONS.DEBIT;
+      const amount = Math.abs(delta);
+      const next = {
+        ...persistedAccount,
+        availableBalance: targetBalance,
+        lifetimeEarned: account.lifetimeEarned + (direction === COIN_DIRECTIONS.CREDIT ? amount : 0),
+        lifetimeSpent: account.lifetimeSpent + (direction === COIN_DIRECTIONS.DEBIT ? amount : 0),
+        revision: account.revision + 1,
+        updatedAt: timestamp,
+        schemaVersion: '1.0.0',
+      };
+      const ledger = {
+        ownerUid: uid, amount, direction,
+        type: COIN_TRANSACTION_TYPES.DEV_BALANCE_ADJUSTMENT,
+        sourceType: COIN_SOURCE_TYPES.DEVELOPMENT,
+        sourceId: `balance-${targetBalance}`,
+        idempotencyKey,
+        balanceAfter: targetBalance,
+        accountRevision: next.revision,
+        policyVersion: 'development-balance-v1',
+        status: COIN_TRANSACTION_STATUSES.POSTED,
+        createdAt: timestamp,
+        schemaVersion: '1.0.0',
+      };
+      transaction.set(accountReference, next, { merge: false });
+      transaction.create(ledgerReference, ledger);
+      transaction.create(replayReference, { ownerUid: uid, transactionId, targetBalance, adjusted: true, createdAt: timestamp, schemaVersion: '1.0.0' });
+      return { transactionId, balance: targetBalance, revision: next.revision, duplicate: false, adjusted: true };
+    });
+  }
+
   async claimActivityReward(input, claim, { verifyEligibility, dailyCredit } = {}) {
     if (!claim?.path || !claim?.data) failCoin('coin/invalid-argument', 'A server-derived reward claim is required.');
     if (typeof verifyEligibility !== 'function') failCoin('coin/invalid-argument', 'Transactional eligibility verification is required.');

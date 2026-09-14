@@ -37,15 +37,15 @@
       "id": "reverse-example",
       "type": "code",
       "language": "text",
-      "code": "Input\nMiTutora\n\nOutput\narotuTiM"
+      "code": "Input\nycoders\n\nOutput\nsredocy"
     },
     {
       "id": "reverse-compiler",
       "type": "compiler",
       "language": "python",
       "starterCode": "text = input()\n# Print text in reverse\n",
-      "stdin": "MiTutora",
-      "expectedOutput": "arotuTiM",
+      "stdin": "ycoders",
+      "expectedOutput": "sredocy",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

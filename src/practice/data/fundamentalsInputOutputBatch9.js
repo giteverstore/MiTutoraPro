@@ -6,7 +6,7 @@ const linear = { time: 'O(n)', space: 'O(n)' };
 const specs = [
   {
     id: 'fund-io-001', title: 'Format a User Greeting', summary: 'Transform supplied user input into exact output text.',
-    subtopic: 'basic-input-output', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'basic-input-output', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Given a name entered by a user, return exactly “Hello, NAME!” with the supplied name replacing NAME. Preserve the name exactly as supplied.',
     contract: { functionName: 'format_user_greeting', signature: 'format_user_greeting(name)', input: 'Text supplied as a user name.', output: 'Text in the exact format Hello, NAME!' },
     constraints: ['1 <= name length <= 100'], concepts: ['input', 'output', 'formatting'], skills: ['input-processing', 'output-formatting'], prerequisites: ['strings', 'functions'], commonMistakes: ['omitting punctuation', 'changing the supplied name'], expectedComplexity: linear,
@@ -15,7 +15,7 @@ const specs = [
   },
   {
     id: 'fund-io-002', title: 'Trace a Profile Summary', summary: 'Reason about combining separately supplied input fields.',
-    subtopic: 'basic-input-output', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'basic-input-output', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Given a user name and age, return exactly “Name: NAME, Age: AGE”. Use one space after each colon and after the comma.',
     contract: { functionName: 'profile_summary', signature: 'profile_summary(name, age)', input: 'A name as text and an age as a whole number.', output: 'Text in the exact format Name: NAME, Age: AGE.' },
     constraints: ['1 <= name length <= 100', '0 <= age <= 150'], concepts: ['input-fields', 'formatted-output'], skills: ['type-reasoning', 'output-formatting'], prerequisites: ['strings', 'numbers'], commonMistakes: ['omitting required spaces', 'reversing the fields'], expectedComplexity: linear,
@@ -24,7 +24,7 @@ const specs = [
   },
   {
     id: 'fund-io-003', title: 'Repair a Score Message', summary: 'Fix exact output formatting for supplied data.',
-    subtopic: 'basic-input-output', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'basic-input-output', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return exactly “PLAYER scored SCORE points.” using the supplied player and score. The current output omits required spacing and punctuation. Correct it.',
     contract: { functionName: 'score_message', signature: 'score_message(player, score)', input: 'A player name and whole-number score.', output: 'Text in the exact format PLAYER scored SCORE points.' },
     constraints: ['1 <= player length <= 100', 'score is a whole number'], concepts: ['output', 'exact-formatting'], skills: ['debugging-formatting', 'output-formatting'], prerequisites: ['strings'], commonMistakes: ['missing spaces', 'missing final period'], expectedComplexity: linear,
@@ -33,7 +33,7 @@ const specs = [
   },
   {
     id: 'fund-io-004', title: 'Convert Integer Text and Add', summary: 'Convert textual input before arithmetic.',
-    subtopic: 'numeric-input-conversion', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'numeric-input-conversion', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The first input is valid integer text with optional surrounding whitespace; the second is a whole-number offset. Convert the text to a number and return their numeric sum. For example, textual “42” must be interpreted before adding.',
     contract: { functionName: 'parsed_integer_plus', signature: 'parsed_integer_plus(integer_text, offset)', input: 'Valid signed integer text and a whole-number offset.', output: 'Their numeric sum.' },
     constraints: ['integer_text becomes a valid signed integer after trimming', 'absolute values <= 1000000'], concepts: ['input', 'type-conversion', 'integer-text'], skills: ['input-processing', 'type-reasoning'], prerequisites: ['integers', 'strings'], commonMistakes: ['joining text instead of adding numbers', 'ignoring surrounding whitespace'], expectedComplexity: linear,
@@ -42,7 +42,7 @@ const specs = [
   },
   {
     id: 'fund-io-005', title: 'Calculate a Total from Decimal Text', summary: 'Interpret decimal input and apply arithmetic.',
-    subtopic: 'numeric-input-conversion', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'numeric-input-conversion', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The supplied price input is valid decimal text with optional surrounding whitespace. Convert it to a numeric value and return the total for the supplied whole-number quantity.',
     contract: { functionName: 'total_from_price_text', signature: 'total_from_price_text(price_text, quantity)', input: 'Valid decimal text and a non-negative whole-number quantity.', output: 'The numeric price multiplied by quantity.' },
     constraints: ['price_text becomes a valid decimal number after trimming', '0 <= quantity <= 1000'], concepts: ['decimal-conversion', 'numeric-input'], skills: ['input-processing', 'type-reasoning'], prerequisites: ['decimals', 'multiplication'], commonMistakes: ['repeating text instead of multiplying numbers', 'converting the quantity rather than the price text'], expectedComplexity: linear,

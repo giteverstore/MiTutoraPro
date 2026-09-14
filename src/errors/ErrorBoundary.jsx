@@ -121,7 +121,7 @@ export function GlobalErrorBoundary({ children }) {
       fallback={({ diagnosticId, reset }) => (
         <main className="global-error-page" data-theme="light">
           <RecoveryState
-            title="MiTutora could not continue."
+            title="ycoders could not continue."
             description="Reload the application to restore your workspace. Saved progress will remain available."
             diagnosticId={diagnosticId}
             onRetry={() => window.location.reload()}

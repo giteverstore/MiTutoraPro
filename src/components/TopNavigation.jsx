@@ -1,8 +1,9 @@
-import { ArrowLeft, Moon, PanelLeftOpen, Sun } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, PanelLeftOpen } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
-import { UserAvatar } from './UserAvatar';
+import { GlobalTopbarActions } from '../app-shell/GlobalTopbarActions';
 
 export function TopNavigation({
   onMenuClick,
@@ -18,6 +19,19 @@ export function TopNavigation({
   isSidebarOverlay,
 }) {
   const { navigation } = course;
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const closeMenus = (event) => {
+      if (event.key === 'Escape') {
+        setNotificationsOpen(false);
+        setUserMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', closeMenus);
+    return () => window.removeEventListener('keydown', closeMenus);
+  }, []);
 
   return (
     <header className="topbar">
@@ -29,9 +43,9 @@ export function TopNavigation({
         >
           <ArrowLeft size={ICON_SIZE.lg} aria-hidden="true" />
         </IconButton>
-        <span className="overview-brand lesson-topbar-brand" aria-label="MiTutora">
-          <span aria-hidden="true">Mi</span>
-          MiTutora
+        <span className="overview-brand lesson-topbar-brand" aria-label="ycoders">
+          <span><img src="/ycoders-mark.svg" alt="" /></span>
+          ycoders
         </span>
         {isSidebarOverlay ? (
           <IconButton
@@ -54,12 +68,6 @@ export function TopNavigation({
             <span style={{ width: `${progress}%` }} />
           </div>
         </div>
-        <IconButton
-          label={`${theme === 'light' ? navigation.darkModeLabel : navigation.lightModeLabel} (${course.ui.shortcuts.theme})`}
-          onClick={onThemeToggle}
-        >
-          {theme === 'light' ? <Moon size={ICON_SIZE.md} /> : <Sun size={ICON_SIZE.md} />}
-        </IconButton>
         {bookmark ? (
           <BookmarkToggle
             bookmark={bookmark}
@@ -68,13 +76,22 @@ export function TopNavigation({
             className="topbar-bookmark-toggle"
           />
         ) : null}
-        <div className="topbar-user">
-          <UserAvatar avatar={user.avatar} name={user.name} className="user-avatar" />
-          <span className="user-name">{user.name}</span>
-          <button className="auth-text-button" type="button" onClick={onSignOut}>
-            Sign out
-          </button>
-        </div>
+        <GlobalTopbarActions
+          user={user}
+          theme={theme}
+          notificationsOpen={notificationsOpen}
+          userMenuOpen={userMenuOpen}
+          onThemeToggle={onThemeToggle}
+          onNotificationsToggle={() => {
+            setUserMenuOpen(false);
+            setNotificationsOpen((current) => !current);
+          }}
+          onUserMenuToggle={() => {
+            setNotificationsOpen(false);
+            setUserMenuOpen((current) => !current);
+          }}
+          onSignOut={onSignOut}
+        />
       </div>
     </header>
   );

@@ -6,7 +6,7 @@ const combined = { time: 'O(n+m)', space: 'O(n+m)' };
 const specs = [
   {
     id: 'fund-sets-001', title: 'Count Unique Categories', summary: 'Count distinct values rather than input positions.',
-    subtopic: 'set-basics-uniqueness', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'set-basics-uniqueness', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return the number of unique category values in the supplied collection.',
     contract: { functionName: 'unique_category_count', signature: 'unique_category_count(categories)', input: 'A collection of category values.', output: 'The number of distinct categories.' },
     constraints: ['0 <= number of values <= 1000'], concepts: ['set', 'uniqueness'], skills: ['uniqueness-reasoning', 'collection-conversion'], prerequisites: ['collections'], commonMistakes: ['counting every input position', 'assuming duplicates remain distinct'], expectedComplexity: linear,
@@ -15,7 +15,7 @@ const specs = [
   },
   {
     id: 'fund-sets-002', title: 'Trace Unique Labels', summary: 'Reason about duplicate values collapsing into one.',
-    subtopic: 'set-basics-uniqueness', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'set-basics-uniqueness', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return all unique labels in alphabetical order. The alphabetical output is a deterministic presentation of the unique-value collection; it does not imply the set itself has positions.',
     contract: { functionName: 'sorted_unique_labels', signature: 'sorted_unique_labels(labels)', input: 'A collection of text labels.', output: 'An alphabetically ordered collection of unique labels.' },
     constraints: ['0 <= number of labels <= 1000'], concepts: ['uniqueness', 'deterministic-representation'], skills: ['uniqueness-reasoning', 'duplicate-elimination'], prerequisites: ['strings', 'collections'], commonMistakes: ['retaining duplicates', 'assuming arbitrary set iteration is ordered'], expectedComplexity: { time: 'O(n log n)', space: 'O(n)' },
@@ -24,7 +24,7 @@ const specs = [
   },
   {
     id: 'fund-sets-003', title: 'Count Unique Registered IDs', summary: 'Recognize repeated identifiers as one unique value.',
-    subtopic: 'set-basics-uniqueness', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'set-basics-uniqueness', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return how many unique registered IDs occur in the supplied collection.',
     contract: { functionName: 'unique_id_count', signature: 'unique_id_count(ids)', input: 'A collection of identifier values.', output: 'The number of unique IDs.' },
     constraints: ['0 <= number of IDs <= 1000'], concepts: ['set', 'unique-identifiers'], skills: ['duplicate-elimination', 'uniqueness-reasoning'], prerequisites: ['collections'], commonMistakes: ['counting repeated registrations', 'removing values that occur once'], expectedComplexity: linear,
@@ -33,7 +33,7 @@ const specs = [
   },
   {
     id: 'fund-sets-004', title: 'Repair the Unique Tag Count', summary: 'Fix counting that incorrectly includes duplicate positions.',
-    subtopic: 'set-basics-uniqueness', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'set-basics-uniqueness', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return the number of unique tags. The current implementation returns the number of input positions and therefore counts duplicates repeatedly. Correct it.',
     contract: { functionName: 'distinct_tag_count', signature: 'distinct_tag_count(tags)', input: 'A collection of tag values.', output: 'The number of distinct tags.' },
     constraints: ['0 <= number of tags <= 1000'], concepts: ['uniqueness', 'duplicate-assumption'], skills: ['debugging-collections', 'uniqueness-reasoning'], prerequisites: ['collection-length'], commonMistakes: ['using the original collection size', 'assuming duplicates survive in a set'], expectedComplexity: linear,
@@ -42,7 +42,7 @@ const specs = [
   },
   {
     id: 'fund-sets-005', title: 'Check a Registered Username', summary: 'Test membership in a unique-value collection.',
-    subtopic: 'membership-lookup', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'membership-lookup', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return whether the supplied username is present among the registered unique values. Matching is case-sensitive.',
     contract: { functionName: 'username_registered', signature: 'username_registered(usernames, username)', input: 'A collection of registered usernames and a target username.', output: 'A boolean membership result.' },
     constraints: ['0 <= number of usernames <= 1000'], concepts: ['set-membership', 'case-sensitivity'], skills: ['membership-checking', 'exact-matching'], prerequisites: ['sets'], commonMistakes: ['ignoring letter case', 'checking only one value'], expectedComplexity: linear,
@@ -51,7 +51,7 @@ const specs = [
   },
   {
     id: 'fund-sets-006', title: 'Trace Required Feature Membership', summary: 'Reason about whether several required values are present.',
-    subtopic: 'membership-lookup', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'membership-lookup', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return whether every required feature is present in the supported unique-value collection. An empty required collection is satisfied.',
     contract: { functionName: 'all_features_supported', signature: 'all_features_supported(supported, required)', input: 'Collections of supported and required feature values.', output: 'Whether every required value is present.' },
     constraints: ['0 <= values in each collection <= 1000'], concepts: ['membership', 'containment'], skills: ['membership-checking', 'collection-comparison'], prerequisites: ['conditions', 'sets'], commonMistakes: ['accepting when only one required feature is present', 'rejecting an empty requirement'], expectedComplexity: combined,

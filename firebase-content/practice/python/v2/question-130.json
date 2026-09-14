@@ -4,7 +4,7 @@
   "title": "Repair a Label Lookup",
   "summary": "Fix confusion between keys and values.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "dictionaries-hash-maps",
   "category": "fundamentals",
   "subtopic": "dictionary-map-basics",

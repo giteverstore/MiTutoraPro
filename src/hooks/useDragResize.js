@@ -12,6 +12,7 @@ export function useDragResize({
   direction = 1,
   axis = 'x',
   storageKey,
+  onDragEnd,
 }) {
   const [value, setValue] = useState(() => {
     if (!storageKey) return initialValue;
@@ -19,6 +20,9 @@ export function useDragResize({
     return Number.isFinite(storedValue) ? clamp(storedValue, min, max) : initialValue;
   });
   const dragState = useRef(null);
+  const valueRef = useRef(value);
+
+  useEffect(() => { valueRef.current = value; }, [value]);
 
   useEffect(() => {
     setValue((current) => clamp(current, min, max));
@@ -29,16 +33,19 @@ export function useDragResize({
   }, [storageKey, value]);
 
   const stopDragging = useCallback(() => {
+    if (dragState.current) onDragEnd?.(valueRef.current);
     dragState.current = null;
     document.body.classList.remove('is-resizing');
-  }, []);
+  }, [onDragEnd]);
 
   useEffect(() => {
     const handlePointerMove = (event) => {
       if (!dragState.current) return;
       const pointerPosition = axis === 'x' ? event.clientX : event.clientY;
       const delta = (pointerPosition - dragState.current.pointerStart) * direction;
-      setValue(clamp(dragState.current.valueStart + delta, min, max));
+      const nextValue = clamp(dragState.current.valueStart + delta, min, max);
+      valueRef.current = nextValue;
+      setValue(nextValue);
     };
 
     window.addEventListener('pointermove', handlePointerMove);
@@ -68,12 +75,12 @@ export function useDragResize({
     if (![decreaseKey, increaseKey].includes(event.key)) return;
     event.preventDefault();
     const keyboardDirection = event.key === increaseKey ? 1 : -1;
-    setValue((current) => clamp(
-      current + keyboardDirection * LAYOUT_SIZE.resizeStep * direction,
-      min,
-      max,
-    ));
+    setValue((current) => {
+      const nextValue = clamp(current + keyboardDirection * LAYOUT_SIZE.resizeStep * direction, min, max);
+      valueRef.current = nextValue;
+      return nextValue;
+    });
   }, [axis, direction, max, min]);
 
-  return { value, startDragging, handleKeyDown };
+  return { value, setValue, startDragging, handleKeyDown };
 }

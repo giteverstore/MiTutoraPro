@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, Clock3, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock3 } from 'lucide-react';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
 
@@ -20,7 +20,6 @@ export function PracticeQuestionPreview({ question, solved, onStart }) {
       <p>{question.summary}</p>
       <div className="practice-preview-meta">
         <span><Clock3 /> {question.estimatedMinutes} minutes</span>
-        <span><Zap /> {question.xp} XP</span>
       </div>
       <button className="button button--primary" type="button" onClick={onStart}>
         {solved ? 'Practice Again' : 'Start Practice'} <ArrowRight />

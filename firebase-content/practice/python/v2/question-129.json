@@ -4,7 +4,7 @@
   "title": "Trace a Capital Lookup",
   "summary": "Reason about selecting one value from multiple keys.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "dictionaries-hash-maps",
   "category": "fundamentals",
   "subtopic": "dictionary-map-basics",

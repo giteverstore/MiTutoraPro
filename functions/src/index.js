@@ -28,7 +28,7 @@ function endpoint(handler) {
     try { return await handler(authenticated(request), request.data ?? {}); }
     catch (error) {
       telemetry.error('certification.callable.rejected', { operation: handler.name || 'callable', errorCode: stableErrorCode(error) });
-      const supported = new Set(['invalid-argument', 'not-found', 'permission-denied', 'failed-precondition', 'already-exists', 'aborted', 'deadline-exceeded', 'unavailable', 'data-loss', 'resource-exhausted']);
+      const supported = new Set(['unauthenticated', 'invalid-argument', 'not-found', 'permission-denied', 'failed-precondition', 'already-exists', 'aborted', 'deadline-exceeded', 'unavailable', 'data-loss', 'resource-exhausted']);
       const referralCodes = new Map([
         ['referral/invalid-code', 'invalid-argument'], ['referral/client-authority-rejected', 'invalid-argument'],
         ['referral/code-not-found', 'not-found'], ['referral/code-inactive', 'failed-precondition'],
@@ -36,6 +36,17 @@ function endpoint(handler) {
       ]);
       const publicCode = supported.has(error.code) ? error.code : referralCodes.get(error.code);
       throw new HttpsError(publicCode ?? 'internal', publicCode ? error.message : 'Server operation failed.');
+    }
+  });
+}
+
+function publicEndpoint(handler) {
+  return onCall(callableOptions(), async (request) => {
+    try { return await handler(request.data ?? {}); }
+    catch (error) {
+      telemetry.error('certification.public_callable.rejected', { operation: handler.name || 'callable', errorCode: stableErrorCode(error) });
+      const supported = new Set(['invalid-argument', 'not-found', 'failed-precondition', 'unavailable']);
+      throw new HttpsError(supported.has(error.code) ? error.code : 'internal', supported.has(error.code) ? error.message : 'Certificate verification failed.');
     }
   });
 }
@@ -54,6 +65,7 @@ const premiumGuarded = (operation, limits, handler) => endpoint(async (uid, data
 export const getCertificationStatus = premiumGuarded('getCertificationStatus', CALLABLE_LIMITS.read, (uid, { courseId }) => service.getCertification(uid, courseId));
 export const getExamAttempt = premiumGuarded('getExamAttempt', CALLABLE_LIMITS.read, (uid, { attemptId }) => service.getAttempt(uid, attemptId));
 export const getCandidateExam = premiumGuarded('getCandidateExam', CALLABLE_LIMITS.read, (_uid, { examId }) => service.getCandidateExam(examId));
+export const verifyPublicCertificate = publicEndpoint(({ credentialId }) => service.verifyCertificate(credentialId));
 export const createExamAttempt = premiumGuarded('createExamAttempt', CALLABLE_LIMITS.attemptCreate, (uid, data) => service.createAttempt(uid, data));
 export const beginExamVerification = premiumGuarded('beginExamVerification', CALLABLE_LIMITS.verification, (uid, { attemptId }) => service.beginVerification(uid, attemptId));
 export const completeExamVerification = premiumGuarded('completeExamVerification', CALLABLE_LIMITS.verification, (uid, { attemptId, ...protocol }) => service.completeVerification(uid, attemptId, protocol));

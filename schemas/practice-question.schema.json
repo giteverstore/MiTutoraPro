@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.learning-platform.local/practice-question.schema.json",
-  "title": "MiTutora Practice Question",
+  "title": "ycoders Practice Question",
   "description": "A standalone practice problem rendered with Learning Engine lesson blocks.",
   "type": "object",
   "additionalProperties": false,
@@ -65,6 +65,10 @@
     "constraints": {
       "type": "array",
       "minItems": 1,
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
+    "hints": {
+      "type": "array",
       "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
     },
     "concepts": {
@@ -137,8 +141,7 @@
         "properties": { "type": { "const": "compiler" } },
         "required": ["type"]
       },
-      "minContains": 1,
-      "maxContains": 1
+      "minContains": 1
     }
   },
   "$defs": {

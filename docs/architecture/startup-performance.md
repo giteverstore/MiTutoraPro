@@ -2,7 +2,7 @@
 
 **Status: CURRENT**
 
-MiTutora uses a small authentication core followed by route- and feature-specific JavaScript. This preserves immediate startup feedback without making Home parse learning, Practice, certification, project, editor, or detector code it does not use.
+ycoders uses a small authentication core followed by route- and feature-specific JavaScript. This preserves immediate startup feedback without making Home parse learning, Practice, certification, project, editor, or detector code it does not use.
 
 ## Loading boundaries
 

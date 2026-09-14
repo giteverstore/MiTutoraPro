@@ -34,6 +34,9 @@ export function PracticeTestPanel({
   expectedOutput,
   executionStatus,
   verificationStatus,
+  language,
+  collapsed = false,
+  onExpand,
   onCheckOutput,
   canCheckOutput,
 }) {
@@ -53,7 +56,7 @@ export function PracticeTestPanel({
 
   return (
     <section
-      className={`console-window practice-test-panel is-${tone}`}
+      className={`console-window practice-test-panel is-${tone}${collapsed ? ' is-collapsed' : ''}`}
       style={{ height, flexBasis: height }}
       aria-live="polite"
     >
@@ -64,7 +67,7 @@ export function PracticeTestPanel({
           role="tab"
           aria-selected={activeTab === 'testcase'}
           aria-controls="practice-testcase-panel"
-          onClick={() => setActiveTab('testcase')}
+          onClick={() => { setActiveTab('testcase'); onExpand?.(); }}
         >
           <FlaskConical size={ICON_SIZE.sm} aria-hidden="true" /> Testcase
         </button>
@@ -74,13 +77,13 @@ export function PracticeTestPanel({
           role="tab"
           aria-selected={activeTab === 'result'}
           aria-controls="practice-result-panel"
-          onClick={() => setActiveTab('result')}
+          onClick={() => { setActiveTab('result'); onExpand?.(); }}
         >
           <TerminalSquare size={ICON_SIZE.sm} aria-hidden="true" /> Test Result
         </button>
       </div>
 
-      {activeTab === 'testcase' ? (
+      {!collapsed && (activeTab === 'testcase' ? (
         <div className="practice-test-content" id="practice-testcase-panel" role="tabpanel" tabIndex="0">
           {publicTests.length ? (
             <>
@@ -117,7 +120,7 @@ export function PracticeTestPanel({
                 : <CheckCircle2 aria-hidden="true" />}
             <span>
               <strong>{isRunning ? 'Running' : status === 'error' ? 'Execution error' : verificationStatus === 'matched' ? 'Accepted' : verificationStatus === 'mismatched' ? 'Output mismatch' : status === 'success' ? 'Run completed' : 'Ready to run'}</strong>
-              <small>{isRunning ? 'Your Python code is being evaluated.' : 'Latest execution result'}</small>
+              <small>{isRunning ? `Your ${language} code is being evaluated.` : 'Latest execution result'}</small>
             </span>
           </div>
           <div className="practice-result-values">
@@ -126,9 +129,9 @@ export function PracticeTestPanel({
             <ResultValue label="Expected" value={expectedOutput ?? 'No expected output provided.'} />
           </div>
         </div>
-      )}
+      ))}
 
-      <footer className="practice-test-footer">
+      {!collapsed ? <footer className="practice-test-footer">
         <div>
           <span className={`ide-status-dot is-${tone}`}><i aria-hidden="true" /> {isRunning ? 'Running' : status === 'error' ? 'Failed' : status === 'success' ? 'Completed' : 'Ready'}</span>
           <span>Time <strong>{executionTimeMs === null ? '—' : `${executionTimeMs} ms`}</strong></span>
@@ -137,7 +140,7 @@ export function PracticeTestPanel({
           <SearchCheck size={ICON_SIZE.sm} aria-hidden="true" />
           {verificationStatus === 'matched' ? 'Output Verified' : 'Check Output'}
         </button>
-      </footer>
+      </footer> : null}
     </section>
   );
 }

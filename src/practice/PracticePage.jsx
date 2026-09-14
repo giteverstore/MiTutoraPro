@@ -4,12 +4,13 @@ import { PracticeFilters } from './PracticeFilters';
 import { PracticePagination } from './PracticePagination';
 import { PracticeQuestionCard } from './PracticeQuestionCard';
 import { PracticeStatistics } from './PracticeStatistics';
-import { initiallySolvedQuestionIds, practiceStatistics } from './practiceData';
+import { initiallySolvedQuestionIds, practiceQuestions, practiceStatistics } from './practiceData';
 import { practiceContentSource } from './practiceContentSource';
 import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDiagnostics';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 
 const initialFilters = { difficulty: 'all', topic: 'all', search: '' };
+const practiceDifficulties = ['easy', 'medium', 'hard'];
 const PAGE_CACHE_LIMIT = 5;
 const uniqueValues = (items, property) => [...new Set(items.map((item) => item[property]))].sort();
 
@@ -38,7 +39,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   const pageCursors = useRef(new Map([[1, null]]));
   const reachablePageCount = useRef(1);
   const filterOptions = useMemo(() => ({
-    difficulties: catalog.facets?.difficulties ?? uniqueValues(catalog.items, 'difficulty'),
+    difficulties: practiceDifficulties,
     topics: catalog.facets?.topics ?? uniqueValues(catalog.items, 'topic'),
   }), [catalog.facets, catalog.items]);
 
@@ -126,7 +127,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
 
   return (
     <div className="practice-page">
-      <header className="practice-page-heading"><h1>Sharpen your coding skills.</h1><p>Choose a focused problem, write real Python, and validate your output.</p></header>
+      <PracticeStatistics statistics={practiceStatistics} questions={practiceQuestions} />
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
       <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{catalog.items.length} questions</h2></div></header><div>
         {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}
@@ -134,7 +135,6 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
         {catalog.error ? <p className="practice-no-results">This page couldn’t be loaded. <button type="button" onClick={() => loadPage(catalog.currentPage, { force: true })}>Retry</button></p> : null}
       </div></section></div>
       {catalog.items.length ? <PracticePagination currentPage={catalog.currentPage} reachablePageCount={catalog.reachablePageCount} hasNextPage={catalog.hasMore} onPageChange={(pageNumber) => loadPage(pageNumber, { scroll: true })} /> : null}
-      <PracticeStatistics statistics={practiceStatistics} language={catalog.items[0]?.language ?? 'Python'} />
     </div>
   );
 }

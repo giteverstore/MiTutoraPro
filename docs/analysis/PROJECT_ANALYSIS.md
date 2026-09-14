@@ -1,4 +1,4 @@
-# MiTutoraPro Project Analysis
+# ycoders Project Analysis
 
 ## Audit Methodology
 
@@ -8,7 +8,7 @@ No application source, configuration, content, Firebase resource, deployment, or
 
 ## Executive Summary
 
-MiTutora Pro has evolved into a broad, thoughtfully separated platform: JSON-driven learning content, lazy course loading, language-neutral compiler management, browser runtimes, Practice and Projects, an event-driven exam/proctoring subsystem, and server-owned certification records. The content validators are unusually strong for a project at this stage, and the production build passes.
+ycoders has evolved into a broad, thoughtfully separated platform: JSON-driven learning content, lazy course loading, language-neutral compiler management, browser runtimes, Practice and Projects, an event-driven exam/proctoring subsystem, and server-owned certification records. The content validators are unusually strong for a project at this stage, and the production build passes.
 
 Remediation Batch 1 hardened the evidence boundary. Trusted completion now requires course/version-bound server sessions and type-specific evidence; verification uses an expiring attempt challenge; integrity transport has monotonic sequencing and incomplete telemetry forces review; required certification audits commit atomically with state. Browser reading, hardware observations, and client runtime execution remain explicitly limited-assurance evidence rather than being described as tamper-proof.
 

@@ -1,6 +1,6 @@
 # Testing
 
-MiTutora combines invariant validators with focused behavioral tests.
+ycoders combines invariant validators with focused behavioral tests.
 
 ## Commands
 

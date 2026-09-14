@@ -5,8 +5,10 @@ import { parseAppRoute, routePage, routePath } from '../../src/routing/appRoutes
 
 const pageRoutes = [
   ['/', 'home'],
+  ['/library', 'library'],
   ['/practice', 'practice'],
   ['/challenges', 'challenges'],
+  ['/redeem', 'redeem'],
   ['/bookmarks', 'bookmarks'],
   ['/certificates', 'certificates'],
   ['/referrals', 'referrals'],
@@ -22,6 +24,7 @@ describe('application URL adapter', () => {
 
   it.each([
     ['/practice/fund-variables-001', { kind: 'practice-question', page: 'practice', questionId: 'fund-variables-001' }],
+    ['/challenges/daily/2026-09-13', { kind: 'challenge-daily', page: 'challenges', date: '2026-09-13' }],
     ['/courses/python', { kind: 'course-overview', courseId: 'python', lessonId: null }],
     ['/courses/python/lesson/lesson-1-1-introduction-to-python', { kind: 'course-lesson', courseId: 'python', lessonId: 'lesson-1-1-introduction-to-python' }],
     ['/courses/java', { kind: 'course-overview', courseId: 'java', lessonId: null }],
@@ -33,6 +36,7 @@ describe('application URL adapter', () => {
   it('rejects malformed and path-traversal identifiers', () => {
     expect(parseAppRoute('/courses/%2e%2e/lesson/x').kind).toBe('not-found');
     expect(parseAppRoute('/practice/a%2Fb').kind).toBe('not-found');
+    expect(parseAppRoute('/challenges/daily/2026-02-30').kind).toBe('not-found');
     expect(parseAppRoute('/unknown').kind).toBe('not-found');
     expect(parseAppRoute('/exam').kind).toBe('not-found');
     expect(parseAppRoute('/setup').kind).toBe('not-found');
@@ -47,6 +51,7 @@ describe('application URL adapter', () => {
 
   it('keeps resource routes in their owning AppShell page', () => {
     expect(routePage({ kind: 'practice-question', questionId: 'fund-variables-001' })).toBe('practice');
+    expect(routePage({ kind: 'challenge-daily', date: '2026-09-13' })).toBe('challenges');
     expect(routePage({ kind: 'page', page: 'settings' })).toBe('settings');
   });
 });
@@ -55,11 +60,15 @@ describe('Vercel SPA routing contract', () => {
   const config = JSON.parse(readFileSync(resolve('vercel.json'), 'utf8'));
 
   it('falls back unresolved direct requests to the Vite SPA entry point', () => {
-    expect(config.rewrites).toEqual([{ source: '/(.*)', destination: '/index.html' }]);
+    expect(config.routes).toEqual([
+      { handle: 'filesystem' },
+      { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },
+    ]);
   });
 
   it('uses filesystem-aware rewrites without legacy route or build overrides', () => {
-    expect(config.routes).toBeUndefined();
+    expect(config.routes[0]).toEqual({ handle: 'filesystem' });
+    expect(config.rewrites).toBeUndefined();
     expect(config.builds).toBeUndefined();
     expect(config.cleanUrls).toBeUndefined();
     expect(config.trailingSlash).toBeUndefined();

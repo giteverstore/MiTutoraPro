@@ -4,7 +4,7 @@
 **Phase:** 4.5  
 **Status:** COMPLETE AS A LOCAL REVIEW; NOT PRODUCTION APPROVAL
 
-This document is the provider/privacy decision record for the first MiTutora Pro AI Tutor release. It is an engineering and product-risk review, not legal advice or a compliance claim. The active test configuration remains `huggingface` / `openai/gpt-oss-120b:fastest`; no provider, credential, billing, or production setting was changed in this phase.
+This document is the provider/privacy decision record for the first ycoders AI Tutor release. It is an engineering and product-risk review, not legal advice or a compliance claim. The active test configuration remains `huggingface` / `openai/gpt-oss-120b:fastest`; no provider, credential, billing, or production setting was changed in this phase.
 
 ## Decision summary
 
@@ -51,7 +51,7 @@ These sources are point-in-time evidence. The provider lifecycle policy below re
 | International transfers | The DPA describes processor roles and transfer mechanisms for covered EEA/Swiss/UK data; API sub-processors operate in multiple countries. | FACT | India and other launch-region transfer obligations require legal review. |
 | Sub-processors | The current API list includes infrastructure, delivery, support, identity, warehousing, and moderation providers with published processing locations. | FACT | Subscribe to changes and review the actual production-account applicability. |
 | Deletion | The DPA provides return/deletion after agreement expiry or termination, subject to legal retention. Per-request deletion of abuse logs is not established. | FACT / PROVIDER CONFIRMATION REQUIRED | Define offboarding and data-subject workflows with the provider. |
-| Security | OpenAI documents SOC 2 review, AES-256 at rest, TLS 1.2+ in transit, access controls, and contractual security measures. | FACT | Obtain and review the applicable audit/security materials; documentation is not a MiTutora risk acceptance. |
+| Security | OpenAI documents SOC 2 review, AES-256 at rest, TLS 1.2+ in transit, access controls, and contractual security measures. | FACT | Obtain and review the applicable audit/security materials; documentation is not a ycoders risk acceptance. |
 | Terms | The Services Agreement requires rights to inputs, evaluation of output accuracy, necessary end-user consent, and parent/guardian consent for minors using the services. | FACT | Product/legal owners must define age and consent controls before enablement. |
 | India availability | Official regional documentation supports an India storage endpoint, but this review does not establish the production account's commercial access, rate tier, latency, or intended contracting route. | PROVIDER CONFIRMATION REQUIRED | Confirm with the provider/account owner. |
 | Reliability and limits | Model rate limits vary by usage tier. No Tutor-specific SLA or selected-account capacity is established here. | FACT / PROVIDER CONFIRMATION REQUIRED | Verify limits and deployed-region p50/p95/p99 before rollout. |
@@ -171,7 +171,7 @@ It uses native `details/summary`, is keyboard operable, does not move focus, and
 - India DPDP interpretation: notice/consent, children's data, purpose limitation, retention, grievance/withdrawal, cross-border processing, and processor obligations.
 - Whether learner code may contain third-party, employer, school, personal, confidential, or regulated information and what use policy applies.
 - Data-subject access, deletion, export, dispute, and support procedures when content may exist in provider abuse-monitoring systems.
-- Retention and access policy for future MiTutora telemetry, which is not configured in this phase.
+- Retention and access policy for future ycoders telemetry, which is not configured in this phase.
 
 No statement in this section asserts GDPR, DPDP, student-privacy, or other legal compliance.
 

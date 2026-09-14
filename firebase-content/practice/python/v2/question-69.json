@@ -4,7 +4,7 @@
   "title": "Trace Parameter Values",
   "summary": "Reason about arguments becoming parameter values.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "functions",
   "category": "fundamentals",
   "subtopic": "function-basics-parameters",

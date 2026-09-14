@@ -6,7 +6,7 @@ M8.7 places RazorpayX behind the provider-independent `PayoutProvider` boundary.
 
 The learner supplies a UPI ID for each withdrawal. The server normalizes it as a lower-case ASCII VPA and sends it transiently while creating a RazorpayX Contact and VPA Fund Account. The canonical withdrawal persists only the masked destination, keyed fingerprint, and provider Contact/Fund Account/Payout identifiers. The full VPA is not stored in a profile, withdrawal, outbox, event, ledger, log, or error.
 
-Contact references use the immutable withdrawal identity. Razorpay documents that identical Contact attributes and identical `contact_id` plus VPA Fund Account attributes return existing provider objects. This bounds retries without creating a reusable MiTutora payout profile. An ambiguous transport outcome becomes `UNKNOWN`; RESERVED remains intact and no autonomous retry requiring a persisted VPA occurs.
+Contact references use the immutable withdrawal identity. Razorpay documents that identical Contact attributes and identical `contact_id` plus VPA Fund Account attributes return existing provider objects. This bounds retries without creating a reusable ycoders payout profile. An ambiguous transport outcome becomes `UNKNOWN`; RESERVED remains intact and no autonomous retry requiring a persisted VPA occurs.
 
 ## Payout request and idempotency
 

@@ -2,7 +2,7 @@
 
 **Status: CURRENT**
 
-MiTutora validates content complexity before publication and applies defensive download ceilings in the browser. `src/content/validation/contentLimits.js` is the single source for course, Practice, and runtime limits.
+ycoders validates content complexity before publication and applies defensive download ceilings in the browser. `src/content/validation/contentLimits.js` is the single source for course, Practice, and runtime limits.
 
 ## Publication pipeline
 

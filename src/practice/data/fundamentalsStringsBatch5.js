@@ -6,7 +6,7 @@ const linearOutput = { time: 'O(n)', space: 'O(n)' };
 const specs = [
   {
     id: 'fund-strings-001', title: 'Read the First Character', summary: 'Access the first position of non-empty text.',
-    subtopic: 'string-basics-indexing', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'string-basics-indexing', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Return the first character of the supplied non-empty text.',
     contract: { functionName: 'first_character', signature: 'first_character(text)', input: 'Non-empty text.', output: 'Its first character.' },
     constraints: ['1 <= text length <= 1000'], concepts: ['string-basics', 'indexing'], skills: ['sequence-reasoning', 'boundary-analysis'], prerequisites: ['text-values'], commonMistakes: ['using the second position', 'returning the complete text'],
@@ -15,7 +15,7 @@ const specs = [
   },
   {
     id: 'fund-strings-002', title: 'Read the Last Character', summary: 'Access the final valid position of text.',
-    subtopic: 'string-basics-indexing', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'string-basics-indexing', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Return the last character of the supplied non-empty text.',
     contract: { functionName: 'last_character', signature: 'last_character(text)', input: 'Non-empty text.', output: 'Its final character.' },
     constraints: ['1 <= text length <= 1000'], concepts: ['string-basics', 'last-position'], skills: ['sequence-reasoning', 'boundary-analysis'], prerequisites: ['string-indexing'], commonMistakes: ['using the text length as a valid position', 'returning the first character'],
@@ -24,7 +24,7 @@ const specs = [
   },
   {
     id: 'fund-strings-003', title: 'Trace a Character Position', summary: 'Reason about zero-based positions in text.',
-    subtopic: 'string-basics-indexing', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'string-basics-indexing', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return the character at the supplied zero-based position in non-empty text.',
     contract: { functionName: 'character_at', signature: 'character_at(text, position)', input: 'Non-empty text and a valid zero-based position.', output: 'The character at that position.' },
     constraints: ['0 <= position < text length', '1 <= text length <= 1000'], concepts: ['indexing', 'character-position'], skills: ['sequence-reasoning', 'index-boundary'], prerequisites: ['whole-numbers'], commonMistakes: ['counting positions from one', 'excluding the final valid position'],
@@ -33,7 +33,7 @@ const specs = [
   },
   {
     id: 'fund-strings-004', title: 'Repair the Final Position', summary: 'Fix an off-by-one index used for the last character.',
-    subtopic: 'string-basics-indexing', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'string-basics-indexing', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The operation should return the last character, but it uses the text length as a position beyond the valid boundary. Correct the index.',
     contract: { functionName: 'final_code_character', signature: 'final_code_character(code)', input: 'A non-empty product code.', output: 'The final code character.' },
     constraints: ['1 <= code length <= 1000'], concepts: ['index-boundary', 'off-by-one'], skills: ['debugging-indexing'], prerequisites: ['string-length'], commonMistakes: ['using length as the final valid position', 'subtracting more than one'],
@@ -42,7 +42,7 @@ const specs = [
   },
   {
     id: 'fund-strings-005', title: 'Count Numeric Characters', summary: 'Inspect every character and count digits.',
-    subtopic: 'string-traversal', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'string-traversal', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return how many characters in the supplied text are digits from 0 through 9.',
     contract: { functionName: 'count_digits', signature: 'count_digits(text)', input: 'Text that may be empty.', output: 'The number of digit characters.' },
     constraints: ['0 <= text length <= 1000'], concepts: ['string-traversal', 'character-classification'], skills: ['character-processing', 'counting'], prerequisites: ['conditions', 'strings'], commonMistakes: ['converting the entire text to a number', 'counting punctuation as digits'], expectedComplexity: linear,
@@ -51,12 +51,12 @@ const specs = [
   },
   {
     id: 'fund-strings-006', title: 'Collect Uppercase Characters', summary: 'Build text from selected characters during traversal.',
-    subtopic: 'string-traversal', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 8, xp: 35,
+    subtopic: 'string-traversal', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 8, xp: 35,
     statement: 'Return a new string containing only uppercase English letters from the source text, preserving their original order.',
     contract: { functionName: 'uppercase_characters', signature: 'uppercase_characters(text)', input: 'Text that may contain letters, digits, spaces, and punctuation.', output: 'Uppercase English letters in original order.' },
     constraints: ['0 <= text length <= 1000'], concepts: ['string-traversal', 'string-construction'], skills: ['character-selection', 'order-preservation'], prerequisites: ['conditions'], commonMistakes: ['converting lowercase letters instead of selecting', 'changing the character order'], expectedComplexity: linearOutput,
-    publicTests: [{ name: 'mixed case', arguments: ['MiTutora PRO'], expected: 'MTPRO', displayInput: 'text = MiTutora PRO', explanation: 'Only existing uppercase letters are collected.' }, { name: 'no uppercase', arguments: ['quiet 7'], expected: '', displayInput: 'text = quiet 7' }],
-    starterCode: "def uppercase_characters(text):\n    result = ''\n    # Append only uppercase English letters\n    return result\n\nprint(uppercase_characters('MiTutora PRO'))\n",
+    publicTests: [{ name: 'mixed case', arguments: ['ycoders PRO'], expected: 'PRO', displayInput: 'text = ycoders PRO', explanation: 'Only existing uppercase letters are collected.' }, { name: 'no uppercase', arguments: ['quiet 7'], expected: '', displayInput: 'text = quiet 7' }],
+    starterCode: "def uppercase_characters(text):\n    result = ''\n    # Append only uppercase English letters\n    return result\n\nprint(uppercase_characters('ycoders PRO'))\n",
   },
   {
     id: 'fund-strings-007', title: 'Repair Selected Character Building', summary: 'Fix a result that resets during traversal.',

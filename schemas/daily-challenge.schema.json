@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.learning-platform.local/daily-challenge.schema.json",
-  "title": "MiTutora Daily Challenge",
+  "title": "ycoders Daily Challenge",
   "description": "A single daily challenge rendered with shared lesson blocks and compiler infrastructure.",
   "type": "object",
   "additionalProperties": false,
@@ -42,6 +42,10 @@
         "streakIncrement": { "type": "integer", "minimum": 1 }
       }
     },
+    "hints": {
+      "type": "array",
+      "items": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
+    },
     "blocks": {
       "type": "array",
       "minItems": 2,
@@ -51,8 +55,7 @@
         "properties": { "type": { "const": "compiler" } },
         "required": ["type"]
       },
-      "minContains": 1,
-      "maxContains": 1
+      "minContains": 1
     }
   }
 }

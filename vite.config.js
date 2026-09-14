@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
   },
   test: {
     environment: 'jsdom',
-    include: ['./tests/batch-{4,5,6,7,8}/**/*.test.{js,jsx}'],
+    include: ['./tests/batch-{4,5,6,7,8}/**/*.test.{js,jsx}', './tests/compiler/**/*.test.{js,jsx}'],
     setupFiles: ['./tests/setup.js'],
     restoreMocks: true,
   },

@@ -8,7 +8,7 @@ const copied = { time: 'O(n)', space: 'O(n)' };
 const specs = [
   {
     id: 'fund-arrays-001', title: 'Read the First Inventory Item', summary: 'Access the first element of an ordered collection.',
-    subtopic: 'list-array-basics-indexing', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'list-array-basics-indexing', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Return the first item in the supplied non-empty inventory collection.',
     contract: { functionName: 'first_inventory_item', signature: 'first_inventory_item(items)', input: 'A non-empty ordered collection of items.', output: 'The first item.' },
     constraints: ['1 <= number of items <= 1000'], concepts: ['collections', 'indexing'], skills: ['sequence-reasoning', 'boundary-analysis'], prerequisites: ['ordered-sequences'], commonMistakes: ['reading the second item', 'returning the entire collection'], expectedComplexity: constant,
@@ -17,7 +17,7 @@ const specs = [
   },
   {
     id: 'fund-arrays-002', title: 'Read the Last Temperature', summary: 'Access the final element of a non-empty collection.',
-    subtopic: 'list-array-basics-indexing', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'list-array-basics-indexing', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Return the final recorded temperature from the supplied non-empty collection.',
     contract: { functionName: 'last_temperature', signature: 'last_temperature(temperatures)', input: 'A non-empty ordered collection of temperatures.', output: 'The final temperature.' },
     constraints: ['1 <= number of temperatures <= 1000'], concepts: ['collections', 'last-position'], skills: ['index-reasoning', 'boundary-analysis'], prerequisites: ['ordered-sequences'], commonMistakes: ['using the collection size as a valid position', 'returning the first value'], expectedComplexity: constant,
@@ -26,7 +26,7 @@ const specs = [
   },
   {
     id: 'fund-arrays-003', title: 'Trace a Rating Position', summary: 'Reason about zero-based positions in a collection.',
-    subtopic: 'list-array-basics-indexing', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'list-array-basics-indexing', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return the rating at the supplied zero-based position. The supplied position is always valid.',
     contract: { functionName: 'rating_at', signature: 'rating_at(ratings, position)', input: 'A non-empty collection and a valid zero-based position.', output: 'The rating at that position.' },
     constraints: ['1 <= number of ratings <= 1000', '0 <= position < number of ratings'], concepts: ['collections', 'indexing'], skills: ['sequence-reasoning', 'index-reasoning'], prerequisites: ['whole-numbers'], commonMistakes: ['counting positions from one', 'excluding the last valid position'], expectedComplexity: constant,
@@ -35,7 +35,7 @@ const specs = [
   },
   {
     id: 'fund-arrays-004', title: 'Repair the Collection Size', summary: 'Fix an off-by-one error in a collection count.',
-    subtopic: 'list-array-basics-indexing', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'list-array-basics-indexing', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return the number of values in the collection. The current implementation incorrectly subtracts one from the count. Correct it.',
     contract: { functionName: 'collection_size', signature: 'collection_size(values)', input: 'A collection that may be empty.', output: 'The number of elements.' },
     constraints: ['0 <= number of values <= 1000'], concepts: ['collection-length', 'off-by-one'], skills: ['debugging-boundaries', 'collection-reasoning'], prerequisites: ['collections'], commonMistakes: ['confusing the final position with the number of elements', 'assuming the collection is non-empty'], expectedComplexity: constant,
@@ -44,7 +44,7 @@ const specs = [
   },
   {
     id: 'fund-arrays-005', title: 'Count Positive Measurements', summary: 'Traverse a collection and count values above zero.',
-    subtopic: 'traversing-lists', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'traversing-lists', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return how many measurements are greater than zero. Zero is not positive.',
     contract: { functionName: 'count_positive_measurements', signature: 'count_positive_measurements(measurements)', input: 'A collection of numeric measurements.', output: 'The number of positive values.' },
     constraints: ['0 <= number of measurements <= 1000'], concepts: ['collection-traversal', 'counting'], skills: ['collection-traversal', 'condition-evaluation'], prerequisites: ['loops', 'comparisons'], commonMistakes: ['counting zero as positive', 'stopping after the first positive value'], expectedComplexity: linear,
@@ -53,7 +53,7 @@ const specs = [
   },
   {
     id: 'fund-arrays-006', title: 'Collect Scores Above a Target', summary: 'Select qualifying elements while preserving order.',
-    subtopic: 'traversing-lists', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 8, xp: 35,
+    subtopic: 'traversing-lists', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 8, xp: 35,
     statement: 'Return a new collection containing every score strictly greater than the target, in its original order. Do not modify the supplied collection.',
     contract: { functionName: 'scores_above', signature: 'scores_above(scores, target)', input: 'A collection of scores and a numeric target.', output: 'A new collection of scores greater than target.' },
     constraints: ['0 <= number of scores <= 1000'], concepts: ['collection-traversal', 'selection'], skills: ['result-construction', 'order-preservation'], prerequisites: ['loops', 'conditions'], commonMistakes: ['including values equal to the target', 'changing the supplied collection'], expectedComplexity: copied,

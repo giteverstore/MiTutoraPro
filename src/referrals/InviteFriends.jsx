@@ -1,14 +1,12 @@
-import { Copy, Share2 } from 'lucide-react';
+import { Copy } from 'lucide-react';
 
-export function InviteFriends({ profile, onCopy, onShare }) {
+export function InviteFriends({ profile, onCopy }) {
   return (
-    <section className="invite-friends" aria-labelledby="invite-friends-title">
-      <header><span>Spread the word</span><h2 id="invite-friends-title">Invite Friends</h2><p>Share your code. A reward is calculated only after a friend's first verified Premium purchase.</p></header>
+    <section className="invite-friends" aria-label="Referral sharing controls">
       <div className="referral-fields">
         <div><span>Referral Code</span><strong>{profile.referralCode}</strong><button type="button" onClick={() => onCopy(profile.referralCode, 'Referral code')}><Copy /> Copy Code</button></div>
         <div><span>Referral Link</span><strong>{profile.referralLink}</strong><button type="button" onClick={() => onCopy(profile.referralLink, 'Referral link')}><Copy /> Copy Link</button></div>
       </div>
-      <button className="button button--primary referral-share-button" type="button" onClick={onShare}><Share2 /> Share Invitation</button>
     </section>
   );
 }

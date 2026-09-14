@@ -27,7 +27,7 @@ assert.doesNotMatch(styles, /lesson-navigation-dock/, 'The former competing work
 assert.match(styles, /\.lesson-body\s*\{[^}]*gap:\s*var\(--space-5\)/, 'Lesson blocks must use a shared spacing rhythm.');
 assert.match(topNavigation, /label="Back to course overview"[\s\S]*?onClick=\{onExitCourse\}[\s\S]*?<ArrowLeft/, 'The lesson header must return to the existing course overview flow.');
 assert.doesNotMatch(topNavigation, /<Menu\b|course-context-copy|context-divider/, 'The lesson header must not duplicate course or chapter context.');
-assert.match(topNavigation, /className="overview-brand lesson-topbar-brand"[\s\S]*?MiTutora/, 'The lesson header must reuse the established MiTutora brand treatment.');
+assert.match(topNavigation, /className="overview-brand lesson-topbar-brand"[\s\S]*?ycoders/, 'The lesson header must reuse the established ycoders brand treatment.');
 assert.doesNotMatch(topNavigation, /currentLessonLabel|lesson\?\.title/, 'The top navigation must not duplicate current lesson context.');
 assert.doesNotMatch(footer, /scopeLabel/, 'The footer must not repeat chapter or section context.');
 assert.match(styles, /\.lesson-region\s*\{[^}]*container:\s*lesson-region \/ inline-size;/, 'Footer responsiveness must follow the lesson column rather than viewport width.');

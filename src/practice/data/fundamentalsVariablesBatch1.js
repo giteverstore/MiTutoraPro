@@ -7,7 +7,7 @@ const specs = [
   {
     id: 'fund-variables-001', title: 'Create a User Label',
     summary: 'Store two values and combine them into a concise user label.',
-    subtopic: 'variable-creation-assignment', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'variable-creation-assignment', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Create variables from the supplied name and age, then return a label in the format `name: age`.',
     contract: { functionName: 'create_user_label', signature: 'create_user_label(name, age)', input: 'A name and a non-negative whole-number age.', output: 'Text formatted as `name: age`.' },
     constraints: ['name contains at least one character', '0 <= age <= 150'],
@@ -22,7 +22,7 @@ const specs = [
   {
     id: 'fund-variables-002', title: 'Track Store Inventory',
     summary: 'Update an assigned quantity after sales and restocking.',
-    subtopic: 'variable-creation-assignment', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'variable-creation-assignment', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'A shop begins with an inventory count, sells some items, and then receives a restock. Return the final inventory.',
     contract: { functionName: 'final_inventory', signature: 'final_inventory(initial, sold, restocked)', input: 'Three non-negative whole-number quantities.', output: 'The final whole-number inventory.' },
     constraints: ['0 <= sold <= initial', '0 <= initial, restocked <= 10000'],
@@ -37,7 +37,7 @@ const specs = [
   {
     id: 'fund-variables-003', title: 'Swap Two Scores',
     summary: 'Exchange the values held by two variables.',
-    subtopic: 'variable-creation-assignment', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'variable-creation-assignment', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Exchange two score values and return them as text in the format `second, first`.',
     contract: { functionName: 'swap_scores', signature: 'swap_scores(first, second)', input: 'Two whole-number scores.', output: 'Text containing the swapped scores separated by a comma and space.' },
     constraints: ['-1000 <= first, second <= 1000'],
@@ -52,7 +52,7 @@ const specs = [
   {
     id: 'fund-variables-004', title: 'Repair a Reassignment',
     summary: 'Correct a broken update to an account balance.',
-    subtopic: 'variable-creation-assignment', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'variable-creation-assignment', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The function should subtract a payment from the current balance, but the broken implementation replaces the balance with the payment. Correct the reassignment.',
     contract: { functionName: 'remaining_balance', signature: 'remaining_balance(balance, payment)', input: 'A balance and a payment not greater than the balance.', output: 'The balance remaining after payment.' },
     constraints: ['0 <= payment <= balance <= 100000'],
@@ -67,7 +67,7 @@ const specs = [
   {
     id: 'fund-variables-005', title: 'Describe a Numeric Value',
     summary: 'Distinguish whole numbers from decimal numbers.',
-    subtopic: 'data-types', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'data-types', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return `whole number` when the supplied value has a whole-number type and `decimal number` when it has a decimal-number type.',
     contract: { functionName: 'describe_number', signature: 'describe_number(value)', input: 'A whole number or decimal number.', output: 'Either `whole number` or `decimal number`.' },
     constraints: ['value is a whole number or decimal number', 'boolean values are not supplied'],
@@ -82,7 +82,7 @@ const specs = [
   {
     id: 'fund-variables-006', title: 'Repair a Text Quantity',
     summary: 'Fix an operation that confuses numeric text with a number.',
-    subtopic: 'data-types', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'data-types', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'A quantity arrives as text. The function should add the numeric bonus, but the current implementation combines incompatible value types. Correct it.',
     contract: { functionName: 'add_quantity_bonus', signature: 'add_quantity_bonus(quantity_text, bonus)', input: 'Numeric text and a whole-number bonus.', output: 'Their whole-number sum.' },
     constraints: ['quantity_text represents a non-negative whole number', '0 <= bonus <= 10000'],

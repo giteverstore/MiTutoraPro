@@ -4,7 +4,7 @@
   "title": "Collect Uppercase Characters",
   "summary": "Build text from selected characters during traversal.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "strings",
   "category": "fundamentals",
   "subtopic": "string-traversal",
@@ -19,8 +19,8 @@
   },
   "examples": [
     {
-      "input": "text = MiTutora PRO",
-      "output": "MTPRO",
+      "input": "text = ycoders PRO",
+      "output": "PRO",
       "explanation": "Only existing uppercase letters are collected."
     }
   ],
@@ -50,9 +50,9 @@
     {
       "name": "mixed case",
       "arguments": [
-        "MiTutora PRO"
+        "ycoders PRO"
       ],
-      "expected": "MTPRO"
+      "expected": "PRO"
     },
     {
       "name": "no uppercase",
@@ -105,7 +105,7 @@
       "id": "fund-strings-006-example",
       "type": "code",
       "language": "text",
-      "code": "Input\ntext = MiTutora PRO\n\nOutput\nMTPRO",
+      "code": "Input\ntext = ycoders PRO\n\nOutput\nPRO",
       "caption": "Only existing uppercase letters are collected."
     },
     {
@@ -119,9 +119,9 @@
       "id": "fund-strings-006-compiler",
       "type": "compiler",
       "language": "python",
-      "starterCode": "def uppercase_characters(text):\n    result = ''\n    # Append only uppercase English letters\n    return result\n\nprint(uppercase_characters('MiTutora PRO'))\n",
+      "starterCode": "def uppercase_characters(text):\n    result = ''\n    # Append only uppercase English letters\n    return result\n\nprint(uppercase_characters('ycoders PRO'))\n",
       "stdin": "",
-      "expectedOutput": "MTPRO",
+      "expectedOutput": "PRO",
       "validator": "normalized",
       "runLabel": "Run Code",
       "resetLabel": "Reset"

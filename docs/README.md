@@ -1,8 +1,8 @@
-# MiTutora Developer Documentation
+# ycoders Developer Documentation
 
 **Status: CURRENT — canonical documentation index**
 
-This directory is the living technical reference for MiTutora. It describes the code that exists today, the contracts that content and runtime implementations must follow, and the workflows used to extend and release the application.
+This directory is the living technical reference for ycoders. It describes the code that exists today, the contracts that content and runtime implementations must follow, and the workflows used to extend and release the application.
 
 ## Start here
 

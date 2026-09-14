@@ -703,7 +703,7 @@ const course = {
   status: 'published',
   metadata: {
     version: '2.0.0',
-    authors: [{ name: 'MI Tutora' }],
+    authors: [{ name: 'ycoders' }],
     level: 'beginner',
     estimatedMinutes: 752,
     tags: ['python', 'programming', 'fundamentals'],
@@ -758,6 +758,7 @@ localMetadata.courses = localMetadata.courses.map((entry) => entry.id === course
   title: course.title,
   description: course.description,
   version: course.metadata.version,
+  publishedVersion: firebaseVersion,
   source: '/courses/python-course.json',
 } : entry);
 await writeFile(LOCAL_METADATA_PATH, `${JSON.stringify(localMetadata, null, 2)}\n`);

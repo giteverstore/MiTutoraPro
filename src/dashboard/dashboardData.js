@@ -109,7 +109,7 @@ export const dashboardCourses = [
 export const dashboardSections = [
   {
     id: 'featured',
-    eyebrow: 'Curated by MiTutora',
+    eyebrow: 'Curated by ycoders',
     title: 'Featured courses',
     description: 'Structured paths designed to build useful skills.',
     courseIds: ['python', 'ai-literacy', 'frontend-interviews'],

@@ -16,7 +16,7 @@ export function createReferralProfile(profile) {
   return {
     schemaVersion: '1.0.0',
     referralCode: profile.identity?.code ?? '',
-    referralLink: `${globalThis.location?.origin ?? 'https://mi-tutora-pro.vercel.app'}/?ref=${profile.identity?.code ?? ''}`,
+    referralLink: `${globalThis.location?.origin ?? 'https://ycoders.com'}/?ref=${profile.identity?.code ?? ''}`,
     attribution: profile.attribution ?? null,
     totalReferred: profile.referrals?.length ?? 0,
     attributed: profile.referrals?.filter(({ status }) => status === 'ATTRIBUTED').length ?? 0,

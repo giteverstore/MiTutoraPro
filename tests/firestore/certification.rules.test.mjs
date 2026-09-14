@@ -8,6 +8,7 @@ const environment = await initializeTestEnvironment({
   firestore: { rules: await readFile('firestore.rules', 'utf8'), host: '127.0.0.1', port: 8080 },
 });
 try {
+  await environment.clearFirestore();
   await environment.withSecurityRulesDisabled(async (context) => {
     const db = context.firestore();
     await setDoc(doc(db, 'examAttempts/attempt-owner'), { ownerUid: 'owner', state: 'RUNNING', expiresAt: 1000, examResult: null, integrityResult: null, certificationDecision: null });

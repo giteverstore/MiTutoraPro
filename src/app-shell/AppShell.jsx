@@ -5,8 +5,15 @@ import { AppSidebar } from './AppSidebar';
 import { AppTopNavigation } from './AppTopNavigation';
 import { APP_NAVIGATION } from './navigation';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
+import { useLearnerActivity } from '../activity/LearnerActivityContext';
+import { hasCompletedDailyChallenge, kolkataDate } from '../home/challengeCalendar';
 
-export function AppShell({ activePage, onNavigate, children }) {
+function ActivityAwareSidebar(props) {
+  const activity = useLearnerActivity();
+  return <AppSidebar {...props} todayChallengeCompleted={hasCompletedDailyChallenge(activity.completions, kolkataDate())} />;
+}
+
+export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride, children }) {
   const { user } = useUser();
   const { signOut } = useAuth();
   const { theme, reducedMotion, toggleTheme } = useApplicationTheme();
@@ -17,8 +24,8 @@ export function AppShell({ activePage, onNavigate, children }) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const pageLabel = useMemo(
-    () => APP_NAVIGATION.find((item) => item.id === activePage)?.label ?? 'Home',
-    [activePage],
+    () => pageLabelOverride ?? (activePage === 'redeem' ? 'Redeem' : APP_NAVIGATION.find((item) => item.id === activePage)?.label ?? 'Home'),
+    [activePage, pageLabelOverride],
   );
   useEffect(() => {
     const handleEscape = (event) => {
@@ -53,7 +60,7 @@ export function AppShell({ activePage, onNavigate, children }) {
       data-theme={theme}
       data-reduced-motion={reducedMotion}
     >
-      <AppSidebar
+      <ActivityAwareSidebar
         activePage={activePage}
         collapsed={sidebarCollapsed}
         mobileOpen={mobileDrawerOpen}

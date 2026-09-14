@@ -4,7 +4,7 @@
   "title": "Calculate a Ratio Safely",
   "summary": "Handle a zero denominator with an explicit result.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "error-handling-mixed",
   "category": "fundamentals",
   "subtopic": "basic-error-handling-invalid-input",

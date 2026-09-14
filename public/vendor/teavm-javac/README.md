@@ -1,6 +1,6 @@
 # TeaVM browser compiler assets
 
-These files were retrieved from the official `https://teavm.org/playground/` distribution on 2026-08-21 for the Mi Tutora Java runtime.
+These files were retrieved from the official `https://teavm.org/playground/` distribution on 2026-08-21 for the ycoders Java runtime.
 
 | File | SHA-256 |
 | --- | --- |

@@ -4,7 +4,7 @@
   "title": "Repair a Missing Return",
   "summary": "Replace display-only behavior with a reusable return value.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "functions",
   "category": "fundamentals",
   "subtopic": "return-values",

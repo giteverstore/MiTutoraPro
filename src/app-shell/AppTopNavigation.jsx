@@ -1,6 +1,5 @@
-import { Bell, LogOut, Menu, Moon, Sun, UserRound } from 'lucide-react';
-import { UserAvatar } from '../components/UserAvatar';
-import { CoinBalanceBadge } from '../coins/CoinBalanceBadge';
+import { Menu } from 'lucide-react';
+import { GlobalTopbarActions } from './GlobalTopbarActions';
 
 export function AppTopNavigation({
   pageLabel,
@@ -20,47 +19,10 @@ export function AppTopNavigation({
         <Menu />
       </button>
       <strong className="application-page-title">{pageLabel}</strong>
-      <div className="application-topbar-actions">
-        <CoinBalanceBadge />
-        <button className="application-icon-button" type="button" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
-          {theme === 'dark' ? <Sun /> : <Moon />}
-        </button>
-        <div className="application-menu-anchor">
-          <button
-            className="application-icon-button"
-            type="button"
-            onClick={onNotificationsToggle}
-            aria-label="Notifications"
-            aria-expanded={notificationsOpen}
-          >
-            <Bell />
-          </button>
-          {notificationsOpen ? (
-            <div className="application-popover application-notifications" role="status">
-              <strong>Notifications</strong>
-              <p>You’re all caught up.</p>
-            </div>
-          ) : null}
-        </div>
-        <div className="application-menu-anchor">
-          <button
-            className="application-profile-button"
-            type="button"
-            onClick={onUserMenuToggle}
-            aria-label="Open user menu"
-            aria-expanded={userMenuOpen}
-          >
-            <UserAvatar avatar={user.avatar} name={user.name} />
-            <div><strong>{user.name}</strong><small>Learner</small></div>
-          </button>
-          {userMenuOpen ? (
-            <div className="application-popover application-user-menu">
-              <div><UserRound /><span><strong>{user.name}</strong><small>{user.email}</small></span></div>
-              <button type="button" onClick={onSignOut}><LogOut /> Sign out</button>
-            </div>
-          ) : null}
-        </div>
-      </div>
+      <GlobalTopbarActions {...{
+        user, theme, notificationsOpen, userMenuOpen, onThemeToggle,
+        onNotificationsToggle, onUserMenuToggle, onSignOut,
+      }} />
     </header>
   );
 }

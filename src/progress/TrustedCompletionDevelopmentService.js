@@ -1,6 +1,5 @@
-import { certificationService } from '../certification/services/CertificationService';
 import { getModuleLessons } from '../course/courseStructure.js';
-import { trustedCompletionService } from './TrustedCompletionService';
+import { trustedCompletionDevelopmentClient } from './TrustedCompletionDevelopmentClient';
 
 function requiredLessons(course) {
   if (!course?.id || !Array.isArray(course.modules)) {
@@ -12,9 +11,8 @@ function requiredLessons(course) {
 }
 
 export class TrustedCompletionDevelopmentService {
-  constructor({ completionService = trustedCompletionService, statusService = certificationService } = {}) {
+  constructor({ completionService = trustedCompletionDevelopmentClient } = {}) {
     this.completionService = completionService;
-    this.statusService = statusService;
   }
 
   async completeCourse(course, onProgress = () => {}) {
@@ -22,14 +20,16 @@ export class TrustedCompletionDevelopmentService {
     if (!lessons.length) throw new Error('The course manifest has no required lessons.');
 
     const startedAt = performance.now();
+    let authoritativeResult = null;
     onProgress({ completed: 0, total: lessons.length, lesson: null });
 
     for (let index = 0; index < lessons.length; index += 1) {
       const lesson = lessons[index];
       try {
-        await this.completionService.recordLessonCompletion(course.id, lesson.id, 'reading');
+        authoritativeResult = await this.completionService.recordLessonCompletion(course.id, course.publishedVersion, lesson.id);
       } catch (error) {
-        const failure = new Error(`Trusted completion failed for "${lesson.title ?? lesson.id}" (${lesson.id}). ${error.message}`);
+        const category = String(error.code ?? 'internal').slice(0, 64);
+        const failure = new Error(`Trusted completion failed for "${lesson.title ?? lesson.id}" (${lesson.id}). ${category}`);
         failure.code = error.code;
         failure.lessonId = lesson.id;
         failure.cause = error;
@@ -38,7 +38,7 @@ export class TrustedCompletionDevelopmentService {
       onProgress({ completed: index + 1, total: lessons.length, lesson });
     }
 
-    const certification = await this.statusService.getStatus(course.id);
+    const certification = { eligibilityStatus: authoritativeResult?.eligibilityStatus ?? 'ELIGIBLE' };
     return {
       certification,
       completed: lessons.length,

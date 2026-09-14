@@ -20,6 +20,7 @@ export function CourseRoute({
   onShowOverview,
   onExitCourse,
   onLessonRoute,
+  onStartExam,
 }) {
   return (
     <CourseLoaderProvider
@@ -33,6 +34,7 @@ export function CourseRoute({
         onShowOverview={onShowOverview}
         onExitCourse={onExitCourse}
         onLessonRoute={onLessonRoute}
+        onStartExam={onStartExam}
       />
     </CourseLoaderProvider>
   );
@@ -44,6 +46,7 @@ function LoadedCourseApplication({
   onShowOverview,
   onExitCourse,
   onLessonRoute,
+  onStartExam,
 }) {
   const courseLoader = useCourseLoader();
   const { user } = useUser();
@@ -68,6 +71,7 @@ function LoadedCourseApplication({
           course={courseLoader.currentCourse}
           onBack={onExitCourse}
           onEnterCourse={onEnterCourse}
+          onStartExam={onStartExam}
           onResetCourse={() => {
             courseLoader.selectLesson(
               courseLoader.currentCourse.navigation?.defaultLessonId

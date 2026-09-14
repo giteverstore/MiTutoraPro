@@ -3,7 +3,7 @@ import { getSubscriptionPlan } from './SubscriptionPlans.js';
 
 const REQUEST_FIELDS = new Set(['planId', 'requestId']);
 export const SUBSCRIPTION_STATUSES = Object.freeze({ ACTIVE: 'ACTIVE', EXPIRED: 'EXPIRED', CANCELLED: 'CANCELLED' });
-export const SUBSCRIPTION_SOURCES = Object.freeze({ DEVELOPMENT_GRANT: 'DEVELOPMENT_GRANT', PAYMENT: 'PAYMENT' });
+export const SUBSCRIPTION_SOURCES = Object.freeze({ DEVELOPMENT_GRANT: 'DEVELOPMENT_GRANT', PAYMENT: 'PAYMENT', COIN_REDEMPTION: 'COIN_REDEMPTION' });
 
 function fail(code, message) { throw Object.assign(new Error(message), { code }); }
 function dateOf(value) { return value?.toDate?.() ?? (value instanceof Date ? value : null); }

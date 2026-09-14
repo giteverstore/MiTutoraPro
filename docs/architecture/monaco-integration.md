@@ -23,7 +23,7 @@ Current options include:
 - selected-whitespace rendering
 - no minimap and no scrolling beyond the last line
 
-The MiTutora editor theme is defined in the integration module and uses the existing dark IDE visual language.
+The ycoders editor theme is defined in the integration module and uses the existing dark IDE visual language.
 
 ## Keyboard handling
 

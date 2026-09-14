@@ -4,7 +4,7 @@
   "title": "Read the First Character",
   "summary": "Access the first position of non-empty text.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "strings",
   "category": "fundamentals",
   "subtopic": "string-basics-indexing",

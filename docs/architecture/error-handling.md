@@ -1,6 +1,6 @@
 # Error Handling and Recovery
 
-MiTutora uses layered React error boundaries so a render failure is contained at the smallest useful domain while preserving the learner's surrounding context.
+ycoders uses layered React error boundaries so a render failure is contained at the smallest useful domain while preserving the learner's surrounding context.
 
 - `GlobalErrorBoundary` protects application startup and provides a final recovery path.
 - AppShell page boundaries keep shared navigation available when one page fails.

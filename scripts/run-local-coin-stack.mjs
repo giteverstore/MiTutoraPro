@@ -9,8 +9,9 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const projectId = 'demo-mitutora-coins';
 const isolatedDirectory = mkdtempSync(join(tmpdir(), 'mi-tutora-full-stack-'));
 const firebaseCli = fileURLToPath(new URL('../node_modules/firebase-tools/lib/bin/firebase.js', import.meta.url));
-const viteCli = fileURLToPath(new URL('../node_modules/vite/bin/vite.js', import.meta.url));
+const viteDevelopment = fileURLToPath(new URL('./run-vite-development.mjs', import.meta.url));
 const seed = fileURLToPath(new URL('./seed-local-coin-development.mjs', import.meta.url));
+const dailyChallengeSmoke = fileURLToPath(new URL('./smoke-local-daily-challenge.mjs', import.meta.url));
 const config = fileURLToPath(new URL('../firebase.json', import.meta.url));
 const environment = { ...process.env };
 for (const name of Object.keys(environment)) {
@@ -89,9 +90,17 @@ try {
   await Promise.all([waitForPort(9099), waitForPort(8080), waitForPort(9199), waitForPort(5001)]);
   const seeder = run(process.execPath, [seed], { cwd: root });
   if (await waitForExit(seeder) !== 0) throw new Error('Local development seed failed.');
-  const vite = run(process.execPath, [viteCli, '--host', '127.0.0.1', '--port', '5173'], { cwd: root });
-  const result = await Promise.race([waitForExit(vite), waitForExit(emulators)]);
-  process.exitCode = result;
+  const vite = run(process.execPath, [viteDevelopment, '--host', '127.0.0.1', '--port', '5173'], { cwd: root });
+  await waitForPort(5173);
+  if (process.env.LOCAL_DAILY_CHALLENGE_SMOKE === 'true') {
+    const smokeEnvironment = { ...environment, LOCAL_APP_BASE: 'http://localhost:5173' };
+    const smoke = spawn(process.execPath, [dailyChallengeSmoke], { cwd: root, env: smokeEnvironment, stdio: 'inherit' });
+    if (await waitForExit(smoke) !== 0) throw new Error('Local Daily Challenge browser smoke failed.');
+    process.exitCode = 0;
+  } else {
+    const result = await Promise.race([waitForExit(vite), waitForExit(emulators)]);
+    process.exitCode = result;
+  }
 } finally {
   await cleanup();
 }

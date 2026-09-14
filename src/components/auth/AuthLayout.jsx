@@ -1,13 +1,10 @@
-import { Code2 } from 'lucide-react';
-import { ICON_SIZE } from '../../design-system/theme';
-
 export function AuthLayout({ eyebrow, title, description, children }) {
   return (
     <main className="auth-page">
       <section className="auth-brand-panel">
         <div className="auth-brand">
-          <span><Code2 size={ICON_SIZE.lg} /></span>
-          <strong>MI Tutora</strong>
+          <span><img src="/ycoders-mark.svg" alt="" /></span>
+          <strong>ycoders</strong>
         </div>
         <div>
           <span className="eyebrow">Learn by building</span>

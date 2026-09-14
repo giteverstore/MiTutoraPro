@@ -8,9 +8,9 @@ Phase 4.5 rechecked the recommendation against current official OpenAI documenta
 
 ## Objective
 
-Select a primary and backup production model for the MiTutoraPro AI Tutor. The Tutor explains Python and Java code, compiler output, debugging concepts, and progressive hints. It is an educational assistant, not an answer generator. Quality, safety, privacy, predictable structured output, and operational reliability therefore matter more than raw benchmark position or lowest price.
+Select a primary and backup production model for the ycoders AI Tutor. The Tutor explains Python and Java code, compiler output, debugging concepts, and progressive hints. It is an educational assistant, not an answer generator. Quality, safety, privacy, predictable structured output, and operational reliability therefore matter more than raw benchmark position or lowest price.
 
-This phase changes no provider configuration or runtime behavior. Production approval still requires the selected exact model to pass MiTutoraPro's 17-case evaluation, a human privacy/provider review, production infrastructure readiness, and controlled-rollout approval.
+This phase changes no provider configuration or runtime behavior. Production approval still requires the selected exact model to pass ycoders's 17-case evaluation, a human privacy/provider review, production infrastructure readiness, and controlled-rollout approval.
 
 ## Current test provider
 
@@ -20,7 +20,7 @@ The existing Hugging Face configuration (`huggingface` / `openai/gpt-oss-120b:fa
 
 Official provider documentation was reviewed for model status, pricing, context limits, structured output, availability, retention, and lifecycle. Provider-published benchmarks are treated as directional evidence, not independent proof. No live model calls were made.
 
-Scores use a 1–10 scale. They are a decision aid, not a claim of benchmark precision. In particular, safety scores reflect documented controls and expected instruction-following—not proof that a model satisfies MiTutoraPro policy.
+Scores use a 1–10 scale. They are a decision aid, not a claim of benchmark precision. In particular, safety scores reflect documented controls and expected instruction-following—not proof that a model satisfies ycoders policy.
 
 | Criterion | Weight | Rationale |
 | --- | ---: | --- |
@@ -77,7 +77,7 @@ Overall scores also include context, India/regional fit, lifecycle, and portabil
 - A generally available, high-throughput coding/agent model with 1M input context, 64k output, and structured output support. [Model documentation](https://ai.google.dev/gemini-api/docs/latest-model), [structured outputs](https://ai.google.dev/gemini-api/docs/structured-output)
 - Promotional pricing through 2026-12-31 is $0.75/M input and $3.75/M output; published standard pricing is $1.50/M and $7.50/M afterward. Output billing includes thinking tokens, so real cost may exceed visible response length. [Pricing](https://ai.google.dev/gemini-api/docs/pricing)
 - Paid-service prompts/responses are not used to improve Google products, but abuse-monitoring retention, ZDR feature eligibility, global processing, and deletion terms require review. [ZDR guidance](https://ai.google.dev/gemini-api/docs/zdr), [terms](https://ai.google.dev/gemini-api/terms)
-- India is supported. The model became GA in August 2026, so MiTutoraPro has limited lifecycle and production-history evidence at the decision date. [Available regions](https://ai.google.dev/gemini-api/docs/available-regions), [release notes](https://ai.google.dev/gemini-api/docs/changelog)
+- India is supported. The model became GA in August 2026, so ycoders has limited lifecycle and production-history evidence at the decision date. [Available regions](https://ai.google.dev/gemini-api/docs/available-regions), [release notes](https://ai.google.dev/gemini-api/docs/changelog)
 
 #### Groq GPT-OSS 120B
 
@@ -143,16 +143,16 @@ The server must continue outbound secret screening. It is heuristic defense-in-d
 - **OpenAI GPT-5.4 Mini:** production model, dated snapshot, mature API/error semantics, prompt caching, and documented rate tiers. The selected account's actual limits and any regional-processing surcharge/availability must be confirmed. A dated snapshot avoids silent weight changes.
 - **Anthropic Sonnet 5:** production model with pinned canonical weights and strong API controls. The lack of Priority Tier for Sonnet 5 is a material operational limitation for backup capacity planning.
 - **Gemini 3.7 Flash:** GA, priority inference available, and broad regional access. It is new at the decision date, and its promotional price expires. The JSON-schema subset must be tested against the exact Tutor schema.
-- **Groq GPT-OSS 120B:** production endpoint and exceptional advertised throughput, but fewer model choices and incomplete MiTutoraPro behavioral evidence.
+- **Groq GPT-OSS 120B:** production endpoint and exceptional advertised throughput, but fewer model choices and incomplete ycoders behavioral evidence.
 - **Together/Fireworks:** credible open-model hosts, but serverless capacity/SLA and model lifecycle are less predictable. Dedicated endpoints would change both the reliability and cost comparison.
 
 No provider's marketing latency is sufficient. A later controlled rollout must record sanitized p50/p95/p99 end-to-end latency, timeout rate, schema-rejection rate, provider error category, and release-gate rejection rate from the actual Vercel region.
 
 ## Security analysis
 
-There is insufficient public evidence to prove that any candidate will reliably resist MiTutoraPro-specific prompt injection or solution extraction. General coding benchmarks do not measure teaching quality, and provider safety reports do not test this server-owned policy.
+There is insufficient public evidence to prove that any candidate will reliably resist ycoders-specific prompt injection or solution extraction. General coding benchmarks do not measure teaching quality, and provider safety reports do not test this server-owned policy.
 
-**Exact-model validation using MiTutoraPro's 17-case evaluation matrix is mandatory before production.** The release decision is a system property:
+**Exact-model validation using ycoders's 17-case evaluation matrix is mandatory before production.** The release decision is a system property:
 
 - model behavior is measured separately from server enforcement;
 - an unsafe model attempt is not released if the response gate catches it;
@@ -205,7 +205,7 @@ Sonnet 5 is the strongest provider-diverse backup based on coding/agent position
 
 - **GPT-5.6 Terra:** potentially higher quality, but 2.7 times the baseline primary cost, much more context than needed, and no provider diversity. Reconsider only if exact paired evaluation shows a material learning/safety gain.
 - **Gemini 3.7 Flash:** compelling latency, price, and context, but it is very new, the current price is promotional, thinking tokens complicate cost, and schema/retention behavior needs more operational evidence. It is the strongest third candidate.
-- **Groq GPT-OSS 120B:** excellent price and speed, strong ZDR posture, but the underlying model's MiTutoraPro behavioral evidence is incomplete. Serving it through Groq may fix provider reliability, not instruction-following risk.
+- **Groq GPT-OSS 120B:** excellent price and speed, strong ZDR posture, but the underlying model's ycoders behavioral evidence is incomplete. Serving it through Groq may fix provider reliability, not instruction-following risk.
 - **Together MiniMax M3:** attractive price and open-model portability, but less educational-safety evidence and weaker documented serverless assurance/India routing than finalists.
 - **Fireworks Kimi K2.6:** strong structured response and data-minimization posture, but best-effort serverless reliability and shorter lifecycle notice are not ideal for the first production Tutor.
 - **Self-hosting/open-weight deployment:** deferred. It could maximize control but adds GPU capacity, autoscaling, patching, model-serving security, monitoring, data residency, and on-call ownership. At present volumes it is unlikely to beat a managed API on total operational cost or reliability.
@@ -229,7 +229,7 @@ The backup must be tested independently. Automatic failover must not bypass per-
 ## Known uncertainties
 
 - No selected candidate has yet run the exact 17-case matrix.
-- No independent MiTutoraPro teaching-quality comparison has been run.
+- No independent ycoders teaching-quality comparison has been run.
 - Public benchmark suites poorly represent beginner explanation and progressive-hint behavior.
 - Real latency and rate-limit behavior from the deployed region are unknown.
 - Token mix, reasoning-token usage, cache hit rate, taxes, currency conversion, and negotiated pricing may materially change cost.
@@ -242,7 +242,7 @@ The backup must be tested independently. Automatic failover must not bypass per-
 
 - **Official facts:** prices, published limits, model status, API features, supported regions, and provider-described retention in the linked provider documentation.
 - **Provider evidence:** provider-authored performance/safety positioning. Useful for discovery, not independent validation.
-- **MiTutoraPro inference:** weighted scores, cost workload assumptions, primary/backup ranking, and architectural recommendation.
+- **ycoders inference:** weighted scores, cost workload assumptions, primary/backup ranking, and architectural recommendation.
 - **Required future evidence:** exact-model security results, human teaching review, deployed-region latency, production quota behavior, and signed privacy/legal approval.
 
 ## Decision

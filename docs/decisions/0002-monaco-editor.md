@@ -16,7 +16,7 @@ Exercises require a credible desktop-editor experience: syntax highlighting, lin
 
 ## Decision
 
-Use Monaco through `@monaco-editor/react`, configured in `MonacoCodeEditor.jsx`. Preserve native Monaco commands, use the MiTutora editor theme, and keep source controlled by `CompilerPanel`. Monaco mounts only in lessons that render a compiler workspace.
+Use Monaco through `@monaco-editor/react`, configured in `MonacoCodeEditor.jsx`. Preserve native Monaco commands, use the ycoders editor theme, and keep source controlled by `CompilerPanel`. Monaco mounts only in lessons that render a compiler workspace.
 
 ## Consequences
 

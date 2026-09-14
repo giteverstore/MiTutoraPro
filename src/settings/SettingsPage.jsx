@@ -8,9 +8,6 @@ import {
   LockKeyhole,
   Palette,
   RotateCcw,
-  Save,
-  CheckCircle2,
-  AlertCircle,
   UserRound,
   Crown,
 } from 'lucide-react';
@@ -18,8 +15,7 @@ import { useUser } from '../auth/UserContext';
 import { userDataService } from '../user-data/UserDataService';
 import { settingsService } from './SettingsService';
 import { SettingRow, SelectSetting, SwitchSetting } from './SettingsControls';
-import { useSettings, useSettingsPersistence } from './useSettings';
-import { SETTINGS_PERSISTENCE_STATUS } from './SettingsService';
+import { useSettings } from './useSettings';
 import { ConfirmDialog } from '../components/Dialog';
 import { SubscriptionPanel } from '../subscriptions/SubscriptionPanel';
 
@@ -58,7 +54,6 @@ function Section({ id, title, description, children }) {
 
 export function SettingsPage() {
   const settings = useSettings();
-  const persistence = useSettingsPersistence();
   const { user, updateProfile } = useUser();
   const [activeSection, setActiveSection] = useState(initialSettingsSection);
   const [profileName, setProfileName] = useState(user.name);
@@ -107,7 +102,7 @@ export function SettingsPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'mitutora-settings.json';
+    link.download = 'ycoders-settings.json';
     link.click();
     URL.revokeObjectURL(url);
     setNotice('Settings exported.');
@@ -128,7 +123,7 @@ export function SettingsPage() {
       </Section>
     ),
     subscription: (
-      <Section id="subscription" title="Subscription" description="Review your current access and MiTutora Premium plans.">
+      <Section id="subscription" title="Subscription" description="Review your current access and ycoders Premium plans.">
         <SubscriptionPanel />
       </Section>
     ),
@@ -136,7 +131,7 @@ export function SettingsPage() {
       <Section id="editor" title="Editor" description="Preferences are shared by every Monaco workspace.">
         <SettingRow title="Editor Theme" description="Independent from the application appearance.">
           <SelectSetting label="Editor theme" value={settings.editor.theme} onChange={(value) => setSetting('editor.theme', value)}>
-            <option value="mitutora-dark">MiTutora Dark</option>
+            <option value="mitutora-dark">ycoders Dark</option>
             <option value="vs-dark">Classic Dark</option>
             <option value="light">Light</option>
           </SelectSetting>
@@ -160,7 +155,7 @@ export function SettingsPage() {
       </Section>
     ),
     notifications: (
-      <Section id="notifications" title="Notifications" description="Control which local reminders MiTutora may show.">
+      <Section id="notifications" title="Notifications" description="Control which local reminders ycoders may show.">
         <SettingRow title="Learning Reminders"><SwitchSetting label="Learning reminders" checked={settings.notifications.learningReminders} onChange={(value) => setSetting('notifications.learningReminders', value)} /></SettingRow>
         <SettingRow title="Daily Challenge Reminders"><SwitchSetting label="Daily challenge reminders" checked={settings.notifications.challengeReminders} onChange={(value) => setSetting('notifications.challengeReminders', value)} /></SettingRow>
         <SettingRow title="Product Updates"><SwitchSetting label="Product updates" checked={settings.notifications.productUpdates} onChange={(value) => setSetting('notifications.productUpdates', value)} /></SettingRow>
@@ -190,13 +185,6 @@ export function SettingsPage() {
 
   return (
     <div className="settings-page">
-      <header className="settings-heading">
-        <div>
-          <h1>Make MiTutora yours.</h1>
-          <p>Configure your workspace, learning defaults, and saved preferences.</p>
-        </div>
-        <SettingsPersistenceStatus persistence={persistence} />
-      </header>
       <div className="settings-layout">
         <aside className="settings-navigation" aria-label="Settings sections">
           <nav>{sections.map(({ id, label, icon: Icon }) => <button className={activeSection === id ? 'is-active' : ''} type="button" onClick={() => setActiveSection(id)} aria-label={label} aria-current={activeSection === id ? 'page' : undefined} key={id}><Icon /> <span>{label}</span></button>)}</nav>
@@ -217,35 +205,6 @@ export function SettingsPage() {
         onCancel={cancelConfirmation}
       />
       {notice ? <div className="settings-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="Dismiss notification">×</button></div> : null}
-    </div>
-  );
-}
-
-function SettingsPersistenceStatus({ persistence }) {
-  const presentation = {
-    [SETTINGS_PERSISTENCE_STATUS.IDLE]: { icon: Save, label: 'No changes to save' },
-    [SETTINGS_PERSISTENCE_STATUS.SAVING]: { icon: Save, label: 'Saving…' },
-    [SETTINGS_PERSISTENCE_STATUS.SAVED]: { icon: CheckCircle2, label: 'Saved' },
-    [SETTINGS_PERSISTENCE_STATUS.ERROR]: { icon: AlertCircle, label: 'Couldn’t save' },
-  }[persistence.status];
-  const Icon = presentation.icon;
-  return (
-    <div
-      className={`settings-persistence is-${persistence.status.toLowerCase()}`}
-      role={persistence.status === SETTINGS_PERSISTENCE_STATUS.ERROR ? 'alert' : 'status'}
-      aria-live="polite"
-      aria-atomic="true"
-    >
-      <Icon aria-hidden="true" />
-      <span>{presentation.label}</span>
-      {persistence.status === SETTINGS_PERSISTENCE_STATUS.ERROR ? (
-        <button
-          type="button"
-          onClick={() => { void settingsService.retry().catch(() => undefined); }}
-        >
-          Retry
-        </button>
-      ) : null}
     </div>
   );
 }

@@ -8,7 +8,7 @@ export class JavaRuntime extends RuntimeAdapter {
     this.client = client;
   }
 
-  async initialize({ signal } = {}) { await this.client.initialize(signal); }
+  async initialize({ signal, timeoutMs } = {}) { await this.client.initialize(signal, timeoutMs); }
 
   async execute(request) {
     const payload = await this.client.execute(request);

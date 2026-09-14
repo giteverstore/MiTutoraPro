@@ -43,7 +43,10 @@ export class JavaWorkerClient {
         reject(error);
       };
       const abort = () => stop(new DOMException('Execution cancelled.', 'AbortError'));
-      const timeout = type === 'execute' ? setTimeout(() => stop(new Error(`Java execution exceeded ${timeoutMs} ms.`)), timeoutMs) : null;
+      const timeout = type === 'reset' || !timeoutMs ? null : setTimeout(
+        () => stop(new Error(`Java ${type === 'initialize' ? 'initialization' : 'execution'} exceeded ${timeoutMs} ms.`)),
+        timeoutMs,
+      );
       const cleanup = () => {
         if (timeout) clearTimeout(timeout);
         signal?.removeEventListener('abort', abort);
@@ -54,7 +57,7 @@ export class JavaWorkerClient {
     });
   }
 
-  initialize(signal) { return this.request('initialize', {}, signal, 0); }
+  initialize(signal, timeoutMs) { return this.request('initialize', {}, signal, timeoutMs); }
 
   execute({ source, stdin = '', filename = 'Main.java', execution, signal, timeoutMs }) {
     return this.request('execute', { source, stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''), filename, execution }, signal, timeoutMs);

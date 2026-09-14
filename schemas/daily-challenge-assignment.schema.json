@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.learning-platform.local/daily-challenge-assignment.schema.json",
+  "title": "ycoders Daily Challenge assignment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "date",
+    "practiceQuestionId",
+    "difficulty",
+    "rewardCoins",
+    "rewardXp",
+    "published",
+    "policyVersion",
+    "version"
+  ],
+  "properties": {
+    "id": { "type": "string", "format": "date" },
+    "date": { "type": "string", "format": "date" },
+    "practiceQuestionId": { "type": "string", "minLength": 1 },
+    "difficulty": { "enum": ["easy", "medium", "hard"] },
+    "rewardCoins": { "const": 20 },
+    "rewardXp": { "const": 0 },
+    "published": { "const": true },
+    "policyVersion": { "const": "daily-practice-rotation-v1" },
+    "version": { "const": "v1" }
+  }
+}

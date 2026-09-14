@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { APP_NAVIGATION } from './navigation';
 
 export function AppSidebar({
@@ -8,6 +8,7 @@ export function AppSidebar({
   onNavigate,
   onToggleCollapsed,
   onCloseMobile,
+  todayChallengeCompleted = false,
 }) {
   return (
     <>
@@ -17,8 +18,8 @@ export function AppSidebar({
       >
         <div className="application-sidebar-header">
           <button className="application-brand" type="button" onClick={() => onNavigate('home')}>
-            <span aria-hidden="true">M</span>
-            <strong>MiTutora</strong>
+            <span><img src="/ycoders-mark.svg" alt="" /></span>
+            <strong>ycoders</strong>
           </button>
           <button
             className="application-icon-button application-drawer-close"
@@ -30,19 +31,22 @@ export function AppSidebar({
           </button>
         </div>
         <nav className="application-navigation">
-          {APP_NAVIGATION.map(({ id, label, icon: Icon }) => (
+          {APP_NAVIGATION.map(({ id, label, icon: Icon }) => {
+            const challengeCompleted = id === 'challenges' && todayChallengeCompleted;
+            return (
             <button
               className={activePage === id ? 'is-active' : ''}
               type="button"
               onClick={() => onNavigate(id)}
               aria-current={activePage === id ? 'page' : undefined}
               title={collapsed ? label : undefined}
+              aria-label={challengeCompleted ? "Challenges — today's challenge completed" : undefined}
               key={id}
             >
-              <Icon aria-hidden="true" />
-              <span>{label}</span>
+              <span className="application-navigation-icon"><Icon aria-hidden="true" />{challengeCompleted ? <span className="application-navigation-complete" aria-hidden="true"><Check /></span> : null}</span>
+              <span className="application-navigation-label">{label}</span>
             </button>
-          ))}
+          );})}
         </nav>
         <button
           className="application-sidebar-toggle"

@@ -1,6 +1,6 @@
 # Provider-independent payment and payout foundation (M8.2)
 
-M8.2 introduces financial models and state machines without connecting a payment or payout provider. MiTutora Premium remains a manually purchased, fixed-duration product. `SubscriptionPlans.js` is the sole authority for INR price and calendar-month duration. There is no recurring billing and no Razorpay Subscriptions integration.
+M8.2 introduces financial models and state machines without connecting a payment or payout provider. ycoders Premium remains a manually purchased, fixed-duration product. `SubscriptionPlans.js` is the sole authority for INR price and calendar-month duration. There is no recurring billing and no Razorpay Subscriptions integration.
 
 ## Payment authority
 

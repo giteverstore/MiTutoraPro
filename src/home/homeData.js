@@ -39,7 +39,6 @@ const courseDetails = {
     level: 'Beginner',
     duration: '12h 32m',
     lessonCount: 109,
-    progress: 38,
     available: true,
   },
   Java: {
@@ -112,21 +111,7 @@ export const browseCatalog = {
   languages: languageNames.map((name, index) => createCourse(name, 'languages', index)),
 };
 
-export const homeData = {
-  continueLearning: {
-    ...browseCatalog.languages[0],
-    currentModule: 'Module 4 · Python Variables',
-    currentLesson: 'Print Variables',
-  },
-  recentlyViewed: [
-    browseCatalog.languages[0],
-    browseCatalog.domains[2],
-    browseCatalog.domains[7],
-  ],
-  statistics: [
-    { id: 'courses', label: 'Courses enrolled', value: '3' },
-    { id: 'lessons', label: 'Lessons completed', value: '26' },
-    { id: 'streak', label: 'Current streak', value: '8 days' },
-    { id: 'hours', label: 'Hours learned', value: '14.5' },
-  ],
-};
+export function findCatalogCourse(courseId) {
+  return [...browseCatalog.languages, ...browseCatalog.domains]
+    .find((course) => course.id === courseId) ?? null;
+}

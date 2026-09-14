@@ -4,7 +4,7 @@ const RESULT_MARKER = '__MITUTORA_PROJECT_RESULTS__';
 
 export function createValidationHarness(project) {
   const tests = project.validation.tests.map(({ name, args, expected, visible }) => ({ name, args, expected, visible }));
-  return `\n# MiTutora controlled validation harness\nimport json\n_tests = json.loads(${JSON.stringify(JSON.stringify(tests))})\n_results = []\nfor _test in _tests:\n    try:\n        _actual = ${project.functionDefinition.name}(*_test["args"])\n        _results.append({"name": _test["name"], "executed": True, "expected": _test["expected"], "actual": _actual, "visible": _test["visible"], "message": ""})\n    except Exception as _error:\n        _results.append({"name": _test["name"], "executed": False, "expected": _test["expected"], "actual": None, "visible": _test["visible"], "message": str(_error)})\nprint("${RESULT_MARKER}" + json.dumps(_results, default=str))\n`;
+  return `\n# ycoders controlled validation harness\nimport json\n_tests = json.loads(${JSON.stringify(JSON.stringify(tests))})\n_results = []\nfor _test in _tests:\n    try:\n        _actual = ${project.functionDefinition.name}(*_test["args"])\n        _results.append({"name": _test["name"], "executed": True, "expected": _test["expected"], "actual": _actual, "visible": _test["visible"], "message": ""})\n    except Exception as _error:\n        _results.append({"name": _test["name"], "executed": False, "expected": _test["expected"], "actual": None, "visible": _test["visible"], "message": str(_error)})\nprint("${RESULT_MARKER}" + json.dumps(_results, default=str))\n`;
 }
 export class ProjectValidator {
   constructor(compilerManager) { this.compilerManager = compilerManager; }

@@ -83,7 +83,7 @@ Cancellation and timeout terminate the Java worker. A later run creates a fresh 
 
 ## Browser security boundary
 
-Generated code runs in a WebAssembly worker under the browser sandbox, not an OS process. The worker receives no DOM reference or Mi Tutora service credentials. This is not an authoritative judge: CPU and memory exhaustion remain possible until worker termination, generated code shares the worker's browser origin, and public expected outputs/tests are observable. Protected tests and certification decisions must remain on a future isolated server-side judge.
+Generated code runs in a WebAssembly worker under the browser sandbox, not an OS process. The worker receives no DOM reference or ycoders service credentials. This is not an authoritative judge: CPU and memory exhaustion remain possible until worker termination, generated code shares the worker's browser origin, and public expected outputs/tests are observable. Protected tests and certification decisions must remain on a future isolated server-side judge.
 
 ## Licensing
 

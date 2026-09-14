@@ -4,7 +4,7 @@
   "title": "Count Positive Measurements",
   "summary": "Traverse a collection and count values above zero.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "arrays-lists",
   "category": "fundamentals",
   "subtopic": "traversing-lists",

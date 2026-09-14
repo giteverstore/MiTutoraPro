@@ -81,6 +81,15 @@ await assert.rejects(
 );
 assert.equal(workerTerminated, true);
 timeoutClient.dispose();
+
+workerTerminated = false;
+const initializationTimeoutClient = new JavaWorkerClient({ timeoutMs: 10 });
+await assert.rejects(
+  initializationTimeoutClient.initialize(),
+  /initialization exceeded 10 ms/,
+);
+assert.equal(workerTerminated, true);
+initializationTimeoutClient.dispose();
 globalThis.Worker = OriginalWorker;
 
 console.log(JSON.stringify({
@@ -94,6 +103,7 @@ console.log(JSON.stringify({
   compilationErrors: 'passed',
   runtimeErrors: 'passed',
   timeout: 'passed',
+  initializationTimeout: 'passed',
   lazyInitialization: 'passed',
   multipleTestCases: 'passed',
 }, null, 2));

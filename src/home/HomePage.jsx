@@ -1,94 +1,70 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useUser } from '../auth/UserContext';
-import { browseCatalog, homeData } from './homeData';
-import {
-  BrowseCoursesSection,
-  ContinueLearningSection,
-  LearningStatisticsSection,
-  RecentlyViewedSection,
-} from './HomeSections';
+import { progressRepository } from '../progress/progressRepository';
+import { useLearnerActivity } from '../activity/LearnerActivityContext';
+import { loadChallengeCalendarMetadata, selectLatestPublishedChallenge } from '../challenges/challengeContentSource';
+import { recentCourseRepository } from './recentCourseRepository';
+import { createHomeLearningModel } from './homeLearningModel';
+import { DailyChallengeCalendar } from './DailyChallengeCalendar';
+import { dailyChallengeCompletionDates, kolkataDate } from './challengeCalendar';
+import { ContinueLearningSection, LearningStatisticsSection, RecentlyViewedSection } from './HomeSections';
+import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
 
-export function HomePage({ onOpenCourse }) {
+export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOpenChallenges, onRedeem }) {
   const { user } = useUser();
-  const [browseMode, setBrowseMode] = useState('domains');
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [courseSearch, setCourseSearch] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage, setCoursesPerPage] = useState(6);
-
-  const visibleCourses = useMemo(() => {
-    const query = courseSearch.trim().toLowerCase();
-    return browseCatalog[browseMode].filter((course) => {
-      const matchesFilter = activeFilter === 'all' || course.filter === activeFilter;
-      const searchableContent = [
-        course.title,
-        course.description,
-        course.filter,
-        course.kind,
-      ].join(' ').toLowerCase();
-      return matchesFilter && (!query || searchableContent.includes(query));
-    });
-  }, [activeFilter, browseMode, courseSearch]);
-  const totalPages = Math.max(1, Math.ceil(visibleCourses.length / coursesPerPage));
-  const paginatedCourses = useMemo(() => {
-    const pageStart = (currentPage - 1) * coursesPerPage;
-    return visibleCourses.slice(pageStart, pageStart + coursesPerPage);
-  }, [coursesPerPage, currentPage, visibleCourses]);
+  const activity = useLearnerActivity();
+  const [learnerState, setLearnerState] = useState({ status: 'loading', progress: [] });
+  const [challengeCatalog, setChallengeCatalog] = useState({ status: 'loading', items: [] });
+  const [unlockedDates, setUnlockedDates] = useState([]);
 
   useEffect(() => {
-    const tabletQuery = window.matchMedia('(min-width: 761px) and (max-width: 1180px)');
-    const updatePageSize = () => setCoursesPerPage(tabletQuery.matches ? 4 : 6);
-    updatePageSize();
-    tabletQuery.addEventListener('change', updatePageSize);
-    return () => tabletQuery.removeEventListener('change', updatePageSize);
+    let active = true;
+    progressRepository.list(user.id).then((progress) => {
+      if (!active) return;
+      setLearnerState({ status: 'ready', progress });
+    }, () => { if (active) setLearnerState({ status: 'error', progress: [] }); });
+    return () => { active = false; };
+  }, [user.id]);
+
+  useEffect(() => {
+    let active = true;
+    loadChallengeCalendarMetadata().then(
+      (items) => { if (active) setChallengeCatalog({ status: 'ready', items }); },
+      () => { if (active) setChallengeCatalog({ status: 'error', items: [] }); },
+    );
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
-    setCurrentPage((page) => Math.min(page, totalPages));
-  }, [totalPages]);
+    let active = true;
+    const load = () => new CoinRedemptionRepository(user.id).listRedemptions().then((items) => {
+      if (active) setUnlockedDates(items.filter((item) => item.type === 'CHALLENGE_PASS' && item.status === 'UNLOCKED').map((item) => item.occurrenceDate));
+    }, () => undefined);
+    void load(); globalThis.addEventListener?.('mitutora:redemption-updated', load);
+    return () => { active = false; globalThis.removeEventListener?.('mitutora:redemption-updated', load); };
+  }, [user.id]);
 
-  const handleModeChange = (mode) => {
-    setBrowseMode(mode);
-    setActiveFilter('all');
-    setCurrentPage(1);
-  };
+  const completedChallengeDates = dailyChallengeCompletionDates(activity.completions);
+  const model = useMemo(() => createHomeLearningModel({
+    progressRecords: learnerState.progress,
+    recentCourseIds: recentCourseRepository.list(user.id),
+    challengesCompleted: completedChallengeDates.length,
+  }), [completedChallengeDates.length, learnerState.progress, user.id]);
+  const today = kolkataDate();
+  const latestChallenge = selectLatestPublishedChallenge(challengeCatalog.items);
 
-  return (
-    <div className="home-main" id="home-content">
-        <div className="home-intro">
-          <h1>Welcome back, {user.name.split(' ')[0]}.</h1>
-          <p>Continue your path or choose the next skill you want to build.</p>
-        </div>
-        <ContinueLearningSection
-          course={homeData.continueLearning}
-          onOpenCourse={onOpenCourse}
-        />
-        <BrowseCoursesSection
-          mode={browseMode}
-          modes={browseCatalog}
-          courses={paginatedCourses}
-          totalCourses={visibleCourses.length}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          activeFilter={activeFilter}
-          search={courseSearch}
-          onModeChange={handleModeChange}
-          onFilterChange={(filter) => {
-            setActiveFilter(filter);
-            setCurrentPage(1);
-          }}
-          onSearchChange={(query) => {
-            setCourseSearch(query);
-            setCurrentPage(1);
-          }}
-          onPageChange={setCurrentPage}
-          onOpenCourse={onOpenCourse}
-        />
-        <RecentlyViewedSection
-          courses={homeData.recentlyViewed}
-          onOpenCourse={onOpenCourse}
-        />
-        <LearningStatisticsSection statistics={homeData.statistics} />
+  return <div className="home-main" id="home-content">
+    <div className="home-intro">
+      <h1>Welcome back, {user.name.split(' ')[0]}.</h1>
+      <p>Continue your path or choose the next skill you want to build.</p>
     </div>
-  );
+    <div className="home-dashboard-grid">
+      <div className="home-dashboard-primary">
+        <LearningStatisticsSection statistics={model.statistics} status={learnerState.status} challengeStatus={activity.historyStatus} />
+        <ContinueLearningSection course={model.activeCourse} status={learnerState.status} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
+        <RecentlyViewedSection courses={model.recentlyViewed} onOpenCourse={onOpenCourse} />
+      </div>
+      <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} />
+    </div>
+  </div>;
 }

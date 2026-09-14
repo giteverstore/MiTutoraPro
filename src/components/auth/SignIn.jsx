@@ -88,7 +88,7 @@ export function SignIn({ onSubmit, onGoogle, onSignUp, onForgotPassword }) {
         </button>
       </form>
       <p className="auth-switch">
-        New to MI Tutora? <button type="button" onClick={onSignUp} disabled={Boolean(pendingAction)}>Create an account</button>
+        New to ycoders? <button type="button" onClick={onSignUp} disabled={Boolean(pendingAction)}>Create an account</button>
       </p>
     </AuthLayout>
   );

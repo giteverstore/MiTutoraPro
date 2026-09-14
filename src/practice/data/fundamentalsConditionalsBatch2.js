@@ -9,7 +9,7 @@ const defaults = {
 const specs = [
   {
     id: 'fund-conditionals-001', title: 'Meet a Minimum Age', summary: 'Check whether an age reaches a required minimum.',
-    subtopic: 'basic-conditions', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'basic-conditions', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Given a person’s age and a minimum age, return whether the person meets the requirement.',
     contract: { functionName: 'meets_minimum_age', signature: 'meets_minimum_age(age, minimum_age)', input: 'Two non-negative whole-number ages.', output: 'A boolean result.' },
     constraints: ['0 <= age, minimum_age <= 150'], concepts: ['conditional-logic', 'greater-than-or-equal'], skills: ['comparison', 'boundary-reasoning'], prerequisites: ['boolean-values'], commonMistakes: ['excluding an age equal to the minimum', 'comparing the values in reverse'],
@@ -18,7 +18,7 @@ const specs = [
   },
   {
     id: 'fund-conditionals-002', title: 'Detect a Positive Measurement', summary: 'Check whether a measurement is above zero.',
-    subtopic: 'basic-conditions', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 5, xp: 20,
+    subtopic: 'basic-conditions', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 5, xp: 20,
     statement: 'Return whether the supplied measurement is positive. Zero is not positive.',
     contract: { functionName: 'is_positive', signature: 'is_positive(value)', input: 'A numeric measurement.', output: 'A boolean result.' },
     constraints: ['-1000000 <= value <= 1000000'], concepts: ['comparison', 'boolean-condition'], skills: ['classify-a-value'], prerequisites: ['numbers'], commonMistakes: ['including zero as positive', 'checking only whether the value exists'],
@@ -27,7 +27,7 @@ const specs = [
   },
   {
     id: 'fund-conditionals-003', title: 'Trace a Threshold Reward', summary: 'Reason about logic that runs only above a threshold.',
-    subtopic: 'basic-conditions', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'basic-conditions', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'A reward starts at zero and becomes 10 only when the score is at least the target. Return the resulting reward.',
     contract: { functionName: 'threshold_reward', signature: 'threshold_reward(score, target)', input: 'Two whole-number scores.', output: 'Either 10 or 0.' },
     constraints: ['0 <= score, target <= 100'], concepts: ['conditional-execution', 'threshold'], skills: ['trace-conditional-state'], prerequisites: ['assignment'], commonMistakes: ['awarding the reward below the target', 'excluding the exact target'],
@@ -36,7 +36,7 @@ const specs = [
   },
   {
     id: 'fund-conditionals-004', title: 'Check a Required Score', summary: 'Determine whether a score satisfies a configurable requirement.',
-    subtopic: 'basic-conditions', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'basic-conditions', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return `qualified` when a score is at least the required score. Otherwise return `not qualified`.',
     contract: { functionName: 'qualification_status', signature: 'qualification_status(score, required_score)', input: 'A score and required score from 0 to 100.', output: 'The appropriate status text.' },
     constraints: ['0 <= score, required_score <= 100'], concepts: ['threshold-condition', 'conditional-result'], skills: ['comparison', 'decision-making'], prerequisites: ['text-values'], commonMistakes: ['using a fixed requirement', 'excluding equality'],
@@ -45,7 +45,7 @@ const specs = [
   },
   {
     id: 'fund-conditionals-005', title: 'Return Pass or Fail', summary: 'Choose one of two outcomes from an exam score.',
-    subtopic: 'if-else', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'if-else', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return `pass` for a score of at least 50 and `fail` otherwise.',
     contract: { functionName: 'exam_result', signature: 'exam_result(score)', input: 'A score from 0 to 100.', output: 'Either `pass` or `fail`.' },
     constraints: ['0 <= score <= 100'], concepts: ['if-else', 'mutually-exclusive-outcomes'], skills: ['two-way-branching'], prerequisites: ['comparison'], commonMistakes: ['leaving one outcome unhandled', 'failing a score equal to 50'],
@@ -54,7 +54,7 @@ const specs = [
   },
   {
     id: 'fund-conditionals-006', title: 'Classify Adult or Minor', summary: 'Select an age category with two exclusive branches.',
-    subtopic: 'if-else', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'if-else', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return `adult` when age is at least 18. Return `minor` otherwise.',
     contract: { functionName: 'age_category', signature: 'age_category(age)', input: 'A non-negative whole-number age.', output: 'Either `adult` or `minor`.' },
     constraints: ['0 <= age <= 150'], concepts: ['if-else', 'age-boundary'], skills: ['branch-selection'], prerequisites: ['comparison'], commonMistakes: ['excluding age 18', 'returning both outcomes'],

@@ -68,7 +68,7 @@ export function AITutorPanel({ language, code, selectedCode = '', selectionSnaps
       <header className="ai-tutor-header"><span className="ai-tutor-icon" aria-hidden="true"><Bot /></span><div><strong id={titleId}>AI Tutor</strong><small>Code explanation</small></div></header>
       <details className="ai-tutor-disclosure">
         <summary>External AI receives relevant code and may be incorrect</summary>
-        <p>When you request an explanation, MiTutora sends the selected or full code, programming language, activity title, and available compiler status and output to the configured AI provider. Remove secrets or personal information before continuing, and verify important guidance.</p>
+        <p>When you request an explanation, ycoders sends the selected or full code, programming language, activity title, and available compiler status and output to the configured AI provider. Remove secrets or personal information before continuing, and verify important guidance.</p>
       </details>
       <div className="ai-tutor-actions">
         <span className="sr-only" id={`${titleId}-selection-help`}>{hasSelection ? 'The current editor selection will be explained.' : 'Select code in the editor first.'}</span>

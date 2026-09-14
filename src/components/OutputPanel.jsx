@@ -14,6 +14,8 @@ export function OutputPanel({
   verificationStatus,
   onCheckOutput,
   canCheckOutput,
+  collapsed = false,
+  onExpand,
 }) {
   const inputContent = Array.isArray(inputs) ? inputs.join('\n') : inputs;
   const tabs = useMemo(() => [
@@ -46,7 +48,7 @@ export function OutputPanel({
 
   return (
     <section
-      className={`console-window ide-results is-${stateTone}`}
+      className={`console-window ide-results is-${stateTone}${collapsed ? ' is-collapsed' : ''}`}
       style={{ height, flexBasis: height }}
       aria-live="polite"
     >
@@ -58,7 +60,7 @@ export function OutputPanel({
             role="tab"
             aria-selected={activeTab === tab.id}
             aria-controls={`compiler-panel-${tab.id}`}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => { setActiveTab(tab.id); onExpand?.(); }}
             key={tab.id}
           >
             {tab.label}
@@ -67,28 +69,28 @@ export function OutputPanel({
         ))}
       </div>
 
-      <div
+      {!collapsed ? <div
         className={`ide-result-terminal${activeTab === 'errors' && error ? ' is-error' : ''}`}
         id={`compiler-panel-${activeTab}`}
         role="tabpanel"
         tabIndex="0"
       >
         <pre><code>{tabContent}</code></pre>
-      </div>
+      </div> : null}
 
-      {verificationStatus === 'mismatched' ? (
+      {!collapsed && verificationStatus === 'mismatched' ? (
         <p className="ide-verification-message is-mismatch">
           <CircleAlert size={ICON_SIZE.sm} aria-hidden="true" />
           Output does not match. Review Expected, edit your code, and run again.
         </p>
-      ) : verificationStatus === 'matched' ? (
+      ) : !collapsed && verificationStatus === 'matched' ? (
         <p className="ide-verification-message is-success">
           <CheckCircle2 size={ICON_SIZE.sm} aria-hidden="true" />
           Program output matches the expected result.
         </p>
       ) : null}
 
-      <footer className="ide-result-footer">
+      {!collapsed ? <footer className="ide-result-footer">
         <div className="ide-runtime-status">
           <span className={`ide-status-dot is-${stateTone}`}>
             {status === 'running'
@@ -108,7 +110,7 @@ export function OutputPanel({
           <SearchCheck size={ICON_SIZE.sm} aria-hidden="true" />
           {verificationStatus === 'matched' ? 'Output Verified' : 'Check Output'}
         </button>
-      </footer>
+      </footer> : null}
     </section>
   );
 }

@@ -69,6 +69,9 @@ service cloud.firestore {
       match /statistics/{statisticsId} { allow read: if owns(uid); allow write: if false; }
       match /coinTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
       match /coinAccount/{accountId} { allow read: if owns(uid); allow write: if false; }
+      match /coinRedemptions/{redemptionId} { allow read: if owns(uid); allow write: if false; }
+      match /challengeUnlocks/{occurrenceDate} { allow read: if owns(uid); allow write: if false; }
+      match /redemptionUsage/{usageId} { allow read, write: if false; }
       match /wallet/{accountId} { allow read: if owns(uid); allow write: if false; }
       match /walletTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
       match /withdrawals/{withdrawalId} { allow read: if owns(uid); allow write: if false; }

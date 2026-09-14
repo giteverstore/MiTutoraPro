@@ -4,7 +4,7 @@
   "title": "Return a Temperature Difference",
   "summary": "Produce a calculated value that callers can reuse.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "functions",
   "category": "fundamentals",
   "subtopic": "return-values",

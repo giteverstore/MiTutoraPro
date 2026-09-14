@@ -4,7 +4,7 @@
   "title": "Repair a Text Quantity",
   "summary": "Fix an operation that confuses numeric text with a number.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "variables-data-types-expressions",
   "category": "fundamentals",
   "subtopic": "data-types",

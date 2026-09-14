@@ -1,7 +1,7 @@
 # Project Structure
 
 ```text
-MiTutoraPro/
+ycoders/
 ├── docs/                 Developer reference and ADRs
 ├── examples/             Compact schema-valid course example
 ├── public/

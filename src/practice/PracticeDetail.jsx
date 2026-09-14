@@ -1,44 +1,35 @@
 import { useMemo, useState } from 'react';
-import {
-  ArrowLeft,
-  CheckCircle2,
-  Clock3,
-  Circle,
-  LockKeyhole,
-  Zap,
-} from 'lucide-react';
-import { BlockRenderer } from '../components/BlockRenderer';
+import { ArrowLeft, CheckCircle2, Code2, LockKeyhole, Maximize2, Minus } from 'lucide-react';
 import { CompilerPanel } from '../components/CompilerPanel';
+import { ResizeHandle } from '../components/ResizeHandle';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
-import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
-import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
-import { PracticeTestPanel } from './PracticeTestPanel';
 import { DomainErrorBoundary } from '../errors/ErrorBoundary';
+import { PracticeTestPanel } from './PracticeTestPanel';
+import { PracticeProblemContent } from './PracticeProblemContent';
+import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
+import { useApplicationTheme } from '../theme/useApplicationTheme';
+import { ICON_SIZE, LAYOUT_SIZE } from '../design-system/theme';
+import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
+import { useSelectableCompilerLanguage } from '../compiler/useSelectableCompilerLanguage';
 
 export function PracticeDetail({ question, solved, onBack, onComplete }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
-  const compilerBlock = useMemo(
-    () => question.blocks.find((block) => block.type === 'compiler'),
+  const [compilerStatus, setCompilerStatus] = useState('ready');
+  const [isCompilerMinimized, setIsCompilerMinimized] = useState(false);
+  const { theme } = useApplicationTheme();
+  const compilerResize = useCompilerPaneResize();
+  const compilerDefinitions = useMemo(
+    () => question.blocks.filter((block) => block.type === 'compiler').map(createCompilerData),
     [question],
   );
-  const contentBlocks = useMemo(
-    () => question.blocks.filter((block) => block.type !== 'compiler'),
-    [question],
-  );
-  const compiler = useMemo(
-    () => createCompilerData(compilerBlock),
-    [compilerBlock],
-  );
+  const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, question.language);
+  const compiler = compilerLanguage.activeDefinition;
   const canComplete = verificationStatus === 'matched';
   const rewardMessage = {
-    credited: `+${completion.rewardAmount} coins earned`,
-    already_claimed: 'reward already claimed',
-    daily_reward_cap_reached: 'daily reward cap reached',
-    unavailable: 'reward reconciliation pending',
-    daily_limit_reached: 'reward unavailable',
-    activity_not_rewardable: 'reward unavailable',
-    policy_disabled: 'reward unavailable',
+    credited: `+${completion.rewardAmount} coins earned`, already_claimed: 'reward already claimed',
+    daily_reward_cap_reached: 'daily reward cap reached', unavailable: 'reward reconciliation pending',
+    daily_limit_reached: 'reward unavailable', activity_not_rewardable: 'reward unavailable', policy_disabled: 'reward unavailable',
   }[completion.rewardStatus] ?? 'completion recorded';
   const complete = async () => {
     setCompletion((current) => ({ ...current, pending: true, error: null }));
@@ -50,73 +41,28 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
     }
   };
 
-  return (
-    <div className="practice-detail">
-      <header className="practice-detail-header">
-        <div className="practice-detail-actions">
+  return <div className="practice-immersive-shell" data-theme={theme}>
+    <div className={`practice-immersive-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="practice" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
+      <article className="practice-problem lesson-panel">
+        <header className="practice-detail-header">
           <button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Practice</button>
-          <BookmarkToggle bookmark={createPracticeBookmark(question)} />
-        </div>
-        <div className="practice-detail-heading">
-          <span>{question.language} · {question.topic}</span>
           <h1>{question.title}</h1>
-          <p>{question.summary}</p>
-          <div className="practice-detail-meta" aria-label="Question details">
-            <span className={`practice-difficulty is-${question.difficulty}`}><Circle aria-hidden="true" /> {question.difficulty.replace('_', ' ')}</span>
-            <span><Clock3 aria-hidden="true" /> {question.estimatedMinutes} min</span>
-            <span><Zap aria-hidden="true" /> {question.xp} XP</span>
-            <span className={solved ? 'is-solved' : ''}><CheckCircle2 aria-hidden="true" /> {solved ? 'Solved' : 'Unsolved'}</span>
-          </div>
-        </div>
-      </header>
-      <div className="practice-detail-grid">
-        <article className="practice-problem">
-          <BlockRenderer
-            lesson={{ id: question.id, blocks: contentBlocks }}
-            emptyState={{ title: 'Problem unavailable', description: 'This practice question has no problem content.' }}
-          />
-        </article>
-        <section className="practice-workspace" aria-label="Code workspace">
-          <DomainErrorBoundary
-            name="practice-compiler"
-            title="The code workspace could not be displayed."
-            description="The problem statement is still available. Retry the workspace when you are ready."
-            resetKeys={[question.id]}
-            compact
-          >
-            <CompilerPanel
-              compiler={compiler}
-              instanceId={`practice-${question.id}`}
-              lessonContext={question.title}
-              activityType="practice"
-              onVerificationChange={setVerificationStatus}
-              renderOutput={(outputProps) => (
-                <PracticeTestPanel
-                  {...outputProps}
-                  contract={question.contract}
-                  tests={question.publicTests ?? []}
-                />
-              )}
-              key={question.id}
-            />
+        </header>
+        <PracticeProblemContent question={question} />
+        <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>
+          <span>{canComplete ? <CheckCircle2 /> : <LockKeyhole />}{completion.error ? completion.error : solved ? `Completed · ${rewardMessage}` : canComplete ? 'Output verified. You can mark this solution complete.' : 'Run your solution and check its output to continue.'}</span>
+          <button className="button button--primary" type="button" disabled={!canComplete || solved || completion.pending} onClick={complete}><CheckCircle2 /> {completion.pending ? 'Saving…' : solved ? 'Completed' : 'Save Completion'}</button>
+        </footer>
+      </article>
+      <aside className={`desktop-compiler compiler-dock practice-compiler-dock ${isCompilerMinimized ? 'is-minimized' : 'is-expanded compiler-enter'} is-${compilerStatus}`} aria-label="Practice compiler">
+        {isCompilerMinimized ? <button className="compiler-dock-launcher" type="button" onClick={() => setIsCompilerMinimized(false)} aria-expanded="false" aria-label="Open compiler"><span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span><span className="compiler-dock-word" aria-hidden="true">Compiler</span><Maximize2 size={ICON_SIZE.sm} aria-hidden="true" /></button> : <div className="compiler-dock-header"><span className="compiler-dock-identity"><span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span><strong>Compiler Dock</strong></span><button className="compiler-dock-minimize" type="button" onClick={() => setIsCompilerMinimized(true)} aria-label="Minimize compiler" title="Minimize compiler"><Minus size={ICON_SIZE.md} aria-hidden="true" /></button></div>}
+        <div className="compiler-dock-body" aria-hidden={isCompilerMinimized}>
+          <DomainErrorBoundary name="practice-compiler" title="The code workspace could not be displayed." description="The problem statement is still available. Retry the workspace when you are ready." resetKeys={[question.id]} compact>
+            <CompilerPanel ref={compilerLanguage.panelRef} compiler={compiler} instanceId={`practice-${question.id}`} lessonContext={question.title} activityType="practice" onVerificationChange={setVerificationStatus} onExecutionStateChange={setCompilerStatus} languageSelector={<CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />} renderOutput={(outputProps) => <PracticeTestPanel {...outputProps} contract={question.contract} tests={question.publicTests ?? []} />} key={question.id} />
           </DomainErrorBoundary>
-          <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>
-            <span>
-              {canComplete ? <CheckCircle2 /> : <LockKeyhole />}
-              {completion.error
-                ? completion.error
-                : solved
-                ? `Completed · ${rewardMessage}`
-                : canComplete
-                  ? 'Output verified. You can mark this local solution complete.'
-                  : 'Run your solution and verify its output to continue.'}
-            </span>
-            <button className="button button--primary" type="button" disabled={!canComplete || solved || completion.pending} onClick={complete}>
-              <CheckCircle2 /> {completion.pending ? 'Saving…' : solved ? 'Completed' : 'Save Completion'}
-            </button>
-          </footer>
-        </section>
-      </div>
+        </div>
+      </aside>
+      {!isCompilerMinimized ? <ResizeHandle className="compiler-resize-handle" label="Resize problem and compiler panes" min={LAYOUT_SIZE.compiler.min} max={compilerResize.max} value={compilerResize.value} onPointerDown={compilerResize.startDragging} onKeyDown={compilerResize.handleKeyDown} /> : null}
     </div>
-  );
+  </div>;
 }

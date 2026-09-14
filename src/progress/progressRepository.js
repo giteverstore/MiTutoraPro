@@ -1,6 +1,9 @@
 import { userDataService } from '../user-data/UserDataService';
 
 export const progressRepository = {
+  list(userId) {
+    return userDataService.listProgress(userId);
+  },
   async load(userId, courseId) {
     const stored = await userDataService.loadProgress(userId, courseId);
     if (!stored) return null;

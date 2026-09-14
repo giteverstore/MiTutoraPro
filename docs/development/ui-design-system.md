@@ -1,6 +1,6 @@
 # UI design system
 
-MiTutora Pro uses a layered design system so feature components remain focused on behavior while the product retains a consistent visual language.
+ycoders uses a layered design system so feature components remain focused on behavior while the product retains a consistent visual language.
 
 ## Styling layers
 

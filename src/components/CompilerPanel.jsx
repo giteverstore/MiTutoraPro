@@ -3,8 +3,6 @@ import { EditorHeader } from './EditorHeader';
 import { EditorPlaceholder } from './EditorPlaceholder';
 import { OutputPanel } from './OutputPanel';
 import { ResizeHandle } from './ResizeHandle';
-import { useDragResize } from '../hooks/useDragResize';
-import { LAYOUT_SIZE } from '../design-system/theme';
 import { useCompilerManager } from '../compiler/CompilerProvider';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { useSettings } from '../settings/useSettings';
@@ -13,6 +11,7 @@ import { ConfirmDialog } from './Dialog';
 import { AITutorPanel } from '../ai/AITutorPanel';
 import { CompilerWorkspace } from './CompilerWorkspace';
 import { createSourceSnapshotHash } from '../compiler/core/sourceSnapshot';
+import { useCompilerBottomDrawer } from '../compiler/useCompilerBottomDrawer';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -22,6 +21,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   instanceId: requestedInstanceId,
   lessonContext = '',
   activityType = 'unknown',
+  languageSelector,
 }, forwardedRef) {
   const generatedInstanceId = useId();
   const instanceId = requestedInstanceId ?? `compiler-${generatedInstanceId.replace(/:/g, '')}`;
@@ -48,17 +48,16 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const [compilerEvidence, setCompilerEvidence] = useState(null);
   const [replaceConfirmation, setReplaceConfirmation] = useState(null);
   const executionControllerRef = useRef(null);
-  const outputResize = useDragResize({
-    ...LAYOUT_SIZE.output,
-    direction: -1,
-    axis: 'y',
-  });
+  const collapsibleOutput = activityType === 'lesson' || Boolean(languageSelector);
+  const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput });
+  const expandOutputDrawer = outputDrawer.expand;
 
   useEffect(() => {
     onExecutionStateChange?.(isRunning ? 'running' : executionStatus === 'error' ? 'failed' : 'ready');
   }, [executionStatus, isRunning, onExecutionStateChange]);
 
   const showRunFeedback = useCallback(async (executionOverride = null) => {
+    expandOutputDrawer();
     const definition = executionOverride?.compiler ?? activeCompilerRef.current;
     const requestedSource = executionOverride?.source ?? currentCodeRef.current;
     executionControllerRef.current?.abort();
@@ -132,14 +131,20 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     onVerificationChange,
     settings.editor.autoFormatOnRun,
     instanceId,
+    expandOutputDrawer,
   ]);
 
   const handleCodeChange = useCallback((nextCode) => {
     currentCodeRef.current = nextCode;
     selectionVersionRef.current += 1;
     setCode(nextCode);
+    setResult('');
+    setError('');
+    setExecutionStatus('idle');
     setSelectionSnapshot(null);
     setVerificationStatus('idle');
+    setExecutionTimeMs(null);
+    setCompilerEvidence(null);
     const definition = activeCompilerRef.current;
     if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     onVerificationChange?.('idle');
@@ -163,6 +168,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   }, []);
 
   const checkOutput = useCallback(() => {
+    expandOutputDrawer();
     if (executionStatus !== 'success') return;
     const definition = activeCompilerRef.current;
     const matches = compilerManager.validateOutput({
@@ -190,6 +196,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     result,
     verifyExercise,
     onVerificationChange,
+    expandOutputDrawer,
   ]);
 
   const resetEditor = useCallback(async () => {
@@ -233,18 +240,20 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setExecutionTimeMs(null);
     setSelectionSnapshot(null);
     setCompilerEvidence(null);
+    if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
+    onVerificationChange?.('idle');
     return true;
-  }, []);
+  }, [invalidateExerciseVerification, onVerificationChange]);
 
-  const requestReplaceConfirmation = useCallback(() => new Promise((resolve) => {
-    setReplaceConfirmation({ resolve });
+  const requestReplaceConfirmation = useCallback((description, confirmLabel) => new Promise((resolve) => {
+    setReplaceConfirmation({ resolve, description, confirmLabel });
   }), []);
 
-  const loadCompilerDefinition = useCallback(async (definition, { confirmReplace = true } = {}) => {
+  const loadCompilerDefinition = useCallback(async (definition, { confirmReplace = true, replacementDescription, replacementConfirmLabel } = {}) => {
     const source = definition.editor.lines.map((line) => line.text ?? '').join('\n');
     const hasLearnerEdits = currentCodeRef.current !== lastLoadedCodeRef.current;
     if (hasLearnerEdits && source !== currentCodeRef.current && confirmReplace) {
-      const accepted = await requestReplaceConfirmation();
+      const accepted = await requestReplaceConfirmation(replacementDescription, replacementConfirmLabel);
       if (!accepted) return false;
     }
     return applyCompilerDefinition(definition);
@@ -282,11 +291,10 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       }
     };
     window.addEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
-    return () => {
-      window.removeEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
-      executionControllerRef.current?.abort();
-    };
+    return () => window.removeEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
   }, [instanceId, showRunFeedback]);
+
+  useEffect(() => () => executionControllerRef.current?.abort(), []);
 
   return (
     <div className="compiler-panel" ref={panelRef} data-compiler-instance-id={instanceId}>
@@ -298,6 +306,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           verificationStatus={verificationStatus}
           onRun={showRunFeedback}
           onReset={resetEditor}
+          languageSelector={languageSelector}
         />
         <CompilerWorkspace
           instanceId={instanceId}
@@ -316,15 +325,17 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         <ResizeHandle
           className="output-resize-handle"
           label={activeCompiler.resizeLabel}
-          min={LAYOUT_SIZE.output.min}
-          max={LAYOUT_SIZE.output.max}
-          value={outputResize.value}
+          min={collapsibleOutput ? 0 : outputDrawer.min}
+          max={outputDrawer.max}
+          value={outputDrawer.collapsed ? 0 : outputDrawer.value}
           orientation="horizontal"
-          onPointerDown={outputResize.startDragging}
-          onKeyDown={outputResize.handleKeyDown}
+          onPointerDown={outputDrawer.startDragging}
+          onKeyDown={outputDrawer.handleKeyDown}
         />
         {renderOutput?.({
-          height: outputResize.value,
+          height: outputDrawer.renderedHeight,
+          collapsed: outputDrawer.collapsed,
+          onExpand: expandOutputDrawer,
           result,
           error,
           isRunning,
@@ -333,12 +344,15 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           inputs: activeCompiler.stdin,
           executionStatus,
           verificationStatus,
+          language: activeCompiler.language,
           onCheckOutput: checkOutput,
           canCheckOutput: executionStatus === 'success' && activeCompiler.expectedOutput !== undefined,
         }) ?? (
           <OutputPanel
             output={activeCompiler.output}
-            height={outputResize.value}
+            height={outputDrawer.renderedHeight}
+            collapsed={outputDrawer.collapsed}
+            onExpand={expandOutputDrawer}
             result={result}
             error={error}
             isRunning={isRunning}
@@ -355,8 +369,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       <ConfirmDialog
         open={Boolean(replaceConfirmation)}
         title="Replace current code?"
-        description="Your current editor changes will be replaced with this example."
-        confirmLabel="Replace code"
+        description={replaceConfirmation?.description ?? 'Your current editor changes will be replaced.'}
+        confirmLabel={replaceConfirmation?.confirmLabel ?? 'Replace code'}
         onConfirm={() => { replaceConfirmation?.resolve(true); setReplaceConfirmation(null); }}
         onCancel={() => { replaceConfirmation?.resolve(false); setReplaceConfirmation(null); }}
       />

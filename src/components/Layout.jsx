@@ -6,6 +6,7 @@ import { ResizeHandle } from './ResizeHandle';
 import { Sidebar } from './Sidebar';
 import { TopNavigation } from './TopNavigation';
 import { useDragResize } from '../hooks/useDragResize';
+import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { ICON_SIZE, LAYOUT_SIZE } from '../design-system/theme';
 import { useUser } from '../auth/UserContext';
@@ -55,7 +56,6 @@ export function Layout({ courseLoader, onExitCourse }) {
     [compilerBlock, exerciseBlock?.id],
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const workspaceRef = useRef(null);
   const compilerPanelRef = useRef(null);
   const [isCompilerMinimized, setIsCompilerMinimized] = useState(
     () => window.localStorage.getItem('mi-tutora:compiler-minimized') === 'true',
@@ -65,7 +65,6 @@ export function Layout({ courseLoader, onExitCourse }) {
     () => window.localStorage.getItem('mi-tutora:sidebar-collapsed') === 'true',
   );
   const { theme, toggleTheme } = useApplicationTheme();
-  const [workspaceWidth, setWorkspaceWidth] = useState(() => window.innerWidth);
   const [isSidebarOverlay, setIsSidebarOverlay] = useState(
     () => window.matchMedia('(max-width: 1180px)').matches,
   );
@@ -74,31 +73,10 @@ export function Layout({ courseLoader, onExitCourse }) {
     storageKey: 'mi-tutora:sidebar-width',
   });
   const sidebarPaneWidth = isSidebarCollapsed ? 76 : sidebarResize.value;
-  const compilerMaxWidth = Math.max(
-    LAYOUT_SIZE.compiler.min,
-    Math.floor(
-      workspaceWidth
-      - (isSidebarOverlay ? 0 : sidebarPaneWidth)
-      - LAYOUT_SIZE.lesson.min,
-    ),
-  );
-  const compilerResize = useDragResize({
-    ...LAYOUT_SIZE.compiler,
-    max: compilerMaxWidth,
-    direction: -1,
-    storageKey: 'mi-tutora:compiler-width',
-  });
+  const compilerResize = useCompilerPaneResize({ reservedWidth: isSidebarOverlay ? 0 : sidebarPaneWidth });
+  const workspaceRef = compilerResize.workspaceRef;
+  const compilerMaxWidth = compilerResize.max;
   const persistentCompilerData = compilerData ?? course.compiler;
-
-  useEffect(() => {
-    const workspace = workspaceRef.current;
-    if (!workspace) return undefined;
-    const updateWidth = () => setWorkspaceWidth(workspace.getBoundingClientRect().width);
-    const observer = new ResizeObserver(updateWidth);
-    observer.observe(workspace);
-    updateWidth();
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 1180px)');
@@ -231,6 +209,7 @@ export function Layout({ courseLoader, onExitCourse }) {
       />
       <div
         ref={workspaceRef}
+        data-immersive-coding-workspace="course"
         className={`workspace ${!isCompilerMinimized ? 'has-compiler' : 'is-compiler-minimized'} ${
           isSidebarCollapsed ? 'is-sidebar-collapsed' : ''
         }`}

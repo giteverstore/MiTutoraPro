@@ -4,7 +4,7 @@
   "title": "Repair a Fixed Parameter",
   "summary": "Fix reusable logic that ignores its input.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "functions",
   "category": "fundamentals",
   "subtopic": "function-basics-parameters",

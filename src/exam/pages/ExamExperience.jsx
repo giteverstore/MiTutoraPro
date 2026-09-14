@@ -9,22 +9,22 @@ import { CertificationProvider } from '../../certification/context/Certification
 import { useCertification } from '../../certification/hooks/useCertification';
 import { useApplicationTheme } from '../../theme/useApplicationTheme';
 
-function ExamScreen({ onExit }) {
+function ExamScreen({ onExit, onViewCertificate }) {
   const { session, result } = useExam();
   if (session.state === EXAM_SESSION_STATES.RUNNING) return <ExamPage />;
-  if (session.state === EXAM_SESSION_STATES.COMPLETED && result) return <ExamResultPage onExit={onExit} />;
+  if (session.state === EXAM_SESSION_STATES.COMPLETED && result) return <ExamResultPage onExit={onExit} onViewCertificate={onViewCertificate} />;
   return <EnvironmentCheckPage onExit={onExit} />;
 }
 
-function CertificationRuntime({ candidateId, onExit }) {
+function CertificationRuntime({ candidateId, onExit, onViewCertificate }) {
   const certification = useCertification();
   if (certification.status === 'loading') return <div className="exam-page exam-recovery-state" role="status"><div className="exam-card"><h1>Recovering your exam…</h1><p>{certification.message}</p></div></div>;
   if (certification.status === 'error') return <div className="exam-page exam-recovery-state" role="alert"><div className="exam-card"><h1>Your exam session could not be recovered.</h1><p>{certification.error?.message}</p><button className="button button--secondary" type="button" onClick={onExit}>Back to certificates</button></div></div>;
-  return <ExamProvider exam={certification.exam} candidateId={candidateId} certification={certification}><ExamScreen onExit={onExit} /></ExamProvider>;
+  return <ExamProvider exam={certification.exam} candidateId={candidateId} certification={certification}><ExamScreen onExit={onExit} onViewCertificate={onViewCertificate} /></ExamProvider>;
 }
 
-export function ExamExperience({ candidateId, courseId = 'python', examId = 'python-foundations-certification', onExit }) {
+export function ExamExperience({ candidateId, courseId = 'python', examId = 'python-foundations-certification', onExit, onViewCertificate }) {
   const settings = useSettings();
   const { theme } = useApplicationTheme();
-  return <div className="exam-experience" data-theme={theme} data-reduced-motion={settings.appearance.reducedMotion}><CertificationProvider candidateId={candidateId} courseId={courseId} examId={examId}><CertificationRuntime candidateId={candidateId} onExit={onExit} /></CertificationProvider></div>;
+  return <div className="exam-experience" data-theme={theme} data-reduced-motion={settings.appearance.reducedMotion}><CertificationProvider candidateId={candidateId} courseId={courseId} examId={examId}><CertificationRuntime candidateId={candidateId} onExit={onExit} onViewCertificate={onViewCertificate} /></CertificationProvider></div>;
 }

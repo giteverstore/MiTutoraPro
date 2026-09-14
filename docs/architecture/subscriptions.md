@@ -1,6 +1,6 @@
 # Subscription foundation
 
-MiTutora has two effective access tiers: `FREE` and `PREMIUM`. A current, unexpired Premium entitlement grants `PREMIUM`; otherwise the user is `FREE`. M3.1 does not gate courses or other content.
+ycoders has two effective access tiers: `FREE` and `PREMIUM`. A current, unexpired Premium entitlement grants `PREMIUM`; otherwise the user is `FREE`. M3.1 does not gate courses or other content.
 
 The immutable server registry defines Monthly at ₹499 (`49900` paise) for one calendar month, Half-Yearly at ₹999 (`99900` paise) for six calendar months, and Annual at ₹1,499 (`149900` paise) for twelve calendar months. All plans use INR. Browser labels are presentation only; clients cannot submit price, duration, status, source, or UID.
 

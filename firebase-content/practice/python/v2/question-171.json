@@ -4,7 +4,7 @@
   "title": "Calculate a Total from Decimal Text",
   "summary": "Interpret decimal input and apply arithmetic.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "input-output-parsing",
   "category": "fundamentals",
   "subtopic": "numeric-input-conversion",

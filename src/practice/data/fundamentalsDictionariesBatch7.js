@@ -6,7 +6,7 @@ const copied = { time: 'O(n)', space: 'O(n)' };
 const specs = [
   {
     id: 'fund-dictionaries-001', title: 'Create a Person-to-Age Mapping', summary: 'Create one key-value relationship.',
-    subtopic: 'dictionary-map-basics', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'dictionary-map-basics', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return a new key-value mapping containing the supplied person name as its only key and the supplied age as that key’s value.',
     contract: { functionName: 'person_age_mapping', signature: 'person_age_mapping(name, age)', input: 'A person name and a whole-number age.', output: 'A one-entry key-value mapping.' },
     constraints: ['name is non-empty', '0 <= age <= 150'], concepts: ['key-value-mapping', 'mapping-creation'], skills: ['mapping-reasoning', 'key-value-association'], prerequisites: ['values', 'collections'], commonMistakes: ['reversing the key and value', 'returning two unrelated values'], expectedComplexity: constant,
@@ -15,7 +15,7 @@ const specs = [
   },
   {
     id: 'fund-dictionaries-002', title: 'Look Up a Product Price', summary: 'Retrieve a value through its existing key.',
-    subtopic: 'dictionary-map-basics', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'dictionary-map-basics', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return the price associated with the supplied product key. The product key always exists.',
     contract: { functionName: 'product_price', signature: 'product_price(prices, product)', input: 'A product-to-price mapping and an existing product key.', output: 'The associated price.' },
     constraints: ['1 <= number of entries <= 1000', 'product is an existing key'], concepts: ['key-value-mapping', 'lookup'], skills: ['key-lookup', 'mapping-reasoning'], prerequisites: ['mapping-basics'], commonMistakes: ['searching the values for the product', 'returning the key instead of its value'], expectedComplexity: constant,
@@ -24,7 +24,7 @@ const specs = [
   },
   {
     id: 'fund-dictionaries-003', title: 'Trace a Capital Lookup', summary: 'Reason about selecting one value from multiple keys.',
-    subtopic: 'dictionary-map-basics', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'dictionary-map-basics', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return the capital associated with the supplied country key. The country always exists in the mapping.',
     contract: { functionName: 'country_capital', signature: 'country_capital(capitals, country)', input: 'A country-to-capital mapping and an existing country key.', output: 'The associated capital.' },
     constraints: ['1 <= number of entries <= 1000'], concepts: ['key-value-mapping', 'lookup'], skills: ['mapping-reasoning', 'key-lookup'], prerequisites: ['mapping-basics'], commonMistakes: ['confusing another country’s value', 'returning the country key'], expectedComplexity: constant,
@@ -33,7 +33,7 @@ const specs = [
   },
   {
     id: 'fund-dictionaries-004', title: 'Repair a Label Lookup', summary: 'Fix confusion between keys and values.',
-    subtopic: 'dictionary-map-basics', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'dictionary-map-basics', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return the label associated with the supplied item key. The current implementation incorrectly returns the key itself. Correct the lookup.',
     contract: { functionName: 'item_label', signature: 'item_label(labels, item)', input: 'An item-to-label mapping and an existing item key.', output: 'The associated label.' },
     constraints: ['1 <= number of entries <= 1000', 'item is an existing key'], concepts: ['key-value-distinction', 'lookup'], skills: ['debugging-lookups', 'mapping-reasoning'], prerequisites: ['mapping-basics'], commonMistakes: ['returning the key', 'searching for the value as a key'], expectedComplexity: constant,
@@ -42,7 +42,7 @@ const specs = [
   },
   {
     id: 'fund-dictionaries-005', title: 'Update a Product Price', summary: 'Change one existing value in a copied mapping.',
-    subtopic: 'accessing-updating-values', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 8, xp: 35,
+    subtopic: 'accessing-updating-values', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 8, xp: 35,
     statement: 'Return a new mapping with the existing product key associated with the new price. Preserve all other entries and do not modify the supplied mapping.',
     contract: { functionName: 'with_updated_price', signature: 'with_updated_price(prices, product, new_price)', input: 'A price mapping, an existing product key, and a new price.', output: 'A new mapping with one updated value.' },
     constraints: ['1 <= number of entries <= 1000', 'product is an existing key'], concepts: ['mapping-update', 'copying'], skills: ['collection-manipulation', 'state-tracking'], prerequisites: ['lookup', 'mapping-creation'], commonMistakes: ['adding the price as a key', 'modifying the supplied mapping'], expectedComplexity: copied,
@@ -51,7 +51,7 @@ const specs = [
   },
   {
     id: 'fund-dictionaries-006', title: 'Add Points to a Student Score', summary: 'Read and update an existing mapping value.',
-    subtopic: 'accessing-updating-values', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 8, xp: 35,
+    subtopic: 'accessing-updating-values', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 8, xp: 35,
     statement: 'Return a new mapping where the existing student’s score is increased by the supplied points. Preserve all other entries and do not modify the supplied mapping.',
     contract: { functionName: 'with_bonus_points', signature: 'with_bonus_points(scores, student, points)', input: 'A score mapping, an existing student key, and numeric points.', output: 'A new mapping with the adjusted student score.' },
     constraints: ['1 <= number of entries <= 1000', 'student is an existing key'], concepts: ['lookup', 'mapping-update'], skills: ['key-lookup', 'state-tracking'], prerequisites: ['addition', 'mapping-update'], commonMistakes: ['replacing the score with the bonus', 'updating every student'], expectedComplexity: copied,

@@ -86,8 +86,8 @@ const legacyPracticeQuestions = [
       { id: 'reverse-heading', type: 'heading', level: 2, text: 'Problem Statement' },
       { id: 'reverse-copy', type: 'paragraph', content: 'Read one line of text and print its characters in reverse order.' },
       { id: 'reverse-example-heading', type: 'heading', level: 3, text: 'Example' },
-      { id: 'reverse-example', type: 'code', language: 'text', code: 'Input\nMiTutora\n\nOutput\narotuTiM' },
-      compiler('reverse-compiler', 'text = input()\n# Print text in reverse\n', 'arotuTiM', 'MiTutora'),
+      { id: 'reverse-example', type: 'code', language: 'text', code: 'Input\nycoders\n\nOutput\nsredocy' },
+      compiler('reverse-compiler', 'text = input()\n# Print text in reverse\n', 'sredocy', 'ycoders'),
     ],
   },
   {

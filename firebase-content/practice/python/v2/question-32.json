@@ -4,7 +4,7 @@
   "title": "Classify Adult or Minor",
   "summary": "Select an age category with two exclusive branches.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "conditionals",
   "category": "fundamentals",
   "subtopic": "if-else",

@@ -1,16 +1,16 @@
 import { CompilerManager } from './core/CompilerManager.js';
 import { RuntimeRegistry } from './core/RuntimeRegistry.js';
 import { ValidatorRegistry } from './core/ValidatorRegistry.js';
-import { pythonLanguage } from './languages/python.js';
-import { javaLanguage } from './languages/java.js';
+import { supportedCompilerLanguages } from './languages/supportedLanguages.js';
 import { NormalizedOutputValidator } from './validators/NormalizedOutputValidator.js';
 import { NumericToleranceValidator } from './validators/NumericToleranceValidator.js';
 import { IntegerRangeValidator } from './validators/IntegerRangeValidator.js';
 
 export function createCompilerManager() {
-  const runtimeRegistry = new RuntimeRegistry()
-    .register(pythonLanguage.id, pythonLanguage.createRuntime)
-    .register(javaLanguage.id, javaLanguage.createRuntime);
+  const runtimeRegistry = supportedCompilerLanguages.reduce(
+    (registry, language) => registry.register(language.id, language.createRuntime),
+    new RuntimeRegistry(),
+  );
   const normalizedValidator = new NormalizedOutputValidator();
   const validatorRegistry = new ValidatorRegistry()
     .register('normalized', normalizedValidator)

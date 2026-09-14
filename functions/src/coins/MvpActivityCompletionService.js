@@ -50,11 +50,15 @@ export class MvpActivityCompletionService {
     const eventDate = occurrenceDate || dateParts(this.now());
     const completionId = identity('completion', [input.uid, input.activityType, input.activityId, input.activityVersion, occurrenceDate ?? '']);
     const completionRef = this.db.doc(`users/${input.uid}/activityCompletions/${completionId}`);
+    const today = dateParts(this.now());
+    const recovered = input.activityType === COIN_ACTIVITY_TYPES.DAILY_CHALLENGE && occurrenceDate < today;
+    const unlockRef = recovered ? this.db.doc(`users/${input.uid}/challengeUnlocks/${occurrenceDate}`) : null;
     const usageRef = this.db.doc(`users/${input.uid}/activityUsage/${dateParts(this.now())}`);
     const timestamp = this.timestamp();
 
     const persisted = await this.db.runTransaction(async (transaction) => {
-      const [completionSnapshot, usageSnapshot] = await transaction.getAll(completionRef, usageRef);
+      const [completionSnapshot, usageSnapshot, unlockSnapshot] = await transaction.getAll(completionRef, usageRef, ...(unlockRef ? [unlockRef] : []));
+      if (unlockRef && (!unlockSnapshot?.exists || unlockSnapshot.data()?.status !== 'UNLOCKED' || unlockSnapshot.data()?.assignmentId !== input.activityId)) failCoin('coin/challenge-pass-required', 'A Challenge Pass is required for this missed challenge.');
       const usage = usageSnapshot.exists ? usageSnapshot.data() : { completionAttempts: 0, successfulCompletions: 0, rewardClaims: 0, rewardCoinsCredited: 0 };
       if (usage.completionAttempts >= this.limits.attemptsPerDay) failCoin('coin/activity-rate-limited', 'The daily activity submission limit was reached.');
       if (completionSnapshot.exists) {
@@ -66,7 +70,7 @@ export class MvpActivityCompletionService {
       if (usage.successfulCompletions >= this.limits.completionsPerDay) failCoin('coin/activity-limit-reached', 'The daily completion limit was reached.');
       const completion = {
         ownerUid: input.uid, activityType: input.activityType, activityId: input.activityId, activityVersion: input.activityVersion,
-        occurrenceDate, verificationAssurance: COMPLETION_ASSURANCES.LOCAL_VERIFIED_ACTIVITY, completionStatus: 'COMPLETED',
+        occurrenceDate, recovered, verificationAssurance: COMPLETION_ASSURANCES.LOCAL_VERIFIED_ACTIVITY, completionStatus: 'COMPLETED',
         completedAt: timestamp, firstCompletedAt: timestamp, lastCompletedAt: timestamp, completionCount: 1,
         rewardClaimId: null, rewardStatus: 'PENDING', streakStatus: 'PENDING', eventDate, schemaVersion: '1.0.0',
       };
@@ -77,9 +81,21 @@ export class MvpActivityCompletionService {
 
     let streak;
     try {
-      streak = await this.#reconcileStreak(input.uid, completionRef, completionId, persisted.completion.eventDate);
+      streak = recovered ? { status: 'not_applied_recovery', summary: null } : await this.#reconcileStreak(input.uid, completionRef, completionId, persisted.completion.eventDate);
     } catch {
       streak = { status: 'pending', summary: null };
+    }
+    if (recovered && !persisted.duplicate) {
+      await this.db.runTransaction(async (transaction) => {
+        const snapshot = await transaction.get(unlockRef);
+        if (snapshot.exists && snapshot.data().status === 'UNLOCKED') {
+          const redemptionRef = this.db.doc(`users/${input.uid}/coinRedemptions/${snapshot.data().redemptionId}`);
+          const redemption = await transaction.get(redemptionRef);
+          transaction.update(unlockRef, { status: 'CONSUMED', consumedAt: this.timestamp(), completionId });
+          transaction.update(completionRef, { streakStatus: 'NOT_APPLIED_RECOVERY' });
+          if (redemption.exists) transaction.update(redemptionRef, { status: 'CONSUMED', consumedAt: this.timestamp(), completionId });
+        }
+      });
     }
     let reward = { status: persisted.duplicate && persisted.completion.rewardStatus === 'CREDITED'
       ? 'already_claimed'

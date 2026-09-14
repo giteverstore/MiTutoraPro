@@ -271,4 +271,23 @@ describe.sequential('server-authoritative MI Coin ledger', () => {
     expect(await transactions('changed-eligibility-user')).toHaveLength(0);
     expect(await claims('changed-eligibility-user')).toHaveLength(0);
   });
+
+  it('sets a development balance through immutable credit and debit adjustments', async () => {
+    const uid = 'development-adjustment-user';
+    await expect(ledger.setDevelopmentBalance({ uid, targetBalance: 1000, idempotencyKey: 'dev-up' })).resolves.toMatchObject({ balance: 1000, adjusted: true, duplicate: false });
+    await expect(ledger.setDevelopmentBalance({ uid, targetBalance: 100, idempotencyKey: 'dev-down' })).resolves.toMatchObject({ balance: 100, adjusted: true, duplicate: false });
+    await expect(ledger.setDevelopmentBalance({ uid, targetBalance: 100, idempotencyKey: 'dev-down' })).resolves.toMatchObject({ balance: 100, adjusted: true, duplicate: true });
+    expect(await account(uid)).toMatchObject({ availableBalance: 100, lifetimeEarned: 1000, lifetimeSpent: 900, revision: 2 });
+    expect(await transactions(uid)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ amount: 1000, direction: 'CREDIT', type: 'DEV_BALANCE_ADJUSTMENT', sourceType: 'DEVELOPMENT', balanceAfter: 1000 }),
+      expect.objectContaining({ amount: 900, direction: 'DEBIT', type: 'DEV_BALANCE_ADJUSTMENT', sourceType: 'DEVELOPMENT', balanceAfter: 100 }),
+    ]));
+    expect(await transactions(uid)).toHaveLength(2);
+  });
+
+  it('rejects unsafe development balances without changing the account', async () => {
+    await expect(ledger.setDevelopmentBalance({ uid: 'unsafe-development-user', targetBalance: 100001, idempotencyKey: 'too-high' })).rejects.toMatchObject({ code: 'coin/invalid-amount' });
+    await expect(ledger.setDevelopmentBalance({ uid: 'unsafe-development-user', targetBalance: 1.5, idempotencyKey: 'fraction' })).rejects.toMatchObject({ code: 'coin/data-integrity' });
+    expect(await account('unsafe-development-user')).toBeUndefined();
+  });
 });

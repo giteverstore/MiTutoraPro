@@ -2,11 +2,10 @@ import { useRef } from 'react';
 import {
   ArrowRight,
   BookOpen,
+  CalendarCheck2,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Clock3,
-  Flame,
   GraduationCap,
   Search,
   SearchX,
@@ -58,30 +57,30 @@ function CoursePagination({ currentPage, totalPages, onPageChange }) {
 export function SectionHeading({ id, eyebrow, title, description }) {
   return (
     <header className="home-section-heading">
-      <span>{eyebrow}</span>
+      {eyebrow ? <span>{eyebrow}</span> : null}
       <h2 id={id}>{title}</h2>
       {description ? <p>{description}</p> : null}
     </header>
   );
 }
 
-export function ContinueLearningSection({ course, onOpenCourse }) {
+export function ContinueLearningSection({ course, status, onOpenCourse, onBrowseLibrary }) {
   return (
     <section className="home-section home-continue" aria-labelledby="continue-title">
-      <SectionHeading id="continue-title" eyebrow="Your learning" title="Continue Learning" />
-      <article className="home-continue-card">
+      <SectionHeading id="continue-title" title="Continue Learning" />
+      {status === 'loading' ? <div className="home-course-empty" role="status"><p>Loading your learning state…</p></div> : course ? <article className="home-continue-card">
         <div className="home-continue-mark" aria-hidden="true"><BookOpen /></div>
         <div className="home-continue-copy">
-          <span>{course.currentModule}</span>
+          <span>{course.currentModule ?? 'Your saved course'}</span>
           <h3>{course.title}</h3>
-          <p>{course.currentLesson}</p>
+          <p>{course.currentLesson ?? 'Start with the first lesson'}</p>
         </div>
         <div className="home-continue-progress">
           <div>
             <span>Course progress</span>
-            <strong>{course.progress}%</strong>
+            <strong>{course.progress == null ? 'Unavailable' : `${course.progress}%`}</strong>
           </div>
-          <div
+          {course.progress == null ? null : <div
             className="home-progress-track"
             role="progressbar"
             aria-label={`${course.title} progress`}
@@ -90,12 +89,17 @@ export function ContinueLearningSection({ course, onOpenCourse }) {
             aria-valuenow={course.progress}
           >
             <span style={{ width: `${course.progress}%` }} />
-          </div>
+          </div>}
         </div>
-        <button className="button button--primary" type="button" onClick={() => onOpenCourse(course.id)}>
+        <button className="button button--primary" type="button" onClick={() => onOpenCourse(course.id, course.currentLesson)}>
           Continue Learning <ArrowRight size={17} />
         </button>
-      </article>
+      </article> : <div className="home-course-empty" role={status === 'error' ? 'alert' : 'status'}>
+        <BookOpen aria-hidden="true" />
+        <h3>{status === 'error' ? 'Learning state unavailable' : 'Start a new course'}</h3>
+        <p>{status === 'error' ? 'Your saved learning data could not be loaded.' : 'Choose a course from the Library and begin learning.'}</p>
+        {status === 'error' ? null : <button className="button button--primary" type="button" onClick={onBrowseLibrary}>Browse Library</button>}
+      </div>}
     </section>
   );
 }
@@ -132,14 +136,8 @@ export function BrowseCoursesSection({
   };
 
   return (
-    <section className="home-section" aria-labelledby="browse-title" ref={sectionRef}>
-      <div className="home-browse-header">
-        <SectionHeading
-          id="browse-title"
-          eyebrow="Explore"
-          title="Browse Courses"
-          description="Choose a focused path by domain or programming language."
-        />
+    <section className="home-section" aria-label="Browse courses" ref={sectionRef}>
+      <div className="home-discovery-bar">
         <div className="home-browse-controls">
           <label className="home-course-search">
             <span className="sr-only">Search courses</span>
@@ -165,27 +163,27 @@ export function BrowseCoursesSection({
             ))}
           </div>
         </div>
-      </div>
-      <div className="home-filter-list" aria-label={`${mode} filters`} onWheel={scrollFilters}>
-        <button
-          type="button"
-          className={activeFilter === 'all' ? 'is-active' : ''}
-          aria-pressed={activeFilter === 'all'}
-          onClick={() => onFilterChange('all')}
-        >
-          {mode === 'domains' ? 'All Domains' : 'All Languages'}
-        </button>
-        {modes[mode].map((course) => (
+        <div className="home-filter-list" aria-label={`${mode} filters`} onWheel={scrollFilters}>
           <button
             type="button"
-            className={activeFilter === course.filter ? 'is-active' : ''}
-            aria-pressed={activeFilter === course.filter}
-            onClick={() => onFilterChange(course.filter)}
-            key={course.id}
+            className={activeFilter === 'all' ? 'is-active' : ''}
+            aria-pressed={activeFilter === 'all'}
+            onClick={() => onFilterChange('all')}
           >
-            {course.filter}
+            {mode === 'domains' ? 'All Domains' : 'All Languages'}
           </button>
-        ))}
+          {modes[mode].map((course) => (
+            <button
+              type="button"
+              className={activeFilter === course.filter ? 'is-active' : ''}
+              aria-pressed={activeFilter === course.filter}
+              onClick={() => onFilterChange(course.filter)}
+              key={course.id}
+            >
+              {course.filter}
+            </button>
+          ))}
+        </div>
       </div>
       <div
         className="home-course-list"
@@ -209,17 +207,16 @@ export function BrowseCoursesSection({
 
 export function RecentlyViewedSection({ courses, onOpenCourse }) {
   return (
-    <section className="home-section" aria-labelledby="recent-title">
+    <section className="home-section home-recent" aria-labelledby="recent-title">
       <SectionHeading
         id="recent-title"
-        eyebrow="Pick up where you left off"
         title="Recently Viewed"
         description="Return to courses you explored recently."
       />
       <div className="home-course-grid">
-        {courses.map((course) => (
+        {courses.length ? courses.map((course) => (
           <CourseCard course={course} onOpenCourse={onOpenCourse} key={course.id} />
-        ))}
+        )) : <div className="home-course-empty" role="status"><BookOpen aria-hidden="true" /><h3>No recently viewed courses</h3><p>Courses you explore in the Library will appear here.</p></div>}
       </div>
     </section>
   );
@@ -228,22 +225,22 @@ export function RecentlyViewedSection({ courses, onOpenCourse }) {
 const statisticIcons = {
   courses: GraduationCap,
   lessons: CheckCircle2,
-  streak: Flame,
-  hours: Clock3,
+  challenges: CalendarCheck2,
 };
 
-export function LearningStatisticsSection({ statistics }) {
+export function LearningStatisticsSection({ statistics, status, challengeStatus = status }) {
   return (
-    <section className="home-section" aria-labelledby="statistics-title">
-      <SectionHeading id="statistics-title" eyebrow="Your momentum" title="Learning Statistics" />
+    <section className="home-section home-statistics" aria-labelledby="statistics-title">
+      <SectionHeading id="statistics-title" title="Learning Statistics" />
       <div className="home-stat-grid">
         {statistics.map((statistic) => {
           const Icon = statisticIcons[statistic.id];
+          const metricStatus = statistic.id === 'challenges' ? challengeStatus : status;
           return (
             <article className="home-stat-card" key={statistic.id}>
               <Icon aria-hidden="true" />
               <div>
-                <strong>{statistic.value}</strong>
+                <strong>{metricStatus === 'loading' ? '—' : metricStatus === 'error' || statistic.value == null ? 'Unavailable' : statistic.value}</strong>
                 <span>{statistic.label}</span>
               </div>
             </article>

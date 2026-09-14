@@ -77,14 +77,15 @@ test.describe('authenticated core journeys', () => {
   test('shows settings persistence feedback and restores the saved value after reload', async ({ page, request }) => {
     await signIn(page, request);
     await openShellPage(page, 'Settings');
-    await expect(page.getByRole('heading', { name: 'Make MiTutora yours.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Profile' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Make ycoders yours.' })).toHaveCount(0);
     await page.getByRole('button', { name: /Appearance/ }).click();
     const darkTheme = page.getByRole('radio', { name: /Dark Theme/ });
     await darkTheme.click();
-    await expect(page.getByText('Saved', { exact: true })).toBeVisible();
+    await expect(page.getByText('Saved', { exact: true })).toHaveCount(0);
     await page.reload();
     await expect(page).toHaveURL(/\/settings$/);
-    await expect(page.getByRole('heading', { name: 'Make MiTutora yours.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Profile' })).toBeVisible();
     await page.getByRole('button', { name: /Appearance/ }).click();
     await expect(page.getByRole('radio', { name: /Dark Theme/ })).toHaveAttribute('aria-checked', 'true');
   });

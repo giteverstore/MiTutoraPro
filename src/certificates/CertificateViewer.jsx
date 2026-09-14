@@ -19,10 +19,10 @@ export function CertificateViewer({
         </header>
         <div className="certificate-viewer-body">
           <div className="certificate-preview">
-            <div className="certificate-preview-brand"><span>M</span><strong>MiTutora</strong></div>
+            <div className="certificate-preview-brand"><span><img src="/ycoders-mark.svg" alt="" /></span><strong>ycoders</strong></div>
             <span>Certificate of Completion</span>
             <p>This certifies that</p>
-            <h3>MiTutora Learner</h3>
+            <h3>ycoders Learner</h3>
             <p>has successfully completed</p>
             <h4>{certificate.courseTitle}</h4>
             <div><span>Issued {formatCertificateDate(certificate.issueDate, { month: 'long' })}</span><span>Credential {certificate.credentialId}</span></div>
@@ -34,7 +34,7 @@ export function CertificateViewer({
               <div><dt>Verification Status</dt><dd className="is-verified"><BadgeCheck /> Verified</dd></div>
             </dl>
             <div className="certificate-viewer-actions">
-              <button className="button button--primary" type="button" onClick={() => onDownload(certificate)}><Download /> Download PDF</button>
+              <button className="button button--primary" type="button" onClick={() => onDownload(certificate)}><Download /> Download Certificate</button>
               <button className="button button--secondary" type="button" onClick={() => onShare(certificate)}><Share2 /> Share</button>
               <button className="button button--secondary" type="button" onClick={() => onCopy(certificate.credentialId, 'Credential ID')}><Copy /> Copy Credential ID</button>
               {certificate.verificationUrl ? <button className="button button--secondary" type="button" onClick={() => onCopy(certificate.verificationUrl, 'Verification link')}><Link2 /> Copy Verification Link</button> : null}

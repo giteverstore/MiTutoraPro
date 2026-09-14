@@ -17,6 +17,9 @@ try {
     await setDoc(doc(db, 'users/owner/coinTransactions/transaction-1'), {
       amount: 10, direction: 'CREDIT', status: 'POSTED', balanceAfter: 10,
     });
+    await setDoc(doc(db, 'users/owner/coinRedemptions/redemption-1'), { ownerUid: 'owner', type: 'CHALLENGE_PASS', status: 'UNLOCKED' });
+    await setDoc(doc(db, 'users/owner/challengeUnlocks/2026-09-10'), { ownerUid: 'owner', status: 'UNLOCKED' });
+    await setDoc(doc(db, 'users/owner/redemptionUsage/2026-09'), { ownerUid: 'owner', challengePass: 1 });
     await setDoc(doc(db, 'users/owner/rewardClaims/claim-1'), {
       activityType: 'PRACTICE', activityId: 'question-1', completionStatus: 'COMPLETED', rewardStatus: 'GRANTED',
     });
@@ -56,6 +59,9 @@ try {
 
   await assertSucceeds(getDoc(doc(owner, 'users/owner/coinAccount/summary')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/coinTransactions/transaction-1')));
+  await assertSucceeds(getDoc(doc(owner, 'users/owner/coinRedemptions/redemption-1')));
+  await assertSucceeds(getDoc(doc(owner, 'users/owner/challengeUnlocks/2026-09-10')));
+  await assertFails(getDoc(doc(owner, 'users/owner/redemptionUsage/2026-09')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/rewardClaims/claim-1')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/activityCompletions/completion-1')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/streak/summary')));
@@ -83,6 +89,11 @@ try {
   await assertFails(setDoc(doc(owner, 'users/owner/coinTransactions/forged-debit'), { amount: 1, direction: 'DEBIT' }));
   await assertFails(updateDoc(doc(owner, 'users/owner/coinTransactions/transaction-1'), { amount: 9999 }));
   await assertFails(deleteDoc(doc(owner, 'users/owner/coinTransactions/transaction-1')));
+  await assertFails(setDoc(doc(owner, 'users/owner/coinRedemptions/forged'), { type: 'PREMIUM_MONTH' }));
+  await assertFails(updateDoc(doc(owner, 'users/owner/coinRedemptions/redemption-1'), { status: 'CONSUMED' }));
+  await assertFails(deleteDoc(doc(owner, 'users/owner/coinRedemptions/redemption-1')));
+  await assertFails(setDoc(doc(owner, 'users/owner/challengeUnlocks/2026-09-11'), { status: 'UNLOCKED' }));
+  await assertFails(setDoc(doc(owner, 'users/owner/redemptionUsage/2026-09'), { challengePass: 0 }));
 
   await assertFails(setDoc(doc(owner, 'users/owner/rewardClaims/forged'), { activityType: 'DAILY_CHALLENGE', rewardStatus: 'GRANTED' }));
   await assertFails(updateDoc(doc(owner, 'users/owner/rewardClaims/claim-1'), { rewardStatus: 'GRANTED', rewardTransactionId: 'fake' }));
@@ -103,6 +114,8 @@ try {
 
   await assertFails(getDoc(doc(stranger, 'users/owner/coinAccount/summary')));
   await assertFails(getDoc(doc(stranger, 'users/owner/coinTransactions/transaction-1')));
+  await assertFails(getDoc(doc(stranger, 'users/owner/coinRedemptions/redemption-1')));
+  await assertFails(getDoc(doc(stranger, 'users/owner/challengeUnlocks/2026-09-10')));
   await assertFails(getDoc(doc(stranger, 'users/owner/rewardClaims/claim-1')));
   await assertFails(getDoc(doc(stranger, 'users/owner/activityCompletions/completion-1')));
   await assertFails(getDoc(doc(stranger, 'users/owner/streak/summary')));

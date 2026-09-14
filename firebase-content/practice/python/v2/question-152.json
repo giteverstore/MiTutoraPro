@@ -4,7 +4,7 @@
   "title": "Trace Required Feature Membership",
   "summary": "Reason about whether several required values are present.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "sets",
   "category": "fundamentals",
   "subtopic": "membership-lookup",

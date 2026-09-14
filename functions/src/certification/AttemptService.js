@@ -147,6 +147,27 @@ export class AttemptService {
 
   async getCandidateExam(examId) { return candidateExam(await this.examDefinition(examId)); }
 
+  async verifyCertificate(credentialId) {
+    if (!/^MIT-[A-Z0-9_-]{1,32}-[A-F0-9]{16}$/.test(credentialId ?? '')) {
+      fail('invalid-argument', 'Certificate credential is invalid.');
+    }
+    const certificateSnapshot = await this.db.doc(`certificates/${credentialId}`).get();
+    if (!certificateSnapshot.exists) fail('not-found', 'Certificate not found.');
+    const certificate = certificateSnapshot.data();
+    if (certificate.status !== 'ACTIVE') fail('failed-precondition', 'Certificate is no longer valid.');
+    const ownerSnapshot = await this.db.doc(`users/${certificate.ownerUid}`).get();
+    const recipientName = ownerSnapshot.exists && typeof ownerSnapshot.data().name === 'string'
+      ? ownerSnapshot.data().name.trim().slice(0, 120)
+      : 'ycoders Learner';
+    return Object.freeze({
+      credentialId: certificate.credentialId,
+      courseTitle: certificate.courseTitle,
+      recipientName,
+      issuedAt: certificate.issuedAt,
+      status: 'VERIFIED',
+    });
+  }
+
   async getCertification(uid, courseId) {
     const reference = this.db.doc(projectionPath(uid, courseId));
     const [snapshot, evaluation] = await Promise.all([reference.get(), this.completion.evaluateEligibility(uid, courseId)]);
@@ -454,7 +475,7 @@ export class AttemptService {
       const latest = await transaction.get(reference); if (latest.data().state === 'FINALIZED') return latest.data();
       if (latest.data().state !== 'EVALUATING') fail('failed-precondition', 'Attempt evaluation ownership was lost.');
       const projectionRef = this.db.doc(projectionPath(attempt.ownerUid, attempt.courseId));
-      const updates = { state: 'FINALIZED', examResult, integrityResult, integrityReportId: integrityReport.reportId, certificationDecision: decision, evaluationVersions: { exam: attempt.examVersion, integrityPolicy: integrityResult.policyVersion, certificationPolicy: decision.policyVersion, reportSchema: integrityReport.schemaVersion }, finalizedAt: now, updatedAt: now };
+      const updates = { state: 'FINALIZED', examResult, integrityResult, integrityReportId: integrityReport.reportId, certificationDecision: decision, certificateId: certificate?.credentialId ?? null, evaluationVersions: { exam: attempt.examVersion, integrityPolicy: integrityResult.policyVersion, certificationPolicy: decision.policyVersion, reportSchema: integrityReport.schemaVersion }, finalizedAt: now, updatedAt: now };
       transaction.update(reference, updates);
       transaction.set(projectionRef, { eligibilityStatus: decision.status, activeAttemptId: null, latestAttemptId: attempt.id, latestDecision: decision.status, certificateId: certificate?.credentialId ?? null, reviewId: decision.status === DECISION.REVIEW_REQUIRED ? `review-${attempt.id}` : null, updatedAt: now }, { merge: true });
       transaction.create(this.db.doc(`integrityReports/${integrityReport.reportId}`), integrityReport);

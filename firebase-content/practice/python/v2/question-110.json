@@ -4,7 +4,7 @@
   "title": "Repair the Collection Size",
   "summary": "Fix an off-by-one error in a collection count.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "arrays-lists",
   "category": "fundamentals",
   "subtopic": "list-array-basics-indexing",

@@ -12,14 +12,14 @@
       "state-creation",
       "basic-expression"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 1,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-1.json",
-    "contentHash": "f82864abec10ea3c150af37372e32011ca53fb87868b0d57114230821bc48524"
+    "contentHash": "a1af04dd52dfd2a592b8ccacf67ab8a138ece63f7932a4bc867c8701364adbac"
   },
   {
     "id": "fund-variables-002",
@@ -34,14 +34,14 @@
       "state-tracking",
       "subtraction-and-addition"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 2,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-2.json",
-    "contentHash": "f0705f0c0468fd43cfb4f00c912140625b12cdc0bcbb46dc18f8115a238f65c3"
+    "contentHash": "76f031a9bbf2296d9427049643e2e937f4ff43653fa2f1a2f17f74adffdd2617"
   },
   {
     "id": "fund-variables-003",
@@ -55,14 +55,14 @@
     "skills": [
       "state-transformation"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 3,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-3.json",
-    "contentHash": "7ea549ca061596f27c0555e89be8d16294bb767a93ec8925e1f828a7ab8ca252"
+    "contentHash": "a3914cb4990bc69ba8841680118a485df23c9096b7b6d502645a19bbdf317e83"
   },
   {
     "id": "fund-variables-004",
@@ -77,14 +77,14 @@
       "debugging-state",
       "trace-values"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 4,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-4.json",
-    "contentHash": "b47cca2b8b070bb5d3b952daa6e179b60a1d928d3b577e9c5d25662bf9fb7a46"
+    "contentHash": "f552c71d87a938d1101e8d7b98066d7bc6e87e063ed2aa98277332fb864b07db"
   },
   {
     "id": "fund-variables-005",
@@ -98,14 +98,14 @@
     "skills": [
       "type-identification"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 5,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-5.json",
-    "contentHash": "ab6c01ab0e39cb3df09262c3d7a7953b6d35e2833fa3a9b77b1baaf62f5df84e"
+    "contentHash": "372a02be70013e92d21466b872903d9f6198f401514ffe375b3ead8020e6eca7"
   },
   {
     "id": "fund-variables-006",
@@ -119,14 +119,14 @@
     "skills": [
       "debugging-types"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 6,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-6.json",
-    "contentHash": "a55e172296cc49171ef7c7c2eb9d846d43291e480d12c1d58d9f3b477f216d48"
+    "contentHash": "102ea297b07f914a4d80fd731a463e596f7ec4a08420643fafd50215f74affb0"
   },
   {
     "id": "fund-variables-007",
@@ -491,7 +491,7 @@
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-23.json",
-    "contentHash": "17d0334fcdb4c45ef787ac1d20afb6e991736b83a0e420c961aa42d05d66b124"
+    "contentHash": "949f83c610288fd4d173c864da8e8303d23f0633307e4803a390f51c4da6b1b9"
   },
   {
     "id": "practice-largest-number",
@@ -572,14 +572,14 @@
       "comparison",
       "boundary-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 27,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-27.json",
-    "contentHash": "fe8ae47c1e4af8efa45ee9457c30ab407daa0a16759f04ce7f0cb86bcfc1f53a"
+    "contentHash": "bfc35653406833a582b8a1b8d8b157f5ec77abe684b9b2382533c7e234266d2e"
   },
   {
     "id": "fund-conditionals-002",
@@ -593,14 +593,14 @@
     "skills": [
       "classify-a-value"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 28,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-28.json",
-    "contentHash": "7978a6e8059563c303ac0d13a7f23d1419d1874143de704defbb3167cb2a6344"
+    "contentHash": "f8e63f83a6b9a0a80e3e16e28d0d46469501e157bcd97b8552f45b8fd8703182"
   },
   {
     "id": "fund-conditionals-003",
@@ -614,14 +614,14 @@
     "skills": [
       "trace-conditional-state"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 29,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-29.json",
-    "contentHash": "2fdd5ff0b3a96aba03ef5b13518a41f8e0dc4b8e839542554406ef98a6fcd143"
+    "contentHash": "ca26ebe9c7f1fae2a06d8905b1b0e0107825e96662316e431c4e0e8cbd06acbd"
   },
   {
     "id": "fund-conditionals-004",
@@ -636,14 +636,14 @@
       "comparison",
       "decision-making"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 30,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-30.json",
-    "contentHash": "e8d53bf8318d89085b0630c65022786d3ce7b17231e640c54374f1fa28455d4f"
+    "contentHash": "a4adb5903c8eb0fa3e61e495d2a8e26f05e80a32719ad459e34642c3f4f4bff9"
   },
   {
     "id": "fund-conditionals-005",
@@ -657,14 +657,14 @@
     "skills": [
       "two-way-branching"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 31,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-31.json",
-    "contentHash": "a87702518203eb6608d94607bec7fab1fd616ec95907e212b677d573a13989da"
+    "contentHash": "da1d8c24200b174a5d0ed03afb3dc62d06c78a333f3f3a99ecaa8b63287e8f9a"
   },
   {
     "id": "fund-conditionals-006",
@@ -678,14 +678,14 @@
     "skills": [
       "branch-selection"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 32,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-32.json",
-    "contentHash": "d3bf3d3b517d5799055cb4fb59e8044f9dae6f963700db300f8cef9c013460a0"
+    "contentHash": "65f1b5b920492fc442df4ba36d7cebeec8ab59a614a07beb80c88d302ac98774"
   },
   {
     "id": "fund-conditionals-007",
@@ -1002,14 +1002,14 @@
       "iterative-reasoning",
       "counter-update"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 47,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-47.json",
-    "contentHash": "b0fa08ae3ffb3c422f3c2946249b12907576dda9d17d092e3a5eb93b932c9c08"
+    "contentHash": "1fe2439d5653f8f122d5ae844f54d90ab0ff2aaad8b7b4fe0652cfa2f2f8857b"
   },
   {
     "id": "fund-loops-002",
@@ -1024,14 +1024,14 @@
       "accumulation",
       "boundary-analysis"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 48,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-48.json",
-    "contentHash": "855148021ec524abc60049ba717ee1d3139bd0ead72c8efa9de7e7f5d3a897f4"
+    "contentHash": "f8de65b28ae3ba1402cab49dafafdec9684f5054afc59310db91fb4b7c83917b"
   },
   {
     "id": "fund-loops-003",
@@ -1046,14 +1046,14 @@
       "debugging-iteration",
       "boundary-analysis"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 49,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-49.json",
-    "contentHash": "d0049220f71be7522153e401d10995b69645c0be72569a2e785eb8526c25df76"
+    "contentHash": "30e4ace9a38a600c938bc2a5680c3ef7a2f51e91d1d3b5c7c46813a9876c715c"
   },
   {
     "id": "fund-loops-004",
@@ -1068,14 +1068,14 @@
       "state-tracking",
       "fixed-repetition"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 50,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-50.json",
-    "contentHash": "18702cb0160fe1c35185905a4d444f9699299b409f1f772dd37e8314213e98b2"
+    "contentHash": "d191754efe103ef1007aeb1faecf52b977cddc04e589695adf28b9e66b19606d"
   },
   {
     "id": "fund-loops-005",
@@ -1090,14 +1090,14 @@
       "sequence-processing",
       "conditional-counting"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 51,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-51.json",
-    "contentHash": "0f462f7915b8c712930dcbce7fe916ab298cbb4e7be5300b0feae1f097a2970a"
+    "contentHash": "380ab83cd3df29905fc976e836688a7112e6522b5e3c48145118ed81e4c4a32c"
   },
   {
     "id": "fund-loops-006",
@@ -1112,14 +1112,14 @@
       "character-inspection",
       "sequence-processing"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 35,
     "position": 52,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-52.json",
-    "contentHash": "d83a9b649301dd7a3876168708d9e52d45d7f35caa5a07ab4a5b27e17ef47660"
+    "contentHash": "617ec5427c137f5a6dfd1a8c6d2a8bc05747f7801a1d63daffa06ba1b938bc1a"
   },
   {
     "id": "fund-loops-007",
@@ -1438,14 +1438,14 @@
       "abstraction",
       "parameter-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 67,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-67.json",
-    "contentHash": "99b65cbeb04bc8de39f076f34cca41630fbce2fa628c3c4e030fe55bd124acd7"
+    "contentHash": "ffcc9d15ad4db9563af1e54c2e797411e2e016cf92ec8527b0ba43a8ec7b0b24"
   },
   {
     "id": "fund-functions-002",
@@ -1460,14 +1460,14 @@
       "reusable-logic",
       "parameter-use"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 68,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-68.json",
-    "contentHash": "2ea476e1b8c4ba1e76afe593eb8de3d11a8973c34805874a1548c568ec4afe3b"
+    "contentHash": "3ef4d5df91a60521fb2be716f379cae567aaacbc5727b695e1f99e88e5bdc08b"
   },
   {
     "id": "fund-functions-003",
@@ -1482,14 +1482,14 @@
       "parameter-reasoning",
       "execution-tracing"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 69,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-69.json",
-    "contentHash": "9991477f3e93566afacf72de13deae39aca8b921cf61cc8a55f0bb650fa0ad5b"
+    "contentHash": "582f79100bc56188e4236b58323984a475cb293c2d10771729a7d95b90396818"
   },
   {
     "id": "fund-functions-004",
@@ -1504,14 +1504,14 @@
       "debugging-functions",
       "parameter-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 70,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-70.json",
-    "contentHash": "7bf1a184fae5f3c97acfe99fcb52959bb3d096cd4031821a1e5e5f2fa41ee342"
+    "contentHash": "b1162795c8ef205315dd5be7f7bebc459ed89bad290a5d190685f3639afc4db2"
   },
   {
     "id": "fund-functions-005",
@@ -1525,14 +1525,14 @@
     "skills": [
       "return-value-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 71,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-71.json",
-    "contentHash": "176b2d1d44f3eb0be0297196660a62608509a3be2c6550187a8de1e16feb2ec5"
+    "contentHash": "f01871ae98cf272be5159799956367cf35475c4b41c2f2e5316841c1682fdd2c"
   },
   {
     "id": "fund-functions-006",
@@ -1546,14 +1546,14 @@
     "skills": [
       "debugging-return-values"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 72,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-72.json",
-    "contentHash": "0757cf3f6c19a98c858aa540e69481e13156374fce6c20bed562f057e4b36849"
+    "contentHash": "74acd896cebb7a6a460e9b0ade853ec37d604b4446595edfbc29ff6f628efaae"
   },
   {
     "id": "fund-functions-007",
@@ -1875,14 +1875,14 @@
       "sequence-reasoning",
       "boundary-analysis"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 87,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-87.json",
-    "contentHash": "1282bc69f5fb5049ad61cd00f0f3ab9cf5fbf822e99b653f885ccbae90977b20"
+    "contentHash": "4d973050e9a8e0aa158f74dc13bbba3122dd0db062ab70e8d7d7347ab286eb6e"
   },
   {
     "id": "fund-strings-002",
@@ -1897,14 +1897,14 @@
       "sequence-reasoning",
       "boundary-analysis"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 88,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-88.json",
-    "contentHash": "66a828adc8eebce6404edac8b49d69ae65864344316c6428e971854437f45b28"
+    "contentHash": "a216de0e82762234c27abf6d80c5e1f9b69262358628f1a9cf9a2f548251a216"
   },
   {
     "id": "fund-strings-003",
@@ -1919,14 +1919,14 @@
       "sequence-reasoning",
       "index-boundary"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 89,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-89.json",
-    "contentHash": "ee6f60d6a43a2a6b6e1765457810e3db4294ee1a214f13c725e41e8200f1904b"
+    "contentHash": "fcf9928a8a1e7f9e505de6af366e242c94980453554945ef59cde2c7f1298a83"
   },
   {
     "id": "fund-strings-004",
@@ -1940,14 +1940,14 @@
     "skills": [
       "debugging-indexing"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 90,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-90.json",
-    "contentHash": "c5be868077250b7812a7e7d5788a91bfd609e12075ce486f1cd2d5459d32ef0b"
+    "contentHash": "804ebac20ca10d0e5027365e1db463042378c151a2f41f73c9b39de5c8fc593e"
   },
   {
     "id": "fund-strings-005",
@@ -1962,14 +1962,14 @@
       "character-processing",
       "counting"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 91,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-91.json",
-    "contentHash": "5a66415d144d5756bb00e46131e3f13104c9d1b1ef70550247dd224e326e2bc3"
+    "contentHash": "cfa6a67d474ec17bd728b73ed16ad049f2145862535845fdea4237a9e4b94847"
   },
   {
     "id": "fund-strings-006",
@@ -1984,14 +1984,14 @@
       "character-selection",
       "order-preservation"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 35,
     "position": 92,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-92.json",
-    "contentHash": "98c377dc98ba69b14d758cdcc802f75ed51d4889056af0f6f4784efd10c03db6"
+    "contentHash": "86eaaa811382d68d0e6bb4b05f3d65408f50d57cd3f0d1c81104f6facfd93bdb"
   },
   {
     "id": "fund-strings-007",
@@ -2313,14 +2313,14 @@
       "sequence-reasoning",
       "boundary-analysis"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 107,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-107.json",
-    "contentHash": "69b83a0ffc26f7d280dee3920fb4f62676ba5ed12da31829f3e23fc67a9c7aea"
+    "contentHash": "6f982a8968e5364f4d6d6e3ee69d66cfb5112816da4f77882e4292fafcdc8464"
   },
   {
     "id": "fund-arrays-002",
@@ -2335,14 +2335,14 @@
       "index-reasoning",
       "boundary-analysis"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 5,
     "xp": 20,
     "position": 108,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-108.json",
-    "contentHash": "947ec6afe93fa5837dec596ddb62c0a9334aa36cb7d2aba7c21a69ea271fbadf"
+    "contentHash": "b2728b272e1f5f69e06cc7b3c3fd08f41baa02b6286cbed3b65765ae8ccb2594"
   },
   {
     "id": "fund-arrays-003",
@@ -2357,14 +2357,14 @@
       "sequence-reasoning",
       "index-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 109,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-109.json",
-    "contentHash": "f68f6ac807bcba9013b6d37ad166d255833e210fe773a6d7483f153a11a3b15b"
+    "contentHash": "29a83924d8662f24bae0ef944be243f3b9de790c261c4dd07d0d4394a2659a37"
   },
   {
     "id": "fund-arrays-004",
@@ -2379,14 +2379,14 @@
       "debugging-boundaries",
       "collection-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 110,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-110.json",
-    "contentHash": "5099b358dc1256038c21abd50d3aa4fd5f46a549d8bf021919333f490749c0ab"
+    "contentHash": "f04aae949d27cb5857c980f780c9a95432ec32a6496635fc03872cc0768e1cfb"
   },
   {
     "id": "fund-arrays-005",
@@ -2401,14 +2401,14 @@
       "collection-traversal",
       "condition-evaluation"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 111,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-111.json",
-    "contentHash": "feba144748d4505a90f01e2e21344e424fa6b03df3b2c04e31de37ce3a0b6821"
+    "contentHash": "c7f572862662788724d85b65330b94d112b1cd12292613dff7d9754c4ac7cf29"
   },
   {
     "id": "fund-arrays-006",
@@ -2423,14 +2423,14 @@
       "result-construction",
       "order-preservation"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 35,
     "position": 112,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-112.json",
-    "contentHash": "a851367a9ca249b2dc20cfb4ca701788f7c8d5d7f0bb6665d08544aa87a0cb1d"
+    "contentHash": "0ab28ccd2b0188fecfca1314ff050aa3b5d348add3483855b9050cef8c4b1731"
   },
   {
     "id": "fund-arrays-007",
@@ -2753,14 +2753,14 @@
       "mapping-reasoning",
       "key-value-association"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 127,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-127.json",
-    "contentHash": "245b4222c9622bf48c671be5c14556af344c532270df259838149ae54f7e9420"
+    "contentHash": "fe4393080e75409943b8bf866958b9e919ad6f73f08942ede6e05c6332d59d4c"
   },
   {
     "id": "fund-dictionaries-002",
@@ -2775,14 +2775,14 @@
       "key-lookup",
       "mapping-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 128,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-128.json",
-    "contentHash": "628585a3a49536be617a55c91d54d43ad0b1a1eb3b33eb8cad481bfac65526c6"
+    "contentHash": "dfa876ca444752ea5786ae9f8c1ce5737928921789483385889b91afd683e343"
   },
   {
     "id": "fund-dictionaries-003",
@@ -2797,14 +2797,14 @@
       "mapping-reasoning",
       "key-lookup"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 129,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-129.json",
-    "contentHash": "bd0d73b72305e5741b0a15f89ebd94b01faef3ebfa1022f57af9effd5f849496"
+    "contentHash": "3a04f9115c2ca45796f761f3d793f4ffbd63b80998cf602a574208764b18e6ee"
   },
   {
     "id": "fund-dictionaries-004",
@@ -2819,14 +2819,14 @@
       "debugging-lookups",
       "mapping-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 130,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-130.json",
-    "contentHash": "ae206162e453d848a0a665a5fb42a473aca195deddc68b5724da813aa4c8acab"
+    "contentHash": "e61d164483678f433c43e055f4347560cc3bc7bb3e83a8884a7efdb714e095f8"
   },
   {
     "id": "fund-dictionaries-005",
@@ -2841,14 +2841,14 @@
       "collection-manipulation",
       "state-tracking"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 35,
     "position": 131,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-131.json",
-    "contentHash": "79d87629eaff64d6eb61b17e4bd7ff726973254298e5959567a3d7f8916950ff"
+    "contentHash": "845e44dcef2a83bd1390ead40c53bf0130d690c6e52a54c97d3fae354039a2bb"
   },
   {
     "id": "fund-dictionaries-006",
@@ -2863,14 +2863,14 @@
       "key-lookup",
       "state-tracking"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 35,
     "position": 132,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-132.json",
-    "contentHash": "b7d0fa6688f3a83b6918820b23bef1dd7f028e88919ee656d1b24044515ed3ac"
+    "contentHash": "83c0711befaf220aaef6cb5ab0477ea1b91c357e2d50f438c5078b7a25b3bf2e"
   },
   {
     "id": "fund-dictionaries-007",
@@ -3193,14 +3193,14 @@
       "uniqueness-reasoning",
       "collection-conversion"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 147,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-147.json",
-    "contentHash": "52106fc9cb528c9b2db036fd9cf50b8c06e1cb1ca5438d679654247886f97d5d"
+    "contentHash": "375c4cc5c7f25e26584e6d66d06ff1aadfd142ae18191b203ce21ed566a46843"
   },
   {
     "id": "fund-sets-002",
@@ -3215,14 +3215,14 @@
       "uniqueness-reasoning",
       "duplicate-elimination"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 148,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-148.json",
-    "contentHash": "0ce828dc29fb5ff215fb98cbba08cddc0cbed52d69cc6b32563405d40876dc02"
+    "contentHash": "702085d871ee6a06d1dea024b618e5cd022d3b8d19f9edc311a20bad1e5d0714"
   },
   {
     "id": "fund-sets-003",
@@ -3237,14 +3237,14 @@
       "duplicate-elimination",
       "uniqueness-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 149,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-149.json",
-    "contentHash": "3ba85dbeb582caea09999af93334367ec02cb26edd682bb436f876a016e3e5e0"
+    "contentHash": "aa5563e105a0e3ff7c700b18fda184b75882c394e0638b903a0060526ecc7a10"
   },
   {
     "id": "fund-sets-004",
@@ -3259,14 +3259,14 @@
       "debugging-collections",
       "uniqueness-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 150,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-150.json",
-    "contentHash": "d6d713c6531de5c396ff588dc09af68fc6a9cc0544a54c00a7c1e20517b3b011"
+    "contentHash": "155acce89e7ce4fa2d76559fdb498dc6b67d8647be6c957dbb868d50afe27118"
   },
   {
     "id": "fund-sets-005",
@@ -3281,14 +3281,14 @@
       "membership-checking",
       "exact-matching"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 151,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-151.json",
-    "contentHash": "7e5e215f5464e9f7a93330496ee7a3113ebe3830ba6e60aae1c773a06ae0984b"
+    "contentHash": "9f35b4e0e7bc760ae51b85be7952a2700a63377f3ac64228962e1eacff073835"
   },
   {
     "id": "fund-sets-006",
@@ -3303,14 +3303,14 @@
       "membership-checking",
       "collection-comparison"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 152,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-152.json",
-    "contentHash": "e469702827cc1501c34e04cc4a25785add318dfc8a1a913cfdad664f99af03a4"
+    "contentHash": "d29685f478fd47cc622c5a543ed068a4d2d327d8231c46ea0cbeaa386c880344"
   },
   {
     "id": "fund-sets-007",
@@ -3633,14 +3633,14 @@
       "input-processing",
       "output-formatting"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 167,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-167.json",
-    "contentHash": "e2b2f0ed742d786d68c4cf5449d6e06f7e792df8694088d8da62b3d3da026a44"
+    "contentHash": "3d11401ef000fb02c0205449e32da85bf246023c2d746272f4a14d23bb03d892"
   },
   {
     "id": "fund-io-002",
@@ -3655,14 +3655,14 @@
       "type-reasoning",
       "output-formatting"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 168,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-168.json",
-    "contentHash": "9c5478c10a39c0a339753762e7536912e7e43827f024e4d2fbad4348024986ea"
+    "contentHash": "c8e743365585a43b5a7745d4c0c9f8b2fc6d8c0745e17f25dfee6e5e2d0ee51b"
   },
   {
     "id": "fund-io-003",
@@ -3677,14 +3677,14 @@
       "debugging-formatting",
       "output-formatting"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 169,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-169.json",
-    "contentHash": "9e065f6c6c9047e32cdccf49f875465f07644362834225b583bbf0fae02f1a90"
+    "contentHash": "f8d388f348c918e202e567b02980c581cb41bfce61ece1133218becf2783d984"
   },
   {
     "id": "fund-io-004",
@@ -3699,14 +3699,14 @@
       "input-processing",
       "type-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 170,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-170.json",
-    "contentHash": "76644e1724ed979b73f01a8fc98ccd982946bd5d46c7728d3cddaa81c1404ca6"
+    "contentHash": "e60bded5e86469cd18e16202806807b856ce890f4f0a630f215c274f156fcc55"
   },
   {
     "id": "fund-io-005",
@@ -3721,14 +3721,14 @@
       "input-processing",
       "type-reasoning"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 171,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-171.json",
-    "contentHash": "a13d0dbc06178f01def7cd5f958db5b73453def0d4f64c2dffbb8db17103ab02"
+    "contentHash": "a166a313afc91e8ba74db2992b19e707c9fcae1566a87361807991eeba888035"
   },
   {
     "id": "fund-io-006",
@@ -3964,14 +3964,14 @@
       "defensive-programming",
       "error-prevention"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 8,
     "xp": 35,
     "position": 182,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-182.json",
-    "contentHash": "bc80279a9c5c1f6eebff1e2ed32fe47117dfa47c8d31e24f52f06bd540ef430d"
+    "contentHash": "bd5758af5c4c84c30d8791b34a862d94afc3c3444451a9edb52d7c1be7690f85"
   },
   {
     "id": "fund-errors-002",
@@ -3986,14 +3986,14 @@
       "defensive-programming",
       "precondition-checking"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 6,
     "xp": 25,
     "position": 183,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-183.json",
-    "contentHash": "1bc47460296648de17d36f8e3fe117b9131046865a63616c5f4684f4714afa0f"
+    "contentHash": "552bcf5642a1304ac4d6bd77118b5b37e314c1023daacc42aa47184590e245e7"
   },
   {
     "id": "fund-errors-003",
@@ -4008,14 +4008,14 @@
       "state-tracing",
       "validation"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 184,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-184.json",
-    "contentHash": "f6a2e460b84cd1e20794d29eb5bf29dff1b02a51d8c067011b8acd58587bed69"
+    "contentHash": "9f1eee4b1c9d263b303fd63dd98148b510cc80adaaace2372f46ee4c96daa9d6"
   },
   {
     "id": "fund-errors-004",
@@ -4030,14 +4030,14 @@
       "missing-data-handling",
       "defensive-programming"
     ],
-    "difficulty": "very_easy",
+    "difficulty": "easy",
     "estimatedMinutes": 7,
     "xp": 30,
     "position": 185,
     "published": true,
     "version": "v2",
     "storagePath": "practice/python/question-185.json",
-    "contentHash": "275c61b851f433e5216ad4ff9c90d6fd03f41727fb54a16b83b7b6a49ca4b04c"
+    "contentHash": "8123310574946528cd18dd3661bed629f305412f0be0264410f32b48b64c8cda"
   },
   {
     "id": "fund-errors-005",

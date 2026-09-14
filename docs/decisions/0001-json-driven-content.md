@@ -5,7 +5,7 @@
 
 ## Context
 
-MiTutora must support many courses without duplicating lesson JSX or changing UI code for each course. Content writers need a portable, reviewable format that describes modules, lessons, navigation, and heterogeneous blocks. The application currently has no backend CMS.
+ycoders must support many courses without duplicating lesson JSX or changing UI code for each course. Content writers need a portable, reviewable format that describes modules, lessons, navigation, and heterogeneous blocks. The application currently has no backend CMS.
 
 ## Alternatives
 

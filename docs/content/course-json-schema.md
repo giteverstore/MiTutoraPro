@@ -72,7 +72,7 @@ The schema cannot portably enforce document-wide ID uniqueness or target existen
   "courses": [
     {
       "id": "python",
-      "title": "MI Tutora Python Course",
+      "title": "ycoders Python Course",
       "description": "Beginner Python course.",
       "version": "1.0.0",
       "source": "/courses/python-course.json"

@@ -3,7 +3,7 @@
 **Status: CURRENT SPECIFICATION — implementation remains phased**  
 **Audience:** product, learning design, frontend, backend, security, accessibility, and provider-adapter contributors
 
-This document is the canonical behavioral and architectural contract for the MiTutora Pro AI Tutor. It defines provider-independent tutoring behavior; it does not prescribe a particular model, provider, or visual redesign.
+This document is the canonical behavioral and architectural contract for the ycoders AI Tutor. It defines provider-independent tutoring behavior; it does not prescribe a particular model, provider, or visual redesign.
 
 The current implementation supplies two explanation actions through `CompilerPanel -> AITutorPanel -> authenticated API -> server feature gate -> trusted activity/evidence validation and sensitive-content inspection -> atomic worst-case quota reservation -> locked provider/model -> bounded parsing and structural validation -> deterministic release policy -> quota settlement and sanitized telemetry -> client structural validation -> React renderer`. Invalid or sensitive requests still consume request quota through a zero-provider-usage reservation. Phase 3.2 distinguishes estimates from authorized maxima and actual usage; production infrastructure, exact-model evaluation, and human review remain explicitly gated.
 

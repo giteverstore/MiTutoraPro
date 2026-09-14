@@ -18,6 +18,7 @@ function resultFromAttempt(attempt, timeline = [], recoveredReport = null) {
   if (!attempt?.examResult || !attempt?.integrityResult) return null;
   return Object.freeze({
     examId: attempt.examId,
+    certificateId: attempt.certificateId ?? null,
     ...attempt.examResult,
     integrityReport: Object.freeze({ ...attempt.integrityResult, ...(attempt.integrityReport ?? recoveredReport ?? {}), timeline: Object.freeze([...timeline]) }),
     submittedAt: attempt.submittedAt,

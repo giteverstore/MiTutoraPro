@@ -4,7 +4,7 @@
   "title": "Read Configuration with a Fallback",
   "summary": "Handle a missing mapping key without losing stored empty values.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "error-handling-mixed",
   "category": "fundamentals",
   "subtopic": "basic-error-handling-invalid-input",

@@ -4,7 +4,7 @@
   "title": "Detect a Positive Measurement",
   "summary": "Check whether a measurement is above zero.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "conditionals",
   "category": "fundamentals",
   "subtopic": "basic-conditions",

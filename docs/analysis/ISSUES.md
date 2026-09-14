@@ -1,4 +1,4 @@
-# MiTutora Pro Issue Register
+# ycoders Issue Register
 
 Severity definitions: **Critical** enables direct compromise of a primary trust objective; **High** can materially affect security, correctness, availability, or cost; **Medium** has bounded impact or requires conditions; **Low** is maintainability, coverage, or polish debt. Confidence is based on direct source evidence, not likelihood.
 

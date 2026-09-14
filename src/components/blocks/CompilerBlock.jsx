@@ -1,6 +1,7 @@
 import { CompilerPanel } from '../CompilerPanel';
 import { normalizeCompilerDefinition } from '../../compiler/core/normalizeCompilerDefinition';
 import { DomainErrorBoundary } from '../../errors/ErrorBoundary';
+import { getSupportedCompilerLanguage } from '../../compiler/languages/supportedLanguages';
 
 export function createCompilerData(definition) {
   const {
@@ -15,6 +16,10 @@ export function createCompilerData(definition) {
     timeoutMs,
     testCases,
   } = normalizeCompilerDefinition(definition);
+  const supportedLanguage = getSupportedCompilerLanguage(language);
+  if (!supportedLanguage) {
+    throw new Error(`Unsupported compiler language: ${language}`);
+  }
   const { id, runLabel, resetLabel, compiler } = definition;
   return compiler ? { id, ...compiler } : {
     id,
@@ -33,7 +38,7 @@ export function createCompilerData(definition) {
       fileName,
       unsavedLabel: 'Unsaved changes',
       ariaLabel: `${fileName} code editor`,
-      language,
+      language: supportedLanguage.monacoLanguage,
       lines: starterCode.split('\n').map((text, index) => ({
         number: index + 1,
         text,

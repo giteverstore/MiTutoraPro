@@ -19,8 +19,8 @@ The debug token is assigned only when `import.meta.env.DEV` is true and Firebase
 
 1. Grant the inventory principal `roles/firebaseappcheck.viewer`; do not grant App Check Admin to the application service account.
 2. In Google Cloud Console for `mi-tutora-pro`, enable **Firebase App Check API** (`firebaseappcheck.googleapis.com`). This is a production mutation and requires explicit approval.
-3. In reCAPTCHA Enterprise, create a **score-based website key** dedicated to Mi Tutora Pro. Add only production domains, including `mi-tutora-pro.vercel.app` and any approved custom domains. Do not add `localhost` to the production key.
-4. In Firebase Console → App Check → Apps, select the existing Mi Tutora Pro web app and register the reCAPTCHA Enterprise provider using that key. Keep enforcement disabled.
+3. In reCAPTCHA Enterprise, create a **score-based website key** dedicated to ycoders. Add only production domains, including `mi-tutora-pro.vercel.app` and any approved custom domains. Do not add `localhost` to the production key.
+4. In Firebase Console → App Check → Apps, select the existing ycoders web app and register the reCAPTCHA Enterprise provider using that key. Keep enforcement disabled.
 5. Record the provider registration and key ownership in the deployment change ticket; never store a secret key in Git. The browser variable is the public site key, not a service-account credential.
 
 Firebase guidance: [App Check with reCAPTCHA Enterprise for web](https://firebase.google.com/docs/app-check/web/recaptcha-enterprise-provider) and [App Check enforcement](https://firebase.google.com/docs/app-check/enable-enforcement).

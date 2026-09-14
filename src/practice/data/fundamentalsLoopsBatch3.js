@@ -4,7 +4,7 @@ const defaults = { category: 'fundamentals', topic: 'loops' };
 const specs = [
   {
     id: 'fund-loops-001', title: 'Count Completed Repetitions', summary: 'Track how many times a repeated task completes.',
-    subtopic: 'basic-loops', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'basic-loops', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Repeat a task the requested number of times and return the number of completed repetitions.',
     contract: { functionName: 'completed_repetitions', signature: 'completed_repetitions(times)', input: 'A non-negative whole-number repetition count.', output: 'The number of repetitions completed.' },
     constraints: ['0 <= times <= 10000'], concepts: ['iteration', 'fixed-repetition'], skills: ['iterative-reasoning', 'counter-update'], prerequisites: ['variables'], commonMistakes: ['starting the counter at one', 'performing one extra repetition'],
@@ -13,7 +13,7 @@ const specs = [
   },
   {
     id: 'fund-loops-002', title: 'Sum Through a Boundary', summary: 'Accumulate every whole number from one through a boundary.',
-    subtopic: 'basic-loops', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'basic-loops', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Given a positive whole number, return the sum of all whole numbers from 1 through that number, including the boundary.',
     contract: { functionName: 'sum_through', signature: 'sum_through(limit)', input: 'A positive whole-number limit.', output: 'The inclusive sum from 1 through limit.' },
     constraints: ['1 <= limit <= 10000'], concepts: ['iteration', 'inclusive-loop-boundary'], skills: ['accumulation', 'boundary-analysis'], prerequisites: ['addition'], commonMistakes: ['excluding the final value', 'starting the total at one and adding one again'],
@@ -22,7 +22,7 @@ const specs = [
   },
   {
     id: 'fund-loops-003', title: 'Repair an Iteration Count', summary: 'Fix a loop that omits its final boundary.',
-    subtopic: 'basic-loops', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'basic-loops', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The function should count every whole number from start through end, including both boundaries. Its current iteration omits the end value. Correct it.',
     contract: { functionName: 'inclusive_count', signature: 'inclusive_count(start, end)', input: 'Two whole numbers where start is not greater than end.', output: 'The number of values in the inclusive interval.' },
     constraints: ['-10000 <= start <= end <= 10000'], concepts: ['loop-boundaries', 'off-by-one'], skills: ['debugging-iteration', 'boundary-analysis'], prerequisites: ['counting'], commonMistakes: ['using an exclusive upper boundary', 'forgetting that a single-value interval has one item'],
@@ -31,7 +31,7 @@ const specs = [
   },
   {
     id: 'fund-loops-004', title: 'Apply Repeated Growth', summary: 'Update a value by the same amount for a fixed number of steps.',
-    subtopic: 'basic-loops', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'basic-loops', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Begin with an initial value. Add the growth amount once per step and return the final value.',
     contract: { functionName: 'repeated_growth', signature: 'repeated_growth(initial, growth, steps)', input: 'Two numeric values and a non-negative whole-number step count.', output: 'The value after all steps.' },
     constraints: ['0 <= steps <= 10000', '-100000 <= initial, growth <= 100000'], concepts: ['iteration', 'loop-state'], skills: ['state-tracking', 'fixed-repetition'], prerequisites: ['reassignment'], commonMistakes: ['adding growth only once', 'performing one extra update'],
@@ -40,7 +40,7 @@ const specs = [
   },
   {
     id: 'fund-loops-005', title: 'Count Matching Inventory Codes', summary: 'Traverse a sequence and count a selected value.',
-    subtopic: 'looping-over-sequences', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'looping-over-sequences', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Given a sequence of inventory codes and a target code, return how many sequence values match the target.',
     contract: { functionName: 'count_code', signature: 'count_code(codes, target)', input: 'A sequence of text codes and target text.', output: 'The number of matching values.' },
     constraints: ['0 <= number of codes <= 1000', 'Codes are non-empty text'], concepts: ['sequence-traversal', 'counting'], skills: ['sequence-processing', 'conditional-counting'], prerequisites: ['conditions'], commonMistakes: ['stopping after the first match', 'counting non-matching values'],
@@ -49,7 +49,7 @@ const specs = [
   },
   {
     id: 'fund-loops-006', title: 'Count Vowels in a Name', summary: 'Inspect each character in text and count vowels.',
-    subtopic: 'looping-over-sequences', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 8, xp: 35,
+    subtopic: 'looping-over-sequences', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 8, xp: 35,
     statement: 'Return the number of vowel characters in the supplied lowercase text. The vowel set is `a`, `e`, `i`, `o`, and `u`.',
     contract: { functionName: 'count_vowels', signature: 'count_vowels(text)', input: 'Lowercase text, which may be empty.', output: 'The number of vowels.' },
     constraints: ['0 <= text length <= 1000'], concepts: ['string-traversal', 'counting'], skills: ['character-inspection', 'sequence-processing'], prerequisites: ['conditions', 'strings'], commonMistakes: ['counting each vowel type only once', 'ignoring repeated vowels'],

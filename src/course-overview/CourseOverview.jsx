@@ -9,18 +9,16 @@ import {
   ChevronDown,
   Clock3,
   Code2,
+  FileCheck2,
   FlaskConical,
   Layers3,
-  Moon,
   RotateCcw,
   Sparkles,
-  Sun,
 } from 'lucide-react';
 import { createCourseOverviewModel } from '../course/createCourseOverviewModel';
 import { ICON_SIZE } from '../design-system/theme';
 import { useLearningProgress } from '../progress/LearningProgressContext';
 import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
-import { useApplicationTheme } from '../theme/useApplicationTheme';
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
 
 const STAT_DEFINITIONS = [
@@ -32,9 +30,8 @@ const STAT_DEFINITIONS = [
   { key: 'certificate', label: 'Certificate', icon: Award },
 ];
 
-export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse }) {
+export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, onStartExam }) {
   const progress = useLearningProgress();
-  const { theme, toggleTheme } = useApplicationTheme();
   const model = useMemo(
     () => createCourseOverviewModel(course, progress),
     [course, progress],
@@ -50,7 +47,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
       : presentation?.startLabel ?? 'Start Course';
 
   useEffect(() => {
-    document.title = `${model.title} · MiTutora`;
+    document.title = `${model.title} · ycoders`;
   }, [model.title]);
 
   const stats = STAT_DEFINITIONS.map((stat) => ({
@@ -61,26 +58,12 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
   }));
 
   return (
-    <div className="course-overview-shell" data-theme={theme}>
-      <header className="course-overview-topbar">
+    <div className="course-overview-shell">
+      <main className="course-overview-main">
         <button className="overview-back" type="button" onClick={onBack}>
           <ArrowLeft size={ICON_SIZE.base} aria-hidden="true" />
           Dashboard
         </button>
-        <span className="overview-brand"><span>Mi</span> MiTutora</span>
-        <button
-          className="icon-button"
-          type="button"
-          onClick={() => { void toggleTheme().catch(() => undefined); }}
-          aria-label={theme === 'dark' ? 'Use light mode' : 'Use dark mode'}
-        >
-          {theme === 'dark'
-            ? <Sun size={ICON_SIZE.md} aria-hidden="true" />
-            : <Moon size={ICON_SIZE.md} aria-hidden="true" />}
-        </button>
-      </header>
-
-      <main className="course-overview-main">
         {presentation ? (
           <CourseArtworkHero
             model={model}
@@ -88,6 +71,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
             presentation={presentation}
             actionLabel={actionLabel}
             onEnterCourse={onEnterCourse}
+            onStartExam={isCompleted ? onStartExam : undefined}
           />
         ) : (
           <section className="overview-hero">
@@ -99,6 +83,11 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
               <button className="button button--primary overview-primary-action" type="button" onClick={onEnterCourse}>
                 {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
               </button>
+              {isCompleted && onStartExam ? (
+                <button className="button button--secondary overview-primary-action" type="button" onClick={onStartExam}>
+                  <FileCheck2 size={ICON_SIZE.base} aria-hidden="true" /> Take Online Exam <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
+                </button>
+              ) : null}
             </div>
             <ProgressSummary model={model} progress={progress} />
           </section>
@@ -125,27 +114,13 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse })
           <DevelopmentControls course={course} progress={progress} onResetCourse={onResetCourse} />
         ) : null}
 
-        <section className="overview-bottom-cta">
-          <div>
-            <span className="section-kicker">Ready when you are</span>
-            <h2>{isCompleted ? 'Revisit the course at your own pace.' : 'Continue building your learning momentum.'}</h2>
-          </div>
-          <button className="button button--primary" type="button" onClick={onEnterCourse}>
-            {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
-          </button>
-        </section>
       </main>
     </div>
   );
 }
 
-function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnterCourse }) {
+function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnterCourse, onStartExam }) {
   const heroStyle = { '--course-hero-artwork': `url("${presentation.artwork}")` };
-  const highlights = [
-    { label: model.difficulty, detail: 'Level', icon: Sparkles },
-    { label: `${model.exerciseCount} Coding Exercises`, detail: 'Hands-on practice', icon: Code2 },
-    { label: `${model.quizCount} Quizzes`, detail: 'Knowledge checks', icon: CheckCircle2 },
-  ];
 
   return (
     <section className="overview-hero overview-hero--artwork" style={heroStyle}>
@@ -154,17 +129,16 @@ function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnter
         <span className="overview-artwork-eyebrow">{presentation.eyebrow}</span>
         <h1>{presentation.heading}</h1>
         <p>{presentation.description}</p>
-        <div className="overview-hero-highlights" aria-label="Course highlights">
-          {highlights.map(({ label, detail, icon: Icon }) => (
-            <div className="overview-hero-highlight" key={detail}>
-              <Icon size={ICON_SIZE.base} aria-hidden="true" />
-              <span><strong>{label}</strong><small>{detail}</small></span>
-            </div>
-          ))}
+        <div className="overview-hero-actions">
+          <button className="button overview-artwork-action" type="button" onClick={onEnterCourse}>
+            {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
+          </button>
+          {onStartExam ? (
+            <button className="button overview-artwork-exam-action" type="button" onClick={onStartExam}>
+              <FileCheck2 size={ICON_SIZE.base} aria-hidden="true" /> Take Online Exam <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
+            </button>
+          ) : null}
         </div>
-        <button className="button overview-primary-action overview-artwork-action" type="button" onClick={onEnterCourse}>
-          {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
-        </button>
         {progress.courseProgress > 0 ? (
           <div className="overview-artwork-progress">
             <span><strong>{progress.courseProgress}%</strong> complete</span>
@@ -284,6 +258,7 @@ function DevelopmentControls({ course, progress, onResetCourse }) {
           message: `Recording trusted completion: ${completed} / ${total}`,
         }),
       );
+      progress.markAllLessonsComplete();
       const elapsedSeconds = (result.durationMs / 1000).toFixed(1);
       setTrustedState({
         status: 'success',

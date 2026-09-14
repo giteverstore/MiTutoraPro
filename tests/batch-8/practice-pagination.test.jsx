@@ -8,7 +8,7 @@ const questions = Array.from({ length: 49 }, (_, index) => ({
   language: 'Python',
   topic: index % 2 ? 'Loops' : 'Variables',
   category: 'Fundamentals',
-  difficulty: index % 3 ? 'Easy' : 'Hard',
+  difficulty: index % 3 ? 'easy' : 'hard',
   estimatedMinutes: 5,
   xp: 10,
 }));
@@ -40,7 +40,7 @@ function pageFor({ cursor, filters }) {
     items,
     cursor: nextOffset < matches.length ? { offset: nextOffset } : null,
     hasMore: nextOffset < matches.length,
-    facets: { difficulties: ['Easy', 'Hard'], topics: ['Loops', 'Variables'] },
+    facets: { difficulties: ['easy', 'hard'], topics: ['Loops', 'Variables'] },
   });
 }
 
@@ -56,6 +56,27 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('Practice cursor pagination', () => {
+  it('starts with statistics and keeps difficulty beside each question title', async () => {
+    const { container } = render(<PracticePage />);
+    const title = await screen.findByText('Question 1');
+    const card = title.closest('.practice-question-card');
+
+    expect(screen.queryByText('Sharpen your coding skills.')).not.toBeInTheDocument();
+    expect(container.querySelector('.practice-page')?.firstElementChild).toHaveClass('practice-statistics');
+    expect(screen.queryByText('Current Language')).not.toBeInTheDocument();
+    expect(screen.getByText('Questions by Difficulty')).toBeInTheDocument();
+    expect(screen.getByLabelText('Easy — 193 questions')).toHaveTextContent('193');
+    expect(screen.getByLabelText('Easy — 193 questions')).toHaveAttribute('data-tooltip', 'Easy');
+    expect(screen.getByLabelText('Medium — 6 questions')).toHaveTextContent('6');
+    expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1');
+    expect(title.parentElement).toHaveClass('practice-question-title');
+    expect(title.parentElement?.querySelector('.practice-difficulty')).toHaveTextContent('Hard');
+    expect(card?.firstElementChild).toHaveClass('practice-question-title');
+    expect(within(card).queryByText(/XP$/)).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Difficulty')).toHaveTextContent('All DifficultiesEasyMediumHard');
+    expect(screen.queryByText('Very Easy')).not.toBeInTheDocument();
+  });
+
   it('presents only established pages in a compact window', () => {
     expect(getVisiblePracticePages(1, 2)).toEqual([1, 2]);
     expect(getVisiblePracticePages(2, 3)).toEqual([1, 2, 3]);
@@ -92,7 +113,7 @@ describe('Practice cursor pagination', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
     await screen.findByText('Question 25');
 
-    fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: 'Hard' } });
+    fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: 'hard' } });
     await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
     expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
 

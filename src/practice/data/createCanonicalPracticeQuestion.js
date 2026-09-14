@@ -18,6 +18,7 @@ export function createCanonicalPracticeQuestion(spec) {
     contract: spec.contract,
     examples: [{ input: example.displayInput, output: String(example.expected), explanation: example.explanation }],
     constraints: spec.constraints,
+    ...(spec.hints?.length ? { hints: spec.hints } : {}),
     concepts: spec.concepts,
     skills: spec.skills,
     prerequisites: spec.prerequisites,

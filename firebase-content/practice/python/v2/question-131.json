@@ -4,7 +4,7 @@
   "title": "Update a Product Price",
   "summary": "Change one existing value in a copied mapping.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "dictionaries-hash-maps",
   "category": "fundamentals",
   "subtopic": "accessing-updating-values",

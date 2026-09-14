@@ -16,6 +16,8 @@ describe('M6 wallet read model', () => {
     expect(screen.getByRole('button', { name: 'Withdrawals coming soon' }).disabled).toBe(true);
     expect(screen.queryByRole('spinbutton')).toBeNull();
     expect(screen.getByText('No funds have been paid out or reserved.')).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: 'Wallet' })).toBeNull();
+    expect(screen.queryByText('Financially settled referral rewards in Indian rupees.')).toBeNull();
     expect(screen.queryByRole('button', { name: /add money|send money/i })).toBeNull();
   });
 

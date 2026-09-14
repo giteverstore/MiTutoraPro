@@ -3,6 +3,7 @@ import {
   BookOpen,
   Gift,
   Home,
+  LibraryBig,
   FolderKanban,
   Settings,
   Star,
@@ -12,6 +13,7 @@ import {
 
 export const APP_NAVIGATION = [
   { id: 'home', label: 'Home', icon: Home },
+  { id: 'library', label: 'Library', icon: LibraryBig },
   { id: 'practice', label: 'Practice', icon: BookOpen },
   { id: 'challenges', label: 'Challenges', icon: Trophy },
   { id: 'projects', label: 'Projects', icon: FolderKanban },

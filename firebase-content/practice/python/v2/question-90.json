@@ -4,7 +4,7 @@
   "title": "Repair the Final Position",
   "summary": "Fix an off-by-one index used for the last character.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "strings",
   "category": "fundamentals",
   "subtopic": "string-basics-indexing",

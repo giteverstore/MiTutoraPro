@@ -4,7 +4,7 @@
   "title": "Count Numeric Characters",
   "summary": "Inspect every character and count digits.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "strings",
   "category": "fundamentals",
   "subtopic": "string-traversal",

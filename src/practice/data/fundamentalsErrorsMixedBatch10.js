@@ -7,7 +7,7 @@ const collected = { time: 'O(n)', space: 'O(n)' };
 const specs = [
   {
     id: 'fund-errors-001', title: 'Convert Decimal Input Safely', summary: 'Return a defined failure value for malformed numeric text.',
-    subtopic: 'basic-error-handling-invalid-input', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 8, xp: 35,
+    subtopic: 'basic-error-handling-invalid-input', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 8, xp: 35,
     statement: 'Trim the supplied text and return its numeric decimal value when the entire result is a valid signed decimal representation. Valid input has an optional sign, at least one digit before an optional decimal point, and at least one digit after a present decimal point. Return no value for empty, sign-only, incomplete, or otherwise malformed input.',
     contract: { functionName: 'safe_decimal_value', signature: 'safe_decimal_value(text)', input: 'Arbitrary text with optional surrounding whitespace.', output: 'The represented numeric value when valid; otherwise no value.' },
     constraints: ['0 <= text length <= 100'], concepts: ['validation', 'error-handling', 'numeric-conversion'], skills: ['defensive-programming', 'error-prevention'], prerequisites: ['strings', 'conditions', 'conversion'], commonMistakes: ['converting before validation', 'accepting a trailing decimal point'], expectedComplexity: linear,
@@ -16,7 +16,7 @@ const specs = [
   },
   {
     id: 'fund-errors-002', title: 'Calculate a Ratio Safely', summary: 'Handle a zero denominator with an explicit result.',
-    subtopic: 'basic-error-handling-invalid-input', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'basic-error-handling-invalid-input', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Return numerator divided by denominator when the denominator is not zero. Return no value when the denominator is zero.',
     contract: { functionName: 'safe_ratio', signature: 'safe_ratio(numerator, denominator)', input: 'Two numeric values; zero is an invalid denominator.', output: 'The numeric ratio, or no value for a zero denominator.' },
     constraints: ['numerator and denominator are numeric'], concepts: ['division-by-zero', 'safe-fallback'], skills: ['defensive-programming', 'precondition-checking'], prerequisites: ['division', 'conditions'], commonMistakes: ['dividing before checking', 'treating a zero numerator as invalid'], expectedComplexity: constant,
@@ -25,7 +25,7 @@ const specs = [
   },
   {
     id: 'fund-errors-003', title: 'Trace a Safe Quantity Fallback', summary: 'Reason about validation before conversion.',
-    subtopic: 'basic-error-handling-invalid-input', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'basic-error-handling-invalid-input', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Trim the supplied text. If it contains one or more digits and no other characters, return the represented non-negative whole number. Otherwise return zero.',
     contract: { functionName: 'safe_quantity', signature: 'safe_quantity(text)', input: 'Arbitrary quantity text.', output: 'The represented non-negative whole number, or zero when invalid.' },
     constraints: ['0 <= text length <= 100'], concepts: ['validation', 'fallback', 'conversion'], skills: ['state-tracing', 'validation'], prerequisites: ['strings', 'conditions'], commonMistakes: ['accepting negative text', 'converting before validation'], expectedComplexity: linear,
@@ -34,7 +34,7 @@ const specs = [
   },
   {
     id: 'fund-errors-004', title: 'Read Configuration with a Fallback', summary: 'Handle a missing mapping key without losing stored empty values.',
-    subtopic: 'basic-error-handling-invalid-input', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'basic-error-handling-invalid-input', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return the value stored under the supplied configuration key. If the key is missing, return the supplied fallback. A present key whose value is zero, false, or empty text is valid and must not use the fallback.',
     contract: { functionName: 'configuration_value', signature: 'configuration_value(config, key, fallback)', input: 'A key-value configuration, a key, and a fallback value.', output: 'The stored value when the key exists; otherwise fallback.' },
     constraints: ['0 <= number of configuration entries <= 1000'], concepts: ['missing-key', 'fallback', 'defensive-lookup'], skills: ['missing-data-handling', 'defensive-programming'], prerequisites: ['mappings', 'membership'], commonMistakes: ['treating zero as missing', 'accessing a missing key unsafely'], expectedComplexity: constant,

@@ -1,4 +1,4 @@
-import { Code2, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { dashboardNavigation } from './dashboardData';
 import { DashboardIcon } from './dashboardIcons';
@@ -14,8 +14,8 @@ export function DashboardSidebar({ activeItem, isOpen, onClose, onSelect }) {
       />
       <aside className={`dashboard-sidebar ${isOpen ? 'is-open' : ''}`}>
         <div className="dashboard-brand">
-          <span><Code2 size={ICON_SIZE.lg} /></span>
-          <strong>MiTutora</strong>
+          <span><img src="/ycoders-mark.svg" alt="" /></span>
+          <strong>ycoders</strong>
           <button className="dashboard-mobile-close" type="button" aria-label="Close navigation" onClick={onClose}>
             <X size={ICON_SIZE.md} />
           </button>

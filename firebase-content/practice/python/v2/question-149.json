@@ -4,7 +4,7 @@
   "title": "Count Unique Registered IDs",
   "summary": "Recognize repeated identifiers as one unique value.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "sets",
   "category": "fundamentals",
   "subtopic": "set-basics-uniqueness",

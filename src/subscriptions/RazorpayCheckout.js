@@ -47,5 +47,5 @@ export function validateCheckoutOrder(order, expectedPlanId) {
 
 export function createRazorpayCheckout({ RazorpayClass, order, onSuccess, onDismiss }) {
   if (typeof RazorpayClass !== 'function') throw checkoutError('CHECKOUT_GLOBAL_UNAVAILABLE', 'Razorpay Checkout is unavailable.');
-  return new RazorpayClass({ key: order.keyId, order_id: order.providerOrderId, amount: order.amountMinor, currency: order.currency, name: 'Mi Tutora', description: `${order.planName} Premium`, handler: onSuccess, modal: { ondismiss: onDismiss }, retry: { enabled: false } });
+  return new RazorpayClass({ key: order.keyId, order_id: order.providerOrderId, amount: order.amountMinor, currency: order.currency, name: 'ycoders', description: `${order.planName} Premium`, handler: onSuccess, modal: { ondismiss: onDismiss }, retry: { enabled: false } });
 }

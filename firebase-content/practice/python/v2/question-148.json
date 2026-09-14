@@ -4,7 +4,7 @@
   "title": "Trace Unique Labels",
   "summary": "Reason about duplicate values collapsing into one.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "sets",
   "category": "fundamentals",
   "subtopic": "set-basics-uniqueness",

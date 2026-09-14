@@ -12,17 +12,21 @@ import { lazyNamedExport } from './routing/lazyRoute';
 import { SubscriptionAccessProvider, useSubscriptionAccess } from './access/SubscriptionAccessContext';
 import { PremiumFeatureGate } from './access/PremiumFeatureGate';
 import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
+import { recentCourseRepository } from './home/recentCourseRepository';
+import { LearnerActivityProvider } from './activity/LearnerActivityContext';
 
 const AuthFlow = lazyNamedExport(() => import('./components/auth/AuthFlow'), 'AuthFlow');
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
 const BookmarkProvider = lazyNamedExport(() => import('./bookmarks/BookmarkContext'), 'BookmarkProvider');
 const HomePage = lazyNamedExport(() => import('./pages/HomePage'), 'HomePage');
+const LibraryPage = lazyNamedExport(() => import('./pages/LibraryPage'), 'LibraryPage');
 const PracticePage = lazyNamedExport(() => import('./pages/PracticePage'), 'PracticePage');
 const ChallengesPage = lazyNamedExport(() => import('./pages/ChallengesPage'), 'ChallengesPage');
 const BookmarksPage = lazyNamedExport(() => import('./pages/BookmarksPage'), 'BookmarksPage');
 const CertificatesPage = lazyNamedExport(() => import('./pages/CertificatesPage'), 'CertificatesPage');
 const ReferralsPage = lazyNamedExport(() => import('./pages/ReferralsPage'), 'ReferralsPage');
 const WalletPage = lazyNamedExport(() => import('./pages/WalletPage'), 'WalletPage');
+const RedeemPage = lazyNamedExport(() => import('./coins/RedeemPage'), 'RedeemPage');
 const SettingsPage = lazyNamedExport(() => import('./pages/SettingsPage'), 'SettingsPage');
 const ProjectsPage = lazyNamedExport(() => import('./pages/ProjectsPage'), 'ProjectsPage');
 const ExamExperience = lazyNamedExport(() => import('./exam/pages/ExamExperience'), 'ExamExperience');
@@ -31,6 +35,7 @@ const SetupVerificationExperience = lazyNamedExport(
   'SetupVerificationExperience',
 );
 const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'CourseRoute');
+const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
 
 const compilerManager = createCompilerManager();
 const APPLICATION_PAGES = {
@@ -40,11 +45,16 @@ const APPLICATION_PAGES = {
   certificates: CertificatesPage,
   referrals: ReferralsPage,
   wallet: WalletPage,
+  redeem: RedeemPage,
   settings: SettingsPage,
   projects: ProjectsPage,
 };
 
 export default function App() {
+  const publicRoute = parseAppRoute(window.location.pathname);
+  if (publicRoute.kind === 'certificate-verification') {
+    return <Suspense fallback={<CourseLoadState state="loading" />}><PublicCertificateVerificationPage credentialId={publicRoute.credentialId} /></Suspense>;
+  }
   return (
     <CompilerProvider manager={compilerManager}>
       <AuthProvider>
@@ -132,7 +142,9 @@ function UserGate() {
     <Suspense fallback={<CourseLoadState state="loading" />}>
       <BookmarkProvider userId={user.id}>
         <SubscriptionAccessProvider userId={user.id}>
-          <AuthenticatedApplication user={user} />
+          <LearnerActivityProvider>
+            <AuthenticatedApplication user={user} />
+          </LearnerActivityProvider>
         </SubscriptionAccessProvider>
       </BookmarkProvider>
     </Suspense>
@@ -146,7 +158,9 @@ function AuthenticatedApplication({ user }) {
   const [activeCourseId, setActiveCourseId] = useState(() => initialRoute.courseId ?? null);
   const [courseStage, setCourseStage] = useState(() => initialRoute.kind === 'course-lesson' ? 'learning' : 'overview');
   const [activePage, setActivePage] = useState(() => initialRoute.page ?? 'home');
-  const [navigationTarget, setNavigationTarget] = useState(() => initialRoute.questionId ? { page: 'practice', questionId: initialRoute.questionId } : null);
+  const [navigationTarget, setNavigationTarget] = useState(() => initialRoute.questionId
+    ? { page: 'practice', questionId: initialRoute.questionId }
+    : initialRoute.date ? { page: 'challenges', date: initialRoute.date } : null);
   const [launchLessonId, setLaunchLessonId] = useState(() => initialRoute.lessonId ?? null);
   const [routeNotFound, setRouteNotFound] = useState(() => initialRoute.kind === 'not-found');
   const [examOpen, setExamOpen] = useState(false);
@@ -159,7 +173,8 @@ function AuthenticatedApplication({ user }) {
     setCourseStage(route.kind === 'course-lesson' ? 'learning' : 'overview');
     setLaunchLessonId(route.lessonId ?? null);
     setActivePage(routePage(route));
-    setNavigationTarget(route.questionId ? { page: 'practice', questionId: route.questionId } : null);
+    setNavigationTarget(route.questionId ? { page: 'practice', questionId: route.questionId }
+      : route.date ? { page: 'challenges', date: route.date } : null);
   };
 
   const navigateTo = (route, options) => { writeAppRoute(route, options); applyRoute(route); };
@@ -169,6 +184,10 @@ function AuthenticatedApplication({ user }) {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  useEffect(() => {
+    if (activeCourseId && courseStage === 'overview') recentCourseRepository.record(user.id, activeCourseId);
+  }, [activeCourseId, courseStage, user.id]);
 
   const handlePageNavigation = (page) => {
     setNavigationTarget(null);
@@ -192,6 +211,33 @@ function AuthenticatedApplication({ user }) {
     writeAppRoute(target.questionId ? { kind: 'practice-question', questionId: target.questionId } : { kind: 'page', page: target.page });
   };
 
+  const openCourseOverview = (courseId) => {
+    recentCourseRepository.record(user.id, courseId);
+    setLaunchLessonId(null);
+    setActiveCourseId(courseId);
+    setCourseStage('overview');
+    writeAppRoute({ kind: 'course-overview', courseId });
+  };
+
+  const continueCourse = (courseId, lessonId) => {
+    recentCourseRepository.record(user.id, courseId);
+    setLaunchLessonId(lessonId ?? null);
+    setActiveCourseId(courseId);
+    setCourseStage('learning');
+    writeAppRoute(lessonId
+      ? { kind: 'course-lesson', courseId, lessonId }
+      : { kind: 'course-overview', courseId });
+  };
+
+  const openCertificationExam = () => {
+    setLaunchLessonId(null);
+    setActiveCourseId(null);
+    setActivePage('certificates');
+    setNavigationTarget(null);
+    writeAppRoute({ kind: 'page', page: 'certificates' });
+    setExamOpen(true);
+  };
+
   if (examOpen && canAccessFeature({ tier, feature: ACCESS_FEATURES.CERTIFICATES })) {
     return (
       <DomainErrorBoundary
@@ -201,7 +247,10 @@ function AuthenticatedApplication({ user }) {
         onLeave={() => setExamOpen(false)}
       >
         <Suspense fallback={<CourseLoadState state="loading" />}>
-          <ExamExperience candidateId={user.id} onExit={() => setExamOpen(false)} />
+          <ExamExperience candidateId={user.id} onExit={() => setExamOpen(false)} onViewCertificate={(credentialId) => {
+            if (credentialId) window.history.replaceState({ mitutora: true }, '', `/certificates?credential=${encodeURIComponent(credentialId)}`);
+            setExamOpen(false);
+          }} />
         </Suspense>
       </DomainErrorBoundary>
     );
@@ -228,21 +277,24 @@ function AuthenticatedApplication({ user }) {
         <DomainErrorBoundary
           name={activePage}
           title={`${activePage === 'practice' ? 'Practice' : 'This page'} could not be displayed.`}
-          description="Navigation and the rest of MiTutora are still available. Try loading this page again."
-          resetKeys={[activePage, navigationTarget?.questionId]}
+          description="Navigation and the rest of ycoders are still available. Try loading this page again."
+          resetKeys={[activePage, navigationTarget?.questionId, navigationTarget?.date]}
         >
         <Suspense fallback={<CourseLoadState state="loading" />}>
         {routeNotFound ? (
           <section className="route-not-found" role="status"><h1>Page not found</h1><p>This link is invalid or no longer available.</p><button className="button button--primary" type="button" onClick={() => navigateTo({ kind: 'page', page: 'home' }, { replace: true })}>Return home</button></section>
         ) : activePage === 'home' ? (
           <HomePage
-            onOpenCourse={(courseId) => {
-              setLaunchLessonId(null);
-              setActiveCourseId(courseId);
-              setCourseStage('overview');
-              writeAppRoute({ kind: 'course-overview', courseId });
-            }}
+            onOpenCourse={openCourseOverview}
+            onContinueCourse={continueCourse}
+            onBrowseLibrary={() => handlePageNavigation('library')}
+            onOpenChallenges={(date) => navigateTo(date
+              ? { kind: 'challenge-daily', page: 'challenges', date }
+              : { kind: 'page', page: 'challenges' })}
+            onRedeem={() => handlePageNavigation('redeem')}
           />
+        ) : activePage === 'library' ? (
+          <LibraryPage onOpenCourse={openCourseOverview} />
         ) : activePage === 'practice' ? (
           <PracticePage
             initialQuestionId={navigationTarget?.page === 'practice'
@@ -252,6 +304,12 @@ function AuthenticatedApplication({ user }) {
             onQuestionChange={(questionId) => navigateTo(questionId
               ? { kind: 'practice-question', page: 'practice', questionId }
               : { kind: 'page', page: 'practice' })}
+          />
+        ) : activePage === 'challenges' ? (
+          <ChallengesPage
+            occurrenceDate={navigationTarget?.page === 'challenges' ? navigationTarget.date : null}
+            onOpenChallenge={(date) => navigateTo({ kind: 'challenge-daily', page: 'challenges', date })}
+            onBack={() => navigateTo({ kind: 'page', page: 'challenges' })}
           />
         ) : activePage === 'bookmarks' ? (
           <BookmarksPage onOpenBookmark={openBookmark} />
@@ -275,7 +333,7 @@ function AuthenticatedApplication({ user }) {
     );
   }
 
-  return (
+  const courseApplication = (
     <DomainErrorBoundary
       name="learning"
       title="The course workspace could not be displayed."
@@ -290,7 +348,7 @@ function AuthenticatedApplication({ user }) {
       <CourseRoute
         key={`${activeCourseId}:${launchLessonId ?? 'overview'}`}
         courseId={activeCourseId}
-        initialLessonId={launchLessonId ?? user.currentLesson}
+        initialLessonId={launchLessonId}
         stage={courseStage}
         onEnterCourse={() => { setCourseStage('learning'); const lessonId = launchLessonId ?? undefined; if (lessonId) writeAppRoute({ kind: 'course-lesson', courseId: activeCourseId, lessonId }); }}
         onShowOverview={() => { setCourseStage('overview'); writeAppRoute({ kind: 'course-overview', courseId: activeCourseId }); }}
@@ -300,8 +358,15 @@ function AuthenticatedApplication({ user }) {
           writeAppRoute({ kind: 'page', page: 'home' });
         }}
         onLessonRoute={(lessonId) => writeAppRoute({ kind: 'course-lesson', courseId: activeCourseId, lessonId })}
+        onStartExam={activeCourseId === 'python' ? openCertificationExam : undefined}
       />
       </Suspense>
     </DomainErrorBoundary>
   );
+
+  return courseStage === 'overview' ? (
+    <AppShell activePage={activePage} onNavigate={handlePageNavigation} pageLabel="Course Overview">
+      {courseApplication}
+    </AppShell>
+  ) : courseApplication;
 }

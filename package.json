@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/run-vite-development.mjs",
     "dev:full": "node scripts/run-local-coin-stack.mjs",
     "smoke:coins:local": "node scripts/smoke-local-coin-stack.mjs",
     "smoke:referrals:local": "node scripts/smoke-local-referrals.mjs",
@@ -49,6 +49,9 @@
     "validate:practice-content-source": "node scripts/validate-practice-content-source.mjs",
     "validate:practice-metadata": "node scripts/validate-practice-metadata-contract.mjs",
     "validate:challenge": "node scripts/validate-challenge-schema.mjs",
+    "generate:daily-challenges": "node scripts/generate-daily-challenge-assignments.mjs",
+    "seed:daily-challenges:local": "node scripts/seed-local-coin-development.mjs",
+    "smoke:daily-challenges:local": "node scripts/smoke-local-daily-challenge.mjs",
     "convert:python-course": "node scripts/convert-python-course.mjs",
     "convert:java-course": "node scripts/convert-java-course.mjs",
     "validate:java-course": "node scripts/validate-java-course.mjs",

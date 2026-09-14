@@ -26,7 +26,7 @@ const assert = (condition, message) => { if (!condition) failures.push(message);
 const countBy = (items, key) => items.reduce((counts, item) => ({ ...counts, [item[key]]: (counts[item[key]] ?? 0) + 1 }), {});
 const pyodide = await loadPyodide();
 const expectedTypes = { implementation: 12, debugging: 4, reasoning: 4 };
-const expectedDifficulties = { very_easy: 6, easy: 14 };
+const expectedDifficulties = { easy: 20 };
 const legacyIds = ['practice-even-or-odd', 'practice-sum-range', 'practice-reverse-text', 'practice-largest-number', 'practice-word-frequency', 'practice-palindrome'];
 const batches = [
   {
@@ -72,13 +72,13 @@ const batches = [
   {
     name: 'Batch 9', slug: 'fundamentals/input-output-parsing/9', questions: fundamentalsInputOutputBatch9,
     topic: 'input-output-parsing', idPrefix: 'fund-io-', references: batch9References, protectedTests: batch9ProtectedTests,
-    expectedCount: 15, expectedTypes: { implementation: 9, debugging: 3, reasoning: 3 }, expectedDifficulties: { very_easy: 5, easy: 10 },
+    expectedCount: 15, expectedTypes: { implementation: 9, debugging: 3, reasoning: 3 }, expectedDifficulties: { easy: 15 },
     subtopics: { 'basic-input-output': 3, 'numeric-input-conversion': 3, 'multiple-values-structured-input': 3, 'parsing-text-delimiters': 3, 'input-validation-edge-cases': 3 },
   },
   {
     name: 'Batch 10', slug: 'fundamentals/error-handling-mixed/10', questions: fundamentalsErrorsMixedBatch10,
     topic: 'error-handling-mixed', idPrefix: 'fund-errors-', references: batch10References, protectedTests: batch10ProtectedTests,
-    expectedCount: 19, expectedTypes: { implementation: 11, debugging: 4, reasoning: 4 }, expectedDifficulties: { very_easy: 4, easy: 11, medium: 4 },
+    expectedCount: 19, expectedTypes: { implementation: 11, debugging: 4, reasoning: 4 }, expectedDifficulties: { easy: 15, medium: 4 },
     subtopics: { 'basic-error-handling-invalid-input': 4, 'defensive-programming-validation': 3, 'debugging-common-mistakes': 4, 'combining-multiple-fundamentals': 5, 'mixed-reasoning-practical-problems': 3 },
   },
 ];

@@ -5,13 +5,10 @@ import { ReferralFaq } from './ReferralFaq';
 import { referralFaqs } from './referralData';
 import { ReferralHistory } from './ReferralHistory';
 import { ReferralOverview } from './ReferralOverview';
-import { ReferralRewards } from './ReferralRewards';
 import { referralService } from './ReferralService';
-import { useSubscriptionAccess } from '../access/SubscriptionAccessContext';
 
 export function ReferralsPage() {
   const { user } = useUser();
-  const { tier } = useSubscriptionAccess();
   const [profile, setProfile] = useState(null);
   const [loadError, setLoadError] = useState(null);
   const [notice, setNotice] = useState('');
@@ -35,37 +32,14 @@ export function ReferralsPage() {
     }
   };
 
-  const shareInvite = async () => {
-    const data = {
-      title: 'Learn with me on MiTutora',
-      text: `Use my referral code ${profile.referralCode} to start learning on MiTutora.`,
-      url: profile.referralLink,
-    };
-    if (navigator.share) {
-      try {
-        await navigator.share(data);
-        setNotice('Invitation shared.');
-        return;
-      } catch (error) {
-        if (error.name === 'AbortError') return;
-      }
-    }
-    await copyText(profile.referralLink, 'Referral link');
-  };
-
   if (!profile) {
     return <div className="referrals-page"><div className="referrals-loading" role={loadError ? 'alert' : 'status'}>{loadError?.message ?? 'Loading referral details…'}</div></div>;
   }
 
   return (
     <div className="referrals-page">
-      <header className="referrals-heading">
-        <h1>Learning is better together.</h1>
-        <p>Invite friends and earn a calculated referral reward after their first qualifying Premium purchase.</p>
-      </header>
+      <InviteFriends profile={profile} onCopy={copyText} />
       <ReferralOverview profile={profile} />
-      <InviteFriends profile={profile} onCopy={copyText} onShare={shareInvite} />
-      <ReferralRewards tier={tier} />
       <ReferralHistory history={profile.history} />
       <ReferralFaq faqs={referralFaqs} />
       {notice ? <div className="settings-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="Dismiss notification">×</button></div> : null}

@@ -1,6 +1,6 @@
 # Proctoring audio evidence
 
-MiTutora processes microphone samples locally. Silero VAD supplies speech probability; secondary browser-side heuristics estimate sustained music, media, ambient noise, and keyboard-like transient activity. Raw audio is neither persisted nor sent to Firebase.
+ycoders processes microphone samples locally. Silero VAD supplies speech probability; secondary browser-side heuristics estimate sustained music, media, ambient noise, and keyboard-like transient activity. Raw audio is neither persisted nor sent to Firebase.
 
 Keyboard evidence is intentionally temporal. A high-crest, high-frequency impulse is recorded as a transient candidate, but it cannot become a typing condition unless enough candidates form a continuous cluster for the configured persistence period. Isolated clicks and short taps are suppressed before they reach the monitoring lifecycle. Once active, a typing condition is represented by one lifecycle violation that updates until recovery rather than generating an event per audio frame.
 

@@ -1,6 +1,6 @@
 # System Overview
 
-MiTutora is a client-side React application built with Vite. Course content, user profiles, and learning progress are local; there is no application backend or remote authentication service.
+ycoders is a client-side React application built with Vite. Course content, user profiles, and learning progress are local; there is no application backend or remote authentication service.
 
 ## Runtime composition
 

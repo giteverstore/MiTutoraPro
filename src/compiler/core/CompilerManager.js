@@ -27,7 +27,7 @@ export class CompilerManager {
         executionTimeMs: 0,
       };
     }
-    const runtime = await this.initialize(language, { signal, instanceId });
+    const runtime = await this.initialize(language, { signal, instanceId, timeoutMs });
     return runtime.execute({
       source,
       stdin: stdin ?? inputs ?? '',

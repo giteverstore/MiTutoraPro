@@ -116,7 +116,10 @@ export function CourseLoaderProvider({
           setCourseSession(session);
         } else {
           courseEntryRef.current = courseEntry;
-          course = createCourseModel(courseDocument);
+          course = createCourseModel({
+            ...courseDocument,
+            publishedVersion: courseEntry?.publishedVersion ?? courseEntry?.version,
+          });
         }
 
         setMetadata(loadedMetadata);

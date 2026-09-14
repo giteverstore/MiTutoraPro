@@ -4,7 +4,7 @@
   "title": "Trace a Character Position",
   "summary": "Reason about zero-based positions in text.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "strings",
   "category": "fundamentals",
   "subtopic": "string-basics-indexing",

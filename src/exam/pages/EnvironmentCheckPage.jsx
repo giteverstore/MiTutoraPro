@@ -20,7 +20,7 @@ export function EnvironmentCheckPage({ onExit }) {
     <div className="exam-page exam-environment-page">
       <header className="exam-page-header">
         <button className="button button--ghost" type="button" onClick={onExit}>Back to certificates</button>
-        <div className="exam-brand"><ShieldCheck aria-hidden="true" /><span>MiTutora Certification</span></div>
+        <div className="exam-brand"><ShieldCheck aria-hidden="true" /><span>ycoders Certification</span></div>
       </header>
       <main className="exam-environment-main exam-vision-main">
         <div className="exam-intro">

@@ -35,7 +35,7 @@ export class RazorpayXPayoutProvider {
   }
 
   async createContact({ withdrawalId }) {
-    const contact = entity(await this.#request('/contacts', { method: 'POST', body: JSON.stringify({ name: 'MiTutora learner', type: 'customer', reference_id: withdrawalId.slice(0, 40), notes: { withdrawal_id: withdrawalId } }) }), 'contact');
+    const contact = entity(await this.#request('/contacts', { method: 'POST', body: JSON.stringify({ name: 'ycoders learner', type: 'customer', reference_id: withdrawalId.slice(0, 40), notes: { withdrawal_id: withdrawalId } }) }), 'contact');
     if (contact.reference_id !== withdrawalId.slice(0, 40)) fail('payout/provider-binding-mismatch', 'Provider contact does not match the withdrawal.', 502);
     return Object.freeze({ providerContactId: contact.id });
   }

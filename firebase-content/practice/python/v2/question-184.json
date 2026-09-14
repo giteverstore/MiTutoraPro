@@ -4,7 +4,7 @@
   "title": "Trace a Safe Quantity Fallback",
   "summary": "Reason about validation before conversion.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "error-handling-mixed",
   "category": "fundamentals",
   "subtopic": "basic-error-handling-invalid-input",

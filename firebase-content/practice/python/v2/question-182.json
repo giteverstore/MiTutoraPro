@@ -4,7 +4,7 @@
   "title": "Convert Decimal Input Safely",
   "summary": "Return a defined failure value for malformed numeric text.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "error-handling-mixed",
   "category": "fundamentals",
   "subtopic": "basic-error-handling-invalid-input",

@@ -4,7 +4,7 @@
   "title": "Repair the Unique Tag Count",
   "summary": "Fix counting that incorrectly includes duplicate positions.",
   "language": "Python",
-  "difficulty": "very_easy",
+  "difficulty": "easy",
   "topic": "sets",
   "category": "fundamentals",
   "subtopic": "set-basics-uniqueness",

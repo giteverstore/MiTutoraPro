@@ -36,7 +36,6 @@ export function WalletPage({ repositoryFactory = createWalletRepository }) {
   if (state.loading) return <section className="wallet-page" aria-busy="true"><p>Loading wallet…</p></section>;
   if (state.error) return <section className="wallet-page" role="alert"><h1>Wallet</h1><p>{state.error}</p></section>;
   return <section className="wallet-page">
-    <header><h1>Wallet</h1><p>Financially settled referral rewards in Indian rupees.</p></header>
     <div className="wallet-balances">
       <article><span>Pending</span><strong>{money(state.wallet.pendingBalanceMinor)}</strong></article>
       <article><span>Available</span><strong>{money(state.wallet.availableBalanceMinor)}</strong></article>

@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { useBookmarks } from './BookmarkContext';
 import { LibraryEmptyState } from './LibraryEmptyState';
 import { LibraryFilters } from './LibraryFilters';
-import { LibraryStatistics } from './LibraryStatistics';
 import { SavedItemCard } from './SavedItemCard';
 
 export function LibraryPage({ onOpenBookmark }) {
@@ -25,11 +24,6 @@ export function LibraryPage({ onOpenBookmark }) {
 
   return (
     <div className="library-page">
-      <header className="library-heading">
-        <h1>Everything you saved, in one place.</h1>
-        <p>Return to useful lessons and coding problems whenever you need them.</p>
-      </header>
-      <LibraryStatistics counts={counts} />
       <LibraryFilters
         activeTab={activeTab}
         search={search}
@@ -37,8 +31,7 @@ export function LibraryPage({ onOpenBookmark }) {
         onTabChange={setActiveTab}
         onSearchChange={setSearch}
       />
-      <section className="library-saved-items" aria-labelledby="saved-items-title">
-        <header><div><span>Saved Items</span><h2 id="saved-items-title">{visibleBookmarks.length} saved</h2></div></header>
+      <section className="library-saved-items" aria-label="Saved bookmarks">
         {visibleBookmarks.length ? (
           <div className="saved-item-list">
             {visibleBookmarks.map((bookmark) => (

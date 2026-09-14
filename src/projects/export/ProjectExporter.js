@@ -20,7 +20,7 @@ export function removeStarterArtifacts(project, submission) {
     .join('');
 }
 
-function readme(project) { return `# ${project.title}\n\n${project.description}\n\n## Skills practiced\n${project.skills.map((skill) => `- ${skill}`).join('\n')}\n\n## Requirements\n${project.requirements.map((item) => `- ${item}`).join('\n')}\n\n## Setup\nRequires Python 3. Run the public tests with:\n\n\`\`\`bash\npython -m unittest discover tests\n\`\`\`\n\n## Usage\nImport \`${project.functionDefinition.name}\` from \`${project.template.sourcePath}\`.\n\n## Example\nInput: \`${project.example.input}\`  \nOutput: \`${project.example.output}\`\n\nBuilt as part of Mi Tutora Pro.\n`; }
+function readme(project) { return `# ${project.title}\n\n${project.description}\n\n## Skills practiced\n${project.skills.map((skill) => `- ${skill}`).join('\n')}\n\n## Requirements\n${project.requirements.map((item) => `- ${item}`).join('\n')}\n\n## Setup\nRequires Python 3. Run the public tests with:\n\n\`\`\`bash\npython -m unittest discover tests\n\`\`\`\n\n## Usage\nImport \`${project.functionDefinition.name}\` from \`${project.template.sourcePath}\`.\n\n## Example\nInput: \`${project.example.input}\`  \nOutput: \`${project.example.output}\`\n\nBuilt as part of ycoders.\n`; }
 function pythonLiteral(value) { if (value === null) return 'None'; if (value === true) return 'True'; if (value === false) return 'False'; if (Array.isArray(value)) return `[${value.map(pythonLiteral).join(', ')}]`; if (value && typeof value === 'object') return `{${Object.entries(value).map(([key, item]) => `${pythonLiteral(key)}: ${pythonLiteral(item)}`).join(', ')}}`; return JSON.stringify(value); }
 function testMethodNames(tests) {
   const used = new Map();

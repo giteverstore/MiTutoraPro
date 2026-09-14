@@ -141,6 +141,14 @@ export class UserDataService {
     return progress;
   }
 
+  async listProgress(uid) {
+    try {
+      return await this.repository(uid, 'progress', ProgressRepository).list();
+    } catch (error) {
+      throw friendlyError(error, `read:${cacheKey(uid, 'progress', 'all')}`);
+    }
+  }
+
   async saveProgress(uid, courseId, progress) {
     const key = cacheKey(uid, 'progress', courseId);
     const generation = this.cacheGeneration;

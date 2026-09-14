@@ -4,7 +4,7 @@ const defaults = { category: 'fundamentals', topic: 'functions' };
 const specs = [
   {
     id: 'fund-functions-001', title: 'Create a Personal Greeting', summary: 'Use a parameter to make reusable greeting logic.',
-    subtopic: 'function-basics-parameters', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'function-basics-parameters', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Create a reusable operation that receives a name and returns `Welcome, name!` using the supplied name.',
     contract: { functionName: 'welcome_message', signature: 'welcome_message(name)', input: 'A non-empty name as text.', output: 'Text formatted as `Welcome, name!`.' },
     constraints: ['1 <= name length <= 100'], concepts: ['function-definition', 'parameters', 'return-values'], skills: ['abstraction', 'parameter-reasoning'], prerequisites: ['text-values'], commonMistakes: ['using a fixed name instead of the parameter', 'displaying instead of returning the message'],
@@ -13,7 +13,7 @@ const specs = [
   },
   {
     id: 'fund-functions-002', title: 'Convert a Distance', summary: 'Apply reusable conversion logic to one parameter.',
-    subtopic: 'function-basics-parameters', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'function-basics-parameters', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'Create a reusable operation that receives a distance in kilometers and returns the equivalent number of meters.',
     contract: { functionName: 'kilometers_to_meters', signature: 'kilometers_to_meters(kilometers)', input: 'A non-negative numeric distance in kilometers.', output: 'The numeric distance in meters.' },
     constraints: ['0 <= kilometers <= 1000000'], concepts: ['function-definition', 'single-parameter'], skills: ['reusable-logic', 'parameter-use'], prerequisites: ['multiplication'], commonMistakes: ['ignoring the parameter', 'returning kilometers unchanged'],
@@ -22,7 +22,7 @@ const specs = [
   },
   {
     id: 'fund-functions-003', title: 'Trace Parameter Values', summary: 'Reason about arguments becoming parameter values.',
-    subtopic: 'function-basics-parameters', questionType: 'reasoning', difficulty: 'very_easy', estimatedMinutes: 6, xp: 25,
+    subtopic: 'function-basics-parameters', questionType: 'reasoning', difficulty: 'easy', estimatedMinutes: 6, xp: 25,
     statement: 'A reusable operation multiplies its value parameter by its multiplier parameter. Return the result produced by the supplied arguments.',
     contract: { functionName: 'apply_multiplier', signature: 'apply_multiplier(value, multiplier)', input: 'Two numeric values.', output: 'Their product.' },
     constraints: ['-100000 <= value, multiplier <= 100000'], concepts: ['parameters', 'arguments'], skills: ['parameter-reasoning', 'execution-tracing'], prerequisites: ['multiplication'], commonMistakes: ['confusing parameter names with supplied argument values', 'using the parameters in reverse for a non-equivalent operation'],
@@ -31,7 +31,7 @@ const specs = [
   },
   {
     id: 'fund-functions-004', title: 'Repair a Fixed Parameter', summary: 'Fix reusable logic that ignores its input.',
-    subtopic: 'function-basics-parameters', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'function-basics-parameters', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The operation should return twice the supplied value, but the current implementation always doubles a fixed value. Correct it to use the parameter.',
     contract: { functionName: 'double_value', signature: 'double_value(value)', input: 'A numeric value.', output: 'Twice the supplied value.' },
     constraints: ['-100000 <= value <= 100000'], concepts: ['parameter-use', 'reusable-logic'], skills: ['debugging-functions', 'parameter-reasoning'], prerequisites: ['function-parameters'], commonMistakes: ['using a fixed literal instead of the parameter', 'changing the parameter before using it'],
@@ -40,7 +40,7 @@ const specs = [
   },
   {
     id: 'fund-functions-005', title: 'Return a Temperature Difference', summary: 'Produce a calculated value that callers can reuse.',
-    subtopic: 'return-values', questionType: 'implementation', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'return-values', questionType: 'implementation', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'Return the difference between a measured temperature and a target temperature so another operation can use the result.',
     contract: { functionName: 'temperature_difference', signature: 'temperature_difference(measured, target)', input: 'Two numeric temperatures.', output: 'The numeric value `measured - target`.' },
     constraints: ['-1000 <= measured, target <= 1000'], concepts: ['return-values', 'calculated-result'], skills: ['return-value-reasoning'], prerequisites: ['subtraction'], commonMistakes: ['displaying the difference without returning it', 'subtracting measured from target'],
@@ -49,7 +49,7 @@ const specs = [
   },
   {
     id: 'fund-functions-006', title: 'Repair a Missing Return', summary: 'Replace display-only behavior with a reusable return value.',
-    subtopic: 'return-values', questionType: 'debugging', difficulty: 'very_easy', estimatedMinutes: 7, xp: 30,
+    subtopic: 'return-values', questionType: 'debugging', difficulty: 'easy', estimatedMinutes: 7, xp: 30,
     statement: 'The operation should return the squared value for use elsewhere. The current implementation only displays it. Correct the operation so callers receive the result.',
     contract: { functionName: 'square_value', signature: 'square_value(value)', input: 'A numeric value.', output: 'The value multiplied by itself.' },
     constraints: ['-10000 <= value <= 10000'], concepts: ['return-values', 'side-effects'], skills: ['debugging-return-values'], prerequisites: ['functions'], commonMistakes: ['printing instead of returning', 'omitting the return value'],

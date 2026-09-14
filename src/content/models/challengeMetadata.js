@@ -17,6 +17,21 @@ export function createChallengeMetadata(value) {
       { details: { field: 'date' } },
     );
   }
+  const assignment = typeof metadata.practiceQuestionId === 'string' && metadata.practiceQuestionId.trim();
+  if (assignment) {
+    return Object.freeze({
+      id: requiredString(metadata.id, 'id', 'Challenge'),
+      date,
+      practiceQuestionId: requiredString(metadata.practiceQuestionId, 'practiceQuestionId', 'Challenge'),
+      difficulty: requiredString(metadata.difficulty, 'difficulty', 'Challenge'),
+      rewardCoins: nonNegativeNumber(metadata.rewardCoins, 'rewardCoins', 'Challenge'),
+      rewardXp: nonNegativeNumber(metadata.rewardXp ?? 0, 'rewardXp', 'Challenge'),
+      published: metadata.published === true,
+      policyVersion: requiredString(metadata.policyVersion, 'policyVersion', 'Challenge'),
+      version: positiveVersion(metadata.version, 'Challenge'),
+      sourceType: 'practice-reference',
+    });
+  }
   return Object.freeze({
     id: requiredString(metadata.id, 'id', 'Challenge'),
     date,
@@ -27,5 +42,6 @@ export function createChallengeMetadata(value) {
     published: metadata.published === true,
     version: positiveVersion(metadata.version, 'Challenge'),
     storagePath: metadataStoragePath(metadata.storagePath, 'Challenge'),
+    sourceType: 'legacy-storage',
   });
 }
