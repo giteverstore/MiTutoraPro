@@ -73,10 +73,9 @@ describe('Practice cursor pagination', () => {
     expect(container.querySelector('.practice-page')?.firstElementChild).toHaveClass('practice-statistics');
     expect(screen.queryByText('Current Language')).not.toBeInTheDocument();
     expect(screen.getByText('Questions by Difficulty')).toBeInTheDocument();
-    expect(await screen.findByLabelText('Easy — 32 questions')).toHaveTextContent('32');
-    expect(screen.getByLabelText('Easy — 32 questions')).toHaveAttribute('data-tooltip', 'Easy');
-    expect(screen.getByLabelText('Medium — 0 questions')).toHaveTextContent('0');
-    expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17');
+    expect(await screen.findByLabelText('Easy — 32 questions')).toHaveTextContent('32Easy');
+    expect(screen.getByLabelText('Medium — 0 questions')).toHaveTextContent('0Medium');
+    expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17Hard');
     expect(title.parentElement).toHaveClass('practice-question-title');
     expect(title.parentElement?.querySelector('.practice-difficulty')).toHaveTextContent('Hard');
     expect(card?.firstElementChild).toHaveClass('practice-question-title');

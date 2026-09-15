@@ -22,10 +22,17 @@ describe('Practice statistics', () => {
   it('uses the global canonical catalog distribution and accessible difficulty names', () => {
     const { container } = render(<PracticeStatistics completedQuestionIds={new Set(['easy-1'])} questions={questions} />);
     const view = within(container);
-    expect(view.getByLabelText('Easy — 2 questions')).toHaveTextContent('2');
-    expect(view.getByLabelText('Medium — 1 question')).toHaveAttribute('data-tooltip', 'Medium');
-    expect(view.getByLabelText('Hard — 1 question')).toHaveTextContent('1');
+    expect(view.getByLabelText('Easy — 2 questions')).toHaveTextContent('2Easy');
+    expect(view.getByLabelText('Medium — 1 question')).toHaveTextContent('1Medium');
+    expect(view.getByLabelText('Hard — 1 question')).toHaveTextContent('1Hard');
     expect(view.queryByText(/Very Easy/i)).not.toBeInTheDocument();
+  });
+
+  it('keeps the compact difficulty values in a wrapping responsive group', () => {
+    const { container } = render(<PracticeStatistics completedQuestionIds={new Set()} questions={questions} />);
+    const counts = container.querySelector('.practice-difficulty-counts');
+    expect(counts).toBeInTheDocument();
+    expect(within(counts).getAllByText(/Easy|Medium|Hard/)).toHaveLength(3);
   });
 
   it('counts deduplicated canonical completion identities', () => {

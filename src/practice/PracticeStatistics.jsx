@@ -29,7 +29,7 @@ export function PracticeStatistics({ completedQuestionIds = new Set(), questions
             <span className="practice-difficulty-counts">{difficultyLevels.map((difficulty) => {
               const label = `${difficulty[0].toUpperCase()}${difficulty.slice(1)}`;
               const accessibleLabel = `${label} — ${difficultyCounts[difficulty]} ${difficultyCounts[difficulty] === 1 ? 'question' : 'questions'}`;
-              return <span className={`is-${difficulty}`} tabIndex="0" aria-label={accessibleLabel} data-tooltip={label} key={difficulty}><i aria-hidden="true" />{difficultyCounts[difficulty]}</span>;
+              return <span className={`is-${difficulty}`} aria-label={accessibleLabel} key={difficulty}><i aria-hidden="true" /><strong>{difficultyCounts[difficulty]}</strong><small>{label}</small></span>;
             })}</span>
             <small>Questions by Difficulty</small>
           </span>

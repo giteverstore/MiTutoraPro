@@ -3089,12 +3089,11 @@ body:not(.is-resizing) .practice-test-panel.console-window { transition: height 
 .practice-statistics small { color: var(--color-text-muted); }
 .practice-statistics .practice-difficulty-summary { display: flex; align-items: center; gap: var(--space-4); }
 .practice-statistics .practice-difficulty-content { display: grid; min-width: 0; gap: var(--space-1); }
-.practice-statistics .practice-difficulty-counts { display: flex; align-items: center; flex-wrap: nowrap; gap: var(--space-3); }
-.practice-statistics .practice-difficulty-counts > span { position: relative; display: inline-flex; align-items: center; grid-auto-flow: initial; gap: var(--space-1); padding: var(--space-1); border-radius: var(--radius-sm); font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); line-height: 1; outline-offset: 2px; transition: background var(--duration-fast), transform var(--duration-fast); }
-.practice-difficulty-counts > span:hover, .practice-difficulty-counts > span:focus-visible { background: var(--color-surface-raised); transform: translateY(-1px); }
-.practice-difficulty-counts > span::after { position: absolute; z-index: 2; bottom: calc(100% + var(--space-2)); left: 50%; padding: var(--space-1) var(--space-2); color: var(--color-text-on-accent); background: var(--color-text); border-radius: var(--radius-sm); content: attr(data-tooltip); font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); line-height: 1.4; opacity: 0; pointer-events: none; transform: translate(-50%, var(--space-1)); transition: opacity var(--duration-fast), transform var(--duration-fast); white-space: nowrap; }
-.practice-difficulty-counts > span:hover::after, .practice-difficulty-counts > span:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+.practice-statistics .practice-difficulty-counts { display: flex; min-width: 0; align-items: center; flex-wrap: wrap; gap: var(--space-2) var(--space-3); }
+.practice-statistics .practice-difficulty-counts > span { display: inline-flex; align-items: baseline; grid-auto-flow: initial; gap: var(--space-1); white-space: nowrap; }
 .practice-difficulty-counts > span > i { width: .55rem; height: .55rem; background: currentColor; border-radius: var(--radius-full); }
+.practice-statistics .practice-difficulty-counts > span > strong { font-size: var(--font-size-lg); line-height: 1; }
+.practice-statistics .practice-difficulty-counts > span > small { color: currentColor; font-size: var(--font-size-sm); line-height: 1; }
 .practice-difficulty-summary .is-easy { color: var(--color-success); }
 .practice-difficulty-summary .is-medium { color: var(--color-warning); }
 .practice-difficulty-summary .is-hard { color: var(--color-danger); }
