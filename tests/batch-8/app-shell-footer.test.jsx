@@ -36,11 +36,29 @@ describe('global legal footer coverage', () => {
   it('renders one shared semantic footer after normal AppShell content', () => {
     const { container } = render(<AppShell activePage="home" onNavigate={vi.fn()}><section>Home content</section></AppShell>);
     const main = container.querySelector('.application-page');
+    const pageContent = main.querySelector('.application-page-content');
+    expect(pageContent).toContainElement(screen.getByText('Home content'));
+    expect(pageContent.nextElementSibling).toHaveClass('public-footer');
     expect(main.lastElementChild).toHaveClass('public-footer');
     expect(container.querySelectorAll('.public-footer')).toHaveLength(1);
     for (const name of ['About', 'Contact', 'Privacy', 'Terms', 'Refund Policy']) {
       expect(screen.getByRole('link', { name })).toBeVisible();
     }
+  });
+
+  it('keeps every section of a long routed page inside one unit before the footer', () => {
+    const { container } = render(
+      <AppShell activePage="home" onNavigate={vi.fn()}>
+        <section>Section A</section>
+        <section>Section B</section>
+        <section>Section C</section>
+      </AppShell>,
+    );
+    const main = container.querySelector('.application-page');
+    const pageContent = main.firstElementChild;
+    expect([...pageContent.children].map((element) => element.textContent)).toEqual(['Section A', 'Section B', 'Section C']);
+    expect(pageContent.nextElementSibling).toHaveClass('public-footer');
+    expect(main.lastElementChild).toHaveClass('public-footer');
   });
 
   it('omits the footer when the owning route selects an immersive experience', () => {

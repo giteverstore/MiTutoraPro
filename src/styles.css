@@ -2866,8 +2866,9 @@ body:not(.is-resizing) .practice-test-panel.console-window { transition: height 
 .application-user-menu button:hover { color: var(--color-text); background: var(--color-surface-subtle); }
 .application-user-menu svg { width: var(--icon-md); height: var(--icon-md); }
 .application-page { display: flex; min-width: 0; min-height: 0; grid-area: page; flex-direction: column; overflow-x: hidden; overflow-y: auto; scroll-behavior: smooth; }
+.application-page-content { width: 100%; min-width: 0; flex: 1 0 auto; }
 .application-page .home-main { min-height: 100%; }
-.application-page > .public-footer { width: 100%; flex: 0 0 auto; margin-top: auto; }
+.application-page > .public-footer { width: 100%; flex: 0 0 auto; }
 .application-drawer-backdrop { display: none; }
 .placeholder-page { display: grid; min-height: 100%; place-content: center; justify-items: center; padding: var(--space-8); text-align: center; }
 .placeholder-page > span { color: var(--color-accent); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); letter-spacing: var(--letter-spacing-label); text-transform: uppercase; }

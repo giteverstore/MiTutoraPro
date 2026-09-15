@@ -88,7 +88,9 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
         onSignOut={signOut}
       />
       <main className="application-page" id="application-page" tabIndex="-1">
-        {children}
+        <div className="application-page-content">
+          {children}
+        </div>
         {showFooter ? <PublicFooter /> : null}
       </main>
     </div>
