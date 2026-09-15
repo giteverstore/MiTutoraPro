@@ -4,7 +4,6 @@ import { PracticeFilters } from './PracticeFilters';
 import { PracticePagination } from './PracticePagination';
 import { PracticeQuestionCard } from './PracticeQuestionCard';
 import { PracticeStatistics } from './PracticeStatistics';
-import { practiceQuestions } from './practiceData';
 import { practiceContentSource } from './practiceContentSource';
 import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDiagnostics';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
@@ -32,6 +31,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   const activity = useLearnerActivity();
   const [filters, setFilters] = useState(initialFilters);
   const [catalog, setCatalog] = useState({ items: [], currentPage: 1, reachablePageCount: 1, hasMore: false, loading: true, error: null, facets: null });
+  const [statisticsCatalog, setStatisticsCatalog] = useState([]);
   const [openQuestionId, setOpenQuestionId] = useState(initialQuestionId);
   const [openQuestion, setOpenQuestion] = useState(null);
   const [questionState, setQuestionState] = useState({ loading: false, error: null, retry: 0 });
@@ -94,6 +94,12 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   }, [filters]);
 
   useEffect(() => {
+    let active = true;
+    practiceContentSource.listCatalog().then((items) => { if (active) setStatisticsCatalog(items); }, () => { if (active) setStatisticsCatalog([]); });
+    return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
     pageCache.current.clear();
     pageCursors.current = new Map([[1, null]]);
     reachablePageCount.current = 1;
@@ -131,7 +137,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
 
   return (
     <div className="practice-page">
-      <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={practiceQuestions} />
+      <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={statisticsCatalog} />
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
       <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{catalog.items.length} questions</h2></div></header><div>
         {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}

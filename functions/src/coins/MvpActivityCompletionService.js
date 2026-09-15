@@ -11,6 +11,10 @@ function identity(prefix, parts) {
   return `${prefix}_${createHash('sha256').update(parts.join('\u0000')).digest('hex')}`;
 }
 
+function historicalCompletionVersions(input) {
+  return input.activityType === COIN_ACTIVITY_TYPES.PRACTICE && input.activityVersion === 'v3' ? ['v2'] : [];
+}
+
 function dateParts(date) {
   const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
     timeZone: MVP_ACTIVITY_TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit',
@@ -50,6 +54,7 @@ export class MvpActivityCompletionService {
     const eventDate = occurrenceDate || dateParts(this.now());
     const completionId = identity('completion', [input.uid, input.activityType, input.activityId, input.activityVersion, occurrenceDate ?? '']);
     const completionRef = this.db.doc(`users/${input.uid}/activityCompletions/${completionId}`);
+    const historicalCompletionRefs = historicalCompletionVersions(input).map((version) => this.db.doc(`users/${input.uid}/activityCompletions/${identity('completion', [input.uid, input.activityType, input.activityId, version, occurrenceDate ?? ''])}`));
     const today = dateParts(this.now());
     const recovered = input.activityType === COIN_ACTIVITY_TYPES.DAILY_CHALLENGE && occurrenceDate < today;
     const unlockRef = recovered ? this.db.doc(`users/${input.uid}/challengeUnlocks/${occurrenceDate}`) : null;
@@ -57,13 +62,27 @@ export class MvpActivityCompletionService {
     const timestamp = this.timestamp();
 
     const persisted = await this.db.runTransaction(async (transaction) => {
-      const [completionSnapshot, usageSnapshot, unlockSnapshot] = await transaction.getAll(completionRef, usageRef, ...(unlockRef ? [unlockRef] : []));
+      const snapshots = await transaction.getAll(completionRef, usageRef, ...(unlockRef ? [unlockRef] : []), ...historicalCompletionRefs);
+      const [completionSnapshot, usageSnapshot, unlockSnapshot] = snapshots;
+      const historicalStart = 2 + (unlockRef ? 1 : 0);
+      const historicalSnapshot = snapshots.slice(historicalStart).find((snapshot) => snapshot.exists);
       if (unlockRef && (!unlockSnapshot?.exists || unlockSnapshot.data()?.status !== 'UNLOCKED' || unlockSnapshot.data()?.assignmentId !== input.activityId)) failCoin('coin/challenge-pass-required', 'A Challenge Pass is required for this missed challenge.');
-      const usage = usageSnapshot.exists ? usageSnapshot.data() : { completionAttempts: 0, successfulCompletions: 0, rewardClaims: 0, rewardCoinsCredited: 0 };
+      const storedUsage = usageSnapshot.exists ? usageSnapshot.data() : {};
+      const usage = {
+        ...storedUsage,
+        completionAttempts: storedUsage.completionAttempts ?? 0,
+        successfulCompletions: storedUsage.successfulCompletions ?? 0,
+        rewardClaims: storedUsage.rewardClaims ?? 0,
+        rewardCoinsCredited: storedUsage.rewardCoinsCredited ?? 0,
+      };
       if (usage.completionAttempts >= this.limits.attemptsPerDay) failCoin('coin/activity-rate-limited', 'The daily activity submission limit was reached.');
       if (completionSnapshot.exists) {
         transaction.set(usageRef, { ...usage, completionAttempts: usage.completionAttempts + 1, updatedAt: timestamp, schemaVersion: '1.0.0' }, { merge: false });
         return { duplicate: true, completion: completionSnapshot.data() };
+      }
+      if (historicalSnapshot) {
+        transaction.set(usageRef, { ...usage, completionAttempts: (usage.completionAttempts ?? 0) + 1, updatedAt: timestamp, schemaVersion: '1.0.0' }, { merge: false });
+        return { duplicate: true, historical: true, completion: historicalSnapshot.data() };
       }
       const current = await this.resolver.resolve(input, { transaction });
       if (!current || current.activityVersion !== canonical.activityVersion || current.occurrence !== canonical.occurrence) failCoin('coin/activity-not-rewardable', 'Canonical activity eligibility changed.');
@@ -100,7 +119,7 @@ export class MvpActivityCompletionService {
     let reward = { status: persisted.duplicate && persisted.completion.rewardStatus === 'CREDITED'
       ? 'already_claimed'
       : String(persisted.completion.rewardStatus).toLowerCase() };
-    if (['pending', 'unavailable'].includes(reward.status)) {
+    if (!persisted.historical && ['pending', 'unavailable', 'activity_not_rewardable'].includes(reward.status)) {
       let rewardAllowed = null;
       try { rewardAllowed = await this.#reserveRewardAttempt(usageRef); } catch { reward = { status: 'unavailable' }; }
       if (rewardAllowed === false) reward = { status: 'daily_limit_reached' };

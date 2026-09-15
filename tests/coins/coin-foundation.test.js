@@ -37,6 +37,7 @@ describe('MI Coin foundation validation', () => {
     expect(MVP_COIN_POLICY_VERSION).toBe('mvp-v1');
     expect(MVP_DAILY_ACTIVITY_COIN_CAP).toBe(100);
     expect(coinRewardPolicy.getActivityRewardPolicy('PRACTICE', 'question-1', 'v2')).toMatchObject({ amount: 5, policyVersion: 'mvp-v1', enabled: true });
+    expect(coinRewardPolicy.getActivityRewardPolicy('PRACTICE', 'question-1', 'v3')).toMatchObject({ amount: 5, policyVersion: 'mvp-v1', enabled: true });
     expect(coinRewardPolicy.getActivityRewardPolicy('PRACTICE', 'another-question', 'v2')).toMatchObject({ amount: 5 });
     expect(coinRewardPolicy.getActivityRewardPolicy('DAILY_CHALLENGE', 'today', 'v1')).toMatchObject({ amount: 20 });
     expect(() => coinRewardPolicy.getActivityRewardPolicy('PRACTICE', 'question-1', 'v1'))

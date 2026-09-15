@@ -11,6 +11,7 @@ export function matchesPracticeFilters(question, filters = {}) {
 
 export function createPracticeSourceAdapter({ source, firebaseService, localQuestions, fallbackEnabled = false, onDiagnostic = reportPracticeDiagnostic }) {
   let publicationPromise;
+  let catalogPromise;
   const getPublication = () => {
     publicationPromise ??= firebaseService.getPublication().catch((error) => {
       onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.publicationRead);
@@ -55,6 +56,31 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
   };
   const api = {
     source,
+    async listCatalog() {
+      if (source === 'local') return localQuestions;
+      catalogPromise ??= (async () => {
+        const publication = await getPublication();
+        const filters = [{ field: 'published', value: true }];
+        if (publication?.activeVersion) filters.push({ field: 'version', value: publication.activeVersion });
+        const items = [];
+        let cursor = null;
+        let hasMore = true;
+        while (hasMore) {
+          const page = await firebaseService.listMetadataPage({ query: { filters, orderBy: [{ field: 'position', direction: 'asc' }], limit: 100, cursor } });
+          if (publication?.integrityRequired && page.items.some((item) => !/^[a-f0-9]{64}$/.test(item.contentHash))) throw new Error('Published Practice metadata is missing required content integrity information.');
+          items.push(...page.items);
+          cursor = page.cursor;
+          hasMore = page.hasMore;
+        }
+        return items;
+      })().catch((error) => {
+        catalogPromise = undefined;
+        onDiagnostic(error, PRACTICE_DIAGNOSTIC_STAGES.metadataQuery);
+        if (fallbackEnabled) return localQuestions;
+        throw error;
+      });
+      return catalogPromise;
+    },
     async listPage(options = {}) {
       if (source === 'local') return localPage(options);
       try { return await firebasePage(options); } catch (error) {

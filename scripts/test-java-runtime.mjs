@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { TeaVMJavaEngine } from '../src/compiler/runtimes/java/TeaVMJavaEngine.js';
+import { TeaVMJavaEngine, validateJavaProgramContract } from '../src/compiler/runtimes/java/TeaVMJavaEngine.js';
 import { createJavaExecutionResult } from '../src/compiler/runtimes/java/outputCapture.js';
 import { JavaWorkerClient } from '../src/compiler/runtimes/java/JavaWorkerClient.js';
 import { createCompilerManager } from '../src/compiler/createCompilerManager.js';
@@ -12,15 +12,30 @@ const engine = new TeaVMJavaEngine({
   loadAsset: async (name) => new Uint8Array(await readFile(resolve(vendorRoot, name))),
   loadRuntimeModule: () => import(pathToFileURL(resolve(vendorRoot, 'compiler.wasm-runtime.js')).href),
 });
+assert.match(
+  validateJavaProgramContract('// Write your code here\npublic static void main(String[] args) {}', 'Main.java', { mode: 'program', mainClass: 'Main' }),
+  /must declare class Main/,
+);
+assert.equal(validateJavaProgramContract('public class Main { public static void main(String[] args) {} }', 'Main.java', { mode: 'program', mainClass: 'Main' }), null);
+const missingWrapper = await engine.execute({
+  source: '// Write your code here\npublic static void main(String[] args) { System.out.println("Hello There"); }',
+  filename: 'Main.java',
+  execution: { mode: 'program', mainClass: 'Main' },
+});
+assert.deepEqual(missingWrapper, {
+  status: 'error',
+  stdout: '',
+  stderr: 'Main.java: Java programs must declare class Main. Keep the complete class wrapper from the starter code and write your solution inside it.',
+});
 
 async function execute(source, options = {}) {
   const payload = await engine.execute({ source, filename: options.filename ?? 'Main.java', ...options });
   return createJavaExecutionResult({ ...payload, executionTimeMs: 1 });
 }
 
-const hello = await execute('class Main { public static void main(String[] args) { System.out.print("Hello Java"); } }');
+const hello = await execute('public class Main { public static void main(String[] args) { System.out.print("Hello There"); } }');
 assert.equal(hello.status, 'success');
-assert.equal(hello.output, 'Hello Java');
+assert.equal(hello.output, 'Hello There');
 
 const streams = await execute('class Main { public static void main(String[] args) { System.out.println("out"); System.err.println("err"); } }');
 assert.equal(streams.output, 'out');

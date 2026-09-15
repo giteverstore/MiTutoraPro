@@ -39,6 +39,23 @@ describe.sequential('durable MVP activity completion, streak, and abuse controls
     expect(completion).not.toHaveProperty('compilerOutput');
   });
 
+  it('accepts canonical Practice v3, credits five coins once, and treats a historical v2 completion as already completed', async () => {
+    const entries = [
+      { activityType: 'PRACTICE', activityVersion: 'v2', policyVersion: 'mvp-v1', amount: 5 },
+      { activityType: 'PRACTICE', activityVersion: 'v3', policyVersion: 'mvp-v1', amount: 5 },
+    ];
+    const v3Request = { activityType: 'PRACTICE', activityId: 'new-v3', activityVersion: 'v3' };
+    const v3 = serviceFor({ resolver: resolverFor({ version: 'v3' }), entries });
+    await expect(v3.complete({ principal, request: v3Request })).resolves.toMatchObject({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 5 });
+    await expect(v3.complete({ principal, request: v3Request })).resolves.toMatchObject({ completionStatus: 'already_completed', rewardStatus: 'already_claimed', rewardAmount: 0 });
+
+    const v2Request = { activityType: 'PRACTICE', activityId: 'migrated-question', activityVersion: 'v2' };
+    await serviceFor({ resolver: resolverFor({ version: 'v2' }), entries }).complete({ principal, request: v2Request });
+    const migrated = serviceFor({ resolver: resolverFor({ version: 'v3' }), entries });
+    await expect(migrated.complete({ principal, request: { ...v2Request, activityVersion: 'v3' } })).resolves.toMatchObject({ completionStatus: 'already_completed', rewardStatus: 'already_claimed', rewardAmount: 0 });
+    expect((await db.collection('users/activity-user/coinTransactions').get()).size).toBe(2);
+  });
+
   it('collapses concurrent duplicate completion, reward, and streak mutations', async () => {
     const service = serviceFor();
     const results = await Promise.all(Array.from({ length: 6 }, () => service.complete({ principal, request: practiceRequest })));

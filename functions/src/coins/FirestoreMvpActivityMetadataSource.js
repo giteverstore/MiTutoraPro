@@ -7,12 +7,12 @@ export class FirestoreMvpActivityMetadataSource {
   async loadPracticeMetadata(activityId, { transaction } = {}) {
     const reference = this.db.doc(`practiceQuestions/${activityId}`);
     const snapshot = transaction ? await transaction.get(reference) : await reference.get();
-    return snapshot.exists ? snapshot.data() : null;
+    return snapshot.exists ? { ...snapshot.data(), id: reference.id } : null;
   }
 
   async loadDailyChallengeMetadata(activityId, { transaction } = {}) {
     const reference = this.db.doc(`dailyChallenges/${activityId}`);
     const snapshot = transaction ? await transaction.get(reference) : await reference.get();
-    return snapshot.exists ? snapshot.data() : null;
+    return snapshot.exists ? { ...snapshot.data(), id: reference.id } : null;
   }
 }

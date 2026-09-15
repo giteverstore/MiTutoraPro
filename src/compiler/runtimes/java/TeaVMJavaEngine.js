@@ -10,6 +10,14 @@ const defaultLoadAsset = async (name) => {
 
 const defaultLoadRuntimeModule = () => import(/* @vite-ignore */ `${ASSET_ROOT}/compiler.wasm-runtime.js`);
 
+export function validateJavaProgramContract(source, filename = 'Main.java', execution = {}) {
+  if ((execution.mode ?? 'program') !== 'program') return null;
+  const mainClass = execution.mainClass ?? 'Main';
+  const escapedClass = mainClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp(`\\b(?:public\\s+)?(?:class|interface|enum|record)\\s+${escapedClass}\\b`).test(String(source ?? ''))) return null;
+  return `${filename}: Java programs must declare class ${mainClass}. Keep the complete class wrapper from the starter code and write your solution inside it.`;
+}
+
 export class TeaVMJavaEngine {
   constructor({ loadAsset = defaultLoadAsset, loadRuntimeModule = defaultLoadRuntimeModule } = {}) {
     this.loadAsset = loadAsset;
@@ -35,6 +43,8 @@ export class TeaVMJavaEngine {
   }
 
   async execute({ source, stdin = '', filename = 'Main.java', execution = {} }) {
+    const contractError = validateJavaProgramContract(source, filename, execution);
+    if (contractError) return { status: 'error', stdout: '', stderr: contractError };
     await this.initialize();
     // TeaVM compiler sessions retain generated-program state. Instantiate the
     // compiler module from cached bytes per run while reusing downloaded assets.

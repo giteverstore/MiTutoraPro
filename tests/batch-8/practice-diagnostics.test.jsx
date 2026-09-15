@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PracticeService } from '../../src/content/services/PracticeService';
 import { createPracticeSourceAdapter } from '../../src/practice/practiceContentSourceCore';
 import {
@@ -10,7 +10,7 @@ import {
   reportPracticeDiagnostic,
 } from '../../src/practice/practiceDiagnostics';
 
-const { listPage } = vi.hoisted(() => ({ listPage: vi.fn() }));
+const { listCatalog, listPage } = vi.hoisted(() => ({ listCatalog: vi.fn(), listPage: vi.fn() }));
 
 vi.mock('../../src/activity/LearnerActivityContext', () => ({
   useLearnerActivity: () => ({ completions: [], refresh: vi.fn() }),
@@ -18,6 +18,7 @@ vi.mock('../../src/activity/LearnerActivityContext', () => ({
 
 vi.mock('../../src/practice/practiceContentSource', () => ({
   practiceContentSource: {
+    listCatalog,
     listPage,
     loadQuestion: vi.fn(),
     loadQuestionById: vi.fn(),
@@ -25,6 +26,11 @@ vi.mock('../../src/practice/practiceContentSource', () => ({
 }));
 
 import { PracticePage } from '../../src/practice/PracticePage';
+
+beforeEach(() => {
+  listCatalog.mockReset();
+  listCatalog.mockResolvedValue([]);
+});
 
 const firebaseError = (code, extras = {}) => Object.assign(new Error('sensitive raw response'), {
   name: 'FirebaseError',
@@ -48,6 +54,25 @@ afterEach(() => {
 });
 
 describe('Practice diagnostics', () => {
+  it('loads an unfiltered active-publication catalog for global statistics', async () => {
+    const listMetadataPage = vi.fn()
+      .mockResolvedValueOnce({ items: [{ id: 'easy', difficulty: 'easy', contentHash: 'a'.repeat(64) }], cursor: { id: 'easy' }, hasMore: true })
+      .mockResolvedValueOnce({ items: [{ id: 'hard', difficulty: 'hard', contentHash: 'b'.repeat(64) }], cursor: null, hasMore: false });
+    const adapter = createAdapter({
+      getPublication: vi.fn().mockResolvedValue({ activeVersion: 'v3', integrityRequired: true }),
+      listMetadataPage,
+    });
+
+    await expect(adapter.listCatalog()).resolves.toEqual([
+      expect.objectContaining({ id: 'easy' }),
+      expect.objectContaining({ id: 'hard' }),
+    ]);
+    expect(listMetadataPage).toHaveBeenCalledTimes(2);
+    expect(listMetadataPage.mock.calls[0][0].query.filters).toEqual([
+      { field: 'published', value: true },
+      { field: 'version', value: 'v3' },
+    ]);
+  });
   it.each([
     ['permission-denied', 'authorization', false],
     ['unavailable', 'availability', true],
