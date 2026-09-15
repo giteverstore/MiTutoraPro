@@ -72,6 +72,7 @@ describe('Practice cursor pagination', () => {
     expect(screen.queryByText('Sharpen your coding skills.')).not.toBeInTheDocument();
     expect(container.querySelector('.practice-page')?.firstElementChild).toHaveClass('practice-statistics');
     expect(screen.queryByText('Current Language')).not.toBeInTheDocument();
+    expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
     expect(screen.getByText('Questions by Difficulty')).toBeInTheDocument();
     expect(await screen.findByLabelText('Easy — 32 questions')).toHaveTextContent('32Easy');
     expect(screen.getByLabelText('Medium — 0 questions')).toHaveTextContent('0Medium');
@@ -99,6 +100,7 @@ describe('Practice cursor pagination', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
     expect((await screen.findByText('Question 25')).closest('button')).toBeVisible();
+    expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Page 2' })).toHaveAttribute('aria-current', 'page');
 
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
@@ -124,10 +126,19 @@ describe('Practice cursor pagination', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
     expect(screen.getByLabelText('Easy — 32 questions')).toHaveTextContent('32');
     expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17');
+    expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
 
+    fireEvent.change(screen.getByLabelText('Topic'), { target: { value: 'Loops' } });
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
+    expect(screen.getByLabelText('Easy — 32 questions')).toHaveTextContent('32');
+    expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17');
+    expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('Topic'), { target: { value: 'all' } });
     fireEvent.change(screen.getByLabelText('Search'), { target: { value: 'Question 49' } });
     expect((await screen.findByText('Question 49')).closest('button')).toBeVisible();
+    expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page');
   }, 30_000);
 
@@ -153,7 +164,7 @@ describe('Practice cursor pagination', () => {
   it('keeps question selection connected to the existing detail loader', async () => {
     const onQuestionChange = vi.fn();
     render(<PracticePage onQuestionChange={onQuestionChange} />);
-    const catalog = await screen.findByRole('region', { name: '24 questions' });
+    const catalog = await screen.findByRole('region', { name: '49 questions' });
     fireEvent.click(within(catalog).getByText('Question 1').closest('button'));
     expect(onQuestionChange).toHaveBeenCalledWith('question-1');
     expect(loadQuestion).toHaveBeenCalledWith(expect.objectContaining({ id: 'question-1' }));

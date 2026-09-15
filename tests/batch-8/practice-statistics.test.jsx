@@ -1,6 +1,6 @@
 import { render, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { PracticeStatistics } from '../../src/practice/PracticeStatistics';
+import { countPracticeDifficulties, PracticeStatistics } from '../../src/practice/PracticeStatistics';
 
 const questions = [
   { id: 'easy-1', difficulty: 'easy' },
@@ -26,6 +26,39 @@ describe('Practice statistics', () => {
     expect(view.getByLabelText('Medium — 1 question')).toHaveTextContent('1Medium');
     expect(view.getByLabelText('Hard — 1 question')).toHaveTextContent('1Hard');
     expect(view.queryByText(/Very Easy/i)).not.toBeInTheDocument();
+  });
+
+  it('derives an arbitrary distribution whose counts equal the supplied catalog total', () => {
+    const catalog = [
+      { difficulty: 'easy' }, { difficulty: 'easy' }, { difficulty: 'easy' },
+      { difficulty: 'medium' }, { difficulty: 'hard' },
+    ];
+    const counts = countPracticeDifficulties(catalog);
+    expect(counts).toEqual({ easy: 3, medium: 1, hard: 1 });
+    expect(Object.values(counts).reduce((sum, count) => sum + count, 0)).toBe(catalog.length);
+  });
+
+  it('renders an empty resolved catalog honestly and rejects unknown difficulty values', () => {
+    const { container } = render(<PracticeStatistics questions={[]} />);
+    expect(within(container).getByLabelText('Easy — 0 questions')).toHaveTextContent('0Easy');
+    expect(() => countPracticeDifficulties([{ difficulty: 'very_easy' }])).toThrow(/Unsupported Practice difficulty/);
+  });
+
+  it('uses a loading state instead of flashing resolved zero counts', () => {
+    const { container } = render(<PracticeStatistics questions={[]} catalogStatus="loading" />);
+    expect(within(container).getByLabelText('Easy — loading')).toHaveTextContent('—Easy');
+  });
+
+  it('does not present failed catalog reads as resolved zero counts', () => {
+    const { container } = render(<PracticeStatistics questions={[]} catalogStatus="error" />);
+    expect(within(container).getByLabelText('Easy — unavailable')).toHaveTextContent('—Easy');
+  });
+
+  it('updates difficulty counts when the supplied catalog changes', () => {
+    const { container, rerender } = render(<PracticeStatistics questions={questions} />);
+    expect(within(container).getByLabelText('Easy — 2 questions')).toHaveTextContent('2Easy');
+    rerender(<PracticeStatistics questions={[...questions, { id: 'easy-3', difficulty: 'easy' }]} />);
+    expect(within(container).getByLabelText('Easy — 3 questions')).toHaveTextContent('3Easy');
   });
 
   it('keeps the compact difficulty values in a wrapping responsive group', () => {

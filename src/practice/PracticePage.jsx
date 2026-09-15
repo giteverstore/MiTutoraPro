@@ -31,7 +31,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   const activity = useLearnerActivity();
   const [filters, setFilters] = useState(initialFilters);
   const [catalog, setCatalog] = useState({ items: [], currentPage: 1, reachablePageCount: 1, hasMore: false, loading: true, error: null, facets: null });
-  const [statisticsCatalog, setStatisticsCatalog] = useState([]);
+  const [statisticsCatalog, setStatisticsCatalog] = useState({ items: [], status: 'loading' });
   const [openQuestionId, setOpenQuestionId] = useState(initialQuestionId);
   const [openQuestion, setOpenQuestion] = useState(null);
   const [questionState, setQuestionState] = useState({ loading: false, error: null, retry: 0 });
@@ -95,7 +95,10 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
 
   useEffect(() => {
     let active = true;
-    practiceContentSource.listCatalog().then((items) => { if (active) setStatisticsCatalog(items); }, () => { if (active) setStatisticsCatalog([]); });
+    practiceContentSource.listCatalog().then(
+      (items) => { if (active) setStatisticsCatalog({ items, status: 'ready' }); },
+      () => { if (active) setStatisticsCatalog({ items: [], status: 'error' }); },
+    );
     return () => { active = false; };
   }, []);
 
@@ -137,9 +140,9 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
 
   return (
     <div className="practice-page">
-      <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={statisticsCatalog} />
+      <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={statisticsCatalog.items} catalogStatus={statisticsCatalog.status} />
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
-      <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{catalog.items.length} questions</h2></div></header><div>
+      <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading || statisticsCatalog.status === 'loading'}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{statisticsCatalog.status === 'ready' ? `${statisticsCatalog.items.length} questions` : statisticsCatalog.status === 'error' ? 'Catalog total unavailable' : 'Loading catalog…'}</h2></div></header><div>
         {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}
         {!catalog.items.length ? <p className="practice-no-results">No questions match your filters.</p> : null}
         {catalog.error ? <p className="practice-no-results">This page couldn’t be loaded. <button type="button" onClick={() => loadPage(catalog.currentPage, { force: true })}>Retry</button></p> : null}
