@@ -1,6 +1,6 @@
 import { render, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { countPracticeDifficulties, PracticeStatistics } from '../../src/practice/PracticeStatistics';
+import { countSolvedPracticeDifficulties, PracticeStatistics } from '../../src/practice/PracticeStatistics';
 
 const questions = [
   { id: 'easy-1', difficulty: 'easy' },
@@ -19,29 +19,31 @@ describe('Practice statistics', () => {
     expect(valueFor(container, 'Success Rate')).toHaveTextContent('0%');
   });
 
-  it('uses the global canonical catalog distribution and accessible difficulty names', () => {
+  it('classifies only canonically solved questions and exposes accessible difficulty names', () => {
     const { container } = render(<PracticeStatistics completedQuestionIds={new Set(['easy-1'])} questions={questions} />);
     const view = within(container);
-    expect(view.getByLabelText('Easy — 2 questions')).toHaveTextContent('2Easy');
-    expect(view.getByLabelText('Medium — 1 question')).toHaveTextContent('1Medium');
-    expect(view.getByLabelText('Hard — 1 question')).toHaveTextContent('1Hard');
+    expect(view.getByLabelText('Easy — 1 question')).toHaveTextContent('1Easy');
+    expect(view.getByLabelText('Medium — 0 questions')).toHaveTextContent('0Medium');
+    expect(view.getByLabelText('Hard — 0 questions')).toHaveTextContent('0Hard');
     expect(view.queryByText(/Very Easy/i)).not.toBeInTheDocument();
   });
 
-  it('derives an arbitrary distribution whose counts equal the supplied catalog total', () => {
+  it('derives a mixed solved distribution whose counts equal the solved total', () => {
     const catalog = [
       { difficulty: 'easy' }, { difficulty: 'easy' }, { difficulty: 'easy' },
       { difficulty: 'medium' }, { difficulty: 'hard' },
     ];
-    const counts = countPracticeDifficulties(catalog);
+    const metadata = catalog.map((question, index) => ({ ...question, id: `question-${index + 1}` }));
+    const { counts, unresolvedIds } = countSolvedPracticeDifficulties(new Set(metadata.map(({ id }) => id)), metadata);
     expect(counts).toEqual({ easy: 3, medium: 1, hard: 1 });
-    expect(Object.values(counts).reduce((sum, count) => sum + count, 0)).toBe(catalog.length);
+    expect(unresolvedIds).toEqual([]);
+    expect(Object.values(counts).reduce((sum, count) => sum + count, 0)).toBe(5);
   });
 
   it('renders an empty resolved catalog honestly and rejects unknown difficulty values', () => {
     const { container } = render(<PracticeStatistics questions={[]} />);
     expect(within(container).getByLabelText('Easy — 0 questions')).toHaveTextContent('0Easy');
-    expect(() => countPracticeDifficulties([{ difficulty: 'very_easy' }])).toThrow(/Unsupported Practice difficulty/);
+    expect(() => countSolvedPracticeDifficulties(new Set(['legacy']), [{ id: 'legacy', difficulty: 'very_easy' }])).toThrow(/Unsupported Practice difficulty/);
   });
 
   it('uses a loading state instead of flashing resolved zero counts', () => {
@@ -54,11 +56,12 @@ describe('Practice statistics', () => {
     expect(within(container).getByLabelText('Easy — unavailable')).toHaveTextContent('—Easy');
   });
 
-  it('updates difficulty counts when the supplied catalog changes', () => {
-    const { container, rerender } = render(<PracticeStatistics questions={questions} />);
-    expect(within(container).getByLabelText('Easy — 2 questions')).toHaveTextContent('2Easy');
-    rerender(<PracticeStatistics questions={[...questions, { id: 'easy-3', difficulty: 'easy' }]} />);
-    expect(within(container).getByLabelText('Easy — 3 questions')).toHaveTextContent('3Easy');
+  it('ignores unsolved catalog changes', () => {
+    const solved = new Set(['easy-1']);
+    const { container, rerender } = render(<PracticeStatistics completedQuestionIds={solved} questions={questions} />);
+    expect(within(container).getByLabelText('Easy — 1 question')).toHaveTextContent('1Easy');
+    rerender(<PracticeStatistics completedQuestionIds={solved} questions={[...questions, { id: 'easy-3', difficulty: 'easy' }]} />);
+    expect(within(container).getByLabelText('Easy — 1 question')).toHaveTextContent('1Easy');
   });
 
   it('keeps the compact difficulty values in a wrapping responsive group', () => {
@@ -73,6 +76,8 @@ describe('Practice statistics', () => {
     expect(valueFor(container, 'Solved')).toHaveTextContent('2');
     expect(valueFor(container, 'Attempted')).toHaveTextContent('2');
     expect(valueFor(container, 'Success Rate')).toHaveTextContent('100%');
+    expect(within(container).getByLabelText('Easy — 1 question')).toHaveTextContent('1Easy');
+    expect(within(container).getByLabelText('Hard — 1 question')).toHaveTextContent('1Hard');
   });
 
   it('reacts to refreshed canonical completion state without a reload', () => {
@@ -80,5 +85,12 @@ describe('Practice statistics', () => {
     expect(valueFor(container, 'Solved')).toHaveTextContent('0');
     rerender(<PracticeStatistics completedQuestionIds={new Set(['medium-1'])} questions={questions} />);
     expect(valueFor(container, 'Solved')).toHaveTextContent('1');
+    expect(within(container).getByLabelText('Medium — 1 question')).toHaveTextContent('1Medium');
+  });
+
+  it('does not guess when a canonical completion has no current metadata', () => {
+    const { container } = render(<PracticeStatistics completedQuestionIds={new Set(['missing'])} questions={questions} />);
+    expect(valueFor(container, 'Solved')).toHaveTextContent('1');
+    expect(within(container).getByLabelText('Easy — unavailable')).toHaveTextContent('—Easy');
   });
 });

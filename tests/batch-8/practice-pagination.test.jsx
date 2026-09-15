@@ -73,10 +73,10 @@ describe('Practice cursor pagination', () => {
     expect(container.querySelector('.practice-page')?.firstElementChild).toHaveClass('practice-statistics');
     expect(screen.queryByText('Current Language')).not.toBeInTheDocument();
     expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
-    expect(screen.getByText('Questions by Difficulty')).toBeInTheDocument();
-    expect(await screen.findByLabelText('Easy — 32 questions')).toHaveTextContent('32Easy');
+    expect(screen.getByText('Solved by Difficulty')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Easy — 0 questions')).toHaveTextContent('0Easy');
     expect(screen.getByLabelText('Medium — 0 questions')).toHaveTextContent('0Medium');
-    expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17Hard');
+    expect(screen.getByLabelText('Hard — 0 questions')).toHaveTextContent('0Hard');
     expect(title.parentElement).toHaveClass('practice-question-title');
     expect(title.parentElement?.querySelector('.practice-difficulty')).toHaveTextContent('Hard');
     expect(card?.firstElementChild).toHaveClass('practice-question-title');
@@ -117,6 +117,10 @@ describe('Practice cursor pagination', () => {
   }, 30_000);
 
   it('resets to page one when filters or search change', async () => {
+    activity.completions = [
+      { activityType: 'PRACTICE', activityId: 'question-1', completionStatus: 'COMPLETED' },
+      { activityType: 'PRACTICE', activityId: 'question-2', completionStatus: 'COMPLETED' },
+    ];
     render(<PracticePage />);
     await screen.findByText('Question 1');
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
@@ -124,15 +128,15 @@ describe('Practice cursor pagination', () => {
 
     fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: 'hard' } });
     await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
-    expect(screen.getByLabelText('Easy — 32 questions')).toHaveTextContent('32');
-    expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17');
+    expect(screen.getByLabelText('Easy — 1 question')).toHaveTextContent('1');
+    expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1');
     expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
 
     fireEvent.change(screen.getByLabelText('Topic'), { target: { value: 'Loops' } });
     await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
-    expect(screen.getByLabelText('Easy — 32 questions')).toHaveTextContent('32');
-    expect(screen.getByLabelText('Hard — 17 questions')).toHaveTextContent('17');
+    expect(screen.getByLabelText('Easy — 1 question')).toHaveTextContent('1');
+    expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1');
     expect(screen.getByRole('region', { name: '49 questions' })).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText('Topic'), { target: { value: 'all' } });
@@ -169,4 +173,15 @@ describe('Practice cursor pagination', () => {
     expect(onQuestionChange).toHaveBeenCalledWith('question-1');
     expect(loadQuestion).toHaveBeenCalledWith(expect.objectContaining({ id: 'question-1' }));
   }, 30_000);
+
+  it('counts the same logical Practice identity once across publication versions', async () => {
+    activity.completions = [
+      { activityType: 'PRACTICE', activityId: 'question-1', activityVersion: 'v2', completionStatus: 'COMPLETED' },
+      { activityType: 'PRACTICE', activityId: 'question-1', activityVersion: 'v3', completionStatus: 'COMPLETED' },
+    ];
+    const { container } = render(<PracticePage />);
+    await screen.findByText('Question 1');
+    expect(within(container).getByText('Solved', { selector: 'small' }).closest('article').querySelector('strong')).toHaveTextContent('1');
+    expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1Hard');
+  });
 });
