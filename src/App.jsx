@@ -36,6 +36,7 @@ const SetupVerificationExperience = lazyNamedExport(
 );
 const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'CourseRoute');
 const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
+const PublicPage = lazyNamedExport(() => import('./public/PublicPages'), 'PublicPage');
 
 const compilerManager = createCompilerManager();
 const APPLICATION_PAGES = {
@@ -54,6 +55,9 @@ export default function App() {
   const publicRoute = parseAppRoute(window.location.pathname);
   if (publicRoute.kind === 'certificate-verification') {
     return <Suspense fallback={<CourseLoadState state="loading" />}><PublicCertificateVerificationPage credentialId={publicRoute.credentialId} /></Suspense>;
+  }
+  if (publicRoute.kind === 'public-page') {
+    return <Suspense fallback={<CourseLoadState state="loading" />}><PublicPage pageId={publicRoute.pageId} /></Suspense>;
   }
   return (
     <CompilerProvider manager={compilerManager}>

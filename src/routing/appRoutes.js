@@ -1,5 +1,6 @@
 const SAFE_ID = /^[a-z0-9][a-z0-9._-]{0,127}$/i;
 const PAGE_PATHS = { home: '/', library: '/library', practice: '/practice', challenges: '/challenges', redeem: '/redeem', bookmarks: '/bookmarks', certificates: '/certificates', referrals: '/referrals', wallet: '/wallet', settings: '/settings', projects: '/projects' };
+const PUBLIC_PAGE_PATHS = { privacy: '/privacy', terms: '/terms', refund: '/refund-policy', about: '/about', contact: '/contact' };
 
 const decodeId = (value) => {
   try { const decoded = decodeURIComponent(value ?? ''); return SAFE_ID.test(decoded) ? decoded : null; }
@@ -14,6 +15,8 @@ const isCanonicalDate = (value) => {
 
 export function parseAppRoute(pathname = '/') {
   const path = pathname.replace(/\/+$/, '') || '/';
+  const publicPage = Object.entries(PUBLIC_PAGE_PATHS).find(([, pagePath]) => pagePath === path);
+  if (publicPage) return { kind: 'public-page', pageId: publicPage[0] };
   const page = Object.entries(PAGE_PATHS).find(([, pagePath]) => pagePath === path);
   if (page) return { kind: 'page', page: page[0] };
   let match = path.match(/^\/practice\/([^/]+)$/);
@@ -34,6 +37,7 @@ export function parseAppRoute(pathname = '/') {
 }
 
 export function routePath(route) {
+  if (route.kind === 'public-page') return PUBLIC_PAGE_PATHS[route.pageId] ?? '/';
   if (route.kind === 'certificate-verification') return `/verify/${encodeURIComponent(route.credentialId)}`;
   if (route.kind === 'course-overview') return `/courses/${encodeURIComponent(route.courseId)}`;
   if (route.kind === 'course-lesson') return `/courses/${encodeURIComponent(route.courseId)}/lesson/${encodeURIComponent(route.lessonId)}`;

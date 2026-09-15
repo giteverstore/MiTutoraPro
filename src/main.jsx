@@ -7,6 +7,7 @@ import './design-system/tokens.css';
 import './design-system/primitives.css';
 import './styles.css';
 import './styles/routing.css';
+import './styles/public-pages.css';
 import './design-system/coherence.css';
 
 createRoot(document.getElementById('root')).render(

@@ -18,6 +18,9 @@ export function AuthLayout({ eyebrow, title, description, children }) {
           <h2>{title}</h2>
           <p className="auth-description">{description}</p>
           {children}
+          <nav className="auth-public-links" aria-label="Legal and company information">
+            <a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/refund-policy">Refund Policy</a>
+          </nav>
         </div>
       </section>
     </main>

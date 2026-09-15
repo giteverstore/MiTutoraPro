@@ -34,6 +34,8 @@ describe('M4.2 subscription plan actions', () => {
     expect(screen.getAllByRole('button', { name: 'Buy Premium' })).toHaveLength(3);
     screen.getAllByRole('button', { name: 'Buy Premium' }).forEach((button) => expect(button.disabled).toBe(false));
     expect(screen.getAllByText('Secure one-time payment. No auto-renewal.')).toHaveLength(3);
+    expect(screen.getByRole('link', { name: 'Terms' }).getAttribute('href')).toBe('/terms');
+    expect(screen.getByRole('link', { name: 'Refund Policy' }).getAttribute('href')).toBe('/refund-policy');
   });
 
   it('uses one authenticated development grant, blocks double-click, and waits for authoritative Premium', async () => {

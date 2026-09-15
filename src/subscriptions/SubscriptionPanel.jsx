@@ -111,6 +111,7 @@ export function SubscriptionPanel({ developmentGrantsEnabled = useFirebaseEmulat
         {developmentGrantsEnabled ? <small>Local development grant — no payment.</small> : <small>Secure one-time payment. No auto-renewal.</small>}
       </article>;
     })}</div>
+    {!developmentGrantsEnabled ? <p className="subscription-purchase-disclosure">By purchasing Premium, you agree to the <a href="/terms">Terms</a> and acknowledge the <a href="/refund-policy">Refund Policy</a>.</p> : null}
     {state.error ? <p role="alert" data-payment-failure-category={state.failureCategory ?? undefined}>{state.error}</p> : null}
   </div>;
 }

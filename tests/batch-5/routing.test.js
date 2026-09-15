@@ -18,6 +18,18 @@ const pageRoutes = [
 ];
 
 describe('application URL adapter', () => {
+  it.each([
+    ['/privacy', 'privacy'],
+    ['/terms', 'terms'],
+    ['/refund-policy', 'refund'],
+    ['/about', 'about'],
+    ['/contact', 'contact'],
+  ])('parses the signed-out public route %s', (path, pageId) => {
+    const route = { kind: 'public-page', pageId };
+    expect(parseAppRoute(path)).toEqual(route);
+    expect(routePath(route)).toBe(path);
+  });
+
   it.each(pageRoutes)('parses the AppShell route %s', (path, page) => {
     expect(parseAppRoute(path)).toEqual({ kind: 'page', page });
   });
