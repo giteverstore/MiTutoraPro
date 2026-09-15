@@ -3661,6 +3661,7 @@ body:not(.is-resizing) .practice-test-panel.console-window { transition: height 
 .certificate-setup-card { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-xs); }
 .certificate-setup-card > svg { flex: 0 0 auto; color: var(--color-accent); }
 .certificate-setup-card > div { min-width: 0; flex: 1; }
+.certificate-setup-actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
 .certificate-setup-card h1 { margin: 0 0 var(--space-1); font-size: var(--font-size-xl); }
 .certificate-setup-card p { margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
 .certificate-empty { padding: var(--space-10); text-align: center; }
@@ -3759,6 +3760,7 @@ body:not(.is-resizing) .practice-test-panel.console-window { transition: height 
 .certificate-preview-brand { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-8); }
 .certificate-preview-brand > span { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; color: #fff; background: #425d53; border-radius: var(--radius-sm); font-weight: var(--font-weight-bold); }
 .certificate-preview > span { color: #607268; font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); letter-spacing: .18em; text-transform: uppercase; }
+.certificate-preview .certificate-preview-sample { margin-bottom: var(--space-3); color: #9a3d68; font-size: var(--font-size-sm); letter-spacing: .22em; }
 .certificate-preview > p { margin: var(--space-4) 0 var(--space-2); color: #657169; font-family: serif; font-size: var(--font-size-lg); }
 .certificate-preview h3 { margin: 0; font-family: serif; font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-4xl)); font-weight: var(--font-weight-regular); }
 .certificate-preview h4 { margin: 0; color: #425d53; font-size: var(--font-size-2xl); }
@@ -3781,6 +3783,8 @@ body:not(.is-resizing) .practice-test-panel.console-window { transition: height 
   .certificate-verification { grid-template-columns: 1fr; }
   .certificate-qr-placeholder { justify-self: center; }
   .certificate-setup-card { align-items: stretch; flex-direction: column; }
+  .certificate-setup-actions { justify-content: stretch; }
+  .certificate-setup-actions .button { flex: 1 1 10rem; }
   .public-certificate-page dl > div { grid-template-columns: 1fr; gap: var(--space-1); }
 }
 @media (max-width: 500px) {

@@ -7,6 +7,16 @@ import { CertificateCard } from './CertificateCard';
 import { CertificateViewer } from './CertificateViewer';
 import { publicVerificationUrl } from './publicCertificateVerification';
 
+const sampleCertificate = Object.freeze({
+  id: 'sample',
+  credentialId: 'SAMPLE',
+  courseId: 'python',
+  courseTitle: 'Python Foundations',
+  issueDate: null,
+  sample: true,
+  recipientName: 'ycoders',
+});
+
 export function CertificatesPage({ onTestSetup }) {
   const { user } = useUser();
   const [certificates, setCertificates] = useState([]);
@@ -51,7 +61,10 @@ export function CertificatesPage({ onTestSetup }) {
     <section className="certificate-setup-card" aria-labelledby="certificate-setup-title">
       <ShieldCheck aria-hidden="true" />
       <div><h1 id="certificate-setup-title">Test My Setup</h1><p>Check your browser, camera, audio, and exam environment before certification.</p></div>
-      <button className="button button--secondary" type="button" onClick={onTestSetup}>Test My Setup</button>
+      <div className="certificate-setup-actions">
+        <button className="button button--secondary" type="button" onClick={onTestSetup}>Test My Setup</button>
+        <button className="button button--secondary" type="button" onClick={() => setViewerCertificate(sampleCertificate)}>View Example</button>
+      </div>
     </section>
 
     <section className="completed-certificates" aria-labelledby="completed-certificates-title">
