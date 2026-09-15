@@ -14,6 +14,7 @@ import { PremiumFeatureGate } from './access/PremiumFeatureGate';
 import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
 import { recentCourseRepository } from './home/recentCourseRepository';
 import { LearnerActivityProvider } from './activity/LearnerActivityContext';
+import { shouldShowApplicationFooter } from './app-shell/footerPolicy';
 
 const AuthFlow = lazyNamedExport(() => import('./components/auth/AuthFlow'), 'AuthFlow');
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
@@ -276,8 +277,9 @@ function AuthenticatedApplication({ user }) {
   }
 
   if (!activeCourseId) {
+    const showFooter = shouldShowApplicationFooter({ activeCourseId, activePage, navigationTarget });
     return (
-      <AppShell activePage={activePage} onNavigate={handlePageNavigation}>
+      <AppShell activePage={activePage} onNavigate={handlePageNavigation} showFooter={showFooter}>
         <DomainErrorBoundary
           name={activePage}
           title={`${activePage === 'practice' ? 'Practice' : 'This page'} could not be displayed.`}
@@ -369,7 +371,7 @@ function AuthenticatedApplication({ user }) {
   );
 
   return courseStage === 'overview' ? (
-    <AppShell activePage={activePage} onNavigate={handlePageNavigation} pageLabel="Course Overview">
+    <AppShell activePage={activePage} onNavigate={handlePageNavigation} pageLabel="Course Overview" showFooter={false}>
       {courseApplication}
     </AppShell>
   ) : courseApplication;

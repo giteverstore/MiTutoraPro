@@ -7,13 +7,14 @@ import { APP_NAVIGATION } from './navigation';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { hasCompletedDailyChallenge, kolkataDate } from '../home/challengeCalendar';
+import { PublicFooter } from '../public/PublicFooter';
 
 function ActivityAwareSidebar(props) {
   const activity = useLearnerActivity();
   return <AppSidebar {...props} todayChallengeCompleted={hasCompletedDailyChallenge(activity.completions, kolkataDate())} />;
 }
 
-export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride, children }) {
+export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride, showFooter = true, children }) {
   const { user } = useUser();
   const { signOut } = useAuth();
   const { theme, reducedMotion, toggleTheme } = useApplicationTheme();
@@ -88,6 +89,7 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
       />
       <main className="application-page" id="application-page" tabIndex="-1">
         {children}
+        {showFooter ? <PublicFooter /> : null}
       </main>
     </div>
   );
