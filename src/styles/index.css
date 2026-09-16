@@ -1,0 +1,27 @@
+/*
+ * Global CSS entry point.
+ * Import order mirrors the former src/styles.css source order exactly.
+ * Do not reorder without checking equal-specificity and responsive overrides.
+ */
+
+/* Foundation */
+@import "./foundation/base.css";
+
+/* Product surfaces, in preserved cascade order */
+@import "./pages/exam.css";
+@import "./pages/learning-engine.css";
+@import "./pages/dashboard.css";
+@import "./pages/projects.css";
+@import "./pages/home.css";
+@import "./layout/app-shell.css";
+@import "./pages/practice.css";
+@import "./pages/challenges.css";
+@import "./pages/library-bookmarks.css";
+@import "./pages/settings.css";
+@import "./pages/certificates.css";
+@import "./pages/referrals.css";
+@import "./pages/subscription-wallet.css";
+
+/* Existing route-owned sheets retain their previous position. */
+@import "./routing.css";
+@import "./public-pages.css";

@@ -207,10 +207,10 @@ describe('Daily Challenge calendar UI', () => {
   });
 
   it('retains a full-width mobile layout without horizontal overflow rules', () => {
-    const css = readFileSync('src/styles.css', 'utf8');
+    const css = readFileSync('src/styles/pages/home.css', 'utf8');
     expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*"statistics" auto "calendar" auto "continue" auto "recent"/);
-    expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*\.challenge-calendar-card \{ width: 100%/);
-    expect(css).toContain('.challenge-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr))');
+    expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*\.challenge-calendar-card \{[\s\S]*?width: 100%/);
+    expect(css).toMatch(/\.challenge-calendar-grid \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: repeat\(7, minmax\(0, 1fr\)\)/);
   });
 });
 
@@ -233,12 +233,12 @@ describe('compact Home presentation', () => {
   });
 
   it('keeps desktop columns independent and uses compact token-based spacing', () => {
-    const css = readFileSync('src/styles.css', 'utf8');
+    const css = readFileSync('src/styles/pages/home.css', 'utf8');
     expect(css).toContain('padding: clamp(var(--space-6), 3vw, var(--space-10)) 0 var(--space-20);');
     expect(css).toContain('margin-bottom: clamp(var(--space-5), 2vw, var(--space-7));');
-    expect(css).toContain('.home-dashboard-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 21rem)');
-    expect(css).toContain('.home-dashboard-primary { display: grid; min-width: 0; gap: clamp(var(--space-7), 3vw, var(--space-10)); }');
-    expect(css).toContain('.home-dashboard-primary { display: contents; }');
+    expect(css).toMatch(/\.home-dashboard-grid \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: minmax\(0, 1fr\) minmax\(18rem, 21rem\)/);
+    expect(css).toMatch(/\.home-dashboard-primary \{[\s\S]*?display: grid;[\s\S]*?min-width: 0;[\s\S]*?gap: clamp\(var\(--space-7\), 3vw, var\(--space-10\)\)/);
+    expect(css).toMatch(/\.home-dashboard-primary \{\s*display: contents;/);
     expect(css).toMatch(/\.home-course-empty \{[\s\S]*?min-height: 0;/);
   });
 });

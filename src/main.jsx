@@ -5,9 +5,7 @@ import App from './App';
 import { GlobalErrorBoundary } from './errors/ErrorBoundary';
 import './design-system/tokens.css';
 import './design-system/primitives.css';
-import './styles.css';
-import './styles/routing.css';
-import './styles/public-pages.css';
+import './styles/index.css';
 import './design-system/coherence.css';
 
 createRoot(document.getElementById('root')).render(

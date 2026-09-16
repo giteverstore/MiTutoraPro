@@ -81,6 +81,7 @@
     "validate:remediation-batch-4": "npm run test:batch-4",
     "validate:secret-hygiene": "node scripts/validate-secret-hygiene.mjs",
     "validate:dependency-boundaries": "node scripts/validate-dependency-boundaries.mjs",
+    "validate:css-architecture": "node scripts/validate-css-architecture.mjs",
     "validate:ai-tutor-production-readiness": "node scripts/validate-ai-tutor-production-readiness.mjs",
     "validate:documentation": "node scripts/validate-documentation.mjs",
     "validate:remediation-batch-5": "node scripts/validate-remediation-batch-5.mjs",

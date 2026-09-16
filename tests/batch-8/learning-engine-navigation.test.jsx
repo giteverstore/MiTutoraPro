@@ -80,10 +80,13 @@ describe('Learning Engine navigation alignment', () => {
   });
 
   it('keeps the immersive header compact at mobile widths', () => {
-    const css = readFileSync('src/styles.css', 'utf8');
+    const css = [
+      readFileSync('src/styles/pages/learning-engine.css', 'utf8'),
+      readFileSync('src/styles/pages/dashboard.css', 'utf8'),
+    ].join('\n');
     expect(css).toMatch(/@media \(max-width: 560px\)[\s\S]*?\.topbar \{[^}]*padding-inline: var\(--space-2\)/);
     expect(css).toMatch(/\.lesson-topbar-brand \{[^}]*width: 1\.75rem;[^}]*font-size: 0/);
-    expect(css).toMatch(/\.lesson-navigation \.application-icon-button,[\s\S]*?width: 2rem; height: 2rem/);
+    expect(css).toMatch(/\.lesson-navigation \.application-icon-button,[\s\S]*?width: 2rem;[\s\S]*?height: 2rem/);
   });
 
   it('owns one learner activity authority at the authenticated application boundary', () => {
