@@ -18,6 +18,7 @@
   min-height: 100%;
   margin: 0 auto;
   padding: clamp(var(--space-8), 5vw, var(--space-12)) 0 var(--space-16);
+  font-size: 1rem; /* 16px */
 }
 
 @keyframes settings-saving {
@@ -90,7 +91,7 @@
 }
 
 .settings-navigation>div button {
-  font-size: var(--font-size-xs);
+  font-size: 1rem; /* 16px */
 }
 
 .settings-content {
@@ -112,7 +113,7 @@
 
 .settings-section>header h2 {
   margin: 0 0 var(--space-2);
-  font-size: var(--font-size-2xl);
+  font-size: 1.5rem; /* 24px */
   letter-spacing: var(--letter-spacing-heading);
 }
 
@@ -141,14 +142,14 @@
 }
 
 .setting-row>div:first-child>strong {
-  font-size: var(--font-size-md);
+  font-size: 1rem; /* 16px */
 }
 
 .setting-row p {
   max-width: 48ch;
   margin: var(--space-1) 0 0;
   color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
+  font-size: 0.875rem; /* 14px */
   line-height: 1.55;
 }
 
@@ -171,6 +172,11 @@
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
+  font-size: 0.875rem; /* 14px */
+}
+
+.setting-control .button {
+  font-size: 0.875rem; /* 14px */
 }
 
 .setting-control input {
@@ -265,7 +271,7 @@
 
 .settings-theme-options button span {
   color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
+  font-size: 1rem; /* 16px */
 }
 
 .settings-version-list {

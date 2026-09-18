@@ -448,10 +448,11 @@
   align-items: center;
   gap: var(--space-8);
   padding: clamp(var(--space-6), 4vw, var(--space-8));
-  color: var(--color-text-on-inverse);
-  background: var(--color-surface-inverse);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
+
+  color: var(--color-text);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .challenge-today-card.is-completed {

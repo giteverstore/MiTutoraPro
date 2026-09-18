@@ -56,7 +56,6 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
   return <div className="home-main" id="home-content">
     <div className="home-intro">
       <h1>Welcome back, {user.name.split(' ')[0]}.</h1>
-      <p>Continue your path or choose the next skill you want to build.</p>
     </div>
     <div className="home-dashboard-grid">
       <div className="home-dashboard-primary">

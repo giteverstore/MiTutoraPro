@@ -7,7 +7,7 @@ export function LibraryEmptyState({ filtered, onClear }) {
       <h2>{filtered ? 'No saved items match' : 'Your Library is ready'}</h2>
       <p>{filtered
         ? 'Try another search or view all bookmark types.'
-        : 'Save lessons, practice questions, and daily challenges to find them here.'}</p>
+        : ''}</p>
       {filtered ? <button className="button button--secondary" type="button" onClick={onClear}>Clear filters</button> : null}
     </div>
   );

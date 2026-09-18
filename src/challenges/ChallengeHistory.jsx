@@ -2,7 +2,7 @@ import { CheckCircle2, Circle, TicketCheck } from 'lucide-react';
 
 export function ChallengeHistory({ history, onOpenChallenge, onUsePass, balance = 0, passUses = 0, redemptionReady = false }) {
   return <section className="challenge-history" aria-labelledby="challenge-history-title">
-    <header><div><h2 id="challenge-history-title">Challenge History</h2><p>Your previous daily challenges and completion status.</p></div></header>
+    <header><div><h2 id="challenge-history-title">Challenge History</h2></div></header>
     <div className="challenge-history-list">
       {history.length ? history.map((item) => <article key={item.date}>
         <span className={item.completed ? 'is-complete' : ''}>{item.completed ? <CheckCircle2 /> : <Circle />}</span>

@@ -35,6 +35,14 @@
   background: var(--color-surface);
 }
 
+.subscription-plan-grid h3 {
+  font-size: 1.5rem; /* 24px */
+}
+
+.subscription-plan-grid .button {
+  font-size: 0.875rem; /* 14px */
+}
+
 .subscription-plan-grid article>strong {
   font-size: 1.5rem;
 }
@@ -46,6 +54,7 @@
 
 .subscription-plan-grid article small {
   color: var(--color-text-muted);
+  font-size: 0.875rem; /* 14px */
 }
 
 @media (max-width: 760px) {
@@ -56,7 +65,7 @@
 
 /* M6 wallet foundation */
 .wallet-page {
-  width: min(100% - 2rem, 64rem);
+  width: min(calc(100% - clamp(2rem, 6vw, 6rem)), 86rem);
   margin: 0 auto;
   padding: var(--space-8) 0;
   color: var(--color-text);
@@ -81,6 +90,22 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
+}
+
+.wallet-balances article > span {
+  font-size: 1.5rem; /* 24px */
+}
+
+.wallet-balances article > strong {
+  font-size: 1rem; /* 16px */
+}
+
+.wallet-transactions h2 {
+  font-size: 1.5rem; /* 24px */
+}
+
+.wallet-transactions > p {
+  font-size: 1rem; /* 16px */
 }
 
 .wallet-balances article span {

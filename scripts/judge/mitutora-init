@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+export PATH='/usr/bin:/bin'
+export LANG='C.UTF-8'
+export LC_ALL='C.UTF-8'
+export PYTHONDONTWRITEBYTECODE='1'
+export PYTHONHASHSEED='0'
+mount -t proc proc /proc
+mkdir -p /work
+mount -t ext4 -o rw,nodev,nosuid,noexec /dev/vdb /work
+ulimit -n 128
+ulimit -u 64
+ulimit -f 20480
+setpriv --reuid=1001 --regid=1001 --clear-groups --inh-caps=-all --bounding-set=-all \
+  /usr/bin/python3.14 -I -B /opt/mitutora/python_test_harness.py
+sync
+/sbin/poweroff -f

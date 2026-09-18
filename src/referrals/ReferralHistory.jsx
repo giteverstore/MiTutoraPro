@@ -12,7 +12,7 @@ const money = (minor) => minor == null ? 'Not calculated' : new Intl.NumberForma
 export function ReferralHistory({ history }) {
   return (
     <section className="referral-history" aria-labelledby="referral-history-title">
-      <header><div><span>Your referrals</span><h2 id="referral-history-title">Referral History</h2><p>Track attribution and first-purchase qualification without exposing learner details.</p></div><small>{history.length} records</small></header>
+      <header><div><h2 id="referral-history-title">Referral History</h2></div></header>
       <div className="referral-history-table" role="table" aria-label="Referral history">
         <div className="referral-history-head" role="row"><span role="columnheader">Referral</span><span role="columnheader">Attributed</span><span role="columnheader">Status</span><span role="columnheader">Calculated reward</span></div>
         {history.map((entry) => {

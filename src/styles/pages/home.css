@@ -125,7 +125,7 @@
 .home-main {
   width: min(100% - clamp(2rem, 8vw, 8rem), 86rem);
   margin: 0 auto;
-  padding: clamp(var(--space-6), 3vw, var(--space-10)) 0 var(--space-20);
+  padding: 0.625rem 0 1.25rem; /* 10px 0 20px */
 }
 
 .home-intro {
@@ -425,7 +425,7 @@
 
 .challenge-calendar-header span {
   color: var(--color-accent);
-  font-size: var(--font-size-xs);
+  font-size: 0.75rem; /* 12px */
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-label);
   text-transform: uppercase;
@@ -433,7 +433,7 @@
 
 .challenge-calendar-header h2 {
   margin: var(--space-1) 0 0;
-  font-size: var(--font-size-xl);
+  font-size: 1rem; /* 16px */
 }
 
 .challenge-calendar-navigation {
@@ -549,7 +549,7 @@
 
 .home-section-heading h2 {
   margin: var(--space-2) 0;
-  font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-3xl));
+  font-size: 1.5rem;
   letter-spacing: var(--letter-spacing-heading);
 }
 
@@ -1211,7 +1211,7 @@
 
 .home-stat-card span {
   color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
+  font-size: 0.875rem; /* 14px */
 }
 
 @media (max-width: 1280px) {
@@ -1284,9 +1284,10 @@
   }
 
   .home-main {
-    width: min(100% - 2rem, 38rem);
-    padding-top: var(--space-10);
-  }
+  width: min(100% - clamp(2rem, 8vw, 8rem), 86rem);
+  margin: 0 auto;
+  padding: 0.625rem 0 1.25rem; /* 10px 0 20px */
+}
 
   .challenge-calendar-card {
     width: 100%;

@@ -97,7 +97,7 @@ export function ContinueLearningSection({ course, status, onOpenCourse, onBrowse
       </article> : <div className="home-course-empty" role={status === 'error' ? 'alert' : 'status'}>
         <BookOpen aria-hidden="true" />
         <h3>{status === 'error' ? 'Learning state unavailable' : 'Start a new course'}</h3>
-        <p>{status === 'error' ? 'Your saved learning data could not be loaded.' : 'Choose a course from the Library and begin learning.'}</p>
+        <p>{status === 'error' ? 'Your saved learning data could not be loaded.' : ''}</p>
         {status === 'error' ? null : <button className="button button--primary" type="button" onClick={onBrowseLibrary}>Browse Library</button>}
       </div>}
     </section>
@@ -211,12 +211,11 @@ export function RecentlyViewedSection({ courses, onOpenCourse }) {
       <SectionHeading
         id="recent-title"
         title="Recently Viewed"
-        description="Return to courses you explored recently."
       />
       <div className="home-course-grid">
         {courses.length ? courses.map((course) => (
           <CourseCard course={course} onOpenCourse={onOpenCourse} key={course.id} />
-        )) : <div className="home-course-empty" role="status"><BookOpen aria-hidden="true" /><h3>No recently viewed courses</h3><p>Courses you explore in the Library will appear here.</p></div>}
+        )) : <div className="home-course-empty" role="status"><BookOpen aria-hidden="true" /><h3>No recently viewed courses</h3></div>}
       </div>
     </section>
   );

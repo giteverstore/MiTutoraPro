@@ -60,7 +60,7 @@ export function CertificatesPage({ onTestSetup }) {
   return <div className="certificates-page certificates-page--simple">
     <section className="certificate-setup-card" aria-labelledby="certificate-setup-title">
       <ShieldCheck aria-hidden="true" />
-      <div><h1 id="certificate-setup-title">Test My Setup</h1><p>Check your browser, camera, audio, and exam environment before certification.</p></div>
+      <div><h1 id="certificate-setup-title">Test My Setup</h1></div>
       <div className="certificate-setup-actions">
         <button className="button button--secondary" type="button" onClick={onTestSetup}>Test My Setup</button>
         <button className="button button--secondary" type="button" onClick={() => setViewerCertificate(sampleCertificate)}>View Example</button>
@@ -72,7 +72,7 @@ export function CertificatesPage({ onTestSetup }) {
       {status === 'loading' ? <p className="certificate-loading">Loading certificates…</p>
         : status === 'error' ? <p role="alert">Certificates could not be loaded.</p>
           : completed.length ? <div className="certificate-list">{completed.map((certificate) => <CertificateCard certificate={certificate} onView={setViewerCertificate} onDownload={downloadCertificate} onShare={shareCertificate} key={certificate.id} />)}</div>
-            : <div className="certificate-empty"><h3>No certificates yet</h3><p>Complete an eligible course and certification exam to earn one.</p></div>}
+            : <div className="certificate-empty"><h3>No certificates yet</h3></div>}
     </section>
 
     <CertificateViewer certificate={viewerCertificate} onClose={() => setViewerCertificate(null)} onDownload={downloadCertificate} onShare={shareCertificate} onCopy={(value) => copyText(value)} />

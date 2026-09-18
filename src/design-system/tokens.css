@@ -5,7 +5,7 @@
   --color-surface-subtle: #f1f0eb;
   --color-surface-raised: #faf9f6;
   --color-surface-inverse: #202321;
-  --color-text: #282a28;
+  --color-text: #202321;
   --color-text-muted: #71736e;
   --color-text-inverse: #ffffff;
   --color-text-on-accent: #ffffff;
@@ -139,7 +139,7 @@
   --color-surface-subtle: #272a27;
   --color-surface-raised: #1f221f;
   --color-surface-inverse: #111311;
-  --color-text: #e4e7e3;
+  --color-text: #f1f3f0;
   --color-text-muted: #a2a7a1;
   --color-text-inverse: #18201c;
   --color-text-on-accent: #18201c;

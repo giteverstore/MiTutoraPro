@@ -13,7 +13,6 @@ export function PublicFooter() {
       <nav aria-label="Legal and company information">
         {links.map(([href, label]) => <a href={href} key={href}>{label}</a>)}
       </nav>
-      <small>Practical software learning, built around doing.</small>
     </footer>
   );
 }

@@ -46,7 +46,7 @@
   display: grid;
   gap: var(--space-2);
   color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
+  font-size: 0.875rem; /* 14px */
 }
 
 .project-filters select {
@@ -73,6 +73,7 @@
 
 .project-catalog h2 {
   margin: 0;
+  font-size: 1.5rem; /* 24px */
 }
 
 .project-catalog p {
