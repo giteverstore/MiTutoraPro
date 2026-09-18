@@ -6,6 +6,7 @@
 
 /* Foundation */
 @import "./foundation/base.css";
+@import "./foundation/difficulty-badges.css";
 
 /* Product surfaces, in preserved cascade order */
 @import "./pages/exam.css";

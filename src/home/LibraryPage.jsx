@@ -1,35 +1,45 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useUser } from '../auth/UserContext';
+import { progressRepository } from '../progress/progressRepository';
 import { browseCatalog } from './homeData';
+import { createHomeLearningModel } from './homeLearningModel';
 import { BrowseCoursesSection } from './HomeSections';
 
 export function LibraryPage({ onOpenCourse }) {
-  const [browseMode, setBrowseMode] = useState('domains');
-  const [activeFilter, setActiveFilter] = useState('all');
+  const { user } = useUser();
+  const [activeLanguage, setActiveLanguage] = useState('all');
   const [courseSearch, setCourseSearch] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage, setCoursesPerPage] = useState(6);
-  const visibleCourses = useMemo(() => {
+  const [progressRecords, setProgressRecords] = useState([]);
+  useEffect(() => {
+    let active = true;
+    progressRepository.list(user.id).then(
+      (records) => { if (active) setProgressRecords(records); },
+      () => { if (active) setProgressRecords([]); },
+    );
+    return () => { active = false; };
+  }, [user.id]);
+  const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords }).enrollments.map((course) => [course.id, course])), [progressRecords]);
+  const languageCourses = useMemo(() => browseCatalog.languages.map((course) => {
+    const enrollment = enrollmentByCourse.get(course.id);
+    return { ...course, enrolled: Boolean(enrollment), progress: enrollment?.progress ?? 0 };
+  }), [enrollmentByCourse]);
+  const languages = useMemo(() => [...new Set(languageCourses.map((course) => course.filter))], [languageCourses]);
+  const languageGroups = useMemo(() => {
     const query = courseSearch.trim().toLowerCase();
-    return browseCatalog[browseMode].filter((course) => {
-      const matchesFilter = activeFilter === 'all' || course.filter === activeFilter;
+    const matches = languageCourses.filter((course) => {
+      const matchesFilter = activeLanguage === 'all' || course.filter === activeLanguage;
       const searchable = [course.title, course.description, course.filter, course.kind].join(' ').toLowerCase();
       return matchesFilter && (!query || searchable.includes(query));
     });
-  }, [activeFilter, browseMode, courseSearch]);
-  const totalPages = Math.max(1, Math.ceil(visibleCourses.length / coursesPerPage));
-  const courses = useMemo(() => visibleCourses.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage), [coursesPerPage, currentPage, visibleCourses]);
-  useEffect(() => {
-    const query = window.matchMedia('(min-width: 761px) and (max-width: 1180px)');
-    const update = () => setCoursesPerPage(query.matches ? 4 : 6);
-    update(); query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
-  useEffect(() => setCurrentPage((page) => Math.min(page, totalPages)), [totalPages]);
-  const changeMode = (mode) => { setBrowseMode(mode); setActiveFilter('all'); setCurrentPage(1); };
+    return languages.map((language) => ({
+      language,
+      courses: matches.filter((course) => course.filter === language),
+    })).filter((group) => group.courses.length > 0);
+  }, [activeLanguage, courseSearch, languageCourses, languages]);
+
   return <div className="home-main library-main" id="library-content">
-    <BrowseCoursesSection mode={browseMode} modes={browseCatalog} courses={courses} totalCourses={visibleCourses.length}
-      currentPage={currentPage} totalPages={totalPages} activeFilter={activeFilter} search={courseSearch}
-      onModeChange={changeMode} onFilterChange={(value) => { setActiveFilter(value); setCurrentPage(1); }}
-      onSearchChange={(value) => { setCourseSearch(value); setCurrentPage(1); }} onPageChange={setCurrentPage} onOpenCourse={onOpenCourse} />
+    <BrowseCoursesSection languageGroups={languageGroups} languages={languages}
+      activeLanguage={activeLanguage} search={courseSearch}
+      onLanguageChange={setActiveLanguage} onSearchChange={setCourseSearch} onOpenCourse={onOpenCourse} />
   </div>;
 }

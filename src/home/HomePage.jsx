@@ -60,7 +60,7 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
     <div className="home-dashboard-grid">
       <div className="home-dashboard-primary">
         <LearningStatisticsSection statistics={model.statistics} status={learnerState.status} challengeStatus={activity.historyStatus} />
-        <ContinueLearningSection course={model.activeCourse} status={learnerState.status} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
+        <ContinueLearningSection courses={model.enrollments} status={learnerState.status} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
         <RecentlyViewedSection courses={model.recentlyViewed} onOpenCourse={onOpenCourse} />
       </div>
       <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} />

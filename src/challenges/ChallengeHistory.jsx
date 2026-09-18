@@ -1,4 +1,5 @@
 import { CheckCircle2, Circle, TicketCheck } from 'lucide-react';
+import { DifficultyBadge } from '../components/DifficultyBadge';
 
 export function ChallengeHistory({ history, onOpenChallenge, onUsePass, balance = 0, passUses = 0, redemptionReady = false }) {
   return <section className="challenge-history" aria-labelledby="challenge-history-title">
@@ -7,7 +8,7 @@ export function ChallengeHistory({ history, onOpenChallenge, onUsePass, balance 
       {history.length ? history.map((item) => <article key={item.date}>
         <span className={item.completed ? 'is-complete' : ''}>{item.completed ? <CheckCircle2 /> : <Circle />}</span>
         <time dateTime={item.date}>{item.displayDate}</time>
-        <div><strong>{item.title}</strong><small>{item.difficulty}</small></div>
+        <div><strong>{item.title}</strong><DifficultyBadge difficulty={item.difficulty} /></div>
         {item.completed
           ? <button className="button button--secondary" type="button" onClick={() => onOpenChallenge(item.date)}>Review</button>
           : item.unlocked ? <button className="button button--primary" type="button" onClick={() => onOpenChallenge(item.date)}>Start Challenge</button>

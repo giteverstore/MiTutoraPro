@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import {
   ArrowRight,
   BookOpen,
@@ -6,11 +6,41 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  Code2,
+  Database,
   GraduationCap,
   Search,
   SearchX,
 } from 'lucide-react';
 import { CourseCard } from './CourseCard';
+
+const LANGUAGE_ICONS = {
+  Python: '/assets/languages/python.svg',
+  Java: '/assets/languages/java.svg',
+  'C++': '/assets/languages/cplusplus.svg',
+  JavaScript: '/assets/languages/javascript.svg',
+  TypeScript: '/assets/languages/typescript.svg',
+  Go: '/assets/languages/go.svg',
+  Rust: '/assets/languages/rust.svg',
+  Kotlin: '/assets/languages/kotlin.svg',
+  Swift: '/assets/languages/swift.svg',
+  'C#': '/assets/languages/csharp.svg',
+  SQL: Database,
+  Dart: '/assets/languages/dart.svg',
+};
+
+function LanguageHeading({ language }) {
+  const icon = LANGUAGE_ICONS[language];
+  const Icon = typeof icon === 'string' ? null : (icon ?? Code2);
+  return (
+    <h2 id={languageSectionId(language)}>
+      {typeof icon === 'string'
+        ? <img className="library-language-logo" src={icon} alt="" aria-hidden="true" />
+        : <Icon aria-hidden="true" />}
+      {language}
+    </h2>
+  );
+}
 
 function getPaginationItems(currentPage, totalPages) {
   if (totalPages <= 5) return Array.from({ length: totalPages }, (_, index) => index + 1);
@@ -54,6 +84,8 @@ function CoursePagination({ currentPage, totalPages, onPageChange }) {
   );
 }
 
+const languageSectionId = (language) => `library-language-${language.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+
 export function SectionHeading({ id, eyebrow, title, description }) {
   return (
     <header className="home-section-heading">
@@ -64,11 +96,18 @@ export function SectionHeading({ id, eyebrow, title, description }) {
   );
 }
 
-export function ContinueLearningSection({ course, status, onOpenCourse, onBrowseLibrary }) {
+export function ContinueLearningSection({ courses = [], status, onOpenCourse, onBrowseLibrary }) {
+  const [expanded, setExpanded] = useState(false);
+  const visibleCourses = expanded ? courses : courses.slice(0, 2);
+  const canExpand = courses.length > 2;
+
   return (
     <section className="home-section home-continue" aria-labelledby="continue-title">
-      <SectionHeading id="continue-title" title="Continue Learning" />
-      {status === 'loading' ? <div className="home-course-empty" role="status"><p>Loading your learning state…</p></div> : course ? <article className="home-continue-card">
+      <div className="home-continue-heading">
+        <SectionHeading id="continue-title" title="Continue Learning" />
+        {canExpand ? <button className="home-continue-toggle" type="button" aria-expanded={expanded} aria-controls="continue-learning-courses" onClick={() => setExpanded((current) => !current)}>{expanded ? 'Show less' : 'View all'}</button> : null}
+      </div>
+      {status === 'loading' ? <div className="home-course-empty" role="status"><p>Loading your learning state…</p></div> : visibleCourses.length ? <div className="home-continue-grid" id="continue-learning-courses">{visibleCourses.map((course) => <article className="home-continue-card" key={course.id}>
         <div className="home-continue-mark" aria-hidden="true"><BookOpen /></div>
         <div className="home-continue-copy">
           <span>{course.currentModule ?? 'Your saved course'}</span>
@@ -94,7 +133,7 @@ export function ContinueLearningSection({ course, status, onOpenCourse, onBrowse
         <button className="button button--primary" type="button" onClick={() => onOpenCourse(course.id, course.currentLesson)}>
           Continue Learning <ArrowRight size={17} />
         </button>
-      </article> : <div className="home-course-empty" role={status === 'error' ? 'alert' : 'status'}>
+      </article>)}</div> : <div className="home-course-empty" role={status === 'error' ? 'alert' : 'status'}>
         <BookOpen aria-hidden="true" />
         <h3>{status === 'error' ? 'Learning state unavailable' : 'Start a new course'}</h3>
         <p>{status === 'error' ? 'Your saved learning data could not be loaded.' : ''}</p>
@@ -105,29 +144,14 @@ export function ContinueLearningSection({ course, status, onOpenCourse, onBrowse
 }
 
 export function BrowseCoursesSection({
-  mode,
-  modes,
-  courses,
-  totalCourses,
-  currentPage,
-  totalPages,
-  activeFilter,
+  languageGroups,
+  languages,
+  activeLanguage,
   search,
-  onModeChange,
-  onFilterChange,
+  onLanguageChange,
   onSearchChange,
-  onPageChange,
   onOpenCourse,
 }) {
-  const sectionRef = useRef(null);
-  const changePage = (page) => {
-    if (page === currentPage || page < 1 || page > totalPages) return;
-    onPageChange(page);
-    requestAnimationFrame(() => sectionRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    }));
-  };
   const scrollFilters = (event) => {
     const container = event.currentTarget;
     if (container.scrollWidth <= container.clientWidth || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
@@ -136,7 +160,7 @@ export function BrowseCoursesSection({
   };
 
   return (
-    <section className="home-section" aria-label="Browse courses" ref={sectionRef}>
+    <section className="home-section" aria-label="Browse courses">
       <div className="home-discovery-bar">
         <div className="home-browse-controls">
           <label className="home-course-search">
@@ -149,58 +173,47 @@ export function BrowseCoursesSection({
               placeholder="Search courses..."
             />
           </label>
-          <div className="home-mode-switch" role="group" aria-label="Browse courses by">
-            {Object.keys(modes).map((key) => (
-              <button
-                type="button"
-                className={mode === key ? 'is-active' : ''}
-                aria-pressed={mode === key}
-                onClick={() => onModeChange(key)}
-                key={key}
-              >
-                {key === 'domains' ? 'Domains' : 'Languages'}
-              </button>
-            ))}
-          </div>
         </div>
-        <div className="home-filter-list" aria-label={`${mode} filters`} onWheel={scrollFilters}>
+        <div className="home-filter-list" aria-label="Language filters" onWheel={scrollFilters}>
           <button
             type="button"
-            className={activeFilter === 'all' ? 'is-active' : ''}
-            aria-pressed={activeFilter === 'all'}
-            onClick={() => onFilterChange('all')}
+            className={activeLanguage === 'all' ? 'is-active' : ''}
+            aria-pressed={activeLanguage === 'all'}
+            onClick={() => onLanguageChange('all')}
           >
-            {mode === 'domains' ? 'All Domains' : 'All Languages'}
+            All Languages
           </button>
-          {modes[mode].map((course) => (
+          {languages.map((language) => (
             <button
               type="button"
-              className={activeFilter === course.filter ? 'is-active' : ''}
-              aria-pressed={activeFilter === course.filter}
-              onClick={() => onFilterChange(course.filter)}
-              key={course.id}
+              className={activeLanguage === language ? 'is-active' : ''}
+              aria-pressed={activeLanguage === language}
+              onClick={() => onLanguageChange(language)}
+              key={language}
             >
-              {course.filter}
+              {language}
             </button>
           ))}
         </div>
       </div>
-      <div
-        className="home-course-list"
-        aria-live="polite"
-        key={`${mode}-${activeFilter}-${search}-${currentPage}`}
-      >
-        {totalCourses ? courses.map((course) => (
-          <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" key={course.id} />
+      <div className="library-language-sections" aria-live="polite" key={`${activeLanguage}-${search}`}>
+        {languageGroups.length ? languageGroups.map((group) => (
+          <section className="library-language-section" aria-labelledby={languageSectionId(group.language)} key={group.language}>
+            <header className="library-language-section-header">
+              <LanguageHeading language={group.language} />
+            </header>
+            <div className="library-language-course-grid">
+              {group.courses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" key={course.id} />)}
+            </div>
+          </section>
         )) : (
           <div className="home-course-empty" role="status">
             <SearchX aria-hidden="true" />
             <h3>No courses found</h3>
-            <p>Try another search or choose a different {mode === 'domains' ? 'domain' : 'language'}.</p>
+            <p>Try another search or choose a different language.</p>
           </div>
         )}
       </div>
-      <CoursePagination currentPage={currentPage} totalPages={totalPages} onPageChange={changePage} />
     </section>
   );
 }

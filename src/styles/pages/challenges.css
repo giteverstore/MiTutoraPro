@@ -115,7 +115,7 @@
 }
 
 .challenge-hero.is-completed {
-  background: linear-gradient(135deg, var(--color-surface-inverse), color-mix(in srgb, var(--color-accent) 68%, #18201c));
+  background: linear-gradient(135deg, var(--color-surface-inverse), color-mix(in srgb, var(--color-accent) 68%, var(--color-brand-gradient-base)));
 }
 
 .challenge-hero>div:first-child>span,
@@ -456,7 +456,7 @@
 }
 
 .challenge-today-card.is-completed {
-  background: linear-gradient(135deg, var(--color-surface-inverse), color-mix(in srgb, var(--color-accent) 68%, #18201c));
+  background: linear-gradient(135deg, var(--color-surface-inverse), color-mix(in srgb, var(--color-accent) 68%, var(--color-brand-gradient-base)));
 }
 
 .challenge-today-card>div:first-child>span {
@@ -665,4 +665,3 @@
     width: 100%;
   }
 }
-

@@ -16,6 +16,7 @@ import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
 import { LAYOUT_SIZE } from '../design-system/theme';
 import { Dialog } from '../components/Dialog';
+import { DifficultyBadge } from '../components/DifficultyBadge';
 import { ChallengeHistory } from './ChallengeHistory';
 import { loadDailyChallengeByDate, loadPublishedChallengeCatalog } from './challengeContentSource';
 import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
@@ -64,7 +65,7 @@ export function ChallengeHub({ onOpenChallenge }) {
       <div><span>Daily Challenge</span><h1 id="today-challenge-title">{todayEntry?.content.title ?? 'Today’s challenge'}</h1>
         {loading ? <p>Loading today’s challenge…</p> : error ? <p>Today’s challenge could not be loaded.</p> : todayEntry ? <>
           <p>{todayEntry.content.summary}</p>
-          <div className="challenge-today-meta"><span>{todayEntry.content.difficulty}</span><span><Clock3 /> ~{todayEntry.content.estimatedMinutes} min</span><span><Coins /> +{todayEntry.metadata.rewardCoins} coins</span></div>
+          <div className="challenge-today-meta"><DifficultyBadge difficulty={todayEntry.content.difficulty} /><span><Clock3 /> ~{todayEntry.content.estimatedMinutes} min</span><span><Coins /> +{todayEntry.metadata.rewardCoins} coins</span></div>
         </> : <p>Today’s challenge is not available yet.</p>}
       </div>
       {todayEntry ? completed ? <div className="challenge-today-action"><strong><CheckCircle2 /> Today’s challenge completed</strong><span>+{todayEntry.metadata.rewardCoins} coins earned</span><button className="button button--secondary" type="button" onClick={() => onOpenChallenge(today)}>Review Challenge</button></div>

@@ -1143,8 +1143,8 @@
 .inline-action {
   min-height: 36px;
   padding: 0 13px;
-  color: #fff;
-  background: #37443f;
+  color: var(--color-text-on-accent);
+  background: var(--color-accent);
   white-space: nowrap;
 }
 
@@ -1258,8 +1258,8 @@
 
 .ai-card {
   padding: 22px;
-  background: linear-gradient(135deg, #e8eeea, #f3f2ed);
-  border: 1px solid #d2ddd7;
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-accent-subtle));
+  border: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
 }
 
 .ai-heading {
@@ -1679,13 +1679,13 @@
 }
 
 .code-run-button {
-  color: #c7ddd3;
-  border-color: #52635b;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .code-run-button:hover:not(:disabled) {
-  color: #fff;
-  background: #303832;
+  color: var(--color-text-on-accent);
+  background: var(--color-accent-hover);
 }
 
 .compiler-ide {
@@ -3367,4 +3367,3 @@ body:not(.is-resizing) .practice-test-panel.console-window {
   border: 0;
   cursor: pointer;
 }
-

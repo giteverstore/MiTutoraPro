@@ -1,9 +1,35 @@
+import { useId } from 'react';
 import { ArrowRight, BookOpen, Clock3 } from 'lucide-react';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
+import { getCourseOverviewPresentation } from '../course-overview/courseOverviewPresentation';
+
+const boundedProgress = (value) => Math.min(100, Math.max(0, Math.round(Number(value) || 0)));
+
+function LibraryProgress({ course }) {
+  const maskId = `course-progress-${useId().replaceAll(':', '')}`;
+  const progress = boundedProgress(course.progress);
+  const boundary = 100 - progress;
+  const wavePath = progress === 0
+    ? 'M0 100 H100 V100 H0 Z'
+    : progress === 100
+      ? 'M0 0 H100 V100 H0 Z'
+      : `M0 ${boundary} Q25 ${boundary - 4} 50 ${boundary} T100 ${boundary} V100 H0 Z`;
+  return <div className="library-course-progress" role="img" aria-label={`Course progress ${progress} percent`}>
+    <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <defs><clipPath id={maskId}><path d={wavePath} /></clipPath></defs>
+      <circle className="library-course-progress-base" cx="50" cy="50" r="48" />
+      <g clipPath={`url(#${maskId})`}><circle className="library-course-progress-fill" cx="50" cy="50" r="48" /></g>
+      <text className="library-course-progress-value" x="50" y="50">{progress}%</text>
+      <g clipPath={`url(#${maskId})`}><text className="library-course-progress-value is-contrast" x="50" y="50">{progress}%</text></g>
+      <circle className="library-course-progress-border" cx="50" cy="50" r="48" />
+    </svg>
+  </div>;
+}
 
 export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   const isList = variant === 'list';
-  const status = !course.available ? 'Coming Soon' : course.progress > 0 ? 'Continue' : 'Start';
+  const progress = boundedProgress(course.progress);
+  const status = !course.available ? 'Coming Soon' : progress >= 100 ? 'Review' : course.enrolled || progress > 0 ? 'Continue' : 'Start';
   const initials = course.filter
     .split(/\s+/)
     .map((word) => word[0])
@@ -21,6 +47,30 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
     topic: course.kind === 'domains' ? course.filter : '',
     target: { page: 'course', courseId: course.id },
   };
+  const artwork = getCourseOverviewPresentation(course.id)?.artwork ?? null;
+
+  if (isList) return (
+    <article className="home-course-card is-list library-course-card" aria-labelledby={`course-title-${course.id}`} data-tone={tone}>
+      <header className="library-course-card-header">
+        <span className="library-resource-type"><span aria-hidden="true" />Course</span>
+        <BookmarkToggle bookmark={bookmark} iconOnly className="home-course-bookmark" />
+      </header>
+      <div className="library-course-artwork" aria-hidden="true">
+        {artwork ? <img src={artwork} alt="" /> : <span>{initials}</span>}
+      </div>
+      <h3 id={`course-title-${course.id}`}>{course.title}</h3>
+      <div className="library-course-meta">
+        <span><Clock3 aria-hidden="true" />{course.duration}</span>
+        <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>
+      </div>
+      <footer className="library-course-card-footer">
+        <button className="button button--primary" type="button" disabled={!course.available} onClick={() => onOpenCourse(course.id)}>
+          {status}{course.available ? <ArrowRight aria-hidden="true" /> : null}
+        </button>
+        <LibraryProgress course={{ ...course, progress }} />
+      </footer>
+    </article>
+  );
 
   return (
     <article

@@ -51,7 +51,7 @@ describe('Daily Challenge Hub', () => {
 
     expect(screen.getByRole('heading', { name: 'Balanced Brackets' })).toBeInTheDocument();
     expect(screen.getByText('+20 coins')).toBeInTheDocument();
-    expect(screen.getByText('medium')).toBeInTheDocument();
+    expect(screen.getByText('Medium')).toHaveClass('difficulty-badge', 'difficulty-badge--medium');
     fireEvent.click(screen.getByRole('button', { name: /Start Today.s Challenge/ }));
     expect(open).toHaveBeenCalledWith('2026-09-13');
     expect(screen.getByText('Count Vowels')).toBeInTheDocument();

@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { CoinBalanceBadge } from '../coins/CoinBalanceBadge';
 import { buildChallengeMonth, monthIdentity, monthLabel, shiftMonth } from './challengeCalendar';
 
-const STATE_LABELS = { TODAY_INCOMPLETE: 'Daily Challenge available', TODAY_COMPLETED: 'Daily Challenge completed', PAST_COMPLETED: 'Daily Challenge completed', PAST_UNLOCKED: 'Daily Challenge unlocked for recovery', PAST_MISSED: 'Daily Challenge missed', FUTURE: 'future day', UNAVAILABLE: 'no challenge available', OUTSIDE_MONTH: 'outside current month' };
+const STATE_LABELS = { TODAY_INCOMPLETE: 'challenge not completed', TODAY_COMPLETED: 'challenge completed', PAST_COMPLETED: 'challenge completed', PAST_UNLOCKED: 'challenge not completed', PAST_MISSED: 'challenge not completed', FUTURE: 'future day', UNAVAILABLE: 'no challenge available', OUTSIDE_MONTH: 'outside current month' };
 
 export function DailyChallengeCalendar({ today, challengeDates, completedDates, unlockedDates = [], supportedDate, historyStatus, catalogStatus, onOpenChallenge, onRedeem }) {
   const [month, setMonth] = useState(() => monthIdentity(new Date(`${today}T12:00:00+05:30`)));
@@ -21,7 +21,8 @@ export function DailyChallengeCalendar({ today, challengeDates, completedDates, 
       <div className="challenge-calendar-grid" role="grid" aria-label={monthLabel(month)}>{days.map((day) => {
         const label = `${formatter.format(new Date(`${day.id}T00:00:00Z`))}, ${STATE_LABELS[day.state]}`;
         const completed = day.state === 'TODAY_COMPLETED' || day.state === 'PAST_COMPLETED';
-        return <button type="button" role="gridcell" key={day.id} className={`challenge-calendar-day is-${day.state.toLowerCase().replaceAll('_', '-')}`} aria-label={label} aria-current={day.current ? 'date' : undefined} disabled={!day.clickable} onClick={day.clickable ? () => onOpenChallenge(day.id) : undefined}><span aria-hidden="true">{completed ? '✓' : day.day}</span></button>;
+        const incomplete = day.state === 'TODAY_INCOMPLETE' || day.state === 'PAST_MISSED' || day.state === 'PAST_UNLOCKED';
+        return <button type="button" role="gridcell" key={day.id} className={`challenge-calendar-day is-${day.state.toLowerCase().replaceAll('_', '-')}`} aria-label={label} aria-current={day.current ? 'date' : undefined} disabled={!day.clickable} onClick={day.clickable ? () => onOpenChallenge(day.id) : undefined}><span className="challenge-calendar-day-content" aria-hidden="true">{completed ? <span className="challenge-calendar-complete"><Check /></span> : <><span>{day.day}</span>{incomplete ? <span className="challenge-calendar-incomplete-dot" /> : null}</>}</span></button>;
       })}</div>
     </>}
     {onRedeem ? <footer className="challenge-calendar-redeem"><CoinBalanceBadge /><button type="button" onClick={onRedeem}>Redeem <span aria-hidden="true">→</span></button></footer> : null}

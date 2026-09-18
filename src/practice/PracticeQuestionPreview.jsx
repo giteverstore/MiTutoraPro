@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle2, Clock3 } from 'lucide-react';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
+import { DifficultyBadge } from '../components/DifficultyBadge';
 import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
 
 export function PracticeQuestionPreview({ question, solved, onStart }) {
@@ -9,7 +10,7 @@ export function PracticeQuestionPreview({ question, solved, onStart }) {
   return (
     <aside className="practice-preview" aria-labelledby="practice-preview-title">
       <div className="practice-preview-top">
-        <span className={`practice-difficulty is-${question.difficulty}`}>{question.difficulty}</span>
+        <DifficultyBadge difficulty={question.difficulty} className="practice-difficulty" />
         <div className="practice-preview-actions">
           {solved ? <span className="practice-preview-solved"><CheckCircle2 /> Solved</span> : null}
           <BookmarkToggle bookmark={createPracticeBookmark(question)} iconOnly />

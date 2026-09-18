@@ -111,27 +111,33 @@ describe('Daily Challenge calendar UI', () => {
   it('renders the current month, accessible day states, shared streak and supported navigation', () => {
     render(<DailyChallengeCalendar {...props} />);
     expect(screen.getByRole('heading', { name: 'September 2026' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('gridcell', { name: 'September 11, Daily Challenge completed' }));
+    fireEvent.click(screen.getByRole('gridcell', { name: 'September 11, challenge completed' }));
     expect(props.onOpenChallenge).toHaveBeenCalledWith('2026-09-11');
-    fireEvent.click(screen.getByRole('gridcell', { name: 'September 12, Daily Challenge available' }));
+    fireEvent.click(screen.getByRole('gridcell', { name: 'September 12, challenge not completed' }));
     expect(props.onOpenChallenge).toHaveBeenCalledWith('2026-09-12');
     expect(screen.getByRole('gridcell', { name: 'September 13, future day' })).toBeDisabled();
   });
 
   it('shows numbers for incomplete, missed, future and unavailable dates', () => {
     render(<DailyChallengeCalendar {...props} challengeDates={['2026-09-10', '2026-09-12']} completedDates={[]} />);
-    expect(visibleCellContent('September 12, Daily Challenge available')).toBe('12');
-    expect(visibleCellContent('September 10, Daily Challenge missed')).toBe('10');
+    const today = screen.getByRole('gridcell', { name: 'September 12, challenge not completed' });
+    const missed = screen.getByRole('gridcell', { name: 'September 10, challenge not completed' });
+    expect(visibleCellContent('September 12, challenge not completed')).toBe('12');
+    expect(visibleCellContent('September 10, challenge not completed')).toBe('10');
+    expect(today.querySelector('.challenge-calendar-incomplete-dot')).toBeInTheDocument();
+    expect(missed.querySelector('.challenge-calendar-incomplete-dot')).toBeInTheDocument();
     expect(visibleCellContent('September 13, future day')).toBe('13');
     expect(visibleCellContent('September 11, no challenge available')).toBe('11');
+    expect(screen.getByRole('gridcell', { name: 'September 13, future day' }).querySelector('.challenge-calendar-incomplete-dot')).not.toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: 'September 11, no challenge available' }).querySelector('.challenge-calendar-incomplete-dot')).not.toBeInTheDocument();
   });
 
   it('replaces completed date numbers with a checkmark while retaining accessible date identity', () => {
     render(<DailyChallengeCalendar {...props} completedDates={['2026-09-11', '2026-09-12']} />);
-    const historical = screen.getByRole('gridcell', { name: 'September 11, Daily Challenge completed' });
-    const today = screen.getByRole('gridcell', { name: 'September 12, Daily Challenge completed' });
-    expect(visibleCellContent('September 11, Daily Challenge completed')).toBe('✓');
-    expect(visibleCellContent('September 12, Daily Challenge completed')).toBe('✓');
+    const historical = screen.getByRole('gridcell', { name: 'September 11, challenge completed' });
+    const today = screen.getByRole('gridcell', { name: 'September 12, challenge completed' });
+    expect(historical.querySelector('.challenge-calendar-complete')).toBeInTheDocument();
+    expect(today.querySelector('.challenge-calendar-complete')).toBeInTheDocument();
     expect(historical).not.toHaveTextContent('11');
     expect(today).not.toHaveTextContent('12');
     fireEvent.click(historical);
@@ -140,9 +146,9 @@ describe('Daily Challenge calendar UI', () => {
 
   it('updates today from its number to a checkmark after canonical activity refresh without remounting', () => {
     const { rerender } = render(<DailyChallengeCalendar {...props} completedDates={[]} />);
-    expect(visibleCellContent('September 12, Daily Challenge available')).toBe('12');
+    expect(visibleCellContent('September 12, challenge not completed')).toBe('12');
     rerender(<DailyChallengeCalendar {...props} completedDates={['2026-09-12']} />);
-    expect(visibleCellContent('September 12, Daily Challenge completed')).toBe('✓');
+    expect(screen.getByRole('gridcell', { name: 'September 12, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
   });
 
   it('does not mark a failed or non-canonical completion and treats duplicates as one completed state', () => {
@@ -151,22 +157,22 @@ describe('Daily Challenge calendar UI', () => {
       { activityType: 'PRACTICE', completionStatus: 'COMPLETED', occurrenceDate: '2026-09-12' },
     ]);
     const { rerender } = render(<DailyChallengeCalendar {...props} completedDates={failedDates} />);
-    expect(visibleCellContent('September 12, Daily Challenge available')).toBe('12');
+    expect(visibleCellContent('September 12, challenge not completed')).toBe('12');
     const duplicateDates = dailyChallengeCompletionDates([
       { activityType: 'DAILY_CHALLENGE', completionStatus: 'COMPLETED', occurrenceDate: '2026-09-12' },
       { activityType: 'DAILY_CHALLENGE', completionStatus: 'COMPLETED', occurrenceDate: '2026-09-12' },
     ]);
     rerender(<DailyChallengeCalendar {...props} completedDates={duplicateDates} />);
-    expect(visibleCellContent('September 12, Daily Challenge completed')).toBe('✓');
+    expect(screen.getByRole('gridcell', { name: 'September 12, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
   });
 
   it('preserves canonical completion marks across month navigation', () => {
     render(<DailyChallengeCalendar {...props} challengeDates={['2026-08-20', '2026-09-12']} completedDates={['2026-08-20']} />);
     fireEvent.click(screen.getByRole('button', { name: 'Previous month' }));
-    expect(visibleCellContent('August 20, Daily Challenge completed')).toBe('✓');
+    expect(screen.getByRole('gridcell', { name: 'August 20, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Next month' }));
     fireEvent.click(screen.getByRole('button', { name: 'Previous month' }));
-    expect(visibleCellContent('August 20, Daily Challenge completed')).toBe('✓');
+    expect(screen.getByRole('gridcell', { name: 'August 20, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
   });
 
   it('supports month navigation and honest loading/error states', () => {
@@ -218,7 +224,7 @@ describe('compact Home presentation', () => {
   it('removes redundant Home eyebrows while preserving section headings, statistics, and empty states', () => {
     render(<>
       <LearningStatisticsSection status="ready" statistics={createHomeLearningModel().statistics} />
-      <ContinueLearningSection status="ready" course={null} onBrowseLibrary={vi.fn()} />
+      <ContinueLearningSection status="ready" courses={[]} onBrowseLibrary={vi.fn()} />
       <RecentlyViewedSection courses={[]} onOpenCourse={vi.fn()} />
     </>);
     expect(screen.queryByText(/Your momentum/i)).not.toBeInTheDocument();
@@ -234,11 +240,13 @@ describe('compact Home presentation', () => {
 
   it('keeps desktop columns independent and uses compact token-based spacing', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
-    expect(css).toContain('padding: clamp(var(--space-6), 3vw, var(--space-10)) 0 var(--space-20);');
+    expect(css).toContain('padding: 0.625rem 0 1.25rem;');
     expect(css).toContain('margin-bottom: clamp(var(--space-5), 2vw, var(--space-7));');
     expect(css).toMatch(/\.home-dashboard-grid \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: minmax\(0, 1fr\) minmax\(18rem, 21rem\)/);
     expect(css).toMatch(/\.home-dashboard-primary \{[\s\S]*?display: grid;[\s\S]*?min-width: 0;[\s\S]*?gap: clamp\(var\(--space-7\), 3vw, var\(--space-10\)\)/);
     expect(css).toMatch(/\.home-dashboard-primary \{\s*display: contents;/);
+    expect(css).toMatch(/\.home-continue-grid \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*?\.home-continue-grid \{[\s\S]*?grid-template-columns: 1fr/);
     expect(css).toMatch(/\.home-course-empty \{[\s\S]*?min-height: 0;/);
   });
 });
