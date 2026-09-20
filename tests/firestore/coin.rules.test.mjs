@@ -18,6 +18,7 @@ try {
       amount: 10, direction: 'CREDIT', status: 'POSTED', balanceAfter: 10,
     });
     await setDoc(doc(db, 'users/owner/coinRedemptions/redemption-1'), { ownerUid: 'owner', type: 'CHALLENGE_PASS', status: 'UNLOCKED' });
+    await setDoc(doc(db, 'users/owner/themeOwnership/ember'), { ownerUid: 'owner', themeId: 'ember', status: 'OWNED' });
     await setDoc(doc(db, 'users/owner/challengeUnlocks/2026-09-10'), { ownerUid: 'owner', status: 'UNLOCKED' });
     await setDoc(doc(db, 'users/owner/redemptionUsage/2026-09'), { ownerUid: 'owner', challengePass: 1 });
     await setDoc(doc(db, 'users/owner/rewardClaims/claim-1'), {
@@ -60,6 +61,12 @@ try {
   await assertSucceeds(getDoc(doc(owner, 'users/owner/coinAccount/summary')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/coinTransactions/transaction-1')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/coinRedemptions/redemption-1')));
+  await assertSucceeds(getDoc(doc(owner, 'users/owner/themeOwnership/ember')));
+  await assertFails(getDoc(doc(stranger, 'users/owner/themeOwnership/ember')));
+  await assertFails(setDoc(doc(owner, 'users/owner/themeOwnership/forged'), { ownerUid: 'owner', themeId: 'cyber', status: 'OWNED' }));
+  await assertSucceeds(setDoc(doc(owner, 'users/owner/settings/preferences'), { appearance: { brandTheme: 'blue' } }));
+  await assertSucceeds(setDoc(doc(owner, 'users/owner/settings/preferences'), { appearance: { brandTheme: 'ember' } }));
+  await assertFails(setDoc(doc(owner, 'users/owner/settings/preferences'), { appearance: { brandTheme: 'cyber' } }));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/challengeUnlocks/2026-09-10')));
   await assertFails(getDoc(doc(owner, 'users/owner/redemptionUsage/2026-09')));
   await assertSucceeds(getDoc(doc(owner, 'users/owner/rewardClaims/claim-1')));

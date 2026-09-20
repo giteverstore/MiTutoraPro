@@ -4,6 +4,7 @@ export const COIN_REDEMPTION_TIME_ZONE = 'Asia/Kolkata';
 export const COIN_REDEMPTION_TYPES = Object.freeze({
   CHALLENGE_PASS: 'CHALLENGE_PASS',
   PREMIUM_MONTH: 'PREMIUM_MONTH',
+  BRAND_THEME: 'BRAND_THEME',
 });
 
 export const coinRedemptionPolicy = Object.freeze({
@@ -11,6 +12,7 @@ export const coinRedemptionPolicy = Object.freeze({
   timeZone: COIN_REDEMPTION_TIME_ZONE,
   challengePass: Object.freeze({ type: COIN_REDEMPTION_TYPES.CHALLENGE_PASS, costCoins: 150, monthlyLimit: 3 }),
   premiumMonth: Object.freeze({ type: COIN_REDEMPTION_TYPES.PREMIUM_MONTH, costCoins: 2500, durationMonths: 1, monthlyLimit: 1 }),
+  brandThemes: Object.freeze(Object.fromEntries(['ember', 'violet', 'crimson', 'cyber'].map((themeId) => [themeId, Object.freeze({ type: COIN_REDEMPTION_TYPES.BRAND_THEME, themeId, costCoins: 500 })]))),
 });
 
 export function kolkataMonthKey(date = new Date()) {

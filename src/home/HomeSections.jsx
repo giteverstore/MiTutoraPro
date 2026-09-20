@@ -225,9 +225,9 @@ export function RecentlyViewedSection({ courses, onOpenCourse }) {
         id="recent-title"
         title="Recently Viewed"
       />
-      <div className="home-course-grid">
+      <div className="home-course-grid home-recent-grid">
         {courses.length ? courses.map((course) => (
-          <CourseCard course={course} onOpenCourse={onOpenCourse} key={course.id} />
+          <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" key={course.id} />
         )) : <div className="home-course-empty" role="status"><BookOpen aria-hidden="true" /><h3>No recently viewed courses</h3></div>}
       </div>
     </section>

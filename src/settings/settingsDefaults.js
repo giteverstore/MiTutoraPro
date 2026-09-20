@@ -19,6 +19,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   },
   appearance: {
     theme: 'system',
+    brandTheme: 'blue',
     reducedMotion: false,
   },
 });

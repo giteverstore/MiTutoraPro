@@ -125,7 +125,7 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('heading', { name: 'Python' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Java' })).not.toBeInTheDocument();
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search courses' }), { target: { value: 'Python' } });
-    fireEvent.click(screen.getByRole('heading', { name: 'Python Foundations' }).closest('article').querySelector('button.button--primary'));
+    fireEvent.click(screen.getByRole('heading', { name: 'Python Foundations' }).closest('article'));
     expect(open).toHaveBeenCalledWith('python');
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search courses' }), { target: { value: 'no matching course' } });
     expect(screen.getByRole('heading', { name: 'No courses found' })).toBeInTheDocument();
@@ -133,7 +133,8 @@ describe('Library navigation and discovery', () => {
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search courses' }), { target: { value: '' } });
     fireEvent.click(screen.getByRole('button', { name: 'Rust' }));
     expect(screen.getByRole('heading', { name: 'Rust' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Coming Soon' })).toBeDisabled();
+    expect(screen.getByText('Coming Soon')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Rust Essentials' }).closest('article')).toHaveAttribute('aria-disabled', 'true');
   });
 
   it('derives one stable language block per catalog language and uses the responsive four-column grid', () => {
@@ -148,7 +149,7 @@ describe('Library navigation and discovery', () => {
     expect(css).toMatch(/@media \(max-width: 760px\)[\s\S]*?\.library-language-course-grid[\s\S]*?grid-template-columns: 1fr/);
     expect(css).toMatch(/\.library-language-section \{[\s\S]*?background: var\(--color-surface\);[\s\S]*?border: 1px solid var\(--color-border\)/);
     expect(css).toMatch(/\.library-course-artwork img \{[\s\S]*?object-fit: contain/);
-    expect(css).toMatch(/\.library-course-artwork \{[\s\S]*?width: min\(10rem, 100%\);[\s\S]*?height: 10rem/);
+    expect(css).toMatch(/\.library-course-artwork \{[\s\S]*?width: min\(7\.5rem, 100%\);[\s\S]*?height: 7\.5rem/);
     expect(screen.getByRole('heading', { name: 'Python' }).querySelector('img')).toHaveAttribute('src', '/assets/languages/python.svg');
     expect(screen.getByRole('heading', { name: 'Java' }).querySelector('img')).toHaveAttribute('src', '/assets/languages/java.svg');
     expect(screen.getByRole('heading', { name: 'SQL' }).querySelector('svg')).toBeInTheDocument();
@@ -170,17 +171,21 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('heading', { name: 'UnknownLang' }).querySelector('svg')).toHaveClass('lucide-code-xml');
   });
 
-  it('uses canonical enrollment progress for Continue and Review actions', async () => {
+  it('uses canonical enrollment progress while whole-card navigation opens the overview', async () => {
     progressState.records = [{ courseId: 'python', completion: 25 }, { courseId: 'java', completion: 100 }];
     const open = vi.fn();
     render(<LibraryPage onOpenCourse={open} />);
     const pythonCard = screen.getByRole('heading', { name: 'Python Foundations' }).closest('article');
     await waitFor(() => expect(within(pythonCard).getByRole('img', { name: 'Course progress 25 percent' })).toBeInTheDocument());
-    fireEvent.click(within(pythonCard).getByRole('button', { name: /Continue/i }));
+    expect(within(pythonCard).queryByRole('button', { name: /Continue/i })).not.toBeInTheDocument();
+    fireEvent.click(within(pythonCard).getByRole('button', { name: 'Bookmark course' }));
+    expect(open).not.toHaveBeenCalled();
+    fireEvent.click(pythonCard);
     expect(open).toHaveBeenCalledWith('python');
     const javaCard = screen.getByRole('heading', { name: 'Java Basics' }).closest('article');
     expect(within(javaCard).getByRole('img', { name: 'Course progress 100 percent' })).toBeInTheDocument();
-    fireEvent.click(within(javaCard).getByRole('button', { name: /Review/i }));
+    expect(within(javaCard).queryByRole('button', { name: /Review/i })).not.toBeInTheDocument();
+    fireEvent.keyDown(javaCard, { key: 'Enter' });
     expect(open).toHaveBeenCalledWith('java');
   });
 

@@ -62,7 +62,7 @@ export function ChallengeHub({ onOpenChallenge }) {
 
   return <div className="challenges-page challenge-hub">
     <section className={`challenge-today-card${completed ? ' is-completed' : ''}`} aria-labelledby="today-challenge-title">
-      <div><span>Daily Challenge</span><h1 id="today-challenge-title">{todayEntry?.content.title ?? 'Today’s challenge'}</h1>
+      <div><h1 id="today-challenge-title">{todayEntry?.content.title ?? 'Today’s challenge'}</h1>
         {loading ? <p>Loading today’s challenge…</p> : error ? <p>Today’s challenge could not be loaded.</p> : todayEntry ? <>
           <p>{todayEntry.content.summary}</p>
           <div className="challenge-today-meta"><DifficultyBadge difficulty={todayEntry.content.difficulty} /><span><Clock3 /> ~{todayEntry.content.estimatedMinutes} min</span><span><Coins /> +{todayEntry.metadata.rewardCoins} coins</span></div>
@@ -90,7 +90,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   const [celebration, setCelebration] = useState(null);
   const [compilerStatus, setCompilerStatus] = useState('ready');
   const [recoveryUnlocked, setRecoveryUnlocked] = useState(false);
-  const { theme } = useApplicationTheme();
+  const { theme, brandTheme } = useApplicationTheme();
   const compilerResize = useCompilerPaneResize();
   const compilerDefinitions = useMemo(() => challenge?.blocks.filter((block) => block.type === 'compiler').map(createCompilerData) ?? [], [challenge]);
   const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, challenge?.language);
@@ -124,7 +124,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
 
   if (loading || error || !challenge || !compiler) return <div className="challenges-page"><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>Daily Challenge</h1><p role="status">{loading ? 'Loading challenge…' : 'This daily challenge is unavailable.'}</p></div>;
 
-  return <div className="practice-immersive-shell" data-theme={theme}>
+  return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
     <div className="practice-immersive-workspace has-compiler" data-immersive-coding-workspace="challenge" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
       <article className="practice-problem lesson-panel">
         <header className="practice-detail-header"><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>{challenge.title}</h1>{reviewMode ? <span className="challenge-review-label">Review mode</span> : null}</header>

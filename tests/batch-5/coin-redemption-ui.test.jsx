@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { REDEMPTION_CATALOG } from '../../src/coins/RedeemPage';
+import { getThemeRedemptionPresentation, REDEMPTION_CATALOG } from '../../src/coins/RedeemPage';
+import { BRAND_THEME_CATALOG, ownedThemeIdsFromRedemptions } from '../../src/theme/brandThemeCatalog';
 import { buildChallengeMonth } from '../../src/home/challengeCalendar';
 import { buildChallengeHistory } from '../../src/challenges/ChallengesPage';
 
@@ -8,6 +9,13 @@ describe('coin redemption presentation model', () => {
     expect(REDEMPTION_CATALOG.map(({ type, cost }) => ({ type, cost }))).toEqual([
       { type: 'CHALLENGE_PASS', cost: 150 }, { type: 'PREMIUM_MONTH', cost: 2500 },
     ]);
+  });
+  it('derives locked, owned, apply, and selected theme card states from canonical redemptions', () => {
+    const themes = Object.fromEntries(BRAND_THEME_CATALOG.map((theme) => [theme.id, theme]));
+    const ownedThemeIds = ownedThemeIdsFromRedemptions([{ type: 'BRAND_THEME', status: 'OWNED', themeId: 'ember' }]);
+    expect(getThemeRedemptionPresentation({ theme: themes.blue, ownedThemeIds, activeThemeId: 'blue', balance: 700, status: 'ready' })).toMatchObject({ owned: true, selected: true, detail: 'Default theme · Owned', action: 'Selected', disabled: true });
+    expect(getThemeRedemptionPresentation({ theme: themes.ember, ownedThemeIds, activeThemeId: 'blue', balance: 700, status: 'ready' })).toMatchObject({ owned: true, selected: false, detail: 'Owned', action: 'Apply', disabled: false });
+    expect(getThemeRedemptionPresentation({ theme: themes.violet, ownedThemeIds, activeThemeId: 'blue', balance: 700, status: 'ready' })).toMatchObject({ owned: false, detail: '500 coins · Locked', action: 'Redeem', disabled: false });
   });
   it('makes only an unlocked missed date clickable and preserves completed state', () => {
     const days = buildChallengeMonth({ month: '2026-09', today: '2026-09-13', challengeDates: ['2026-09-10', '2026-09-11'], completedDates: ['2026-09-11'], unlockedDates: ['2026-09-10'] });

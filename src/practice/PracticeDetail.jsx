@@ -17,7 +17,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const [compilerStatus, setCompilerStatus] = useState('ready');
   const [isCompilerMinimized, setIsCompilerMinimized] = useState(false);
-  const { theme } = useApplicationTheme();
+  const { theme, brandTheme } = useApplicationTheme();
   const compilerResize = useCompilerPaneResize();
   const compilerDefinitions = useMemo(
     () => question.blocks.filter((block) => block.type === 'compiler').map(createCompilerData),
@@ -41,7 +41,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
     }
   };
 
-  return <div className="practice-immersive-shell" data-theme={theme}>
+  return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
     <div className={`practice-immersive-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="practice" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
       <article className="practice-problem lesson-panel">
         <header className="practice-detail-header">

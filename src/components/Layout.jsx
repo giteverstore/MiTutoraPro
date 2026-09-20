@@ -64,7 +64,7 @@ export function Layout({ courseLoader, onExitCourse }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     () => window.localStorage.getItem('mi-tutora:sidebar-collapsed') === 'true',
   );
-  const { theme, toggleTheme } = useApplicationTheme();
+  const { theme, brandTheme, toggleTheme } = useApplicationTheme();
   const [isSidebarOverlay, setIsSidebarOverlay] = useState(
     () => window.matchMedia('(max-width: 1180px)').matches,
   );
@@ -189,7 +189,7 @@ export function Layout({ courseLoader, onExitCourse }) {
 
   return (
     <LearningCompilerProvider controller={learningCompiler}>
-    <div className="app-shell" data-theme={theme}>
+    <div className="app-shell" data-theme={theme} data-brand-theme={brandTheme}>
       <TopNavigation
         course={course}
         onMenuClick={() => setIsDrawerOpen(true)}

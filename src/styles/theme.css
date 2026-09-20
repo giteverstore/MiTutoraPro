@@ -4,14 +4,14 @@
 
 :root {
   /* Backgrounds / surfaces */
-  --color-canvas: #f5f4f0;
+  --color-canvas: #f8fafc;
   --color-surface: #ffffff;
   --color-surface-subtle: #f1f0eb;
   --color-surface-raised: #faf9f6;
   --color-surface-inverse: #202321;
 
   /* Text */
-  --color-text: #202321;
+  --color-text: #111111;
   --color-text-muted: #71736e;
   --color-text-inverse: #ffffff;
   --color-text-on-inverse: #e6e9e6;
@@ -21,13 +21,14 @@
   --color-border-strong: #cbc9c1;
 
   /* Brand / interaction */
-  --color-accent: #c45a12;
-  --color-accent-hover: #a9480c;
-  --color-accent-soft: #fbe8d9;
-  --color-accent-subtle: #fff4eb;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-soft: #dbeafe;
+  --color-accent-subtle: #eff6ff;
   --color-text-on-accent: #ffffff;
-  --color-focus: rgb(196 90 18 / 32%);
-  --color-brand-gradient-base: #17130f;
+  --color-focus: rgb(37 99 235 / 32%);
+  --color-brand-gradient-base: #0b1220;
+  --color-coin: #b7791f;
 
   /* Semantic states */
   --color-danger: #a85b56;
@@ -61,7 +62,7 @@
   /* Fixed certificate document palette */
   --certificate-color-ink: #29352f;
   --certificate-color-paper: #f7f5ee;
-  --certificate-color-brand: #c45a12;
+  --certificate-color-brand: var(--color-accent);
   --certificate-color-on-brand: #ffffff;
   --certificate-color-rule: #c9c4b8;
   --certificate-color-muted: #657169;
@@ -93,7 +94,7 @@
    DARK MODE — DEFAULT Y CODERS THEME
    ========================================================= */
 
-:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience)[data-theme="dark"] {
+:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-theme="dark"] {
   --color-canvas: #171a18;
   --color-surface: #222522;
   --color-surface-subtle: #272a27;
@@ -106,13 +107,14 @@
   --color-border: #393d39;
   --color-border-strong: #4b504b;
 
-  --color-accent: #f59e42;
-  --color-accent-hover: #ffad5c;
-  --color-accent-soft: #3a2518;
-  --color-accent-subtle: #261b14;
-  --color-text-on-accent: #17130f;
-  --color-focus: rgb(245 158 66 / 42%);
-  --color-brand-gradient-base: #17130f;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-accent-soft: #172554;
+  --color-accent-subtle: #0f172a;
+  --color-text-on-accent: #0b1220;
+  --color-focus: rgb(96 165 250 / 42%);
+  --color-brand-gradient-base: #0b1220;
+  --color-coin: #facc15;
 
   --color-danger: #d1908a;
   --color-danger-soft: #3a2927;
@@ -139,4 +141,31 @@
   --shadow-lg: 0 16px 35px rgb(0 0 0 / 28%);
   --shadow-panel: 15px 0 40px rgb(0 0 0 / 32%);
   --shadow-control: 0 5px 14px rgb(0 0 0 / 30%);
+}
+
+/* Brand themes are independent from appearance mode. */
+:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-brand-theme="ember"] {
+  --color-accent: #c45a12; --color-accent-hover: #a9480c; --color-accent-soft: #fbe8d9; --color-accent-subtle: #fff4eb; --color-text-on-accent: #ffffff; --color-focus: rgb(196 90 18 / 32%);
+}
+:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-brand-theme="violet"] {
+  --color-accent: #7c3aed; --color-accent-hover: #6d28d9; --color-accent-soft: #ede9fe; --color-accent-subtle: #f5f3ff; --color-text-on-accent: #ffffff; --color-focus: rgb(124 58 237 / 32%);
+}
+:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-brand-theme="crimson"] {
+  --color-accent: #be123c; --color-accent-hover: #9f1239; --color-accent-soft: #ffe4e6; --color-accent-subtle: #fff1f2; --color-text-on-accent: #ffffff; --color-focus: rgb(190 18 60 / 32%);
+}
+:is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-brand-theme="cyber"] {
+  --color-accent: #0f766e; --color-accent-hover: #115e59; --color-accent-soft: #ccfbf1; --color-accent-subtle: #f0fdfa; --color-text-on-accent: #ffffff; --color-focus: rgb(15 118 110 / 32%);
+}
+
+:is(.app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-theme="dark"][data-brand-theme="ember"] {
+  --color-accent: #f59e42; --color-accent-hover: #ffad5c; --color-accent-soft: #3a2518; --color-accent-subtle: #261b14; --color-text-on-accent: #17130f; --color-focus: rgb(245 158 66 / 42%);
+}
+:is(.app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-theme="dark"][data-brand-theme="violet"] {
+  --color-accent: #a78bfa; --color-accent-hover: #c4b5fd; --color-accent-soft: #2e1065; --color-accent-subtle: #1e1b4b; --color-text-on-accent: #160b2e; --color-focus: rgb(167 139 250 / 42%);
+}
+:is(.app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-theme="dark"][data-brand-theme="crimson"] {
+  --color-accent: #fb7185; --color-accent-hover: #fda4af; --color-accent-soft: #4c0519; --color-accent-subtle: #2b1018; --color-text-on-accent: #2b0710; --color-focus: rgb(251 113 133 / 42%);
+}
+:is(.app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-theme="dark"][data-brand-theme="cyber"] {
+  --color-accent: #2dd4bf; --color-accent-hover: #5eead4; --color-accent-soft: #134e4a; --color-accent-subtle: #0f2927; --color-text-on-accent: #05201d; --color-focus: rgb(45 212 191 / 42%);
 }

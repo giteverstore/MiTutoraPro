@@ -17,7 +17,7 @@ function ActivityAwareSidebar(props) {
 export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride, showFooter = true, children }) {
   const { user } = useUser();
   const { signOut } = useAuth();
-  const { theme, reducedMotion, toggleTheme } = useApplicationTheme();
+  const { theme, brandTheme, reducedMotion, toggleTheme } = useApplicationTheme();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
     () => window.localStorage.getItem('mi-tutora:app-sidebar-collapsed') === 'true',
   );
@@ -59,6 +59,7 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
     <div
       className={`application-shell ${sidebarCollapsed ? 'is-sidebar-collapsed' : ''}`}
       data-theme={theme}
+      data-brand-theme={brandTheme}
       data-reduced-motion={reducedMotion}
     >
       <ActivityAwareSidebar

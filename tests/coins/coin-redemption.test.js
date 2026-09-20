@@ -54,4 +54,18 @@ describe('coin redemption authority', () => {
     await expect(service(db).redeemPremiumMonth({ principal, request: { requestId: 'premium-limit-second' } })).rejects.toMatchObject({ code: 'coin/redemption-limit-reached' });
     expect(db.values.get('users/learner/coinAccount/summary').availableBalance).toBe(3500);
   });
+  it('authoritatively purchases one brand theme and prevents duplicate ownership', async () => {
+    const db = database({ 'users/learner/coinAccount/summary': account(1200) });
+    const first = await service(db).redeemBrandTheme({ principal, request: { requestId: 'theme-request-000001', themeId: 'ember' } });
+    expect(first).toMatchObject({ duplicate: false, balance: 700, type: 'BRAND_THEME', themeId: 'ember' });
+    expect(db.values.get('users/learner/themeOwnership/ember')).toMatchObject({ ownerUid: 'learner', themeId: 'ember', status: 'OWNED' });
+    expect([...db.values.values()].filter((item) => item.sourceType === 'THEME_REDEMPTION')).toHaveLength(1);
+    await expect(service(db).redeemBrandTheme({ principal, request: { requestId: 'theme-request-000002', themeId: 'ember' } })).rejects.toMatchObject({ code: 'coin/theme-already-owned' });
+    expect(db.values.get('users/learner/coinAccount/summary').availableBalance).toBe(700);
+  });
+  it('rejects unknown themes and client-controlled theme economics', async () => {
+    const db = database({ 'users/learner/coinAccount/summary': account(1200) });
+    await expect(service(db).redeemBrandTheme({ principal, request: { requestId: 'theme-request-000003', themeId: 'unknown' } })).rejects.toMatchObject({ code: 'coin/invalid-argument' });
+    await expect(service(db).redeemBrandTheme({ principal, request: { requestId: 'theme-request-000004', themeId: 'ember', costCoins: 1 } })).rejects.toMatchObject({ code: 'coin/client-authority-rejected' });
+  });
 });

@@ -116,6 +116,7 @@ describe('Daily Challenge calendar UI', () => {
     fireEvent.click(screen.getByRole('gridcell', { name: 'September 12, challenge not completed' }));
     expect(props.onOpenChallenge).toHaveBeenCalledWith('2026-09-12');
     expect(screen.getByRole('gridcell', { name: 'September 13, future day' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next month' })).toBeDisabled();
   });
 
   it('shows numbers for incomplete, missed, future and unavailable dates', () => {

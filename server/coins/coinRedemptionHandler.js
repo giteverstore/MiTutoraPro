@@ -18,6 +18,8 @@ export function createCoinRedemptionHandler({ type, environment = process.env, a
       const service = new CoinRedemptionService({ db: session.db, timestamp: Timestamp });
       const result = type === 'challenge-pass'
         ? await service.redeemChallengePass({ principal: { authenticated: true, uid: authenticated.uid }, request: request.body })
+        : type === 'theme'
+          ? await service.redeemBrandTheme({ principal: { authenticated: true, uid: authenticated.uid }, request: request.body })
         : await service.redeemPremiumMonth({ principal: { authenticated: true, uid: authenticated.uid }, request: request.body });
       return response.status(200).json(result);
     } catch (error) {

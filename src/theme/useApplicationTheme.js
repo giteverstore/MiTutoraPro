@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react';
 import { settingsService } from '../settings/SettingsService';
 import { useSettings } from '../settings/useSettings';
+import { brandThemeById } from './brandThemeCatalog';
 
 let systemDark = typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
 const listeners = new Set();
@@ -18,10 +19,12 @@ export function useApplicationTheme() {
   const settings = useSettings();
   const systemTheme = useSyncExternalStore(subscribeSystemTheme, getSystemTheme, () => 'light');
   const preference = settings.appearance.theme;
+  const brandTheme = brandThemeById(settings.appearance.brandTheme).id;
   const theme = resolveApplicationTheme(preference, systemTheme);
   const setTheme = (value) => settingsService.setSetting('appearance.theme', value);
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-  return { theme, preference, reducedMotion: settings.appearance.reducedMotion, setTheme, toggleTheme };
+  const setBrandTheme = (value) => settingsService.setSetting('appearance.brandTheme', value);
+  return { theme, preference, brandTheme, reducedMotion: settings.appearance.reducedMotion, setTheme, setBrandTheme, toggleTheme };
 }
 
 export const resolveApplicationTheme = (preference, systemTheme) => preference === 'system' ? systemTheme : preference;

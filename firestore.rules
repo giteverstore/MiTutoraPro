@@ -42,6 +42,12 @@ service cloud.firestore {
         && request.resource.data.revision is int
         && request.resource.data.revision >= 1;
     }
+    function validOwnedBrandTheme(uid) {
+      return !('appearance' in request.resource.data)
+        || !('brandTheme' in request.resource.data.appearance)
+        || request.resource.data.appearance.brandTheme == 'blue'
+        || exists(/databases/$(database)/documents/users/$(uid)/themeOwnership/$(request.resource.data.appearance.brandTheme));
+    }
 
     match /users/{uid} {
       allow read: if owns(uid);
@@ -60,7 +66,11 @@ service cloud.firestore {
         allow delete: if owns(uid);
       }
       match /bookmarks/{bookmarkId} { allow read, write: if owns(uid); }
-      match /settings/{settingId} { allow read, write: if owns(uid); }
+      match /settings/{settingId} {
+        allow read: if owns(uid);
+        allow create, update: if owns(uid) && validOwnedBrandTheme(uid);
+        allow delete: if owns(uid);
+      }
       match /referrals/{referralId} { allow read: if owns(uid); allow write: if false; }
       match /referralIdentity/{identityId} { allow read: if owns(uid); allow write: if false; }
       match /referralAttribution/{attributionId} { allow read: if owns(uid); allow write: if false; }
@@ -70,6 +80,7 @@ service cloud.firestore {
       match /coinTransactions/{transactionId} { allow read: if owns(uid); allow write: if false; }
       match /coinAccount/{accountId} { allow read: if owns(uid); allow write: if false; }
       match /coinRedemptions/{redemptionId} { allow read: if owns(uid); allow write: if false; }
+      match /themeOwnership/{themeId} { allow read: if owns(uid); allow write: if false; }
       match /challengeUnlocks/{occurrenceDate} { allow read: if owns(uid); allow write: if false; }
       match /redemptionUsage/{usageId} { allow read, write: if false; }
       match /wallet/{accountId} { allow read: if owns(uid); allow write: if false; }

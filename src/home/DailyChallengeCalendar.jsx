@@ -11,10 +11,12 @@ export function DailyChallengeCalendar({ today, challengeDates, completedDates, 
   const formatter = useMemo(() => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }), []);
   const loading = historyStatus === 'loading' || catalogStatus === 'loading';
   const error = historyStatus === 'error' || catalogStatus === 'error';
+  const currentMonth = monthIdentity(new Date(`${today}T12:00:00+05:30`));
+  const nextMonthDisabled = month >= currentMonth;
   return <aside className="challenge-calendar-card" aria-labelledby="challenge-calendar-title">
     <header className="challenge-calendar-header"><div><span>Daily Challenge</span><h2 id="challenge-calendar-title">{monthLabel(month)}</h2></div><div className="challenge-calendar-navigation">
       <button type="button" aria-label="Previous month" onClick={() => setMonth((current) => shiftMonth(current, -1))}><ChevronLeft /></button>
-      <button type="button" aria-label="Next month" onClick={() => setMonth((current) => shiftMonth(current, 1))}><ChevronRight /></button>
+      <button type="button" aria-label="Next month" disabled={nextMonthDisabled} onClick={() => setMonth((current) => current >= currentMonth ? current : shiftMonth(current, 1))}><ChevronRight /></button>
     </div></header>
     {loading ? <div className="challenge-calendar-message" role="status">Loading challenge calendar…</div> : error ? <div className="challenge-calendar-message" role="status">Challenge calendar unavailable.</div> : <>
       <div className="challenge-calendar-weekdays" aria-hidden="true">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => <span key={day}>{day}</span>)}</div>

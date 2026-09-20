@@ -259,8 +259,8 @@
 }
 
 .coin-balance-badge svg {
+  color: var(--color-coin);
   width: var(--icon-sm);
-  color: var(--color-accent);
 }
 
 .coin-balance-badge>span {
@@ -562,4 +562,3 @@
     pointer-events: auto;
   }
 }
-

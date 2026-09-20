@@ -18,7 +18,7 @@ import { useApplicationTheme } from '../theme/useApplicationTheme';
 export function Dashboard({ onOpenCourse }) {
   const { user } = useUser();
   const { signOut } = useAuth();
-  const { theme, toggleTheme } = useApplicationTheme();
+  const { theme, brandTheme, toggleTheme } = useApplicationTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeNav, setActiveNav] = useState('learn');
   const [activeCategory, setActiveCategory] = useState(null);
@@ -99,7 +99,7 @@ export function Dashboard({ onOpenCourse }) {
   };
 
   return (
-    <div className="dashboard-shell" data-theme={theme}>
+    <div className="dashboard-shell" data-theme={theme} data-brand-theme={brandTheme}>
       <DashboardSidebar
         activeItem={activeNav}
         isOpen={isSidebarOpen}

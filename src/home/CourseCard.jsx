@@ -29,8 +29,7 @@ function LibraryProgress({ course }) {
 export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   const isList = variant === 'list';
   const progress = boundedProgress(course.progress);
-  const status = !course.available ? 'Coming Soon' : progress >= 100 ? 'Review' : course.enrolled || progress > 0 ? 'Continue' : 'Start';
-  const initials = course.filter
+  const initials = (course.filter ?? course.title ?? '')
     .split(/\s+/)
     .map((word) => word[0])
     .join('')
@@ -48,9 +47,15 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
     target: { page: 'course', courseId: course.id },
   };
   const artwork = getCourseOverviewPresentation(course.id)?.artwork ?? null;
+  const openCard = () => { if (course.available !== false) onOpenCourse(course.id); };
+  const handleKeyDown = (event) => {
+    if (event.target.closest('button, a') || course.available === false || (event.key !== 'Enter' && event.key !== ' ')) return;
+    event.preventDefault();
+    openCard();
+  };
 
   if (isList) return (
-    <article className="home-course-card is-list library-course-card" aria-labelledby={`course-title-${course.id}`} data-tone={tone}>
+    <article className={`home-course-card is-list library-course-card${course.available === false ? ' is-unavailable' : ''}`} aria-labelledby={`course-title-${course.id}`} data-tone={tone} role={course.available === false ? undefined : 'link'} tabIndex={course.available === false ? undefined : 0} aria-disabled={course.available === false ? 'true' : undefined} onClick={(event) => { if (!event.target.closest('button, a')) openCard(); }} onKeyDown={handleKeyDown}>
       <header className="library-course-card-header">
         <span className="library-resource-type"><span aria-hidden="true" />Course</span>
         <BookmarkToggle bookmark={bookmark} iconOnly className="home-course-bookmark" />
@@ -59,15 +64,14 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
         {artwork ? <img src={artwork} alt="" /> : <span>{initials}</span>}
       </div>
       <h3 id={`course-title-${course.id}`}>{course.title}</h3>
-      <div className="library-course-meta">
-        <span><Clock3 aria-hidden="true" />{course.duration}</span>
-        <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>
-      </div>
       <footer className="library-course-card-footer">
-        <button className="button button--primary" type="button" disabled={!course.available} onClick={() => onOpenCourse(course.id)}>
-          {status}{course.available ? <ArrowRight aria-hidden="true" /> : null}
-        </button>
+        <div className="library-course-divider" aria-hidden="true" />
         <LibraryProgress course={{ ...course, progress }} />
+        <div className="library-course-meta">
+          <span><Clock3 aria-hidden="true" />{course.duration}</span>
+          <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>
+        </div>
+        {course.available === false ? <span className="library-course-coming-soon">Coming Soon</span> : null}
       </footer>
     </article>
   );

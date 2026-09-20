@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import {
   Bell,
   BookOpen,
@@ -10,6 +10,8 @@ import {
   RotateCcw,
   UserRound,
   Crown,
+  Check,
+  ChevronDown,
 } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { userDataService } from '../user-data/UserDataService';
@@ -18,6 +20,9 @@ import { SettingRow, SelectSetting, SwitchSetting } from './SettingsControls';
 import { useSettings } from './useSettings';
 import { ConfirmDialog } from '../components/Dialog';
 import { SubscriptionPanel } from '../subscriptions/SubscriptionPanel';
+import { BRAND_THEME_CATALOG, brandThemeById } from '../theme/brandThemeCatalog';
+import { useThemeOwnership } from '../theme/useThemeOwnership';
+import { useApplicationTheme } from '../theme/useApplicationTheme';
 
 const sections = [
   { id: 'profile', label: 'Profile', icon: UserRound },
@@ -52,9 +57,50 @@ function Section({ id, title, description, children }) {
   );
 }
 
+function ThemeSwatches({ theme, mode }) {
+  return <span className="settings-brand-swatches" aria-hidden="true">{theme.preview[mode].map((color) => <span style={{ backgroundColor: color }} key={color} />)}</span>;
+}
+
+export function BrandThemeSelector({ activeThemeId, mode, ownership, onApply }) {
+  const id = useId();
+  const labelId = `${id}-label`;
+  const listboxId = `${id}-listbox`;
+  const ownedThemes = BRAND_THEME_CATALOG.filter((theme) => ownership.ownedIds.has(theme.id));
+  const safeActiveId = ownership.ownedIds.has(activeThemeId) ? activeThemeId : 'blue';
+  const [selectedId, setSelectedId] = useState(safeActiveId);
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const rootRef = useRef(null);
+  useEffect(() => { setSelectedId((current) => ownership.ownedIds.has(current) ? current : safeActiveId); }, [ownership.ownedIds, safeActiveId]);
+  useEffect(() => { if (!ownership.ownedIds.has(activeThemeId) && ownership.status === 'ready') void onApply('blue'); }, [activeThemeId, onApply, ownership.ownedIds, ownership.status]);
+  useEffect(() => { const close = (event) => { if (!rootRef.current?.contains(event.target)) setOpen(false); }; document.addEventListener('pointerdown', close); return () => document.removeEventListener('pointerdown', close); }, []);
+  const selected = brandThemeById(selectedId);
+  const choose = (themeId) => { setSelectedId(themeId); setOpen(false); };
+  const toggle = () => { if (!open) setActiveIndex(Math.max(0, ownedThemes.findIndex((theme) => theme.id === selectedId))); setOpen((value) => !value); };
+  const onKeyDown = (event) => {
+    if (event.key === 'Escape') { setOpen(false); return; }
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (!open) setOpen(true); else choose(ownedThemes[activeIndex].id); return; }
+    if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+    event.preventDefault(); setOpen(true); setActiveIndex((index) => (index + (event.key === 'ArrowDown' ? 1 : -1) + ownedThemes.length) % ownedThemes.length);
+  };
+  return <div className="settings-brand-theme" ref={rootRef}>
+    <label id={labelId}>Brand Theme</label>
+    {ownership.status === 'loading' ? <div className="settings-brand-loading" role="status">Loading owned themes…</div> : <>
+      <button className="settings-brand-combobox" type="button" role="combobox" aria-labelledby={labelId} aria-controls={listboxId} aria-activedescendant={open ? `${id}-option-${ownedThemes[activeIndex].id}` : undefined} aria-expanded={open} aria-haspopup="listbox" onClick={toggle} onKeyDown={onKeyDown}><ThemeSwatches theme={selected} mode={mode} /><span>{selected.name}</span><ChevronDown aria-hidden="true" /></button>
+      {open ? <div className="settings-brand-listbox" id={listboxId} role="listbox" aria-label="Owned brand themes">{ownedThemes.map((theme, index) => <button id={`${id}-option-${theme.id}`} type="button" role="option" aria-selected={selectedId === theme.id} className={index === activeIndex ? 'is-active' : ''} onMouseEnter={() => setActiveIndex(index)} onClick={() => choose(theme.id)} key={theme.id}><ThemeSwatches theme={theme} mode={mode} /><span>{theme.name}</span>{selectedId === theme.id ? <Check aria-hidden="true" /> : null}</button>)}</div> : null}
+      <div className={`settings-brand-preview is-${mode}`} style={{ '--preview-accent': selected.preview[mode][0], '--preview-soft': selected.preview[mode][1], '--preview-strong': selected.preview[mode][2] }} aria-label={`${selected.name} ${mode} theme preview`}><header><span />ycoders</header><div className="settings-brand-preview-line" /><div><button type="button" tabIndex="-1">Button</button><span>Selected</span></div><footer><span>Card</span><span>Card</span></footer></div>
+      <button className="button button--primary settings-brand-apply" type="button" disabled={selectedId === safeActiveId || !ownership.ownedIds.has(selectedId)} onClick={() => void onApply(selectedId)}>{selectedId === safeActiveId ? 'Current Theme' : 'Set Theme'}</button>
+      {ownership.status === 'error' ? <p className="settings-brand-error" role="status">Owned themes could not be loaded. Y Coders Blue remains available.</p> : null}
+    </>}
+  </div>;
+}
+
 export function SettingsPage() {
   const settings = useSettings();
   const { user, updateProfile } = useUser();
+  const ownership = useThemeOwnership();
+  const { theme: resolvedTheme } = useApplicationTheme();
+  const applyBrandTheme = useCallback((themeId) => settingsService.setSetting('appearance.brandTheme', themeId), []);
   const [activeSection, setActiveSection] = useState(initialSettingsSection);
   const [profileName, setProfileName] = useState(user.name);
   const [notice, setNotice] = useState('');
@@ -166,6 +212,7 @@ export function SettingsPage() {
         <div className="settings-theme-options" role="radiogroup" aria-label="Application theme">
           {['system', 'light', 'dark'].map((theme) => <button className={settings.appearance.theme === theme ? 'is-active' : ''} type="button" role="radio" aria-checked={settings.appearance.theme === theme} onClick={() => setSetting('appearance.theme', theme)} key={theme}><Palette /><strong>{theme[0].toUpperCase() + theme.slice(1)} Theme</strong><span>{theme === 'system' ? 'Follow your device' : `Always use ${theme}`}</span></button>)}
         </div>
+        <BrandThemeSelector activeThemeId={settings.appearance.brandTheme ?? 'blue'} mode={resolvedTheme} ownership={ownership} onApply={applyBrandTheme} />
         <SettingRow title="Reduced Motion" description="Minimizes interface animations and smooth transitions."><SwitchSetting label="Reduced motion" checked={settings.appearance.reducedMotion} onChange={(value) => setSetting('appearance.reducedMotion', value)} /></SettingRow>
       </Section>
     ),

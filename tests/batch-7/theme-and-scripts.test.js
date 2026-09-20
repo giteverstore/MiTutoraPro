@@ -17,8 +17,8 @@ describe('theme ownership', () => {
       expect(css).toContain(`--color-${token}:`);
     }
     expect(css).toMatch(/:root[^\n]*\[data-theme="dark"\]/);
-    expect(css).toContain('--color-accent: #c45a12');
-    expect(css).toContain('--color-accent: #f59e42');
+    expect(css).toContain('--color-accent: #2563eb');
+    expect(css).toContain('--color-accent: #60a5fa');
   });
 
   it('keeps palette values out of the non-color token file', async () => {
@@ -26,10 +26,10 @@ describe('theme ownership', () => {
     expect(css).not.toMatch(/#[0-9a-f]{3,8}|rgba?\(|hsla?\(/i);
   });
 
-  it('centralizes the orange brand palette while preserving semantic and difficulty colors', async () => {
+  it('centralizes the blue brand palette while preserving semantic and difficulty colors', async () => {
     const css = await readFile(resolve('src/styles/theme.css'), 'utf8');
-    expect(css).toMatch(/:root[\s\S]*--color-accent: #c45a12;[\s\S]*--color-accent-hover: #a9480c;[\s\S]*--color-accent-soft: #fbe8d9;[\s\S]*--color-accent-subtle: #fff4eb;[\s\S]*--color-text-on-accent: #ffffff;/);
-    expect(css).toMatch(/\[data-theme="dark"\][\s\S]*--color-accent: #f59e42;[\s\S]*--color-accent-hover: #ffad5c;[\s\S]*--color-accent-soft: #3a2518;[\s\S]*--color-accent-subtle: #261b14;[\s\S]*--color-text-on-accent: #17130f;/);
+    expect(css).toMatch(/:root[\s\S]*--color-accent: #2563eb;[\s\S]*--color-accent-hover: #1d4ed8;[\s\S]*--color-accent-soft: #dbeafe;[\s\S]*--color-accent-subtle: #eff6ff;[\s\S]*--color-text-on-accent: #ffffff;/);
+    expect(css).toMatch(/\[data-theme="dark"\][\s\S]*--color-accent: #60a5fa;[\s\S]*--color-accent-hover: #93c5fd;[\s\S]*--color-accent-soft: #172554;[\s\S]*--color-accent-subtle: #0f172a;[\s\S]*--color-text-on-accent: #0b1220;/);
     expect(css).toContain('--color-success: #3f6658');
     expect(css).toContain('--difficulty-easy-base: #b8e8c5');
     expect(css).toContain('--difficulty-medium-base: #ffd66b');
