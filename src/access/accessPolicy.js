@@ -1,4 +1,5 @@
 export const FREE_PREVIEW_LESSON_COUNT = 3;
+export const FREE_PROJECT_PREVIEW_PAGE_COUNT = 3;
 
 export const ACCESS_FEATURES = Object.freeze({
   COURSE_PREMIUM_LESSON: 'COURSE_PREMIUM_LESSON',
@@ -10,7 +11,7 @@ export const ACCESS_FEATURES = Object.freeze({
   BOOKMARKS: 'BOOKMARKS',
 });
 
-const FREE_FEATURES = new Set([ACCESS_FEATURES.PRACTICE, ACCESS_FEATURES.CHALLENGES, ACCESS_FEATURES.BOOKMARKS]);
+const FREE_FEATURES = new Set([ACCESS_FEATURES.PRACTICE, ACCESS_FEATURES.CHALLENGES, ACCESS_FEATURES.BOOKMARKS, ACCESS_FEATURES.PROJECTS]);
 
 export function canAccessFeature({ tier, feature }) {
   return tier === 'PREMIUM' || FREE_FEATURES.has(feature);
@@ -19,6 +20,11 @@ export function canAccessFeature({ tier, feature }) {
 export function canAccessLesson({ tier, lessonIndex }) {
   return Number.isInteger(lessonIndex) && lessonIndex >= 0
     && (lessonIndex < FREE_PREVIEW_LESSON_COUNT || tier === 'PREMIUM');
+}
+
+export function canAccessProjectPage({ tier, pageIndex }) {
+  return Number.isInteger(pageIndex) && pageIndex >= 0
+    && (pageIndex < FREE_PROJECT_PREVIEW_PAGE_COUNT || tier === 'PREMIUM');
 }
 
 export function canonicalLessonIndex(course, lessonId) {

@@ -26,9 +26,10 @@ function LibraryProgress({ course }) {
   </div>;
 }
 
-export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
+export function CourseCard({ course, onOpenCourse, variant = 'card', allowBookmark = true, onRequireAuth = () => {} }) {
   const isList = variant === 'list';
   const progress = boundedProgress(course.progress);
+  const hasProgress = course.started === true;
   const initials = (course.filter ?? course.title ?? '')
     .split(/\s+/)
     .map((word) => word[0])
@@ -55,10 +56,10 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   };
 
   if (isList) return (
-    <article className={`home-course-card is-list library-course-card${course.available === false ? ' is-unavailable' : ''}`} aria-labelledby={`course-title-${course.id}`} data-tone={tone} role={course.available === false ? undefined : 'link'} tabIndex={course.available === false ? undefined : 0} aria-disabled={course.available === false ? 'true' : undefined} onClick={(event) => { if (!event.target.closest('button, a')) openCard(); }} onKeyDown={handleKeyDown}>
+    <article className={`home-course-card is-list library-course-card${hasProgress ? ' course-card--has-progress' : ''}${course.available === false ? ' is-unavailable' : ''}`} aria-labelledby={`course-title-${course.id}`} data-tone={tone} role={course.available === false ? undefined : 'link'} tabIndex={course.available === false ? undefined : 0} aria-disabled={course.available === false ? 'true' : undefined} onClick={(event) => { if (!event.target.closest('button, a')) openCard(); }} onKeyDown={handleKeyDown}>
       <header className="library-course-card-header">
         <span className="library-resource-type"><span aria-hidden="true" />Course</span>
-        <BookmarkToggle bookmark={bookmark} iconOnly className="home-course-bookmark" />
+        {allowBookmark ? <BookmarkToggle bookmark={bookmark} iconOnly className="home-course-bookmark" /> : <button className="bookmark-toggle is-icon-only home-course-bookmark" type="button" aria-label={`Sign in to save ${course.title}`} onClick={() => onRequireAuth(`/courses/${course.id}`)}><span aria-hidden="true">☆</span></button>}
       </header>
       <div className="library-course-artwork" aria-hidden="true">
         {artwork ? <img src={artwork} alt="" /> : <span>{initials}</span>}
@@ -66,7 +67,7 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
       <h3 id={`course-title-${course.id}`}>{course.title}</h3>
       <footer className="library-course-card-footer">
         <div className="library-course-divider" aria-hidden="true" />
-        <LibraryProgress course={{ ...course, progress }} />
+        {hasProgress ? <LibraryProgress course={{ ...course, progress }} /> : null}
         <div className="library-course-meta">
           <span><Clock3 aria-hidden="true" />{course.duration}</span>
           <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>

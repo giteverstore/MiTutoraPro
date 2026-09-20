@@ -11,7 +11,9 @@ import { createRecentCourseRepository } from '../../src/home/recentCourseReposit
 import { parseAppRoute, routePath } from '../../src/routing/appRoutes';
 
 const progressState = vi.hoisted(() => ({ records: [] }));
-vi.mock('../../src/auth/UserContext', () => ({ useUser: () => ({ user: { id: 'library-test-user' } }) }));
+vi.mock('../../src/auth/UserContext', () => ({
+  useUser: () => ({ user: { id: 'library-test-user' } }),
+}));
 vi.mock('../../src/progress/progressRepository', () => ({ progressRepository: { list: () => Promise.resolve(progressState.records) } }));
 vi.mock('../../src/bookmarks/BookmarkToggle', () => ({ BookmarkToggle: () => <button type="button" aria-label="Bookmark course" /> }));
 
@@ -190,12 +192,20 @@ describe('Library navigation and discovery', () => {
   });
 
   it.each([0, 25, 50, 75, 100])('renders %i percent with one shared wave clip for fill and contrast text', (progress) => {
-    const course = { id: `wave-${progress}`, filter: 'Test', kind: 'languages', title: `Wave ${progress}`, duration: '1h', lessonCount: 4, progress, available: true };
+    const course = { id: `wave-${progress}`, filter: 'Test', kind: 'languages', title: `Wave ${progress}`, duration: '1h', lessonCount: 4, progress, started: true, available: true };
     const { container } = render(<CourseCard course={course} onOpenCourse={vi.fn()} variant="list" />);
     const indicator = screen.getByRole('img', { name: `Course progress ${progress} percent` });
     const path = indicator.querySelector('clipPath path');
     expect(path).toHaveAttribute('d', progress === 0 ? 'M0 100 H100 V100 H0 Z' : progress === 100 ? 'M0 0 H100 V100 H0 Z' : expect.stringContaining(`M0 ${100 - progress}`));
     expect(indicator.querySelectorAll('.library-course-progress-value')).toHaveLength(2);
     expect(container.querySelector('.library-course-progress-fill')).toBeInTheDocument();
+  });
+
+  it('hides progress for a never-started course but preserves explicit started-at-zero state', () => {
+    const course = { id: 'progress-state', filter: 'Test', kind: 'languages', title: 'Progress state', duration: '1h', lessonCount: 4, progress: 0, available: true };
+    const { rerender } = render(<CourseCard course={course} onOpenCourse={vi.fn()} variant="list" allowBookmark={false} />);
+    expect(screen.queryByRole('img', { name: 'Course progress 0 percent' })).not.toBeInTheDocument();
+    rerender(<CourseCard course={{ ...course, started: true }} onOpenCourse={vi.fn()} variant="list" allowBookmark={false} />);
+    expect(screen.getByRole('img', { name: 'Course progress 0 percent' })).toBeInTheDocument();
   });
 });

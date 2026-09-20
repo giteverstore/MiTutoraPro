@@ -12,7 +12,7 @@ import { ICON_SIZE, LAYOUT_SIZE } from '../design-system/theme';
 import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
 import { useSelectableCompilerLanguage } from '../compiler/useSelectableCompilerLanguage';
 
-export function PracticeDetail({ question, solved, onBack, onComplete }) {
+export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {} }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const [compilerStatus, setCompilerStatus] = useState('ready');
@@ -57,9 +57,10 @@ export function PracticeDetail({ question, solved, onBack, onComplete }) {
       <aside className={`desktop-compiler compiler-dock practice-compiler-dock ${isCompilerMinimized ? 'is-minimized' : 'is-expanded compiler-enter'} is-${compilerStatus}`} aria-label="Practice compiler">
         {isCompilerMinimized ? <button className="compiler-dock-launcher" type="button" onClick={() => setIsCompilerMinimized(false)} aria-expanded="false" aria-label="Open compiler"><span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span><span className="compiler-dock-word" aria-hidden="true">Compiler</span><Maximize2 size={ICON_SIZE.sm} aria-hidden="true" /></button> : <div className="compiler-dock-header"><span className="compiler-dock-identity"><span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span><strong>Compiler Dock</strong></span><button className="compiler-dock-minimize" type="button" onClick={() => setIsCompilerMinimized(true)} aria-label="Minimize compiler" title="Minimize compiler"><Minus size={ICON_SIZE.md} aria-hidden="true" /></button></div>}
         <div className="compiler-dock-body" aria-hidden={isCompilerMinimized}>
+          {requireAuthentication ? <div className="practice-auth-required"><LockKeyhole /><h2>Sign in to solve this question</h2><p>Browse the problem now, then sign in to run code and save tracked progress.</p><button className="button button--primary" type="button" onClick={onRequireAuth}>Login to continue</button></div> :
           <DomainErrorBoundary name="practice-compiler" title="The code workspace could not be displayed." description="The problem statement is still available. Retry the workspace when you are ready." resetKeys={[question.id]} compact>
             <CompilerPanel ref={compilerLanguage.panelRef} compiler={compiler} instanceId={`practice-${question.id}`} lessonContext={question.title} activityType="practice" onVerificationChange={setVerificationStatus} onExecutionStateChange={setCompilerStatus} languageSelector={<CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />} renderOutput={(outputProps) => <PracticeTestPanel {...outputProps} contract={question.contract} tests={question.publicTests ?? []} />} key={question.id} />
-          </DomainErrorBoundary>
+          </DomainErrorBoundary>}
         </div>
       </aside>
       {!isCompilerMinimized ? <ResizeHandle className="compiler-resize-handle" label="Resize problem and compiler panes" min={LAYOUT_SIZE.compiler.min} max={compilerResize.max} value={compilerResize.value} onPointerDown={compilerResize.startDragging} onKeyDown={compilerResize.handleKeyDown} /> : null}

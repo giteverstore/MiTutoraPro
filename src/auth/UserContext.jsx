@@ -155,8 +155,8 @@ export function UserProvider({ children, repository = defaultRepository }) {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-export function useUser() {
+export function useUser({ optional = false } = {}) {
   const context = useContext(UserContext);
-  if (!context) throw new Error('useUser must be used inside UserProvider.');
+  if (!context && !optional) throw new Error('useUser must be used inside UserProvider.');
   return context;
 }

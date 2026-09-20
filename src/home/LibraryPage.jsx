@@ -5,23 +5,24 @@ import { browseCatalog } from './homeData';
 import { createHomeLearningModel } from './homeLearningModel';
 import { BrowseCoursesSection } from './HomeSections';
 
-export function LibraryPage({ onOpenCourse }) {
-  const { user } = useUser();
+export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = () => {} }) {
+  const user = useUser({ optional: true })?.user;
   const [activeLanguage, setActiveLanguage] = useState('all');
   const [courseSearch, setCourseSearch] = useState('');
   const [progressRecords, setProgressRecords] = useState([]);
   useEffect(() => {
     let active = true;
+    if (anonymous || !user?.id) { setProgressRecords([]); return undefined; }
     progressRepository.list(user.id).then(
       (records) => { if (active) setProgressRecords(records); },
       () => { if (active) setProgressRecords([]); },
     );
     return () => { active = false; };
-  }, [user.id]);
+  }, [anonymous, user?.id]);
   const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords }).enrollments.map((course) => [course.id, course])), [progressRecords]);
   const languageCourses = useMemo(() => browseCatalog.languages.map((course) => {
     const enrollment = enrollmentByCourse.get(course.id);
-    return { ...course, enrolled: Boolean(enrollment), progress: enrollment?.progress ?? 0 };
+    return { ...course, enrolled: Boolean(enrollment), started: Boolean(enrollment), progress: enrollment?.progress ?? null };
   }), [enrollmentByCourse]);
   const languages = useMemo(() => [...new Set(languageCourses.map((course) => course.filter))], [languageCourses]);
   const languageGroups = useMemo(() => {
@@ -40,6 +41,7 @@ export function LibraryPage({ onOpenCourse }) {
   return <div className="home-main library-main" id="library-content">
     <BrowseCoursesSection languageGroups={languageGroups} languages={languages}
       activeLanguage={activeLanguage} search={courseSearch}
-      onLanguageChange={setActiveLanguage} onSearchChange={setCourseSearch} onOpenCourse={onOpenCourse} />
+      onLanguageChange={setActiveLanguage} onSearchChange={setCourseSearch} onOpenCourse={onOpenCourse}
+      allowBookmarks={!anonymous} onRequireAuth={onRequireAuth} />
   </div>;
 }

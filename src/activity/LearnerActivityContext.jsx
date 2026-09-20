@@ -36,8 +36,8 @@ export function LearnerActivityProvider({ children }) {
   return <LearnerActivityContext.Provider value={value}>{children}</LearnerActivityContext.Provider>;
 }
 
-export function useLearnerActivity() {
+export function useLearnerActivity({ optional = false } = {}) {
   const value = useContext(LearnerActivityContext);
-  if (!value) throw new Error('useLearnerActivity must be used within LearnerActivityProvider.');
+  if (!value && !optional) throw new Error('useLearnerActivity must be used within LearnerActivityProvider.');
   return value;
 }

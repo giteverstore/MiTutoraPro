@@ -1430,3 +1430,7 @@
     width: 100%;
   }
 }
+.practice-auth-required { display: grid; min-height: 20rem; place-content: center; justify-items: center; gap: var(--space-3); padding: var(--space-8); color: var(--color-code-text); text-align: center; }
+.practice-auth-required svg { color: var(--color-accent); }
+.practice-auth-required h2,.practice-auth-required p { margin: 0; }
+.practice-auth-required p { max-width: 28rem; color: var(--color-text-muted); line-height: var(--line-height-body); }

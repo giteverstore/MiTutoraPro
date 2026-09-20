@@ -53,4 +53,12 @@ describe('Projects filter cleanup', () => {
     fireEvent.click(screen.getAllByRole('button', { name: /View Project/ })[0]);
     expect(screen.getByRole('button', { name: /Start Project/ })).toBeInTheDocument();
   });
+
+  it('keeps project cards and overview available without Premium access', () => {
+    render(<ProjectsPage />);
+    expect(screen.getAllByRole('button', { name: /View Project/ })).toHaveLength(5);
+    fireEvent.click(screen.getAllByRole('button', { name: /View Project/ })[0]);
+    expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
+    expect(screen.queryByText('Premium required')).not.toBeInTheDocument();
+  });
 });

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { ArrowLeft, BookOpen, Braces, CalendarCheck2, CircleHelp, GraduationCap, MailQuestion, ShieldCheck, Sparkles } from 'lucide-react';
+import { BookOpen, Braces, CalendarCheck2, CircleHelp, GraduationCap, MailQuestion, ShieldCheck, Sparkles } from 'lucide-react';
 import { PublicFooter } from './PublicFooter';
+import { PublicHeader } from './PublicHeader';
 import { aboutPage, contactPage, publicPages, PUBLIC_OPERATOR, SUPPORT_EMAIL } from './publicPageContent';
 
 function PageMetadata({ page }) {
@@ -30,10 +31,6 @@ function PageMetadata({ page }) {
     };
   }, [page]);
   return null;
-}
-
-function PublicHeader() {
-  return <header className="public-header"><a href="/" aria-label="Return to ycoders"><img src="/ycoders-mark.svg" alt="" /><strong>ycoders</strong></a><a href="/"><ArrowLeft /> Back to sign in</a></header>;
 }
 
 function PublicShell({ page, children }) {

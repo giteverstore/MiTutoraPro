@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { createCourseOverviewModel } from '../course/createCourseOverviewModel';
 import { ICON_SIZE } from '../design-system/theme';
-import { useLearningProgress } from '../progress/LearningProgressContext';
+import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
 
@@ -30,8 +30,11 @@ const STAT_DEFINITIONS = [
   { key: 'certificate', label: 'Certificate', icon: Award },
 ];
 
-export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, onStartExam }) {
-  const progress = useLearningProgress();
+const anonymousProgress = Object.freeze({ courseProgress: 0, completedLessons: [], completedLessonCount: 0, sequentialCompletedLessons: 0, visitedLessonCount: 0 });
+
+export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, onStartExam, anonymous = false }) {
+  const storedProgress = useOptionalLearningProgress();
+  const progress = storedProgress ?? anonymousProgress;
   const model = useMemo(
     () => createCourseOverviewModel(course, progress),
     [course, progress],
@@ -72,6 +75,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
             actionLabel={actionLabel}
             onEnterCourse={onEnterCourse}
             onStartExam={isCompleted ? onStartExam : undefined}
+            showProgress={!anonymous}
           />
         ) : (
           <section className="overview-hero">
@@ -89,7 +93,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
                 </button>
               ) : null}
             </div>
-            <ProgressSummary model={model} progress={progress} />
+            {anonymous ? null : <ProgressSummary model={model} progress={progress} />}
           </section>
         )}
 
@@ -110,7 +114,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
 
         <ModuleList modules={model.modules} />
 
-        {import.meta.env.DEV ? (
+        {import.meta.env.DEV && !anonymous && storedProgress ? (
           <DevelopmentControls course={course} progress={progress} onResetCourse={onResetCourse} />
         ) : null}
 
@@ -119,7 +123,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
   );
 }
 
-function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnterCourse, onStartExam }) {
+function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnterCourse, onStartExam, showProgress = true }) {
   const heroStyle = { '--course-hero-artwork': `url("${presentation.artwork}")` };
 
   return (
@@ -139,7 +143,7 @@ function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnter
             </button>
           ) : null}
         </div>
-        {progress.courseProgress > 0 ? (
+        {showProgress && progress.courseProgress > 0 ? (
           <div className="overview-artwork-progress">
             <span><strong>{progress.courseProgress}%</strong> complete</span>
             <div role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress.courseProgress}>

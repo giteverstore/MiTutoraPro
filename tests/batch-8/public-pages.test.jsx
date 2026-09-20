@@ -92,7 +92,7 @@ describe('legal content boundaries', () => {
   it('includes a bounded mobile layout without hiding legal content', () => {
     const css = readFileSync('src/styles/public-pages.css', 'utf8');
     expect(css).toMatch(/@media \(max-width: 48rem\)/);
-    expect(css).toMatch(/\.legal-grid \{ grid-template-columns: 1fr; \}/);
+    expect(css).toMatch(/\.legal-grid\s*\{\s*grid-template-columns:\s*1fr;\s*\}/);
     expect(css).not.toMatch(/\.legal-document[^}]*display:\s*none/);
   });
 });

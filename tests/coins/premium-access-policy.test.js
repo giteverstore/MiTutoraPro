@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ACCESS_FEATURES, FREE_PREVIEW_LESSON_COUNT, canAccessFeature, canAccessLesson, canonicalLessonIndex } from '../../src/access/accessPolicy.js';
+import { ACCESS_FEATURES, FREE_PREVIEW_LESSON_COUNT, FREE_PROJECT_PREVIEW_PAGE_COUNT, canAccessFeature, canAccessLesson, canAccessProjectPage, canonicalLessonIndex } from '../../src/access/accessPolicy.js';
 import { createAIExplainHandler } from '../../api/ai/explain.js';
 import { AIServiceError } from '../../server/ai/AIServiceError.js';
 import { createPremiumAccessGuard } from '../../server/subscriptions/PremiumAccessGuard.js';
@@ -25,8 +25,14 @@ describe('M4 centralized Premium access policy', () => {
     const lessonIndex = canonicalLessonIndex(course, 'four');
     expect(canAccessLesson({ tier: 'FREE', lessonIndex })).toBe(false);
   });
-  it.each([ACCESS_FEATURES.PRACTICE, ACCESS_FEATURES.CHALLENGES, ACCESS_FEATURES.BOOKMARKS])('keeps %s free', (feature) => expect(canAccessFeature({ tier: 'FREE', feature })).toBe(true));
-  it.each([ACCESS_FEATURES.PROJECTS, ACCESS_FEATURES.CERTIFICATES, ACCESS_FEATURES.AI_TUTOR])('requires Premium for %s', (feature) => {
+  it.each([ACCESS_FEATURES.PRACTICE, ACCESS_FEATURES.CHALLENGES, ACCESS_FEATURES.BOOKMARKS, ACCESS_FEATURES.PROJECTS])('keeps %s entry free', (feature) => expect(canAccessFeature({ tier: 'FREE', feature })).toBe(true));
+  it('centralizes the three-page Project preview and protects page four', () => {
+    expect(FREE_PROJECT_PREVIEW_PAGE_COUNT).toBe(3);
+    expect(canAccessProjectPage({ tier: 'FREE', pageIndex: 2 })).toBe(true);
+    expect(canAccessProjectPage({ tier: 'FREE', pageIndex: 3 })).toBe(false);
+    expect(canAccessProjectPage({ tier: 'PREMIUM', pageIndex: 3 })).toBe(true);
+  });
+  it.each([ACCESS_FEATURES.CERTIFICATES, ACCESS_FEATURES.AI_TUTOR])('requires Premium for %s', (feature) => {
     expect(canAccessFeature({ tier: 'FREE', feature })).toBe(false);
     expect(canAccessFeature({ tier: 'PREMIUM', feature })).toBe(true);
   });

@@ -151,6 +151,8 @@ export function BrowseCoursesSection({
   onLanguageChange,
   onSearchChange,
   onOpenCourse,
+  allowBookmarks = true,
+  onRequireAuth,
 }) {
   const scrollFilters = (event) => {
     const container = event.currentTarget;
@@ -203,7 +205,7 @@ export function BrowseCoursesSection({
               <LanguageHeading language={group.language} />
             </header>
             <div className="library-language-course-grid">
-              {group.courses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" key={course.id} />)}
+              {group.courses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" allowBookmark={allowBookmarks} onRequireAuth={onRequireAuth} key={course.id} />)}
             </div>
           </section>
         )) : (

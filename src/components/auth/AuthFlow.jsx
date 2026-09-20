@@ -6,10 +6,10 @@ import { ProfileCreation } from './ProfileCreation';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 
-export function AuthFlow() {
+export function AuthFlow({ initialScreen = 'sign-in' }) {
   const { createProfile } = useUser();
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
-  const [screen, setScreen] = useState('sign-in');
+  const [screen, setScreen] = useState(initialScreen);
   const [pendingAccount, setPendingAccount] = useState(null);
 
   if (screen === 'sign-up') {

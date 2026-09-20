@@ -10,13 +10,11 @@ import { DomainErrorBoundary } from './errors/ErrorBoundary';
 import { parseAppRoute, routePage, writeAppRoute } from './routing/appRoutes';
 import { lazyNamedExport } from './routing/lazyRoute';
 import { SubscriptionAccessProvider, useSubscriptionAccess } from './access/SubscriptionAccessContext';
-import { PremiumFeatureGate } from './access/PremiumFeatureGate';
 import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
 import { recentCourseRepository } from './home/recentCourseRepository';
 import { LearnerActivityProvider } from './activity/LearnerActivityContext';
 import { shouldShowApplicationFooter } from './app-shell/footerPolicy';
 
-const AuthFlow = lazyNamedExport(() => import('./components/auth/AuthFlow'), 'AuthFlow');
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
 const BookmarkProvider = lazyNamedExport(() => import('./bookmarks/BookmarkContext'), 'BookmarkProvider');
 const HomePage = lazyNamedExport(() => import('./pages/HomePage'), 'HomePage');
@@ -38,6 +36,7 @@ const SetupVerificationExperience = lazyNamedExport(
 const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'CourseRoute');
 const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
 const PublicPage = lazyNamedExport(() => import('./public/PublicPages'), 'PublicPage');
+const PublicBrowseApplication = lazyNamedExport(() => import('./public/PublicBrowseApplication'), 'PublicBrowseApplication');
 
 const compilerManager = createCompilerManager();
 const APPLICATION_PAGES = {
@@ -138,10 +137,16 @@ function UserGate() {
   }
 
   if (!auth.isAuthenticated) {
-    return <Suspense fallback={<CourseLoadState state="loading" />}><AuthFlow /></Suspense>;
+    return <Suspense fallback={<CourseLoadState state="loading" />}><PublicBrowseApplication /></Suspense>;
   }
 
   if (!user || user.id !== auth.user.id) return <CourseLoadState state="loading" />;
+
+  if (window.location.pathname === '/login' || window.location.pathname === '/signup') {
+    const destination = sessionStorage.getItem('ycoders:auth-return') || '/';
+    sessionStorage.removeItem('ycoders:auth-return');
+    window.history.replaceState({ ycoders: true }, '', destination.startsWith('/') && !destination.startsWith('//') ? destination : '/');
+  }
 
   return <>
     <Suspense fallback={<CourseLoadState state="loading" />}>
@@ -320,7 +325,7 @@ function AuthenticatedApplication({ user }) {
         ) : activePage === 'bookmarks' ? (
           <BookmarksPage onOpenBookmark={openBookmark} />
         ) : activePage === 'certificates' ? (
-          <PremiumFeatureGate feature={ACCESS_FEATURES.CERTIFICATES} context="Certificates"><CertificatesPage
+          <CertificatesPage
             onStartExam={() => setExamOpen(true)}
             onTestSetup={() => setSetupVerificationOpen(true)}
             onContinueCourse={(courseId) => {
@@ -329,9 +334,9 @@ function AuthenticatedApplication({ user }) {
               setActiveCourseId(courseId);
               writeAppRoute({ kind: 'course-overview', courseId });
             }}
-          /></PremiumFeatureGate>
+          />
         ) : activePage === 'projects' ? (
-          <PremiumFeatureGate feature={ACCESS_FEATURES.PROJECTS} context="Projects"><ProjectsPage /></PremiumFeatureGate>
+          <ProjectsPage />
         ) : <ActivePage />}
         </Suspense>
         </DomainErrorBoundary>

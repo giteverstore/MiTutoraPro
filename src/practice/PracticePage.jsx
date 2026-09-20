@@ -27,17 +27,17 @@ function scrollCatalogIntoView() {
   document.querySelector('.practice-question-list')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
 }
 
-export function PracticePage({ initialQuestionId = null, onQuestionChange = () => {} }) {
-  const activity = useLearnerActivity();
+export function PracticePage({ initialQuestionId = null, onQuestionChange = () => {}, anonymous = false, onRequireAuth = () => {} }) {
+  const activity = useLearnerActivity({ optional: true });
   const [filters, setFilters] = useState(initialFilters);
   const [catalog, setCatalog] = useState({ items: [], currentPage: 1, reachablePageCount: 1, hasMore: false, loading: true, error: null, facets: null });
   const [statisticsCatalog, setStatisticsCatalog] = useState({ items: [], status: 'loading' });
   const [openQuestionId, setOpenQuestionId] = useState(initialQuestionId);
   const [openQuestion, setOpenQuestion] = useState(null);
   const [questionState, setQuestionState] = useState({ loading: false, error: null, retry: 0 });
-  const solvedQuestionIds = useMemo(() => new Set(activity.completions
+  const solvedQuestionIds = useMemo(() => new Set((activity?.completions ?? [])
     .filter((completion) => completion.activityType === 'PRACTICE' && completion.completionStatus === 'COMPLETED')
-    .map((completion) => completion.activityId)), [activity.completions]);
+    .map((completion) => completion.activityId)), [activity?.completions]);
   const catalogRequest = useRef(0);
   const pageCache = useRef(new Map());
   const pageCursors = useRef(new Map([[1, null]]));
@@ -131,16 +131,16 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
     return <div className="practice-page"><header className="practice-page-heading" data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category}><h1>{questionState.error ? 'This question couldn’t be loaded.' : 'Loading question…'}</h1><p>{questionState.error ? 'The catalog remains available. Retry this question or return to Practice.' : 'Verifying and preparing the question content.'}</p>{questionState.error ? <button className="button button--secondary" type="button" onClick={() => setQuestionState((state) => ({ ...state, retry: state.retry + 1 }))}>Retry</button> : null}<button className="button button--ghost" type="button" onClick={() => setOpenQuestionId(null)}>Back to Practice</button></header></div>;
   }
   if (openQuestion) {
-    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
+    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} requireAuthentication={anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
       const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.version });
-      if (['completed', 'already_completed'].includes(result.completionStatus)) await activity.refresh();
+      if (['completed', 'already_completed'].includes(result.completionStatus)) await activity?.refresh();
       return result;
     }} />;
   }
 
   return (
     <div className="practice-page">
-      <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={statisticsCatalog.items} catalogStatus={statisticsCatalog.status} />
+      {anonymous ? null : <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={statisticsCatalog.items} catalogStatus={statisticsCatalog.status} />}
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
       <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading || statisticsCatalog.status === 'loading'}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{statisticsCatalog.status === 'ready' ? `${statisticsCatalog.items.length} questions` : statisticsCatalog.status === 'error' ? 'Catalog total unavailable' : 'Loading catalog…'}</h2></div></header><div>
         {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}

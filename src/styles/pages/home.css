@@ -1320,6 +1320,8 @@
 }
 
 .library-course-card-footer .library-course-meta { padding-top: 3.125rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .875rem; }
+.library-course-card:not(.course-card--has-progress) .library-course-card-footer { min-height: 3.75rem; }
+.library-course-card:not(.course-card--has-progress) .library-course-card-footer .library-course-meta { padding-top: 2.5rem; }
 .library-course-coming-soon { position: absolute; top: .9rem; left: 0; color: var(--color-text-muted); font-size: .75rem; font-weight: 700; }
 .home-recent-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.8125rem), 14.8125rem)); justify-content: start; }
 

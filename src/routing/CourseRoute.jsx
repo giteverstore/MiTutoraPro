@@ -21,6 +21,7 @@ export function CourseRoute({
   onExitCourse,
   onLessonRoute,
   onStartExam,
+  anonymous = false,
 }) {
   return (
     <CourseLoaderProvider
@@ -35,6 +36,7 @@ export function CourseRoute({
         onExitCourse={onExitCourse}
         onLessonRoute={onLessonRoute}
         onStartExam={onStartExam}
+        anonymous={anonymous}
       />
     </CourseLoaderProvider>
   );
@@ -47,14 +49,17 @@ function LoadedCourseApplication({
   onExitCourse,
   onLessonRoute,
   onStartExam,
+  anonymous,
 }) {
   const courseLoader = useCourseLoader();
-  const { user } = useUser();
+  const user = useUser({ optional: true })?.user;
 
   if (courseLoader.isLoading) return <CourseLoadState state="loading" />;
   if (courseLoader.status === 'error') {
     return <CourseLoadState state="error" message={courseLoader.error.message} />;
   }
+
+  if (anonymous) return <CourseOverviewPage course={courseLoader.currentCourse} anonymous onBack={onExitCourse} onEnterCourse={onEnterCourse} />;
 
   return (
     <LearningProgressProvider
