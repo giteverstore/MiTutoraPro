@@ -61,6 +61,42 @@ function ThemeSwatches({ theme, mode }) {
   return <span className="settings-brand-swatches" aria-hidden="true">{theme.preview[mode].map((color) => <span style={{ backgroundColor: color }} key={color} />)}</span>;
 }
 
+function BrandThemePreview({ mode, theme }) {
+  const [accent, accentSoft, accentStrong] = theme.preview[mode];
+  const colors = mode === 'dark'
+    ? { canvas: '#111513', surface: '#1d231f', raised: '#252d28', text: '#f1f3f0', muted: '#a8b0aa', border: '#39433d' }
+    : { canvas: '#f5f7f6', surface: '#ffffff', raised: '#f9faf9', text: '#17201b', muted: '#68736c', border: '#dce2de' };
+  const style = {
+    '--preview-accent': accent,
+    '--preview-accent-soft': accentSoft,
+    '--preview-accent-strong': accentStrong,
+    '--preview-canvas': colors.canvas,
+    '--preview-surface': colors.surface,
+    '--preview-surface-raised': colors.raised,
+    '--preview-text': colors.text,
+    '--preview-muted': colors.muted,
+    '--preview-border': colors.border,
+  };
+
+  return (
+    <div className="settings-brand-preview" style={style} aria-label={`${theme.name} ${mode} theme preview`}>
+      <div className="settings-brand-preview__app" aria-hidden="true">
+        <header><span className="settings-brand-preview__mark" /><strong>Y Coders</strong><span className="settings-brand-preview__status" /></header>
+        <div className="settings-brand-preview__body">
+          <aside><span className="is-selected"><i />Home</span><span><i />Library</span><span><i />Practice</span></aside>
+          <main>
+            <span className="settings-brand-preview__eyebrow">YOUR LEARNING</span>
+            <strong>Welcome back</strong>
+            <span className="settings-brand-preview__copy">Keep building your skills today.</span>
+            <div className="settings-brand-preview__cards"><span><i />Course</span><span><i />Practice</span></div>
+            <span className="settings-brand-preview__button">Continue learning</span>
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function BrandThemeSelector({ activeThemeId, mode, ownership, onApply }) {
   const id = useId();
   const labelId = `${id}-label`;
@@ -84,11 +120,13 @@ export function BrandThemeSelector({ activeThemeId, mode, ownership, onApply }) 
     event.preventDefault(); setOpen(true); setActiveIndex((index) => (index + (event.key === 'ArrowDown' ? 1 : -1) + ownedThemes.length) % ownedThemes.length);
   };
   return <div className="settings-brand-theme" ref={rootRef}>
-    <label id={labelId}>Brand Theme</label>
+    <div className="settings-brand-heading"><label id={labelId}>Brand Theme</label><p>Choose how Y Coders looks across the app.</p></div>
     {ownership.status === 'loading' ? <div className="settings-brand-loading" role="status">Loading owned themes…</div> : <>
-      <button className="settings-brand-combobox" type="button" role="combobox" aria-labelledby={labelId} aria-controls={listboxId} aria-activedescendant={open ? `${id}-option-${ownedThemes[activeIndex].id}` : undefined} aria-expanded={open} aria-haspopup="listbox" onClick={toggle} onKeyDown={onKeyDown}><ThemeSwatches theme={selected} mode={mode} /><span>{selected.name}</span><ChevronDown aria-hidden="true" /></button>
-      {open ? <div className="settings-brand-listbox" id={listboxId} role="listbox" aria-label="Owned brand themes">{ownedThemes.map((theme, index) => <button id={`${id}-option-${theme.id}`} type="button" role="option" aria-selected={selectedId === theme.id} className={index === activeIndex ? 'is-active' : ''} onMouseEnter={() => setActiveIndex(index)} onClick={() => choose(theme.id)} key={theme.id}><ThemeSwatches theme={theme} mode={mode} /><span>{theme.name}</span>{selectedId === theme.id ? <Check aria-hidden="true" /> : null}</button>)}</div> : null}
-      <div className={`settings-brand-preview is-${mode}`} style={{ '--preview-accent': selected.preview[mode][0], '--preview-soft': selected.preview[mode][1], '--preview-strong': selected.preview[mode][2] }} aria-label={`${selected.name} ${mode} theme preview`}><header><span />ycoders</header><div className="settings-brand-preview-line" /><div><button type="button" tabIndex="-1">Button</button><span>Selected</span></div><footer><span>Card</span><span>Card</span></footer></div>
+      <div className="settings-brand-picker">
+        <button className="settings-brand-combobox" type="button" role="combobox" aria-labelledby={labelId} aria-controls={listboxId} aria-activedescendant={open ? `${id}-option-${ownedThemes[activeIndex].id}` : undefined} aria-expanded={open} aria-haspopup="listbox" onClick={toggle} onKeyDown={onKeyDown}><ThemeSwatches theme={selected} mode={mode} /><span className="settings-brand-name">{selected.name}</span>{selectedId === safeActiveId ? <span className="settings-brand-current">Current</span> : null}<ChevronDown className={open ? 'is-open' : ''} aria-hidden="true" /></button>
+        {open ? <div className="settings-brand-listbox" id={listboxId} role="listbox" aria-label="Owned brand themes">{ownedThemes.map((theme, index) => <button id={`${id}-option-${theme.id}`} type="button" role="option" aria-selected={selectedId === theme.id} className={index === activeIndex ? 'is-active' : ''} onMouseEnter={() => setActiveIndex(index)} onClick={() => choose(theme.id)} key={theme.id}><ThemeSwatches theme={theme} mode={mode} /><span className="settings-brand-name">{theme.name}</span>{theme.id === safeActiveId ? <span className="settings-brand-current">Current</span> : selectedId === theme.id ? <Check aria-hidden="true" /> : null}</button>)}</div> : null}
+      </div>
+      <BrandThemePreview theme={selected} mode={mode} />
       <button className="button button--primary settings-brand-apply" type="button" disabled={selectedId === safeActiveId || !ownership.ownedIds.has(selectedId)} onClick={() => void onApply(selectedId)}>{selectedId === safeActiveId ? 'Current Theme' : 'Set Theme'}</button>
       {ownership.status === 'error' ? <p className="settings-brand-error" role="status">Owned themes could not be loaded. Y Coders Blue remains available.</p> : null}
     </>}

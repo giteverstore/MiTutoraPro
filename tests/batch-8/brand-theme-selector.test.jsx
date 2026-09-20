@@ -42,4 +42,14 @@ describe('owned brand theme selector', () => {
     expect(screen.getByText(/could not be loaded/i)).toBeInTheDocument();
     expect(apply).not.toHaveBeenCalled();
   });
+
+  it('renders a decorative app preview and identifies the active theme', () => {
+    const { container } = render(<BrandThemeSelector activeThemeId="blue" mode="dark" ownership={ownership(['blue', 'ember'])} onApply={vi.fn()} />);
+    expect(screen.getByText('Choose how Y Coders looks across the app.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Y Coders Blue dark theme preview')).toBeInTheDocument();
+    expect(container.querySelector('.settings-brand-preview__app')).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.getByRole('combobox', { name: 'Brand Theme' })).toHaveTextContent('Current');
+    fireEvent.click(screen.getByRole('combobox', { name: 'Brand Theme' }));
+    expect(screen.getByRole('option', { name: /Y Coders Blue\s*Current/ })).toBeInTheDocument();
+  });
 });
