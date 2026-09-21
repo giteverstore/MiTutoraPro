@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img">
+  <defs><linearGradient id="sql" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#60a5fa"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs>
+  <ellipse cx="64" cy="25" rx="43" ry="17" fill="url(#sql)"/>
+  <path d="M21 25v26c0 9 19 17 43 17s43-8 43-17V25c0 9-19 17-43 17S21 34 21 25Zm0 37v26c0 9 19 17 43 17s43-8 43-17V62c0 9-19 17-43 17S21 71 21 62Z" fill="url(#sql)"/>
+  <path d="M29 46c7 7 20 11 35 11s28-4 35-11M29 83c7 7 20 11 35 11s28-4 35-11" fill="none" stroke="#bfdbfe" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+</svg>
