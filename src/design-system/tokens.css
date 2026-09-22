@@ -1,6 +1,6 @@
 :root {
   /* Typography */
-  --font-family-sans: 'Manrope', system-ui, sans-serif;
+  --font-family-sans: 'Geist Variable', 'Geist', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-family-mono: 'DM Mono', monospace;
   --font-size-xs: .6875rem;
   --font-size-sm: .8125rem;
@@ -71,8 +71,9 @@
   --ease-emphasized: cubic-bezier(.2, .75, .25, 1);
 
   /* Layout */
-  --layout-topbar-height: 4.625rem;
+  --layout-topbar-height: 3.75rem;
   --layout-sidebar-width: 17.375rem;
+  --layout-sidebar-width-collapsed: 3.75rem;
   --layout-compiler-width: 25rem;
   --layout-compiler-width-tablet: 21.875rem;
   --layout-topbar-height-mobile: 4.125rem;

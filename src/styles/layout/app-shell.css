@@ -19,7 +19,7 @@
 }
 
 .application-shell.is-sidebar-collapsed {
-  --application-sidebar-width: 4.75rem;
+  --application-sidebar-width: var(--layout-sidebar-width-collapsed);
 }
 
 .application-sidebar {
@@ -139,7 +139,8 @@
 }
 
 .application-sidebar.is-collapsed .application-sidebar-header {
-  padding-inline: var(--space-5);
+  justify-content: center;
+  padding-inline: var(--space-3);
 }
 
 .application-sidebar.is-collapsed .application-brand strong,
@@ -150,8 +151,19 @@
 
 .application-sidebar.is-collapsed .application-navigation button,
 .application-sidebar.is-collapsed .application-sidebar-toggle {
+  min-height: 2.625rem;
   justify-content: center;
   padding: 0;
+}
+
+.application-sidebar.is-collapsed .application-navigation {
+  padding-inline: .5625rem;
+}
+
+.application-sidebar.is-collapsed .application-sidebar-toggle {
+  width: 2.625rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .application-topbar {
@@ -274,8 +286,8 @@
 
 .application-icon-button {
   display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.375rem;
+  height: 2.375rem;
   padding: 0;
   place-items: center;
   color: var(--color-text-muted);
@@ -427,7 +439,8 @@
 .application-page-content {
   width: 100%;
   min-width: 0;
-  flex: 1 0 auto;
+  min-height: 100%;
+  flex: 0 0 auto;
 }
 
 .application-page .home-main {

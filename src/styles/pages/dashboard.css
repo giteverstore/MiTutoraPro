@@ -2093,7 +2093,7 @@
 .overview-hero-copy>p {
   max-width: 62ch;
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: clamp(var(--font-size-md), 1.4vw, var(--font-size-lg));
   line-height: var(--line-height-body);
 }
@@ -2365,7 +2365,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.6;
 }
 
@@ -2520,7 +2520,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-sm);
   line-height: 1.55;
 }
@@ -2672,4 +2672,3 @@
     background: #fff4f0;
   }
 }
-

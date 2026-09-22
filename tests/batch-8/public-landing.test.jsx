@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LandingPage } from '../../src/public/LandingPage';
@@ -90,8 +90,14 @@ describe('public Y Coders landing page', () => {
     expect(screen.getByText('Languages available: Python, Java, C++, SQL, and HTML.')).toBeInTheDocument();
     expect(container.querySelector('.landing-language-logo .is-incoming')).toHaveAttribute('src', '/assets/languages/python.svg');
     expect(container.querySelector('.landing-hero-grid-highlight')).toHaveAttribute('aria-hidden', 'true');
+    expect(container.querySelectorAll('.landing-hero-headline-line')).toHaveLength(2);
+    expect([...container.querySelectorAll('.landing-hero-prefix')].map((node) => node.textContent)).toEqual(['From', 'to']);
+    expect([...container.querySelectorAll('.landing-hero-accent')].map((node) => node.textContent)).toEqual(['‘I Understand’', '‘I Built It!’']);
     for (const link of screen.getByRole('navigation', { name: 'Public navigation' }).querySelectorAll('a')) expect(link).toHaveClass('public-nav-link');
     expect(screen.getByRole('img', { name: 'Developer building a web project across multiple screens' })).toHaveAttribute('src', '/assets/landing/project-building-illustration.png');
+    const mentor = container.querySelector('.landing-mentor');
+    expect(mentor.firstElementChild).toHaveClass('landing-mentor-copy');
+    expect(mentor.lastElementChild).toHaveClass('landing-mentor-illustration');
   });
 
   it('routes the AI Mentor CTA through the existing authentication boundary', () => {
@@ -112,7 +118,8 @@ describe('public Y Coders landing page', () => {
     expect([...section.querySelectorAll('.landing-how-point-dot')].map((point) => [point.getAttribute('cx'), point.getAttribute('cy')])).toEqual([['80', '390'], ['380', '280'], ['660', '190'], ['920', '90']]);
     expect(section.querySelector('.landing-how-path')).toHaveAttribute('viewBox', '0 0 1000 500');
     expect(section.querySelector('.landing-how-path path')).toHaveAttribute('d', 'M 80 390 C 175 430, 285 350, 380 280 C 475 210, 565 250, 660 190 C 755 130, 825 135, 920 90');
-    expect([...section.querySelectorAll('.landing-how-step')].map((step) => step.dataset.placement)).toEqual(['below', 'above', 'below', 'above']);
+    expect([...section.querySelectorAll('.landing-how-step')].map((step) => step.dataset.placement)).toEqual(['below', 'below', 'below', 'below']);
+    expect([...section.querySelectorAll('.landing-how-step')].map((step) => [step.dataset.labelOffsetX, step.dataset.labelOffsetY])).toEqual([['0', '28'], ['0', '28'], ['0', '28'], ['0', '28']]);
     expect(screen.getByRole('heading', { level: 3, name: 'Grow' })).toBeVisible();
     expect(section.querySelector('.landing-how-path')).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByRole('heading', { name: 'Learn. Practice. Build. Grow.' })).toBeVisible();
@@ -166,18 +173,24 @@ describe('public Y Coders landing page', () => {
     const { container } = render(<LandingPage />);
     const section = container.querySelector('.landing-final-cta');
     expect(section.querySelector('h2')).toHaveTextContent('Learn to code withY Coders');
-    expect(section.querySelector('img')).toHaveAttribute('src', '/assets/landing/final-cta-reference.png');
-    expect(section.querySelector('img')).toHaveAttribute('alt', '');
+    expect(section.querySelector('.landing-final-cta-character')).toHaveAttribute('src', '/assets/landing/final-cta-characters.png');
+    expect(section.querySelector('.landing-final-cta-character')).toHaveAttribute('alt', '');
+    expect(section.querySelector('.landing-final-cta-wave')).toHaveAttribute('aria-hidden', 'true');
+    expect(section.querySelectorAll('.landing-final-cta-wave path')).toHaveLength(2);
     fireEvent.click(section.querySelector('button'));
     expect(session.get('ycoders:auth-return')).toBe('/');
     expect(window.location.pathname).toBe('/signup');
   });
 
   it('publishes the public navigation and valid footer destinations', () => {
-    render(<LandingPage />);
-    expect(screen.getByRole('navigation', { name: 'Public navigation' })).toBeVisible();
-    for (const [name, href] of [['Courses', '/library'], ['Practice', '/practice'], ['Project', '/projects'], ['About', '/about'], ['Contact', '/contact'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Refund Policy', '/refund-policy']]) {
-      expect(screen.getByRole('link', { name })).toHaveAttribute('href', href);
+    const { container } = render(<LandingPage />);
+    const headerNavigation = within(screen.getByRole('navigation', { name: 'Public navigation' }));
+    for (const [name, href] of [['Courses', '/library'], ['Practice', '/practice'], ['Project', '/projects']]) {
+      expect(headerNavigation.getByRole('link', { name })).toHaveAttribute('href', href);
+    }
+    const footer = within(container.querySelector('.public-footer'));
+    for (const [name, href] of [['About', '/about'], ['Contact', '/contact'], ['Privacy Policy', '/privacy'], ['Terms of Service', '/terms'], ['Refund Policy', '/refund-policy']]) {
+      expect(footer.getByRole('link', { name })).toHaveAttribute('href', href);
     }
   });
 
@@ -199,7 +212,8 @@ describe('public Y Coders landing page', () => {
     expect(css).toMatch(/\.public-nav-link::after\{[^}]*transform:scaleX\(0\)/);
     expect(css).toMatch(/\.public-nav-link:hover::after[^}]*\{transform:scaleX\(1\)/);
     expect(css).toMatch(/\.landing-hero-grid-highlight\{[^}]*pointer-events:none/);
-    expect(css).toMatch(/\.landing-hero-grid\{[^}]*var\(--color-accent\) 25%/);
+    expect(css).toMatch(/\.landing-hero-grid\{[^}]*var\(--color-border\) 78%,var\(--color-surface\)/);
+    expect(css).toMatch(/\.landing-hero-grid-highlight\{[^}]*linear-gradient\(var\(--color-accent\) 1\.5px/);
     expect(css).toMatch(/radial-gradient\(circle 190px at var\(--hero-pointer-x\) var\(--hero-pointer-y\)/);
     expect(css).toMatch(/@media\(prefers-reduced-motion:reduce\)[\s\S]*\.landing-hero-grid-highlight\{display:none/);
   });

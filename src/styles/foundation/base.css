@@ -3,8 +3,6 @@
    Ownership is kept contiguous to preserve the legacy cascade.
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap');
-
 :root {
   font-family: var(--font-family-sans);
   color: var(--color-text);
@@ -32,6 +30,13 @@ html {
   scroll-behavior: smooth;
 }
 
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-family-sans);
+}
+
 button {
   font: inherit;
 }
@@ -53,4 +58,3 @@ a:focus-visible {
   white-space: nowrap;
   border: 0;
 }
-

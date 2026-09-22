@@ -64,7 +64,7 @@ function ThemeSwatches({ theme, mode }) {
 function BrandThemePreview({ mode, theme }) {
   const [accent, accentSoft, accentStrong] = theme.preview[mode];
   const colors = mode === 'dark'
-    ? { canvas: '#111513', surface: '#1d231f', raised: '#252d28', text: '#f1f3f0', muted: '#a8b0aa', border: '#39433d' }
+    ? { canvas: '#111513', surface: '#1d231f', raised: '#252d28', text: '#f5f5f5', muted: '#9ca3af', border: '#39433d' }
     : { canvas: '#f5f7f6', surface: '#ffffff', raised: '#f9faf9', text: '#17201b', muted: '#68736c', border: '#dce2de' };
   const style = {
     '--preview-accent': accent,

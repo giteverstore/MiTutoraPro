@@ -36,7 +36,7 @@
 .practice-page-heading p,
 .practice-detail-header p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.7;
 }
 
@@ -392,7 +392,7 @@
 
 .practice-preview p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.7;
 }
 
@@ -711,7 +711,7 @@
 
 .practice-problem .reading-copy {
   padding-block: 0 var(--space-6);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-md);
   line-height: var(--line-height-body);
 }
@@ -841,7 +841,7 @@
 
 .practice-problem-description {
   max-width: 52rem;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-md);
   line-height: var(--line-height-body);
 }
@@ -901,7 +901,7 @@
 
 .practice-example p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-body);
 }
@@ -911,7 +911,7 @@
   gap: var(--space-2);
   margin: 0;
   padding-left: var(--space-5);
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .practice-constraints li {
@@ -1433,4 +1433,4 @@
 .practice-auth-required { display: grid; min-height: 20rem; place-content: center; justify-items: center; gap: var(--space-3); padding: var(--space-8); color: var(--color-code-text); text-align: center; }
 .practice-auth-required svg { color: var(--color-accent); }
 .practice-auth-required h2,.practice-auth-required p { margin: 0; }
-.practice-auth-required p { max-width: 28rem; color: var(--color-text-muted); line-height: var(--line-height-body); }
+.practice-auth-required p { max-width: 28rem; color: var(--color-text); line-height: var(--line-height-body); }

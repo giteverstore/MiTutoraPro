@@ -26,6 +26,25 @@ describe('theme ownership', () => {
     expect(css).not.toMatch(/#[0-9a-f]{3,8}|rgba?\(|hsla?\(/i);
   });
 
+  it('uses the bundled Geist variable font and the shared application stack', async () => {
+    const tokens = await readFile(resolve('src/design-system/tokens.css'), 'utf8');
+    const entry = await readFile(resolve('src/main.jsx'), 'utf8');
+    const base = await readFile(resolve('src/styles/foundation/base.css'), 'utf8');
+
+    expect(tokens).toContain("--font-family-sans: 'Geist Variable', 'Geist', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;");
+    expect(entry).toContain("import '@fontsource-variable/geist';");
+    expect(entry).toContain("import '@fontsource/dm-mono/400.css';");
+    expect(entry).toContain("import '@fontsource/dm-mono/500.css';");
+    expect(base).not.toContain('fonts.googleapis.com');
+  });
+
+  it('defines readable primary, secondary, and muted text roles in both themes', async () => {
+    const css = await readFile(resolve('src/styles/theme.css'), 'utf8');
+
+    expect(css).toMatch(/:root[\s\S]*--color-text: #111111;[\s\S]*--color-text-secondary: #374151;[\s\S]*--color-text-muted: #6b7280;/);
+    expect(css).toMatch(/\[data-theme="dark"\][\s\S]*--color-text: #f5f5f5;[\s\S]*--color-text-secondary: #d1d5db;[\s\S]*--color-text-muted: #9ca3af;/);
+  });
+
   it('centralizes the blue brand palette while preserving semantic and difficulty colors', async () => {
     const css = await readFile(resolve('src/styles/theme.css'), 'utf8');
     expect(css).toMatch(/:root[\s\S]*--color-accent: #2563eb;[\s\S]*--color-accent-hover: #1d4ed8;[\s\S]*--color-accent-soft: #dbeafe;[\s\S]*--color-accent-subtle: #eff6ff;[\s\S]*--color-text-on-accent: #ffffff;/);

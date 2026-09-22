@@ -46,7 +46,7 @@
 .referral-rewards>header p,
 .referral-history>header p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.7;
 }
 
@@ -207,7 +207,7 @@
 
 .referral-flow p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-sm);
   line-height: 1.6;
 }
@@ -505,7 +505,7 @@
 
 .error-recovery p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.65;
 }
 
@@ -536,4 +536,3 @@
 }
 
 @media (prefers-reduced-motion: reduce) {}
-

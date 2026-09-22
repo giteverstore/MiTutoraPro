@@ -299,10 +299,10 @@ function LandingProjectFeatures() {
 }
 
 const HOW_IT_WORKS_STEPS = [
-  { id: 'learn', number: '1', title: 'Learn', placement: 'below', cx: 80, cy: 390, description: 'Follow structured courses and understand programming concepts through guided lessons and examples.' },
-  { id: 'practice', number: '2', title: 'Practice', placement: 'above', cx: 380, cy: 280, description: 'Solve coding questions, test your understanding, and improve through hands-on exercises.' },
-  { id: 'build', number: '3', title: 'Build', placement: 'below', cx: 660, cy: 190, description: 'Apply your skills to real projects and create work you can showcase.' },
-  { id: 'grow', number: '4', title: 'Grow', placement: 'above', cx: 920, cy: 90, description: 'Track your progress, complete challenges, earn rewards, and keep building momentum.' },
+  { id: 'learn', number: '1', title: 'Learn', placement: 'below', cx: 80, cy: 390, labelOffsetX: 0, labelOffsetY: 28, description: 'Follow structured courses and understand programming concepts through guided lessons and examples.' },
+  { id: 'practice', number: '2', title: 'Practice', placement: 'below', cx: 380, cy: 280, labelOffsetX: 0, labelOffsetY: 28, description: 'Solve coding questions, test your understanding, and improve through hands-on exercises.' },
+  { id: 'build', number: '3', title: 'Build', placement: 'below', cx: 660, cy: 190, labelOffsetX: 0, labelOffsetY: 28, description: 'Apply your skills to real projects and create work you can showcase.' },
+  { id: 'grow', number: '4', title: 'Grow', placement: 'below', cx: 920, cy: 90, labelOffsetX: 0, labelOffsetY: 28, description: 'Track your progress, complete challenges, earn rewards, and keep building momentum.' },
 ];
 
 function LandingHowJourney() {
@@ -324,10 +324,10 @@ function LandingHowJourney() {
         return <g className={active ? 'landing-how-point is-active' : 'landing-how-point'} data-stage={id} key={id}><circle className="landing-how-point-halo" cx={cx} cy={cy} r="18" /><circle className="landing-how-point-dot" cx={cx} cy={cy} r={active ? 11 : 8} /></g>;
       })}
     </svg>
-    <ol>{HOW_IT_WORKS_STEPS.map(({ id, number, title, placement, cx, cy, description }) => {
+    <ol>{HOW_IT_WORKS_STEPS.map(({ id, number, title, placement, cx, cy, labelOffsetX, labelOffsetY, description }) => {
       const active = activeId === id;
       const descriptionId = `landing-how-${id}-description`;
-      return <li className={`landing-how-step is-${placement}${active ? ' is-active' : ''}`} data-placement={placement} data-cx={cx} data-cy={cy} style={{ '--landing-how-x': `${cx / 10}%`, '--landing-how-y': `${cy / 5}%` }} key={id}>
+      return <li className={`landing-how-step is-${placement}${active ? ' is-active' : ''}`} data-placement={placement} data-cx={cx} data-cy={cy} data-label-offset-x={labelOffsetX} data-label-offset-y={labelOffsetY} style={{ '--landing-how-x': `${cx / 10}%`, '--landing-how-y': `${cy / 5}%`, '--landing-how-label-x': `${labelOffsetX}px`, '--landing-how-label-y': `${labelOffsetY}px` }} key={id}>
         <button className="landing-how-marker" type="button" aria-label={`${title} — show details`} aria-expanded={active} aria-controls={descriptionId} onMouseEnter={() => setPreviewId(id)} onMouseLeave={() => setPreviewId(null)} onFocus={() => setPreviewId(id)} onBlur={() => setPreviewId(null)} onClick={() => setSelectedId(id)} onKeyDown={(event) => activateFromKeyboard(event, id)}><span className="landing-how-mobile-point" /></button>
         <div><span className="landing-how-number" aria-hidden="true">{number}</span><h3>{title}</h3><p id={descriptionId} className={active ? 'is-visible' : ''} aria-hidden={!active}>{description}</p></div>
       </li>;
@@ -370,7 +370,10 @@ function LandingPageContent() {
       <div className="landing-hero-copy">
         <div className="landing-hero-avatars" aria-hidden="true">{[1, 2, 3, 4, 5].map((avatar) => <img src={`/assets/avatars/landing-avatar-${avatar}.svg`} alt="" key={avatar} />)}</div>
         <p className="landing-hero-intro">From Beginner to Code Master With Y Coders</p>
-        <h1>From ‘I Understand’ to ‘I Built It!’</h1>
+        <h1 aria-label="From ‘I Understand’ to ‘I Built It!’">
+          <span className="landing-hero-headline-line" aria-hidden="true"><span className="landing-hero-prefix">From</span><span className="landing-hero-accent">‘I Understand’</span></span>
+          <span className="landing-hero-headline-line" aria-hidden="true"><span className="landing-hero-prefix">to</span><span className="landing-hero-accent">‘I Built It!’</span></span>
+        </h1>
         <p className="landing-hero-primary">Learn. Build. Compete. Get Hired. With Y Coders.</p>
         <p className="landing-hero-secondary">Your Coding Journey Starts Here Learn by Building!</p>
         <div className="landing-hero-actions"><button className="button button--primary" type="button" onClick={() => requestAuthentication('/', 'login')}><img src="/assets/brands/google-g.svg" alt="" aria-hidden="true" />Sign in</button><a className="button button--secondary" href="/library">Explore Courses</a></div>
@@ -381,9 +384,6 @@ function LandingPageContent() {
     <section className="landing-split landing-practice"><div><h2>Practice What<br />You Learn.</h2><p>Browse coding questions by topic and difficulty, then sign in when you are ready to run solutions and track completion.</p><a className="button button--primary" href="/practice">Explore Practice <ArrowRight /></a></div><LandingPracticeShowcase /></section>
     <section className="landing-projects"><div className="landing-project-illustration"><img src="/assets/landing/project-building-illustration.png" alt="Developer building a web project across multiple screens" /></div><div className="landing-section-copy"><h2>Don’t Just Learn. Build Something Real.</h2><p>Build hands-on projects, explore in-demand technologies, and gain job-ready skills with Y Coders.</p><LandingProjectFeatures /><a className="button button--primary" href="/projects">Explore Projects <ArrowRight /></a></div></section>
     <section className="landing-mentor" aria-labelledby="landing-mentor-title">
-      <div className="landing-mentor-illustration">
-        <img src="/assets/landing/ai-coding-mentor-illustration.png" alt="AI coding mentor helping a learner debug code" />
-      </div>
       <div className="landing-mentor-copy">
         <h2 id="landing-mentor-title">Stuck on Code? Ask Your AI Mentor.</h2>
         <p className="landing-mentor-description">Get instant, step-by-step guidance while you code. Ask questions, fix bugs, understand concepts, and improve your solutions inside eligible learning experiences. Authentication and Premium access are required.</p>
@@ -398,8 +398,11 @@ function LandingPageContent() {
         <p className="landing-mentor-tagline">Code. Ask. Debug. Improve. — With Y Coders.</p>
         <button className="button button--primary" type="button" onClick={() => requestAuthentication('/practice', 'login')}>Ask AI Mentor <ArrowRight /></button>
       </div>
+      <div className="landing-mentor-illustration">
+        <img src="/assets/landing/ai-coding-mentor-illustration.png" alt="AI coding mentor helping a learner debug code" />
+      </div>
     </section>
-    <section className="landing-how" aria-labelledby="landing-how-title">
+    <section className="landing-how" id="how-it-works" aria-labelledby="landing-how-title">
       <div className="landing-how-intro">
         <h2 id="landing-how-title">Learn. Practice. Build. Grow.</h2>
         <p>A simple path from learning the fundamentals to building real projects and tracking your progress.</p>
@@ -413,7 +416,11 @@ function LandingPageContent() {
         <button className="button" type="button" onClick={() => requestAuthentication('/', 'signup')}>Get Started <ArrowRight /></button>
       </div>
       <div className="landing-final-cta-visual" aria-hidden="true">
-        <img src="/assets/landing/final-cta-reference.png" alt="" />
+        <svg className="landing-final-cta-wave" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path className="landing-final-cta-wave-rear" d="M0 58 C250 80 350 284 720 280 C1090 276 1190 80 1440 58 L1440 320 L0 320 Z" />
+          <path className="landing-final-cta-wave-front" d="M0 92 C260 112 390 315 720 300 C1050 285 1180 112 1440 92 L1440 320 L0 320 Z" />
+        </svg>
+        <img className="landing-final-cta-character" src="/assets/landing/final-cta-characters.png" alt="" />
       </div>
     </section>
   </main><PublicFooter /></div>;

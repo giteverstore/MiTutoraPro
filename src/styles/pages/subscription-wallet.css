@@ -73,7 +73,7 @@
 
 .wallet-page header p,
 .wallet-transactions p {
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .wallet-balances {
@@ -109,7 +109,7 @@
 }
 
 .wallet-balances article span {
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .wallet-balances article strong {

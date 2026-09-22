@@ -657,7 +657,7 @@
 .lesson-hero>p {
   max-width: 65ch;
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: clamp(var(--font-size-md), 1.25vw, var(--font-size-lg));
   line-height: 1.7;
 }
@@ -758,7 +758,7 @@
 .interactive-card p,
 .exercise-card p,
 .ai-card p {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-md);
   line-height: 1.72;
 }
@@ -1237,7 +1237,7 @@
 
 .rich-text li {
   padding-left: var(--space-1);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.65;
 }
 
@@ -1253,7 +1253,7 @@
 }
 
 .exercise-instructions {
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .ai-card {
@@ -1382,7 +1382,7 @@
 .warning-card p,
 .callout-card p {
   margin: var(--space-1) 0 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-body);
 }
@@ -1465,7 +1465,7 @@
 }
 
 .table-card td {
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .lesson-divider {

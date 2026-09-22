@@ -24,7 +24,7 @@
 .project-details header p,
 .project-workspace-page>header p {
   max-width: 48rem;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.75;
 }
 
@@ -78,7 +78,7 @@
 
 .project-catalog p {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .project-empty {
@@ -135,7 +135,7 @@
 }
 
 .project-card p {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: 1.6;
 }
 
@@ -232,7 +232,7 @@
 .project-step-actions { display: flex; justify-content: space-between; margin-top: var(--space-5); }
 .project-premium-boundary { display: grid; justify-items: center; max-width: 42rem; margin: var(--space-8) auto; text-align: center; }
 .project-premium-boundary>svg { color: var(--color-accent); }
-.project-premium-boundary p { color: var(--color-text-muted); }
+.project-premium-boundary p { color: var(--color-text); }
 
 .project-workspace-grid {
   display: grid;

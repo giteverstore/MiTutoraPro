@@ -1,4 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { shouldShowApplicationFooter } from '../../src/app-shell/footerPolicy';
 
@@ -41,9 +42,28 @@ describe('global legal footer coverage', () => {
     expect(pageContent.nextElementSibling).toHaveClass('public-footer');
     expect(main.lastElementChild).toHaveClass('public-footer');
     expect(container.querySelectorAll('.public-footer')).toHaveLength(1);
-    for (const name of ['About', 'Contact', 'Privacy', 'Terms', 'Refund Policy']) {
+    for (const name of ['About', 'Contact', 'Privacy Policy', 'Terms of Service', 'Refund Policy']) {
       expect(screen.getByRole('link', { name })).toBeVisible();
     }
+  });
+
+  it('keeps short routed content at least one available page viewport tall before the footer', () => {
+    const css = readFileSync('src/styles/layout/app-shell.css', 'utf8');
+    expect(css).toMatch(/\.application-shell\s*\{[\s\S]*?height:\s*100dvh;/);
+    expect(css).toMatch(/\.application-page-content\s*\{[^}]*min-height:\s*100%;[^}]*flex:\s*0 0 auto;/);
+    expect(css).toMatch(/\.application-page>\.public-footer\s*\{[^}]*flex:\s*0 0 auto;/);
+  });
+
+  it('uses the compact desktop shell tokens without shrinking the mobile topbar', () => {
+    const tokens = readFileSync('src/design-system/tokens.css', 'utf8');
+    const css = readFileSync('src/styles/layout/app-shell.css', 'utf8');
+    expect(tokens).toContain('--layout-topbar-height: 3.75rem;');
+    expect(tokens).toContain('--layout-sidebar-width-collapsed: 3.75rem;');
+    expect(tokens).toContain('--layout-topbar-height-mobile: 4.125rem;');
+    expect(css).toContain('--application-sidebar-width: var(--layout-sidebar-width-collapsed);');
+    expect(css).toMatch(/\.application-sidebar\.is-collapsed \.application-navigation button,[\s\S]*?min-height:\s*2\.625rem;/);
+    expect(css).toMatch(/\.application-sidebar\.is-collapsed \.application-sidebar-toggle\s*\{[^}]*width:\s*2\.625rem;/);
+    expect(css).toMatch(/\.application-icon-button\s*\{[^}]*width:\s*2\.375rem;[^}]*height:\s*2\.375rem;/);
   });
 
   it('keeps every section of a long routed page inside one unit before the footer', () => {

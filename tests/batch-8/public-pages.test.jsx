@@ -28,11 +28,22 @@ describe('ycoders public information routes', () => {
     expect(container.querySelector('.app-shell')).not.toBeInTheDocument();
   });
 
-  it('provides every compact footer destination', () => {
+  it('provides the expanded footer destinations and contact details', () => {
     const { container } = render(<PublicPage pageId="about" />);
     const footer = within(container.querySelector('.public-footer'));
-    for (const [name, href] of [['About', '/about'], ['Contact', '/contact'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Refund Policy', '/refund-policy']]) {
+    for (const [name, href] of [['Home', '/'], ['About', '/about'], ['Contact', '/contact'], ['Privacy Policy', '/privacy'], ['Terms of Service', '/terms'], ['Refund Policy', '/refund-policy']]) {
       expect(footer.getByRole('link', { name })).toHaveAttribute('href', href);
+    }
+    expect(footer.getByRole('link', { name: SUPPORT_EMAIL })).toHaveAttribute('href', `mailto:${SUPPORT_EMAIL}`);
+    expect(footer.getByText('Bengaluru, Karnataka, India')).toBeVisible();
+    expect(footer.getByRole('link', { name: 'Y Coders on Instagram' })).toHaveAttribute('href', 'https://www.instagram.com/ycodersofficial?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==');
+    expect(footer.getByRole('link', { name: 'Y Coders on Instagram' })).toHaveAttribute('target', '_blank');
+    expect(footer.getByRole('link', { name: 'Y Coders on Instagram' })).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(footer.getByRole('link', { name: 'Y Coders on YouTube' })).toHaveAttribute('href', 'https://youtube.com/@ycodersofficial?si=cI2A45qGf5FSD5kP');
+    expect(footer.getByRole('link', { name: 'Y Coders on YouTube' })).toHaveAttribute('target', '_blank');
+    expect(footer.getByRole('link', { name: 'Y Coders on YouTube' })).toHaveAttribute('rel', 'noopener noreferrer');
+    for (const network of ['Facebook', 'X', 'LinkedIn', 'Reddit']) {
+      expect(footer.getByRole('button', { name: `${network} — coming soon` })).toBeDisabled();
     }
   });
 
@@ -76,7 +87,9 @@ describe('legal content boundaries', () => {
     const { container: about } = render(<PublicPage pageId="about" />);
     expect(about.textContent).not.toMatch(/#1|millions of learners|placement guarantee|guaranteed career/i);
     const { container: contact } = render(<PublicPage pageId="contact" />);
-    expect(within(contact).getByRole('link', { name: SUPPORT_EMAIL })).toHaveAttribute('href', `mailto:${SUPPORT_EMAIL}`);
+    for (const emailLink of within(contact).getAllByRole('link', { name: SUPPORT_EMAIL })) {
+      expect(emailLink).toHaveAttribute('href', `mailto:${SUPPORT_EMAIL}`);
+    }
     expect(contact.textContent).not.toMatch(/postal address|physical address|address unavailable|N\/A|confirmation/i);
     expect(contact.textContent).not.toMatch(/info@mitutora|Abul Fazal|AMS Group/i);
   });

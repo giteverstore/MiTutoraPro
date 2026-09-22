@@ -1519,8 +1519,15 @@
 }
 
 .home-stat-card span {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: 0.875rem; /* 14px */
+}
+
+/* Readable content uses primary text; compact metadata remains muted. */
+.home-intro p,
+.home-section-heading p,
+.home-course-copy p {
+  color: var(--color-text);
 }
 
 @media (max-width: 1000px) {
