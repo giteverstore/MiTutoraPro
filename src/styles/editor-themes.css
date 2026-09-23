@@ -1,0 +1,28 @@
+.compiler-ide[data-editor-theme] {
+  color: var(--editor-text);
+  background: var(--editor-background);
+  border-color: var(--editor-border);
+}
+.desktop-compiler .compiler-ide[data-editor-theme] { border-radius:var(--radius-xl) 0 0 var(--radius-xl); }
+.desktop-compiler .compiler-ide[data-editor-theme] .compiler-language-label { font-size:1rem; }
+.desktop-compiler .compiler-ide[data-editor-theme] .ide-result-tabs button,.desktop-compiler .compiler-ide[data-editor-theme] .ide-runtime-status { font-size:.875rem; }
+
+.compiler-ide[data-editor-theme="ycoders-dark"] { --editor-background:#171c19;--editor-surface:#202722;--editor-panel:#171c19;--editor-text:#e4ebe7;--editor-muted:#a7b0aa;--editor-border:#3f4b44;--editor-divider:#46534b;--editor-control-border:#536159;--editor-accent:#60a5fa;--editor-focus:#60a5fa; }
+.compiler-ide[data-editor-theme="ycoders-light"] { --editor-background:#fff;--editor-surface:#f8fafc;--editor-panel:#fff;--editor-text:#111827;--editor-muted:#6b7280;--editor-border:#d1d5db;--editor-divider:#c7cdd6;--editor-control-border:#b9c1cc;--editor-accent:#2563eb;--editor-focus:#2563eb; }
+.compiler-ide[data-editor-theme="amoled"] { --editor-background:#000;--editor-surface:#050505;--editor-panel:#080808;--editor-text:#f5f5f5;--editor-muted:#a3a3a3;--editor-border:#2d2d2d;--editor-divider:#383838;--editor-control-border:#454545;--editor-accent:#22d3ee;--editor-focus:#22d3ee; }
+.compiler-ide[data-editor-theme="cream"] { --editor-background:#fff9ec;--editor-surface:#f6eedc;--editor-panel:#fbf2de;--editor-text:#2b2419;--editor-muted:#756a59;--editor-border:#d8cdb7;--editor-divider:#c9bda5;--editor-control-border:#b9aa8e;--editor-accent:#9a5b13;--editor-focus:#9a5b13; }
+.compiler-ide[data-editor-theme="github-dark"] { --editor-background:#0d1117;--editor-surface:#161b22;--editor-panel:#0d1117;--editor-text:#c9d1d9;--editor-muted:#8b949e;--editor-border:#30363d;--editor-divider:#3d444d;--editor-control-border:#484f58;--editor-accent:#58a6ff;--editor-focus:#58a6ff; }
+.compiler-ide[data-editor-theme="github-light"] { --editor-background:#fff;--editor-surface:#f6f8fa;--editor-panel:#fff;--editor-text:#1f2328;--editor-muted:#656d76;--editor-border:#d0d7de;--editor-divider:#afb8c1;--editor-control-border:#8c959f;--editor-accent:#0969da;--editor-focus:#0969da; }
+
+.compiler-ide[data-editor-theme] .ide-header,.compiler-ide[data-editor-theme] .ide-result-tabs,.compiler-ide[data-editor-theme] .ide-result-footer { color:var(--editor-text);background:var(--editor-surface);border-color:var(--editor-divider); }
+.compiler-ide[data-editor-theme] .compiler-workspace,.compiler-ide[data-editor-theme] .compiler-main-row,.compiler-ide[data-editor-theme] .editor-window,.compiler-ide[data-editor-theme] .monaco-loading-state { color:var(--editor-text);background:var(--editor-background);border-color:var(--editor-divider); }
+.compiler-ide[data-editor-theme] .ide-results.console-window,.compiler-ide[data-editor-theme] .ide-result-terminal { color:var(--editor-text);background:var(--editor-panel);border-color:var(--editor-border); }
+.compiler-ide[data-editor-theme] .compiler-language-label,.compiler-ide[data-editor-theme] .ide-header .icon-button,.compiler-ide[data-editor-theme] .ide-result-tabs button.is-active,.compiler-ide[data-editor-theme] .ide-runtime-status strong,.compiler-ide[data-editor-theme] .ide-result-terminal pre { color:var(--editor-text); }
+.compiler-ide[data-editor-theme] .ide-header .icon-button,.compiler-ide[data-editor-theme] .ide-check-button { color:var(--editor-text);background:var(--editor-surface);border-color:var(--editor-control-border); }
+.compiler-ide[data-editor-theme] .ide-header .icon-button:hover,.compiler-ide[data-editor-theme] .ide-check-button:hover:not(:disabled),.compiler-ide[data-editor-theme] .ide-result-tabs button:hover { color:var(--editor-text);background:color-mix(in srgb,var(--editor-surface) 82%,var(--editor-accent)); }
+.compiler-ide[data-editor-theme] .ide-header .compiler-run-button,.compiler-ide[data-editor-theme] .ide-header .compiler-run-button:hover:not(:disabled) { color:#fff;background:var(--editor-accent);border-color:var(--editor-accent); }
+.compiler-ide[data-editor-theme] .ide-result-tabs button,.compiler-ide[data-editor-theme] .ide-runtime-status { color:var(--editor-muted); }
+.compiler-ide[data-editor-theme] .ide-result-tabs button.is-active::after { background:var(--editor-accent); }
+.compiler-ide[data-editor-theme] .output-resize-handle { background:var(--editor-surface);border-color:var(--editor-divider); }
+.compiler-ide[data-editor-theme] :is(button,.resize-handle):focus-visible { outline:2px solid var(--editor-focus);outline-offset:2px; }
+.compiler-ide[data-editor-theme] * { scrollbar-color:var(--editor-control-border) var(--editor-panel); }

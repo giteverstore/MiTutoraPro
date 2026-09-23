@@ -12,13 +12,24 @@ export function TopNavigation({
   theme,
   user,
   onSignOut,
-  progress,
+  lessonProgress,
   bookmark,
   onBookmarkChange,
   onExitCourse,
   isSidebarOverlay,
 }) {
   const { navigation } = course;
+  const hasLessonProgress = Number.isInteger(lessonProgress?.current)
+    && Number.isInteger(lessonProgress?.total)
+    && lessonProgress.total > 0
+    && lessonProgress.current >= 1
+    && lessonProgress.current <= lessonProgress.total;
+  const lessonProgressText = hasLessonProgress
+    ? `${lessonProgress.current} of ${lessonProgress.total}`
+    : '— of —';
+  const lessonProgressPercent = hasLessonProgress
+    ? (lessonProgress.current / lessonProgress.total) * 100
+    : 0;
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
@@ -61,12 +72,21 @@ export function TopNavigation({
       <div className="lesson-navigation">
         <div className="progress-block">
           <div className="progress-copy">
-            <span>{navigation.progressLabel}</span>
-            <strong>{progress}%</strong>
+            <span>Lesson progress</span>
+            <strong>{lessonProgressText}</strong>
           </div>
-          <div className="progress-track" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
-            <span style={{ width: `${progress}%` }} />
-          </div>
+          {hasLessonProgress ? (
+            <div
+              className="progress-track"
+              role="progressbar"
+              aria-label={`Lesson progress: ${lessonProgressText}`}
+              aria-valuenow={lessonProgress.current}
+              aria-valuemin="1"
+              aria-valuemax={lessonProgress.total}
+            >
+              <span style={{ width: `${lessonProgressPercent}%` }} />
+            </div>
+          ) : null}
         </div>
         {bookmark ? (
           <BookmarkToggle

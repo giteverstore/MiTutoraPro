@@ -11,7 +11,6 @@ export function LessonHeader({ moduleName, lessonNumber, title, summary, details
         <span>{lessonNumber}</span>
       </div>
       <h1>{title}</h1>
-      <p>{summary}</p>
       <div className="lesson-details">
         {details.map((detail) => <span key={detail}>{detail}</span>)}
       </div>

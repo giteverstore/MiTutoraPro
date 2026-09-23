@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Code2, Maximize2, Minus } from 'lucide-react';
-import { CompilerPanel } from './CompilerPanel';
 import { ContentArea } from './ContentArea';
 import { ResizeHandle } from './ResizeHandle';
 import { Sidebar } from './Sidebar';
@@ -8,7 +6,7 @@ import { TopNavigation } from './TopNavigation';
 import { useDragResize } from '../hooks/useDragResize';
 import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
-import { ICON_SIZE, LAYOUT_SIZE } from '../design-system/theme';
+import { LAYOUT_SIZE } from '../design-system/theme';
 import { useUser } from '../auth/UserContext';
 import { useAuth } from '../auth/AuthContext';
 import { useLearningProgress } from '../progress/LearningProgressContext';
@@ -18,8 +16,10 @@ import { createCourseLessonBookmark } from '../bookmarks/bookmarkModel';
 import { LearningCompilerProvider } from '../compiler/LearningCompilerContext';
 import { findLessonProgressScope, getModuleLessons } from '../course/courseStructure';
 import { dispatchCompilerRun } from '../compiler/core/compilerEvents';
-import { DomainErrorBoundary } from '../errors/ErrorBoundary';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
+import { LearningWorkspaceToolbar } from './LearningWorkspaceToolbar';
+import { AITutorWorkspace } from '../ai/AITutorWorkspace';
+import { SharedCompilerDock } from './SharedCompilerDock';
 
 export function Layout({ courseLoader, onExitCourse }) {
   const compilerInstanceId = `course-${courseLoader.currentCourse.id}-workspace`;
@@ -61,6 +61,9 @@ export function Layout({ courseLoader, onExitCourse }) {
     () => window.localStorage.getItem('mi-tutora:compiler-minimized') === 'true',
   );
   const [compilerStatus, setCompilerStatus] = useState('ready');
+  const [activeWorkspace, setActiveWorkspace] = useState('course');
+  const [compilerContext, setCompilerContext] = useState(null);
+  const [pendingTutorRequest, setPendingTutorRequest] = useState(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     () => window.localStorage.getItem('mi-tutora:sidebar-collapsed') === 'true',
   );
@@ -72,7 +75,7 @@ export function Layout({ courseLoader, onExitCourse }) {
     ...LAYOUT_SIZE.sidebar,
     storageKey: 'mi-tutora:sidebar-width',
   });
-  const sidebarPaneWidth = isSidebarCollapsed ? 76 : sidebarResize.value;
+  const sidebarPaneWidth = isSidebarCollapsed ? 60 : sidebarResize.value;
   const compilerResize = useCompilerPaneResize({ reservedWidth: isSidebarOverlay ? 0 : sidebarPaneWidth });
   const workspaceRef = compilerResize.workspaceRef;
   const compilerMaxWidth = compilerResize.max;
@@ -186,6 +189,12 @@ export function Layout({ courseLoader, onExitCourse }) {
     '--compiler-width': `${compilerResize.value}px`,
     '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px`,
   };
+  const handleCompilerContextChange = useCallback((context) => setCompilerContext(context), []);
+  const handleAskAITutor = useCallback((context) => {
+    setCompilerContext((current) => ({ ...current, ...context }));
+    setPendingTutorRequest({ id: `${Date.now()}-${context.selectionContext.snapshot.selectionHash}`, selectionContext: context.selectionContext });
+    setActiveWorkspace('ai');
+  }, []);
 
   return (
     <LearningCompilerProvider controller={learningCompiler}>
@@ -195,7 +204,10 @@ export function Layout({ courseLoader, onExitCourse }) {
         onMenuClick={() => setIsDrawerOpen(true)}
         onThemeToggle={() => { void toggleTheme().catch(() => undefined); }}
         theme={theme}
-        progress={learningProgress.courseProgress}
+        lessonProgress={lessonProgressScope && lessonProgressScope.index >= 0 ? {
+          current: lessonProgressScope.index + 1,
+          total: lessonProgressScope.lessons.length,
+        } : null}
         bookmark={lessonBookmark}
         onBookmarkChange={(saved) => {
           if (currentLesson && learningProgress.isBookmarked(currentLesson.id) !== saved) {
@@ -244,90 +256,69 @@ export function Layout({ courseLoader, onExitCourse }) {
           />
         ) : null}
         <section className="lesson-region" aria-label="Lesson content and navigation">
-          <ContentArea
-            lesson={currentLesson}
-            module={currentModule}
-            blocks={lessonContentBlocks}
-            isLoading={false}
-            emptyState={course.ui.emptyLesson}
-            unavailableState={course.ui.emptyCourse}
+          <LearningWorkspaceToolbar
+            activeView={activeWorkspace}
+            onViewChange={setActiveWorkspace}
+            compilerMinimized={isCompilerMinimized}
+            onRestoreCompiler={toggleCompilerMinimized}
           />
-          <LessonFooter
-            lesson={currentLesson}
-            previousLesson={previousLesson}
-            nextLesson={nextLesson}
-            onPrevious={goToPreviousLesson}
-            onNext={() => goToNextLesson()}
-            lessonCount={lessonProgressScope?.lessons.length ?? lessonCount}
-            currentLessonIndex={lessonProgressScope?.index ?? -1}
-          />
-        </section>
-        <aside
-          className={`desktop-compiler compiler-dock ${isCompilerMinimized ? 'is-minimized' : 'is-expanded compiler-enter'} is-${compilerStatus}`}
-          aria-label={persistentCompilerData.ariaLabel}
-        >
-          {isCompilerMinimized ? (
-            <button
-              className="compiler-dock-launcher"
-              type="button"
-              onClick={toggleCompilerMinimized}
-              aria-expanded="false"
-              aria-label={compilerStatus === 'running' ? 'Open compiler, code is running' : 'Open compiler'}
-              title={compilerStatus === 'running' ? 'Running…' : 'Compiler ready'}
-            >
-              <span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span>
-              <span className="compiler-dock-word" aria-hidden="true">Compiler</span>
-              <Maximize2 size={ICON_SIZE.sm} aria-hidden="true" />
-            </button>
-          ) : (
-            <div className="compiler-dock-header">
-              <span className="compiler-dock-identity">
-                <span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span>
-                <span><strong>Compiler Dock</strong><small>{persistentCompilerData.language} · {compilerStatus}</small></span>
-              </span>
-              <button
-                className="compiler-dock-minimize"
-                type="button"
-                onClick={minimizeCompiler}
-                aria-label="Minimize compiler"
-                title="Minimize compiler"
-              >
-                <Minus size={ICON_SIZE.md} aria-hidden="true" />
-              </button>
-            </div>
-          )}
-          <div className="compiler-dock-body" aria-hidden={isCompilerMinimized}>
-            <DomainErrorBoundary
-              name="course-compiler"
-              title="The compiler could not be displayed."
-              description="Your lesson remains available. Retry the compiler without leaving this lesson."
-              resetKeys={[persistentCompilerData.id]}
-              compact
-            >
-              <CompilerPanel
-                ref={compilerPanelRef}
-                instanceId={compilerInstanceId}
-                compiler={persistentCompilerData}
-                lessonContext={currentLesson?.title ?? ''}
-                activityType="lesson"
-                onExecutionStateChange={setCompilerStatus}
-              />
-            </DomainErrorBoundary>
-          </div>
-        </aside>
-        {!isCompilerMinimized ? (
-          <>
-            <ResizeHandle
-              className="compiler-resize-handle"
-              label={course.ui.resizeLabels.compiler}
-              min={LAYOUT_SIZE.compiler.min}
-              max={compilerMaxWidth}
-              value={compilerResize.value}
-              onPointerDown={compilerResize.startDragging}
-              onKeyDown={compilerResize.handleKeyDown}
+          <div className="learning-workspace-view is-course" id="learning-course-panel" role="tabpanel" hidden={activeWorkspace !== 'course'}>
+            <ContentArea
+              lesson={currentLesson}
+              module={currentModule}
+              blocks={lessonContentBlocks}
+              isLoading={false}
+              emptyState={course.ui.emptyLesson}
+              unavailableState={course.ui.emptyCourse}
             />
-          </>
-        ) : null}
+            <LessonFooter
+              lesson={currentLesson}
+              previousLesson={previousLesson}
+              nextLesson={nextLesson}
+              onPrevious={goToPreviousLesson}
+              onNext={() => goToNextLesson()}
+              lessonCount={lessonProgressScope?.lessons.length ?? lessonCount}
+              currentLessonIndex={lessonProgressScope?.index ?? -1}
+            />
+          </div>
+          <div className="learning-workspace-view is-ai" id="learning-ai-panel" role="tabpanel" hidden={activeWorkspace !== 'ai'}>
+            <AITutorWorkspace
+              course={course}
+              lesson={currentLesson}
+              compilerContext={compilerContext ?? {
+                code: persistentCompilerData.editor.lines.map((line) => line.text ?? '').join('\n'),
+                language: persistentCompilerData.language,
+                fileName: persistentCompilerData.editor.fileName,
+                compilerStatus: 'ready',
+              }}
+              pendingRequest={pendingTutorRequest}
+            />
+          </div>
+        </section>
+        <SharedCompilerDock
+          ariaLabel={persistentCompilerData.ariaLabel}
+          compilerStatus={compilerStatus}
+          minimized={isCompilerMinimized}
+          panelRef={compilerPanelRef}
+          compiler={persistentCompilerData}
+          panelProps={{
+            instanceId: compilerInstanceId,
+            activityType: 'lesson',
+            onExecutionStateChange: setCompilerStatus,
+            isCompilerMinimized,
+            onToggleCompiler: toggleCompilerMinimized,
+            onAskAITutor: handleAskAITutor,
+            onContextChange: handleCompilerContextChange,
+            aiEnabled: true,
+          }}
+          errorBoundary={{
+            name: 'course-compiler',
+            title: 'The compiler could not be displayed.',
+            description: 'Your lesson remains available. Retry the compiler without leaving this lesson.',
+            resetKeys: [persistentCompilerData.id],
+          }}
+          resize={{ label: course.ui.resizeLabels.compiler, max: compilerMaxWidth, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
+        />
       </div>
     </div>
     </LearningCompilerProvider>

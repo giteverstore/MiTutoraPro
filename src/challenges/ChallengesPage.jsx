@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, Clock3, Code2, Coins, Flame, LockKeyhole } from 'lucide-react';
-import { CompilerPanel } from '../components/CompilerPanel';
+import { ArrowLeft, CheckCircle2, Clock3, Coins, Flame, LockKeyhole } from 'lucide-react';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
-import { DomainErrorBoundary } from '../errors/ErrorBoundary';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
 import { useSelectableCompilerLanguage } from '../compiler/useSelectableCompilerLanguage';
@@ -10,8 +8,6 @@ import { useContentResource } from '../content/hooks/useContentResource';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { kolkataDate } from '../home/challengeCalendar';
 import { PracticeProblemContent } from '../practice/PracticeProblemContent';
-import { PracticeTestPanel } from '../practice/PracticeTestPanel';
-import { ResizeHandle } from '../components/ResizeHandle';
 import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
 import { LAYOUT_SIZE } from '../design-system/theme';
@@ -22,6 +18,8 @@ import { loadDailyChallengeByDate, loadPublishedChallengeCatalog } from './chall
 import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
 import { coinRedemptionClient } from '../coins/CoinRedemptionClient';
 import { authService } from '../auth/AuthService';
+import { SharedCompilerDock } from '../components/SharedCompilerDock';
+import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
 
 const isCompleted = (completion, date) => completion.activityType === 'DAILY_CHALLENGE'
   && completion.occurrenceDate === date
@@ -89,6 +87,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const [celebration, setCelebration] = useState(null);
   const [compilerStatus, setCompilerStatus] = useState('ready');
+  const [isCompilerMinimized, setIsCompilerMinimized] = useState(false);
   const [recoveryUnlocked, setRecoveryUnlocked] = useState(false);
   const { theme, brandTheme } = useApplicationTheme();
   const compilerResize = useCompilerPaneResize();
@@ -125,14 +124,16 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   if (loading || error || !challenge || !compiler) return <div className="challenges-page"><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>Daily Challenge</h1><p role="status">{loading ? 'Loading challenge…' : 'This daily challenge is unavailable.'}</p></div>;
 
   return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
-    <div className="practice-immersive-workspace has-compiler" data-immersive-coding-workspace="challenge" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
+    <div className={`practice-immersive-workspace coding-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="challenge" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
+      <section className="practice-main-region coding-workspace__content">
+      <LearningWorkspaceToolbar compilerMinimized={isCompilerMinimized} onRestoreCompiler={() => setIsCompilerMinimized(false)} aiEnabled={false} />
       <article className="practice-problem lesson-panel">
         <header className="practice-detail-header"><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>{challenge.title}</h1>{reviewMode ? <span className="challenge-review-label">Review mode</span> : null}</header>
         <PracticeProblemContent question={challenge} />
         <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}><span>{completion.error ? completion.error : completed ? <><CheckCircle2 /> Challenge completed</> : reviewMode ? <><LockKeyhole /> Historical challenges require a Challenge Pass.</> : canComplete ? <><CheckCircle2 /> Output verified. Save completion to earn the daily reward.</> : <><LockKeyhole /> Run and check your solution to continue.</>}</span><button className="button button--primary" type="button" disabled={!canComplete || completion.pending} onClick={complete}><Coins /> {completion.pending ? 'Saving…' : completed ? 'Completed' : reviewMode ? 'Review only' : 'Save Completion'}</button></footer>
       </article>
-      <aside className={`desktop-compiler compiler-dock practice-compiler-dock is-expanded compiler-enter is-${compilerStatus}`} aria-label="Challenge compiler"><div className="compiler-dock-header"><span className="compiler-dock-identity"><span className="compiler-dock-symbol"><Code2 aria-hidden="true" /></span><strong>Compiler Dock</strong></span></div><div className="compiler-dock-body"><DomainErrorBoundary name="challenge-compiler" title="The code workspace could not be displayed." description="The challenge remains available. Retry the workspace to continue." resetKeys={[challenge.id]} compact><CompilerPanel ref={compilerLanguage.panelRef} compiler={compiler} instanceId={`challenge-${challenge.id}-${occurrenceDate}`} lessonContext={challenge.title} activityType="challenge" onVerificationChange={setVerificationStatus} onExecutionStateChange={setCompilerStatus} languageSelector={<CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />} renderOutput={(props) => <PracticeTestPanel {...props} tests={[]} />} /></DomainErrorBoundary></div></aside>
-      <ResizeHandle className="compiler-resize-handle" label="Resize problem and compiler panes" min={LAYOUT_SIZE.compiler.min} max={compilerResize.max} value={compilerResize.value} onPointerDown={compilerResize.startDragging} onKeyDown={compilerResize.handleKeyDown} />
+      </section>
+      <SharedCompilerDock ariaLabel="Challenge compiler" className="practice-compiler-dock" compilerStatus={compilerStatus} minimized={isCompilerMinimized} panelRef={compilerLanguage.panelRef} compiler={compiler} panelProps={{ instanceId: `challenge-${challenge.id}-${occurrenceDate}`, activityType: 'challenge', onVerificationChange: setVerificationStatus, onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: () => setIsCompilerMinimized((current) => !current), aiEnabled: false, publicTests: [] }} errorBoundary={{ name: 'challenge-compiler', title: 'The code workspace could not be displayed.', description: 'The challenge remains available. Retry the workspace to continue.', resetKeys: [challenge.id] }} resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }} />
     </div>
     <Dialog open={Boolean(celebration)} title="Daily Challenge Completed!" description="Come back tomorrow for the next challenge." onClose={() => setCelebration(null)} className="challenge-completion-dialog">
       <div className="challenge-completion-dialog-mark" aria-hidden="true"><CheckCircle2 /></div>

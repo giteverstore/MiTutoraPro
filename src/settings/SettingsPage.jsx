@@ -23,6 +23,7 @@ import { SubscriptionPanel } from '../subscriptions/SubscriptionPanel';
 import { BRAND_THEME_CATALOG, brandThemeById } from '../theme/brandThemeCatalog';
 import { useThemeOwnership } from '../theme/useThemeOwnership';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
+import { EDITOR_THEME_CATALOG, editorThemeById, normalizeEditorThemeId } from '../theme/editorThemeCatalog';
 
 const sections = [
   { id: 'profile', label: 'Profile', icon: UserRound },
@@ -95,6 +96,40 @@ function BrandThemePreview({ mode, theme }) {
       </div>
     </div>
   );
+}
+
+export function EditorThemeSelector({ value, onChange }) {
+  const activeId = normalizeEditorThemeId(value);
+  const activeTheme = editorThemeById(activeId);
+  const previewStyle = {
+    '--editor-preview-background': activeTheme.palette.background,
+    '--editor-preview-surface': activeTheme.palette.surface,
+    '--editor-preview-panel': activeTheme.palette.panel,
+    '--editor-preview-text': activeTheme.palette.text,
+    '--editor-preview-muted': activeTheme.palette.muted,
+    '--editor-preview-border': activeTheme.palette.border,
+    '--editor-preview-accent': activeTheme.palette.accent,
+  };
+  return <div className="settings-editor-theme-control">
+    <div className="settings-editor-theme-options" role="radiogroup" aria-label="Editor theme">
+      {EDITOR_THEME_CATALOG.map((theme) => <button
+        type="button"
+        role="radio"
+        aria-checked={activeId === theme.id}
+        className={activeId === theme.id ? 'is-active' : ''}
+        onClick={() => onChange(theme.id)}
+        key={theme.id}
+      >
+        <span className="settings-editor-theme-swatches" aria-hidden="true">{theme.preview.map((color) => <i style={{ backgroundColor: color }} key={color} />)}</span>
+        <strong>{theme.name}</strong>
+      </button>)}
+    </div>
+    <div className="settings-editor-theme-preview" data-editor-theme={activeId} style={previewStyle} aria-label={`${activeTheme.name} editor preview`}>
+      <header><strong>Python</strong><span aria-hidden="true">â–¶</span></header>
+      <pre aria-hidden="true"><span>1</span> print(<em>"Hello"</em>)</pre>
+      <footer><strong>Output</strong><span>Hello</span></footer>
+    </div>
+  </div>;
 }
 
 export function BrandThemeSelector({ activeThemeId, mode, ownership, onApply }) {
@@ -214,11 +249,7 @@ export function SettingsPage() {
     editor: (
       <Section id="editor" title="Editor" description="Preferences are shared by every Monaco workspace.">
         <SettingRow title="Editor Theme" description="Independent from the application appearance.">
-          <SelectSetting label="Editor theme" value={settings.editor.theme} onChange={(value) => setSetting('editor.theme', value)}>
-            <option value="mitutora-dark">ycoders Dark</option>
-            <option value="vs-dark">Classic Dark</option>
-            <option value="light">Light</option>
-          </SelectSetting>
+          <EditorThemeSelector value={settings.editor.theme} onChange={(value) => setSetting('editor.theme', value)} />
         </SettingRow>
         <SettingRow title="Font Size"><SelectSetting label="Editor font size" value={settings.editor.fontSize} onChange={(value) => setSetting('editor.fontSize', Number(value))}>{[12, 13, 14, 16, 18, 20].map((size) => <option value={size} key={size}>{size}px</option>)}</SelectSetting></SettingRow>
         <SettingRow title="Tab Size"><SelectSetting label="Editor tab size" value={settings.editor.tabSize} onChange={(value) => setSetting('editor.tabSize', Number(value))}>{[2, 4, 8].map((size) => <option value={size} key={size}>{size} spaces</option>)}</SelectSetting></SettingRow>

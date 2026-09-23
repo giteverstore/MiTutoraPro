@@ -1,22 +1,24 @@
-import { useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, Code2, LockKeyhole, Maximize2, Minus } from 'lucide-react';
-import { CompilerPanel } from '../components/CompilerPanel';
-import { ResizeHandle } from '../components/ResizeHandle';
+import { useCallback, useMemo, useState } from 'react';
+import { ArrowLeft, CheckCircle2, LockKeyhole } from 'lucide-react';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
-import { DomainErrorBoundary } from '../errors/ErrorBoundary';
-import { PracticeTestPanel } from './PracticeTestPanel';
 import { PracticeProblemContent } from './PracticeProblemContent';
 import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
-import { ICON_SIZE, LAYOUT_SIZE } from '../design-system/theme';
+import { LAYOUT_SIZE } from '../design-system/theme';
 import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
 import { useSelectableCompilerLanguage } from '../compiler/useSelectableCompilerLanguage';
+import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
+import { AITutorWorkspace } from '../ai/AITutorWorkspace';
+import { SharedCompilerDock } from '../components/SharedCompilerDock';
 
 export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {} }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const [compilerStatus, setCompilerStatus] = useState('ready');
   const [isCompilerMinimized, setIsCompilerMinimized] = useState(false);
+  const [activeWorkspace, setActiveWorkspace] = useState('question');
+  const [compilerContext, setCompilerContext] = useState(null);
+  const [pendingTutorRequest, setPendingTutorRequest] = useState(null);
   const { theme, brandTheme } = useApplicationTheme();
   const compilerResize = useCompilerPaneResize();
   const compilerDefinitions = useMemo(
@@ -40,10 +42,18 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
       setCompletion({ pending: false, rewardStatus: null, rewardAmount: 0, error: error.message });
     }
   };
+  const toggleCompiler = useCallback(() => setIsCompilerMinimized((current) => !current), []);
+  const handleAskAITutor = useCallback((context) => {
+    setCompilerContext((current) => ({ ...current, ...context }));
+    setPendingTutorRequest({ id: `${Date.now()}-${context.selectionContext.snapshot.selectionHash}`, selectionContext: context.selectionContext });
+    setActiveWorkspace('ai');
+  }, []);
 
   return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
-    <div className={`practice-immersive-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="practice" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
-      <article className="practice-problem lesson-panel">
+    <div className={`practice-immersive-workspace coding-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="practice" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
+      <section className="practice-main-region coding-workspace__content">
+        <LearningWorkspaceToolbar activeView={activeWorkspace} onViewChange={setActiveWorkspace} compilerMinimized={isCompilerMinimized} onRestoreCompiler={toggleCompiler} primaryView="question" primaryLabel="Question" panelPrefix="practice" />
+      <article className="practice-problem lesson-panel" id="practice-question-panel" role="tabpanel" hidden={activeWorkspace !== 'question'}>
         <header className="practice-detail-header">
           <button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Practice</button>
           <h1>{question.title}</h1>
@@ -54,16 +64,22 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
           <button className="button button--primary" type="button" disabled={!canComplete || solved || completion.pending} onClick={complete}><CheckCircle2 /> {completion.pending ? 'Saving…' : solved ? 'Completed' : 'Save Completion'}</button>
         </footer>
       </article>
-      <aside className={`desktop-compiler compiler-dock practice-compiler-dock ${isCompilerMinimized ? 'is-minimized' : 'is-expanded compiler-enter'} is-${compilerStatus}`} aria-label="Practice compiler">
-        {isCompilerMinimized ? <button className="compiler-dock-launcher" type="button" onClick={() => setIsCompilerMinimized(false)} aria-expanded="false" aria-label="Open compiler"><span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span><span className="compiler-dock-word" aria-hidden="true">Compiler</span><Maximize2 size={ICON_SIZE.sm} aria-hidden="true" /></button> : <div className="compiler-dock-header"><span className="compiler-dock-identity"><span className="compiler-dock-symbol"><Code2 size={ICON_SIZE.md} aria-hidden="true" /></span><strong>Compiler Dock</strong></span><button className="compiler-dock-minimize" type="button" onClick={() => setIsCompilerMinimized(true)} aria-label="Minimize compiler" title="Minimize compiler"><Minus size={ICON_SIZE.md} aria-hidden="true" /></button></div>}
-        <div className="compiler-dock-body" aria-hidden={isCompilerMinimized}>
-          {requireAuthentication ? <div className="practice-auth-required"><LockKeyhole /><h2>Sign in to solve this question</h2><p>Browse the problem now, then sign in to run code and save tracked progress.</p><button className="button button--primary" type="button" onClick={onRequireAuth}>Login to continue</button></div> :
-          <DomainErrorBoundary name="practice-compiler" title="The code workspace could not be displayed." description="The problem statement is still available. Retry the workspace when you are ready." resetKeys={[question.id]} compact>
-            <CompilerPanel ref={compilerLanguage.panelRef} compiler={compiler} instanceId={`practice-${question.id}`} lessonContext={question.title} activityType="practice" onVerificationChange={setVerificationStatus} onExecutionStateChange={setCompilerStatus} languageSelector={<CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />} renderOutput={(outputProps) => <PracticeTestPanel {...outputProps} contract={question.contract} tests={question.publicTests ?? []} />} key={question.id} />
-          </DomainErrorBoundary>}
-        </div>
-      </aside>
-      {!isCompilerMinimized ? <ResizeHandle className="compiler-resize-handle" label="Resize problem and compiler panes" min={LAYOUT_SIZE.compiler.min} max={compilerResize.max} value={compilerResize.value} onPointerDown={compilerResize.startDragging} onKeyDown={compilerResize.handleKeyDown} /> : null}
+      <div className="practice-ai-region" id="practice-ai-panel" role="tabpanel" hidden={activeWorkspace !== 'ai'}>
+        <AITutorWorkspace course={{ id: 'practice', title: 'Practice' }} lesson={question} compilerContext={compilerContext ?? { code: compiler.editor.lines.map((line) => line.text ?? '').join('\n'), language: compiler.language, fileName: compiler.editor.fileName, compilerStatus: 'ready' }} pendingRequest={pendingTutorRequest} activityType="practice" contextLines={[`Question: ${question.id} - ${question.title}`, `Description: ${question.summary ?? ''}`, `Topic: ${question.topic ?? 'unavailable'}`, `Difficulty: ${question.difficulty ?? 'unavailable'}`, `Expected output: ${compiler.expectedOutput ?? 'not provided'}`]} />
+      </div>
+      </section>
+      <SharedCompilerDock
+        ariaLabel="Practice compiler"
+        className="practice-compiler-dock"
+        compilerStatus={compilerStatus}
+        minimized={isCompilerMinimized}
+        panelRef={compilerLanguage.panelRef}
+        compiler={compiler}
+        unavailableContent={requireAuthentication ? <div className="practice-auth-required"><LockKeyhole /><h2>Sign in to solve this question</h2><p>Browse the problem now, then sign in to run code and save tracked progress.</p><button className="button button--primary" type="button" onClick={onRequireAuth}>Login to continue</button></div> : null}
+        panelProps={{ instanceId: `practice-${question.id}`, activityType: 'practice', onVerificationChange: setVerificationStatus, onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: toggleCompiler, onAskAITutor: handleAskAITutor, onContextChange: setCompilerContext, aiEnabled: true, publicTests: question.publicTests ?? [], contract: question.contract }}
+        errorBoundary={{ name: 'practice-compiler', title: 'The code workspace could not be displayed.', description: 'The problem statement is still available. Retry the workspace when you are ready.', resetKeys: [question.id] }}
+        resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
+      />
     </div>
   </div>;
 }

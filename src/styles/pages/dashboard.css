@@ -1148,7 +1148,11 @@
 .app-shell[data-theme="dark"] .module-trigger,
 .app-shell[data-theme="dark"] .lesson-link,
 .app-shell[data-theme="dark"] .nav-button-secondary {
-  color: var(--ink);
+  color: var(--color-text);
+}
+
+.app-shell[data-theme="dark"] .lesson-link.is-active {
+  color: var(--color-accent);
 }
 
 .app-shell[data-theme="dark"] .module-trigger:hover,
@@ -1174,29 +1178,7 @@
 .app-shell[data-theme="dark"] .interactive-card p,
 .app-shell[data-theme="dark"] .exercise-card p,
 .app-shell[data-theme="dark"] .ai-card p {
-  color: var(--color-text-muted);
-}
-
-.app-shell[data-theme="dark"] .desktop-compiler,
-.app-shell[data-theme="dark"] .mobile-compiler,
-.app-shell[data-theme="dark"] .resize-handle-horizontal {
-  background: var(--color-surface-raised);
-}
-
-.app-shell[data-theme="dark"] .language-select,
-.app-shell[data-theme="dark"] .console-window {
-  color: var(--ink);
-  background: var(--color-surface);
-}
-
-.app-shell[data-theme="dark"] .console-window.terminal-console {
-  color: #cfd6d1;
-  background: #171a18;
-  border-color: #303632;
-}
-
-.app-shell[data-theme="dark"] .console-tabs {
-  border-color: var(--line);
+  color: var(--color-text-secondary);
 }
 
 .app-shell[data-theme="dark"] .ai-card {
@@ -1214,6 +1196,37 @@
 
 .app-shell[data-theme="dark"] .lesson-completion-footer {
   border-color: var(--color-border);
+}
+
+/* The artwork remains course-owned; only its reading/control surface follows app appearance. */
+.application-shell[data-theme="dark"] .overview-hero-copy--artwork {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border-color: var(--color-border-strong);
+}
+
+.application-shell[data-theme="dark"] .overview-hero--artwork h1,
+.application-shell[data-theme="dark"] .overview-hero--artwork .overview-hero-copy>p,
+.application-shell[data-theme="dark"] .overview-artwork-progress>span {
+  color: var(--color-text);
+}
+
+.application-shell[data-theme="dark"] .overview-artwork-eyebrow {
+  color: var(--color-accent);
+}
+
+.application-shell[data-theme="dark"] .overview-artwork-exam-action {
+  color: var(--color-text);
+  background: var(--color-surface-subtle);
+  border-color: var(--color-border-strong);
+}
+
+.application-shell[data-theme="dark"] .overview-artwork-exam-action:hover {
+  background: var(--color-surface);
+}
+
+.application-shell[data-theme="dark"] .overview-artwork-progress>div {
+  background: var(--color-border);
 }
 
 .auth-page {
@@ -1614,16 +1627,7 @@
   }
 
   .desktop-compiler.compiler-dock.is-minimized {
-    position: fixed;
-    top: calc(var(--topbar-height) + var(--space-3));
-    right: var(--space-3);
-    bottom: auto;
-    left: auto;
-    width: 7.5rem;
-    height: 3.25rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    display: none;
   }
 
   .lesson-region {

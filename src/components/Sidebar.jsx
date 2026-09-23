@@ -35,7 +35,6 @@ export function Sidebar({
       <aside className={`course-sidebar ${isOpen ? 'is-open' : ''} ${isCollapsed ? 'is-collapsed' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-title">
-            <span className="eyebrow">{sidebar.eyebrow}</span>
             <h2>{course.name}</h2>
           </div>
           <div className="sidebar-header-actions">

@@ -8,10 +8,9 @@ import { useOptionalLearningProgress } from '../progress/LearningProgressContext
 import { useSettings } from '../settings/useSettings';
 import { COMPILER_EVENTS, createCompilerExecutionEvent } from '../compiler/core/compilerEvents';
 import { ConfirmDialog } from './Dialog';
-import { AITutorPanel } from '../ai/AITutorPanel';
-import { CompilerWorkspace } from './CompilerWorkspace';
 import { createSourceSnapshotHash } from '../compiler/core/sourceSnapshot';
 import { useCompilerBottomDrawer } from '../compiler/useCompilerBottomDrawer';
+import { normalizeEditorThemeId } from '../theme/editorThemeCatalog';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -19,9 +18,15 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   onExecutionStateChange,
   renderOutput,
   instanceId: requestedInstanceId,
-  lessonContext = '',
   activityType = 'unknown',
   languageSelector,
+  isCompilerMinimized = false,
+  onToggleCompiler,
+  onAskAITutor,
+  onContextChange,
+  aiEnabled = false,
+  publicTests = [],
+  contract = null,
 }, forwardedRef) {
   const generatedInstanceId = useId();
   const instanceId = requestedInstanceId ?? `compiler-${generatedInstanceId.replace(/:/g, '')}`;
@@ -29,6 +34,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const compilerManager = useCompilerManager();
   const learningProgress = useOptionalLearningProgress();
   const settings = useSettings();
+  const editorThemeId = normalizeEditorThemeId(settings.editor.theme);
   const verifyExercise = learningProgress?.verifyExercise;
   const invalidateExerciseVerification = learningProgress?.invalidateExerciseVerification;
   const [isRunning, setIsRunning] = useState(false);
@@ -49,7 +55,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const [replaceConfirmation, setReplaceConfirmation] = useState(null);
   const executionControllerRef = useRef(null);
   const collapsibleOutput = activityType === 'lesson' || Boolean(languageSelector);
-  const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput });
+  const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput, containerRef: panelRef });
   const expandOutputDrawer = outputDrawer.expand;
 
   useEffect(() => {
@@ -166,6 +172,42 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       language: activeCompilerRef.current.language,
     }));
   }, []);
+
+  const handleAskSelection = useCallback(async (selection) => {
+    if (!selection?.text?.trim()) return;
+    const sourceHash = await createSourceSnapshotHash(selection.source);
+    const selectionHash = await createSourceSnapshotHash(selection.text);
+    if (currentCodeRef.current !== selection.source) return;
+    const snapshot = Object.freeze({
+      text: selection.text,
+      startOffset: selection.startOffset,
+      endOffset: selection.endOffset,
+      sourceHash,
+      selectionHash,
+      language: activeCompilerRef.current.language,
+      startLine: selection.startLine,
+      endLine: selection.endLine,
+      surroundingCode: selection.surroundingCode,
+    });
+    setSelectionSnapshot(snapshot);
+    onAskAITutor?.({
+      code: selection.source,
+      language: activeCompilerRef.current.language,
+      fileName: activeCompilerRef.current.editor.fileName,
+      selectionContext: { text: selection.text, snapshot },
+    });
+  }, [onAskAITutor]);
+
+  useEffect(() => {
+    onContextChange?.({
+      code,
+      language: activeCompiler.language,
+      fileName: activeCompiler.editor.fileName,
+      selectionSnapshot,
+      compilerEvidence,
+      compilerStatus: isRunning ? 'running' : executionStatus,
+    });
+  }, [activeCompiler.editor.fileName, activeCompiler.language, code, compilerEvidence, executionStatus, isRunning, onContextChange, selectionSnapshot]);
 
   const checkOutput = useCallback(() => {
     expandOutputDrawer();
@@ -298,7 +340,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
 
   return (
     <div className="compiler-panel" ref={panelRef} data-compiler-instance-id={instanceId}>
-      <div className="compiler-ide">
+      <div className="compiler-ide" data-editor-theme={editorThemeId}>
         <EditorHeader
           data={activeCompiler}
           isRunning={isRunning}
@@ -307,35 +349,34 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           onRun={showRunFeedback}
           onReset={resetEditor}
           languageSelector={languageSelector}
+          isCompilerMinimized={isCompilerMinimized}
+          onToggleCompiler={onToggleCompiler}
         />
-        <CompilerWorkspace
-          instanceId={instanceId}
-          editor={<EditorPlaceholder editor={activeCompiler.editor} value={code} onChange={handleCodeChange} onSelectionChange={handleSelectionChange} instanceId={instanceId} />}
-          tutor={<AITutorPanel
-            titleId={`ai-tutor-title-${instanceId}`}
-            language={activeCompiler.language}
-            code={code}
-            selectionSnapshot={selectionSnapshot}
-            compilerEvidence={compilerEvidence}
-            compilerStatus={isRunning ? 'running' : executionStatus}
-            lessonContext={lessonContext}
-            activityType={activityType}
-          />}
-        />
+        <div className="compiler-workspace compiler-workspace-editor-only">
+          <div className="compiler-main-row">
+            <div className="compiler-main-view compiler-editor-view">
+              <EditorPlaceholder editor={activeCompiler.editor} value={code} onChange={handleCodeChange} onSelectionChange={handleSelectionChange} onAskSelection={aiEnabled ? handleAskSelection : undefined} instanceId={instanceId} />
+            </div>
+          </div>
+        </div>
         <ResizeHandle
           className="output-resize-handle"
           label={activeCompiler.resizeLabel}
-          min={collapsibleOutput ? 0 : outputDrawer.min}
+          min={outputDrawer.min}
           max={outputDrawer.max}
-          value={outputDrawer.collapsed ? 0 : outputDrawer.value}
+          value={outputDrawer.collapsed ? outputDrawer.min : outputDrawer.value}
           orientation="horizontal"
           onPointerDown={outputDrawer.startDragging}
-          onKeyDown={outputDrawer.handleKeyDown}
+          onKeyDown={(event) => {
+            if (outputDrawer.collapsed) outputDrawer.expand();
+            outputDrawer.handleKeyDown(event);
+          }}
         />
         {renderOutput?.({
           height: outputDrawer.renderedHeight,
           collapsed: outputDrawer.collapsed,
           onExpand: expandOutputDrawer,
+          onToggleCollapsed: outputDrawer.toggle,
           result,
           error,
           isRunning,
@@ -345,6 +386,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           executionStatus,
           verificationStatus,
           language: activeCompiler.language,
+          complexity: activeCompiler.complexity ?? {},
           onCheckOutput: checkOutput,
           canCheckOutput: executionStatus === 'success' && activeCompiler.expectedOutput !== undefined,
         }) ?? (
@@ -353,10 +395,14 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
             height={outputDrawer.renderedHeight}
             collapsed={outputDrawer.collapsed}
             onExpand={expandOutputDrawer}
+            onToggleCollapsed={outputDrawer.toggle}
             result={result}
             error={error}
             isRunning={isRunning}
             executionTimeMs={executionTimeMs}
+            complexity={activeCompiler.complexity ?? {}}
+            tests={publicTests}
+            contract={contract}
             expectedOutput={activeCompiler.expectedOutput}
             inputs={activeCompiler.stdin}
             executionStatus={executionStatus}

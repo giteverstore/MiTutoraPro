@@ -315,6 +315,23 @@
 .settings-brand-apply { width: max-content; min-width: 7.5rem; font-size: .875rem; }
 .settings-brand-apply:disabled { color: var(--color-text-muted); background: var(--color-surface-subtle); border-color: var(--color-border); opacity: 1; }
 .settings-brand-loading, .settings-brand-error { margin: 0; color: var(--color-text-muted); font-size: .875rem; }
+.settings-editor-theme-control { display:grid;gap:var(--space-4);width:100%; }
+.settings-editor-theme-options { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-2); }
+.settings-editor-theme-options button { display:flex;min-height:2.75rem;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);color:var(--color-text);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;text-align:left; }
+.settings-editor-theme-options button:hover { border-color:var(--color-border-strong); }
+.settings-editor-theme-options button.is-active { border-color:var(--color-accent);box-shadow:0 0 0 2px var(--color-focus); }
+.settings-editor-theme-options button:focus-visible { outline:3px solid var(--color-focus);outline-offset:2px; }
+.settings-editor-theme-options strong { font-size:.8125rem; }
+.settings-editor-theme-swatches { display:inline-flex;gap:.18rem; }
+.settings-editor-theme-swatches i { width:.7rem;height:.7rem;border:1px solid rgb(127 127 127 / 35%);border-radius:.18rem; }
+.settings-editor-theme-preview { overflow:hidden;color:var(--editor-preview-text);background:var(--editor-preview-background);border:1px solid var(--editor-preview-border);border-radius:var(--radius-md);font-family:var(--font-family-mono); }
+.settings-editor-theme-preview header,.settings-editor-theme-preview footer { display:flex;min-height:2.25rem;align-items:center;justify-content:space-between;padding:0 var(--space-3);background:var(--editor-preview-surface);border-bottom:1px solid var(--editor-preview-border);font-size:.75rem; }
+.settings-editor-theme-preview header span { color:var(--editor-preview-accent); }
+.settings-editor-theme-preview pre { min-height:3.5rem;margin:0;padding:var(--space-3);font-size:.75rem; }
+.settings-editor-theme-preview pre span { color:var(--editor-preview-muted); }
+.settings-editor-theme-preview pre em { color:var(--editor-preview-accent);font-style:normal; }
+.settings-editor-theme-preview footer { display:grid;justify-content:start;gap:.3rem;background:var(--editor-preview-panel);border-top:1px solid var(--editor-preview-border);border-bottom:0;color:var(--editor-preview-muted); }
+.settings-editor-theme-preview footer strong { color:var(--editor-preview-text); }
 
 .settings-version-list {
   display: grid;

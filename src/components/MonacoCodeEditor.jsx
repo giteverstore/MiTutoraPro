@@ -13,10 +13,10 @@ import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching';
 import 'monaco-editor/editor/contrib/comment/browser/comment';
 import 'monaco-editor/editor/contrib/find/browser/findController';
 import 'monaco-editor/editor/contrib/linesOperations/browser/linesOperations';
+import { useRef } from 'react';
 import { useSettings } from '../settings/useSettings';
 import { dispatchCompilerRun } from '../compiler/core/compilerEvents';
-
-const EDITOR_THEME = 'mi-tutora-editor';
+import { EDITOR_THEME_CATALOG, editorThemeById } from '../theme/editorThemeCatalog';
 
 globalThis.MonacoEnvironment = {
   getWorker() {
@@ -45,56 +45,137 @@ function configureMonaco(monacoInstance) {
   }
   monacoInstance.languages.setLanguageConfiguration('java', javaConfiguration);
   monacoInstance.languages.setMonarchTokensProvider('java', javaLanguage);
-  monacoInstance.editor.defineTheme(EDITOR_THEME, {
-    base: 'vs-dark',
-    inherit: true,
-    rules: [
-      { token: 'comment', foreground: '78837C', fontStyle: 'italic' },
-      { token: 'keyword', foreground: 'B3CBBB' },
-      { token: 'string', foreground: 'C2B4A4' },
-      { token: 'number', foreground: 'D6B887' },
-    ],
-    colors: {
-      'editor.background': '#1D211F',
-      'editor.foreground': '#D7DDD8',
-      'editorLineNumber.foreground': '#59615A',
-      'editorLineNumber.activeForeground': '#AEB8B1',
-      'editorCursor.foreground': '#A9C3B7',
-      'editor.selectionBackground': '#3A504766',
-      'editor.inactiveSelectionBackground': '#34433D55',
-      'editor.lineHighlightBackground': '#252A27',
-      'editorIndentGuide.background1': '#313632',
-      'editorIndentGuide.activeBackground1': '#536058',
-      'editorBracketMatch.background': '#F59E4244',
-      'editorBracketMatch.border': '#F59E42',
-      'editorWidget.background': '#242925',
-      'editorWidget.border': '#373D39',
-      'input.background': '#1D211F',
-      'list.hoverBackground': '#303632',
-    },
+  EDITOR_THEME_CATALOG.forEach((theme) => {
+    const { palette, syntax } = theme;
+    monacoInstance.editor.defineTheme(theme.monacoTheme, {
+      base: theme.dark ? 'vs-dark' : 'vs',
+      inherit: true,
+      rules: [
+        { token: 'comment', foreground: syntax.comment, fontStyle: 'italic' },
+        { token: 'keyword', foreground: syntax.keyword },
+        { token: 'string', foreground: syntax.string },
+        { token: 'number', foreground: syntax.number },
+        { token: 'type', foreground: syntax.type },
+        { token: 'type.identifier', foreground: syntax.type },
+        { token: 'function', foreground: syntax.function },
+        { token: 'identifier', foreground: syntax.variable },
+        { token: 'operator', foreground: syntax.operator },
+      ],
+      colors: {
+        'editor.background': palette.background,
+        'editor.foreground': palette.text,
+        'editorLineNumber.foreground': palette.muted,
+        'editorLineNumber.activeForeground': palette.text,
+        'editorCursor.foreground': palette.accent,
+        'editor.selectionBackground': `${palette.accent}44`,
+        'editor.inactiveSelectionBackground': `${palette.accent}2B`,
+        'editor.lineHighlightBackground': palette.surface,
+        'editorIndentGuide.background1': palette.border,
+        'editorIndentGuide.activeBackground1': palette.controlBorder,
+        'editorBracketMatch.background': `${palette.accent}33`,
+        'editorBracketMatch.border': palette.accent,
+        'editorWidget.background': palette.surface,
+        'editorWidget.border': palette.border,
+        'input.background': palette.background,
+        'list.hoverBackground': palette.panel,
+      },
+    });
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, instanceId }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId }) {
   const settings = useSettings();
-  const editorTheme = {
-    'mitutora-dark': EDITOR_THEME,
-    'vs-dark': 'vs-dark',
-    light: 'vs',
-  }[settings.editor.theme] ?? EDITOR_THEME;
+  const editorTheme = editorThemeById(settings.editor.theme).monacoTheme;
+  const askSelectionRef = useRef(onAskSelection);
+  askSelectionRef.current = onAskSelection;
   const handleMount = (instance, monacoInstance) => {
+    let activeSelection = null;
+    let editorFocused = false;
+    const widgetNode = document.createElement('button');
+    widgetNode.type = 'button';
+    widgetNode.className = 'monaco-ask-ai-widget';
+    widgetNode.textContent = '✨ Ask AI Tutor';
+    widgetNode.setAttribute('aria-label', 'Ask AI Tutor about selection');
+    const widget = {
+      getId: () => `${instanceId}-ask-ai-selection`,
+      getDomNode: () => widgetNode,
+      getPosition: () => activeSelection && editorFocused ? {
+        position: activeSelection.getEndPosition(),
+        preference: [monacoInstance.editor.ContentWidgetPositionPreference.ABOVE, monacoInstance.editor.ContentWidgetPositionPreference.BELOW],
+      } : null,
+    };
+    const selectionPayload = () => {
+      const model = instance.getModel();
+      if (!model || !activeSelection || activeSelection.isEmpty()) return null;
+      const text = model.getValueInRange(activeSelection);
+      if (!text.trim()) return null;
+      const startLine = activeSelection.startLineNumber;
+      const endLine = activeSelection.endLineNumber;
+      const surroundingStart = Math.max(1, startLine - 2);
+      const surroundingEnd = Math.min(model.getLineCount(), endLine + 2);
+      return {
+        text,
+        source: model.getValue(),
+        startOffset: model.getOffsetAt(activeSelection.getStartPosition()),
+        endOffset: model.getOffsetAt(activeSelection.getEndPosition()),
+        startLine,
+        endLine,
+        surroundingCode: model.getValueInRange(new monacoInstance.Range(surroundingStart, 1, surroundingEnd, model.getLineMaxColumn(surroundingEnd))),
+      };
+    };
+    const askAboutSelection = () => {
+      const payload = selectionPayload();
+      if (!payload) return;
+      activeSelection = null;
+      instance.layoutContentWidget(widget);
+      askSelectionRef.current?.(payload);
+    };
+    const preserveSelectionFocus = (event) => event.preventDefault();
+    if (askSelectionRef.current) {
+      widgetNode.addEventListener('pointerdown', preserveSelectionFocus);
+      widgetNode.addEventListener('click', askAboutSelection);
+      instance.addContentWidget(widget);
+    }
     instance.addCommand(monacoInstance.KeyMod.CtrlCmd | monacoInstance.KeyCode.Enter, () => {
       dispatchCompilerRun(instanceId, 'monaco-shortcut');
     });
-    instance.onDidChangeCursorSelection(({ selection }) => {
+    const selectionDisposable = instance.onDidChangeCursorSelection(({ selection }) => {
       const model = instance.getModel();
       const source = model?.getValue() ?? '';
+      activeSelection = selection.isEmpty() || !model?.getValueInRange(selection).trim() ? null : selection;
+      if (askSelectionRef.current) instance.layoutContentWidget(widget);
       onSelectionChange?.({
         text: model?.getValueInRange(selection) ?? '',
         source,
         startOffset: model?.getOffsetAt(selection.getStartPosition()) ?? 0,
         endOffset: model?.getOffsetAt(selection.getEndPosition()) ?? 0,
       });
+    });
+    const focusDisposable = instance.onDidFocusEditorText(() => { editorFocused = true; if (askSelectionRef.current) instance.layoutContentWidget(widget); });
+    const blurDisposable = instance.onDidBlurEditorText(() => { editorFocused = false; if (askSelectionRef.current) instance.layoutContentWidget(widget); });
+    const escapeDisposable = instance.onKeyDown((event) => {
+      if (event.keyCode === monacoInstance.KeyCode.Escape && activeSelection) {
+        activeSelection = null;
+        instance.setSelection(instance.getPosition());
+        if (askSelectionRef.current) instance.layoutContentWidget(widget);
+      }
+    });
+    const actionDisposable = askSelectionRef.current ? instance.addAction({
+      id: `${instanceId}-ask-ai-selection-action`,
+      label: 'Ask AI Tutor about Selection',
+      contextMenuGroupId: 'navigation',
+      contextMenuOrder: 1.5,
+      precondition: 'editorHasSelection',
+      run: askAboutSelection,
+    }) : null;
+    instance.onDidDispose(() => {
+      widgetNode.removeEventListener('pointerdown', preserveSelectionFocus);
+      widgetNode.removeEventListener('click', askAboutSelection);
+      selectionDisposable.dispose();
+      focusDisposable.dispose();
+      blurDisposable.dispose();
+      escapeDisposable.dispose();
+      actionDisposable?.dispose();
     });
     window.requestAnimationFrame(() => {
       const editorNode = instance.getDomNode();

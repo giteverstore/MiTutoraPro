@@ -7,6 +7,7 @@ import './firebase/appCheck';
 import App from './App';
 import { GlobalErrorBoundary } from './errors/ErrorBoundary';
 import './styles/theme.css';
+import './styles/editor-themes.css';
 import './design-system/tokens.css';
 import './design-system/primitives.css';
 import './styles/index.css';

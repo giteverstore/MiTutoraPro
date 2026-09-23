@@ -1,6 +1,6 @@
 export const DEFAULT_SETTINGS = Object.freeze({
   editor: {
-    theme: 'mitutora-dark',
+    theme: 'ycoders-dark',
     fontSize: 13,
     tabSize: 4,
     wordWrap: true,

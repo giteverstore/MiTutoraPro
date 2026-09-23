@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const progressState = vi.hoisted(() => ({ value: null }));
 vi.mock('../../src/progress/LearningProgressContext', () => ({
-  useLearningProgress: () => progressState.value,
+  useOptionalLearningProgress: () => progressState.value,
 }));
 vi.mock('../../src/progress/TrustedCompletionDevelopmentService', () => ({
   trustedCompletionDevelopmentService: { completeCourse: vi.fn() },

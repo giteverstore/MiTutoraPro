@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../src/components/CompilerPanel', () => ({
-  CompilerPanel: ({ compiler, activityType, onVerificationChange }) => <div data-testid="compiler" data-activity-type={activityType}><span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button" onClick={() => onVerificationChange('matched')}>Check Output</button><span>Editor</span><span>AI Tutor</span></div>,
+  CompilerPanel: ({ compiler, activityType, aiEnabled, onVerificationChange, onToggleCompiler }) => <div data-testid="compiler" data-activity-type={activityType} data-ai-enabled={aiEnabled}><span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button" onClick={() => onVerificationChange('matched')}>Check Output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button><span>Editor</span></div>,
 }));
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 
@@ -31,6 +31,9 @@ describe('Practice immersive coding workspace', () => {
   it('uses the immersive content/compiler split without redundant question metadata', () => {
     const { container } = render(<PracticeDetail question={question} solved={false} onBack={() => {}} onComplete={vi.fn()} />);
     expect(container.querySelector('[data-immersive-coding-workspace="practice"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-immersive-coding-workspace="practice"]')).toHaveClass('coding-workspace');
+    expect(container.querySelector('.practice-main-region')).toHaveClass('coding-workspace__content');
+    expect(container.querySelector('.shared-compiler-dock')).toHaveClass('coding-workspace__compiler');
     expect(screen.getByRole('heading', { name: question.title })).toBeInTheDocument();
     expect(screen.queryByText('Problem Statement')).not.toBeInTheDocument();
     expect(screen.getByText('Canonical statement.')).toBeInTheDocument();
@@ -47,6 +50,9 @@ describe('Practice immersive coding workspace', () => {
     expect(screen.queryByText(/variables-data-types-expressions/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/20 XP/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Previous Problem|Next Problem|Problem 1 of/i)).not.toBeInTheDocument();
+    expect(container.querySelector('.shared-compiler-dock')).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Question' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: 'AI Tutor' })).toBeVisible();
   });
 
   it('keeps Practice compiler semantics and completion callback intact', async () => {
@@ -54,10 +60,20 @@ describe('Practice immersive coding workspace', () => {
     render(<PracticeDetail question={question} solved={false} onBack={() => {}} onComplete={onComplete} />);
     expect(screen.getByTestId('compiler')).toHaveAttribute('data-activity-type', 'practice');
     expect(screen.getByText('print("ready")')).toBeInTheDocument();
-    expect(screen.getByText('AI Tutor')).toBeInTheDocument();
+    expect(screen.getByTestId('compiler')).toHaveAttribute('data-ai-enabled', 'true');
     fireEvent.click(screen.getByRole('button', { name: 'Check Output' }));
     fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
     expect(onComplete).toHaveBeenCalledWith(question);
+  });
+
+  it('switches Question to the shared gated AI workspace and uses the shared compiler restore control', () => {
+    render(<PracticeDetail question={question} solved={false} onBack={() => {}} onComplete={vi.fn()} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'AI Tutor' }));
+    expect(screen.getByRole('heading', { name: 'Premium required' })).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'Minimize compiler' }));
+    expect(screen.getByRole('button', { name: /^Compiler$/ })).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: /^Compiler$/ }));
+    expect(screen.queryByRole('button', { name: /^Compiler$/ })).not.toBeInTheDocument();
   });
 
   it('provides Back to Practice and the shared keyboard-accessible divider', () => {

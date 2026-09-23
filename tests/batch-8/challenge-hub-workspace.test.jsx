@@ -14,7 +14,7 @@ vi.mock('../../src/coins/ActivityCompletionClient', () => ({ activityCompletionC
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 vi.mock('../../src/hooks/useCompilerPaneResize', () => ({ useCompilerPaneResize: () => ({ workspaceRef: { current: null }, value: 640, max: 900, startDragging: vi.fn(), handleKeyDown: vi.fn() }) }));
 vi.mock('../../src/compiler/useSelectableCompilerLanguage', () => ({ useSelectableCompilerLanguage: (definitions) => ({ activeDefinition: definitions[0], language: 'python', options: [{ value: 'python', label: 'Python' }], switching: false, selectLanguage: vi.fn(), panelRef: { current: null } }) }));
-vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ onVerificationChange }) => <div data-testid="challenge-compiler"><button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button></div> }));
+vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onVerificationChange, onToggleCompiler }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}><button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
 vi.mock('../../src/components/ResizeHandle', () => ({ ResizeHandle: () => <div data-testid="resize-handle" /> }));
 
 import { buildChallengeHistory, ChallengeHub, ChallengeWorkspace } from '../../src/challenges/ChallengesPage';
@@ -92,9 +92,23 @@ describe('dated Daily Challenge workspace', () => {
     expect(screen.getByRole('heading', { name: 'Constraints' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Hints' })).toBeInTheDocument();
     expect(screen.getByTestId('challenge-compiler')).toBeInTheDocument();
+    expect(screen.getByTestId('challenge-compiler')).toHaveAttribute('data-ai-enabled', 'false');
+    expect(document.querySelector('[data-immersive-coding-workspace="challenge"]')).toHaveClass('coding-workspace');
+    expect(document.querySelector('.practice-main-region')).toHaveClass('coding-workspace__content');
+    expect(document.querySelector('.shared-compiler-dock')).toHaveClass('coding-workspace__compiler');
+    expect(screen.queryByRole('tab', { name: 'AI Tutor' })).not.toBeInTheDocument();
     expect(screen.getByTestId('resize-handle')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Back to Challenges' }));
     expect(back).toHaveBeenCalledOnce();
+  });
+
+  it('minimizes through the shared toolbar without exposing any AI route', () => {
+    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Minimize compiler' }));
+    expect(screen.getByRole('button', { name: /^Compiler$/ })).toBeVisible();
+    expect(screen.queryByRole('tab', { name: /AI/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/Ask AI Tutor/i)).not.toBeInTheDocument();
   });
 
   it('completes today once through the canonical activity client after verification', async () => {

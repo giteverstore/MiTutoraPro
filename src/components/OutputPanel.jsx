@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, CircleAlert, LoaderCircle, SearchCheck } from 'lucide-react';
+import { CheckCircle2, ChevronDown, ChevronUp, CircleAlert, LoaderCircle, SearchCheck } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 
 export function OutputPanel({
@@ -7,7 +7,6 @@ export function OutputPanel({
   result,
   error,
   isRunning,
-  executionTimeMs,
   expectedOutput,
   inputs,
   executionStatus,
@@ -16,14 +15,19 @@ export function OutputPanel({
   canCheckOutput,
   collapsed = false,
   onExpand,
+  onToggleCollapsed,
+  complexity = {},
+  tests = [],
+  contract = null,
 }) {
   const inputContent = Array.isArray(inputs) ? inputs.join('\n') : inputs;
   const tabs = useMemo(() => [
     { id: 'output', label: 'Output' },
     { id: 'expected', label: 'Expected' },
+    ...(tests.length ? [{ id: 'tests', label: 'Tests' }] : []),
     ...(inputContent ? [{ id: 'input', label: 'Input' }] : []),
     { id: 'errors', label: 'Errors', count: error ? 1 : 0 },
-  ], [error, inputContent]);
+  ], [error, inputContent, tests.length]);
   const [activeTab, setActiveTab] = useState('output');
   const status = isRunning ? 'running' : executionStatus;
   const stateTone = verificationStatus === 'mismatched' ? 'mismatch' : status;
@@ -33,6 +37,8 @@ export function OutputPanel({
     success: verificationStatus === 'matched' ? 'Output verified' : 'Completed',
     error: 'Failed',
   }[status] ?? 'Ready';
+  const timeComplexity = complexity.time ?? null;
+  const spaceComplexity = complexity.space ?? null;
 
   useEffect(() => {
     if (status === 'error') setActiveTab('errors');
@@ -67,6 +73,16 @@ export function OutputPanel({
             {tab.count ? <span>{tab.count}</span> : null}
           </button>
         ))}
+        <button
+          className="output-panel-toggle"
+          type="button"
+          aria-label={collapsed ? 'Restore output panel' : 'Minimize output panel'}
+          onClick={onToggleCollapsed}
+        >
+          {collapsed
+            ? <ChevronUp size={ICON_SIZE.sm} aria-hidden="true" />
+            : <ChevronDown size={ICON_SIZE.sm} aria-hidden="true" />}
+        </button>
       </div>
 
       {!collapsed ? <div
@@ -75,7 +91,18 @@ export function OutputPanel({
         role="tabpanel"
         tabIndex="0"
       >
-        <pre><code>{tabContent}</code></pre>
+        {activeTab === 'tests' ? (
+          <div className="shared-compiler-tests">
+            {tests.map((test, index) => (
+              <section key={`${test.name ?? 'test'}-${index}`}>
+                <strong>{test.name || `Case ${index + 1}`}</strong>
+                <span>Input: {JSON.stringify(test.arguments ?? [])}</span>
+                {'expected' in test ? <span>Expected: {JSON.stringify(test.expected)}</span> : null}
+              </section>
+            ))}
+            {contract?.signature ? <small>Contract: {contract.signature}</small> : null}
+          </div>
+        ) : <pre><code>{tabContent}</code></pre>}
       </div> : null}
 
       {!collapsed && verificationStatus === 'mismatched' ? (
@@ -98,8 +125,12 @@ export function OutputPanel({
               : <i aria-hidden="true" />}
             {statusLabel}
           </span>
-          <span>Exit <strong>{status === 'success' ? '0' : status === 'error' ? '1' : '—'}</strong></span>
-          <span>Time <strong>{executionTimeMs === null ? '—' : `${executionTimeMs} ms`}</strong></span>
+          <span aria-label={`Time complexity: ${timeComplexity ?? 'unavailable'}`} title="Time complexity">
+            Time <strong>{timeComplexity ?? '—'}</strong>
+          </span>
+          <span aria-label={`Space complexity: ${spaceComplexity ?? 'unavailable'}`} title="Space complexity">
+            Space <strong>{spaceComplexity ?? '—'}</strong>
+          </span>
         </div>
         <button
           className="button button--secondary ide-check-button"

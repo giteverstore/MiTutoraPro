@@ -167,7 +167,6 @@ body {
 .code-card,
 .compiler-ide { background: var(--color-code-surface); color: var(--color-code-text); }
 .compiler-dock { border-inline-start-color: var(--color-border); box-shadow: none; }
-.compiler-dock-header { background: var(--color-surface); }
 .ide-header { background: var(--color-code-surface-raised); }
 .ide-result-tabs,
 .ide-result-footer { background: var(--color-code-surface-raised); }
