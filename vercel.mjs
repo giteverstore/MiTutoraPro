@@ -3,7 +3,6 @@ const COMPILER_DEPLOYMENT_TARGET = 'compiler';
 
 export const CRON_SCHEDULES = Object.freeze({
   payments: Object.freeze({ path: '/api/payments/reconcile', schedule: '15 2 * * *' }),
-  mysql: Object.freeze({ path: '/api/compiler/mysql/janitor', schedule: '35 * * * *' }),
   shares: Object.freeze({ path: '/api/compiler/share/janitor', schedule: '50 3 * * *' }),
 });
 
@@ -21,7 +20,7 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
     },
     crons: target === COMPILER_DEPLOYMENT_TARGET
       ? [CRON_SCHEDULES.shares]
-      : [CRON_SCHEDULES.payments, CRON_SCHEDULES.mysql, CRON_SCHEDULES.shares],
+      : [CRON_SCHEDULES.payments, CRON_SCHEDULES.shares],
     routes: [
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },
