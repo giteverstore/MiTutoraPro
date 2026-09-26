@@ -18,7 +18,7 @@ export class CompilerManager {
     return runtime;
   }
 
-  async execute({ language, source, stdin, inputs, filename, execution, signal, timeoutMs, instanceId }) {
+  async execute({ language, source, stdin, inputs, filename, execution, setupSql, signal, timeoutMs, instanceId }) {
     if (!this.runtimeRegistry.has(language)) {
       return {
         status: 'error',
@@ -33,6 +33,7 @@ export class CompilerManager {
       stdin: stdin ?? inputs ?? '',
       filename,
       execution,
+      setupSql: setupSql ?? execution?.setupSql ?? '',
       signal,
       timeoutMs,
     });

@@ -9,6 +9,38 @@ import {
   conf as javaConfiguration,
   language as javaLanguage,
 } from 'monaco-editor/languages/definitions/java/java';
+import {
+  conf as javascriptConfiguration,
+  language as javascriptLanguage,
+} from 'monaco-editor/languages/definitions/javascript/javascript';
+import {
+  conf as typescriptConfiguration,
+  language as typescriptLanguage,
+} from 'monaco-editor/languages/definitions/typescript/typescript';
+import {
+  conf as htmlConfiguration,
+  language as htmlLanguage,
+} from 'monaco-editor/languages/definitions/html/html';
+import {
+  conf as sqlConfiguration,
+  language as sqlLanguage,
+} from 'monaco-editor/languages/definitions/sql/sql';
+import {
+  conf as cppConfiguration,
+  language as cppLanguage,
+} from 'monaco-editor/languages/definitions/cpp/cpp';
+import {
+  conf as rConfiguration,
+  language as rLanguage,
+} from 'monaco-editor/languages/definitions/r/r';
+import {
+  conf as csharpConfiguration,
+  language as csharpLanguage,
+} from 'monaco-editor/languages/definitions/csharp/csharp';
+import {
+  conf as visualBasicConfiguration,
+  language as visualBasicLanguage,
+} from 'monaco-editor/languages/definitions/vb/vb';
 import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching';
 import 'monaco-editor/editor/contrib/comment/browser/comment';
 import 'monaco-editor/editor/contrib/find/browser/findController';
@@ -45,6 +77,73 @@ function configureMonaco(monacoInstance) {
   }
   monacoInstance.languages.setLanguageConfiguration('java', javaConfiguration);
   monacoInstance.languages.setMonarchTokensProvider('java', javaLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'javascript')) {
+    monacoInstance.languages.register({ id: 'javascript', extensions: ['.js', '.mjs'], aliases: ['JavaScript', 'javascript'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('javascript', javascriptConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('javascript', javascriptLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'typescript')) {
+    monacoInstance.languages.register({ id: 'typescript', extensions: ['.ts'], aliases: ['TypeScript', 'typescript'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('typescript', typescriptConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('typescript', typescriptLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'html')) {
+    monacoInstance.languages.register({ id: 'html', extensions: ['.html', '.htm'], aliases: ['HTML', 'html'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('html', htmlConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('html', htmlLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'sql')) {
+    monacoInstance.languages.register({ id: 'sql', extensions: ['.sql'], aliases: ['SQL', 'sql'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('sql', sqlConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('sql', sqlLanguage);
+  for (const [id, extensions, aliases] of [
+    ['c', ['.c', '.h'], ['C', 'c']],
+    ['cpp', ['.cpp', '.cc', '.cxx', '.hpp'], ['C++', 'cpp']],
+  ]) {
+    if (!monacoInstance.languages.getLanguages().some(({ id: languageId }) => languageId === id)) {
+      monacoInstance.languages.register({ id, extensions, aliases });
+    }
+    monacoInstance.languages.setLanguageConfiguration(id, cppConfiguration);
+    monacoInstance.languages.setMonarchTokensProvider(id, cppLanguage);
+  }
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'r')) {
+    monacoInstance.languages.register({ id: 'r', extensions: ['.r', '.R'], aliases: ['R', 'r'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('r', rConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('r', rLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'csharp')) {
+    monacoInstance.languages.register({ id: 'csharp', extensions: ['.cs'], aliases: ['C#', 'csharp'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('csharp', csharpConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('csharp', csharpLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'vb')) {
+    monacoInstance.languages.register({ id: 'vb', extensions: ['.vb'], aliases: ['Visual Basic', 'VB.NET', 'vb'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('vb', visualBasicConfiguration);
+  monacoInstance.languages.setMonarchTokensProvider('vb', visualBasicLanguage);
+  if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'asm')) {
+    monacoInstance.languages.register({ id: 'asm', extensions: ['.asm'], aliases: ['Assembly', 'NASM', 'asm'] });
+  }
+  monacoInstance.languages.setLanguageConfiguration('asm', {
+    comments: { lineComment: ';' },
+    brackets: [['[', ']'], ['(', ')']],
+    autoClosingPairs: [{ open: '[', close: ']' }, { open: '(', close: ')' }, { open: '"', close: '"' }, { open: "'", close: "'" }],
+  });
+  monacoInstance.languages.setMonarchTokensProvider('asm', {
+    ignoreCase: true,
+    tokenizer: {
+      root: [
+        [/;.*$/, 'comment'],
+        [/^[\t ]*[A-Za-z_.$?][\w.$?@~#]*:/, 'type.identifier'],
+        [/\b(?:mov|lea|add|sub|imul|idiv|inc|dec|and|or|xor|not|shl|shr|sar|cmp|test|jmp|je|jne|jg|jge|jl|jle|push|pop|call|ret|syscall|nop)\b/, 'keyword'],
+        [/\b(?:rax|rbx|rcx|rdx|rsi|rdi|rsp|rbp|r8|r9|r10|r11|r12|r13|r14|r15|rip|eax|ebx|ecx|edx|esi|edi|esp|ebp|ax|bx|cx|dx|al|bl|cl|dl)\b/, 'variable.predefined'],
+        [/\b(?:bits|org|section|global|db|dw|dd|dq|equ|times|byte|word|dword|qword|rel)\b/, 'type'],
+        [/0[xX][0-9a-fA-F]+|\b\d+\b/, 'number'],
+        [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'/, 'string'],
+      ],
+    },
+  });
   EDITOR_THEME_CATALOG.forEach((theme) => {
     const { palette, syntax } = theme;
     monacoInstance.editor.defineTheme(theme.monacoTheme, {
@@ -83,9 +182,10 @@ function configureMonaco(monacoInstance) {
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId, standalonePreferences }) {
   const settings = useSettings();
-  const editorTheme = editorThemeById(settings.editor.theme).monacoTheme;
+  const editorSettings = standalonePreferences ?? settings.editor;
+  const editorTheme = standalonePreferences?.monacoTheme ?? editorThemeById(settings.editor.theme).monacoTheme;
   const askSelectionRef = useRef(onAskSelection);
   askSelectionRef.current = onAskSelection;
   const handleMount = (instance, monacoInstance) => {
@@ -212,7 +312,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
           detectIndentation: false,
           folding: true,
           fontFamily: "'DM Mono', monospace",
-          fontSize: settings.editor.fontSize,
+          fontSize: editorSettings.fontSize,
           glyphMargin: false,
           guides: { bracketPairs: true, indentation: true },
           insertSpaces: true,
@@ -228,8 +328,8 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
           smoothScrolling: true,
           stickyScroll: { enabled: false },
           tabFocusMode: false,
-          tabSize: settings.editor.tabSize,
-          wordWrap: settings.editor.wordWrap ? 'on' : 'off',
+          tabSize: editorSettings.tabSize,
+          wordWrap: editorSettings.wordWrap ? 'on' : 'off',
         }}
       />
     </div>

@@ -14,6 +14,7 @@ import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
 import { recentCourseRepository } from './home/recentCourseRepository';
 import { LearnerActivityProvider } from './activity/LearnerActivityContext';
 import { shouldShowApplicationFooter } from './app-shell/footerPolicy';
+import { isStandaloneCompilerRequest } from './standalone-compiler/standaloneCompilerHost';
 
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
 const BookmarkProvider = lazyNamedExport(() => import('./bookmarks/BookmarkContext'), 'BookmarkProvider');
@@ -37,6 +38,7 @@ const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'Cour
 const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
 const PublicPage = lazyNamedExport(() => import('./public/PublicPages'), 'PublicPage');
 const PublicBrowseApplication = lazyNamedExport(() => import('./public/PublicBrowseApplication'), 'PublicBrowseApplication');
+const StandaloneCompilerApp = lazyNamedExport(() => import('./standalone-compiler/StandaloneCompilerApp'), 'StandaloneCompilerApp');
 
 const compilerManager = createCompilerManager();
 const APPLICATION_PAGES = {
@@ -52,6 +54,13 @@ const APPLICATION_PAGES = {
 };
 
 export default function App() {
+  if (isStandaloneCompilerRequest({
+    hostname: window.location.hostname,
+    pathname: window.location.pathname,
+    deploymentTarget: import.meta.env.VITE_YCODERS_DEPLOYMENT_TARGET,
+  })) {
+    return <CompilerProvider manager={compilerManager}><Suspense fallback={<CourseLoadState state="loading" />}><StandaloneCompilerApp /></Suspense></CompilerProvider>;
+  }
   const publicRoute = parseAppRoute(window.location.pathname);
   if (publicRoute.kind === 'certificate-verification') {
     return <Suspense fallback={<CourseLoadState state="loading" />}><PublicCertificateVerificationPage credentialId={publicRoute.credentialId} /></Suspense>;

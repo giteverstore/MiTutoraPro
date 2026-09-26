@@ -11,6 +11,11 @@ import { ConfirmDialog } from './Dialog';
 import { createSourceSnapshotHash } from '../compiler/core/sourceSnapshot';
 import { useCompilerBottomDrawer } from '../compiler/useCompilerBottomDrawer';
 import { normalizeEditorThemeId } from '../theme/editorThemeCatalog';
+import { CompilerLanguageSelector } from './CompilerLanguageSelector';
+import { createDevelopmentCompilerDefinition, getDevelopmentCompilerOptions } from '../compiler/developmentCompilerOverride';
+import { PreviewPanel } from './PreviewPanel';
+import { DatabaseResultPanel } from './DatabaseResultPanel';
+import { EmulatorResultPanel } from './EmulatorResultPanel';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -53,6 +58,10 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const selectionVersionRef = useRef(0);
   const [compilerEvidence, setCompilerEvidence] = useState(null);
   const [replaceConfirmation, setReplaceConfirmation] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [database, setDatabase] = useState(null);
+  const [emulator, setEmulator] = useState(null);
+  const [isDevelopmentCompilerSwitching, setIsDevelopmentCompilerSwitching] = useState(false);
   const executionControllerRef = useRef(null);
   const collapsibleOutput = activityType === 'lesson' || Boolean(languageSelector);
   const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput, containerRef: panelRef });
@@ -77,6 +86,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setError('');
     setExecutionTimeMs(null);
     setCompilerEvidence(null);
+    setEmulator(null);
 
     try {
       let source = requestedSource;
@@ -95,6 +105,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         stdin: definition.stdin,
         filename: definition.editor.fileName,
         execution: definition.execution,
+        setupSql: definition.setupSql,
         timeoutMs: definition.timeoutMs,
         signal: controller.signal,
         instanceId,
@@ -104,6 +115,9 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       setError(execution.errors.join('\n'));
       setExecutionTimeMs(execution.executionTimeMs);
       setExecutionStatus(execution.status);
+      setPreview(execution.preview ?? null);
+      setDatabase(execution.database ?? null);
+      setEmulator(execution.emulator ?? null);
       try {
         setCompilerEvidence(Object.freeze({
           source,
@@ -111,6 +125,15 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           language: definition.language,
           status: execution.status,
           output: execution.errors.length ? execution.errors.join('\n') : execution.output,
+          stdout: execution.stdout ?? execution.output ?? '',
+          stderr: execution.stderr ?? '',
+          exitCode: execution.exitCode ?? null,
+          diagnostics: execution.diagnostics ?? [],
+          warnings: execution.warnings ?? [],
+          compileTimeMs: execution.compileTimeMs ?? null,
+          executionTimeMs: execution.executionTimeMs ?? null,
+          database: execution.database ?? null,
+          emulator: execution.emulator ?? null,
         }));
       } catch {
         setCompilerEvidence(null);
@@ -124,6 +147,9 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         setError(executionError.message || 'The compiler adapter could not complete the request.');
         setExecutionStatus('error');
         setCompilerEvidence(null);
+        setPreview(null);
+        setDatabase(null);
+        setEmulator(null);
       }
     } finally {
       if (executionControllerRef.current === controller) {
@@ -151,6 +177,9 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setVerificationStatus('idle');
     setExecutionTimeMs(null);
     setCompilerEvidence(null);
+    setPreview(null);
+    setDatabase(null);
+    setEmulator(null);
     const definition = activeCompilerRef.current;
     if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     onVerificationChange?.('idle');
@@ -245,11 +274,12 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     executionControllerRef.current?.abort();
     executionControllerRef.current = null;
     const definition = activeCompilerRef.current;
+    const resetSource = definition.editor.lines.map((line) => line.text ?? '').join('\n');
     await compilerManager.reset(definition.language, instanceId);
     setIsRunning(false);
-    currentCodeRef.current = initialCode;
-    lastLoadedCodeRef.current = initialCode;
-    setCode(initialCode);
+    currentCodeRef.current = resetSource;
+    lastLoadedCodeRef.current = resetSource;
+    setCode(resetSource);
     setResult('');
     setError('');
     setExecutionStatus('idle');
@@ -259,9 +289,11 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setExecutionTimeMs(null);
     setSelectionSnapshot(null);
     setCompilerEvidence(null);
+    setPreview(null);
+    setDatabase(null);
+    setEmulator(null);
   }, [
     compilerManager,
-    initialCode,
     invalidateExerciseVerification,
     onVerificationChange,
     instanceId,
@@ -282,6 +314,9 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     setExecutionTimeMs(null);
     setSelectionSnapshot(null);
     setCompilerEvidence(null);
+    setPreview(null);
+    setDatabase(null);
+    setEmulator(null);
     if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     onVerificationChange?.('idle');
     return true;
@@ -300,6 +335,34 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     }
     return applyCompilerDefinition(definition);
   }, [applyCompilerDefinition, requestReplaceConfirmation]);
+
+  const selectDevelopmentCompiler = useCallback(async (nextLanguage) => {
+    if (!import.meta.env.DEV || nextLanguage === activeCompilerRef.current.language) return;
+    const definition = createDevelopmentCompilerDefinition(
+      activeCompilerRef.current,
+      nextLanguage,
+      currentCodeRef.current,
+    );
+    if (!definition) return;
+    setIsDevelopmentCompilerSwitching(true);
+    try {
+      await compilerManager.reset(activeCompilerRef.current.language, instanceId);
+      applyCompilerDefinition(definition);
+    } finally {
+      setIsDevelopmentCompilerSwitching(false);
+    }
+  }, [applyCompilerDefinition, compilerManager, instanceId]);
+
+  const effectiveLanguageSelector = import.meta.env.DEV && activityType !== 'lesson' ? (
+    <CompilerLanguageSelector
+      label="DEV Compiler:"
+      ariaLabel="Development compiler runtime"
+      value={activeCompiler.language}
+      options={getDevelopmentCompilerOptions()}
+      disabled={isDevelopmentCompilerSwitching || isRunning}
+      onChange={selectDevelopmentCompiler}
+    />
+  ) : languageSelector;
 
   useImperativeHandle(forwardedRef, () => ({
     isDirty: () => currentCodeRef.current !== lastLoadedCodeRef.current,
@@ -348,7 +411,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           verificationStatus={verificationStatus}
           onRun={showRunFeedback}
           onReset={resetEditor}
-          languageSelector={languageSelector}
+          languageSelector={effectiveLanguageSelector}
           isCompilerMinimized={isCompilerMinimized}
           onToggleCompiler={onToggleCompiler}
         />
@@ -372,7 +435,41 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
             outputDrawer.handleKeyDown(event);
           }}
         />
-        {renderOutput?.({
+        {activeCompiler.executionMode === 'preview' ? (
+          <PreviewPanel
+            preview={preview}
+            height={outputDrawer.renderedHeight}
+            collapsed={outputDrawer.collapsed}
+            onExpand={expandOutputDrawer}
+            onToggleCollapsed={outputDrawer.toggle}
+            executionStatus={executionStatus}
+          />
+        ) : activeCompiler.executionMode === 'database' ? (
+          <DatabaseResultPanel
+            database={database}
+            error={error}
+            isRunning={isRunning}
+            executionTimeMs={executionTimeMs}
+            executionStatus={executionStatus}
+            height={outputDrawer.renderedHeight}
+            collapsed={outputDrawer.collapsed}
+            onExpand={expandOutputDrawer}
+            onToggleCollapsed={outputDrawer.toggle}
+          />
+        ) : activeCompiler.executionMode === 'emulator' ? (
+          <EmulatorResultPanel
+            emulator={emulator}
+            result={result}
+            error={error}
+            isRunning={isRunning}
+            executionTimeMs={executionTimeMs}
+            executionStatus={executionStatus}
+            height={outputDrawer.renderedHeight}
+            collapsed={outputDrawer.collapsed}
+            onExpand={expandOutputDrawer}
+            onToggleCollapsed={outputDrawer.toggle}
+          />
+        ) : renderOutput?.({
           height: outputDrawer.renderedHeight,
           collapsed: outputDrawer.collapsed,
           onExpand: expandOutputDrawer,

@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: ycoders-mysql-local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_LOCAL_ROOT_PASSWORD:?Set MYSQL_LOCAL_ROOT_PASSWORD}
+      YC_MYSQL_ADMIN_USER: ${MYSQL_ADMIN_USER:-ycoders_admin}
+      YC_MYSQL_ADMIN_PASSWORD: ${MYSQL_ADMIN_PASSWORD:?Set MYSQL_ADMIN_PASSWORD}
+    command:
+      - --local-infile=OFF
+      - --secure-file-priv=NULL
+      - --max-connections=40
+      - --max-execution-time=10000
+    volumes:
+      - ycoders_mysql_data:/var/lib/mysql
+      - ./scripts/mysql/local-init.sh:/docker-entrypoint-initdb.d/10-ycoders-sandbox.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  ycoders_mysql_data:

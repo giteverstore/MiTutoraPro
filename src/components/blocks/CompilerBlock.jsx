@@ -13,6 +13,7 @@ export function createCompilerData(definition) {
     validatorType,
     validatorOptions,
     execution,
+    setupSql,
     timeoutMs,
     testCases,
   } = normalizeCompilerDefinition(definition);
@@ -29,6 +30,7 @@ export function createCompilerData(definition) {
     status: 'Ready',
     languageLabel: 'Language',
     language,
+    executionMode: supportedLanguage.executionMode ?? 'terminal',
     resetLabel: resetLabel || 'Reset',
     runLabel: runLabel || 'Run',
     runningLabel: 'Running…',
@@ -62,6 +64,7 @@ export function createCompilerData(definition) {
     validatorType,
     validatorOptions,
     execution,
+    setupSql,
     timeoutMs,
     testCases,
   };

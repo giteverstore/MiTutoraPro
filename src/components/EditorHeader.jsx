@@ -1,6 +1,7 @@
 import { Minus, Play, RotateCcw } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
+import { getSupportedCompilerLanguage } from '../compiler/languages/supportedLanguages';
 
 export function EditorHeader({
   data,
@@ -21,7 +22,8 @@ export function EditorHeader({
     success: 'Completed',
     error: 'Failed',
   }[state] ?? 'Ready';
-  const languageLabel = data.language.charAt(0).toUpperCase() + data.language.slice(1);
+  const languageLabel = getSupportedCompilerLanguage(data.language)?.label
+    ?? `${data.language.charAt(0).toUpperCase()}${data.language.slice(1)}`;
 
   return (
     <header className={`ide-header ${isSelectable ? 'is-selectable' : 'is-locked'}`}>

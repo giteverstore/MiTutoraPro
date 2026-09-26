@@ -1,0 +1,20 @@
+import { spawn } from 'node:child_process';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { delimiter, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const projectId = 'demo-compiler-public';
+const temporary = mkdtempSync(join(tmpdir(), 'ycoders-compiler-public-'));
+const firebaseCli = fileURLToPath(new URL('../node_modules/firebase-tools/lib/bin/firebase.js', import.meta.url));
+const config = fileURLToPath(new URL('../firebase.compiler-public.json', import.meta.url));
+const vitest = fileURLToPath(new URL('../node_modules/vitest/vitest.mjs', import.meta.url));
+const vitestConfig = fileURLToPath(new URL('../vitest.compiler-public-acceptance.config.js', import.meta.url));
+const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]+$/, '');
+const environment = { ...process.env, FIREBASE_PROJECT_ID: projectId, GCLOUD_PROJECT: projectId, GCLOUD_PROJECT_ID: projectId, FIREBASE_CLI_DISABLE_UPDATE_CHECK: 'true', COMPILER_PUBLIC_ACCEPTANCE: 'true', XDG_CONFIG_HOME: temporary };
+if (environment.JAVA_HOME) environment.PATH = `${join(environment.JAVA_HOME, 'bin')}${delimiter}${environment.PATH ?? ''}`;
+for (const name of Object.keys(environment)) if (/(TOKEN|SECRET|PASSWORD|COOKIE|API_KEY|PRIVATE_KEY|SERVICE_ACCOUNT|VERCEL_OIDC)/i.test(name)) delete environment[name];
+const command = `"${process.execPath}" "${vitest}" run --root "${root}" --config "${vitestConfig}"`;
+const child = spawn(process.execPath, [firebaseCli, 'emulators:exec', '--only', 'auth,firestore', '--project', projectId, '--config', config, command], { cwd: root, env: environment, stdio: 'inherit' });
+child.on('exit', (code) => { rmSync(temporary, { recursive: true, force: true }); process.exitCode = code ?? 1; });
+child.on('error', (error) => { throw error; });

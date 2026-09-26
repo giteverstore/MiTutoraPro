@@ -146,6 +146,13 @@ service cloud.firestore {
     match /purchaseOrchestrations/{paymentId} { allow read, write: if false; }
     match /paymentSettlementEvidence/{evidenceId} { allow read, write: if false; }
     match /paymentReconciliation/{recordId} { allow read, write: if false; }
+    match /compilerShares/{shareId} { allow read, write: if false; }
+    match /compilerFeedback/{feedbackId} { allow read, write: if false; }
+    match /compilerPublicRateLimits/{rateLimitId} { allow read, write: if false; }
+    match /compilerPublicRemoteRateLimits/{rateLimitId} { allow read, write: if false; }
+    match /compilerPublicRemoteRuntime/{runtimeId} { allow read, write: if false; }
+    match /compilerPublicMysqlRateLimits/{rateLimitId} { allow read, write: if false; }
+    match /compilerPublicMysqlRuntime/{runtimeId} { allow read, write: if false; }
     match /payoutWebhookEvents/{eventId} { allow read, write: if false; }
     match /payoutOutbox/{withdrawalId} { allow read, write: if false; }
     match /financialReconciliation/{recordId} { allow read, write: if false; }

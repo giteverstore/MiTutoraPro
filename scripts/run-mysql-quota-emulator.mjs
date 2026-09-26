@@ -1,0 +1,20 @@
+import { spawn } from 'node:child_process';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { delimiter, join as joinPath } from 'node:path';
+
+const projectId = 'demo-mysql-quota';
+const temporary = mkdtempSync(join(tmpdir(), 'ycoders-mysql-quota-'));
+const firebaseCli = fileURLToPath(new URL('../node_modules/firebase-tools/lib/bin/firebase.js', import.meta.url));
+const config = fileURLToPath(new URL('../firebase.json', import.meta.url));
+const vitest = fileURLToPath(new URL('../node_modules/vitest/vitest.mjs', import.meta.url));
+const environment = { ...process.env, FIREBASE_PROJECT_ID: projectId, GCLOUD_PROJECT: projectId, MYSQL_QUOTA_EMULATOR_TEST: 'true', FIREBASE_CLI_DISABLE_UPDATE_CHECK: 'true' };
+if (environment.JAVA_HOME) environment.PATH = `${joinPath(environment.JAVA_HOME, 'bin')}${delimiter}${environment.PATH ?? ''}`;
+for (const name of Object.keys(environment)) if (/(TOKEN|SECRET|PASSWORD|COOKIE|API_KEY|PRIVATE_KEY|SERVICE_ACCOUNT|VERCEL_OIDC)/i.test(name)) delete environment[name];
+const workspace = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]+$/, '');
+const command = `"${process.execPath}" "${vitest}" run --root "${workspace}" --config "${fileURLToPath(new URL('../vitest.mysql-quota.config.js', import.meta.url))}" --maxWorkers=1`;
+const child = spawn(process.execPath, [firebaseCli, 'emulators:exec', '--only', 'firestore', '--project', projectId, '--config', config, command], { cwd: temporary, env: environment, stdio: 'inherit' });
+child.on('exit', (code) => { rmSync(temporary, { recursive: true, force: true }); process.exitCode = code ?? 1; });
+child.on('error', (error) => { throw error; });

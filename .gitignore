@@ -20,3 +20,4 @@ firebase-admin-credentials*.json
 
 .vercel
 .env*
+.tmp/
