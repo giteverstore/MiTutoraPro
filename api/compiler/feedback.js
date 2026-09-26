@@ -1,2 +1,0 @@
-import { assertJsonPost, createCompilerPublicDependencies, createFeedback, sendCompilerPublicError } from '../../server/compiler-public/compilerPublicService.js';
-export default async function handler(request, response) { response.setHeader('Cache-Control', 'no-store'); try { assertJsonPost(request); const dependencies = await createCompilerPublicDependencies(); await createFeedback({ ...dependencies, request, body: request.body }); return response.status(201).json({ success: true }); } catch (error) { return sendCompilerPublicError(response, error); } }

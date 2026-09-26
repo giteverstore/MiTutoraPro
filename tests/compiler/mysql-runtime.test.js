@@ -12,7 +12,7 @@ import { cleanStaleMySqlSandboxes, parseSandboxTimestamp } from '../../server/my
 import { mysqlInfrastructureInternals } from '../../server/mysql/mysqlInfrastructure.js';
 import { MySqlDistributedQuota } from '../../server/mysql/MySqlDistributedQuota.js';
 import { FirebaseMySqlContentSource } from '../../server/mysql/FirebaseMySqlContentSource.js';
-import { createMySqlJanitorHandler } from '../../api/compiler/mysql/janitor.js';
+import { createMySqlJanitorHandler } from '../../server/compiler-public/compilerApiRouter.js';
 
 describe('MySQL registry runtime client', () => {
   it('invokes the browser fetch dependency without rebinding its receiver', async () => {

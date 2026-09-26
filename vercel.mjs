@@ -17,10 +17,7 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
     outputDirectory: 'dist',
     functions: {
       'api/ai/explain.js': { maxDuration: 60, supportsCancellation: true },
-      'api/compiler/mysql/run.js': { maxDuration: 15, supportsCancellation: true },
-      'api/compiler/mysql/public.js': { maxDuration: 15, supportsCancellation: true },
-      'api/compiler/execute.js': { maxDuration: 60, supportsCancellation: true },
-      'api/compiler/remote/public.js': { maxDuration: 60, supportsCancellation: true },
+      'api/compiler/[...path].js': { maxDuration: 60, supportsCancellation: true },
     },
     crons: target === COMPILER_DEPLOYMENT_TARGET
       ? [CRON_SCHEDULES.shares]
