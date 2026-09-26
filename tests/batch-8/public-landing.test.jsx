@@ -194,6 +194,46 @@ describe('public Y Coders landing page', () => {
     }
   });
 
+  it('opens an accessible Online Compilers menu with every public language route', () => {
+    render(<PublicHeader />);
+    const trigger = screen.getByRole('button', { name: 'Online Compilers' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const compilers = screen.getByLabelText('Online compilers');
+    expect(within(compilers).getAllByRole('link')).toHaveLength(17);
+    for (const [name, href] of [
+      ['Python', 'https://compiler.ycoders.com/python'],
+      ['C++', 'https://compiler.ycoders.com/cpp'],
+      ['SQL', 'https://compiler.ycoders.com/sql'],
+      ['MySQL', 'https://compiler.ycoders.com/mysql'],
+      ['Go', 'https://compiler.ycoders.com/go'],
+      ['Rust', 'https://compiler.ycoders.com/rust'],
+    ]) expect(within(compilers).getByRole('link', { name })).toHaveAttribute('href', href);
+  });
+
+  it('closes Online Compilers on outside click, Escape, and language selection', () => {
+    render(<div><PublicHeader /><button type="button">Outside</button></div>);
+    const trigger = screen.getByRole('button', { name: 'Online Compilers' });
+    fireEvent.click(trigger);
+    fireEvent.mouseDown(screen.getByRole('button', { name: 'Outside' }));
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(trigger);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(trigger);
+    fireEvent.click(screen.getByRole('link', { name: 'Python' }));
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('keeps Online Compilers reachable through the mobile navigation control', () => {
+    render(<PublicHeader />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open navigation' }));
+    expect(screen.getByRole('button', { name: 'Online Compilers' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Online Compilers' }));
+    expect(screen.getByLabelText('Online compilers')).not.toHaveAttribute('hidden');
+  });
+
   it('preserves the intended destination when Login is requested', () => {
     render(<PublicHeader activePath="/projects" />);
     fireEvent.click(screen.getByRole('button', { name: 'Login' }));
