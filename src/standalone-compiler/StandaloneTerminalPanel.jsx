@@ -11,6 +11,9 @@ export function StandaloneTerminalPanel({ stdin, onStdinChange, result, error, i
         : activeTab === 'errors' ? <pre className={error ? 'is-error' : ''}><code>{error || 'No errors.'}</code></pre>
           : <pre><code>{isRunning ? `Running ${activeLanguage.label}...` : result || 'Run your code to see the output.'}</code></pre>}
     </div>
-    <footer><span>{isRunning ? 'Running' : error ? 'Failed' : result ? 'Completed' : 'Ready'}</span><span>{executionTimeMs == null ? '—' : `${executionTimeMs} ms`}</span></footer>
+    <footer className="standalone-result-statusbar">
+      <span className="standalone-result-status">{isRunning ? 'Running' : error ? 'Error' : result ? 'Success' : 'Ready'}</span>
+      {executionTimeMs == null ? null : <span className="standalone-result-time">Time <strong>{executionTimeMs} ms</strong></span>}
+    </footer>
   </section>;
 }

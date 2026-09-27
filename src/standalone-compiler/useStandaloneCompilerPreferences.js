@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useApplicationTheme } from '../theme/useApplicationTheme.js';
 
 export const STANDALONE_PREFERENCES_KEY = 'ycoders.standaloneCompiler.preferences';
-export const DEFAULT_STANDALONE_PREFERENCES = Object.freeze({ appearance: 'follow-app', fontSize: 13, tabSize: 4, wordWrap: true });
+export const DEFAULT_STANDALONE_PREFERENCES = Object.freeze({ appearance: 'follow-app', fontSize: 14, tabSize: 4, wordWrap: true });
 
 function readPreferences() {
   try {

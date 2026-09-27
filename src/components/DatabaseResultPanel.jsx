@@ -10,15 +10,15 @@ function displayValue(value) {
   return String(value);
 }
 
-export function DatabaseResultPanel({ database, error, isRunning, executionTimeMs, executionStatus, height, collapsed, onExpand, onToggleCollapsed }) {
+export function DatabaseResultPanel({ database, error, isRunning, executionTimeMs, executionStatus, height, collapsed, onExpand, onToggleCollapsed, showCollapseControl = true }) {
   const resultSets = database?.resultSets ?? [];
   const status = isRunning ? 'running' : executionStatus;
   return <section className={`database-result-panel ide-results is-${status}${collapsed ? ' is-collapsed' : ''}`} style={{ height, flexBasis: height }} aria-live="polite">
     <div className="ide-result-tabs" role="tablist" aria-label="Database results">
       <button className="is-active" type="button" role="tab" aria-selected="true" onClick={onExpand}>Results</button>
-      <button className="output-panel-toggle" type="button" aria-label={collapsed ? 'Restore database results' : 'Minimize database results'} onClick={onToggleCollapsed}>
+      {showCollapseControl ? <button className="output-panel-toggle" type="button" aria-label={collapsed ? 'Restore database results' : 'Minimize database results'} onClick={onToggleCollapsed}>
         {collapsed ? <ChevronUp size={ICON_SIZE.sm} aria-hidden="true" /> : <ChevronDown size={ICON_SIZE.sm} aria-hidden="true" />}
-      </button>
+      </button> : null}
     </div>
     {!collapsed ? <div className="database-results-content" role="tabpanel" tabIndex="0">
       {isRunning ? <p className="database-result-message"><LoaderCircle className="result-spinner" size={ICON_SIZE.sm} aria-hidden="true" /> Executing SQL…</p>

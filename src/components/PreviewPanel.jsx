@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { PREVIEW_MESSAGE_TYPE } from '../compiler/runtimes/preview/previewDocument.js';
 
-export function PreviewPanel({ preview, height, collapsed, onExpand, onToggleCollapsed, executionStatus }) {
+export function PreviewPanel({ preview, height, collapsed, onExpand, onToggleCollapsed, executionStatus, showCollapseControl = true }) {
   const iframeRef = useRef(null);
   const [activeTab, setActiveTab] = useState('preview');
   const [messages, setMessages] = useState([]);
@@ -29,9 +29,9 @@ export function PreviewPanel({ preview, height, collapsed, onExpand, onToggleCol
     <div className="ide-result-tabs" role="tablist" aria-label="Web preview results">
       <button className={activeTab === 'preview' ? 'is-active' : ''} type="button" role="tab" aria-selected={activeTab === 'preview'} onClick={() => selectTab('preview')}>Preview</button>
       <button className={activeTab === 'console' ? 'is-active' : ''} type="button" role="tab" aria-selected={activeTab === 'console'} onClick={() => selectTab('console')}>Console{messages.length ? <span>{messages.length}</span> : null}</button>
-      <button className="output-panel-toggle" type="button" aria-label={collapsed ? 'Restore preview panel' : 'Minimize preview panel'} onClick={onToggleCollapsed}>
+      {showCollapseControl ? <button className="output-panel-toggle" type="button" aria-label={collapsed ? 'Restore preview panel' : 'Minimize preview panel'} onClick={onToggleCollapsed}>
         {collapsed ? <ChevronUp size={ICON_SIZE.sm} aria-hidden="true" /> : <ChevronDown size={ICON_SIZE.sm} aria-hidden="true" />}
-      </button>
+      </button> : null}
     </div>
     {!collapsed ? activeTab === 'preview' ? (
       preview?.srcDoc ? <iframe ref={iframeRef} title="Learner web preview" sandbox="allow-scripts" srcDoc={preview.srcDoc} /> : <div className="web-preview-empty">{executionStatus === 'running' ? 'Preparing preview…' : 'Run your code to open the preview.'}</div>

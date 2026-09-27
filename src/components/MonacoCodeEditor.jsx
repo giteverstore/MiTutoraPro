@@ -45,10 +45,11 @@ import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching';
 import 'monaco-editor/editor/contrib/comment/browser/comment';
 import 'monaco-editor/editor/contrib/find/browser/findController';
 import 'monaco-editor/editor/contrib/linesOperations/browser/linesOperations';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSettings } from '../settings/useSettings';
 import { dispatchCompilerRun } from '../compiler/core/compilerEvents';
 import { EDITOR_THEME_CATALOG, editorThemeById } from '../theme/editorThemeCatalog';
+import { STANDALONE_MONACO_THEMES, standaloneMonacoOptions } from '../standalone-compiler/standaloneMonacoThemes';
 
 globalThis.MonacoEnvironment = {
   getWorker() {
@@ -146,7 +147,7 @@ function configureMonaco(monacoInstance) {
   });
   EDITOR_THEME_CATALOG.forEach((theme) => {
     const { palette, syntax } = theme;
-    monacoInstance.editor.defineTheme(theme.monacoTheme, {
+    const themeDefinition = {
       base: theme.dark ? 'vs-dark' : 'vs',
       inherit: true,
       rules: [
@@ -178,17 +179,37 @@ function configureMonaco(monacoInstance) {
         'input.background': palette.background,
         'list.hoverBackground': palette.panel,
       },
-    });
+    };
+    monacoInstance.editor.defineTheme(theme.monacoTheme, themeDefinition);
+    if (theme.id === 'ycoders-light' || theme.id === 'ycoders-dark') {
+      const standaloneTheme = theme.id === 'ycoders-dark' ? STANDALONE_MONACO_THEMES.dark : STANDALONE_MONACO_THEMES.light;
+      monacoInstance.editor.defineTheme(standaloneTheme.name, {
+        ...themeDefinition,
+        colors: {
+          ...themeDefinition.colors,
+          'editor.background': standaloneTheme.editorBackground,
+          'editorGutter.background': standaloneTheme.gutterBackground,
+        },
+      });
+    }
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId, standalonePreferences }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId, standalonePreferences, layoutSignal }) {
   const settings = useSettings();
   const editorSettings = standalonePreferences ?? settings.editor;
   const editorTheme = standalonePreferences?.monacoTheme ?? editorThemeById(settings.editor.theme).monacoTheme;
+  const standaloneOptions = standaloneMonacoOptions(standalonePreferences);
   const askSelectionRef = useRef(onAskSelection);
+  const editorInstanceRef = useRef(null);
   askSelectionRef.current = onAskSelection;
+  useEffect(() => {
+    if (layoutSignal === undefined || !editorInstanceRef.current) return undefined;
+    const frame = window.requestAnimationFrame(() => editorInstanceRef.current?.layout());
+    return () => window.cancelAnimationFrame(frame);
+  }, [layoutSignal]);
   const handleMount = (instance, monacoInstance) => {
+    editorInstanceRef.current = instance;
     let activeSelection = null;
     let editorFocused = false;
     const widgetNode = document.createElement('button');
@@ -269,6 +290,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
       run: askAboutSelection,
     }) : null;
     instance.onDidDispose(() => {
+      if (editorInstanceRef.current === instance) editorInstanceRef.current = null;
       widgetNode.removeEventListener('pointerdown', preserveSelectionFocus);
       widgetNode.removeEventListener('click', askAboutSelection);
       selectionDisposable.dispose();
@@ -330,6 +352,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
           tabFocusMode: false,
           tabSize: editorSettings.tabSize,
           wordWrap: editorSettings.wordWrap ? 'on' : 'off',
+          ...standaloneOptions,
         }}
       />
     </div>

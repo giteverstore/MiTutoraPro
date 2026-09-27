@@ -27,8 +27,8 @@ export function StandaloneLanguagePicker({ open, activeLanguage, onClose, onSele
     <label className="standalone-language-search"><Search size={18} aria-hidden="true" /><span className="sr-only">Search languages</span><input data-autofocus aria-label="Search languages" placeholder="Search languages..." value={query} onChange={(event) => setQuery(event.target.value)} /></label>
     <div className="standalone-language-grid" role="radiogroup" aria-label="Compiler languages">
       {languages.map((language) => <button type="button" role="radio" aria-checked={language.id === activeLanguage.id} className={language.id === activeLanguage.id ? 'is-selected' : ''} onClick={() => onSelect(language)} key={language.id}>
-        <span className="standalone-language-icon">{ICONS[language.id] ? <img src={ICONS[language.id]} alt="" /> : <b>{monogram(language)}</b>}</span>
-        <span>{language.label}</span><Check className="standalone-language-check" size={16} aria-hidden="true" />
+        <span className="standalone-language-icon">{ICONS[language.id] ? <img src={ICONS[language.id]} alt="" /> : <b className="standalone-language-monogram">{monogram(language)}</b>}</span>
+        <span className="standalone-language-label">{language.label}</span><Check className="standalone-language-check" size={16} aria-hidden="true" />
       </button>)}
     </div>
   </Dialog>;

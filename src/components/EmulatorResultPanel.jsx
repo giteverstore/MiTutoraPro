@@ -48,7 +48,7 @@ function StackView({ emulator }) {
   </div>;
 }
 
-export function EmulatorResultPanel({ emulator, result, error, isRunning, executionTimeMs, executionStatus, height, collapsed, onExpand, onToggleCollapsed }) {
+export function EmulatorResultPanel({ emulator, result, error, isRunning, executionTimeMs, executionStatus, height, collapsed, onExpand, onToggleCollapsed, showCollapseControl = true }) {
   const [activeTab, setActiveTab] = useState('registers');
   useEffect(() => { if (error) setActiveTab('output'); }, [error]);
   const status = isRunning ? 'running' : executionStatus;
@@ -56,9 +56,9 @@ export function EmulatorResultPanel({ emulator, result, error, isRunning, execut
   return <section className={`emulator-result-panel ide-results is-${status}${collapsed ? ' is-collapsed' : ''}`} style={{ height, flexBasis: height }} aria-live="polite">
     <div className="ide-result-tabs" role="tablist" aria-label="Assembly emulator results">
       {[['registers', 'Registers'], ['stack', 'Stack / Memory'], ['output', 'Output']].map(([tab, label]) => <button className={activeTab === tab ? 'is-active' : ''} type="button" role="tab" aria-selected={activeTab === tab} onClick={() => selectTab(tab)} key={tab}>{label}</button>)}
-      <button className="output-panel-toggle" type="button" aria-label={collapsed ? 'Restore emulator results' : 'Minimize emulator results'} onClick={onToggleCollapsed}>
+      {showCollapseControl ? <button className="output-panel-toggle" type="button" aria-label={collapsed ? 'Restore emulator results' : 'Minimize emulator results'} onClick={onToggleCollapsed}>
         {collapsed ? <ChevronUp size={ICON_SIZE.sm} aria-hidden="true" /> : <ChevronDown size={ICON_SIZE.sm} aria-hidden="true" />}
-      </button>
+      </button> : null}
     </div>
     {!collapsed ? <div className="emulator-result-content" role="tabpanel" tabIndex="0">
       {isRunning ? <p className="emulator-result-message"><LoaderCircle className="result-spinner" size={ICON_SIZE.sm} aria-hidden="true" /> Assembling and emulating x86-64…</p>
