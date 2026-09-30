@@ -6,6 +6,20 @@ export const CRON_SCHEDULES = Object.freeze({
   shares: Object.freeze({ path: '/api/compiler/share/janitor', schedule: '50 3 * * *' }),
 });
 
+export const COMPILER_ISOLATION_ROUTE = Object.freeze({
+  src: '/(.*)',
+  has: [Object.freeze({
+    type: 'header',
+    key: 'host',
+    value: '(?:compiler\\.ycoders\\.com|ycoders-compiler(?:-[^.]+)?\\.vercel\\.app)',
+  })],
+  headers: Object.freeze({
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Cross-Origin-Embedder-Policy': 'require-corp',
+  }),
+  continue: true,
+});
+
 export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
   if (![MAIN_DEPLOYMENT_TARGET, COMPILER_DEPLOYMENT_TARGET].includes(target)) {
     throw new Error(`Unsupported YCODERS_DEPLOYMENT_TARGET: ${target}`);
@@ -21,16 +35,8 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
     crons: target === COMPILER_DEPLOYMENT_TARGET
       ? [CRON_SCHEDULES.shares]
       : [CRON_SCHEDULES.payments, CRON_SCHEDULES.shares],
-    ...(target === COMPILER_DEPLOYMENT_TARGET ? {
-      headers: [{
-        source: '/(.*)',
-        headers: [
-          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-          { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
-        ],
-      }],
-    } : {}),
     routes: [
+      COMPILER_ISOLATION_ROUTE,
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },

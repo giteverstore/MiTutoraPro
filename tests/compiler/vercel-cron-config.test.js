@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CRON_SCHEDULES, createVercelConfig } from '../../vercel.mjs';
+import { COMPILER_ISOLATION_ROUTE, CRON_SCHEDULES, createVercelConfig } from '../../vercel.mjs';
 
 describe('Vercel project cron isolation', () => {
   it('keeps the existing main-site schedules by default', () => {
@@ -27,9 +27,10 @@ describe('Vercel project cron isolation', () => {
 
   it('routes compiler APIs before preserving filesystem-first SPA routing and API exclusions', () => {
     const config = createVercelConfig('compiler');
-    expect(config.routes[0]).toEqual({ src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' });
-    expect(config.routes[1]).toEqual({ handle: 'filesystem' });
-    expect(config.routes[2]).toEqual(expect.objectContaining({ dest: '/index.html' }));
-    expect(config.routes[2].src).toContain('api');
+    expect(config.routes[0]).toEqual(COMPILER_ISOLATION_ROUTE);
+    expect(config.routes[1]).toEqual({ src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' });
+    expect(config.routes[2]).toEqual({ handle: 'filesystem' });
+    expect(config.routes[3]).toEqual(expect.objectContaining({ dest: '/index.html' }));
+    expect(config.routes[3].src).toContain('api');
   });
 });

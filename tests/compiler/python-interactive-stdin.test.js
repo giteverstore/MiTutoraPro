@@ -42,4 +42,18 @@ describe('Python interactive stdin protocol', () => {
     expect(worker.terminated).toBe(true);
     expect(client.submitStdin({ executionId: 'run-cancel', value: 'late\n' })).toBe(false);
   });
+
+  it('does not silently degrade an unavailable interactive channel into EOF', async () => {
+    Object.defineProperty(globalThis, 'crossOriginIsolated', { configurable: true, value: false });
+    const worker = new FakeWorker();
+    const client = new PythonWorkerClient({ workerFactory: () => worker });
+    const pending = client.execute({ source: 'input()', executionId: 'run-no-isolation', onExecutionEvent: vi.fn() });
+    const request = worker.messages[0];
+    expect(request.interactive).toBe(false);
+    worker.respond({ id: request.id, type: 'execution', status: 'error', stdout: '', stderr: 'EOFError: EOF when reading a line', executionTimeMs: 1 });
+    await expect(pending).resolves.toMatchObject({
+      status: 'error',
+      stderr: 'Interactive input is unavailable in this browser session. Enter standard input before running your program.',
+    });
+  });
 });

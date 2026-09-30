@@ -136,6 +136,12 @@ export class PythonWorkerClient {
     if (pending) Object.assign(pending, { executionId: String(executionId ?? ''), onExecutionEvent, controlBuffer, inputBuffer });
     return request.then((result) => {
       onExecutionEvent?.(compilerExecutionEvent(COMPILER_EXECUTION_EVENTS.COMPLETE, executionId));
+      if (!interactive && typeof onExecutionEvent === 'function' && /EOFError:\s*EOF when reading a line/.test(String(result.stderr ?? ''))) {
+        return {
+          ...result,
+          stderr: 'Interactive input is unavailable in this browser session. Enter standard input before running your program.',
+        };
+      }
       return result;
     }, (error) => {
       onExecutionEvent?.(compilerExecutionEvent(error?.name === 'AbortError' ? COMPILER_EXECUTION_EVENTS.CANCELLED : COMPILER_EXECUTION_EVENTS.ERROR, executionId));
