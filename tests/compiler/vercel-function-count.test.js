@@ -16,8 +16,8 @@ describe('Vercel Hobby function budget', () => {
   it('keeps file-based API entrypoints at or below the guarded limit', async () => {
     const entrypoints = await functionEntrypoints(path.join(process.cwd(), 'api'));
     expect(entrypoints).toHaveLength(8);
-    expect(entrypoints).toContain('api/compiler/[...path].js');
-    expect(entrypoints.filter((entry) => entry.startsWith('api/compiler/'))).toEqual(['api/compiler/[...path].js']);
+    expect(entrypoints).toContain('api/compiler.js');
+    expect(entrypoints.filter((entry) => entry === 'api/compiler.js' || entry.startsWith('api/compiler/'))).toEqual(['api/compiler.js']);
     expect(entrypoints.filter((entry) => entry.startsWith('api/payments/'))).toEqual(['api/payments/[...path].js']);
     expect(entrypoints.length).toBeLessThanOrEqual(10);
   });

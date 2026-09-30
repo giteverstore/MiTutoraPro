@@ -25,10 +25,11 @@ describe('Vercel project cron isolation', () => {
     }
   });
 
-  it('preserves filesystem-first SPA routing and API exclusions', () => {
+  it('routes compiler APIs before preserving filesystem-first SPA routing and API exclusions', () => {
     const config = createVercelConfig('compiler');
-    expect(config.routes[0]).toEqual({ handle: 'filesystem' });
-    expect(config.routes[1]).toEqual(expect.objectContaining({ dest: '/index.html' }));
-    expect(config.routes[1].src).toContain('api');
+    expect(config.routes[0]).toEqual({ src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' });
+    expect(config.routes[1]).toEqual({ handle: 'filesystem' });
+    expect(config.routes[2]).toEqual(expect.objectContaining({ dest: '/index.html' }));
+    expect(config.routes[2].src).toContain('api');
   });
 });

@@ -16,12 +16,13 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
     outputDirectory: 'dist',
     functions: {
       'api/ai/explain.js': { maxDuration: 60, supportsCancellation: true },
-      'api/compiler/[...path].js': { maxDuration: 60, supportsCancellation: true },
+      'api/compiler.js': { maxDuration: 60, supportsCancellation: true },
     },
     crons: target === COMPILER_DEPLOYMENT_TARGET
       ? [CRON_SCHEDULES.shares]
       : [CRON_SCHEDULES.payments, CRON_SCHEDULES.shares],
     routes: [
+      { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },
     ],
