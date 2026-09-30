@@ -9,6 +9,10 @@ export class RuntimeAdapter {
     throw new Error('RuntimeAdapter.execute() must be implemented.');
   }
 
+  submitStdin(_submission) {
+    return false;
+  }
+
   async format(source) {
     return source;
   }

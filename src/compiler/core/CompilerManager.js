@@ -1,3 +1,8 @@
+export function normalizeCompilerStdin(stdin) {
+  if (Array.isArray(stdin)) return stdin.map((value) => String(value ?? '')).join('\n');
+  return String(stdin ?? '');
+}
+
 export class CompilerManager {
   constructor({ runtimeRegistry, validatorRegistry }) {
     this.runtimeRegistry = runtimeRegistry;
@@ -18,7 +23,7 @@ export class CompilerManager {
     return runtime;
   }
 
-  async execute({ language, source, stdin, inputs, filename, execution, setupSql, signal, timeoutMs, instanceId }) {
+  async execute({ language, source, stdin, inputs, filename, execution, executionId, onExecutionEvent, setupSql, signal, timeoutMs, instanceId }) {
     if (!this.runtimeRegistry.has(language)) {
       return {
         status: 'error',
@@ -30,13 +35,20 @@ export class CompilerManager {
     const runtime = await this.initialize(language, { signal, instanceId, timeoutMs });
     return runtime.execute({
       source,
-      stdin: stdin ?? inputs ?? '',
+      stdin: normalizeCompilerStdin(stdin ?? inputs),
       filename,
       execution,
+      executionId,
+      onExecutionEvent,
       setupSql: setupSql ?? execution?.setupSql ?? '',
       signal,
       timeoutMs,
     });
+  }
+
+  submitStdin({ language, instanceId, executionId, value }) {
+    if (!this.runtimeRegistry.has(language)) return false;
+    return this.runtimeRegistry.resolve(language, instanceId).submitStdin({ executionId, value });
   }
 
   async executeTests({ testCases = [], ...request }) {

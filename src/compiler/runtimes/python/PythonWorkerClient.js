@@ -2,6 +2,16 @@ import {
   PYTHON_EXECUTION_TIMEOUT_MS,
   PYTHON_INITIALIZATION_TIMEOUT_MS,
 } from './pythonRuntimeConfig.js';
+import {
+  COMPILER_EXECUTION_EVENTS,
+  INTERACTIVE_STDIN_BUFFER_BYTES,
+  INTERACTIVE_STDIN_WAIT_TIMEOUT_MS,
+  compilerExecutionEvent,
+} from '../../core/interactiveStdinProtocol.js';
+
+const CHANNEL_IDLE = 0;
+const CHANNEL_WAITING = 1;
+const CHANNEL_SUBMITTED = 2;
 
 export class PythonWorkerClient {
   constructor({
@@ -26,6 +36,16 @@ export class PythonWorkerClient {
       this.worker.addEventListener('message', ({ data }) => {
         const request = this.pending.get(data.id);
         if (!request) return;
+        if (data.type === COMPILER_EXECUTION_EVENTS.STDOUT || data.type === COMPILER_EXECUTION_EVENTS.STDERR) {
+          request.onExecutionEvent?.(compilerExecutionEvent(data.type, request.executionId, { value: String(data.value ?? '') }));
+          return;
+        }
+        if (data.type === COMPILER_EXECUTION_EVENTS.STDIN_REQUEST) {
+          request.pauseComputeTimeout();
+          request.startInputTimeout();
+          request.onExecutionEvent?.(compilerExecutionEvent(data.type, request.executionId));
+          return;
+        }
         this.pending.delete(data.id);
         request.cleanup();
         if (data.type === 'initialization-error') {
@@ -57,19 +77,35 @@ export class PythonWorkerClient {
         reject(error);
       };
       const abort = () => stop(new DOMException('Execution cancelled.', 'AbortError'));
-      const timeout = timeoutMs > 0
-        ? setTimeout(() => stop(new Error(
+      let timeout = null;
+      let inputTimeout = null;
+      const startComputeTimeout = () => {
+        if (!(timeoutMs > 0)) return;
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => stop(new Error(
           type === 'initialize'
             ? `Python initialization exceeded ${timeoutMs} ms.`
             : `Python execution exceeded ${timeoutMs} ms.`,
-        )), timeoutMs)
-        : null;
+        )), timeoutMs);
+      };
+      const pauseComputeTimeout = () => { if (timeout) clearTimeout(timeout); timeout = null; };
+      const startInputTimeout = () => {
+        if (inputTimeout) clearTimeout(inputTimeout);
+        inputTimeout = setTimeout(() => stop(new Error('Python input wait exceeded 90 seconds.')), INTERACTIVE_STDIN_WAIT_TIMEOUT_MS + 1_000);
+      };
+      const resumeComputeTimeout = () => {
+        if (inputTimeout) clearTimeout(inputTimeout);
+        inputTimeout = null;
+        startComputeTimeout();
+      };
       const cleanup = () => {
         if (timeout) clearTimeout(timeout);
+        if (inputTimeout) clearTimeout(inputTimeout);
         signal?.removeEventListener('abort', abort);
       };
       signal?.addEventListener('abort', abort, { once: true });
-      this.pending.set(id, { resolve, reject, cleanup });
+      this.pending.set(id, { resolve, reject, cleanup, pauseComputeTimeout, startInputTimeout, resumeComputeTimeout });
+      startComputeTimeout();
       worker.postMessage({ id, type, ...payload });
     });
   }
@@ -78,12 +114,49 @@ export class PythonWorkerClient {
     return this.request('initialize', {}, signal, this.initializationTimeoutMs);
   }
 
-  execute({ source, stdin = '', filename = 'main.py', signal, timeoutMs }) {
-    return this.request('execute', {
+  execute({ source, stdin = '', filename = 'main.py', signal, timeoutMs, executionId, onExecutionEvent }) {
+    const interactive = typeof onExecutionEvent === 'function'
+      && typeof SharedArrayBuffer === 'function'
+      && globalThis.crossOriginIsolated === true;
+    const controlBuffer = interactive ? new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 2) : null;
+    const inputBuffer = interactive ? new SharedArrayBuffer(INTERACTIVE_STDIN_BUFFER_BYTES) : null;
+    const id = this.requestId + 1;
+    onExecutionEvent?.(compilerExecutionEvent(COMPILER_EXECUTION_EVENTS.START, executionId));
+    const request = this.request('execute', {
       source,
       filename,
+      executionId,
+      interactive,
+      controlBuffer,
+      inputBuffer,
+      inputWaitTimeoutMs: INTERACTIVE_STDIN_WAIT_TIMEOUT_MS,
       stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''),
     }, signal, timeoutMs ?? this.executionTimeoutMs);
+    const pending = this.pending.get(id);
+    if (pending) Object.assign(pending, { executionId: String(executionId ?? ''), onExecutionEvent, controlBuffer, inputBuffer });
+    return request.then((result) => {
+      onExecutionEvent?.(compilerExecutionEvent(COMPILER_EXECUTION_EVENTS.COMPLETE, executionId));
+      return result;
+    }, (error) => {
+      onExecutionEvent?.(compilerExecutionEvent(error?.name === 'AbortError' ? COMPILER_EXECUTION_EVENTS.CANCELLED : COMPILER_EXECUTION_EVENTS.ERROR, executionId));
+      throw error;
+    });
+  }
+
+  submitStdin({ executionId, value }) {
+    const entry = [...this.pending.values()].find((request) => request.executionId === String(executionId ?? ''));
+    if (!entry?.controlBuffer || !entry.inputBuffer) return false;
+    const control = new Int32Array(entry.controlBuffer);
+    if (Atomics.load(control, 0) !== CHANNEL_WAITING) return false;
+    const bytes = new TextEncoder().encode(String(value ?? ''));
+    if (bytes.byteLength > INTERACTIVE_STDIN_BUFFER_BYTES) throw new Error('Interactive input is too large.');
+    new Uint8Array(entry.inputBuffer).fill(0);
+    new Uint8Array(entry.inputBuffer).set(bytes);
+    Atomics.store(control, 1, bytes.byteLength);
+    Atomics.store(control, 0, CHANNEL_SUBMITTED);
+    Atomics.notify(control, 0, 1);
+    entry.resumeComputeTimeout?.();
+    return true;
   }
 
   reset() {

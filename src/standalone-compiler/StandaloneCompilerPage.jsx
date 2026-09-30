@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, Code2, ExternalLink, FileCode2, LoaderCircle, MessageSquare, Minus, Play, RotateCcw, Settings, Share2 } from 'lucide-react';
+import { ChevronDown, Code2, ExternalLink, FileCode2, LoaderCircle, MessageSquare, Minus, Play, RotateCcw, Settings, Share2, Square } from 'lucide-react';
 import { useCompilerManager } from '../compiler/CompilerProvider.jsx';
 import { PreviewPanel } from '../components/PreviewPanel.jsx';
 import { DatabaseResultPanel } from '../components/DatabaseResultPanel.jsx';
@@ -72,16 +72,19 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   const [error, setError] = useState('');
   const [execution, setExecution] = useState(null);
   const [running, setRunning] = useState(false);
+  const [executionState, setExecutionState] = useState('idle');
+  const [stdinHistory, setStdinHistory] = useState([]);
   const [dialog, setDialog] = useState(null);
   const [resultCollapsed, setResultCollapsed] = useState(false);
   const [splitRatio, setSplitRatio] = useState(initialSplitRatio);
   const [resizing, setResizing] = useState(false);
   const controllerRef = useRef(null);
+  const executionIdRef = useRef(0);
   const workspaceRef = useRef(null);
   const instanceId = `standalone-${language.id}`;
   const isComingSoon = isStandaloneComingSoonLanguage(language);
 
-  useEffect(() => { setSource(initialSnapshot?.source ?? starter); setStdin(initialSnapshot?.stdinIncluded ? initialSnapshot.stdin ?? '' : ''); setResult(''); setError(''); setExecution(null); }, [language.id, starter, initialSnapshot]);
+  useEffect(() => { setSource(initialSnapshot?.source ?? starter); setStdin(initialSnapshot?.stdinIncluded ? initialSnapshot.stdin ?? '' : ''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); }, [language.id, starter, initialSnapshot]);
   useEffect(() => () => controllerRef.current?.abort(), []);
   useEffect(() => {
     document.body.dataset.standaloneCompilerTheme = preferences.resolvedTheme;
@@ -117,19 +120,37 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
 
   const editor = useMemo(() => ({ fileName: language.defaultFileName, language: language.monacoLanguage, ariaLabel: `${language.label} source editor` }), [language]);
   const run = async () => {
-    if (running || isComingSoon) return;
-    const controller = new AbortController(); controllerRef.current = controller; setRunning(true); setError(''); setResult(''); setExecution(null);
+    if (running) { controllerRef.current?.abort(); return; }
+    if (isComingSoon) return;
+    const controller = new AbortController();
+    const executionId = `${instanceId}-${++executionIdRef.current}`;
+    controllerRef.current = controller; setRunning(true); setExecutionState('running'); setStdinHistory([]); setError(''); setResult(''); setExecution(null);
+    const onExecutionEvent = (event) => {
+      if (event.executionId !== executionId) return;
+      if (event.type === 'stdout') setResult((current) => current + event.value);
+      if (event.type === 'stderr') setError((current) => current + event.value);
+      if (event.type === 'stdin-request') setExecutionState('waiting_for_input');
+      if (event.type === 'execution-cancelled') setExecutionState('cancelled');
+    };
     try {
-      const next = await manager.execute({ language: language.id, source, stdin, filename: language.defaultFileName, timeoutMs: 10000, signal: controller.signal, instanceId, execution: { publicStandalone: true } });
+      const next = await manager.execute({ language: language.id, source, stdin, filename: language.defaultFileName, timeoutMs: 10000, signal: controller.signal, instanceId, executionId, onExecutionEvent: language.supportsInteractiveStdin ? onExecutionEvent : undefined, execution: { publicStandalone: true } });
       setResult(next.output ?? next.stdout ?? ''); setError(next.errors?.join('\n') || next.stderr || ''); setExecution(next);
+      setExecutionState(next.status === 'success' ? 'success' : 'error');
     } catch (runError) {
-      if (runError.name !== 'AbortError') setError(runError.message || `${language.label} compiler is temporarily unavailable.`);
+      if (runError.name === 'AbortError') setExecutionState('cancelled');
+      else { setExecutionState('error'); setError(runError.message || `${language.label} compiler is temporarily unavailable.`); }
     } finally { if (controllerRef.current === controller) { controllerRef.current = null; setRunning(false); } }
   };
-  const reset = () => { setSource(starter); setStdin(''); setResult(''); setError(''); setExecution(null); };
+  const submitInteractiveStdin = (value) => {
+    const executionId = `${instanceId}-${executionIdRef.current}`;
+    const submitted = manager.submitStdin({ language: language.id, instanceId, executionId, value: value.endsWith('\n') ? value : `${value}\n` });
+    if (submitted) { setStdinHistory((history) => [...history, value]); setExecutionState('running'); }
+    return submitted;
+  };
+  const reset = () => { controllerRef.current?.abort(); setSource(starter); setStdin(''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); };
   const chooseLanguage = (next) => { setDialog(null); onNavigate(standaloneCompilerPath(next)); };
   const editorPreferences = { ...preferences.preferences, monacoTheme: standaloneMonacoTheme(preferences.resolvedTheme).name };
-  const runLabel = isComingSoon ? 'Coming Soon' : running ? 'Running' : 'Run';
+  const runLabel = isComingSoon ? 'Coming Soon' : running ? 'Stop' : 'Run';
 
   return <main className="standalone-compiler" data-theme={preferences.resolvedTheme}>
     <header className="standalone-compiler-navbar">
@@ -143,7 +164,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
           <StandaloneToolbarControl label="Feedback" icon={MessageSquare} onClick={() => setDialog('feedback')} />
           <StandaloneToolbarControl label="Share" icon={Share2} onClick={() => setDialog('share')} />
           <StandaloneToolbarControl label="Reset" icon={RotateCcw} onClick={reset} />
-          <StandaloneToolbarControl label={runLabel} icon={Play} primary disabled={running || isComingSoon} busy={running} title={isComingSoon ? `Public ${language.label} execution is coming soon.` : runLabel} onClick={run} />
+          <StandaloneToolbarControl label={runLabel} icon={running ? Square : Play} primary disabled={isComingSoon} title={isComingSoon ? `Public ${language.label} execution is coming soon.` : runLabel} onClick={run} />
         </nav>
         <a className="standalone-try-link" href="https://ycoders.com">Try YCoders <ExternalLink size={16} /></a>
       </div>
@@ -156,7 +177,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
           {language.executionMode === 'preview' ? <PreviewPanel preview={execution?.preview} executionStatus={running ? 'running' : execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />
             : language.executionMode === 'database' ? <DatabaseResultPanel database={execution?.database} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} executionStatus={execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />
               : language.executionMode === 'emulator' ? <EmulatorResultPanel emulator={execution?.emulator} result={result} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} executionStatus={execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />
-                : <StandaloneTerminalPanel stdin={stdin} onStdinChange={setStdin} result={result} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} activeLanguage={language} />}
+                : <StandaloneTerminalPanel supportsStdin={language.supportsStdin} supportsInteractiveStdin={language.supportsInteractiveStdin && globalThis.crossOriginIsolated === true} stdin={stdin} onStdinChange={setStdin} stdinHistory={stdinHistory} onSubmitStdin={submitInteractiveStdin} executionState={executionState} result={result} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} activeLanguage={language} />}
           <div className="standalone-result-header-actions">
             <button className="standalone-result-collapse" type="button" aria-label="Minimize compiler panel" onClick={() => setResultCollapsed(true)}><Minus size={17} aria-hidden="true" /></button>
           </div>

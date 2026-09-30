@@ -21,6 +21,15 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
     crons: target === COMPILER_DEPLOYMENT_TARGET
       ? [CRON_SCHEDULES.shares]
       : [CRON_SCHEDULES.payments, CRON_SCHEDULES.shares],
+    ...(target === COMPILER_DEPLOYMENT_TARGET ? {
+      headers: [{
+        source: '/(.*)',
+        headers: [
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+        ],
+      }],
+    } : {}),
     routes: [
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },

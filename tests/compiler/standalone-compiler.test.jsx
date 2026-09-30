@@ -16,14 +16,15 @@ import { STANDALONE_MONACO_THEMES, standaloneMonacoOptions } from '../../src/sta
 const standaloneCompilerCss = readFileSync(resolve(process.cwd(), 'src/styles/standalone-compiler.css'), 'utf8');
 const standalonePreferencesSource = readFileSync(resolve(process.cwd(), 'src/standalone-compiler/useStandaloneCompilerPreferences.js'), 'utf8');
 
-const { execute, preferenceState } = vi.hoisted(() => ({ execute: vi.fn(), preferenceState: { theme: 'light' } }));
-vi.mock('../../src/compiler/CompilerProvider.jsx', () => ({ useCompilerManager: () => ({ execute }) }));
+const { execute, submitStdin, preferenceState } = vi.hoisted(() => ({ execute: vi.fn(), submitStdin: vi.fn(), preferenceState: { theme: 'light' } }));
+vi.mock('../../src/compiler/CompilerProvider.jsx', () => ({ useCompilerManager: () => ({ execute, submitStdin }) }));
 vi.mock('../../src/components/MonacoCodeEditor.jsx', () => ({ default: ({ editor, value, onChange, standalonePreferences, layoutSignal }) => <textarea aria-label={editor.ariaLabel} data-layout-signal={layoutSignal} data-monaco-theme={standalonePreferences?.monacoTheme} value={value} onChange={(event) => onChange(event.target.value)} /> }));
 vi.mock('../../src/standalone-compiler/useStandaloneCompilerPreferences.js', () => ({
   useStandaloneCompilerPreferences: () => ({ preferences: { fontSize: 13, tabSize: 4, wordWrap: true }, resolvedTheme: preferenceState.theme, update: vi.fn(), reset: vi.fn() }),
 }));
 
 beforeEach(() => {
+  vi.clearAllMocks();
   preferenceState.theme = 'light';
   const values = new Map();
   Object.defineProperty(window, 'localStorage', { configurable: true, value: {
@@ -97,7 +98,7 @@ describe('standalone language picker', () => {
 });
 
 describe('standalone terminal status bar', () => {
-  const baseProps = { stdin: '', onStdinChange: vi.fn(), result: '', error: '', isRunning: false, executionTimeMs: null, activeLanguage: { label: 'Python' } };
+  const baseProps = { supportsStdin: true, stdin: '', onStdinChange: vi.fn(), result: '', error: '', isRunning: false, executionTimeMs: null, activeLanguage: { label: 'Python' } };
 
   it('renders a compact idle status without placeholder timing', () => {
     render(<StandaloneTerminalPanel {...baseProps} />);
@@ -119,6 +120,69 @@ describe('standalone terminal status bar', () => {
 });
 
 describe('standalone launch state', () => {
+  it('passes exact pre-supplied stdin to the shared compiler request on every run', async () => {
+    execute.mockResolvedValue({ status: 'success', output: 'ok', errors: [] });
+    render(<StandaloneCompilerPage language={getPublicCompilerLanguage('python')} onNavigate={vi.fn()} />);
+
+    for (const stdin of ['25', '10\n20', 'one\n\ntwo', 'hello world', 'ನಮಸ್ಕಾರ\nこんにちは\nAvi 🚀']) {
+      fireEvent.click(screen.getByRole('tab', { name: 'Input' }));
+      const input = screen.getByRole('textbox', { name: 'Standard input' });
+      fireEvent.change(input, { target: { value: stdin } });
+      fireEvent.click(screen.getByRole('button', { name: 'Run' }));
+      await waitFor(() => expect(execute).toHaveBeenLastCalledWith(expect.objectContaining({ stdin })));
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Run' })).toBeEnabled());
+    }
+  });
+
+  it('restores opted-in shared stdin and executes that exact snapshot value', async () => {
+    execute.mockResolvedValueOnce({ status: 'success', output: 'shared', errors: [] });
+    const stdin = 'first\n\nthird  \nこんにちは';
+    render(<StandaloneCompilerPage
+      language={getPublicCompilerLanguage('python')}
+      initialSnapshot={{ source: 'print(input())', stdinIncluded: true, stdin }}
+      onNavigate={vi.fn()}
+    />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Input' }));
+    expect(screen.getByRole('textbox', { name: 'Standard input' })).toHaveValue(stdin);
+    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
+    await waitFor(() => expect(execute).toHaveBeenCalledWith(expect.objectContaining({ stdin })));
+  });
+
+  it('does not expose an Input tab when the terminal capability is false', () => {
+    render(<StandaloneTerminalPanel supportsStdin={false} stdin="" onStdinChange={vi.fn()} result="" error="" isRunning={false} executionTimeMs={null} activeLanguage={{ label: 'Assembly' }} />);
+    expect(screen.queryByRole('tab', { name: 'Input' })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['python', true], ['java', true], ['javascript', true], ['typescript', true],
+    ['c', true], ['cpp', true], ['php', true], ['r', true], ['csharp', true],
+    ['visual-basic', true], ['go', true], ['rust', true], ['html-css', false],
+    ['react', false], ['sql', false], ['mysql', false], ['assembly', false],
+  ])('declares the canonical stdin capability for %s', (id, supportsStdin) => {
+    expect(getPublicCompilerLanguage(id).supportsStdin).toBe(supportsStdin);
+  });
+
+  it('declares interactive stdin only for Python', () => {
+    expect(getPublicCompilerLanguage('python').supportsInteractiveStdin).toBe(true);
+    for (const language of publicCompilerLanguages.filter(({ id }) => id !== 'python')) {
+      expect(language.supportsInteractiveStdin).toBe(false);
+    }
+  });
+
+  it('shows a waiting composer, submits input separately, and preserves stdout', () => {
+    const onSubmitStdin = vi.fn(() => true);
+    render(<StandaloneTerminalPanel supportsStdin supportsInteractiveStdin stdin="" onStdinChange={vi.fn()} isRunning executionState="waiting_for_input" result="Name: " error="" executionTimeMs={null} activeLanguage={{ label: 'Python' }} stdinHistory={[]} onSubmitStdin={onSubmitStdin} />);
+    expect(screen.getAllByText('Waiting for input')).toHaveLength(2);
+    const composer = screen.getByRole('textbox', { name: 'Interactive standard input' });
+    fireEvent.change(composer, { target: { value: 'Avi' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
+    expect(onSubmitStdin).toHaveBeenCalledWith('Avi');
+    expect(composer).toHaveValue('');
+    fireEvent.click(screen.getByRole('tab', { name: 'Output' }));
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Name:');
+    expect(screen.getByRole('tabpanel')).not.toHaveTextContent('Avi');
+  });
+
   it.each([
     ['go', 'Go'],
     ['rust', 'Rust'],

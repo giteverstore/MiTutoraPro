@@ -9,5 +9,7 @@ export const pythonLanguage = Object.freeze({
   monacoLanguage: 'python',
   defaultFileName: 'main.py',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   createRuntime: () => new PythonRuntime(),
 });

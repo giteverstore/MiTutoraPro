@@ -66,6 +66,7 @@ const PUBLIC_LANGUAGE_METADATA = Object.freeze({
 
 export const publicCompilerLanguages = Object.freeze(supportedCompilerLanguages.map((language) => Object.freeze({
   ...language,
+  supportsInteractiveStdin: language.supportsInteractiveStdin === true,
   ...PUBLIC_LANGUAGE_METADATA[language.id],
   aliases: Object.freeze([...(language.aliases ?? []), ...(PUBLIC_LANGUAGE_METADATA[language.id]?.aliases ?? [])]),
 })));
