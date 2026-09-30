@@ -2,19 +2,19 @@ import { lazy, Suspense } from 'react';
 
 const MonacoCodeEditor = lazy(() => import('./MonacoCodeEditor'));
 
-export function EditorPlaceholder({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId }) {
+export function EditorPlaceholder({ editor, value, onChange, onSelectionChange, onCursorPositionChange, onAskSelection, instanceId, workspacePreferences, loadingTheme }) {
   return (
     <div className="editor-window">
-      <Suspense fallback={<EditorLoadingState />}>
-        <MonacoCodeEditor editor={editor} value={value} onChange={onChange} onSelectionChange={onSelectionChange} onAskSelection={onAskSelection} instanceId={instanceId} />
+      <Suspense fallback={<EditorLoadingState theme={loadingTheme} />}>
+        <MonacoCodeEditor editor={editor} value={value} onChange={onChange} onSelectionChange={onSelectionChange} onCursorPositionChange={onCursorPositionChange} onAskSelection={onAskSelection} instanceId={instanceId} workspacePreferences={workspacePreferences} />
       </Suspense>
     </div>
   );
 }
 
-function EditorLoadingState() {
+export function EditorLoadingState({ theme }) {
   return (
-    <div className="monaco-loading-state" role="status">
+    <div className={`monaco-loading-state${theme ? ' project-monaco-loading-state' : ''}`} data-project-editor-theme={theme} role="status">
       <span className="skeleton-line skeleton-short" />
       <span className="skeleton-line skeleton-medium" />
       <span className="skeleton-line" />

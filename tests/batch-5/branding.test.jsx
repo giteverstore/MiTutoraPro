@@ -28,7 +28,7 @@ describe('ycoders product branding', () => {
 
   it('uses ycoders on the authentication surface and in browser metadata', async () => {
     render(<AuthLayout eyebrow="Welcome" title="Sign in" description="Continue"><div /></AuthLayout>);
-    expect(screen.getByText('ycoders')).toBeInTheDocument();
+    expect(screen.getByText('Y CODERS')).toBeInTheDocument();
     expect(screen.queryByText(/Mi\s*Tutora/i)).not.toBeInTheDocument();
 
     const index = await readFile('index.html', 'utf8');

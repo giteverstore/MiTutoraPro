@@ -39,7 +39,9 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     if (browseOnly) { onRequireAuth('/projects'); return; }
     projectProgressService.start(selected.id); setScreen('workspace');
   }} />;
-  if (selected && screen === 'workspace') return <ProjectWorkspace project={selected} tier={tier} onBack={() => setScreen('details')} onProgress={() => refresh((value) => value + 1)} />;
+  if (selected && screen === 'workspace') {
+    return <ProjectWorkspace project={selected} tier={tier} onBack={() => { setSelected(null); setScreen('catalog'); onProjectChange(null); }} onProgress={() => refresh((value) => value + 1)} />;
+  }
 
   return <div className="projects-page">
     <section className="project-filters" aria-label="Project filters">

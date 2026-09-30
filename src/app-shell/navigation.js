@@ -23,3 +23,8 @@ export const APP_NAVIGATION = [
   { id: 'wallet', label: 'Wallet', icon: WalletCards },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
+
+const ACCOUNT_NAVIGATION_IDS = new Set(['referrals', 'wallet', 'settings']);
+
+export const PRIMARY_NAVIGATION = APP_NAVIGATION.filter(({ id }) => !ACCOUNT_NAVIGATION_IDS.has(id));
+export const ACCOUNT_NAVIGATION = APP_NAVIGATION.filter(({ id }) => ACCOUNT_NAVIGATION_IDS.has(id));

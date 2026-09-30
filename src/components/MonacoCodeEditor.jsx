@@ -195,10 +195,10 @@ function configureMonaco(monacoInstance) {
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onAskSelection, instanceId, standalonePreferences, layoutSignal }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onCursorPositionChange, onAskSelection, instanceId, standalonePreferences, workspacePreferences, layoutSignal }) {
   const settings = useSettings();
-  const editorSettings = standalonePreferences ?? settings.editor;
-  const editorTheme = standalonePreferences?.monacoTheme ?? editorThemeById(settings.editor.theme).monacoTheme;
+  const editorSettings = workspacePreferences ?? standalonePreferences ?? settings.editor;
+  const editorTheme = workspacePreferences?.monacoTheme ?? standalonePreferences?.monacoTheme ?? editorThemeById(settings.editor.theme).monacoTheme;
   const standaloneOptions = standaloneMonacoOptions(standalonePreferences);
   const askSelectionRef = useRef(onAskSelection);
   const editorInstanceRef = useRef(null);
@@ -272,6 +272,8 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
         endOffset: model?.getOffsetAt(selection.getEndPosition()) ?? 0,
       });
     });
+    onCursorPositionChange?.(instance.getPosition() ?? { lineNumber: 1, column: 1 });
+    const cursorDisposable = onCursorPositionChange ? instance.onDidChangeCursorPosition(({ position }) => onCursorPositionChange(position)) : null;
     const focusDisposable = instance.onDidFocusEditorText(() => { editorFocused = true; if (askSelectionRef.current) instance.layoutContentWidget(widget); });
     const blurDisposable = instance.onDidBlurEditorText(() => { editorFocused = false; if (askSelectionRef.current) instance.layoutContentWidget(widget); });
     const escapeDisposable = instance.onKeyDown((event) => {
@@ -294,6 +296,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
       widgetNode.removeEventListener('pointerdown', preserveSelectionFocus);
       widgetNode.removeEventListener('click', askAboutSelection);
       selectionDisposable.dispose();
+      cursorDisposable?.dispose();
       focusDisposable.dispose();
       blurDisposable.dispose();
       escapeDisposable.dispose();
@@ -315,6 +318,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
     <div className="monaco-editor-shell" onKeyDown={(event) => event.stopPropagation()}>
       <Editor
         height="100%"
+        path={editor.modelPath}
         language={editor.language || 'plaintext'}
         theme={editorTheme}
         value={value}

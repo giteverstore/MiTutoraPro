@@ -5,6 +5,7 @@ export class ProjectProgressService {
   update(projectId, partial) { const all = this.read(); const next = { ...this.get(projectId), ...partial }; all[projectId] = next; localStorage.setItem(key, JSON.stringify(all)); return next; }
   start(projectId) { const current = this.get(projectId); return this.update(projectId, { status: current.status === 'completed' ? 'completed' : 'started', startedAt: current.startedAt ?? new Date().toISOString() }); }
   visitPage(projectId, pageIndex) { const current = this.get(projectId); return this.update(projectId, { lastPageIndex: Math.max(current.lastPageIndex ?? 0, pageIndex), previewedPages: [...new Set([...(current.previewedPages ?? []), pageIndex])] }); }
+  saveWorkspace(projectId, files, entryFilePath, folders = []) { return this.update(projectId, { files, folders, entryFilePath, submission: files?.[entryFilePath]?.content ?? this.get(projectId).submission }); }
   recordValidation(projectId, result, submission) { const current = this.get(projectId); return this.update(projectId, { status: result.passed ? 'completed' : 'started', attempts: current.attempts + 1, validationStatus: result.passed ? 'passed' : 'failed', completedAt: result.passed ? current.completedAt ?? new Date().toISOString() : current.completedAt, score: Math.max(current.score, result.score), submission: result.passed ? submission : current.submission }); }
 }
 export const projectProgressService = new ProjectProgressService();

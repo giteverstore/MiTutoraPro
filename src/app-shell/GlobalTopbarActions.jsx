@@ -2,6 +2,7 @@ import { Bell, Flame, LogOut, Moon, Sun, UserRound } from 'lucide-react';
 import { UserAvatar } from '../components/UserAvatar';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { hasCompletedDailyChallenge, kolkataDate } from '../home/challengeCalendar';
+import { ACCOUNT_NAVIGATION } from './navigation';
 
 export function GlobalTopbarActions({
   user,
@@ -11,6 +12,7 @@ export function GlobalTopbarActions({
   onThemeToggle,
   onNotificationsToggle,
   onUserMenuToggle,
+  onNavigate,
   onSignOut,
 }) {
   const activity = useLearnerActivity();
@@ -39,13 +41,22 @@ export function GlobalTopbarActions({
         ) : null}
       </div>
       <div className="application-menu-anchor">
-        <button className="application-profile-button" type="button" onClick={onUserMenuToggle} aria-label="Open user menu" aria-expanded={userMenuOpen}>
+        <button className="application-profile-button" type="button" onClick={onUserMenuToggle} aria-label="Open user menu" aria-expanded={userMenuOpen} aria-haspopup="menu">
           <UserAvatar avatar={user.avatar} name={user.name} />
         </button>
         {userMenuOpen ? (
-          <div className="application-popover application-user-menu">
-            <div><UserRound /><span><strong>{user.name}</strong><small>{user.email}</small></span></div>
-            <button type="button" onClick={onSignOut}><LogOut /> Sign out</button>
+          <div className="application-popover application-user-menu" role="menu" aria-label="User menu">
+            <div className="application-user-identity"><UserRound /><span><strong>{user.name}</strong><small>{user.email}</small></span></div>
+            {onNavigate ? (
+              <div className="application-user-menu-links">
+                {ACCOUNT_NAVIGATION.map(({ id, label, icon: Icon }) => (
+                  <button type="button" role="menuitem" onClick={() => onNavigate(id)} key={id}><Icon aria-hidden="true" /> {label}</button>
+                ))}
+              </div>
+            ) : null}
+            <div className="application-user-menu-signout">
+              <button type="button" role="menuitem" onClick={onSignOut}><LogOut aria-hidden="true" /> Sign out</button>
+            </div>
           </div>
         ) : null}
       </div>

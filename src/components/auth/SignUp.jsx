@@ -47,9 +47,7 @@ export function SignUp({ onContinue, onGoogle, onSignIn }) {
 
   return (
     <AuthLayout
-      eyebrow="Create account"
       title="Start your learning profile"
-      description="Set up the basics, then personalize how you want to learn."
     >
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         <FormField label="Name" name="name" autoComplete="name" value={form.name} onChange={updateField} required />

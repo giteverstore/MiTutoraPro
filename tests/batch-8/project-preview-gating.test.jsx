@@ -6,6 +6,7 @@ import { ProjectWorkspace, PROJECT_WORKSPACE_PAGES } from '../../src/projects/pa
 
 vi.mock('../../src/compiler/CompilerProvider', () => ({ useCompilerManager: () => ({}) }));
 vi.mock('../../src/components/EditorPlaceholder', () => ({ EditorPlaceholder: ({ editor }) => <div aria-label={editor.ariaLabel}>Editor</div> }));
+vi.mock('../../src/ai/AITutorWorkspace', () => ({ AITutorWorkspace: () => <div>AI Guide workspace</div> }));
 
 const storage = new Map();
 vi.stubGlobal('localStorage', {
@@ -44,7 +45,6 @@ describe('project Premium preview boundary', () => {
   it('protects a direct page-four request and resumes there after upgrade without losing progress', () => {
     const first = render(<ProjectWorkspace project={project} tier="FREE" initialPageIndex={3} onBack={vi.fn()} onProgress={vi.fn()} />);
     expect(screen.getByRole('heading', { name: 'Continue this project with Premium' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Implementation/ }));
     first.unmount();
     render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
     expect(screen.queryByRole('heading', { name: 'Continue this project with Premium' })).not.toBeInTheDocument();

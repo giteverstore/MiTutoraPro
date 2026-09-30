@@ -1,5 +1,5 @@
 import { Check, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { APP_NAVIGATION } from './navigation';
+import { PRIMARY_NAVIGATION } from './navigation';
 
 export function AppSidebar({
   activePage,
@@ -31,7 +31,7 @@ export function AppSidebar({
           </button>
         </div>
         <nav className="application-navigation">
-          {APP_NAVIGATION.map(({ id, label, icon: Icon }) => {
+          {PRIMARY_NAVIGATION.map(({ id, label, icon: Icon }) => {
             const challengeCompleted = id === 'challenges' && todayChallengeCompleted;
             return (
             <button

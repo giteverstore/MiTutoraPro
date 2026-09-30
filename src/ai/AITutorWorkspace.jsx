@@ -8,7 +8,7 @@ import { AITutorResponse } from './AITutorResponse';
 
 const DEFAULT_SELECTION_INTENT = "Explain this selected code in the context of what I'm learning.";
 
-export function AITutorWorkspace({ course, lesson, compilerContext, pendingRequest, client = aiTutorClient, accessTier, activityType = 'lesson', contextLines = [] }) {
+export function AITutorWorkspace({ course, lesson, compilerContext, pendingRequest, client = aiTutorClient, accessTier, activityType = 'lesson', contextLines = [], emptyTitle = 'Ask about your code', emptyText = 'Select code in the editor or ask a question about this lesson.', composerPlaceholder = 'Ask a question…', assistantLabel = 'AI Tutor' }) {
   const access = useOptionalSubscriptionAccess();
   const tier = accessTier ?? access?.tier ?? 'FREE';
   const [messages, setMessages] = useState([]);
@@ -100,7 +100,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         <div><h2 id="learning-ai-title">AI Tutor</h2><p>{course.title} · {lesson.title}</p></div>
       </header>
       <div className="ai-workspace-conversation" ref={conversationRef} aria-live="polite">
-        {messages.length === 0 ? <div className="ai-workspace-empty"><Sparkles aria-hidden="true" /><strong>Ask about your code</strong><p>Select code in the editor or ask a question about this lesson.</p></div> : null}
+        {messages.length === 0 ? <div className="ai-workspace-empty"><Sparkles aria-hidden="true" /><strong>{emptyTitle}</strong><p>{emptyText}</p></div> : null}
         {messages.map((message) => message.role === 'user' ? (
           <article className="ai-workspace-message is-user" key={message.id}>
             <strong>You</strong><p>{message.text}</p>
@@ -108,7 +108,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
           </article>
         ) : (
           <article className="ai-workspace-message is-assistant" key={message.id}>
-            <strong>AI Tutor</strong><AITutorResponse response={message.response} />
+            <strong>{assistantLabel}</strong><AITutorResponse response={message.response} />
           </article>
         ))}
         {status === 'loading' ? <div className="ai-workspace-thinking" role="status"><LoaderCircle className="is-spinning" aria-hidden="true" /> AI Tutor is thinking…</div> : null}
@@ -117,7 +117,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
       <div className="ai-workspace-composer">
         <textarea
           aria-label="Ask AI Tutor"
-          placeholder="Ask a question…"
+          placeholder={composerPlaceholder}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           onKeyDown={(event) => {

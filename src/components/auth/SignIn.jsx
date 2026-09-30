@@ -49,9 +49,7 @@ export function SignIn({ onSubmit, onGoogle, onSignUp, onForgotPassword }) {
 
   return (
     <AuthLayout
-      eyebrow="Welcome back"
       title="Sign in to continue"
-      description="Use your email and password or continue with Google."
     >
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         <FormField

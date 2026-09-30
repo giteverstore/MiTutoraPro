@@ -104,7 +104,7 @@ describe('Learning Engine navigation alignment', () => {
     expect(values.onExitCourse).toHaveBeenCalledOnce();
     expect(values.onBookmarkChange).toHaveBeenCalledWith(true);
     expect(screen.getByText('Tester')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Sign out' }));
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Sign out' }));
     expect(values.onSignOut).toHaveBeenCalledOnce();
   });
 

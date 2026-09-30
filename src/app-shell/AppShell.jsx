@@ -86,6 +86,7 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
           setNotificationsOpen(false);
           setUserMenuOpen((current) => !current);
         }}
+        onNavigate={navigate}
         onSignOut={signOut}
       />
       <main className="application-page" id="application-page" tabIndex="-1">
