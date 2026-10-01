@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import '../styles/pages/dashboard.css';
+import '../styles/layout/app-shell.css';
 import { useUser } from '../auth/UserContext';
 import { useAuth } from '../auth/AuthContext';
 import { AppSidebar } from './AppSidebar';
@@ -62,6 +64,7 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
       data-brand-theme={brandTheme}
       data-reduced-motion={reducedMotion}
     >
+      <a className="application-skip-link" href="#application-page">Skip to main content</a>
       <ActivityAwareSidebar
         activePage={activePage}
         collapsed={sidebarCollapsed}

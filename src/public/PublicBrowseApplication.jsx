@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { AuthFlow } from '../components/auth/AuthFlow';
-import { LibraryPage } from '../home/LibraryPage';
-import { PracticePage } from '../practice/PracticePage';
-import { ProjectsPage } from '../projects/pages/ProjectsPage';
-import { CourseRoute } from '../routing/CourseRoute';
+import { Suspense, useEffect, useState } from 'react';
+import { CourseLoadState } from '../components/CourseLoadState';
+import { lazyNamedExport } from '../routing/lazyRoute';
 import { PublicFooter } from './PublicFooter';
 import { PublicHeader } from './PublicHeader';
 import { LandingPage } from './LandingPage';
 import { requestAuthentication } from './publicAuthNavigation';
+import '../styles/public-pages.css';
+
+const AuthFlow = lazyNamedExport(() => import('../components/auth/AuthFlow'), 'AuthFlow');
+const LibraryPage = lazyNamedExport(() => import('../pages/LibraryPage'), 'LibraryPage');
+const PracticePage = lazyNamedExport(() => import('../pages/PracticePage'), 'PracticePage');
+const ProjectsPage = lazyNamedExport(() => import('../pages/ProjectsPage'), 'ProjectsPage');
+const CourseRoute = lazyNamedExport(() => import('../routing/CourseRoute'), 'CourseRoute');
 
 const privatePaths = new Set(['/challenges', '/bookmarks', '/certificates', '/referrals', '/wallet', '/redeem', '/settings']);
 const cleanPath = () => window.location.pathname.replace(/\/+$/, '') || '/';
@@ -18,7 +22,7 @@ function PublicFeatureShell({ children, activePath }) {
 
 function ProtectedAuthRoute({ pathname }) {
   useEffect(() => { sessionStorage.setItem('ycoders:auth-return', pathname); }, [pathname]);
-  return <AuthFlow />;
+  return <Suspense fallback={<CourseLoadState state="loading" />}><AuthFlow /></Suspense>;
 }
 
 function PublicNotFound() {
@@ -32,18 +36,19 @@ export function PublicBrowseApplication() {
   const requireAuth = (destination) => requestAuthentication(destination, 'login');
 
   if (pathname === '/') return <LandingPage />;
-  if (pathname === '/login') return <AuthFlow initialScreen="sign-in" />;
-  if (pathname === '/signup') return <AuthFlow initialScreen="sign-up" />;
-  if (pathname === '/library') return <PublicFeatureShell activePath="/library"><LibraryPage anonymous onRequireAuth={requireAuth} onOpenCourse={(courseId) => navigate(`/courses/${courseId}`)} /></PublicFeatureShell>;
-  if (pathname === '/practice') return <PublicFeatureShell activePath="/practice"><PracticePage anonymous onRequireAuth={requireAuth} onQuestionChange={(questionId) => navigate(questionId ? `/practice/${questionId}` : '/practice')} /></PublicFeatureShell>;
-  if (pathname === '/projects') return <PublicFeatureShell activePath="/projects"><ProjectsPage browseOnly onRequireAuth={requireAuth} onProjectChange={(projectId) => navigate(projectId ? `/projects/${projectId}` : '/projects')} /></PublicFeatureShell>;
+  const loading = <CourseLoadState state="loading" />;
+  if (pathname === '/login') return <Suspense fallback={loading}><AuthFlow initialScreen="sign-in" /></Suspense>;
+  if (pathname === '/signup') return <Suspense fallback={loading}><AuthFlow initialScreen="sign-up" /></Suspense>;
+  if (pathname === '/library') return <PublicFeatureShell activePath="/library"><Suspense fallback={loading}><LibraryPage anonymous onRequireAuth={requireAuth} onOpenCourse={(courseId) => navigate(`/courses/${courseId}`)} /></Suspense></PublicFeatureShell>;
+  if (pathname === '/practice') return <PublicFeatureShell activePath="/practice"><Suspense fallback={loading}><PracticePage anonymous onRequireAuth={requireAuth} onQuestionChange={(questionId) => navigate(questionId ? `/practice/${questionId}` : '/practice')} /></Suspense></PublicFeatureShell>;
+  if (pathname === '/projects') return <PublicFeatureShell activePath="/projects"><Suspense fallback={loading}><ProjectsPage browseOnly onRequireAuth={requireAuth} onProjectChange={(projectId) => navigate(projectId ? `/projects/${projectId}` : '/projects')} /></Suspense></PublicFeatureShell>;
 
   const course = pathname.match(/^\/courses\/([^/]+)$/);
-  if (course) return <PublicFeatureShell activePath="/library"><CourseRoute courseId={decodeURIComponent(course[1])} stage="overview" anonymous onExitCourse={() => navigate('/library')} onEnterCourse={() => requireAuth(pathname)} /></PublicFeatureShell>;
+  if (course) return <PublicFeatureShell activePath="/library"><Suspense fallback={loading}><CourseRoute courseId={decodeURIComponent(course[1])} stage="overview" anonymous onExitCourse={() => navigate('/library')} onEnterCourse={() => requireAuth(pathname)} /></Suspense></PublicFeatureShell>;
   const question = pathname.match(/^\/practice\/([^/]+)$/);
-  if (question) return <PublicFeatureShell activePath="/practice"><PracticePage anonymous initialQuestionId={decodeURIComponent(question[1])} onRequireAuth={requireAuth} onQuestionChange={(questionId) => navigate(questionId ? `/practice/${questionId}` : '/practice')} /></PublicFeatureShell>;
+  if (question) return <PublicFeatureShell activePath="/practice"><Suspense fallback={loading}><PracticePage anonymous initialQuestionId={decodeURIComponent(question[1])} onRequireAuth={requireAuth} onQuestionChange={(questionId) => navigate(questionId ? `/practice/${questionId}` : '/practice')} /></Suspense></PublicFeatureShell>;
   const project = pathname.match(/^\/projects\/([^/]+)$/);
-  if (project) return <PublicFeatureShell activePath="/projects"><ProjectsPage browseOnly initialProjectId={decodeURIComponent(project[1])} onRequireAuth={requireAuth} onProjectChange={(projectId) => navigate(projectId ? `/projects/${projectId}` : '/projects')} /></PublicFeatureShell>;
+  if (project) return <PublicFeatureShell activePath="/projects"><Suspense fallback={loading}><ProjectsPage browseOnly initialProjectId={decodeURIComponent(project[1])} onRequireAuth={requireAuth} onProjectChange={(projectId) => navigate(projectId ? `/projects/${projectId}` : '/projects')} /></Suspense></PublicFeatureShell>;
   if (privatePaths.has(pathname) || pathname.startsWith('/challenges/')) return <ProtectedAuthRoute pathname={pathname} />;
   return <PublicNotFound />;
 }

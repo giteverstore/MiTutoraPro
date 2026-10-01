@@ -1,28 +1,52 @@
 import assert from 'node:assert/strict';
 import { chromium } from '@playwright/test';
-import { createServer } from 'vite';
+import { startBrowserRuntimeServer } from './browser-runtime-harness.mjs';
 
-const server = await createServer({ logLevel: 'error', server: { host: '127.0.0.1', port: 0 } });
-await server.listen();
-const baseUrl = server.resolvedUrls?.local?.[0];
-if (!baseUrl) throw new Error('Unable to resolve the local Vite test URL.');
+const { server, baseUrl, probeUrl } = await startBrowserRuntimeServer();
+const minimalRepeat = Number(process.argv.find((argument) => argument.startsWith('--minimal-repeat='))?.split('=')[1] ?? 0);
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
+const stage = (message) => console.log(`[assembly-browser] ${message}`);
+page.on('console', (message) => stage(`console:${message.type()}: ${message.text()}`));
+page.on('pageerror', (error) => stage(`pageerror: ${error.message}`));
+page.on('requestfailed', (request) => stage(`requestfailed: ${request.url()} (${request.failure()?.errorText ?? 'unknown'})`));
+page.on('worker', (worker) => {
+  stage(`worker-created: ${worker.url()}`);
+  worker.on('close', () => stage(`worker-closed: ${worker.url()}`));
+});
 
 try {
-  await page.goto(baseUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  stage(`server-ready: ${baseUrl}`);
+  await page.goto(probeUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  stage('page-loaded');
   const execute = (source, options = {}) => page.evaluate(async ({ source, options }) => {
     const { AssemblyWorkerClient } = await import('/src/compiler/runtimes/assembly/AssemblyWorkerClient.js');
     const client = new AssemblyWorkerClient(options);
     try { return await client.execute({ source, timeoutMs: options.timeoutMs }); }
     finally { client.dispose(); }
-  }, { source, options });
+  }, {
+    source,
+    options: { initializationTimeoutMs: 120_000, timeoutMs: 10_000, ...options },
+  });
 
+  stage('arithmetic-start');
   const arithmetic = await execute('mov rax, 10\nmov rbx, 20\nadd rax, rbx');
+  stage('arithmetic-complete');
   assert.equal(arithmetic.status, 'success');
   assert.equal(arithmetic.emulator.registers.rax, '0x000000000000001E');
   assert.equal(arithmetic.emulator.registers.rbx, '0x0000000000000014');
+
+  if (minimalRepeat > 0) {
+    for (let cycle = 2; cycle <= minimalRepeat; cycle += 1) {
+      stage(`minimal-cycle-${cycle}-start`);
+      const result = await execute('mov rax, 10\nmov rbx, 20\nadd rax, rbx');
+      assert.equal(result.status, 'success');
+      assert.equal(result.emulator.registers.rax, '0x000000000000001E');
+      stage(`minimal-cycle-${cycle}-complete`);
+    }
+    console.log(`x86-64 Assembly minimal browser acceptance passed ${minimalRepeat}/${minimalRepeat}.`);
+  } else {
 
   const instructionCoverage = await execute(`jmp start
 value: dq 99
@@ -161,7 +185,11 @@ syscall`);
     emulationMs: arithmetic.metadata.emulationTimeMs,
     wasmMemoryBytes: arithmetic.emulator.memory.wasmBytes,
   }));
+  }
 } finally {
+  stage('browser-close-start');
   await browser.close();
+  stage('browser-close-complete');
   await server.close();
+  stage('server-close-complete');
 }

@@ -27,6 +27,29 @@ describe('PythonWorkerClient lifecycle', () => {
       stderr: 'warn\n',
       executionTimeMs: 4,
     });
+    expect(worker.terminated).toBe(true);
+    expect(client.worker).toBeNull();
+  });
+
+  it('reuses initialization only within one execution and recreates a clean worker afterward', async () => {
+    const workers = [];
+    const client = new PythonWorkerClient({ workerFactory: () => {
+      const worker = new FakeWorker((message, target) => queueMicrotask(() => target.respond(
+        message.type === 'initialize'
+          ? { id: message.id, type: 'initialized' }
+          : { id: message.id, type: 'execution', status: 'success', stdout: '', stderr: '', executionTimeMs: 1 },
+      )));
+      workers.push(worker);
+      return worker;
+    } });
+
+    await client.initialize();
+    await client.initialize();
+    expect(workers).toHaveLength(1);
+    await client.execute({ source: 'x = 123' });
+    expect(workers[0].terminated).toBe(true);
+    await client.initialize();
+    expect(workers).toHaveLength(2);
   });
 
   it('terminates on timeout and recreates a worker for the next request', async () => {
@@ -62,5 +85,23 @@ describe('PythonWorkerClient lifecycle', () => {
     const initialized = client.initialize();
     workers[1].respond({ id: 2, type: 'initialized' });
     await expect(initialized).resolves.toMatchObject({ type: 'initialized' });
+  });
+
+  it('ignores late messages from a cancelled execution after a new worker starts', async () => {
+    const workers = [];
+    const client = new PythonWorkerClient({ workerFactory: () => {
+      const worker = new FakeWorker();
+      workers.push(worker);
+      return worker;
+    } });
+    const controller = new AbortController();
+    const first = client.execute({ source: 'input()', executionId: 'run-a', signal: controller.signal });
+    controller.abort();
+    await expect(first).rejects.toMatchObject({ name: 'AbortError' });
+
+    const second = client.execute({ source: 'print("B")', executionId: 'run-b' });
+    workers[0].respond({ id: 1, type: 'execution', status: 'success', stdout: 'late A\n', stderr: '', executionTimeMs: 1 });
+    workers[1].respond({ id: 2, type: 'execution', status: 'success', stdout: 'B\n', stderr: '', executionTimeMs: 1 });
+    await expect(second).resolves.toMatchObject({ stdout: 'B\n' });
   });
 });

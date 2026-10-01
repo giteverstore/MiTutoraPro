@@ -32,6 +32,13 @@ describe('AppShell account navigation menu', () => {
     expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeInTheDocument();
   });
 
+  it('provides a first-class skip link to the focusable main region', () => {
+    render(<AppShell activePage="home" onNavigate={vi.fn()}><p>Content</p></AppShell>);
+    expect(screen.getByRole('link', { name: 'Skip to main content' })).toHaveAttribute('href', '#application-page');
+    expect(screen.getByRole('main')).toHaveAttribute('id', 'application-page');
+    expect(screen.getByRole('main')).toHaveAttribute('tabindex', '-1');
+  });
+
   it('orders utility destinations before Sign out and reuses their existing icons', () => {
     render(<AppShell activePage="home" onNavigate={vi.fn()}><p>Content</p></AppShell>);
     fireEvent.click(screen.getByRole('button', { name: 'Open user menu' }));

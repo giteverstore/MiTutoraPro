@@ -1,11 +1,8 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
-import { createServer } from 'vite';
+import { startBrowserRuntimeServer } from './browser-runtime-harness.mjs';
 
-const server = await createServer({ logLevel: 'error', server: { host: '127.0.0.1', port: 0 } });
-await server.listen();
-const baseUrl = server.resolvedUrls?.local?.[0];
-if (!baseUrl) throw new Error('Unable to resolve the local Vite stdin acceptance URL.');
+const { server, baseUrl } = await startBrowserRuntimeServer();
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();

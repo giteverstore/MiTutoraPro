@@ -24,8 +24,8 @@ function fail(message) {
   throw new Error(`AI Tutor production-readiness validation failed: ${message}`);
 }
 
-const [example, gitignore, vercelText, rules, apiRoute, clientSource, openAIProvider, tutorPrompt, firebaseAdmin, wifAdapter, quotaFactory, quotaRuntime, infrastructure, architectureIndex] = await Promise.all([
-  read('.env.example'), read('.gitignore'), read('vercel.json'), read('firestore.rules'),
+const [example, gitignore, vercelModule, rules, apiRoute, clientSource, openAIProvider, tutorPrompt, firebaseAdmin, wifAdapter, quotaFactory, quotaRuntime, infrastructure, architectureIndex] = await Promise.all([
+  read('.env.example'), read('.gitignore'), import('../vercel.mjs'), read('firestore.rules'),
   read('api/ai/explain.js'),
   Promise.all([read('src/ai/AITutorClient.js'), read('src/ai/AITutorPanel.jsx'), read('src/ai/AITutorResponse.jsx')]).then((items) => items.join('\n')),
   read('server/ai/OpenAIProvider.js'),
@@ -59,8 +59,7 @@ if (exampleEntries.get('AI_TUTOR_QUOTA_DATABASE_ID') !== 'ai-tutor-quota') fail(
 if (/^VITE_(?:AI|HF|OPENAI|FIREBASE_SERVICE_ACCOUNT)/m.test(example)) fail('server AI/Admin secrets must not use VITE_ names');
 if (!/^\.env$/m.test(gitignore) || !/^\.env\.\*$/m.test(gitignore) || !/^!\.env\.example$/m.test(gitignore)) fail('environment ignore rules are incomplete');
 
-let vercel;
-try { vercel = JSON.parse(vercelText); } catch { fail('vercel.json is malformed'); }
+const vercel = vercelModule.createVercelConfig('main');
 const functionConfig = vercel.functions?.['api/ai/explain.js'];
 if (functionConfig?.supportsCancellation !== true) fail('the AI endpoint must opt into deployed cancellation');
 if (!Number.isInteger(functionConfig?.maxDuration) || functionConfig.maxDuration <= 45) fail('the Vercel duration must exceed the provider deadline');

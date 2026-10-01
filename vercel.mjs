@@ -1,3 +1,10 @@
+import { JAVASCRIPT_LEARNER_WORKER_ASSET_ROUTE, JAVASCRIPT_LEARNER_WORKER_CSP } from './config/javascriptLearnerWorkerPolicy.mjs';
+import {
+  API_SECURITY_ROUTE,
+  COMPILER_ISOLATION_HEADERS,
+  DOCUMENT_SECURITY_ROUTE,
+} from './config/securityHeaderPolicy.mjs';
+
 const MAIN_DEPLOYMENT_TARGET = 'main';
 const COMPILER_DEPLOYMENT_TARGET = 'compiler';
 
@@ -13,9 +20,15 @@ export const COMPILER_ISOLATION_ROUTE = Object.freeze({
     key: 'host',
     value: '(?:compiler\\.ycoders\\.com|ycoders-compiler(?:-[^.]+)?\\.vercel\\.app)',
   })],
+  headers: COMPILER_ISOLATION_HEADERS,
+  continue: true,
+});
+
+export const JAVASCRIPT_LEARNER_WORKER_ROUTE = Object.freeze({
+  src: JAVASCRIPT_LEARNER_WORKER_ASSET_ROUTE,
   headers: Object.freeze({
-    'Cross-Origin-Opener-Policy': 'same-origin',
-    'Cross-Origin-Embedder-Policy': 'require-corp',
+    'Content-Security-Policy': JAVASCRIPT_LEARNER_WORKER_CSP,
+    'X-Content-Type-Options': 'nosniff',
   }),
   continue: true,
 });
@@ -36,7 +49,10 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
       ? [CRON_SCHEDULES.shares]
       : [CRON_SCHEDULES.payments, CRON_SCHEDULES.shares],
     routes: [
+      DOCUMENT_SECURITY_ROUTE,
+      API_SECURITY_ROUTE,
       COMPILER_ISOLATION_ROUTE,
+      JAVASCRIPT_LEARNER_WORKER_ROUTE,
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },

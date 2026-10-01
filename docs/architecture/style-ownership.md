@@ -1,7 +1,7 @@
 # CSS ownership
 
-**Status: CURRENT STRATEGY; LEGACY MIGRATION IN PROGRESS**
+**Status: CURRENT ROUTE-OWNED ARCHITECTURE**
 
-Global tokens live in `src/design-system/tokens.css`, shared primitives in `primitives.css`, and cross-domain coherence rules in `coherence.css`. New domain styling belongs under [`src/styles`](../../src/styles/README.md) and uses a domain prefix. `routing.css` is the first extracted sheet.
+Global tokens live in `src/design-system/tokens.css`, shared primitives in `primitives.css`, and cross-domain coherence rules in `coherence.css`. Domain styling belongs under [`src/styles`](../../src/styles/README.md), uses a domain prefix, and is loaded by its route owner where applicable.
 
-`src/styles.css` remains the legacy aggregate for multiple domains. Moving all 3,000+ lines at once would create unacceptable cascade risk, so Batch 5 establishes ownership and migrates only new routing styles. Domain-by-domain extraction and visual regression coverage remain required.
+The former `src/styles.css` aggregate has been removed. `src/styles/index.css` preserves the shared foundation order, while page, layout, and component sheets provide semantic validation and ownership boundaries. Validation must follow those owners rather than asserting against the removed aggregate.

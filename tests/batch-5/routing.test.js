@@ -1,7 +1,7 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { parseAppRoute, routePage, routePath } from '../../src/routing/appRoutes';
+import { COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
+import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
 const pageRoutes = [
   ['/', 'home'],
@@ -69,17 +69,22 @@ describe('application URL adapter', () => {
 });
 
 describe('Vercel SPA routing contract', () => {
-  const config = JSON.parse(readFileSync(resolve('vercel.json'), 'utf8'));
+  const config = createVercelConfig('main');
 
   it('falls back unresolved direct requests to the Vite SPA entry point', () => {
     expect(config.routes).toEqual([
+      DOCUMENT_SECURITY_ROUTE,
+      API_SECURITY_ROUTE,
+      COMPILER_ISOLATION_ROUTE,
+      JAVASCRIPT_LEARNER_WORKER_ROUTE,
+      { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },
     ]);
   });
 
   it('uses filesystem-aware rewrites without legacy route or build overrides', () => {
-    expect(config.routes[0]).toEqual({ handle: 'filesystem' });
+    expect(config.routes.find((route) => route.handle === 'filesystem')).toEqual({ handle: 'filesystem' });
     expect(config.rewrites).toBeUndefined();
     expect(config.builds).toBeUndefined();
     expect(config.cleanUrls).toBeUndefined();

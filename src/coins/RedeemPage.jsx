@@ -1,4 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import '../styles/pages/home.css';
+import '../styles/pages/subscription-wallet.css';
 import { Coins, Gift, TicketCheck, Crown } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { Dialog } from '../components/Dialog';

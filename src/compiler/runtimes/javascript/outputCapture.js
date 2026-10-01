@@ -5,10 +5,13 @@ const normalizeStream = (value) => String(value ?? '')
 export function createJavaScriptExecutionResult(payload) {
   const stdout = normalizeStream(payload.stdout);
   const stderr = normalizeStream(payload.stderr);
-  return {
+  const result = {
     status: payload.status === 'success' ? 'success' : 'error',
     output: stdout,
-    errors: stderr ? [stderr] : [],
+    errors: Array.isArray(payload.errors) && payload.errors.length ? payload.errors : stderr ? [stderr] : [],
     executionTimeMs: payload.executionTimeMs ?? 0,
   };
+  if (payload.code) result.code = payload.code;
+  if (payload.truncated) result.truncated = true;
+  return result;
 }

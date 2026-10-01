@@ -1,3 +1,14 @@
+import {
+  assertCompilerRequestLimits,
+  COMPILER_RESOURCE_ERROR_CODES,
+  COMPILER_RESOURCE_LIMITS,
+  CompilerResourceLimitError,
+  compilerResourceFailure,
+  createCompilerOutputBudget,
+  utf8ByteLength,
+  utf8Prefix,
+} from './compilerResourcePolicy.js';
+
 export function normalizeCompilerStdin(stdin) {
   if (Array.isArray(stdin)) return stdin.map((value) => String(value ?? '')).join('\n');
   return String(stdin ?? '');
@@ -8,6 +19,7 @@ export class CompilerManager {
     this.runtimeRegistry = runtimeRegistry;
     this.validatorRegistry = validatorRegistry;
     this.runtimeInitialization = new WeakMap();
+    this.activeExecutions = new Map();
   }
 
   async initialize(language, options = {}) {
@@ -32,23 +44,90 @@ export class CompilerManager {
         executionTimeMs: 0,
       };
     }
-    const runtime = await this.initialize(language, { signal, instanceId, timeoutMs });
-    return runtime.execute({
-      source,
-      stdin: normalizeCompilerStdin(stdin ?? inputs),
-      filename,
-      execution,
-      executionId,
-      onExecutionEvent,
-      setupSql: setupSql ?? execution?.setupSql ?? '',
-      signal,
-      timeoutMs,
-    });
+    const normalizedStdin = normalizeCompilerStdin(stdin ?? inputs);
+    const normalizedSetupSql = setupSql ?? execution?.setupSql ?? '';
+    try {
+      assertCompilerRequestLimits({ source, stdin: normalizedStdin, setupSql: normalizedSetupSql });
+    } catch (error) {
+      if (error instanceof CompilerResourceLimitError) return compilerResourceFailure(error);
+      throw error;
+    }
+
+    const key = `${String(instanceId ?? 'default')}::${String(language)}`;
+    this.activeExecutions.get(key)?.controller.abort();
+    const controller = new AbortController();
+    const abortFromCaller = () => controller.abort(signal?.reason);
+    signal?.addEventListener('abort', abortFromCaller, { once: true });
+    if (signal?.aborted) controller.abort(signal.reason);
+    const active = { controller, executionId: String(executionId ?? ''), interactiveBytes: 0, limitError: null };
+    const outputBudget = createCompilerOutputBudget({ onLimit: (error) => { active.limitError = error; controller.abort(error); } });
+    this.activeExecutions.set(key, active);
+    const forwardEvent = (event) => {
+      if (event?.type === 'stdout' || event?.type === 'stderr') {
+        const accepted = outputBudget.accept(event.type, event.value);
+        if (accepted) onExecutionEvent?.({ ...event, value: accepted });
+        return;
+      }
+      onExecutionEvent?.(event);
+    };
+
+    try {
+      const runtime = await this.initialize(language, { signal: controller.signal, instanceId, timeoutMs });
+      const result = await runtime.execute({
+        source,
+        stdin: normalizedStdin,
+        filename,
+        execution,
+        executionId,
+        onExecutionEvent: onExecutionEvent ? forwardEvent : undefined,
+        setupSql: normalizedSetupSql,
+        signal: controller.signal,
+        timeoutMs,
+      });
+      if (active.limitError) return compilerResourceFailure(active.limitError, outputBudget.state);
+      const stdout = String(result.stdout ?? result.output ?? '');
+      const stderr = String(result.stderr ?? result.errors?.join('\n') ?? '');
+      if (utf8ByteLength(stdout) > COMPILER_RESOURCE_LIMITS.stdoutBytes) {
+        return compilerResourceFailure(new CompilerResourceLimitError(COMPILER_RESOURCE_ERROR_CODES.OUTPUT), {
+          ...outputBudget.state,
+          stdout: utf8Prefix(stdout, COMPILER_RESOURCE_LIMITS.stdoutBytes),
+          stderr: utf8Prefix(stderr, COMPILER_RESOURCE_LIMITS.stderrBytes),
+        });
+      }
+      if (utf8ByteLength(stderr) > COMPILER_RESOURCE_LIMITS.stderrBytes) {
+        return compilerResourceFailure(new CompilerResourceLimitError(COMPILER_RESOURCE_ERROR_CODES.STDERR), {
+          ...outputBudget.state,
+          stdout: utf8Prefix(stdout, COMPILER_RESOURCE_LIMITS.stdoutBytes),
+          stderr: utf8Prefix(stderr, COMPILER_RESOURCE_LIMITS.stderrBytes),
+        });
+      }
+      return result;
+    } catch (error) {
+      if (active.limitError) return compilerResourceFailure(active.limitError, outputBudget.state);
+      throw error;
+    } finally {
+      signal?.removeEventListener('abort', abortFromCaller);
+      if (this.activeExecutions.get(key) === active) this.activeExecutions.delete(key);
+    }
   }
 
   submitStdin({ language, instanceId, executionId, value }) {
     if (!this.runtimeRegistry.has(language)) return false;
-    return this.runtimeRegistry.resolve(language, instanceId).submitStdin({ executionId, value });
+    const key = `${String(instanceId ?? 'default')}::${String(language)}`;
+    const active = this.activeExecutions.get(key);
+    if (!active || active.executionId !== String(executionId ?? '')) return false;
+    const bytes = utf8ByteLength(value);
+    if (bytes > COMPILER_RESOURCE_LIMITS.interactiveStdinSubmissionBytes) {
+      throw new CompilerResourceLimitError(COMPILER_RESOURCE_ERROR_CODES.STDIN, 'Interactive input exceeds the per-submission compiler limit (32 KiB).');
+    }
+    if (active.interactiveBytes + bytes > COMPILER_RESOURCE_LIMITS.interactiveStdinExecutionBytes) {
+      active.limitError = new CompilerResourceLimitError(COMPILER_RESOURCE_ERROR_CODES.STDIN, 'Program stopped because its interactive input exceeded the compiler limit.');
+      active.controller.abort(active.limitError);
+      throw active.limitError;
+    }
+    const submitted = this.runtimeRegistry.resolve(language, instanceId).submitStdin({ executionId, value });
+    if (submitted) active.interactiveBytes += bytes;
+    return submitted;
   }
 
   async executeTests({ testCases = [], ...request }) {
@@ -71,6 +150,7 @@ export class CompilerManager {
   }
 
   async format({ language, source, options, instanceId }) {
+    assertCompilerRequestLimits({ source });
     const runtime = await this.initialize(language, { instanceId });
     return runtime.format(source, options);
   }
@@ -104,6 +184,8 @@ export class CompilerManager {
   }
 
   async dispose() {
+    for (const { controller } of this.activeExecutions.values()) controller.abort();
+    this.activeExecutions.clear();
     await this.runtimeRegistry.dispose();
     this.runtimeInitialization = new WeakMap();
   }

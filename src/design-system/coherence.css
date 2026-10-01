@@ -1,7 +1,7 @@
 /*
  * ycoders product coherence layer.
  * This file intentionally refines shared visual relationships without owning
- * feature behavior. Feature styles remain in styles.css.
+ * feature behavior. Feature styles remain in their route-owned stylesheets.
  */
 
 html { scroll-behavior: smooth; }

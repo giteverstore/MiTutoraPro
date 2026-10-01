@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PROJECT_ID = 'demo-local-coin-rules';
@@ -23,7 +23,9 @@ Object.assign(environment, {
   COIN_RULES_PATH: rulesFile,
   FIREBASE_CLI_DISABLE_UPDATE_CHECK: 'true',
   INIT_CWD: projectRoot,
+  XDG_CONFIG_HOME: join(isolatedWorkingDirectory, 'firebase-cli'),
 });
+if (environment.JAVA_HOME) environment.PATH = `${join(environment.JAVA_HOME, 'bin')}${delimiter}${environment.PATH ?? ''}`;
 
 const child = spawn(process.execPath, [
   firebaseCli, 'emulators:exec', '--only', 'firestore', '--project', PROJECT_ID, '--config', firebaseConfig,

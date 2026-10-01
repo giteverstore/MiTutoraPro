@@ -1,6 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const javaBin = 'C:\\Program Files\\Android\\Android Studio\\jbr\\bin';
+process.env.E2E_APP_PORT ||= String(45_000 + (process.pid % 10_000));
+const appPort = Number(process.env.E2E_APP_PORT);
+const appBaseUrl = `http://127.0.0.1:${appPort}`;
 
 const firebaseEnvironment = {
   VITE_FIREBASE_API_KEY: 'demo-api-key',
@@ -18,6 +21,7 @@ const firebaseEnvironment = {
 };
 
 export default defineConfig({
+  globalTeardown: './scripts/teardown-e2e-servers.mjs',
   testDir: './tests/e2e',
   timeout: 180_000,
   expect: { timeout: 30_000 },
@@ -26,7 +30,7 @@ export default defineConfig({
   retries: 1,
   reporter: [['list']],
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: appBaseUrl,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
@@ -36,18 +40,25 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npx.cmd firebase-tools emulators:start --only auth,firestore --project demo-mitutora',
+      command: 'node scripts/start-e2e-firebase-emulators.mjs',
       url: 'http://127.0.0.1:9099',
-      reuseExistingServer: true,
+      reuseExistingServer: false,
       timeout: 600_000,
-      env: { ...process.env, PATH: `${javaBin};${process.env.PATH}` },
+      gracefulShutdown: { signal: 'SIGINT', timeout: 15_000 },
+      env: {
+        ...process.env,
+        PATH: `${javaBin};${process.env.PATH}`,
+        XDG_CONFIG_HOME: '.tmp-firebase-config/playwright',
+        FIREBASE_CLI_DISABLE_UPDATE_CHECK: 'true',
+      },
     },
     {
       command: 'node scripts/start-e2e-preview.mjs',
-      url: 'http://127.0.0.1:4173',
-      reuseExistingServer: true,
+      url: `${appBaseUrl}/login`,
+      reuseExistingServer: false,
       timeout: 600_000,
-      env: firebaseEnvironment,
+      gracefulShutdown: { signal: 'SIGINT', timeout: 15_000 },
+      env: { ...firebaseEnvironment, E2E_APP_PORT: String(appPort) },
     },
   ],
 });

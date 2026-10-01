@@ -3,22 +3,31 @@ import react from '@vitejs/plugin-react';
 import { viteAITutorPlugin } from './server/ai/viteAITutorPlugin.js';
 import { viteActivityCompletionPlugin } from './server/coins/viteActivityCompletionPlugin.js';
 import { viteMySqlPlugin } from './server/mysql/viteMySqlPlugin.js';
+import { JAVASCRIPT_LEARNER_WORKER_CSP, JAVASCRIPT_LEARNER_WORKER_REQUEST } from './config/javascriptLearnerWorkerPolicy.mjs';
+import { LOCAL_DEVELOPMENT_HEADERS } from './config/securityHeaderPolicy.mjs';
+
+function javascriptLearnerWorkerHeaders() {
+  const apply = (server) => {
+    server.middlewares.use((request, response, next) => {
+      if (JAVASCRIPT_LEARNER_WORKER_REQUEST.test(request.url || '')) {
+        response.setHeader('Content-Security-Policy', JAVASCRIPT_LEARNER_WORKER_CSP);
+        response.setHeader('X-Content-Type-Options', 'nosniff');
+      }
+      next();
+    });
+  };
+  return { name: 'ycoders-javascript-learner-worker-headers', configureServer: apply, configurePreviewServer: apply };
+}
 
 export default defineConfig(({ mode }) => {
   const environment = { ...loadEnv(mode, process.cwd(), ''), ...process.env };
   return ({
-  plugins: [react(), viteAITutorPlugin(environment), viteActivityCompletionPlugin(environment), viteMySqlPlugin(environment)],
+  plugins: [react(), javascriptLearnerWorkerHeaders(), viteAITutorPlugin(environment), viteActivityCompletionPlugin(environment), viteMySqlPlugin(environment)],
   server: {
-    headers: {
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-    },
+    headers: LOCAL_DEVELOPMENT_HEADERS,
   },
   preview: {
-    headers: {
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-    },
+    headers: LOCAL_DEVELOPMENT_HEADERS,
   },
   build: {
     manifest: true,

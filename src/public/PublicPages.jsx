@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import '../styles/public-pages.css';
 import { BookOpen, Braces, CalendarCheck2, CircleHelp, GraduationCap, MailQuestion, ShieldCheck, Sparkles } from 'lucide-react';
 import { PublicFooter } from './PublicFooter';
 import { PublicHeader } from './PublicHeader';

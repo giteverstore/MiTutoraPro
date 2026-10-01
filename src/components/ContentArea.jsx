@@ -13,7 +13,7 @@ export function ContentArea({
   unavailableState,
 }) {
   return (
-    <main className="lesson-panel">
+    <main className="lesson-panel" tabIndex="0" aria-label="Lesson content">
       {isLoading ? <LessonSkeleton /> : lesson && module ? (
         <article className="lesson-document">
           <LessonHeader

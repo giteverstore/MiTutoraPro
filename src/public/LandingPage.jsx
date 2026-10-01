@@ -1,4 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import '../styles/public-pages.css';
+import '../styles/pages/landing.css';
 import { ArrowRight, Bot, Brackets, Bug, Check, Code2, Database, Globe, Layers3, MessagesSquare, Play, TerminalSquare, Type } from 'lucide-react';
 import { DifficultyBadge } from '../components/DifficultyBadge';
 import { PublicFooter } from './PublicFooter';

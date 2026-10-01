@@ -462,7 +462,7 @@
 }
 
 .practice-statistics small {
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   font-size: 0.875rem; /* 14px */
 }
 
@@ -521,6 +521,10 @@
 }
 
 .practice-difficulty-summary .is-hard {
+  color: #7f302c;
+}
+
+[data-theme="dark"] .practice-difficulty-summary .is-hard {
   color: var(--color-danger);
 }
 

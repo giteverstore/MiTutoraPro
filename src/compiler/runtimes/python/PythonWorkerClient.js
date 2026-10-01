@@ -28,6 +28,7 @@ export class PythonWorkerClient {
     this.executionTimeoutMs = executionTimeoutMs;
     this.initializationTimeoutMs = initializationTimeoutMs;
     this.workerFactory = workerFactory;
+    this.initializedWorker = null;
   }
 
   getWorker() {
@@ -110,8 +111,12 @@ export class PythonWorkerClient {
     });
   }
 
-  initialize(signal) {
-    return this.request('initialize', {}, signal, this.initializationTimeoutMs);
+  async initialize(signal) {
+    const worker = this.getWorker();
+    if (this.initializedWorker === worker) return { type: 'initialized' };
+    const result = await this.request('initialize', {}, signal, this.initializationTimeoutMs);
+    if (this.worker === worker) this.initializedWorker = worker;
+    return result;
   }
 
   execute({ source, stdin = '', filename = 'main.py', signal, timeoutMs, executionId, onExecutionEvent }) {
@@ -137,11 +142,14 @@ export class PythonWorkerClient {
     return request.then((result) => {
       onExecutionEvent?.(compilerExecutionEvent(COMPILER_EXECUTION_EVENTS.COMPLETE, executionId));
       if (!interactive && typeof onExecutionEvent === 'function' && /EOFError:\s*EOF when reading a line/.test(String(result.stderr ?? ''))) {
-        return {
+        const normalized = {
           ...result,
           stderr: 'Interactive input is unavailable in this browser session. Enter standard input before running your program.',
         };
+        this.destroyWorker();
+        return normalized;
       }
+      this.destroyWorker();
       return result;
     }, (error) => {
       onExecutionEvent?.(compilerExecutionEvent(error?.name === 'AbortError' ? COMPILER_EXECUTION_EVENTS.CANCELLED : COMPILER_EXECUTION_EVENTS.ERROR, executionId));
@@ -181,6 +189,7 @@ export class PythonWorkerClient {
   destroyWorker() {
     this.worker?.terminate();
     this.worker = null;
+    this.initializedWorker = null;
   }
 
   dispose() {

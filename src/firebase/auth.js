@@ -8,7 +8,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { app, firebaseEnvironment, useFirebaseEmulators } from './firebase';
+import { app, firebaseEnvironment, useFirebaseEmulators } from './firebase.js';
 
 export const auth = getAuth(app);
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import '../../styles/pages/exam.css';
 import { ShieldCheck } from 'lucide-react';
 import { EventBus } from '../engine/EventBus';
 import { createExamConfig } from '../engine/ExamConfig';

@@ -40,6 +40,19 @@ export function OutputPanel({
   const timeComplexity = complexity.time ?? null;
   const spaceComplexity = complexity.space ?? null;
 
+  const handleTabKeyDown = (event, index) => {
+    let nextIndex = null;
+    if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+    if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = tabs.length - 1;
+    if (nextIndex === null) return;
+    event.preventDefault();
+    setActiveTab(tabs[nextIndex].id);
+    onExpand?.();
+    event.currentTarget.parentElement?.querySelectorAll('[role="tab"]')[nextIndex]?.focus();
+  };
+
   useEffect(() => {
     if (status === 'error') setActiveTab('errors');
     else if (status === 'running' || status === 'success') setActiveTab('output');
@@ -58,21 +71,25 @@ export function OutputPanel({
       style={{ height, flexBasis: height }}
       aria-live="polite"
     >
-      <div className="ide-result-tabs" role="tablist" aria-label="Compiler results">
-        {tabs.map((tab) => (
-          <button
-            className={activeTab === tab.id ? 'is-active' : ''}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === tab.id}
-            aria-controls={`compiler-panel-${tab.id}`}
-            onClick={() => { setActiveTab(tab.id); onExpand?.(); }}
-            key={tab.id}
-          >
-            {tab.label}
-            {tab.count ? <span>{tab.count}</span> : null}
-          </button>
-        ))}
+      <div className="ide-result-tabs">
+        <div className="ide-result-tablist" role="tablist" aria-label="Compiler results">
+          {tabs.map((tab, index) => (
+            <button
+              className={activeTab === tab.id ? 'is-active' : ''}
+              type="button"
+              role="tab"
+              tabIndex={activeTab === tab.id ? 0 : -1}
+              aria-selected={activeTab === tab.id}
+              aria-controls={!collapsed && activeTab === tab.id ? `compiler-panel-${tab.id}` : undefined}
+              onClick={() => { setActiveTab(tab.id); onExpand?.(); }}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              key={tab.id}
+            >
+              {tab.label}
+              {tab.count ? <span>{tab.count}</span> : null}
+            </button>
+          ))}
+        </div>
         <button
           className="output-panel-toggle"
           type="button"

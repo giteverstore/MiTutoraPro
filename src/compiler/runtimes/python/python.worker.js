@@ -1,6 +1,49 @@
 import { PYODIDE_CDN_BASE } from './pythonRuntimeConfig.js';
 
 let runtimePromise;
+const sendToHost = self.postMessage.bind(self);
+
+const BLOCKED_PYTHON_IMPORTS = Object.freeze([
+  'js',
+  'micropip',
+  'pyodide',
+  '_pyodide',
+  'socket',
+  'http.client',
+  'http.server',
+  'urllib.request',
+]);
+
+const HOST_CAPABILITIES = Object.freeze([
+  'postMessage',
+  'fetch',
+  'XMLHttpRequest',
+  'WebSocket',
+  'EventSource',
+  'indexedDB',
+  'caches',
+  'BroadcastChannel',
+  'Worker',
+  'SharedWorker',
+  'importScripts',
+]);
+
+function disableHostCapability(name) {
+  try {
+    Object.defineProperty(self, name, {
+      configurable: false,
+      enumerable: false,
+      value: undefined,
+      writable: false,
+    });
+  } catch {
+    try { self[name] = undefined; } catch { /* Best effort for non-configurable browser globals. */ }
+  }
+}
+
+function lockDownHostCapabilities() {
+  HOST_CAPABILITIES.forEach(disableHostCapability);
+}
 
 function getRuntime() {
   if (!runtimePromise) {
@@ -15,8 +58,24 @@ function getRuntime() {
 
 const CAPTURE_SCRIPT = `
 import io
+import builtins
 import sys
 import traceback
+
+_blocked_imports = ${JSON.stringify(BLOCKED_PYTHON_IMPORTS)}
+_original_import = builtins.__import__
+
+def _is_blocked_import(name):
+    return any(name == blocked or name.startswith(blocked + ".") for blocked in _blocked_imports)
+
+def _restricted_import(name, globals=None, locals=None, fromlist=(), level=0):
+    if _is_blocked_import(name):
+        raise ImportError(f"Import of '{name}' is disabled by the YCoders Python runtime policy.")
+    if name == "urllib" and any(item == "request" for item in (fromlist or ())):
+        raise ImportError("Import of 'urllib.request' is disabled by the YCoders Python runtime policy.")
+    if name == "http" and any(item in ("client", "server") for item in (fromlist or ())):
+        raise ImportError("Network-capable http modules are disabled by the YCoders Python runtime policy.")
+    return _original_import(name, globals, locals, fromlist, level)
 
 class _YCodersOutput(io.TextIOBase):
     def __init__(self, writer):
@@ -44,6 +103,10 @@ _original_stdout, _original_stderr, _original_stdin = sys.stdout, sys.stderr, sy
 _execution_status = "success"
 
 try:
+    for _module_name in tuple(sys.modules):
+        if _is_blocked_import(_module_name):
+            sys.modules.pop(_module_name, None)
+    builtins.__import__ = _restricted_import
     sys.stdout = _stdout_stream
     sys.stderr = _stderr_stream
     sys.stdin = _stdin_stream
@@ -52,6 +115,7 @@ except BaseException:
     _execution_status = "error"
     traceback.print_exc(file=_stderr_stream)
 finally:
+    builtins.__import__ = _original_import
     sys.stdout = _original_stdout
     sys.stderr = _original_stderr
     sys.stdin = _original_stdin
@@ -76,7 +140,7 @@ function createStdinReader(data) {
     if (!control || !input) return '';
     Atomics.store(control, 1, 0);
     Atomics.store(control, 0, 1);
-    self.postMessage({ id: data.id, type: 'stdin-request', executionId: data.executionId });
+    sendToHost({ id: data.id, type: 'stdin-request', executionId: data.executionId });
     const state = Atomics.wait(control, 0, 1, data.inputWaitTimeoutMs);
     if (state === 'timed-out') throw new Error('Interactive input wait timed out.');
     const length = Atomics.load(control, 1);
@@ -91,29 +155,29 @@ self.addEventListener('message', async ({ data }) => {
   try {
     const pyodide = await getRuntime();
     if (type === 'initialize') {
-      self.postMessage({ id, type: 'initialized' });
+      lockDownHostCapabilities();
+      sendToHost({ id, type: 'initialized' });
       return;
     }
 
     const { source, stdin, filename } = data;
-    await pyodide.loadPackagesFromImports(source);
     pyodide.globals.set('__mitutora_source', source);
     pyodide.globals.set('__mitutora_filename', filename);
     pyodide.globals.set('_mitutora_readline', createStdinReader(data));
-    pyodide.globals.set('__mitutora_stdout', (value) => self.postMessage({ id, type: 'stdout', value }));
-    pyodide.globals.set('__mitutora_stderr', (value) => self.postMessage({ id, type: 'stderr', value }));
+    pyodide.globals.set('__mitutora_stdout', (value) => sendToHost({ id, type: 'stdout', value }));
+    pyodide.globals.set('__mitutora_stderr', (value) => sendToHost({ id, type: 'stderr', value }));
     const startedAt = performance.now();
     const proxy = await pyodide.runPythonAsync(CAPTURE_SCRIPT);
     const executionTimeMs = Math.max(1, Math.round(performance.now() - startedAt));
     const [status, stdout, stderr] = proxy.toJs();
     proxy.destroy();
-    self.postMessage({ id, type: 'execution', status, stdout, stderr, executionTimeMs });
+    sendToHost({ id, type: 'execution', status, stdout, stderr, executionTimeMs });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     if (type === 'initialize') {
-      self.postMessage({ id, type: 'initialization-error', error: message });
+      sendToHost({ id, type: 'initialization-error', error: message });
     } else {
-      self.postMessage({
+      sendToHost({
         id,
         type: 'execution',
         status: 'error',

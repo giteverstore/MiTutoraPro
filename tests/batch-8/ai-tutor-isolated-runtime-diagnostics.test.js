@@ -54,17 +54,15 @@ describe('Phase 4.7D.3E isolated runtime diagnostics', () => {
 
   it('keeps every route isolated from later layers and all provider/learner code', async () => {
     const sources = Object.fromEntries(await Promise.all([
-      'diagnostic-handler', 'diagnostic-oidc', 'diagnostic-wif',
-      'diagnostic-firebase-auth', 'diagnostic-firestore',
-    ].map(async (name) => [name, await readFile(`api/ai/${name}.js`, 'utf8')])));
+      ['entrypoint', 'api/ai/explain.js'],
+      ['authorization', 'server/diagnostics/phase47d3eAuthorization.js'],
+      ['probe', 'server/ai/infrastructureProbe.js'],
+    ].map(async ([name, path]) => [name, await readFile(path, 'utf8')])));
 
-    expect(sources['diagnostic-handler']).not.toMatch(/oidc|google-auth|firebase|firestore/i);
-    expect(sources['diagnostic-oidc']).not.toMatch(/firebase|firestore|GoogleCredential/i);
-    expect(sources['diagnostic-wif']).not.toMatch(/firebaseAdmin|firebase-admin|Firestore/i);
-    expect(sources['diagnostic-firebase-auth']).not.toMatch(/Firestore|createTutorQuotaFirestore/);
-    expect(sources['diagnostic-firestore']).not.toMatch(/firebase-admin\/auth|getAuth|createRequestFirebaseApp/);
-    expect(Object.values(sources).join('\n')).not.toMatch(/createAIProvider|OpenAIProvider|HuggingFaceProvider|verifyIdToken|learner/);
-    expect(sources['diagnostic-firestore']).toContain("doc('phase47d3e-initialization-check')");
+    expect(sources.entrypoint).toMatch(/createAIExplainHandler/);
+    expect(sources.authorization).not.toMatch(/firebase-admin|Firestore|createAIProvider|OpenAIProvider|HuggingFaceProvider|verifyIdToken/);
+    expect(sources.probe).toMatch(/collection\('aiTutorQuotas'\).*collection\('aiTutorQuotaReservations'\)/s);
+    expect(sources.probe).not.toMatch(/createAIProvider|OpenAIProvider|HuggingFaceProvider|learner/);
     expect(environment.AI_TUTOR_ENABLED).toBe('false');
     expect(environment.AI_TUTOR_ROLLOUT_PERCENTAGE).toBe('0');
   });

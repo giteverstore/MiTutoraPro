@@ -57,8 +57,11 @@ globalThis.MonacoEnvironment = {
   },
 };
 loader.config({ monaco });
+const configuredMonacoInstances = new WeakSet();
 
 function configureMonaco(monacoInstance) {
+  if (configuredMonacoInstances.has(monacoInstance)) return;
+  configuredMonacoInstances.add(monacoInstance);
   if (!monacoInstance.languages.getLanguages().some(({ id }) => id === 'python')) {
     monacoInstance.languages.register({
       id: 'python',
@@ -195,19 +198,38 @@ function configureMonaco(monacoInstance) {
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onCursorPositionChange, onAskSelection, instanceId, standalonePreferences, workspacePreferences, layoutSignal }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onCursorPositionChange, onAskSelection, instanceId, standalonePreferences, workspacePreferences, layoutSignal, modelOwnerPrefix, retainedModelPaths = [] }) {
   const settings = useSettings();
   const editorSettings = workspacePreferences ?? standalonePreferences ?? settings.editor;
   const editorTheme = workspacePreferences?.monacoTheme ?? standalonePreferences?.monacoTheme ?? editorThemeById(settings.editor.theme).monacoTheme;
   const standaloneOptions = standaloneMonacoOptions(standalonePreferences);
   const askSelectionRef = useRef(onAskSelection);
   const editorInstanceRef = useRef(null);
+  const retainedModelPathsKey = retainedModelPaths.join('\n');
   askSelectionRef.current = onAskSelection;
   useEffect(() => {
     if (layoutSignal === undefined || !editorInstanceRef.current) return undefined;
     const frame = window.requestAnimationFrame(() => editorInstanceRef.current?.layout());
     return () => window.cancelAnimationFrame(frame);
   }, [layoutSignal]);
+  useEffect(() => {
+    if (!modelOwnerPrefix) return undefined;
+    const retained = new Set(retainedModelPaths);
+    const frame = window.requestAnimationFrame(() => {
+      const activeModel = editorInstanceRef.current?.getModel();
+      monaco.editor.getModels().forEach((model) => {
+        const uri = model.uri.toString();
+        if (uri.startsWith(modelOwnerPrefix) && !retained.has(uri) && model !== activeModel) model.dispose();
+      });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [editor.modelPath, modelOwnerPrefix, retainedModelPathsKey]);
+  useEffect(() => () => {
+    if (!modelOwnerPrefix) return;
+    monaco.editor.getModels().forEach((model) => {
+      if (model.uri.toString().startsWith(modelOwnerPrefix)) model.dispose();
+    });
+  }, [modelOwnerPrefix]);
   const handleMount = (instance, monacoInstance) => {
     editorInstanceRef.current = instance;
     let activeSelection = null;
@@ -291,6 +313,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
       precondition: 'editorHasSelection',
       run: askAboutSelection,
     }) : null;
+    let focusFrame = null;
     instance.onDidDispose(() => {
       if (editorInstanceRef.current === instance) editorInstanceRef.current = null;
       widgetNode.removeEventListener('pointerdown', preserveSelectionFocus);
@@ -301,8 +324,9 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
       blurDisposable.dispose();
       escapeDisposable.dispose();
       actionDisposable?.dispose();
+      if (focusFrame !== null) window.cancelAnimationFrame(focusFrame);
     });
-    window.requestAnimationFrame(() => {
+    focusFrame = window.requestAnimationFrame(() => {
       const editorNode = instance.getDomNode();
       const bounds = editorNode?.getBoundingClientRect();
       const isVisible = bounds

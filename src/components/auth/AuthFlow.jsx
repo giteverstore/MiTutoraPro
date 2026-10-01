@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import '../../styles/pages/dashboard.css';
+import '../../styles/public-pages.css';
 import { useUser } from '../../auth/UserContext';
 import { useAuth } from '../../auth/AuthContext';
 import { ForgotPassword } from './ForgotPassword';

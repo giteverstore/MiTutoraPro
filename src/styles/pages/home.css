@@ -1224,7 +1224,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: .75rem;
   font-weight: var(--font-weight-semibold);
 }
@@ -1282,7 +1282,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: var(--space-2) var(--space-3);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: .875rem;
 }
 

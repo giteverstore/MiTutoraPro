@@ -1,4 +1,5 @@
 import { ExamProvider } from '../context/ExamProvider';
+import '../../styles/pages/exam.css';
 import { useExam } from '../hooks/useExam';
 import { EXAM_SESSION_STATES } from '../engine/ExamSession';
 import { EnvironmentCheckPage } from './EnvironmentCheckPage';

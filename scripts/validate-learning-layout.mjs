@@ -4,17 +4,22 @@ import { CourseCompletionEngine } from '../functions/src/certification/CourseCom
 import { findLessonProgressScope } from '../src/course/courseStructure.js';
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
-const [course, layout, topNavigation, sidebar, contentArea, footer, styles, completionContext, completionService] = await Promise.all([
+const [course, layout, topNavigation, sidebar, contentArea, footer, learningStyles, shellStyles, courseRoute, completionContext, completionService] = await Promise.all([
   read('public/courses/python-course.json').then(JSON.parse),
   read('src/components/Layout.jsx'),
   read('src/components/TopNavigation.jsx'),
   read('src/components/Sidebar.jsx'),
   read('src/components/ContentArea.jsx'),
   read('src/components/LessonFooter.jsx'),
-  read('src/styles.css'),
+  read('src/styles/pages/learning-engine.css'),
+  read('src/styles/pages/dashboard.css'),
+  read('src/routing/CourseRoute.jsx'),
   read('src/progress/LearningProgressContext.jsx'),
   read('functions/src/certification/CourseCompletionService.js'),
 ]);
+const styles = `${learningStyles}\n${shellStyles}`;
+
+assert.match(courseRoute, /import ['"]\.\.\/styles\/pages\/learning-engine\.css['"];/, 'The Course route must load its Learning Engine stylesheet owner.');
 
 assert.match(layout, /<section className="lesson-region"[\s\S]*?<ContentArea[\s\S]*?<LessonFooter[\s\S]*?<\/section>/, 'The bounded lesson region must own its scroll area and navigation.');
 assert.doesNotMatch(contentArea, /<LessonFooter/, 'Lesson navigation must not scroll inside lesson content.');
@@ -33,7 +38,7 @@ assert.doesNotMatch(footer, /scopeLabel/, 'The footer must not repeat chapter or
 assert.match(styles, /\.lesson-region\s*\{[^}]*container:\s*lesson-region \/ inline-size;/, 'Footer responsiveness must follow the lesson column rather than viewport width.');
 assert.match(styles, /@container lesson-region \(max-width: 38rem\)/, 'Narrow lesson columns require compact non-overlapping navigation controls.');
 assert.match(styles, /\.course-section-group\s*\{[^}]*padding-bottom:\s*var\(--space-6\);[^}]*border-bottom:/, 'Expanded section contents require a clear boundary before the next section.');
-assert.match(styles, /\.course-section-group \+ \.course-section-group\s*\{[^}]*margin-top:\s*var\(--space-6\);/, 'Collapsed and expanded sections require a consistent hierarchical gap.');
+assert.match(styles, /\.course-section-group\s*\+\s*\.course-section-group\s*\{[^}]*margin-top:\s*var\(--space-6\);/, 'Collapsed and expanded sections require a consistent hierarchical gap.');
 assert.match(styles, /\.lesson-link\s*\{[^}]*margin:\s*2px 0;/, 'Lessons within one section must retain a compact rhythm.');
 assert.match(layout, /isOverlay=\{isSidebarOverlay\}/, 'The sidebar must receive the existing responsive layout mode.');
 assert.match(layout, /setIsSidebarOverlay\(matches\);\s*setIsDrawerOpen\(false\);/, 'Changing layout modes must dismiss stale drawer state.');

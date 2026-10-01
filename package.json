@@ -104,9 +104,9 @@
     "analyze:content-complexity": "node scripts/analyze-content-complexity.mjs",
     "validate:remediation-batch-7": "npm run test:batch-7 && npm run validate:content-limits && npm run validate:script-conventions",
     "validate:trusted-completion": "node scripts/validate-trusted-lesson-completion.mjs",
-    "validate:certification-security": "firebase emulators:exec --only firestore \"node tests/firestore/certification.rules.test.mjs\"",
-    "validate:content-security": "firebase emulators:exec --only firestore \"node tests/firestore/content.rules.test.mjs\"",
-    "validate:storage-security": "firebase emulators:exec --only storage \"node tests/storage/content.rules.test.mjs\""
+    "validate:certification-security": "node scripts/run-firebase-rules-test.mjs certification",
+    "validate:content-security": "node scripts/run-firebase-rules-test.mjs content",
+    "validate:storage-security": "node scripts/run-firebase-rules-test.mjs storage"
   },
   "dependencies": {
     "@babel/standalone": "^7.29.9",
@@ -122,6 +122,7 @@
     "@sqlite.org/sqlite-wasm": "^3.53.4-build1",
     "@vercel/oidc": "3.8.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "es-module-lexer": "^2.3.2",
     "firebase": "^12.17.0",
     "firebase-admin": "^14.2.0",
     "google-auth-library": "10.9.1",
@@ -138,8 +139,10 @@
     "webr": "0.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@firebase/rules-unit-testing": "^5.0.1",
     "@playwright/test": "^1.62.1",
+    "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "ajv": "^8.20.0",

@@ -1,7 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PROJECT_ID = 'demo-local-coin-ledger';
@@ -21,6 +21,8 @@ Object.assign(environment, {
 
 if (!emulatorHost) {
   const isolatedWorkingDirectory = mkdtempSync(join(tmpdir(), 'mi-tutora-coin-emulator-'));
+  environment.XDG_CONFIG_HOME = join(isolatedWorkingDirectory, 'firebase-cli');
+  if (environment.JAVA_HOME) environment.PATH = `${join(environment.JAVA_HOME, 'bin')}${delimiter}${environment.PATH ?? ''}`;
   const firebaseCli = fileURLToPath(new URL('../node_modules/firebase-tools/lib/bin/firebase.js', import.meta.url));
   const firebaseConfig = fileURLToPath(new URL('../firebase.json', import.meta.url));
   const runner = fileURLToPath(import.meta.url);

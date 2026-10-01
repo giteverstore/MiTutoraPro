@@ -5,6 +5,20 @@ import { JavaScriptRuntime } from '../../src/compiler/runtimes/javascript/JavaSc
 import { TypeScriptRuntime } from '../../src/compiler/runtimes/typescript/TypeScriptRuntime.js';
 
 describe('JavaScript and TypeScript browser runtimes', () => {
+  it('stops worker-side output capture at the shared stdout limit', async () => {
+    const result = await executeJavaScriptSource({ source: 'console.log("x".repeat(2 * 1024 * 1024 + 1));' });
+    expect(result).toMatchObject({ status: 'error', code: 'output_limit_exceeded', truncated: true });
+    expect(result.errors).toContain('Program stopped because it produced too much output.');
+    expect(new TextEncoder().encode(result.stdout).byteLength).toBeLessThanOrEqual(2 * 1024 * 1024);
+  });
+
+  it('rejects dynamic imports before module resolution can initiate a request', async () => {
+    const result = await executeJavaScriptSource({ source: "return import('https://example.invalid/probe.js');" });
+
+    expect(result.status).toBe('error');
+    expect(result.stderr).toContain('Network access is unavailable in this compiler.');
+  });
+
   it('requests and submits interactive input through the shared channel', async () => {
     const originalIsolation = globalThis.crossOriginIsolated;
     Object.defineProperty(globalThis, 'crossOriginIsolated', { configurable: true, value: true });

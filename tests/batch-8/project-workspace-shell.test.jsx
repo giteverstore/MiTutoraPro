@@ -4,10 +4,10 @@ import { resolve } from 'node:path';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { projectCatalog } from '../../src/projects/repositories/ProjectCatalog';
-import { ProjectWorkspace } from '../../src/projects/pages/ProjectWorkspace';
+import { ProjectWorkspace, projectModelOwnerPrefix, projectModelPath } from '../../src/projects/pages/ProjectWorkspace';
 
 vi.mock('../../src/compiler/CompilerProvider', () => ({ useCompilerManager: () => ({}) }));
-vi.mock('../../src/components/EditorPlaceholder', () => ({ EditorPlaceholder: ({ editor, value, onChange, onCursorPositionChange, workspacePreferences, loadingTheme }) => <textarea aria-label={editor.ariaLabel} data-font-size={workspacePreferences?.fontSize} data-tab-size={workspacePreferences?.tabSize} data-word-wrap={workspacePreferences?.wordWrap} data-monaco-theme={workspacePreferences?.monacoTheme} data-loading-theme={loadingTheme} value={value} onChange={(event) => onChange(event.target.value)} onSelect={() => onCursorPositionChange?.({ lineNumber: 7, column: 3 })} /> }));
+vi.mock('../../src/components/EditorPlaceholder', () => ({ EditorPlaceholder: ({ editor, value, onChange, onCursorPositionChange, workspacePreferences, loadingTheme, modelOwnerPrefix, retainedModelPaths }) => <textarea aria-label={editor.ariaLabel} data-font-size={workspacePreferences?.fontSize} data-tab-size={workspacePreferences?.tabSize} data-word-wrap={workspacePreferences?.wordWrap} data-monaco-theme={workspacePreferences?.monacoTheme} data-loading-theme={loadingTheme} data-model-path={editor.modelPath} data-model-owner-prefix={modelOwnerPrefix} data-retained-model-paths={retainedModelPaths?.join(',')} value={value} onChange={(event) => onChange(event.target.value)} onSelect={() => onCursorPositionChange?.({ lineNumber: 7, column: 3 })} /> }));
 vi.mock('../../src/ai/AITutorWorkspace', () => ({ AITutorWorkspace: () => { const [draft, setDraft] = React.useState(''); return <label>AI Guide workspace<input aria-label="AI draft" value={draft} onChange={(event) => setDraft(event.target.value)} /></label>; } }));
 
 const css = readFileSync(resolve(process.cwd(), 'src/styles/pages/projects.css'), 'utf8');
@@ -17,6 +17,12 @@ beforeEach(() => { storage.clear(); vi.stubGlobal('localStorage', { getItem: (ke
 afterEach(cleanup);
 
 describe('immersive project workspace shell', () => {
+  it('names models by encoded project/file identity so projects and renamed paths cannot collide', () => {
+    expect(projectModelOwnerPrefix('project / one')).toBe('ycoders-project://project%20%2F%20one/');
+    expect(projectModelPath('project / one', 'src/my file.py')).toBe('ycoders-project://project%20%2F%20one/src/my%20file.py');
+    expect(projectModelPath('project-a', 'main.py')).not.toBe(projectModelPath('project-b', 'main.py'));
+  });
+
   it('renders the VS Code-inspired structure without AppShell or public footer chrome', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
     expect(container.querySelector('.project-ide-shell')).toBeInTheDocument();
@@ -26,6 +32,8 @@ describe('immersive project workspace shell', () => {
     expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
+    expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-model-owner-prefix', projectModelOwnerPrefix(project.id));
+    expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-retained-model-paths', projectModelPath(project.id, project.template.sourcePath));
     for (const tab of ['terminal', 'output', 'problems', 'tests']) expect(screen.getByRole('tab', { name: tab })).toBeInTheDocument();
   });
 
@@ -56,6 +64,36 @@ describe('immersive project workspace shell', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Restore bottom panel' }));
     expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
     expect(screen.getByRole('complementary', { name: 'Guide and AI' })).toBeInTheDocument();
+  });
+
+  it('removes active workspace resize listeners when navigation unmounts mid-drag', () => {
+    const remove = vi.spyOn(window, 'removeEventListener');
+    const { unmount } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
+    fireEvent.pointerDown(screen.getByRole('separator', { name: 'Resize left panel' }), { clientX: 280 });
+    unmount();
+    expect(remove).toHaveBeenCalledWith('pointermove', expect.any(Function));
+    expect(remove).toHaveBeenCalledWith('pointerup', expect.any(Function));
+  });
+
+  it('exposes keyboard-operable splitters and semantic file tabs', () => {
+    render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
+    const left = screen.getByRole('separator', { name: 'Resize left panel' });
+    const right = screen.getByRole('separator', { name: 'Resize Guide and AI' });
+    const bottom = screen.getByRole('separator', { name: 'Resize bottom panel' });
+    expect(left).toHaveAttribute('tabindex', '0');
+    expect(left).toHaveAttribute('aria-valuenow', '280');
+    fireEvent.keyDown(left, { key: 'ArrowRight' });
+    expect(left).toHaveAttribute('aria-valuenow', '290');
+    fireEvent.keyDown(right, { key: 'ArrowLeft' });
+    expect(right).toHaveAttribute('aria-valuenow', '370');
+    fireEvent.keyDown(bottom, { key: 'ArrowUp' });
+    expect(bottom).toHaveAttribute('aria-valuenow', '200');
+    expect(screen.getByRole('toolbar', { name: 'Open project files' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'output' }), { key: 'ArrowRight' });
+    expect(screen.getByRole('tab', { name: 'problems' })).toHaveAttribute('aria-selected', 'true');
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Guide' }), { key: 'ArrowRight' });
+    expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
   });
 
   it('returns to Projects and preserves the existing Free implementation boundary', () => {

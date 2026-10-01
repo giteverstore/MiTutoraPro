@@ -209,6 +209,10 @@
   }
 }
 
+.landing-mentor-steps li > span {
+  color: var(--color-accent-hover);
+}
+
 /* Stage labels share each marker's canonical coordinates plus a local pixel offset. */
 @media (min-width: 1001px) {
   .landing-how ol .landing-how-step,

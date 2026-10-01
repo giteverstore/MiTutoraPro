@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import '../styles/standalone-compiler.css';
 import { getPublicCompilerLanguage, publicCompilerLanguages } from '../compiler/languages/supportedLanguages.js';
 import { StandaloneCompilerPage } from './StandaloneCompilerPage.jsx';
 import { parseStandaloneCompilerRoute, standaloneCompilerPath } from './standaloneCompilerRouting.js';

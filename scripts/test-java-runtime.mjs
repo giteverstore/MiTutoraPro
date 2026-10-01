@@ -5,7 +5,10 @@ import { pathToFileURL } from 'node:url';
 import { TeaVMJavaEngine, validateJavaProgramContract } from '../src/compiler/runtimes/java/TeaVMJavaEngine.js';
 import { createJavaExecutionResult } from '../src/compiler/runtimes/java/outputCapture.js';
 import { JavaWorkerClient } from '../src/compiler/runtimes/java/JavaWorkerClient.js';
-import { createCompilerManager } from '../src/compiler/createCompilerManager.js';
+import { CompilerManager } from '../src/compiler/core/CompilerManager.js';
+import { RuntimeRegistry } from '../src/compiler/core/RuntimeRegistry.js';
+import { ValidatorRegistry } from '../src/compiler/core/ValidatorRegistry.js';
+import { NormalizedOutputValidator } from '../src/compiler/validators/NormalizedOutputValidator.js';
 
 const vendorRoot = resolve('public/vendor/teavm-javac');
 const engine = new TeaVMJavaEngine({
@@ -63,7 +66,10 @@ assert.match(runtimeFailure.errors.join('\n'), /ArithmeticException|\/ by zero|d
 
 engine.dispose();
 
-const manager = createCompilerManager();
+const manager = new CompilerManager({
+  runtimeRegistry: new RuntimeRegistry(),
+  validatorRegistry: new ValidatorRegistry().register('normalized_output', new NormalizedOutputValidator()),
+});
 assert.equal(manager.runtimeRegistry.getInitializedRuntimes().length, 0, 'Creating the manager must not initialize Java.');
 manager.runtimeRegistry.register('java-test-double', () => ({
   initialize: async () => {},

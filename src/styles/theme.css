@@ -52,13 +52,13 @@
   /* Difficulty — deliberately independent from brand */
   --difficulty-easy-base: #b8e8c5;
   --difficulty-easy-bg: color-mix(in srgb, var(--difficulty-easy-base) 50%, transparent);
-  --difficulty-easy-fg: #16803c;
+  --difficulty-easy-fg: #116b32;
   --difficulty-medium-base: #ffd66b;
   --difficulty-medium-bg: color-mix(in srgb, var(--difficulty-medium-base) 50%, transparent);
-  --difficulty-medium-fg: #d97706;
+  --difficulty-medium-fg: #92400e;
   --difficulty-hard-base: #ffb3be;
   --difficulty-hard-bg: color-mix(in srgb, var(--difficulty-hard-base) 50%, transparent);
-  --difficulty-hard-fg: #ff0035;
+  --difficulty-hard-fg: #b91c1c;
 
   /* Fixed certificate document palette */
   --certificate-color-ink: #29352f;

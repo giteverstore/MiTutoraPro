@@ -554,7 +554,7 @@
 }
 
 .lesson-label small {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   letter-spacing: .05em;
@@ -594,7 +594,7 @@
 }
 
 .sidebar-footer small {
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   font-size: 9px;
 }
 
@@ -833,7 +833,7 @@
 
 .lesson-details span {
   padding: var(--space-1) var(--space-2);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   background: var(--color-surface-subtle);
   border-radius: var(--radius-xs);
   font-size: var(--font-size-xs);
@@ -1377,6 +1377,7 @@
 }
 
 .rich-text-plain {
+  color: var(--color-text);
   white-space: pre-line;
 }
 
@@ -1500,7 +1501,7 @@
 .note-card p,
 .unknown-block p {
   margin: 5px 0 0;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: 11px;
   line-height: 1.65;
 }
@@ -3255,6 +3256,10 @@ body:not(.is-resizing) .practice-test-panel.console-window {
   overflow-x: auto;
   background: #242925;
   border-bottom: 1px solid #373d39;
+}
+
+.ide-result-tablist {
+  display: contents;
 }
 
 .ide-result-tabs .output-panel-toggle {

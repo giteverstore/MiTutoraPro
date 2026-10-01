@@ -72,7 +72,7 @@
 }
 
 .settings-navigation button.is-active {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
   background: var(--color-accent-soft);
   font-weight: var(--font-weight-semibold);
 }

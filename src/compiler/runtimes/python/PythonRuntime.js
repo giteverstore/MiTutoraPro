@@ -13,6 +13,9 @@ export class PythonRuntime extends RuntimeAdapter {
   }
 
   async execute({ source, stdin, filename, signal, timeoutMs, executionId, onExecutionEvent }) {
+    // Successful runs dispose their worker, so every execution gets a fresh
+    // Pyodide VM while initialization retains its separate bounded timeout.
+    await this.client.initialize(signal);
     const payload = await this.client.execute({ source, stdin, filename, signal, timeoutMs, executionId, onExecutionEvent });
     return createPythonExecutionResult(payload);
   }

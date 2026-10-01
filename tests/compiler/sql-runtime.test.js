@@ -65,6 +65,11 @@ describe('SQL SQLite runtime', () => {
     expect(() => execute('CREATE TABLE users (id INTEGER); SELECT missing FROM users;')).toThrow(/no such column/i);
   });
 
+  it('stops collecting result rows at the shared database rendering limit', () => {
+    expect(() => execute('WITH RECURSIVE rows(value) AS (SELECT 1 UNION ALL SELECT value + 1 FROM rows WHERE value < 1001) SELECT value FROM rows;'))
+      .toThrow(/limited to 1000 rows/i);
+  });
+
   it('splits semicolons safely inside strings and comments', () => {
     expect(splitSqlStatements("SELECT ';' AS value; -- ; ignored\nSELECT 2;")).toHaveLength(2);
   });

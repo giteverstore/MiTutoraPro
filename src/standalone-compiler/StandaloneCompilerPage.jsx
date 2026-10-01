@@ -11,6 +11,7 @@ import { useStandaloneCompilerPreferences } from './useStandaloneCompilerPrefere
 import { standaloneCompilerPath } from './standaloneCompilerRouting.js';
 import { isStandaloneCompilerHost } from './standaloneCompilerHost.js';
 import { standaloneMonacoTheme } from './standaloneMonacoThemes.js';
+import { appendBoundedTranscript, COMPILER_RESOURCE_MESSAGES } from '../compiler/core/compilerResourcePolicy.js';
 
 const MonacoCodeEditor = lazy(() => import('../components/MonacoCodeEditor.jsx'));
 const COMING_SOON_LANGUAGES = new Set(['go', 'rust', 'mysql']);
@@ -75,6 +76,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   const [executionState, setExecutionState] = useState('idle');
   const [stdinHistory, setStdinHistory] = useState([]);
   const [terminalTranscript, setTerminalTranscript] = useState('');
+  const transcriptRef = useRef({ text: '', bytes: 0, truncated: false });
   const [dialog, setDialog] = useState(null);
   const [resultCollapsed, setResultCollapsed] = useState(false);
   const [splitRatio, setSplitRatio] = useState(initialSplitRatio);
@@ -85,7 +87,9 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   const instanceId = `standalone-${language.id}`;
   const isComingSoon = isStandaloneComingSoonLanguage(language);
 
-  useEffect(() => { setSource(initialSnapshot?.source ?? starter); setStdin(initialSnapshot?.stdinIncluded ? initialSnapshot.stdin ?? '' : ''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); setTerminalTranscript(''); }, [language.id, starter, initialSnapshot]);
+  const clearTranscript = useCallback(() => { transcriptRef.current = { text: '', bytes: 0, truncated: false }; setTerminalTranscript(''); }, []);
+  const appendTranscript = useCallback((value) => { transcriptRef.current = appendBoundedTranscript(transcriptRef.current, value); setTerminalTranscript(transcriptRef.current.text); }, []);
+  useEffect(() => { setSource(initialSnapshot?.source ?? starter); setStdin(initialSnapshot?.stdinIncluded ? initialSnapshot.stdin ?? '' : ''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); clearTranscript(); }, [language.id, starter, initialSnapshot, clearTranscript]);
   useEffect(() => () => controllerRef.current?.abort(), []);
   useEffect(() => {
     document.body.dataset.standaloneCompilerTheme = preferences.resolvedTheme;
@@ -125,11 +129,11 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
     if (isComingSoon) return;
     const controller = new AbortController();
     const executionId = `${instanceId}-${++executionIdRef.current}`;
-    controllerRef.current = controller; setRunning(true); setExecutionState('running'); setStdinHistory([]); setTerminalTranscript(''); setError(''); setResult(''); setExecution(null);
+    controllerRef.current = controller; setRunning(true); setExecutionState('running'); setStdinHistory([]); clearTranscript(); setError(''); setResult(''); setExecution(null);
     const onExecutionEvent = (event) => {
       if (event.executionId !== executionId) return;
-      if (event.type === 'stdout') { setResult((current) => current + event.value); setTerminalTranscript((current) => current + event.value); }
-      if (event.type === 'stderr') { setError((current) => current + event.value); setTerminalTranscript((current) => current + event.value); }
+      if (event.type === 'stdout') { setResult((current) => current + event.value); appendTranscript(event.value); }
+      if (event.type === 'stderr') { setError((current) => current + event.value); appendTranscript(event.value); }
       if (event.type === 'stdin-request') setExecutionState('waiting_for_input');
       if (event.type === 'execution-cancelled') setExecutionState('cancelled');
     };
@@ -144,18 +148,24 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   };
   const submitInteractiveStdin = (value) => {
     const executionId = `${instanceId}-${executionIdRef.current}`;
-    const submitted = manager.submitStdin({ language: language.id, instanceId, executionId, value: value.endsWith('\n') ? value : `${value}\n` });
-    if (submitted) { setStdinHistory((history) => [...history, value]); setTerminalTranscript((current) => `${current}${value}\n`); setExecutionState('running'); }
-    return submitted;
+    try {
+      const submitted = manager.submitStdin({ language: language.id, instanceId, executionId, value: value.endsWith('\n') ? value : `${value}\n` });
+      if (submitted) { setStdinHistory((history) => [...history, value]); appendTranscript(`${value}\n`); setExecutionState('running'); }
+      return submitted;
+    } catch (inputError) {
+      const message = inputError.message || COMPILER_RESOURCE_MESSAGES.stdin_limit_exceeded;
+      setError(message); appendTranscript(`\n${message}\n`); setExecutionState('error');
+      return false;
+    }
   };
-  const reset = () => { controllerRef.current?.abort(); setSource(starter); setStdin(''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); setTerminalTranscript(''); };
+  const reset = () => { controllerRef.current?.abort(); setSource(starter); setStdin(''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); clearTranscript(); };
   const chooseLanguage = (next) => { setDialog(null); onNavigate(standaloneCompilerPath(next)); };
   const editorPreferences = { ...preferences.preferences, monacoTheme: standaloneMonacoTheme(preferences.resolvedTheme).name };
   const runLabel = isComingSoon ? 'Coming Soon' : running ? 'Stop' : 'Run';
 
   return <main className="standalone-compiler" data-theme={preferences.resolvedTheme}>
     <header className="standalone-compiler-navbar">
-      <a className="standalone-compiler-brand" href={isStandaloneCompilerHost(window.location.hostname) ? '/' : '/__compiler'}><img src="/ycoders-mark.svg" alt="" /><strong>Y CODERS</strong><span>Online Compiler</span></a>
+      <a className="standalone-compiler-brand" aria-label="Y Coders Online Compiler" href={isStandaloneCompilerHost(window.location.hostname) ? '/' : '/__compiler'}><img src="/ycoders-mark.svg" alt="" /><strong>Y CODERS</strong><span>Online Compiler</span></a>
       <span className="standalone-navbar-spacer" />
       <div className="standalone-navbar-right">
         <button className="standalone-language-trigger" type="button" onClick={() => setDialog('language')}><span>{language.label}</span><ChevronDown size={18} /></button>
@@ -172,7 +182,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
     </header>
     <div className="standalone-workspace-shell">
       <div ref={workspaceRef} className={`standalone-compiler-workspace${resultCollapsed ? ' is-result-collapsed' : ' is-two-pane'}`} style={{ gridTemplateColumns: resultCollapsed ? 'minmax(0,1fr)' : `minmax(0,${splitRatio}fr) .5rem minmax(0,${100 - splitRatio}fr)` }}>
-        <section className="standalone-editor-pane"><div className="standalone-file-bar"><div className="standalone-file-tab" role="tab" aria-selected="true"><FileCode2 size={15} aria-hidden="true" /><span>{language.defaultFileName}</span></div></div><Suspense fallback={<div className="monaco-loading-state">Loading editor...</div>}><MonacoCodeEditor editor={editor} value={source} onChange={setSource} instanceId={instanceId} standalonePreferences={editorPreferences} layoutSignal={`${splitRatio}-${resultCollapsed}`} /></Suspense></section>
+        <section className="standalone-editor-pane"><div className="standalone-file-bar"><div className="standalone-file-tab"><FileCode2 size={15} aria-hidden="true" /><span>{language.defaultFileName}</span></div></div><Suspense fallback={<div className="monaco-loading-state">Loading editor...</div>}><MonacoCodeEditor editor={editor} value={source} onChange={setSource} instanceId={instanceId} standalonePreferences={editorPreferences} layoutSignal={`${splitRatio}-${resultCollapsed}`} /></Suspense></section>
         <div hidden={resultCollapsed} className="standalone-workspace-divider" role="separator" aria-label="Resize editor and results" aria-orientation="vertical" aria-valuemin={MIN_EDITOR_PERCENT} aria-valuemax={MAX_EDITOR_PERCENT} aria-valuenow={Math.round(splitRatio)} tabIndex="0" onPointerDown={(event) => { event.preventDefault(); setResizing(true); }} onDoubleClick={() => updateSplit(DEFAULT_SPLIT)} onKeyDown={(event) => { if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); updateSplit(splitRatio + (event.key === 'ArrowLeft' ? -2 : 2)); } if (event.key === 'Home') { event.preventDefault(); updateSplit(DEFAULT_SPLIT); } }}><span /></div>
         <div className="standalone-result-pane" hidden={resultCollapsed}>
           {language.executionMode === 'preview' ? <PreviewPanel preview={execution?.preview} executionStatus={running ? 'running' : execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />

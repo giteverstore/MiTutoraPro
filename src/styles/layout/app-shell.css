@@ -18,6 +18,24 @@
   transition: grid-template-columns var(--duration-normal) var(--ease-emphasized);
 }
 
+.application-skip-link {
+  position: fixed;
+  top: .75rem;
+  left: .75rem;
+  z-index: 1000;
+  padding: .65rem .9rem;
+  color: var(--color-text-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(calc(-100% - 1rem));
+  transition: transform var(--motion-fast);
+}
+
+.application-skip-link:focus {
+  transform: translateY(0);
+}
+
 .application-shell.is-sidebar-collapsed {
   --application-sidebar-width: var(--layout-sidebar-width-collapsed);
 }
@@ -122,7 +140,7 @@
 }
 
 .application-navigation button.is-active {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
   background: var(--color-accent-soft);
   font-weight: var(--font-weight-semibold);
 }

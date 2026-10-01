@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LandingPage } from '../../src/public/LandingPage';
@@ -419,10 +419,10 @@ describe('anonymous project browsing boundary', () => {
 });
 
 describe('public browse routing', () => {
-  it('renders the shared Library page in the public shell without private navigation or progress', () => {
+  it('renders the shared Library page in the public shell without private navigation or progress', async () => {
     window.history.replaceState({}, '', '/library');
     const { container } = render(<PublicBrowseApplication />);
-    expect(container.querySelector('.library-main')).toBeInTheDocument();
+    await waitFor(() => expect(container.querySelector('.library-main')).toBeInTheDocument());
     expect(screen.getByRole('button', { name: 'Login' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Sign Up' })).toBeVisible();
     expect(container.querySelector('.app-sidebar')).not.toBeInTheDocument();

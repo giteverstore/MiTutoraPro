@@ -8,7 +8,7 @@ Styles load in this order:
 
 1. `src/design-system/tokens.css` defines semantic color, typography, spacing, shape, elevation, motion, control, and layout values.
 2. `src/design-system/primitives.css` defines reusable buttons, cards, inputs, and text roles.
-3. `src/styles.css` contains feature-owned layout and component styles.
+3. `src/styles/index.css` loads the shared foundation, while route-owned sheets under `src/styles/pages/`, `src/styles/layout/`, and `src/styles/components/` contain feature layout and component styles.
 4. `src/design-system/coherence.css` applies shared product-level hierarchy, responsive behavior, interaction feedback, and accessibility preferences.
 
 Feature code should consume semantic tokens instead of introducing colors, shadows, or motion durations that duplicate an existing role. Add a token only when the value represents a reusable design decision.

@@ -6,10 +6,15 @@ const credentials = {
 };
 
 async function ensureEmulatorUser(request) {
-  const response = await request.post(
-    'http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signUp?key=demo-api-key',
-    { data: { email: credentials.email, password: credentials.password, returnSecureToken: true } },
-  );
+  let response;
+  try {
+    response = await request.post(
+      'http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signUp?key=demo-api-key',
+      { data: { email: credentials.email, password: credentials.password, returnSecureToken: true } },
+    );
+  } catch (error) {
+    throw new Error(`Authenticated E2E setup failed: Firebase Auth emulator is unavailable at 127.0.0.1:9099. ${error.message}`);
+  }
   if (!response.ok()) {
     const body = await response.json();
     expect(body.error?.message).toBe('EMAIL_EXISTS');
@@ -18,11 +23,13 @@ async function ensureEmulatorUser(request) {
 
 async function signIn(page, request) {
   await ensureEmulatorUser(request);
-  await page.goto('/');
+  await page.goto('/login');
+  await page.getByRole('heading', { name: 'Sign in to continue' }).waitFor({ state: 'visible' });
   await page.getByLabel('Email').fill(credentials.email);
   await page.getByLabel('Password').fill(credentials.password);
   await page.getByRole('button', { name: /^Sign in/ }).click();
-  await expect(page.getByRole('heading', { name: /Welcome back/i })).toBeVisible({ timeout: 60_000 });
+  await expect(page.getByRole('heading', { name: /Welcome back/i })).toBeVisible({ timeout: 60_000 })
+    .catch((error) => { throw new Error(`Authenticated E2E setup failed: sign-in completed without a persisted authenticated shell. ${error.message}`); });
 }
 
 async function openShellPage(page, name) {
@@ -32,6 +39,14 @@ async function openShellPage(page, name) {
 }
 
 test.describe('authenticated core journeys', () => {
+  test('authenticates and opens a protected route', async ({ page, request }) => {
+    await signIn(page, request);
+    await page.goto('/settings');
+    await expect(page).toHaveURL(/\/settings$/);
+    await expect(page.locator('#application-page')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Profile' })).toBeVisible();
+  });
+
   test('loads the shell, Home, a course overview, and the learning workspace', async ({ page, request }) => {
     await signIn(page, request);
     await expect(page.getByRole('main')).toBeVisible();

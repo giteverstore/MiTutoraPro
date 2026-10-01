@@ -110,7 +110,6 @@ export function ContinueLearningSection({ courses = [], status, onOpenCourse, on
       {status === 'loading' ? <div className="home-course-empty" role="status"><p>Loading your learning state…</p></div> : visibleCourses.length ? <div className="home-continue-grid" id="continue-learning-courses">{visibleCourses.map((course) => <article className="home-continue-card" key={course.id}>
         <div className="home-continue-mark" aria-hidden="true"><BookOpen /></div>
         <div className="home-continue-copy">
-          <span>{course.currentModule ?? 'Your saved course'}</span>
           <h3>{course.title}</h3>
           <p>{course.currentLesson ?? 'Start with the first lesson'}</p>
         </div>

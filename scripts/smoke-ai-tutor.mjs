@@ -1,10 +1,20 @@
 import process from 'node:process';
+import { createServer as createNetServer } from 'node:net';
 import { createServer, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { chromium } from '@playwright/test';
 import { viteAITutorPlugin } from '../server/ai/viteAITutorPlugin.js';
 
 const SMOKE_TOKEN = 'local-ai-smoke-token';
+
+const reservePort = () => new Promise((resolve, reject) => {
+  const probe = createNetServer();
+  probe.once('error', reject);
+  probe.listen(0, '127.0.0.1', () => {
+    const { port } = probe.address();
+    probe.close((error) => error ? reject(error) : resolve(port));
+  });
+});
 
 const environment = loadEnv('development', process.cwd(), '');
 if (environment.AI_PROVIDER !== 'huggingface') {
@@ -20,27 +30,18 @@ if (!environment.AI_MODEL) {
 const smokePlugin = {
   name: 'mi-tutora-ai-smoke-page',
   configureServer(server) {
-    server.middlewares.use('/__ai-tutor-smoke', async (request, response, next) => {
-      if (request.url !== '/') return next();
-      const html = await server.transformIndexHtml('/__ai-tutor-smoke/', `
+    server.middlewares.use('/__ai-tutor-smoke', (_request, response) => {
+      const html = `
         <div id="root"></div>
         <script type="module">
-          import React from 'react';
-          import { createRoot } from 'react-dom/client';
-          import { AITutorPanel } from '/src/ai/AITutorPanel.jsx';
-          import { AITutorClient } from '/src/ai/AITutorClient.js';
-          import '/src/styles.css';
-          const client = new AITutorClient({ tokenProvider: async () => '${SMOKE_TOKEN}' });
-          createRoot(document.getElementById('root')).render(React.createElement(AITutorPanel, {
-            language: 'python',
-            code: 'numbers = [1, 2, 3]\\nprint(numbers)',
-            selectedCode: '',
-            compilerStatus: 'success',
-            lessonContext: 'Python lists',
-            client
-          }));
+          import RefreshRuntime from '/@react-refresh';
+          RefreshRuntime.injectIntoGlobalHook(window);
+          window.$RefreshReg$ = () => {};
+          window.$RefreshSig$ = () => (type) => type;
+          window.__vite_plugin_react_preamble_installed__ = true;
         </script>
-      `);
+        <script type="module" src="/scripts/fixtures/ai-tutor-smoke.jsx"></script>
+      `;
       response.statusCode = 200;
       response.setHeader('Content-Type', 'text/html; charset=utf-8');
       response.end(html);
@@ -48,8 +49,10 @@ const smokePlugin = {
   },
 };
 
+const smokePort = await reservePort();
 const server = await createServer({
   configFile: false,
+  appType: 'custom',
   logLevel: 'error',
   plugins: [
     react(),
@@ -61,28 +64,63 @@ const server = await createServer({
           return { uid: 'local-ai-smoke-user' };
         },
       },
+      premiumAccessGuard: { assertPremium: async () => undefined },
+      featureGate: {
+        assertEnabled: async () => ({ enabled: true, state: 'smoke', bucket: null, version: 'local-smoke' }),
+      },
+      quotaGuard: {
+        assertAllowed: async ({ requestId = 'local-ai-smoke', usageEstimate, usageMaximum }) => ({
+          requestId,
+          estimate: usageEstimate,
+          maximum: usageMaximum,
+        }),
+        settle: async () => true,
+      },
     }),
   ],
-  server: { host: '127.0.0.1', port: 0, strictPort: false },
+  server: { host: '127.0.0.1', port: smokePort, strictPort: true },
 });
 let browser;
 const startedAt = performance.now();
 try {
   await server.listen();
+  console.log('AI Tutor smoke: Vite server listening.');
   const baseUrl = server.resolvedUrls?.local?.[0];
   if (!baseUrl) throw new Error('The local AI Tutor smoke server did not expose a URL.');
+  const smokeUrl = new URL('/__ai-tutor-smoke/', baseUrl).href;
+  const readiness = await fetch(smokeUrl, { signal: AbortSignal.timeout(5_000) });
+  console.log('AI Tutor smoke: page endpoint ready.');
+  if (!readiness.ok) throw new Error(`The local AI Tutor smoke page was not ready (${readiness.status}).`);
   browser = await chromium.launch({ headless: true });
+  console.log('AI Tutor smoke: Chromium launched.');
   const page = await browser.newPage();
+  page.on('console', (message) => { if (message.type() === 'error') console.error(`AI Tutor smoke console: ${message.text()}`); });
+  page.on('pageerror', (error) => console.error(`AI Tutor smoke page error: ${error.message}`));
+  page.on('requestfailed', (request) => console.error(`AI Tutor smoke request failed: ${request.url()} (${request.failure()?.errorText ?? 'unknown'})`));
   let apiResult = null;
   page.on('requestfailed', (request) => {
     if (new URL(request.url()).pathname === '/api/ai/explain') apiResult = { failed: request.failure()?.errorText ?? 'request failed' };
   });
-  await page.goto(new URL('/__ai-tutor-smoke/', baseUrl).href, { waitUntil: 'networkidle' });
-  const apiResponsePromise = page.waitForResponse((response) => new URL(response.url()).pathname === '/api/ai/explain');
+  await page.goto(smokeUrl, { waitUntil: 'commit' });
+  console.log('AI Tutor smoke: panel page loaded.');
+  try {
+    await page.getByRole('button', { name: 'Explain full code' }).waitFor({ state: 'visible', timeout: 30_000 });
+  } catch (error) {
+    console.error(`AI Tutor smoke markup after load failure: ${(await page.locator('body').innerText().catch(() => '')).slice(0, 1_000)}`);
+    throw error;
+  }
+  const apiResponsePromise = page.waitForResponse(
+    (response) => new URL(response.url()).pathname === '/api/ai/explain',
+    { timeout: 120_000 },
+  );
   await page.getByRole('button', { name: 'Explain full code' }).click();
   const apiResponse = await apiResponsePromise;
   const apiBody = await apiResponse.json().catch(() => ({}));
-  apiResult = { status: apiResponse.status(), diagnostic: apiBody?.error?.diagnostic };
+  apiResult = {
+    status: apiResponse.status(),
+    code: apiBody?.error?.code,
+    diagnostic: apiBody?.error?.diagnostic,
+  };
   const outcome = page.locator('.ai-tutor-structured-response, .ai-tutor-error');
   await outcome.waitFor({ state: 'visible', timeout: 60_000 });
   if (await page.locator('.ai-tutor-error').count()) {
@@ -101,5 +139,16 @@ try {
   }, null, 2));
 } finally {
   await browser?.close();
-  await server.close();
+  server.httpServer?.closeAllConnections?.();
+  await Promise.race([
+    server.close(),
+    new Promise((resolve) => {
+      const timer = setTimeout(resolve, 5_000);
+      timer.unref?.();
+    }),
+  ]);
 }
+
+// Provider transports can retain an idle keep-alive socket after a successful
+// one-shot smoke. All owned browser/server resources are closed above.
+process.exit(0);

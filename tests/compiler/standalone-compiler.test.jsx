@@ -357,12 +357,12 @@ describe('standalone workspace refinement', () => {
     expect(screen.getByRole('textbox', { name: `${language.label} source editor` })).toHaveAttribute('data-monaco-theme', 'ycoders-standalone-dark');
   });
 
-  it.each(['python', 'java', 'react', 'assembly'])('renders the canonical %s filename as the active standalone file tab', async (id) => {
+  it.each(['python', 'java', 'react', 'assembly'])('renders the canonical %s filename as a truthful static file label', async (id) => {
     const language = getPublicCompilerLanguage(id);
     const { container, rerender } = render(<StandaloneCompilerPage language={language} onNavigate={vi.fn()} />);
     await screen.findByRole('textbox', { name: `${language.label} source editor` });
     const tab = container.querySelector('.standalone-file-tab');
-    expect(tab).toHaveAttribute('role', 'tab');
+    expect(tab).not.toHaveAttribute('role', 'tab');
     expect(tab).toHaveTextContent(language.defaultFileName);
     const nextLanguage = getPublicCompilerLanguage('sql');
     rerender(<StandaloneCompilerPage language={nextLanguage} onNavigate={vi.fn()} />);

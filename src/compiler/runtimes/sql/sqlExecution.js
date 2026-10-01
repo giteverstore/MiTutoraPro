@@ -43,7 +43,19 @@ function executeStatements(db, source, resultSets, statements) {
   for (const sql of splitSqlStatements(String(source ?? ''))) {
     const columns = [];
     const rows = [];
-    db.exec({ sql, rowMode: 'array', columnNames: columns, resultRows: rows });
+    let rowCount = 0;
+    db.exec({
+      sql,
+      rowMode: 'array',
+      columnNames: columns,
+      callback: (row) => {
+        rowCount += 1;
+        if (rowCount > COMPILER_RESOURCE_LIMITS.databaseResultRows) {
+          throw new Error(`SQL query results are limited to ${COMPILER_RESOURCE_LIMITS.databaseResultRows} rows.`);
+        }
+        rows.push(row);
+      },
+    });
     const mutatesRows = /^\s*(?:insert|update|delete|replace)\b/i.test(sql.replace(/^(?:\s|--[^\n]*\n|\/\*[\s\S]*?\*\/)+/, ''));
     const affectedRows = mutatesRows ? Number(db.changes()) : 0;
     const serializedRows = rows.map((row) => row.map(serializeValue));
@@ -79,3 +91,4 @@ export function formatSqlOutput({ resultSets, statements, affectedRows }) {
   if (affectedRows > 0) return `${affectedRows} row${affectedRows === 1 ? '' : 's'} affected.`;
   return executed ? 'Query executed successfully.' : 'No SQL statements to execute.';
 }
+import { COMPILER_RESOURCE_LIMITS } from '../../core/compilerResourcePolicy.js';

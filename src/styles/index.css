@@ -8,23 +8,4 @@
 @import "./foundation/base.css";
 @import "./foundation/difficulty-badges.css";
 
-/* Product surfaces, in preserved cascade order */
-@import "./pages/exam.css";
-@import "./pages/learning-engine.css";
-@import "./pages/dashboard.css";
-@import "./pages/projects.css";
-@import "./pages/home.css";
-@import "./layout/app-shell.css";
-@import "./pages/practice.css";
-@import "./pages/challenges.css";
-@import "./pages/library-bookmarks.css";
-@import "./pages/settings.css";
-@import "./pages/certificates.css";
-@import "./pages/referrals.css";
-@import "./pages/subscription-wallet.css";
-
-/* Existing route-owned sheets retain their previous position. */
-@import "./routing.css";
-@import "./public-pages.css";
-@import "./pages/landing.css";
-@import "./standalone-compiler.css";
+/* Product surfaces are imported by their lazy route entrypoints. */

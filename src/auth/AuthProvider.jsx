@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { authService as defaultService } from './AuthService';
-import { attributeReferralCode } from '../referrals/ReferralService';
 
 export function createExclusiveAuthenticationRunner() {
   let activeRequest = null;
@@ -52,6 +51,7 @@ export function AuthProvider({ children, service = defaultService }) {
       await service.signUpWithEmail(email, password);
       if (!referralCode) return;
       try {
+        const { attributeReferralCode } = await import('../referrals/ReferralService');
         await attributeReferralCode(referralCode);
         setReferralNotice('Referral code applied.');
       } catch (error) {

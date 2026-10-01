@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import '../styles/pages/learning-engine.css';
+import '../styles/routing.css';
 import { CourseLoaderProvider, useCourseLoader } from '../course/CourseLoader';
 import { CourseLoadState } from '../components/CourseLoadState';
 import { CourseOverviewPage } from '../pages/CourseOverviewPage';
