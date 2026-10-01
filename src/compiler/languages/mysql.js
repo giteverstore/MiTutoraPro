@@ -9,6 +9,7 @@ export const mysqlLanguage = Object.freeze({
   monacoLanguage: 'sql',
   defaultFileName: 'query.sql',
   executionMode: 'database',
+  supportsStdin: false,
   defaultSource: `CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,

@@ -125,7 +125,7 @@ describe('standalone launch state', () => {
     render(<StandaloneCompilerPage language={getPublicCompilerLanguage('python')} onNavigate={vi.fn()} />);
 
     for (const stdin of ['25', '10\n20', 'one\n\ntwo', 'hello world', 'ನಮಸ್ಕಾರ\nこんにちは\nAvi 🚀']) {
-      fireEvent.click(screen.getByRole('tab', { name: 'Input' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Input' }));
       const input = screen.getByRole('textbox', { name: 'Standard input' });
       fireEvent.change(input, { target: { value: stdin } });
       fireEvent.click(screen.getByRole('button', { name: 'Run' }));
@@ -142,15 +142,32 @@ describe('standalone launch state', () => {
       initialSnapshot={{ source: 'print(input())', stdinIncluded: true, stdin }}
       onNavigate={vi.fn()}
     />);
-    fireEvent.click(screen.getByRole('tab', { name: 'Input' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Input' }));
     expect(screen.getByRole('textbox', { name: 'Standard input' })).toHaveValue(stdin);
     fireEvent.click(screen.getByRole('button', { name: 'Run' }));
     await waitFor(() => expect(execute).toHaveBeenCalledWith(expect.objectContaining({ stdin })));
   });
 
-  it('does not expose an Input tab when the terminal capability is false', () => {
-    render(<StandaloneTerminalPanel supportsStdin={false} stdin="" onStdinChange={vi.fn()} result="" error="" isRunning={false} executionTimeMs={null} activeLanguage={{ label: 'Assembly' }} />);
+  it('uses Output and Errors tabs and exposes Input only for capable runtimes', () => {
+    const { rerender } = render(<StandaloneTerminalPanel supportsStdin stdin="" onStdinChange={vi.fn()} result="" error="" isRunning={false} executionTimeMs={null} activeLanguage={{ label: 'Python' }} />);
     expect(screen.queryByRole('tab', { name: 'Input' })).not.toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Output' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Errors' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Input' })).toHaveAttribute('aria-expanded', 'false');
+    rerender(<StandaloneTerminalPanel supportsStdin={false} stdin="" onStdinChange={vi.fn()} result="" error="" isRunning={false} executionTimeMs={null} activeLanguage={{ label: 'Assembly' }} />);
+    expect(screen.queryByRole('button', { name: 'Input' })).not.toBeInTheDocument();
+  });
+
+  it('opens an accessible compact stdin drawer and closes it with Escape', () => {
+    render(<StandaloneTerminalPanel supportsStdin stdin="alpha" onStdinChange={vi.fn()} result="" error="" isRunning={false} executionTimeMs={null} activeLanguage={{ label: 'Java' }} />);
+    const trigger = screen.getByRole('button', { name: 'Input' });
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const input = screen.getByRole('textbox', { name: 'Standard input' });
+    expect(input).toHaveValue('alpha');
+    expect(input).toHaveFocus();
+    fireEvent.keyDown(input, { key: 'Escape' });
+    expect(screen.queryByRole('textbox', { name: 'Standard input' })).not.toBeInTheDocument();
   });
 
   it.each([
@@ -162,25 +179,47 @@ describe('standalone launch state', () => {
     expect(getPublicCompilerLanguage(id).supportsStdin).toBe(supportsStdin);
   });
 
-  it('declares interactive stdin only for Python', () => {
-    expect(getPublicCompilerLanguage('python').supportsInteractiveStdin).toBe(true);
-    for (const language of publicCompilerLanguages.filter(({ id }) => id !== 'python')) {
+  it('declares interactive stdin only for browser-validated runtimes', () => {
+    const interactiveIds = ['python', 'javascript', 'typescript', 'c', 'cpp', 'php', 'r', 'csharp', 'visualbasic'];
+    for (const slug of ['python', 'javascript', 'typescript', 'c', 'cpp', 'php', 'r', 'csharp', 'visual-basic']) {
+      expect(getPublicCompilerLanguage(slug).supportsInteractiveStdin).toBe(true);
+    }
+    for (const language of publicCompilerLanguages.filter(({ id }) => !interactiveIds.includes(id))) {
       expect(language.supportsInteractiveStdin).toBe(false);
     }
   });
 
-  it('shows a waiting composer, submits input separately, and preserves stdout', () => {
+  it('captures interactive input inline without changing canonical stdout', () => {
     const onSubmitStdin = vi.fn(() => true);
-    render(<StandaloneTerminalPanel supportsStdin supportsInteractiveStdin stdin="" onStdinChange={vi.fn()} isRunning executionState="waiting_for_input" result="Name: " error="" executionTimeMs={null} activeLanguage={{ label: 'Python' }} stdinHistory={[]} onSubmitStdin={onSubmitStdin} />);
-    expect(screen.getAllByText('Waiting for input')).toHaveLength(2);
-    const composer = screen.getByRole('textbox', { name: 'Interactive standard input' });
-    fireEvent.change(composer, { target: { value: 'Avi' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
-    expect(onSubmitStdin).toHaveBeenCalledWith('Avi');
-    expect(composer).toHaveValue('');
-    fireEvent.click(screen.getByRole('tab', { name: 'Output' }));
-    expect(screen.getByRole('tabpanel')).toHaveTextContent('Name:');
-    expect(screen.getByRole('tabpanel')).not.toHaveTextContent('Avi');
+    render(<StandaloneTerminalPanel supportsStdin supportsInteractiveStdin stdin="" onStdinChange={vi.fn()} isRunning executionState="waiting_for_input" result="Name: " terminalTranscript="Name: " error="" executionTimeMs={null} activeLanguage={{ label: 'Python' }} onSubmitStdin={onSubmitStdin} />);
+    expect(screen.getByText('Program is waiting for input.')).toHaveClass('sr-only');
+    expect(screen.getAllByText('Waiting for input')).toHaveLength(1);
+    expect(screen.queryByRole('button', { name: 'Send' })).not.toBeInTheDocument();
+    expect(document.querySelector('.standalone-stdin-composer')).not.toBeInTheDocument();
+    const capture = screen.getByRole('textbox', { name: 'Program input' });
+    expect(capture).toHaveFocus();
+    fireEvent.change(capture, { target: { value: 'Avi' } });
+    fireEvent.keyDown(capture, { key: 'Backspace' });
+    fireEvent.change(capture, { target: { value: 'Av' } });
+    fireEvent.keyDown(capture, { key: 'Enter' });
+    expect(onSubmitStdin).toHaveBeenCalledWith('Av');
+    expect(capture).toHaveValue('');
+    expect(screen.getByRole('log', { name: 'Program terminal' })).toHaveTextContent('Name:');
+    expect(screen.getByRole('log', { name: 'Program terminal' })).not.toHaveTextContent('Av');
+  });
+
+  it('keeps Output active and focuses the inline terminal when input is requested', () => {
+    const { rerender } = render(<StandaloneTerminalPanel supportsStdin supportsInteractiveStdin stdin="" onStdinChange={vi.fn()} isRunning executionState="running" result="" error="" executionTimeMs={null} activeLanguage={{ label: 'Python' }} onSubmitStdin={vi.fn()} />);
+    expect(screen.queryByRole('tab', { name: 'Input' })).not.toBeInTheDocument();
+    rerender(<StandaloneTerminalPanel supportsStdin supportsInteractiveStdin stdin="" onStdinChange={vi.fn()} isRunning executionState="waiting_for_input" terminalTranscript="Prompt: " result="Prompt: " error="" executionTimeMs={null} activeLanguage={{ label: 'Python' }} onSubmitStdin={vi.fn(() => true)} />);
+    expect(screen.getByRole('tab', { name: 'Output' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('textbox', { name: 'Program input' })).toHaveFocus();
+  });
+
+  it('removes the legacy interactive composer styles', () => {
+    expect(standaloneCompilerCss).not.toContain('.standalone-stdin-composer');
+    expect(standaloneCompilerCss).toContain('.standalone-terminal-input input');
+    expect(standaloneCompilerCss).toContain('background:transparent;border:0;outline:0;font:inherit');
   });
 
   it.each([
@@ -228,12 +267,13 @@ describe('standalone workspace refinement', () => {
     expect(await screen.findByRole('textbox', { name: 'Python source editor' })).toBeInTheDocument();
   });
 
-  it('collapses only the result pane and preserves source, stdin, and the active result tab', async () => {
+  it('collapses only the result pane and preserves source and buffered stdin', async () => {
     render(<StandaloneCompilerPage language={getPublicCompilerLanguage('python')} onNavigate={vi.fn()} />);
     const editor = await screen.findByRole('textbox', { name: 'Python source editor' });
     fireEvent.change(editor, { target: { value: 'print("kept")' } });
-    fireEvent.click(screen.getByRole('tab', { name: 'Input' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Input' }));
     fireEvent.change(screen.getByRole('textbox', { name: 'Standard input' }), { target: { value: 'saved stdin' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Close standard input' }));
     fireEvent.click(screen.getByRole('button', { name: 'Minimize compiler panel' }));
     expect(screen.getByRole('button', { name: 'Restore compiler panel' })).toHaveTextContent('Compiler');
     expect(editor).toHaveAttribute('data-layout-signal', '60-true');
@@ -244,7 +284,7 @@ describe('standalone workspace refinement', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Restore compiler panel' }));
     expect(editor).toHaveAttribute('data-layout-signal', '60-false');
     expect(screen.getByRole('textbox', { name: 'Python source editor' })).toHaveValue('print("kept")');
-    expect(screen.getByRole('tab', { name: 'Input' })).toHaveAttribute('aria-selected', 'true');
+    fireEvent.click(screen.getByRole('button', { name: 'Input' }));
     expect(screen.getByRole('textbox', { name: 'Standard input' })).toHaveValue('saved stdin');
     expect(document.querySelector('.standalone-result-pane')).not.toHaveAttribute('hidden');
     expect(document.querySelector('.standalone-workspace-divider')).not.toHaveAttribute('hidden');

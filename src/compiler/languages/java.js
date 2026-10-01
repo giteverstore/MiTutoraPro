@@ -9,5 +9,6 @@ export const javaLanguage = Object.freeze({
   monacoLanguage: 'java',
   defaultFileName: 'Main.java',
   executionMode: 'terminal',
+  supportsStdin: true,
   createRuntime: () => new JavaRuntime(),
 });

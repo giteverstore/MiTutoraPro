@@ -9,6 +9,7 @@ export const sqlLanguage = Object.freeze({
   monacoLanguage: 'sql',
   defaultFileName: 'query.sql',
   executionMode: 'database',
+  supportsStdin: false,
   defaultSource: `CREATE TABLE users (
   id INTEGER PRIMARY KEY,
   name TEXT

@@ -11,6 +11,7 @@ export class NativeCompilerRuntime extends RuntimeAdapter {
 
   async initialize(options) { await this.client.initialize(options); }
   async execute(request) { return this.client.execute({ ...request, language: this.language }); }
+  submitStdin(request) { return this.client.submitStdin(request); }
   async reset() { this.client.reset(); return super.reset(); }
   async dispose() { this.client.dispose(); }
 }

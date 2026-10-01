@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { NativeCompilerRuntime } from '../../src/compiler/runtimes/native/NativeCompilerRuntime.js';
 import { NativeCompilerWorkerClient } from '../../src/compiler/runtimes/native/NativeCompilerWorkerClient.js';
 import { normalizeNativeExecutionResult } from '../../src/compiler/runtimes/native/nativeExecution.js';
+import { createNativeInputQueue, createNativeInputBuffers, submitNativeInput } from '../../src/compiler/runtimes/native/nativeInteractiveChannel.js';
 
 let cCompiler;
 let cppCompiler;
@@ -153,5 +154,46 @@ describe('native compiler worker lifecycle', () => {
     await cpp.execute({ source: 'cpp source' });
     expect(client.execute).toHaveBeenNthCalledWith(1, expect.objectContaining({ language: 'c' }));
     expect(client.execute).toHaveBeenNthCalledWith(2, expect.objectContaining({ language: 'cpp' }));
+  });
+
+  it('routes stdin requests, streamed output, and submitted bytes through the active execution', async () => {
+    vi.stubGlobal('crossOriginIsolated', true);
+    const worker = new FakeWorker();
+    const events = [];
+    const client = new NativeCompilerWorkerClient({ timeoutMs: 1000, workerFactory: () => worker });
+    const execution = client.execute({ language: 'c', source: 'source', executionId: 'native-1', onExecutionEvent: (event) => events.push(event) });
+    const request = worker.lastMessage;
+    Atomics.store(new Int32Array(request.controlBuffer), 0, 1);
+    worker.listeners.get('message')({ data: { id: request.id, type: 'stdin-request' } });
+    expect(client.submitStdin({ executionId: 'stale', value: 'ignored\n' })).toBe(false);
+    expect(client.submitStdin({ executionId: 'native-1', value: '42\n' })).toBe(true);
+    expect(new TextDecoder().decode(new Uint8Array(request.inputBuffer).slice(0, 3))).toBe('42\n');
+    worker.listeners.get('message')({ data: { id: request.id, type: 'stdout', value: '42\n' } });
+    worker.listeners.get('message')({ data: { id: request.id, type: 'execution', status: 'success' } });
+    await execution;
+    expect(events.map(({ type }) => type)).toEqual(['execution-start', 'stdin-request', 'stdout', 'execution-complete']);
+    vi.unstubAllGlobals();
+  });
+});
+
+describe('native interactive byte queue', () => {
+  it('consumes buffered UTF-8 input first and respects partial read sizes', () => {
+    const read = createNativeInputQueue({ stdin: 'Avi 🚀', interactive: false });
+    const bytes = [];
+    for (const size of [2, 1, 3, 99]) {
+      const chunk = read(size);
+      if (chunk) bytes.push(...chunk);
+    }
+    expect(new TextDecoder().decode(Uint8Array.from(bytes))).toBe('Avi 🚀\n');
+    expect(read(1)).toBeNull();
+  });
+
+  it('rejects stale execution ids and accepts only a waiting channel', () => {
+    const buffers = createNativeInputBuffers();
+    const active = { executionId: 'active', ...buffers };
+    expect(submitNativeInput(active, 'active', 'no wait')).toBe(false);
+    Atomics.store(new Int32Array(buffers.controlBuffer), 0, 1);
+    expect(submitNativeInput(active, 'stale', 'ignored')).toBe(false);
+    expect(submitNativeInput(active, 'active', 'accepted')).toBe(true);
   });
 });

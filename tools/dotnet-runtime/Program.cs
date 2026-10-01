@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
+using System.Text;
 using System.Text.Json;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis;
@@ -14,22 +15,33 @@ public static partial class Program
 {
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
     private static readonly Lazy<IReadOnlyList<MetadataReference>> References = new(LoadReferences);
+    public static TextReader? InputReader { get; private set; }
 
     public static void Main() { }
+
+    [JSImport("readChunk", "YCodersRuntimeBridge")]
+    private static partial string? ReadInputChunk();
+
+    [JSImport("writeStdout", "YCodersRuntimeBridge")]
+    private static partial void WriteStdout(string value);
+
+    [JSImport("writeStderr", "YCodersRuntimeBridge")]
+    private static partial void WriteStderr(string value);
 
     [JSExport]
     public static string Execute(string language, string source, string stdin)
     {
         var started = Stopwatch.GetTimestamp();
         var diagnostics = new List<CompilerDiagnostic>();
-        var stdout = new StringWriter();
-        var stderr = new StringWriter();
+        var stdout = new LiveTextWriter(WriteStdout);
+        var stderr = new LiveTextWriter(WriteStderr);
         var originalOut = Console.Out;
         var originalError = Console.Error;
 
         try
         {
-            var compilation = CreateCompilation(language, source ?? string.Empty, stdin);
+            InputReader = new LiveTextReader(stdin, ReadInputChunk);
+            var compilation = CreateCompilation(language, source ?? string.Empty);
 
             using var assemblyStream = new MemoryStream();
             var emit = compilation.Emit(assemblyStream);
@@ -73,26 +85,27 @@ public static partial class Program
         }
         finally
         {
+            InputReader = null;
             Console.SetOut(originalOut);
             Console.SetError(originalError);
         }
     }
 
-    private static Compilation CreateCompilation(string language, string source, string stdin) => language switch
+    private static Compilation CreateCompilation(string language, string source) => language switch
     {
-        "csharp" => CreateCSharpCompilation(source, stdin),
-        "visualbasic" => CreateVisualBasicCompilation(source, stdin),
+        "csharp" => CreateCSharpCompilation(source),
+        "visualbasic" => CreateVisualBasicCompilation(source),
         _ => throw new ArgumentException($"Unsupported .NET compiler language: {language}", nameof(language)),
     };
 
-    private static CSharpCompilation CreateCSharpCompilation(string source, string stdin)
+    private static CSharpCompilation CreateCSharpCompilation(string source)
     {
         var parseOptions = CSharpParseOptions.Default.WithLanguageVersion(CSharpLanguageVersion.CSharp14);
         return CSharpCompilation.Create(
             $"YCodersSubmission_{Guid.NewGuid():N}",
             [
                 CSharpSyntaxTree.ParseText(RewriteCSharpConsoleInput(source), parseOptions, path: "Program.cs"),
-                CSharpSyntaxTree.ParseText(CreateCSharpInputHelper(stdin), parseOptions, path: "YCodersRuntimeInput.g.cs"),
+                CSharpSyntaxTree.ParseText(CSharpInputHelper, parseOptions, path: "YCodersRuntimeInput.g.cs"),
             ],
             References.Value,
             new CSharpCompilationOptions(
@@ -104,14 +117,14 @@ public static partial class Program
                 deterministic: true));
     }
 
-    private static VisualBasicCompilation CreateVisualBasicCompilation(string source, string stdin)
+    private static VisualBasicCompilation CreateVisualBasicCompilation(string source)
     {
         var parseOptions = VisualBasicParseOptions.Default.WithLanguageVersion(VisualBasicLanguageVersion.Latest);
         return VisualBasicCompilation.Create(
             $"YCodersSubmission_{Guid.NewGuid():N}",
             [
                 VisualBasicSyntaxTree.ParseText(RewriteVisualBasicConsoleInput(source), parseOptions, path: "Program.vb"),
-                VisualBasicSyntaxTree.ParseText(CreateVisualBasicInputHelper(stdin), parseOptions, path: "YCodersRuntimeInput.g.vb"),
+                VisualBasicSyntaxTree.ParseText(VisualBasicInputHelper, parseOptions, path: "YCodersRuntimeInput.g.vb"),
             ],
             References.Value,
             new VisualBasicCompilationOptions(
@@ -137,49 +150,118 @@ public static partial class Program
     }
 
     private static string RewriteCSharpConsoleInput(string source) => source
-        .Replace("System.Console.ReadLine()", "global::YCodersRuntimeInput.ReadLine()", StringComparison.Ordinal)
-        .Replace("Console.ReadLine()", "global::YCodersRuntimeInput.ReadLine()", StringComparison.Ordinal);
+        .Replace("System.Console.In", "global::YCodersRuntimeInput.Reader", StringComparison.Ordinal)
+        .Replace("Console.In", "global::YCodersRuntimeInput.Reader", StringComparison.Ordinal)
+        .Replace("System.Console.ReadLine()", "global::YCodersRuntimeInput.Reader.ReadLine()", StringComparison.Ordinal)
+        .Replace("Console.ReadLine()", "global::YCodersRuntimeInput.Reader.ReadLine()", StringComparison.Ordinal)
+        .Replace("System.Console.Read()", "global::YCodersRuntimeInput.Reader.Read()", StringComparison.Ordinal)
+        .Replace("Console.Read()", "global::YCodersRuntimeInput.Reader.Read()", StringComparison.Ordinal);
 
     private static string RewriteVisualBasicConsoleInput(string source) => source
-        .Replace("System.Console.ReadLine()", "Global.YCodersRuntimeInput.ReadLine()", StringComparison.OrdinalIgnoreCase)
-        .Replace("Console.ReadLine()", "Global.YCodersRuntimeInput.ReadLine()", StringComparison.OrdinalIgnoreCase);
+        .Replace("System.Console.In", "Global.YCodersRuntimeInput.Reader", StringComparison.OrdinalIgnoreCase)
+        .Replace("Console.In", "Global.YCodersRuntimeInput.Reader", StringComparison.OrdinalIgnoreCase)
+        .Replace("System.Console.ReadLine()", "Global.YCodersRuntimeInput.Reader.ReadLine()", StringComparison.OrdinalIgnoreCase)
+        .Replace("Console.ReadLine()", "Global.YCodersRuntimeInput.Reader.ReadLine()", StringComparison.OrdinalIgnoreCase)
+        .Replace("System.Console.Read()", "Global.YCodersRuntimeInput.Reader.Read()", StringComparison.OrdinalIgnoreCase)
+        .Replace("Console.Read()", "Global.YCodersRuntimeInput.Reader.Read()", StringComparison.OrdinalIgnoreCase);
 
-    private static string EncodeInput(string? stdin) =>
-        Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(stdin ?? string.Empty));
+    private const string CSharpInputHelper = """
+        #nullable enable
+        internal static class YCodersRuntimeInput
+        {
+            internal static global::System.IO.TextReader Reader =>
+                (global::System.IO.TextReader)(global::System.Type.GetType(
+                    "YCoders.DotNetRuntime.Program, YCoders.DotNetRuntime", throwOnError: true)!
+                    .GetProperty("InputReader")!.GetValue(null)
+                    ?? throw new global::System.InvalidOperationException("The interactive input reader is unavailable."));
+        }
+        """;
 
-    private static string CreateCSharpInputHelper(string? stdin)
+    private const string VisualBasicInputHelper = """
+        Friend Module YCodersRuntimeInput
+            Friend ReadOnly Property Reader As Global.System.IO.TextReader
+                Get
+                    Dim runtimeType = Global.System.Type.GetType(
+                        "YCoders.DotNetRuntime.Program, YCoders.DotNetRuntime", throwOnError:=True)
+                    Dim value = runtimeType.GetProperty("InputReader").GetValue(Nothing)
+                    If value Is Nothing Then
+                        Throw New Global.System.InvalidOperationException("The interactive input reader is unavailable.")
+                    End If
+                    Return DirectCast(value, Global.System.IO.TextReader)
+                End Get
+            End Property
+        End Module
+        """;
+
+    private sealed class LiveTextReader(string? initialInput, Func<string?> readChunk) : TextReader
     {
-        var encoded = EncodeInput(stdin);
-        return $$"""
-            #nullable enable
-            global using global::System;
-            global using global::System.Collections.Generic;
-            global using global::System.Linq;
-            global using global::System.Text;
+        private readonly Queue<char> _characters = new(NormalizeInitialInput(initialInput));
 
-            internal static class YCodersRuntimeInput
+        private static IEnumerable<char> NormalizeInitialInput(string? value)
+        {
+            var normalized = (value ?? string.Empty).Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
+            if (normalized.Length > 0 && !normalized.EndsWith('\n')) normalized += "\n";
+            return normalized;
+        }
+
+        private bool EnsureAvailable()
+        {
+            while (_characters.Count == 0)
             {
-                private static readonly global::System.IO.StringReader Reader = new(
-                    global::System.Text.Encoding.UTF8.GetString(global::System.Convert.FromBase64String("{{encoded}}")));
-
-                internal static string? ReadLine() => Reader.ReadLine();
+                var chunk = readChunk();
+                if (chunk is null) return false;
+                foreach (var character in chunk) _characters.Enqueue(character);
             }
-            """;
+            return true;
+        }
+
+        public override int Peek() => EnsureAvailable() ? _characters.Peek() : -1;
+        public override int Read() => EnsureAvailable() ? _characters.Dequeue() : -1;
+
+        public override int Read(char[] buffer, int index, int count)
+        {
+            ArgumentNullException.ThrowIfNull(buffer);
+            ArgumentOutOfRangeException.ThrowIfNegative(index);
+            ArgumentOutOfRangeException.ThrowIfNegative(count);
+            if (buffer.Length - index < count) throw new ArgumentException("The buffer is too small.");
+            if (count == 0) return 0;
+            if (!EnsureAvailable()) return 0;
+            var read = 0;
+            while (read < count && _characters.Count > 0) buffer[index + read++] = _characters.Dequeue();
+            return read;
+        }
+
+        public override string? ReadLine()
+        {
+            var line = new StringBuilder();
+            while (true)
+            {
+                var value = Read();
+                if (value < 0) return line.Length == 0 ? null : line.ToString();
+                if (value == '\n') return line.ToString();
+                if (value != '\r') line.Append((char)value);
+            }
+        }
     }
 
-    private static string CreateVisualBasicInputHelper(string? stdin)
+    private sealed class LiveTextWriter(Action<string> write) : TextWriter
     {
-        var encoded = EncodeInput(stdin);
-        return $$"""
-            Friend Module YCodersRuntimeInput
-                Private ReadOnly Reader As New Global.System.IO.StringReader(
-                    Global.System.Text.Encoding.UTF8.GetString(Global.System.Convert.FromBase64String("{{encoded}}")))
+        private readonly StringBuilder _output = new();
+        public override Encoding Encoding => Encoding.UTF8;
 
-                Friend Function ReadLine() As String
-                    Return Reader.ReadLine()
-                End Function
-            End Module
-            """;
+        public override void Write(char value) => Append(value.ToString());
+        public override void Write(string? value) { if (!string.IsNullOrEmpty(value)) Append(value); }
+        public override void Write(char[] buffer, int index, int count) => Append(new string(buffer, index, count));
+        public override void WriteLine() => Append(NewLine);
+        public override void WriteLine(string? value) => Append((value ?? string.Empty) + NewLine);
+
+        private void Append(string value)
+        {
+            _output.Append(value);
+            write(value);
+        }
+
+        public override string ToString() => _output.ToString();
     }
 
     private static IReadOnlyList<MetadataReference> LoadReferences()

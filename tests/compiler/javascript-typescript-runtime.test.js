@@ -5,6 +5,31 @@ import { JavaScriptRuntime } from '../../src/compiler/runtimes/javascript/JavaSc
 import { TypeScriptRuntime } from '../../src/compiler/runtimes/typescript/TypeScriptRuntime.js';
 
 describe('JavaScript and TypeScript browser runtimes', () => {
+  it('requests and submits interactive input through the shared channel', async () => {
+    const originalIsolation = globalThis.crossOriginIsolated;
+    Object.defineProperty(globalThis, 'crossOriginIsolated', { configurable: true, value: true });
+    class FakeWorker extends EventTarget {
+      messages = [];
+      postMessage(message) { this.messages.push(message); }
+      respond(data) { this.dispatchEvent(new MessageEvent('message', { data })); }
+      terminate() { this.terminated = true; }
+    }
+    const worker = new FakeWorker();
+    const events = [];
+    const client = new JavaScriptWorkerClient({ workerFactory: () => worker });
+    const pending = client.execute({ source: 'console.log(readLine())', executionId: 'js-1', onExecutionEvent: (event) => events.push(event) });
+    const request = worker.messages[0];
+    const control = new Int32Array(request.controlBuffer);
+    Atomics.store(control, 0, 1);
+    worker.respond({ id: request.id, type: 'stdin-request' });
+    expect(client.submitStdin({ executionId: 'stale', value: 'no\n' })).toBe(false);
+    expect(client.submitStdin({ executionId: 'js-1', value: 'yes\n' })).toBe(true);
+    worker.respond({ id: request.id, type: 'stdout', value: 'yes\n' });
+    worker.respond({ id: request.id, type: 'execution', status: 'success', stdout: 'yes', stderr: '', executionTimeMs: 1 });
+    await expect(pending).resolves.toMatchObject({ stdout: 'yes' });
+    expect(events.map(({ type }) => type)).toEqual(['execution-start', 'stdin-request', 'stdout', 'execution-complete']);
+    Object.defineProperty(globalThis, 'crossOriginIsolated', { configurable: true, value: originalIsolation });
+  });
   it.each([
     ['console.log("Hello");', 'Hello'],
     ['console.log(5 + 5);', '10'],

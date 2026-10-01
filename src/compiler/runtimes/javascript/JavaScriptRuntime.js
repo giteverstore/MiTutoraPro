@@ -14,6 +14,8 @@ export class JavaScriptRuntime extends RuntimeAdapter {
     return createJavaScriptExecutionResult(await this.client.execute(request));
   }
 
+  submitStdin(submission) { return this.client.submitStdin(submission); }
+
   async reset() { this.client.reset(); return super.reset(); }
   async dispose() { this.client.dispose(); }
 }

@@ -1,7 +1,7 @@
 export const config = /*json-start*/{
   "mainAssemblyName": "YCoders.DotNetRuntime.dll",
   "resources": {
-    "hash": "sha256-e/6o19uZ2voYlyU8g2EPxbCvXYCY70IuIcpC9yevxDw=",
+    "hash": "sha256-Qc+WwJvW//AULGIdQTbhJXDY0mXOF9NhjrWOCujChr8=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.js"
@@ -15,7 +15,7 @@ export const config = /*json-start*/{
     "wasmNative": [
       {
         "name": "dotnet.native.wasm",
-        "hash": "sha256-DMgRXy1Tf0uhMzPAzQjrRKlkUJUs1D72wJTQUlwU3GM="
+        "hash": "sha256-klOZRytT7+aKdQDofRdwG487m+vBKuyR8TpoHDhHba0="
       }
     ],
     "wasmSymbols": [
@@ -904,7 +904,7 @@ export const config = /*json-start*/{
       {
         "virtualPath": "YCoders.DotNetRuntime.wasm",
         "name": "YCoders.DotNetRuntime.wasm",
-        "hash": "sha256-O2aLWrQRC1XRdjBmSWBqxv/OQi4cCrt14v2U7p2Yl+U="
+        "hash": "sha256-ypQ6/WH5Wx0h1W1JLEkgnBLNHmBjrMOti4mn3xx7ybw="
       }
     ],
     "satelliteResources": {

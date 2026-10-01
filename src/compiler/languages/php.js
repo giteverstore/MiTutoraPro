@@ -9,6 +9,8 @@ export const phpLanguage = Object.freeze({
   monacoLanguage: 'php',
   defaultFileName: 'main.php',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   resetSourceOnSelect: true,
   defaultSource: `<?php
 

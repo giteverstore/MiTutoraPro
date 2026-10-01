@@ -3,6 +3,7 @@ import { rLanguage } from '../../src/compiler/languages/r.js';
 import { RRuntime } from '../../src/compiler/runtimes/r/RRuntime.js';
 import { WebRClient } from '../../src/compiler/runtimes/r/WebRClient.js';
 import { createRExecutionResult } from '../../src/compiler/runtimes/r/outputCapture.js';
+import { COMPILER_EXECUTION_EVENTS } from '../../src/compiler/core/interactiveStdinProtocol.js';
 
 function createFakeWebR({ captured, pending = false } = {}) {
   const instance = {
@@ -31,6 +32,7 @@ describe('R browser runtime', () => {
       id: 'r', label: 'R', monacoLanguage: 'r', defaultFileName: 'main.R', executionMode: 'terminal',
     }));
     expect(rLanguage.defaultSource).toBe('print("Hello, World!")');
+    expect(rLanguage.supportsInteractiveStdin).toBe(true);
   });
 
   it('runs each execution in a fresh PostMessage webR instance and closes it', async () => {
@@ -130,5 +132,72 @@ describe('R browser runtime', () => {
     await expect(runtime.execute({ source: 'print(10 + 20)' })).resolves.toEqual(
       expect.objectContaining({ status: 'success', output: '[1] 30', warnings: [], exitCode: null }),
     );
+  });
+
+  it('maps the native WebR console to buffered-first interactive events and rejects stale input', async () => {
+    const previousIsolation = globalThis.crossOriginIsolated;
+    Object.defineProperty(globalThis, 'crossOriginIsolated', { configurable: true, value: true });
+    const queue = [];
+    const readers = [];
+    let closed = false;
+    let marker = '';
+    let inputCount = 0;
+    const push = (message) => {
+      const reader = readers.shift();
+      if (reader) reader({ value: message, done: false });
+      else queue.push(message);
+    };
+    const instance = {
+      init: vi.fn().mockResolvedValue(undefined),
+      close: vi.fn(() => {
+        closed = true;
+        while (readers.length) readers.shift()({ done: true });
+      }),
+      flush: vi.fn().mockResolvedValue([]),
+      evalRVoid: vi.fn().mockResolvedValue(undefined),
+      stream: () => ({
+        [Symbol.asyncIterator]() { return this; },
+        next: () => queue.length ? Promise.resolve({ value: queue.shift(), done: false })
+          : closed ? Promise.resolve({ done: true })
+            : new Promise((resolve) => readers.push(resolve)),
+      }),
+      writeConsole: vi.fn((value) => {
+        if (value.startsWith('{ .ycoders_result')) {
+          marker = value.match(/__YCODERS_R_COMPLETE_[A-Za-z0-9_]+__/)?.[0] ?? '';
+          queueMicrotask(() => push({ type: 'prompt', data: 'First: ' }));
+        } else if (inputCount++ === 0) {
+          queueMicrotask(() => push({ type: 'prompt', data: 'Second: ' }));
+        } else {
+          queueMicrotask(() => {
+            push({ type: 'stdout', data: '10 20 ' });
+            push({ type: 'stdout', data: marker });
+            push({ type: 'prompt', data: '> ' });
+          });
+        }
+      }),
+    };
+    const client = new WebRClient({ loadWebR: vi.fn().mockResolvedValue({
+      WebR: vi.fn(function WebR() { return instance; }),
+      ChannelType: { SharedArrayBuffer: 1, PostMessage: 3 },
+    }) });
+    const events = [];
+    try {
+      const execution = client.execute({
+        source: 'a <- readline("First: "); b <- readline("Second: "); cat(a, b)',
+        stdin: '10', executionId: 'current-r',
+        onExecutionEvent: (event) => events.push(event),
+      });
+      await vi.waitFor(() => expect(events.some(({ type }) => type === COMPILER_EXECUTION_EVENTS.STDIN_REQUEST)).toBe(true));
+      expect(client.submitStdin({ executionId: 'stale-r', value: 'bad' })).toBe(false);
+      expect(client.submitStdin({ executionId: 'current-r', value: '20\n' })).toBe(true);
+      await expect(execution).resolves.toEqual(expect.objectContaining({ status: 'success', stdout: '10 20 ' }));
+      expect(instance.writeConsole).toHaveBeenCalledWith('10');
+      expect(instance.writeConsole).toHaveBeenCalledWith('20');
+      expect(events.filter(({ type }) => type === COMPILER_EXECUTION_EVENTS.STDIN_REQUEST)).toHaveLength(1);
+      expect(events.some(({ type, value }) => type === COMPILER_EXECUTION_EVENTS.STDOUT && value === 'First: ')).toBe(true);
+      expect(instance.close).toHaveBeenCalled();
+    } finally {
+      Object.defineProperty(globalThis, 'crossOriginIsolated', { configurable: true, value: previousIsolation });
+    }
   });
 });

@@ -19,6 +19,7 @@ export class DotNetRuntime extends RuntimeAdapter {
       this.language,
     );
   }
+  submitStdin(request) { return this.client.submitStdin(request); }
   async reset() { this.client.reset(); return super.reset(); }
   async dispose() { this.client.dispose(); }
 }

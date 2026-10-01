@@ -44,5 +44,6 @@ export class TypeScriptRuntime extends RuntimeAdapter {
   }
 
   async reset() { return this.javascriptRuntime.reset(); }
+  submitStdin(submission) { return this.javascriptRuntime.submitStdin(submission); }
   async dispose() { return this.javascriptRuntime.dispose(); }
 }

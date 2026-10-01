@@ -9,6 +9,8 @@ export const rLanguage = Object.freeze({
   monacoLanguage: 'r',
   defaultFileName: 'main.R',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   resetSourceOnSelect: true,
   defaultSource: 'print("Hello, World!")',
   createRuntime: () => new RRuntime(),

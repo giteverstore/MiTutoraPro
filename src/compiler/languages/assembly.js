@@ -13,6 +13,7 @@ export const assemblyLanguage = Object.freeze({
   monacoLanguage: 'asm',
   defaultFileName: 'main.asm',
   executionMode: 'emulator',
+  supportsStdin: false,
   resetSourceOnSelect: true,
   defaultSource: STARTER,
   createRuntime: () => new AssemblyRuntime(),

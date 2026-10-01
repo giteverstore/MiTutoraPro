@@ -4,6 +4,7 @@ import { visualBasicLanguage } from '../../src/compiler/languages/visualbasic.js
 import { DotNetRuntime } from '../../src/compiler/runtimes/dotnet/DotNetRuntime.js';
 import { DotNetWorkerClient } from '../../src/compiler/runtimes/dotnet/DotNetWorkerClient.js';
 import { normalizeDotNetResult } from '../../src/compiler/runtimes/dotnet/normalizeDotNetResult.js';
+import { COMPILER_EXECUTION_EVENTS } from '../../src/compiler/core/interactiveStdinProtocol.js';
 
 class FakeWorker {
   listeners = new Map();
@@ -23,6 +24,7 @@ describe('shared .NET browser runtime', () => {
   it('registers canonical terminal and Monaco metadata', () => {
     expect(csharpLanguage).toEqual(expect.objectContaining({
       id: 'csharp', label: 'C#', monacoLanguage: 'csharp', defaultFileName: 'Program.cs', executionMode: 'terminal',
+      supportsInteractiveStdin: true,
     }));
     expect(csharpLanguage.defaultSource).toContain('static void Main()');
   });
@@ -31,6 +33,7 @@ describe('shared .NET browser runtime', () => {
     expect(visualBasicLanguage).toEqual(expect.objectContaining({
       id: 'visualbasic', label: 'Visual Basic', monacoLanguage: 'vb',
       defaultFileName: 'Program.vb', executionMode: 'terminal',
+      supportsInteractiveStdin: true,
     }));
     expect(visualBasicLanguage.defaultSource).toContain('Module Program');
     expect(visualBasicLanguage.defaultSource).toContain('Console.WriteLine("Hello, World!")');
@@ -89,6 +92,33 @@ describe('shared .NET browser runtime', () => {
     expect(factory).toHaveBeenCalledTimes(2);
     expect(first.terminate).toHaveBeenCalledOnce();
     expect(second.terminate).toHaveBeenCalledOnce();
+  });
+
+  it('streams output and submits live input only to the matching execution', async () => {
+    const worker = new FakeWorker();
+    const client = new DotNetWorkerClient({ workerFactory: () => worker });
+    const events = [];
+    vi.stubGlobal('crossOriginIsolated', true);
+    const execution = client.execute({
+      language: 'csharp', source: 'Console.Write(Console.ReadLine());', executionId: 'dotnet-1',
+      onExecutionEvent: (event) => events.push(event),
+    });
+    worker.listeners.get('message')?.({ data: { id: 1, type: 'initialized', timeoutMs: 10_000 } });
+    worker.listeners.get('message')?.({ data: { id: 1, type: COMPILER_EXECUTION_EVENTS.STDOUT, value: 'Name: ' } });
+    const control = new Int32Array(worker.lastMessage.controlBuffer);
+    Atomics.store(control, 0, 1);
+    worker.listeners.get('message')?.({ data: { id: 1, type: COMPILER_EXECUTION_EVENTS.STDIN_REQUEST } });
+    expect(client.submitStdin({ executionId: 'stale', value: 'wrong\n' })).toBe(false);
+    expect(client.submitStdin({ executionId: 'dotnet-1', value: 'Ada\n' })).toBe(true);
+    worker.listeners.get('message')?.({ data: { id: 1, type: 'execution', status: 'success', stdout: 'Name: Ada\n', diagnostics: [], exitCode: 0 } });
+    await expect(execution).resolves.toEqual(expect.objectContaining({ stdout: 'Name: Ada\n' }));
+    expect(events.map((event) => event.type)).toEqual([
+      COMPILER_EXECUTION_EVENTS.START,
+      COMPILER_EXECUTION_EVENTS.STDOUT,
+      COMPILER_EXECUTION_EVENTS.STDIN_REQUEST,
+      COMPILER_EXECUTION_EVENTS.COMPLETE,
+    ]);
+    vi.unstubAllGlobals();
   });
 
   it('terminates runaway work and recovers with a clean worker', async () => {

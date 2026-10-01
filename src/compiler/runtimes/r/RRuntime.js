@@ -16,6 +16,10 @@ export class RRuntime extends RuntimeAdapter {
     return createRExecutionResult(await this.client.execute(request));
   }
 
+  submitStdin(payload) {
+    return this.client.submitStdin(payload);
+  }
+
   async reset() {
     this.client.reset();
     return super.reset();

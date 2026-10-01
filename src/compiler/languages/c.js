@@ -9,6 +9,8 @@ export const cLanguage = Object.freeze({
   monacoLanguage: 'c',
   defaultFileName: 'main.c',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   resetSourceOnSelect: true,
   defaultSource: `#include <stdio.h>
 

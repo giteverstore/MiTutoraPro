@@ -10,6 +10,8 @@ export const cppLanguage = Object.freeze({
   monacoLanguage: 'cpp',
   defaultFileName: 'main.cpp',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   resetSourceOnSelect: true,
   defaultSource: `#include <iostream>
 

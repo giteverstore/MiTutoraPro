@@ -18,6 +18,8 @@ export const visualBasicLanguage = Object.freeze({
   monacoLanguage: 'vb',
   defaultFileName: 'Program.vb',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   resetSourceOnSelect: true,
   defaultSource: STARTER,
   createRuntime: () => new DotNetRuntime({ language: 'visualbasic' }),

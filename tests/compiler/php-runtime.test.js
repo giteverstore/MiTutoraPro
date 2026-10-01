@@ -3,6 +3,8 @@ import { phpLanguage } from '../../src/compiler/languages/php.js';
 import { PhpRuntime } from '../../src/compiler/runtimes/php/PhpRuntime.js';
 import { PhpWorkerClient } from '../../src/compiler/runtimes/php/PhpWorkerClient.js';
 import { createPhpExecutionResult } from '../../src/compiler/runtimes/php/outputCapture.js';
+import { COMPILER_EXECUTION_EVENTS } from '../../src/compiler/core/interactiveStdinProtocol.js';
+import { createPhpStdinReader } from '../../src/compiler/runtimes/php/phpInteractiveChannel.js';
 
 class FakeWorker {
   constructor({ response } = {}) {
@@ -15,10 +17,14 @@ class FakeWorker {
     this.listeners.set(type, callback);
   }
 
+  removeEventListener(type, callback) {
+    if (this.listeners.get(type) === callback) this.listeners.delete(type);
+  }
+
   postMessage(message) {
     this.message = message;
     if (this.response) {
-      queueMicrotask(() => this.listeners.get('message')?.({ data: this.response }));
+      queueMicrotask(() => this.listeners.get('message')?.({ data: { id: message.id, type: 'execution', ...this.response } }));
     }
   }
 }
@@ -31,6 +37,7 @@ describe('PHP browser runtime', () => {
       monacoLanguage: 'php',
       defaultFileName: 'main.php',
       executionMode: 'terminal',
+      supportsInteractiveStdin: true,
     }));
     expect(phpLanguage.defaultSource).toContain('<?php');
   });
@@ -69,6 +76,42 @@ describe('PHP browser runtime', () => {
       exitCode: 255,
       executionTimeMs: 8,
     });
+  });
+
+  it('preserves buffered UTF-8 bytes and a read boundary before requesting more input', () => {
+    const reader = createPhpStdinReader({ stdin: '🚀', interactive: false });
+    const bytes = [];
+    let value;
+    while ((value = reader()) !== null) bytes.push(value);
+    expect(new TextDecoder().decode(Uint8Array.from(bytes))).toBe('🚀\n');
+    expect(reader()).toBeNull();
+  });
+
+  it('streams output and rejects stale interactive submissions', async () => {
+    const worker = new FakeWorker();
+    const client = new PhpWorkerClient({ workerFactory: () => worker });
+    const events = [];
+    vi.stubGlobal('crossOriginIsolated', true);
+    const execution = client.execute({
+      source: '<?php echo fgets(STDIN);', executionId: 'php-1',
+      onExecutionEvent: (event) => events.push(event),
+    });
+    worker.listeners.get('message')?.({ data: { id: 1, type: 'initialized' } });
+    worker.listeners.get('message')?.({ data: { id: 1, type: COMPILER_EXECUTION_EVENTS.STDOUT, value: 'Name: ' } });
+    const control = new Int32Array(worker.message.controlBuffer);
+    Atomics.store(control, 0, 1);
+    worker.listeners.get('message')?.({ data: { id: 1, type: COMPILER_EXECUTION_EVENTS.STDIN_REQUEST } });
+    expect(client.submitStdin({ executionId: 'stale', value: 'wrong\n' })).toBe(false);
+    expect(client.submitStdin({ executionId: 'php-1', value: 'Avi\n' })).toBe(true);
+    worker.listeners.get('message')?.({ data: { id: 1, type: 'execution', status: 'success', stdout: 'Name: Avi\n', stderr: '', exitCode: 0 } });
+    await expect(execution).resolves.toEqual(expect.objectContaining({ stdout: 'Name: Avi\n' }));
+    expect(events.map(({ type }) => type)).toEqual([
+      COMPILER_EXECUTION_EVENTS.START,
+      COMPILER_EXECUTION_EVENTS.STDOUT,
+      COMPILER_EXECUTION_EVENTS.STDIN_REQUEST,
+      COMPILER_EXECUTION_EVENTS.COMPLETE,
+    ]);
+    vi.unstubAllGlobals();
   });
 
   it('terminates a timed-out worker and permits a clean rerun', async () => {

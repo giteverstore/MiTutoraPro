@@ -1,4 +1,6 @@
 import { DOTNET_ASSET_BASE_URL } from './dotnetRuntimeConfig.js';
+import { COMPILER_EXECUTION_EVENTS } from '../../core/interactiveStdinProtocol.js';
+import { createDotNetInputBridge } from './dotnetInteractiveChannel.js';
 
 let pendingRequest = null;
 self.addEventListener('message', ({ data }) => {
@@ -18,6 +20,19 @@ async function start() {
     const runtime = await dotnet
       .withDiagnosticTracing(false)
       .create();
+    const readChunk = createDotNetInputBridge({
+      ...request,
+      onRequest: (executionId) => self.postMessage({
+        id: request.id,
+        type: COMPILER_EXECUTION_EVENTS.STDIN_REQUEST,
+        executionId,
+      }),
+    });
+    runtime.setModuleImports('YCodersRuntimeBridge', {
+      readChunk,
+      writeStdout: (value) => self.postMessage({ id: request.id, type: COMPILER_EXECUTION_EVENTS.STDOUT, value }),
+      writeStderr: (value) => self.postMessage({ id: request.id, type: COMPILER_EXECUTION_EVENTS.STDERR, value }),
+    });
     const exports = await runtime.getAssemblyExports('YCoders.DotNetRuntime.dll');
     const execute = exports.YCoders.DotNetRuntime.Program.Execute;
     self.postMessage({ id: request.id, type: 'initialized', timeoutMs: request.timeoutMs });

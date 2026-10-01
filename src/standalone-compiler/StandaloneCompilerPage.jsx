@@ -74,6 +74,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   const [running, setRunning] = useState(false);
   const [executionState, setExecutionState] = useState('idle');
   const [stdinHistory, setStdinHistory] = useState([]);
+  const [terminalTranscript, setTerminalTranscript] = useState('');
   const [dialog, setDialog] = useState(null);
   const [resultCollapsed, setResultCollapsed] = useState(false);
   const [splitRatio, setSplitRatio] = useState(initialSplitRatio);
@@ -84,7 +85,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   const instanceId = `standalone-${language.id}`;
   const isComingSoon = isStandaloneComingSoonLanguage(language);
 
-  useEffect(() => { setSource(initialSnapshot?.source ?? starter); setStdin(initialSnapshot?.stdinIncluded ? initialSnapshot.stdin ?? '' : ''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); }, [language.id, starter, initialSnapshot]);
+  useEffect(() => { setSource(initialSnapshot?.source ?? starter); setStdin(initialSnapshot?.stdinIncluded ? initialSnapshot.stdin ?? '' : ''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); setTerminalTranscript(''); }, [language.id, starter, initialSnapshot]);
   useEffect(() => () => controllerRef.current?.abort(), []);
   useEffect(() => {
     document.body.dataset.standaloneCompilerTheme = preferences.resolvedTheme;
@@ -124,11 +125,11 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
     if (isComingSoon) return;
     const controller = new AbortController();
     const executionId = `${instanceId}-${++executionIdRef.current}`;
-    controllerRef.current = controller; setRunning(true); setExecutionState('running'); setStdinHistory([]); setError(''); setResult(''); setExecution(null);
+    controllerRef.current = controller; setRunning(true); setExecutionState('running'); setStdinHistory([]); setTerminalTranscript(''); setError(''); setResult(''); setExecution(null);
     const onExecutionEvent = (event) => {
       if (event.executionId !== executionId) return;
-      if (event.type === 'stdout') setResult((current) => current + event.value);
-      if (event.type === 'stderr') setError((current) => current + event.value);
+      if (event.type === 'stdout') { setResult((current) => current + event.value); setTerminalTranscript((current) => current + event.value); }
+      if (event.type === 'stderr') { setError((current) => current + event.value); setTerminalTranscript((current) => current + event.value); }
       if (event.type === 'stdin-request') setExecutionState('waiting_for_input');
       if (event.type === 'execution-cancelled') setExecutionState('cancelled');
     };
@@ -144,10 +145,10 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
   const submitInteractiveStdin = (value) => {
     const executionId = `${instanceId}-${executionIdRef.current}`;
     const submitted = manager.submitStdin({ language: language.id, instanceId, executionId, value: value.endsWith('\n') ? value : `${value}\n` });
-    if (submitted) { setStdinHistory((history) => [...history, value]); setExecutionState('running'); }
+    if (submitted) { setStdinHistory((history) => [...history, value]); setTerminalTranscript((current) => `${current}${value}\n`); setExecutionState('running'); }
     return submitted;
   };
-  const reset = () => { controllerRef.current?.abort(); setSource(starter); setStdin(''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); };
+  const reset = () => { controllerRef.current?.abort(); setSource(starter); setStdin(''); setResult(''); setError(''); setExecution(null); setExecutionState('idle'); setStdinHistory([]); setTerminalTranscript(''); };
   const chooseLanguage = (next) => { setDialog(null); onNavigate(standaloneCompilerPath(next)); };
   const editorPreferences = { ...preferences.preferences, monacoTheme: standaloneMonacoTheme(preferences.resolvedTheme).name };
   const runLabel = isComingSoon ? 'Coming Soon' : running ? 'Stop' : 'Run';
@@ -177,7 +178,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
           {language.executionMode === 'preview' ? <PreviewPanel preview={execution?.preview} executionStatus={running ? 'running' : execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />
             : language.executionMode === 'database' ? <DatabaseResultPanel database={execution?.database} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} executionStatus={execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />
               : language.executionMode === 'emulator' ? <EmulatorResultPanel emulator={execution?.emulator} result={result} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} executionStatus={execution?.status ?? 'idle'} collapsed={false} onToggleCollapsed={() => {}} showCollapseControl={false} />
-                : <StandaloneTerminalPanel supportsStdin={language.supportsStdin} supportsInteractiveStdin={language.supportsInteractiveStdin && globalThis.crossOriginIsolated === true} stdin={stdin} onStdinChange={setStdin} stdinHistory={stdinHistory} onSubmitStdin={submitInteractiveStdin} executionState={executionState} result={result} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} activeLanguage={language} />}
+                : <StandaloneTerminalPanel supportsStdin={language.supportsStdin} supportsInteractiveStdin={language.supportsInteractiveStdin && globalThis.crossOriginIsolated === true} stdin={stdin} onStdinChange={setStdin} terminalTranscript={terminalTranscript} onSubmitStdin={submitInteractiveStdin} executionState={executionState} result={result} error={error} isRunning={running} executionTimeMs={execution?.executionTimeMs} activeLanguage={language} />}
           <div className="standalone-result-header-actions">
             <button className="standalone-result-collapse" type="button" aria-label="Minimize compiler panel" onClick={() => setResultCollapsed(true)}><Minus size={17} aria-hidden="true" /></button>
           </div>

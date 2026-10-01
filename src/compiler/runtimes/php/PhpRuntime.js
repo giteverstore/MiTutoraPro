@@ -16,6 +16,10 @@ export class PhpRuntime extends RuntimeAdapter {
     return createPhpExecutionResult(await this.client.execute(request));
   }
 
+  submitStdin(request) {
+    return this.client.submitStdin(request);
+  }
+
   async reset() {
     this.client.reset();
     return super.reset();

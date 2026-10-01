@@ -19,6 +19,8 @@ export const csharpLanguage = Object.freeze({
   monacoLanguage: 'csharp',
   defaultFileName: 'Program.cs',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   resetSourceOnSelect: true,
   defaultSource: STARTER,
   createRuntime: () => new DotNetRuntime({ language: 'csharp' }),

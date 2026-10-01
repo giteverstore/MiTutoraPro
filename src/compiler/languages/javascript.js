@@ -10,6 +10,8 @@ export const javascriptLanguage = Object.freeze({
   monacoLanguage: 'javascript',
   defaultFileName: 'main.js',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   defaultSource: 'console.log("Hello, World!");',
   createRuntime: () => new JavaScriptRuntime(),
 });

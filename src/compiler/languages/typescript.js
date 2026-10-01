@@ -10,6 +10,8 @@ export const typescriptLanguage = Object.freeze({
   monacoLanguage: 'typescript',
   defaultFileName: 'main.ts',
   executionMode: 'terminal',
+  supportsStdin: true,
+  supportsInteractiveStdin: true,
   defaultSource: 'const message: string = "Hello, World!";\nconsole.log(message);',
   createRuntime: () => new TypeScriptRuntime(),
 });
