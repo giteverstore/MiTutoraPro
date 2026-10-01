@@ -1,16 +1,97 @@
 import { describe, expect, it, vi } from 'vitest';
+import { getApps } from 'firebase-admin/app';
 import { CompilerPublicError, createCompilerPublicDependencies, validateFeedbackPayload, validateSharePayload } from '../../server/compiler-public/compilerPublicService.js';
-
-vi.mock('../../server/firebaseAdminApp.js', () => ({ getServerFirebaseApp: vi.fn(async () => ({ name: 'mock-app' })) }));
-vi.mock('firebase-admin/firestore', async (importOriginal) => ({ ...(await importOriginal()), getFirestore: vi.fn(() => ({ kind: 'db' })) }));
-vi.mock('firebase-admin/auth', async (importOriginal) => ({ ...(await importOriginal()), getAuth: vi.fn(() => ({ kind: 'auth' })) }));
 
 it('materializes request time as epoch milliseconds for HTTP handlers', async () => {
   const before = Date.now();
-  const dependencies = await createCompilerPublicDependencies({});
+  const close = vi.fn(async () => {});
+  const request = { headers: {} };
+  const credentialFactory = vi.fn(() => ({ mode: 'adc', firebaseCredential: null, preflight: vi.fn(async () => {}) }));
+  const firebaseAppFactory = vi.fn(async () => ({ app: { name: 'request-app' }, close }));
+  const dependencies = await createCompilerPublicDependencies({
+    request,
+    environment: { NODE_ENV: 'development' },
+    credentialFactory,
+    firebaseAppFactory,
+    firestoreFactory: vi.fn(() => ({ kind: 'db' })),
+    authFactory: vi.fn(() => ({ kind: 'auth' })),
+  });
   expect(dependencies.now).toBeTypeOf('number');
   expect(dependencies.now).toBeGreaterThanOrEqual(before);
   expect(dependencies.now).toBeLessThanOrEqual(Date.now());
+  expect(credentialFactory).toHaveBeenCalledWith({ request, environment: { NODE_ENV: 'development' } });
+  expect(dependencies.credentialMode).toBe('adc');
+  await dependencies.close();
+  expect(close).toHaveBeenCalledOnce();
+});
+
+it('closes a request app when Auth or Firestore dependency materialization fails', async () => {
+  const close = vi.fn(async () => {});
+  await expect(createCompilerPublicDependencies({
+    request: { headers: {} },
+    environment: { NODE_ENV: 'development' },
+    credentialFactory: () => ({ mode: 'adc', firebaseCredential: null, preflight: async () => {} }),
+    firebaseAppFactory: async () => ({ app: {}, close }),
+    firestoreFactory: () => { throw new Error('synthetic Firestore initialization failure'); },
+  })).rejects.toThrow('synthetic Firestore initialization failure');
+  expect(close).toHaveBeenCalledOnce();
+});
+
+it('uses one WIF credential and one independently owned Firebase app per concurrent request', async () => {
+  const credential = { getAccessToken: vi.fn() };
+  const preflight = vi.fn(async () => {});
+  const credentialFactory = vi.fn(() => ({ mode: 'wif', firebaseCredential: credential, preflight }));
+  const sessions = [];
+  const firebaseAppFactory = vi.fn(async (_environment, options) => {
+    expect(options.firebaseCredential).toBe(credential);
+    const session = { app: {}, close: vi.fn(async () => {}) };
+    sessions.push(session);
+    return session;
+  });
+  const options = {
+    environment: { NODE_ENV: 'production', VERCEL_ENV: 'production' },
+    credentialFactory,
+    firebaseAppFactory,
+    firestoreFactory: (app) => ({ app }),
+    authFactory: (app) => ({ app }),
+  };
+  const dependencies = await Promise.all(Array.from({ length: 5 }, (_, index) => createCompilerPublicDependencies({ ...options, request: { id: index } })));
+  expect(preflight).toHaveBeenCalledTimes(5);
+  expect(new Set(sessions.map((value) => value.app)).size).toBe(5);
+  await Promise.all(dependencies.map((value) => value.close()));
+  expect(sessions.every((value) => value.close.mock.calls.length === 1)).toBe(true);
+});
+
+it('fails closed in managed Production instead of using service-account JSON', async () => {
+  const firebaseAppFactory = vi.fn();
+  await expect(createCompilerPublicDependencies({
+    request: { headers: {} },
+    environment: {
+      NODE_ENV: 'production',
+      VERCEL_ENV: 'production',
+      FIREBASE_PROJECT_ID: 'mi-tutora-pro',
+      FIREBASE_SERVICE_ACCOUNT_JSON: '{"type":"service_account"}',
+      GOOGLE_WIF_AUDIENCE: '//iam.googleapis.com/projects/196429461457/locations/global/workloadIdentityPools/ai-tutor-vercel/providers/vercel-production',
+      GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL: 'ai-tutor-runtime@mi-tutora-pro.iam.gserviceaccount.com',
+    },
+    firebaseAppFactory,
+  })).rejects.toMatchObject({ code: 'ai/server-unavailable', status: 503 });
+  expect(firebaseAppFactory).not.toHaveBeenCalled();
+});
+
+it('leaves no Firebase Admin request-app accumulation after repeated disposal', async () => {
+  const before = getApps().map((app) => app.name).sort();
+  const firebaseCredential = { getAccessToken: async () => ({ access_token: 'synthetic', expires_in: 60 }) };
+  const dependencies = await Promise.all(Array.from({ length: 3 }, () => createCompilerPublicDependencies({
+    request: { headers: {} },
+    environment: { NODE_ENV: 'development', FIREBASE_PROJECT_ID: 'demo-compiler-public' },
+    credentialFactory: () => ({ mode: 'test', firebaseCredential, preflight: async () => {} }),
+    firestoreFactory: (app) => ({ app }),
+    authFactory: (app) => ({ app }),
+  })));
+  expect(getApps().filter((app) => app.name.startsWith('mitutora-request-'))).toHaveLength(3);
+  await Promise.all(dependencies.map((value) => value.close()));
+  expect(getApps().map((app) => app.name).sort()).toEqual(before);
 });
 
 describe('compiler public share validation', () => {

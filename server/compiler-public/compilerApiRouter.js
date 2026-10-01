@@ -20,54 +20,65 @@ import { cleanupExpiredPublicMySqlQuotas } from '../mysql/PublicMySqlQuota.js';
 import { createMySqlPools } from '../mysql/mysqlInfrastructure.js';
 import { cleanStaleMySqlSandboxes } from '../mysql/mysqlSandboxJanitor.js';
 
-function createShareHandler() {
+function createShareHandler(dependencyFactory) {
   return async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
+    let dependencies;
     try {
       assertJsonPost(request);
-      const dependencies = await createCompilerPublicDependencies();
+      dependencies = await dependencyFactory({ request });
       return response.status(201).json(await createShare({ ...dependencies, request, body: request.body }));
     } catch (error) {
       return sendCompilerPublicError(response, error);
+    } finally {
+      await Promise.resolve(dependencies?.close?.()).catch(() => undefined);
     }
   };
 }
 
-function createShareReadHandler(shareId) {
+function createShareReadHandler(shareId, dependencyFactory) {
   return async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
+    let dependencies;
     try {
       if (request.method !== 'GET') return response.status(405).json({ error: { code: 'compiler-public/method-not-allowed', message: 'Method not allowed.' } });
       assertAllowedOrigin(request);
-      const dependencies = await createCompilerPublicDependencies();
+      dependencies = await dependencyFactory({ request });
       return response.status(200).json(await readShare({ ...dependencies, shareId }));
     } catch (error) {
       return sendCompilerPublicError(response, error);
+    } finally {
+      await Promise.resolve(dependencies?.close?.()).catch(() => undefined);
     }
   };
 }
 
-function createFeedbackHandler() {
+function createFeedbackHandler(dependencyFactory) {
   return async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
+    let dependencies;
     try {
       assertJsonPost(request);
-      const dependencies = await createCompilerPublicDependencies();
+      dependencies = await dependencyFactory({ request });
       await createFeedback({ ...dependencies, request, body: request.body });
       return response.status(201).json({ success: true });
     } catch (error) {
       return sendCompilerPublicError(response, error);
+    } finally {
+      await Promise.resolve(dependencies?.close?.()).catch(() => undefined);
     }
   };
 }
 
-function createShareJanitorHandler() {
+function createShareJanitorHandler(dependencyFactory) {
   return async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
+    let dependencies;
     try {
       const expected = process.env.COMPILER_PUBLIC_JANITOR_SECRET || process.env.CRON_SECRET;
       if (!authorizedSecret(request.headers.authorization, expected)) return response.status(401).json({ error: { code: 'compiler-public/unauthenticated', message: 'Unauthorized.' } });
-      const { db } = await createCompilerPublicDependencies();
+      dependencies = await dependencyFactory({ request });
+      const { db } = dependencies;
       const shares = await cleanupExpiredCompilerPublicData(db);
       const rateLimits = await cleanupExpiredRateLimits(db);
       const remoteRateLimits = await cleanupExpiredPublicRemoteQuotas(db);
@@ -75,6 +86,8 @@ function createShareJanitorHandler() {
       return response.status(200).json({ deletedShares: shares.deleted, deletedRateLimits: rateLimits.deleted, deletedRemoteRateLimits: remoteRateLimits.deleted, deletedMysqlRateLimits: mysqlRateLimits.deleted });
     } catch (error) {
       return sendCompilerPublicError(response, error);
+    } finally {
+      await Promise.resolve(dependencies?.close?.()).catch(() => undefined);
     }
   };
 }
@@ -107,16 +120,16 @@ function normalizedSegments(request) {
   return pathname.replace(/^\/api\/compiler\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
 }
 
-export function createCompilerApiRouter() {
+export function createCompilerApiRouter({ dependencyFactory = createCompilerPublicDependencies } = {}) {
   const handlers = new Map([
     ['execute', createRemoteCompilerExecutionHandler()],
-    ['feedback', createFeedbackHandler()],
+    ['feedback', createFeedbackHandler(dependencyFactory)],
     ['mysql/janitor', createMySqlJanitorHandler()],
     ['mysql/public', createPublicMySqlExecutionHandler()],
     ['mysql/run', createMySqlExecutionHandler()],
     ['remote/public', createPublicRemoteCompilerHandler()],
-    ['share', createShareHandler()],
-    ['share/janitor', createShareJanitorHandler()],
+    ['share', createShareHandler(dependencyFactory)],
+    ['share/janitor', createShareJanitorHandler(dependencyFactory)],
   ]);
 
   return async function compilerApiRouter(request, response) {
@@ -124,7 +137,7 @@ export function createCompilerApiRouter() {
     const route = segments.join('/');
     const handler = handlers.get(route);
     if (handler) return handler(request, response);
-    if (segments.length === 2 && segments[0] === 'share') return createShareReadHandler(segments[1])(request, response);
+    if (segments.length === 2 && segments[0] === 'share') return createShareReadHandler(segments[1], dependencyFactory)(request, response);
     response.setHeader('Cache-Control', 'no-store');
     return response.status(404).json({ error: { code: 'compiler/not-found', message: 'Compiler API route not found.' } });
   };

@@ -1,7 +1,8 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { getAuth } from 'firebase-admin/auth';
 import { FieldValue, Timestamp, getFirestore } from 'firebase-admin/firestore';
-import { getServerFirebaseApp } from '../firebaseAdminApp.js';
+import { createRequestFirebaseApp } from '../firebaseAdminApp.js';
+import { createVercelGoogleCredentialContext } from '../auth/VercelGoogleCredentialAdapter.js';
 
 const SHARE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const HOUR_MS = 60 * 60 * 1000;
@@ -14,9 +15,32 @@ export class CompilerPublicError extends Error {
   constructor(code, message, status = 400) { super(message); this.code = code; this.status = status; }
 }
 
-export async function createCompilerPublicDependencies(environment = process.env) {
-  const app = await getServerFirebaseApp(environment);
-  return { db: getFirestore(app), auth: getAuth(app), now: Date.now() };
+export async function createCompilerPublicDependencies({
+  request,
+  environment = process.env,
+  credentialFactory = createVercelGoogleCredentialContext,
+  firebaseAppFactory = createRequestFirebaseApp,
+  authFactory = getAuth,
+  firestoreFactory = getFirestore,
+  clock = Date.now,
+} = {}) {
+  const googleCredentials = credentialFactory({ request, environment });
+  await googleCredentials.preflight();
+  const session = await firebaseAppFactory(environment, {
+    firebaseCredential: googleCredentials.firebaseCredential,
+  });
+  try {
+    return Object.freeze({
+      db: firestoreFactory(session.app),
+      auth: authFactory(session.app),
+      now: clock(),
+      credentialMode: googleCredentials.mode,
+      close: () => session.close(),
+    });
+  } catch (error) {
+    await session.close();
+    throw error;
+  }
 }
 
 export function clientKey(request) {
