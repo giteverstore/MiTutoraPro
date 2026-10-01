@@ -252,3 +252,11 @@ The current whole worktree is `NOT_READY_TO_COMMIT`: it contains pre-existing un
 Required post-deployment checks: load Home/auth/routes/CSS/profile navigation on `ycoders.com`; verify compiler production headers, `crossOriginIsolated`, `SharedArrayBuffer`, Python interactive input, JS/TS, and one native runtime on `compiler.ycoders.com`; create/retrieve a Share and submit Feedback; authenticate a protected Firebase route; exercise the live Google popup; inspect real CSP/COOP/COEP/CORP/HSTS responses; and confirm Pyodide plus other external runtime/CDN assets work under production COEP.
 
 Final classification: `RELEASE_CANDIDATE_READY_WITH_KNOWN_LIMITATIONS`.
+
+## Production Share API blocker hotfix — 2026-10-02
+
+Production release `43c082cf8ac620e63bb71bb66592d1b210ceb47b` exposed a server-runtime compatibility issue on `POST /api/compiler/share`. The request failed while loading the function, before Share business logic ran: `firebase-admin@14.2.0` loads CommonJS `jwks-rsa@4.1.0`, whose `src/utils.js` calls `require('jose')`, while its `jose@6.2.7` dependency is ESM-only. Vercel disables Node's native `require(ESM)` bridge by default, producing `ERR_REQUIRE_ESM`; the same chain succeeds when `--experimental-require-module` is enabled. This dependency state predates the release and is not caused by the Share payload, Firestore, authentication, or the October remediation commit.
+
+The minimal repair adds Vercel's documented `NODE_OPTIONS=--experimental-require-module` runtime configuration to both deployment targets. No Share, Feedback, authentication, payment, AI, Firebase Admin, compiler-runtime, dependency-version, or browser code changed. A focused Vercel regression test locks the option for both `main` and `compiler` configurations.
+
+Validation passed for direct compiler-function module loading under the configured option; compiler routing; Share/Feedback service contracts; stdin preservation; dependency boundaries; and the Firebase Auth/Firestore Share/Feedback acceptance harness (9/9). The production build passed with only the established `worker_threads` externalization, PHP-WASM `eval`, and large lazy-chunk warnings. A redeployment of both affected Vercel projects is required before production HTTP retesting can prove the live fix; this hotfix phase did not deploy.
