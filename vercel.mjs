@@ -8,10 +8,6 @@ import {
 const MAIN_DEPLOYMENT_TARGET = 'main';
 const COMPILER_DEPLOYMENT_TARGET = 'compiler';
 
-export const NODE_RUNTIME_ENV = Object.freeze({
-  NODE_OPTIONS: '--experimental-require-module',
-});
-
 export const CRON_SCHEDULES = Object.freeze({
   payments: Object.freeze({ path: '/api/payments/reconcile', schedule: '15 2 * * *' }),
   shares: Object.freeze({ path: '/api/compiler/share/janitor', schedule: '50 3 * * *' }),
@@ -45,7 +41,6 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
   return {
     framework: 'vite',
     outputDirectory: 'dist',
-    env: NODE_RUNTIME_ENV,
     functions: {
       'api/ai/explain.js': { maxDuration: 60, supportsCancellation: true },
       'api/compiler.js': { maxDuration: 60, supportsCancellation: true },

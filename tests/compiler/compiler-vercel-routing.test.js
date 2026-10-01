@@ -3,7 +3,6 @@ import packageManifest from '../../package.json';
 import {
   COMPILER_ISOLATION_ROUTE,
   JAVASCRIPT_LEARNER_WORKER_ROUTE,
-  NODE_RUNTIME_ENV,
   createVercelConfig,
 } from '../../vercel.mjs';
 import {
@@ -19,9 +18,8 @@ describe('compiler Vercel routing', () => {
     expect(packageManifest.devDependencies['firebase-admin']).toBeUndefined();
   });
 
-  it.each(['main', 'compiler'])('enables Node native require(ESM) for Firebase Admin on %s', (target) => {
-    expect(createVercelConfig(target).env).toEqual(NODE_RUNTIME_ENV);
-    expect(NODE_RUNTIME_ENV).toEqual({ NODE_OPTIONS: '--experimental-require-module' });
+  it.each(['main', 'compiler'])('does not rely on experimental Node module flags for %s', (target) => {
+    expect(createVercelConfig(target).env?.NODE_OPTIONS).toBeUndefined();
   });
 
   it.each(['main', 'compiler'])('routes nested compiler contracts through the single function for %s', (target) => {

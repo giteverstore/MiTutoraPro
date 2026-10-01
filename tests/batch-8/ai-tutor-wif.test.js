@@ -77,25 +77,16 @@ describe('Vercel OIDC to Google WIF credential adapter', () => {
     const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
     expect(lock.packages['node_modules/firebase-admin']?.version).toBe('14.2.0');
     expect(lock.packages['node_modules/jwks-rsa']?.version).toBe('4.1.0');
-    expect(lock.packages['node_modules/jose']?.version).toBe('6.2.7');
+    expect(lock.packages['node_modules/jwks-rsa/node_modules/jose']?.version).toBe('5.10.0');
     expect(readFileSync('node_modules/jwks-rsa/src/utils.js', 'utf8')).toContain("require('jose')");
   });
 
-  it('loads the exact Firebase Admin Auth graph with require(ESM) enabled and reproduces the prior failure without it', () => {
+  it('loads the exact Firebase Admin Auth graph without the experimental require(ESM) bridge', () => {
     const script = "import('firebase-admin/auth').then(() => process.exit(0)).catch((error) => { process.stderr.write(String(error?.code || error?.name || 'unknown')); process.exit(1); })";
     const environment = { ...process.env };
     delete environment.NODE_OPTIONS;
 
-    const incompatible = spawnSync(process.execPath, ['--no-experimental-require-module', '--input-type=module', '-e', script], {
-      cwd: process.cwd(),
-      env: environment,
-      encoding: 'utf8',
-      timeout: 15_000,
-    });
-    expect(incompatible.status).toBe(1);
-    expect(incompatible.stderr.trim()).toBe('ERR_REQUIRE_ESM');
-
-    const compatible = spawnSync(process.execPath, ['--experimental-require-module', '--input-type=module', '-e', script], {
+    const compatible = spawnSync(process.execPath, ['--no-experimental-require-module', '--input-type=module', '-e', script], {
       cwd: process.cwd(),
       env: environment,
       encoding: 'utf8',
