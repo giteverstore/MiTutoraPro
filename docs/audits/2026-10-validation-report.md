@@ -308,3 +308,200 @@ The first failure followed `wif.firebase.success` while materializing Firestore 
 The compiler-public dependency session now keeps Firebase Admin and the request-scoped app exclusively for Auth while constructing `(default)` database access directly with the existing `@google-cloud/firestore@8.7.0` dependency. The same request's `google-auth-library` `IdentityPoolClient` is injected through the supported `authClient` constructor option; Production fails closed if that client is missing, with no certificate, service-account JSON, key file, or ADC fallback. Request cleanup terminates the Firestore client and deletes the Firebase Admin app. Direct-package `Timestamp` values preserve the stored schema and the existing transaction, Share, Feedback, rate-limit, read, and janitor operations remain unchanged.
 
 Diagnostics now distinguish Firebase Auth materialization, Firestore client construction, and individual Firestore RPC start/success/failure stages. Focused adapter/WIF/router/service tests passed 67 assertions, compiler-public contract tests passed 50 assertions, the Auth/Firestore emulator acceptance matrix passed 9/9, AI Tutor passed 592 assertions, payment regression passed 27 assertions, and dependency-boundary plus secret-hygiene validation passed. The compiler entrypoint loads, the production build succeeds, browser output contains no server Firestore/WIF identifiers, and bundle budgets remain at 973,788 bytes initial JavaScript raw / 254,112 gzip and 30,293 bytes initial CSS raw / 6,640 gzip with 12 lazy route entries. This repair remains uncommitted and undeployed pending explicit authorization.
+
+## FINAL RELEASE CLOSURE — 2026-10-02
+
+Production SHA `debc1968c91c6b753997362da90e4d01e4420cf4` is deployed and READY in both the main deployment (`dpl_4u1yjpeNqBUWDFKMivoSaEsEZCiK`) and compiler deployment (`dpl_Cn4wLGKFvaQo6zF7XrjXikZKm4mN`). The direct Firestore WIF adapter repair is therefore no longer pending: a valid anonymous Production Share returned `201`, its corresponding GET returned `200` with exact source and metadata restoration, a second Share preserved multiline stdin exactly, invalid Auth returned a sanitized `401`, and Feedback persistence returned `201`. Correlated diagnostics prove Vercel OIDC, Google STS, service-account impersonation, Firebase Admin Auth, direct Firestore client construction, transactional rate-limit RPC, Share persistence RPC, Share read RPC, and Feedback RPC success with `credentialMode: wif`. No service-account JSON fallback was restored.
+
+The broader release smoke also passed at the available scope. The main AI endpoint completed its Production WIF preflight before returning the expected unauthenticated `401`; the payment entrypoint returned its safe method-contract `405` without creating a payment. Live standalone JavaScript and Python each produced exactly `release-ok` with no browser console errors. Compiler documents return COOP `same-origin`, COEP `require-corp`, and CORP `same-origin`; real Chromium reports `crossOriginIsolated === true` and `SharedArrayBuffer` available. The main site does not inherit those compiler-only isolation headers.
+
+### Original audit reconciliation
+
+| ID | Original severity and title | Final status | Closure evidence and residual limitation |
+| --- | --- | --- | --- |
+| AUDIT-001 | HIGH — JavaScript/TypeScript learner code retained same-origin Worker capabilities | CLOSED | Fail-closed capability denial, pre-evaluation remote-import rejection, Worker CSP, and hostile real-Chromium coverage passed. A browser Worker remains a capability-controlled boundary rather than an OS sandbox. |
+| AUDIT-002 | MEDIUM — Browser output and terminal transcript were unbounded | CLOSED | Shared stdout (2 MiB), stderr (1 MiB), and transcript (4 MiB) limits terminate disposable runtimes truthfully; real-browser termination and recovery passed across representative runtimes. |
+| AUDIT-003 | MEDIUM — Browser source and buffered stdin lacked shared limits | CLOSED | UTF-8 limits now cover source (512 KiB), buffered stdin (256 KiB), interactive submissions (32 KiB each/512 KiB cumulative), rapid-run replacement, and pre-worker rejection. |
+| AUDIT-004 | MEDIUM — Firebase Admin dependency boundary failed | CLOSED | The server dependency placement is intentional; browser-source scanning, negative fixtures, built-output inspection, and the 469-module boundary validator pass. |
+| AUDIT-005 | MEDIUM — Initial CSS/JavaScript exceeded budgets | CLOSED | Final budgets pass with 973,788 bytes JS raw/254,112 gzip, 30,293 bytes CSS raw/6,640 gzip, and 12 lazy routes. JS gzip headroom remains narrow and should be monitored. |
+| AUDIT-006 | LOW — Coin suite referenced a removed stylesheet | CLOSED | The test follows current semantic CSS owners, Redeem loads its owned rules, the full coin suite and CSS architecture validation pass. Redeem rules remain co-located with Home styles. |
+| AUDIT-007 | LOW — Isolation tests omitted Worker capability coverage | CLOSED | The adversarial browser matrix now covers network, nested workers, storage/filesystem entrypoints, messaging, constructor/global probes, and remote dynamic imports. |
+| AUDIT-008 | INFO — Security headers lacked a consolidated policy | CLOSED | Central host-aware policy is validated locally and in Production; compiler isolation headers and main-host separation are confirmed live. Broader CSP source directives remain intentionally deferred pending telemetry. |
+| AUDIT-009 | INFO — Compiler acceptance was unreliable through generic Vitest | CLOSED | The explicit pinned-project emulator wrapper passed five fresh 9/9 runs; the final acceptance rerun passed 9/9. The separate Windows outer-process handle is tracked as VALIDATION-005. |
+| AUDIT-010 | INFO — Pyodide auto-loaded packages and retained warm VM state | CLOSED | Automatic import loading is removed, learner-visible network/storage bridges are denied, and every run receives a disposable Worker/VM with reset stdin/output state. Browser Workers still have no strict per-worker memory quota and cold initialization is expected. |
+
+All 10 original AUDIT findings are closed or validated at their intended scope. None is partially validated and none remains release-blocking.
+
+### Validation-finding reconciliation
+
+| ID | Description | Final status | Evidence or remaining scope |
+| --- | --- | --- | --- |
+| VALIDATION-001 | Legacy routing test required removed `vercel.json` | CLOSED | Tests use the active Vercel configuration API. |
+| VALIDATION-002 | Cron test assumed a stale route index | CLOSED | Cron selection is semantic and retains Hobby/project-isolation constraints. |
+| VALIDATION-003 | AI diagnostics referenced removed API files | CLOSED | Diagnostics target the consolidated AI entrypoint and retained authorization modules. |
+| VALIDATION-004 | Landing test timed out under suite load | CLOSED | Twenty isolated runs passed without weakening the timeout. |
+| VALIDATION-005 | Authenticated Playwright helper and Windows lifecycle | ACCEPTED_LIMITATION | Auth/protected-route assertions passed repeatedly and owned ports are released, but the outer PowerShell/PTY or descendant process can retain a handle after assertions. Product behavior is unaffected; authenticated Production journeys remain untested without an authorized session. |
+| VALIDATION-006 | Firebase Admin dependency boundary | CLOSED | The corrected source/import boundary and built-artifact scan pass. |
+| VALIDATION-007 | Bundle and route-splitting budgets | CLOSED | Current raw/gzip thresholds and all 12 lazy-route assertions pass. |
+| VALIDATION-008 | Java validation imported the application/Firebase graph | CLOSED | The dedicated minimal Java harness passes. Java remains intentionally buffered-only. |
+| VALIDATION-009 | Browser runtime Vite lifecycle and Assembly cold start | ACCEPTED_LIMITATION | Harness ownership/readiness cycles pass. Fresh Assembly initialization in the Vite development harness takes about 80–90 seconds; prior Production execution passed around seven seconds. This is a development-harness performance limitation, not a demonstrated Production runtime defect. |
+| VALIDATION-010 | npm advisory lookup was unavailable | CLOSED | Registry access was restored and produced a real report: 14 advisories (1 low, 7 moderate, 6 high). Remediation remains separate non-blocking dependency-owner triage. |
+| VALIDATION-011 | Compiler resource limits were incomplete | CLOSED | Shared source, stdin, stdout, stderr, transcript, SQLite row, abort, cleanup, and rapid-run cancellation contracts pass, including representative real-browser recovery. |
+| VALIDATION-012 | Firebase rule suites lacked deterministic emulator ownership | CLOSED | Content, certification, Storage, coin, and compiler-public suites use isolated pinned projects and owned emulator wrappers; Share/Feedback and Auth-token acceptance pass. |
+| VALIDATION-013 | Long-session lifecycle, accessibility, and responsive coverage gaps | PARTIALLY_VALIDATED | Monaco lifecycle is closed; automated axe, keyboard, contrast, responsive, reflow, and text-spacing coverage pass on the reached surfaces. Manual NVDA/Narrator, eligible Premium exam/setup, every quiz/exercise variant, and destructive Project focus restoration remain untested. |
+
+There are 13 documented VALIDATION findings: 10 closed, 3 partial/accepted limitations, and 0 open blockers.
+
+### Lifecycle, accessibility, and emulator closure
+
+Monaco lifecycle validation is closed. URI-backed models are explicitly owned and disposed for close, delete, rename, project switch, route switch, and unmount. Language/theme providers register once per Monaco instance; editor disposables, pointer listeners, and pending animation work are cleaned up. Real Chromium covered 50 file models, 20 project switches, 20 route cycles, 30 language switches, and 50 standalone/compiler edit-reset-unmount cycles. The final model count returned to zero, Workers stayed bounded, forced-GC heap remained stable, listeners fell from 271 to 160, and retained documents fell from five to two.
+
+Accessibility remains partially validated but non-blocking: real axe scans cover public/auth/compiler and authenticated application routes, including Learning Engine and an opened Project Workspace. Keyboard navigation, focusability, tab semantics, skip navigation, splitter semantics, contrast, dark mode, mobile/tablet layouts, 200% reflow, and text spacing have passing evidence with no known critical/serious issue on scanned surfaces. Manual assistive-technology testing and Premium-only/fixture-limited journeys remain explicit gaps.
+
+Firebase emulator product correctness is validated separately from Windows process cleanup. Share/Feedback acceptance, rule suites, deterministic Auth-token issuance, quota behavior, and authenticated browser checks passed through pinned projects and owned emulator instances. Ports and owned emulator services are released; only the outer Windows Playwright/PowerShell or retained test-process handle remains as non-product infrastructure debt.
+
+### Security, runtime, and dependency status
+
+The compiler resource policy now enforces source, buffered and interactive stdin, stdout, stderr, transcript, and SQLite-row ceilings; output-limit termination aborts the disposable runtime and rapid repeated Run requests cancel the superseded execution. JavaScript/TypeScript additionally deny learner access to network transports, nested workers/imports, IndexedDB, Cache Storage, filesystem entrypoints, and cross-context messaging, with remote dynamic imports rejected before execution and Worker CSP as defense in depth.
+
+Pyodide uses a fresh Worker/VM per run. Automatic `loadPackagesFromImports` behavior is removed, browser networking/JS bridge imports are denied, optional third-party packages are not implicitly installed, and stdin/output/runtime state is reset with worker disposal after every terminal outcome.
+
+The documented compiler-language result remains unchanged: browser, preview, database, and emulator runtimes retain their validated contract status; Java is intentionally buffered-only. Public Go, Rust, and MySQL execution remains correctly unavailable/Coming Soon where previously classified, while their retained gated implementations are not reclassified as bugs.
+
+The Production WIF/Firestore incident chain is CLOSED: (A) `ERR_REQUIRE_ESM`; (B) ineffective `NODE_OPTIONS` workaround; (C) scoped `jwks-rsa` to `jose@5.10.0` compatibility repair; (D) Production singleton Firebase initializer failure; (E) compiler provider/IAM authorization repair; (F) Firebase Admin Firestore custom-credential incompatibility; (G) direct `@google-cloud/firestore` WIF adapter; and (H) real Production rate-limit, Share, read, and Feedback RPC success.
+
+The dependency state remains `firebase-admin@14.2.0`, `jwks-rsa@4.1.0`, with a scoped `jwks-rsa` override to `jose@5.10.0`. This is temporary dependency compatibility debt, not an active blocker. Remove the override only when an upstream Firebase Admin/`jwks-rsa` combination no longer synchronously requires an incompatible ESM-only `jose` build and the Vercel loader regression remains green.
+
+The Node `url.parse()` deprecation warning remains non-blocking. No application-source `url.parse()` call exists in the repository scan; the warning is emitted from the deployed server dependency graph, but the exact transitive package has not yet been isolated.
+
+### Remaining non-blocking limitations
+
+- **Validation gaps:** no authorized Production session was available for Google login, Settings/profile, Projects Workspace, or Learning Engine; manual NVDA/Narrator and eligible Premium exam/setup flows remain outstanding.
+- **Operational validation:** the Production janitor mutation was intentionally skipped because no safe synthetic expired record existed; its code and emulator paths are validated.
+- **Tooling/test infrastructure:** Windows outer Playwright/PowerShell teardown can retain a handle; Assembly Vite-development cold initialization is about 80–90 seconds.
+- **Dependency debt:** 14 npm advisories require separate owner triage; the scoped `jwks-rsa`/`jose` compatibility override remains temporary; the `url.parse()` dependency warning remains.
+- **Observability/cleanup:** Firestore `terminate()` and Firebase Admin app deletion are deterministic and locally validated, but Production does not emit an explicit cleanup telemetry event.
+- **Performance monitoring:** current budgets pass, with limited initial-JavaScript gzip headroom and intentionally large lazy editor/runtime assets.
+
+### Release decision
+
+**OPEN RELEASE BLOCKERS: NONE.**
+
+Original AUDIT counts: 10 total, 10 closed, 0 partial, 0 open blocking. Documented VALIDATION counts: 13 total, 10 closed, 3 partial/accepted, 0 open blocking. The Production Share/Firestore blocker is cleared, the validated release may remain live, and the evidence does not support a stronger unqualified classification because the explicitly listed validation and dependency limitations remain.
+
+Final classification: `PRODUCTION_DEPLOYMENT_VALIDATED_WITH_LIMITATIONS`.
+
+Release may remain live: **YES**.
+
+## DEPENDENCY ADVISORY TRIAGE — 2026-10-02
+
+### Audit inventory and count reconciliation
+
+Live registry-backed npm audit evidence was collected without changing `package.json`, `package-lock.json`, or `node_modules`. `npm audit --omit=dev --json` reports **14 production package entries**: 1 low, 7 moderate, 6 high, and 0 critical. The unrestricted `npm audit --json` reports **35 full-tree entries**: 1 low, 18 moderate, 16 high, and 0 critical. The earlier validation report's 14-advisory statement therefore described the production-only tree; the additional 21 entries are development, test, emulator, document-conversion, or Firebase CLI tooling dependencies.
+
+The 14 production entries are `@firebase/firestore`, `@firebase/firestore-compat`, `@google-cloud/storage`, `@grpc/grpc-js`, `brace-expansion`, `dompurify`, `firebase`, `firebase-admin`, `gaxios`, `monaco-editor`, `nanoid`, `retry-request`, `teeny-request`, and `uuid`. Direct application dependencies among them are `firebase@12.17.0`, `firebase-admin@14.2.0`, and `monaco-editor@0.56.0`; the remaining entries are transitive. The full-tree additions are `@firebase/rules-unit-testing`, `@google-cloud/pubsub`, `@opentelemetry/core`, `@xmldom/xmldom`, `basic-ftp`, `body-parser`, `csv-parse`, `express`, `fast-uri`, `firebase-tools`, `get-uri`, `hono`, `ip-address`, `js-yaml`, `morgan`, `pac-proxy-agent`, `proxy-agent`, `qs`, `re2`, `stream-json`, and `undici`.
+
+### Production reachability classification
+
+| Package/advisory family | Installed path and reachable surface | Classification | Disposition |
+| --- | --- | --- | --- |
+| `@grpc/grpc-js` / Firestore (`@firebase/firestore`, compat, `firebase`) | `@grpc/grpc-js@1.9.16` is selected by the browser Firebase package's Node path; `1.14.4` is nested under `google-gax` for direct server Firestore. Production uses the latter as an outbound Firestore client, not a gRPC server. The high certificate-authorization advisory and low server-error disclosure advisory concern server-side APIs. The grpc package name is absent from built browser assets. | **Group B — reachable dependency, vulnerable behavior not invoked** | Patch Firebase/Firestore in a controlled dependency batch; do not treat the npm severity propagation as proof of a Production exploit. |
+| `firebase-admin` / optional `@google-cloud/storage` → `retry-request`, `teeny-request`, `gaxios@6`, `uuid@9` | Firebase Admin Auth is Production-reachable, but no Production API/server module imports Admin Storage or `@google-cloud/storage`; Storage imports occur only in local scripts/tools. The active WIF/auth path uses newer `google-auth-library`/`gaxios@7`, and direct Firestore uses its separate client chain. The UUID flaw additionally requires calling name-based UUID APIs with a caller-supplied output buffer. | **Group B — installed optional chain, unused in Production requests** | Update Firebase Admin in a controlled batch and confirm optional Storage resolution; no emergency runtime change. |
+| `dompurify@3.4.8` / `monaco-editor@0.56.0` | DOMPurify occurs only in the lazy `MonacoCodeEditor` browser chunk. Application source does not import DOMPurify or configure its hooks/`IN_PLACE` behavior. Learner source is editor text, not application-provided HTML passed into DOMPurify. Exploitation of the listed configuration-pollution, detached-subtree, or Trusted Types cases is therefore not demonstrated, though the dependency is browser-reachable. | **Group B — browser reachable, constrained/unproven vulnerable invocation** | Evaluate Monaco 0.57.x in a controlled editor regression and bundle batch; it is a 0.x minor with nontrivial integration risk, not a blind patch. |
+| `brace-expansion@2.1.4` | Reached through glob/minimatch/rimraf package-management and Google client dependency tooling, not learner-controlled runtime glob expansion. | **Group C — build/package tooling path** | Prefer a lockfile-compatible transitive update to 2.1.7 in a controlled low-risk batch. |
+| `nanoid@3.3.16` | Reached through PostCSS/Vite build tooling. Application source does not call the vulnerable custom generator with a zero size, and Nano ID is not present as an application runtime import. | **Group C — build-only** | Prefer a lockfile-compatible update to the patched 3.3.x release in a controlled low-risk batch. |
+| 21 full-tree-only entries | Firebase CLI/emulator (`firebase-tools`), Rules testing, Mammoth XML conversion, AJV/tooling, MCP/proxy, Express, telemetry, or test DOM stacks. They are excluded entirely by `--omit=dev` and are not shipped as Production application dependencies. | **Group C — development/test/tooling only** | Upgrade `firebase-tools`, Rules testing, Mammoth, AJV/transitives, and related tooling as separate controlled batches; preserve emulator and publishing regressions. |
+
+No **Group A — Production-reachable and demonstrably exploitable** advisory was identified. Payment, AI, compiler-public Share/Feedback, and Firebase Auth/Firestore request paths were specifically considered. Their reachable authentication and database clients do not expose the vulnerable gRPC server APIs, and the optional Admin Storage chain is not imported by those handlers. Compiler runtime engines are not implicated by the npm findings; Monaco's lazy editor surface is the only learner-facing browser dependency in the 14-entry set.
+
+### Compatibility constraints and warning ownership
+
+The scoped override remains intentional and unchanged:
+
+```json
+"overrides": {
+  "jwks-rsa": {
+    "jose": "5.10.0"
+  }
+}
+```
+
+The installed Production chain is `firebase-admin@14.2.0` → `jwks-rsa@4.1.0` → overridden `jose@5.10.0`; `@vercel/oidc@3.8.5` also resolves to `jose@5.10.0`. The independent development-only MCP chain under `firebase-tools` uses `jose@6.2.7`. Current `firebase-admin@14.5.0` package metadata still declares `jwks-rsa ^4.0.1`, so an Admin upgrade alone is not evidence that the synchronous CommonJS/ESM loader incompatibility is gone. Removing the override would risk restoring the already observed Production `ERR_REQUIRE_ESM` failure. Removal is permitted only after an isolated upstream compatibility test and Vercel loader regression pass.
+
+The Node `url.parse()` deprecation remains a dependency-owned warning rather than an application advisory. Repository and targeted dependency scans found no application-source call and did not isolate a safe direct replacement point. It should be rechecked after the Google/Firebase dependency batch; patching vendored code or suppressing the warning is not justified.
+
+### Remediation sequence
+
+1. **PATCH_NOW_LOW_RISK (controlled lockfile batch):** resolve compatible patched `brace-expansion` and `nanoid` transitive versions if npm can do so without parent major changes; rerun dependency-boundary, build, bundle, and relevant server smoke checks.
+2. **PATCH_IN_CONTROLLED_DEPENDENCY_BATCH:** evaluate `@google-cloud/firestore@8.7.1`, `firebase@12.19.0`, and `firebase-admin@14.5.0` individually. Preserve WIF direct-Firestore construction, Firebase Admin Auth, payment/AI paths, emulator behavior, browser bundle boundaries, and the `jose@5.10.0` override. Do not accept npm audit's suggested Firebase downgrade as an automatic fix.
+3. **PATCH_IN_CONTROLLED_EDITOR_BATCH:** evaluate `monaco-editor@0.57.0` and verify every embedded/standalone editor, Worker loading, model disposal, themes, accessibility, runtime chunking, and bundle budgets before adoption.
+4. **DEFER_DEV_ONLY:** update `firebase-tools@15.32.1`, `@firebase/rules-unit-testing@5.0.2`, `mammoth@1.13.0`, and remaining dev transitive packages in isolated CLI/emulator/publishing batches. Their advisories do not block the deployed application but still require owner follow-up.
+5. Rerun both full and `--omit=dev` audits after each batch. Record package-entry counts rather than calling them unique CVEs, and require a Production-path reachability review for any remaining high/critical item.
+
+No dependency was upgraded, removed, overridden, or lockfile-edited during this phase. No commit or deployment was performed. Based on present reachability evidence, the advisory inventory is maintenance debt with a prioritized remediation plan, not a demonstrated Production security blocker.
+
+Final dependency classification: `DEPENDENCY_TRIAGE_NO_PRODUCTION_BLOCKER`.
+
+## RESIDUAL VALIDATION CLOSURE — 2026-10-02
+
+### Repository and Production availability
+
+The final residual pass was performed from `main` at `debc1968c91c6b753997362da90e4d01e4420cf4`; `origin/main` resolves to the same SHA. The only intentional release-documentation change is this report. The pre-existing `src/access/PremiumGate.jsx` modification, deleted `firebase-debug.log`, emulator/debug logs, temporary Firebase/Monaco/TeaVM directories, screenshot, and generated .NET `bin`/`obj` output remain unrelated and untouched.
+
+No existing authorized Production browser session, Playwright storage state, or safe Production test credential was available. The Production Google login/session-restoration, Profile/Settings, Projects list, opened Project Workspace, Learning Engine, and sign-out smoke was therefore not attempted: `AUTHENTICATED_PRODUCTION_SESSION_UNAVAILABLE`. No account was created, no token was synthesized, and no Production user data was changed. A legitimately Premium-entitled Production test identity was likewise unavailable: `PREMIUM_PRODUCTION_JOURNEY_NOT_AVAILABLE`. These are retained validation gaps, not release blockers.
+
+### Focused accessibility and lifecycle sanity
+
+A focused real-Chromium sanity pass reused the deterministic local Firebase emulator identity rather than Production data. Five selected tests passed: the live Learning Engine lesson scan and navigation semantics; opened Project Workspace scan, Results/Guide/AI tab keyboard behavior, and splitter controls; public/auth/catalog/standalone compiler axe matrix; authenticated AppShell route axe matrix including Home; and keyboard skip navigation plus standalone compiler dialog focus restoration. No critical or serious axe finding was reported.
+
+NVDA was absent from `PATH` and both standard Windows installation locations, so `MANUAL_NVDA_VALIDATION_UNAVAILABLE` remains. The automated keyboard sanity passed for skip navigation, auth reachability, compiler dialog open/Escape/focus return, Learning sidebar activation, Project result and assistance tabs, and Project splitters. This is not a substitute for a manual assistive-technology session or exhaustive keyboard traversal.
+
+No Monaco/editor/compiler/CSS file is dirty relative to the validated release SHA. The prior long-session evidence and responsive/text-spacing evidence therefore remain current without repeating their expensive matrices: `MONACO_LONG_SESSION_LIFECYCLE_VALIDATED`. Monaco's portion of VALIDATION-013 stays closed.
+
+### Deferred operational evidence
+
+No explicitly synthetic, safely identifiable expired Production Share was available through an existing test mechanism. The Production janitor mutation was not invoked and remains `JANITOR_PRODUCTION_MUTATION_DEFERRED`; its authentication, direct-Firestore, bounded deletion, and emulator paths retain their existing validated evidence. No Production record was created solely to make this check possible.
+
+Request cleanup remains locally validated for direct `Firestore.terminate()` and Firebase Admin `deleteApp()`. Production does not emit an explicit cleanup-completion event. This is `OPTIONAL_OBSERVABILITY_IMPROVEMENT`, not a correctness defect.
+
+The selected browser assertions completed successfully, but the outer Windows PowerShell/PTY or descendant process again remained alive after assertions until explicitly interrupted. Owned product services/ports are separately cleaned up, and no product assertion failed. VALIDATION-005 therefore remains `ACCEPTED_LIMITATION`; a future tooling task should isolate and close the retained Windows process handle without changing product behavior.
+
+Assembly status is unchanged: a fresh Vite-development initialization can take approximately 80–90 seconds, while previously validated Production execution completed in approximately seven seconds. Production functionality is not disproven. VALIDATION-009 remains `ACCEPTED_LIMITATION`; cold-development startup profiling belongs in a future runtime-performance task.
+
+VALIDATION-013 remains `PARTIALLY_VALIDATED`. Its Monaco lifecycle portion is closed and the focused axe/keyboard sanity is clean. Remaining gaps are an actual NVDA/Narrator session, an eligible Premium exam/setup journey, explicitly untested quiz/exercise variants, and destructive Project file-operation focus restoration.
+
+### Dependency, bundle, and compiler status
+
+Dependency classification remains `DEPENDENCY_TRIAGE_NO_PRODUCTION_BLOCKER`. The Production audit contains 14 package entries (1 low, 7 moderate, 6 high, 0 critical); the full dependency tree contains 35 entries. No package or lockfile was changed. Future maintenance order remains: (1) compatible `brace-expansion`/`nanoid` updates; (2) controlled Firebase/Firebase Admin/Firestore batch; (3) separate Monaco 0.57 editor-regression batch; and (4) Firebase CLI, Rules testing, Mammoth, and other development-tool batches.
+
+The scoped compatibility edge remains `jwks-rsa@4.1.0` → `jose@5.10.0`. It must remain until an upstream Firebase Admin/`jwks-rsa` combination eliminates the synchronous loader incompatibility without restoring `ERR_REQUIRE_ESM`. The `url.parse()` deprecation remains `DEPENDENCY_OWNED_SOURCE_NOT_ISOLATED`; targeted read-only source/import tracing did not identify a safe application-owned replacement point, so no vendored patch or warning suppression is justified.
+
+Bundle budgets remain passing at 973,788 bytes initial JavaScript raw / 254,112 gzip, 30,293 bytes initial CSS raw / 6,640 gzip, and 12 lazy route entries. Narrow initial-JavaScript gzip headroom is `MONITORING_DEBT`, not a defect.
+
+Validated Production compiler evidence remains current and was not repeated unnecessarily: Share POST `201`, Share GET `200`, multiline-stdin Share persistence, invalid Auth `401`, Feedback `201`, direct Firestore RPCs, Vercel OIDC, Google STS, service-account impersonation, Firebase Admin Auth, direct Firestore construction, live JavaScript and Python execution, compiler isolation headers, `crossOriginIsolated`, and `SharedArrayBuffer` availability.
+
+### Final residual backlog
+
+| Group | Description | Release blocker? | Recommended timing | Likely scope |
+| --- | --- | --- | --- | --- |
+| A — Validation follow-up | Run authorized Production Google/session, Settings, Projects Workspace, Learning Engine, and safe sign-out smoke when a pre-approved test identity/session exists. | No | Next authorized Production validation window | Browser-only read/render smoke; no important data mutation |
+| A — Validation follow-up | Exercise an eligible Premium exam/setup journey and representative quiz/exercise variants without bypassing entitlement. | No | When a legitimate test entitlement and canonical fixtures exist | Premium/accessibility browser coverage |
+| A — Validation follow-up | Perform a short NVDA or Narrator pass and destructive Project-operation focus-restoration checks against disposable data. | No | Before the next major accessibility certification | Manual accessibility and disposable Project fixture |
+| A — Validation follow-up | Validate Production janitor deletion only when an explicitly synthetic expired Share is safely available. | No | Next safe operational maintenance window | One synthetic record, janitor WIF/direct-Firestore evidence, legitimate-record guard |
+| B — Test/tooling infrastructure | Repair the retained Windows Playwright/PowerShell/PTY process handle after successful assertions. | No | Normal tooling sprint | Harness process ownership and teardown only |
+| B — Test/tooling infrastructure | Profile Assembly's 80–90 second fresh Vite-development initialization. | No | Runtime performance backlog | Development harness/cache/startup; preserve Production runtime |
+| C — Dependency maintenance | Apply the four documented controlled dependency batches and rerun reachability/audit evidence. | No | Scheduled dependency maintenance | Lockfile, Firebase/WIF regressions, Monaco regressions, CLI/emulator tooling |
+| D — Observability | Optionally emit bounded cleanup-completion telemetry for Firestore termination and Firebase app deletion. | No | Observability backlog | Safe lifecycle event only; no credential or learner data |
+| E — Upstream compatibility | Remove the `jose@5.10.0` override only after upstream CommonJS/ESM compatibility is proven; recheck the dependency-owned `url.parse()` source after upgrades. | No | Upstream dependency review | Firebase Admin/`jwks-rsa` loader probe and warning attribution |
+
+### Definitive release state
+
+AUDIT remains 10 total, 10 closed, 0 partial, and 0 blocking. VALIDATION remains 13 total, 10 closed, 3 partial/accepted, and 0 blocking; the three retained items are VALIDATION-005, VALIDATION-009, and VALIDATION-013. Deferred manual or mutation-based evidence is not promoted to a blocker without a demonstrated defect.
+
+**OPEN RELEASE BLOCKERS: NONE.**
+
+Final release classification remains `PRODUCTION_DEPLOYMENT_VALIDATED_WITH_LIMITATIONS`.
+
+Release may remain live: **YES**.
+
+Residual-cycle classification: `RELEASE_VALIDATION_CYCLE_COMPLETE_WITH_ACCEPTED_LIMITATIONS`.
