@@ -1,5 +1,6 @@
 import { IdentityPoolClient } from 'google-auth-library';
 import { getVercelOidcToken } from '@vercel/oidc';
+import { createHash } from 'node:crypto';
 import { AIServiceError } from '../ai/AIServiceError.js';
 import {
   requiresFederatedTutorCredentials,
@@ -79,18 +80,70 @@ export async function readVercelPlatformOidcToken() {
   return getVercelOidcToken();
 }
 
-function normalizedGoogleAccessToken(authClient) {
+function emitDiagnostic(diagnostics, stage, metadata = {}) {
+  try { diagnostics?.event?.(stage, metadata); } catch { /* Diagnostics must never alter auth behavior. */ }
+}
+
+function safeTokenMetadata(token) {
+  try {
+    const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString('utf8'));
+    const audience = Array.isArray(payload.aud) ? payload.aud : [payload.aud].filter(Boolean);
+    return Object.freeze({
+      tokenPresent: true,
+      tokenBytes: Buffer.byteLength(token, 'utf8'),
+      issuerHostname: new URL(String(payload.iss)).hostname,
+      audienceHash: createHash('sha256').update(JSON.stringify(audience)).digest('hex').slice(0, 16),
+      subject: typeof payload.sub === 'string' ? payload.sub.slice(0, 240) : null,
+      ownerId: typeof payload.owner_id === 'string' ? payload.owner_id.slice(0, 120) : null,
+      projectId: typeof payload.project_id === 'string' ? payload.project_id.slice(0, 120) : null,
+      environment: typeof payload.environment === 'string' ? payload.environment.slice(0, 40) : null,
+      issuedAt: Number.isFinite(payload.iat) ? payload.iat : null,
+      expiresAt: Number.isFinite(payload.exp) ? payload.exp : null,
+    });
+  } catch {
+    return Object.freeze({ tokenPresent: true, tokenBytes: Buffer.byteLength(String(token), 'utf8'), metadataValid: false });
+  }
+}
+
+function safeGoogleFailure(error) {
+  const rawUrl = error?.config?.url ?? error?.response?.config?.url ?? '';
+  let operation = 'google-exchange';
+  try {
+    const parsed = new URL(String(rawUrl));
+    if (parsed.hostname === 'sts.googleapis.com') operation = 'sts';
+    if (parsed.hostname === 'iamcredentials.googleapis.com') operation = 'impersonation';
+  } catch { /* Keep the generic operation. */ }
+  const rawReason = error?.response?.data?.error?.status ?? error?.response?.data?.error ?? error?.code;
+  const reason = typeof rawReason === 'string' && /^[A-Za-z0-9_.-]{1,80}$/.test(rawReason) ? rawReason : null;
+  return Object.freeze({
+    operation,
+    errorName: String(error?.name ?? 'Error').slice(0, 80),
+    errorCode: typeof error?.code === 'string' || typeof error?.code === 'number' ? String(error.code).slice(0, 80) : null,
+    httpStatus: Number(error?.response?.status) || null,
+    reason,
+  });
+}
+
+function normalizedGoogleAccessToken(authClient, diagnostics) {
   return async function getAccessToken() {
+    emitDiagnostic(diagnostics, 'wif.sts.start');
+    // google-auth-library performs STS and service-account impersonation inside
+    // one getAccessToken() call, so both pipeline stages are pending here.
+    emitDiagnostic(diagnostics, 'wif.impersonation.start');
     try {
       const result = await authClient.getAccessToken();
       const accessToken = result?.token ?? authClient.credentials?.access_token;
       const expiryDate = Number(authClient.credentials?.expiry_date);
       if (typeof accessToken !== 'string' || !accessToken || !Number.isFinite(expiryDate)) throw new TypeError('Incomplete Google credential.');
+      emitDiagnostic(diagnostics, 'wif.sts.success');
+      emitDiagnostic(diagnostics, 'wif.impersonation.success');
       return {
         access_token: accessToken,
         expires_in: Math.max(1, Math.floor((expiryDate - Date.now()) / 1_000)),
       };
     } catch (cause) {
+      const failure = safeGoogleFailure(cause);
+      emitDiagnostic(diagnostics, `wif.${failure.operation}.failure`, failure);
       throw unavailable(cause);
     }
   };
@@ -101,6 +154,7 @@ export function createVercelGoogleCredentialContext({
   environment = process.env,
   tokenSource = readVercelPlatformOidcToken,
   IdentityPoolClientClass = IdentityPoolClient,
+  diagnostics,
 } = {}) {
   const configuration = resolveGoogleWifConfiguration(environment);
   if (!configuration) {
@@ -115,9 +169,17 @@ export function createVercelGoogleCredentialContext({
 
   const subjectTokenSupplier = Object.freeze({
     async getSubjectToken() {
+      emitDiagnostic(diagnostics, 'wif.oidc.start');
       try {
-        return assertPlatformToken(await tokenSource({ request }));
+        const token = assertPlatformToken(await tokenSource({ request }));
+        emitDiagnostic(diagnostics, 'wif.oidc.success', safeTokenMetadata(token));
+        return token;
       } catch (cause) {
+        emitDiagnostic(diagnostics, 'wif.oidc.failure', {
+          tokenPresent: false,
+          errorName: String(cause?.name ?? 'Error').slice(0, 80),
+          errorCode: typeof cause?.code === 'string' ? cause.code.slice(0, 80) : null,
+        });
         if (cause instanceof AIServiceError) throw cause;
         throw unavailable(cause);
       }
@@ -140,8 +202,15 @@ export function createVercelGoogleCredentialContext({
     throw unavailable(cause);
   }
 
+  emitDiagnostic(diagnostics, 'wif.external_account.ready', {
+    projectId: configuration.projectId,
+    providerAudienceValid: GOOGLE_WIF_AUDIENCE_PATTERN.test(configuration.audience),
+    scopeCount: configuration.scopes.length,
+    impersonationConfigured: configuration.serviceAccountImpersonationUrl.startsWith('https://iamcredentials.googleapis.com/'),
+  });
+
   const firebaseCredential = Object.freeze({
-    getAccessToken: normalizedGoogleAccessToken(authClient),
+    getAccessToken: normalizedGoogleAccessToken(authClient, diagnostics),
   });
 
   return Object.freeze({

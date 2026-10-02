@@ -42,6 +42,21 @@ const validationEnvironment = (overrides = {}) => ({
 
 const TEST_OIDC_TOKEN = 'TEST_OIDC_TOKEN.TEST_PAYLOAD.TEST_SIGNATURE';
 
+function syntheticOidcToken(overrides = {}) {
+  const encode = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
+  return `${encode({ alg: 'RS256', typ: 'JWT' })}.${encode({
+    iss: 'https://oidc.vercel.com/avinashabbigeris-projects',
+    aud: 'https://vercel.com/avinashabbigeris-projects',
+    sub: 'owner:avinashabbigeris-projects:project:ycoders-compiler:environment:production',
+    owner_id: 'team_JWeTI30xjnERJbMpLUkgTpzV',
+    project_id: 'prj_syntheticCompilerProject',
+    environment: 'production',
+    iat: 1_800_000_000,
+    exp: 1_800_003_600,
+    ...overrides,
+  })}.SYNTHETIC_SIGNATURE`;
+}
+
 class SuccessfulIdentityPoolClient {
   static instances = [];
 
@@ -325,6 +340,71 @@ describe('Vercel OIDC to Google WIF credential adapter', () => {
       status: 503,
       message: 'AI Tutor server configuration is unavailable.',
     });
+  });
+
+  it('emits safe OIDC and exchange stage diagnostics without credential material', async () => {
+    const events = [];
+    const oidcToken = syntheticOidcToken();
+    const context = createContext({
+      tokenSource: async () => oidcToken,
+      diagnostics: { event: (stage, metadata) => events.push({ stage, ...metadata }) },
+    });
+    await context.preflight();
+    expect(events).toEqual(expect.arrayContaining([
+      expect.objectContaining({ stage: 'wif.external_account.ready', providerAudienceValid: true }),
+      expect.objectContaining({ stage: 'wif.oidc.start' }),
+      expect.objectContaining({
+        stage: 'wif.oidc.success', tokenPresent: true, issuerHostname: 'oidc.vercel.com',
+        subject: 'owner:avinashabbigeris-projects:project:ycoders-compiler:environment:production', environment: 'production',
+      }),
+      expect.objectContaining({ stage: 'wif.sts.start' }),
+      expect.objectContaining({ stage: 'wif.impersonation.start' }),
+      expect.objectContaining({ stage: 'wif.sts.success' }),
+      expect.objectContaining({ stage: 'wif.impersonation.success' }),
+    ]));
+    expect(JSON.stringify(events)).not.toContain(oidcToken);
+    expect(JSON.stringify(events)).not.toContain('short-lived-google-token');
+    expect(JSON.stringify(events)).not.toContain('SYNTHETIC_SIGNATURE');
+  });
+
+  it('distinguishes OIDC, STS, and impersonation failures using safe stage evidence', async () => {
+    const cases = [
+      { url: 'https://sts.googleapis.com/v1/token', stage: 'wif.sts.failure' },
+      { url: 'https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/example:generateAccessToken', stage: 'wif.impersonation.failure' },
+    ];
+    for (const testCase of cases) {
+      const events = [];
+      class FailedExchangeClient {
+        constructor(options) { this.options = options; }
+        async getAccessToken() {
+          await this.options.subject_token_supplier.getSubjectToken();
+          const error = Object.assign(new Error('SECRET_ERROR_MESSAGE'), { code: 'PERMISSION_DENIED' });
+          error.config = { url: testCase.url };
+          error.response = { status: 403, data: { error: { status: 'PERMISSION_DENIED', message: 'PRIVATE_KEY_SENTINEL' } } };
+          throw error;
+        }
+      }
+      const context = createContext({
+        tokenSource: async () => syntheticOidcToken(), IdentityPoolClientClass: FailedExchangeClient,
+        diagnostics: { event: (stage, metadata) => events.push({ stage, ...metadata }) },
+      });
+      await expect(context.preflight()).rejects.toMatchObject({ code: 'ai/server-unavailable' });
+      expect(events).toContainEqual(expect.objectContaining({ stage: testCase.stage, httpStatus: 403, reason: 'PERMISSION_DENIED' }));
+      expect(JSON.stringify(events)).not.toMatch(/SECRET_ERROR_MESSAGE|PRIVATE_KEY_SENTINEL|SYNTHETIC_SIGNATURE/);
+    }
+
+    const oidcEvents = [];
+    const oidcContext = createContext({ tokenSource: async () => '', diagnostics: { event: (stage, metadata) => oidcEvents.push({ stage, ...metadata }) } });
+    await expect(oidcContext.preflight()).rejects.toMatchObject({ code: 'ai/server-unavailable' });
+    expect(oidcEvents).toContainEqual(expect.objectContaining({ stage: 'wif.oidc.failure', tokenPresent: false }));
+  });
+
+  it('marks an opaque JWT-shaped token as metadata-invalid without logging it', async () => {
+    const events = [];
+    const context = createContext({ diagnostics: { event: (stage, metadata) => events.push({ stage, ...metadata }) } });
+    await context.preflight();
+    expect(events).toContainEqual(expect.objectContaining({ stage: 'wif.oidc.success', metadataValid: false }));
+    expect(JSON.stringify(events)).not.toContain(TEST_OIDC_TOKEN);
   });
 
   it('uses the external-account exchange and service-account impersonation contract', () => {

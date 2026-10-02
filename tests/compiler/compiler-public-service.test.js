@@ -8,6 +8,7 @@ it('materializes request time as epoch milliseconds for HTTP handlers', async ()
   const request = { headers: {} };
   const credentialFactory = vi.fn(() => ({ mode: 'adc', firebaseCredential: null, preflight: vi.fn(async () => {}) }));
   const firebaseAppFactory = vi.fn(async () => ({ app: { name: 'request-app' }, close }));
+  const logger = { info: vi.fn() };
   const dependencies = await createCompilerPublicDependencies({
     request,
     environment: { NODE_ENV: 'development' },
@@ -15,11 +16,13 @@ it('materializes request time as epoch milliseconds for HTTP handlers', async ()
     firebaseAppFactory,
     firestoreFactory: vi.fn(() => ({ kind: 'db' })),
     authFactory: vi.fn(() => ({ kind: 'auth' })),
+    logger,
   });
   expect(dependencies.now).toBeTypeOf('number');
   expect(dependencies.now).toBeGreaterThanOrEqual(before);
   expect(dependencies.now).toBeLessThanOrEqual(Date.now());
-  expect(credentialFactory).toHaveBeenCalledWith({ request, environment: { NODE_ENV: 'development' } });
+  expect(credentialFactory).toHaveBeenCalledWith(expect.objectContaining({ request, environment: { NODE_ENV: 'development' }, diagnostics: expect.any(Object) }));
+  expect(logger.info).toHaveBeenCalledWith('compiler_public_wif', expect.objectContaining({ stage: 'wif.firebase.success', databaseId: '(default)' }));
   expect(dependencies.credentialMode).toBe('adc');
   await dependencies.close();
   expect(close).toHaveBeenCalledOnce();
@@ -33,6 +36,7 @@ it('closes a request app when Auth or Firestore dependency materialization fails
     credentialFactory: () => ({ mode: 'adc', firebaseCredential: null, preflight: async () => {} }),
     firebaseAppFactory: async () => ({ app: {}, close }),
     firestoreFactory: () => { throw new Error('synthetic Firestore initialization failure'); },
+    logger: { info: vi.fn() },
   })).rejects.toThrow('synthetic Firestore initialization failure');
   expect(close).toHaveBeenCalledOnce();
 });
@@ -54,6 +58,7 @@ it('uses one WIF credential and one independently owned Firebase app per concurr
     firebaseAppFactory,
     firestoreFactory: (app) => ({ app }),
     authFactory: (app) => ({ app }),
+    logger: { info: vi.fn() },
   };
   const dependencies = await Promise.all(Array.from({ length: 5 }, (_, index) => createCompilerPublicDependencies({ ...options, request: { id: index } })));
   expect(preflight).toHaveBeenCalledTimes(5);
@@ -75,6 +80,7 @@ it('fails closed in managed Production instead of using service-account JSON', a
       GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL: 'ai-tutor-runtime@mi-tutora-pro.iam.gserviceaccount.com',
     },
     firebaseAppFactory,
+    logger: { info: vi.fn() },
   })).rejects.toMatchObject({ code: 'ai/server-unavailable', status: 503 });
   expect(firebaseAppFactory).not.toHaveBeenCalled();
 });
@@ -88,10 +94,26 @@ it('leaves no Firebase Admin request-app accumulation after repeated disposal', 
     credentialFactory: () => ({ mode: 'test', firebaseCredential, preflight: async () => {} }),
     firestoreFactory: (app) => ({ app }),
     authFactory: (app) => ({ app }),
+    logger: { info: vi.fn() },
   })));
   expect(getApps().filter((app) => app.name.startsWith('mitutora-request-'))).toHaveLength(3);
   await Promise.all(dependencies.map((value) => value.close()));
   expect(getApps().map((app) => app.name).sort()).toEqual(before);
+});
+
+it('reports Firebase initialization failure without logging secret sentinel values', async () => {
+  const logger = { info: vi.fn() };
+  await expect(createCompilerPublicDependencies({
+    request: { headers: { authorization: 'Bearer ID_TOKEN_SENTINEL' } },
+    environment: { NODE_ENV: 'development', FIREBASE_PROJECT_ID: 'demo-compiler-public' },
+    credentialFactory: () => ({ mode: 'test', firebaseCredential: {}, preflight: async () => {} }),
+    firebaseAppFactory: async () => { throw Object.assign(new Error('PRIVATE_KEY_SENTINEL'), { code: 'firebase/init-failed' }); },
+    logger,
+  })).rejects.toMatchObject({ code: 'firebase/init-failed' });
+  expect(logger.info).toHaveBeenCalledWith('compiler_public_wif', expect.objectContaining({ stage: 'wif.initialization.failure', errorCode: 'firebase/init-failed' }));
+  const output = JSON.stringify(logger.info.mock.calls);
+  expect(output).not.toContain('ID_TOKEN_SENTINEL');
+  expect(output).not.toContain('PRIVATE_KEY_SENTINEL');
 });
 
 describe('compiler public share validation', () => {
