@@ -134,27 +134,33 @@ describe('consolidated compiler API router', () => {
     const calls = [];
     const close = vi.fn(async () => calls.push('close'));
     const db = {
+      terminate: vi.fn(async () => calls.push('firestore-close')),
       runTransaction: async (work) => { calls.push('rate-limit'); return work({ get: async () => ({ exists: false }), set: vi.fn() }); },
       collection: () => ({ doc: () => ({ create: async () => calls.push('share-write') }) }),
     };
     const credential = { getAccessToken: vi.fn() };
+    const authClient = { kind: 'identity-pool-client' };
     const dependencyFactory = ({ request: currentRequest }) => createCompilerPublicDependencies({
       request: currentRequest,
       environment: { NODE_ENV: 'production', VERCEL_ENV: 'production' },
-      credentialFactory: () => ({ mode: 'wif', firebaseCredential: credential, preflight: async () => calls.push('oidc-sts-preflight') }),
+      credentialFactory: () => ({ mode: 'wif', authClient, firebaseCredential: credential, preflight: async () => calls.push('oidc-sts-preflight') }),
       firebaseAppFactory: async (_environment, options) => {
         expect(options.firebaseCredential).toBe(credential);
         calls.push('firebase-app');
         return { app: {}, close };
       },
-      firestoreFactory: () => db,
+      firestoreFactory: (_environment, options) => {
+        expect(options).toMatchObject({ authClient, databaseId: '(default)' });
+        calls.push('firestore-client');
+        return db;
+      },
       authFactory: () => ({}),
     });
     const router = createCompilerApiRouter({ dependencyFactory });
     const response = responseDouble();
     await router({ ...request('share', 'POST'), headers: { 'content-type': 'application/json' }, body: { languageId: 'python', source: 'print(1)' }, socket: { remoteAddress: '127.0.0.1' } }, response);
     expect(response.statusCode).toBe(201);
-    expect(calls).toEqual(['oidc-sts-preflight', 'firebase-app', 'rate-limit', 'share-write', 'close']);
+    expect(calls).toEqual(['oidc-sts-preflight', 'firebase-app', 'firestore-client', 'rate-limit', 'share-write', 'firestore-close', 'close']);
   });
 
   it('returns the sanitized server contract when Production WIF configuration is missing', async () => {

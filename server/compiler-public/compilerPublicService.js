@@ -1,8 +1,12 @@
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { getAuth } from 'firebase-admin/auth';
-import { FieldValue, Timestamp, getFirestore } from 'firebase-admin/firestore';
+import { Timestamp } from '@google-cloud/firestore';
 import { createRequestFirebaseApp } from '../firebaseAdminApp.js';
 import { createVercelGoogleCredentialContext } from '../auth/VercelGoogleCredentialAdapter.js';
+import {
+  closeCompilerPublicFirestore,
+  createCompilerPublicFirestore,
+} from './createCompilerPublicFirestore.js';
 
 const SHARE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const HOUR_MS = 60 * 60 * 1000;
@@ -35,7 +39,8 @@ export async function createCompilerPublicDependencies({
   credentialFactory = createVercelGoogleCredentialContext,
   firebaseAppFactory = createRequestFirebaseApp,
   authFactory = getAuth,
-  firestoreFactory = getFirestore,
+  firestoreFactory = createCompilerPublicFirestore,
+  firestoreClose = closeCompilerPublicFirestore,
   clock = Date.now,
   logger = console,
 } = {}) {
@@ -49,6 +54,7 @@ export async function createCompilerPublicDependencies({
   });
   let googleCredentials;
   let session;
+  let db;
   try {
     googleCredentials = credentialFactory({ request, environment, diagnostics });
     await googleCredentials.preflight();
@@ -57,22 +63,38 @@ export async function createCompilerPublicDependencies({
       firebaseCredential: googleCredentials.firebaseCredential,
     });
     diagnostics.event('wif.firebase.success', { credentialMode: googleCredentials.mode });
+    const auth = authFactory(session.app);
+    diagnostics.event('wif.firebase.auth.success', { credentialMode: googleCredentials.mode });
+    diagnostics.event('firestore.client.start', { credentialMode: googleCredentials.mode });
+    db = firestoreFactory(environment, {
+      authClient: googleCredentials.authClient,
+      databaseId: '(default)',
+    });
+    diagnostics.event('firestore.client.success', { credentialMode: googleCredentials.mode });
     return Object.freeze({
-      db: firestoreFactory(session.app),
-      auth: authFactory(session.app),
+      db,
+      auth,
       now: clock(),
       credentialMode: googleCredentials.mode,
       diagnostics,
-      close: () => session.close(),
+      async close() {
+        await Promise.all([
+          firestoreClose(db),
+          session.close(),
+        ]);
+      },
     });
   } catch (error) {
-    diagnostics.event(session ? 'wif.firebase.failure' : 'wif.initialization.failure', {
+    diagnostics.event(session ? 'firestore.client.failure' : 'wif.initialization.failure', {
       credentialMode: googleCredentials?.mode ?? null,
       errorName: String(error?.name ?? 'Error').slice(0, 80),
       errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null,
       httpStatus: Number(error?.status) || null,
     });
-    await session?.close();
+    await Promise.allSettled([
+      firestoreClose(db),
+      session?.close(),
+    ]);
     throw error;
   }
 }
@@ -96,12 +118,14 @@ export async function enforceRateLimit(db, { scope, key, limit, now, diagnostics
   const windowStart = Math.floor(now / HOUR_MS) * HOUR_MS;
   const ref = db.collection('compilerPublicRateLimits').doc(`${scope}_${key}_${windowStart}`);
   diagnostics?.event('share.firestore.rate_limit.start', { operation: scope });
+  diagnostics?.event('firestore.rpc.start', { operation: `${scope}-rate-limit` });
   try { await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(ref); const count = snapshot.exists ? Number(snapshot.data().count || 0) : 0;
     if (count >= limit) throw new CompilerPublicError('compiler-public/rate-limited', 'Too many requests. Try again later.', 429);
     transaction.set(ref, { scope, count: count + 1, windowStart: Timestamp.fromMillis(windowStart), expiresAt: Timestamp.fromMillis(windowStart + 2 * HOUR_MS) }, { merge: false });
-  }); } catch (error) {
+  }); diagnostics?.event('firestore.rpc.success', { operation: `${scope}-rate-limit` }); } catch (error) {
     diagnostics?.event('share.firestore.rate_limit.failure', { operation: scope, errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null });
+    diagnostics?.event('firestore.rpc.failure', { operation: `${scope}-rate-limit`, errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null });
     throw error;
   }
 }
@@ -123,16 +147,18 @@ export async function createShare({ db, auth, request, body, now = Date.now(), d
   const payload = validateSharePayload(body); const shareId = randomBytes(16).toString('base64url');
   const record = { schemaVersion: 1, ...payload, createdAt: Timestamp.fromMillis(now), ownerUid: uid, expiresAt: Timestamp.fromMillis(now + SHARE_TTL_MS), sourceBytes: byteLength(payload.source), status: 'active' };
   diagnostics?.event('share.firestore.write.start', { operation: 'share-create' });
-  try { await db.collection('compilerShares').doc(shareId).create(record); }
-  catch (error) { diagnostics?.event('share.firestore.write.failure', { operation: 'share-create', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); throw error; }
+  diagnostics?.event('firestore.rpc.start', { operation: 'share-create' });
+  try { await db.collection('compilerShares').doc(shareId).create(record); diagnostics?.event('firestore.rpc.success', { operation: 'share-create' }); }
+  catch (error) { diagnostics?.event('share.firestore.write.failure', { operation: 'share-create', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); diagnostics?.event('firestore.rpc.failure', { operation: 'share-create', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); throw error; }
   return { shareId, expiresAt: record.expiresAt.toDate().toISOString() };
 }
 
 export async function readShare({ db, shareId, now = Date.now(), diagnostics }) {
   if (!SHARE_ID.test(String(shareId ?? ''))) throw new CompilerPublicError('compiler-share/not-found', 'Shared code was not found.', 404);
   diagnostics?.event('share.firestore.read.start', { operation: 'share-read' });
-  let snapshot; try { snapshot = await db.collection('compilerShares').doc(shareId).get(); }
-  catch (error) { diagnostics?.event('share.firestore.read.failure', { operation: 'share-read', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); throw error; }
+  diagnostics?.event('firestore.rpc.start', { operation: 'share-read' });
+  let snapshot; try { snapshot = await db.collection('compilerShares').doc(shareId).get(); diagnostics?.event('firestore.rpc.success', { operation: 'share-read' }); }
+  catch (error) { diagnostics?.event('share.firestore.read.failure', { operation: 'share-read', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); diagnostics?.event('firestore.rpc.failure', { operation: 'share-read', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); throw error; }
   const data = snapshot.data();
   if (!snapshot.exists || data.status !== 'active' || data.expiresAt?.toMillis?.() <= now) throw new CompilerPublicError('compiler-share/not-found', 'Shared code was not found.', 404);
   return { schemaVersion: 1, languageId: data.languageId, source: data.source, stdinIncluded: data.stdinIncluded === true, stdin: data.stdinIncluded === true ? data.stdin : null, createdAt: data.createdAt.toDate().toISOString() };
@@ -153,8 +179,9 @@ export async function createFeedback({ db, auth, request, body, now = Date.now()
   const uid = await optionalUid(request, auth); await enforceRateLimit(db, { scope: 'feedback', key: uid || clientKey(request), limit: uid ? 10 : 5, now, diagnostics });
   const payload = validateFeedbackPayload(body); const ref = db.collection('compilerFeedback').doc();
   diagnostics?.event('share.firestore.write.start', { operation: 'feedback-create' });
-  try { await ref.create({ schemaVersion: 1, ...payload, createdAt: Timestamp.fromMillis(now), userUid: uid, status: 'new' }); }
-  catch (error) { diagnostics?.event('share.firestore.write.failure', { operation: 'feedback-create', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); throw error; }
+  diagnostics?.event('firestore.rpc.start', { operation: 'feedback-create' });
+  try { await ref.create({ schemaVersion: 1, ...payload, createdAt: Timestamp.fromMillis(now), userUid: uid, status: 'new' }); diagnostics?.event('firestore.rpc.success', { operation: 'feedback-create' }); }
+  catch (error) { diagnostics?.event('share.firestore.write.failure', { operation: 'feedback-create', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); diagnostics?.event('firestore.rpc.failure', { operation: 'feedback-create', errorName: String(error?.name ?? 'Error').slice(0, 80), errorCode: typeof error?.code === 'string' ? error.code.slice(0, 80) : null }); throw error; }
   return { feedbackId: ref.id };
 }
 

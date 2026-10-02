@@ -8,13 +8,14 @@ it('materializes request time as epoch milliseconds for HTTP handlers', async ()
   const request = { headers: {} };
   const credentialFactory = vi.fn(() => ({ mode: 'adc', firebaseCredential: null, preflight: vi.fn(async () => {}) }));
   const firebaseAppFactory = vi.fn(async () => ({ app: { name: 'request-app' }, close }));
+  const firestoreFactory = vi.fn(() => ({ kind: 'db' }));
   const logger = { info: vi.fn() };
   const dependencies = await createCompilerPublicDependencies({
     request,
     environment: { NODE_ENV: 'development' },
     credentialFactory,
     firebaseAppFactory,
-    firestoreFactory: vi.fn(() => ({ kind: 'db' })),
+    firestoreFactory,
     authFactory: vi.fn(() => ({ kind: 'auth' })),
     logger,
   });
@@ -22,6 +23,7 @@ it('materializes request time as epoch milliseconds for HTTP handlers', async ()
   expect(dependencies.now).toBeGreaterThanOrEqual(before);
   expect(dependencies.now).toBeLessThanOrEqual(Date.now());
   expect(credentialFactory).toHaveBeenCalledWith(expect.objectContaining({ request, environment: { NODE_ENV: 'development' }, diagnostics: expect.any(Object) }));
+  expect(firestoreFactory).toHaveBeenCalledWith({ NODE_ENV: 'development' }, expect.objectContaining({ authClient: undefined, databaseId: '(default)' }));
   expect(logger.info).toHaveBeenCalledWith('compiler_public_wif', expect.objectContaining({ stage: 'wif.firebase.success', databaseId: '(default)' }));
   expect(dependencies.credentialMode).toBe('adc');
   await dependencies.close();
@@ -30,22 +32,28 @@ it('materializes request time as epoch milliseconds for HTTP handlers', async ()
 
 it('closes a request app when Auth or Firestore dependency materialization fails', async () => {
   const close = vi.fn(async () => {});
+  const logger = { info: vi.fn() };
   await expect(createCompilerPublicDependencies({
     request: { headers: {} },
     environment: { NODE_ENV: 'development' },
     credentialFactory: () => ({ mode: 'adc', firebaseCredential: null, preflight: async () => {} }),
     firebaseAppFactory: async () => ({ app: {}, close }),
-    firestoreFactory: () => { throw new Error('synthetic Firestore initialization failure'); },
-    logger: { info: vi.fn() },
-  })).rejects.toThrow('synthetic Firestore initialization failure');
+    authFactory: () => ({}),
+    firestoreFactory: () => { throw Object.assign(new Error('PRIVATE_KEY_SENTINEL'), { code: 'firestore/synthetic-failure' }); },
+    logger,
+  })).rejects.toMatchObject({ code: 'firestore/synthetic-failure' });
   expect(close).toHaveBeenCalledOnce();
+  expect(logger.info).toHaveBeenCalledWith('compiler_public_wif', expect.objectContaining({ stage: 'firestore.client.failure', errorCode: 'firestore/synthetic-failure' }));
+  expect(JSON.stringify(logger.info.mock.calls)).not.toContain('PRIVATE_KEY_SENTINEL');
 });
 
-it('uses one WIF credential and one independently owned Firebase app per concurrent request', async () => {
+it('uses one WIF session with independent Firebase Auth and direct Firestore clients per concurrent request', async () => {
   const credential = { getAccessToken: vi.fn() };
+  const authClient = { kind: 'identity-pool-client' };
   const preflight = vi.fn(async () => {});
-  const credentialFactory = vi.fn(() => ({ mode: 'wif', firebaseCredential: credential, preflight }));
+  const credentialFactory = vi.fn(() => ({ mode: 'wif', authClient, firebaseCredential: credential, preflight }));
   const sessions = [];
+  const firestoreClients = [];
   const firebaseAppFactory = vi.fn(async (_environment, options) => {
     expect(options.firebaseCredential).toBe(credential);
     const session = { app: {}, close: vi.fn(async () => {}) };
@@ -56,15 +64,22 @@ it('uses one WIF credential and one independently owned Firebase app per concurr
     environment: { NODE_ENV: 'production', VERCEL_ENV: 'production' },
     credentialFactory,
     firebaseAppFactory,
-    firestoreFactory: (app) => ({ app }),
+    firestoreFactory: (_environment, options) => {
+      expect(options.authClient).toBe(authClient);
+      const db = { terminate: vi.fn(async () => {}) };
+      firestoreClients.push(db);
+      return db;
+    },
     authFactory: (app) => ({ app }),
     logger: { info: vi.fn() },
   };
   const dependencies = await Promise.all(Array.from({ length: 5 }, (_, index) => createCompilerPublicDependencies({ ...options, request: { id: index } })));
   expect(preflight).toHaveBeenCalledTimes(5);
   expect(new Set(sessions.map((value) => value.app)).size).toBe(5);
+  expect(new Set(firestoreClients).size).toBe(5);
   await Promise.all(dependencies.map((value) => value.close()));
   expect(sessions.every((value) => value.close.mock.calls.length === 1)).toBe(true);
+  expect(firestoreClients.every((value) => value.terminate.mock.calls.length === 1)).toBe(true);
 });
 
 it('fails closed in managed Production instead of using service-account JSON', async () => {
@@ -92,7 +107,7 @@ it('leaves no Firebase Admin request-app accumulation after repeated disposal', 
     request: { headers: {} },
     environment: { NODE_ENV: 'development', FIREBASE_PROJECT_ID: 'demo-compiler-public' },
     credentialFactory: () => ({ mode: 'test', firebaseCredential, preflight: async () => {} }),
-    firestoreFactory: (app) => ({ app }),
+    firestoreFactory: () => ({ terminate: vi.fn(async () => {}) }),
     authFactory: (app) => ({ app }),
     logger: { info: vi.fn() },
   })));
