@@ -132,6 +132,7 @@ describe('language-agnostic Projects foundation', () => {
     fireEvent.click(screen.getByRole('tab', { name: 'terminal' }));
     expect(screen.getByText('Use the terminal for this checkpoint.')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('python main.py')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Execute' })).not.toBeInTheDocument();
   });
 
   it('requires the complete production checklist before final completion', async () => {

@@ -92,7 +92,8 @@ test.describe('authenticated Projects cloud persistence', () => {
     await expect.poll(async () => (await projectCloudState(projectLearner.uid)).files['tasks.json']?.content).toContain('cloud-runtime-task');
     await reopenTaskManagerFromCloud(page, 'Python', projectLearner.uid);
     await page.getByRole('button', { name: /Project Setup Completed/ }).click();
-    await page.getByRole('button', { name: 'Files' }).click();
+    const workspaceNavigation = page.getByRole('button', { name: 'Files and checkpoints' });
+    if (!(await page.getByRole('tree', { name: /files$/ }).isVisible())) await workspaceNavigation.click();
     await expect(page.getByRole('treeitem').filter({ hasText: 'tasks.json' })).toBeVisible();
     await expect(await runProjectAndShowOutput(page)).toContainText('cloud-runtime-task', { timeout: 90_000 });
   });
@@ -104,7 +105,8 @@ test.describe('authenticated Projects cloud persistence', () => {
     await expect.poll(async () => (await projectCloudState(projectLearner.uid)).files['tasks.txt']?.content).toContain('cloud-cpp-task');
     await reopenTaskManagerFromCloud(page, 'C++', projectLearner.uid);
     await page.getByRole('button', { name: /Project Setup Completed/ }).click();
-    await page.getByRole('button', { name: 'Files' }).click();
+    const workspaceNavigation = page.getByRole('button', { name: 'Files and checkpoints' });
+    if (!(await page.getByRole('tree', { name: /files$/ }).isVisible())) await workspaceNavigation.click();
     await expect(page.getByRole('treeitem').filter({ hasText: 'tasks.txt' })).toBeVisible();
     await runCppAfterColdToolchainWarmup(page, 'cloud-cpp-task');
   });

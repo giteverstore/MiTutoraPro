@@ -1,11 +1,12 @@
 import React from 'react';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { projectCatalog } from '../../src/projects/repositories/ProjectCatalog';
 import { ProjectWorkspace, projectModelOwnerPrefix, projectModelPath } from '../../src/projects/pages/ProjectWorkspace';
 import { projectProgressService } from '../../src/projects/services/ProjectProgressService';
+import { ProjectValidator } from '../../src/projects/validation/ProjectValidator';
 
 vi.mock('../../src/compiler/CompilerProvider', () => ({ useCompilerManager: () => ({}) }));
 vi.mock('../../src/components/EditorPlaceholder', () => ({ EditorPlaceholder: ({ editor, value, onChange, onCursorPositionChange, workspacePreferences, loadingTheme, modelOwnerPrefix, retainedModelPaths }) => <textarea aria-label={editor.ariaLabel} data-font-size={workspacePreferences?.fontSize} data-tab-size={workspacePreferences?.tabSize} data-word-wrap={workspacePreferences?.wordWrap} data-monaco-theme={workspacePreferences?.monacoTheme} data-loading-theme={loadingTheme} data-model-path={editor.modelPath} data-model-owner-prefix={modelOwnerPrefix} data-retained-model-paths={retainedModelPaths?.join(',')} value={value} onChange={(event) => onChange(event.target.value)} onSelect={() => onCursorPositionChange?.({ lineNumber: 7, column: 3 })} /> }));
@@ -30,7 +31,10 @@ describe('immersive project workspace shell', () => {
     expect(container.querySelector('.app-shell')).not.toBeInTheDocument();
     expect(container.querySelector('.app-footer')).not.toBeInTheDocument();
     expect(screen.getByText(project.title, { selector: '.project-ide-topbar strong' })).toBeInTheDocument();
-    expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
+    expect(screen.getByRole('complementary', { name: 'Explorer and checkpoints' })).toBeInTheDocument();
+    expect(container.querySelector('.project-files-section')).toBeInTheDocument();
+    expect(container.querySelector('.project-checkpoints-section')).toBeInTheDocument();
+    expect(container.querySelector('.project-files-section').compareDocumentPosition(container.querySelector('.project-checkpoints-section')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-model-owner-prefix', projectModelOwnerPrefix(project.id));
@@ -69,14 +73,14 @@ describe('immersive project workspace shell', () => {
 
   it('collapses optional left and bottom panels while keeping Guide and AI permanently visible', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Files' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Files and checkpoints' }));
     fireEvent.click(screen.getByRole('button', { name: 'Collapse bottom panel' }));
     expect(container.querySelector('.project-ide-shell')).toHaveClass('is-explorer-collapsed', 'is-bottom-collapsed');
     expect(container.querySelector('.project-ide-shell')).not.toHaveClass('is-guide-collapsed');
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Files' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Files and checkpoints' }));
     fireEvent.click(screen.getByRole('button', { name: 'Restore bottom panel' }));
-    expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
+    expect(screen.getByRole('complementary', { name: 'Explorer and checkpoints' })).toBeInTheDocument();
     expect(screen.getByRole('complementary', { name: 'Guide and AI' })).toBeInTheDocument();
   });
 
@@ -182,15 +186,49 @@ describe('immersive project workspace shell', () => {
     expect(screen.getByRole('tab', { name: 'terminal' })).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('shows the active project language in the top bar and limits the selector to supported languages', () => {
+  it('removes the redundant top-bar summary and limits the status-bar selector to supported languages', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
-    expect(container.querySelector('.project-ide-topbar')).toHaveTextContent('Python');
+    expect(container.querySelector('.project-ide-topbar')).not.toHaveTextContent('Python');
+    expect(container.querySelector('.project-checkpoint-summary')).not.toBeInTheDocument();
+    expect(container.querySelector('.project-ide-statusbar')).toHaveTextContent('Python');
     const editor = screen.getByLabelText(`${project.title} implementation editor`);
     fireEvent.change(editor, { target: { value: 'learner source stays' } });
     fireEvent.click(screen.getByRole('button', { name: 'Python' }));
     expect(screen.getAllByRole('radio')).toHaveLength(1);
     expect(screen.getByRole('radio', { name: 'Python' })).toBeChecked();
     expect(editor).toHaveValue('learner source stays');
+  });
+
+  it('uses the same validator path for Run and an allowed terminal command', async () => {
+    const validation = vi.spyOn(ProjectValidator.prototype, 'validateProject').mockResolvedValue({ passed: true, tests: [], score: 100, output: 'shared execution output', errors: [] });
+    render(<ProjectWorkspace project={project} tier="PREMIUM" initialPageIndex={3} onBack={vi.fn()} onProgress={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
+    await waitFor(() => expect(validation).toHaveBeenCalledTimes(1));
+    fireEvent.click(screen.getByRole('tab', { name: 'terminal' }));
+    const input = screen.getByRole('textbox', { name: 'Project terminal command' });
+    fireEvent.change(input, { target: { value: '  python   main.py  ' } });
+    fireEvent.submit(input.closest('form'));
+    await waitFor(() => expect(validation).toHaveBeenCalledTimes(2));
+    expect(screen.getByRole('log')).toHaveTextContent('$ python main.py');
+    expect(screen.getByRole('log')).toHaveTextContent('shared execution output');
+    await waitFor(() => expect(input).toHaveFocus());
+    validation.mockRestore();
+  });
+
+  it('rejects unsupported terminal commands without execution and keeps ephemeral command history', () => {
+    const validation = vi.spyOn(ProjectValidator.prototype, 'validateProject');
+    render(<ProjectWorkspace project={project} tier="PREMIUM" initialPageIndex={3} onBack={vi.fn()} onProgress={vi.fn()} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'terminal' }));
+    const input = screen.getByRole('textbox', { name: 'Project terminal command' });
+    fireEvent.change(input, { target: { value: 'pip install unsafe-package' } });
+    fireEvent.submit(input.closest('form'));
+    expect(validation).not.toHaveBeenCalled();
+    expect(screen.getByRole('log')).toHaveTextContent('Command not available in this project.');
+    fireEvent.keyDown(input, { key: 'ArrowUp' });
+    expect(input).toHaveValue('pip install unsafe-package');
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(input).toHaveValue('');
+    validation.mockRestore();
   });
 
   it('persists project-only Settings and sends them to the workspace Monaco adapter', () => {
@@ -255,9 +293,13 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('--project-ide-panel: var(--color-surface);');
     expect(css).toContain('--project-ide-canvas: var(--color-canvas);');
     expect(css).toContain('.project-ide-shell[data-project-theme="dark"]');
+    expect(css).toContain('grid-template-rows: minmax(12rem,1fr) 4px minmax(7.5rem,var(--project-bottom-height));');
+    expect(css).toContain('.project-ide-topbar .project-run-button');
+    expect(css).toContain('.project-workspace-navigation');
     expect(css).toContain('--project-surface: #161b22;');
     expect(css).toContain('.project-language-backdrop.is-dark');
     expect(css).toContain('@media (max-width: 900px)');
+    expect(css).toContain('.project-ide-shell.is-explorer-collapsed .project-ide-main { grid-template-columns: var(--project-ide-rail) minmax(0,1fr); }');
     expect(css).toContain('@media (max-width: 600px)');
     expect(css).toContain('.project-ai-panel { position: absolute;');
     expect(css).toContain('.project-activity-bar { grid-column: 1; grid-row: 2; flex-direction: row;');
