@@ -18,6 +18,16 @@ const storage = new Map();
 beforeEach(() => { storage.clear(); vi.stubGlobal('localStorage', { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, String(value)), removeItem: (key) => storage.delete(key), clear: () => storage.clear() }); });
 afterEach(cleanup);
 
+function selectElementText(element) {
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(element);
+  Object.defineProperty(range, 'getBoundingClientRect', { value: () => ({ left: 240, right: 360, top: 180, bottom: 204, width: 120, height: 24 }) });
+  selection.removeAllRanges();
+  selection.addRange(range);
+  fireEvent.mouseUp(element.closest('.project-guide-content'));
+}
+
 describe('immersive project workspace shell', () => {
   it('names models by encoded project/file identity so projects and renamed paths cannot collide', () => {
     expect(projectModelOwnerPrefix('project / one')).toBe('ycoders-project://project%20%2F%20one/');
@@ -103,7 +113,7 @@ describe('immersive project workspace shell', () => {
     fireEvent.keyDown(left, { key: 'ArrowRight' });
     expect(left).toHaveAttribute('aria-valuenow', '290');
     fireEvent.keyDown(right, { key: 'ArrowLeft' });
-    expect(right).toHaveAttribute('aria-valuenow', '370');
+    expect(right).toHaveAttribute('aria-valuenow', right.getAttribute('aria-valuemax'));
     fireEvent.keyDown(bottom, { key: 'ArrowUp' });
     expect(bottom).toHaveAttribute('aria-valuenow', '200');
     expect(screen.getByRole('toolbar', { name: 'Open project files' })).toBeInTheDocument();
@@ -112,6 +122,34 @@ describe('immersive project workspace shell', () => {
     expect(screen.getByRole('tab', { name: 'problems' })).toHaveAttribute('aria-selected', 'true');
     fireEvent.keyDown(screen.getByRole('tab', { name: 'Guide' }), { key: 'ArrowRight' });
     expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it('keeps Guide active after text selection and opens AI only after the contextual action', async () => {
+    const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
+    const guideText = container.querySelector('.project-guide-content h2');
+    selectElementText(guideText);
+
+    expect(screen.getByRole('tab', { name: 'Guide' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'false');
+    expect(screen.getByRole('button', { name: 'Ask AI' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Ask AI' }));
+    expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByText('guide text')).toBeInTheDocument();
+    expect(screen.getByText(guideText.textContent, { selector: '.project-ai-context-preview pre' })).toBeInTheDocument();
+  });
+
+  it('captures Guide code before explicitly switching to AI', () => {
+    const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: /Next/ }));
+    const code = container.querySelector('.project-guide-content code');
+    selectElementText(code);
+
+    expect(screen.getByRole('tab', { name: 'Guide' })).toHaveAttribute('aria-selected', 'true');
+    fireEvent.click(screen.getByRole('button', { name: 'Ask AI' }));
+    expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByText('guide code')).toBeInTheDocument();
+    expect(screen.getByText(code.textContent, { selector: '.project-ai-context-preview pre' })).toBeInTheDocument();
   });
 
   it('returns to Projects and preserves the existing Free implementation boundary', () => {
@@ -309,5 +347,10 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('grid-column: 1; width: auto; height: min(45dvh,var(--project-bottom-height));');
     expect(css).toContain('.project-ai-panel { position: absolute;');
     expect(css).toContain('.project-activity-bar { grid-column: 1; grid-row: 2; flex-direction: row;');
+    expect(css).toContain('minmax(20rem,1fr) 4px var(--project-guide-width)');
+    expect(css).toContain('.project-ai-conversation-scroll { min-width: 0; min-height: 0;');
+    expect(css).toContain('overflow-y: auto; overscroll-behavior: contain;');
+    expect(css).toContain('.project-ai-mode.is-active { display: block; min-height: 0; overflow: hidden; }');
+    expect(css).toContain('.project-guide-mode.is-active { display: grid; grid-template-rows: minmax(0,1fr) auto; }');
   });
 });

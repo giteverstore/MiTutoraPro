@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { createProjectAIContext } from '../../src/projects/ai/projectAIContext';
 import { ProjectAIClient, validateProjectAIResponse } from '../../src/projects/ai/ProjectAIClient';
-import { ProjectContextualAI } from '../../src/projects/components/ProjectContextualAI';
+import { ProjectContextualAIConversation as ProjectContextualAI } from '../../src/projects/components/ProjectContextualAIConversation';
 import { explainProjectMentor } from '../../server/ai/project/projectMentorHandler';
 
 const project = { id: 'task-manager', title: 'Task Manager', description: 'A CLI project', difficulty: 'Beginner', learningObjectives: ['Model tasks'] };
@@ -31,21 +31,39 @@ describe('Projects contextual AI mentor', () => {
   });
 
   it('generates questions, answers a selection, and offers contextual follow-ups without a composer', async () => {
-    const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'why', label: 'Why is this needed?', intent: 'understand' }, { id: 'bug', label: 'Where is the bug?', intent: 'debug' }, { id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValue({ answer: 'Inspect where the task is stored before changing more code.', followUps: [{ id: 'more', label: 'Give me a more specific hint', intent: 'stronger-hint' }] }) };
+    const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'why', label: 'Why is this needed?', intent: 'understand' }, { id: 'bug', label: 'Where is the bug?', intent: 'debug' }, { id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValueOnce({ answer: 'Inspect where the task is stored before changing more code.', followUps: [{ id: 'more', label: 'Give me a more specific hint', intent: 'stronger-hint' }] }).mockResolvedValueOnce({ answer: 'Trace the array mutation in the add function.', followUps: [] }) };
     render(<ProjectContextualAI context={context('user_code', 'tasks.push(task)', { currentFile: { path: 'index.js', content: 'tasks.push(task)' } })} client={client} accessTier="PREMIUM" />);
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Ask AI' }));
-    expect(screen.getByRole('status')).toHaveTextContent(/generating/i);
+    expect(screen.getByRole('region', { name: 'AI Mentor conversation' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(/preparing questions/i);
     fireEvent.click(await screen.findByRole('button', { name: 'Give me a hint' }));
     expect(screen.getByRole('status')).toHaveTextContent(/focused answer/i);
     expect(await screen.findByText(/Inspect where the task is stored/)).toBeInTheDocument();
+    expect(screen.getByLabelText('You')).toHaveTextContent('Give me a hint');
+    expect(screen.getByLabelText('AI Mentor')).toHaveTextContent(/Inspect where the task is stored/);
     expect(screen.getByRole('button', { name: 'Give me a more specific hint' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Give me a more specific hint' }));
+    expect(await screen.findByText(/Trace the array mutation/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText('You')).toHaveLength(2);
+    expect(screen.getAllByLabelText('AI Mentor')).toHaveLength(2);
+    expect(client.answer.mock.calls[1][2]).toHaveLength(1);
+  });
+
+  it('resets the ephemeral conversation when selected context changes', async () => {
+    const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValue({ answer: 'First context answer.', followUps: [] }) };
+    const { rerender } = render(<ProjectContextualAI context={context('guide_text', 'First selection')} client={client} accessTier="PREMIUM" />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Give me a hint' }));
+    expect(await screen.findByText('First context answer.')).toBeInTheDocument();
+
+    rerender(<ProjectContextualAI context={context('guide_code', 'const second = true;')} client={client} accessTier="PREMIUM" />);
+    expect(screen.queryByText('First context answer.')).not.toBeInTheDocument();
+    expect(screen.getByText('const second = true;')).toBeInTheDocument();
+    await waitFor(() => expect(client.generateQuestions).toHaveBeenCalledTimes(2));
   });
 
   it('shows provider and quota failures as friendly panel errors', async () => {
     const client = { generateQuestions: vi.fn().mockRejectedValue(new Error('AI usage limit reached.')) };
     render(<ProjectContextualAI context={context('guide_text', 'Represent a task')} client={client} accessTier="PREMIUM" />);
-    fireEvent.click(screen.getByRole('button', { name: 'Ask AI' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('AI usage limit reached.');
   });
 

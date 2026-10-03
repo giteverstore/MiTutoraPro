@@ -10,6 +10,17 @@ test.describe('Projects workspace focused UI', () => {
     await expect(page.locator('.project-checkpoints-section')).toBeVisible();
     await expect(page.locator('.project-ide-topbar')).not.toContainText(/\d+\s*\/\s*\d+.*Python/);
     await expect(page.getByRole('button', { name: 'Run', exact: true })).toHaveCSS('background-color', 'rgb(37, 99, 235)');
+
+    const guideHeading = page.locator('.project-guide-content h2');
+    await guideHeading.evaluate((node) => { const selection = window.getSelection(); const range = document.createRange(); range.selectNodeContents(node); selection.removeAllRanges(); selection.addRange(range); });
+    await guideHeading.dispatchEvent('mouseup');
+    await expect(page.getByRole('tab', { name: 'Guide' })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'false');
+    await page.getByRole('button', { name: 'Ask AI' }).click();
+    await expect(page.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator('.project-ai-context-preview')).toContainText('guide text');
+    await page.getByRole('tab', { name: 'Guide' }).click();
+
     await page.getByRole('treeitem').filter({ hasText: 'index.js' }).getByRole('button').first().click();
     const editor = page.getByRole('textbox', { name: /implementation editor/i });
     await editor.focus();
@@ -34,8 +45,10 @@ test.describe('Projects workspace focused UI', () => {
     const terminalOutput = page.getByRole('log').locator('pre').filter({ hasText: 'Task Manager browser smoke' }).last();
     await terminalOutput.evaluate((node) => { const selection = window.getSelection(); const range = document.createRange(); range.selectNodeContents(node); selection.removeAllRanges(); selection.addRange(range); });
     await terminalOutput.dispatchEvent('mouseup');
-    await page.getByRole('tab', { name: 'AI' }).click();
     await expect(page.getByRole('button', { name: 'Ask AI' })).toBeVisible();
+    await page.getByRole('button', { name: 'Ask AI' }).click();
+    await expect(page.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator('.project-ai-context-preview')).toContainText('terminal output');
     await page.getByRole('button', { name: 'Task Operations Available' }).click();
     await expect(page.getByRole('button', { name: 'Run', exact: true })).toBeDisabled();
   });
