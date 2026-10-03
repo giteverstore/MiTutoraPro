@@ -1,10 +1,11 @@
 import React from 'react';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { projectCatalog } from '../../src/projects/repositories/ProjectCatalog';
 import { ProjectWorkspace, projectModelOwnerPrefix, projectModelPath } from '../../src/projects/pages/ProjectWorkspace';
+import { projectProgressService } from '../../src/projects/services/ProjectProgressService';
 
 vi.mock('../../src/compiler/CompilerProvider', () => ({ useCompilerManager: () => ({}) }));
 vi.mock('../../src/components/EditorPlaceholder', () => ({ EditorPlaceholder: ({ editor, value, onChange, onCursorPositionChange, workspacePreferences, loadingTheme, modelOwnerPrefix, retainedModelPaths }) => <textarea aria-label={editor.ariaLabel} data-font-size={workspacePreferences?.fontSize} data-tab-size={workspacePreferences?.tabSize} data-word-wrap={workspacePreferences?.wordWrap} data-monaco-theme={workspacePreferences?.monacoTheme} data-loading-theme={loadingTheme} data-model-path={editor.modelPath} data-model-owner-prefix={modelOwnerPrefix} data-retained-model-paths={retainedModelPaths?.join(',')} value={value} onChange={(event) => onChange(event.target.value)} onSelect={() => onCursorPositionChange?.({ lineNumber: 7, column: 3 })} /> }));
@@ -37,6 +38,18 @@ describe('immersive project workspace shell', () => {
     for (const tab of ['terminal', 'output', 'problems', 'tests']) expect(screen.getByRole('tab', { name: tab })).toBeInTheDocument();
   });
 
+  it('keeps save failures actionable and explains revision conflicts', () => {
+    render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
+    act(() => projectProgressService.emit(project.id, 'error', new Error('offline')));
+    expect(screen.getByRole('alert')).toHaveTextContent('Save failed');
+    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
+
+    act(() => projectProgressService.emit(project.id, 'conflict', new Error('stale revision')));
+    expect(screen.getByRole('alert')).toHaveTextContent('Conflict detected');
+    expect(screen.getByRole('button', { name: 'Reload' }).closest('.project-cloud-save-control')).toHaveAttribute('title', 'A newer version of this project was saved elsewhere. Reload to continue with the latest version.');
+    act(() => projectProgressService.emit(project.id, 'saved'));
+  });
+
   it('maps all four existing stages into tasks and updates the guide without losing source', () => {
     render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
     const editor = screen.getByLabelText(`${project.title} implementation editor`);
@@ -51,6 +64,7 @@ describe('immersive project workspace shell', () => {
     expect(screen.getByText('2 / 4')).toBeInTheDocument();
     expect(document.querySelector('.project-ide-topbar')).not.toHaveTextContent('Project 2 / 4');
     expect(document.querySelector('.project-ide-statusbar')).not.toHaveTextContent('Project 2 / 4');
+    expect(projectProgressService.get(project.id).currentCheckpoint).toBe(0);
   });
 
   it('collapses optional left and bottom panels while keeping Guide and AI permanently visible', () => {
@@ -127,14 +141,15 @@ describe('immersive project workspace shell', () => {
     expect(screen.queryByRole('button', { name: 'calculator.py' })).not.toBeInTheDocument();
   });
 
-  it('keeps Explorer on the left and preserves mounted AI state across Guide/AI switching', () => {
+  it('keeps Explorer on the left and keeps the contextual AI panel mounted without a composer', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
     expect(screen.queryByRole('button', { name: 'Project Guide' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: 'AI' }));
-    fireEvent.change(screen.getByRole('textbox', { name: 'AI draft' }), { target: { value: 'keep this question' } });
+    expect(screen.getByText('No context selected')).toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: 'AI draft' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
     fireEvent.click(screen.getByRole('tab', { name: 'AI' }));
-    expect(screen.getByRole('textbox', { name: 'AI draft' })).toHaveValue('keep this question');
+    expect(screen.getByText('No context selected')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Collapse Guide and AI' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Restore Guide and AI' })).not.toBeInTheDocument();
     expect(container.querySelector('.project-ai-panel')).toBeInTheDocument();
@@ -167,15 +182,14 @@ describe('immersive project workspace shell', () => {
     expect(screen.getByRole('tab', { name: 'terminal' })).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('moves the canonical 17-language selector to the status bar without replacing project files', () => {
+  it('shows the active project language in the top bar and limits the selector to supported languages', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
-    expect(container.querySelector('.project-ide-topbar')).not.toHaveTextContent('Python');
+    expect(container.querySelector('.project-ide-topbar')).toHaveTextContent('Python');
     const editor = screen.getByLabelText(`${project.title} implementation editor`);
     fireEvent.change(editor, { target: { value: 'learner source stays' } });
     fireEvent.click(screen.getByRole('button', { name: 'Python' }));
-    expect(screen.getAllByRole('radio')).toHaveLength(17);
-    fireEvent.click(screen.getByRole('radio', { name: 'Rust' }));
-    expect(screen.getByRole('button', { name: 'Rust' })).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getAllByRole('radio')).toHaveLength(1);
+    expect(screen.getByRole('radio', { name: 'Python' })).toBeChecked();
     expect(editor).toHaveValue('learner source stays');
   });
 

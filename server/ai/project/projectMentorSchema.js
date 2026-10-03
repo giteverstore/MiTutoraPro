@@ -1,0 +1,12 @@
+import { AIServiceError } from '../AIServiceError.js';
+
+const optionSchema = { type: 'object', additionalProperties: false, required: ['id', 'label', 'intent'], properties: { id: { type: 'string' }, label: { type: 'string' }, intent: { type: 'string' } } };
+export const PROJECT_QUESTION_SCHEMA = Object.freeze({ name: 'ycoders_project_questions', strict: true, schema: { type: 'object', additionalProperties: false, required: ['operation', 'questions'], properties: { operation: { type: 'string', enum: ['project-questions'] }, questions: { type: 'array', minItems: 3, maxItems: 6, items: optionSchema } } } });
+export const PROJECT_ANSWER_SCHEMA = Object.freeze({ name: 'ycoders_project_answer', strict: true, schema: { type: 'object', additionalProperties: false, required: ['operation', 'answer', 'followUps'], properties: { operation: { type: 'string', enum: ['project-answer'] }, answer: { type: 'string' }, followUps: { type: 'array', maxItems: 5, items: optionSchema } } } });
+const clean = (value, limit, required = true) => { if (typeof value !== 'string' || (required && !value.trim()) || value.length > limit) throw new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 }); return value.trim(); };
+const options = (value, min, max) => { if (!Array.isArray(value) || value.length < min || value.length > max) throw new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 }); const ids = new Set(); return value.map((item) => { const option = { id: clean(item?.id, 80), label: clean(item?.label, 240), intent: clean(item?.intent, 120) }; if (ids.has(option.id)) throw new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 }); ids.add(option.id); return Object.freeze(option); }); };
+export function validateProjectMentorResponse(raw, operation) {
+  let value; try { value = JSON.parse(raw); } catch (cause) { throw new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502, cause }); }
+  if (value?.operation !== operation) throw new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 });
+  return operation === 'project-questions' ? Object.freeze({ operation, questions: Object.freeze(options(value.questions, 3, 6)) }) : Object.freeze({ operation, answer: clean(value.answer, 5_000), followUps: Object.freeze(options(value.followUps, 0, 5)) });
+}

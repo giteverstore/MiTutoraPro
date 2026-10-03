@@ -1,4 +1,5 @@
 import { explainCode, publicAIError } from '../../server/ai/explainHandler.js';
+import { explainProjectMentor } from '../../server/ai/project/projectMentorHandler.js';
 import { firebaseAITutorAuthenticator } from '../../server/ai/auth/FirebaseAITutorAuthenticator.js';
 import { createHttpRequestLifecycle } from '../../server/ai/httpRequestLifecycle.js';
 import { createVercelGoogleCredentialContext } from '../../server/auth/VercelGoogleCredentialAdapter.js';
@@ -26,7 +27,7 @@ function createRequestFeatureGate(environment, googleCredentials, request) {
 
 export function createAIExplainHandler({
   authenticator = firebaseAITutorAuthenticator,
-  explain = explainCode,
+  explain = (body, options) => String(body?.requestType ?? '').startsWith('project-') ? explainProjectMentor(body, options) : explainCode(body, options),
   environment = process.env,
   credentialFactory = createVercelGoogleCredentialContext,
   quotaGuardFactory = createRequestQuotaGuard,

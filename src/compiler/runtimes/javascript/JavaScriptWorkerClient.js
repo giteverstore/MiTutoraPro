@@ -24,7 +24,7 @@ export class JavaScriptWorkerClient {
 
   async initialize() {}
 
-  execute({ source, stdin = '', filename = 'main.js', signal, timeoutMs = this.timeoutMs, executionId, onExecutionEvent }) {
+  execute({ source, stdin = '', filename = 'main.js', signal, timeoutMs = this.timeoutMs, executionId, onExecutionEvent, projectFiles, entrypoint }) {
     if (signal?.aborted) return Promise.reject(new DOMException('Execution cancelled.', 'AbortError'));
     this.reset();
     const worker = this.workerFactory();
@@ -77,7 +77,7 @@ export class JavaScriptWorkerClient {
       signal?.addEventListener('abort', abort, { once: true });
       this.active = { worker, executionId: String(executionId ?? ''), controlBuffer, inputBuffer, cancel: abort, resume: () => { clearTimers(); startComputeTimer(); } };
       startComputeTimer();
-      worker.postMessage({ id, type: 'execute', source, stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''), filename, executionId, interactive, controlBuffer, inputBuffer, inputWaitTimeoutMs: INTERACTIVE_STDIN_WAIT_TIMEOUT_MS });
+      worker.postMessage({ id, type: 'execute', source, stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''), filename, projectFiles, entrypoint, executionId, interactive, controlBuffer, inputBuffer, inputWaitTimeoutMs: INTERACTIVE_STDIN_WAIT_TIMEOUT_MS });
     });
   }
 

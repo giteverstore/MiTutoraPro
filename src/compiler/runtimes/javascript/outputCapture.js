@@ -13,5 +13,6 @@ export function createJavaScriptExecutionResult(payload) {
   };
   if (payload.code) result.code = payload.code;
   if (payload.truncated) result.truncated = true;
+  if (payload.projectFiles) { result.projectFiles = payload.projectFiles; result.filesystemSupported = payload.filesystemSupported === true; }
   return result;
 }

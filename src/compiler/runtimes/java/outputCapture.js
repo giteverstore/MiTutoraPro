@@ -11,5 +11,6 @@ export function createJavaExecutionResult(payload) {
     output: stdout,
     errors: stderr ? [stderr] : [],
     executionTimeMs: payload.executionTimeMs ?? 0,
+    ...(payload.projectFiles ? { projectFiles: payload.projectFiles, filesystemSupported: payload.filesystemSupported === true } : {}),
   };
 }

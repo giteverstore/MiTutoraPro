@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer';
 import { createAIProvider } from './createAIProvider.js';
 import { AIServiceError } from './AIServiceError.js';
 import { explainCode, publicAIError } from './explainHandler.js';
+import { explainProjectMentor } from './project/projectMentorHandler.js';
 import { TUTOR_REQUEST_LIMITS } from './tutor/tutorConfig.js';
 import { firebaseAITutorAuthenticator } from './auth/FirebaseAITutorAuthenticator.js';
 import { createHttpRequestLifecycle } from './httpRequestLifecycle.js';
@@ -50,7 +51,8 @@ export function viteAITutorPlugin(environment, {
             if (error instanceof AIServiceError) throw error;
             throw new AIServiceError('ai/invalid-request', 'The explanation request is invalid.', { status: 400 });
           }
-          const result = await explainCode(body, {
+          const explain = String(body?.requestType ?? '').startsWith('project-') ? explainProjectMentor : explainCode;
+          const result = await explain(body, {
             providerFactory: () => createAIProvider(environment),
             principal,
             quotaGuard,

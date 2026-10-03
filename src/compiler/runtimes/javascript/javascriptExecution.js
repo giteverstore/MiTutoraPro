@@ -3,6 +3,7 @@ import {
   CompilerResourceLimitError,
   createCompilerOutputBudget,
 } from '../../core/compilerResourcePolicy.js';
+import { createVirtualProjectFiles, safeVirtualPath } from '../shared/virtualProjectFiles.js';
 
 function serialize(value) {
   if (typeof value === 'string') return value;
@@ -11,7 +12,7 @@ function serialize(value) {
   try { return JSON.stringify(value); } catch { return String(value); }
 }
 
-export async function executeJavaScriptSource({ source, stdin = '', filename = 'main.js', requestInput, onStdout, onStderr }) {
+export async function executeJavaScriptSource({ source, stdin = '', filename = 'main.js', projectFiles, entrypoint, requestInput, onStdout, onStderr }) {
   const stdout = [];
   const stderr = [];
   let resourceError = null;
@@ -47,13 +48,48 @@ export async function executeJavaScriptSource({ source, stdin = '', filename = '
     if (imports.some(({ d }) => d >= 0)) {
       throw new Error('Network access is unavailable in this compiler.');
     }
-    const runner = new Function(
-      'console', 'readLine', 'readInput',
-      'window', 'document', 'localStorage', 'sessionStorage', 'indexedDB', 'parent', 'top', 'opener',
-      `"use strict";\n${source}\n//# sourceURL=${filename}`,
-    );
-    await runner(capturedConsole, readLine, readInput, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
-    return { status: 'success', stdout: stdout.join('').replace(/\n$/, ''), stderr: stderr.join('').replace(/\n$/, ''), executionTimeMs: Math.max(1, Math.round(performance.now() - startedAt)) };
+    let resultingFiles;
+    if (projectFiles?.length) {
+      const virtualFiles = createVirtualProjectFiles(projectFiles);
+      virtualFiles.writeFileSync(entrypoint ?? filename, source);
+      const modules = new Map();
+      const loadModule = async (path) => {
+        const safe = safeVirtualPath(path);
+        if (modules.has(safe)) return modules.get(safe).exports;
+        const module = { exports: {} }; modules.set(safe, module);
+        const localRequire = (specifier) => {
+          if (specifier === 'fs' || specifier === 'node:fs') return virtualFiles;
+          if (!specifier.startsWith('.')) throw new Error(`Module access is unavailable: ${specifier}`);
+          const base = safe.split('/').slice(0, -1).join('/');
+          let resolved = safeVirtualPath(specifier, base);
+          if (!virtualFiles.existsSync(resolved) && virtualFiles.existsSync(`${resolved}.js`)) resolved += '.js';
+          const child = { exports: {} };
+          if (modules.has(resolved)) return modules.get(resolved).exports;
+          modules.set(resolved, child);
+          const childRunner = new Function('module', 'exports', 'require', 'console', 'readLine', 'readInput', `"use strict";\n${virtualFiles.readFileSync(resolved, 'utf8')}\n//# sourceURL=${resolved}`);
+          childRunner(child, child.exports, localRequireFor(resolved), capturedConsole, readLine, readInput);
+          return child.exports;
+        };
+        const localRequireFor = (modulePath) => (specifier) => {
+          if (specifier === 'fs' || specifier === 'node:fs') return virtualFiles;
+          const base = modulePath.split('/').slice(0, -1).join('/');
+          let resolved = safeVirtualPath(specifier, base);
+          if (!virtualFiles.existsSync(resolved) && virtualFiles.existsSync(`${resolved}.js`)) resolved += '.js';
+          if (modules.has(resolved)) return modules.get(resolved).exports;
+          const child = { exports: {} }; modules.set(resolved, child);
+          new Function('module', 'exports', 'require', 'console', 'readLine', 'readInput', `"use strict";\n${virtualFiles.readFileSync(resolved, 'utf8')}\n//# sourceURL=${resolved}`)(child, child.exports, localRequireFor(resolved), capturedConsole, readLine, readInput);
+          return child.exports;
+        };
+        new Function('module', 'exports', 'require', 'console', 'readLine', 'readInput', `"use strict";\n${virtualFiles.readFileSync(safe, 'utf8')}\n//# sourceURL=${safe}`)(module, module.exports, localRequire, capturedConsole, readLine, readInput);
+        return module.exports;
+      };
+      await loadModule(entrypoint ?? filename);
+      resultingFiles = virtualFiles.snapshot();
+    } else {
+      const runner = new Function('console', 'readLine', 'readInput', 'window', 'document', 'localStorage', 'sessionStorage', 'indexedDB', 'parent', 'top', 'opener', `"use strict";\n${source}\n//# sourceURL=${filename}`);
+      await runner(capturedConsole, readLine, readInput, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+    }
+    return { status: 'success', stdout: stdout.join('').replace(/\n$/, ''), stderr: stderr.join('').replace(/\n$/, ''), executionTimeMs: Math.max(1, Math.round(performance.now() - startedAt)), ...(resultingFiles ? { projectFiles: resultingFiles, filesystemSupported: true } : {}) };
   } catch (error) {
     if (error instanceof CompilerResourceLimitError) {
       return {

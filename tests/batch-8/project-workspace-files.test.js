@@ -21,8 +21,9 @@ describe('project workspace file model', () => {
     expect(validateProjectFilePath('script.exe', {}, 'python')).toMatchObject({ valid: false });
   });
 
-  it('truthfully keeps project runtime execution entry-file-only', () => {
-    expect(supportsMultiFileProjectExecution('python')).toBe(false);
+  it('derives multi-file execution support from runtime capabilities', () => {
+    expect(supportsMultiFileProjectExecution({ filesystem: { multiFile: true } })).toBe(true);
+    expect(supportsMultiFileProjectExecution({ filesystem: { multiFile: false } })).toBe(false);
   });
 
   it('derives a sorted folder-first hierarchy from real nested paths', () => {

@@ -22,10 +22,11 @@ describe('Projects filter cleanup', () => {
     expect(screen.getByLabelText('Category')).toBeInTheDocument();
     expect(screen.getByLabelText('Difficulty')).toHaveValue(DEFAULT_PROJECT_FILTERS.difficulty);
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument();
-    expect(screen.getByText('5 projects available')).toBeInTheDocument();
+    expect(screen.getByText('6 projects available')).toBeInTheDocument();
   });
 
   it.each([
+    ['beginner', 'Beginner Projects', 1],
     ['easy', 'Easy Projects', 5],
     ['intermediate', 'Intermediate Projects', 0],
     ['advanced', 'Advanced Projects', 0],
@@ -33,15 +34,15 @@ describe('Projects filter cleanup', () => {
     render(<ProjectsPage />);
     fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: difficulty } });
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
-    expect(screen.getByText(`${count} projects available`)).toBeInTheDocument();
+    expect(screen.getByText(`${count} ${count === 1 ? 'project' : 'projects'} available`)).toBeInTheDocument();
     if (count === 0) expect(screen.getByText('No projects match these filters yet.')).toBeInTheDocument();
   });
 
   it('composes language, category, and difficulty without changing project records', () => {
     const projects = [
-      { id: 'one', language: 'python', category: 'Utilities', difficulty: 'Easy' },
-      { id: 'two', language: 'python', category: 'Games', difficulty: 'Easy' },
-      { id: 'three', language: 'java', category: 'Utilities', difficulty: 'Intermediate' },
+      { id: 'one', supportedLanguages: ['python'], category: 'Utilities', difficulty: 'Easy' },
+      { id: 'two', supportedLanguages: ['python'], category: 'Games', difficulty: 'Easy' },
+      { id: 'three', supportedLanguages: ['java'], category: 'Utilities', difficulty: 'Intermediate' },
     ];
     expect(filterProjects(projects, { language: 'python', category: 'Utilities', difficulty: 'easy' })).toEqual([projects[0]]);
     expect(filterProjects(projects, { language: 'java', category: 'Utilities', difficulty: 'advanced' })).toEqual([]);
@@ -50,14 +51,14 @@ describe('Projects filter cleanup', () => {
 
   it('preserves existing project actions', () => {
     render(<ProjectsPage />);
-    fireEvent.click(screen.getAllByRole('button', { name: /View Project/ })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
     expect(screen.getByRole('button', { name: /Start Project/ })).toBeInTheDocument();
   });
 
   it('keeps project cards and overview available without Premium access', () => {
     render(<ProjectsPage />);
-    expect(screen.getAllByRole('button', { name: /View Project/ })).toHaveLength(5);
-    fireEvent.click(screen.getAllByRole('button', { name: /View Project/ })[0]);
+    expect(screen.getAllByRole('button', { name: /Start Project/ })).toHaveLength(6);
+    fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
     expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
     expect(screen.queryByText('Premium required')).not.toBeInTheDocument();
   });

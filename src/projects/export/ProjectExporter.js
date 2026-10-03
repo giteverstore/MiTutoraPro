@@ -1,4 +1,5 @@
 import JSZip from 'jszip';
+import { normalizeProjectFileSnapshot } from '../execution/projectFilesystem.js';
 
 const STARTER_ARTIFACT = /^(?:\s*#.*\b(?:todo|implement|implementation|replace|your code)\b.*|\s*pass\s*(?:#.*)?|\s*return\s+(?:None|NotImplemented)\s*#.*\b(?:todo|placeholder|implement)\b.*)$/i;
 
@@ -37,6 +38,14 @@ function publicTests(project) {
   return `import sys\nimport unittest\nfrom pathlib import Path\nsys.path.insert(0, str(Path(__file__).parents[1] / "src"))\nfrom ${project.moduleName} import ${project.functionDefinition.name}\n\nclass ProjectTests(unittest.TestCase):\n${visible.map((test, index) => `    def ${names[index]}(self):\n        self.assertEqual(${project.functionDefinition.name}(*${pythonLiteral(test.args)}), ${pythonLiteral(test.expected)})`).join('\n\n')}\n\nif __name__ == '__main__':\n    unittest.main()\n`;
 }
 export class ProjectExporter {
+  async createWorkspaceArchive(project, files, type = 'blob') {
+    const zip = new JSZip(); const root = zip.folder(project.export.repositoryName);
+    const exportFiles = normalizeProjectFileSnapshot(files);
+    Object.values(exportFiles).forEach((file) => root.file(file.path, file.content));
+    if (!exportFiles['README.md']) root.file('README.md', `# ${project.title}\n\n${project.description}\n`);
+    return zip.generateAsync({ type });
+  }
+  async downloadWorkspace(project, files) { const blob = await this.createWorkspaceArchive(project, files); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `${project.export.repositoryName}.zip`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 0); }
   async createArchive(project, submission, type = 'blob') {
     const zip = new JSZip(); const root = zip.folder(project.export.repositoryName);
     root.file('README.md', readme(project)); root.file(project.template.sourcePath, removeStarterArtifacts(project, submission)); root.file(project.template.testPath, publicTests(project)); root.file('requirements.txt', ''); root.file('.gitignore', '__pycache__/\n*.py[cod]\n.venv/\n');

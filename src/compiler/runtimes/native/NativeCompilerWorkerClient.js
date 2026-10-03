@@ -46,7 +46,7 @@ export class NativeCompilerWorkerClient {
     this.terminateWorker();
   };
 
-  execute({ language, source, stdin = '', filename, signal, timeoutMs = this.timeoutMs, executionId, onExecutionEvent }) {
+  execute({ language, source, stdin = '', filename, signal, timeoutMs = this.timeoutMs, executionId, onExecutionEvent, projectFiles, entrypoint }) {
     if (signal?.aborted) return Promise.reject(new DOMException('Execution cancelled.', 'AbortError'));
     if (this.active) this.cancelActive(new DOMException('Execution replaced by a newer run.', 'AbortError'));
     const worker = this.ensureWorker();
@@ -66,7 +66,7 @@ export class NativeCompilerWorkerClient {
       this.startComputeTimeout(timeoutMs);
       worker.postMessage({
         type: 'execute', id, language, source: String(source ?? ''), stdin: String(stdin ?? ''), fileName: filename,
-        executionId, interactive, ...buffers,
+        executionId, interactive, projectFiles, entrypoint, ...buffers,
       });
     });
   }

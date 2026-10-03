@@ -150,6 +150,52 @@ function createStdinReader(data) {
   };
 }
 
+const PROJECT_ROOT = '/project';
+
+function clearDirectory(FS, path) {
+  if (!FS.analyzePath(path).exists) return;
+  for (const name of FS.readdir(path)) {
+    if (name === '.' || name === '..') continue;
+    const child = `${path}/${name}`;
+    if (FS.isDir(FS.stat(child).mode)) { clearDirectory(FS, child); FS.rmdir(child); }
+    else FS.unlink(child);
+  }
+}
+
+function mountProjectFiles(pyodide, files = []) {
+  const { FS } = pyodide;
+  if (!FS.analyzePath(PROJECT_ROOT).exists) FS.mkdir(PROJECT_ROOT);
+  clearDirectory(FS, PROJECT_ROOT);
+  for (const file of files) {
+    const path = String(file.path ?? '').replaceAll('\\', '/');
+    if (!path || path.startsWith('/') || path.split('/').some((part) => !part || part === '.' || part === '..')) throw new Error('Unsafe project filesystem path.');
+    const segments = path.split('/');
+    let directory = PROJECT_ROOT;
+    for (const segment of segments.slice(0, -1)) {
+      directory += `/${segment}`;
+      if (!FS.analyzePath(directory).exists) FS.mkdir(directory);
+    }
+    FS.writeFile(`${PROJECT_ROOT}/${path}`, String(file.content ?? ''), { encoding: 'utf8' });
+  }
+  FS.chdir(PROJECT_ROOT);
+}
+
+function snapshotProjectFiles(pyodide) {
+  const { FS } = pyodide;
+  const result = [];
+  const visit = (directory, prefix = '') => {
+    for (const name of FS.readdir(directory)) {
+      if (name === '.' || name === '..') continue;
+      const absolute = `${directory}/${name}`;
+      const path = prefix ? `${prefix}/${name}` : name;
+      if (FS.isDir(FS.stat(absolute).mode)) visit(absolute, path);
+      else result.push({ path, content: FS.readFile(absolute, { encoding: 'utf8' }), type: 'file', encoding: 'utf-8' });
+    }
+  };
+  visit(PROJECT_ROOT);
+  return result;
+}
+
 self.addEventListener('message', async ({ data }) => {
   const { id, type } = data;
   try {
@@ -161,6 +207,7 @@ self.addEventListener('message', async ({ data }) => {
     }
 
     const { source, stdin, filename } = data;
+    if (data.projectFiles?.length) mountProjectFiles(pyodide, data.projectFiles);
     pyodide.globals.set('__mitutora_source', source);
     pyodide.globals.set('__mitutora_filename', filename);
     pyodide.globals.set('_mitutora_readline', createStdinReader(data));
@@ -171,7 +218,7 @@ self.addEventListener('message', async ({ data }) => {
     const executionTimeMs = Math.max(1, Math.round(performance.now() - startedAt));
     const [status, stdout, stderr] = proxy.toJs();
     proxy.destroy();
-    sendToHost({ id, type: 'execution', status, stdout, stderr, executionTimeMs });
+    sendToHost({ id, type: 'execution', status, stdout, stderr, executionTimeMs, ...(data.projectFiles?.length ? { projectFiles: snapshotProjectFiles(pyodide), filesystemSupported: true } : {}) });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     if (type === 'initialize') {

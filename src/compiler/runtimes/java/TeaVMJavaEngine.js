@@ -42,7 +42,7 @@ export class TeaVMJavaEngine {
     this.classlib = classlib;
   }
 
-  async execute({ source, stdin = '', filename = 'Main.java', execution = {} }) {
+  async execute({ source, stdin = '', filename = 'Main.java', execution = {}, projectFiles = [] }) {
     const contractError = validateJavaProgramContract(source, filename, execution);
     if (contractError) return { status: 'error', stdout: '', stderr: contractError };
     await this.initialize();
@@ -65,7 +65,9 @@ export class TeaVMJavaEngine {
     const stderr = [];
 
     try {
-      compiler.addSourceFile(filename, injectJavaStdin(source, stdin));
+      const javaFiles = projectFiles.filter(({ path }) => /\.java$/i.test(path));
+      if (javaFiles.length) javaFiles.forEach(({ path, content }) => compiler.addSourceFile(path, path === filename ? injectJavaStdin(source, stdin) : content));
+      else compiler.addSourceFile(filename, injectJavaStdin(source, stdin));
       compiler.addSourceFile('MiTutoraRunner.java', createJavaRunnerSource({ stdin, execution }));
       compiler.addSourceFile('MiTutoraScanner.java', JAVA_SCANNER_COMPAT_SOURCE);
       if (!compiler.compile()) {
@@ -103,7 +105,7 @@ export class TeaVMJavaEngine {
       });
       runtime.exports.main([]);
       flushOutput();
-      return { status: 'success', stdout: stdout.join('\n'), stderr: stderr.join('\n') };
+      return { status: 'success', stdout: stdout.join('\n'), stderr: stderr.join('\n'), ...(projectFiles.length ? { projectFiles, filesystemSupported: false } : {}) };
     } catch (error) {
       return {
         status: 'error',

@@ -59,8 +59,8 @@ export class JavaWorkerClient {
 
   initialize(signal, timeoutMs) { return this.request('initialize', {}, signal, timeoutMs); }
 
-  execute({ source, stdin = '', filename = 'Main.java', execution, signal, timeoutMs }) {
-    return this.request('execute', { source, stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''), filename, execution }, signal, timeoutMs);
+  execute({ source, stdin = '', filename = 'Main.java', execution, signal, timeoutMs, projectFiles, entrypoint }) {
+    return this.request('execute', { source, stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''), filename, execution, projectFiles, entrypoint }, signal, timeoutMs);
   }
 
   reset() { return this.worker ? this.request('reset') : Promise.resolve(); }

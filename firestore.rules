@@ -48,6 +48,38 @@ service cloud.firestore {
         || request.resource.data.appearance.brandTheme == 'blue'
         || exists(/databases/$(database)/documents/users/$(uid)/themeOwnership/$(request.resource.data.appearance.brandTheme));
     }
+    function validActiveProject(projectId) {
+      return request.resource.data.keys().hasOnly([
+          'schemaVersion', 'projectId', 'languageId', 'status', 'currentCheckpoint',
+          'completedCheckpoints', 'folders', 'entryFilePath', 'fileIds', 'revision',
+          'createdAt', 'startedAt', 'completedAt', 'updatedAt'
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.projectId == projectId
+        && request.resource.data.languageId is string
+        && request.resource.data.status in ['active', 'completed']
+        && request.resource.data.currentCheckpoint is int
+        && request.resource.data.currentCheckpoint >= 0
+        && request.resource.data.completedCheckpoints is list
+        && request.resource.data.completedCheckpoints.size() <= 100
+        && request.resource.data.folders is list
+        && request.resource.data.folders.size() <= 128
+        && request.resource.data.fileIds is list
+        && request.resource.data.fileIds.size() <= 128
+        && request.resource.data.revision is int
+        && request.resource.data.revision >= 1;
+    }
+    function validActiveProjectFile() {
+      return request.resource.data.keys().hasOnly(['path', 'type', 'encoding', 'content', 'editable', 'language'])
+        && request.resource.data.path is string
+        && request.resource.data.path.size() > 0
+        && request.resource.data.path.size() <= 120
+        && request.resource.data.type == 'file'
+        && request.resource.data.encoding == 'utf-8'
+        && request.resource.data.content is string
+        && request.resource.data.content.size() <= 262144
+        && request.resource.data.editable is bool;
+    }
 
     match /users/{uid} {
       allow read: if owns(uid);
@@ -64,6 +96,21 @@ service cloud.firestore {
             || (resource.data.revision is int && request.resource.data.revision == resource.data.revision + 1)
           );
         allow delete: if owns(uid);
+      }
+      match /activeProjects/{projectId} {
+        allow read: if owns(uid);
+        allow create: if owns(uid) && validActiveProject(projectId) && request.resource.data.revision == 1;
+        allow update: if owns(uid) && validActiveProject(projectId)
+          && resource.data.revision is int
+          && request.resource.data.revision == resource.data.revision + 1;
+        allow delete: if owns(uid);
+        match /files/{fileId} {
+          allow read: if owns(uid);
+          allow create, update: if owns(uid)
+            && validActiveProjectFile()
+            && getAfter(/databases/$(database)/documents/users/$(uid)/activeProjects/$(projectId)).data.fileIds.hasAny([fileId]);
+          allow delete: if owns(uid);
+        }
       }
       match /bookmarks/{bookmarkId} { allow read, write: if owns(uid); }
       match /settings/{settingId} {

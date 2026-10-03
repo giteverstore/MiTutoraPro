@@ -39,17 +39,17 @@ const validationResult = await new ProjectValidator(compilerManager).validatePro
 assert.equal(validationResult.passed, true, 'Generic validator must accept numerically equivalent int/float results.');
 assert.equal(validationResult.tests[0].message, 'Passed');
 
-const expectedIds = ['simple-calculator', 'number-guessing-game', 'unit-converter', 'expense-tracker', 'contact-book'];
+const expectedIds = ['simple-calculator', 'number-guessing-game', 'unit-converter', 'expense-tracker', 'contact-book', 'cli-task-manager'];
 const obsoleteIds = ['reverse-string', 'word-counter', 'temperature-converter', 'palindrome-checker', 'number-frequency', 'password-strength-checker', 'shopping-cart-total', 'duplicate-remover', 'log-message-parser'];
 const catalog = new ProjectCatalog(); const projects = catalog.getProjects();
 assert.deepEqual(projects.map(({ id }) => id), expectedIds);
 assert.deepEqual(projects.map(({ slug }) => slug), expectedIds);
 assert.equal(new Set(projects.map(({ id }) => id)).size, projects.length);
 assert.equal(catalog.getProjectsByDifficulty('easy').length, 5);
-assert.equal(catalog.getProjectsByLanguage('python').length, 5);
+assert.equal(catalog.getProjectsByLanguage('python').length, 6);
 assert.equal(catalog.getProjectsByCategory('Python Fundamentals').length, 5);
 obsoleteIds.forEach((id) => assert.equal(catalog.getProjectById(id), null, `${id} must not remain registered.`));
-for (const project of projects) {
+for (const project of projects.filter(({ template }) => template)) {
   assert.equal(project.language, 'python');
   assert.equal(project.difficulty, 'Easy');
   assert.ok(project.description && project.why && project.instructions && project.estimatedMinutes > 0);
@@ -73,12 +73,12 @@ for (const project of projects) {
 
 const storage = new Map(); globalThis.localStorage = { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value) };
 const progress = new ProjectProgressService(); progress.start('simple-calculator');
-assert.equal(progress.get('simple-calculator').status, 'started');
+assert.equal(progress.get('simple-calculator').status, 'active');
 progress.recordValidation('simple-calculator', { passed: false, score: 50 }, 'failed source'); assert.equal(progress.get('simple-calculator').attempts, 1);
 progress.recordValidation('simple-calculator', { passed: true, score: 100 }, 'completed source'); assert.equal(progress.get('simple-calculator').status, 'completed');
 assert.equal(progress.get('simple-calculator').submission, 'completed source');
 
-for (const project of projects) {
+for (const project of projects.filter(({ template }) => template)) {
   const starterMarker = project.starterCode.split('\n').find((line) => line.includes('# TODO:'));
   const learnerBody = '    # Keep this learner-authored comment\n    return None\n';
   const submittedCode = project.starterCode.replace(starterMarker, `${learnerBody}${starterMarker}`);
@@ -107,4 +107,27 @@ for (const project of projects) {
   project.validation.tests.filter(({ visible }) => !visible).forEach(({ name }) => assert.ok(!exportedTests.includes(name), `Protected test leaked from ${project.id}.`));
   assert.ok(!(await zip.file(`${root}/README.md`).async('string')).includes('hidden'));
 }
-process.stdout.write('Project validation passed: five-project catalog, metadata, deterministic contracts, completion, exports, and protected-test isolation.\n');
+const foundation = catalog.getProjectById('cli-task-manager');
+assert.deepEqual(foundation.supportedLanguages, ['python', 'javascript', 'java', 'cpp']);
+assert.equal(foundation.checkpoints.length, 5);
+assert.equal(foundation.languageOverrides.javascript.runCommand, 'node index.js');
+assert.equal(foundation.difficulty, 'Beginner');
+const executionModes = new Set(['terminal_only', 'run_or_terminal']);
+const guideTypes = new Set(['heading', 'paragraph', 'note', 'list', 'code', 'expected-output', 'runtime-command', 'language-hint', 'language-section']);
+for (const languageId of foundation.supportedLanguages) {
+  const languageContent = foundation.languageContent[languageId];
+  assert.ok(languageContent, `${languageId} requires language fragments.`);
+  for (const checkpoint of foundation.checkpoints) {
+    assert.ok(executionModes.has(checkpoint.executionMode), `${checkpoint.id} has an unsupported execution mode.`);
+    assert.ok(checkpoint.guide.length && checkpoint.requirements.length && checkpoint.completionMessage, `${checkpoint.id} requires complete educational content.`);
+    assert.equal(checkpoint.validation?.type, 'project-checks', `${checkpoint.id} requires generic checkpoint validation.`);
+    assert.ok(checkpoint.validation.checks.length, `${checkpoint.id} requires validation checks.`);
+    checkpoint.guide.forEach((block) => {
+      assert.ok(guideTypes.has(block.type), `${checkpoint.id} contains unsupported guide block ${block.type}.`);
+      if (block.type === 'language-hint') assert.ok(languageContent[block.key], `${languageId} is missing guide hint ${block.key}.`);
+      if (block.type === 'code' && block.codeKey) assert.ok(languageContent[block.codeKey], `${languageId} is missing snippet ${block.codeKey}.`);
+    });
+    checkpoint.validation.checks.filter(({ type }) => type === 'source_matches').forEach((check) => assert.ok(check.patternsByLanguage?.[languageId]?.length, `${checkpoint.id}/${check.id} is missing ${languageId} validation evidence.`));
+  }
+}
+process.stdout.write('Project validation passed: legacy catalog plus language-agnostic foundation, metadata, deterministic contracts, completion, exports, and protected-test isolation.\n');

@@ -18,15 +18,29 @@ async function toolchainFor(language) {
 }
 
 const cleanOutput = (value) => String(value ?? '').replace(/\u001b\[[0-9;]*[A-Za-z]/g, '');
+const decode = new TextDecoder();
+
+function snapshotWasiDirectory(directory, prefix = '', result = []) {
+  for (const [name, entry] of directory?.contents ?? []) {
+    const path = prefix ? `${prefix}/${name}` : name;
+    if (entry?.contents instanceof Map) snapshotWasiDirectory(entry, path, result);
+    else if (entry?.data instanceof Uint8Array) result.push({ path, content: decode.decode(entry.data), type: 'file', encoding: 'utf-8' });
+  }
+  return result;
+}
 
 async function compileAndRun(data) {
   const options = OPTIONS[data.language];
   const toolchain = await toolchainFor(data.language);
   return toolchain.lock(async () => {
     const compileStarted = performance.now();
+    const workspaceFiles = (data.projectFiles ?? []).map(({ path, content }) => ({ path, content: String(content ?? '') }));
+    const activePath = data.entrypoint ?? data.fileName ?? options.fileName;
     const compiled = await toolchain.captureCompilerOutput(() => toolchain.runtime.compileArtifact(String(data.source ?? ''), {
       language: options.compilerLanguage,
-      fileName: options.fileName,
+      fileName: activePath,
+      activePath,
+      workspaceFiles,
       compileArgs: [...CLANG_DRIVER_DEFAULT_ARGS, `-std=${options.std}`, '-Wall', '-Wextra'],
     }));
     const compileMs = Math.round(performance.now() - compileStarted);
@@ -44,8 +58,11 @@ async function compileAndRun(data) {
     const stderr = [];
     const ordered = [];
     const runStarted = performance.now();
+    let wasiHost;
     const result = await toolchain.execute(compiled.result, {
       stdin,
+      files: workspaceFiles.map(({ path, content }) => ({ path, contents: content })),
+      extraImports: ({ host }) => { wasiHost = host; return {}; },
       stdout: (chunk) => {
         const value = cleanOutput(chunk);
         stdout.push(value); ordered.push(value);
@@ -58,10 +75,10 @@ async function compileAndRun(data) {
       },
     });
     const runMs = Math.round(performance.now() - runStarted);
-    return normalizeNativeExecutionResult({
+    return { ...normalizeNativeExecutionResult({
       stdout: stdout.join(''), stderr: stderr.join(''), output: ordered.join(''), errors: [],
       exitCode: result.exitCode, compileMs, runMs,
-    }, data.language);
+    }, data.language), ...(data.projectFiles?.length ? { projectFiles: snapshotWasiDirectory(wasiHost?.rootDirectory), filesystemSupported: true } : {}) };
   });
 }
 

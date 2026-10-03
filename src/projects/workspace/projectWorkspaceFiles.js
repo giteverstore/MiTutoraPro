@@ -59,15 +59,19 @@ export function buildProjectTree(files, explicitFolders = []) {
   sort(root); return root;
 }
 
-export function createInitialProjectFiles(project, savedProgress) {
-  const entryFilePath = savedProgress.entryFilePath || project.template.sourcePath;
+export function createInitialProjectFiles(project, savedProgress, runtime) {
+  const configuredFiles = project.template ? [] : runtime?.defaultFiles ?? [];
+  const configuredEntry = runtime?.entrypoint ?? configuredFiles[0]?.path;
+  const entryFilePath = savedProgress.entryFilePath || project.template?.sourcePath || configuredEntry;
   if (savedProgress.files && typeof savedProgress.files === 'object' && Object.keys(savedProgress.files).length) {
     return { files: savedProgress.files, folders: savedProgress.folders ?? [], entryFilePath: savedProgress.files[entryFilePath] ? entryFilePath : Object.keys(savedProgress.files)[0] };
   }
   return {
     entryFilePath,
-    folders: [], files: { [entryFilePath]: { path: entryFilePath, content: savedProgress.submission ?? project.starterCode, language: project.language, editable: true } },
+    folders: [], files: configuredFiles.length
+      ? Object.fromEntries(configuredFiles.map((file) => [file.path, { path: file.path, content: file.content, language: languageForPath(file.path, runtime.editorLanguage), editable: true }]))
+      : { [entryFilePath]: { path: entryFilePath, content: savedProgress.submission ?? project.starterCode, language: project.language, editable: true } },
   };
 }
 
-export const supportsMultiFileProjectExecution = () => false;
+export const supportsMultiFileProjectExecution = (runtime) => runtime?.filesystem?.multiFile === true;

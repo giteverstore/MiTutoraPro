@@ -119,7 +119,7 @@ export class PythonWorkerClient {
     return result;
   }
 
-  execute({ source, stdin = '', filename = 'main.py', signal, timeoutMs, executionId, onExecutionEvent }) {
+  execute({ source, stdin = '', filename = 'main.py', signal, timeoutMs, executionId, onExecutionEvent, projectFiles, entrypoint }) {
     const interactive = typeof onExecutionEvent === 'function'
       && typeof SharedArrayBuffer === 'function'
       && globalThis.crossOriginIsolated === true;
@@ -136,6 +136,8 @@ export class PythonWorkerClient {
       inputBuffer,
       inputWaitTimeoutMs: INTERACTIVE_STDIN_WAIT_TIMEOUT_MS,
       stdin: Array.isArray(stdin) ? stdin.join('\n') : String(stdin ?? ''),
+      projectFiles,
+      entrypoint,
     }, signal, timeoutMs ?? this.executionTimeoutMs);
     const pending = this.pending.get(id);
     if (pending) Object.assign(pending, { executionId: String(executionId ?? ''), onExecutionEvent, controlBuffer, inputBuffer });

@@ -48,12 +48,7 @@ export class OpenAIProvider extends AIProvider {
             input: tutorRequest.userContent,
             max_output_tokens: tutorRequest.maxProviderTokens,
             store: false,
-            text: {
-              format: {
-                type: 'json_schema',
-                ...TUTOR_PROVIDER_RESPONSE_SCHEMA,
-              },
-            },
+            text: { format: { type: 'json_schema', ...(tutorRequest.responseSchema ?? TUTOR_PROVIDER_RESPONSE_SCHEMA) } },
           }),
           signal: request.signal,
         });

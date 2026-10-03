@@ -35,7 +35,7 @@ export class CompilerManager {
     return runtime;
   }
 
-  async execute({ language, source, stdin, inputs, filename, execution, executionId, onExecutionEvent, setupSql, signal, timeoutMs, instanceId }) {
+  async execute({ language, source, stdin, inputs, filename, execution, executionId, onExecutionEvent, setupSql, signal, timeoutMs, instanceId, projectFiles, entrypoint }) {
     if (!this.runtimeRegistry.has(language)) {
       return {
         status: 'error',
@@ -81,6 +81,8 @@ export class CompilerManager {
         executionId,
         onExecutionEvent: onExecutionEvent ? forwardEvent : undefined,
         setupSql: normalizedSetupSql,
+        projectFiles,
+        entrypoint,
         signal: controller.signal,
         timeoutMs,
       });
