@@ -42,7 +42,12 @@ describe('immersive project workspace shell', () => {
     expect(container.querySelector('.app-footer')).not.toBeInTheDocument();
     expect(screen.getByText(project.title, { selector: '.project-ide-topbar strong' })).toBeInTheDocument();
     expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
-    expect(container.querySelector('.project-files-section')).toBeInTheDocument();
+    const explorer = container.querySelector('.project-files-section');
+    expect(explorer).toBeInTheDocument();
+    expect(explorer.children[0].tagName).toBe('HEADER');
+    expect(explorer.children[1]).toHaveClass('project-tree');
+    expect(explorer.querySelector('header')).toContainElement(screen.getByRole('button', { name: 'New File' }));
+    expect(explorer.querySelector('.project-tree-root')).toHaveTextContent(project.title);
     expect(container.querySelector('.project-checkpoints-section')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Checkpoints' }));
     expect(screen.getByRole('complementary', { name: 'Checkpoints' })).toBeInTheDocument();
@@ -135,7 +140,7 @@ describe('immersive project workspace shell', () => {
 
     expect(screen.getByRole('tab', { name: 'Guide' })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'false');
-    expect(screen.getByRole('button', { name: 'Ask AI' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Ask AI' })).toHaveClass('project-selection-ai-action');
 
     fireEvent.click(screen.getByRole('button', { name: 'Ask AI' }));
     expect(screen.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
@@ -381,5 +386,16 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('.project-ide-topbar strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1rem; }');
     expect(css).toContain('.project-guide-completion>h2 { max-width: 100%; font-size: 1.5rem; overflow-wrap: anywhere; }');
     expect(css).toContain('.project-ai-turn>div { max-width: 92%;');
+  });
+
+  it('keeps Explorer controls separated and preserves theme-aware contextual contrast', () => {
+    expect(css).toContain('.project-files-section>header,.project-checkpoints-section>header { display: flex;');
+    expect(css).toContain('.project-files-section>header>div { display: flex; flex: 0 0 auto;');
+    expect(css).toContain('color: var(--project-text); white-space: nowrap; background: var(--project-surface-raised);');
+    expect(css).toContain('--project-text: #000000;');
+    expect(css).toContain('--project-text-muted: #374151;');
+    expect(css).toContain('--project-text: #e6edf3;');
+    expect(css).toContain('--project-text-muted: #a4afbb;');
+    expect(css).toContain('--project-dialog-text: #000000; --project-dialog-muted: #374151;');
   });
 });

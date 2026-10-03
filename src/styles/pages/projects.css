@@ -526,9 +526,9 @@
   --project-surface-subtle: #f1f5f9;
   --project-surface-raised: #ffffff;
   --project-border: #d8e0ea;
-  --project-text: #111827;
-  --project-text-muted: #64748b;
-  --project-text-subtle: #7c8798;
+  --project-text: #000000;
+  --project-text-muted: #374151;
+  --project-text-subtle: #4b5563;
   --project-hover: #eaf0f7;
   --project-selected: #eff6ff;
   --project-input-bg: #ffffff;
@@ -562,6 +562,8 @@
   --project-ide-panel: var(--project-surface);
   --project-ide-canvas: var(--project-bg);
   --project-ide-border: var(--project-border);
+  --project-muted: var(--project-text-muted);
+  --project-accent: var(--color-accent);
   --color-background: var(--project-bg);
   --color-canvas: var(--project-bg);
   --color-surface: var(--project-surface);
@@ -699,8 +701,8 @@
 .project-ai-panel .ai-workspace-conversation { min-height: 0; overflow-y: auto; }
 
 /* Project contextual mentor conversation and explicit selection action. */
-.project-selection-ai-action { position: fixed; z-index: 140; display: flex; align-items: center; gap: .35rem; min-height: 2.25rem; padding: .4rem .65rem; color: #fff; background: var(--color-accent); border: 1px solid color-mix(in srgb,var(--color-accent) 76%,#000); border-radius: var(--radius-md); box-shadow: var(--shadow-md); font-size: .875rem; font-weight: 700; cursor: pointer; }
-.project-selection-ai-action:hover { filter: brightness(.96); }.project-selection-ai-action:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }.project-selection-ai-action svg { width: 1rem; height: 1rem; }
+.project-selection-ai-action { position: fixed; z-index: 140; display: inline-flex; width: max-content; min-width: 6rem; max-width: calc(100vw - 1rem); min-height: 2.25rem; align-items: center; justify-content: center; gap: .375rem; padding: .375rem .625rem; color: var(--project-text); white-space: nowrap; background: var(--project-surface-raised); border: 1px solid var(--project-border); border-radius: var(--radius-md); box-shadow: var(--shadow-md); font-size: .875rem; font-weight: 600; cursor: pointer; }
+.project-selection-ai-action:hover { background: var(--project-hover); border-color: var(--project-accent); }.project-selection-ai-action:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }.project-selection-ai-action svg { width: 1rem; height: 1rem; flex: 0 0 auto; color: var(--project-accent); }
 .project-ai-mode.is-active { display: block; min-height: 0; overflow: hidden; }
 .project-ai-mode>.project-contextual-ai { height: 100%; min-height: 0; }
 .project-contextual-ai { display: grid; min-width: 0; min-height: 0; grid-template-rows: auto minmax(0,1fr) auto; justify-items: stretch; gap: 0; padding: 0; color: var(--project-text); }
@@ -731,13 +733,15 @@
 .project-ide-shell[data-project-theme] * { scrollbar-width: thin; scrollbar-color: var(--project-scrollbar) transparent; }
 .project-ide-shell[data-project-theme] *::-webkit-scrollbar { width: 6px; height: 6px; }.project-ide-shell[data-project-theme] *::-webkit-scrollbar-track { background: transparent; }.project-ide-shell[data-project-theme] *::-webkit-scrollbar-thumb { background: var(--project-scrollbar); border-radius: 999px; }
 
-.project-language-backdrop { --project-dialog-bg: #f7f9fc; --project-dialog-surface: #ffffff; --project-dialog-border: #d8e0ea; --project-dialog-text: #111827; --project-dialog-muted: #64748b; --project-dialog-hover: #eaf0f7; --project-dialog-input: #ffffff; color-scheme: light; }
+.project-language-backdrop { --project-dialog-bg: #f7f9fc; --project-dialog-surface: #ffffff; --project-dialog-border: #d8e0ea; --project-dialog-text: #000000; --project-dialog-muted: #374151; --project-dialog-hover: #eaf0f7; --project-dialog-input: #ffffff; color-scheme: light; }
 .project-language-backdrop.is-dark { --project-dialog-bg: #0d1117; --project-dialog-surface: #161b22; --project-dialog-border: #30363d; --project-dialog-text: #e6edf3; --project-dialog-muted: #a4afbb; --project-dialog-hover: #21262d; --project-dialog-input: #0d1117; color-scheme: dark; }
 .project-language-backdrop .dialog-surface { color: var(--project-dialog-text); background: var(--project-dialog-surface); border-color: var(--project-dialog-border); }
 .project-language-backdrop .project-language-search { color: var(--project-dialog-muted); background: var(--project-dialog-input); border-color: var(--project-dialog-border); }.project-language-backdrop .project-language-search input { color: var(--project-dialog-text); }.project-language-backdrop .project-language-search input::placeholder { color: var(--project-dialog-muted); opacity: 1; }
 .project-language-backdrop .project-language-options button { color: var(--project-dialog-text); }.project-language-backdrop .project-language-options button:hover,.project-language-backdrop .project-language-options button:focus-visible { background: var(--project-dialog-hover); }.project-language-backdrop .project-language-options button.is-selected { color: var(--color-accent); background: color-mix(in srgb,var(--color-accent) 16%,var(--project-dialog-surface)); }
 
-.project-files-section>header>div { display: flex; align-items: center; opacity: .7; }
+.project-files-section>header,.project-checkpoints-section>header { display: flex; min-width: 0; height: 2rem; align-items: center; justify-content: space-between; gap: .5rem; padding: 0 .45rem 0 .7rem; border-bottom: 1px solid var(--project-ide-border); font-size: .875rem; font-weight: 600; }
+.project-files-section>header>span,.project-checkpoints-section>header>span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-files-section>header>div { display: flex; flex: 0 0 auto; align-items: center; opacity: .8; }
 .project-files-section>header button { display: grid; width: 1.65rem; height: 1.65rem; place-items: center; padding: 0; color: var(--color-text-muted); background: transparent; border: 0; border-radius: .2rem; cursor: pointer; }
 .project-files-section>header button:hover,.project-files-section>header button:focus-visible { color: var(--color-text); background: var(--color-surface-hover); }
 .project-tree { min-height: 0; overflow: auto; color: var(--color-text); font-size: .875rem; scrollbar-width: thin; }

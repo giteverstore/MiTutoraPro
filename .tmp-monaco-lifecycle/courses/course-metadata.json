@@ -1,0 +1,28 @@
+{
+  "defaultCourseId": "python",
+  "courses": [
+    {
+      "id": "course-placeholder",
+      "title": "Course name",
+      "description": "Local placeholder course for the learning platform.",
+      "version": "1.0.0",
+      "source": "/courses/learning-platform.json"
+    },
+    {
+      "id": "python",
+      "title": "Python Foundations",
+      "description": "Learn Python fundamentals through explanations, runnable examples, quizzes, and guided coding exercises. No prior programming experience is required.",
+      "version": "2.0.0",
+      "publishedVersion": "v2",
+      "source": "/courses/python-course.json"
+    },
+    {
+      "id": "java",
+      "title": "Java Basics",
+      "description": "Build a practical Java foundation through structured explanations, examples, quizzes, and programming problems.",
+      "version": "1.0.0",
+      "publishedVersion": "v1",
+      "source": "/courses/java-course.json"
+    }
+  ]
+}

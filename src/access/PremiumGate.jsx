@@ -16,4 +16,4 @@ export function PremiumGate({ context = 'this feature' }) {
     <div className="premium-gate-plans" aria-label="Premium plans"><span>₹499 / month</span><span>₹999 / 6 months</span><span>₹1,499 / year</span></div>
     <button className="button button--primary" type="button" onClick={openPremiumPlans}>View Premium Plans</button>
   </section>;
-}
+} 

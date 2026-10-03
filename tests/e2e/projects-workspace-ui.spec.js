@@ -7,6 +7,10 @@ test.describe('Projects workspace focused UI', () => {
     await openTaskManager(page, 'JavaScript');
     await expect(page.locator('.project-editor-pane')).toBeVisible();
     await expect(page.locator('.project-files-section')).toBeVisible();
+    const explorerHeaderBox = await page.locator('.project-files-section>header').boundingBox();
+    const explorerRootBox = await page.locator('.project-tree-root').boundingBox();
+    expect(explorerHeaderBox).not.toBeNull();
+    expect(explorerRootBox?.y).toBeGreaterThanOrEqual(explorerHeaderBox.y + explorerHeaderBox.height - 1);
     await expect(page.locator('.project-checkpoints-section')).not.toBeAttached();
     await page.getByRole('button', { name: 'Checkpoints' }).click();
     await expect(page.locator('.project-checkpoints-section')).toBeVisible();
@@ -20,7 +24,10 @@ test.describe('Projects workspace focused UI', () => {
     await guideHeading.dispatchEvent('mouseup');
     await expect(page.getByRole('tab', { name: 'Guide' })).toHaveAttribute('aria-selected', 'true');
     await expect(page.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'false');
-    await page.getByRole('button', { name: 'Ask AI' }).click();
+    const guideAskAi = page.getByRole('button', { name: 'Ask AI' });
+    await expect(guideAskAi).toHaveCSS('white-space', 'nowrap');
+    await expect(guideAskAi).toHaveCSS('display', 'flex');
+    await guideAskAi.click();
     await expect(page.getByRole('tab', { name: 'AI' })).toHaveAttribute('aria-selected', 'true');
     await expect(page.locator('.project-ai-context-preview')).toContainText('guide text');
     await page.getByRole('tab', { name: 'Guide' }).click();

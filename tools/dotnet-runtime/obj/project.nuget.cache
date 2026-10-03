@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "u7ryYreL4WQ=",
+  "success": true,
+  "projectFilePath": "C:\\Work\\MiTutoraPro\\tools\\dotnet-runtime\\YCoders.DotNetRuntime.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Avinash\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\5.9.0-1.26328.17\\microsoft.codeanalysis.analyzers.5.9.0-1.26328.17.nupkg.sha512",
+    "C:\\Users\\Avinash\\.nuget\\packages\\microsoft.codeanalysis.common\\5.9.0\\microsoft.codeanalysis.common.5.9.0.nupkg.sha512",
+    "C:\\Users\\Avinash\\.nuget\\packages\\microsoft.codeanalysis.csharp\\5.9.0\\microsoft.codeanalysis.csharp.5.9.0.nupkg.sha512",
+    "C:\\Users\\Avinash\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\5.9.0\\microsoft.codeanalysis.visualbasic.5.9.0.nupkg.sha512"
+  ],
+  "logs": []
+}

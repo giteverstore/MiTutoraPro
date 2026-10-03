@@ -1,0 +1,12 @@
+-Oz
+-v
+-g
+-fwasm-exceptions
+-DDISABLE_PERFTRACING_LISTEN_PORTS=1
+-DINVARIANT_GLOBALIZATION=1
+-DLINK_ICALLS=1
+-DGEN_PINVOKE=1
+-emit-llvm
+"-IC:\Work\MiTutoraPro\tools\dotnet-runtime\obj\Release\net10.0\browser-wasm\wasm\for-publish"
+"-IC:\Users\Avinash\.dotnet-sdk\packs\Microsoft.NETCore.App.Runtime.Mono.browser-wasm\10.0.12\runtimes\browser-wasm\native\include\mono-2.0"
+"-IC:\Users\Avinash\.dotnet-sdk\packs\Microsoft.NETCore.App.Runtime.Mono.browser-wasm\10.0.12\runtimes\browser-wasm\native\include\wasm"

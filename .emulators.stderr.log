@@ -1,0 +1,33 @@
+9:52:44 AM [vite] middlewares.use is not a function
+9:52:44 AM [vite] server restart failed
+9:56:11 AM [vite] Cannot read properties of undefined (reading 'url')
+9:56:11 AM [vite] server restart failed
+9:56:11 AM [vite] Cannot read properties of undefined (reading 'url')
+9:56:11 AM [vite] server restart failed
+
+<--- Last few GCs --->
+
+[20660:0000026454EC3000]  8451400 ms: Mark-Compact 2025.3 (2068.4) -> 2011.7 (2070.9) MB, pooled: 0.0 MB, 2373.07 / 0.00 ms (average mu = 0.128, current mu = 0.034) allocation failure; scavenge might not succeed
+[20660:0000026454EC3000]  8453769 ms: Mark-Compact 2027.7 (2070.9) -> 2014.1 (2073.4) MB, pooled: 0.0 MB, 2289.05 / 0.00 ms (average mu = 0.084, current mu = 0.034) allocation failure; scavenge might not succeed
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 00007FF7A5D29706 node::OnFatalError+1318
+ 2: 00007FF7A68C94C7 v8::Function::NewInstance+423
+ 3: 00007FF7A66D9407 v8::base::AddressSpaceReservation::AddressSpaceReservation+328087
+ 4: 00007FF7A66DD317 v8::base::AddressSpaceReservation::AddressSpaceReservation+344231
+ 5: 00007FF7A66ED518 v8::internal::StrongRootAllocatorBase::deallocate_impl+18360
+ 6: 00007FF7A66ECD4B v8::internal::StrongRootAllocatorBase::deallocate_impl+16363
+ 7: 00007FF7A7E6F56D v8::platform::DelayedTaskQueue::Terminate+10483453
+ 8: 00007FF7A66D6D38 v8::base::AddressSpaceReservation::AddressSpaceReservation+318152
+ 9: 00007FF7A66F2F70 X509_STORE_set_cleanup+5664
+10: 00007FF7A66F1C9E X509_STORE_set_cleanup+846
+11: 00007FF7A66FF8CB X509_CRL_set_meth_data+21099
+12: 00007FF7A630009E v8::String::Value::~Value+153662
+13: 000002641FE7B93A 
+npm notice
+npm notice New minor version of npm available! 11.12.1 -> 11.21.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0
+npm notice To update run: npm install -g npm@11.21.0
+npm notice
