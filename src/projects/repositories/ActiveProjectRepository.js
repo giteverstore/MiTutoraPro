@@ -27,6 +27,7 @@ function metadataFromState(projectId, state, revision, fileIds) {
   return {
     schemaVersion: ACTIVE_PROJECT_SCHEMA_VERSION,
     projectId,
+    displayName: typeof state.displayName === 'string' ? state.displayName.trim().slice(0, 80) || null : null,
     languageId: state.languageId,
     status: state.status,
     currentCheckpoint: state.currentCheckpoint ?? 0,

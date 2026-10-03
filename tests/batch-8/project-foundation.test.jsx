@@ -69,9 +69,23 @@ describe('language-agnostic Projects foundation', () => {
     expect(screen.getAllByRole('radio')).toHaveLength(4);
     fireEvent.click(screen.getByRole('radio', { name: /JavaScript/ }));
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(screen.getByRole('heading', { name: 'Name your project' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Project name')).toHaveValue(project.title);
+    fireEvent.change(screen.getByLabelText('Project name'), { target: { value: "Avi's Task Tracker" } });
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
     expect(screen.getByText(/resets checkpoint progress and workspace files/i)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Initialize Project' }));
-    expect(onConfirm).toHaveBeenCalledWith('javascript');
+    fireEvent.click(screen.getByRole('button', { name: 'Start Project' }));
+    expect(onConfirm).toHaveBeenCalledWith('javascript', "Avi's Task Tracker");
+  });
+
+  it('rejects an empty learner project name', () => {
+    const onConfirm = vi.fn();
+    render(<ProjectStartDialog open project={project} onClose={vi.fn()} onConfirm={onConfirm} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    fireEvent.change(screen.getByLabelText('Project name'), { target: { value: '   ' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(screen.getByRole('alert')).toHaveTextContent('Project name is required');
+    expect(onConfirm).not.toHaveBeenCalled();
   });
 
   it('persists one active attempt and replaces it when language changes', () => {
@@ -93,13 +107,13 @@ describe('language-agnostic Projects foundation', () => {
   });
 
   it('exports learner workspace files without internal project metadata', async () => {
-    const archive = await new ProjectExporter().createWorkspaceArchive(project, { 'index.js': { path: 'index.js', content: 'console.log("done")' }, 'data/tasks.json': { path: 'data/tasks.json', content: '[]' }, 'Main.class': { path: 'Main.class', content: 'build artifact' } }, 'uint8array');
+    const archive = await new ProjectExporter().createWorkspaceArchive(project, { 'index.js': { path: 'index.js', content: 'console.log("done")' }, 'data/tasks.json': { path: 'data/tasks.json', content: '[]' }, 'Main.class': { path: 'Main.class', content: 'build artifact' } }, 'uint8array', "Avi's Task Tracker");
     const zip = await JSZip.loadAsync(archive);
     const names = Object.keys(zip.files);
-    expect(names).toContain('cli-task-manager/index.js');
-    expect(names).toContain('cli-task-manager/data/tasks.json');
-    expect(names).toContain('cli-task-manager/README.md');
-    expect(names).not.toContain('cli-task-manager/Main.class');
+    expect(names).toContain('avis-task-tracker/index.js');
+    expect(names).toContain('avis-task-tracker/data/tasks.json');
+    expect(names).toContain('avis-task-tracker/README.md');
+    expect(names).not.toContain('avis-task-tracker/Main.class');
     expect(names.some((name) => /ycoders|metadata|progress/i.test(name))).toBe(false);
   });
 

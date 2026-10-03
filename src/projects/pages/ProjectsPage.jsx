@@ -59,7 +59,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     if (browseOnly) { onRequireAuth('/projects'); return; }
     if (progress.languageId) { setScreen('workspace'); return; }
     setStartDialogOpen(true);
-  }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId) => { projectProgressService.resetForLanguage(selected.id, languageId); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
+  }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
   if (selected && screen === 'workspace') {
     return <ProjectWorkspace project={selected} tier={tier} onBack={() => { setSelected(null); setScreen('catalog'); onProjectChange(null); }} onProgress={() => refresh((value) => value + 1)} />;
   }

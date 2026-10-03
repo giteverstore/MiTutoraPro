@@ -52,11 +52,12 @@ service cloud.firestore {
       return request.resource.data.keys().hasOnly([
           'schemaVersion', 'projectId', 'languageId', 'status', 'currentCheckpoint',
           'completedCheckpoints', 'folders', 'entryFilePath', 'fileIds', 'revision',
-          'createdAt', 'startedAt', 'completedAt', 'updatedAt'
+          'displayName', 'createdAt', 'startedAt', 'completedAt', 'updatedAt'
         ])
         && request.resource.data.schemaVersion == 1
         && request.resource.data.projectId == projectId
         && request.resource.data.languageId is string
+        && (!('displayName' in request.resource.data) || request.resource.data.displayName == null || (request.resource.data.displayName is string && request.resource.data.displayName.size() > 0 && request.resource.data.displayName.size() <= 80))
         && request.resource.data.status in ['active', 'completed']
         && request.resource.data.currentCheckpoint is int
         && request.resource.data.currentCheckpoint >= 0

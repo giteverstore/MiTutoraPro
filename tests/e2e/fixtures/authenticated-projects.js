@@ -53,7 +53,8 @@ export async function openTaskManager(page, language = 'Python') {
   if (await radio.isVisible()) {
     await radio.click();
     await page.getByRole('button', { name: 'Continue' }).click();
-    await page.getByRole('button', { name: 'Initialize Project' }).click();
+    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByRole('dialog', { name: 'Confirm project' }).getByRole('button', { name: 'Start Project' }).click();
   }
   await expect(page.locator('.project-ide-shell')).toBeVisible({ timeout: 60_000 });
   await expect(page.getByText('Saved', { exact: true })).toBeVisible({ timeout: 30_000 });

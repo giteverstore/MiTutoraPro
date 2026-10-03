@@ -31,6 +31,14 @@ describe('Projects cloud persistence', () => {
     expect(loaded.files['data/tasks.json'].content).toBe('[]');
   });
 
+  it('persists a learner display name and falls back safely for legacy records', async () => {
+    service.resetForLanguage('task-manager', 'python', "Avi's Task Tracker");
+    expect(service.get('task-manager').displayName).toBe("Avi's Task Tracker");
+    repository.load.mockResolvedValue(state({ displayName: undefined, revision: 3 }));
+    const legacy = await service.hydrate('task-manager');
+    expect(legacy.displayName).toBeNull();
+  });
+
   it('debounces editor writes and reports confirmed save state', async () => {
     vi.useFakeTimers();
     const statuses = []; service.subscribe('task-manager', ({ status }) => statuses.push(status));

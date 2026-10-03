@@ -41,10 +41,14 @@ describe('immersive project workspace shell', () => {
     expect(container.querySelector('.app-shell')).not.toBeInTheDocument();
     expect(container.querySelector('.app-footer')).not.toBeInTheDocument();
     expect(screen.getByText(project.title, { selector: '.project-ide-topbar strong' })).toBeInTheDocument();
-    expect(screen.getByRole('complementary', { name: 'Explorer and checkpoints' })).toBeInTheDocument();
+    expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
     expect(container.querySelector('.project-files-section')).toBeInTheDocument();
+    expect(container.querySelector('.project-checkpoints-section')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Checkpoints' }));
+    expect(screen.getByRole('complementary', { name: 'Checkpoints' })).toBeInTheDocument();
     expect(container.querySelector('.project-checkpoints-section')).toBeInTheDocument();
-    expect(container.querySelector('.project-files-section').compareDocumentPosition(container.querySelector('.project-checkpoints-section')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(container.querySelector('.project-files-section')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Explorer' }));
     expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-model-owner-prefix', projectModelOwnerPrefix(project.id));
@@ -83,14 +87,14 @@ describe('immersive project workspace shell', () => {
 
   it('collapses optional left and bottom panels while keeping Guide and AI permanently visible', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Files and checkpoints' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Explorer' }));
     fireEvent.click(screen.getByRole('button', { name: 'Collapse bottom panel' }));
     expect(container.querySelector('.project-ide-shell')).toHaveClass('is-explorer-collapsed', 'is-bottom-collapsed');
     expect(container.querySelector('.project-ide-shell')).not.toHaveClass('is-guide-collapsed');
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Files and checkpoints' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Explorer' }));
     fireEvent.click(screen.getByRole('button', { name: 'Restore bottom panel' }));
-    expect(screen.getByRole('complementary', { name: 'Explorer and checkpoints' })).toBeInTheDocument();
+    expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
     expect(screen.getByRole('complementary', { name: 'Guide and AI' })).toBeInTheDocument();
   });
 
@@ -197,6 +201,19 @@ describe('immersive project workspace shell', () => {
     expect(container.querySelector('.project-ai-panel')).toBeInTheDocument();
   });
 
+  it('renders project completion inside Guide with the learner display name instead of a floating overlay', () => {
+    projectProgressService.cache(project.id, { ...projectProgressService.get(project.id), status: 'completed', displayName: 'My Calculator', languageId: 'python', completedCheckpoints: project.checkpoints.map(({ id }) => id) });
+    const onBack = vi.fn();
+    const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={onBack} onProgress={vi.fn()} />);
+    expect(container.querySelector('.project-complete-overlay')).not.toBeInTheDocument();
+    expect(container.querySelector('.project-guide-completion')).toHaveTextContent('Project Complete');
+    expect(screen.getByRole('heading', { name: 'My Calculator' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Download Project/ })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Back to Projects' }));
+    expect(onBack).toHaveBeenCalledOnce();
+    expect(container.querySelector('.project-ide-topbar strong')).toHaveTextContent('My Calculator');
+  });
+
   it('keeps only file tabs in the editor header while preserving project validation modules', () => {
     render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
     expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toBeInTheDocument();
@@ -248,8 +265,11 @@ describe('immersive project workspace shell', () => {
     fireEvent.submit(input.closest('form'));
     await waitFor(() => expect(validation).toHaveBeenCalledTimes(2));
     expect(screen.getByRole('log')).toHaveTextContent('$ python main.py');
-    expect(screen.getByRole('log')).toHaveTextContent('shared execution output');
+    expect(screen.getByRole('log')).toHaveTextContent('Command completed successfully');
+    expect(screen.getByRole('log')).not.toHaveTextContent('shared execution output');
     await waitFor(() => expect(input).toHaveFocus());
+    fireEvent.click(screen.getByRole('tab', { name: 'output' }));
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('shared execution output');
     validation.mockRestore();
   });
 
@@ -307,7 +327,7 @@ describe('immersive project workspace shell', () => {
     fireEvent.click(screen.getByRole('button', { name: /Next/ }));
     expect(screen.getByRole('heading', { name: 'Function contract' })).toBeInTheDocument();
     expect(screen.getByText('2 / 4')).toBeInTheDocument();
-    expect(css).toContain('.project-guide-content { font-size: 16px; }');
+    expect(css).toContain('.project-guide-content { font-size: 16px; line-height: 1.6; }');
   });
 
   it('renders a semantic compact tree with inline folders and collapse-all behavior', () => {
@@ -352,5 +372,14 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('overflow-y: auto; overscroll-behavior: contain;');
     expect(css).toContain('.project-ai-mode.is-active { display: block; min-height: 0; overflow: hidden; }');
     expect(css).toContain('.project-guide-mode.is-active { display: grid; grid-template-rows: minmax(0,1fr) auto; }');
+  });
+
+  it('keeps Projects UI typography on the 12, 14, 16, and 24 pixel scale', () => {
+    const sizes = [...css.matchAll(/font-size:\s*([^;]+);/g)].map((match) => match[1].trim().replace(/\s*\/\*.*\*\//, ''));
+    const pixels = sizes.map((size) => size === 'inherit' ? size : size.endsWith('rem') ? Number.parseFloat(size) * 16 : Number.parseFloat(size));
+    expect(pixels.every((size) => size === 'inherit' || [12, 14, 16, 24].includes(size))).toBe(true);
+    expect(css).toContain('.project-ide-topbar strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1rem; }');
+    expect(css).toContain('.project-guide-completion>h2 { max-width: 100%; font-size: 1.5rem; overflow-wrap: anywhere; }');
+    expect(css).toContain('.project-ai-turn>div { max-width: 92%;');
   });
 });

@@ -6,7 +6,7 @@ const environment = await initializeTestEnvironment({
   projectId: 'demo-projects-rules',
   firestore: { rules: await readFile('firestore.rules', 'utf8'), host: '127.0.0.1', port: 8080 },
 });
-const metadata = { schemaVersion: 1, projectId: 'task-manager', languageId: 'python', status: 'active', currentCheckpoint: 0, completedCheckpoints: [], folders: ['data'], entryFilePath: 'main.py', fileIds: ['main.py'], revision: 1, createdAt: '2026-01-01T00:00:00.000Z', startedAt: '2026-01-01T00:00:00.000Z', completedAt: null, updatedAt: '2026-01-01T00:00:00.000Z' };
+const metadata = { schemaVersion: 1, projectId: 'task-manager', displayName: 'My Task Manager', languageId: 'python', status: 'active', currentCheckpoint: 0, completedCheckpoints: [], folders: ['data'], entryFilePath: 'main.py', fileIds: ['main.py'], revision: 1, createdAt: '2026-01-01T00:00:00.000Z', startedAt: '2026-01-01T00:00:00.000Z', completedAt: null, updatedAt: '2026-01-01T00:00:00.000Z' };
 try {
   const owner = environment.authenticatedContext('owner').firestore();
   const attacker = environment.authenticatedContext('attacker').firestore();
