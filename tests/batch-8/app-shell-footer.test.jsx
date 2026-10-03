@@ -54,6 +54,15 @@ describe('global legal footer coverage', () => {
     expect(css).toMatch(/\.application-page>\.public-footer\s*\{[^}]*flex:\s*0 0 auto;/);
   });
 
+  it('makes the shared footer own its styles on authenticated direct loads', () => {
+    const footerSource = readFileSync('src/public/PublicFooter.jsx', 'utf8');
+    const footerCss = readFileSync('src/styles/public-pages.css', 'utf8');
+    expect(footerSource).toContain("import '../styles/public-pages.css';");
+    expect(footerCss).toMatch(/\.public-footer\s*\{[^}]*background:/);
+    expect(footerCss).toMatch(/\.public-footer-grid\s*\{[^}]*display:\s*grid;/);
+    expect(footerCss).toMatch(/\.public-footer-social\s*\{[^}]*display:\s*inline-grid;/);
+  });
+
   it('uses the compact desktop shell tokens without shrinking the mobile topbar', () => {
     const tokens = readFileSync('src/design-system/tokens.css', 'utf8');
     const css = readFileSync('src/styles/layout/app-shell.css', 'utf8');

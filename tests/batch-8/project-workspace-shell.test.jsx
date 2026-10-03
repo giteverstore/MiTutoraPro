@@ -293,7 +293,11 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('--project-ide-panel: var(--color-surface);');
     expect(css).toContain('--project-ide-canvas: var(--color-canvas);');
     expect(css).toContain('.project-ide-shell[data-project-theme="dark"]');
-    expect(css).toContain('grid-template-rows: minmax(12rem,1fr) 4px minmax(7.5rem,var(--project-bottom-height));');
+    expect(css).toContain('height: 100dvh;');
+    expect(css).toContain('grid-template-rows: minmax(15rem,1fr) 4px clamp(7.5rem,var(--project-bottom-height),35dvh);');
+    expect(css).toContain('grid-template-rows: 2.5rem minmax(12.5rem,1fr);');
+    expect(css).toContain('.project-editor-pane .editor-window { grid-row: 2; width: 100%; height: auto;');
+    expect(css).toContain('.project-editor-pane .monaco-editor-shell { width: 100%; height: 100%;');
     expect(css).toContain('.project-ide-topbar .project-run-button');
     expect(css).toContain('.project-workspace-navigation');
     expect(css).toContain('--project-surface: #161b22;');
@@ -301,6 +305,8 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('@media (max-width: 900px)');
     expect(css).toContain('.project-ide-shell.is-explorer-collapsed .project-ide-main { grid-template-columns: var(--project-ide-rail) minmax(0,1fr); }');
     expect(css).toContain('@media (max-width: 600px)');
+    expect(css).toContain('.project-explorer-panel,.project-guide-panel { left: 0; grid-column: 1; width: 100%; }');
+    expect(css).toContain('grid-column: 1; width: auto; height: min(45dvh,var(--project-bottom-height));');
     expect(css).toContain('.project-ai-panel { position: absolute;');
     expect(css).toContain('.project-activity-bar { grid-column: 1; grid-row: 2; flex-direction: row;');
   });

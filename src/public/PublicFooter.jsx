@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Youtube } from 'lucide-react';
 import { SUPPORT_EMAIL } from './publicPageContent';
 import { requestAuthentication } from './publicAuthNavigation';
+import '../styles/public-pages.css';
 
 const quickLinks = [
   ['/', 'Home'],
