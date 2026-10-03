@@ -71,4 +71,13 @@ describe('Projects contextual AI mentor', () => {
     await expect(client.generateQuestions(context('guide_text', 'Represent a task'))).rejects.toMatchObject({ code: 'ai/provider-response-invalid' });
     expect(fetchImpl.mock.calls[0][1].headers.Authorization).toBe('Bearer token');
   });
+
+  it('invokes the browser fetch implementation with the global receiver', async () => {
+    const fetchImpl = vi.fn(function () {
+      expect(this).toBe(globalThis);
+      return Promise.resolve({ ok: true, json: async () => ({ operation: 'project-questions', questions: [1, 2, 3].map((id) => ({ id: String(id), label: `Question ${id}`, intent: 'learn' })) }) });
+    });
+    const client = new ProjectAIClient({ fetchImpl, tokenProvider: async () => 'firebase-token' });
+    await expect(client.generateQuestions(context('guide_text', 'Represent a task'))).resolves.toMatchObject({ operation: 'project-questions' });
+  });
 });
