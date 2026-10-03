@@ -54,7 +54,7 @@ export class HuggingFaceProvider extends AIProvider {
             ],
             max_tokens: tutorRequest.maxProviderTokens,
             reasoning_effort: 'low',
-            response_format: { type: 'json_schema', json_schema: TUTOR_PROVIDER_RESPONSE_SCHEMA },
+            response_format: { type: 'json_schema', json_schema: tutorRequest.responseSchema ?? TUTOR_PROVIDER_RESPONSE_SCHEMA },
           }),
           signal: request.signal,
         });

@@ -351,6 +351,14 @@ describe('AI Tutor client and server boundary', () => {
     expect(request.headers.Authorization).toBe('Bearer server-only-hf-test-token');
   });
 
+  it('uses a caller-supplied structured response schema for Hugging Face', async () => {
+    const responseSchema = { name: 'project_questions', strict: true, schema: { type: 'object' } };
+    const fetchImpl = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ choices: [{ message: { content: '{}' } }] }) });
+    const provider = new HuggingFaceProvider({ token: 'server-only-token', model: 'test-model', fetchImpl });
+    await provider.explain({ ...providerRequest, responseSchema });
+    expect(JSON.parse(fetchImpl.mock.calls[0][1].body).response_format).toEqual({ type: 'json_schema', json_schema: responseSchema });
+  });
+
   it('normalizes Hugging Face provider failures without returning the token', async () => {
     const token = 'server-only-sensitive-hf-token';
     const provider = new HuggingFaceProvider({
