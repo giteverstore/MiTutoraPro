@@ -1,5 +1,6 @@
 import { auth } from '../../../../../src/firebase/auth.js';
 import { DraftRepository } from './DraftRepository.js';
+import { AdminContentRequestError } from '../../publishing/adminContentError.js';
 
 export class CloudDraftConflictError extends Error {
   constructor(details) { super('This draft was updated elsewhere. Reload the latest version before saving.'); this.name = 'CloudDraftConflictError'; this.code = 'content/draft-conflict'; this.details = details; }
@@ -12,7 +13,7 @@ async function request(path, { method = 'GET', body } = {}) {
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
     if (payload.error?.code === 'content/draft-conflict') throw new CloudDraftConflictError(payload.error.details);
-    const error = new Error(payload.error?.message ?? 'Content request failed.'); error.code = payload.error?.code; throw error;
+    throw new AdminContentRequestError(response, payload, 'Content request failed.');
   }
   return payload;
 }

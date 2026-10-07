@@ -1,4 +1,5 @@
 import { auth } from '../../../../src/firebase/auth.js';
+import { AdminContentRequestError } from './adminContentError.js';
 
 export async function adminContentRequest(path, { method = 'GET', body, binary = false } = {}) {
   const token = await auth.currentUser?.getIdToken();
@@ -10,7 +11,7 @@ export async function adminContentRequest(path, { method = 'GET', body, binary =
   });
   if (binary && response.ok) return response.blob();
   const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(result.error?.message ?? 'The request could not be completed. Retry.');
+  if (!response.ok) throw new AdminContentRequestError(response, result, 'The request could not be completed. Retry.');
   return result;
 }
 

@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => {
   return {
     root: import.meta.dirname,
     envDir: import.meta.dirname,
+    define: { __ADMIN_PREVIEW_DEPLOYMENT__: JSON.stringify(environment.VERCEL_ENV === 'preview') },
     plugins: [react(), adminPyodideAssets()],
     resolve: { dedupe: ['react', 'react-dom', 'firebase'] },
     server: {
