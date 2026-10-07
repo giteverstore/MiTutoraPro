@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createAdminContentApiRouter, createAdminStorageBucket } from '../../server/admin/content/adminContentApiRouter.js';
 import { createDefaultFirestore } from '../../server/firestore/createDefaultFirestore.js';
+import { resolveAdminGoogleWifConfiguration } from '../../server/admin/AdminWifConfiguration.js';
 
 function response() {
   return {
@@ -62,7 +63,7 @@ describe('Admin deployment boundary', () => {
     const result = response();
     await route({ method: 'GET', query: { path: ['drafts'] }, headers: { authorization: 'Bearer token' } }, result);
     expect(result.statusCode).toBe(200);
-    expect(credentialFactory).toHaveBeenCalledWith({ request: expect.any(Object), environment: production });
+    expect(credentialFactory).toHaveBeenCalledWith({ request: expect.any(Object), environment: production, configurationResolver: resolveAdminGoogleWifConfiguration });
     expect(authorize).toHaveBeenCalledWith(expect.any(Object), expect.any(String));
     expect(dependencies).toHaveBeenCalledWith({ environment: production, googleCredentials: credentials });
     expect(close).toHaveBeenCalledOnce();
@@ -104,5 +105,26 @@ describe('Admin deployment boundary', () => {
     expect(result.bucket).toBe(bucket);
     expect(firebaseAppFactory).not.toHaveBeenCalled();
     await expect(createAdminStorageBucket({ ...production, FIREBASE_STORAGE_BUCKET: 'test-bucket' }, {}, { StorageClient })).rejects.toMatchObject({ code: 'admin/storage-unavailable', status: 503 });
+  });
+
+  it('pins Production Admin WIF to its own provider and configured Admin-only service account', () => {
+    const environment = {
+      ...production,
+      VERCEL_PROJECT_ID: 'prj_VdnJ6Q6FzEL5u5nSvUL88uoMB4xq',
+      GOOGLE_WIF_AUDIENCE: '//iam.googleapis.com/projects/196429461457/locations/global/workloadIdentityPools/ai-tutor-vercel/providers/vercel-admin-production',
+      GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL: 'ycoders-admin-runtime@mi-tutora-pro.iam.gserviceaccount.com',
+    };
+    expect(resolveAdminGoogleWifConfiguration(environment)).toMatchObject({
+      projectId: 'mi-tutora-pro',
+      serviceAccountEmail: environment.GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL,
+    });
+    for (const changed of [
+      { VERCEL_PROJECT_ID: 'prj_other' },
+      { GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL: 'ai-tutor-runtime@mi-tutora-pro.iam.gserviceaccount.com' },
+      { GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL: 'ycoders-admin-runtime@another-project.iam.gserviceaccount.com' },
+      { GOOGLE_WIF_AUDIENCE: '//iam.googleapis.com/projects/196429461457/locations/global/workloadIdentityPools/ai-tutor-vercel/providers/vercel-production' },
+      { FIREBASE_PROJECT_ID: 'another-project' },
+    ]) expect(() => resolveAdminGoogleWifConfiguration({ ...environment, ...changed })).toThrow();
+    expect(resolveAdminGoogleWifConfiguration({})).toBeNull();
   });
 });

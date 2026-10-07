@@ -1,6 +1,7 @@
 import { getStorage } from 'firebase-admin/storage';
 import { Storage } from '@google-cloud/storage';
 import { createVercelGoogleCredentialContext } from '../../auth/VercelGoogleCredentialAdapter.js';
+import { resolveAdminGoogleWifConfiguration } from '../AdminWifConfiguration.js';
 import { createDefaultFirestore } from '../../firestore/createDefaultFirestore.js';
 import { createRequestFirebaseApp } from '../../firebaseAdminApp.js';
 import { requiresFederatedTutorCredentials } from '../../ai/tutor/tutorRuntimeConfig.js';
@@ -94,7 +95,7 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       if (!isPublic && authorize === requireAdminPermission && !/^Bearer\s+\S+$/i.test(String(request.headers?.authorization ?? ''))) {
         return response.status(401).json({ error: { code: 'admin/auth-required', message: 'Admin authentication is required.' } });
       }
-      googleCredentials = credentialFactory({ request, environment });
+      googleCredentials = credentialFactory({ request, environment, configurationResolver: resolveAdminGoogleWifConfiguration });
       await googleCredentials.preflight();
       if (!isPublic) {
         const permission = request.method === 'GET' ? ADMIN_PERMISSIONS.ADMIN_ACCESS

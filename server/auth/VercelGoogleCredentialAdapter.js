@@ -28,10 +28,10 @@ function required(environment, name) {
   return value;
 }
 
-export function resolveGoogleWifConfiguration(environment = process.env) {
+export function resolveGoogleWifConfiguration(environment = process.env, profileOverride = null) {
   let profile;
   try {
-    profile = resolveTutorRuntimeProfile(environment);
+    profile = profileOverride ?? resolveTutorRuntimeProfile(environment);
   } catch (cause) {
     throw unavailable(cause);
   }
@@ -45,7 +45,7 @@ export function resolveGoogleWifConfiguration(environment = process.env) {
   const audienceMatch = audience.match(GOOGLE_WIF_AUDIENCE_PATTERN);
   const [, audienceProjectNumber, audiencePoolId, audienceProviderId] = audienceMatch ?? [];
   if (projectId !== profile.projectId
-    || serviceAccountEmail !== profile.runtimeServiceAccountEmail
+    || !(profile.matchesServiceAccount?.(serviceAccountEmail, projectId) ?? serviceAccountEmail === profile.runtimeServiceAccountEmail)
     || !audienceMatch
     || (profile.wif.projectNumber && audienceProjectNumber !== profile.wif.projectNumber)
     || audiencePoolId !== profile.wif.poolId
@@ -152,11 +152,12 @@ function normalizedGoogleAccessToken(authClient, diagnostics) {
 export function createVercelGoogleCredentialContext({
   request,
   environment = process.env,
+  configurationResolver = resolveGoogleWifConfiguration,
   tokenSource = readVercelPlatformOidcToken,
   IdentityPoolClientClass = IdentityPoolClient,
   diagnostics,
 } = {}) {
-  const configuration = resolveGoogleWifConfiguration(environment);
+  const configuration = configurationResolver(environment);
   if (!configuration) {
     return Object.freeze({
       mode: 'adc',
