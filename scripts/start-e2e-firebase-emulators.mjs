@@ -1,4 +1,4 @@
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { createServer } from 'node:net';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -15,6 +15,17 @@ const firebaseCli = fileURLToPath(new URL('../node_modules/firebase-tools/lib/bi
 const temporary = mkdtempSync(join(tmpdir(), 'ycoders-e2e-firebase-'));
 const ownershipDirectory = join(root, '.tmp-firebase-config');
 const ownershipFile = join(ownershipDirectory, 'playwright-emulator-owner.json');
+
+function listenerPids() {
+  if (process.platform !== 'win32') return {};
+  const output = execFileSync('netstat.exe', ['-ano', '-p', 'TCP'], { encoding: 'utf8', windowsHide: true });
+  const listeners = {};
+  for (const line of output.split(/\r?\n/)) {
+    const match = line.trim().match(/^TCP\s+\S+:(\d+)\s+\S+\s+LISTENING\s+(\d+)$/i);
+    if (match && REQUIRED_PORTS.some(({ port }) => port === Number(match[1]))) listeners[match[1]] = Number(match[2]);
+  }
+  return listeners;
+}
 
 function portIsFree(port) {
   return new Promise((resolve) => {
@@ -106,6 +117,11 @@ child.once('exit', (code, signal) => {
 
 try {
   await waitForReadiness(child);
+  if (process.platform === 'win32') {
+    const listeners = listenerPids();
+    if (REQUIRED_PORTS.some(({ port }) => !listeners[port])) throw new Error('Firebase E2E listener ownership could not be determined.');
+    writeFileSync(ownershipFile, JSON.stringify({ ownerPid: process.pid, childPid: child.pid, projectId: PROJECT_ID, listenerPids: listeners }), 'utf8');
+  }
   console.log(`Firebase E2E emulators ready for ${PROJECT_ID}: Auth 9099, Firestore 8080 (owner PID ${child.pid}).`);
 } catch (error) {
   console.error(error.message);

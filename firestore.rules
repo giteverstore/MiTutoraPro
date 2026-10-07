@@ -50,12 +50,14 @@ service cloud.firestore {
     }
     function validActiveProject(projectId) {
       return request.resource.data.keys().hasOnly([
-          'schemaVersion', 'projectId', 'languageId', 'status', 'currentCheckpoint',
+          'schemaVersion', 'projectId', 'contentVersion', 'languageId', 'status', 'currentCheckpoint',
           'completedCheckpoints', 'folders', 'entryFilePath', 'fileIds', 'revision',
-          'displayName', 'createdAt', 'startedAt', 'completedAt', 'updatedAt'
+          'displayName', 'createdAt', 'startedAt', 'completedAt', 'updatedAt',
+          'activeCheckpointId', 'activeTaskId', 'taskProgress', 'checkpointProgress', 'finalValidation'
         ])
-        && request.resource.data.schemaVersion == 1
+        && request.resource.data.schemaVersion == 2
         && request.resource.data.projectId == projectId
+        && (!('contentVersion' in request.resource.data) || request.resource.data.contentVersion == null || (request.resource.data.contentVersion is int && request.resource.data.contentVersion >= 1))
         && request.resource.data.languageId is string
         && (!('displayName' in request.resource.data) || request.resource.data.displayName == null || (request.resource.data.displayName is string && request.resource.data.displayName.size() > 0 && request.resource.data.displayName.size() <= 80))
         && request.resource.data.status in ['active', 'completed']
@@ -63,6 +65,13 @@ service cloud.firestore {
         && request.resource.data.currentCheckpoint >= 0
         && request.resource.data.completedCheckpoints is list
         && request.resource.data.completedCheckpoints.size() <= 100
+        && request.resource.data.taskProgress is map
+        && request.resource.data.taskProgress.size() <= 200
+        && request.resource.data.checkpointProgress is map
+        && request.resource.data.checkpointProgress.size() <= 100
+        && request.resource.data.finalValidation is map
+        && (request.resource.data.activeCheckpointId == null || request.resource.data.activeCheckpointId is string)
+        && (request.resource.data.activeTaskId == null || request.resource.data.activeTaskId is string)
         && request.resource.data.folders is list
         && request.resource.data.folders.size() <= 128
         && request.resource.data.fileIds is list
@@ -149,6 +158,14 @@ service cloud.firestore {
     match /courses/{courseId} { allow read: if resource.data.published == true; allow write: if false; }
     match /practiceQuestions/{questionId} { allow read: if resource.data.published == true; allow write: if false; }
     match /contentPublications/{publicationId} { allow read: if resource.data.status == 'ACTIVE'; allow write: if false; }
+    match /adminContentDrafts/{contentId} { allow read, write: if false; }
+    match /adminContentAssets/{assetId} { allow read, write: if false; }
+    match /publishedContent/{contentId} {
+      allow read: if resource.data.publicationStatus == 'ACTIVE';
+      allow write: if false;
+      match /versions/{version} { allow read, write: if false; }
+    }
+    match /adminContentAudit/{eventId} { allow read, write: if false; }
     match /dailyChallenges/{challengeId} { allow read: if resource.data.published == true; allow write: if false; }
     match /certificationExams/{examId} { allow read: if signedIn() && resource.data.published == true; allow write: if false; }
 

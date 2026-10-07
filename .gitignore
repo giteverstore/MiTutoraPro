@@ -20,4 +20,5 @@ firebase-admin-credentials*.json
 
 .vercel
 .env*
+!apps/admin/.env.example
 .tmp/

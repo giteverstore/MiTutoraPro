@@ -411,7 +411,7 @@ describe('anonymous project browsing boundary', () => {
   it('allows project overview browsing but requests authentication before starting', () => {
     const onRequireAuth = vi.fn();
     render(<ProjectsPage browseOnly onRequireAuth={onRequireAuth} />);
-    fireEvent.click(screen.getAllByRole('button', { name: /View Project/ })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
     expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: 'Start Project' }));
     expect(onRequireAuth).toHaveBeenCalledWith('/projects');

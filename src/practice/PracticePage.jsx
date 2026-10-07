@@ -9,7 +9,7 @@ import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDia
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 
-const initialFilters = { difficulty: 'all', topic: 'all', search: '' };
+const initialFilters = { language: 'all', difficulty: 'all', topic: 'all', search: '' };
 const practiceDifficulties = ['easy', 'medium', 'hard'];
 const PAGE_CACHE_LIMIT = 5;
 const uniqueValues = (items, property) => [...new Set(items.map((item) => item[property]))].sort();
@@ -35,15 +35,29 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   const [openQuestionId, setOpenQuestionId] = useState(initialQuestionId);
   const [openQuestion, setOpenQuestion] = useState(null);
   const [questionState, setQuestionState] = useState({ loading: false, error: null, retry: 0 });
-  const solvedQuestionIds = useMemo(() => new Set((activity?.completions ?? [])
-    .filter((completion) => completion.activityType === 'PRACTICE' && completion.completionStatus === 'COMPLETED')
-    .map((completion) => completion.activityId)), [activity?.completions]);
+  const completedQuestionVersions = useMemo(() => {
+    const versions = new Map();
+    for (const completion of activity?.completions ?? []) {
+      if (completion.activityType !== 'PRACTICE' || completion.completionStatus !== 'COMPLETED') continue;
+      if (!versions.has(completion.activityId)) versions.set(completion.activityId, new Set());
+      versions.get(completion.activityId).add(completion.activityVersion);
+    }
+    return versions;
+  }, [activity?.completions]);
+  const isSolved = (question) => {
+    const versions = completedQuestionVersions.get(question.id);
+    if (!versions) return false;
+    const currentVersion = question.activityVersion ?? question.version;
+    return currentVersion == null || versions.has(String(currentVersion));
+  };
+  const solvedQuestionIds = new Set(statisticsCatalog.items.filter(isSolved).map((question) => question.id));
   const catalogRequest = useRef(0);
   const pageCache = useRef(new Map());
   const pageCursors = useRef(new Map([[1, null]]));
   const reachablePageCount = useRef(1);
   const filterOptions = useMemo(() => ({
     difficulties: practiceDifficulties,
+    languages: catalog.facets?.languages ?? uniqueValues(catalog.items, 'language').map((value) => String(value).toLowerCase()),
     topics: catalog.facets?.topics ?? uniqueValues(catalog.items, 'topic'),
   }), [catalog.facets, catalog.items]);
 
@@ -131,8 +145,8 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
     return <div className="practice-page"><header className="practice-page-heading" data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category}><h1>{questionState.error ? 'This question couldn’t be loaded.' : 'Loading question…'}</h1><p>{questionState.error ? 'The catalog remains available. Retry this question or return to Practice.' : 'Verifying and preparing the question content.'}</p>{questionState.error ? <button className="button button--secondary" type="button" onClick={() => setQuestionState((state) => ({ ...state, retry: state.retry + 1 }))}>Retry</button> : null}<button className="button button--ghost" type="button" onClick={() => setOpenQuestionId(null)}>Back to Practice</button></header></div>;
   }
   if (openQuestion) {
-    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} requireAuthentication={anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
-      const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.version });
+    return <PracticeDetail question={openQuestion} solved={isSolved(openQuestion)} requireAuthentication={anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
+      const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.activityVersion ?? question.version });
       if (['completed', 'already_completed'].includes(result.completionStatus)) await activity?.refresh();
       return result;
     }} />;
@@ -143,7 +157,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
       {anonymous ? null : <PracticeStatistics completedQuestionIds={solvedQuestionIds} questions={statisticsCatalog.items} catalogStatus={statisticsCatalog.status} />}
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
       <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading || statisticsCatalog.status === 'loading'}><header><div><span>Question Catalog</span><h2 id="practice-question-list-title">{statisticsCatalog.status === 'ready' ? `${statisticsCatalog.items.length} questions` : statisticsCatalog.status === 'error' ? 'Catalog total unavailable' : 'Loading catalog…'}</h2></div></header><div>
-        {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}
+        {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={isSolved(question)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}
         {!catalog.items.length ? <p className="practice-no-results">No questions match your filters.</p> : null}
         {catalog.error ? <p className="practice-no-results">This page couldn’t be loaded. <button type="button" onClick={() => loadPage(catalog.currentPage, { force: true })}>Retry</button></p> : null}
       </div></section></div>

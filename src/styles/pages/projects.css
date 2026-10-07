@@ -770,3 +770,12 @@
   .project-language-options { grid-template-columns: 1fr; }
   .project-status-right { gap: .45rem; }.project-status-right>span:not(:first-child) { display: none; }
 }
+.project-task-progress-list { list-style: none; margin: .25rem 0 .5rem 1.5rem; padding: 0; }
+.project-task-progress-list button { width: 100%; display: flex; align-items: center; gap: .5rem; border: 0; border-radius: .375rem; padding: .375rem .5rem; color: var(--project-text-muted); background: transparent; text-align: left; }
+.project-task-progress-list button:hover:not(:disabled),.project-task-progress-list button:focus-visible { color: var(--project-text); background: var(--project-surface-raised); }
+.project-task-progress-list button[aria-current="step"] { color: var(--project-accent); font-weight: 600; }
+.project-task-progress-list button:disabled { cursor: not-allowed; opacity: .65; }
+.project-task-progress-list svg { width: .875rem; height: .875rem; flex: 0 0 auto; }
+.project-task-verification { display: grid; gap: .625rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--project-border); }
+.project-task-verification p { display: flex; align-items: center; gap: .375rem; margin: 0; }
+.project-task-verification svg { width: 1rem; height: 1rem; color: var(--project-success); }

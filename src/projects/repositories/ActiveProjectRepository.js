@@ -2,7 +2,7 @@ import { collection, doc, runTransaction } from 'firebase/firestore';
 import { db } from '../../firebase/firestore.js';
 import { normalizeProjectFileSnapshot } from '../execution/projectFilesystem.js';
 
-export const ACTIVE_PROJECT_SCHEMA_VERSION = 1;
+export const ACTIVE_PROJECT_SCHEMA_VERSION = 2;
 
 export class ActiveProjectConflictError extends Error {
   constructor(remote) {
@@ -27,11 +27,17 @@ function metadataFromState(projectId, state, revision, fileIds) {
   return {
     schemaVersion: ACTIVE_PROJECT_SCHEMA_VERSION,
     projectId,
+    contentVersion: Number.isSafeInteger(state.contentVersion) ? state.contentVersion : null,
     displayName: typeof state.displayName === 'string' ? state.displayName.trim().slice(0, 80) || null : null,
     languageId: state.languageId,
     status: state.status,
     currentCheckpoint: state.currentCheckpoint ?? 0,
     completedCheckpoints: [...new Set(state.completedCheckpoints ?? [])].slice(0, 100),
+    activeCheckpointId: state.activeCheckpointId ?? null,
+    activeTaskId: state.activeTaskId ?? null,
+    taskProgress: state.taskProgress ?? {},
+    checkpointProgress: state.checkpointProgress ?? {},
+    finalValidation: state.finalValidation ?? {},
     folders: [...new Set(state.folders ?? state.workspace?.folders ?? [])].slice(0, 128),
     entryFilePath: state.entryFilePath ?? state.workspace?.entryFilePath ?? null,
     fileIds,
@@ -52,7 +58,7 @@ export class ActiveProjectRepository {
       const metadataSnapshot = await transaction.get(reference);
       if (!metadataSnapshot.exists()) return null;
       const metadata = metadataSnapshot.data();
-      if (metadata.schemaVersion !== ACTIVE_PROJECT_SCHEMA_VERSION) throw new Error(`Unsupported active project schema: ${metadata.schemaVersion}`);
+      if (![1, ACTIVE_PROJECT_SCHEMA_VERSION].includes(metadata.schemaVersion)) throw new Error(`Unsupported active project schema: ${metadata.schemaVersion}`);
       const snapshots = await Promise.all((metadata.fileIds ?? []).map((id) => transaction.get(doc(filesRef(this.uid, projectId), id))));
       const files = Object.fromEntries(snapshots.filter((snapshot) => snapshot.exists()).map((snapshot) => {
         const file = snapshot.data();

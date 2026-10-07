@@ -5,6 +5,7 @@ export const PRACTICE_PAGE_SIZE = 24;
 export function matchesPracticeFilters(question, filters = {}) {
   const query = String(filters.search ?? '').trim().toLowerCase();
   return (filters.difficulty === 'all' || !filters.difficulty || question.difficulty === filters.difficulty)
+    && (filters.language === 'all' || !filters.language || String(question.language).toLowerCase() === filters.language)
     && (filters.topic === 'all' || !filters.topic || question.topic === filters.topic)
     && (!query || `${question.title} ${question.summary} ${question.topic} ${question.category ?? ''} ${(question.skills ?? []).join(' ')}`.toLowerCase().includes(query));
 }
@@ -32,6 +33,7 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
       source: 'local',
       facets: {
         difficulties: [...new Set(localQuestions.map(({ difficulty }) => difficulty))].sort(),
+        languages: [...new Set(localQuestions.map(({ language }) => String(language).toLowerCase()))].sort(),
         topics: [...new Set(localQuestions.map(({ topic }) => topic))].sort(),
       },
     };
@@ -42,6 +44,7 @@ export function createPracticeSourceAdapter({ source, firebaseService, localQues
     if (publication?.activeVersion) queryFilters.push({ field: 'version', value: publication.activeVersion });
     if (filters?.difficulty && filters.difficulty !== 'all') queryFilters.push({ field: 'difficulty', value: filters.difficulty });
     if (filters?.topic && filters.topic !== 'all') queryFilters.push({ field: 'topic', value: filters.topic });
+    // Language is filtered in memory because legacy metadata uses display-name casing.
     let nextCursor = cursor;
     let hasMore = true;
     const items = [];

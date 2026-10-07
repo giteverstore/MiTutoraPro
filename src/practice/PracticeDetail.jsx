@@ -65,7 +65,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
         </footer>
       </article>
       <div className="practice-ai-region" id="practice-ai-panel" role="tabpanel" hidden={activeWorkspace !== 'ai'}>
-        <AITutorWorkspace course={{ id: 'practice', title: 'Practice' }} lesson={question} compilerContext={compilerContext ?? { code: compiler.editor.lines.map((line) => line.text ?? '').join('\n'), language: compiler.language, fileName: compiler.editor.fileName, compilerStatus: 'ready' }} pendingRequest={pendingTutorRequest} activityType="practice" contextLines={[`Question: ${question.id} - ${question.title}`, `Description: ${question.summary ?? ''}`, `Topic: ${question.topic ?? 'unavailable'}`, `Difficulty: ${question.difficulty ?? 'unavailable'}`, `Expected output: ${compiler.expectedOutput ?? 'not provided'}`]} />
+        <AITutorWorkspace course={{ id: 'practice', title: 'Practice' }} lesson={question} compilerContext={compilerContext ?? { code: compiler.editor.lines.map((line) => line.text ?? '').join('\n'), language: compiler.language, fileName: compiler.editor.fileName, compilerStatus: 'ready' }} pendingRequest={pendingTutorRequest} activityType="practice" contextLines={[`Question: ${question.id} - ${question.title}`, `Description: ${question.summary ?? ''}`, `Topic: ${question.topic ?? 'unavailable'}`, `Difficulty: ${question.difficulty ?? 'unavailable'}`]} />
       </div>
       </section>
       <SharedCompilerDock

@@ -26,7 +26,9 @@ describe('Firebase emulator harness ownership contract', () => {
     expect(rulesLauncher).toContain("projectId: 'demo-content-rules'");
     expect(rulesLauncher).toContain("projectId: 'demo-certification-rules'");
     expect(rulesLauncher).toContain("projectId: 'demo-storage-rules'");
-    expect(rulesLauncher).toContain('refusing to attach to an unowned process');
+    expect(rulesLauncher).toContain("server.listen({ host: '127.0.0.1', port: 0, exclusive: true }");
+    expect(rulesLauncher).toContain('FIREBASE_RULES_TEST_PORT: String(port)');
+    expect(rulesLauncher).toContain("'--config', firebaseConfig");
     expect(rulesLauncher).toContain('XDG_CONFIG_HOME');
   });
 
@@ -36,6 +38,7 @@ describe('Firebase emulator harness ownership contract', () => {
     expect(playwrightConfig.match(/reuseExistingServer: false/g)).toHaveLength(2);
     expect(playwrightConfig).toContain("globalTeardown: './scripts/teardown-e2e-servers.mjs'");
     expect(teardown).toContain("record.childPid ?? record.ownerPid");
-    expect(teardown).toContain("spawnSync('taskkill.exe', ['/PID', String(pid), '/T', '/F']");
+    expect(teardown).toContain('if (owner !== pid) throw new Error');
+    expect(teardown).toContain("process.kill(pid, 'SIGTERM')");
   });
 });

@@ -5,7 +5,7 @@ import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 const environment = await initializeTestEnvironment({
   projectId: 'mitutora-certification-rules',
-  firestore: { rules: await readFile('firestore.rules', 'utf8'), host: '127.0.0.1', port: 8080 },
+  firestore: { rules: await readFile('firestore.rules', 'utf8'), host: '127.0.0.1', port: Number(process.env.FIREBASE_RULES_TEST_PORT || 8080) },
 });
 try {
   await environment.clearFirestore();

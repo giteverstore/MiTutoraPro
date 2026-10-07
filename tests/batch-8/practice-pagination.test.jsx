@@ -184,4 +184,18 @@ describe('Practice cursor pagination', () => {
     expect(within(container).getByText('Solved', { selector: 'small' }).closest('article').querySelector('strong')).toHaveTextContent('1');
     expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1Hard');
   });
+
+  it('keeps a v1 historical solve but does not mark an active v2 question solved', async () => {
+    const current = { ...questions[0], version: 2, activityVersion: 'v2' };
+    listCatalog.mockResolvedValue([current]);
+    listPage.mockResolvedValue({ items: [current], cursor: null, hasMore: false, facets: { difficulties: ['hard'], topics: ['Variables'], languages: ['python'] } });
+    activity.completions = [{ activityType: 'PRACTICE', activityId: current.id, activityVersion: 'v1', completionStatus: 'COMPLETED' }];
+    const { rerender } = render(<PracticePage />);
+    const card = (await screen.findByText(current.title)).closest('button');
+    expect(card).toHaveTextContent('Unsolved');
+    expect(screen.getByText('Solved', { selector: 'small' }).closest('article').querySelector('strong')).toHaveTextContent('0');
+    activity.completions = [...activity.completions, { activityType: 'PRACTICE', activityId: current.id, activityVersion: 'v2', completionStatus: 'COMPLETED' }];
+    rerender(<PracticePage />);
+    expect(card).toHaveTextContent('Solved');
+  });
 });

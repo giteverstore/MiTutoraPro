@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useUser } from '../auth/UserContext';
 import { progressRepository } from '../progress/progressRepository';
 import { browseCatalog } from './homeData';
+import { loadActiveCourseCatalog, mergeCourseCatalog } from './canonicalCourseCatalog';
 import { createHomeLearningModel } from './homeLearningModel';
 import { BrowseCoursesSection } from './HomeSections';
 
@@ -10,6 +11,12 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
   const [activeLanguage, setActiveLanguage] = useState('all');
   const [courseSearch, setCourseSearch] = useState('');
   const [progressRecords, setProgressRecords] = useState([]);
+  const [publishedCourses, setPublishedCourses] = useState([]);
+  useEffect(() => {
+    let active = true;
+    loadActiveCourseCatalog().then((courses) => { if (active) setPublishedCourses(courses); }, (error) => { console.warn('[Library] Published Course catalog could not be loaded.', error); });
+    return () => { active = false; };
+  }, []);
   useEffect(() => {
     let active = true;
     if (anonymous || !user?.id) { setProgressRecords([]); return undefined; }
@@ -19,11 +26,11 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
     );
     return () => { active = false; };
   }, [anonymous, user?.id]);
-  const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords }).enrollments.map((course) => [course.id, course])), [progressRecords]);
-  const languageCourses = useMemo(() => browseCatalog.languages.map((course) => {
+  const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords, publishedCourses }).enrollments.map((course) => [course.id, course])), [progressRecords, publishedCourses]);
+  const languageCourses = useMemo(() => mergeCourseCatalog(browseCatalog.languages, publishedCourses).map((course) => {
     const enrollment = enrollmentByCourse.get(course.id);
     return { ...course, enrolled: Boolean(enrollment), started: Boolean(enrollment), progress: enrollment?.progress ?? null };
-  }), [enrollmentByCourse]);
+  }), [enrollmentByCourse, publishedCourses]);
   const languages = useMemo(() => [...new Set(languageCourses.map((course) => course.filter))], [languageCourses]);
   const languageGroups = useMemo(() => {
     const query = courseSearch.trim().toLowerCase();

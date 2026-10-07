@@ -15,6 +15,7 @@ import { visualBasicLanguage } from './visualbasic.js';
 import { assemblyLanguage } from './assembly.js';
 import { goLanguage } from './go.js';
 import { rustLanguage } from './rust.js';
+import { CANONICAL_LANGUAGE_IDS } from '../../../shared/content/constants.js';
 
 export const COMPILER_LANGUAGE_CATEGORIES = Object.freeze([
   Object.freeze({ id: 'web', label: 'Web Technologies', order: 1, column: 1 }),
@@ -43,6 +44,11 @@ export const supportedCompilerLanguages = Object.freeze([
   goLanguage,
   rustLanguage,
 ]);
+
+const registeredLanguageIds = supportedCompilerLanguages.map(({ id }) => id);
+if (registeredLanguageIds.some((id) => !CANONICAL_LANGUAGE_IDS.includes(id)) || CANONICAL_LANGUAGE_IDS.some((id) => !registeredLanguageIds.includes(id))) {
+  throw new Error('Compiler language registry and canonical content language IDs are out of sync.');
+}
 
 const PUBLIC_LANGUAGE_METADATA = Object.freeze({
   python: { publicSlug: 'python', aliases: ['py'], defaultSource: 'print("Hello, World!")' },

@@ -1,0 +1,56 @@
+import { expect, test } from '@playwright/test';
+
+test('authors and recovers a canonical Project draft', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/tests/browser/index.html?mode=projects');
+  await expect(page.getByRole('heading', { name: 'Untitled Project' })).toBeVisible();
+  await page.getByLabel('Title').fill('Browser Project');
+  await page.getByLabel('Description').fill('Browser-authored canonical project.');
+  await page.getByLabel('Learning outcomes').fill('Build a guided project.');
+  await page.getByText('Java', { exact: true }).click();
+  await page.getByRole('button', { name: '+ Add checkpoint' }).click();
+  await page.getByLabel('Title').fill('Foundation');
+  await page.getByRole('button', { name: '+ Add task' }).click();
+  await page.getByLabel('Title').fill('Create entrypoint');
+  const toolbar = page.getByRole('toolbar', { name: 'Insert blocks' });
+  await expect(toolbar).toBeVisible();
+  await expect(toolbar.getByRole('group', { name: 'Guidance' })).toHaveCount(1);
+  await expect(page.locator('#studio-structure').getByRole('toolbar')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Collapse structure sidebar' }).click();
+  await expect(page.locator('#studio-structure-content')).toHaveAttribute('aria-hidden', 'true');
+  await page.getByRole('button', { name: 'Expand structure sidebar' }).click();
+  await expect(page.getByRole('navigation', { name: 'Project structure' }).getByRole('button', { name: /Create entrypoint/ })).toHaveClass(/active/);
+  await page.getByRole('button', { name: 'Add Paragraph block' }).click();
+  await expect(page.getByRole('region', { name: 'Document canvas' }).getByRole('article', { name: 'paragraph block' }).last()).toBeFocused();
+  await page.getByLabel('Paragraph text').fill('Create the starter entrypoint.');
+  await page.getByRole('button', { name: '+ Add validator' }).click();
+  await page.getByRole('button', { name: '+ Add hint' }).click();
+  await page.getByRole('button', { name: 'Implementation Contracts' }).click();
+  await page.getByRole('button', { name: '+ Add contract' }).click();
+  await page.getByRole('button', { name: 'Completion Content' }).click();
+  await page.getByRole('button', { name: 'Add Paragraph block' }).click();
+  await page.getByRole('button', { name: 'Validate Project' }).click();
+  await page.getByText('More', { exact: true }).click();
+  await page.getByRole('button', { name: 'Generated JSON' }).click();
+  await expect(page.locator('.content-json-view')).toContainText('Browser Project');
+  await expect(page.locator('.content-json-view')).toContainText('Create entrypoint');
+  await page.waitForTimeout(800);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Browser Project' })).toBeVisible();
+  await page.getByRole('button', { name: 'Preview & Test' }).click();
+  await expect(page.getByRole('heading', { name: 'Learner Preview' })).toBeVisible();
+  await page.getByLabel('Language').selectOption('java');
+  await expect(page.getByText('Entrypoint: Main.java')).toBeVisible();
+  await page.getByRole('button', { name: 'Completion' }).click();
+  await expect(page.locator('.project-learner-surface').getByRole('heading', { name: 'Browser Project' })).toBeVisible();
+  await expect(page.locator('.project-learner-surface').getByRole('heading', { name: 'Create entrypoint' })).toHaveCount(0);
+  await expect(page.getByText('Runtime validators: not run automatically')).toBeVisible();
+  await page.getByRole('button', { name: 'Reset workspace' }).click();
+});
+
+test('Project reviewer cannot mutate the draft', async ({ page }) => {
+  await page.goto('/tests/browser/index.html?mode=projects&role=reviewer');
+  await expect(page.getByText('Read only')).toBeVisible();
+  await expect(page.getByRole('button', { name: '+ Add checkpoint' })).toHaveCount(0);
+  await expect(page.getByLabel('Title')).toHaveAttribute('readonly', '');
+});

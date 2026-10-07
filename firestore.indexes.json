@@ -1,6 +1,14 @@
 {
   "indexes": [
     {
+      "collectionGroup": "publishedContent",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "publicationStatus", "order": "ASCENDING" },
+        { "fieldPath": "contentType", "order": "ASCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "practiceQuestions",
       "queryScope": "COLLECTION",
       "fields": [

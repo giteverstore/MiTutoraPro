@@ -24,6 +24,14 @@ service firebase.storage {
       allow write: if false;
     }
 
+    match /published-content/{contentType}/{contentId}/{fileName} {
+      allow read: if resource != null
+        && resource.contentType.matches('application/json.*')
+        && resource.metadata.publicationState == 'READY'
+        && fileName.matches('v[1-9][0-9]*\\.json');
+      allow write: if false;
+    }
+
     match /{allPaths=**} {
       allow read, write: if false;
     }

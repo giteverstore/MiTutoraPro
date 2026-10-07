@@ -39,7 +39,7 @@ describe('project Premium preview boundary', () => {
     fireEvent.click(screen.getByRole('button', { name: /Next/ }));
     expect(screen.getByRole('heading', { name: 'Continue this project with Premium' })).toBeInTheDocument();
     expect(screen.queryByLabelText(`${project.title} implementation editor`)).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'View Premium Plans' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'View Premium Plans' }).length).toBeGreaterThan(0);
   });
 
   it('protects a direct page-four request and resumes there after upgrade without losing progress', () => {

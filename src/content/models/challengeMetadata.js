@@ -18,6 +18,21 @@ export function createChallengeMetadata(value) {
     );
   }
   const assignment = typeof metadata.practiceQuestionId === 'string' && metadata.practiceQuestionId.trim();
+  const canonical = typeof metadata.canonicalContentId === 'string' && metadata.canonicalContentId.trim();
+  if (canonical) {
+    const canonicalVersion = Number(metadata.canonicalVersion);
+    if (!Number.isSafeInteger(canonicalVersion) || canonicalVersion < 1) throw new ContentError(CONTENT_ERROR_CODES.invalidMetadata, 'Challenge canonicalVersion must be a positive integer.');
+    return Object.freeze({
+      id: requiredString(metadata.id, 'id', 'Challenge'), date,
+      canonicalContentId: requiredString(metadata.canonicalContentId, 'canonicalContentId', 'Challenge'),
+      canonicalVersion,
+      difficulty: requiredString(metadata.difficulty, 'difficulty', 'Challenge'),
+      rewardCoins: nonNegativeNumber(metadata.rewardCoins, 'rewardCoins', 'Challenge'),
+      rewardXp: nonNegativeNumber(metadata.rewardXp ?? 0, 'rewardXp', 'Challenge'),
+      published: metadata.published === true, version: positiveVersion(metadata.version, 'Challenge'),
+      sourceType: 'canonical-reference',
+    });
+  }
   if (assignment) {
     return Object.freeze({
       id: requiredString(metadata.id, 'id', 'Challenge'),

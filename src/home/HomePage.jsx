@@ -5,6 +5,7 @@ import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { loadChallengeCalendarMetadata, selectLatestPublishedChallenge } from '../challenges/challengeContentSource';
 import { recentCourseRepository } from './recentCourseRepository';
 import { createHomeLearningModel } from './homeLearningModel';
+import { loadActiveCourseCatalog, loadPinnedCourseCatalog } from './canonicalCourseCatalog';
 import { DailyChallengeCalendar } from './DailyChallengeCalendar';
 import { dailyChallengeCompletionDates, kolkataDate } from './challengeCalendar';
 import { ContinueLearningSection, LearningStatisticsSection, RecentlyViewedSection } from './HomeSections';
@@ -16,6 +17,18 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
   const [learnerState, setLearnerState] = useState({ status: 'loading', progress: [] });
   const [challengeCatalog, setChallengeCatalog] = useState({ status: 'loading', items: [] });
   const [unlockedDates, setUnlockedDates] = useState([]);
+  const [publishedCourses, setPublishedCourses] = useState([]);
+  const [pinnedCourses, setPinnedCourses] = useState([]);
+  useEffect(() => {
+    let active = true;
+    loadActiveCourseCatalog().then((courses) => { if (active) setPublishedCourses(courses); }, () => {});
+    return () => { active = false; };
+  }, []);
+  useEffect(() => {
+    let active = true;
+    loadPinnedCourseCatalog(learnerState.progress).then((courses) => { if (active) setPinnedCourses(courses); }, () => {});
+    return () => { active = false; };
+  }, [learnerState.progress]);
 
   useEffect(() => {
     let active = true;
@@ -49,7 +62,9 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
     progressRecords: learnerState.progress,
     recentCourseIds: recentCourseRepository.list(user.id),
     challengesCompleted: completedChallengeDates.length,
-  }), [completedChallengeDates.length, learnerState.progress, user.id]);
+    publishedCourses,
+    pinnedCourses,
+  }), [completedChallengeDates.length, learnerState.progress, publishedCourses, pinnedCourses, user.id]);
   const today = kolkataDate();
   const latestChallenge = selectLatestPublishedChallenge(challengeCatalog.items);
 

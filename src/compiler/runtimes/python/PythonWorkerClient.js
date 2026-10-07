@@ -17,6 +17,7 @@ export class PythonWorkerClient {
   constructor({
     executionTimeoutMs = PYTHON_EXECUTION_TIMEOUT_MS,
     initializationTimeoutMs = PYTHON_INITIALIZATION_TIMEOUT_MS,
+    runtimeBaseUrl = null,
     workerFactory = () => new Worker(new URL('./python.worker.js', import.meta.url), {
       type: 'module',
       name: 'mi-tutora-python-runtime',
@@ -27,6 +28,7 @@ export class PythonWorkerClient {
     this.requestId = 0;
     this.executionTimeoutMs = executionTimeoutMs;
     this.initializationTimeoutMs = initializationTimeoutMs;
+    this.runtimeBaseUrl = runtimeBaseUrl;
     this.workerFactory = workerFactory;
     this.initializedWorker = null;
   }
@@ -114,7 +116,7 @@ export class PythonWorkerClient {
   async initialize(signal) {
     const worker = this.getWorker();
     if (this.initializedWorker === worker) return { type: 'initialized' };
-    const result = await this.request('initialize', {}, signal, this.initializationTimeoutMs);
+    const result = await this.request('initialize', { runtimeBaseUrl: this.runtimeBaseUrl }, signal, this.initializationTimeoutMs);
     if (this.worker === worker) this.initializedWorker = worker;
     return result;
   }

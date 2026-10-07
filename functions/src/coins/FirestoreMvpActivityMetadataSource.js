@@ -5,6 +5,13 @@ export class FirestoreMvpActivityMetadataSource {
   }
 
   async loadPracticeMetadata(activityId, { transaction } = {}) {
+    const canonicalReference = this.db.doc(`publishedContent/${activityId}`);
+    const canonicalSnapshot = transaction ? await transaction.get(canonicalReference) : await canonicalReference.get();
+    if (canonicalSnapshot.exists) {
+      const pointer = canonicalSnapshot.data();
+      if (pointer.contentType !== 'PRACTICE' || pointer.publicationStatus !== 'ACTIVE' || !Number.isSafeInteger(pointer.activeVersion) || pointer.activeVersion < 1) return null;
+      return { id: activityId, published: true, version: `v${pointer.activeVersion}` };
+    }
     const reference = this.db.doc(`practiceQuestions/${activityId}`);
     const snapshot = transaction ? await transaction.get(reference) : await reference.get();
     return snapshot.exists ? { ...snapshot.data(), id: reference.id } : null;

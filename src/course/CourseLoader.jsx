@@ -26,6 +26,7 @@ const CourseLoaderContext = createContext(null);
 export function CourseLoaderProvider({
   children,
   courseId,
+  contentVersion = null,
   initialLessonId = null,
   cacheWindow = COURSE_SESSION_DEFAULT_CACHE_WINDOW,
 }) {
@@ -80,7 +81,7 @@ export function CourseLoaderProvider({
       courseEntryRef.current = null;
 
       try {
-        const loadedMetadata = await loadCourseMetadata(controller.signal, courseId);
+        const loadedMetadata = await loadCourseMetadata(controller.signal, courseId, contentVersion);
         const {
           course: courseDocument,
           courseEntry,
@@ -142,7 +143,7 @@ export function CourseLoaderProvider({
 
     loadCourse();
     return () => controller.abort();
-  }, [cacheWindow, courseId, createSessionCourseModel]);
+  }, [cacheWindow, contentVersion, courseId, createSessionCourseModel]);
 
   useEffect(() => {
     if (!courseSession) return undefined;

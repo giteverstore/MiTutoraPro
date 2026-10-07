@@ -9,6 +9,7 @@ import { ProjectStartDialog } from '../components/ProjectStartDialog';
 import { getProjectRuntime } from '../runtime/projectRuntimeRegistry';
 import { useOptionalAuth } from '../../auth/AuthContext';
 import { ActiveProjectRepository } from '../repositories/ActiveProjectRepository';
+import { PublishedContentRepository } from '../repositories/PublishedContentRepository';
 
 export const DEFAULT_PROJECT_FILTERS = Object.freeze({ language: 'all', category: 'all', difficulty: 'all' });
 
@@ -25,22 +26,48 @@ export function projectResultsHeading(difficulty) {
 
 const anonymousProgress = Object.freeze({ status: 'not-started', completedPages: [] });
 
-export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, initialProjectId = null, onProjectChange = () => {} }) {
+export function mergeProjectCatalog(legacyProjects, publishedProjects) {
+  const publishedIds = new Set(publishedProjects.map(({ id }) => id));
+  return [...legacyProjects.filter(({ id }) => !publishedIds.has(id)), ...publishedProjects];
+}
+
+export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, initialProjectId = null, onProjectChange = () => {}, publishedRepository = null }) {
   const auth = useOptionalAuth();
   const user = auth?.user ?? null;
   const authLoading = auth?.loading ?? false;
   const access = useOptionalSubscriptionAccess();
   const tier = access?.tier ?? 'FREE';
-  const projects = projectCatalog.getProjects();
+  const [publishedProjects, setPublishedProjects] = useState([]);
+  const publicationRepository = useMemo(() => {
+    if (publishedRepository) return publishedRepository;
+    const e2eFetcher = import.meta.env.MODE === 'e2e' ? globalThis.__YCODERS_PROJECT_E2E_PUBLISHED_FETCH__ : null;
+    return new PublishedContentRepository(e2eFetcher ? { fetcher: e2eFetcher } : undefined);
+  }, [publishedRepository]);
+  const projects = useMemo(() => mergeProjectCatalog(projectCatalog.getProjects(), publishedProjects), [publishedProjects]);
   const [filters, setFilters] = useState(DEFAULT_PROJECT_FILTERS);
   const [selected, setSelected] = useState(() => initialProjectId ? projectCatalog.getProjectById(initialProjectId) : null);
   const [screen, setScreen] = useState(() => initialProjectId ? 'details' : 'catalog');
   const [, refresh] = useState(0);
   const [startDialogOpen, setStartDialogOpen] = useState(false);
   const [cloudReady, setCloudReady] = useState(browseOnly || !auth);
+  const [contentError, setContentError] = useState('');
   const visible = useMemo(() => filterProjects(projects, filters), [filters, projects]);
   const languages = useMemo(() => [...new Set(projects.flatMap(({ supportedLanguages }) => supportedLanguages))], [projects]);
   const categories = useMemo(() => [...new Set(projects.map(({ category }) => category))], [projects]);
+
+  useEffect(() => {
+    let active = true;
+    publicationRepository.listProjects().then((items) => { if (active) setPublishedProjects(items); }).catch(() => {
+      if (active) setContentError('Published projects could not be loaded. Bundled projects remain available.');
+    });
+    return () => { active = false; };
+  }, [publicationRepository]);
+
+  useEffect(() => {
+    if (screen !== 'details' || !selected || selected.contentVersion != null) return;
+    const published = publishedProjects.find(({ id }) => id === selected.id);
+    if (published) setSelected(published);
+  }, [publishedProjects, screen, selected]);
 
   useEffect(() => {
     if (browseOnly || !auth || authLoading) return undefined;
@@ -52,6 +79,19 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
   }, [authLoading, browseOnly, projects, user?.uid]);
 
   const progressFor = (projectId) => browseOnly ? anonymousProgress : projectProgressService.get(projectId);
+  const openProject = async (candidate) => {
+    setContentError('');
+    const progress = progressFor(candidate.id);
+    let resolved = candidate;
+    if (progress.contentVersion && candidate.contentVersion && progress.contentVersion !== candidate.contentVersion) {
+      try { resolved = (await publicationRepository.resumeProject(candidate.id, progress.contentVersion)).project; }
+      catch {
+        setContentError('This project version is temporarily unavailable. Your saved progress is safe; please try again later.');
+        return;
+      }
+    }
+    setSelected(resolved); setScreen('details'); onProjectChange(resolved.id);
+  };
 
   if (!browseOnly && !cloudReady) return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading your projects…</p></div>;
 
@@ -59,7 +99,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     if (browseOnly) { onRequireAuth('/projects'); return; }
     if (progress.languageId) { setScreen('workspace'); return; }
     setStartDialogOpen(true);
-  }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
+  }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName, selected.contentVersion ?? null); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
   if (selected && screen === 'workspace') {
     return <ProjectWorkspace project={selected} tier={tier} onBack={() => { setSelected(null); setScreen('catalog'); onProjectChange(null); }} onProgress={() => refresh((value) => value + 1)} />;
   }
@@ -72,7 +112,8 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     </section>
     <section className="project-catalog" aria-labelledby="project-catalog-title">
       <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{visible.length} {visible.length === 1 ? 'project' : 'projects'} available</p></div>
-      {visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={progressFor(project.id)} onOpen={(next) => { setSelected(next); setScreen('details'); onProjectChange(next.id); }} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
+      {contentError ? <p className="project-empty" role="alert">{contentError}</p> : null}
+      {visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={progressFor(project.id)} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
     </section>
   </div>;
 }

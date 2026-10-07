@@ -1,4 +1,4 @@
-import { findCatalogCourse } from './homeData';
+import { browseCatalog } from './homeData';
 
 const timestamp = (value) => {
   const parsed = Date.parse(value ?? '');
@@ -10,7 +10,9 @@ function boundedProgress(value) {
   return Number.isFinite(numeric) ? Math.min(100, Math.max(0, Math.round(numeric))) : null;
 }
 
-export function createHomeLearningModel({ progressRecords = [], recentCourseIds = [], challengesCompleted = 0 } = {}) {
+export function createHomeLearningModel({ progressRecords = [], recentCourseIds = [], challengesCompleted = 0, publishedCourses = [], pinnedCourses = [] } = {}) {
+  const catalog = [...pinnedCourses, ...publishedCourses, ...browseCatalog.languages, ...browseCatalog.domains];
+  const findCatalogCourse = (courseId) => catalog.find((course) => course.id === courseId) ?? null;
   const enrollments = progressRecords.map((progress) => {
     const course = findCatalogCourse(progress.courseId ?? progress.id);
     return course ? {

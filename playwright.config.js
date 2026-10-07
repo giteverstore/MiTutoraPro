@@ -18,6 +18,7 @@ const firebaseEnvironment = {
   VITE_FIREBASE_FIRESTORE_EMULATOR_PORT: '8080',
   VITE_PRACTICE_CONTENT_SOURCE: 'local',
   VITE_ENABLE_LOCAL_COURSE_FALLBACK: 'true',
+  VITE_COURSE_CONTENT_SOURCE: 'canonical',
 };
 
 export default defineConfig({
@@ -42,7 +43,7 @@ export default defineConfig({
     {
       command: 'node scripts/start-e2e-firebase-emulators.mjs',
       url: 'http://127.0.0.1:9099',
-      reuseExistingServer: false,
+      reuseExistingServer: process.env.E2E_REUSE_FIREBASE_EMULATORS === 'true',
       timeout: 600_000,
       gracefulShutdown: { signal: 'SIGINT', timeout: 15_000 },
       env: {

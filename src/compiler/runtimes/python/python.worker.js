@@ -45,12 +45,13 @@ function lockDownHostCapabilities() {
   HOST_CAPABILITIES.forEach(disableHostCapability);
 }
 
-function getRuntime() {
+function getRuntime(runtimeBaseUrl) {
   if (!runtimePromise) {
-    runtimePromise = import(/* @vite-ignore */ `${PYODIDE_CDN_BASE}pyodide.mjs`)
+    const baseUrl = runtimeBaseUrl ?? PYODIDE_CDN_BASE;
+    runtimePromise = import(/* @vite-ignore */ `${baseUrl}pyodide.mjs`)
       .then(({ loadPyodide }) => loadPyodide({
-        indexURL: PYODIDE_CDN_BASE,
-        packageBaseUrl: PYODIDE_CDN_BASE,
+        indexURL: baseUrl,
+        packageBaseUrl: baseUrl,
       }));
   }
   return runtimePromise;
@@ -199,7 +200,7 @@ function snapshotProjectFiles(pyodide) {
 self.addEventListener('message', async ({ data }) => {
   const { id, type } = data;
   try {
-    const pyodide = await getRuntime();
+    const pyodide = await getRuntime(data.runtimeBaseUrl);
     if (type === 'initialize') {
       lockDownHostCapabilities();
       sendToHost({ id, type: 'initialized' });

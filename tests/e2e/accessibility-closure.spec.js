@@ -38,7 +38,7 @@ async function openLearning(page) {
 
 async function openProject(page) {
   await page.goto('/projects');
-  await page.getByRole('button', { name: 'View Project' }).first().click();
+  await page.getByRole('button', { name: 'Start Project' }).first().click();
   await page.getByRole('button', { name: 'Start Project' }).click();
   await expect(page.getByRole('tree')).toBeVisible();
 }

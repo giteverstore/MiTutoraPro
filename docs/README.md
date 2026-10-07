@@ -17,6 +17,7 @@ This directory is the living technical reference for ycoders. It describes the c
 - [Isolated code judge (proposed)](architecture/isolated-code-judge.md)
 - [Content safety limits](architecture/content-safety-limits.md)
 - [Dialog and theme ownership](architecture/dialogs-and-theme.md)
+- [Admin Content Studio architecture](admin-content-studio/README.md)
 
 - [System overview](architecture/system-overview.md) — application boundaries and data flow
 - [Application routing](architecture/application-routing.md) — stable URLs and history adapter
@@ -83,6 +84,8 @@ This directory is the living technical reference for ycoders. It describes the c
 - [Adding a language](development/adding-a-language.md)
 - [Release process](development/release-process.md)
 - [Firebase content publishing](development/content-publishing.md)
+- [Admin Content Studio Phase 6 cloud publishing](admin-content-studio/phase-6-cloud-publishing.md)
+- [Projects Phase 7 task progression](admin-content-studio/phase-7-task-progression.md)
 - [Testing](development/testing.md)
 
 ### Architecture decisions
@@ -96,3 +99,4 @@ This directory is the living technical reference for ycoders. It describes the c
 ## Keeping documentation current
 
 Documentation changes are part of the definition of done when a change affects a public contract, folder ownership, content field, block type, runtime interface, persistence format, or contributor workflow. Prefer links to source files and schemas over duplicated implementation detail. If code and documentation disagree, treat the code and executable validation as the current behavior, then update this reference in the same change.
+- [Phase 8 Course and Practice authoring](admin-content-studio/phase-8-course-practice-authoring.md)

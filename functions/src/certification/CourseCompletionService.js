@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { Timestamp } from 'firebase-admin/firestore';
 import { CourseCompletionEngine } from './CourseCompletionEngine.js';
 import { CERTIFICATION_POLICY } from './CertificationPolicy.js';
@@ -20,18 +20,47 @@ function lessonKind(lesson) {
 }
 
 export class CourseCompletionService {
-  constructor({ db, bucket, engine = new CourseCompletionEngine(), clock = () => Date.now(), readingMinimumMs = 3000, evidenceTtlMs = 30 * 60 * 1000 }) {
+  constructor({ db, bucket, engine = new CourseCompletionEngine(), clock = () => Date.now(), readingMinimumMs = 3000, evidenceTtlMs = 30 * 60 * 1000, timestampFromMillis = Timestamp.fromMillis }) {
     this.db = db;
     this.bucket = bucket;
     this.engine = engine;
     this.clock = clock;
     this.readingMinimumMs = readingMinimumMs;
     this.evidenceTtlMs = evidenceTtlMs;
+    this.timestampFromMillis = timestampFromMillis;
     this.manifestCache = new Map();
     this.moduleCache = new Map();
   }
 
-  async courseDefinition(courseId) {
+  async courseDefinition(courseId, courseVersion = null, uid = null) {
+    if (!/^[a-z0-9]+(?:[._-][a-z0-9]+)*$/.test(String(courseId ?? '')) || String(courseId).length > 128) fail('invalid-argument', 'Invalid course ID.');
+    const pointerSnapshot = await this.db.doc(`publishedContent/${courseId}`).get();
+    if (pointerSnapshot.exists && pointerSnapshot.data().contentType === 'COURSE') {
+      const pointer = pointerSnapshot.data();
+      const version = courseVersion ?? pointer.activeVersion;
+      if (!Number.isSafeInteger(version) || version < 1) fail('invalid-argument', 'Invalid course version.');
+      if (version !== pointer.activeVersion || pointer.publicationStatus !== 'ACTIVE') {
+        if (!uid) fail('failed-precondition', 'A pinned learner is required for this course version.');
+        const progress = await this.db.doc(`users/${uid}/progress/${courseId}`).get();
+        if (progress.data()?.contentVersion !== version) fail('permission-denied', 'The requested course version is not pinned to this learner.');
+      }
+      const versionSnapshot = await this.db.doc(`publishedContent/${courseId}/versions/${version}`).get();
+      const publication = versionSnapshot.data();
+      if (!publication || publication.contentType !== 'COURSE' || publication.status !== 'READY') fail('not-found', 'Published Course version was not found.');
+      const key = publication.artifactPath;
+      if (!key || !/^[a-f0-9]{64}$/.test(publication.artifactHash ?? '')) fail('data-loss', 'Published Course metadata is invalid.');
+      if (!this.manifestCache.has(key)) {
+        this.manifestCache.set(key, this.bucket.file(key).download().then(([bytes]) => {
+          if (createHash('sha256').update(bytes).digest('hex') !== publication.artifactHash) fail('data-loss', 'Published Course integrity check failed.');
+          let document;
+          try { document = JSON.parse(bytes.toString('utf8')); }
+          catch { fail('data-loss', 'Published Course artifact is malformed.'); }
+          if (document.contentId !== courseId || document.contentType !== 'COURSE' || document.version !== version || document.content?.courseId !== courseId || document.status !== 'published') fail('data-loss', 'Published Course identity is invalid.');
+          return { ...document.content, id: courseId, metadata: { ...document.content.metadata, version: String(version) } };
+        }).catch((error) => { this.manifestCache.delete(key); throw error; }));
+      }
+      return { metadata: { version, canonical: true }, manifest: await this.manifestCache.get(key) };
+    }
     const metadataSnapshot = await this.db.doc(`courses/${courseId}`).get();
     if (!metadataSnapshot.exists || metadataSnapshot.data().published !== true) fail('not-found', 'Published course metadata was not found.');
     const metadata = metadataSnapshot.data();
@@ -50,6 +79,7 @@ export class CourseCompletionService {
   async lessonDefinition(courseId, manifest, metadata, lessonId) {
     const moduleIndex = manifest.modules.findIndex((module) => moduleLessons(module).some(({ id }) => id === lessonId));
     if (moduleIndex < 0) fail('invalid-argument', 'The lesson is not part of this course version.');
+    if (metadata.canonical) return moduleLessons(manifest.modules[moduleIndex]).find(({ id }) => id === lessonId);
     const file = manifest.moduleFiles?.[moduleIndex];
     if (!file) fail('data-loss', 'The published course manifest does not identify the lesson content module.');
     const path = `${metadata.storagePath}/${metadata.version}/${file}`;
@@ -65,7 +95,7 @@ export class CourseCompletionService {
 
   async beginLessonEvidence(uid, { courseId, courseVersion, lessonId }) {
     if (!courseId || !lessonId) fail('invalid-argument', 'courseId and lessonId are required.');
-    const { metadata, manifest } = await this.courseDefinition(courseId);
+    const { metadata, manifest } = await this.courseDefinition(courseId, courseVersion, uid);
     if (!courseVersion || courseVersion !== metadata.version) fail('failed-precondition', 'The requested course version is not currently published.');
     const requirements = this.engine.requirements(manifest);
     if (!requirements.lessonIds.includes(lessonId)) fail('invalid-argument', 'The lesson is not part of this course version.');
@@ -74,7 +104,7 @@ export class CourseCompletionService {
     const session = {
       sessionId, challenge, ownerUid: uid, courseId, courseVersion: metadata.version,
       courseProgressVersion: requirements.courseProgressVersion, lessonId, evidenceType: lessonKind(lesson),
-      state: 'OPEN', openedAt: Timestamp.fromMillis(nowMs), expiresAt: Timestamp.fromMillis(nowMs + this.evidenceTtlMs),
+      state: 'OPEN', openedAt: this.timestampFromMillis(nowMs), expiresAt: this.timestampFromMillis(nowMs + this.evidenceTtlMs),
       consumedAt: null, schemaVersion: '1.0.0',
     };
     await this.db.doc(evidencePath(uid, sessionId)).set(session, { merge: false });
@@ -118,7 +148,7 @@ export class CourseCompletionService {
 
   async recordLessonCompletion(uid, { courseId, courseVersion, lessonId, evidence }) {
     if (!courseId || !lessonId) fail('invalid-argument', 'courseId and lessonId are required.');
-    const { metadata, manifest } = await this.courseDefinition(courseId);
+    const { metadata, manifest } = await this.courseDefinition(courseId, courseVersion, uid);
     if (!courseVersion || courseVersion !== metadata.version) fail('failed-precondition', 'The requested course version is not currently published.');
     const requirements = this.engine.requirements(manifest);
     if (!requirements.lessonIds.includes(lessonId)) fail('invalid-argument', 'The lesson is not part of this course version.');
@@ -126,7 +156,7 @@ export class CourseCompletionService {
     if (!evidence?.sessionId) fail('failed-precondition', 'A server-issued lesson evidence session is required.');
     const reference = this.db.doc(trustedProgressPath(uid, courseId));
     const sessionReference = this.db.doc(evidencePath(uid, evidence.sessionId));
-    const nowMs = this.clock(); const now = Timestamp.fromMillis(nowMs);
+    const nowMs = this.clock(); const now = this.timestampFromMillis(nowMs);
     const result = await this.db.runTransaction(async (transaction) => {
       const [snapshot, sessionSnapshot] = await Promise.all([transaction.get(reference), transaction.get(sessionReference)]);
       if (!sessionSnapshot.exists) fail('not-found', 'Lesson evidence session was not found.');
@@ -138,7 +168,7 @@ export class CourseCompletionService {
         fail('failed-precondition', 'Lesson evidence session has already been consumed.');
       }
       const validated = this.validateEvidence(session, lesson, evidence, nowMs);
-      const completedLessons = [...new Set([...(current.completedLessons ?? []), lessonId])]
+      const completedLessons = [...new Set([...(current.completedLessons ?? []).filter((id) => current.lessonEvidence?.[id]?.courseVersion === metadata.version), lessonId])]
         .filter((id) => requirements.lessonIds.includes(id));
       const record = {
         courseId,

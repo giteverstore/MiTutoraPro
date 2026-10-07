@@ -20,6 +20,7 @@ export function PracticeFilters({ filters, options, onChange }) {
         <div><Search aria-hidden="true" /><input type="search" value={filters.search} placeholder="Search questions" onChange={(event) => onChange('search', event.target.value)} /></div>
       </label>
       <SelectFilter label="Difficulty" value={filters.difficulty} options={options.difficulties} onChange={(value) => onChange('difficulty', value)} />
+      <SelectFilter label="Language" value={filters.language ?? 'all'} options={options.languages ?? []} onChange={(value) => onChange('language', value)} />
       <SelectFilter label="Topic" value={filters.topic} options={options.topics} onChange={(value) => onChange('topic', value)} />
       <div className="practice-topic-chips" aria-label="Topic filters">
         <button type="button" className={filters.topic === 'all' ? 'is-active' : ''} aria-pressed={filters.topic === 'all'} onClick={() => onChange('topic', 'all')}>All Topics</button>

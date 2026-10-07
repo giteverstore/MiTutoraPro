@@ -1,4 +1,5 @@
 import { CourseService, resolveLessonModuleNumber } from '../content/services/CourseService';
+import { adaptCanonicalCourse, CanonicalPublishedRepository } from '../content/repositories/CanonicalPublishedRepository.js';
 
 const LOCAL_METADATA_URL = '/courses/course-metadata.json';
 const isDevelopmentRuntime = import.meta.env.DEV || import.meta.env.MODE === 'e2e';
@@ -7,6 +8,7 @@ const LOCAL_FALLBACK_ENABLED = isDevelopmentRuntime
 const LOCAL_CONTENT_PREFERRED = isDevelopmentRuntime
   && import.meta.env.VITE_COURSE_CONTENT_SOURCE === 'local';
 const courseService = new CourseService();
+const canonicalCourses = new CanonicalPublishedRepository({ contentType: 'COURSE' });
 
 function throwIfAborted(signal) {
   if (signal?.aborted) throw new DOMException('The course request was cancelled.', 'AbortError');
@@ -23,12 +25,20 @@ async function loadLocalMetadata(signal) {
   return { ...metadata, provider: 'local-fallback' };
 }
 
-export async function loadCourseMetadata(signal, courseId) {
+export async function loadCourseMetadata(signal, courseId, contentVersion = null) {
   throwIfAborted(signal);
   if (LOCAL_CONTENT_PREFERRED) return loadLocalMetadata(signal);
   if (!courseId) {
     if (LOCAL_FALLBACK_ENABLED) return loadLocalMetadata(signal);
     throw new Error('A course ID is required to load Firebase course metadata.');
+  }
+
+  try {
+    const published = contentVersion == null ? await canonicalCourses.active(courseId) : await canonicalCourses.exact(courseId, contentVersion);
+    const course = adaptCanonicalCourse(published.document);
+    return { defaultCourseId: courseId, courses: [{ id: courseId, version: published.document.version }], provider: 'canonical', canonicalCourse: course };
+  } catch (error) {
+    if (contentVersion != null || !['content/not-published', 'content/delivery-failed', 'content/catalog-failed'].includes(error?.code)) throw error;
   }
 
   try {
@@ -58,6 +68,7 @@ export async function loadCourseDocument(metadata, courseId, signal, initialLess
   throwIfAborted(signal);
 
   if (metadata.provider === 'local-fallback') return loadLocalCourse(metadata, selectedId, signal);
+  if (metadata.provider === 'canonical') return { course: metadata.canonicalCourse, courseEntry: { id: selectedId, publishedVersion: metadata.canonicalCourse.publishedVersion, version: metadata.canonicalCourse.publishedVersion }, provider: 'canonical' };
 
   try {
     const { metadata: courseEntry, course, initialModuleNumber } = await courseService.getCourse(

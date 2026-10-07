@@ -13,7 +13,7 @@ function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-async function provisionUser(request, testInfo) {
+export async function provisionUser(request, testInfo) {
   const nonce = `${testInfo.workerIndex}-${randomBytes(8).toString('hex')}`;
   const email = `projects-${nonce}@example.test`;
   const password = `Projects-${randomBytes(12).toString('base64url')}!1`;
@@ -27,7 +27,7 @@ async function provisionUser(request, testInfo) {
   return { uid: identity.localId, email, password, idToken: identity.idToken };
 }
 
-async function signIn(page, identity) {
+export async function signIn(page, identity) {
   await page.goto('/login');
   await page.getByLabel('Email').fill(identity.email);
   await page.getByLabel('Password').fill(identity.password);
