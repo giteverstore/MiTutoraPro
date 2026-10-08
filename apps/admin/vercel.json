@@ -4,6 +4,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/api/admin-content/:path*", "destination": "/api/admin-content?path=:path*" },
     { "source": "/((?!api(?:/|$)|assets(?:/|$)|admin-pyodide(?:/|$))[^.]*)", "destination": "/index.html" }
   ],
   "headers": [

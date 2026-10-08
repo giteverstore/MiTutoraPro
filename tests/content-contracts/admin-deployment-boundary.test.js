@@ -32,10 +32,11 @@ describe('Admin deployment boundary', () => {
     expect(JSON.stringify(config)).not.toContain('ycoders.com');
     expect(config.installCommand).toBe('npm ci --prefix ../..');
     expect(config.outputDirectory).toBe('dist');
-    const spaRoute = new RegExp(`^${config.rewrites[0].source}$`);
+    expect(config.rewrites[0]).toEqual({ source: '/api/admin-content/:path*', destination: '/api/admin-content?path=:path*' });
+    const spaRoute = new RegExp(`^${config.rewrites[1].source}$`);
     expect(spaRoute.test('/content/projects')).toBe(true);
     expect(spaRoute.test('/api/admin-content/drafts')).toBe(false);
-    const adminEntrypoint = readFileSync(resolve(process.cwd(), 'apps/admin/api/admin-content/[...path].js'), 'utf8');
+    const adminEntrypoint = readFileSync(resolve(process.cwd(), 'apps/admin/api/admin-content.js'), 'utf8');
     expect(adminEntrypoint).toContain('useDedicatedAdminBucket: true');
     expect(adminEntrypoint).toContain('configurationResolver: resolveAdminGoogleWifConfiguration');
   });
