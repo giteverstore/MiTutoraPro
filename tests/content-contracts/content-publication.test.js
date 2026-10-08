@@ -96,6 +96,30 @@ describe('Phase 6 content publication lifecycle', () => {
     await expect(delivery.fetchVersion(draft.contentId, 1)).rejects.toMatchObject({ code: 'content/artifact-corrupt' });
   });
 
+  it('keeps legacy artifact reads local and delegates only dedicated-bucket versions', async () => {
+    const legacyMetadata = { status: 'READY', artifactPath: 'published-content/projects/old/v1.json', artifactHash: 'legacy' };
+    const adminMetadata = { ...legacyMetadata, artifactBucket: 'mi-tutora-pro-admin-content', artifactHash: 'admin' };
+    const store = { getVersion: vi.fn(async (_id, version) => version === 1 ? legacyMetadata : adminMetadata) };
+    const artifacts = { bucketName: 'mi-tutora-pro.firebasestorage.app', read: vi.fn(async () => Buffer.from('{}')) };
+    const externalVersionReader = vi.fn(async () => ({ document: { contentId: 'project-one', version: 2 }, metadata: adminMetadata }));
+    const delivery = new PublishedContentService({ store, artifacts, externalVersionReader });
+    await expect(delivery.fetchVersion('project-one', 1)).rejects.toMatchObject({ code: 'content/artifact-corrupt' });
+    expect(artifacts.read).toHaveBeenCalledWith(legacyMetadata.artifactPath);
+    await expect(delivery.fetchVersion('project-one', 2)).resolves.toMatchObject({ metadata: adminMetadata });
+    expect(externalVersionReader).toHaveBeenCalledWith('project-one', 2, adminMetadata);
+    expect(artifacts.read).toHaveBeenCalledTimes(1);
+  });
+
+  it('lets the dedicated Admin service delegate legacy reads without Firebase bucket IAM', async () => {
+    const metadata = { status: 'READY', artifactPath: 'published-content/projects/old/v1.json', artifactHash: 'legacy' };
+    const artifacts = { bucketName: 'mi-tutora-pro-admin-content', read: vi.fn() };
+    const legacyVersionReader = vi.fn(async () => ({ document: { contentId: 'project-one', version: 1 }, metadata }));
+    const delivery = new PublishedContentService({ store: { getVersion: async () => metadata }, artifacts, legacyVersionReader });
+    await expect(delivery.fetchVersion('project-one', 1)).resolves.toMatchObject({ metadata });
+    expect(legacyVersionReader).toHaveBeenCalledWith('project-one', 1, metadata);
+    expect(artifacts.read).not.toHaveBeenCalled();
+  });
+
   it('uses legacy fallback only when no ACTIVE publication exists', async () => {
     const legacy = { id: 'legacy-project', title: 'Legacy' };
     const repository = new PublishedContentRepository({

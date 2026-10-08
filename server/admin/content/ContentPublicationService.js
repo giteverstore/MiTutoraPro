@@ -85,6 +85,7 @@ export class ContentPublicationService {
       const metadata = {
         contentId, contentType: canonical.contentType, version, schemaVersion: canonical.schemaVersion,
         status: PUBLICATION_STATUS.READY, artifactPath, artifactHash, artifactSize: bytes.byteLength,
+        ...(this.artifacts.bucketName ? { artifactBucket: this.artifacts.bucketName } : {}),
         publishedAt: timestamp, publishedBy: actor.uid, sourceDraftRevision: draft.draftRevision,
         locale: canonical.locale, metadataSnapshot: {
           title: canonical.content?.title ?? '', summary: canonical.content?.summary ?? canonical.content?.description ?? '',

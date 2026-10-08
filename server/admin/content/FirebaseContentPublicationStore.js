@@ -85,7 +85,7 @@ export class FirebaseContentPublicationStore {
 }
 
 export class FirebaseArtifactStore {
-  constructor(bucket) { this.bucket = bucket; }
+  constructor(bucket) { this.bucket = bucket; this.bucketName = bucket.name; }
   async createImmutable(path, bytes, metadata) { await this.bucket.file(path).save(bytes, { resumable: false, contentType: 'application/json', metadata: { metadata: { ...metadata, publicationState: 'CREATING' } }, preconditionOpts: { ifGenerationMatch: 0 } }); }
   async read(path) { const [bytes] = await this.bucket.file(path).download(); return bytes; }
   async markReady(path) { const file = this.bucket.file(path); const [metadata] = await file.getMetadata(); await file.setMetadata({ metadata: { ...(metadata.metadata ?? {}), publicationState: 'READY' } }); }

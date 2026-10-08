@@ -5,7 +5,7 @@ import { ContentPublicationError } from './ContentPublicationError.js';
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
 export class PublishedContentService {
-  constructor({ store, artifacts }) { this.store = store; this.artifacts = artifacts; }
+  constructor({ store, artifacts, externalVersionReader = null, legacyVersionReader = null }) { this.store = store; this.artifacts = artifacts; this.externalVersionReader = externalVersionReader; this.legacyVersionReader = legacyVersionReader; }
   async resolveActive(contentId) {
     const id = safeContentId(contentId);
     const pointer = await this.store.getPointer(id);
@@ -25,6 +25,11 @@ export class PublishedContentService {
     if (!Number.isSafeInteger(expectedVersion) || expectedVersion < 1) throw new ContentPublicationError('content/version-invalid', 'Content version is invalid.', { status: 400 });
     const metadata = await this.store.getVersion(id, expectedVersion);
     if (!metadata || metadata.status !== 'READY') throw new ContentPublicationError('content/version-not-found', 'Published content version was not found.', { status: 404 });
+    if (!metadata.artifactBucket && this.legacyVersionReader) return this.legacyVersionReader(id, expectedVersion, metadata);
+    if (metadata.artifactBucket && metadata.artifactBucket !== this.artifacts.bucketName) {
+      if (!this.externalVersionReader) throw new ContentPublicationError('content/artifact-unavailable', 'Published content is temporarily unavailable.', { status: 503 });
+      return this.externalVersionReader(id, expectedVersion, metadata);
+    }
     let bytes;
     try { bytes = await this.artifacts.read(metadata.artifactPath); } catch (cause) { throw new ContentPublicationError('content/artifact-unavailable', 'Published content is temporarily unavailable.', { status: 503, cause }); }
     if (digest(bytes) !== metadata.artifactHash) throw new ContentPublicationError('content/artifact-corrupt', 'Published content failed its integrity check.', { status: 503 });

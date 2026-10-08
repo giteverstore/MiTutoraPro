@@ -1,7 +1,6 @@
 import { getStorage } from 'firebase-admin/storage';
 import { Storage } from '@google-cloud/storage';
-import { createVercelGoogleCredentialContext } from '../../auth/VercelGoogleCredentialAdapter.js';
-import { resolveAdminGoogleWifConfiguration } from '../AdminWifConfiguration.js';
+import { createVercelGoogleCredentialContext, resolveGoogleWifConfiguration } from '../../auth/VercelGoogleCredentialAdapter.js';
 import { createDefaultFirestore } from '../../firestore/createDefaultFirestore.js';
 import { createRequestFirebaseApp } from '../../firebaseAdminApp.js';
 import { requiresFederatedTutorCredentials } from '../../ai/tutor/tutorRuntimeConfig.js';
@@ -16,6 +15,7 @@ import { AdminAssetService } from './AdminAssetService.js';
 import { ChallengeAssignmentService } from './ChallengeAssignmentService.js';
 
 const allowedContentTypes = new Set(Object.values(CONTENT_TYPES));
+export const ADMIN_CONTENT_BUCKET_NAME = 'mi-tutora-pro-admin-content';
 function requireMatchingContentType(requested, actual) {
   if (!allowedContentTypes.has(requested)) throw new ContentPublicationError('content/type-invalid', 'A valid content type is required.', { status: 400 });
   if (requested !== actual) throw new ContentPublicationError('content/type-conflict', 'Content type does not match this request.', { status: 409 });
@@ -41,12 +41,53 @@ const pageOptions = (request) => {
 };
 const sendError = (response, error) => response.status(error.status ?? 500).json({ error: { code: error.code ?? 'content/internal', message: error.status && error.status < 500 ? error.message : 'Content service is temporarily unavailable.', ...(error.details ? { details: error.details } : {}) } });
 
+function createRemoteVersionReader(origin, matchesMetadata, fetcher) {
+  return async (contentId, version, metadata) => {
+    if (!matchesMetadata(metadata)) throw new ContentPublicationError('content/artifact-unavailable', 'Published content is temporarily unavailable.', { status: 503 });
+    try {
+      const result = await fetcher(`${origin}/api/admin-content/public/${encodeURIComponent(contentId)}/${version}`, {
+        headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(15_000),
+      });
+      if (!result.ok) throw new Error('Remote public content read failed.');
+      const value = await result.json();
+      if (!matchesMetadata(value?.metadata)
+        || value.metadata.artifactHash !== metadata.artifactHash
+        || value.document?.contentId !== contentId
+        || value.document?.version !== version
+        || value.document?.schemaVersion !== metadata.schemaVersion) throw new Error('Remote public content identity mismatch.');
+      return value;
+    } catch (cause) {
+      throw new ContentPublicationError('content/artifact-unavailable', 'Published content is temporarily unavailable.', { status: 503, cause });
+    }
+  };
+}
+
+export function createAdminPublicVersionReader(environment = process.env, fetcher = globalThis.fetch) {
+  const bucketName = String(environment.ADMIN_CONTENT_STORAGE_BUCKET ?? '').trim();
+  const origin = String(environment.ADMIN_PUBLIC_CONTENT_ORIGIN ?? '').trim();
+  if (!bucketName && !origin) return null;
+  if (bucketName !== ADMIN_CONTENT_BUCKET_NAME || origin !== 'https://admin.ycoders.com') {
+    throw new ContentPublicationError('content/artifact-unavailable', 'Published content is temporarily unavailable.', { status: 503 });
+  }
+  return createRemoteVersionReader(origin, (metadata) => metadata?.artifactBucket === bucketName, fetcher);
+}
+
+export function createLegacyPublicVersionReader(environment = process.env, fetcher = globalThis.fetch) {
+  if (environment.VERCEL_ENV !== 'production') return null;
+  return createRemoteVersionReader('https://ycoders.com', (metadata) => !metadata?.artifactBucket, fetcher);
+}
+
 export async function createAdminStorageBucket(environment = process.env, googleCredentials, {
   StorageClient = Storage,
   firebaseAppFactory = createRequestFirebaseApp,
+  useDedicatedAdminBucket = false,
 } = {}) {
-  const bucketName = String(environment.FIREBASE_STORAGE_BUCKET ?? '').trim();
-  if (!bucketName) throw new ContentPublicationError('admin/storage-unavailable', 'Admin storage is not configured.', { status: 503 });
+  const bucketName = String(useDedicatedAdminBucket
+    ? (environment.ADMIN_CONTENT_STORAGE_BUCKET || (environment.VERCEL_ENV === 'production' ? '' : environment.FIREBASE_STORAGE_BUCKET))
+    : environment.FIREBASE_STORAGE_BUCKET ?? '').trim();
+  if (!bucketName || (useDedicatedAdminBucket && environment.VERCEL_ENV === 'production' && bucketName !== ADMIN_CONTENT_BUCKET_NAME)) {
+    throw new ContentPublicationError('admin/storage-unavailable', 'Admin storage is not configured.', { status: 503 });
+  }
   if (requiresFederatedTutorCredentials(environment)) {
     if (!googleCredentials?.authClient) throw new ContentPublicationError('admin/storage-unavailable', 'Admin storage is not configured.', { status: 503 });
     const projectId = String(environment.FIREBASE_PROJECT_ID ?? '').trim();
@@ -58,11 +99,11 @@ export async function createAdminStorageBucket(environment = process.env, google
   catch (error) { await session.close(); throw error; }
 }
 
-export async function createDefaultContentDependencies({ environment = process.env, googleCredentials } = {}) {
+export async function createDefaultContentDependencies({ environment = process.env, googleCredentials, useDedicatedAdminBucket = false } = {}) {
   const firestoreSession = await createDefaultFirestore(environment, googleCredentials);
   let storageSession;
   try {
-    storageSession = await createAdminStorageBucket(environment, googleCredentials);
+    storageSession = await createAdminStorageBucket(environment, googleCredentials, { useDedicatedAdminBucket });
   } catch (error) {
     await firestoreSession.close();
     throw error;
@@ -72,16 +113,23 @@ export async function createDefaultContentDependencies({ environment = process.e
   const bucket = storageSession.bucket;
   const artifacts = new FirebaseArtifactStore(bucket);
   const assets = new FirebaseAssetRegistry(db, bucket);
-  const delivery = new PublishedContentService({ store, artifacts });
+  const delivery = new PublishedContentService({
+    store, artifacts,
+    externalVersionReader: useDedicatedAdminBucket ? null : createAdminPublicVersionReader(environment),
+    legacyVersionReader: useDedicatedAdminBucket ? createLegacyPublicVersionReader(environment) : null,
+  });
   return { service: new ContentPublicationService({ store, artifacts, assets }), delivery, assetService: new AdminAssetService(assets), challengeAssignments: new ChallengeAssignmentService({ db, delivery }), async close() { await Promise.allSettled([firestoreSession.close(), storageSession.close()]); } };
 }
 
-export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, environment = process.env } = {}) {
+export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, configurationResolver = resolveGoogleWifConfiguration, useDedicatedAdminBucket = false, publicOnly = false, environment = process.env } = {}) {
   return async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
     const path = segments(request);
     let resources;
     try {
+      if (publicOnly && !(request.method === 'GET' && path[0] === 'public')) {
+        return response.status(404).json({ error: { code: 'content/not-found', message: 'Content API route not found.' } });
+      }
       // Until an isolated staging backend is provisioned, Preview has no
       // privileged or public content backend. Never inherit Production IAM.
       if (environment.VERCEL_ENV === 'preview') {
@@ -95,7 +143,7 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       if (!isPublic && authorize === requireAdminPermission && !/^Bearer\s+\S+$/i.test(String(request.headers?.authorization ?? ''))) {
         return response.status(401).json({ error: { code: 'admin/auth-required', message: 'Admin authentication is required.' } });
       }
-      googleCredentials = credentialFactory({ request, environment, configurationResolver: resolveAdminGoogleWifConfiguration });
+      googleCredentials = credentialFactory({ request, environment, configurationResolver });
       await googleCredentials.preflight();
       if (!isPublic) {
         const permission = request.method === 'GET' ? ADMIN_PERMISSIONS.ADMIN_ACCESS
@@ -105,7 +153,7 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
           ? await authorize(request, permission, { environment, googleCredentials })
           : await authorize(request, permission);
       }
-      resources = await dependencies({ environment, googleCredentials });
+      resources = await dependencies({ environment, googleCredentials, useDedicatedAdminBucket });
       const { service, delivery, assetService, challengeAssignments } = resources;
       if (request.method === 'GET' && path[0] === 'public' && !path[1]) {
         const contentType = String(request.query?.contentType ?? '').toUpperCase() || 'PROJECT';
