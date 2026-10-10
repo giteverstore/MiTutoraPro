@@ -3,6 +3,7 @@ import { AdminAssetService, MAX_ASSET_BYTES, validateAssetUpload } from '../../s
 import { createAdminContentApiRouter } from '../../server/admin/content/adminContentApiRouter.js';
 import { ContentPublicationService } from '../../server/admin/content/ContentPublicationService.js';
 import { InMemoryContentPublicationStore } from '../../server/admin/content/InMemoryContentPublicationStore.js';
+import { FirebaseAssetRegistry } from '../../server/admin/content/FirebaseContentPublicationStore.js';
 import { ADMIN_PERMISSIONS } from '../../shared/admin/adminAuthorization.js';
 
 const png = () => { const bytes = Buffer.alloc(33); Buffer.from('89504e470d0a1a0a', 'hex').copy(bytes); bytes.write('IHDR', 12, 'ascii'); bytes.writeUInt32BE(1, 16); bytes.writeUInt32BE(1, 20); return bytes; };
@@ -10,6 +11,30 @@ const response = () => ({ statusCode: 0, headers: {}, status(code) { this.status
 const route = (method, path, body) => ({ method, url: `/api/admin-content/${path}`, query: { path: path.split('/') }, body });
 
 describe('Phase 12 publishing and assets', () => {
+  it('discovers assets from Firestore metadata without listing the Storage bucket', async () => {
+    const getFiles = vi.fn(() => { throw new Error('Bucket listing must not be called.'); });
+    const metadata = { assetId: 'asset-1', path: 'admin-content-assets/asset-1.png' };
+    const db = { collection: vi.fn(() => ({ orderBy: () => ({ limit: () => ({ get: async () => ({ docs: [{ id: 'asset-1', data: () => metadata }] }) }) }) })) };
+    const registry = new FirebaseAssetRegistry(db, { getFiles });
+    expect(await registry.list({ limit: 1 })).toEqual({ items: [metadata], nextCursor: 'asset-1' });
+    expect(db.collection).toHaveBeenCalledWith('adminContentAssets');
+    expect(getFiles).not.toHaveBeenCalled();
+  });
+
+  it('routes asset metadata reads and draft deletion through existing authorization', async () => {
+    const actor = { uid: 'admin', role: 'CONTENT_EDITOR' };
+    const authorize = vi.fn(async () => actor);
+    const service = { deleteDraft: vi.fn(async () => ({ contentId: 'draft-1', deleted: true })) };
+    const assetService = { get: vi.fn(async () => ({ assetId: 'asset-1', path: 'admin-content-assets/asset-1.png' })) };
+    const router = createAdminContentApiRouter({ dependencies: async () => ({ service, delivery: {}, assetService }), authorize });
+    const metadata = response(); await router(route('GET', 'assets/asset-1'), metadata);
+    expect(metadata.statusCode).toBe(200);
+    expect(metadata.value.asset.assetId).toBe('asset-1');
+    const deleted = response(); await router(route('DELETE', 'drafts/draft-1', { contentType: 'PROJECT', expectedRevision: 3 }), deleted);
+    expect(deleted.statusCode).toBe(200);
+    expect(service.deleteDraft).toHaveBeenCalledWith({ actor, contentId: 'draft-1', contentType: 'PROJECT', expectedRevision: 3 });
+    expect(authorize).toHaveBeenLastCalledWith(expect.anything(), ADMIN_PERMISSIONS.CONTENT_EDIT);
+  });
   it('uses bounded summary and catalog pages without hydrating full draft content', async () => {
     const store = new InMemoryContentPublicationStore();
     const service = new ContentPublicationService({ store, artifacts: null });

@@ -51,7 +51,6 @@ button:focus-visible,a:focus-visible,input:focus-visible { outline: 3px solid #9
 .admin-main { grid-column: 2; min-width: 0; padding: 2rem; }
 .admin-page { width: min(74rem,100%); margin: 0 auto; }
 .admin-page-heading { max-width: 48rem; margin-bottom: 2rem; }
-.admin-eyebrow { display: block; margin-bottom: .5rem; color: #2563eb; font-size: .75rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
 .admin-page-heading h1,.admin-state-card h1,.admin-auth-card h1 { margin: 0; color: #0f172a; font-size: clamp(1.75rem,3vw,2.4rem); letter-spacing: -.035em; }
 .admin-page-heading p,.admin-state-card p,.admin-auth-card>p { color: #475569; line-height: 1.6; }
 .admin-module-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }

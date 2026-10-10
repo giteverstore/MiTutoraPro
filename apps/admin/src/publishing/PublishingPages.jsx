@@ -19,8 +19,8 @@ function useResource(resource) {
   return { ...state, reload };
 }
 
-function PageFrame({ eyebrow, title, description, children }) {
-  return <div className="admin-page admin-publishing"><header className="admin-page-heading"><span className="admin-eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p></header>{children}</div>;
+function PageFrame({ title, description, children }) {
+  return <div className="admin-page admin-publishing"><header className="admin-page-heading"><h1>{title}</h1><p>{description}</p></header>{children}</div>;
 }
 function ResourceState({ resource, empty, children }) {
   if (resource.loading) return <p className="publishing-state" role="status">Loading…</p>;
@@ -50,6 +50,7 @@ export function DraftsPage({ role, onNavigate }) {
   const [catalog, setCatalog] = useState([]);
   const [type, setType] = useState(''); const [search, setSearch] = useState(''); const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(''); const [error, setError] = useState('');
+  const [pendingDelete, setPendingDelete] = useState(null);
   useEffect(() => { void loadAllPages('catalog').then(setCatalog).catch(() => setCatalog([])); }, [resource.items]);
   const pointers = useMemo(() => new Map(catalog.map((item) => [item.contentId, item])), [catalog]);
   const enriched = useMemo(() => resource.items.map((item) => ({ ...item, pointer: pointers.get(item.contentId) })), [resource.items, pointers]);
@@ -67,17 +68,25 @@ export function DraftsPage({ role, onNavigate }) {
     } catch (cause) { setError(cause.message); }
     finally { setBusy(''); }
   };
+  const deleteConfirmed = async () => {
+    if (!pendingDelete) return;
+    const item = pendingDelete;
+    setBusy(item.contentId); setError('');
+    try { await adminContentRequest(`drafts/${encodeURIComponent(item.contentId)}`, { method: 'DELETE', body: { contentType: item.contentType, expectedRevision: item.draftRevision } }); setPendingDelete(null); await resource.reload(); }
+    catch (cause) { setError(cause.message); }
+    finally { setBusy(''); }
+  };
   return <PageFrame eyebrow="Publishing" title="Drafts" description="Review and open editable content across Projects, Courses, Practice, and Challenges.">
     <ResourceState resource={resource} empty={<><h2>No drafts yet</h2><p>Start by creating your first content item.</p><div className="publishing-actions">{typeOptions.slice(1).map(([value, label]) => <button key={value} type="button" onClick={() => onNavigate(`/content/${{ PROJECT: 'projects', COURSE: 'courses', PRACTICE: 'practice', CHALLENGE: 'challenges' }[value]}/new`)}>New {label === 'Practice' ? 'Practice Question' : label.slice(0, -1)}</button>)}</div></>}>
       <Filters type={type} setType={setType} search={search} setSearch={setSearch} status={status} setStatus={setStatus} statusOptions={[[ '', 'All statuses' ], ['Draft', 'Draft'], ['Valid', 'Valid'], ['Validation issues', 'Validation issues']]} />
-      <ActionError error={error} clear={() => setError('')} />
+      <ActionError error={pendingDelete ? '' : error} clear={() => setError('')} />
       <div className="publishing-list">{visible.map((item) => {
         const route = editorPath(item.contentType, item.contentId);
         const publicationState = item.pointer?.activeVersion ? item.pointer.sourceDraftRevision == null ? 'Revision status unavailable' : item.pointer.sourceDraftRevision === item.draftRevision ? 'Up to date' : 'Unpublished changes' : null;
-        return <article key={item.contentId} className="publishing-row"><div><h2>{titleOf(item)}</h2><p>{labels[item.contentType] ?? item.contentType} · <code>{item.contentId}</code> · Draft revision {item.draftRevision}</p><p>Updated {formatDate(item.updatedAt)} by {item.updatedBy || 'unknown'} · Published v{item.pointer?.activeVersion ?? '—'}</p><span className="publishing-badge">{draftStatus(item)}</span>{publicationState ? <span className="publishing-badge">{publicationState}</span> : null}</div><div className="publishing-actions">{route ? <button type="button" onClick={() => openEditor(item, onNavigate)}>Open</button> : null}<button type="button" disabled={busy === item.contentId || !hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_VALIDATE)} onClick={() => run(item, 'validate')}>Validate</button>{hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_PUBLISH) && route ? <button type="button" disabled={busy === item.contentId} onClick={() => run(item, 'publish')}>Publish</button> : null}<button type="button" onClick={() => onNavigate(`/publishing/versions?contentId=${encodeURIComponent(item.contentId)}`)}>Versions</button></div></article>;
+        return <article key={item.contentId} className="publishing-row"><div><h2>{titleOf(item)}</h2><p>{labels[item.contentType] ?? item.contentType} · <code>{item.contentId}</code> · Draft revision {item.draftRevision}</p><p>Updated {formatDate(item.updatedAt)} by {item.updatedBy || 'unknown'} · Published v{item.pointer?.activeVersion ?? '—'}</p><span className="publishing-badge">{draftStatus(item)}</span>{publicationState ? <span className="publishing-badge">{publicationState}</span> : null}</div><div className="publishing-actions">{route ? <button type="button" onClick={() => openEditor(item, onNavigate)}>Open</button> : null}<button type="button" disabled={busy === item.contentId || !hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_VALIDATE)} onClick={() => run(item, 'validate')}>Validate</button>{hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_PUBLISH) && route ? <button type="button" disabled={busy === item.contentId} onClick={() => run(item, 'publish')}>Publish</button> : null}<button type="button" onClick={() => onNavigate(`/publishing/versions?contentId=${encodeURIComponent(item.contentId)}`)}>Versions</button>{hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_EDIT) ? <button type="button" className="publishing-destructive" disabled={busy === item.contentId} onClick={() => setPendingDelete(item)}>Delete</button> : null}</div></article>;
       })}</div>
       {!filtered.length ? <p className="publishing-state">No drafts match these filters.</p> : null}<LoadMore remaining={remaining} more={more} />
-    </ResourceState>
+    </ResourceState>{pendingDelete ? <div className="publishing-detail" role="dialog" aria-modal="true" aria-label="Delete draft?" onKeyDown={(event) => { if (event.key === 'Escape' && !busy) setPendingDelete(null); }}><section><h2>Delete draft?</h2><p>This permanently deletes the editable draft for “{titleOf(pendingDelete)}”. Published versions are not affected.</p><ActionError error={error} clear={() => setError('')} /><div className="publishing-actions"><button type="button" disabled={Boolean(busy)} onClick={() => setPendingDelete(null)}>Cancel</button><button type="button" className="publishing-destructive" disabled={Boolean(busy)} onClick={deleteConfirmed}>{busy ? 'Deleting...' : 'Delete draft'}</button></div></section></div> : null}
   </PageFrame>;
 }
 

@@ -11,7 +11,9 @@ const assets = migratePythonCourse().assets;
 
 async function fixture(page) {
   const currentCatalog = structuredClone(catalog);
+  const currentDrafts = structuredClone(drafts);
   const currentAssets = [...assets];
+  let deletedRequests = 0;
   await page.route('**/assets/courses/python-foundations/**', async (route) => {
     const pathname = new URL(route.request().url()).pathname;
     await route.fulfill({ path: resolve(import.meta.dirname, '../../../../public', pathname.slice(1)) });
@@ -19,7 +21,8 @@ async function fixture(page) {
   await page.route('**/api/admin-content/**', async (route) => {
     const path = new URL(route.request().url()).pathname.replace('/api/admin-content/', '');
     let result = { error: { message: 'Unknown fixture route.' } }; let status = 404;
-    if (path === 'draft-summaries') { result = { items: drafts, nextCursor: null }; status = 200; }
+    if (path === 'draft-summaries') { result = { items: currentDrafts, nextCursor: null }; status = 200; }
+    else if (path.startsWith('drafts/') && route.request().method() === 'DELETE') { const id = path.slice('drafts/'.length); const index = currentDrafts.findIndex((item) => item.contentId === id); if (index >= 0) currentDrafts.splice(index, 1); deletedRequests++; result = { contentId: id, deleted: true }; status = 200; }
     else if (path === 'catalog') { result = { items: currentCatalog, nextCursor: null }; status = 200; }
     else if (path === 'assets' && route.request().method() === 'POST') { const input = route.request().postDataJSON(); const asset = { assetId: `asset-upload-${currentAssets.length}`, name: input.name, mediaType: input.mediaType, path: `admin-content-assets/asset-upload-${currentAssets.length}.png`, status: 'ACTIVE' }; currentAssets.push(asset); result = { asset }; status = 201; }
     else if (path === 'assets') { result = { items: currentAssets, nextCursor: null }; status = 200; }
@@ -31,7 +34,24 @@ async function fixture(page) {
     await route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(result) });
   });
   await page.goto('/tests/browser/publishing.html');
+  return { deletedRequests: () => deletedRequests };
 }
+
+test('draft deletion is confirmed and leaves the published catalog intact', async ({ page }) => {
+  const state = await fixture(page);
+  const row = page.locator('.publishing-row').filter({ hasText: 'CLI Task Manager' });
+  await row.getByRole('button', { name: 'Delete', exact: true }).click();
+  await expect(page.getByRole('dialog', { name: 'Delete draft?' })).toContainText('Published versions are not affected');
+  await page.getByRole('button', { name: 'Cancel' }).click();
+  expect(state.deletedRequests()).toBe(0);
+  await expect(row).toBeVisible();
+  await row.getByRole('button', { name: 'Delete', exact: true }).click();
+  await page.getByRole('button', { name: 'Delete draft' }).click();
+  await expect(row).toHaveCount(0);
+  expect(state.deletedRequests()).toBe(1);
+  await page.getByRole('link', { name: 'Published' }).click();
+  await expect(page.getByRole('heading', { name: 'CLI Task Manager' })).toBeVisible();
+});
 
 test('Drafts filter and search real content types; reviewer cannot publish', async ({ page }) => {
   await fixture(page);
@@ -131,7 +151,7 @@ test('Assets accepts a raster upload and rejects an invalid file before transpor
 
 test('Image block can select a registered asset without typing its ID', async ({ page }) => {
   await fixture(page);
-  await page.getByRole('link', { name: 'Document Editor' }).click();
+  await page.goto('/tests/browser/publishing.html?initialPath=/content/editor');
   await page.getByRole('button', { name: 'Add Image block' }).click();
   await page.getByRole('button', { name: 'Select asset' }).click();
   const picker = page.getByRole('dialog', { name: 'Select asset' });

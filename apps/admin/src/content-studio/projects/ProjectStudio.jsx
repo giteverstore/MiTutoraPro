@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Braces, ChevronDown, ChevronUp, Copy, Plus, Trash2 } from 'lucide-react';
 import { IMPLEMENTATION_CONTRACT_KINDS, TRUSTED_VALIDATOR_REGISTRY } from '../../../../../shared/content/index.js';
 import { BlockCanvas } from '../blocks/BlockCanvas.jsx';
@@ -7,8 +7,10 @@ import { BLOCK_DEFINITIONS } from '../blocks/blockDefinitions.js';
 import { BlockInspector } from '../inspector/BlockInspector.jsx';
 import { StudioHeader, StudioWorkspace } from '../StudioChrome.jsx';
 import { StudioDraftList } from '../StudioDraftList.jsx';
+import { StudioListHeader, StudioListState, useStudioList } from '../StudioListState.jsx';
 import { LocalDraftRepository } from '../persistence/DraftRepository.js';
 import { CloudDraftRepository } from '../persistence/CloudDraftRepository.js';
+import { useAutosavedDraft } from '../persistence/useAutosavedDraft.js';
 import { createProjectDraft, newCheckpoint, newContract, newHint, newTask, newValidator, PROJECT_LANGUAGES, reindex, uid, validateProjectDraft } from './projectAuthoring.js';
 import '../content-studio.css';
 import './project-studio.css';
@@ -24,24 +26,23 @@ const Field = ({ label, ...props }) => <label><span>{label}</span><input {...pro
 const move = (items, index, delta) => { const copy = [...items]; const target = index + delta; if (target < 0 || target >= copy.length) return items; [copy[index], copy[target]] = [copy[target], copy[index]]; return reindex(copy); };
 
 function ProjectsLanding({ onNavigate }) {
-  const [drafts, setDrafts] = useState([]);
-  useEffect(() => { repository.list().then((all) => setDrafts(all.filter((x) => x.contentType === 'PROJECT'))); }, []);
-  return <section className="project-landing"><header><div><span className="admin-eyebrow">Content Studio</span><h1>Projects</h1><p>Author and manage guided Projects.</p></div><button className="admin-primary-button" onClick={() => onNavigate('/content/projects/new')}><Plus />New Project</button></header><StudioDraftList drafts={drafts} type="Project" emptyMessage="No Project drafts yet." detail={(draft) => `${draft.content.difficulty} · ${draft.content.checkpoints.length} checkpoints`} onOpen={(draft) => onNavigate(`/content/projects/${draft.content.projectId}/edit`)} /></section>;
+  const resource = useStudioList(useCallback(() => repository.list().then((all) => all.filter((item) => item.contentType === 'PROJECT')), []));
+  return <section className="project-landing"><StudioListHeader title="Projects" description="Author and manage guided Projects." action={<button className="admin-primary-button" type="button" onClick={() => onNavigate('/content/projects/new')}><Plus />New Project</button>} /><StudioListState resource={resource} label="Projects" empty="No Project drafts yet."><StudioDraftList drafts={resource.items} type="Project" detail={(draft) => `${draft.content.difficulty} · ${draft.content.checkpoints.length} checkpoints`} onOpen={(draft) => onNavigate(`/content/projects/${draft.content.projectId}/edit`)} /></StudioListState></section>;
 }
 
 export function ProjectStudio({ path, role, readOnly, onNavigate, onDirtyChange = () => {} }) {
   if (path === '/content/projects') return <ProjectsLanding onNavigate={onNavigate} />;
-  return <ProjectEditor routeId={path.match(/\/projects\/([^/]+)\/edit/)?.[1]} role={role} readOnly={readOnly} onDirtyChange={onDirtyChange} />;
+  const routeId = path.match(/\/projects\/([^/]+)\/edit/)?.[1];
+  return <ProjectEditor key={routeId ?? 'new'} routeId={routeId} role={role} readOnly={readOnly} onDirtyChange={onDirtyChange} />;
 }
 
 const projectToolbarDefinitions = BLOCK_DEFINITIONS.map((definition) => ({ ...definition, group: ['heading', 'paragraph', 'list', 'code'].includes(definition.type) ? 'Content' : ['image', 'table'].includes(definition.type) ? 'Media' : 'Guidance' }));
 
 function ProjectEditor({ routeId, role, readOnly, onDirtyChange }) {
-  const [draft, setDraft] = useState(() => createProjectDraft(routeId)); const [selected, setSelected] = useState({ type: 'overview' }); const [selectedBlockId, setSelectedBlockId] = useState(null); const [view, setView] = useState('author'); const [dirty, setDirty] = useState(false); const [validation, setValidation] = useState(null); const [saveError, setSaveError] = useState('');
+  const { draft, dirty, saveError, edit, reload } = useAutosavedDraft({ routeId, createDraft: createProjectDraft, repository, readOnly, onDirtyChange });
+  const [selected, setSelected] = useState({ type: 'overview' }); const [selectedBlockId, setSelectedBlockId] = useState(null); const [view, setView] = useState('author'); const [validation, setValidation] = useState(null);
   const content = draft.content; const checkpoint = content.checkpoints.find((x) => x.checkpointId === selected.checkpointId); const task = checkpoint?.tasks.find((x) => x.taskId === selected.taskId);
-  useEffect(() => { repository.load(routeId ?? draft.documentId).then((saved) => saved && setDraft(saved)); }, [routeId]);
-  useEffect(() => { onDirtyChange(dirty); if (!dirty || readOnly) return undefined; const timer = setTimeout(() => repository.save(draft).then((saved) => { setDraft(saved); setDirty(false); setSaveError(''); }).catch((error) => setSaveError(error.message)), 650); return () => clearTimeout(timer); }, [dirty, draft, readOnly, onDirtyChange]);
-  const update = (fn) => { if (readOnly) return; setDraft((old) => ({ ...old, content: fn(structuredClone(old.content)) })); setDirty(true); setValidation(null); };
+  const update = (fn) => { if (readOnly) return; edit((old) => ({ ...old, content: fn(structuredClone(old.content)) })); setValidation(null); };
   const setContent = (patch) => update((c) => Object.assign(c, patch));
   const setCheckpoint = (patch) => update((c) => { Object.assign(c.checkpoints.find((x) => x.checkpointId === checkpoint.checkpointId), patch); return c; });
   const setTask = (patch) => update((c) => { Object.assign(c.checkpoints.find((x) => x.checkpointId === checkpoint.checkpointId).tasks.find((x) => x.taskId === task.taskId), patch); return c; });
@@ -67,11 +68,10 @@ function ProjectEditor({ routeId, role, readOnly, onDirtyChange }) {
   const addTask = (cp) => update((c) => { const found = c.checkpoints.find((x) => x.checkpointId === cp.checkpointId); const next = newTask(); next.order = found.tasks.length + 1; found.tasks.push(next); setSelected({ type: 'task', checkpointId: cp.checkpointId, taskId: next.taskId }); return c; });
   const selectedBlock = blockTarget?.blocks?.find((block) => block.blockId === selectedBlockId) ?? null;
   const showPublication = () => document.getElementById('project-publication-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  return <div className="project-studio studio-unified"><StudioHeader type="PROJECT" title={content.title} draft={draft} dirty={dirty} saveError={saveError} readOnly={readOnly} role={role} view={view} onView={setView} onValidate={() => setValidation(validateProjectDraft(draft))} onHistory={repository.publish ? showPublication : null} onPublish={repository.publish ? () => document.getElementById('content-studio-publish-button')?.click() : null} />
-    {saveError && <section className="project-validation" role="alert"><p>{saveError}</p>{saveError.includes('updated elsewhere') && <button onClick={() => repository.load(content.projectId).then((latest) => { if (latest) setDraft(latest); setDirty(false); setSaveError(''); })}>Reload latest version</button>}</section>}
+  return <div className="project-studio studio-unified"><StudioHeader type="PROJECT" title={content.title} draft={draft} dirty={dirty} saveError={saveError} readOnly={readOnly} role={role} view={view} onView={setView} onValidate={() => setValidation(validateProjectDraft(draft))} onHistory={repository.publish ? showPublication : null} onPublish={repository.publish ? () => document.getElementById('content-studio-publish-button')?.click() : null} onReload={reload} />
     {view === 'json' ? <section className="content-json-view"><header><strong>Canonical Project JSON</strong><span>Read only</span></header><pre><code>{json}</code></pre></section> : view === 'preview' ? <ProjectPreview project={content} /> : <StudioWorkspace structureLabel="Project structure" toolbar={<BlockPalette variant="toolbar" definitions={projectToolbarDefinitions} dispatch={blockDispatch} disabled={readOnly || !blockTarget} selectedBlockId={selectedBlockId} />} structure={<ProjectTree content={content} selected={selected} setSelected={setSelected} addCheckpoint={addCheckpoint} addTask={addTask} readOnly={readOnly} validation={validation} />} canvas={<div className="project-form">{selected.type === 'overview' && <Overview content={content} setContent={setContent} readOnly={readOnly} />}{selected.type === 'contracts' && <Contracts content={content} update={update} readOnly={readOnly} />}{selected.type === 'starters' && <Starters content={content} update={update} readOnly={readOnly} />}{selected.type === 'validation' && <Validators title="Final Project validators" values={content.finalValidators} onChange={(v) => setContent({ finalValidators: v })} languages={content.supportedLanguages} readOnly={readOnly} />}{selected.type === 'completion' && <BlockEditor target={blockTarget} dispatch={blockDispatch} languages={content.supportedLanguages} readOnly={readOnly} selectedBlockId={selectedBlockId} />}{selected.type === 'checkpoint' && checkpoint && <CheckpointForm checkpoint={checkpoint} setCheckpoint={setCheckpoint} blockDispatch={blockDispatch} languages={content.supportedLanguages} readOnly={readOnly} selectedBlockId={selectedBlockId} />}{selected.type === 'task' && task && <TaskForm task={task} setTask={setTask} blockDispatch={blockDispatch} contracts={content.implementationContracts} languages={content.supportedLanguages} readOnly={readOnly} selectedBlockId={selectedBlockId} />}</div>} inspector={selectedBlock ? <BlockInspector block={selectedBlock} supportedLanguages={content.supportedLanguages} readOnly={readOnly} dispatch={blockDispatch} /> : <><h2 className="studio-inspector-heading">Properties</h2><p className="studio-inspector-note">Select a guide block to edit its properties. Project details remain in the center editor.</p></>} />}
     {validation && <section className="project-validation" aria-live="polite"><h2>Project validation</h2>{validation.valid ? <p>Project contract is valid.</p> : <ul>{validation.errors.map((e, i) => <li key={`${e.path}-${i}`}><button onClick={() => { const cp = /checkpoints\[(\d+)\]/.exec(e.path); const ta = /tasks\[(\d+)\]/.exec(e.path); if (cp) { const c = content.checkpoints[+cp[1]]; setSelected(ta ? { type: 'task', checkpointId: c.checkpointId, taskId: c.tasks[+ta[1]]?.taskId } : { type: 'checkpoint', checkpointId: c.checkpointId }); } else setSelected({ type: 'overview' }); }}>{e.path}: {e.message}</button></li>)}</ul>}</section>}
-    {repository.publish ? <ProjectPublicationPanel draft={draft} dirty={dirty} role={role} repository={repository} onValidation={setValidation} onReload={() => repository.load(content.projectId).then((latest) => { if (latest) setDraft(latest); setDirty(false); setSaveError(''); })} /> : null}
+    {repository.publish ? <ProjectPublicationPanel draft={draft} dirty={dirty} role={role} repository={repository} onValidation={setValidation} onReload={reload} /> : null}
   </div>;
 }
 

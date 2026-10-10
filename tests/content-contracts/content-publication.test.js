@@ -19,6 +19,22 @@ const setup = () => {
 const save = (service, document = createBingoContractFixture(), expectedRevision = 0) => service.saveDraft({ actor: actor(), document, expectedRevision });
 
 describe('Phase 6 content publication lifecycle', () => {
+  it('deletes only the revision-matched draft and records an audit event', async () => {
+    const { store, service } = setup();
+    const draft = await save(service);
+    store.pointers.set(draft.contentId, { contentId: draft.contentId, activeVersion: 1, activeRevision: 1 });
+    store.versions.set(draft.contentId, new Map([[1, { contentId: draft.contentId, version: 1, status: 'READY' }]]));
+    await expect(service.deleteDraft({ actor: actor(), contentId: draft.contentId, contentType: 'PROJECT', expectedRevision: 2 })).rejects.toMatchObject({ status: 409 });
+    await expect(service.deleteDraft({ actor: actor(), contentId: draft.contentId, contentType: 'COURSE', expectedRevision: 1 })).rejects.toMatchObject({ status: 409 });
+    store.drafts.get(draft.contentId).lifecycleState = 'PUBLISHING';
+    await expect(service.deleteDraft({ actor: actor(), contentId: draft.contentId, contentType: 'PROJECT', expectedRevision: 1 })).rejects.toMatchObject({ status: 409 });
+    store.drafts.get(draft.contentId).lifecycleState = 'DRAFT';
+    await expect(service.deleteDraft({ actor: actor(), contentId: draft.contentId, contentType: 'PROJECT', expectedRevision: 1 })).resolves.toMatchObject({ deleted: true });
+    expect(await service.getDraft(draft.contentId)).toBeNull();
+    expect(store.pointers.get(draft.contentId)).toMatchObject({ activeVersion: 1 });
+    expect(store.versions.get(draft.contentId).get(1)).toMatchObject({ status: 'READY' });
+    expect(store.audit.at(-1)).toMatchObject({ event: 'DRAFT_DELETED', contentId: draft.contentId, draftRevision: 1 });
+  });
   it('creates, updates, reloads, and rejects stale draft writes', async () => {
     const { service } = setup();
     const first = await save(service);

@@ -7,20 +7,28 @@ const allowed = new Set(['image/png', 'image/jpeg', 'image/webp']);
 const maxBytes = 2 * 1024 * 1024;
 
 export function AssetPreview({ asset }) {
-  const [source, setSource] = useState(asset?.path?.startsWith('/') ? asset.path : '');
+  const [source, setSource] = useState('');
+  const [previewState, setPreviewState] = useState('loading');
   const publicFallback = /^\/assets\/[a-zA-Z0-9/_-]+\.(png|jpe?g|webp|svg)$/.test(asset?.path ?? '') ? `https://ycoders.com${asset.path}` : '';
   useEffect(() => {
-    if (!asset?.path?.startsWith('admin-content-assets/')) return undefined;
     let active = true;
     let url;
-    adminContentRequest(`assets/${encodeURIComponent(asset.assetId)}/file`, { binary: true }).then((blob) => {
-      url = URL.createObjectURL(blob);
-      if (active) setSource(url);
-      else URL.revokeObjectURL(url);
-    }).catch(() => undefined);
+    setSource('');
+    setPreviewState('loading');
+    const load = async () => {
+      try {
+        const resolved = asset?.path ? asset : (await adminContentRequest(`assets/${encodeURIComponent(asset.assetId)}`)).asset;
+        if (/^\/assets\/[a-zA-Z0-9/_-]+\.(png|jpe?g|webp|svg)$/.test(resolved?.path ?? '')) { if (active) { setSource(`https://ycoders.com${resolved.path}`); setPreviewState('ready'); } return; }
+        if (!resolved?.path?.startsWith('admin-content-assets/')) throw new Error('Asset preview unavailable.');
+        const blob = await adminContentRequest(`assets/${encodeURIComponent(asset.assetId)}/file`, { binary: true });
+        url = URL.createObjectURL(blob);
+        if (active) { setSource(url); setPreviewState('ready'); } else URL.revokeObjectURL(url);
+      } catch { if (active) { setSource(''); setPreviewState('error'); } }
+    };
+    void load();
     return () => { active = false; if (url) URL.revokeObjectURL(url); };
   }, [asset?.assetId, asset?.path]);
-  return source ? <img src={source} alt="" loading="lazy" onError={() => { if (publicFallback && source !== publicFallback) setSource(publicFallback); else setSource(''); }} /> : <span className="publishing-asset-fallback">Preview unavailable</span>;
+  return source ? <img src={source} alt="" loading="lazy" onError={() => { if (publicFallback && source !== publicFallback) setSource(publicFallback); else { setSource(''); setPreviewState('error'); } }} /> : <span className="publishing-asset-fallback" role={previewState === 'error' ? 'alert' : 'status'}>{previewState === 'loading' ? 'Loading preview...' : 'Preview unavailable'}</span>;
 }
 
 export function AssetsPage({ role }) {
@@ -49,5 +57,5 @@ export function AssetsPage({ role }) {
     finally { setBusy(false); }
   };
   const visible = state.items.filter((item) => `${item.name ?? ''} ${item.assetId}`.toLowerCase().includes(search.toLowerCase().trim()));
-  return <div className="admin-page admin-publishing"><header className="admin-page-heading"><span className="admin-eyebrow">Media</span><h1>Assets</h1><p>Registered images for Course, Project, and Practice content. Published references are retained; deletion is not available.</p></header><div className="publishing-filters"><label>Search<input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name or asset ID" /></label>{hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_EDIT) ? <label className="publishing-upload">Upload image<input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" disabled={busy} onChange={upload} /></label> : null}</div>{message ? <p role="status">{message}</p> : null}{state.loading ? <p className="publishing-state" role="status">Loading assets…</p> : state.error ? <div className="publishing-state" role="alert"><p>{state.error}</p><button type="button" onClick={load}>Retry</button></div> : !state.items.length ? <p className="publishing-state">No assets are registered yet.</p> : !visible.length ? <p className="publishing-state">No assets match your search.</p> : <div className="publishing-assets">{visible.map((asset) => <article key={asset.assetId}><div className="publishing-asset-preview"><AssetPreview asset={asset} /></div><h2>{asset.name ?? asset.assetId}</h2><p><code>{asset.assetId}</code></p><p>{asset.mediaType ?? 'Image'} · {asset.size == null ? 'Size unavailable' : `${Math.round(asset.size / 1024)} KiB`} · {asset.width && asset.height ? `${asset.width} × ${asset.height}` : 'Dimensions unavailable'}</p><p>{asset.status ?? 'ACTIVE'} · {formatDate(asset.createdAt)}</p></article>)}</div>}</div>;
+  return <div className="admin-page admin-publishing"><header className="admin-page-heading"><h1>Assets</h1><p>Registered images for Course, Project, and Practice content. Published references are retained; deletion is not available.</p></header><div className="publishing-filters"><label>Search<input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name or asset ID" /></label>{hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_EDIT) ? <label className="publishing-upload">Upload image<input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" disabled={busy} onChange={upload} /></label> : null}</div>{message ? <p role="status">{message}</p> : null}{state.loading ? <p className="publishing-state" role="status">Loading assets…</p> : state.error ? <div className="publishing-state" role="alert"><p>{state.error}</p><button type="button" onClick={load}>Retry</button></div> : !state.items.length ? <p className="publishing-state">No assets are registered yet.</p> : !visible.length ? <p className="publishing-state">No assets match your search.</p> : <div className="publishing-assets">{visible.map((asset) => <article key={asset.assetId}><div className="publishing-asset-preview"><AssetPreview asset={asset} /></div><h2>{asset.name ?? asset.assetId}</h2><p><code>{asset.assetId}</code></p><p>{asset.mediaType ?? 'Image'} · {asset.size == null ? 'Size unavailable' : `${Math.round(asset.size / 1024)} KiB`} · {asset.width && asset.height ? `${asset.width} × ${asset.height}` : 'Dimensions unavailable'}</p><p>{asset.status ?? 'ACTIVE'} · {formatDate(asset.createdAt)}</p></article>)}</div>}</div>;
 }

@@ -33,9 +33,10 @@ export const ADMIN_ROUTES = Object.freeze([
   route('/admin/audit', 'Audit Log', 'Administration', ScrollText, 'The audit-log backend and viewer will be added in a later phase.', 'Future phase'),
 ]);
 
-export const ADMIN_NAVIGATION = Object.freeze([...new Set(ADMIN_ROUTES.map(({ section }) => section))].map((section) => Object.freeze({
+const visibleRoutes = ADMIN_ROUTES.filter(({ path }) => path !== '/content/editor');
+export const ADMIN_NAVIGATION = Object.freeze([...new Set(visibleRoutes.map(({ section }) => section))].map((section) => Object.freeze({
   section,
-  routes: Object.freeze(ADMIN_ROUTES.filter((item) => item.section === section)),
+  routes: Object.freeze(visibleRoutes.filter((item) => item.section === section)),
 })));
 
 export function normalizeAdminPath(pathname = '/') {

@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUp, Copy, GripVertical, Trash2 } from 'lucide-react';
 import { BLOCK_DEFINITION_BY_TYPE, createBlock } from './blockDefinitions.js';
+import { SemanticBlockPreview } from './SemanticBlockPreview.jsx';
 
 const PlainTextarea = ({ value, onChange, label, readOnly, rows = 3 }) => <textarea aria-label={label} rows={rows} value={value} readOnly={readOnly} onChange={(event) => onChange(event.target.value)} />;
 
@@ -22,9 +23,10 @@ const CanvasBlock = memo(function CanvasBlock({ block, index, count, selected, r
   else if (block.type === 'terminal-command') preview = <div className="content-command"><code>{block.commandId}</code><span>{content(block.display)}</span></div>;
   else if (block.type === 'divider') preview = <hr />;
   else if (block.type === 'concept') preview = <div><strong>{block.title ?? block.conceptId}</strong><p>{block.text}</p></div>;
+  else preview = <SemanticBlockPreview block={block} language={language} />;
   return <article className={`content-canvas-block${selectedClass}${dragOver ? ' is-drag-over' : ''}`} data-block-id={block.blockId} tabIndex="0" aria-label={`${block.type} block`} aria-current={selected ? 'true' : undefined} draggable={!readOnly} onClick={() => dispatch({ type: 'select', blockId: block.blockId })} onFocus={() => dispatch({ type: 'select', blockId: block.blockId })} onDragStart={(event) => { event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('application/x-ycoders-block-id', block.blockId); }} onDragEnter={() => setDragOver(true)} onDragLeave={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setDragOver(false); }} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); event.stopPropagation(); setDragOver(false); const source = event.dataTransfer.getData('application/x-ycoders-block-id'); const type = event.dataTransfer.getData('application/x-ycoders-block-type'); if (source) dispatch({ type: 'move', blockId: source, toIndex: index }); else if (type) dispatch({ type: 'add', block: create(type), afterBlockId: block.blockId }); }}>
     <div className="content-canvas-block-toolbar"><GripVertical aria-hidden="true" /><span>{BLOCK_DEFINITION_BY_TYPE[block.type]?.label ?? block.type}</span><code>{block.blockId.slice(-8)}</code>{!readOnly ? <div><button type="button" aria-label="Move block up" disabled={index === 0} onClick={(event) => { event.stopPropagation(); dispatch({ type: 'move', blockId: block.blockId, toIndex: index - 1 }); }}><ArrowUp /></button><button type="button" aria-label="Move block down" disabled={index === count - 1} onClick={(event) => { event.stopPropagation(); dispatch({ type: 'move', blockId: block.blockId, toIndex: index + 1 }); }}><ArrowDown /></button><button type="button" aria-label="Duplicate block" onClick={(event) => { event.stopPropagation(); dispatch({ type: 'duplicate', blockId: block.blockId }); }}><Copy /></button><button type="button" aria-label="Delete block" onClick={(event) => { event.stopPropagation(); dispatch({ type: 'delete', blockId: block.blockId }); }}><Trash2 /></button></div> : null}</div>
-    <div className="content-canvas-block-preview">{renderPreview ? renderPreview(block) : preview}</div>
+    <div className="content-canvas-block-preview">{block.id ? <SemanticBlockPreview block={block} language={language} /> : renderPreview ? renderPreview(block) : preview}</div>
   </article>;
 });
 

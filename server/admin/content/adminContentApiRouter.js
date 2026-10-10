@@ -173,6 +173,11 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       if (request.method === 'GET' && path[0] === 'draft-summaries' && !path[1]) return response.status(200).json(await service.listDraftSummaries(pageOptions(request)));
       if (request.method === 'GET' && path[0] === 'catalog' && !path[1]) return response.status(200).json(await service.listPointers(pageOptions(request)));
       if (request.method === 'GET' && path[0] === 'assets' && !path[1]) return response.status(200).json(await assetService.list(pageOptions(request)));
+      if (request.method === 'GET' && path[0] === 'assets' && path[1] && !path[2]) {
+        const asset = await assetService.get(path[1]);
+        if (!asset) throw new ContentPublicationError('content/asset-not-found', 'Asset not found.', { status: 404 });
+        return response.status(200).json({ asset });
+      }
       if (request.method === 'GET' && path[0] === 'assets' && path[1] && path[2] === 'file') {
         const asset = await assetService.get(path[1]);
         if (!asset) throw new ContentPublicationError('content/asset-not-found', 'Asset not found.', { status: 404 });
@@ -185,6 +190,12 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       if (request.method === 'GET' && path[0] === 'drafts' && !path[1]) return response.status(200).json({ drafts: await service.listDrafts() });
       if (request.method === 'GET' && path[0] === 'drafts' && path[1]) return response.status(200).json({ draft: await service.getDraft(path[1]) });
       if (request.method === 'GET' && path[0] === 'history' && path[1]) return response.status(200).json({ versions: await service.history(path[1]), active: await service.pointer(path[1]) });
+      if (request.method === 'DELETE' && path[0] === 'drafts' && path.length === 2) {
+        const input = body(request);
+        if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).some((key) => !['contentType', 'expectedRevision'].includes(key))) throw new ContentPublicationError('content/body-invalid', 'Invalid draft deletion request.', { status: 400 });
+        if (!allowedContentTypes.has(input.contentType)) throw new ContentPublicationError('content/type-invalid', 'A valid content type is required.', { status: 400 });
+        return response.status(200).json(await service.deleteDraft({ actor, contentId: path[1], contentType: input.contentType, expectedRevision: input.expectedRevision }));
+      }
       if (request.method !== 'POST') return response.status(405).json({ error: { code: 'content/method-not-allowed', message: 'Method not allowed.' } });
       const input = body(request);
       if (path[0] === 'assets' && !path[1]) return response.status(201).json({ asset: await assetService.upload(input, actor) });

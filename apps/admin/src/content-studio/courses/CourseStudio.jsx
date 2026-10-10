@@ -1,4 +1,4 @@
-import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AlignLeft, BookOpen, Braces, Code2, Heading2, Image, List, ListChecks, MessageSquareWarning, MoreVertical, Plus, Table2, Trash2 } from 'lucide-react';
 import { CANONICAL_LANGUAGE_IDS } from '../../../../../shared/content/index.js';
@@ -8,6 +8,7 @@ import { useAutosavedDraft } from '../persistence/useAutosavedDraft.js';
 import { ProjectPublicationPanel } from '../projects/ProjectPublicationPanel.jsx';
 import { StudioHeader, StudioWorkspace } from '../StudioChrome.jsx';
 import { StudioDraftList } from '../StudioDraftList.jsx';
+import { StudioListHeader, StudioListState, useStudioList } from '../StudioListState.jsx';
 import { BlockPalette } from '../blocks/BlockPalette.jsx';
 import { BlockCanvas } from '../blocks/BlockCanvas.jsx';
 import { useLegacyBlockWorkspace } from '../blocks/useLegacyBlockWorkspace.js';
@@ -28,14 +29,14 @@ const coursePalette = [
 ].map(([type, label, icon, group]) => ({ type, label, icon, group }));
 
 function CoursesLanding({ onNavigate }) {
-  const [drafts, setDrafts] = useState([]);
-  useEffect(() => { repository.list().then((all) => setDrafts(all.filter((item) => item.contentType === 'COURSE'))); }, []);
-  return <section className="project-landing"><header><div><span className="admin-eyebrow">Content Studio</span><h1>Courses</h1><p>Author and manage your Courses.</p></div><button className="admin-primary-button" onClick={() => onNavigate('/content/courses/new')}><Plus />New Course</button></header><StudioDraftList drafts={drafts} type="Course" emptyMessage="No Course drafts yet." detail={(draft) => `${draft.content.language} · ${countCourseLessons(draft.content)} lessons`} onOpen={(draft) => onNavigate(`/content/courses/${draft.contentId}/edit`)} /></section>;
+  const resource = useStudioList(useCallback(() => repository.list().then((all) => all.filter((item) => item.contentType === 'COURSE')), []));
+  return <section className="project-landing"><StudioListHeader title="Courses" description="Author and manage your Courses." action={<button className="admin-primary-button" type="button" onClick={() => onNavigate('/content/courses/new')}><Plus />New Course</button>} /><StudioListState resource={resource} label="Courses" empty="No Course drafts yet."><StudioDraftList drafts={resource.items} type="Course" detail={(draft) => `${draft.content.language} · ${countCourseLessons(draft.content)} lessons`} onOpen={(draft) => onNavigate(`/content/courses/${draft.contentId}/edit`)} /></StudioListState></section>;
 }
 
 export function CourseStudio({ path, role, readOnly, onNavigate, onDirtyChange = () => {} }) {
   if (path === '/content/courses') return <CoursesLanding onNavigate={onNavigate} />;
-  return <CourseEditor routeId={path.match(/\/courses\/([^/]+)\/edit/)?.[1]} role={role} readOnly={readOnly} onDirtyChange={onDirtyChange} />;
+  const routeId = path.match(/\/courses\/([^/]+)\/edit/)?.[1];
+  return <CourseEditor key={routeId ?? 'new'} routeId={routeId} role={role} readOnly={readOnly} onDirtyChange={onDirtyChange} />;
 }
 
 function CourseEditor({ routeId, role, readOnly, onDirtyChange }) {
@@ -74,18 +75,14 @@ function CourseEditor({ routeId, role, readOnly, onDirtyChange }) {
     setView('author');
   };
   return <div className="project-studio course-studio studio-unified">
-    <StudioHeader type="COURSE" title={content.title} draft={draft} dirty={dirty} saveError={saveError} readOnly={readOnly} role={role} view={view} onView={setView} onValidate={() => setValidation(validateCourseDraft(draft))} onHistory={repository.publish ? showPublication : null} onPublish={repository.publish ? () => document.getElementById('content-studio-publish-button')?.click() : null} />
+    <StudioHeader type="COURSE" title={content.title} draft={draft} dirty={dirty} saveError={saveError} readOnly={readOnly} role={role} view={view} onView={setView} onValidate={() => setValidation(validateCourseDraft(draft))} onHistory={repository.publish ? showPublication : null} onPublish={repository.publish ? () => document.getElementById('content-studio-publish-button')?.click() : null} onReload={reload} />
     {view === 'json' ? <section className="content-json-view"><pre><code>{json}</code></pre></section> : view === 'preview' ? <CoursePreview course={content} /> : <StudioWorkspace structureLabel="Course structure" toolbar={<BlockPalette variant="toolbar" definitions={coursePalette} create={create} dispatch={blocks.dispatch} disabled={readOnly || !lesson} selectedBlockId={blocks.selectedBlockId} />} structure={<CourseTree course={content} selected={selected} select={setSelected} addModule={addModule} addLesson={addLesson} update={update} readOnly={readOnly} />} canvas={lesson ? <><header className="studio-canvas-heading"><h2>{lesson.title}</h2><span>{lesson.blocks.length} blocks</span></header><BlockCanvas blocks={blocks.canvasBlocks} selectedBlockId={blocks.selectedBlockId} readOnly={readOnly} language={content.language} dispatch={blocks.dispatch} create={create} renderPreview={courseBlockSummary} /></> : <div className="content-studio-empty"><h2>{selected.type === 'module' ? module?.title : content.title}</h2><p>{selected.type === 'module' ? 'Choose a lesson or add one to this module.' : 'Choose a module or lesson to begin authoring.'}</p></div>} inspector={<><h2 className="studio-inspector-heading">{blocks.selectedBlock && lesson ? 'Block properties' : selected.type === 'lesson' ? 'Lesson properties' : selected.type === 'module' ? 'Module properties' : 'Course properties'}</h2>{blocks.selectedBlock && lesson ? <LegacyBlockInspector block={blocks.selectedBlock} readOnly={readOnly} onChange={(patch) => patchLesson({ blocks: lesson.blocks.map((item) => item.id === blocks.selectedBlockId ? { ...item, ...patch } : item) })} /> : selected.type === 'lesson' && lesson ? <CourseLessonMetadata lesson={lesson} patch={patchLesson} readOnly={readOnly} /> : selected.type === 'module' && module ? <div className="project-form"><ModuleEditor module={module} patch={patchModule} readOnly={readOnly} /></div> : <div className="project-form"><CourseOverview course={content} patch={patchContent} readOnly={readOnly} /></div>}</>} />}
     {validation && <section className="project-validation" aria-live="polite"><h2>Course validation</h2>{validation.valid ? <p>Content is valid</p> : <><p>{validation.errors.length} issues to fix.</p><ul>{validation.errors.map((error, index) => <li key={`${error.path}-${index}`}><button type="button" onClick={() => selectIssue(error.path)}>{error.path}: {error.message}</button></li>)}</ul></>}</section>}
     {repository.publish ? <ProjectPublicationPanel draft={draft} dirty={dirty} role={role} repository={repository} onValidation={setValidation} onReload={reload} /> : null}
   </div>;
 }
 
-function courseBlockSummary(block) {
-  const value = block.text ?? block.content ?? block.code ?? block.question ?? block.title ?? block.expectedOutput ?? block.alt ?? '';
-  const preview = typeof value === 'string' ? value : value?.content ?? '';
-  return <p className="studio-block-summary">{preview ? preview.slice(0, 220) : `${block.type} block`}</p>;
-}
+function courseBlockSummary(block) { return <p className="studio-block-summary">{String(block.text ?? block.content ?? block.code ?? block.title ?? '').slice(0, 220)}</p>; }
 
 function CourseLessonMetadata({ lesson, patch, readOnly }) {
   return <div className="project-form"><section><h2>Lesson {lesson.order}</h2><div className="project-fields"><Field label="Stable lesson ID" value={lesson.id} readOnly /><Field label="Title" value={lesson.title} readOnly={readOnly} onChange={(event) => patch({ title: event.target.value })} /><label><span>Summary</span><textarea value={lesson.summary ?? ''} readOnly={readOnly} onChange={(event) => patch({ summary: event.target.value })} /></label><Field label="Estimated minutes" type="number" min="0" value={lesson.estimatedMinutes ?? 0} readOnly={readOnly} onChange={(event) => patch({ estimatedMinutes: Number(event.target.value) })} /></div></section></div>;
@@ -263,7 +260,7 @@ export function CoursePreview({ course }) {
   const [lessonId, setLessonId] = useState(course.defaultLessonId ?? courseLessons(course.modules[0])[0]?.id);
   const lessons = course.modules.flatMap(courseLessons); const lesson = lessons.find((item) => item.id === lessonId) ?? lessons[0];
   const lessonIndex = lessons.findIndex((item) => item.id === lesson?.id);
-  return <section className="project-preview"><header><div><span className="admin-eyebrow">Ephemeral learner preview</span><h2>{course.title}</h2><p>{course.description}</p><p>{course.modules.length} modules · {lessons.length} lessons</p></div><label><span>Lesson</span><select value={lesson?.id} onChange={(e) => setLessonId(e.target.value)}>{lessons.map((item) => <option value={item.id} key={item.id}>{item.title}</option>)}</select></label></header>
+  return <section className="project-preview"><header><div><h2>{course.title}</h2><p>{course.description}</p><p>{course.modules.length} modules · {lessons.length} lessons</p></div><label><span>Lesson</span><select value={lesson?.id} onChange={(e) => setLessonId(e.target.value)}>{lessons.map((item) => <option value={item.id} key={item.id}>{item.title}</option>)}</select></label></header>
     <nav aria-label="Preview modules">{course.modules.map((module) => <div key={module.id}><strong>{module.title}</strong>{courseLessons(module).map((item) => <button key={item.id} type="button" aria-current={item.id === lesson?.id ? 'page' : undefined} onClick={() => setLessonId(item.id)}>{item.title}</button>)}</div>)}</nav>
     <article className="project-preview-guide"><h2>{lesson?.title}</h2>{lesson?.blocks.map((block) => <CoursePreviewBlock block={block} key={block.id} />)}</article>
     <div className="project-toolbar"><button type="button" disabled={lessonIndex <= 0} onClick={() => setLessonId(lessons[lessonIndex - 1].id)}>Previous lesson</button><button type="button" disabled={lessonIndex >= lessons.length - 1} onClick={() => setLessonId(lessons[lessonIndex + 1].id)}>Next lesson</button></div>

@@ -35,6 +35,13 @@ describe('Admin authentication and route guard', () => {
     expect(await screen.findByRole('heading', { name: 'Content Studio' })).toBeInTheDocument();
   });
 
+  it('keeps content status but removes duplicate dashboard module cards', async () => {
+    render(<AdminApplication authClient={authClientFor(session(ADMIN_ROLES.CONTENT_ADMIN))} initialPath="/" />);
+    expect(await screen.findByRole('heading', { name: 'Content status' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Content modules' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'View status' })).not.toBeInTheDocument();
+  });
+
   it.each(Object.values(ADMIN_ROLES))('renders the shell for %s', async (role) => {
     render(<AdminApplication authClient={authClientFor(session(role))} initialPath="/" />);
     expect(await screen.findByRole('complementary', { name: 'Admin navigation' })).toBeInTheDocument();
@@ -55,7 +62,8 @@ describe('Admin routing foundation', () => {
     const navigation = await screen.findByRole('complementary', { name: 'Admin navigation' });
     const content = within(navigation).getByRole('region', { name: 'Content' });
     expect(within(content).getAllByRole('link').map((link) => link.textContent)).toEqual(['Projects', 'Courses', 'Practice', 'Challenges']);
-    expect(within(navigation).getByRole('region', { name: 'Internal' })).toHaveTextContent('Document Editor');
+    expect(within(navigation).queryByRole('region', { name: 'Internal' })).not.toBeInTheDocument();
+    expect(within(navigation).queryByText('Document Editor')).not.toBeInTheDocument();
   });
   it.each([
     ['/admin/users', 'Users / Roles'], ['/admin/settings', 'Settings'], ['/admin/audit', 'Audit Log'],

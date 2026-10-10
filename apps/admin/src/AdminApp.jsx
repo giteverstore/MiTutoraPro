@@ -22,7 +22,7 @@ function PreviewContentDisabled() {
 
 export function AdminAccessDenied({ session, authClient, onRefresh }) {
   const [refreshing, setRefreshing] = useState(false);
-  return <main className="admin-state-page"><section className="admin-state-card"><span className="admin-eyebrow">Access denied</span><h1>This account does not have access to Y Coders Admin.</h1><p>You are signed in as <strong>{session.email || session.uid}</strong>, but no authorized Admin role is present.</p><div className="admin-state-actions"><button className="admin-primary-button" type="button" disabled={refreshing} onClick={async () => { setRefreshing(true); try { await onRefresh(); } finally { setRefreshing(false); } }}>{refreshing ? 'Checking…' : 'Check access again'}</button><button className="admin-secondary-button" type="button" onClick={authClient.signOut}>Sign out</button></div></section></main>;
+  return <main className="admin-state-page"><section className="admin-state-card"><h1>This account does not have access to Y Coders Admin.</h1><p>You are signed in as <strong>{session.email || session.uid}</strong>, but no authorized Admin role is present.</p><div className="admin-state-actions"><button className="admin-primary-button" type="button" disabled={refreshing} onClick={async () => { setRefreshing(true); try { await onRefresh(); } finally { setRefreshing(false); } }}>{refreshing ? 'Checking…' : 'Check access again'}</button><button className="admin-secondary-button" type="button" onClick={authClient.signOut}>Sign out</button></div></section></main>;
 }
 
 export function AdminApplication({ authClient, initialPath, checkContentAccess = adminContentRequest, enableContentGate = typeof __ADMIN_PREVIEW_DEPLOYMENT__ !== 'undefined' && __ADMIN_PREVIEW_DEPLOYMENT__ }) {

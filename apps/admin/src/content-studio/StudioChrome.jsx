@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Braces, PanelLeft, PanelRight } from 'lucide-react';
 import { ADMIN_PERMISSIONS, hasAdminPermission } from '../../../../shared/admin/adminAuthorization.js';
 
-export function StudioHeader({ type, title, draft, dirty, saveError, readOnly, role, view, onView, onValidate, onHistory, onPublish }) {
+export function StudioHeader({ type, title, draft, dirty, saveError, readOnly, role, view, onView, onValidate, onHistory, onPublish, onReload }) {
   const status = saveError ? (/conflict|updated elsewhere/i.test(saveError) ? 'Conflict' : 'Save failed') : dirty ? 'Saving…' : draft.draftRevision > 0 ? 'Saved' : 'Draft';
   const canPublish = Boolean(onPublish && hasAdminPermission(role, ADMIN_PERMISSIONS.CONTENT_PUBLISH));
   return <>
     <header className="content-studio-heading studio-unified-heading">
-      <div><span className="admin-eyebrow">{type}</span><h1>{title}</h1><p><span aria-live="polite">{status}</span> · Draft revision {draft.draftRevision ?? 0}{readOnly ? ' · Read only' : ''}</p></div>
+      <div><h1>{title}</h1><p><span aria-live="polite">{status}</span> · Draft revision {draft.draftRevision ?? 0}{readOnly ? ' · Read only' : ''}</p></div>
       <div className="studio-header-actions">
         <button type="button" aria-label={view === 'preview' ? 'Back to editor' : 'Preview & Test'} onClick={() => onView(view === 'preview' ? 'author' : 'preview')}>{view === 'preview' ? 'Back to editor' : 'Preview'}</button>
         <button type="button" aria-label={`Validate ${type === 'PRACTICE' ? 'Question' : type.charAt(0) + type.slice(1).toLowerCase()}`} onClick={onValidate}>Validate</button>
@@ -16,7 +16,7 @@ export function StudioHeader({ type, title, draft, dirty, saveError, readOnly, r
         <details className="studio-more"><summary>More</summary><button type="button" onClick={() => onView(view === 'json' ? 'author' : 'json')}><Braces aria-hidden="true" />{view === 'json' ? 'Back to editor' : 'Generated JSON'}</button></details>
       </div>
     </header>
-    {saveError ? <p className="studio-save-error" role="alert">{saveError}</p> : null}
+    {saveError ? <div className="studio-save-error" role="alert"><span>{saveError}</span>{onReload && /updated elsewhere/i.test(saveError) ? <button type="button" onClick={onReload}>Reload latest version</button> : null}</div> : null}
   </>;
 }
 

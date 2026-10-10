@@ -20,7 +20,6 @@ export function AdminLogin({ authClient }) {
   };
   return <main className="admin-state-page"><section className="admin-auth-card" aria-labelledby="admin-login-title">
     <div className="admin-brand"><span aria-hidden="true">Y</span><div><strong>Y Coders</strong><small>Admin</small></div></div>
-    <span className="admin-eyebrow">Authorized access only</span>
     <h1 id="admin-login-title">Sign in to Y Coders Admin</h1>
     <p>Use your authorized Y Coders account to continue.</p>
     <form onSubmit={(event) => { event.preventDefault(); void run(() => authClient.signInWithEmail(email, password)); }}>

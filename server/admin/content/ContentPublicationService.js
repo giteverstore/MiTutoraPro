@@ -63,6 +63,15 @@ export class ContentPublicationService {
     return result;
   }
 
+  async deleteDraft({ actor, contentId, contentType, expectedRevision }) {
+    if (!Number.isInteger(expectedRevision) || expectedRevision < 1) throw new ContentPublicationError('content/revision-invalid', 'A valid draft revision is required.', { status: 400 });
+    const draft = await this.requireDraft(contentId, expectedRevision);
+    if (draft.contentType !== contentType) throw new ContentPublicationError('content/type-conflict', 'Content type does not match this request.', { status: 409 });
+    if (draft.lifecycleState === DRAFT_LIFECYCLE.PUBLISHING) throw new ContentPublicationError('content/draft-publishing', 'A draft cannot be deleted while publication is in progress.', { status: 409 });
+    await this.store.deleteDraft({ contentId: draft.contentId, contentType, expectedRevision, actor, timestamp: now(this.clock) });
+    return { contentId: draft.contentId, deleted: true };
+  }
+
   async publish({ actor, contentId, expectedRevision, expectedActiveRevision = null }) {
     const draft = await this.requireDraft(contentId, expectedRevision);
     const canonical = normalizeContent(draft.document);

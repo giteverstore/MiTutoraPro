@@ -11,4 +11,4 @@ auth.currentUser = { getIdToken: async () => 'browser-fixture-token' };
 const role = new URLSearchParams(location.search).get('role') === 'reviewer' ? ADMIN_ROLES.CONTENT_REVIEWER : ADMIN_ROLES.CONTENT_ADMIN;
 const session = { uid: 'browser-fixture', email: 'browser@example.test', role };
 const client = { subscribe(next) { queueMicrotask(() => next(session)); return () => {}; }, signOut() {}, refreshClaims: async () => session };
-createRoot(document.getElementById('root')).render(<AdminApplication authClient={client} initialPath="/publishing/drafts" />);
+createRoot(document.getElementById('root')).render(<AdminApplication authClient={client} initialPath={new URLSearchParams(location.search).get('initialPath') ?? '/publishing/drafts'} />);

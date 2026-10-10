@@ -12,6 +12,8 @@
 .publishing-row .publishing-actions { justify-content: flex-end; flex: 0 0 auto; }
 .publishing-actions button,.publishing-state button,.publishing-action-error button,.publishing-detail button { min-height: 2.35rem; padding: .4rem .65rem; color: #1d4ed8; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: .45rem; font-size: .875rem; font-weight: 650; cursor: pointer; }
 .publishing-actions button:disabled { opacity: .5; cursor: not-allowed; }
+.publishing-actions .publishing-destructive,.publishing-detail .publishing-destructive { color: #991b1b; background: #fef2f2; border-color: #fecaca; }
+.publishing-actions .publishing-destructive:hover,.publishing-detail .publishing-destructive:hover { color: #7f1d1d; background: #fee2e2; }
 .publishing-badge { display: inline-block; margin: .3rem .35rem 0 0; padding: .15rem .48rem; color: #164e63; background: #ecfeff; border: 1px solid #a5f3fc; border-radius: 999px; font-size: .75rem; font-weight: 700; }
 .publishing-state { padding: 1.5rem; color: #475569; background: #fff; border: 1px dashed var(--publish-border); border-radius: .75rem; }
 .publishing-state h2 { margin-top: 0; color: #172033; }
