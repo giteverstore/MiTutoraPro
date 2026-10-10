@@ -8,7 +8,7 @@ const PROJECT_ID = 'mi-tutora-pro';
 const ADMIN_UID = 'xPpffhj3Z7XQP2aWwHUBnZqpw063';
 const SERVICE_ACCOUNT = 'ycoders-admin-runtime@mi-tutora-pro.iam.gserviceaccount.com';
 const AUDIENCE = '//iam.googleapis.com/projects/196429461457/locations/global/workloadIdentityPools/ai-tutor-vercel/providers/vercel-admin-production';
-const EXPIRES_AT = Date.parse('2026-10-08T11:00:00Z');
+const EXPIRES_AT = Date.parse('2026-10-11T18:00:00Z');
 
 function bearer(request) {
   const match = String(request.headers?.authorization ?? '').match(/^Bearer\s+([^\s]+)$/i);
@@ -43,6 +43,24 @@ function categoryFromGoogleError(value) {
   return /attribute condition/i.test(description) ? 'provider-condition-mismatch' : 'google-exchange-denied';
 }
 
+function sanitizedGoogleFailure(value, secrets = []) {
+  const rawCode = typeof value?.error === 'string' ? value.error : value?.error?.status;
+  const googleError = typeof rawCode === 'string' && /^[a-z][a-z0-9._-]{0,63}$/i.test(rawCode) ? rawCode : null;
+  let message = String(value?.error_description ?? value?.error?.message ?? '');
+  for (const secret of secrets) {
+    if (typeof secret === 'string' && secret) message = message.replaceAll(secret, '[redacted]');
+  }
+  const googleMessage = message
+    .replace(/(?:access|refresh|subject|id)[_-]?token\s*[:=]\s*[^\s,;]+/gi, '[redacted]')
+    .replace(/[a-z0-9_./~+=-]{24,}/gi, '[redacted]')
+    .replace(/[\u0000-\u001f\u007f]/g, ' ')
+    .slice(0, 300);
+  return {
+    ...(googleError ? { googleError } : {}),
+    ...(googleMessage ? { googleMessage } : {}),
+  };
+}
+
 export async function exchangeAdminIdentity(rawToken, fetcher = globalThis.fetch) {
   const sts = await fetcher('https://sts.googleapis.com/v1/token', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -50,19 +68,20 @@ export async function exchangeAdminIdentity(rawToken, fetcher = globalThis.fetch
       audience: AUDIENCE,
       grantType: 'urn:ietf:params:oauth:grant-type:token-exchange',
       requestedTokenType: 'urn:ietf:params:oauth:token-type:access_token',
+      scope: 'https://www.googleapis.com/auth/cloud-platform',
       subjectTokenType: 'urn:ietf:params:oauth:token-type:jwt',
       subjectToken: rawToken,
     }),
   });
   const stsBody = await sts.json();
-  if (!sts.ok) return { success: false, stage: 'sts', reasonCategory: categoryFromGoogleError(stsBody) };
+  if (!sts.ok) return { success: false, stage: 'sts', reasonCategory: categoryFromGoogleError(stsBody), ...sanitizedGoogleFailure(stsBody, [rawToken]) };
   if (typeof stsBody.access_token !== 'string') return { success: false, stage: 'sts', reasonCategory: 'incomplete-response' };
   const impersonation = await fetcher(`https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${SERVICE_ACCOUNT}:generateAccessToken`, {
     method: 'POST', headers: { Authorization: `Bearer ${stsBody.access_token}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ scope: ['https://www.googleapis.com/auth/cloud-platform'], lifetime: '900s' }),
   });
   const impersonationBody = await impersonation.json();
-  if (!impersonation.ok) return { success: false, stage: 'impersonation', reasonCategory: categoryFromGoogleError(impersonationBody) };
+  if (!impersonation.ok) return { success: false, stage: 'impersonation', reasonCategory: categoryFromGoogleError(impersonationBody), ...sanitizedGoogleFailure(impersonationBody, [rawToken, stsBody.access_token]) };
   if (typeof impersonationBody.accessToken !== 'string') return { success: false, stage: 'impersonation', reasonCategory: 'incomplete-response' };
   return { success: true, principal: SERVICE_ACCOUNT, accessToken: impersonationBody.accessToken };
 }
@@ -110,7 +129,9 @@ export function createTemporaryIdentityDiagnostic({
       const exchanged = await exchange(rawToken);
       const wif = exchanged.success
         ? { status: 'success', effectivePrincipal: exchanged.principal }
-        : { status: 'denied', stage: exchanged.stage, reasonCategory: exchanged.reasonCategory };
+        : { status: 'denied', stage: exchanged.stage, reasonCategory: exchanged.reasonCategory,
+          ...sanitizedGoogleFailure({ error: exchanged.googleError, error_description: exchanged.googleMessage }, [rawToken, bearer(request)]),
+        };
       // Never return a credential or use Preview to read Production data.
       const reads = environment.VERCEL_ENV === 'production' && exchanged.success
         ? await probeReads(exchanged.accessToken) : null;

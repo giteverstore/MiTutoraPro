@@ -15,7 +15,7 @@ describe('temporary Admin identity diagnostic', () => {
     const disabled = createTemporaryIdentityDiagnostic({ environment: { ...enabled, ADMIN_DIAGNOSTICS_ENABLED: 'false' }, now: future, verifyAdmin, oidcSource });
     const first = response(); await disabled({ method: 'GET', headers: {} }, first);
     expect(first.statusCode).toBe(404); expect(verifyAdmin).not.toHaveBeenCalled();
-    const expired = createTemporaryIdentityDiagnostic({ environment: enabled, now: () => Date.parse('2026-10-08T11:00:01Z'), verifyAdmin, oidcSource });
+    const expired = createTemporaryIdentityDiagnostic({ environment: enabled, now: () => Date.parse('2026-10-11T18:00:01Z'), verifyAdmin, oidcSource });
     const second = response(); await expired({ method: 'GET', headers: {} }, second);
     expect(second.statusCode).toBe(404);
     const missing = createTemporaryIdentityDiagnostic({ environment: enabled, now: future, verifyAdmin: async () => null, oidcSource });
@@ -38,6 +38,8 @@ describe('temporary Admin identity diagnostic', () => {
     const result = response(); await route({ method: 'GET', headers: {} }, result);
     expect(result.statusCode).toBe(200);
     expect(result.body.wif).toEqual({ status: 'success', effectivePrincipal: 'ycoders-admin-runtime@mi-tutora-pro.iam.gserviceaccount.com' });
+    expect(result.body.wif).not.toHaveProperty('googleError');
+    expect(result.body.wif).not.toHaveProperty('googleMessage');
     expect(result.body.claims.environment).toBe('production');
     expect(JSON.stringify(result.body)).not.toContain(rawToken);
     expect(JSON.stringify(result.body)).not.toContain('SECRET_ACCESS_TOKEN');
@@ -48,16 +50,52 @@ describe('temporary Admin identity diagnostic', () => {
     const probeReads = vi.fn();
     const route = createTemporaryIdentityDiagnostic({ environment: { ...enabled, VERCEL_ENV: 'preview' }, now: future,
       verifyAdmin: async () => ({ uid: UID, adminRole: 'SUPER_ADMIN' }), oidcSource: async () => rawToken,
-      exchange: async () => ({ success: false, stage: 'sts', reasonCategory: 'provider-condition-mismatch' }), probeReads,
+      exchange: async () => ({ success: false, stage: 'sts', reasonCategory: 'provider-condition-mismatch', googleError: 'invalid_grant', googleMessage: 'Rejected by attribute condition.' }), probeReads,
     });
     const result = response(); await route({ method: 'GET', headers: {} }, result);
-    expect(result.body.wif).toEqual({ status: 'denied', stage: 'sts', reasonCategory: 'provider-condition-mismatch' });
+    expect(result.body.wif).toEqual({ status: 'denied', stage: 'sts', reasonCategory: 'provider-condition-mismatch', googleError: 'invalid_grant', googleMessage: 'Rejected by attribute condition.' });
     expect(result.body.firestore).toBeUndefined(); expect(probeReads).not.toHaveBeenCalled();
   });
 
-  it('exchanges internally and reports only denial categories', async () => {
-    const denied = await exchangeAdminIdentity(rawToken, vi.fn(async () => ({ ok: false, json: async () => ({ error_description: 'The given credential is rejected by the attribute condition.' }) })));
-    expect(denied).toEqual({ success: false, stage: 'sts', reasonCategory: 'provider-condition-mismatch' });
+  it('keeps failure details credential-free at the HTTP boundary during the extended window', async () => {
+    const firebaseIdToken = 'SYNTHETIC_FIREBASE_ID_TOKEN_VALUE_123456789';
+    const route = createTemporaryIdentityDiagnostic({ environment: { ...enabled, VERCEL_ENV: 'preview' },
+      now: () => Date.parse('2026-10-10T12:00:00Z'),
+      verifyAdmin: async () => ({ uid: UID, adminRole: 'SUPER_ADMIN' }), oidcSource: async () => rawToken,
+      exchange: async () => ({ success: false, stage: 'sts', reasonCategory: 'google-exchange-denied', googleError: 'invalid_request',
+        googleMessage: `Invalid request. id_token=${firebaseIdToken} subject_token=${rawToken}`, accessToken: 'SHOULD_NOT_LEAK' }),
+    });
+    const result = response(); await route({ method: 'GET', headers: { authorization: `Bearer ${firebaseIdToken}` } }, result);
+    expect(result.statusCode).toBe(200);
+    expect(result.body.wif).toMatchObject({ status: 'denied', reasonCategory: 'google-exchange-denied', googleError: 'invalid_request' });
+    const serialized = JSON.stringify(result.body);
+    expect(serialized).not.toContain(firebaseIdToken);
+    expect(serialized).not.toContain(rawToken);
+    expect(serialized).not.toContain('SHOULD_NOT_LEAK');
+  });
+
+  it('sends the cloud-platform STS scope and returns only bounded, redacted failure detail', async () => {
+    const fetcher = vi.fn(async () => ({ ok: false, json: async () => ({ error: 'invalid_grant', error_description: `The given credential is rejected by the attribute condition. subject_token=${rawToken} ${'more detail '.repeat(50)}` }) }));
+    const denied = await exchangeAdminIdentity(rawToken, fetcher);
+    const stsRequest = JSON.parse(fetcher.mock.calls[0][1].body);
+    expect(stsRequest.scope).toBe('https://www.googleapis.com/auth/cloud-platform');
+    expect(stsRequest.subjectToken).toBe(rawToken);
+    expect(stsRequest.audience).toContain('/providers/vercel-admin-production');
+    expect(denied).toMatchObject({ success: false, stage: 'sts', reasonCategory: 'provider-condition-mismatch', googleError: 'invalid_grant' });
+    expect(denied.googleMessage).toContain('attribute condition');
+    expect(denied.googleMessage.length).toBeLessThanOrEqual(300);
+    expect(JSON.stringify(denied)).not.toContain(rawToken);
+  });
+
+  it('redacts the intermediate STS access token from impersonation failure detail', async () => {
+    const accessToken = 'SYNTHETIC_STS_ACCESS_TOKEN_VALUE_123456789';
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ access_token: accessToken }) })
+      .mockResolvedValueOnce({ ok: false, json: async () => ({ error: { status: 'PERMISSION_DENIED', message: `Permission denied; access_token=${accessToken}` } }) });
+    const denied = await exchangeAdminIdentity(rawToken, fetcher);
+    expect(denied).toMatchObject({ success: false, stage: 'impersonation', reasonCategory: 'google-exchange-denied', googleError: 'PERMISSION_DENIED' });
+    expect(denied.googleMessage).toContain('Permission denied');
+    expect(JSON.stringify(denied)).not.toContain(accessToken);
     expect(JSON.stringify(denied)).not.toContain(rawToken);
   });
 
