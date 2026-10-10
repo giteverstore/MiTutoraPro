@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createAdminContentApiRouter, createAdminPublicVersionReader, createAdminStorageBucket, createLegacyPublicVersionReader } from '../../server/admin/content/adminContentApiRouter.js';
 import { createDefaultFirestore } from '../../server/firestore/createDefaultFirestore.js';
@@ -32,13 +32,27 @@ describe('Admin deployment boundary', () => {
     expect(JSON.stringify(config)).not.toContain('ycoders.com');
     expect(config.installCommand).toBe('npm ci --prefix ../..');
     expect(config.outputDirectory).toBe('dist');
+    expect(config.rewrites).toHaveLength(2);
     expect(config.rewrites[0]).toEqual({ source: '/api/admin-content/:path*', destination: '/api/admin-content?path=:path*' });
+    expect(readdirSync(resolve(process.cwd(), 'apps/admin/api')).filter((name) => name.endsWith('.js'))).toEqual(['admin-content.js']);
     const spaRoute = new RegExp(`^${config.rewrites[1].source}$`);
     expect(spaRoute.test('/content/projects')).toBe(true);
     expect(spaRoute.test('/api/admin-content/drafts')).toBe(false);
     const adminEntrypoint = readFileSync(resolve(process.cwd(), 'apps/admin/api/admin-content.js'), 'utf8');
     expect(adminEntrypoint).toContain('useDedicatedAdminBucket: true');
     expect(adminEntrypoint).toContain('configurationResolver: resolveAdminGoogleWifConfiguration');
+  });
+
+  it('retains the public-detail URL contract through the flat Admin content function', async () => {
+    const delivery = { fetchVersion: vi.fn(async () => null), resolveActive: vi.fn(async () => null) };
+    const route = createAdminContentApiRouter({ environment: production,
+      credentialFactory: () => ({ preflight: async () => {} }), dependencies: async () => ({ delivery, close: async () => {} }),
+    });
+    const result = response();
+    await route({ method: 'GET', url: '/api/admin-content?path=public%2Fnot-found', query: { path: 'public/not-found' }, headers: {} }, result);
+    expect(result.statusCode).toBe(404);
+    expect(result.body.error.code).toBe('content/not-published');
+    expect(delivery.resolveActive).toHaveBeenCalledWith('not-found');
   });
 
   it('blocks every Preview write before credentials, auth, or dependencies are acquired', async () => {
