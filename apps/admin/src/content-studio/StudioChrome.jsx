@@ -25,6 +25,10 @@ const STRUCTURE_PREFERENCE = 'ycoders.admin.studio.structure-collapsed.v1';
 export function StudioWorkspace({ structure, canvas, inspector, toolbar, structureLabel = 'Structure', className = '' }) {
   const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 1180px)').matches);
   const [drawer, setDrawer] = useState(null);
+  const [leftWidth, setLeftWidth] = useState(256);
+  const [rightWidth, setRightWidth] = useState(320);
+  const workspaceRef = useRef(null);
+  const resizeRef = useRef(null);
   const [structureCollapsed, setStructureCollapsed] = useState(() => {
     try { return window.localStorage.getItem(STRUCTURE_PREFERENCE) === 'true'; } catch { return false; }
   });
@@ -44,6 +48,29 @@ export function StudioWorkspace({ structure, canvas, inspector, toolbar, structu
     return () => window.removeEventListener('keydown', close);
   }, [drawer]);
   const open = (event, name) => { toggleRef.current = event.currentTarget; setDrawer(name); };
+  const limits = (side) => {
+    const available = workspaceRef.current?.clientWidth ?? 1180;
+    const other = side === 'left' ? rightWidth : structureCollapsed ? 48 : leftWidth;
+    const minimum = side === 'left' ? 192 : 240;
+    const viewportCap = window.innerWidth * (side === 'left' ? .26 : .3);
+    return { minimum, maximum: Math.max(minimum, Math.min(side === 'left' ? 420 : 460, viewportCap, available - other - 320 - 12)) };
+  };
+  const resize = (side, width) => {
+    const { minimum, maximum } = limits(side);
+    (side === 'left' ? setLeftWidth : setRightWidth)(Math.max(minimum, Math.min(maximum, width)));
+  };
+  const beginResize = (event, side) => {
+    if (event.button !== 0 || compact || (side === 'left' && structureCollapsed)) return;
+    resizeRef.current = { side, x: event.clientX, width: side === 'left' ? leftWidth : rightWidth };
+    event.currentTarget.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  };
+  const continueResize = (event) => {
+    const drag = resizeRef.current;
+    if (drag) resize(drag.side, drag.width + (event.clientX - drag.x) * (drag.side === 'left' ? 1 : -1));
+  };
+  const endResize = () => { resizeRef.current = null; };
+  const separator = (side) => <div role="separator" tabIndex={0} className={`studio-pane-resizer is-${side}`} aria-label={`Resize ${side === 'left' ? 'structure' : 'properties'} pane`} aria-orientation="vertical" aria-valuenow={side === 'left' ? leftWidth : rightWidth} aria-valuemin={side === 'left' ? 192 : 240} aria-valuemax={limits(side).maximum} onPointerDown={(event) => beginResize(event, side)} onPointerMove={continueResize} onPointerUp={endResize} onLostPointerCapture={endResize} onKeyDown={(event) => { if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return; const { minimum, maximum } = limits(side); const current = side === 'left' ? leftWidth : rightWidth; const next = event.key === 'Home' ? minimum : event.key === 'End' ? maximum : current + (event.key === 'ArrowRight' ? 16 : -16) * (side === 'left' ? 1 : -1); resize(side, next); event.preventDefault(); }} />;
   return <div className={`studio-workspace-wrap${structureCollapsed && !compact ? ' is-structure-collapsed' : ''} ${className}`}>
     {toolbar}
     <div className="studio-drawer-controls">
@@ -51,13 +78,15 @@ export function StudioWorkspace({ structure, canvas, inspector, toolbar, structu
       <button type="button" aria-controls="studio-properties" aria-expanded={drawer === 'properties'} onClick={(event) => open(event, 'properties')}><PanelRight aria-hidden="true" />Properties</button>
     </div>
     {compact && drawer ? <button type="button" className="studio-drawer-scrim" aria-label="Close panel" onClick={() => { setDrawer(null); toggleRef.current?.focus(); }} /> : null}
-    <div className="studio-unified-workspace">
+    <div ref={workspaceRef} className="studio-unified-workspace" style={{ '--studio-left-width': `${leftWidth}px`, '--studio-right-width': `${rightWidth}px` }}>
       <aside id="studio-structure" className="studio-structure" aria-label={structureLabel} hidden={compact && drawer !== 'structure'}>
         {compact ? <button type="button" className="studio-drawer-close" onClick={() => { setDrawer(null); toggleRef.current?.focus(); }}>Close {structureLabel}</button> : null}
         {!compact ? <button type="button" className="studio-structure-toggle" aria-label={structureCollapsed ? 'Expand structure sidebar' : 'Collapse structure sidebar'} aria-controls="studio-structure-content" aria-expanded={!structureCollapsed} onClick={() => setStructureCollapsed((value) => !value)}><PanelLeft aria-hidden="true" /></button> : null}
         <div id="studio-structure-content" className="studio-structure-content" aria-hidden={structureCollapsed && !compact ? 'true' : undefined} inert={structureCollapsed && !compact ? '' : undefined}>{structure}</div>
       </aside>
+      {separator('left')}
       <section className="studio-main-canvas" aria-label="Content canvas">{canvas}</section>
+      {separator('right')}
       <aside id="studio-properties" className="studio-properties" aria-label="Properties" hidden={compact && drawer !== 'properties'}>
         {compact ? <button type="button" className="studio-drawer-close" onClick={() => { setDrawer(null); toggleRef.current?.focus(); }}>Close Properties</button> : null}
         {inspector}

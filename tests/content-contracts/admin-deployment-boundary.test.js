@@ -213,4 +213,43 @@ describe('Admin deployment boundary', () => {
     expect(file.mock.calls.map(([path]) => path)).toEqual([artifactPath, artifactPath, artifactPath, assetPath]);
     expect(bucket.getFiles).not.toHaveBeenCalled();
   });
+
+  it('logs only bounded, sanitized fields for a failed artifact upload and never logs success', async () => {
+    const logger = { error: vi.fn() };
+    const path = 'published-content/courses/course-one/v2.json';
+    const save = vi.fn().mockResolvedValueOnce(undefined);
+    const bucket = { name: 'mi-tutora-pro-admin-content', file: vi.fn(() => ({ save })) };
+    const artifacts = new FirebaseArtifactStore(bucket, { logger });
+    const bytes = Buffer.from('{}');
+    const metadata = { artifactHash: 'abc', contentId: 'course-one', version: '2' };
+    await artifacts.createImmutable(path, bytes, metadata);
+    expect(logger.error).not.toHaveBeenCalled();
+
+    const secret = 'Bearer shortSecretValue';
+    const oidcToken = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.signature';
+    const error = Object.assign(new Error('raw error must not be logged'), {
+      code: 403,
+      errors: [{ reason: 'forbidden', message: `Permission denied. Authorization: ${secret} OIDC token: ${oidcToken} ${' error-detail'.repeat(40)}` }],
+      response: { statusCode: 403, headers: { authorization: secret }, body: JSON.stringify({ error: { code: 403, status: 'PERMISSION_DENIED', message: 'Permission denied.' } }) },
+      credentials: { access_token: secret },
+    });
+    save.mockRejectedValueOnce(error);
+    await expect(artifacts.createImmutable(path, bytes, metadata)).rejects.toBe(error);
+    expect(logger.error).toHaveBeenCalledTimes(1);
+    const logged = JSON.parse(logger.error.mock.calls[0][0]);
+    expect(logged).toEqual({
+      operation: 'admin-content-artifact-upload', bucket: bucket.name, objectPath: path,
+      httpStatus: 403, googleCode: 'PERMISSION_DENIED', googleReason: 'forbidden',
+      googleMessage: expect.stringContaining('Permission denied.'),
+    });
+    expect(logged.googleMessage.length).toBe(300);
+    expect(JSON.stringify(logged)).not.toContain(secret);
+    expect(JSON.stringify(logged)).not.toContain('shortSecretValue');
+    expect(JSON.stringify(logged)).not.toContain(oidcToken);
+    expect(JSON.stringify(logged)).not.toContain('authorization');
+    expect(JSON.stringify(logged)).not.toContain('access_token');
+    expect(JSON.stringify(logged)).not.toContain('raw error must not be logged');
+    expect(bucket.file).toHaveBeenCalledWith(path);
+    expect(save).toHaveBeenLastCalledWith(bytes, { resumable: false, contentType: 'application/json', metadata: { metadata: { ...metadata, publicationState: 'CREATING' } }, preconditionOpts: { ifGenerationMatch: 0 } });
+  });
 });

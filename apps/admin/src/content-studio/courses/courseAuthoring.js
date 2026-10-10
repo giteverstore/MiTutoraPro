@@ -9,6 +9,9 @@ export const countCourseLessons = (course) => course.modules.reduce((total, modu
 export function newCourseLesson(order = 1) {
   return { id: courseUid('lesson'), order, number: String(order), title: 'Untitled lesson', summary: '', status: 'available', estimatedMinutes: 5, tags: [], blocks: [{ id: courseUid('paragraph'), type: 'paragraph', content: 'Write the lesson introduction.', format: 'plain' }] };
 }
+export function newCourseSection(order = 1) {
+  return { id: courseUid('section'), order, title: `Section ${order}`, description: '', initiallyExpanded: true, lessons: [newCourseLesson(1)] };
+}
 export function newCourseModule(order = 1) {
   return { id: courseUid('module'), order, title: `Module ${order}`, description: '', initiallyExpanded: order === 1, lessons: [newCourseLesson(1)] };
 }

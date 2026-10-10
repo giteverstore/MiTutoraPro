@@ -78,6 +78,24 @@ describe('Phase 6 content publication lifecycle', () => {
     expect((await store.getVersion(first.contentId, 2)).status).toBe('FAILED');
   });
 
+  it('keeps the public Admin API response sanitized after an artifact upload failure', async () => {
+    const { service, store } = setup();
+    const draft = await save(service);
+    service.artifacts = { createImmutable: async () => { throw new Error('Google Storage internal detail'); } };
+    const router = createAdminContentApiRouter({
+      environment: {}, authorize: async () => actor(),
+      credentialFactory: () => ({ preflight: async () => {} }),
+      dependencies: async () => ({ service, close: async () => {} }),
+    });
+    const response = { statusCode: 0, setHeader() {}, status(value) { this.statusCode = value; return this; }, json(value) { this.body = value; return this; } };
+    await router({ method: 'POST', url: '/api/admin-content/publish', query: { path: ['publish'] }, headers: {}, body: { contentType: 'PROJECT', contentId: draft.contentId, expectedRevision: 1 } }, response);
+    expect(response.statusCode).toBe(503);
+    expect(response.body).toEqual({ error: { code: 'content/publication-failed', message: 'Content service is temporarily unavailable.' } });
+    expect(JSON.stringify(response.body)).not.toContain('Google Storage internal detail');
+    expect((await store.getVersion(draft.contentId, 1)).status).toBe('FAILED');
+    expect((await store.getPointer(draft.contentId)).activeVersion).toBeUndefined();
+  });
+
   it('serializes simultaneous publish attempts without duplicate versions', async () => {
     const { service, store } = setup();
     const draft = await save(service);

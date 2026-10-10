@@ -1,5 +1,46 @@
 import { expect, test } from '@playwright/test';
 
+test('Course outline keeps flat lessons and converts to canonical sections without losing lesson IDs', async ({ page }) => {
+  await page.goto('/tests/browser/index.html?mode=courses');
+  const outline = page.getByRole('navigation', { name: 'Course structure' });
+  await expect(outline.getByRole('button', { name: 'Course Overview' })).toHaveAttribute('aria-current', 'page');
+  await expect(outline.getByRole('button', { name: /1\. Module 1 1 lessons/ })).toBeVisible();
+  await expect(outline.getByRole('button', { name: '1. Untitled lesson' })).toBeVisible();
+  await outline.getByRole('button', { name: '1. Untitled lesson' }).click();
+  const originalLessonId = await page.getByLabel('Stable lesson ID').inputValue();
+  await outline.getByRole('button', { name: '+ Add section', exact: true }).click();
+  await expect(outline.getByRole('button', { name: 'Section 1 1 items' })).toBeVisible();
+  await expect(outline.getByRole('button', { name: 'Section 2 1 items' })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByLabel('Properties').getByRole('heading', { name: 'Section 2' })).toBeVisible();
+  await expect(outline.getByRole('button', { name: '1. Untitled lesson' })).toHaveCount(2);
+  await outline.getByRole('button', { name: '1. Untitled lesson' }).first().click();
+  await expect(page.getByLabel('Stable lesson ID')).toHaveValue(originalLessonId);
+  await outline.getByRole('button', { name: '+ Add lesson to Section 2' }).click();
+  await expect(outline.getByRole('button', { name: 'Section 2 2 items' })).toBeVisible();
+  await expect(outline.getByRole('button', { name: 'Actions for Section 2' })).toBeVisible();
+  await page.getByRole('button', { name: 'Validate Course' }).click();
+  await expect(page.getByText('Content is valid')).toBeVisible();
+  await outline.getByRole('button', { name: 'Course Overview' }).click();
+  await expect(page.getByRole('heading', { name: 'Course properties' })).toBeVisible();
+  await outline.getByRole('button', { name: 'Section 2 2 items' }).click();
+  await page.getByLabel('Title', { exact: true }).fill('A very long section title that must stay within the structure sidebar without pushing the actions or creating horizontal overflow');
+  await expect.poll(() => outline.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+});
+
+test('Course section actions reorder and delete without leaving a broken default lesson', async ({ page }) => {
+  await page.goto('/tests/browser/index.html?mode=courses');
+  const outline = page.getByRole('navigation', { name: 'Course structure' });
+  await outline.getByRole('button', { name: '+ Add section', exact: true }).click();
+  await outline.getByRole('button', { name: 'Actions for Section 2' }).click();
+  await page.getByRole('menuitem', { name: 'Move Section 2 up' }).click();
+  await expect(outline.locator('.course-outline-section-row .course-outline-title').first()).toHaveText('Section 2');
+  await outline.getByRole('button', { name: 'Actions for Section 1' }).click();
+  await page.getByRole('menuitem', { name: 'Delete Section 1' }).click();
+  await expect(outline.getByRole('button', { name: 'Section 1 1 items' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Validate Course' }).click();
+  await expect(page.getByText('Content is valid')).toBeVisible();
+});
+
 test('Course structure menus close outside, on Escape, and when another opens', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/tests/browser/index.html?mode=courses');

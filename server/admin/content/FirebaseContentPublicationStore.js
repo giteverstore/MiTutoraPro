@@ -85,9 +85,45 @@ export class FirebaseContentPublicationStore {
   async getVersion(id, version) { const snapshot = await versionRef(this.db, id, version).get(); return snapshot.exists ? snapshot.data() : null; }
 }
 
+const safeArtifactPath = (path) => /^published-content\/(?:projects|courses|practices|challenges)\/[a-z0-9][a-z0-9._-]{0,119}\/v[1-9]\d*\.json$/i.test(path)
+  ? path : 'published-content/[invalid-path]';
+const safeGoogleIdentifier = (value) => typeof value === 'string' && /^[a-z][a-z0-9._-]{0,79}$/i.test(value) ? value : null;
+const safeGoogleMessage = (value) => typeof value === 'string' ? value
+  .replace(/\b(?:Bearer|Basic)\s+[^\s,;]+/gi, '[redacted]')
+  .replace(/\b(?:authorization|access[_ -]?token|id[_ -]?token|oidc[_ -]?token|refresh[_ -]?token|api[_ -]?key|private[_ -]?key|password)\b\s*[:=]\s*(?:"[^"]*"|'[^']*'|[^\s,;]+)/gi, '[redacted]')
+  .replace(/\b(?:ya29\.[^\s,;]+|eyJ[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+)\b/gi, '[redacted]')
+  .replace(/\b[a-z0-9_-]{24,}\b/gi, '[redacted]')
+  .replace(/[\r\n\t\x00-\x1f\x7f]/g, ' ').slice(0, 300) : null;
+
+function artifactUploadDiagnostic(bucketName, path, error) {
+  let googleError;
+  const body = error?.response?.body;
+  if (typeof body === 'string' && body.length <= 16_000) {
+    try { googleError = JSON.parse(body)?.error; } catch { /* No structured Google error body. */ }
+  } else if (body && typeof body === 'object') googleError = body.error;
+  const status = error?.response?.statusCode ?? error?.response?.status ?? error?.code;
+  const firstDetail = Array.isArray(error?.errors) ? error.errors[0] : null;
+  return {
+    operation: 'admin-content-artifact-upload',
+    bucket: /^[a-z0-9][a-z0-9._-]{0,221}$/i.test(bucketName) ? bucketName : '[invalid-bucket]',
+    objectPath: safeArtifactPath(path),
+    httpStatus: Number.isInteger(Number(status)) && Number(status) >= 100 && Number(status) <= 599 ? Number(status) : null,
+    googleCode: safeGoogleIdentifier(googleError?.status) ?? (Number.isInteger(googleError?.code) ? String(googleError.code) : Number.isInteger(error?.code) ? String(error.code) : null),
+    googleReason: safeGoogleIdentifier(firstDetail?.reason),
+    googleMessage: safeGoogleMessage(firstDetail?.message ?? googleError?.message),
+  };
+}
+
 export class FirebaseArtifactStore {
-  constructor(bucket) { this.bucket = bucket; this.bucketName = bucket.name; }
-  async createImmutable(path, bytes, metadata) { await this.bucket.file(path).save(bytes, { resumable: false, contentType: 'application/json', metadata: { metadata: { ...metadata, publicationState: 'CREATING' } }, preconditionOpts: { ifGenerationMatch: 0 } }); }
+  constructor(bucket, { logger = console } = {}) { this.bucket = bucket; this.bucketName = bucket.name; this.logger = logger; }
+  async createImmutable(path, bytes, metadata) {
+    try {
+      await this.bucket.file(path).save(bytes, { resumable: false, contentType: 'application/json', metadata: { metadata: { ...metadata, publicationState: 'CREATING' } }, preconditionOpts: { ifGenerationMatch: 0 } });
+    } catch (error) {
+      try { this.logger.error(JSON.stringify(artifactUploadDiagnostic(this.bucketName, path, error))); } catch { /* Logging must not replace the upload failure. */ }
+      throw error;
+    }
+  }
   async read(path) { const [bytes] = await this.bucket.file(path).download(); return bytes; }
   async markReady(path) { const file = this.bucket.file(path); const [metadata] = await file.getMetadata(); await file.setMetadata({ metadata: { ...(metadata.metadata ?? {}), publicationState: 'READY' } }); }
 }

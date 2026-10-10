@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { AlignLeft, BookOpen, Braces, Code2, Heading2, Image, List, ListChecks, MessageSquareWarning, MoreVertical, Plus, Table2, Trash2 } from 'lucide-react';
+import { AlignLeft, BookOpen, Braces, ChevronDown, ChevronRight, Code2, Heading2, Image, List, ListChecks, MessageSquareWarning, MoreVertical, Plus, Table2, Trash2 } from 'lucide-react';
 import { CANONICAL_LANGUAGE_IDS } from '../../../../../shared/content/index.js';
 import { CloudDraftRepository } from '../persistence/CloudDraftRepository.js';
 import { LocalDraftRepository } from '../persistence/DraftRepository.js';
@@ -13,7 +13,7 @@ import { BlockPalette } from '../blocks/BlockPalette.jsx';
 import { BlockCanvas } from '../blocks/BlockCanvas.jsx';
 import { useLegacyBlockWorkspace } from '../blocks/useLegacyBlockWorkspace.js';
 import { LegacyBlockInspector } from '../inspector/LegacyBlockInspector.jsx';
-import { countCourseLessons, courseLessons, courseUid, createCourseDraft, newCourseLesson, newCourseModule, reindexCourse, validateCourseDraft } from './courseAuthoring.js';
+import { countCourseLessons, courseLessons, courseUid, createCourseDraft, newCourseLesson, newCourseModule, newCourseSection, reindexCourse, validateCourseDraft } from './courseAuthoring.js';
 import '../projects/project-studio.css';
 
 const local = globalThis.localStorage?.getItem ? globalThis.localStorage : null;
@@ -47,14 +47,27 @@ function CourseEditor({ routeId, role, readOnly, onDirtyChange }) {
   const [validation, setValidation] = useState(null);
   const content = draft.content;
   const module = content.modules.find((item) => item.id === selected.moduleId);
+  const section = module?.sections?.find((item) => item.id === selected.sectionId);
   const lesson = module && courseLessons(module).find((item) => item.id === selected.lessonId);
   const update = (fn) => { if (readOnly) return; edit((current) => ({ ...current, content: fn(structuredClone(current.content)) })); setValidation(null); };
   const patchContent = (patch) => update((value) => Object.assign(value, patch));
   const patchModule = (patch) => update((value) => { Object.assign(value.modules.find((item) => item.id === selected.moduleId), patch); return value; });
+  const patchSection = (patch) => update((value) => { Object.assign(value.modules.find((item) => item.id === selected.moduleId).sections.find((item) => item.id === selected.sectionId), patch); return value; });
   const patchLesson = (patch) => update((value) => { const owner = value.modules.find((item) => item.id === selected.moduleId); Object.assign(courseLessons(owner).find((item) => item.id === selected.lessonId), patch); return value; });
   const json = useMemo(() => JSON.stringify({ ...draft, documentId: undefined, draftRevision: undefined }, null, 2), [draft]);
   const addModule = () => update((value) => { const next = newCourseModule(value.modules.length + 1); value.modules.push(next); setSelected({ type: 'module', moduleId: next.id }); return value; });
-  const addLesson = (owner) => update((value) => { const found = value.modules.find((item) => item.id === owner.id); const target = found.lessons ?? found.sections[0].lessons; const next = newCourseLesson(target.length + 1); target.push(next); setSelected({ type: 'lesson', moduleId: found.id, lessonId: next.id }); return value; });
+  const addLesson = (moduleId, sectionId) => update((value) => { const found = value.modules.find((item) => item.id === moduleId); const target = sectionId ? found.sections.find((item) => item.id === sectionId).lessons : found.lessons; const next = newCourseLesson((target.at(-1)?.order ?? 0) + 1); target.push(next); setSelected({ type: 'lesson', moduleId, lessonId: next.id }); return value; });
+  const addSection = (moduleId) => update((value) => {
+    const owner = value.modules.find((item) => item.id === moduleId);
+    if (!owner.sections) {
+      owner.sections = [{ id: courseUid('section'), order: 1, title: 'Section 1', description: '', initiallyExpanded: true, lessons: owner.lessons }];
+      delete owner.lessons;
+    }
+    const next = newCourseSection(owner.sections.length + 1);
+    owner.sections.push(next);
+    setSelected({ type: 'section', moduleId, sectionId: next.id });
+    return value;
+  });
   const blocks = useLegacyBlockWorkspace({ scopeId: lesson?.id, blocks: lesson?.blocks ?? [], setBlocks: (next) => patchLesson({ blocks: next }), makeId: courseUid });
   useEffect(() => {
     if (!pendingBlockSelection || pendingBlockSelection.lessonId !== lesson?.id) return;
@@ -65,18 +78,20 @@ function CourseEditor({ routeId, role, readOnly, onDirtyChange }) {
   const showPublication = () => document.getElementById('project-publication-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const selectIssue = (path) => {
     const moduleIndex = Number(/modules\[(\d+)\]/.exec(path)?.[1]);
+    const sectionIndex = Number(/sections\[(\d+)\]/.exec(path)?.[1]);
     const lessonIndex = Number(/lessons\[(\d+)\]/.exec(path)?.[1]);
     const blockIndex = Number(/blocks\[(\d+)\]/.exec(path)?.[1]);
     const owner = content.modules[moduleIndex];
     if (!owner) { setSelected({ type: 'overview' }); return; }
-    const target = courseLessons(owner)[lessonIndex];
-    setSelected(target ? { type: 'lesson', moduleId: owner.id, lessonId: target.id } : { type: 'module', moduleId: owner.id });
+    const sectionOwner = Number.isInteger(sectionIndex) ? owner.sections?.[sectionIndex] : null;
+    const target = Number.isInteger(lessonIndex) ? (sectionOwner?.lessons ?? owner.lessons)?.[lessonIndex] : null;
+    setSelected(target ? { type: 'lesson', moduleId: owner.id, lessonId: target.id } : sectionOwner ? { type: 'section', moduleId: owner.id, sectionId: sectionOwner.id } : { type: 'module', moduleId: owner.id });
     if (target && Number.isInteger(blockIndex)) setPendingBlockSelection({ lessonId: target.id, blockId: target.blocks[blockIndex]?.id ?? null });
     setView('author');
   };
   return <div className="project-studio course-studio studio-unified">
     <StudioHeader type="COURSE" title={content.title} draft={draft} dirty={dirty} saveError={saveError} readOnly={readOnly} role={role} view={view} onView={setView} onValidate={() => setValidation(validateCourseDraft(draft))} onHistory={repository.publish ? showPublication : null} onPublish={repository.publish ? () => document.getElementById('content-studio-publish-button')?.click() : null} onReload={reload} />
-    {view === 'json' ? <section className="content-json-view"><pre><code>{json}</code></pre></section> : view === 'preview' ? <CoursePreview course={content} /> : <StudioWorkspace structureLabel="Course structure" toolbar={<BlockPalette variant="toolbar" definitions={coursePalette} create={create} dispatch={blocks.dispatch} disabled={readOnly || !lesson} selectedBlockId={blocks.selectedBlockId} />} structure={<CourseTree course={content} selected={selected} select={setSelected} addModule={addModule} addLesson={addLesson} update={update} readOnly={readOnly} />} canvas={lesson ? <><header className="studio-canvas-heading"><h2>{lesson.title}</h2><span>{lesson.blocks.length} blocks</span></header><BlockCanvas blocks={blocks.canvasBlocks} selectedBlockId={blocks.selectedBlockId} readOnly={readOnly} language={content.language} dispatch={blocks.dispatch} create={create} renderPreview={courseBlockSummary} /></> : <div className="content-studio-empty"><h2>{selected.type === 'module' ? module?.title : content.title}</h2><p>{selected.type === 'module' ? 'Choose a lesson or add one to this module.' : 'Choose a module or lesson to begin authoring.'}</p></div>} inspector={<><h2 className="studio-inspector-heading">{blocks.selectedBlock && lesson ? 'Block properties' : selected.type === 'lesson' ? 'Lesson properties' : selected.type === 'module' ? 'Module properties' : 'Course properties'}</h2>{blocks.selectedBlock && lesson ? <LegacyBlockInspector block={blocks.selectedBlock} readOnly={readOnly} onChange={(patch) => patchLesson({ blocks: lesson.blocks.map((item) => item.id === blocks.selectedBlockId ? { ...item, ...patch } : item) })} /> : selected.type === 'lesson' && lesson ? <CourseLessonMetadata lesson={lesson} patch={patchLesson} readOnly={readOnly} /> : selected.type === 'module' && module ? <div className="project-form"><ModuleEditor module={module} patch={patchModule} readOnly={readOnly} /></div> : <div className="project-form"><CourseOverview course={content} patch={patchContent} readOnly={readOnly} /></div>}</>} />}
+    {view === 'json' ? <section className="content-json-view"><pre><code>{json}</code></pre></section> : view === 'preview' ? <CoursePreview course={content} /> : <StudioWorkspace structureLabel="Course structure" toolbar={<BlockPalette variant="toolbar" definitions={coursePalette} create={create} dispatch={blocks.dispatch} disabled={readOnly || !lesson} selectedBlockId={blocks.selectedBlockId} />} structure={<CourseTree course={content} selected={selected} select={setSelected} addModule={addModule} addSection={addSection} addLesson={addLesson} update={update} readOnly={readOnly} />} canvas={lesson ? <><header className="studio-canvas-heading"><h2>{lesson.title}</h2><span>{lesson.blocks.length} blocks</span></header><BlockCanvas blocks={blocks.canvasBlocks} selectedBlockId={blocks.selectedBlockId} readOnly={readOnly} language={content.language} dispatch={blocks.dispatch} create={create} renderPreview={courseBlockSummary} /></> : <div className="content-studio-empty"><h2>{section?.title ?? module?.title ?? content.title}</h2><p>{selected.type === 'section' ? 'Choose a lesson or add one to this section.' : selected.type === 'module' ? 'Choose a lesson or section to author.' : 'Choose a module or lesson to begin authoring.'}</p></div>} inspector={<><h2 className="studio-inspector-heading">{blocks.selectedBlock && lesson ? 'Block properties' : selected.type === 'lesson' ? 'Lesson properties' : selected.type === 'section' ? 'Section properties' : selected.type === 'module' ? 'Module properties' : 'Course properties'}</h2>{blocks.selectedBlock && lesson ? <LegacyBlockInspector block={blocks.selectedBlock} readOnly={readOnly} onChange={(patch) => patchLesson({ blocks: lesson.blocks.map((item) => item.id === blocks.selectedBlockId ? { ...item, ...patch } : item) })} /> : selected.type === 'lesson' && lesson ? <CourseLessonMetadata lesson={lesson} patch={patchLesson} readOnly={readOnly} /> : selected.type === 'section' && section ? <div className="project-form"><SectionEditor section={section} patch={patchSection} readOnly={readOnly} /></div> : selected.type === 'module' && module ? <div className="project-form"><ModuleEditor module={module} patch={patchModule} readOnly={readOnly} /></div> : <div className="project-form"><CourseOverview course={content} patch={patchContent} readOnly={readOnly} /></div>}</>} />}
     {validation && <section className="project-validation" aria-live="polite"><h2>Course validation</h2>{validation.valid ? <p>Content is valid</p> : <><p>{validation.errors.length} issues to fix.</p><ul>{validation.errors.map((error, index) => <li key={`${error.path}-${index}`}><button type="button" onClick={() => selectIssue(error.path)}>{error.path}: {error.message}</button></li>)}</ul></>}</section>}
     {repository.publish ? <ProjectPublicationPanel draft={draft} dirty={dirty} role={role} repository={repository} onValidation={setValidation} onReload={reload} /> : null}
   </div>;
@@ -88,50 +103,63 @@ function CourseLessonMetadata({ lesson, patch, readOnly }) {
   return <div className="project-form"><section><h2>Lesson {lesson.order}</h2><div className="project-fields"><Field label="Stable lesson ID" value={lesson.id} readOnly /><Field label="Title" value={lesson.title} readOnly={readOnly} onChange={(event) => patch({ title: event.target.value })} /><label><span>Summary</span><textarea value={lesson.summary ?? ''} readOnly={readOnly} onChange={(event) => patch({ summary: event.target.value })} /></label><Field label="Estimated minutes" type="number" min="0" value={lesson.estimatedMinutes ?? 0} readOnly={readOnly} onChange={(event) => patch({ estimatedMinutes: Number(event.target.value) })} /></div></section></div>;
 }
 
-function CourseTree({ course, selected, select, addModule, addLesson, update, readOnly }) {
+function CourseTree({ course, selected, select, addModule, addSection, addLesson, update, readOnly }) {
   const [openMenuId, setOpenMenuId] = useState(null);
-  const updateLessonGroup = (moduleId, lessonId, fn) => update((value) => {
+  const [collapsedModules, setCollapsedModules] = useState(() => new Set());
+  const [collapsedSections, setCollapsedSections] = useState(() => new Set());
+  const toggle = (setter, id) => setter((current) => { const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  const updateLessonGroup = (moduleId, sectionId, fn) => update((value) => {
     const owner = value.modules.find((item) => item.id === moduleId);
-    const section = owner.sections?.find((item) => item.lessons.some((candidate) => candidate.id === lessonId));
-    const group = section ?? owner;
+    const group = sectionId ? owner.sections.find((item) => item.id === sectionId) : owner;
     group.lessons = fn(group.lessons);
     return value;
   });
-  return <nav className="project-tree" aria-label="Course structure">
-    <button className={selected.type === 'overview' ? 'active' : ''} onClick={() => select({ type: 'overview' })}>Course Overview</button>
-    {course.modules.map((module, index) => <div key={module.id}>
-      <div className="studio-tree-row">
-        <button className={selected.moduleId === module.id && selected.type === 'module' ? 'active' : ''} onClick={() => select({ type: 'module', moduleId: module.id })}><strong>{module.order}. {module.title}</strong><span>{courseLessons(module).length} lessons</span></button>
-        {!readOnly && <><button className="studio-tree-icon" aria-label="+ Add lesson" onClick={() => addLesson(module)}><Plus aria-hidden="true" /></button><CourseRowMenu menuId={`module:${module.id}`} openMenuId={openMenuId} setOpenMenuId={setOpenMenuId} title={module.title} actions={[
-          { label: `Move ${module.title} up`, disabled: index === 0, run: () => update((value) => { value.modules = move(value.modules, index, -1); return value; }) },
-          { label: `Move ${module.title} down`, disabled: index === course.modules.length - 1, run: () => update((value) => { value.modules = move(value.modules, index, 1); return value; }) },
+  const lessonRows = (module, section) => (section?.lessons ?? module.lessons).map((lesson, lessonIndex, group) => <div className={`course-outline-row course-outline-lesson ${section ? 'is-section-lesson' : ''}`} key={lesson.id}>
+    <button type="button" className={`course-outline-label ${selected.lessonId === lesson.id && selected.type === 'lesson' ? 'active' : ''}`} aria-current={selected.lessonId === lesson.id && selected.type === 'lesson' ? 'page' : undefined} onClick={() => select({ type: 'lesson', moduleId: module.id, lessonId: lesson.id })}><BookOpen aria-hidden="true" /><span className="course-outline-title">{lesson.order}. {lesson.title}</span></button>
+    {!readOnly && <CourseRowMenu menuId={`lesson:${lesson.id}`} openMenuId={openMenuId} setOpenMenuId={setOpenMenuId} title={lesson.title} actions={[
+      { label: `Move ${lesson.title} up`, disabled: lessonIndex === 0, run: () => updateLessonGroup(module.id, section?.id, (items) => move(items, lessonIndex, -1)) },
+      { label: `Move ${lesson.title} down`, disabled: lessonIndex === group.length - 1, run: () => updateLessonGroup(module.id, section?.id, (items) => move(items, lessonIndex, 1)) },
+      { label: `Delete ${lesson.title}`, disabled: group.length === 1, run: () => {
+        update((value) => {
+          const owner = value.modules.find((item) => item.id === module.id);
+          const target = section ? owner.sections.find((item) => item.id === section.id) : owner;
+          target.lessons = reindexCourse(target.lessons.filter((item) => item.id !== lesson.id));
+          if (value.defaultLessonId === lesson.id) value.defaultLessonId = value.modules.flatMap(courseLessons)[0]?.id;
+          return value;
+        });
+        select({ type: section ? 'section' : 'module', moduleId: module.id, sectionId: section?.id });
+      } },
+    ]} />}
+  </div>);
+  return <nav className="project-tree course-outline" aria-label="Course structure">
+    <button type="button" className={`course-outline-overview ${selected.type === 'overview' ? 'active' : ''}`} aria-current={selected.type === 'overview' ? 'page' : undefined} onClick={() => select({ type: 'overview' })}>Course Overview</button>
+    {course.modules.map((module, moduleIndex) => <div className="course-outline-module" key={module.id}>
+      <div className="course-outline-row course-outline-module-row">
+        <button type="button" className="course-outline-toggle" aria-label={`${collapsedModules.has(module.id) ? 'Expand' : 'Collapse'} ${module.title}`} aria-expanded={!collapsedModules.has(module.id)} onClick={() => toggle(setCollapsedModules, module.id)}>{collapsedModules.has(module.id) ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}</button>
+        <button type="button" className={`course-outline-label ${selected.moduleId === module.id && selected.type === 'module' ? 'active' : ''}`} aria-current={selected.moduleId === module.id && selected.type === 'module' ? 'page' : undefined} onClick={() => select({ type: 'module', moduleId: module.id })}><strong className="course-outline-title">{module.order}. {module.title}</strong><span className="course-outline-count">{courseLessons(module).length} lessons</span></button>
+        {!readOnly && <><button type="button" className="studio-tree-icon course-outline-add-icon" aria-label={module.sections ? `+ Add section to ${module.title}` : '+ Add lesson'} onClick={() => module.sections ? addSection(module.id) : addLesson(module.id)}><Plus aria-hidden="true" /></button><CourseRowMenu menuId={`module:${module.id}`} openMenuId={openMenuId} setOpenMenuId={setOpenMenuId} title={module.title} actions={[
+          { label: `Move ${module.title} up`, disabled: moduleIndex === 0, run: () => update((value) => { value.modules = move(value.modules, moduleIndex, -1); return value; }) },
+          { label: `Move ${module.title} down`, disabled: moduleIndex === course.modules.length - 1, run: () => update((value) => { value.modules = move(value.modules, moduleIndex, 1); return value; }) },
           { label: `Delete ${module.title}`, disabled: course.modules.length === 1, run: () => update((value) => { value.modules = reindexCourse(value.modules.filter((item) => item.id !== module.id)); if (!value.modules.flatMap(courseLessons).some((item) => item.id === value.defaultLessonId)) value.defaultLessonId = value.modules.flatMap(courseLessons)[0]?.id; select({ type: 'overview' }); return value; }) },
         ]} /></>}
       </div>
-      {courseLessons(module).map((lesson) => {
-        const group = module.sections?.find((item) => item.lessons.some((candidate) => candidate.id === lesson.id))?.lessons ?? module.lessons;
-        const lessonIndex = group.findIndex((candidate) => candidate.id === lesson.id);
-        return <div className="studio-tree-row is-lesson" key={lesson.id}>
-          <button className={`task ${selected.lessonId === lesson.id ? 'active' : ''}`} onClick={() => select({ type: 'lesson', moduleId: module.id, lessonId: lesson.id })}>{lesson.order}. {lesson.title}</button>
-          {!readOnly && <CourseRowMenu menuId={`lesson:${lesson.id}`} openMenuId={openMenuId} setOpenMenuId={setOpenMenuId} title={lesson.title} actions={[
-            { label: `Move ${lesson.title} up`, disabled: lessonIndex === 0, run: () => updateLessonGroup(module.id, lesson.id, (items) => move(items, lessonIndex, -1)) },
-            { label: `Move ${lesson.title} down`, disabled: lessonIndex === group.length - 1, run: () => updateLessonGroup(module.id, lesson.id, (items) => move(items, lessonIndex, 1)) },
-            { label: `Delete ${lesson.title}`, disabled: countCourseLessons(course) === 1, run: () => {
-              update((value) => {
-                const owner = value.modules.find((item) => item.id === module.id);
-                const section = owner.sections?.find((item) => item.lessons.some((candidate) => candidate.id === lesson.id));
-                const target = section ?? owner;
-                target.lessons = reindexCourse(target.lessons.filter((item) => item.id !== lesson.id));
-                if (value.defaultLessonId === lesson.id) value.defaultLessonId = value.modules.flatMap(courseLessons)[0]?.id;
-                return value;
-              });
-              select({ type: 'overview' });
-            } },
-          ]} />}
-        </div>;
-      })}
+      {!collapsedModules.has(module.id) && <div className="course-outline-children">
+        {module.sections ? module.sections.map((section, sectionIndex) => <div className="course-outline-section" key={section.id}>
+          <div className="course-outline-row course-outline-section-row">
+            <button type="button" className="course-outline-toggle" aria-label={`${collapsedSections.has(section.id) ? 'Expand' : 'Collapse'} ${section.title}`} aria-expanded={!collapsedSections.has(section.id)} onClick={() => toggle(setCollapsedSections, section.id)}>{collapsedSections.has(section.id) ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}</button>
+            <button type="button" className={`course-outline-label ${selected.sectionId === section.id && selected.type === 'section' ? 'active' : ''}`} aria-current={selected.sectionId === section.id && selected.type === 'section' ? 'page' : undefined} onClick={() => select({ type: 'section', moduleId: module.id, sectionId: section.id })}><span className="course-outline-title">{section.title}</span><span className="course-outline-count">{section.lessons.length} items</span></button>
+            {!readOnly && <><button type="button" className="studio-tree-icon course-outline-add-icon" aria-label={`+ Add lesson to ${section.title}`} onClick={() => addLesson(module.id, section.id)}><Plus aria-hidden="true" /></button><CourseRowMenu menuId={`section:${section.id}`} openMenuId={openMenuId} setOpenMenuId={setOpenMenuId} title={section.title} actions={[
+              { label: `Move ${section.title} up`, disabled: sectionIndex === 0, run: () => update((value) => { const owner = value.modules.find((item) => item.id === module.id); owner.sections = move(owner.sections, sectionIndex, -1); return value; }) },
+              { label: `Move ${section.title} down`, disabled: sectionIndex === module.sections.length - 1, run: () => update((value) => { const owner = value.modules.find((item) => item.id === module.id); owner.sections = move(owner.sections, sectionIndex, 1); return value; }) },
+              { label: `Delete ${section.title}`, disabled: module.sections.length === 1, run: () => update((value) => { const owner = value.modules.find((item) => item.id === module.id); owner.sections = reindexCourse(owner.sections.filter((item) => item.id !== section.id)); if (!value.modules.flatMap(courseLessons).some((item) => item.id === value.defaultLessonId)) value.defaultLessonId = value.modules.flatMap(courseLessons)[0]?.id; select({ type: 'module', moduleId: module.id }); return value; }) },
+            ]} /></>}
+          </div>
+          {!collapsedSections.has(section.id) && <div className="course-outline-children">{lessonRows(module, section)}</div>}
+        </div>) : lessonRows(module)}
+        {!readOnly && <button type="button" className="course-outline-add-section" onClick={() => addSection(module.id)}>+ Add section</button>}
+      </div>}
     </div>)}
-    {!readOnly && <button onClick={addModule}>+ Add module</button>}
+    {!readOnly && <button type="button" className="course-outline-add-module" onClick={addModule}>+ Add module</button>}
   </nav>;
 }
 
@@ -206,10 +234,11 @@ function CourseRowMenu({ menuId, openMenuId, setOpenMenuId, title, actions }) {
 
 function CourseOverview({ course, patch, readOnly }) { return <section><h2>Course metadata</h2><div className="project-fields"><Field label="Stable Course ID" value={course.courseId} readOnly /><Field label="Title" value={course.title} readOnly={readOnly} onChange={(e) => patch({ title: e.target.value })} /><Field label="Subtitle" value={course.subtitle ?? ''} readOnly={readOnly} onChange={(e) => patch({ subtitle: e.target.value })} /><label><span>Description</span><textarea value={course.description} readOnly={readOnly} onChange={(e) => patch({ description: e.target.value })} /></label><label><span>Language</span><select value={course.language} disabled={readOnly} onChange={(e) => patch({ language: e.target.value })}>{CANONICAL_LANGUAGE_IDS.map((language) => <option key={language}>{language}</option>)}</select></label><label><span>Difficulty</span><select value={course.difficulty} disabled={readOnly} onChange={(e) => patch({ difficulty: e.target.value })}>{['Beginner','Easy','Intermediate','Advanced'].map((value) => <option key={value}>{value}</option>)}</select></label><Field label="Estimated minutes" type="number" min="1" value={course.estimatedMinutes} readOnly={readOnly} onChange={(e) => patch({ estimatedMinutes: Number(e.target.value) })} /><Field label="Derived module count" value={course.modules.length} readOnly /><Field label="Derived lesson count" value={countCourseLessons(course)} readOnly /><Lines label="Prerequisites" value={course.prerequisites} readOnly={readOnly} onChange={(value) => patch({ prerequisites: value })} /><Lines label="Learning outcomes" value={course.learningOutcomes} readOnly={readOnly} onChange={(value) => patch({ learningOutcomes: value })} /></div></section>; }
 function ModuleEditor({ module, patch, readOnly }) { return <section><h2>Module {module.order}</h2><div className="project-fields"><Field label="Stable module ID" value={module.id} readOnly /><Field label="Title" value={module.title} readOnly={readOnly} onChange={(e) => patch({ title: e.target.value })} /><label><span>Description</span><textarea value={module.description ?? ''} readOnly={readOnly} onChange={(e) => patch({ description: e.target.value })} /></label></div></section>; }
+function SectionEditor({ section, patch, readOnly }) { return <section><h2>Section {section.order}</h2><div className="project-fields"><Field label="Stable section ID" value={section.id} readOnly /><Field label="Title" value={section.title} readOnly={readOnly} onChange={(e) => patch({ title: e.target.value })} /><label><span>Description</span><textarea value={section.description ?? ''} readOnly={readOnly} onChange={(e) => patch({ description: e.target.value })} /></label></div></section>; }
 
 function CoreLessonEditor({ lesson, patch, language, readOnly }) {
   const updateBlock = (id, delta) => patch({ blocks: lesson.blocks.map((block) => block.id === id ? { ...block, ...delta } : block) });
-  const addBlock = (type) => { const block = type === 'quiz' ? { id: courseUid('quiz'), type, question: 'Choose the correct answer.', selectionMode: 'single', options: [{ id: 'option-a', text: 'Answer A' }, { id: 'option-b', text: 'Answer B' }], correctOptionIds: ['option-a'], submitLabel: 'Check answer' } : type === 'compiler' ? { id: courseUid('compiler'), type, language, runtime: language, starterCode: '', expectedOutput: '', runLabel: 'Run code', resetLabel: 'Reset' } : type === 'code' ? { id: courseUid('code'), type, language, code: '', mode: 'read-only' } : type === 'heading' ? { id: courseUid('heading'), type, text: '' } : { id: courseUid(type), type, content: '', format: 'plain' }; patch({ blocks: [...lesson.blocks, block] }); };
+  const addBlock = (type) => { const block = type === 'quiz' ? { id: courseUid('quiz'), type, question: 'Choose the correct answer.', selectionMode: 'single', options: [{ id: 'option-a', text: 'Answer A' }, { id: 'option-b', text: 'Answer B' }], correctOptionIds: ['option-a'], submitLabel: 'Check answer' } : type === 'compiler' ? { id: courseUid('compiler'), type, language, runtime: language, starterCode: '', expectedOutput: '', runLabel: 'Run code', resetLabel: 'Reset' } : type === 'code' ? { id: courseUid('code'), type, language, code: '', mode: 'display' } : type === 'heading' ? { id: courseUid('heading'), type, text: '' } : { id: courseUid(type), type, content: '', format: 'plain' }; patch({ blocks: [...lesson.blocks, block] }); };
   return <section><h2>Lesson {lesson.order}</h2><div className="project-fields"><Field label="Stable lesson ID" value={lesson.id} readOnly /><Field label="Title" value={lesson.title} readOnly={readOnly} onChange={(e) => patch({ title: e.target.value })} /><label><span>Summary</span><textarea value={lesson.summary ?? ''} readOnly={readOnly} onChange={(e) => patch({ summary: e.target.value })} /></label><Field label="Estimated minutes" type="number" min="0" value={lesson.estimatedMinutes ?? 0} readOnly={readOnly} onChange={(e) => patch({ estimatedMinutes: Number(e.target.value) })} /></div><h3>Lesson blocks</h3>{lesson.blocks.map((block) => <article className="project-card" key={block.id}><strong>{block.type}</strong><Field label="Stable block ID" value={block.id} readOnly />{block.type === 'quiz' ? <><Field label="Question" value={block.question} readOnly={readOnly} onChange={(e) => updateBlock(block.id, { question: e.target.value })} /><Field label="Options (one per line; first is correct)" value={block.options.map((option) => option.text).join('\n')} readOnly={readOnly} onChange={(e) => { const options = e.target.value.split('\n').filter(Boolean).map((text, i) => ({ id: `option-${i + 1}`, text })); updateBlock(block.id, { options, correctOptionIds: options[0] ? [options[0].id] : [] }); }} /></> : ['code','compiler'].includes(block.type) ? <><label><span>{block.type === 'compiler' ? 'Starter code' : 'Code'}</span><textarea value={block.starterCode ?? block.code ?? ''} readOnly={readOnly} onChange={(e) => updateBlock(block.id, block.type === 'compiler' ? { starterCode: e.target.value } : { code: e.target.value })} /></label>{block.type === 'compiler' && <Field label="Expected output" value={block.expectedOutput ?? ''} readOnly={readOnly} onChange={(e) => updateBlock(block.id, { expectedOutput: e.target.value })} />}</> : <label><span>Content</span><textarea value={block.content ?? block.text ?? ''} readOnly={readOnly} onChange={(e) => updateBlock(block.id, Object.hasOwn(block, 'text') ? { text: e.target.value } : { content: e.target.value })} /></label>}{!readOnly && <button onClick={() => patch({ blocks: lesson.blocks.filter((item) => item.id !== block.id) })}><Trash2 /> Delete block</button>}</article>)}{!readOnly && <div className="project-toolbar">{['paragraph','heading','code','quiz','compiler'].map((type) => <button key={type} onClick={() => addBlock(type)}>+ {type}</button>)}</div>}</section>;
 }
 
@@ -218,7 +247,7 @@ const legacyBlockTypes = ['callout', 'note', 'warning', 'image', 'table', 'exerc
 function newCourseBlock(type, language) {
   if (type === 'quiz') return { id: courseUid('quiz'), type, question: 'Choose the correct answer.', selectionMode: 'single', options: [{ id: 'option-a', text: 'Answer A' }, { id: 'option-b', text: 'Answer B' }], correctOptionIds: ['option-a'], submitLabel: 'Check answer' };
   if (type === 'compiler') return { id: courseUid('compiler'), type, language, runtime: language, starterCode: '', expectedOutput: '', runLabel: 'Run code', resetLabel: 'Reset' };
-  if (type === 'code') return { id: courseUid('code'), type, language, code: '', mode: 'read-only' };
+  if (type === 'code') return { id: courseUid('code'), type, language, code: '', mode: 'display' };
   if (type === 'heading') return { id: courseUid('heading'), type, text: 'New heading' };
   return makeLegacyBlock(type, language);
 }
