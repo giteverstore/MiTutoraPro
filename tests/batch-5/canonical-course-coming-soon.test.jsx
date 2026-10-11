@@ -5,7 +5,7 @@ import { loadActiveCourseCatalog, loadPinnedCourseCatalog } from '../../src/home
 import { loadCourseMetadata } from '../../src/course/courseRepository.js';
 import { CourseService } from '../../src/content/services/CourseService.js';
 import { CourseCard } from '../../src/home/CourseCard.jsx';
-import { createVercelConfig, ADMIN_PUBLIC_CONTENT_ROUTE } from '../../vercel.mjs';
+import { createVercelConfig, ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE } from '../../vercel.mjs';
 
 vi.mock('../../src/bookmarks/BookmarkToggle', () => ({ BookmarkToggle: () => null }));
 
@@ -83,10 +83,13 @@ describe('minimal canonical Course learner release', () => {
   });
 
   it('routes only main-site public GET reads to the existing Admin public API', () => {
-    expect(createVercelConfig('main').routes).toContain(ADMIN_PUBLIC_CONTENT_ROUTE);
-    expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_ROUTE);
-    expect(ADMIN_PUBLIC_CONTENT_ROUTE.methods).toEqual(['GET']);
-    expect('/api/admin-content/public/course-1791616150410/2').toMatch(new RegExp(ADMIN_PUBLIC_CONTENT_ROUTE.src));
-    expect('/api/admin-content/publish').not.toMatch(new RegExp(ADMIN_PUBLIC_CONTENT_ROUTE.src));
+    expect(createVercelConfig('main').routes).toContain(ADMIN_PUBLIC_CONTENT_LIST_ROUTE);
+    expect(createVercelConfig('main').routes).toContain(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE);
+    expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_LIST_ROUTE);
+    expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE);
+    expect(ADMIN_PUBLIC_CONTENT_LIST_ROUTE.methods).toEqual(['GET']);
+    expect(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE.methods).toEqual(['GET']);
+    expect('/api/admin-content/public/course-1791616150410/2').toMatch(new RegExp(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE.src));
+    expect('/api/admin-content/publish').not.toMatch(new RegExp(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE.src));
   });
 });

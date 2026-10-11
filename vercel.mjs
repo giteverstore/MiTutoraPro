@@ -35,8 +35,14 @@ export const JAVASCRIPT_LEARNER_WORKER_ROUTE = Object.freeze({
 
 // Learner deployments consume only the Admin project's public, integrity-checked
 // published-content reads. No Admin mutations or privileged routes are proxied.
-export const ADMIN_PUBLIC_CONTENT_ROUTE = Object.freeze({
-  src: '/api/admin-content/public(?:/(.*))?$',
+export const ADMIN_PUBLIC_CONTENT_LIST_ROUTE = Object.freeze({
+  src: '^/api/admin-content/public$',
+  methods: Object.freeze(['GET']),
+  dest: 'https://ycoders-admin.vercel.app/api/admin-content/public',
+});
+
+export const ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE = Object.freeze({
+  src: '^/api/admin-content/public/(.+)$',
   methods: Object.freeze(['GET']),
   dest: 'https://ycoders-admin.vercel.app/api/admin-content/public/$1',
 });
@@ -61,7 +67,7 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
       API_SECURITY_ROUTE,
       COMPILER_ISOLATION_ROUTE,
       JAVASCRIPT_LEARNER_WORKER_ROUTE,
-      ...(target === MAIN_DEPLOYMENT_TARGET ? [ADMIN_PUBLIC_CONTENT_ROUTE] : []),
+      ...(target === MAIN_DEPLOYMENT_TARGET ? [ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE] : []),
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },

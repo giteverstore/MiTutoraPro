@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parseAppRoute, routePage, routePath } from '../../src/routing/appRoutes';
-import { ADMIN_PUBLIC_CONTENT_ROUTE, COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
+import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
 import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
 const pageRoutes = [
@@ -77,7 +77,8 @@ describe('Vercel SPA routing contract', () => {
       API_SECURITY_ROUTE,
       COMPILER_ISOLATION_ROUTE,
       JAVASCRIPT_LEARNER_WORKER_ROUTE,
-      ADMIN_PUBLIC_CONTENT_ROUTE,
+      ADMIN_PUBLIC_CONTENT_LIST_ROUTE,
+      ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE,
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },
@@ -90,5 +91,36 @@ describe('Vercel SPA routing contract', () => {
     expect(config.builds).toBeUndefined();
     expect(config.cleanUrls).toBeUndefined();
     expect(config.trailingSlash).toBeUndefined();
+  });
+
+  const destinationFor = (request, method = 'GET') => {
+    const url = new URL(request, 'https://www.ycoders.com');
+    for (const route of config.routes) {
+      if (route.continue || !route.dest || (route.methods && !route.methods.includes(method))) continue;
+      const match = url.pathname.match(new RegExp(`^(?:${route.src})$`));
+      if (match) return route.dest.replace(/\$(\d+)/g, (_, index) => match[Number(index)] ?? '') + url.search;
+    }
+    return null;
+  };
+
+  it('routes the Course catalog list without an extra slash and preserves its query', () => {
+    expect(destinationFor('/api/admin-content/public?contentType=COURSE'))
+      .toBe('https://ycoders-admin.vercel.app/api/admin-content/public?contentType=COURSE');
+  });
+
+  it('routes existing ACTIVE and exact-version Course artifact URLs unchanged', () => {
+    expect(destinationFor('/api/admin-content/public/course-1791616150410'))
+      .toBe('https://ycoders-admin.vercel.app/api/admin-content/public/course-1791616150410');
+    expect(destinationFor('/api/admin-content/public/course-1791616150410/2'))
+      .toBe('https://ycoders-admin.vercel.app/api/admin-content/public/course-1791616150410/2');
+  });
+
+  it('keeps unrelated API and SPA routing unchanged', () => {
+    expect(destinationFor('/library')).toBe('/index.html');
+    expect(destinationFor('/api/compiler/health')).toBe('/api/compiler?path=health');
+    expect(destinationFor('/api/admin-content/publish')).toBeNull();
+    expect(destinationFor('/api/admin-content/public', 'POST')).toBeNull();
+    expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_LIST_ROUTE);
+    expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE);
   });
 });
