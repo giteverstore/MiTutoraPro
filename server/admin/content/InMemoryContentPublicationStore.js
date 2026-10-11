@@ -1,5 +1,6 @@
 import { PUBLICATION_STATUS } from '../../../shared/content/index.js';
 import { ContentPublicationError } from './ContentPublicationError.js';
+import { assertStaleFailedPublicationRecovery } from './staleFailedPublicationRecovery.js';
 
 const clone = (value) => value == null ? value : structuredClone(value);
 
@@ -51,6 +52,25 @@ export class InMemoryContentPublicationStore {
       && draft.lifecycleState === 'PUBLISHING') {
       draft.lifecycleState = draft.validationSummary?.valid === true ? 'VALIDATED' : 'DRAFT';
     }
+  }
+  async recoverStaleFailedPublication({ contentId, expectedRevision, expectedVersion, expectedActiveRevision }) {
+    const draft = this.drafts.get(contentId);
+    assertStaleFailedPublicationRecovery({
+      contentId, expectedRevision, expectedVersion, expectedActiveRevision,
+      draft, pointer: this.pointers.get(contentId), version: this.versions.get(contentId)?.get(expectedVersion),
+    });
+    draft.lifecycleState = 'VALIDATED';
+    await this.appendAudit({
+      event: 'STALE_FAILED_PUBLICATION_RECOVERED',
+      contentType: draft.contentType,
+      contentId,
+      expectedRevision,
+      failedVersion: expectedVersion,
+      priorLifecycle: 'PUBLISHING',
+      resultingLifecycle: 'VALIDATED',
+      timestamp: new Date().toISOString(),
+    });
+    return { contentId, draftRevision: expectedRevision, lifecycleState: 'VALIDATED' };
   }
   async activateVersion({ contentId, version, actor, timestamp, expectedActiveRevision, auditEvent }) {
     const pointer = this.pointers.get(contentId);

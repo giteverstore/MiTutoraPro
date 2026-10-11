@@ -1,6 +1,7 @@
 import { PUBLICATION_STATUS } from '../../../shared/content/index.js';
 import { FieldPath } from 'firebase-admin/firestore';
 import { ContentPublicationError } from './ContentPublicationError.js';
+import { assertStaleFailedPublicationRecovery } from './staleFailedPublicationRecovery.js';
 
 const draftRef = (db, id) => db.collection('adminContentDrafts').doc(id);
 const pointerRef = (db, id) => db.collection('publishedContent').doc(id);
@@ -81,6 +82,33 @@ export class FirebaseContentPublicationStore {
         && draft.lifecycleState === 'PUBLISHING') {
         tx.update(dref, { lifecycleState: draft.validationSummary?.valid === true ? 'VALIDATED' : 'DRAFT' });
       }
+    });
+  }
+  async recoverStaleFailedPublication({ contentId, expectedRevision, expectedVersion, expectedActiveRevision }) {
+    return this.db.runTransaction(async (tx) => {
+      const dref = draftRef(this.db, contentId);
+      const pref = pointerRef(this.db, contentId);
+      const vref = versionRef(this.db, contentId, expectedVersion);
+      const [draftSnapshot, pointerSnapshot, versionSnapshot] = await Promise.all([
+        tx.get(dref), tx.get(pref), tx.get(vref),
+      ]);
+      const draft = draftSnapshot.data();
+      assertStaleFailedPublicationRecovery({
+        contentId, expectedRevision, expectedVersion, expectedActiveRevision,
+        draft, pointer: pointerSnapshot.data(), version: versionSnapshot.data(),
+      });
+      tx.update(dref, { lifecycleState: 'VALIDATED' });
+      tx.create(this.db.collection('adminContentAudit').doc(), {
+        event: 'STALE_FAILED_PUBLICATION_RECOVERED',
+        contentType: draft.contentType,
+        contentId,
+        expectedRevision,
+        failedVersion: expectedVersion,
+        priorLifecycle: 'PUBLISHING',
+        resultingLifecycle: 'VALIDATED',
+        timestamp: new Date().toISOString(),
+      });
+      return { contentId, draftRevision: expectedRevision, lifecycleState: 'VALIDATED' };
     });
   }
   async activateVersion({ contentId, version, actor, timestamp, expectedActiveRevision, auditEvent }) { return this.db.runTransaction(async (tx) => { const ref = pointerRef(this.db, contentId); const vref = versionRef(this.db, contentId, version); const [pointerSnapshot, versionSnapshot] = await Promise.all([tx.get(ref), tx.get(vref)]); const pointer = pointerSnapshot.data(); const target = versionSnapshot.data(); if (!pointer || pointer.activeRevision !== expectedActiveRevision) throw new ContentPublicationError('content/active-conflict', 'Publication state changed elsewhere.', { status: 409 }); if (!target || target.status !== PUBLICATION_STATUS.READY) throw new ContentPublicationError('content/version-not-ready', 'Only a READY version may be activated.', { status: 409 }); const active = { ...pointer, activeVersion: version, activeArtifactPath: target.artifactPath, activeArtifactHash: target.artifactHash, metadataSnapshot: target.metadataSnapshot, publicationStatus: 'ACTIVE', activeRevision: expectedActiveRevision + 1, updatedAt: timestamp, updatedBy: actor.uid }; tx.set(ref, active); tx.create(this.db.collection('adminContentAudit').doc(), { event: auditEvent, actorUid: actor.uid, actorRole: actor.role, timestamp, contentId, contentType: target.contentType, version, previousActiveVersion: pointer.activeVersion, newActiveVersion: version }); return active; }); }
