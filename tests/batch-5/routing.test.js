@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parseAppRoute, routePage, routePath } from '../../src/routing/appRoutes';
-import { COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
+import { ADMIN_PUBLIC_CONTENT_ROUTE, COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
 import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
 const pageRoutes = [
@@ -77,6 +77,7 @@ describe('Vercel SPA routing contract', () => {
       API_SECURITY_ROUTE,
       COMPILER_ISOLATION_ROUTE,
       JAVASCRIPT_LEARNER_WORKER_ROUTE,
+      ADMIN_PUBLIC_CONTENT_ROUTE,
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },

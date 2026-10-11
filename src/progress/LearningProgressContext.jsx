@@ -113,6 +113,7 @@ function createInitialProgress(
 
   const currentLesson = currentLessonId ?? course.navigation?.defaultLessonId ?? course.defaultLessonId;
   return deriveProgress(course, {
+    contentVersion: Number.isSafeInteger(course.contentVersion ?? course.publishedVersion) ? (course.contentVersion ?? course.publishedVersion) : null,
     currentLesson,
     currentModule: getModuleIdForLesson(course, currentLesson),
     completedLessons,

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/pages/learning-engine.css';
 import '../styles/routing.css';
 import { CourseLoaderProvider, useCourseLoader } from '../course/CourseLoader';
@@ -13,6 +13,7 @@ import {
 import { canonicalLessonIndex, canAccessLesson } from '../access/accessPolicy';
 import { useSubscriptionAccess } from '../access/SubscriptionAccessContext';
 import { PremiumGate } from '../access/PremiumGate';
+import { progressRepository } from '../progress/progressRepository.js';
 
 export function CourseRoute({
   courseId,
@@ -25,10 +26,21 @@ export function CourseRoute({
   onStartExam,
   anonymous = false,
 }) {
+  const user = useUser({ optional: true })?.user;
+  const [pin, setPin] = useState({ status: anonymous || !user?.id ? 'ready' : 'loading', version: null });
+  useEffect(() => {
+    let active = true;
+    if (anonymous || !user?.id) { setPin({ status: 'ready', version: null }); return () => { active = false; }; }
+    setPin({ status: 'loading', version: null });
+    progressRepository.load(user.id, courseId).then((record) => { if (active) setPin({ status: 'ready', version: Number.isSafeInteger(record?.contentVersion) ? record.contentVersion : null }); }).catch(() => { if (active) setPin({ status: 'ready', version: null }); });
+    return () => { active = false; };
+  }, [anonymous, courseId, user?.id]);
+  if (pin.status === 'loading') return <CourseLoadState state="loading" />;
   return (
     <CourseLoaderProvider
-      key={`${courseId}:${initialLessonId ?? 'overview'}`}
+      key={`${courseId}:${pin.version ?? 'active'}:${initialLessonId ?? 'overview'}`}
       courseId={courseId}
+      contentVersion={pin.version}
       initialLessonId={initialLessonId}
     >
       <LoadedCourseApplication
