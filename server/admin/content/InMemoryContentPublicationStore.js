@@ -37,7 +37,21 @@ export class InMemoryContentPublicationStore {
     await this.appendAudit({ event: 'CONTENT_ACTIVATED', actorUid: actor.uid, actorRole: actor.role, timestamp, contentId: metadata.contentId, contentType: metadata.contentType, previousActiveVersion: pointer?.activeVersion ?? null, newActiveVersion: metadata.version });
     return clone(active);
   }
-  async failVersion(id, version, timestamp) { Object.assign(this.versions.get(id)?.get(version) ?? {}, { status: PUBLICATION_STATUS.FAILED, failedAt: timestamp }); }
+  async failPublication({ contentId, version, sourceDraftRevision, expectedActiveRevision, timestamp }) {
+    const failedVersion = this.versions.get(contentId)?.get(version);
+    if (failedVersion?.status !== PUBLICATION_STATUS.CREATING
+      || failedVersion.sourceDraftRevision !== sourceDraftRevision) return;
+    Object.assign(failedVersion, { status: PUBLICATION_STATUS.FAILED, failedAt: timestamp });
+    const pointer = this.pointers.get(contentId);
+    const draft = this.drafts.get(contentId);
+    if (pointer?.latestVersion === version
+      && (pointer.activeRevision ?? 0) === expectedActiveRevision
+      && pointer.activeVersion !== version
+      && draft?.draftRevision === sourceDraftRevision
+      && draft.lifecycleState === 'PUBLISHING') {
+      draft.lifecycleState = draft.validationSummary?.valid === true ? 'VALIDATED' : 'DRAFT';
+    }
+  }
   async activateVersion({ contentId, version, actor, timestamp, expectedActiveRevision, auditEvent }) {
     const pointer = this.pointers.get(contentId);
     if (!pointer || pointer.activeRevision !== expectedActiveRevision) throw new ContentPublicationError('content/active-conflict', 'Publication state changed elsewhere.', { status: 409 });

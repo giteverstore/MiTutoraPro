@@ -81,12 +81,12 @@ export class ContentPublicationService {
     const timestamp = now(this.clock);
     const allocation = await this.store.allocateVersion({ draft, actor, timestamp, expectedActiveRevision });
     const version = allocation.version;
-    const artifactPath = `published-content/${canonical.contentType.toLowerCase()}s/${safeContentId(contentId)}/v${version}.json`;
-    const published = { ...canonical, version, status: 'published', metadata: { ...canonical.metadata, publishedAt: timestamp, publishedBy: actor.uid } };
-    const bytes = Buffer.from(JSON.stringify(published));
-    assertContentSize(published, MAX_ARTIFACT_BYTES, 'Published artifact');
-    const artifactHash = hash(bytes);
     try {
+      const artifactPath = `published-content/${canonical.contentType.toLowerCase()}s/${safeContentId(contentId)}/v${version}.json`;
+      const published = { ...canonical, version, status: 'published', metadata: { ...canonical.metadata, publishedAt: timestamp, publishedBy: actor.uid } };
+      const bytes = Buffer.from(JSON.stringify(published));
+      assertContentSize(published, MAX_ARTIFACT_BYTES, 'Published artifact');
+      const artifactHash = hash(bytes);
       await this.artifacts.createImmutable(artifactPath, bytes, { artifactHash, contentId, version: String(version) });
       const stored = await this.artifacts.read(artifactPath);
       if (hash(stored) !== artifactHash) throw new Error('Artifact integrity verification failed.');
@@ -108,7 +108,10 @@ export class ContentPublicationService {
       const active = await this.store.completePublication({ metadata, actor, timestamp, expectedActiveRevision: allocation.activeRevision });
       return { version: metadata, active };
     } catch (cause) {
-      await this.store.failVersion(contentId, version, timestamp).catch(() => undefined);
+      await this.store.failPublication({
+        contentId, version, sourceDraftRevision: draft.draftRevision,
+        expectedActiveRevision: allocation.activeRevision, timestamp,
+      }).catch(() => undefined);
       throw new ContentPublicationError('content/publication-failed', 'Publication could not be completed. The previous ACTIVE version is unchanged.', { status: 503, cause });
     }
   }

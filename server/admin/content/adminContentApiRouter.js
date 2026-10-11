@@ -77,6 +77,27 @@ export function createLegacyPublicVersionReader(environment = process.env, fetch
   return createRemoteVersionReader('https://ycoders.com', (metadata) => !metadata?.artifactBucket, fetcher);
 }
 
+// Storage 7.x bundles google-auth-library 9, whose GoogleAuth copies request
+// headers with Object.assign(). Our WIF client uses google-auth-library 10 and
+// returns Headers, whose entries are not enumerable to Object.assign().
+export function createStorageAuthClient(authClient) {
+  return new Proxy(authClient, {
+    get(target, property) {
+      if (property === 'getRequestHeaders') return async (...args) => {
+        const source = await target.getRequestHeaders(...args);
+        const headers = typeof source?.entries === 'function' && typeof source?.get === 'function'
+          ? Object.fromEntries(source.entries()) : source;
+        if (!headers || !Object.keys(headers).some((key) => key.toLowerCase() === 'authorization')) {
+          throw new Error('Admin Storage authorization is unavailable.');
+        }
+        return headers;
+      };
+      const value = Reflect.get(target, property, target);
+      return typeof value === 'function' ? value.bind(target) : value;
+    },
+  });
+}
+
 export async function createAdminStorageBucket(environment = process.env, googleCredentials, {
   StorageClient = Storage,
   firebaseAppFactory = createRequestFirebaseApp,
@@ -91,7 +112,7 @@ export async function createAdminStorageBucket(environment = process.env, google
   if (requiresFederatedTutorCredentials(environment)) {
     if (!googleCredentials?.authClient) throw new ContentPublicationError('admin/storage-unavailable', 'Admin storage is not configured.', { status: 503 });
     const projectId = String(environment.FIREBASE_PROJECT_ID ?? '').trim();
-    const storage = new StorageClient({ projectId, authClient: googleCredentials.authClient });
+    const storage = new StorageClient({ projectId, authClient: createStorageAuthClient(googleCredentials.authClient) });
     return { bucket: storage.bucket(bucketName), async close() {} };
   }
   const session = await firebaseAppFactory(environment, { firebaseCredential: googleCredentials?.firebaseCredential });

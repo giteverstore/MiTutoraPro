@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { createAdminContentApiRouter, createAdminPublicVersionReader, createAdminStorageBucket, createLegacyPublicVersionReader } from '../../server/admin/content/adminContentApiRouter.js';
+import { Storage } from '@google-cloud/storage';
+import { createAdminContentApiRouter, createAdminPublicVersionReader, createAdminStorageBucket, createLegacyPublicVersionReader, createStorageAuthClient } from '../../server/admin/content/adminContentApiRouter.js';
 import { createDefaultFirestore } from '../../server/firestore/createDefaultFirestore.js';
 import { resolveAdminGoogleWifConfiguration } from '../../server/admin/AdminWifConfiguration.js';
 import { resolveGoogleWifConfiguration } from '../../server/auth/VercelGoogleCredentialAdapter.js';
-import { FirebaseArtifactStore, FirebaseAssetRegistry } from '../../server/admin/content/FirebaseContentPublicationStore.js';
+import { FirebaseArtifactStore, FirebaseAssetRegistry, FirebaseContentPublicationStore } from '../../server/admin/content/FirebaseContentPublicationStore.js';
 import mainContentHandler from '../../api/admin-content/[...path].js';
 
 function response() {
@@ -129,10 +130,66 @@ describe('Admin deployment boundary', () => {
     const StorageClient = vi.fn(function FakeStorage() { this.bucket = vi.fn(() => bucket); });
     const firebaseAppFactory = vi.fn();
     const result = await createAdminStorageBucket({ ...production, FIREBASE_STORAGE_BUCKET: 'test-bucket' }, { authClient }, { StorageClient, firebaseAppFactory });
-    expect(StorageClient).toHaveBeenCalledWith({ projectId: 'mi-tutora-pro', authClient });
+    expect(StorageClient).toHaveBeenCalledWith({ projectId: 'mi-tutora-pro', authClient: expect.any(Object) });
     expect(result.bucket).toBe(bucket);
     expect(firebaseAppFactory).not.toHaveBeenCalled();
     await expect(createAdminStorageBucket({ ...production, FIREBASE_STORAGE_BUCKET: 'test-bucket' }, {}, { StorageClient })).rejects.toMatchObject({ code: 'admin/storage-unavailable', status: 503 });
+  });
+
+  it('preserves Authorization presence through the installed Storage request path', async () => {
+    const authClient = {
+      getRequestHeaders: vi.fn(async () => new Headers({ Authorization: 'Bearer local-test-only' })),
+      getAccessToken: vi.fn(),
+    };
+    const authenticatedOptions = (storage) => new Promise((resolveRequest, rejectRequest) => {
+      storage.makeAuthenticatedRequest({ uri: 'https://storage.googleapis.com/upload/storage/v1/b/test/o', headers: {} }, {
+        onAuthenticated(error, options) { if (error) rejectRequest(error); else resolveRequest(options); },
+      });
+    });
+    const anonymous = await authenticatedOptions(new Storage({ projectId: 'mi-tutora-pro', authClient }));
+    expect(Object.keys(anonymous.headers).some((key) => key.toLowerCase() === 'authorization')).toBe(false);
+    const { bucket } = await createAdminStorageBucket({ ...production, ADMIN_CONTENT_STORAGE_BUCKET: 'mi-tutora-pro-admin-content' }, { authClient }, { useDedicatedAdminBucket: true });
+    const corrected = await authenticatedOptions(bucket.storage);
+    expect(Object.keys(corrected.headers).some((key) => key.toLowerCase() === 'authorization')).toBe(true);
+    expect(authClient.getRequestHeaders).toHaveBeenCalledTimes(2);
+  });
+
+  it('fails closed when a Storage credential provides no Authorization header', async () => {
+    const authClient = createStorageAuthClient({ getRequestHeaders: async () => new Headers() });
+    await expect(authClient.getRequestHeaders('https://storage.googleapis.com/')).rejects.toThrow('Admin Storage authorization is unavailable.');
+  });
+
+  it('conditionally recovers a failed Firestore publication without changing a superseding draft', async () => {
+    const id = 'course-one';
+    const versionPath = `publishedContent/${id}/versions/1`;
+    const draftPath = `adminContentDrafts/${id}`;
+    const pointerPath = `publishedContent/${id}`;
+    const records = new Map([
+      [versionPath, { status: 'CREATING', sourceDraftRevision: 5 }],
+      [draftPath, { draftRevision: 5, lifecycleState: 'PUBLISHING', validationSummary: { valid: true } }],
+      [pointerPath, { latestVersion: 1, activeRevision: 0 }],
+    ]);
+    const doc = (path) => ({ path, collection: (name) => ({ doc: (key) => doc(`${path}/${name}/${key}`) }) });
+    const db = {
+      collection: (name) => ({ doc: (key) => doc(`${name}/${key}`) }),
+      runTransaction: (operation) => operation({
+        get: async (ref) => ({ exists: records.has(ref.path), data: () => structuredClone(records.get(ref.path)) }),
+        update: (ref, patch) => records.set(ref.path, { ...records.get(ref.path), ...patch }),
+      }),
+    };
+    const store = new FirebaseContentPublicationStore(db);
+    const failure = { contentId: id, version: 1, sourceDraftRevision: 5, expectedActiveRevision: 0, timestamp: '2026-10-11T00:00:00.000Z' };
+    await store.failPublication(failure);
+    expect(records.get(versionPath).status).toBe('FAILED');
+    expect(records.get(draftPath).lifecycleState).toBe('VALIDATED');
+    expect(records.get(pointerPath).activeVersion).toBeUndefined();
+
+    records.set(versionPath, { status: 'CREATING', sourceDraftRevision: 5 });
+    records.set(draftPath, { draftRevision: 6, lifecycleState: 'PUBLISHING', validationSummary: { valid: true } });
+    records.set(pointerPath, { latestVersion: 2, activeRevision: 0 });
+    await store.failPublication(failure);
+    expect(records.get(versionPath).status).toBe('FAILED');
+    expect(records.get(draftPath)).toMatchObject({ draftRevision: 6, lifecycleState: 'PUBLISHING' });
   });
 
   it('pins Production Admin WIF to its own provider and configured Admin-only service account', () => {

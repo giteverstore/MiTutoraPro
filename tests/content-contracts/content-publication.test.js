@@ -76,6 +76,44 @@ describe('Phase 6 content publication lifecycle', () => {
     await expect(service.publish({ actor: actor(), contentId: first.contentId, expectedRevision: second.draftRevision, expectedActiveRevision: 1 })).rejects.toMatchObject({ code: 'content/publication-failed' });
     expect((await store.getPointer(first.contentId)).activeVersion).toBe(1);
     expect((await store.getVersion(first.contentId, 2)).status).toBe('FAILED');
+    expect((await store.getDraft(first.contentId)).lifecycleState).toBe('DRAFT');
+  });
+
+  it.each([
+    ['upload', (service) => { service.artifacts.createImmutable = async () => { throw new Error('upload failed'); }; }],
+    ['download/hash', (service) => { service.artifacts.read = async () => { throw new Error('download failed'); }; }],
+    ['READY metadata', (service) => { service.artifacts.markReady = async () => { throw new Error('metadata failed'); }; }],
+    ['Firestore completion', (service, store) => { store.completePublication = async () => { throw new Error('transaction failed'); }; }],
+  ])('marks the version FAILED and restores a validated draft after %s failure', async (_stage, breakStage) => {
+    const { service, store } = setup();
+    const draft = await save(service);
+    await service.validateDraft({ actor: actor(), contentId: draft.contentId, expectedRevision: 1 });
+    breakStage(service, store);
+    await expect(service.publish({ actor: actor(), contentId: draft.contentId, expectedRevision: 1 })).rejects.toMatchObject({ code: 'content/publication-failed' });
+    expect((await store.getVersion(draft.contentId, 1)).status).toBe('FAILED');
+    expect((await store.getPointer(draft.contentId)).activeVersion).toBeUndefined();
+    expect((await store.getDraft(draft.contentId))).toMatchObject({ draftRevision: 1, lifecycleState: 'VALIDATED', validationSummary: { valid: true } });
+  });
+
+  it('does not overwrite a newer draft or a completed publication during failure cleanup', async () => {
+    const { service, store } = setup();
+    const draft = await save(service);
+    service.artifacts.createImmutable = async () => {
+      store.drafts.set(draft.contentId, { ...store.drafts.get(draft.contentId), draftRevision: 2, lifecycleState: 'DRAFT' });
+      throw new Error('upload failed after newer edit');
+    };
+    await expect(service.publish({ actor: actor(), contentId: draft.contentId, expectedRevision: 1 })).rejects.toMatchObject({ code: 'content/publication-failed' });
+    expect((await store.getVersion(draft.contentId, 1)).status).toBe('FAILED');
+    expect((await store.getDraft(draft.contentId))).toMatchObject({ draftRevision: 2, lifecycleState: 'DRAFT' });
+
+    const { service: secondService, store: secondStore } = setup();
+    const secondDraft = await save(secondService);
+    const complete = secondStore.completePublication.bind(secondStore);
+    secondStore.completePublication = async (args) => { await complete(args); throw new Error('response lost after commit'); };
+    await expect(secondService.publish({ actor: actor(), contentId: secondDraft.contentId, expectedRevision: 1 })).rejects.toMatchObject({ code: 'content/publication-failed' });
+    expect((await secondStore.getVersion(secondDraft.contentId, 1)).status).toBe('READY');
+    expect((await secondStore.getPointer(secondDraft.contentId)).activeVersion).toBe(1);
+    expect((await secondStore.getDraft(secondDraft.contentId)).lifecycleState).toBe('PUBLISHED');
   });
 
   it('keeps the public Admin API response sanitized after an artifact upload failure', async () => {
