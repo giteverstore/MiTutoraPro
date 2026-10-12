@@ -37,9 +37,8 @@
 @media(prefers-reduced-motion:reduce){.landing-feature-tabs button{transition:none}.landing-feature-panel{animation:none}}
 
 /* Larger transparent project illustration supplied for the Projects section. */
-.landing-projects{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(2rem,4vw,4rem);padding-right:max(3vw,calc((100vw - 93.75rem)/2));padding-left:max(3vw,calc((100vw - 93.75rem)/2))}.landing-project-illustration{position:relative;width:100%;height:37.5rem;min-height:0;margin-left:clamp(-2.5rem,-2vw,0rem)}.landing-project-illustration img{position:absolute;top:50%;right:0;width:62.5rem;height:37.5rem;max-width:none;max-height:none;object-fit:contain;transform:translateY(-50%)}
-@media(max-width:1000px){.landing-projects{grid-template-columns:1fr}.landing-project-illustration{width:100%;height:auto;max-width:62.5rem;margin-left:0;aspect-ratio:5/3}.landing-project-illustration img{position:static;width:100%;height:100%;transform:none}}
-@media(max-width:520px){.landing-project-illustration{aspect-ratio:5/3}}
+.landing-projects{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);padding-right:max(3vw,calc((100vw - 93.75rem)/2));padding-left:max(3vw,calc((100vw - 93.75rem)/2))}.landing-project-illustration{display:grid;width:100%;min-width:0;place-items:center}.landing-project-illustration img{display:block;width:100%;height:auto;max-width:42rem;max-height:32rem;object-fit:contain}
+@media(max-width:1000px){.landing-projects{grid-template-columns:1fr}.landing-project-illustration{max-width:44rem;justify-self:center}}
 
 /* Editorial How It Works journey: horizontal SVG path on wide screens, vertical timeline on mobile. */
 .landing-how li:nth-child(3){top:18%}

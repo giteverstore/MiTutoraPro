@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, PanelLeftOpen } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
@@ -32,17 +32,6 @@ export function TopNavigation({
     : 0;
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const closeMenus = (event) => {
-      if (event.key === 'Escape') {
-        setNotificationsOpen(false);
-        setUserMenuOpen(false);
-      }
-    };
-    window.addEventListener('keydown', closeMenus);
-    return () => window.removeEventListener('keydown', closeMenus);
-  }, []);
 
   return (
     <header className="topbar">
@@ -106,10 +95,12 @@ export function TopNavigation({
             setUserMenuOpen(false);
             setNotificationsOpen((current) => !current);
           }}
+          onNotificationsClose={() => setNotificationsOpen(false)}
           onUserMenuToggle={() => {
             setNotificationsOpen(false);
             setUserMenuOpen((current) => !current);
           }}
+          onUserMenuClose={() => setUserMenuOpen(false)}
           onSignOut={onSignOut}
         />
       </div>

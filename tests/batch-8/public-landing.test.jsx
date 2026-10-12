@@ -95,6 +95,8 @@ describe('public Y Coders landing page', () => {
     expect([...container.querySelectorAll('.landing-hero-accent')].map((node) => node.textContent)).toEqual(['‘I Understand’', '‘I Built It!’']);
     for (const link of screen.getByRole('navigation', { name: 'Public navigation' }).querySelectorAll('a')) expect(link).toHaveClass('public-nav-link');
     expect(screen.getByRole('img', { name: 'Developer building a web project across multiple screens' })).toHaveAttribute('src', '/assets/landing/project-building-illustration.png');
+    expect(container.querySelector('.landing-projects').firstElementChild).toHaveClass('landing-project-illustration');
+    expect(container.querySelector('.landing-projects').lastElementChild).toHaveClass('landing-section-copy');
     const mentor = container.querySelector('.landing-mentor');
     expect(mentor.firstElementChild).toHaveClass('landing-mentor-copy');
     expect(mentor.lastElementChild).toHaveClass('landing-mentor-illustration');

@@ -238,10 +238,22 @@
 }
 
 .public-footer {
+  --footer-text: var(--color-text);
+  --footer-muted: var(--color-text-muted);
+  --footer-border: var(--color-border);
   width: 100%;
   padding: clamp(4rem, 7vw, 5rem) clamp(1.25rem, 5vw, 5rem) 1.75rem;
+  background: var(--color-surface);
+  color: var(--footer-text);
+  border-top: 1px solid var(--footer-border);
+}
+
+.application-shell[data-theme="dark"] .public-footer,
+:root[data-theme="dark"] .public-footer {
+  --footer-text: var(--color-text-on-inverse);
+  --footer-muted: color-mix(in srgb, var(--color-text-on-inverse) 74%, transparent);
+  --footer-border: color-mix(in srgb, var(--color-text-on-inverse) 16%, transparent);
   background: var(--color-brand-gradient-base);
-  color: var(--color-text-on-inverse);
 }
 
 .public-footer-inner {
@@ -267,7 +279,7 @@
   display: inline-flex;
   align-items: center;
   gap: .75rem;
-  color: #fff;
+  color: var(--footer-text);
   font-size: 1.35rem;
   font-weight: var(--font-weight-bold);
 }
@@ -280,7 +292,7 @@
 .public-footer-brand-column>p {
   max-width: 25rem;
   margin: 1.35rem 0 1.5rem;
-  color: color-mix(in srgb, var(--color-text-on-inverse) 74%, transparent);
+  color: var(--footer-muted);
   font-size: .9375rem;
   line-height: 1.75;
 }
@@ -296,7 +308,7 @@
   display: flex;
   align-items: flex-start;
   gap: .7rem;
-  color: color-mix(in srgb, var(--color-text-on-inverse) 82%, transparent);
+  color: var(--footer-muted);
   font-size: .875rem;
   line-height: 1.45;
 }
@@ -311,7 +323,7 @@
 
 .public-footer-column h2 {
   margin: .7rem 0 1.35rem;
-  color: #fff;
+  color: var(--footer-text);
   font-size: .875rem;
   font-weight: 800;
   letter-spacing: .075em;
@@ -327,7 +339,7 @@
 .public-footer-column a,
 .public-footer-column button {
   padding: 0;
-  color: color-mix(in srgb, var(--color-text-on-inverse) 72%, transparent);
+  color: var(--footer-muted);
   background: none;
   border: 0;
   cursor: pointer;
@@ -358,11 +370,11 @@
   justify-content: space-between;
   gap: 2rem;
   padding-top: 1.75rem;
-  border-top: 1px solid color-mix(in srgb, var(--color-text-on-inverse) 16%, transparent);
+  border-top: 1px solid var(--footer-border);
 }
 
 .public-footer small {
-  color: color-mix(in srgb, var(--color-text-on-inverse) 72%, transparent);
+  color: var(--footer-muted);
   font-size: .8125rem;
 }
 
@@ -379,9 +391,9 @@
   height: 2.5rem;
   place-items: center;
   padding: 0;
-  color: color-mix(in srgb, var(--color-text-on-inverse) 82%, transparent);
-  background: color-mix(in srgb, var(--color-text-on-inverse) 5%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text-on-inverse) 20%, transparent);
+  color: var(--footer-text);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--footer-border);
   border-radius: 50%;
   font: inherit;
   font-weight: 700;
@@ -394,8 +406,8 @@
 }
 
 .public-footer-social:not(.is-disabled):hover {
-  color: #fff;
-  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  color: var(--color-accent-hover);
+  background: var(--color-accent-soft);
   border-color: var(--color-accent);
   transform: translateY(-2px);
 }

@@ -63,6 +63,13 @@ describe('global legal footer coverage', () => {
     expect(footerCss).toMatch(/\.public-footer-social\s*\{[^}]*display:\s*inline-grid;/);
   });
 
+  it('uses theme surfaces in light mode and the existing dark footer in dark mode', () => {
+    const footerCss = readFileSync('src/styles/public-pages.css', 'utf8');
+    expect(footerCss).toMatch(/\.public-footer\s*\{[^}]*background:\s*var\(--color-surface\);[^}]*color:\s*var\(--footer-text\);/);
+    expect(footerCss).toMatch(/\.application-shell\[data-theme="dark"\] \.public-footer,[\s\S]*?background:\s*var\(--color-brand-gradient-base\);/);
+    expect(footerCss).toMatch(/\.public-footer-social\s*\{[^}]*color:\s*var\(--footer-text\);[^}]*border:\s*1px solid var\(--footer-border\);/);
+  });
+
   it('uses the compact desktop shell tokens without shrinking the mobile topbar', () => {
     const tokens = readFileSync('src/design-system/tokens.css', 'utf8');
     const css = readFileSync('src/styles/layout/app-shell.css', 'utf8');

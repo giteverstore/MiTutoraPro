@@ -108,6 +108,69 @@ describe('Learning Engine navigation alignment', () => {
     expect(values.onSignOut).toHaveBeenCalledOnce();
   });
 
+  it('closes the Course profile menu only on trigger toggle, outside pointerdown, or Escape', () => {
+    render(<><TopNavigation {...props()} /><main>Course content</main></>);
+    const trigger = screen.getByRole('button', { name: 'Open user menu' });
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.pointerDown(screen.getByRole('menu', { name: 'User menu' }));
+    expect(screen.getByRole('menu', { name: 'User menu' })).toBeVisible();
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(trigger);
+    fireEvent.pointerDown(screen.getByText('Course content'));
+    expect(screen.queryByRole('menu', { name: 'User menu' })).not.toBeInTheDocument();
+    fireEvent.click(trigger);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('closes Course notifications and keeps both popovers mutually exclusive', () => {
+    render(<><TopNavigation {...props()} /><main>Course content</main></>);
+    const profile = screen.getByRole('button', { name: 'Open user menu' });
+    const notifications = screen.getByRole('button', { name: 'Notifications' });
+    fireEvent.click(notifications);
+    fireEvent.pointerDown(screen.getByRole('status'));
+    expect(notifications).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.click(notifications);
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(notifications);
+    fireEvent.pointerDown(screen.getByText('Course content'));
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(notifications);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(profile);
+    fireEvent.pointerDown(notifications);
+    fireEvent.click(notifications);
+    expect(profile).toHaveAttribute('aria-expanded', 'false');
+    expect(notifications).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.pointerDown(profile);
+    fireEvent.click(profile);
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    expect(profile).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('removes Course popover listeners on rerender and unmount', () => {
+    const add = vi.spyOn(document, 'addEventListener');
+    const remove = vi.spyOn(document, 'removeEventListener');
+    try {
+      const view = render(<TopNavigation {...props()} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Notifications' }));
+      view.rerender(<TopNavigation {...props()} />);
+      view.unmount();
+      for (const type of ['pointerdown', 'keydown']) {
+        const added = add.mock.calls.filter(([name]) => name === type).map(([, handler]) => handler);
+        const removed = remove.mock.calls.filter(([name]) => name === type).map(([, handler]) => handler);
+        expect(added.length).toBeGreaterThan(0);
+        expect(removed).toEqual(added);
+      }
+    } finally {
+      add.mockRestore();
+      remove.mockRestore();
+    }
+  });
+
   it('uses canonical completion evidence for the active flame state', () => {
     activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: kolkataDate(), completionStatus: 'COMPLETED' }];
     render(<TopNavigation {...props()} />);

@@ -31,16 +31,15 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
     [activePage, pageLabelOverride],
   );
   useEffect(() => {
+    if (!mobileDrawerOpen) return undefined;
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
         setMobileDrawerOpen(false);
-        setNotificationsOpen(false);
-        setUserMenuOpen(false);
       }
     };
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, []);
+  }, [mobileDrawerOpen]);
 
   const navigate = (page) => {
     setMobileDrawerOpen(false);
@@ -85,10 +84,12 @@ export function AppShell({ activePage, onNavigate, pageLabel: pageLabelOverride,
           setUserMenuOpen(false);
           setNotificationsOpen((current) => !current);
         }}
+        onNotificationsClose={() => setNotificationsOpen(false)}
         onUserMenuToggle={() => {
           setNotificationsOpen(false);
           setUserMenuOpen((current) => !current);
         }}
+        onUserMenuClose={() => setUserMenuOpen(false)}
         onNavigate={navigate}
         onSignOut={signOut}
       />

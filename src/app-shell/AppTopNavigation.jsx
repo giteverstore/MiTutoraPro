@@ -10,7 +10,9 @@ export function AppTopNavigation({
   onMenuOpen,
   onThemeToggle,
   onNotificationsToggle,
+  onNotificationsClose,
   onUserMenuToggle,
+  onUserMenuClose,
   onNavigate,
   onSignOut,
 }) {
@@ -22,7 +24,7 @@ export function AppTopNavigation({
       <strong className="application-page-title">{pageLabel}</strong>
       <GlobalTopbarActions {...{
         user, theme, notificationsOpen, userMenuOpen, onThemeToggle,
-        onNotificationsToggle, onUserMenuToggle, onNavigate, onSignOut,
+        onNotificationsToggle, onNotificationsClose, onUserMenuToggle, onUserMenuClose, onNavigate, onSignOut,
       }} />
     </header>
   );

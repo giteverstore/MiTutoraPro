@@ -62,4 +62,45 @@ describe('AppShell account navigation menu', () => {
     fireEvent.click(screen.getByRole('menuitem', { name: 'Sign out' }));
     expect(signOut).toHaveBeenCalledTimes(1);
   });
+
+  it('dismisses either popover outside, but not for clicks inside it', () => {
+    render(<AppShell activePage="home" onNavigate={vi.fn()}><p>Content</p></AppShell>);
+    fireEvent.click(screen.getByRole('button', { name: 'Open user menu' }));
+    fireEvent.pointerDown(screen.getByRole('menu', { name: 'User menu' }));
+    expect(screen.getByRole('menu', { name: 'User menu' })).toBeInTheDocument();
+    fireEvent.pointerDown(screen.getByText('Content'));
+    expect(screen.queryByRole('menu', { name: 'User menu' })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Notifications' }));
+    const notifications = screen.getByRole('status', { name: '' });
+    fireEvent.pointerDown(notifications);
+    expect(screen.getByText("You’re all caught up.")).toBeInTheDocument();
+    fireEvent.pointerDown(screen.getByText('Content'));
+    expect(screen.queryByText("You’re all caught up.")).not.toBeInTheDocument();
+  });
+
+  it('toggles triggers, keeps popovers exclusive, and closes them on Escape', () => {
+    render(<AppShell activePage="home" onNavigate={vi.fn()}><p>Content</p></AppShell>);
+    const profile = screen.getByRole('button', { name: 'Open user menu' });
+    const notifications = screen.getByRole('button', { name: 'Notifications' });
+    fireEvent.click(profile);
+    expect(profile).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.pointerDown(notifications);
+    fireEvent.click(notifications);
+    expect(screen.queryByRole('menu', { name: 'User menu' })).not.toBeInTheDocument();
+    expect(notifications).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.click(notifications);
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(profile);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(profile).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(notifications);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(notifications);
+    fireEvent.pointerDown(profile);
+    fireEvent.click(profile);
+    expect(notifications).toHaveAttribute('aria-expanded', 'false');
+    expect(profile).toHaveAttribute('aria-expanded', 'true');
+  });
 });

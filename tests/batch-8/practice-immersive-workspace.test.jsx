@@ -53,6 +53,7 @@ describe('Practice immersive coding workspace', () => {
     expect(container.querySelector('.shared-compiler-dock')).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: 'Question' })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('tab', { name: 'AI Tutor' })).toBeVisible();
+    expect(container.querySelector('.learning-workspace-tabs')).toBeInTheDocument();
   });
 
   it('keeps Practice compiler semantics and completion callback intact', async () => {
@@ -69,6 +70,9 @@ describe('Practice immersive coding workspace', () => {
   it('switches Question to the shared gated AI workspace and uses the shared compiler restore control', () => {
     render(<PracticeDetail question={question} solved={false} onBack={() => {}} onComplete={vi.fn()} />);
     fireEvent.click(screen.getByRole('tab', { name: 'AI Tutor' }));
+    expect(screen.getByRole('tab', { name: 'AI Tutor' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: 'Question' })).toHaveAttribute('aria-selected', 'false');
+    expect(document.querySelector('.practice-ai-region')).toBeVisible();
     expect(screen.getByRole('heading', { name: 'Premium required' })).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: 'Minimize compiler' }));
     expect(screen.getByRole('button', { name: /^Compiler$/ })).toBeVisible();
