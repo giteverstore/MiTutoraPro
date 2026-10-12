@@ -49,37 +49,112 @@ service cloud.firestore {
         || exists(/databases/$(database)/documents/users/$(uid)/themeOwnership/$(request.resource.data.appearance.brandTheme));
     }
     function validActiveProject(projectId) {
-      return request.resource.data.keys().hasOnly([
+      return request.resource.data.keys().hasAll([
           'schemaVersion', 'projectId', 'languageId', 'status', 'currentCheckpoint',
-          'completedCheckpoints', 'folders', 'entryFilePath', 'fileIds', 'revision',
-          'displayName', 'createdAt', 'startedAt', 'completedAt', 'updatedAt'
+          'entryFilePath', 'revision', 'displayName', 'createdAt', 'startedAt',
+          'completedAt', 'updatedAt', 'contentVersion', 'activeCheckpointId', 'activeTaskId'
         ])
-        && request.resource.data.schemaVersion == 1
+        && request.resource.data.keys().hasOnly([
+          'schemaVersion', 'projectId', 'languageId', 'status', 'currentCheckpoint',
+          'entryFilePath', 'revision', 'displayName', 'createdAt', 'startedAt',
+          'completedAt', 'updatedAt', 'contentVersion', 'activeCheckpointId', 'activeTaskId'
+        ])
+        && request.resource.data.schemaVersion == 3
+        && (request.resource.data.contentVersion == null || (request.resource.data.contentVersion is int && request.resource.data.contentVersion > 0 && request.resource.data.contentVersion <= 1000000))
+        && (request.resource.data.activeCheckpointId == null || (request.resource.data.activeCheckpointId is string && request.resource.data.activeCheckpointId.size() <= 120 && request.resource.data.activeCheckpointId.matches('^[a-z0-9]+([._-][a-z0-9]+)*$')))
+        && (request.resource.data.activeTaskId == null || (request.resource.data.activeTaskId is string && request.resource.data.activeTaskId.size() <= 120 && request.resource.data.activeTaskId.matches('^[a-z0-9]+([._-][a-z0-9]+)*$')))
+        && (request.resource.data.entryFilePath == null || (request.resource.data.entryFilePath is string && request.resource.data.entryFilePath.size() <= 120))
+        && validProjectTimestamp(request.resource.data.createdAt)
+        && (request.resource.data.startedAt == null || validProjectTimestamp(request.resource.data.startedAt))
+        && (request.resource.data.completedAt == null || validProjectTimestamp(request.resource.data.completedAt))
+        && validProjectTimestamp(request.resource.data.updatedAt)
         && request.resource.data.projectId == projectId
+        && projectId.size() <= 120 && projectId.matches('^[a-z0-9]+([._-][a-z0-9]+)*$')
         && request.resource.data.languageId is string
+        && request.resource.data.languageId.size() > 0
+        && request.resource.data.languageId.size() <= 64
         && (!('displayName' in request.resource.data) || request.resource.data.displayName == null || (request.resource.data.displayName is string && request.resource.data.displayName.size() > 0 && request.resource.data.displayName.size() <= 80))
         && request.resource.data.status in ['active', 'completed']
         && request.resource.data.currentCheckpoint is int
         && request.resource.data.currentCheckpoint >= 0
-        && request.resource.data.completedCheckpoints is list
-        && request.resource.data.completedCheckpoints.size() <= 100
-        && request.resource.data.folders is list
-        && request.resource.data.folders.size() <= 128
-        && request.resource.data.fileIds is list
-        && request.resource.data.fileIds.size() <= 128
+        && request.resource.data.currentCheckpoint <= 100
         && request.resource.data.revision is int
-        && request.resource.data.revision >= 1;
+        && request.resource.data.revision >= 1 && request.resource.data.revision <= 1000000;
+    }
+    function validProjectTimestamp(value) {
+      return value is string && value.size() == 24
+        && value.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$');
+    }
+    function validProjectEvidence(value) {
+      return value is map
+        && value.keys().hasAll(['validatedAt', 'validatorSetVersion', 'passed', 'resultCount', 'passedCount'])
+        && value.keys().hasOnly(['validatedAt', 'validatorSetVersion', 'passed', 'resultCount', 'passedCount'])
+        && validProjectTimestamp(value.validatedAt)
+        && value.validatorSetVersion == 1
+        && value.passed is bool
+        && value.resultCount is int && value.resultCount >= 0 && value.resultCount <= 50
+        && value.passedCount is int && value.passedCount >= 0 && value.passedCount <= value.resultCount;
+    }
+    function validProjectChildParent(uid, projectId) {
+      let parent = getAfter(/databases/$(database)/documents/users/$(uid)/activeProjects/$(projectId));
+      return parent != null && parent.data.projectId == projectId && parent.data.schemaVersion == 3;
+    }
+    function validProjectTask(projectId, taskId) {
+      let data = request.resource.data;
+      return data.keys().hasAll(['projectId', 'taskId', 'status', 'startedAt', 'verifiedAt', 'completedAt', 'validationEvidence'])
+        && data.keys().hasOnly(['projectId', 'taskId', 'status', 'startedAt', 'verifiedAt', 'completedAt', 'validationEvidence'])
+        && data.projectId == projectId && data.taskId == taskId
+        && taskId.matches('^[a-z0-9]+([._-][a-z0-9]+)*$') && taskId.size() <= 120
+        && data.status in ['IN_PROGRESS', 'COMPLETED']
+        && validProjectTimestamp(data.startedAt)
+        && ((data.status == 'IN_PROGRESS' && data.verifiedAt == null && data.completedAt == null && data.validationEvidence == null)
+          || (data.status == 'COMPLETED' && validProjectTimestamp(data.verifiedAt)
+            && validProjectTimestamp(data.completedAt) && validProjectEvidence(data.validationEvidence)
+            && data.validationEvidence.passed == true));
+    }
+    function validProjectCheckpoint(projectId, checkpointId) {
+      let data = request.resource.data;
+      return data.keys().hasAll(['projectId', 'checkpointId', 'status', 'completedAt', 'validationEvidence'])
+        && data.keys().hasOnly(['projectId', 'checkpointId', 'status', 'completedAt', 'validationEvidence'])
+        && data.projectId == projectId && data.checkpointId == checkpointId
+        && checkpointId.matches('^[a-z0-9]+([._-][a-z0-9]+)*$') && checkpointId.size() <= 120
+        && data.status in ['READY', 'COMPLETED']
+        && ((data.status == 'READY' && data.completedAt == null && validProjectEvidence(data.validationEvidence)
+          && data.validationEvidence.passed == false)
+          || (data.status == 'COMPLETED' && validProjectTimestamp(data.completedAt)
+            && (data.validationEvidence == null || (validProjectEvidence(data.validationEvidence) && data.validationEvidence.passed == true))));
+    }
+    function validProjectFinal(projectId, finalId) {
+      let data = request.resource.data;
+      return finalId == 'validation'
+        && data.keys().hasAll(['projectId', 'status', 'completedAt', 'validationEvidence'])
+        && data.keys().hasOnly(['projectId', 'status', 'completedAt', 'validationEvidence'])
+        && data.projectId == projectId && data.status in ['FAILED', 'PASSED']
+        && validProjectEvidence(data.validationEvidence)
+        && ((data.status == 'FAILED' && data.completedAt == null && data.validationEvidence.passed == false)
+          || (data.status == 'PASSED' && validProjectTimestamp(data.completedAt) && data.validationEvidence.passed == true));
     }
     function validActiveProjectFile() {
       return request.resource.data.keys().hasOnly(['path', 'type', 'encoding', 'content', 'editable', 'language'])
         && request.resource.data.path is string
         && request.resource.data.path.size() > 0
         && request.resource.data.path.size() <= 120
+        && !request.resource.data.path.matches('(^|.*/)\\.\\.?($|/.*)')
+        && !request.resource.data.path.matches('^/.*')
         && request.resource.data.type == 'file'
         && request.resource.data.encoding == 'utf-8'
         && request.resource.data.content is string
         && request.resource.data.content.size() <= 262144
-        && request.resource.data.editable is bool;
+        && request.resource.data.editable is bool
+        && (!('language' in request.resource.data) || (request.resource.data.language is string && request.resource.data.language.size() <= 64));
+    }
+    function validProjectFolder(projectId, folderId) {
+      let data = request.resource.data;
+      return data.keys().hasAll(['projectId', 'path']) && data.keys().hasOnly(['projectId', 'path'])
+        && data.projectId == projectId && data.path is string
+        && data.path.size() > 0 && data.path.size() <= 120
+        && !data.path.matches('(^|.*/)\\.\\.?($|/.*)')
+        && !data.path.matches('^/.*');
     }
 
     match /users/{uid} {
@@ -109,9 +184,30 @@ service cloud.firestore {
           allow read: if owns(uid);
           allow create, update: if owns(uid)
             && validActiveProjectFile()
-            && getAfter(/databases/$(database)/documents/users/$(uid)/activeProjects/$(projectId)).data.fileIds.hasAny([fileId]);
+             && (validProjectChildParent(uid, projectId)
+               || getAfter(/databases/$(database)/documents/users/$(uid)/activeProjects/$(projectId)).data.fileIds.hasAny([fileId]));
           allow delete: if owns(uid);
         }
+          match /folders/{folderId} {
+            allow read: if owns(uid);
+            allow create, update: if owns(uid) && validProjectChildParent(uid, projectId) && validProjectFolder(projectId, folderId);
+            allow delete: if owns(uid);
+          }
+          match /tasks/{taskId} {
+            allow read: if owns(uid);
+            allow create, update: if owns(uid) && validProjectChildParent(uid, projectId) && validProjectTask(projectId, taskId);
+            allow delete: if owns(uid);
+          }
+          match /checkpoints/{checkpointId} {
+            allow read: if owns(uid);
+            allow create, update: if owns(uid) && validProjectChildParent(uid, projectId) && validProjectCheckpoint(projectId, checkpointId);
+            allow delete: if owns(uid);
+          }
+          match /final/{finalId} {
+            allow read: if owns(uid);
+            allow create, update: if owns(uid) && validProjectChildParent(uid, projectId) && validProjectFinal(projectId, finalId);
+            allow delete: if owns(uid);
+          }
       }
       match /bookmarks/{bookmarkId} { allow read, write: if owns(uid); }
       match /settings/{settingId} {

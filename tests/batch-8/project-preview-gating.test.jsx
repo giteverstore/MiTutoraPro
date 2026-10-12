@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { canAccessProjectPage, FREE_PROJECT_PREVIEW_PAGE_COUNT } from '../../src/access/accessPolicy';
 import { projectCatalog } from '../../src/projects/repositories/ProjectCatalog';
@@ -39,7 +39,7 @@ describe('project Premium preview boundary', () => {
     fireEvent.click(screen.getByRole('button', { name: /Next/ }));
     expect(screen.getByRole('heading', { name: 'Continue this project with Premium' })).toBeInTheDocument();
     expect(screen.queryByLabelText(`${project.title} implementation editor`)).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'View Premium Plans' })).toBeInTheDocument();
+    expect(within(screen.getByRole('region', { name: 'Continue this project with Premium' })).getByRole('button', { name: 'View Premium Plans' })).toBeInTheDocument();
   });
 
   it('protects a direct page-four request and resumes there after upgrade without losing progress', () => {

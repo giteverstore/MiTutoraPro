@@ -118,6 +118,16 @@ describe('Projects cloud persistence', () => {
     expect(repository.save.mock.calls.at(-1)[1]).toMatchObject({ status: 'completed', completedCheckpoints: ['finish'] });
   });
 
+  it('mirrors verified task-based checkpoint completion for local Project cards', () => {
+    service.connect(null);
+    service.cache('bingo', state({ projectId: 'bingo', completedCheckpoints: [] }));
+    const next = service.saveTaskProgress('bingo', {
+      activeCheckpointId: 'bingo-c1', activeTaskId: null, taskProgress: {},
+      checkpointProgress: { 'bingo-c1': { status: 'COMPLETED' } }, finalValidation: {},
+    });
+    expect(next.completedCheckpoints).toEqual(['bingo-c1']);
+  });
+
   it('disconnects cloud writes while preserving the local cache', async () => {
     await service.hydrate('task-manager'); service.connect(null);
     service.update('task-manager', { currentCheckpoint: 2 });
