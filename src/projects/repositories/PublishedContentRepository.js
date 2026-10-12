@@ -32,7 +32,7 @@ export function adaptPublishedProject(project, contentVersion = null, metadata =
 }
 
 export class PublishedContentRepository {
-  constructor({ fetcher = globalThis.fetch, legacyCatalog = null, endpoint = '/api/admin-content/public' } = {}) {
+  constructor({ fetcher = (...args) => globalThis.fetch(...args), legacyCatalog = null, endpoint = '/api/admin-content/public' } = {}) {
     this.fetcher = fetcher;
     this.legacyCatalog = legacyCatalog;
     this.endpoint = endpoint;
