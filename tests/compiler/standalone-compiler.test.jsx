@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { getPublicCompilerLanguage, publicCompilerLanguages } from '../../src/compiler/languages/supportedLanguages.js';
+import { brandAssets } from '../../src/branding/brandAssets.js';
 import { parseStandaloneCompilerRoute } from '../../src/standalone-compiler/standaloneCompilerRouting.js';
 import { StandaloneLanguagePicker } from '../../src/standalone-compiler/StandaloneLanguagePicker.jsx';
 import { EditorHeader } from '../../src/components/EditorHeader.jsx';
@@ -268,12 +269,28 @@ describe('standalone workspace refinement', () => {
     expect(document.querySelector('.standalone-compiler-toolbar')).not.toBeInTheDocument();
     const navbar = document.querySelector('.standalone-compiler-navbar');
     expect(navbar.querySelector('.standalone-compiler-brand')).toBe(navbar.firstElementChild);
+    expect(navbar.querySelector('.standalone-compiler-brand .brand-wordmark--auto .brand-wordmark__dark')).toHaveAttribute('src', brandAssets.wordmarkDark);
+    expect(navbar.querySelector('.standalone-compiler-brand .brand-wordmark__light')).toHaveAttribute('src', brandAssets.wordmarkLight);
+    expect(navbar.querySelector('.standalone-compiler-brand__label')).toHaveTextContent('Online Compiler');
+    expect(navbar.querySelector('.standalone-compiler-brand strong')).not.toBeInTheDocument();
+    expect(navbar.querySelector('.standalone-compiler-brand img[src="/logos/ycoders-mark.png"]')).not.toBeInTheDocument();
+    expect(standaloneCompilerCss).toMatch(/\.standalone-compiler-brand \.brand-wordmark\{width:8\.5rem;height:2rem\}/);
+    expect(standaloneCompilerCss).not.toContain('.standalone-compiler-brand__label{display:none}');
     expect(navbar.querySelector('.standalone-navbar-right .standalone-language-trigger')).toBeInTheDocument();
     for (const label of ['Settings', 'Feedback', 'Share', 'Reset', 'Run']) expect(screen.getByRole('button', { name: label })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Minimize compiler' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /try ycoders/i })).toHaveAttribute('href', 'https://ycoders.com');
     expect(screen.getByRole('complementary', { name: 'Advertisement' })).toBeInTheDocument();
     expect(await screen.findByRole('textbox', { name: 'Python source editor' })).toBeInTheDocument();
+  });
+
+  it('keeps the compiler wordmark theme-aware without duplicating brand text', () => {
+    preferenceState.theme = 'dark';
+    const { container } = render(<StandaloneCompilerPage language={getPublicCompilerLanguage('python')} onNavigate={vi.fn()} />);
+    expect(container.querySelector('.standalone-compiler')).toHaveAttribute('data-theme', 'dark');
+    expect(container.querySelector('.standalone-compiler-brand .brand-wordmark--auto')).toBeInTheDocument();
+    expect(container.querySelector('.standalone-compiler-brand__label')).toHaveTextContent('Online Compiler');
+    expect(container.querySelector('.standalone-compiler-brand')).not.toHaveTextContent('Y CODERS');
   });
 
   it('collapses only the result pane and preserves source and buffered stdin', async () => {
