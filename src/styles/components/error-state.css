@@ -39,8 +39,7 @@
   background: color-mix(in srgb, var(--color-danger) 10%, var(--color-surface));
 }
 .error-state__icon svg { width: 1.75rem; height: 1.75rem; }
-.error-state h1,
-.error-state h2 { margin: 0; color: var(--color-text); font-size: 1.5rem; line-height: 1.25; letter-spacing: var(--letter-spacing-heading); }
+.error-state .error-state__content > :is(h1, h2) { margin: 0; color: var(--color-text); font-size: 1.5rem; line-height: 1.25; letter-spacing: var(--letter-spacing-heading); }
 .error-state .error-state__description { margin: 1rem 0 0; color: var(--color-text-muted); font-size: 1rem; line-height: 1.6; }
 .error-state .error-state__reference { margin: 1rem 0 0; color: var(--color-text-muted); font-family: var(--font-family-mono); font-size: .875rem; overflow-wrap: anywhere; }
 .error-state__actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }

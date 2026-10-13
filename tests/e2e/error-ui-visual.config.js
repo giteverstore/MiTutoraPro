@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 const port = 43127;
 export default defineConfig({
   testDir: '.',
-  testMatch: 'error-ui-visual.spec.js',
+  testMatch: ['error-ui-visual.spec.js', 'error-heading-routes.spec.js'],
   timeout: 60_000,
   retries: 0,
   workers: 1,
@@ -19,6 +19,7 @@ export default defineConfig({
       VITE_FIREBASE_API_KEY: 'demo-api-key', VITE_FIREBASE_AUTH_DOMAIN: 'demo-mitutora.firebaseapp.com',
       VITE_FIREBASE_PROJECT_ID: 'demo-mitutora', VITE_FIREBASE_STORAGE_BUCKET: 'demo-mitutora.firebasestorage.app',
       VITE_FIREBASE_MESSAGING_SENDER_ID: '000000000000', VITE_FIREBASE_APP_ID: '1:000000000000:web:e2e',
+      VITE_PRACTICE_CONTENT_SOURCE: 'local',
     },
   },
 });

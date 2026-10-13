@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const sizes = [1440, 820, 390];
 const themes = ['light', 'dark'];
-const surfaces = ['course', 'project', 'practice', 'challenge', 'compiler', 'notfound', 'panel'];
+const surfaces = ['course', 'project', 'practice', 'challenge', 'compiler', 'notfound', 'panel', 'compact'];
 const fixture = (surface, theme) => `/tests/e2e/error-ui-visual.html?surface=${surface}&theme=${theme}`;
 
 for (const width of sizes) for (const theme of themes) {
@@ -22,6 +22,9 @@ for (const width of sizes) for (const theme of themes) {
       if (surface === 'course') expect(typography.reference).toBe('14px');
       await expect(state.locator('.error-state__actions button').first()).toBeVisible();
     }
+    await page.goto(fixture('normal-title', theme));
+    const normalTitleSize = await page.getByRole('heading', { name: 'Normal page title' }).evaluate((node) => getComputedStyle(node).fontSize);
+    expect(normalTitleSize).toBe(width === 1440 ? '43.2px' : '32px');
   });
 
   test(`certificate modal and compiler landing at ${width}px in ${theme}`, async ({ page }) => {

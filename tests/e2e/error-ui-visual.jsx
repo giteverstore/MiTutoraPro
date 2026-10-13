@@ -4,6 +4,7 @@ import '../../src/styles/theme.css';
 import '../../src/design-system/tokens.css';
 import '../../src/design-system/primitives.css';
 import '../../src/styles/index.css';
+import '../../src/design-system/coherence.css';
 import '../../src/styles/pages/certificates.css';
 import '../../src/styles/standalone-compiler.css';
 import { ErrorState } from '../../src/errors/ErrorState.jsx';
@@ -24,9 +25,11 @@ const cases = {
   compiler: { title: 'Compiler not found', description: 'This language route is not available.', kind: 'not-found', primaryAction: { label: 'View compilers', onClick: () => {} } },
   notfound: { title: 'Page not found', description: 'This link is invalid or no longer available.', kind: 'not-found', primaryAction: { label: 'Return home', onClick: () => {} } },
   panel: { title: 'The code workspace could not be displayed.', description: 'Retry the compiler to continue.', variant: 'panel', alert: true, primaryAction: { label: 'Try again', onClick: () => {} } },
+  compact: { title: 'Some content could not be loaded.', description: 'Try again later.', variant: 'compact', alert: true, primaryAction: { label: 'Try again', onClick: () => {} } },
 };
 
 function Fixture() {
+  if (surface === 'normal-title') return <main className="projects-page"><h1>Normal page title</h1></main>;
   if (surface === 'landing') return <StandaloneCompilerLanding onNavigate={(path) => { location.hash = path; }} />;
   if (surface === 'certificate') return <CertificateViewer certificate={{ id: 'fixture', credentialId: 'TEST-CREDENTIAL-0001', courseTitle: 'Python Foundations', issueDate: '2026-09-14T00:00:00.000Z', verificationUrl: 'https://example.invalid/verify/test' }} onClose={() => {}} onDownload={() => {}} onShare={() => {}} onCopy={() => {}} />;
   return <main className="visual-error-fixture"><ErrorState {...(cases[surface] ?? cases.notfound)} /></main>;
