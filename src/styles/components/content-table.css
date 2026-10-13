@@ -1,0 +1,54 @@
+.content-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  margin-block: var(--space-4);
+  overflow-x: auto;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.content-table-scroll:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.content-table-scroll table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  line-height: 1.55;
+}
+
+.content-table-scroll caption {
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+}
+
+.content-table-scroll th,
+.content-table-scroll td {
+  min-width: 9rem;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.content-table-scroll th {
+  background: var(--color-surface-subtle);
+  font-weight: var(--font-weight-semibold);
+}
+
+.content-table-scroll td { background: var(--color-surface); }
+.content-table-scroll tr > :last-child { border-right: 0; }
+.content-table-scroll tbody tr:last-child > * { border-bottom: 0; }
+.content-table-scroll.is-label-pair th:first-child,
+.content-table-scroll.is-label-pair td:first-child { width: 30%; min-width: 9.5rem; }
+.content-table-scroll.is-label-pair th:last-child,
+.content-table-scroll.is-label-pair td:last-child { width: 70%; min-width: 10rem; }
+.content-table-scroll code { white-space: normal; overflow-wrap: anywhere; }

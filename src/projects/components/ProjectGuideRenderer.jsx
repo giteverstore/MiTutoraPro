@@ -1,4 +1,5 @@
 import { resolveLanguageVariant } from '../../../shared/content/normalization.js';
+import { ContentTable } from '../../components/ContentTable.jsx';
 
 export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppliedRuntime }) {
   const runtime = suppliedRuntime ?? project.runtime;
@@ -17,7 +18,7 @@ export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppl
     if (block.type === 'callout') return <aside className={`project-guide-note is-${block.variant}`} key={key}><strong>{block.title}</strong><p>{text(block.text)}</p></aside>;
     if (block.type === 'concept') return <section key={key}><h4>{block.title ?? block.conceptId}</h4><p>{block.text}</p></section>;
     if (block.type === 'requirements' || block.type === 'common-mistakes') return <section key={key}><strong>{block.type === 'requirements' ? 'Requirements' : 'Common mistakes'}</strong><ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul></section>;
-    if (block.type === 'table') return <table key={key}><thead><tr>{block.columns.map((item) => <th key={item}>{item}</th>)}</tr></thead><tbody>{block.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table>;
+    if (block.type === 'table') return <ContentTable key={key} columns={block.columns} rows={block.rows} />;
     if (block.type === 'divider') return <hr key={key} />;
     if (block.type === 'image') return <figure key={key} data-asset-id={block.assetId}><div role="img" aria-label={block.alt} /><figcaption>{block.caption}</figcaption></figure>;
     if (block.type === 'runtime-command' || block.type === 'terminal-command') { const command = block.type === 'terminal-command' ? text(block.display) : block.command === 'build' ? runtime?.buildCommand : runtime?.runCommand; return command ? <p className="project-runtime-command" key={key}>Run <code>{command}</code> in the terminal or use the Run control.</p> : null; }
