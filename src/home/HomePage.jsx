@@ -17,18 +17,25 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
   const [learnerState, setLearnerState] = useState({ status: 'loading', progress: [] });
   const [challengeCatalog, setChallengeCatalog] = useState({ status: 'loading', items: [] });
   const [unlockedDates, setUnlockedDates] = useState([]);
-  const [publishedCourses, setPublishedCourses] = useState([]);
-  const [pinnedCourses, setPinnedCourses] = useState([]);
+  const [publishedCatalog, setPublishedCatalog] = useState({ status: 'loading', courses: [] });
+  const [pinnedCatalog, setPinnedCatalog] = useState({ status: 'loading', courses: [] });
   useEffect(() => {
     let active = true;
-    loadActiveCourseCatalog().then((courses) => { if (active) setPublishedCourses(courses); }, () => {});
+    loadActiveCourseCatalog().then(
+      (courses) => { if (active) setPublishedCatalog({ status: 'ready', courses }); },
+      () => { if (active) setPublishedCatalog({ status: 'error', courses: [] }); },
+    );
     return () => { active = false; };
   }, []);
   useEffect(() => {
+    if (learnerState.status === 'loading') return undefined;
     let active = true;
-    loadPinnedCourseCatalog(learnerState.progress).then((courses) => { if (active) setPinnedCourses(courses); }, () => {});
+    loadPinnedCourseCatalog(learnerState.progress).then(
+      (courses) => { if (active) setPinnedCatalog({ status: 'ready', courses }); },
+      () => { if (active) setPinnedCatalog({ status: 'error', courses: [] }); },
+    );
     return () => { active = false; };
-  }, [learnerState.progress]);
+  }, [learnerState.status, learnerState.progress]);
 
   useEffect(() => {
     let active = true;
@@ -62,9 +69,11 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
     progressRecords: learnerState.progress,
     recentCourseIds: recentCourseRepository.list(user.id),
     challengesCompleted: completedChallengeDates.length,
-    publishedCourses,
-    pinnedCourses,
-  }), [completedChallengeDates.length, learnerState.progress, publishedCourses, pinnedCourses, user.id]);
+    publishedCourses: publishedCatalog.courses,
+    pinnedCourses: pinnedCatalog.courses,
+  }), [completedChallengeDates.length, learnerState.progress, publishedCatalog.courses, pinnedCatalog.courses, user.id]);
+  const courseCatalogLoading = publishedCatalog.status === 'loading' || pinnedCatalog.status === 'loading';
+  const courseSectionStatus = learnerState.status === 'error' ? 'error' : learnerState.status === 'loading' || courseCatalogLoading ? 'loading' : 'ready';
   const today = kolkataDate();
   const latestChallenge = selectLatestPublishedChallenge(challengeCatalog.items);
 
@@ -75,8 +84,8 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
     <div className="home-dashboard-grid">
       <div className="home-dashboard-primary">
         <LearningStatisticsSection statistics={model.statistics} status={learnerState.status} challengeStatus={activity.historyStatus} />
-        <ContinueLearningSection courses={model.enrollments} status={learnerState.status} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
-        <RecentlyViewedSection courses={model.recentlyViewed} onOpenCourse={onOpenCourse} />
+        <ContinueLearningSection courses={model.enrollments} status={courseSectionStatus} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
+        <RecentlyViewedSection courses={model.recentlyViewed} status={courseSectionStatus} onOpenCourse={onOpenCourse} />
       </div>
       <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} />
     </div>

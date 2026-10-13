@@ -345,8 +345,16 @@
 }
 
 .application-profile-button:hover {
-  background: var(--color-surface-subtle);
-  border-color: var(--color-border);
+  background: var(--color-accent-soft);
+}
+
+.application-profile-button[aria-expanded="true"] {
+  background: var(--color-accent-soft);
+}
+
+.application-profile-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .application-profile-button>span {

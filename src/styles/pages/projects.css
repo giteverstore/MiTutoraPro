@@ -175,6 +175,19 @@
   gap: var(--space-5);
 }
 
+.project-card-skeleton { pointer-events: none; }
+.project-card-skeleton > span,
+.project-card-skeleton > div span {
+  display: block;
+  height: .8rem;
+  background: var(--color-surface-subtle);
+  border-radius: var(--radius-full);
+}
+.project-card-skeleton > span { width: 3.5rem; height: 3.5rem; }
+.project-card-skeleton > div { display: grid; align-content: center; gap: var(--space-4); }
+.project-card-skeleton > div span:first-child { width: 70%; height: 1.5rem; }
+.project-card-skeleton > div span:last-child { width: 50%; }
+
 .project-card {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -599,7 +612,7 @@
 .project-activity-bar { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; align-items: center; gap: .35rem; padding-top: .45rem; background: var(--color-surface-subtle); border-right: 1px solid var(--project-ide-border); }
 .project-activity-bar button,.project-panel-restore,.project-bottom-restore { display: grid; width: 2.35rem; height: 2.35rem; place-items: center; padding: 0; color: var(--color-text-muted); background: transparent; border: 0; border-radius: var(--radius-sm); cursor: pointer; }
 .project-activity-bar button svg { width: 1.25rem; }
-.project-activity-bar button.is-active { color: var(--color-accent); background: var(--color-accent-subtle); box-shadow: inset 2px 0 var(--color-accent); }
+.project-activity-bar button.is-active { color: var(--color-accent); background: var(--color-accent-subtle); }
 .project-activity-bar button[aria-pressed="true"] { color: var(--color-accent); }
 .project-explorer-panel { grid-column: 2; grid-row: 1; min-width: 0; min-height: 0; overflow: hidden; background: var(--project-ide-panel); border-right: 1px solid var(--project-ide-border); }
 .project-explorer-panel>header,.project-guide-panel>header { height: 2.4rem; justify-content: space-between; padding: 0 .65rem; border-bottom: 1px solid var(--project-ide-border); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
@@ -728,7 +741,7 @@
 .project-language-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .25rem; max-height: min(28rem,60vh); overflow: auto; }.project-language-options button { display: flex; min-width: 0; align-items: center; justify-content: space-between; padding: .55rem .65rem; color: var(--color-text); font-size: 14px; text-align: left; background: transparent; border: 1px solid transparent; border-radius: var(--radius-sm); cursor: pointer; }.project-language-options button:hover,.project-language-options button:focus-visible { background: var(--color-surface-hover); }.project-language-options button.is-selected { color: var(--color-accent); background: var(--color-accent-subtle); border-color: var(--color-accent); }.project-language-options svg { width: 1rem; }
 .project-ide-shell,.project-ide-shell button,.project-explorer-panel,.project-tree,.project-editor-tabs>div,.project-open-tabs button,.project-bottom-panel>header>button,.project-guide-navigation,.project-task-list button,.project-ai-panel>header,.project-explorer-panel>header { font-size: 14px; }
 .project-guide-content { font-size: 16px; line-height: 1.6; }.project-guide-content h2,.project-guide-content h3 { font-size: 16px; font-weight: 700; }.project-guide-content code,.project-guide-content pre { font-size: 14px; }
-.project-task-list button { border-left: 2px solid transparent; }.project-task-list button.is-active { border-left-color: var(--color-accent); }.project-task-list button.is-completed { color: var(--color-text-muted); }.project-task-list button.is-completed svg { color: var(--color-success); }
+.project-task-list button.is-active { color: var(--color-accent); background: var(--color-accent-subtle); }.project-task-list button.is-completed { color: var(--color-text-muted); }.project-task-list button.is-completed svg { color: var(--color-success); }
 .project-bottom-panel.is-collapsed { grid-template-rows: 2.25rem; }.project-bottom-panel.is-collapsed>header { border-bottom: 0; }
 .project-ide-shell[data-project-theme] * { scrollbar-width: thin; scrollbar-color: var(--project-scrollbar) transparent; }
 .project-ide-shell[data-project-theme] *::-webkit-scrollbar { width: 6px; height: 6px; }.project-ide-shell[data-project-theme] *::-webkit-scrollbar-track { background: transparent; }.project-ide-shell[data-project-theme] *::-webkit-scrollbar-thumb { background: var(--project-scrollbar); border-radius: 999px; }

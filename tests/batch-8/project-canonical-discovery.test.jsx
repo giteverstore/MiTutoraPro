@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createProjectAIContext } from '../../src/projects/ai/projectAIContext.js';
 import { ProjectGuideRenderer } from '../../src/projects/components/ProjectGuideRenderer.jsx';
@@ -94,6 +94,26 @@ describe('canonical Project learner discovery', () => {
     const bundled = [{ id: 'bingo', title: 'Old Bingo' }, { id: 'calculator', title: 'Calculator' }];
     expect(mergeProjectCatalog(bundled, [published]).map(({ id, title }) => [id, title]))
       .toEqual([['calculator', 'Calculator'], ['bingo', 'Bingo']]);
+  });
+
+  it('holds bundled cards until canonical discovery settles, then renders Bingo once', async () => {
+    let finishDiscovery;
+    const repository = { listProjects: () => new Promise((resolve) => { finishDiscovery = resolve; }) };
+    const { container } = render(<ProjectsPage browseOnly publishedRepository={repository} />);
+    expect(screen.getByRole('status', { name: 'Loading projects' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
+    await act(async () => { finishDiscovery([published]); });
+    expect(screen.queryByRole('status', { name: 'Loading projects' })).not.toBeInTheDocument();
+    expect(container.querySelectorAll('.project-card')).toHaveLength(7);
+    expect(screen.getAllByRole('heading', { name: 'Bingo' })).toHaveLength(1);
+  });
+
+  it('retains bundled projects when canonical discovery fails', async () => {
+    const repository = { listProjects: vi.fn().mockRejectedValue(new Error('catalog unavailable')) };
+    const { container } = render(<ProjectsPage browseOnly publishedRepository={repository} />);
+    expect(await screen.findByText('6 projects available')).toBeInTheDocument();
+    expect(container.querySelectorAll('.project-card')).toHaveLength(6);
+    expect(screen.queryByRole('status', { name: 'Loading projects' })).not.toBeInTheDocument();
   });
 
   it('resolves direct routes from ACTIVE, exact pinned version, bundled fallback, or fails closed', async () => {

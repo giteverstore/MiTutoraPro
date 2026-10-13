@@ -96,6 +96,12 @@ export function SectionHeading({ id, eyebrow, title, description }) {
   );
 }
 
+function CourseCardsLoadingState({ label = 'Loading courses', count = 2 }) {
+  return <div className="home-course-skeleton-grid" role="status" aria-label={label}>
+    {Array.from({ length: count }, (_, index) => <div className="home-course-skeleton" aria-hidden="true" key={index}><span /><span /><span /></div>)}
+  </div>;
+}
+
 export function ContinueLearningSection({ courses = [], status, onOpenCourse, onBrowseLibrary }) {
   const [expanded, setExpanded] = useState(false);
   const visibleCourses = expanded ? courses : courses.slice(0, 2);
@@ -107,7 +113,7 @@ export function ContinueLearningSection({ courses = [], status, onOpenCourse, on
         <SectionHeading id="continue-title" title="Continue Learning" />
         {canExpand ? <button className="home-continue-toggle" type="button" aria-expanded={expanded} aria-controls="continue-learning-courses" onClick={() => setExpanded((current) => !current)}>{expanded ? 'Show less' : 'View all'}</button> : null}
       </div>
-      {status === 'loading' ? <div className="home-course-empty" role="status"><p>Loading your learning state…</p></div> : visibleCourses.length ? <div className="home-continue-grid" id="continue-learning-courses">{visibleCourses.map((course) => <article className="home-continue-card" key={course.id}>
+      {status === 'loading' ? <CourseCardsLoadingState label="Loading your courses" /> : visibleCourses.length ? <div className="home-continue-grid" id="continue-learning-courses">{visibleCourses.map((course) => <article className="home-continue-card" key={course.id}>
         <div className="home-continue-mark" aria-hidden="true"><BookOpen /></div>
         <div className="home-continue-copy">
           <h3>{course.title}</h3>
@@ -152,6 +158,7 @@ export function BrowseCoursesSection({
   onOpenCourse,
   allowBookmarks = true,
   onRequireAuth,
+  loading = false,
 }) {
   const scrollFilters = (event) => {
     const container = event.currentTarget;
@@ -197,8 +204,8 @@ export function BrowseCoursesSection({
           ))}
         </div>
       </div>
-      <div className="library-language-sections" aria-live="polite" key={`${activeLanguage}-${search}`}>
-        {languageGroups.length ? languageGroups.map((group) => (
+      <div className="library-language-sections" aria-live="polite" aria-busy={loading} key={`${activeLanguage}-${search}`}>
+        {loading ? <CourseCardsLoadingState label="Loading course catalog" count={4} /> : languageGroups.length ? languageGroups.map((group) => (
           <section className="library-language-section" aria-labelledby={languageSectionId(group.language)} key={group.language}>
             <header className="library-language-section-header">
               <LanguageHeading language={group.language} />
@@ -219,7 +226,7 @@ export function BrowseCoursesSection({
   );
 }
 
-export function RecentlyViewedSection({ courses, onOpenCourse }) {
+export function RecentlyViewedSection({ courses, onOpenCourse, status = 'ready' }) {
   return (
     <section className="home-section home-recent" aria-labelledby="recent-title">
       <SectionHeading
@@ -227,7 +234,7 @@ export function RecentlyViewedSection({ courses, onOpenCourse }) {
         title="Recently Viewed"
       />
       <div className="home-course-grid home-recent-grid">
-        {courses.length ? courses.map((course) => (
+        {status === 'loading' ? <CourseCardsLoadingState label="Loading recently viewed courses" /> : courses.length ? courses.map((course) => (
           <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" key={course.id} />
         )) : <div className="home-course-empty" role="status"><BookOpen aria-hidden="true" /><h3>No recently viewed courses</h3></div>}
       </div>

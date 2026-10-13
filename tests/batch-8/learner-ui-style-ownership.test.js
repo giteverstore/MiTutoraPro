@@ -38,4 +38,30 @@ describe('shared learner workspace style ownership', () => {
     expect(css).toMatch(/\.landing-project-illustration img\{[^}]*height:auto;[^}]*object-fit:contain\}/);
     expect(css).toMatch(/@media\(max-width:1000px\)\{\.landing-projects\{grid-template-columns:1fr\}/);
   });
+
+  it('keeps selected learner navigation highlighted without a left stripe', () => {
+    const shared = source('src/design-system/coherence.css');
+    for (const selector of ['.application-navigation button.is-active', '.lesson-link.is-active']) {
+      const rule = shared.match(new RegExp(`${selector.replaceAll('.', '\\.')}\\s*\\{([^}]*)\\}`));
+      if (rule) expect(rule[1]).not.toMatch(/box-shadow|border-left/);
+    }
+    expect(shared).toMatch(/\.application-navigation button\.is-active\s*\{[^}]*background:/);
+    for (const [path, selector] of [
+      ['src/styles/pages/learning-engine.css', '.lesson-link.is-active'],
+      ['src/styles/pages/practice.css', '.practice-question-card.is-active'],
+      ['src/styles/pages/projects.css', '.project-activity-bar button.is-active'],
+      ['src/styles/pages/projects.css', '.project-task-list button.is-active'],
+    ]) {
+      const rule = source(path).match(new RegExp(`${selector.replaceAll('.', '\\.')}\\s*\\{([^}]*)\\}`));
+      expect(rule?.[1]).toMatch(/background:/);
+      expect(rule?.[1]).not.toMatch(/box-shadow|border-left/);
+    }
+  });
+
+  it('keeps avatar hover subtle and keyboard focus visible', () => {
+    const css = source('src/styles/layout/app-shell.css');
+    expect(css).toMatch(/\.application-profile-button:hover\s*\{[^}]*background:\s*var\(--color-accent-soft\);[^}]*\}/);
+    expect(css).toMatch(/\.application-profile-button:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--color-accent\)/);
+    expect(css.match(/\.application-profile-button:hover\s*\{([^}]*)\}/)?.[1]).not.toMatch(/border-color/);
+  });
 });

@@ -72,7 +72,6 @@ body {
 .application-navigation button.is-active {
   color: var(--color-accent);
   background: var(--color-accent-soft);
-  box-shadow: inset 3px 0 0 var(--color-accent);
 }
 
 .application-popover {
@@ -130,7 +129,7 @@ body {
   transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .lesson-link:hover { transform: none; }
-.lesson-link.is-active { box-shadow: inset 3px 0 0 var(--color-accent); }
+
 
 .lesson-document { width: min(100%, 49rem); }
 .lesson-document .lesson-header h1 { font-size: clamp(2.2rem, 4.4vw, 3.7rem); line-height: 1.04; }

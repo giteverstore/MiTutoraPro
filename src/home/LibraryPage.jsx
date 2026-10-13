@@ -11,10 +11,13 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
   const [activeLanguage, setActiveLanguage] = useState('all');
   const [courseSearch, setCourseSearch] = useState('');
   const [progressRecords, setProgressRecords] = useState([]);
-  const [publishedCourses, setPublishedCourses] = useState([]);
+  const [catalog, setCatalog] = useState({ status: 'loading', courses: [] });
   useEffect(() => {
     let active = true;
-    loadActiveCourseCatalog().then((courses) => { if (active) setPublishedCourses(courses); }, (error) => { console.warn('[Library] Published Course catalog could not be loaded.', error); });
+    loadActiveCourseCatalog().then(
+      (courses) => { if (active) setCatalog({ status: 'ready', courses }); },
+      (error) => { if (active) setCatalog({ status: 'error', courses: [] }); console.warn('[Library] Published Course catalog could not be loaded.', error); },
+    );
     return () => { active = false; };
   }, []);
   useEffect(() => {
@@ -26,11 +29,11 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
     );
     return () => { active = false; };
   }, [anonymous, user?.id]);
-  const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords, publishedCourses }).enrollments.map((course) => [course.id, course])), [progressRecords, publishedCourses]);
-  const languageCourses = useMemo(() => mergeCourseCatalog(browseCatalog.languages, publishedCourses).map((course) => {
+  const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords, publishedCourses: catalog.courses }).enrollments.map((course) => [course.id, course])), [progressRecords, catalog.courses]);
+  const languageCourses = useMemo(() => mergeCourseCatalog(browseCatalog.languages, catalog.courses).map((course) => {
     const enrollment = enrollmentByCourse.get(course.id);
     return { ...course, enrolled: Boolean(enrollment), started: Boolean(enrollment), progress: enrollment?.progress ?? null };
-  }), [enrollmentByCourse, publishedCourses]);
+  }), [enrollmentByCourse, catalog.courses]);
   const languages = useMemo(() => [...new Set(languageCourses.map((course) => course.filter))], [languageCourses]);
   const languageGroups = useMemo(() => {
     const query = courseSearch.trim().toLowerCase();
@@ -49,6 +52,6 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
     <BrowseCoursesSection languageGroups={languageGroups} languages={languages}
       activeLanguage={activeLanguage} search={courseSearch}
       onLanguageChange={setActiveLanguage} onSearchChange={setCourseSearch} onOpenCourse={onOpenCourse}
-      allowBookmarks={!anonymous} onRequireAuth={onRequireAuth} />
+      allowBookmarks={!anonymous} onRequireAuth={onRequireAuth} loading={catalog.status === 'loading'} />
   </div>;
 }

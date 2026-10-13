@@ -100,16 +100,45 @@ describe('Home learner state', () => {
     render(<RecentlyViewedSection courses={[]} onOpenCourse={vi.fn()} />);
     expect(screen.getByRole('heading', { name: 'No recently viewed courses' })).toBeInTheDocument();
   });
+
+  it('keeps course cards and empty states hidden while discovery is pending', () => {
+    const { rerender } = render(<ContinueLearningSection courses={[]} status="loading" onBrowseLibrary={vi.fn()} />);
+    expect(screen.getByRole('status', { name: 'Loading your courses' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Start a new course' })).not.toBeInTheDocument();
+    rerender(<RecentlyViewedSection courses={[]} status="loading" onOpenCourse={vi.fn()} />);
+    expect(screen.getByRole('status', { name: 'Loading recently viewed courses' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'No recently viewed courses' })).not.toBeInTheDocument();
+  });
 });
 
 describe('Library navigation and discovery', () => {
+  it('shows a stable loading surface before canonical courses settle', () => {
+    render(<LibraryPage onOpenCourse={vi.fn()} />);
+    expect(screen.getByRole('status', { name: 'Loading course catalog' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Python Foundations' })).not.toBeInTheDocument();
+  });
+
+  it('uses bundled Course cards if canonical discovery fails', async () => {
+    const priorFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockRejectedValue(new Error('catalog unavailable'));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      render(<LibraryPage onOpenCourse={vi.fn()} />);
+      expect(screen.getByRole('status', { name: 'Loading course catalog' })).toBeInTheDocument();
+      expect(await screen.findByRole('heading', { name: 'Python Foundations' })).toBeInTheDocument();
+      expect(screen.queryByRole('status', { name: 'Loading course catalog' })).not.toBeInTheDocument();
+    } finally {
+      globalThis.fetch = priorFetch;
+      warn.mockRestore();
+    }
+  });
   it('supports /library routing and sidebar navigation', () => {
     expect(parseAppRoute('/library')).toEqual({ kind: 'page', page: 'library' });
     expect(routePath({ kind: 'page', page: 'library' })).toBe('/library');
     expect(APP_NAVIGATION).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'library', label: 'Library' })]));
   });
 
-  it('preserves search, language filtering, available navigation, and coming-soon states', () => {
+  it('preserves search, language filtering, available navigation, and coming-soon states', async () => {
     const open = vi.fn();
     render(<LibraryPage onOpenCourse={open} />);
     const discovery = screen.getByRole('region', { name: 'Browse courses' }).querySelector('.home-discovery-bar');
@@ -121,7 +150,7 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('region', { name: 'Browse courses' })).toBeInTheDocument();
     expect(screen.queryByText('Explore')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'All Languages' })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('heading', { name: 'Python' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Python' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Java' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Python' }));
     expect(screen.getByRole('heading', { name: 'Python' })).toBeInTheDocument();
@@ -139,8 +168,9 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('heading', { name: 'Rust Essentials' }).closest('article')).toHaveAttribute('aria-disabled', 'true');
   });
 
-  it('derives one stable language block per catalog language and uses the responsive four-column grid', () => {
+  it('derives one stable language block per catalog language and uses the responsive four-column grid', async () => {
     const { container } = render(<LibraryPage onOpenCourse={vi.fn()} />);
+    await screen.findByRole('heading', { name: 'Python' });
     const chips = within(screen.getByLabelText('Language filters')).getAllByRole('button');
     expect(chips[0]).toHaveTextContent('All Languages');
     expect(chips.slice(1).map((chip) => chip.textContent)).toEqual(browseCatalog.languages.map((course) => course.filter));
@@ -177,6 +207,7 @@ describe('Library navigation and discovery', () => {
     progressState.records = [{ courseId: 'python', completion: 25 }, { courseId: 'java', completion: 100 }];
     const open = vi.fn();
     render(<LibraryPage onOpenCourse={open} />);
+    await screen.findByRole('heading', { name: 'Python Foundations' });
     const pythonCard = screen.getByRole('heading', { name: 'Python Foundations' }).closest('article');
     await waitFor(() => expect(within(pythonCard).getByRole('img', { name: 'Course progress 25 percent' })).toBeInTheDocument());
     expect(within(pythonCard).queryByRole('button', { name: /Continue/i })).not.toBeInTheDocument();

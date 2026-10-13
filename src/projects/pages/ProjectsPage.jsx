@@ -45,7 +45,8 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
   const authLoading = auth?.loading ?? false;
   const access = useOptionalSubscriptionAccess();
   const tier = access?.tier ?? 'FREE';
-  const [publishedProjects, setPublishedProjects] = useState([]);
+  const [catalog, setCatalog] = useState({ status: 'loading', projects: [] });
+  const publishedProjects = catalog.projects;
   const publicationRepository = useMemo(() => {
     if (publishedRepository) return publishedRepository;
     const e2eFetcher = import.meta.env.MODE === 'e2e' ? globalThis.__YCODERS_PROJECT_E2E_PUBLISHED_FETCH__ : null;
@@ -66,9 +67,15 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
 
   useEffect(() => {
     let active = true;
-    publicationRepository.listProjects().then((items) => { if (active) setPublishedProjects(items); }).catch(() => {
-      if (active) setContentError('Published projects could not be loaded. Bundled projects remain available.');
-    });
+    publicationRepository.listProjects().then(
+      (items) => { if (active) setCatalog({ status: 'ready', projects: items }); },
+      () => {
+        if (active) {
+          setCatalog({ status: 'error', projects: [] });
+          setContentError('Published projects could not be loaded. Bundled projects remain available.');
+        }
+      },
+    );
     return () => { active = false; };
   }, [publicationRepository]);
 
@@ -79,13 +86,13 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
   }, [publishedProjects, screen, selected]);
 
   useEffect(() => {
-    if (browseOnly || !auth || authLoading) return undefined;
+    if (browseOnly || !auth || authLoading || catalog.status === 'loading') return undefined;
     let active = true;
     setCloudReady(false);
     projectProgressService.connect(user?.uid ?? null, (uid) => new ActiveProjectRepository(uid));
     Promise.all(projects.map(({ id }) => projectProgressService.hydrate(id))).finally(() => { if (active) { setCloudReady(true); refresh((value) => value + 1); } });
     return () => { active = false; };
-  }, [authLoading, browseOnly, projects, user?.uid]);
+  }, [authLoading, browseOnly, catalog.status, projects, user?.uid]);
 
   const progressFor = (projectId) => browseOnly ? anonymousProgress : projectProgressService.get(projectId);
   useEffect(() => {
@@ -146,10 +153,10 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
       <label>Category<select value={filters.category} onChange={(event) => setFilters((current) => ({ ...current, category: event.target.value }))}><option value="all">All categories</option>{categories.map((category) => <option key={category} value={category}>{category}</option>)}</select></label>
       <label>Difficulty<select value={filters.difficulty} onChange={(event) => setFilters((current) => ({ ...current, difficulty: event.target.value }))}><option value="all">All difficulties</option><option value="beginner">Beginner</option><option value="easy">Easy</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label>
     </section>
-    <section className="project-catalog" aria-labelledby="project-catalog-title">
-      <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{visible.length} {visible.length === 1 ? 'project' : 'projects'} available</p></div>
+    <section className="project-catalog" aria-labelledby="project-catalog-title" aria-busy={catalog.status === 'loading'}>
+      <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{catalog.status === 'loading' ? 'Loading projects…' : `${visible.length} ${visible.length === 1 ? 'project' : 'projects'} available`}</p></div>
       {contentError ? <p className="project-empty" role="alert">{contentError}</p> : null}
-      {visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={progressFor(project.id)} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
+      {catalog.status === 'loading' ? <div className="project-grid project-grid-loading" role="status" aria-label="Loading projects">{Array.from({ length: 6 }, (_, index) => <div className="project-card project-card-skeleton" aria-hidden="true" key={index}><span /><div><span /><span /><span /></div></div>)}</div> : visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={progressFor(project.id)} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
     </section>
   </div>;
 }

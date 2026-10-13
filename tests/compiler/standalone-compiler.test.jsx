@@ -16,6 +16,15 @@ import { STANDALONE_MONACO_THEMES, standaloneMonacoOptions } from '../../src/sta
 const standaloneCompilerCss = readFileSync(resolve(process.cwd(), 'src/styles/standalone-compiler.css'), 'utf8');
 const standalonePreferencesSource = readFileSync(resolve(process.cwd(), 'src/standalone-compiler/useStandaloneCompilerPreferences.js'), 'utf8');
 
+it('loads the shared Preview/Console panel foundation before standalone overrides', () => {
+  const entry = readFileSync(resolve(process.cwd(), 'src/standalone-compiler/StandaloneCompilerApp.jsx'), 'utf8');
+  expect(entry.indexOf("import '../styles/pages/learning-engine.css'")).toBeGreaterThan(-1);
+  expect(entry.indexOf("import '../styles/pages/learning-engine.css'")).toBeLessThan(entry.indexOf("import '../styles/standalone-compiler.css'"));
+  const sharedCss = readFileSync(resolve(process.cwd(), 'src/styles/pages/learning-engine.css'), 'utf8');
+  expect(sharedCss).toMatch(/\.ide-result-tabs\s*\{[^}]*display:\s*flex/);
+  expect(sharedCss).toContain('.web-preview-panel');
+});
+
 const { execute, submitStdin, preferenceState } = vi.hoisted(() => ({ execute: vi.fn(), submitStdin: vi.fn(), preferenceState: { theme: 'light' } }));
 vi.mock('../../src/compiler/CompilerProvider.jsx', () => ({ useCompilerManager: () => ({ execute, submitStdin }) }));
 vi.mock('../../src/components/MonacoCodeEditor.jsx', () => ({ default: ({ editor, value, onChange, standalonePreferences, layoutSignal }) => <textarea aria-label={editor.ariaLabel} data-layout-signal={layoutSignal} data-monaco-theme={standalonePreferences?.monacoTheme} value={value} onChange={(event) => onChange(event.target.value)} /> }));

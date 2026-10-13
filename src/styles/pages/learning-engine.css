@@ -486,7 +486,6 @@
   color: var(--color-accent);
   background: var(--color-accent-subtle);
   font-weight: var(--font-weight-medium);
-  box-shadow: inset 3px 0 0 var(--color-accent);
 }
 
 .lesson-link.is-locked {

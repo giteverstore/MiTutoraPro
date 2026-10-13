@@ -217,7 +217,6 @@
 
 .practice-question-card.is-active {
   background: var(--color-accent-soft);
-  box-shadow: inset 3px 0 var(--color-accent);
 }
 
 .practice-question-title {

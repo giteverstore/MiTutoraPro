@@ -13,8 +13,15 @@ beforeEach(() => storage.clear());
 afterEach(cleanup);
 
 describe('Projects filter cleanup', () => {
-  it('starts directly with three balanced filters and no retired hero or tabs', () => {
-    render(<ProjectsPage />);
+  async function renderCatalog() {
+    render(<ProjectsPage publishedRepository={{ listProjects: async () => [] }} />);
+    expect(screen.getByRole('status', { name: 'Loading projects' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
+    await screen.findByText('6 projects available');
+  }
+
+  it('starts directly with three balanced filters and no retired hero or tabs', async () => {
+    await renderCatalog();
     expect(screen.queryByText('Build projects you can keep.')).not.toBeInTheDocument();
     expect(screen.queryByText(/Implement focused Python utilities/)).not.toBeInTheDocument();
     expect(screen.queryByRole('region', { name: 'Project difficulty' })).not.toBeInTheDocument();
@@ -30,8 +37,8 @@ describe('Projects filter cleanup', () => {
     ['easy', 'Easy Projects', 5],
     ['intermediate', 'Intermediate Projects', 0],
     ['advanced', 'Advanced Projects', 0],
-  ])('filters %s projects and updates heading/count', (difficulty, heading, count) => {
-    render(<ProjectsPage />);
+  ])('filters %s projects and updates heading/count', async (difficulty, heading, count) => {
+    await renderCatalog();
     fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: difficulty } });
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
     expect(screen.getByText(`${count} ${count === 1 ? 'project' : 'projects'} available`)).toBeInTheDocument();
@@ -49,14 +56,14 @@ describe('Projects filter cleanup', () => {
     expect(projectResultsHeading('all')).toBe('Projects');
   });
 
-  it('preserves existing project actions', () => {
-    render(<ProjectsPage />);
+  it('preserves existing project actions', async () => {
+    await renderCatalog();
     fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
     expect(screen.getByRole('button', { name: /Start Project/ })).toBeInTheDocument();
   });
 
-  it('keeps project cards and overview available without Premium access', () => {
-    render(<ProjectsPage />);
+  it('keeps project cards and overview available without Premium access', async () => {
+    await renderCatalog();
     expect(screen.getAllByRole('button', { name: /Start Project/ })).toHaveLength(6);
     fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
     expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
