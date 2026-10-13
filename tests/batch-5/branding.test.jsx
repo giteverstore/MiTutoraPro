@@ -63,6 +63,15 @@ describe('ycoders product branding', () => {
     expect(document.querySelector('.certificate-preview-brand .brand-wordmark--dark')).toBeInTheDocument();
   });
 
+  it('sizes only the public footer wordmark to its frame without distorting it', async () => {
+    const { container } = render(<PublicFooter />);
+    expect(container.querySelector('.public-footer-brand .brand-wordmark img')).toBeInTheDocument();
+
+    const css = await readFile('src/styles/public-pages.css', 'utf8');
+    expect(css).toMatch(/\.public-footer-brand \.brand-wordmark img\s*\{[^}]*width:\s*100%;[^}]*height:\s*auto;/s);
+    expect(css).toMatch(/\.public-header img,\s*\.public-footer img\s*\{[^}]*width:\s*2rem;[^}]*height:\s*2rem;/s);
+  });
+
   it('uses the mark on a verified public certificate', async () => {
     render(<PublicCertificateVerificationPage credentialId="SAMPLE" verifier={async () => ({ status: 'VERIFIED', courseTitle: 'Python', recipientName: 'Learner', issuedAt: '2026-10-13T00:00:00Z', credentialId: 'SAMPLE' })} />);
     expect(await screen.findByAltText('Y Coders')).toHaveAttribute('src', brandAssets.mark);
