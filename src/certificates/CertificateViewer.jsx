@@ -13,13 +13,13 @@ export function CertificateViewer({
   const sample = certificate.sample === true;
 
   return (
-    <Dialog open title={certificate.courseTitle} titleHidden description="Certificate preview and credential actions" onClose={onClose} className="certificate-viewer" backdropClassName="certificate-viewer-backdrop">
+    <Dialog open title={certificate.courseTitle} titleHidden onClose={onClose} className="certificate-viewer" backdropClassName="certificate-viewer-backdrop">
         <header>
-          <div><span>{sample ? 'Certificate Example' : 'Certificate Viewer'}</span><h2 id="certificate-viewer-title">{certificate.courseTitle}</h2></div>
+          <div><span>{sample ? 'Certificate Example' : 'Certificate'}</span><h2 id="certificate-viewer-title">{certificate.courseTitle}</h2><p>Certificate preview and credential details</p></div>
           <button type="button" onClick={onClose} aria-label="Close certificate viewer" data-autofocus><X /></button>
         </header>
         <div className="certificate-viewer-body">
-          <div className="certificate-preview">
+          <div className="certificate-preview" role="region" aria-label="Certificate preview">
             <div className="certificate-preview-brand"><span><img src="/ycoders-mark.svg" alt="" /></span><strong>ycoders</strong></div>
             {sample ? <strong className="certificate-preview-sample">SAMPLE</strong> : null}
             <span>Certificate of Completion</span>
@@ -29,7 +29,8 @@ export function CertificateViewer({
             <h4>{certificate.courseTitle}</h4>
             <div>{sample ? <span>Example certificate</span> : <span>Issued {formatCertificateDate(certificate.issueDate, { month: 'long' })}</span>}<span>Credential {certificate.credentialId}</span></div>
           </div>
-          <aside className="certificate-viewer-details">
+          <aside className="certificate-viewer-details" aria-label="Credential details">
+            <h3>Credential details</h3>
             <dl>
               <div><dt>Credential ID</dt><dd>{certificate.credentialId}</dd></div>
               <div><dt>Issue Date</dt><dd>{sample ? 'Not issued' : formatCertificateDate(certificate.issueDate, { month: 'long' })}</dd></div>

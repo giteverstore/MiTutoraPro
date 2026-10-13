@@ -6,6 +6,7 @@ import { certificateService } from './CertificateService';
 import { CertificateCard } from './CertificateCard';
 import { CertificateViewer } from './CertificateViewer';
 import { publicVerificationUrl } from './publicCertificateVerification';
+import { ErrorState } from '../errors/ErrorState';
 
 const sampleCertificate = Object.freeze({
   id: 'sample',
@@ -32,7 +33,7 @@ export function CertificatesPage({ onTestSetup }) {
       const requested = new URLSearchParams(window.location.search).get('credential');
       if (requested) setViewerCertificate(records.find(({ credentialId }) => credentialId === requested) ?? null);
       setStatus('ready');
-    }).catch((error) => { if (active) { setNotice(error.message); setStatus('error'); } });
+    }).catch(() => { if (active) { setNotice(''); setStatus('error'); } });
     return () => { active = false; };
   }, [user.id]);
 
@@ -70,7 +71,7 @@ export function CertificatesPage({ onTestSetup }) {
     <section className="completed-certificates" aria-labelledby="completed-certificates-title">
       <header className="certificates-section-heading"><div><h2 id="completed-certificates-title">My Certificates</h2></div></header>
       {status === 'loading' ? <p className="certificate-loading">Loading certificates…</p>
-        : status === 'error' ? <p role="alert">Certificates could not be loaded.</p>
+        : status === 'error' ? <ErrorState title="Certificates could not be loaded." description="Please try again later. Your certificates remain unchanged." variant="panel" alert />
           : completed.length ? <div className="certificate-list">{completed.map((certificate) => <CertificateCard certificate={certificate} onView={setViewerCertificate} onDownload={downloadCertificate} onShare={shareCertificate} key={certificate.id} />)}</div>
             : <div className="certificate-empty"><h3>No certificates yet</h3></div>}
     </section>

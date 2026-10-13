@@ -7,6 +7,7 @@ import { CompilerProvider } from './compiler/CompilerProvider';
 import { createCompilerManager } from './compiler/createCompilerManager';
 import { UserDataLifecycle } from './user-data/UserDataLifecycle';
 import { DomainErrorBoundary } from './errors/ErrorBoundary';
+import { ErrorState } from './errors/ErrorState';
 import { parseAppRoute, routePage, writeAppRoute } from './routing/appRoutes';
 import { lazyNamedExport } from './routing/lazyRoute';
 import { SubscriptionAccessProvider, useSubscriptionAccess } from './access/SubscriptionAccessContext';
@@ -302,7 +303,7 @@ function AuthenticatedApplication({ user }) {
         >
         <Suspense fallback={<CourseLoadState state="loading" />}>
         {routeNotFound ? (
-          <section className="route-not-found" role="status"><h1>Page not found</h1><p>This link is invalid or no longer available.</p><button className="button button--primary" type="button" onClick={() => navigateTo({ kind: 'page', page: 'home' }, { replace: true })}>Return home</button></section>
+          <ErrorState title="Page not found" description="This link is invalid or no longer available." kind="not-found" primaryAction={{ label: 'Return home', onClick: () => navigateTo({ kind: 'page', page: 'home' }, { replace: true }) }} />
         ) : activePage === 'home' ? (
           <HomePage
             onOpenCourse={openCourseOverview}

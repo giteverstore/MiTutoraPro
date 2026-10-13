@@ -5,6 +5,7 @@ import { PublicFooter } from './PublicFooter';
 import { PublicHeader } from './PublicHeader';
 import { LandingPage } from './LandingPage';
 import { requestAuthentication } from './publicAuthNavigation';
+import { ErrorState } from '../errors/ErrorState';
 import '../styles/public-pages.css';
 
 const AuthFlow = lazyNamedExport(() => import('../components/auth/AuthFlow'), 'AuthFlow');
@@ -26,7 +27,7 @@ function ProtectedAuthRoute({ pathname }) {
 }
 
 function PublicNotFound() {
-  return <PublicFeatureShell><section className="public-not-found"><h1>Page not found</h1><p>This public page is unavailable.</p><a className="button button--primary" href="/">Return home</a></section></PublicFeatureShell>;
+  return <PublicFeatureShell><ErrorState title="Page not found" description="This public page is unavailable." kind="not-found" primaryAction={{ label: 'Return home', href: '/' }} /></PublicFeatureShell>;
 }
 
 export function PublicBrowseApplication() {

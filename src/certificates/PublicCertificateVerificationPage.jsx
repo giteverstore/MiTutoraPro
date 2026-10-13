@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { BadgeCheck, ShieldX } from 'lucide-react';
+import { BadgeCheck } from 'lucide-react';
 import { formatCertificateDate } from './certificateModel';
 import { verifyPublicCertificate } from './publicCertificateVerification';
+import { ErrorState } from '../errors/ErrorState';
 
 export function PublicCertificateVerificationPage({ credentialId, verifier = verifyPublicCertificate }) {
   const [state, setState] = useState({ status: 'loading', certificate: null });
@@ -14,9 +15,9 @@ export function PublicCertificateVerificationPage({ credentialId, verifier = ver
   }, [credentialId, verifier]);
 
   if (state.status === 'loading') return <main className="public-certificate-page" role="status"><p>Verifying certificate…</p></main>;
-  if (state.status === 'NOT_FOUND') return <main className="public-certificate-page"><ShieldX aria-hidden="true" /><h1>Certificate not found</h1><p>This credential could not be verified.</p></main>;
-  if (state.status === 'REVOKED') return <main className="public-certificate-page"><ShieldX aria-hidden="true" /><h1>Certificate is no longer valid</h1><p>This credential is not currently active.</p></main>;
-  if (state.status === 'error') return <main className="public-certificate-page" role="alert"><ShieldX aria-hidden="true" /><h1>Verification unavailable</h1><p>Certificate verification could not be completed.</p></main>;
+  if (state.status === 'NOT_FOUND') return <main className="public-certificate-page"><ErrorState title="Certificate not found" description="This credential could not be verified." kind="not-found" /></main>;
+  if (state.status === 'REVOKED') return <main className="public-certificate-page"><ErrorState title="Certificate is no longer valid" description="This credential is not currently active." kind="unavailable" /></main>;
+  if (state.status === 'error') return <main className="public-certificate-page"><ErrorState title="Verification unavailable" description="Certificate verification could not be completed." kind="failure" alert /></main>;
   const certificate = state.certificate;
   return <main className="public-certificate-page">
     <img src="/ycoders-mark.svg" alt="ycoders" />

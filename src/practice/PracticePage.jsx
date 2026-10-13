@@ -8,6 +8,7 @@ import { practiceContentSource } from './practiceContentSource';
 import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDiagnostics';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
+import { ErrorState } from '../errors/ErrorState';
 
 const initialFilters = { difficulty: 'all', topic: 'all', search: '' };
 const practiceDifficulties = ['easy', 'medium', 'hard'];
@@ -124,11 +125,15 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
 
   if ((catalog.loading || catalog.error) && !catalog.items.length && !openQuestionId) {
     const diagnostic = catalog.error ? getPracticeDiagnostic(catalog.error, PRACTICE_DIAGNOSTIC_STAGES.metadataQuery) : null;
-    return <div className="practice-page"><header className="practice-page-heading" data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category}><h1>Sharpen your coding skills.</h1><p>{catalog.error ? 'Practice questions could not be loaded. Check your connection and retry.' : 'Loading practice questions…'}</p>{catalog.error ? <button className="button button--secondary" type="button" onClick={() => loadPage(1, { force: true })}>Retry</button> : null}</header></div>;
+    return <div className="practice-page">{catalog.error
+      ? <ErrorState title="Practice questions could not be loaded." description="Check your connection and retry." kind="network" alert data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category} primaryAction={{ label: 'Retry', onClick: () => loadPage(1, { force: true }), icon: 'retry' }} />
+      : <header className="practice-page-heading"><h1>Sharpen your coding skills.</h1><p>Loading practice questions…</p></header>}</div>;
   }
   if (openQuestionId && (questionState.loading || questionState.error)) {
     const diagnostic = questionState.error ? getPracticeDiagnostic(questionState.error, PRACTICE_DIAGNOSTIC_STAGES.storageDownload) : null;
-    return <div className="practice-page"><header className="practice-page-heading" data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category}><h1>{questionState.error ? 'This question couldn’t be loaded.' : 'Loading question…'}</h1><p>{questionState.error ? 'The catalog remains available. Retry this question or return to Practice.' : 'Verifying and preparing the question content.'}</p>{questionState.error ? <button className="button button--secondary" type="button" onClick={() => setQuestionState((state) => ({ ...state, retry: state.retry + 1 }))}>Retry</button> : null}<button className="button button--ghost" type="button" onClick={() => setOpenQuestionId(null)}>Back to Practice</button></header></div>;
+    return <div className="practice-page">{questionState.error
+      ? <ErrorState title="This question couldn’t be loaded." description="The catalog remains available. Retry this question or return to Practice." alert data-practice-error-stage={diagnostic?.stage} data-practice-error-code={diagnostic?.code} data-practice-error-category={diagnostic?.category} primaryAction={{ label: 'Retry', onClick: () => setQuestionState((state) => ({ ...state, retry: state.retry + 1 })), icon: 'retry' }} secondaryAction={{ label: 'Back to Practice', onClick: () => setOpenQuestionId(null) }} />
+      : <header className="practice-page-heading"><h1>Loading question…</h1><p>Verifying and preparing the question content.</p><button className="button button--ghost" type="button" onClick={() => setOpenQuestionId(null)}>Back to Practice</button></header>}</div>;
   }
   if (openQuestion) {
     return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} requireAuthentication={anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {

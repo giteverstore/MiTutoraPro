@@ -10,6 +10,7 @@ import { getProjectRuntime } from '../runtime/projectRuntimeRegistry';
 import { useOptionalAuth } from '../../auth/AuthContext';
 import { ActiveProjectRepository } from '../repositories/ActiveProjectRepository';
 import { PublishedContentRepository } from '../repositories/PublishedContentRepository';
+import { ErrorState } from '../../errors/ErrorState';
 
 export const DEFAULT_PROJECT_FILTERS = Object.freeze({ language: 'all', category: 'all', difficulty: 'all' });
 
@@ -136,7 +137,13 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
   if (!browseOnly && !cloudReady) return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading your projects…</p></div>;
 
   if (initialProjectId && routeState === 'loading') return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading project...</p></div>;
-  if (initialProjectId && (routeState === 'missing' || routeState === 'error')) return <div className="projects-page"><p className="project-empty" role="alert">{routeState === 'missing' ? 'Project not found.' : 'This project could not be loaded. Please try again later.'}</p><button type="button" onClick={() => { setRouteState('idle'); setScreen('catalog'); onProjectChange(null); }}>Back to Projects</button></div>;
+  if (initialProjectId && (routeState === 'missing' || routeState === 'error')) return <div className="projects-page"><ErrorState
+    title={routeState === 'missing' ? 'Project not found.' : 'This project could not be loaded.'}
+    description={routeState === 'missing' ? 'This project does not exist or is no longer available.' : 'Please try again later. Your saved work is unaffected.'}
+    kind={routeState === 'missing' ? 'not-found' : 'failure'}
+    alert={routeState === 'error'}
+    primaryAction={{ label: 'Back to Projects', onClick: () => { setRouteState('idle'); setScreen('catalog'); onProjectChange(null); } }}
+  /></div>;
 
   if (selected && screen === 'details') { const progress = progressFor(selected.id); return <><ProjectDetails project={selected} progress={progress} onBack={() => { setSelected(null); setScreen('catalog'); onProjectChange(null); }} onStart={() => {
     if (browseOnly) { onRequireAuth('/projects'); return; }
@@ -155,7 +162,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     </section>
     <section className="project-catalog" aria-labelledby="project-catalog-title" aria-busy={catalog.status === 'loading'}>
       <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{catalog.status === 'loading' ? 'Loading projects…' : `${visible.length} ${visible.length === 1 ? 'project' : 'projects'} available`}</p></div>
-      {contentError ? <p className="project-empty" role="alert">{contentError}</p> : null}
+      {contentError ? <ErrorState title="Some projects could not be loaded." description={contentError} variant="compact" alert /> : null}
       {catalog.status === 'loading' ? <div className="project-grid project-grid-loading" role="status" aria-label="Loading projects">{Array.from({ length: 6 }, (_, index) => <div className="project-card project-card-skeleton" aria-hidden="true" key={index}><span /><div><span /><span /><span /></div></div>)}</div> : visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={progressFor(project.id)} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
     </section>
   </div>;

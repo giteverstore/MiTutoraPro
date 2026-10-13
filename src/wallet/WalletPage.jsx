@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../auth/UserContext';
 import { WalletRepository } from './WalletRepository';
+import { ErrorState } from '../errors/ErrorState';
 
 const money = (minor) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format((minor ?? 0) / 100);
 const createWalletRepository = (uid) => new WalletRepository(uid);
@@ -34,7 +35,7 @@ export function WalletPage({ repositoryFactory = createWalletRepository }) {
     return () => { active = false; };
   }, [repositoryFactory, user.id]);
   if (state.loading) return <section className="wallet-page" aria-busy="true"><p>Loading wallet…</p></section>;
-  if (state.error) return <section className="wallet-page" role="alert"><h1>Wallet</h1><p>{state.error}</p></section>;
+  if (state.error) return <section className="wallet-page"><ErrorState title="Wallet information is temporarily unavailable." description="Please try again later. Your balance and transactions are unchanged." alert /></section>;
   return <section className="wallet-page">
     <div className="wallet-balances">
       <article><span>Pending</span><strong>{money(state.wallet.pendingBalanceMinor)}</strong></article>

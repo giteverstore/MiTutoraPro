@@ -1,0 +1,55 @@
+.error-state {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  place-items: center;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  color: var(--color-text);
+  background: var(--color-background, var(--color-canvas));
+}
+
+.error-state--full { min-height: min(34rem, 70dvh); }
+.error-state--panel { min-height: 15rem; height: 100%; }
+.error-state--compact { min-height: 9rem; padding: 1.25rem; }
+
+.error-state__content {
+  width: min(100%, 38rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.error-state--compact .error-state__content { padding: 1.25rem; }
+.error-state__icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 1.25rem;
+  place-items: center;
+  color: var(--color-accent);
+  background: var(--color-accent-subtle);
+  border-radius: 1rem;
+}
+.error-state--failure .error-state__icon,
+.error-state--network .error-state__icon {
+  color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 10%, var(--color-surface));
+}
+.error-state__icon svg { width: 1.75rem; height: 1.75rem; }
+.error-state h1,
+.error-state h2 { margin: 0; color: var(--color-text); font-size: 1.5rem; line-height: 1.25; letter-spacing: var(--letter-spacing-heading); }
+.error-state .error-state__description { margin: 1rem 0 0; color: var(--color-text-muted); font-size: 1rem; line-height: 1.6; }
+.error-state .error-state__reference { margin: 1rem 0 0; color: var(--color-text-muted); font-family: var(--font-family-mono); font-size: .875rem; overflow-wrap: anywhere; }
+.error-state__actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.error-state__actions .button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: .5rem; font-size: 1rem; }
+.error-state__actions svg { width: 1rem; height: 1rem; }
+.global-error-page { display: grid; min-height: 100dvh; place-items: center; color: var(--color-text); background: var(--color-background, var(--color-canvas)); }
+.global-error-page .error-state { min-height: 100dvh; }
+
+@media (max-width: 42rem) {
+  .error-state__actions { flex-direction: column; }
+  .error-state__actions .button { width: 100%; }
+}

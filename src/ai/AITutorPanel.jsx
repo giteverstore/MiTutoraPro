@@ -5,6 +5,7 @@ import { AITutorResponse } from './AITutorResponse';
 import { ACCESS_FEATURES, canAccessFeature } from '../access/accessPolicy';
 import { useOptionalSubscriptionAccess } from '../access/SubscriptionAccessContext';
 import { PremiumGate } from '../access/PremiumGate';
+import { ErrorState } from '../errors/ErrorState';
 
 export function AITutorPanel({ language, code, selectedCode = '', selectionSnapshot = null, compilerEvidence, compilerStatus, lessonContext, activityType = 'unknown', titleId = 'ai-tutor-title', client = aiTutorClient, accessTier }) {
   const access = useOptionalSubscriptionAccess();
@@ -82,7 +83,7 @@ export function AITutorPanel({ language, code, selectedCode = '', selectionSnaps
       <div className="ai-tutor-response" aria-busy={loading}>
         {loading ? <div className="ai-tutor-progress" role="status"><LoaderCircle className="is-spinning" aria-hidden="true" /><span>Explaining your code…</span></div> : null}
         {!loading && state.status === 'idle' && !state.response ? <div className="ai-tutor-state"><Sparkles aria-hidden="true" /><span>Select code or ask AI to explain your program.</span></div> : null}
-        {state.error ? <div className="ai-tutor-error" role="alert" aria-live="assertive">{state.error}</div> : null}
+        {state.error ? <ErrorState title={unavailable ? 'AI Tutor unavailable' : 'AI Tutor could not respond'} description={state.error} variant="compact" kind={unavailable ? 'unavailable' : 'failure'} alert /> : null}
         {state.response ? <AITutorResponse response={state.response} stale={state.stale} /> : null}
       </div>
     </aside>

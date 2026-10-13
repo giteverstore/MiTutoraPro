@@ -5,6 +5,7 @@ import { useOptionalSubscriptionAccess } from '../access/SubscriptionAccessConte
 import { PremiumGate } from '../access/PremiumGate';
 import { aiTutorClient } from './AITutorClient';
 import { AITutorResponse } from './AITutorResponse';
+import { ErrorState } from '../errors/ErrorState';
 
 const DEFAULT_SELECTION_INTENT = "Explain this selected code in the context of what I'm learning.";
 
@@ -112,7 +113,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
           </article>
         ))}
         {status === 'loading' ? <div className="ai-workspace-thinking" role="status"><LoaderCircle className="is-spinning" aria-hidden="true" /> AI Tutor is thinking…</div> : null}
-        {error ? <div className="ai-workspace-error" role="alert">{error}</div> : null}
+        {error ? <ErrorState title={status === 'unavailable' ? 'AI Tutor unavailable' : 'AI Tutor could not respond'} description={error} variant="compact" kind={status === 'unavailable' ? 'unavailable' : 'failure'} alert /> : null}
       </div>
       <div className="ai-workspace-composer">
         <textarea

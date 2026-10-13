@@ -6,6 +6,7 @@ import { referralFaqs } from './referralData';
 import { ReferralHistory } from './ReferralHistory';
 import { ReferralOverview } from './ReferralOverview';
 import { referralService } from './ReferralService';
+import { ErrorState } from '../errors/ErrorState';
 
 export function ReferralsPage() {
   const { user } = useUser();
@@ -33,7 +34,9 @@ export function ReferralsPage() {
   };
 
   if (!profile) {
-    return <div className="referrals-page"><div className="referrals-loading" role={loadError ? 'alert' : 'status'}>{loadError?.message ?? 'Loading referral details…'}</div></div>;
+    return <div className="referrals-page">{loadError
+      ? <ErrorState title="Referral details could not be loaded." description="Please try again later. Your referral information is unchanged." alert />
+      : <div className="referrals-loading" role="status">Loading referral details…</div>}</div>;
   }
 
   return (

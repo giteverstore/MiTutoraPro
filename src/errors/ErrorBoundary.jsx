@@ -1,5 +1,5 @@
 import { Component, useState } from 'react';
-import { AlertTriangle, RefreshCcw } from 'lucide-react';
+import { ErrorState } from './ErrorState';
 
 function createDiagnosticId() {
   return `error-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -59,28 +59,16 @@ export function RecoveryState({
   leaveLabel = 'Go back',
   compact = false,
 }) {
-  return (
-    <section
-      className={`error-recovery ${compact ? 'error-recovery--compact' : ''}`}
-      role="alert"
-      aria-labelledby={`error-title-${diagnosticId}`}
-      tabIndex="-1"
-      ref={(element) => element?.focus()}
-    >
-      <AlertTriangle aria-hidden="true" />
-      <div>
-        <h1 id={`error-title-${diagnosticId}`}>{title}</h1>
-        <p>{description}</p>
-        {diagnosticId ? <small>Reference: {diagnosticId}</small> : null}
-        <div className="error-recovery__actions">
-          <button className="button button--primary" type="button" onClick={onRetry}>
-            <RefreshCcw aria-hidden="true" /> {retryLabel}
-          </button>
-          {onLeave ? <button className="button button--secondary" type="button" onClick={onLeave}>{leaveLabel}</button> : null}
-        </div>
-      </div>
-    </section>
-  );
+  return <ErrorState
+    title={title}
+    description={description}
+    referenceId={diagnosticId}
+    variant={compact ? 'panel' : 'full'}
+    alert
+    focusOnMount
+    primaryAction={{ label: retryLabel, onClick: onRetry, icon: 'retry' }}
+    secondaryAction={onLeave ? { label: leaveLabel, onClick: onLeave } : undefined}
+  />;
 }
 
 export function DomainErrorBoundary({

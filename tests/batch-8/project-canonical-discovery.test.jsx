@@ -145,7 +145,8 @@ describe('canonical Project learner discovery', () => {
   it('fails closed for an unknown direct Project route', async () => {
     const repository = { listProjects: vi.fn().mockResolvedValue([]), resolveProject: vi.fn().mockResolvedValue(null) };
     render(<ProjectsPage browseOnly initialProjectId="not-a-project" publishedRepository={repository} />);
-    expect(await screen.findByRole('alert')).toHaveTextContent('Project not found.');
+    expect(await screen.findByRole('heading', { name: 'Project not found.' })).toBeInTheDocument();
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Bingo' })).not.toBeInTheDocument();
   });
 

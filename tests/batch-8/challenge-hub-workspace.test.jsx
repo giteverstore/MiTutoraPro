@@ -191,7 +191,7 @@ describe('dated Daily Challenge workspace', () => {
   it('fails safely when a dated challenge is invalid or unpublished', () => {
     state.resource = { data: null, error: new Error('internal detail'), loading: false };
     render(<ChallengeWorkspace occurrenceDate="2026-09-10" onBack={vi.fn()} />);
-    expect(screen.getByRole('status')).toHaveTextContent('This daily challenge is unavailable.');
+    expect(screen.getByRole('alert')).toHaveTextContent('This daily challenge is unavailable.');
     expect(screen.queryByText('internal detail')).not.toBeInTheDocument();
   });
 });

@@ -70,7 +70,7 @@ function LoadedCourseApplication({
 
   if (courseLoader.isLoading) return <CourseLoadState state="loading" />;
   if (courseLoader.status === 'error') {
-    return <CourseLoadState state="error" message={courseLoader.error.message} />;
+    return <CourseLoadState state="error" error={courseLoader.error} />;
   }
 
   if (anonymous) return <CourseOverviewPage course={courseLoader.currentCourse} anonymous onBack={onExitCourse} onEnterCourse={onEnterCourse} />;

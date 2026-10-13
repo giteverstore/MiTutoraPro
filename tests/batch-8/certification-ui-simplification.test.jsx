@@ -62,7 +62,14 @@ describe('certification learner UI simplification', () => {
     await waitFor(() => expect(navigator.clipboard.writeText).toHaveBeenCalledWith(`http://localhost:3000/verify/${credentialId}`));
     expect(navigator.clipboard.writeText).not.toHaveBeenCalledWith(credentialId);
     fireEvent.click(screen.getByRole('button', { name: 'View' }));
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
+    expect(dialog.querySelector('#certificate-viewer-title')).toHaveTextContent('Python Foundations');
+    expect(within(dialog).getByRole('region', { name: 'Certificate preview' })).toBeInTheDocument();
+    expect(within(dialog).getByRole('complementary', { name: 'Credential details' })).toBeInTheDocument();
+    expect(within(dialog).getByRole('button', { name: 'Close certificate viewer' })).toBeInTheDocument();
+    expect(within(dialog).getByText('Credential ID')).toBeInTheDocument();
+    expect(within(dialog).getByText(credentialId)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Download Certificate' }));
     expect(URL.createObjectURL).toHaveBeenCalledOnce();
   });

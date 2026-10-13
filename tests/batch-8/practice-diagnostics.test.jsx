@@ -145,8 +145,8 @@ describe('Practice diagnostics', () => {
       .mockRejectedValueOnce(annotatePracticeError(firebaseError('unavailable'), 'metadata-query'));
 
     render(<PracticePage />);
-    const heading = await screen.findByText('Sharpen your coding skills.');
-    const diagnosticBoundary = heading.closest('header');
+    const heading = await screen.findByRole('heading', { name: 'Practice questions could not be loaded.' });
+    const diagnosticBoundary = heading.closest('.error-state');
     expect(diagnosticBoundary).toHaveAttribute('data-practice-error-stage', 'metadata-query');
     expect(diagnosticBoundary).toHaveAttribute('data-practice-error-code', 'unavailable');
     expect(diagnosticBoundary).toHaveAttribute('data-practice-error-category', 'availability');

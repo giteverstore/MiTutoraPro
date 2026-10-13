@@ -20,6 +20,7 @@ import { coinRedemptionClient } from '../coins/CoinRedemptionClient';
 import { authService } from '../auth/AuthService';
 import { SharedCompilerDock } from '../components/SharedCompilerDock';
 import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
+import { ErrorState } from '../errors/ErrorState';
 
 const isCompleted = (completion, date) => completion.activityType === 'DAILY_CHALLENGE'
   && completion.occurrenceDate === date
@@ -121,7 +122,9 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
     } catch (nextError) { setCompletion((current) => ({ ...current, pending: false, error: nextError.message })); }
   };
 
-  if (loading || error || !challenge || !compiler) return <div className="challenges-page"><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>Daily Challenge</h1><p role="status">{loading ? 'Loading challenge…' : 'This daily challenge is unavailable.'}</p></div>;
+  if (loading || error || !challenge || !compiler) return <div className="challenges-page">{loading
+    ? <><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>Daily Challenge</h1><p role="status">Loading challenge…</p></>
+    : <ErrorState title="This daily challenge is unavailable." description="Return to Challenges and choose another available challenge." kind="unavailable" alert={Boolean(error)} primaryAction={{ label: 'Back to Challenges', onClick: onBack }} />}</div>;
 
   return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
     <div className={`practice-immersive-workspace coding-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="challenge" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>

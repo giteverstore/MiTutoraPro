@@ -13,6 +13,7 @@ import {
   SearchX,
 } from 'lucide-react';
 import { CourseCard } from './CourseCard';
+import { ErrorState } from '../errors/ErrorState';
 
 const LANGUAGE_ICONS = {
   Python: '/assets/languages/python.svg',
@@ -138,11 +139,10 @@ export function ContinueLearningSection({ courses = [], status, onOpenCourse, on
         <button className="button button--primary" type="button" onClick={() => onOpenCourse(course.id, course.currentLesson)}>
           Continue Learning <ArrowRight size={17} />
         </button>
-      </article>)}</div> : <div className="home-course-empty" role={status === 'error' ? 'alert' : 'status'}>
+      </article>)}</div> : status === 'error' ? <ErrorState title="Learning state unavailable" description="Your saved learning data could not be loaded." variant="compact" alert /> : <div className="home-course-empty" role="status">
         <BookOpen aria-hidden="true" />
-        <h3>{status === 'error' ? 'Learning state unavailable' : 'Start a new course'}</h3>
-        <p>{status === 'error' ? 'Your saved learning data could not be loaded.' : ''}</p>
-        {status === 'error' ? null : <button className="button button--primary" type="button" onClick={onBrowseLibrary}>Browse Library</button>}
+        <h3>Start a new course</h3>
+        <button className="button button--primary" type="button" onClick={onBrowseLibrary}>Browse Library</button>
       </div>}
     </section>
   );
