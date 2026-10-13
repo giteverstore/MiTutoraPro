@@ -1,6 +1,7 @@
 import { BadgeCheck, Copy, Download, Link2, Share2, X } from 'lucide-react';
 import { formatCertificateDate } from './certificateModel';
 import { Dialog } from '../components/Dialog';
+import { BrandWordmark } from '../branding/BrandWordmark.jsx';
 
 export function CertificateViewer({
   certificate,
@@ -20,7 +21,7 @@ export function CertificateViewer({
         </header>
         <div className="certificate-viewer-body">
           <div className="certificate-preview" role="region" aria-label="Certificate preview">
-            <div className="certificate-preview-brand"><span><img src="/ycoders-mark.svg" alt="" /></span><strong>ycoders</strong></div>
+            <div className="certificate-preview-brand"><BrandWordmark variant="dark" /></div>
             {sample ? <strong className="certificate-preview-sample">SAMPLE</strong> : null}
             <span>Certificate of Completion</span>
             <p>This certifies that</p>

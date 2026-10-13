@@ -1,5 +1,7 @@
 import { Check, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { PRIMARY_NAVIGATION } from './navigation';
+import { brandAssets } from '../branding/brandAssets.js';
+import { BrandWordmark } from '../branding/BrandWordmark.jsx';
 
 export function AppSidebar({
   activePage,
@@ -17,9 +19,9 @@ export function AppSidebar({
         aria-label="Primary navigation"
       >
         <div className="application-sidebar-header">
-          <button className="application-brand" type="button" onClick={() => onNavigate('home')}>
-            <span><img src="/ycoders-mark.svg" alt="" /></span>
-            <strong>ycoders</strong>
+          <button className="application-brand" type="button" aria-label="Y Coders home" onClick={() => onNavigate('home')}>
+            <span className="application-brand-mark"><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
+            <BrandWordmark className="application-brand-full" />
           </button>
           <button
             className="application-icon-button application-drawer-close"

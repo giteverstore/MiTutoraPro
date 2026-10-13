@@ -4,6 +4,7 @@ import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { GlobalTopbarActions } from '../app-shell/GlobalTopbarActions';
+import { brandAssets } from '../branding/brandAssets.js';
 
 export function TopNavigation({
   onMenuClick,
@@ -44,7 +45,7 @@ export function TopNavigation({
           <ArrowLeft size={ICON_SIZE.lg} aria-hidden="true" />
         </IconButton>
         <span className="overview-brand lesson-topbar-brand" aria-label="ycoders">
-          <span><img src="/ycoders-mark.svg" alt="" /></span>
+          <span><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
           ycoders
         </span>
         {isSidebarOverlay ? (

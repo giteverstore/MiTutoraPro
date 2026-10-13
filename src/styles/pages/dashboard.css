@@ -39,7 +39,7 @@
   height: 2.25rem;
   place-items: center;
   color: var(--color-text-on-accent);
-  background: var(--color-accent);
+  background: transparent;
   border-radius: var(--radius-md);
 }
 
@@ -2109,7 +2109,7 @@
   height: 2rem;
   place-items: center;
   color: var(--color-text-on-accent);
-  background: var(--color-accent);
+  background: transparent;
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
 }

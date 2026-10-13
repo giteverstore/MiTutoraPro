@@ -3,6 +3,7 @@ import { BadgeCheck } from 'lucide-react';
 import { formatCertificateDate } from './certificateModel';
 import { verifyPublicCertificate } from './publicCertificateVerification';
 import { ErrorState } from '../errors/ErrorState';
+import { brandAssets } from '../branding/brandAssets.js';
 
 export function PublicCertificateVerificationPage({ credentialId, verifier = verifyPublicCertificate }) {
   const [state, setState] = useState({ status: 'loading', certificate: null });
@@ -20,7 +21,7 @@ export function PublicCertificateVerificationPage({ credentialId, verifier = ver
   if (state.status === 'error') return <main className="public-certificate-page"><ErrorState title="Verification unavailable" description="Certificate verification could not be completed." kind="failure" alert /></main>;
   const certificate = state.certificate;
   return <main className="public-certificate-page">
-    <img src="/ycoders-mark.svg" alt="ycoders" />
+    <img src={brandAssets.mark} alt="Y Coders" width="486" height="513" />
     <BadgeCheck aria-hidden="true" />
     <span>Verified Certificate</span>
     <h1>{certificate.courseTitle}</h1>

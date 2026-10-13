@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { requestAuthentication } from './publicAuthNavigation';
+import { brandAssets } from '../branding/brandAssets.js';
 
 const links = [['/library', 'Courses'], ['/practice', 'Practice'], ['/projects', 'Project']];
 
@@ -50,7 +51,7 @@ export function PublicHeader({ activePath = window.location.pathname }) {
   };
 
   return <header className="marketing-header">
-    <a className="marketing-brand" href="/" aria-label="Y Coders home"><img src="/ycoders-mark.svg" alt="" /><strong>Y CODERS</strong></a>
+    <a className="marketing-brand" href="/" aria-label="Y Coders home"><img src={brandAssets.mark} alt="" width="486" height="513" /><strong>Y CODERS</strong></a>
     <button className="marketing-menu-button" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="marketing-navigation" onClick={() => setOpen((value) => !value)}>{open ? <X /> : <Menu />}</button>
     <div className={open ? 'marketing-navigation is-open' : 'marketing-navigation'} id="marketing-navigation">
       <nav aria-label="Public navigation">

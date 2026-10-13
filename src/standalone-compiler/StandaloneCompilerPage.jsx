@@ -12,6 +12,7 @@ import { standaloneCompilerPath } from './standaloneCompilerRouting.js';
 import { isStandaloneCompilerHost } from './standaloneCompilerHost.js';
 import { standaloneMonacoTheme } from './standaloneMonacoThemes.js';
 import { appendBoundedTranscript, COMPILER_RESOURCE_MESSAGES } from '../compiler/core/compilerResourcePolicy.js';
+import { brandAssets } from '../branding/brandAssets.js';
 
 const MonacoCodeEditor = lazy(() => import('../components/MonacoCodeEditor.jsx'));
 const COMING_SOON_LANGUAGES = new Set(['go', 'rust', 'mysql']);
@@ -165,7 +166,7 @@ export function StandaloneCompilerPage({ language, onNavigate, initialSnapshot =
 
   return <main className="standalone-compiler" data-theme={preferences.resolvedTheme}>
     <header className="standalone-compiler-navbar">
-      <a className="standalone-compiler-brand" aria-label="Y Coders Online Compiler" href={isStandaloneCompilerHost(window.location.hostname) ? '/' : '/__compiler'}><img src="/ycoders-mark.svg" alt="" /><strong>Y CODERS</strong><span>Online Compiler</span></a>
+      <a className="standalone-compiler-brand" aria-label="Y Coders Online Compiler" href={isStandaloneCompilerHost(window.location.hostname) ? '/' : '/__compiler'}><img src={brandAssets.mark} alt="" width="486" height="513" /><strong>Y CODERS</strong><span>Online Compiler</span></a>
       <span className="standalone-navbar-spacer" />
       <div className="standalone-navbar-right">
         <button className="standalone-language-trigger" type="button" onClick={() => setDialog('language')}><span>{language.label}</span><ChevronDown size={18} /></button>

@@ -1,0 +1,32 @@
+.brand-wordmark {
+  position: relative;
+  display: inline-block;
+  width: 10rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.brand-wordmark img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  transform: translateY(-50%);
+}
+
+.brand-wordmark .brand-wordmark__light,
+.brand-wordmark--dark .brand-wordmark__light,
+.brand-wordmark--light .brand-wordmark__dark,
+[data-theme="dark"] .brand-wordmark--auto .brand-wordmark__dark {
+  display: none;
+}
+
+.brand-wordmark--light .brand-wordmark__light,
+[data-theme="dark"] .brand-wordmark--auto .brand-wordmark__light {
+  display: block;
+}

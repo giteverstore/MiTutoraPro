@@ -1,10 +1,12 @@
+import { brandAssets } from '../../branding/brandAssets.js';
+
 export function AuthLayout({ eyebrow, title, description, children }) {
   return (
     <main className="auth-page" data-theme="light">
       <section className="auth-form-panel" aria-labelledby="auth-page-title">
         <div className="auth-form-wrap">
           <a className="auth-brand" href="/" aria-label="Y Coders home">
-            <span><img src="/ycoders-mark.svg" alt="" /></span>
+            <span><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
             <strong>Y CODERS</strong>
           </a>
           {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}

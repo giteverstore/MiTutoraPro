@@ -284,9 +284,9 @@
   font-weight: var(--font-weight-bold);
 }
 
-.public-footer-brand img {
-  width: 2.75rem;
-  height: 2.75rem;
+.public-footer-brand .brand-wordmark {
+  width: 14rem;
+  height: 3rem;
 }
 
 .public-footer-brand-column>p {

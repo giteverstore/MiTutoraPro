@@ -2,6 +2,7 @@ import { X } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { dashboardNavigation } from './dashboardData';
 import { DashboardIcon } from './dashboardIcons';
+import { brandAssets } from '../branding/brandAssets.js';
 
 export function DashboardSidebar({ activeItem, isOpen, onClose, onSelect }) {
   return (
@@ -14,7 +15,7 @@ export function DashboardSidebar({ activeItem, isOpen, onClose, onSelect }) {
       />
       <aside className={`dashboard-sidebar ${isOpen ? 'is-open' : ''}`}>
         <div className="dashboard-brand">
-          <span><img src="/ycoders-mark.svg" alt="" /></span>
+          <span><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
           <strong>ycoders</strong>
           <button className="dashboard-mobile-close" type="button" aria-label="Close navigation" onClick={onClose}>
             <X size={ICON_SIZE.md} />
