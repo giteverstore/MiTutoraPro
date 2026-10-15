@@ -3,7 +3,7 @@ import { ArrowRight, Clock3 } from 'lucide-react';
 export function InProgressCertificateCard({ course, onContinue }) {
   return (
     <article className="certificate-progress-card">
-      <span>{course.language}</span>
+      {course.language && course.language !== 'none' ? <span>{course.language}</span> : null}
       <h3>{course.courseTitle}</h3>
       <p>{course.description}</p>
       <div className="certificate-progress-copy"><span>Course progress</span><strong>{course.progress}%</strong></div>

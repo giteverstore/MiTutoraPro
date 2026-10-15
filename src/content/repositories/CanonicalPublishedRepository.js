@@ -34,13 +34,21 @@ export class CanonicalPublishedRepository {
 export function adaptCanonicalCourse(document) {
   const course = document.content;
   const migration = document.metadata?.migration;
+  const modules = course.modules.map((module) => {
+    const adaptLesson = (lesson) => ({ ...lesson, blocks: lesson.blocks.map((block) => block.type === 'image' && block.assetId && !block.src
+      ? { ...block, src: `/api/admin-content/public/assets/${encodeURIComponent(document.contentId)}/${document.version}/${encodeURIComponent(block.assetId)}` }
+      : block) });
+    return { ...module, initiallyExpanded: module.initiallyExpanded ?? module.order === 1,
+      ...(module.sections ? { sections: module.sections.map((section) => ({ ...section, lessons: section.lessons.map(adaptLesson) })) } : { lessons: module.lessons.map(adaptLesson) }) };
+  });
   return {
     id: course.courseId, slug: course.slug, title: course.title, description: course.description,
+    language: course.language, compilerEnabled: course.language !== 'none', prerequisites: course.prerequisites ?? [],
     status: course.comingSoon ? 'coming-soon' : 'published', comingSoon: course.comingSoon === true, available: course.comingSoon !== true, locale: document.locale === 'en' ? 'en-US' : document.locale,
     publishedVersion: document.version, contentVersion: document.version,
-    metadata: { ...(migration?.sourceMetadata ?? {}), version: String(document.version), level: course.difficulty, estimatedMinutes: course.estimatedMinutes, tags: migration?.sourceMetadata?.tags ?? [course.language, ...(course.tags ?? [])], updatedAt: document.metadata?.publishedAt ?? migration?.sourceMetadata?.updatedAt },
+    metadata: { ...(migration?.sourceMetadata ?? {}), version: String(document.version), level: course.difficulty, estimatedMinutes: course.estimatedMinutes, tags: migration?.sourceMetadata?.tags ?? [...(course.language === 'none' ? [] : [course.language]), ...(course.tags ?? [])], updatedAt: document.metadata?.publishedAt ?? migration?.sourceMetadata?.updatedAt },
     navigation: { ...(migration?.sourceNavigation ?? {}), defaultLessonId: course.defaultLessonId ?? course.modules.flatMap((module) => module.sections?.flatMap((section) => section.lessons) ?? module.lessons ?? [])[0]?.id, sequence: migration?.sourceNavigation?.sequence ?? 'module-order', skipLockedLessons: migration?.sourceNavigation?.skipLockedLessons ?? true },
-    modules: course.modules.map((module) => ({ ...module, initiallyExpanded: module.initiallyExpanded ?? module.order === 1 })),
+    modules,
   };
 }
 

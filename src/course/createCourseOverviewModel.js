@@ -33,7 +33,7 @@ export function createCourseOverviewModel(course, progress) {
     exerciseCount: blocks.filter(({ type }) => type === 'exercise').length,
     certificateAvailable: course.status !== 'archived',
     skills: skills.length ? skills : ['Core concepts', 'Practical problem solving'],
-    prerequisites: course.metadata?.level === 'beginner'
+    prerequisites: course.prerequisites?.length ? course.prerequisites : course.metadata?.level === 'beginner'
       ? ['No prior programming experience required', 'A computer and a willingness to practise']
       : ['Foundational subject knowledge is recommended'],
     modules: course.modules.map((module) => {

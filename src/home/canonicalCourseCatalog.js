@@ -10,7 +10,8 @@ const duration = (minutes) => {
 
 export function mapPublishedCourse(entry) {
   const metadata = entry.metadata ?? {};
-  const language = titleCase(metadata.language || 'Programming');
+  const neutral = metadata.language === 'none';
+  const group = neutral ? (metadata.topic || 'Other topics') : titleCase(metadata.language || 'Programming');
   const comingSoon = entry.comingSoon === true;
   return {
     id: entry.contentId,
@@ -21,8 +22,8 @@ export function mapPublishedCourse(entry) {
     lessonCount: metadata.lessonCount ?? 0,
     comingSoon,
     available: !comingSoon,
-    filter: language,
-    kind: 'languages',
+    filter: group,
+    kind: neutral ? 'domains' : 'languages',
     publishedVersion: entry.activeVersion,
   };
 }
@@ -45,6 +46,7 @@ export async function loadPinnedCourseCatalog(progressRecords, repository = publ
       const course = document.content;
       return mapPublishedCourse({ contentId, activeVersion: document.version, comingSoon: course.comingSoon === true, metadata: {
         title: course.title, summary: course.description, language: course.language,
+        topic: course.language === 'none' ? course.tags?.[0] : undefined,
         difficulty: course.difficulty, estimatedMinutes: course.estimatedMinutes,
         lessonCount: course.modules.flatMap((module) => module.sections?.flatMap((section) => section.lessons) ?? module.lessons ?? []).length,
       } });

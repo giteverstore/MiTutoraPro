@@ -80,6 +80,7 @@ export function Layout({ courseLoader, onExitCourse }) {
   const workspaceRef = compilerResize.workspaceRef;
   const compilerMaxWidth = compilerResize.max;
   const persistentCompilerData = compilerData ?? course.compiler;
+  const hasCourseCompiler = course.compilerEnabled !== false;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 1180px)');
@@ -259,7 +260,7 @@ export function Layout({ courseLoader, onExitCourse }) {
           <LearningWorkspaceToolbar
             activeView={activeWorkspace}
             onViewChange={setActiveWorkspace}
-            compilerMinimized={isCompilerMinimized}
+            compilerMinimized={hasCourseCompiler && isCompilerMinimized}
             onRestoreCompiler={toggleCompilerMinimized}
           />
           <div className="learning-workspace-view is-course" id="learning-course-panel" role="tabpanel" hidden={activeWorkspace !== 'course'}>
@@ -295,7 +296,7 @@ export function Layout({ courseLoader, onExitCourse }) {
             />
           </div>
         </section>
-        <SharedCompilerDock
+        {hasCourseCompiler && <SharedCompilerDock
           ariaLabel={persistentCompilerData.ariaLabel}
           compilerStatus={compilerStatus}
           minimized={isCompilerMinimized}
@@ -318,7 +319,7 @@ export function Layout({ courseLoader, onExitCourse }) {
             resetKeys: [persistentCompilerData.id],
           }}
           resize={{ label: course.ui.resizeLabels.compiler, max: compilerMaxWidth, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
-        />
+        />}
       </div>
     </div>
     </LearningCompilerProvider>

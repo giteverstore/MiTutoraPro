@@ -182,14 +182,14 @@ export function BrowseCoursesSection({
             />
           </label>
         </div>
-        <div className="home-filter-list" aria-label="Language filters" onWheel={scrollFilters}>
+        <div className="home-filter-list" aria-label="Course filters" onWheel={scrollFilters}>
           <button
             type="button"
             className={activeLanguage === 'all' ? 'is-active' : ''}
             aria-pressed={activeLanguage === 'all'}
             onClick={() => onLanguageChange('all')}
           >
-            All Languages
+            All Courses
           </button>
           {languages.map((language) => (
             <button

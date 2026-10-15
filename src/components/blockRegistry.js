@@ -4,8 +4,10 @@ import { CodeBlock } from './blocks/CodeBlock';
 import { CompilerBlock } from './blocks/CompilerBlock';
 import { DividerBlock } from './blocks/DividerBlock';
 import { ExerciseBlock } from './blocks/ExerciseBlock';
+import { ExpectedOutputBlock } from './blocks/ExpectedOutputBlock';
 import { HeadingBlock } from './blocks/HeadingBlock';
 import { ImageBlock } from './blocks/ImageBlock';
+import { ListBlock } from './blocks/ListBlock';
 import { NoteBlock } from './blocks/NoteBlock';
 import { ParagraphBlock } from './blocks/ParagraphBlock';
 import { QuizBlock } from './blocks/QuizBlock';
@@ -20,8 +22,10 @@ const blockRegistry = Object.freeze({
   paragraph: ParagraphBlock,
   code: CodeBlock,
   image: ImageBlock,
+  list: ListBlock,
   quiz: QuizBlock,
   exercise: ExerciseBlock,
+  'expected-output': ExpectedOutputBlock,
   compiler: CompilerBlock,
   ai_explanation: AIExplanationBlock,
   note: NoteBlock,
