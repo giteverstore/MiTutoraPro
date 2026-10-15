@@ -124,6 +124,7 @@ describe('dated Daily Challenge workspace', () => {
     expect(state.complete).toHaveBeenCalledWith({ activityType: 'DAILY_CHALLENGE', activityId: 'challenge-2026-09-13', activityVersion: 'v1' });
     const completedButton = await screen.findByRole('button', { name: 'Completed' });
     const dialog = screen.getByRole('dialog', { name: 'Daily Challenge Completed!' });
+    expect(within(dialog).getByText('Daily Challenge completed!')).toBeVisible();
     expect(dialog).toHaveTextContent('Balanced Brackets');
     expect(dialog).toHaveTextContent('+20');
     expect(dialog).toHaveTextContent('4 day streak');
@@ -169,6 +170,7 @@ describe('dated Daily Challenge workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
     await waitFor(() => expect(state.complete).toHaveBeenCalledOnce());
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
     unmount();
     state.complete.mockReset();
     state.complete.mockRejectedValue(new Error('Completion could not be saved.'));
@@ -177,6 +179,7 @@ describe('dated Daily Challenge workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
     expect(await screen.findByText('Completion could not be saved.')).toBeInTheDocument();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
 
   it('keeps historical content in review mode and cannot issue completion', () => {

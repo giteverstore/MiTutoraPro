@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../src/components/CompilerPanel', () => ({
@@ -65,6 +65,20 @@ describe('Practice immersive coding workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Check Output' }));
     fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
     expect(onComplete).toHaveBeenCalledWith(question);
+  });
+
+  it('celebrates only a newly saved completion, not an already solved problem or output match', async () => {
+    const onComplete = vi.fn().mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 10 });
+    const { unmount } = render(<PracticeDetail question={question} solved={false} onBack={vi.fn()} onComplete={onComplete} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Check Output' }));
+    expect(screen.queryByText('Practice problem solved!')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
+    await waitFor(() => expect(screen.getByText('Practice problem solved!')).toBeVisible());
+    expect(screen.getByRole('button', { name: 'Completed' })).toBeDisabled();
+    expect(onComplete).toHaveBeenCalledOnce();
+    unmount();
+    render(<PracticeDetail question={question} solved onBack={vi.fn()} onComplete={onComplete} />);
+    expect(screen.queryByText('Practice problem solved!')).not.toBeInTheDocument();
   });
 
   it('switches Question to the shared gated AI workspace and uses the shared compiler restore control', () => {

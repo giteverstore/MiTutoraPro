@@ -6,6 +6,7 @@ import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector
 import { useSelectableCompilerLanguage } from '../compiler/useSelectableCompilerLanguage';
 import { useContentResource } from '../content/hooks/useContentResource';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
+import { CompletionCelebration } from '../components/CompletionCelebration';
 import { kolkataDate } from '../home/challengeCalendar';
 import { PracticeProblemContent } from '../practice/PracticeProblemContent';
 import { useCompilerPaneResize } from '../hooks/useCompilerPaneResize';
@@ -116,7 +117,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       setCompleted(['completed', 'already_completed'].includes(result.completionStatus));
       setCompletion({ pending: false, rewardStatus: result.rewardStatus, rewardAmount: result.rewardAmount ?? 0, error: null });
       if (result.completionStatus === 'completed') {
-        setCelebration({ challengeTitle: challenge.title, rewardAmount: result.rewardAmount ?? 0, streak: Math.max(0, Number(result.streak?.currentStreak) || 0) });
+        setCelebration({ variant: 'challenge', message: 'Daily Challenge completed!', challengeTitle: challenge.title, rewardAmount: result.rewardAmount ?? 0, streak: Math.max(0, Number(result.streak?.currentStreak) || 0) });
       }
       await activity.refresh?.();
     } catch (nextError) { setCompletion((current) => ({ ...current, pending: false, error: nextError.message })); }
@@ -139,6 +140,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       <SharedCompilerDock ariaLabel="Challenge compiler" className="practice-compiler-dock" compilerStatus={compilerStatus} minimized={isCompilerMinimized} panelRef={compilerLanguage.panelRef} compiler={compiler} panelProps={{ instanceId: `challenge-${challenge.id}-${occurrenceDate}`, activityType: 'challenge', onVerificationChange: setVerificationStatus, onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: () => setIsCompilerMinimized((current) => !current), aiEnabled: false, publicTests: [] }} errorBoundary={{ name: 'challenge-compiler', title: 'The code workspace could not be displayed.', description: 'The challenge remains available. Retry the workspace to continue.', resetKeys: [challenge.id] }} resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }} />
     </div>
     <Dialog open={Boolean(celebration)} title="Daily Challenge Completed!" description="Come back tomorrow for the next challenge." onClose={() => setCelebration(null)} className="challenge-completion-dialog">
+      <CompletionCelebration event={celebration} inline />
       <div className="challenge-completion-dialog-mark" aria-hidden="true"><CheckCircle2 /></div>
       <strong className="challenge-completion-dialog-title">{celebration?.challengeTitle}</strong>
       <div className="challenge-completion-dialog-results">

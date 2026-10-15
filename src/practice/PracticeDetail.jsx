@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, CheckCircle2, LockKeyhole } from 'lucide-react';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
 import { PracticeProblemContent } from './PracticeProblemContent';
@@ -10,10 +10,13 @@ import { useSelectableCompilerLanguage } from '../compiler/useSelectableCompiler
 import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
 import { AITutorWorkspace } from '../ai/AITutorWorkspace';
 import { SharedCompilerDock } from '../components/SharedCompilerDock';
+import { CompletionCelebration } from '../components/CompletionCelebration';
 
 export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {} }) {
   const [verificationStatus, setVerificationStatus] = useState(solved ? 'matched' : 'idle');
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
+  const [completed, setCompleted] = useState(solved);
+  const [celebration, setCelebration] = useState(null);
   const [compilerStatus, setCompilerStatus] = useState('ready');
   const [isCompilerMinimized, setIsCompilerMinimized] = useState(false);
   const [activeWorkspace, setActiveWorkspace] = useState('question');
@@ -27,17 +30,21 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
   );
   const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, question.language);
   const compiler = compilerLanguage.activeDefinition;
-  const canComplete = verificationStatus === 'matched';
+  useEffect(() => { if (solved) setCompleted(true); }, [solved]);
+  const canComplete = verificationStatus === 'matched' && !completed;
   const rewardMessage = {
     credited: `+${completion.rewardAmount} coins earned`, already_claimed: 'reward already claimed',
     daily_reward_cap_reached: 'daily reward cap reached', unavailable: 'reward reconciliation pending',
     daily_limit_reached: 'reward unavailable', activity_not_rewardable: 'reward unavailable', policy_disabled: 'reward unavailable',
   }[completion.rewardStatus] ?? 'completion recorded';
   const complete = async () => {
+    if (!canComplete || completion.pending) return;
     setCompletion((current) => ({ ...current, pending: true, error: null }));
     try {
       const result = await onComplete(question);
       setCompletion({ pending: false, rewardStatus: result.rewardStatus, rewardAmount: result.rewardAmount ?? 0, error: null });
+      if (['completed', 'already_completed'].includes(result.completionStatus)) setCompleted(true);
+      if (result.completionStatus === 'completed') setCelebration({ variant: 'practice', message: 'Practice problem solved!' });
     } catch (error) {
       setCompletion({ pending: false, rewardStatus: null, rewardAmount: 0, error: error.message });
     }
@@ -60,8 +67,8 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
         </header>
         <PracticeProblemContent question={question} />
         <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>
-          <span>{canComplete ? <CheckCircle2 /> : <LockKeyhole />}{completion.error ? completion.error : solved ? `Completed · ${rewardMessage}` : canComplete ? 'Output verified. You can mark this solution complete.' : 'Run your solution and check its output to continue.'}</span>
-          <button className="button button--primary" type="button" disabled={!canComplete || solved || completion.pending} onClick={complete}><CheckCircle2 /> {completion.pending ? 'Saving…' : solved ? 'Completed' : 'Save Completion'}</button>
+          <span>{canComplete || completed ? <CheckCircle2 /> : <LockKeyhole />}{completion.error ? completion.error : completed ? `Completed · ${rewardMessage}` : canComplete ? 'Output verified. You can mark this solution complete.' : 'Run your solution and check its output to continue.'}</span>
+          <button className="button button--primary" type="button" disabled={!canComplete || completion.pending} onClick={complete}><CheckCircle2 /> {completion.pending ? 'Saving…' : completed ? 'Completed' : 'Save Completion'}</button>
         </footer>
       </article>
       <div className="practice-ai-region" id="practice-ai-panel" role="tabpanel" hidden={activeWorkspace !== 'ai'}>
@@ -81,5 +88,6 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
         resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
       />
     </div>
+    <CompletionCelebration event={celebration} />
   </div>;
 }

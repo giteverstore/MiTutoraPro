@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Bell, Bot, CheckCircle2, ChevronDown, ChevronRight, ChevronUp, Circle, Crown, Download, FileCode2, FileJson, FileText, Folder, FolderOpen, FolderPlus, ListChecks, Pencil, Plus, RotateCcw, Settings, Sparkles, Trash2, X } from 'lucide-react';
 import { EditorPlaceholder } from '../../components/EditorPlaceholder';
+import { CompletionCelebration } from '../../components/CompletionCelebration';
 import { useCompilerManager } from '../../compiler/CompilerProvider';
 import { canAccessProjectPage } from '../../access/accessPolicy';
 import { openPremiumPlans } from '../../access/PremiumGate';
@@ -69,6 +70,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
   const runtime = useMemo(() => resolveProjectRuntime(project, activeLanguageId), [project, activeLanguageId]);
   const workspacePages = project.checkpoints.length > 1 ? project.checkpoints.map((checkpoint) => ({ ...checkpoint, label: checkpoint.title, runtime })) : PROJECT_WORKSPACE_PAGES;
   const sourceGuide = useMemo(() => buildProjectSourcePages(project), [project]);
+  const reflectionFirstPageIndex = sourceGuide?.pages.findIndex(({ id }) => project.completionBlocks?.some(({ blockId }) => blockId === id)) ?? -1;
   const initialWorkspace = useMemo(() => createInitialProjectFiles(project, savedProgress, runtime), [project.id, activeLanguageId]);
   const [files, setFiles] = useState(initialWorkspace.files);
   const [folders, setFolders] = useState(initialWorkspace.folders);
@@ -79,6 +81,9 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
   const [fileError, setFileError] = useState('');
   const [pageIndex, setPageIndex] = useState(clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? savedProgress.lastPageIndex ?? 0, 0, workspacePages.length - 1));
   const [guidePageIndex, setGuidePageIndex] = useState(() => sourceGuide?.checkpointFirstPageIndices[clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? 0, 0, workspacePages.length - 1)] ?? 0);
+  const [checkpointScreen, setCheckpointScreen] = useState(null);
+  const [checkpointFeedback, setCheckpointFeedback] = useState(null);
+  const [celebration, setCelebration] = useState(null);
   const [result, setResult] = useState(null);
   const [running, setRunning] = useState(false);
   const [bottomTab, setBottomTab] = useState('output');
@@ -110,6 +115,11 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
   const taskBased = isTaskBasedProject(project);
   const taskModel = useMemo(() => deriveTaskProgress(project, activeProgress), [project, activeProgress]);
   const taskCheckpoint = taskBased ? taskModel.checkpoints[pageIndex] : null;
+  const checkpointBoundary = taskBased && (sourceGuide
+    ? reflectionFirstPageIndex > 0 && pageIndex === workspacePages.length - 1
+      ? guidePageIndex === reflectionFirstPageIndex - 1
+      : guidePageIndex === sourceGuide.pages.length - 1 || sourceGuide.pages[guidePageIndex + 1]?.checkpointIndex !== pageIndex
+    : true);
   const activeTask = sourceGuide
     ? taskCheckpoint?.tasks.find(({ taskId }) => taskId === guidePage?.taskId) ?? null
     : taskCheckpoint?.tasks.find(({ taskId }) => taskId === activeProgress.activeTaskId)
@@ -128,9 +138,23 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
   const modelOwnerPrefix = projectModelOwnerPrefix(project.id);
   const retainedModelPaths = openTabs.map((path) => projectModelPath(project.id, path));
   const persist = (nextFiles, nextEntry = entryFilePath, nextFolders = folders, options) => projectProgressService.saveWorkspace(project.id, nextFiles, nextEntry, nextFolders, options);
-  const visit = (index) => { const safe = clamp(index, 0, workspacePages.length - 1); setPageIndex(safe); if (sourceGuide) { setGuidePageIndex(sourceGuide.checkpointFirstPageIndices[safe]); setAISelection(null); } else { projectProgressService.visitPage(project.id, safe); onProgress?.(); } };
+  const visit = (index) => { const safe = clamp(index, 0, workspacePages.length - 1); setCheckpointScreen(null); setPageIndex(safe); if (sourceGuide) { setGuidePageIndex(sourceGuide.checkpointFirstPageIndices[safe]); setAISelection(null); } else { projectProgressService.visitPage(project.id, safe); onProgress?.(); } };
   const visitGuidePage = (index) => { const safe = clamp(index, 0, sourceGuide.pages.length - 1); setGuidePageIndex(safe); setPageIndex(sourceGuide.pages[safe].checkpointIndex); setAISelection(null); };
+  const visitFromGuide = (index) => {
+    const atBoundary = sourceGuide
+      ? (checkpointBoundary && index > guidePageIndex) || (index >= sourceGuide.pages.length && reflectionFirstPageIndex < 0)
+      : index >= workspacePages.length || index > pageIndex;
+    if (taskBased && atBoundary) { setCheckpointFeedback(null); setCheckpointScreen(pageIndex); return; }
+    if (sourceGuide) visitGuidePage(index); else visit(index);
+  };
+  const continueAfterCheckpoint = () => {
+    const next = checkpointScreen + 1;
+    setCheckpointScreen(null);
+    if (next < workspacePages.length) visit(next);
+    else if (sourceGuide) visitGuidePage(reflectionFirstPageIndex > 0 ? reflectionFirstPageIndex : sourceGuide.pages.length - 1);
+  };
   const selectTask = (checkpointId, taskId) => {
+    setCheckpointScreen(null);
     const checkpoint = taskModel.checkpoints.find(({ checkpointId: id }) => id === checkpointId);
     const task = checkpoint?.tasks.find(({ taskId: id }) => id === taskId);
     if (!task?.unlocked) return;
@@ -151,6 +175,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
       const validation = await runDescriptors(activeTask.validators);
       setResult(presentDescriptorValidation(validation));
       if (validation.passed) {
+        if (!activeTask.completed) setCelebration({ variant: 'task', message: 'Task verified!' });
         let progression = recordTaskVerification(activeProgress, activeTask.taskId, validation);
         const taskIndex = taskCheckpoint.tasks.findIndex(({ taskId }) => taskId === activeTask.taskId);
         const nextTask = taskCheckpoint.tasks[taskIndex + 1];
@@ -165,16 +190,14 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
     try {
       const validation = await runDescriptors(taskCheckpoint.validators);
       setResult(presentDescriptorValidation(validation));
+      setCheckpointFeedback(validation);
       let progression = recordCheckpointValidation(activeProgress, taskCheckpoint.checkpointId, validation);
       if (validation.passed) {
+        if (!taskCheckpoint.completed) setCelebration({ variant: 'checkpoint', message: 'Checkpoint validated!' });
         const nextCheckpoint = project.checkpoints[pageIndex + 1];
         if (nextCheckpoint) {
-          if (taskCheckpoint.completionBlocks?.length) progression = { ...progression, currentCheckpoint: pageIndex + 1 };
-          else {
-            progression = { ...startTaskState(progression, nextCheckpoint.checkpointId, nextCheckpoint.tasks[0].taskId), currentCheckpoint: pageIndex + 1 };
-            setPageIndex(pageIndex + 1);
-            if (sourceGuide) setGuidePageIndex(sourceGuide.checkpointFirstPageIndices[pageIndex + 1]);
-          }
+          progression = taskCheckpoint.completionBlocks?.length ? progression : startTaskState(progression, nextCheckpoint.checkpointId, nextCheckpoint.tasks[0].taskId);
+          progression = { ...progression, currentCheckpoint: pageIndex + 1 };
         }
       }
       const next = projectProgressService.saveTaskProgress(project.id, progression); setActiveProgress(next); onProgress?.(next);
@@ -186,6 +209,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
     try {
       const validation = await runDescriptors(project.finalValidators);
       setResult(presentDescriptorValidation(validation));
+      if (validation.passed && !projectComplete) setCelebration({ variant: 'course', message: 'Project complete!' });
       const next = projectProgressService.saveTaskProgress(project.id, recordFinalValidation(activeProgress, validation), { complete: validation.passed }); setActiveProgress(next); onProgress?.(next);
     } finally { setRunning(false); }
   };
@@ -283,12 +307,13 @@ export function ProjectWorkspace({ project, tier = 'FREE', onBack, onProgress, i
       {leftMode ? <div className="project-vertical-resizer is-left" role="separator" tabIndex="0" aria-label="Resize left panel" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow={leftWidth} onKeyDown={(event) => resizeSideWithKeyboard('left', event)} onPointerDown={(event) => resizeSide('left', event)} /> : null}
       <main className="project-editor-pane"><EditorTabs openTabs={openTabs} activeFilePath={activeFilePath} dirtyFiles={dirtyFiles} onActivate={setActiveFilePath} onClose={closeTab} />{!allowed && (taskBased || page.id === 'implementation') ? <div className="project-editor-locked" aria-label="Project editor locked"><Crown /><p>Upgrade to Premium to edit and validate the implementation.</p></div> : activeFile ? <EditorPlaceholder editor={{ ariaLabel: activeFilePath === entryFilePath ? `${project.title} implementation editor` : `${project.title} ${activeFilePath} editor`, fileName: activeFilePath, language: activeFile.language, modelPath: projectModelPath(project.id, activeFilePath) }} value={activeFile.content} onChange={updateActiveFile} onCursorPositionChange={setCursorPosition} onAskSelection={({ text }) => selectForAI('user_code', text)} instanceId={`project-${project.id}-${activeFilePath}`} workspacePreferences={workspacePreferences.editorPreferences} loadingTheme={workspacePreferences.resolvedTheme} modelOwnerPrefix={modelOwnerPrefix} retainedModelPaths={retainedModelPaths} /> : <div className="project-editor-empty"><FileCode2 /><p>Open a file from Explorer to start editing.</p></div>}</main>
       <div className="project-vertical-resizer is-right" role="separator" tabIndex="0" aria-label="Resize Guide and AI" aria-orientation="vertical" aria-valuemin="300" aria-valuemax={rightPanelMaxWidth()} aria-valuenow={aiWidth} onKeyDown={(event) => resizeSideWithKeyboard('right', event)} onPointerDown={(event) => resizeSide('right', event)} />
-      <aside className="project-ai-panel" aria-label="Guide and AI"><header><div className="project-right-tabs" role="tablist" aria-label="Project assistance"><button className={rightMode === 'guide' ? 'is-active' : ''} type="button" role="tab" aria-selected={rightMode === 'guide'} tabIndex={rightMode === 'guide' ? 0 : -1} onKeyDown={handleTabListKeyDown} onClick={() => setRightMode('guide')}><ListChecks /> Guide</button><button className={rightMode === 'ai' ? 'is-active' : ''} type="button" role="tab" aria-selected={rightMode === 'ai'} tabIndex={rightMode === 'ai' ? 0 : -1} onKeyDown={handleTabListKeyDown} onClick={() => setRightMode('ai')}><Bot /> AI</button></div></header><div className={`project-right-mode project-guide-mode${rightMode === 'guide' ? ' is-active' : ''}`}><GuidePanel project={project} page={page} sourcePage={guidePage} runtime={activeLanguageId} pageIndex={sourceGuide ? guidePageIndex : pageIndex} pageCount={sourceGuide ? sourceGuide.pages.length : workspacePages.length} allowed={allowed} onVisit={sourceGuide ? visitGuidePage : visit} onStageForAI={stageAISelection} complete={projectComplete} displayName={displayName} languageLabel={languageLabel} onDownload={downloadProject} downloading={exportState.running} onBack={onBack} task={activeTask} taskCheckpoint={taskCheckpoint} running={running} onVerifyTask={verifyTask} onValidateCheckpoint={validateCheckpoint} onValidateFinal={validateFinalProject} finalReady={taskModel.allCheckpointsComplete} /></div><div className={`project-right-mode project-ai-mode${rightMode === 'ai' ? ' is-active' : ''}`}><ProjectContextualAIConversation context={aiSelection} accessTier={tier} /></div></aside>
+      <aside className="project-ai-panel" aria-label="Guide and AI"><header><div className="project-right-tabs" role="tablist" aria-label="Project assistance"><button className={rightMode === 'guide' ? 'is-active' : ''} type="button" role="tab" aria-selected={rightMode === 'guide'} tabIndex={rightMode === 'guide' ? 0 : -1} onKeyDown={handleTabListKeyDown} onClick={() => setRightMode('guide')}><ListChecks /> Guide</button><button className={rightMode === 'ai' ? 'is-active' : ''} type="button" role="tab" aria-selected={rightMode === 'ai'} tabIndex={rightMode === 'ai' ? 0 : -1} onKeyDown={handleTabListKeyDown} onClick={() => setRightMode('ai')}><Bot /> AI</button></div></header><div className={`project-right-mode project-guide-mode${rightMode === 'guide' ? ' is-active' : ''}`}><GuidePanel project={project} page={page} sourcePage={guidePage} runtime={activeLanguageId} pageIndex={sourceGuide ? guidePageIndex : pageIndex} pageCount={sourceGuide ? sourceGuide.pages.length : workspacePages.length} allowed={allowed} onVisit={visitFromGuide} onStageForAI={stageAISelection} complete={projectComplete} displayName={displayName} languageLabel={languageLabel} onDownload={downloadProject} downloading={exportState.running} onBack={onBack} task={activeTask} taskCheckpoint={taskCheckpoint} running={running} onVerifyTask={verifyTask} onValidateCheckpoint={validateCheckpoint} onValidateFinal={validateFinalProject} finalReady={taskModel.allCheckpointsComplete} checkpointBoundary={checkpointBoundary} checkpointFeedback={checkpointFeedback} checkpointScreen={checkpointScreen === pageIndex} checkpointIndex={pageIndex} checkpointCount={taskModel.checkpoints.length} completedCheckpointCount={taskModel.checkpoints.filter(({ completed }) => completed).length} onBackToGuide={() => setCheckpointScreen(null)} onContinueCheckpoint={continueAfterCheckpoint} /></div><div className={`project-right-mode project-ai-mode${rightMode === 'ai' ? ' is-active' : ''}`}><ProjectContextualAIConversation context={aiSelection} accessTier={tier} /></div></aside>
       {bottomOpen ? <div className="project-horizontal-resizer" role="separator" tabIndex="0" aria-label="Resize bottom panel" aria-orientation="horizontal" aria-valuemin="120" aria-valuemax="360" aria-valuenow={bottomHeight} onKeyDown={resizeBottomWithKeyboard} onPointerDown={resizeBottom} /> : null}
       <BottomPanel open={bottomOpen} tab={bottomTab} setTab={setBottomTab} setOpen={setBottomOpen} running={running} result={result} runtime={runtime} checkpoint={page} onRun={() => validate({ preserveTerminal: true })} onStageForAI={stageAISelection} status={status} />
     </div>
     <footer className="project-ide-statusbar"><div className="project-status-left"><span>{status}</span>{exportState.error ? <span className="project-export-error" role="alert">{exportState.error}</span> : null}</div><div className="project-status-right"><button className="project-status-language" type="button" aria-haspopup="dialog" aria-expanded={languagePickerOpen} onClick={() => setLanguagePickerOpen(true)}>{languageLabel}<ChevronDown /></button><span>Ln {cursorPosition.lineNumber}, Col {cursorPosition.column}</span><span>Spaces: {workspacePreferences.preferences.tabSize}</span><span>UTF-8</span><span>LF</span>{result?.passed ? <button type="button" disabled={exportState.running} onClick={downloadProject}><Download /> {exportState.running ? 'Preparing…' : 'Export'}</button> : null}<button type="button" aria-label="Notifications"><Bell /></button></div></footer>
     {pendingAISelection ? <button className="project-selection-ai-action" type="button" style={{ left: `${clamp(pendingAISelection.bounds.left, 8, window.innerWidth - 112)}px`, top: `${clamp(pendingAISelection.bounds.bottom + 8, 8, window.innerHeight - 44)}px` }} onPointerDown={(event) => event.preventDefault()} onClick={askPendingSelection}><Sparkles /> Ask AI</button> : null}
+    <CompletionCelebration event={celebration} />
     <ProjectLanguagePicker open={languagePickerOpen} activeLanguageId={compilerLanguageId} allowedProjectLanguages={project.supportedLanguages} theme={workspacePreferences.resolvedTheme} onClose={() => setLanguagePickerOpen(false)} onSelect={(languageId) => { if (languageId !== compilerLanguageId) setPendingLanguageId(languageId); }} />
     <ConfirmDialog open={Boolean(pendingLanguageId)} title="Change project language?" description="Changing language resets checkpoint progress and workspace files. Version 1 does not keep the previous attempt." confirmLabel="Reset and Change Language" destructive onCancel={() => setPendingLanguageId(null)} onConfirm={() => {
       const nextProgress = projectProgressService.resetForLanguage(project.id, pendingLanguageId, displayName, project.contentVersion ?? null);
@@ -361,10 +386,24 @@ function SettingsPanel({ preferences }) {
   return <><header><span>Settings</span></header><div className="project-settings-panel"><h2>Editor</h2><label><span>Appearance</span><select value={value.appearance} onChange={(event) => update('appearance', event.target.value)}><option value="follow-app">Follow application</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label><span>Font size</span><select value={value.fontSize} onChange={(event) => update('fontSize', Number(event.target.value))}>{Array.from({ length: 13 }, (_, index) => index + 12).map((size) => <option value={size} key={size}>{size}px</option>)}</select></label><label><span>Spaces</span><select value={value.tabSize} onChange={(event) => update('tabSize', Number(event.target.value))}>{[2, 4, 8].map((size) => <option value={size} key={size}>{size}</option>)}</select></label><label><span>Word wrap</span><select value={value.wordWrap ? 'on' : 'off'} onChange={(event) => update('wordWrap', event.target.value === 'on')}><option value="on">On</option><option value="off">Off</option></select></label><button type="button" onClick={reset}><RotateCcw /> Reset editor settings</button></div></>;
 }
 
-function GuidePanel({ project: sourceProject, page, sourcePage, runtime, pageIndex, pageCount = 4, allowed, onVisit, onStageForAI, complete, displayName, languageLabel, onDownload, downloading, onBack, task: sourceTask, taskCheckpoint, running, onVerifyTask, onValidateCheckpoint, onValidateFinal, finalReady }) {
+function GuidePanel({ project: sourceProject, page, sourcePage, runtime, pageIndex, pageCount = 4, allowed, onVisit, onStageForAI, complete, displayName, languageLabel, onDownload, downloading, onBack, task: sourceTask, taskCheckpoint, running, onVerifyTask, onValidateCheckpoint, onValidateFinal, finalReady, checkpointScreen, checkpointBoundary, checkpointFeedback, checkpointIndex, checkpointCount, completedCheckpointCount, onBackToGuide, onContinueCheckpoint }) {
   const project = runtime ? { ...sourceProject, language: typeof runtime === 'string' ? runtime : runtime.id, runtime } : sourceProject;
   const task = sourceTask ? { ...sourceTask, blocks: [...(sourceTask.order === 1 ? page.blocks ?? [] : []), ...sourceTask.blocks] } : null;
+  const completionPercent = checkpointCount ? Math.round(completedCheckpointCount / checkpointCount * 100) : 0;
   const select = (event) => { const selection = window.getSelection(); const selected = selection?.toString().trim(); if (!selected || !selection.rangeCount || !event.currentTarget.contains(selection.anchorNode)) return; const bounds = selection.getRangeAt(0).getBoundingClientRect(); const anchorElement = selection.anchorNode?.nodeType === Node.ELEMENT_NODE ? selection.anchorNode : selection.anchorNode?.parentElement; onStageForAI(anchorElement?.closest('pre, code') ? 'guide_code' : 'guide_text', selected, bounds); };
+  if (checkpointScreen && taskCheckpoint) return <section className="project-checkpoint-review" aria-labelledby="project-checkpoint-review-title">
+    <span className="project-checkpoint-review__eyebrow">Checkpoint {checkpointIndex + 1} of {checkpointCount}</span>
+    <CheckCircle2 className="project-checkpoint-review__mark" aria-hidden="true" />
+    <h2 id="project-checkpoint-review-title">{taskCheckpoint.completed ? 'Checkpoint validated!' : 'Ready to complete this checkpoint?'}</h2>
+    <h3>{taskCheckpoint.title}</h3>
+    <div className="project-checkpoint-review__progress"><strong>{completionPercent}% project complete</strong><span>{completedCheckpointCount} of {checkpointCount} checkpoints complete</span><span>{taskCheckpoint.completedCount} of {taskCheckpoint.totalCount} tasks verified</span><div className="project-checkpoint-review__bar" role="progressbar" aria-label="Project completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow={completionPercent}><span style={{ width: `${completionPercent}%` }} /></div></div>
+    {!sourcePage && taskCheckpoint.completed && taskCheckpoint.completionBlocks?.length ? <ProjectGuideRenderer blocks={taskCheckpoint.completionBlocks} project={project} /> : null}
+    {!taskCheckpoint.requiredComplete ? <p role="status">Verify every task before completing this checkpoint.</p> : null}
+    {checkpointFeedback && !checkpointFeedback.passed ? <div className="project-checkpoint-review__error" role="alert"><strong>Checkpoint not validated.</strong><ul>{checkpointFeedback.results?.filter(({ passed }) => !passed).map(({ validatorId, message }) => <li key={validatorId}>{message}</li>)}</ul></div> : null}
+    <div className="project-checkpoint-review__actions"><button className="button button--secondary" type="button" onClick={onBackToGuide}>Back to Guide</button>
+      {!taskCheckpoint.completed ? <button className="button button--primary" type="button" disabled={running || !taskCheckpoint.requiredComplete} onClick={onValidateCheckpoint}>{running ? 'Validating…' : 'Validate Checkpoint'}</button> : <button className="button button--primary" type="button" onClick={onContinueCheckpoint}>{checkpointIndex + 1 < checkpointCount ? 'Continue to next checkpoint' : 'Continue'} <ArrowRight aria-hidden="true" /></button>}
+    </div>
+  </section>;
   if (sourcePage) {
     if (!allowed) return <ProjectPremiumBoundary />;
     return <>
@@ -375,18 +414,17 @@ function GuidePanel({ project: sourceProject, page, sourcePage, runtime, pageInd
         {sourceTask ? <>
           <p className="project-checkpoint-objective">{sourceTask.objective}</p>
           {sourceTask.expectedBehavior?.length ? <><h3>Expected behavior</h3><ul>{sourceTask.expectedBehavior.map((item) => <li key={item}>{item}</li>)}</ul></> : null}
-          <section className="project-task-verification" aria-live="polite"><h3>Task verification</h3><button className="button button--primary" type="button" disabled={running || !sourceTask.unlocked || sourceTask.validators.length === 0} onClick={onVerifyTask}>{running ? 'Verifying…' : sourceTask.completed ? 'Verify Again' : 'Verify Task'}</button>{sourceTask.validators.length === 0 ? <p>This task has no trusted verification policy and cannot be completed automatically.</p> : sourceTask.completed ? <p><CheckCircle2 aria-hidden="true" /> Task verified</p> : null}</section>
-          {taskCheckpoint?.requiredComplete && !taskCheckpoint.completed && sourceTask.taskId === taskCheckpoint.tasks.at(-1)?.taskId ? <button className="button button--secondary" type="button" disabled={running} onClick={onValidateCheckpoint}>{running ? 'Validating…' : 'Validate Checkpoint'}</button> : null}
+          <section className="project-task-verification" aria-live="polite"><h3>Task verification</h3><div className="project-task-verification__actions">{sourceTask.validators.length === 0 ? <p>This task has no trusted verification policy and cannot be completed automatically.</p> : sourceTask.completed ? <p><CheckCircle2 aria-hidden="true" /> Task verified</p> : null}<button className="button button--primary" type="button" disabled={running || !sourceTask.unlocked || sourceTask.validators.length === 0} onClick={onVerifyTask}>{running ? 'Verifying…' : sourceTask.completed ? 'Verify Again' : 'Verify Task'}</button></div></section>
         </> : null}
         {pageIndex === pageCount - 1 && finalReady && !complete ? <button className="button button--primary" type="button" disabled={running} onClick={onValidateFinal}>{running ? 'Validating…' : 'Verify Final Project'}</button> : null}
         {pageIndex === pageCount - 1 && complete ? <div className="project-guide-completion" role="status"><CheckCircle2 aria-hidden="true" /><p>Project Complete</p><h3>{displayName}</h3><p>Language: {languageLabel}</p><button className="button button--primary" type="button" disabled={downloading} onClick={onDownload}><Download /> {downloading ? 'Preparing…' : 'Download Project'}</button><button className="button button--secondary" type="button" onClick={onBack}>Back to Projects</button></div> : null}
       </div>
-      <footer className="project-guide-navigation"><button type="button" disabled={pageIndex === 0} onClick={() => onVisit(pageIndex - 1)}><ArrowLeft /> Previous</button><span>{pageIndex + 1} / {pageCount}</span><button type="button" disabled={pageIndex === pageCount - 1} onClick={() => onVisit(pageIndex + 1)}>Next <ArrowRight /></button></footer>
+      <footer className="project-guide-navigation"><button type="button" disabled={pageIndex === 0} onClick={() => onVisit(pageIndex - 1)}><ArrowLeft /> Previous</button><span>{pageIndex + 1} / {pageCount}</span><button type="button" disabled={pageIndex === pageCount - 1 && !checkpointBoundary} onClick={() => onVisit(pageIndex + 1)}>{checkpointBoundary ? 'Checkpoint Review' : 'Next'} <ArrowRight /></button></footer>
     </>;
   }
   if (task && !allowed) return <ProjectPremiumBoundary />;
   if (complete) return <div className="project-guide-completion" role="status"><CheckCircle2 aria-hidden="true" /><p>Project Complete</p><h2>{displayName}</h2>{displayName !== project.title ? <small>Based on: {project.title}</small> : null}<p>You've completed all {pageCount} checkpoints.</p><dl><div><dt>Language</dt><dd>{languageLabel}</dd></div><div><dt>What you built</dt><dd>{project.completionMessage || project.whatYouWillBuild || project.description}</dd></div></dl>{project.completionBlocks?.length ? <ProjectGuideRenderer blocks={project.completionBlocks} project={project} /> : null}<div><button className="button button--primary" type="button" disabled={downloading} onClick={onDownload}><Download /> {downloading ? 'Preparing…' : 'Download Project'}</button><button className="button button--secondary" type="button" onClick={onBack}>Back to Projects</button></div></div>;
-  return <><header><span>Project Guide</span></header><div className="project-guide-content" onMouseUp={select}><h2>{task?.title ?? page.label}</h2>{task ? <><p className="project-checkpoint-objective">{task.objective}</p>{task.why ? <p>{task.why}</p> : null}<ProjectGuideRenderer blocks={task.blocks} project={project} />{task.expectedBehavior?.length ? <><h3>Expected behavior</h3><ul>{task.expectedBehavior.map((item) => <li key={item}>{item}</li>)}</ul></> : null}<section className="project-task-verification" aria-live="polite"><h3>Task verification</h3><button className="button button--primary" type="button" disabled={running || !task.unlocked || task.validators.length === 0} onClick={onVerifyTask}>{running ? 'Verifying…' : task.completed ? 'Verify Again' : 'Verify Task'}</button>{task.validators.length === 0 ? <p>This task has no trusted verification policy and cannot be completed automatically.</p> : task.completed ? <p><CheckCircle2 aria-hidden="true" /> Task verified</p> : null}</section>{taskCheckpoint?.requiredComplete && !taskCheckpoint.completed ? <button className="button button--secondary" type="button" disabled={running} onClick={onValidateCheckpoint}>{running ? 'Validating…' : 'Validate Checkpoint'}</button> : null}{finalReady ? <button className="button button--primary" type="button" disabled={running} onClick={onValidateFinal}>{running ? 'Validating…' : 'Verify Final Project'}</button> : null}{taskCheckpoint?.completed && taskCheckpoint.completionBlocks?.length ? <section className="project-checkpoint-completion"><ProjectGuideRenderer blocks={taskCheckpoint.completionBlocks} project={project} /></section> : null}</> : <>{page.objective ? <p className="project-checkpoint-objective">{page.objective}</p> : null}<GuideContent project={project} page={page} allowed={allowed} />{page.requirements?.length ? <><h3>Checkpoint requirements</h3><ul>{page.requirements.map((item) => <li key={item}>{item}</li>)}</ul></> : null}</>}</div><footer className="project-guide-navigation"><button type="button" disabled={pageIndex === 0} onClick={() => onVisit(pageIndex - 1)}><ArrowLeft /> Previous</button><span>{pageIndex + 1} / {pageCount}</span><button type="button" disabled={pageIndex === pageCount - 1 || taskCheckpoint?.completed === false} title={taskCheckpoint?.completed === false ? 'Validate this checkpoint to continue.' : undefined} onClick={() => onVisit(pageIndex + 1)}>Next <ArrowRight /></button></footer></>;
+  return <><header><span>Project Guide</span></header><div className="project-guide-content" onMouseUp={select}><h2>{task?.title ?? page.label}</h2>{task ? <><p className="project-checkpoint-objective">{task.objective}</p>{task.why ? <p>{task.why}</p> : null}<ProjectGuideRenderer blocks={task.blocks} project={project} />{task.expectedBehavior?.length ? <><h3>Expected behavior</h3><ul>{task.expectedBehavior.map((item) => <li key={item}>{item}</li>)}</ul></> : null}<section className="project-task-verification" aria-live="polite"><h3>Task verification</h3><div className="project-task-verification__actions">{task.validators.length === 0 ? <p>This task has no trusted verification policy and cannot be completed automatically.</p> : task.completed ? <p><CheckCircle2 aria-hidden="true" /> Task verified</p> : null}<button className="button button--primary" type="button" disabled={running || !task.unlocked || task.validators.length === 0} onClick={onVerifyTask}>{running ? 'Verifying…' : task.completed ? 'Verify Again' : 'Verify Task'}</button></div></section>{finalReady ? <button className="button button--primary" type="button" disabled={running} onClick={onValidateFinal}>{running ? 'Validating…' : 'Verify Final Project'}</button> : null}{taskCheckpoint?.completed && taskCheckpoint.completionBlocks?.length ? <section className="project-checkpoint-completion"><ProjectGuideRenderer blocks={taskCheckpoint.completionBlocks} project={project} /></section> : null}</> : <>{page.objective ? <p className="project-checkpoint-objective">{page.objective}</p> : null}<GuideContent project={project} page={page} allowed={allowed} />{page.requirements?.length ? <><h3>Checkpoint requirements</h3><ul>{page.requirements.map((item) => <li key={item}>{item}</li>)}</ul></> : null}</>}</div><footer className="project-guide-navigation"><button type="button" disabled={pageIndex === 0} onClick={() => onVisit(pageIndex - 1)}><ArrowLeft /> Previous</button><span>{pageIndex + 1} / {pageCount}</span><button type="button" disabled={pageIndex === pageCount - 1 && !taskCheckpoint} onClick={() => onVisit(pageIndex + 1)}>{checkpointBoundary ? 'Checkpoint Review' : 'Next'} <ArrowRight /></button></footer></>;
 }
 
 function EditorTabs({ openTabs, activeFilePath, dirtyFiles, onActivate, onClose }) {
