@@ -16,6 +16,15 @@ test('new Course code and compiler blocks use learner-supported defaults', async
   await expect(page.getByRole('textbox', { name: 'Runtime' })).toHaveValue('javascript');
 });
 
+test('language-neutral Course authoring suppresses executable compiler blocks', async ({ page }) => {
+  await page.goto('/tests/browser/index.html?mode=courses');
+  await page.getByRole('combobox', { name: 'Language' }).selectOption('none');
+  await page.getByRole('navigation', { name: 'Course structure' }).getByRole('button', { name: '1. Untitled lesson' }).click();
+  await expect(page.getByRole('button', { name: 'Add Compiler Exercise block' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add Code block' }).click();
+  await expect(page.getByRole('combobox', { name: 'Language' })).toHaveValue('text');
+});
+
 test('Course metadata hydrates and autosaves Coming Soon without validation or publication', async ({ page }) => {
   const draft = createCourseDraft('course-coming-soon-browser');
   draft.draftRevision = 4;

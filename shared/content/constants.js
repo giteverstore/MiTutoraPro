@@ -16,6 +16,10 @@ export const CANONICAL_LANGUAGE_IDS = Object.freeze([
   'c', 'cpp', 'mysql', 'php', 'r', 'csharp', 'visualbasic', 'assembly', 'go', 'rust',
 ]);
 
+// Courses can teach non-programming topics without exposing a compiler runtime.
+// Keep this value out of executable Project, Practice, and Challenge contracts.
+export const COURSE_LANGUAGE_IDS = Object.freeze([...CANONICAL_LANGUAGE_IDS, 'none']);
+
 export const COMMON_BLOCK_TYPES = Object.freeze([
   'heading', 'paragraph', 'list', 'code', 'callout', 'image', 'table',
   'expected-output', 'terminal-command', 'divider', 'concept', 'requirements',

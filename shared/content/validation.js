@@ -179,6 +179,7 @@ function inspectCourse(course) {
             const options = new Set((block.options ?? []).map((option) => option.id));
             (block.correctOptionIds ?? []).forEach((optionId) => { if (!options.has(optionId)) errors.push(issue(`${blockPath}.correctOptionIds`, 'quiz.answer_missing', `Correct option "${optionId}" does not exist.`)); });
           }
+          if (course.language === 'none' && block.type === 'compiler') errors.push(issue(`${blockPath}.type`, 'compiler.unavailable', 'Non-programming Courses cannot include executable compiler blocks.'));
           if (['compiler', 'code', 'solution'].includes(block.type) && block.language && !['text', 'plaintext', course.language].includes(block.language)) errors.push(issue(`${blockPath}.language`, 'language.mismatch', 'Executable Course code blocks must use the course language.'));
           if (['compiler', 'exercise'].includes(block.type) && block.validation) inspectSafeValue(block.validation, `${blockPath}.validation`, errors);
           if (block.type === 'image' && block.src && (!block.src.startsWith('/assets/') || block.src.includes('..'))) errors.push(issue(`${blockPath}.src`, 'security.asset_reference', 'Images must use a safe /assets/ reference.'));

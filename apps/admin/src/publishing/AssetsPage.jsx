@@ -6,7 +6,7 @@ import './publishing.css';
 const allowed = new Set(['image/png', 'image/jpeg', 'image/webp']);
 const maxBytes = 2 * 1024 * 1024;
 
-export function AssetPreview({ asset }) {
+export function AssetPreview({ asset, alt = '' }) {
   const [source, setSource] = useState('');
   const [previewState, setPreviewState] = useState('loading');
   const publicFallback = /^\/assets\/[a-zA-Z0-9/_-]+\.(png|jpe?g|webp|svg)$/.test(asset?.path ?? '') ? `https://ycoders.com${asset.path}` : '';
@@ -28,7 +28,7 @@ export function AssetPreview({ asset }) {
     void load();
     return () => { active = false; if (url) URL.revokeObjectURL(url); };
   }, [asset?.assetId, asset?.path]);
-  return source ? <img src={source} alt="" loading="lazy" onError={() => { if (publicFallback && source !== publicFallback) setSource(publicFallback); else { setSource(''); setPreviewState('error'); } }} /> : <span className="publishing-asset-fallback" role={previewState === 'error' ? 'alert' : 'status'}>{previewState === 'loading' ? 'Loading preview...' : 'Preview unavailable'}</span>;
+  return source ? <img src={source} alt={alt} loading="lazy" onError={() => { if (publicFallback && source !== publicFallback) setSource(publicFallback); else { setSource(''); setPreviewState('error'); } }} /> : <span className="publishing-asset-fallback" role={previewState === 'error' ? 'alert' : 'status'}>{previewState === 'loading' ? 'Loading preview...' : 'Preview unavailable'}</span>;
 }
 
 export function AssetsPage({ role }) {

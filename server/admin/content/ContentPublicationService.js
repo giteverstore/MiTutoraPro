@@ -99,7 +99,7 @@ export class ContentPublicationService {
         locale: canonical.locale, metadataSnapshot: {
           title: canonical.content?.title ?? '', summary: canonical.content?.summary ?? canonical.content?.description ?? '',
           language: canonical.content?.language ?? '', difficulty: canonical.content?.difficulty ?? '',
-          topic: canonical.content?.topic ?? '', category: canonical.content?.category ?? '',
+          topic: canonical.content?.topic ?? (canonical.contentType === 'COURSE' ? canonical.content?.tags?.[0] : '') ?? '', category: canonical.content?.category ?? '',
           estimatedMinutes: canonical.content?.estimatedMinutes ?? 0, xp: canonical.content?.xp ?? 0,
           lessonCount: canonical.contentType === 'COURSE' ? canonical.content.modules.flatMap((module) => module.sections?.flatMap((section) => section.lessons) ?? module.lessons ?? []).length : 0,
           moduleCount: canonical.contentType === 'COURSE' ? canonical.content.modules.length : 0,
@@ -144,14 +144,21 @@ export class ContentPublicationService {
 
   async verifyAssets(document) {
     const references = [];
+    const canonicalCourseImages = [];
     const visit = (value) => {
       if (!value || typeof value !== 'object') return;
       if (value.type === 'image' && value.assetId) references.push(value.assetId);
+      if (document.contentType === 'COURSE' && value.type === 'image' && !value.src) canonicalCourseImages.push(value.assetId);
       Object.values(value).forEach(visit);
     };
     visit(document.content);
     for (const assetId of new Set(references)) {
       if (!await this.assets.exists(assetId)) throw new ContentPublicationError('content/asset-missing', `Referenced asset "${assetId}" does not exist.`, { status: 422 });
+    }
+    for (const assetId of new Set(canonicalCourseImages)) {
+      if (!/^asset-[a-f0-9-]{36}$/.test(assetId ?? '') || !await this.assets.verifyReadable?.(assetId)) {
+        throw new ContentPublicationError('content/asset-missing', 'A Course image is not available in Admin asset storage.', { status: 422 });
+      }
     }
   }
 }

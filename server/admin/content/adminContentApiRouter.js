@@ -40,6 +40,37 @@ const pageOptions = (request) => {
   return { limit, cursor };
 };
 const sendError = (response, error) => response.status(error.status ?? 500).json({ error: { code: error.code ?? 'content/internal', message: error.status && error.status < 500 ? error.message : 'Content service is temporarily unavailable.', ...(error.details ? { details: error.details } : {}) } });
+const assetIdPattern = /^asset-[a-f0-9-]{36}$/;
+const mediaTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
+
+function courseReferencesAsset(document, assetId) {
+  if (document?.contentType !== 'COURSE') return false;
+  return (document.content?.modules ?? []).some((module) => (module.sections ?? [module]).some((section) =>
+    (section.lessons ?? []).some((lesson) => (lesson.blocks ?? []).some((block) =>
+      block.type === 'image' && block.assetId === assetId && !block.src))));
+}
+
+async function readPublicAssetProxy(origin, path, fetcher) {
+  const upstream = await fetcher(`${origin}/api/admin-content/${path}`, { headers: { Accept: 'image/png, image/jpeg, image/webp' }, signal: AbortSignal.timeout(15_000) });
+  if (upstream.status === 404) return null;
+  if (!upstream.ok || !mediaTypes.has(upstream.headers.get('content-type')?.split(';')[0])) throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 });
+  const maximum = 2 * 1024 * 1024;
+  const claimedLength = Number(upstream.headers.get('content-length'));
+  if (claimedLength > maximum) throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 });
+  const reader = upstream.body?.getReader();
+  if (!reader) throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 });
+  const chunks = [];
+  let length = 0;
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    length += value.length;
+    if (length > maximum) { await reader.cancel(); throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 }); }
+    chunks.push(value);
+  }
+  if (!length) throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 });
+  return { bytes: Buffer.concat(chunks, length), mediaType: upstream.headers.get('content-type').split(';')[0] };
+}
 
 function createRemoteVersionReader(origin, matchesMetadata, fetcher) {
   return async (contentId, version, metadata) => {
@@ -142,7 +173,7 @@ export async function createDefaultContentDependencies({ environment = process.e
   return { service: new ContentPublicationService({ store, artifacts, assets }), delivery, assetService: new AdminAssetService(assets), challengeAssignments: new ChallengeAssignmentService({ db, delivery }), async close() { await Promise.allSettled([firestoreSession.close(), storageSession.close()]); } };
 }
 
-export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, configurationResolver = resolveGoogleWifConfiguration, useDedicatedAdminBucket = false, publicOnly = false, environment = process.env } = {}) {
+export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, configurationResolver = resolveGoogleWifConfiguration, useDedicatedAdminBucket = false, publicOnly = false, environment = process.env, fetcher = globalThis.fetch } = {}) {
   return async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
     const path = segments(request);
@@ -176,6 +207,28 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       }
       resources = await dependencies({ environment, googleCredentials, useDedicatedAdminBucket });
       const { service, delivery, assetService, challengeAssignments } = resources;
+      if (request.method === 'GET' && path[0] === 'public' && path[1] === 'assets' && path.length === 5) {
+        if (!assetIdPattern.test(path[4])) return response.status(404).json({ error: { code: 'content/asset-not-found', message: 'Published image was not found.' } });
+        const [,, contentId, version, assetId] = path;
+        let result;
+        if (useDedicatedAdminBucket) {
+          const publication = await delivery.fetchVersion(contentId, version);
+          if (!courseReferencesAsset(publication.document, assetId)) return response.status(404).json({ error: { code: 'content/asset-not-found', message: 'Published image was not found.' } });
+          const asset = await assetService.get(assetId);
+          if (!asset || !mediaTypes.has(asset.mediaType) || !/^admin-content-assets\/asset-[a-f0-9-]{36}\.(png|jpg|webp)$/.test(asset.path ?? '')) return response.status(404).json({ error: { code: 'content/asset-not-found', message: 'Published image was not found.' } });
+          const bytes = await assetService.read(asset);
+          if (!bytes || bytes.length > 2 * 1024 * 1024) throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 });
+          result = { bytes, mediaType: asset.mediaType };
+        } else {
+          const origin = String(environment.ADMIN_PUBLIC_CONTENT_ORIGIN ?? '').trim();
+          if (environment.ADMIN_CONTENT_STORAGE_BUCKET !== ADMIN_CONTENT_BUCKET_NAME || origin !== 'https://admin.ycoders.com') throw new ContentPublicationError('content/asset-unavailable', 'Published image is temporarily unavailable.', { status: 503 });
+          result = await readPublicAssetProxy(origin, `public/assets/${encodeURIComponent(contentId)}/${encodeURIComponent(version)}/${encodeURIComponent(assetId)}`, fetcher);
+          if (!result) return response.status(404).json({ error: { code: 'content/asset-not-found', message: 'Published image was not found.' } });
+        }
+        response.setHeader('Content-Type', result.mediaType);
+        response.setHeader('X-Content-Type-Options', 'nosniff');
+        return response.status(200).send(result.bytes);
+      }
       if (request.method === 'GET' && path[0] === 'public' && !path[1]) {
         const contentType = String(request.query?.contentType ?? '').toUpperCase() || 'PROJECT';
         if (!['PROJECT', 'COURSE', 'PRACTICE', 'CHALLENGE'].includes(contentType)) return response.status(400).json({ error: { code: 'content/type-invalid', message: 'Unsupported content type.' } });

@@ -211,5 +211,13 @@ export class FirebaseAssetRegistry {
     const snapshot = await this.db.collection('adminContentAssets').doc(assetId).get();
     return snapshot.exists ? snapshot.data() : null;
   }
+  async verifyReadable(assetId) {
+    const asset = await this.get(assetId);
+    if (!asset || !/^admin-content-assets\/asset-[a-f0-9-]{36}\.(png|jpg|webp)$/.test(asset.path ?? '')
+      || !['image/png', 'image/jpeg', 'image/webp'].includes(asset.mediaType) || !this.bucket) return false;
+    const [metadata] = await this.bucket.file(asset.path).getMetadata();
+    return metadata.contentType === asset.mediaType && Number(metadata.size) === asset.size
+      && Number(metadata.size) > 0 && Number(metadata.size) <= 2 * 1024 * 1024;
+  }
   async read(asset) { if (!this.bucket || !/^admin-content-assets\/asset-[a-f0-9-]{36}\.(png|jpg|webp)$/.test(asset?.path ?? '')) return null; return (await this.bucket.file(asset.path).download())[0]; }
 }

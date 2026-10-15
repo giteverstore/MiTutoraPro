@@ -1,5 +1,6 @@
 import {
   CANONICAL_LANGUAGE_IDS,
+  COURSE_LANGUAGE_IDS,
   CONTENT_SCHEMA_VERSION,
   CONTENT_STATUSES,
   CONTENT_TYPES,
@@ -177,7 +178,7 @@ export const courseSchema = {
   required: ['courseId', 'slug', 'title', 'description', 'language', 'difficulty', 'estimatedMinutes', 'learningOutcomes', 'modules'],
   properties: {
     courseId: id, slug: id, title: shortText, subtitle: { type: 'string', maxLength: 300 }, description: nonEmptyText,
-    language: languageId, difficulty: { enum: ['Beginner', 'Easy', 'Intermediate', 'Advanced', 'beginner', 'easy', 'intermediate', 'advanced'] },
+    language: { enum: COURSE_LANGUAGE_IDS }, difficulty: { enum: ['Beginner', 'Easy', 'Intermediate', 'Advanced', 'beginner', 'easy', 'intermediate', 'advanced'] },
     estimatedMinutes: { type: 'integer', minimum: 1 }, prerequisites: { type: 'array', items: nonEmptyText }, learningOutcomes: { type: 'array', minItems: 1, items: nonEmptyText },
     tags: { type: 'array', uniqueItems: true, items: shortText }, artworkAssetId: id, defaultLessonId: id, comingSoon: { type: 'boolean' },
     modules: { type: 'array', minItems: 1, items: { type: 'object', additionalProperties: false, required: ['id', 'order', 'title'], properties: { id, order: { type: 'integer', minimum: 1 }, title: shortText, description: { type: 'string', maxLength: 20000 }, initiallyExpanded: { type: 'boolean' }, sections: { type: 'array', minItems: 1, items: courseSectionSchema }, lessons: { type: 'array', minItems: 1, items: courseLessonSchema } }, oneOf: [{ required: ['sections'], properties: { sections: {} } }, { required: ['lessons'], properties: { lessons: {} } }] } },
