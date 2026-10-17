@@ -1198,34 +1198,11 @@
   border-color: var(--color-border);
 }
 
-/* The artwork remains course-owned; only its reading/control surface follows app appearance. */
-.application-shell[data-theme="dark"] .overview-hero-copy--artwork {
-  color: var(--color-text);
-  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+.application-shell[data-theme="dark"] .overview-hero {
   border-color: var(--color-border-strong);
 }
 
-.application-shell[data-theme="dark"] .overview-hero--artwork h1,
-.application-shell[data-theme="dark"] .overview-hero--artwork .overview-hero-copy>p,
-.application-shell[data-theme="dark"] .overview-artwork-progress>span {
-  color: var(--color-text);
-}
-
-.application-shell[data-theme="dark"] .overview-artwork-eyebrow {
-  color: var(--color-accent);
-}
-
-.application-shell[data-theme="dark"] .overview-artwork-exam-action {
-  color: var(--color-text);
-  background: var(--color-surface-subtle);
-  border-color: var(--color-border-strong);
-}
-
-.application-shell[data-theme="dark"] .overview-artwork-exam-action:hover {
-  background: var(--color-surface);
-}
-
-.application-shell[data-theme="dark"] .overview-artwork-progress>div {
+.application-shell[data-theme="dark"] .overview-hero-progress>div {
   background: var(--color-border);
 }
 
@@ -2126,10 +2103,10 @@
 
 .overview-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(20rem, .8fr);
-  align-items: end;
-  gap: clamp(var(--space-8), 6vw, var(--space-16));
-  padding: clamp(var(--space-8), 6vw, var(--space-16));
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
   overflow: hidden;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -2137,31 +2114,8 @@
   box-shadow: var(--shadow-sm);
 }
 
-.overview-kicker,
-.overview-level {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
-}
-
-.overview-kicker {
-  margin-right: var(--space-3);
-  color: var(--color-accent);
-}
-
-.overview-level {
-  padding: var(--space-2) var(--space-3);
-  color: var(--color-text-muted);
-  background: var(--color-surface-subtle);
-  border-radius: var(--radius-full);
-}
-
 .overview-hero h1 {
-  max-width: 16ch;
+  max-width: 22ch;
   margin: var(--space-5) 0 var(--space-4);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   line-height: 1.04;
@@ -2176,132 +2130,42 @@
   line-height: var(--line-height-body);
 }
 
-.overview-primary-action {
-  margin-top: var(--space-8);
-}
-
-.overview-hero--artwork {
-  position: relative;
-  grid-template-columns: minmax(20rem, 1fr) minmax(28rem, .92fr);
-  min-height: clamp(28rem, 55dvh, 30rem);
-  align-items: center;
-  padding: clamp(var(--space-3), 1.2vw, var(--space-5));
-  isolation: isolate;
-  background-color: #f9ddd9;
-  background-image: var(--course-hero-artwork);
-  background-position: center;
-  background-size: cover;
-  border-color: color-mix(in srgb, #7f5bd5 18%, transparent);
-  box-shadow: 0 1.25rem 3rem color-mix(in srgb, #6141a8 14%, transparent);
-}
-
-.overview-hero-artwork-space {
-  min-height: 1px;
-}
-
-.overview-hero-copy--artwork {
-  position: relative;
-  z-index: 1;
-  padding: clamp(var(--space-3), 1.35vw, var(--space-4));
-  color: #17223b;
-  background: color-mix(in srgb, #fff4f0 84%, transparent);
-  border: 1px solid color-mix(in srgb, white 72%, #7452b8);
-  border-radius: var(--radius-xl);
-}
-
-.overview-artwork-eyebrow {
-  display: block;
-  color: #7848b5;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
-}
-
-.overview-hero--artwork h1 {
-  max-width: 11ch;
-  margin: var(--space-2) 0;
-  color: #17223b;
-  font-size: clamp(2.15rem, 3.15vw, 3rem);
-  line-height: .98;
-  letter-spacing: -.055em;
-  white-space: pre-line;
-}
-
-.overview-hero--artwork .overview-hero-copy>p {
-  max-width: 38rem;
-  color: #4e5365;
-  font-size: var(--font-size-base);
-}
-
 .overview-hero-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-3);
-  margin-top: var(--space-3);
+  margin-top: var(--space-6);
 }
 
-.overview-artwork-action,
-.overview-artwork-exam-action {
+.overview-primary-action {
   min-height: 2.75rem;
   padding-inline: var(--space-6);
 }
 
-.overview-artwork-action {
-  color: white;
-  background: #c03b82;
-  border-color: transparent;
-  box-shadow: 0 .65rem 1.4rem color-mix(in srgb, #a42d70 24%, transparent);
-}
-
-.overview-artwork-action:hover {
-  background: #a92f72;
-  transform: translateY(-1px);
-}
-
-.overview-artwork-action:active {
-  transform: scale(.98);
-}
-
-.overview-artwork-action:focus-visible {
-  outline: 3px solid #5c3793;
-  outline-offset: 3px;
-}
-
-.overview-artwork-exam-action {
-  color: #503d73;
-  background: rgb(255 255 255 / 78%);
-  border-color: color-mix(in srgb, #7452b8 28%, transparent);
-}
-
-.overview-artwork-exam-action:hover {
-  background: white;
-  transform: translateY(-1px);
-}
-
-.overview-artwork-progress {
+.overview-hero-progress {
   display: grid;
   gap: var(--space-1);
-  margin-top: var(--space-2);
+  max-width: 38rem;
+  margin-top: var(--space-6);
 }
 
-.overview-artwork-progress>span {
-  color: #585166;
+.overview-hero-progress>span {
+  color: var(--color-text-muted);
   font-size: var(--font-size-xs);
 }
 
-.overview-artwork-progress>div {
+.overview-hero-progress>div {
   height: .4rem;
   overflow: hidden;
-  background: rgb(255 255 255 / 70%);
+  background: var(--color-surface-subtle);
   border-radius: var(--radius-full);
 }
 
-.overview-artwork-progress>div>span {
+.overview-hero-progress>div>span {
   display: block;
   height: 100%;
-  background: #b44083;
+  background: var(--color-accent);
   border-radius: inherit;
 }
 
@@ -2666,21 +2530,6 @@
 }
 
 @media (max-width: 1100px) {
-  .overview-hero {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: stretch;
-  }
-
-  .overview-hero--artwork {
-    grid-template-columns: minmax(12rem, .7fr) minmax(22rem, 1fr);
-    min-height: 25rem;
-    padding: var(--space-5);
-  }
-
-  .overview-hero--artwork h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-  }
-
   .overview-stat-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2699,35 +2548,12 @@
     padding: var(--space-6);
   }
 
-  .overview-hero--artwork {
-    display: flex;
-    flex-direction: column;
-    min-height: 38rem;
-    justify-content: flex-end;
-    padding: var(--space-4);
-    background-position: 29% center;
-  }
-
-  .overview-hero-artwork-space {
-    min-height: 16rem;
-  }
-
-  .overview-hero-copy--artwork {
-    width: 100%;
-    padding: var(--space-5);
-  }
-
-  .overview-hero--artwork h1 {
-    font-size: clamp(2.35rem, 12vw, 3.5rem);
-  }
-
   .overview-hero-actions {
     display: grid;
     width: 100%;
   }
 
-  .overview-artwork-action,
-  .overview-artwork-exam-action {
+  .overview-primary-action {
     width: 100%;
     justify-content: center;
   }
@@ -2742,11 +2568,5 @@
 
   .overview-development {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .overview-hero-copy--artwork {
-    background: #fff4f0;
   }
 }

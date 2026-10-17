@@ -33,8 +33,9 @@ describe('Learning Engine application-theme ownership', () => {
     expect(editorCss).toContain('.compiler-ide[data-editor-theme] .compiler-workspace');
   });
 
-  it('provides a dark application surface for the artwork overview copy and controls', () => {
-    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero-copy--artwork\s*\{[^}]*background: color-mix\(in srgb, var\(--color-surface\) 92%, transparent\);[^}]*border-color: var\(--color-border-strong\);/s);
-    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-artwork-exam-action\s*\{[^}]*color: var\(--color-text\);[^}]*background: var\(--color-surface-subtle\);/s);
+  it('keeps the full-width overview hero and progress readable in dark mode', () => {
+    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero\s*\{[^}]*border-color: var\(--color-border-strong\);/s);
+    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero-progress>div\s*\{[^}]*background: var\(--color-border\);/s);
+    expect(dashboardCss).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color: var\(--color-text\);/s);
   });
 });

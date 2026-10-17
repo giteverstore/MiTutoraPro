@@ -15,7 +15,6 @@ vi.mock('../../src/auth/UserContext', () => ({
   useUser: () => ({ user: { id: 'library-test-user' } }),
 }));
 vi.mock('../../src/progress/progressRepository', () => ({ progressRepository: { list: () => Promise.resolve(progressState.records) } }));
-vi.mock('../../src/bookmarks/BookmarkToggle', () => ({ BookmarkToggle: () => <button type="button" aria-label="Bookmark course" /> }));
 
 beforeEach(() => {
   progressState.records = [];
@@ -99,6 +98,21 @@ describe('Home learner state', () => {
   it('renders an honest Recently Viewed empty state', () => {
     render(<RecentlyViewedSection courses={[]} onOpenCourse={vi.fn()} />);
     expect(screen.getByRole('heading', { name: 'No recently viewed courses' })).toBeInTheDocument();
+  });
+
+  it('uses the shared Course card treatment in Recently Viewed without changing Continue Learning', () => {
+    const course = { ...browseCatalog.languages[0], started: true, progress: 25 };
+    const { container } = render(<>
+      <RecentlyViewedSection courses={[course]} onOpenCourse={vi.fn()} />
+      <ContinueLearningSection courses={[course]} status="ready" onOpenCourse={vi.fn()} />
+    </>);
+    const recent = container.querySelector('.home-recent .library-course-card');
+    expect(within(recent).getByText('Course')).toHaveClass('content-type-badge--course');
+    expect(within(recent).getByText('Easy')).toHaveClass('difficulty-badge--easy');
+    expect(recent.querySelector('.home-course-bookmark')).toBeNull();
+    expect(within(recent).getByRole('img', { name: 'Course progress 25 percent' })).toBeInTheDocument();
+    expect(container.querySelector('.home-continue-card')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Continue Learning/i })).toBeInTheDocument();
   });
 
   it('keeps course cards and empty states hidden while discovery is pending', () => {
@@ -185,6 +199,8 @@ describe('Library navigation and discovery', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
     expect(css).toMatch(/\.library-language-course-grid \{[\s\S]*?grid-template-columns: repeat\(4, minmax\(0, 14\.8125rem\)\)/);
     expect(css).toMatch(/\.library-coming-soon-strip \{[\s\S]*?grid-auto-flow: column;[\s\S]*?grid-auto-columns: 14\.8125rem;[\s\S]*?overflow-x: auto;[\s\S]*?overflow-y: hidden/);
+    expect(css).toMatch(/\.library-coming-soon-strip \.home-course-card\.is-list\.library-course-card:hover,[\s\S]*?\.library-coming-soon-strip \.home-course-card\.is-list\.library-course-card:focus-visible \{\s*transform: none;/);
+    expect(css).toMatch(/\.library-coming-soon-strip \{[\s\S]*?padding: \.25rem \.25rem var\(--space-2\)/);
     expect(css).toMatch(/@media \(max-width: 1200px\)[\s\S]*?\.library-language-course-grid \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/@media \(max-width: 760px\)[\s\S]*?\.library-language-course-grid[\s\S]*?grid-template-columns: 1fr/);
     expect(css).toMatch(/\.library-language-section \{[\s\S]*?background: var\(--color-surface\);[\s\S]*?border: 1px solid var\(--color-border\)/);
@@ -220,6 +236,8 @@ describe('Library navigation and discovery', () => {
     expect(screen.queryByRole('heading', { name: 'JavaScript' })).not.toBeInTheDocument();
     const unavailable = screen.getByRole('heading', { name: 'C++ Essentials' }).closest('article');
     expect(unavailable).toHaveAttribute('aria-disabled', 'true');
+    expect(within(unavailable).getByText('Course')).toHaveClass('content-type-badge--course');
+    expect(unavailable.querySelector('.home-course-bookmark')).toBeNull();
     fireEvent.click(unavailable);
     fireEvent.keyDown(unavailable, { key: 'Enter' });
     expect(open).not.toHaveBeenCalled();
@@ -255,6 +273,41 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('heading', { name: 'UnknownLang' }).querySelector('svg')).toHaveClass('lucide-code-xml');
   });
 
+  it.each([
+    ['python', 'Python Foundations'],
+    ['java', 'Java Basics'],
+    ['languages-cplusplus', 'C++ Essentials'],
+  ])('does not use temporary local artwork for %s', (id, title) => {
+    const course = browseCatalog.languages.find((entry) => entry.id === id);
+    expect(course?.title).toBe(title);
+    const { container } = render(<CourseCard course={course} onOpenCourse={vi.fn()} variant="list" allowBookmark={false} />);
+    expect(container.querySelector('.library-course-artwork img')?.getAttribute('src') ?? '').not.toContain('/testimage/');
+  });
+
+  it.each([
+    ['Easy', 'easy'], ['Intermediate', 'medium'], ['Advanced', 'hard'],
+  ])('renders Course and %s badges using shared pill styles', (level, modifier) => {
+    const course = { ...browseCatalog.languages[0], level };
+    const { container } = render(<CourseCard course={course} onOpenCourse={vi.fn()} variant="list" />);
+    expect(screen.getByText('Course')).toHaveClass('difficulty-badge', 'content-type-badge', 'content-type-badge--course');
+    expect(container.querySelector(`.difficulty-badge--${modifier}`)).toBeInTheDocument();
+    expect(container.querySelector('.library-course-card-header')).not.toContainElement(container.querySelector('.home-course-bookmark'));
+    expect(screen.queryByRole('button', { name: /bookmark|sign in to save/i })).not.toBeInTheDocument();
+  });
+
+  it('omits an unknown or missing difficulty without inventing a badge', () => {
+    const course = { ...browseCatalog.languages[0], level: undefined, difficulty: undefined };
+    const { container } = render(<CourseCard course={course} onOpenCourse={vi.fn()} variant="list" />);
+    expect(container.querySelectorAll('.library-course-card-header .difficulty-badge')).toHaveLength(1);
+  });
+
+  it('keeps the progress circle centered on the divider and meta top padding at 40px', () => {
+    const css = readFileSync('src/styles/pages/home.css', 'utf8');
+    expect(css).toMatch(/\.library-course-divider\s*\{[^}]*top:\s*1\.25rem/);
+    expect(css).toMatch(/\.library-course-progress\s*\{[^}]*top:\s*-0\.3125rem;[^}]*width:\s*3\.125rem;[^}]*height:\s*3\.125rem/);
+    expect(css).toMatch(/\.library-course-card-footer \.library-course-meta\s*\{[^}]*padding-top:\s*2\.5rem/);
+  });
+
   it('uses canonical enrollment progress while whole-card navigation opens the overview', async () => {
     progressState.records = [{ courseId: 'python', completion: 25 }, { courseId: 'java', completion: 100 }];
     const open = vi.fn();
@@ -263,8 +316,7 @@ describe('Library navigation and discovery', () => {
     const pythonCard = screen.getByRole('heading', { name: 'Python Foundations' }).closest('article');
     await waitFor(() => expect(within(pythonCard).getByRole('img', { name: 'Course progress 25 percent' })).toBeInTheDocument());
     expect(within(pythonCard).queryByRole('button', { name: /Continue/i })).not.toBeInTheDocument();
-    fireEvent.click(within(pythonCard).getByRole('button', { name: 'Bookmark course' }));
-    expect(open).not.toHaveBeenCalled();
+    expect(within(pythonCard).queryByRole('button', { name: 'Bookmark course' })).not.toBeInTheDocument();
     fireEvent.click(pythonCard);
     expect(open).toHaveBeenCalledWith('python');
     const javaCard = screen.getByRole('heading', { name: 'Java Basics' }).closest('article');

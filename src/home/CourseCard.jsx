@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { ArrowRight, BookOpen, Clock3 } from 'lucide-react';
-import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
+import { ContentTypeBadge } from '../components/ContentTypeBadge';
+import { DifficultyBadge, courseDifficultyBadge } from '../components/DifficultyBadge';
 import { getCourseOverviewPresentation } from '../course-overview/courseOverviewPresentation';
 
 const boundedProgress = (value) => Math.min(100, Math.max(0, Math.round(Number(value) || 0)));
@@ -26,7 +27,7 @@ function LibraryProgress({ course }) {
   </div>;
 }
 
-export function CourseCard({ course, onOpenCourse, variant = 'card', allowBookmark = true, onRequireAuth = () => {} }) {
+export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   const isList = variant === 'list';
   const progress = boundedProgress(course.progress);
   const hasProgress = course.started === true;
@@ -37,17 +38,8 @@ export function CourseCard({ course, onOpenCourse, variant = 'card', allowBookma
     .slice(0, 2)
     .toUpperCase();
   const tone = [...course.id].reduce((total, character) => total + character.charCodeAt(0), 0) % 5;
-  const bookmark = {
-    id: `course:${course.id}`,
-    type: 'course',
-    contentId: course.id,
-    title: course.title,
-    description: course.description,
-    language: course.kind === 'languages' ? course.filter : '',
-    topic: course.kind === 'domains' ? course.filter : '',
-    target: { page: 'course', courseId: course.id },
-  };
   const artwork = getCourseOverviewPresentation(course.id)?.artwork ?? null;
+  const difficulty = courseDifficultyBadge(course.difficulty ?? course.level);
   const openCard = () => { if (course.available !== false) onOpenCourse(course.id); };
   const handleKeyDown = (event) => {
     if (event.target.closest('button, a') || course.available === false || (event.key !== 'Enter' && event.key !== ' ')) return;
@@ -58,8 +50,8 @@ export function CourseCard({ course, onOpenCourse, variant = 'card', allowBookma
   if (isList) return (
     <article className={`home-course-card is-list library-course-card${hasProgress ? ' course-card--has-progress' : ''}${course.available === false ? ' is-unavailable' : ''}`} aria-labelledby={`course-title-${course.id}`} data-tone={tone} role={course.available === false ? undefined : 'link'} tabIndex={course.available === false ? undefined : 0} aria-disabled={course.available === false ? 'true' : undefined} onClick={(event) => { if (!event.target.closest('button, a')) openCard(); }} onKeyDown={handleKeyDown}>
       <header className="library-course-card-header">
-        <span className="library-resource-type"><span aria-hidden="true" />Course</span>
-        {allowBookmark ? <BookmarkToggle bookmark={bookmark} iconOnly className="home-course-bookmark" /> : <button className="bookmark-toggle is-icon-only home-course-bookmark" type="button" aria-label={`Sign in to save ${course.title}`} onClick={() => onRequireAuth(`/courses/${course.id}`)}><span aria-hidden="true">☆</span></button>}
+        <ContentTypeBadge type="Course" />
+        {difficulty ? <DifficultyBadge difficulty={difficulty} /> : null}
       </header>
       <div className="library-course-artwork" aria-hidden="true">
         {artwork ? <img src={artwork} alt="" /> : <span>{initials}</span>}
@@ -91,7 +83,6 @@ export function CourseCard({ course, onOpenCourse, variant = 'card', allowBookma
         <div className="home-course-copy">
           <div className="home-course-card-header">
             <span className="home-course-level">{course.level}</span>
-            {isList ? <BookmarkToggle bookmark={bookmark} iconOnly className="home-course-bookmark" /> : null}
           </div>
           <h3 id={`course-title-${course.id}`}>{course.title}</h3>
           <p>{course.description}</p>

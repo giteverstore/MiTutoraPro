@@ -969,8 +969,23 @@
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: var(--space-2);
+  padding: .25rem .25rem var(--space-2);
   -webkit-overflow-scrolling: touch;
+}
+
+.library-coming-soon-strip:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+.library-coming-soon-strip .home-course-card.is-list.library-course-card:hover,
+.library-coming-soon-strip .home-course-card.is-list.library-course-card:focus-visible {
+  transform: none;
+}
+
+.library-coming-soon-strip .library-course-card.is-unavailable:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-sm);
 }
 
 @keyframes home-course-page-in {
@@ -1271,28 +1286,18 @@
 .library-course-card-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.library-resource-type {
-  display: inline-flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
-  color: var(--color-text);
-  font-size: .75rem;
-  font-weight: var(--font-weight-semibold);
 }
 
-.library-resource-type>span {
-  width: .4rem;
-  height: .4rem;
-  background: var(--color-accent);
-  border-radius: var(--radius-full);
+.content-type-badge--course {
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
-.library-course-card .home-course-bookmark {
-  color: var(--color-text-muted);
+[data-theme="dark"] .content-type-badge--course {
+  color: #93c5fd;
+  background: #172554;
 }
 
 .library-course-artwork {
@@ -1364,7 +1369,7 @@
 
 .library-course-progress {
   position: absolute;
-  top: 0;
+  top: -0.3125rem;
   right: 0;
   width: 3.125rem;
   height: 3.125rem;
@@ -1374,9 +1379,8 @@
   border-radius: var(--radius-full);
 }
 
-.library-course-card-footer .library-course-meta { padding-top: 3.125rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .875rem; }
+.library-course-card-footer .library-course-meta { padding-top: 2.5rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .875rem; }
 .library-course-card:not(.course-card--has-progress) .library-course-card-footer { min-height: 3.75rem; }
-.library-course-card:not(.course-card--has-progress) .library-course-card-footer .library-course-meta { padding-top: 2.5rem; }
 .library-course-coming-soon { position: absolute; top: .9rem; left: 0; color: var(--color-text-muted); font-size: .75rem; font-weight: 700; }
 .home-recent-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.8125rem), 14.8125rem)); justify-content: start; }
 

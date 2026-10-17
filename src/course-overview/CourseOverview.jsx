@@ -16,10 +16,12 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { createCourseOverviewModel } from '../course/createCourseOverviewModel';
+import { DifficultyBadge, courseDifficultyBadge } from '../components/DifficultyBadge';
 import { ICON_SIZE } from '../design-system/theme';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
+import '../styles/pages/dashboard.css';
 
 const STAT_DEFINITIONS = [
   { key: 'estimatedDuration', label: 'Estimated duration', icon: Clock3 },
@@ -43,6 +45,7 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
     && progress.sequentialCompletedLessons === model.lessonCount;
   const isStarted = progress.visitedLessonCount > 0 || progress.completedLessonCount > 0;
   const presentation = getCourseOverviewPresentation(model.id);
+  const difficultyBadge = courseDifficultyBadge(model.difficulty);
   const actionLabel = isCompleted
     ? 'Review Course'
     : isStarted
@@ -67,23 +70,12 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
           <ArrowLeft size={ICON_SIZE.base} aria-hidden="true" />
           Dashboard
         </button>
-        {presentation ? (
-          <CourseArtworkHero
-            model={model}
-            progress={progress}
-            presentation={presentation}
-            actionLabel={actionLabel}
-            onEnterCourse={onEnterCourse}
-            onStartExam={isCompleted ? onStartExam : undefined}
-            showProgress={!anonymous}
-          />
-        ) : (
-          <section className="overview-hero">
-            <div className="overview-hero-copy">
-              <span className="overview-kicker"><Sparkles size={ICON_SIZE.sm} /> Course overview</span>
-              <span className="overview-level">{model.difficulty}</span>
-              <h1>{model.title}</h1>
-              <p>{model.description}</p>
+        <section className="overview-hero overview-hero--full">
+          <div className="overview-hero-copy">
+            {difficultyBadge ? <DifficultyBadge difficulty={difficultyBadge} /> : null}
+            <h1>{presentation?.heading?.replaceAll('\n', ' ') ?? model.title}</h1>
+            <p>{presentation?.description ?? model.description}</p>
+            <div className="overview-hero-actions">
               <button className="button button--primary overview-primary-action" type="button" onClick={onEnterCourse}>
                 {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
               </button>
@@ -93,9 +85,17 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
                 </button>
               ) : null}
             </div>
-            {anonymous ? null : <ProgressSummary model={model} progress={progress} />}
-          </section>
-        )}
+            {presentation && !anonymous && progress.courseProgress > 0 ? (
+              <div className="overview-hero-progress">
+                <span><strong>{progress.courseProgress}%</strong> complete</span>
+                <div role="progressbar" aria-label="Course progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress.courseProgress}>
+                  <span style={{ width: `${progress.courseProgress}%` }} />
+                </div>
+              </div>
+            ) : null}
+          </div>
+          {!presentation && !anonymous ? <ProgressSummary model={model} progress={progress} /> : null}
+        </section>
 
         <section className="overview-stat-grid" aria-label="Course details">
           {stats.map(({ key, label, value, icon: Icon }) => (
@@ -120,39 +120,6 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
 
       </main>
     </div>
-  );
-}
-
-function CourseArtworkHero({ model, progress, presentation, actionLabel, onEnterCourse, onStartExam, showProgress = true }) {
-  const heroStyle = { '--course-hero-artwork': `url("${presentation.artwork}")` };
-
-  return (
-    <section className="overview-hero overview-hero--artwork" style={heroStyle}>
-      <div className="overview-hero-artwork-space" aria-hidden="true" />
-      <div className="overview-hero-copy overview-hero-copy--artwork">
-        <span className="overview-artwork-eyebrow">{presentation.eyebrow}</span>
-        <h1>{presentation.heading}</h1>
-        <p>{presentation.description}</p>
-        <div className="overview-hero-actions">
-          <button className="button overview-artwork-action" type="button" onClick={onEnterCourse}>
-            {actionLabel} <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
-          </button>
-          {onStartExam ? (
-            <button className="button overview-artwork-exam-action" type="button" onClick={onStartExam}>
-              <FileCheck2 size={ICON_SIZE.base} aria-hidden="true" /> Take Online Exam <ArrowRight size={ICON_SIZE.base} aria-hidden="true" />
-            </button>
-          ) : null}
-        </div>
-        {showProgress && progress.courseProgress > 0 ? (
-          <div className="overview-artwork-progress">
-            <span><strong>{progress.courseProgress}%</strong> complete</span>
-            <div role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress.courseProgress}>
-              <span style={{ width: `${progress.courseProgress}%` }} />
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </section>
   );
 }
 
