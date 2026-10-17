@@ -34,10 +34,11 @@ describe('Learning Engine application-theme ownership', () => {
   });
 
   it('keeps the themed overview hero and elevated summary readable in dark mode', () => {
-    expect(dashboardCss).toMatch(/\.overview-hero\s*\{[^}]*color: var\(--color-text-on-accent\);[^}]*background: var\(--color-accent\);/s);
-    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero\s*\{[^}]*border-color: color-mix\(in srgb, var\(--color-text-on-accent\) 28%, transparent\);/s);
+    expect(dashboardCss).toMatch(/\.overview-hero\s*\{[^}]*color: #fff;[^}]*background: linear-gradient\(to bottom, var\(--color-accent\) 0%,[^;]*#05070b 100%\);/s);
+    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero\s*\{[^}]*border-color: rgb\(255 255 255 \/ 18%\);/s);
     expect(dashboardCss).toMatch(/\.overview-hero-summary\s*\{[^}]*color: var\(--color-text\);[^}]*background: var\(--color-surface-raised\);/s);
     expect(dashboardCss).toMatch(/\.overview-hero-progress>div\[role="progressbar"\]\s*\{[^}]*background: var\(--color-border\);/s);
-    expect(dashboardCss).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color: var\(--color-text-on-accent\);/s);
+    expect(dashboardCss).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color: #fff;/s);
+    expect(dashboardCss).toMatch(/\.overview-hero h1\s*\{[^}]*color: #fff;/s);
   });
 });

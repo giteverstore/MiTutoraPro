@@ -1199,7 +1199,7 @@
 }
 
 .application-shell[data-theme="dark"] .overview-hero {
-  border-color: color-mix(in srgb, var(--color-text-on-accent) 28%, transparent);
+  border-color: rgb(255 255 255 / 18%);
 }
 
 .auth-page {
@@ -2050,25 +2050,6 @@
   justify-self: end;
 }
 
-.overview-back {
-  display: inline-flex;
-  width: max-content;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2);
-  color: var(--color-text-muted);
-  background: transparent;
-  border: 0;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-weight: var(--font-weight-semibold);
-}
-
-.overview-back:hover {
-  color: var(--color-text);
-  background: var(--color-surface-subtle);
-}
-
 .overview-brand {
   display: inline-flex;
   align-items: center;
@@ -2090,19 +2071,17 @@
 .course-overview-main {
   width: min(100%, 86rem);
   margin: 0 auto;
-  padding: var(--space-8) clamp(var(--space-4), 3vw, var(--space-8)) var(--space-16);
+  padding: var(--space-10) clamp(var(--space-4), 3vw, var(--space-8)) var(--space-16);
 }
 
 .overview-hero {
   display: grid;
-  width: min(100%, 86rem);
+  width: 100%;
   height: 230px;
-  margin-inline: auto;
-  padding: var(--space-4) clamp(var(--space-4), 3vw, var(--space-8));
   overflow: hidden;
-  color: var(--color-text-on-accent);
-  background: var(--color-accent);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-accent) 28%, transparent);
+  color: #fff;
+  background: linear-gradient(to bottom, var(--color-accent) 0%, color-mix(in srgb, var(--color-accent) 48%, #05070b) 58%, #05070b 100%);
+  border-bottom: 1px solid rgb(255 255 255 / 18%);
 }
 
 .overview-hero > *:not(.hero-pointer-grid):not(.hero-pointer-grid-highlight) {
@@ -2121,8 +2100,11 @@
 
 .overview-hero-layout {
   display: grid;
+  width: min(100%, 86rem);
   min-width: 0;
   height: 100%;
+  margin-inline: auto;
+  padding: var(--space-4) clamp(var(--space-4), 3vw, var(--space-8));
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(var(--space-4), 3vw, var(--space-8));
@@ -2133,25 +2115,14 @@
   min-width: 0;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.overview-hero .overview-back {
-  margin-bottom: var(--space-2);
-  padding: 0;
-  color: var(--color-text-on-accent);
-  font-size: .875rem;
-}
-
-.overview-hero .overview-back:hover {
-  color: var(--color-text-on-accent);
-  background: color-mix(in srgb, var(--color-text-on-accent) 15%, transparent);
+  text-shadow: 0 1px 3px rgb(0 0 0 / 45%);
 }
 
 .overview-hero-kicker {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  color: var(--color-text-on-accent);
+  color: #fff;
   font-size: .875rem;
   font-weight: var(--font-weight-semibold);
 }
@@ -2163,7 +2134,7 @@
 .overview-hero h1 {
   max-width: 26ch;
   margin: var(--space-2) 0 var(--space-1);
-  color: var(--color-text-on-accent);
+  color: #fff;
   font-size: clamp(1.75rem, 2.8vw, 2.25rem);
   line-height: 1.12;
   letter-spacing: -.035em;
@@ -2174,7 +2145,7 @@
   max-width: 56ch;
   margin: 0;
   overflow: hidden;
-  color: var(--color-text-on-accent);
+  color: #fff;
   font-size: 1rem;
   line-height: var(--line-height-body);
   -webkit-box-orient: vertical;
@@ -2187,9 +2158,9 @@
   gap: var(--space-2);
   margin-top: var(--space-3);
   padding: .3rem .65rem;
-  color: var(--color-text-on-accent);
-  background: color-mix(in srgb, var(--color-text-on-accent) 16%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-text-on-accent) 42%, transparent);
+  color: #fff;
+  background: rgb(255 255 255 / 16%);
+  border: 1px solid rgb(255 255 255 / 42%);
   border-radius: var(--radius-full);
   font-size: .875rem;
   font-weight: var(--font-weight-semibold);
@@ -2337,7 +2308,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: var(--space-3);
-  margin-top: var(--space-6);
+  margin-top: 0;
 }
 
 .overview-stat-card {
@@ -2666,7 +2637,7 @@
     display: none;
   }
 
-  .overview-hero {
+  .overview-hero-layout {
     padding: var(--space-6) clamp(var(--space-4), 3vw, var(--space-8));
   }
 

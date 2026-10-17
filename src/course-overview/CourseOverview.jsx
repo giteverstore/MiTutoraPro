@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  ArrowLeft,
   ArrowRight,
   Award,
   BookOpen,
@@ -36,7 +35,7 @@ const STAT_DEFINITIONS = [
 
 const anonymousProgress = Object.freeze({ courseProgress: 0, completedLessons: [], completedLessonCount: 0, sequentialCompletedLessons: 0, visitedLessonCount: 0 });
 
-export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, onStartExam, anonymous = false }) {
+export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartExam, anonymous = false }) {
   const { heroRef, onPointerEnter, onPointerMove, onPointerLeave } = useHeroPointerGrid();
   const storedProgress = useOptionalLearningProgress();
   const progress = storedProgress ?? anonymousProgress;
@@ -75,14 +74,11 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
 
   return (
     <div className="course-overview-shell">
-      <section className="overview-hero overview-hero--contained hero-pointer-grid-host" ref={heroRef} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
+      <section className="overview-hero overview-hero--full-bleed hero-pointer-grid-host" ref={heroRef} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
           <div className="overview-hero-grid hero-pointer-grid" aria-hidden="true" />
           <div className="overview-hero-grid-highlight hero-pointer-grid-highlight" aria-hidden="true" />
           <div className="overview-hero-layout">
             <div className="overview-hero-copy">
-              <button className="overview-back" type="button" onClick={onBack}>
-                <ArrowLeft size={ICON_SIZE.base} aria-hidden="true" /> Dashboard
-              </button>
               <div className="overview-hero-kicker"><span>{courseLabel}</span>{difficultyBadge ? <DifficultyBadge difficulty={difficultyBadge} /> : null}</div>
               <h1>{model.title}</h1>
               <p>{model.description}</p>

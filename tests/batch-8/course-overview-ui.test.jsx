@@ -47,7 +47,7 @@ describe('course overview shell and completed actions', () => {
     expect(onEnterCourse).toHaveBeenCalledOnce();
     expect(screen.getByRole('heading', { level: 1, name: 'Python Foundations' })).toBeInTheDocument();
     expect(screen.getByText('Easy')).toHaveClass('difficulty-badge', 'difficulty-badge--easy');
-    expect(document.querySelector('.overview-hero')).toHaveClass('overview-hero--contained');
+    expect(document.querySelector('.overview-hero')).toHaveClass('overview-hero--full-bleed');
     expect(document.querySelector('.overview-hero-artwork-space')).toBeNull();
     expect(document.querySelector('.overview-hero--artwork')).toBeNull();
     expect(document.querySelector('.overview-hero [style*="course-hero-artwork"]')).toBeNull();
@@ -71,23 +71,24 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByText('1/1')).toBeInTheDocument();
   });
 
-  it('preserves Dashboard navigation and curriculum expansion', () => {
+  it('removes the Dashboard control while preserving curriculum expansion', () => {
     const onBack = vi.fn();
     render(<CourseOverview course={course} onBack={onBack} onEnterCourse={vi.fn()} onResetCourse={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Dashboard' }));
-    expect(onBack).toHaveBeenCalledOnce();
+    expect(screen.queryByRole('button', { name: 'Dashboard' })).not.toBeInTheDocument();
+    expect(onBack).not.toHaveBeenCalled();
     fireEvent.click(screen.getByText('Getting started'));
     expect(screen.getByText('First lesson')).toBeVisible();
   });
 
-  it('places the contained hero at the top with Dashboard inside and stats below', () => {
+  it('places the full-bleed hero at the top with constrained content and stats below', () => {
     progressState.value = { ...progress(false), courseProgress: 50 };
     const { container } = render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
     const shell = container.querySelector('.course-overview-shell');
     const hero = shell.firstElementChild;
     const body = shell.querySelector('.course-overview-main');
-    expect(hero).toHaveClass('overview-hero', 'overview-hero--contained');
-    expect(hero).toContainElement(screen.getByRole('button', { name: 'Dashboard' }));
+    expect(hero).toHaveClass('overview-hero', 'overview-hero--full-bleed');
+    expect(hero.querySelector('.overview-hero-layout')).toBeInTheDocument();
+    expect(hero.querySelector('.overview-back')).toBeNull();
     expect(hero).toContainElement(screen.getByRole('button', { name: /Start this Course/ }));
     expect(hero).toContainElement(screen.getByRole('progressbar', { name: 'Course progress' }));
     expect(hero.nextElementSibling).toBe(body);
@@ -133,18 +134,23 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByRole('button', { name: /Start Course/ })).toBeInTheDocument();
   });
 
-  it('uses a 230px contained two-column hero with themed checker and stacked responsive layout', () => {
+  it('uses a 230px full-bleed gradient hero with aligned inner content and stacked responsive layout', () => {
     const css = readFileSync('src/styles/pages/dashboard.css', 'utf8');
     const gridCss = readFileSync('src/styles/hero-pointer-grid.css', 'utf8');
     const component = readFileSync('src/course-overview/CourseOverview.jsx', 'utf8');
     expect(component).toContain("import '../styles/pages/dashboard.css';");
-    expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*min\(100%, 86rem\);[^}]*height:\s*230px/);
+    expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*height:\s*230px/);
+    expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*width:\s*min\(100%, 86rem\);[^}]*margin-inline:\s*auto;[^}]*padding:\s*var\(--space-4\)/);
     expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.6fr\) minmax\(0, 1fr\)/);
     expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*?\.overview-hero\s*\{\s*height:\s*auto;/);
     expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*?\.overview-hero-layout\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
     expect(css).toMatch(/\.course-overview-main\s*\{[^}]*width:\s*min\(100%, 86rem\)/);
-    expect(css).toMatch(/\.overview-hero\s*\{[^}]*background:\s*var\(--color-accent\)/);
-    expect(css).toMatch(/\.overview-hero h1\s*\{[^}]*color:\s*var\(--color-text-on-accent\)/);
+    expect(css).toMatch(/\.overview-hero\s*\{[^}]*background:\s*linear-gradient\(to bottom, var\(--color-accent\) 0%,[^;]*#05070b 100%\)/);
+    expect(css).toMatch(/\.overview-hero h1\s*\{[^}]*color:\s*#fff/);
+    expect(css).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color:\s*#fff/);
+    expect(css).toMatch(/\.overview-certification-badge\s*\{[^}]*color:\s*#fff/);
+    expect(css).toMatch(/\.course-overview-main\s*\{[^}]*padding:\s*var\(--space-10\)/);
+    expect(css).toMatch(/\.overview-stat-grid\s*\{[^}]*margin-top:\s*0/);
     expect(css).toMatch(/\.overview-hero-grid\s*\{[^}]*rgb\(229 231 235 \/ 68%\)/);
     expect(css).toMatch(/\.overview-hero-grid-highlight\s*\{[^}]*linear-gradient\(#fff 1\.5px/);
     expect(css).toMatch(/\.overview-hero \.overview-primary-action\.button--primary\s*\{[^}]*background:\s*var\(--color-accent\)/);
