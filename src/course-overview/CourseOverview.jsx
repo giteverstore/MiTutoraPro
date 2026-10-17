@@ -65,13 +65,12 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
 
   return (
     <div className="course-overview-shell">
-      <main className="course-overview-main">
-        <button className="overview-back" type="button" onClick={onBack}>
-          <ArrowLeft size={ICON_SIZE.base} aria-hidden="true" />
-          Dashboard
-        </button>
-        <section className="overview-hero overview-hero--full">
+      <section className="overview-hero overview-hero--full">
           <div className="overview-hero-copy">
+            <button className="overview-back" type="button" onClick={onBack}>
+              <ArrowLeft size={ICON_SIZE.base} aria-hidden="true" />
+              Dashboard
+            </button>
             {difficultyBadge ? <DifficultyBadge difficulty={difficultyBadge} /> : null}
             <h1>{presentation?.heading?.replaceAll('\n', ' ') ?? model.title}</h1>
             <p>{presentation?.description ?? model.description}</p>
@@ -95,8 +94,9 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
             ) : null}
           </div>
           {!presentation && !anonymous ? <ProgressSummary model={model} progress={progress} /> : null}
-        </section>
+      </section>
 
+      <main className="course-overview-main">
         <section className="overview-stat-grid" aria-label="Course details">
           {stats.map(({ key, label, value, icon: Icon }) => (
             <article className="overview-stat-card" key={key}>

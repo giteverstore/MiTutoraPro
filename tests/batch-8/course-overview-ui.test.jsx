@@ -78,6 +78,21 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByText('First lesson')).toBeVisible();
   });
 
+  it('places the full-width hero at the top with Dashboard inside and stats below', () => {
+    progressState.value = { ...progress(false), courseProgress: 50 };
+    const { container } = render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
+    const shell = container.querySelector('.course-overview-shell');
+    const hero = shell.firstElementChild;
+    const body = shell.querySelector('.course-overview-main');
+    expect(hero).toHaveClass('overview-hero', 'overview-hero--full');
+    expect(hero).toContainElement(screen.getByRole('button', { name: 'Dashboard' }));
+    expect(hero).toContainElement(screen.getByRole('button', { name: /Start this Course/ }));
+    expect(hero).toContainElement(screen.getByRole('progressbar', { name: 'Course progress' }));
+    expect(hero.nextElementSibling).toBe(body);
+    expect(body.firstElementChild).toHaveClass('overview-stat-grid');
+    expect(body.querySelectorAll('.overview-stat-card')).toHaveLength(6);
+  });
+
   it.each([
     ['intermediate', 'Medium', 'medium'],
     ['advanced', 'Hard', 'hard'],
@@ -104,6 +119,9 @@ describe('course overview shell and completed actions', () => {
     const component = readFileSync('src/course-overview/CourseOverview.jsx', 'utf8');
     expect(component).toContain("import '../styles/pages/dashboard.css';");
     expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
+    expect(css).toMatch(/\.course-overview-main\s*\{[^}]*width:\s*min\(100%, 86rem\)/);
+    expect(css).toMatch(/\.overview-hero\s*\{[^}]*border-bottom:\s*1px solid var\(--color-border\)/);
+    expect(css).not.toContain('.course-overview-main>.overview-back');
     expect(css).not.toContain('.overview-hero--artwork');
     expect(css).not.toContain('--course-hero-artwork');
   });
