@@ -90,7 +90,12 @@ describe('public Y Coders landing page', () => {
     expect(screen.getByText('Languages available: Python, Java, C++, SQL, and HTML.')).toBeInTheDocument();
     expect(container.querySelector('.landing-language-logo .is-incoming')).toHaveAttribute('src', '/assets/languages/python.svg');
     expect(container.querySelector('.landing-hero-grid-highlight')).toHaveAttribute('aria-hidden', 'true');
-    expect(container.querySelectorAll('.landing-hero-headline-line')).toHaveLength(2);
+    expect(container.querySelectorAll('.landing-hero-headline-line')).toHaveLength(1);
+    expect(container.querySelector('.landing-hero-headline-line')).toHaveTextContent('From‘I Understand’to‘I Built It!’');
+    expect(readFileSync('src/styles/pages/landing.css', 'utf8')).toMatch(/\.landing-hero h1\s*\{[^}]*font-size:\s*clamp\(1rem, 5\.5vw, 4\.75rem\)/);
+    expect(container.querySelectorAll('.landing-courses')).toHaveLength(1);
+    expect(container.querySelectorAll('.landing-building')).toHaveLength(1);
+    expect(container.querySelector('.landing-courses').compareDocumentPosition(container.querySelector('.landing-building')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect([...container.querySelectorAll('.landing-hero-prefix')].map((node) => node.textContent)).toEqual(['From', 'to']);
     expect([...container.querySelectorAll('.landing-hero-accent')].map((node) => node.textContent)).toEqual(['‘I Understand’', '‘I Built It!’']);
     for (const link of screen.getByRole('navigation', { name: 'Public navigation' }).querySelectorAll('a')) expect(link).toHaveClass('public-nav-link');

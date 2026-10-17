@@ -373,16 +373,15 @@ function LandingPageContent() {
         <div className="landing-hero-avatars" aria-hidden="true">{[1, 2, 3, 4, 5].map((avatar) => <img src={`/assets/avatars/landing-avatar-${avatar}.svg`} alt="" key={avatar} />)}</div>
         <p className="landing-hero-intro">From Beginner to Code Master With Y Coders</p>
         <h1 aria-label="From ‘I Understand’ to ‘I Built It!’">
-          <span className="landing-hero-headline-line" aria-hidden="true"><span className="landing-hero-prefix">From</span><span className="landing-hero-accent">‘I Understand’</span></span>
-          <span className="landing-hero-headline-line" aria-hidden="true"><span className="landing-hero-prefix">to</span><span className="landing-hero-accent">‘I Built It!’</span></span>
+          <span className="landing-hero-headline-line" aria-hidden="true"><span className="landing-hero-prefix">From</span><span className="landing-hero-accent">‘I Understand’</span><span className="landing-hero-prefix">to</span><span className="landing-hero-accent">‘I Built It!’</span></span>
         </h1>
         <p className="landing-hero-primary">Learn. Build. Compete. Get Hired. With Y Coders.</p>
         <p className="landing-hero-secondary">Your Coding Journey Starts Here Learn by Building!</p>
         <div className="landing-hero-actions"><button className="button button--primary" type="button" onClick={() => requestAuthentication('/', 'login')}><img src="/assets/brands/google-g.svg" alt="" aria-hidden="true" />Sign in</button><a className="button button--secondary" href="/library">Explore Courses</a></div>
       </div>
     </section>
-    <LandingFeatureShowcase />
     <LandingCoursesShowcase />
+    <LandingFeatureShowcase />
     <section className="landing-split landing-practice"><div><h2>Practice What<br />You Learn.</h2><p>Browse coding questions by topic and difficulty, then sign in when you are ready to run solutions and track completion.</p><a className="button button--primary" href="/practice">Explore Practice <ArrowRight /></a></div><LandingPracticeShowcase /></section>
     <section className="landing-projects"><div className="landing-project-illustration"><img src="/assets/landing/project-building-illustration.png" alt="Developer building a web project across multiple screens" /></div><div className="landing-section-copy"><h2>Don’t Just Learn. Build Something Real.</h2><p>Build hands-on projects, explore in-demand technologies, and gain job-ready skills with Y Coders.</p><LandingProjectFeatures /><a className="button button--primary" href="/projects">Explore Projects <ArrowRight /></a></div></section>
     <section className="landing-mentor" aria-labelledby="landing-mentor-title">

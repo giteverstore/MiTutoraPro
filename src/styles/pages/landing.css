@@ -132,10 +132,9 @@
 }
 
 .landing-hero h1 {
-  display: grid;
   max-width: none;
-  gap: 0.08em;
   color: var(--color-text);
+  font-size: clamp(1rem, 5.5vw, 4.75rem);
   line-height: 1.07;
 }
 
@@ -143,7 +142,7 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 0.24em;
+  gap: 0.2em;
   white-space: nowrap;
 }
 
@@ -180,10 +179,8 @@
   }
 
   .landing-hero-headline-line {
-    flex-wrap: wrap;
-    column-gap: 0.24em;
-    row-gap: 0;
-    white-space: normal;
+    flex-wrap: nowrap;
+    white-space: nowrap;
   }
 
   .landing-projects,
