@@ -6,6 +6,7 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  Clock3,
   Code2,
   Database,
   GraduationCap,
@@ -149,6 +150,7 @@ export function ContinueLearningSection({ courses = [], status, onOpenCourse, on
 }
 
 export function BrowseCoursesSection({
+  comingSoonCourses = [],
   languageGroups,
   languages,
   activeLanguage,
@@ -205,16 +207,26 @@ export function BrowseCoursesSection({
         </div>
       </div>
       <div className="library-language-sections" aria-live="polite" aria-busy={loading} key={`${activeLanguage}-${search}`}>
-        {loading ? <CourseCardsLoadingState label="Loading course catalog" count={4} /> : languageGroups.length ? languageGroups.map((group) => (
-          <section className="library-language-section" aria-labelledby={languageSectionId(group.language)} key={group.language}>
+        {loading ? <CourseCardsLoadingState label="Loading course catalog" count={4} /> : comingSoonCourses.length || languageGroups.length ? <>
+          {comingSoonCourses.length ? <section className="library-language-section library-coming-soon-section" aria-labelledby="library-coming-soon-title">
             <header className="library-language-section-header">
-              <LanguageHeading language={group.language} />
+              <h2 id="library-coming-soon-title"><Clock3 aria-hidden="true" />Coming Soon</h2>
             </header>
-            <div className="library-language-course-grid">
-              {group.courses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" allowBookmark={allowBookmarks} onRequireAuth={onRequireAuth} key={course.id} />)}
+            <div className="library-coming-soon-strip" role="region" aria-label="Coming soon courses" tabIndex={0}>
+              {comingSoonCourses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" allowBookmark={allowBookmarks} onRequireAuth={onRequireAuth} key={course.id} />)}
             </div>
-          </section>
-        )) : (
+          </section> : null}
+          {languageGroups.map((group) => (
+            <section className="library-language-section" aria-labelledby={languageSectionId(group.language)} key={group.language}>
+              <header className="library-language-section-header">
+                <LanguageHeading language={group.language} />
+              </header>
+              <div className="library-language-course-grid">
+                {group.courses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" allowBookmark={allowBookmarks} onRequireAuth={onRequireAuth} key={course.id} />)}
+              </div>
+            </section>
+          ))}
+        </> : (
           <div className="home-course-empty" role="status">
             <SearchX aria-hidden="true" />
             <h3>No courses found</h3>

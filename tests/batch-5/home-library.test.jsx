@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { APP_NAVIGATION } from '../../src/app-shell/navigation';
 import { BrowseCoursesSection, ContinueLearningSection, RecentlyViewedSection } from '../../src/home/HomeSections';
-import { LibraryPage } from '../../src/home/LibraryPage';
+import { LibraryPage, groupLibraryCourses } from '../../src/home/LibraryPage';
 import { CourseCard } from '../../src/home/CourseCard';
 import { browseCatalog } from '../../src/home/homeData';
 import { createHomeLearningModel } from '../../src/home/homeLearningModel';
@@ -142,14 +142,14 @@ describe('Library navigation and discovery', () => {
     const open = vi.fn();
     render(<LibraryPage onOpenCourse={open} />);
     const discovery = screen.getByRole('region', { name: 'Browse courses' }).querySelector('.home-discovery-bar');
-    expect(discovery).toContainElement(screen.getByLabelText('Language filters'));
+    expect(discovery).toContainElement(screen.getByLabelText('Course filters'));
     expect(discovery).toContainElement(screen.getByRole('searchbox', { name: 'Search courses' }));
     expect(screen.queryByRole('group', { name: 'Browse courses by' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'All Domains' })).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Browse Courses' })).not.toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Browse courses' })).toBeInTheDocument();
     expect(screen.queryByText('Explore')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'All Languages' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'All Courses' })).toHaveAttribute('aria-pressed', 'true');
     expect(await screen.findByRole('heading', { name: 'Python' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Java' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Python' }));
@@ -163,20 +163,28 @@ describe('Library navigation and discovery', () => {
     expect(screen.queryByRole('heading', { name: 'Python' })).not.toBeInTheDocument();
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search courses' }), { target: { value: '' } });
     fireEvent.click(screen.getByRole('button', { name: 'Rust' }));
-    expect(screen.getByRole('heading', { name: 'Rust' })).toBeInTheDocument();
-    expect(screen.getByText('Coming Soon')).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Rust' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Coming Soon' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Rust Essentials' }).closest('article')).toHaveAttribute('aria-disabled', 'true');
   });
 
-  it('derives one stable language block per catalog language and uses the responsive four-column grid', async () => {
+  it('renders available language groups after a single Coming Soon section and preserves the normal grid', async () => {
     const { container } = render(<LibraryPage onOpenCourse={vi.fn()} />);
     await screen.findByRole('heading', { name: 'Python' });
-    const chips = within(screen.getByLabelText('Language filters')).getAllByRole('button');
-    expect(chips[0]).toHaveTextContent('All Languages');
+    const chips = within(screen.getByLabelText('Course filters')).getAllByRole('button');
+    expect(chips[0]).toHaveTextContent('All Courses');
     expect(chips.slice(1).map((chip) => chip.textContent)).toEqual(browseCatalog.languages.map((course) => course.filter));
-    expect(container.querySelectorAll('.library-language-section')).toHaveLength(browseCatalog.languages.length);
+    const sections = container.querySelectorAll('.library-language-section');
+    expect(sections).toHaveLength(3);
+    expect(sections[0]).toHaveClass('library-coming-soon-section');
+    expect(sections[1]).toHaveAttribute('aria-labelledby', 'library-language-python');
+    expect(sections[2]).toHaveAttribute('aria-labelledby', 'library-language-java');
+    expect(within(sections[0]).getByRole('region', { name: 'Coming soon courses' })).toHaveClass('library-coming-soon-strip');
+    expect(within(sections[0]).getByRole('region', { name: 'Coming soon courses' })).toHaveAttribute('tabindex', '0');
+    expect(screen.queryByRole('heading', { name: 'C++' })).not.toBeInTheDocument();
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
-    expect(css).toMatch(/\.library-language-course-grid \{[\s\S]*?grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/\.library-language-course-grid \{[\s\S]*?grid-template-columns: repeat\(4, minmax\(0, 14\.8125rem\)\)/);
+    expect(css).toMatch(/\.library-coming-soon-strip \{[\s\S]*?grid-auto-flow: column;[\s\S]*?grid-auto-columns: 14\.8125rem;[\s\S]*?overflow-x: auto;[\s\S]*?overflow-y: hidden/);
     expect(css).toMatch(/@media \(max-width: 1200px\)[\s\S]*?\.library-language-course-grid \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/@media \(max-width: 760px\)[\s\S]*?\.library-language-course-grid[\s\S]*?grid-template-columns: 1fr/);
     expect(css).toMatch(/\.library-language-section \{[\s\S]*?background: var\(--color-surface\);[\s\S]*?border: 1px solid var\(--color-border\)/);
@@ -184,10 +192,54 @@ describe('Library navigation and discovery', () => {
     expect(css).toMatch(/\.library-course-artwork \{[\s\S]*?width: min\(7\.5rem, 100%\);[\s\S]*?height: 7\.5rem/);
     expect(screen.getByRole('heading', { name: 'Python' }).querySelector('img')).toHaveAttribute('src', '/assets/languages/python.svg');
     expect(screen.getByRole('heading', { name: 'Java' }).querySelector('img')).toHaveAttribute('src', '/assets/languages/java.svg');
-    expect(screen.getByRole('heading', { name: 'SQL' }).querySelector('svg')).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'SQL' })).not.toBeInTheDocument();
     expect(css).toMatch(/\.library-language-logo \{[\s\S]*?object-fit: contain/);
     expect(css).toMatch(/\.library-course-progress-value \{[\s\S]*?font-size: 1\.625rem;[\s\S]*?line-height: 1/);
     expect(css).toMatch(/\.library-course-card>h3 \{[\s\S]*?-webkit-line-clamp: 2/);
+  });
+
+  it('groups unavailable courses once in source order without changing available language order or card navigation', () => {
+    const courses = [
+      { id: 'python', title: 'Python Foundations', filter: 'Python', kind: 'languages', available: true },
+      { id: 'cpp-soon', title: 'C++ Essentials', filter: 'C++', kind: 'languages', available: false },
+      { id: 'java', title: 'Java Basics', filter: 'Java', kind: 'languages', available: true },
+      { id: 'cpp-ready', title: 'C++ Advanced', filter: 'C++', kind: 'languages', available: true },
+      { id: 'js-soon', title: 'JavaScript Essentials', filter: 'JavaScript', kind: 'languages', available: false },
+    ];
+    const languages = ['Python', 'Java', 'C++', 'JavaScript'];
+    const grouped = groupLibraryCourses(courses, languages, 'all', '');
+    expect(grouped.comingSoonCourses.map(({ id }) => id)).toEqual(['cpp-soon', 'js-soon']);
+    expect(grouped.languageGroups.map(({ language }) => language)).toEqual(['Python', 'Java', 'C++']);
+    expect(grouped.languageGroups[2].courses.map(({ id }) => id)).toEqual(['cpp-ready']);
+
+    const open = vi.fn();
+    const { container } = render(<BrowseCoursesSection {...grouped} languages={languages} activeLanguage="all" search="" onLanguageChange={vi.fn()} onSearchChange={vi.fn()} onOpenCourse={open} />);
+    expect(container.querySelector('.library-language-section')).toHaveClass('library-coming-soon-section');
+    expect(screen.getAllByRole('heading', { name: 'C++ Essentials' })).toHaveLength(1);
+    expect(within(screen.getByRole('region', { name: 'Coming soon courses' })).getByRole('heading', { name: 'C++ Essentials' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'JavaScript' })).not.toBeInTheDocument();
+    const unavailable = screen.getByRole('heading', { name: 'C++ Essentials' }).closest('article');
+    expect(unavailable).toHaveAttribute('aria-disabled', 'true');
+    fireEvent.click(unavailable);
+    fireEvent.keyDown(unavailable, { key: 'Enter' });
+    expect(open).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('heading', { name: 'C++ Advanced' }).closest('article'));
+    expect(open).toHaveBeenCalledWith('cpp-ready');
+
+    expect(groupLibraryCourses(courses, languages, 'C++', '').comingSoonCourses.map(({ id }) => id)).toEqual(['cpp-soon']);
+    expect(groupLibraryCourses(courses, languages, 'C++', '').languageGroups.map(({ language }) => language)).toEqual(['C++']);
+    expect(groupLibraryCourses(courses, languages, 'all', 'javascript').comingSoonCourses.map(({ id }) => id)).toEqual(['js-soon']);
+    expect(groupLibraryCourses(courses, languages, 'all', 'javascript').languageGroups).toEqual([]);
+    expect(groupLibraryCourses(courses, languages, 'all', 'missing')).toEqual({ comingSoonCourses: [], languageGroups: [] });
+  });
+
+  it('omits an empty Coming Soon section and retains the normal grid', () => {
+    const languages = ['Python'];
+    const grouped = groupLibraryCourses([{ id: 'python', title: 'Python Foundations', filter: 'Python', available: true }], languages, 'all', '');
+    const { container } = render(<BrowseCoursesSection {...grouped} languages={languages} activeLanguage="all" search="" onLanguageChange={vi.fn()} onSearchChange={vi.fn()} onOpenCourse={vi.fn()} />);
+    expect(screen.queryByRole('heading', { name: 'Coming Soon' })).not.toBeInTheDocument();
+    expect(container.querySelector('.library-language-course-grid')).toBeInTheDocument();
+    expect(container.querySelector('.library-coming-soon-strip')).not.toBeInTheDocument();
   });
 
   it('uses the generic code icon fallback for an unmapped language', () => {

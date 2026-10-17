@@ -6,6 +6,22 @@ import { loadActiveCourseCatalog, mergeCourseCatalog } from './canonicalCourseCa
 import { createHomeLearningModel } from './homeLearningModel';
 import { BrowseCoursesSection } from './HomeSections';
 
+export function groupLibraryCourses(courses, languages, activeLanguage, search) {
+  const query = search.trim().toLowerCase();
+  const matches = courses.filter((course) => {
+    const matchesFilter = activeLanguage === 'all' || course.filter === activeLanguage;
+    const searchable = [course.title, course.description, course.filter, course.kind].join(' ').toLowerCase();
+    return matchesFilter && (!query || searchable.includes(query));
+  });
+  const comingSoonCourses = matches.filter((course) => course.available === false);
+  const availableCourses = matches.filter((course) => course.available !== false);
+  const languageGroups = languages.map((language) => ({
+    language,
+    courses: availableCourses.filter((course) => course.filter === language),
+  })).filter((group) => group.courses.length > 0);
+  return { comingSoonCourses, languageGroups };
+}
+
 export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = () => {} }) {
   const user = useUser({ optional: true })?.user;
   const [activeLanguage, setActiveLanguage] = useState('all');
@@ -35,21 +51,13 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
     return { ...course, enrolled: Boolean(enrollment), started: Boolean(enrollment), progress: enrollment?.progress ?? null };
   }), [enrollmentByCourse, catalog.courses]);
   const languages = useMemo(() => [...new Set(languageCourses.map((course) => course.filter))], [languageCourses]);
-  const languageGroups = useMemo(() => {
-    const query = courseSearch.trim().toLowerCase();
-    const matches = languageCourses.filter((course) => {
-      const matchesFilter = activeLanguage === 'all' || course.filter === activeLanguage;
-      const searchable = [course.title, course.description, course.filter, course.kind].join(' ').toLowerCase();
-      return matchesFilter && (!query || searchable.includes(query));
-    });
-    return languages.map((language) => ({
-      language,
-      courses: matches.filter((course) => course.filter === language),
-    })).filter((group) => group.courses.length > 0);
-  }, [activeLanguage, courseSearch, languageCourses, languages]);
+  const { comingSoonCourses, languageGroups } = useMemo(
+    () => groupLibraryCourses(languageCourses, languages, activeLanguage, courseSearch),
+    [activeLanguage, courseSearch, languageCourses, languages],
+  );
 
   return <div className="home-main library-main" id="library-content">
-    <BrowseCoursesSection languageGroups={languageGroups} languages={languages}
+    <BrowseCoursesSection comingSoonCourses={comingSoonCourses} languageGroups={languageGroups} languages={languages}
       activeLanguage={activeLanguage} search={courseSearch}
       onLanguageChange={setActiveLanguage} onSearchChange={setCourseSearch} onOpenCourse={onOpenCourse}
       allowBookmarks={!anonymous} onRequireAuth={onRequireAuth} loading={catalog.status === 'loading'} />
