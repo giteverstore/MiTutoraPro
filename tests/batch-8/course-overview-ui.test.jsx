@@ -1,6 +1,6 @@
 import React from 'react';
 import { readFileSync } from 'node:fs';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const progressState = vi.hoisted(() => ({ value: null }));
@@ -45,13 +45,13 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByRole('button', { name: /Start this Course/ })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Start this Course/ }));
     expect(onEnterCourse).toHaveBeenCalledOnce();
-    expect(screen.getByRole('heading', { level: 1, name: 'Getting started with Python' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Python Foundations' })).toBeInTheDocument();
     expect(screen.getByText('Easy')).toHaveClass('difficulty-badge', 'difficulty-badge--easy');
-    expect(document.querySelector('.overview-hero')).toHaveClass('overview-hero--full');
+    expect(document.querySelector('.overview-hero')).toHaveClass('overview-hero--contained');
     expect(document.querySelector('.overview-hero-artwork-space')).toBeNull();
     expect(document.querySelector('.overview-hero--artwork')).toBeNull();
     expect(document.querySelector('.overview-hero [style*="course-hero-artwork"]')).toBeNull();
-    expect(screen.queryByText(/Course overview/i)).not.toBeInTheDocument();
+    expect(screen.getByText('Python Course')).toBeInTheDocument();
     expect(screen.queryByText('Beginner')).not.toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Course details' }).querySelectorAll('.overview-stat-card')).toHaveLength(6);
     expect(screen.queryByRole('button', { name: /Take Online Exam/ })).not.toBeInTheDocument();
@@ -64,6 +64,8 @@ describe('course overview shell and completed actions', () => {
     progressState.value = progress(true);
     render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={vi.fn()} onResetCourse={vi.fn()} onStartExam={onStartExam} />);
     expect(screen.getByRole('button', { name: /Review Course/ })).toBeInTheDocument();
+    expect(document.querySelector('.overview-hero-summary-bottom')).toHaveClass('has-exam-action');
+    expect(screen.getByRole('button', { name: /Review Course/ }).closest('.overview-hero-actions')).toContainElement(screen.getByRole('button', { name: /Take Online Exam/ }));
     fireEvent.click(screen.getByRole('button', { name: /Take Online Exam/ }));
     expect(onStartExam).toHaveBeenCalledOnce();
     expect(screen.getByText('1/1')).toBeInTheDocument();
@@ -78,13 +80,13 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByText('First lesson')).toBeVisible();
   });
 
-  it('places the full-width hero at the top with Dashboard inside and stats below', () => {
+  it('places the contained hero at the top with Dashboard inside and stats below', () => {
     progressState.value = { ...progress(false), courseProgress: 50 };
     const { container } = render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
     const shell = container.querySelector('.course-overview-shell');
     const hero = shell.firstElementChild;
     const body = shell.querySelector('.course-overview-main');
-    expect(hero).toHaveClass('overview-hero', 'overview-hero--full');
+    expect(hero).toHaveClass('overview-hero', 'overview-hero--contained');
     expect(hero).toContainElement(screen.getByRole('button', { name: 'Dashboard' }));
     expect(hero).toContainElement(screen.getByRole('button', { name: /Start this Course/ }));
     expect(hero).toContainElement(screen.getByRole('progressbar', { name: 'Course progress' }));
@@ -119,7 +121,7 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByText(label)).toHaveClass('difficulty-badge', `difficulty-badge--${modifier}`);
     expect(screen.getByRole('heading', { level: 1, name: 'Python Foundations' })).toBeInTheDocument();
     expect(screen.getByText('Learn Python.')).toBeInTheDocument();
-    expect(screen.getByRole('complementary', { name: 'Course progress' })).toBeInTheDocument();
+    expect(screen.getByRole('complementary', { name: 'Course summary' })).toBeInTheDocument();
     expect(document.querySelector('.overview-hero-artwork-space')).toBeNull();
   });
 
@@ -131,23 +133,59 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByRole('button', { name: /Start Course/ })).toBeInTheDocument();
   });
 
-  it('uses the full content width without old artwork split or empty image region', () => {
+  it('uses a 230px contained two-column hero with themed checker and stacked responsive layout', () => {
     const css = readFileSync('src/styles/pages/dashboard.css', 'utf8');
     const gridCss = readFileSync('src/styles/hero-pointer-grid.css', 'utf8');
     const component = readFileSync('src/course-overview/CourseOverview.jsx', 'utf8');
     expect(component).toContain("import '../styles/pages/dashboard.css';");
-    expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
+    expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*min\(100%, 86rem\);[^}]*height:\s*230px/);
+    expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.6fr\) minmax\(0, 1fr\)/);
+    expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*?\.overview-hero\s*\{\s*height:\s*auto;/);
+    expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*?\.overview-hero-layout\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
     expect(css).toMatch(/\.course-overview-main\s*\{[^}]*width:\s*min\(100%, 86rem\)/);
     expect(css).toMatch(/\.overview-hero\s*\{[^}]*background:\s*var\(--color-accent\)/);
     expect(css).toMatch(/\.overview-hero h1\s*\{[^}]*color:\s*var\(--color-text-on-accent\)/);
-    expect(css).toMatch(/\.overview-hero-grid\s*\{[^}]*var\(--color-text-on-inverse\)/);
+    expect(css).toMatch(/\.overview-hero-grid\s*\{[^}]*rgb\(229 231 235 \/ 68%\)/);
     expect(css).toMatch(/\.overview-hero-grid-highlight\s*\{[^}]*linear-gradient\(#fff 1\.5px/);
-    expect(css).toMatch(/\.overview-hero \.overview-primary-action\.button--primary\s*\{[^}]*background:\s*var\(--color-surface\)/);
+    expect(css).toMatch(/\.overview-hero \.overview-primary-action\.button--primary\s*\{[^}]*background:\s*var\(--color-accent\)/);
+    expect(css).toMatch(/\.overview-hero-summary\s*\{[^}]*background:\s*var\(--color-surface-raised\)/);
     expect(gridCss).toContain('background-size: var(--hero-grid-size) var(--hero-grid-size)');
     expect(gridCss).toContain('@media (prefers-reduced-motion: reduce)');
     expect(gridCss).toMatch(/\.hero-pointer-grid-highlight\s*\{\s*display: none;/);
     expect(css).not.toContain('.course-overview-main>.overview-back');
     expect(css).not.toContain('.overview-hero--artwork');
     expect(css).not.toContain('--course-hero-artwork');
+  });
+
+  it('shows only certification in the left hero and three derived summary metrics on the right', () => {
+    const content = { ...course, modules: [{ ...course.modules[0], lessons: [{ ...lesson, blocks: [{ type: 'quiz' }, { type: 'exercise' }, { type: 'quiz' }] }] }] };
+    render(<CourseOverview course={content} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
+    const hero = document.querySelector('.overview-hero');
+    const summary = within(screen.getByRole('complementary', { name: 'Course summary' }));
+    expect(hero.querySelector('.overview-certification-badge')).toHaveTextContent('Certification Available');
+    expect(summary.getByText('Modules').previousElementSibling).toHaveTextContent('1');
+    expect(summary.getByText('Problems').previousElementSibling).toHaveTextContent('3');
+    expect(summary.getByText('Duration').previousElementSibling).toHaveTextContent('1 hr');
+    expect(hero).not.toHaveTextContent(/review|rating|stars/i);
+    expect(summary.getByRole('progressbar', { name: 'Course progress' })).toHaveAttribute('aria-valuenow', '0');
+    expect(summary.getByText('0% done')).toBeInTheDocument();
+  });
+
+  it.each([
+    ['java', 'Java Basics', 'java', 'Java Course'],
+    ['ai-prompt-tutorial', 'AI Prompt Tutorial', 'none', 'AI Course'],
+  ])('renders %s from its own Course data without hardcoded Python content', (id, title, language, label) => {
+    render(<CourseOverview course={{ ...course, id, title, language, description: `Learn ${title}.`, metadata: { ...course.metadata, tags: ['ai'] }, modules: [{ ...course.modules[0], lessons: [{ ...lesson, blocks: [] }] }] }} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
+    expect(screen.getByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+    expect(screen.getByText(label)).toBeInTheDocument();
+    expect(screen.getByText(`Learn ${title}.`)).toBeInTheDocument();
+    expect(within(screen.getByRole('complementary', { name: 'Course summary' })).getByText('Problems').previousElementSibling).toHaveTextContent('0');
+  });
+
+  it('does not fabricate zero-percent progress while saved progress is loading', () => {
+    progressState.value = { ...progress(false), status: 'loading' };
+    render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
+    expect(screen.getByRole('status')).toHaveTextContent('Loading progress');
+    expect(screen.queryByText('0% done')).not.toBeInTheDocument();
   });
 });

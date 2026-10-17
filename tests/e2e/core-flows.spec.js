@@ -53,7 +53,7 @@ test.describe('authenticated core journeys', () => {
     const continueLearning = page.getByLabel('Continue Learning').getByRole('button', { name: 'Continue Learning' });
     await continueLearning.scrollIntoViewIfNeeded();
     await continueLearning.click();
-    await expect(page.getByRole('heading', { level: 1, name: 'Getting started with Python' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Python Foundations' })).toBeVisible();
     const enterCourse = page.locator('.overview-primary-action');
     await enterCourse.click();
     await expect(page.getByLabel('Lesson content and navigation')).toBeVisible();
