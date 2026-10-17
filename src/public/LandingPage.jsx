@@ -1,8 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import '../styles/public-pages.css';
+import '../styles/hero-pointer-grid.css';
 import '../styles/pages/landing.css';
 import { ArrowRight, Bot, Brackets, Bug, Check, Code2, Database, Globe, Layers3, MessagesSquare, Play, TerminalSquare, Type } from 'lucide-react';
 import { DifficultyBadge } from '../components/DifficultyBadge';
+import { useHeroPointerGrid } from '../components/useHeroPointerGrid';
 import { PublicFooter } from './PublicFooter';
 import { PublicHeader } from './PublicHeader';
 import { requestAuthentication } from './publicAuthNavigation';
@@ -338,37 +340,11 @@ function LandingHowJourney() {
 }
 
 function LandingPageContent() {
-  const heroRef = useRef(null);
-  const heroRectRef = useRef(null);
-  const heroPointerRef = useRef(null);
-  const heroFrameRef = useRef(0);
-  useEffect(() => () => window.cancelAnimationFrame(heroFrameRef.current), []);
-  const activateHeroGrid = (event) => {
-    if (event.pointerType === 'touch') return;
-    heroRectRef.current = heroRef.current?.getBoundingClientRect() ?? null;
-    heroRef.current?.classList.add('is-pointer-active');
-  };
-  const moveHeroGrid = (event) => {
-    if (event.pointerType === 'touch') return;
-    heroPointerRef.current = { x: event.clientX, y: event.clientY };
-    if (heroFrameRef.current) return;
-    heroFrameRef.current = window.requestAnimationFrame(() => {
-      heroFrameRef.current = 0;
-      const rect = heroRectRef.current;
-      const pointer = heroPointerRef.current;
-      if (!rect || !pointer || !heroRef.current) return;
-      heroRef.current.style.setProperty('--hero-pointer-x', `${pointer.x - rect.left}px`);
-      heroRef.current.style.setProperty('--hero-pointer-y', `${pointer.y - rect.top}px`);
-    });
-  };
-  const deactivateHeroGrid = (event) => {
-    if (event.pointerType === 'touch') return;
-    heroRef.current?.classList.remove('is-pointer-active');
-  };
+  const { heroRef, onPointerEnter, onPointerMove, onPointerLeave } = useHeroPointerGrid();
   return <div className="landing-page" data-brand-theme="blue" data-theme="light"><LandingMetadata /><PublicHeader activePath="/" /><main>
-    <section className="landing-hero" ref={heroRef} onPointerEnter={activateHeroGrid} onPointerMove={moveHeroGrid} onPointerLeave={deactivateHeroGrid}>
-      <div className="landing-hero-grid" aria-hidden="true" />
-      <div className="landing-hero-grid-highlight" aria-hidden="true" />
+    <section className="landing-hero hero-pointer-grid-host" ref={heroRef} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
+      <div className="landing-hero-grid hero-pointer-grid" aria-hidden="true" />
+      <div className="landing-hero-grid-highlight hero-pointer-grid-highlight" aria-hidden="true" />
       <div className="landing-hero-copy">
         <div className="landing-hero-avatars" aria-hidden="true">{[1, 2, 3, 4, 5].map((avatar) => <img src={`/assets/avatars/landing-avatar-${avatar}.svg`} alt="" key={avatar} />)}</div>
         <p className="landing-hero-intro">From Beginner to Code Master With Y Coders</p>

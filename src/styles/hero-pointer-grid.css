@@ -1,0 +1,39 @@
+.hero-pointer-grid-host {
+  --hero-grid-size: 2.25rem;
+  --hero-pointer-x: 50%;
+  --hero-pointer-y: 50%;
+  position: relative;
+}
+
+.hero-pointer-grid,
+.hero-pointer-grid-highlight {
+  position: absolute;
+  inset: 0;
+  background-size: var(--hero-grid-size) var(--hero-grid-size);
+  pointer-events: none;
+}
+
+.hero-pointer-grid {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 76%) 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 76%) 62%, transparent 100%);
+}
+
+.hero-pointer-grid-highlight {
+  opacity: 0;
+  transition: opacity 200ms ease;
+  -webkit-mask-image: radial-gradient(circle 190px at var(--hero-pointer-x) var(--hero-pointer-y), #000 0%, rgb(0 0 0 / 86%) 30%, transparent 76%);
+  mask-image: radial-gradient(circle 190px at var(--hero-pointer-x) var(--hero-pointer-y), #000 0%, rgb(0 0 0 / 86%) 30%, transparent 76%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-pointer-grid-host.is-pointer-active > .hero-pointer-grid-highlight {
+    opacity: .86;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pointer-grid-highlight {
+    display: none;
+    transition: none;
+  }
+}

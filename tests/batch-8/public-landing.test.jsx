@@ -90,6 +90,9 @@ describe('public Y Coders landing page', () => {
     expect(screen.getByText('Languages available: Python, Java, C++, SQL, and HTML.')).toBeInTheDocument();
     expect(container.querySelector('.landing-language-logo .is-incoming')).toHaveAttribute('src', '/assets/languages/python.svg');
     expect(container.querySelector('.landing-hero-grid-highlight')).toHaveAttribute('aria-hidden', 'true');
+    expect(container.querySelector('.landing-hero')).toHaveClass('hero-pointer-grid-host');
+    expect(container.querySelector('.landing-hero-grid')).toHaveClass('hero-pointer-grid');
+    expect(container.querySelector('.landing-hero-grid-highlight')).toHaveClass('hero-pointer-grid-highlight');
     expect(container.querySelectorAll('.landing-hero-headline-line')).toHaveLength(1);
     expect(container.querySelector('.landing-hero-headline-line')).toHaveTextContent('From‘I Understand’to‘I Built It!’');
     expect(readFileSync('src/styles/pages/landing.css', 'utf8')).toMatch(/\.landing-hero h1\s*\{[^}]*font-size:\s*clamp\(1rem, 5\.5vw, 4\.75rem\)/);

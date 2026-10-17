@@ -34,8 +34,9 @@ describe('Learning Engine application-theme ownership', () => {
   });
 
   it('keeps the full-width overview hero and progress readable in dark mode', () => {
-    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero\s*\{[^}]*border-color: var\(--color-border-strong\);/s);
-    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero-progress>div\s*\{[^}]*background: var\(--color-border\);/s);
-    expect(dashboardCss).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color: var\(--color-text\);/s);
+    expect(dashboardCss).toMatch(/\.overview-hero\s*\{[^}]*color: var\(--color-text-on-accent\);[^}]*background: var\(--color-accent\);/s);
+    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero\s*\{[^}]*border-color: color-mix\(in srgb, var\(--color-text-on-accent\) 28%, transparent\);/s);
+    expect(dashboardCss).toMatch(/\.application-shell\[data-theme="dark"\] \.overview-hero-progress>div\s*\{[^}]*background: color-mix\(in srgb, var\(--color-text-on-accent\) 26%, transparent\);/s);
+    expect(dashboardCss).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color: var\(--color-text-on-accent\);/s);
   });
 });

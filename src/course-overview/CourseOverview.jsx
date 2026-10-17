@@ -17,10 +17,12 @@ import {
 } from 'lucide-react';
 import { createCourseOverviewModel } from '../course/createCourseOverviewModel';
 import { DifficultyBadge, courseDifficultyBadge } from '../components/DifficultyBadge';
+import { useHeroPointerGrid } from '../components/useHeroPointerGrid';
 import { ICON_SIZE } from '../design-system/theme';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
+import '../styles/hero-pointer-grid.css';
 import '../styles/pages/dashboard.css';
 
 const STAT_DEFINITIONS = [
@@ -35,6 +37,7 @@ const STAT_DEFINITIONS = [
 const anonymousProgress = Object.freeze({ courseProgress: 0, completedLessons: [], completedLessonCount: 0, sequentialCompletedLessons: 0, visitedLessonCount: 0 });
 
 export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, onStartExam, anonymous = false }) {
+  const { heroRef, onPointerEnter, onPointerMove, onPointerLeave } = useHeroPointerGrid();
   const storedProgress = useOptionalLearningProgress();
   const progress = storedProgress ?? anonymousProgress;
   const model = useMemo(
@@ -65,7 +68,9 @@ export function CourseOverview({ course, onBack, onEnterCourse, onResetCourse, o
 
   return (
     <div className="course-overview-shell">
-      <section className="overview-hero overview-hero--full">
+      <section className="overview-hero overview-hero--full hero-pointer-grid-host" ref={heroRef} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
+          <div className="overview-hero-grid hero-pointer-grid" aria-hidden="true" />
+          <div className="overview-hero-grid-highlight hero-pointer-grid-highlight" aria-hidden="true" />
           <div className="overview-hero-copy">
             <button className="overview-back" type="button" onClick={onBack}>
               <ArrowLeft size={ICON_SIZE.base} aria-hidden="true" />

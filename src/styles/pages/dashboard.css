@@ -1199,11 +1199,11 @@
 }
 
 .application-shell[data-theme="dark"] .overview-hero {
-  border-color: var(--color-border-strong);
+  border-color: color-mix(in srgb, var(--color-text-on-accent) 28%, transparent);
 }
 
 .application-shell[data-theme="dark"] .overview-hero-progress>div {
-  background: var(--color-border);
+  background: color-mix(in srgb, var(--color-text-on-accent) 26%, transparent);
 }
 
 .auth-page {
@@ -2104,18 +2104,40 @@
   gap: var(--space-6);
   padding: clamp(var(--space-6), 4vw, var(--space-10));
   overflow: hidden;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-on-accent);
+  background: var(--color-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-accent) 28%, transparent);
+}
+
+.overview-hero > *:not(.hero-pointer-grid):not(.hero-pointer-grid-highlight) {
+  position: relative;
+  z-index: 1;
+}
+
+.overview-hero-grid {
+  background-image: linear-gradient(var(--color-text-on-inverse) 1.5px, transparent 1.5px), linear-gradient(90deg, var(--color-text-on-inverse) 1.5px, transparent 1.5px);
+  opacity: .55;
+}
+
+.overview-hero-grid-highlight {
+  background-image: linear-gradient(#fff 1.5px, transparent 1.5px), linear-gradient(90deg, #fff 1.5px, transparent 1.5px);
 }
 
 .overview-hero .overview-back {
   display: flex;
   margin-bottom: var(--space-5);
+  color: var(--color-text-on-accent);
+}
+
+.overview-hero .overview-back:hover {
+  color: var(--color-text-on-accent);
+  background: color-mix(in srgb, var(--color-text-on-accent) 15%, transparent);
 }
 
 .overview-hero h1 {
   max-width: 22ch;
   margin: var(--space-5) 0 var(--space-4);
+  color: var(--color-text-on-accent);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   line-height: 1.04;
   letter-spacing: -.055em;
@@ -2124,7 +2146,7 @@
 .overview-hero-copy>p {
   max-width: 62ch;
   margin: 0;
-  color: var(--color-text);
+  color: var(--color-text-on-accent);
   font-size: clamp(var(--font-size-md), 1.4vw, var(--font-size-lg));
   line-height: var(--line-height-body);
 }
@@ -2142,6 +2164,21 @@
   padding-inline: var(--space-6);
 }
 
+.overview-hero .overview-primary-action.button--primary {
+  color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+.overview-hero .overview-primary-action.button--primary:hover:not(:disabled) {
+  background: var(--color-surface-raised);
+}
+
+.overview-hero .overview-primary-action.button--secondary {
+  color: var(--color-text-on-accent);
+  background: transparent;
+  border-color: var(--color-text-on-accent);
+}
+
 .overview-hero-progress {
   display: grid;
   gap: var(--space-1);
@@ -2150,26 +2187,27 @@
 }
 
 .overview-hero-progress>span {
-  color: var(--color-text-muted);
+  color: var(--color-text-on-accent);
   font-size: var(--font-size-xs);
 }
 
 .overview-hero-progress>div {
   height: .4rem;
   overflow: hidden;
-  background: var(--color-surface-subtle);
+  background: color-mix(in srgb, var(--color-text-on-accent) 26%, transparent);
   border-radius: var(--radius-full);
 }
 
 .overview-hero-progress>div>span {
   display: block;
   height: 100%;
-  background: var(--color-accent);
+  background: var(--color-text-on-accent);
   border-radius: inherit;
 }
 
 .overview-progress-card {
   padding: var(--space-6);
+  color: var(--color-text);
   background: var(--color-surface-subtle);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);

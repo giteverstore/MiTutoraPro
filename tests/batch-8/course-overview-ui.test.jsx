@@ -93,6 +93,23 @@ describe('course overview shell and completed actions', () => {
     expect(body.querySelectorAll('.overview-stat-card')).toHaveLength(6);
   });
 
+  it('shares the landing pointer grid without changing course actions or progress', () => {
+    progressState.value = { ...progress(false), courseProgress: 50 };
+    const onEnterCourse = vi.fn();
+    const { container } = render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={onEnterCourse} />);
+    const hero = container.querySelector('.overview-hero');
+    expect(hero).toHaveClass('hero-pointer-grid-host');
+    expect(hero.querySelector('.overview-hero-grid.hero-pointer-grid')).toHaveAttribute('aria-hidden', 'true');
+    expect(hero.querySelector('.overview-hero-grid-highlight.hero-pointer-grid-highlight')).toHaveAttribute('aria-hidden', 'true');
+    fireEvent.pointerEnter(hero, { pointerType: 'mouse' });
+    expect(hero).toHaveClass('is-pointer-active');
+    fireEvent.pointerLeave(hero, { pointerType: 'mouse' });
+    expect(hero).not.toHaveClass('is-pointer-active');
+    expect(screen.getByRole('progressbar', { name: 'Course progress' })).toHaveAttribute('aria-valuenow', '50');
+    fireEvent.click(screen.getByRole('button', { name: /Start this Course/ }));
+    expect(onEnterCourse).toHaveBeenCalledOnce();
+  });
+
   it.each([
     ['intermediate', 'Medium', 'medium'],
     ['advanced', 'Hard', 'hard'],
@@ -116,11 +133,19 @@ describe('course overview shell and completed actions', () => {
 
   it('uses the full content width without old artwork split or empty image region', () => {
     const css = readFileSync('src/styles/pages/dashboard.css', 'utf8');
+    const gridCss = readFileSync('src/styles/hero-pointer-grid.css', 'utf8');
     const component = readFileSync('src/course-overview/CourseOverview.jsx', 'utf8');
     expect(component).toContain("import '../styles/pages/dashboard.css';");
     expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
     expect(css).toMatch(/\.course-overview-main\s*\{[^}]*width:\s*min\(100%, 86rem\)/);
-    expect(css).toMatch(/\.overview-hero\s*\{[^}]*border-bottom:\s*1px solid var\(--color-border\)/);
+    expect(css).toMatch(/\.overview-hero\s*\{[^}]*background:\s*var\(--color-accent\)/);
+    expect(css).toMatch(/\.overview-hero h1\s*\{[^}]*color:\s*var\(--color-text-on-accent\)/);
+    expect(css).toMatch(/\.overview-hero-grid\s*\{[^}]*var\(--color-text-on-inverse\)/);
+    expect(css).toMatch(/\.overview-hero-grid-highlight\s*\{[^}]*linear-gradient\(#fff 1\.5px/);
+    expect(css).toMatch(/\.overview-hero \.overview-primary-action\.button--primary\s*\{[^}]*background:\s*var\(--color-surface\)/);
+    expect(gridCss).toContain('background-size: var(--hero-grid-size) var(--hero-grid-size)');
+    expect(gridCss).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(gridCss).toMatch(/\.hero-pointer-grid-highlight\s*\{\s*display: none;/);
     expect(css).not.toContain('.course-overview-main>.overview-back');
     expect(css).not.toContain('.overview-hero--artwork');
     expect(css).not.toContain('--course-hero-artwork');
