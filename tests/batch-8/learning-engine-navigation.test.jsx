@@ -43,8 +43,9 @@ describe('Learning Engine navigation alignment', () => {
     const values = props();
     render(<TopNavigation {...values} />);
 
-    expect(screen.getByLabelText('ycoders')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Back to course overview' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Y Coders home' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Y Coders home' }).querySelector('.brand-wordmark')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Back to course overview' })).not.toBeInTheDocument();
     expect(screen.getByText('Lesson progress')).toBeInTheDocument();
     expect(screen.getByText('4 of 6')).toBeInTheDocument();
     expect(screen.getByRole('progressbar', { name: 'Lesson progress: 4 of 6' })).toHaveAttribute('aria-valuenow', '4');
@@ -97,11 +98,11 @@ describe('Learning Engine navigation alignment', () => {
     const values = props();
     render(<TopNavigation {...values} />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Back to course overview' }));
+    expect(screen.getByRole('link', { name: 'Y Coders home' })).toHaveAttribute('href', '/');
     fireEvent.click(screen.getByRole('button', { name: 'Save Variables to Library' }));
     fireEvent.click(screen.getByRole('button', { name: 'Open user menu' }));
 
-    expect(values.onExitCourse).toHaveBeenCalledOnce();
+    expect(values.onExitCourse).not.toHaveBeenCalled();
     expect(values.onBookmarkChange).toHaveBeenCalledWith(true);
     expect(screen.getByText('Tester')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('menuitem', { name: 'Sign out' }));

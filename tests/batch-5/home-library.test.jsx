@@ -251,6 +251,19 @@ describe('Library navigation and discovery', () => {
     expect(groupLibraryCourses(courses, languages, 'all', 'missing')).toEqual({ comingSoonCourses: [], languageGroups: [] });
   });
 
+  it('places non-Python and non-Java Coming Soon courses first while preserving source order within each group', () => {
+    const courses = [
+      { id: 'py-a', title: 'Python A', filter: 'Python', available: false },
+      { id: 'cpp', title: 'C++', filter: 'C++', available: false },
+      { id: 'java-a', title: 'Java A', filter: 'Java', available: false },
+      { id: 'javascript', title: 'JavaScript', filter: 'JavaScript', available: false },
+      { id: 'py-b', title: 'Python B', filter: 'Python', available: false },
+      { id: 'java-b', title: 'Java B', filter: 'Java', available: false },
+    ];
+    expect(groupLibraryCourses(courses, ['Python', 'Java', 'C++', 'JavaScript'], 'all', '').comingSoonCourses.map(({ id }) => id))
+      .toEqual(['cpp', 'javascript', 'py-a', 'py-b', 'java-a', 'java-b']);
+  });
+
   it('omits an empty Coming Soon section and retains the normal grid', () => {
     const languages = ['Python'];
     const grouped = groupLibraryCourses([{ id: 'python', title: 'Python Foundations', filter: 'Python', available: true }], languages, 'all', '');
@@ -301,11 +314,29 @@ describe('Library navigation and discovery', () => {
     expect(container.querySelectorAll('.library-course-card-header .difficulty-badge')).toHaveLength(1);
   });
 
-  it('keeps the progress circle centered on the divider and meta top padding at 40px', () => {
+  it('keeps the progress circle on the divider and centers 12px metadata below it', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
     expect(css).toMatch(/\.library-course-divider\s*\{[^}]*top:\s*1\.25rem/);
     expect(css).toMatch(/\.library-course-progress\s*\{[^}]*top:\s*-0\.3125rem;[^}]*width:\s*3\.125rem;[^}]*height:\s*3\.125rem/);
-    expect(css).toMatch(/\.library-course-card-footer \.library-course-meta\s*\{[^}]*padding-top:\s*2\.5rem/);
+    expect(css).toMatch(/\.library-course-card-footer \.library-course-meta\s*\{[^}]*align-items:\s*center;[^}]*padding-top:\s*\.625rem;[^}]*font-size:\s*\.75rem/);
+    expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/\.home-dashboard-grid \.home-recent\s*\{\s*grid-area:\s*recent/);
+  });
+
+  it('uses only matched supplied Course artwork and leaves other cards free of letter placeholders', () => {
+    for (const [id, path] of [
+      ['python', '/assets/course-cards/python-basics.png'],
+      ['java', '/assets/course-cards/java-basics.png'],
+      ['practical-git-and-github', '/assets/course-cards/git.png'],
+      ['ai-prompt-tutorial', '/assets/course-cards/ai-prompt-tutorial.png'],
+    ]) {
+      const { container, unmount } = render(<CourseCard course={{ id, title: id, duration: '1h', lessonCount: 1, available: true }} onOpenCourse={vi.fn()} variant="list" />);
+      expect(container.querySelector('.library-course-artwork img')).toHaveAttribute('src', path);
+      unmount();
+    }
+    const { container } = render(<CourseCard course={{ id: 'languages-cplusplus', title: 'C++ Essentials', filter: 'C++', duration: '1h', lessonCount: 1, available: false }} onOpenCourse={vi.fn()} variant="list" />);
+    expect(container.querySelector('.library-course-artwork')).toHaveClass('is-empty');
+    expect(container.querySelector('.library-course-artwork img, .library-course-artwork span')).toBeNull();
   });
 
   it('uses canonical enrollment progress while whole-card navigation opens the overview', async () => {

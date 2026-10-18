@@ -21,7 +21,7 @@ import { LearningWorkspaceToolbar } from './LearningWorkspaceToolbar';
 import { AITutorWorkspace } from '../ai/AITutorWorkspace';
 import { SharedCompilerDock } from './SharedCompilerDock';
 
-export function Layout({ courseLoader, onExitCourse }) {
+export function Layout({ courseLoader }) {
   const compilerInstanceId = `course-${courseLoader.currentCourse.id}-workspace`;
   const { user } = useUser();
   const { signOut } = useAuth();
@@ -217,7 +217,6 @@ export function Layout({ courseLoader, onExitCourse }) {
         }}
         user={user}
         onSignOut={signOut}
-        onExitCourse={onExitCourse}
         isSidebarOverlay={isSidebarOverlay}
       />
       <div

@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowRight,
   Award,
-  BookOpen,
   Check,
   CheckCircle2,
   ChevronDown,
@@ -23,15 +22,6 @@ import { trustedCompletionDevelopmentService } from '../progress/TrustedCompleti
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
 import '../styles/hero-pointer-grid.css';
 import '../styles/pages/dashboard.css';
-
-const STAT_DEFINITIONS = [
-  { key: 'estimatedDuration', label: 'Estimated duration', icon: Clock3 },
-  { key: 'moduleCount', label: 'Modules', icon: Layers3 },
-  { key: 'lessonCount', label: 'Lessons', icon: BookOpen },
-  { key: 'quizCount', label: 'Quizzes', icon: CheckCircle2 },
-  { key: 'exerciseCount', label: 'Exercises', icon: Code2 },
-  { key: 'certificate', label: 'Certificate', icon: Award },
-];
 
 const anonymousProgress = Object.freeze({ courseProgress: 0, completedLessons: [], completedLessonCount: 0, sequentialCompletedLessons: 0, visitedLessonCount: 0 });
 
@@ -64,13 +54,6 @@ export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartEx
   useEffect(() => {
     document.title = `${model.title} · ycoders`;
   }, [model.title]);
-
-  const stats = STAT_DEFINITIONS.map((stat) => ({
-    ...stat,
-    value: stat.key === 'certificate'
-      ? model.certificateAvailable ? 'Available' : 'Not available'
-      : model[stat.key],
-  }));
 
   return (
     <div className="course-overview-shell">
@@ -113,16 +96,6 @@ export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartEx
       </section>
 
       <main className="course-overview-main">
-        <section className="overview-stat-grid" aria-label="Course details">
-          {stats.map(({ key, label, value, icon: Icon }) => (
-            <article className="overview-stat-card" key={key}>
-              <Icon size={ICON_SIZE.lg} aria-hidden="true" />
-              <span>{label}</span>
-              <strong>{value}</strong>
-            </article>
-          ))}
-        </section>
-
         <section className="overview-details-grid">
           <DetailCard title="Skills you’ll learn" icon={Sparkles} items={model.skills} />
           <DetailCard title="Prerequisites" icon={CheckCircle2} items={model.prerequisites} />

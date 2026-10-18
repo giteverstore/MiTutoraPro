@@ -3651,3 +3651,46 @@ body:not(.is-resizing) .practice-test-panel.console-window {
   border: 0;
   cursor: pointer;
 }
+
+/* The lesson header shares the authenticated shell's brand dimensions. */
+.topbar .lesson-topbar-brand {
+  display: inline-flex;
+  width: var(--shell-brand-wordmark-width);
+  height: var(--shell-brand-height);
+  flex: 0 0 auto;
+  align-items: center;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.topbar .lesson-topbar-brand:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.topbar .lesson-topbar-wordmark {
+  width: var(--shell-brand-wordmark-width);
+  height: var(--shell-brand-height);
+}
+
+.topbar .lesson-topbar-mark {
+  display: none;
+  width: var(--shell-brand-mark-size);
+  height: var(--shell-brand-mark-size);
+}
+
+.topbar .lesson-topbar-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 720px) {
+  .topbar .lesson-topbar-brand {
+    width: var(--shell-brand-mark-size);
+  }
+
+  .topbar .lesson-topbar-wordmark { display: none; }
+  .topbar .lesson-topbar-mark { display: inline-block; }
+}

@@ -53,7 +53,8 @@ describe('course overview shell and completed actions', () => {
     expect(document.querySelector('.overview-hero [style*="course-hero-artwork"]')).toBeNull();
     expect(screen.getByText('Python Course')).toBeInTheDocument();
     expect(screen.queryByText('Beginner')).not.toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Course details' }).querySelectorAll('.overview-stat-card')).toHaveLength(6);
+    expect(document.querySelector('.overview-stat-grid')).toBeNull();
+    expect(document.querySelector('.overview-hero-metrics')).toHaveTextContent('1Modules0Problems1 hrDuration');
     expect(screen.queryByRole('button', { name: /Take Online Exam/ })).not.toBeInTheDocument();
     expect(screen.queryByText(/Ready when you are/i)).not.toBeInTheDocument();
     expect(document.querySelector('.overview-bottom-cta')).toBeNull();
@@ -92,8 +93,9 @@ describe('course overview shell and completed actions', () => {
     expect(hero).toContainElement(screen.getByRole('button', { name: /Start this Course/ }));
     expect(hero).toContainElement(screen.getByRole('progressbar', { name: 'Course progress' }));
     expect(hero.nextElementSibling).toBe(body);
-    expect(body.firstElementChild).toHaveClass('overview-stat-grid');
-    expect(body.querySelectorAll('.overview-stat-card')).toHaveLength(6);
+    expect(body.firstElementChild).toHaveClass('overview-details-grid');
+    expect(body.querySelectorAll('.overview-stat-card')).toHaveLength(0);
+    expect(readFileSync('src/styles/pages/dashboard.css', 'utf8')).toMatch(/\.overview-details-grid\s*\{[^}]*margin-top:\s*0;/);
   });
 
   it('shares the landing pointer grid without changing course actions or progress', () => {

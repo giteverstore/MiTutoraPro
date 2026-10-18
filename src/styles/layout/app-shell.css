@@ -75,15 +75,15 @@
 
 .application-brand>.application-brand-mark {
   display: none;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: var(--shell-brand-mark-size);
+  height: var(--shell-brand-mark-size);
   flex: 0 0 auto;
   place-items: center;
 }
 
 .application-brand>.application-brand-full {
-  width: 10rem;
-  height: 2.25rem;
+  width: var(--shell-brand-wordmark-width);
+  height: var(--shell-brand-height);
 }
 
 .application-brand-mark img,

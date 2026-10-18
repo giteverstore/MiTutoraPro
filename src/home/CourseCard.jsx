@@ -2,7 +2,7 @@ import { useId } from 'react';
 import { ArrowRight, BookOpen, Clock3 } from 'lucide-react';
 import { ContentTypeBadge } from '../components/ContentTypeBadge';
 import { DifficultyBadge, courseDifficultyBadge } from '../components/DifficultyBadge';
-import { getCourseOverviewPresentation } from '../course-overview/courseOverviewPresentation';
+import { getCourseCardArtwork } from './courseCardArtwork';
 
 const boundedProgress = (value) => Math.min(100, Math.max(0, Math.round(Number(value) || 0)));
 
@@ -31,14 +31,8 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   const isList = variant === 'list';
   const progress = boundedProgress(course.progress);
   const hasProgress = course.started === true;
-  const initials = (course.filter ?? course.title ?? '')
-    .split(/\s+/)
-    .map((word) => word[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
   const tone = [...course.id].reduce((total, character) => total + character.charCodeAt(0), 0) % 5;
-  const artwork = getCourseOverviewPresentation(course.id)?.artwork ?? null;
+  const artwork = getCourseCardArtwork(course.id);
   const difficulty = courseDifficultyBadge(course.difficulty ?? course.level);
   const openCard = () => { if (course.available !== false) onOpenCourse(course.id); };
   const handleKeyDown = (event) => {
@@ -53,8 +47,8 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
         <ContentTypeBadge type="Course" />
         {difficulty ? <DifficultyBadge difficulty={difficulty} /> : null}
       </header>
-      <div className="library-course-artwork" aria-hidden="true">
-        {artwork ? <img src={artwork} alt="" /> : <span>{initials}</span>}
+      <div className={`library-course-artwork${artwork ? '' : ' is-empty'}`} aria-hidden="true">
+        {artwork ? <img src={artwork} alt="" /> : null}
       </div>
       <h3 id={`course-title-${course.id}`}>{course.title}</h3>
       <footer className="library-course-card-footer">
@@ -76,7 +70,7 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
       data-tone={tone}
     >
       <div className="home-course-visual" aria-hidden="true">
-        <span>{initials}</span>
+        {artwork ? <img src={artwork} alt="" /> : null}
         {course.badge ? <small>{course.badge}</small> : null}
       </div>
       <div className="home-course-body">

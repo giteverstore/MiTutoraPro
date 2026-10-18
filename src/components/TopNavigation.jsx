@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { ArrowLeft, PanelLeftOpen } from 'lucide-react';
+import { PanelLeftOpen } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { GlobalTopbarActions } from '../app-shell/GlobalTopbarActions';
 import { brandAssets } from '../branding/brandAssets.js';
+import { BrandWordmark } from '../branding/BrandWordmark.jsx';
 
 export function TopNavigation({
   onMenuClick,
@@ -16,7 +17,6 @@ export function TopNavigation({
   lessonProgress,
   bookmark,
   onBookmarkChange,
-  onExitCourse,
   isSidebarOverlay,
 }) {
   const { navigation } = course;
@@ -37,17 +37,10 @@ export function TopNavigation({
   return (
     <header className="topbar">
       <div className="topbar-context">
-        <IconButton
-          label="Back to course overview"
-          className="lesson-back-button"
-          onClick={onExitCourse}
-        >
-          <ArrowLeft size={ICON_SIZE.lg} aria-hidden="true" />
-        </IconButton>
-        <span className="overview-brand lesson-topbar-brand" aria-label="ycoders">
-          <span><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
-          ycoders
-        </span>
+        <a className="lesson-topbar-brand" href="/" aria-label="Y Coders home">
+          <BrandWordmark className="lesson-topbar-wordmark" />
+          <span className="lesson-topbar-mark"><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
+        </a>
         {isSidebarOverlay ? (
           <IconButton
             label={`${navigation.openMenuLabel} (${course.ui.shortcuts.menu})`}

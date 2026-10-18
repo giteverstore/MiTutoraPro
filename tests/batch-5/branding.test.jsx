@@ -35,7 +35,9 @@ describe('ycoders product branding', () => {
 
   it('keeps the expanded sidebar wordmark compact without changing the collapsed mark', async () => {
     const css = await readFile('src/styles/layout/app-shell.css', 'utf8');
-    expect(css).toMatch(/\.application-brand>\.application-brand-full\s*\{[^}]*width:\s*10rem;[^}]*height:\s*2\.25rem;/s);
+    expect(css).toMatch(/\.application-brand>\.application-brand-full\s*\{[^}]*width:\s*var\(--shell-brand-wordmark-width\);[^}]*height:\s*var\(--shell-brand-height\);/s);
+    const brandCss = await readFile('src/branding/brand.css', 'utf8');
+    expect(brandCss).toMatch(/--shell-brand-wordmark-width:\s*10rem;[\s\S]*--shell-brand-height:\s*2\.25rem;[\s\S]*--shell-brand-mark-size:\s*2\.25rem;/);
     expect(css).toMatch(/\.application-sidebar\.is-collapsed \.application-brand-full,[^}]*display:\s*none;/s);
     expect(css).toMatch(/\.application-sidebar\.is-collapsed \.application-brand-mark\s*\{[^}]*display:\s*grid;/s);
   });

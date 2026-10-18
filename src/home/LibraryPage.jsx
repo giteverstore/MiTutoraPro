@@ -13,7 +13,14 @@ export function groupLibraryCourses(courses, languages, activeLanguage, search) 
     const searchable = [course.title, course.description, course.filter, course.kind].join(' ').toLowerCase();
     return matchesFilter && (!query || searchable.includes(query));
   });
-  const comingSoonCourses = matches.filter((course) => course.available === false);
+  const comingSoonGroups = [[], [], []];
+  for (const course of matches) {
+    if (course.available !== false) continue;
+    const category = String(course.filter ?? '');
+    const group = /\bpython\b/i.test(category) ? 1 : /\bjava\b/i.test(category) ? 2 : 0;
+    comingSoonGroups[group].push(course);
+  }
+  const comingSoonCourses = comingSoonGroups.flat();
   const availableCourses = matches.filter((course) => course.available !== false);
   const languageGroups = languages.map((language) => ({
     language,

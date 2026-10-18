@@ -1,8 +1,14 @@
+:root {
+  --shell-brand-wordmark-width: 10rem;
+  --shell-brand-height: 2.25rem;
+  --shell-brand-mark-size: 2.25rem;
+}
+
 .brand-wordmark {
   position: relative;
   display: inline-block;
-  width: 10rem;
-  height: 2.25rem;
+  width: var(--shell-brand-wordmark-width);
+  height: var(--shell-brand-height);
   flex: 0 0 auto;
   overflow: hidden;
   vertical-align: middle;

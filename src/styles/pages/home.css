@@ -1035,6 +1035,12 @@
   letter-spacing: -.05em;
 }
 
+.home-course-visual>img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .home-course-visual small {
   padding: var(--space-1) var(--space-3);
   color: var(--color-text);
@@ -1379,10 +1385,22 @@
   border-radius: var(--radius-full);
 }
 
-.library-course-card-footer .library-course-meta { padding-top: 2.5rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .875rem; }
+.library-course-card-footer .library-course-meta { min-height: 100%; align-items: center; padding-top: .625rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .75rem; }
 .library-course-card:not(.course-card--has-progress) .library-course-card-footer { min-height: 3.75rem; }
 .library-course-coming-soon { position: absolute; top: .9rem; left: 0; color: var(--color-text-muted); font-size: .75rem; font-weight: 700; }
-.home-recent-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.8125rem), 14.8125rem)); justify-content: start; }
+.home-recent-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); justify-content: start; }
+
+@media (min-width: 1360px) {
+  .home-dashboard-grid {
+    grid-template-areas: "statistics calendar" "continue calendar" "recent recent";
+  }
+
+  .home-dashboard-primary { display: contents; }
+  .home-dashboard-grid .home-statistics { grid-area: statistics; }
+  .home-dashboard-grid .home-continue { grid-area: continue; }
+  .home-dashboard-grid .home-recent { grid-area: recent; }
+  .home-dashboard-grid .challenge-calendar-card { grid-area: calendar; }
+}
 
 .library-course-progress svg {
   display: block;
@@ -1589,7 +1607,7 @@
   color: var(--color-text);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1359px) {
   .home-dashboard-grid {
     grid-template: "statistics" auto "calendar" auto "continue" auto "recent" auto / minmax(0, 1fr);
     gap: var(--space-8);
@@ -1628,6 +1646,10 @@
   }
 
   .home-course-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-recent-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1698,6 +1720,10 @@
   }
 
   .home-course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-recent-grid {
     grid-template-columns: 1fr;
   }
 

@@ -17,13 +17,13 @@ test('Course hero background fills its region while content stays aligned in lig
         const hero = document.querySelector('.overview-hero').getBoundingClientRect();
         const copy = document.querySelector('.overview-hero-copy').getBoundingClientRect();
         const summary = document.querySelector('.overview-hero-summary').getBoundingClientRect();
-        const cards = [...document.querySelectorAll('.overview-stat-card')].map((card) => card.getBoundingClientRect());
+        const details = [...document.querySelectorAll('.overview-detail-card')].map((card) => card.getBoundingClientRect());
         return {
           heroHeight: hero.height, heroWidth: hero.width, copyLeft: copy.left,
           shellLeft: shell.left, shellRight: shell.right, heroLeft: hero.left, heroRight: hero.right,
           summaryLeft: summary.left, summaryRight: summary.right,
-          firstCardLeft: cards[0].left, lastCardRight: cards.at(-1).right,
-          statGap: cards[0].top - hero.bottom,
+          firstDetailLeft: details[0].left, lastDetailRight: details.at(-1).right,
+          detailGap: details[0].top - hero.bottom,
           overflowing: document.documentElement.scrollWidth > window.innerWidth + 1,
           summaryBackground: getComputedStyle(document.querySelector('.overview-hero-summary')).backgroundColor,
           titleColor: getComputedStyle(document.querySelector('.overview-hero h1')).color,
@@ -34,10 +34,10 @@ test('Course hero background fills its region while content stays aligned in lig
       expect(layout.overflowing, `${width}px ${theme} should not overflow`).toBe(false);
       expect(layout.heroLeft).toBe(layout.shellLeft);
       expect(layout.heroRight).toBe(layout.shellRight);
-      expect(Math.abs(layout.copyLeft - layout.firstCardLeft), `${width}px ${theme} left alignment`).toBeLessThanOrEqual(2);
-      expect(Math.abs(layout.summaryRight - layout.lastCardRight), `${width}px ${theme} right alignment`).toBeLessThanOrEqual(2);
-      expect(layout.statGap).toBeGreaterThanOrEqual(32);
-      expect(layout.statGap).toBeLessThanOrEqual(41);
+      expect(Math.abs(layout.copyLeft - layout.firstDetailLeft), `${width}px ${theme} left alignment`).toBeLessThanOrEqual(2);
+      expect(Math.abs(layout.summaryRight - layout.lastDetailRight), `${width}px ${theme} right alignment`).toBeLessThanOrEqual(2);
+      expect(layout.detailGap).toBeGreaterThanOrEqual(32);
+      expect(layout.detailGap).toBeLessThanOrEqual(41);
       expect(layout.titleColor).toBe('rgb(255, 255, 255)');
       expect(layout.descriptionColor).toBe('rgb(255, 255, 255)');
       expect(layout.heroBackground).toContain('linear-gradient');
