@@ -23,7 +23,7 @@ export function PracticeStatistics({ completedQuestionIds = new Set(), questions
   const solvedDifficulties = catalogStatus === 'ready' ? countSolvedPracticeDifficulties(completedQuestionIds, questions) : null;
   const difficultyCounts = solvedDifficulties && solvedDifficulties.unresolvedIds.length === 0 ? solvedDifficulties.counts : null;
   const solved = completedQuestionIds.size;
-  // The canonical activity store records verified completions, not failed local
+  // The canonical activity store records saved completions, not failed local
   // compiler runs. Until an authoritative attempt ledger exists, a recorded
   // Practice attempt is therefore the same durable event as a solved question.
   const attempted = solved;

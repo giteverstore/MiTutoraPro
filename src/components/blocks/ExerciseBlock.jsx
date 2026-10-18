@@ -21,14 +21,7 @@ export function ExerciseBlock({
   const { exerciseCompletion, completeExercise } = useLearningProgress();
   const exerciseState = exerciseCompletion[blockId] ?? {};
   const isCompleted = Boolean(exerciseState.completed);
-  const isVerified = Boolean(exerciseState.verified);
-
   const startExercise = () => {
-    if (isVerified) {
-      completeExercise(blockId);
-      return;
-    }
-    if (isStarted) return;
     setIsStarted(true);
     learningCompiler?.expand();
     window.requestAnimationFrame(() => {
@@ -61,18 +54,19 @@ export function ExerciseBlock({
           <ul>{hints.map((hint) => <li key={hint}>{hint}</li>)}</ul>
         </details>
       ) : null}
-      {isStarted || isVerified ? (
+      {isStarted || isCompleted ? (
         <p className="activity-feedback is-success" role="status">
-          {isCompleted
-            ? 'Exercise completed and saved locally.'
-            : isVerified
-              ? 'Output verified. Mark the exercise complete when you are ready.'
-              : 'Write your solution, run it, then use Check Output in the workspace.'}
+          {isCompleted ? 'Exercise completed and saved locally.' : 'Use the compiler to practice, then mark the exercise complete when you are ready.'}
         </p>
       ) : null}
-      <button className="button button--primary inline-action" type="button" onClick={startExercise} disabled={isCompleted || (isStarted && !isVerified)}>
-        {isCompleted ? 'Completed' : isVerified ? 'Mark Complete' : isStarted ? 'Check output to continue' : actionLabel} <ChevronRight size={ICON_SIZE.base} />
-      </button>
+      <div className="exercise-actions">
+        <button className="button button--secondary" type="button" onClick={startExercise}>
+          {actionLabel ?? 'Open compiler'} <ChevronRight size={ICON_SIZE.base} />
+        </button>
+        <button className="button button--primary inline-action" type="button" onClick={() => completeExercise(blockId)} disabled={isCompleted}>
+          {isCompleted ? 'Completed' : 'Mark Complete'} <CheckCircle2 size={ICON_SIZE.base} />
+        </button>
+      </div>
     </section>
   );
 }

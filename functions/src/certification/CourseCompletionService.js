@@ -6,7 +6,6 @@ import { CERTIFICATION_POLICY } from './CertificationPolicy.js';
 function fail(code, message) { const error = new Error(message); error.code = code; throw error; }
 const trustedProgressPath = (uid, courseId) => `users/${uid}/trustedCourseProgress/${courseId}`;
 const evidencePath = (uid, sessionId) => `users/${uid}/trustedLessonEvidence/${sessionId}`;
-const normalizeOutput = (value) => String(value ?? '').replace(/\r\n?/g, '\n').split('\n').map((line) => line.trim().replace(/\s+/g, ' ')).filter(Boolean).join('\n');
 
 function moduleLessons(module) {
   return Array.isArray(module.sections) ? module.sections.flatMap((section) => section.lessons ?? []) : module.lessons ?? [];
@@ -20,12 +19,11 @@ function lessonKind(lesson) {
 }
 
 export class CourseCompletionService {
-  constructor({ db, bucket, engine = new CourseCompletionEngine(), clock = () => Date.now(), readingMinimumMs = 3000, evidenceTtlMs = 30 * 60 * 1000 }) {
+  constructor({ db, bucket, engine = new CourseCompletionEngine(), clock = () => Date.now(), evidenceTtlMs = 30 * 60 * 1000 }) {
     this.db = db;
     this.bucket = bucket;
     this.engine = engine;
     this.clock = clock;
-    this.readingMinimumMs = readingMinimumMs;
     this.evidenceTtlMs = evidenceTtlMs;
     this.manifestCache = new Map();
     this.moduleCache = new Map();
@@ -87,33 +85,7 @@ export class CourseCompletionService {
     if (nowMs > session.expiresAt.toMillis()) fail('deadline-exceeded', 'Lesson evidence session has expired.');
     const type = lessonKind(lesson);
     if (type !== session.evidenceType) fail('failed-precondition', 'Lesson evidence type does not match published content.');
-    if (type === 'reading') {
-      if (nowMs - session.openedAt.toMillis() < this.readingMinimumMs) fail('failed-precondition', 'Reading evidence session has not met the minimum observation period.');
-      return { type, assurance: 'PROTOCOL_OBSERVED', sessionId: session.sessionId };
-    }
-    if (type === 'quiz') {
-      const answers = evidence.answers ?? {};
-      if (!answers || Array.isArray(answers) || typeof answers !== 'object' || Object.keys(answers).length > 16) fail('invalid-argument', 'Quiz evidence payload is invalid.');
-      const quizzes = lesson.blocks.filter(({ type: blockType }) => blockType === 'quiz');
-      const passed = quizzes.length > 0 && quizzes.every((quiz) => {
-        const submitted = [...new Set(answers[quiz.id] ?? [])].sort();
-        const expected = [...new Set(quiz.correctOptionIds ?? [])].sort();
-        return submitted.length === expected.length && submitted.every((value, index) => value === expected[index]);
-      });
-      if (!passed) fail('failed-precondition', 'Quiz evidence did not satisfy the published answer key.');
-      return { type, assurance: 'SERVER_GRADED', sessionId: session.sessionId };
-    }
-    const artifacts = evidence.artifacts ?? {};
-    if (!artifacts || Array.isArray(artifacts) || typeof artifacts !== 'object' || Object.keys(artifacts).length > 8) fail('invalid-argument', 'Exercise evidence payload is invalid.');
-    const compilers = lesson.blocks.filter(({ type: blockType }) => blockType === 'compiler');
-    const verified = compilers.length > 0 && compilers.every((compiler) => {
-      const artifact = artifacts[compiler.id];
-      return typeof artifact?.sourceCode === 'string' && artifact.sourceCode.trim().length > 0 && artifact.sourceCode.length <= 100_000
-        && typeof artifact?.programOutput === 'string' && artifact.programOutput.length <= 100_000
-        && normalizeOutput(artifact.programOutput) === normalizeOutput(compiler.expectedOutput);
-    });
-    if (!verified) fail('failed-precondition', 'Exercise evidence did not satisfy the published output contract.');
-    return { type, assurance: 'SERVER_VALIDATED_CLIENT_EXECUTION', sessionId: session.sessionId };
+    return { type, assurance: 'MANUAL_COMPLETION', sessionId: session.sessionId };
   }
 
   async recordLessonCompletion(uid, { courseId, courseVersion, lessonId, evidence }) {

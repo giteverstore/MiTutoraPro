@@ -14,10 +14,8 @@ const lesson = { id: 'final-lesson', blocks: [] };
 beforeEach(() => {
   progress.completedLessons = [];
   progress.completeLesson.mockReset().mockResolvedValue(undefined);
-  document.body.insertAdjacentHTML('beforeend', '<div data-lesson-end="final-lesson"></div>');
-  globalThis.IntersectionObserver = class { constructor(callback) { this.callback = callback; } observe() { this.callback([{ isIntersecting: true }]); } disconnect() {} };
 });
-afterEach(() => { cleanup(); document.querySelector('[data-lesson-end]')?.remove(); });
+afterEach(cleanup);
 
 describe('shared completion acknowledgement', () => {
   it('celebrates only after trusted final Course lesson completion succeeds', async () => {
@@ -25,7 +23,7 @@ describe('shared completion acknowledgement', () => {
     expect(screen.queryByText('Course complete!')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
     await waitFor(() => expect(screen.getByText('Course complete!')).toBeVisible());
-    expect(progress.completeLesson).toHaveBeenCalledWith('final-lesson', 'reading');
+    expect(progress.completeLesson).toHaveBeenCalledWith('final-lesson');
   });
 
   it('uses the lighter acknowledgement for a non-final lesson completion', async () => {
@@ -39,7 +37,7 @@ describe('shared completion acknowledgement', () => {
     progress.completeLesson.mockRejectedValueOnce(new Error('unavailable'));
     const { unmount } = render(<LessonFooter lesson={lesson} previousLesson={null} nextLesson={null} lessonCount={1} currentLessonIndex={0} />);
     fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
-    await waitFor(() => expect(screen.getByText(/trusted verification failed/i)).toBeVisible());
+    await waitFor(() => expect(screen.getByText(/Lesson could not be completed/i)).toBeVisible());
     expect(screen.queryByText('Course complete!')).not.toBeInTheDocument();
     unmount();
     progress.completedLessons = ['final-lesson'];

@@ -230,27 +230,24 @@ export function LearningProgressProvider({
       });
   }, [course, updateProgress]);
 
-  const completeLesson = useCallback(async (lessonId, completionType = 'reading') => {
-    const current = progress;
-    const lesson = getCourseLessons(course).find(({ lesson: item }) => item.id === lessonId)?.lesson;
-    const evidence = completionType === 'quiz'
-      ? { answers: Object.fromEntries((lesson?.blocks ?? []).filter(({ type }) => type === 'quiz').map(({ id }) => [id, current.quizScores[id]?.selectedOptionIds ?? []])) }
-      : completionType === 'exercise'
-        ? { artifacts: Object.fromEntries((lesson?.blocks ?? []).filter(({ type }) => type === 'compiler').map((block) => {
-            const exercise = Object.values(current.exerciseCompletion).find((item) => item.compilerId === block.id && item.completed);
-            return [block.id, { sourceCode: exercise?.sourceCode ?? '', programOutput: exercise?.programOutput ?? '' }];
-          })) }
-        : {};
+  const completeLesson = useCallback(async (lessonId) => {
+    if (progress.completedLessons.includes(lessonId)) return;
     if (course.publishedVersion) {
-      await trustedCompletionService.recordLessonCompletion(course.id, course.publishedVersion, lessonId, evidence);
+      await trustedCompletionService.recordLessonCompletion(course.id, course.publishedVersion, lessonId);
+      updateProgress((current) => current.completedLessons.includes(lessonId)
+        ? current
+        : { ...current, completedLessons: [...current.completedLessons, lessonId] });
+      return;
     }
-    updateProgress((current) => ({
+    const updatedAt = new Date().toISOString();
+    const next = deriveProgress(course, { ...progress, completedLessons: [...progress.completedLessons, lessonId], updatedAt });
+    await repository.save(userId, course.id, next);
+    setProgress((current) => deriveProgress(course, {
       ...current,
-      completedLessons: current.completedLessons.includes(lessonId)
-        ? current.completedLessons
-        : [...current.completedLessons, lessonId],
+      completedLessons: [...new Set([...current.completedLessons, lessonId])],
+      updatedAt,
     }));
-  }, [course, progress, trustedCompletionService, updateProgress]);
+  }, [course, progress, repository, trustedCompletionService, updateProgress, userId]);
 
   const markLessonVisited = useCallback((lessonId) => {
     if (course.publishedVersion) {
@@ -293,7 +290,7 @@ export function LearningProgressProvider({
   const completeExercise = useCallback((exerciseId) => {
     updateProgress((current) => {
       const exercise = current.exerciseCompletion[exerciseId];
-      if (!exercise?.verified) return current;
+      if (exercise?.completed) return current;
       return {
         ...current,
         exerciseCompletion: {

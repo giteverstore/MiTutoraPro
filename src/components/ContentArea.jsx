@@ -28,11 +28,6 @@ export function ContentArea({
             emptyState={emptyState}
           />
           {children}
-          <span
-            className="lesson-end-sentinel"
-            data-lesson-end={lesson.id}
-            aria-hidden="true"
-          />
         </article>
       ) : (
         <div className="lesson-document">

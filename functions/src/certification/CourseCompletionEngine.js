@@ -1,5 +1,5 @@
 export const COURSE_COMPLETION_SCHEMA_VERSION = '2.0.0';
-const TRUSTED_EVIDENCE_ASSURANCE = new Set(['PROTOCOL_OBSERVED', 'SERVER_GRADED', 'SERVER_VALIDATED_CLIENT_EXECUTION']);
+const TRUSTED_EVIDENCE_ASSURANCE = new Set(['PROTOCOL_OBSERVED', 'SERVER_GRADED', 'SERVER_VALIDATED_CLIENT_EXECUTION', 'MANUAL_COMPLETION']);
 
 const moduleLessons = (module) => Array.isArray(module.sections)
   ? module.sections.flatMap((section) => section.lessons ?? [])

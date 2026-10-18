@@ -23,8 +23,8 @@ assert.match(courseRoute, /import ['"]\.\.\/styles\/pages\/learning-engine\.css[
 
 assert.match(layout, /<section className="lesson-region"[\s\S]*?<ContentArea[\s\S]*?<LessonFooter[\s\S]*?<\/section>/, 'The bounded lesson region must own its scroll area and navigation.');
 assert.doesNotMatch(contentArea, /<LessonFooter/, 'Lesson navigation must not scroll inside lesson content.');
-assert.match(contentArea, /data-lesson-end=\{lesson\.id\}/, 'Reading completion requires an in-content end sentinel.');
-assert.match(footer, /data-lesson-end[\s\S]*IntersectionObserver/, 'Reading completion must observe the lesson end rather than the fixed footer.');
+assert.doesNotMatch(contentArea, /data-lesson-end/, 'Reading completion must not depend on an end sentinel.');
+assert.doesNotMatch(footer, /IntersectionObserver|quizScores|exerciseCompletion/, 'Manual lesson completion must not be gated by reading, quiz, or exercise evidence.');
 assert.match(styles, /\.lesson-region\s*\{[\s\S]*?grid-column:\s*2;[\s\S]*?grid-template-rows:\s*minmax\(0, 1fr\) auto;[\s\S]*?min-height:\s*0;/, 'Desktop lesson content and navigation must share one bounded grid column.');
 assert.match(styles, /@media \(max-width: 1180px\)[\s\S]*?\.lesson-region\s*\{\s*grid-column:\s*1;/, 'Overlay-sidebar layouts must keep the lesson region in the content column.');
 assert.match(styles, /\.lesson-panel\s*\{[^}]*min-height:\s*0;[^}]*overflow-y:\s*auto;/, 'Only the lesson content row may scroll.');
@@ -61,7 +61,7 @@ assert.equal(findLessonProgressScope(legacyCourse, 'legacy-lesson').title, 'Lega
 assert.equal(requirements.courseId, 'python');
 assert.equal(requirements.lessonIds.length, 109, 'Trusted completion must traverse all section-owned Python lessons.');
 assert.match(lessonFour.id, /^lesson-1-4-quiz-/, 'Lesson 4 must resolve to the published print-syntax quiz lesson.');
-assert.equal(lessonFour.blocks.some(({ type }) => type === 'quiz'), true, 'Lesson 4 must preserve its quiz verification requirement.');
+assert.equal(lessonFour.blocks.some(({ type }) => type === 'quiz'), true, 'Lesson 4 must retain its quiz content.');
 assert.equal(requirements.lessonIds.includes(lessonFour.id), true, 'Trusted completion must recognize lesson 4 in the sectioned manifest.');
 assert.match(completionContext, /await trustedCompletionService\.recordLessonCompletion[\s\S]*?updateProgress/, 'Local completion must remain fail-closed behind trusted recording.');
 assert.doesNotMatch(completionService, /CertificateIssuer|issueCertificate|createExamAttempt/, 'Ordinary lesson completion must not issue a certificate or exam attempt.');
@@ -70,7 +70,7 @@ console.log(JSON.stringify({
   fixedNavigation: 'passed',
   responsiveGridAlignment: 'passed',
   responsiveSidebarControls: 'passed',
-  lessonEndDetection: 'passed',
+  manualLessonCompletion: 'passed',
   lessonFour: lessonFour.id,
   sectionProgressScopes: course.modules[0].sections.length,
   trustedLessons: requirements.lessonIds.length,
