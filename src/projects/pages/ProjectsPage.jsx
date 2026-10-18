@@ -11,14 +11,15 @@ import { useOptionalAuth } from '../../auth/AuthContext';
 import { ActiveProjectRepository } from '../repositories/ActiveProjectRepository';
 import { PublishedContentRepository } from '../repositories/PublishedContentRepository';
 import { ErrorState } from '../../errors/ErrorState';
+import { projectDisplayDifficulty, sortProjectsByDifficulty } from '../presentation/projectPresentation';
 
 export const DEFAULT_PROJECT_FILTERS = Object.freeze({ language: 'all', category: 'all', difficulty: 'all' });
 
 export function filterProjects(projects, filters) {
-  return projects.filter((project) =>
+  return sortProjectsByDifficulty(projects.filter((project) =>
     (filters.language === 'all' || project.supportedLanguages.includes(filters.language))
     && (filters.category === 'all' || project.category === filters.category)
-    && (filters.difficulty === 'all' || project.difficulty.toLowerCase() === filters.difficulty));
+    && (filters.difficulty === 'all' || projectDisplayDifficulty(project.difficulty) === projectDisplayDifficulty(filters.difficulty))));
 }
 
 export function projectResultsHeading(difficulty) {
@@ -145,20 +146,20 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     primaryAction={{ label: 'Back to Projects', onClick: () => { setRouteState('idle'); setScreen('catalog'); onProjectChange(null); } }}
   /></div>;
 
-  if (selected && screen === 'details') { const progress = progressFor(selected.id); return <><ProjectDetails project={selected} progress={progress} onBack={() => { setSelected(null); setScreen('catalog'); onProjectChange(null); }} onStart={() => {
+  if (selected && screen === 'details') { const progress = progressFor(selected.id); return <><ProjectDetails project={selected} progress={progress} onStart={() => {
     if (browseOnly) { onRequireAuth('/projects'); return; }
     if (progress.languageId) { setScreen('workspace'); return; }
     setStartDialogOpen(true);
   }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName, selected.contentVersion ?? null); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
   if (selected && screen === 'workspace') {
-    return <ProjectWorkspace project={selected} tier={tier} onBack={() => { setSelected(null); setScreen('catalog'); onProjectChange(null); }} onProgress={() => refresh((value) => value + 1)} />;
+    return <ProjectWorkspace project={selected} tier={tier} onProgress={() => refresh((value) => value + 1)} />;
   }
 
   return <div className="projects-page">
     <section className="project-filters" aria-label="Project filters">
       <label>Language<select value={filters.language} onChange={(event) => setFilters((current) => ({ ...current, language: event.target.value }))}><option value="all">All languages</option>{languages.map((language) => <option key={language} value={language}>{getProjectRuntime(language).displayName}</option>)}</select></label>
       <label>Category<select value={filters.category} onChange={(event) => setFilters((current) => ({ ...current, category: event.target.value }))}><option value="all">All categories</option>{categories.map((category) => <option key={category} value={category}>{category}</option>)}</select></label>
-      <label>Difficulty<select value={filters.difficulty} onChange={(event) => setFilters((current) => ({ ...current, difficulty: event.target.value }))}><option value="all">All difficulties</option><option value="beginner">Beginner</option><option value="easy">Easy</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label>
+      <label>Difficulty<select value={filters.difficulty} onChange={(event) => setFilters((current) => ({ ...current, difficulty: event.target.value }))}><option value="all">All difficulties</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label>
     </section>
     <section className="project-catalog" aria-labelledby="project-catalog-title" aria-busy={catalog.status === 'loading'}>
       <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{catalog.status === 'loading' ? 'Loading projects…' : `${visible.length} ${visible.length === 1 ? 'project' : 'projects'} available`}</p></div>

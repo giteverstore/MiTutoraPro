@@ -161,11 +161,11 @@ describe('immersive project workspace shell', () => {
     expect(screen.getByText(code.textContent, { selector: '.project-ai-context-preview pre' })).toBeInTheDocument();
   });
 
-  it('returns to Projects and preserves the existing Free implementation boundary', () => {
+  it('links home from the brand and preserves the existing Free implementation boundary', () => {
     const onBack = vi.fn();
     const { unmount } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={onBack} onProgress={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Projects' }));
-    expect(onBack).toHaveBeenCalledOnce();
+    expect(screen.getByRole('link', { name: 'Y Coders home' })).toHaveAttribute('href', '/');
+    expect(screen.queryByRole('button', { name: 'Projects' })).not.toBeInTheDocument();
     unmount();
     render(<ProjectWorkspace project={project} tier="FREE" initialPageIndex={3} onBack={onBack} onProgress={vi.fn()} />);
     expect(screen.getByRole('heading', { name: 'Continue this project with Premium' })).toBeInTheDocument();
@@ -214,8 +214,8 @@ describe('immersive project workspace shell', () => {
     expect(container.querySelector('.project-guide-completion')).toHaveTextContent('Project Complete');
     expect(screen.getByRole('heading', { name: 'My Calculator' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Download Project/ })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Back to Projects' }));
-    expect(onBack).toHaveBeenCalledOnce();
+    expect(screen.queryByRole('button', { name: 'Back to Projects' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Y Coders home' })).toHaveAttribute('href', '/');
     expect(container.querySelector('.project-ide-topbar strong')).toHaveTextContent('My Calculator');
   });
 
@@ -380,9 +380,11 @@ describe('immersive project workspace shell', () => {
   });
 
   it('keeps Projects UI typography on the 12, 14, 16, and 24 pixel scale', () => {
-    const sizes = [...css.matchAll(/font-size:\s*([^;]+);/g)].map((match) => match[1].trim().replace(/\s*\/\*.*\*\//, ''));
+    const generalCss = css.replace(/\.project-overview-copy h1\s*\{[^}]*\}/, '');
+    const sizes = [...generalCss.matchAll(/font-size:\s*([^;]+);/g)].map((match) => match[1].trim().replace(/\s*\/\*.*\*\//, ''));
     const pixels = sizes.map((size) => size === 'inherit' ? size : size.endsWith('rem') ? Number.parseFloat(size) * 16 : Number.parseFloat(size));
     expect(pixels.every((size) => size === 'inherit' || [12, 14, 16, 24].includes(size))).toBe(true);
+    expect(css).toContain('font-size: clamp(1.75rem, 2.8vw, 2.25rem)');
     expect(css).toContain('.project-ide-topbar strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1rem; }');
     expect(css).toContain('.project-guide-completion>h2 { max-width: 100%; font-size: 1.5rem; overflow-wrap: anywhere; }');
     expect(css).toContain('.project-ai-turn>div { max-width: 92%;');

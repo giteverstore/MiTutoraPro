@@ -33,10 +33,9 @@ describe('Projects filter cleanup', () => {
   });
 
   it.each([
-    ['beginner', 'Beginner Projects', 1],
-    ['easy', 'Easy Projects', 5],
-    ['intermediate', 'Intermediate Projects', 0],
-    ['advanced', 'Advanced Projects', 0],
+    ['easy', 'Easy Projects', 6],
+    ['medium', 'Medium Projects', 0],
+    ['hard', 'Hard Projects', 0],
   ])('filters %s projects and updates heading/count', async (difficulty, heading, count) => {
     await renderCatalog();
     fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: difficulty } });
@@ -53,6 +52,7 @@ describe('Projects filter cleanup', () => {
     ];
     expect(filterProjects(projects, { language: 'python', category: 'Utilities', difficulty: 'easy' })).toEqual([projects[0]]);
     expect(filterProjects(projects, { language: 'java', category: 'Utilities', difficulty: 'advanced' })).toEqual([]);
+    expect(filterProjects(projects, { language: 'java', category: 'Utilities', difficulty: 'medium' })).toEqual([projects[2]]);
     expect(projectResultsHeading('all')).toBe('Projects');
   });
 
