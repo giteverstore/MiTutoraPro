@@ -376,7 +376,7 @@ function LandingPageContent() {
         <button className="button button--primary" type="button" onClick={() => requestAuthentication('/practice', 'login')}>Ask AI Mentor <ArrowRight /></button>
       </div>
       <div className="landing-mentor-illustration">
-        <img src="/assets/landing/ai-coding-mentor-illustration.png" alt="AI coding mentor helping a learner debug code" />
+        <img src="/assets/landing/friendly-robot-and-teen-coding-together.png" alt="Friendly robot and teen coding together" />
       </div>
     </section>
     <section className="landing-how" id="how-it-works" aria-labelledby="landing-how-title">

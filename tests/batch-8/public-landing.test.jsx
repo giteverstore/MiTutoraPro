@@ -82,7 +82,7 @@ describe('public Y Coders landing page', () => {
     for (const removedEyebrow of ['Structured paths', 'Practice', 'Real-World Projects', 'Your AI Coding Mentor', 'How It Works']) {
       expect(screen.queryByText(removedEyebrow, { selector: '.landing-eyebrow, .landing-mentor-eyebrow' })).not.toBeInTheDocument();
     }
-    expect(screen.getByRole('img', { name: 'AI coding mentor helping a learner debug code' })).toHaveAttribute('src', '/assets/landing/ai-coding-mentor-illustration.png');
+    expect(screen.getByRole('img', { name: 'Friendly robot and teen coding together' })).toHaveAttribute('src', '/assets/landing/friendly-robot-and-teen-coding-together.png');
     expect(screen.getByRole('heading', { level: 3, name: 'How It Works' })).toBeVisible();
     expect(container.querySelectorAll('.landing-mentor-steps > li')).toHaveLength(3);
     expect(container.querySelector('.app-shell')).not.toBeInTheDocument();
@@ -108,6 +108,21 @@ describe('public Y Coders landing page', () => {
     const mentor = container.querySelector('.landing-mentor');
     expect(mentor.firstElementChild).toHaveClass('landing-mentor-copy');
     expect(mentor.lastElementChild).toHaveClass('landing-mentor-illustration');
+  });
+
+  it('uses one navbar-aligned guide for split sections while leaving centered sections independent', () => {
+    const { container } = render(<LandingPage />);
+    const splitSections = ['.landing-building', '.landing-practice', '.landing-projects', '.landing-mentor'];
+    expect(splitSections.map((selector) => container.querySelector(selector)).every(Boolean)).toBe(true);
+    const css = readFileSync('src/styles/pages/landing.css', 'utf8');
+    expect(css).toMatch(/\.landing-page :where\(\.landing-building, \.landing-practice, \.landing-projects, \.landing-mentor\)\s*\{\s*padding-inline:\s*calc\(var\(--landing-header-gutter\) \+ var\(--landing-brand-region\)\)\s*calc\(var\(--landing-header-gutter\) \+ var\(--landing-auth-region\)\)/);
+    expect(css).toMatch(/@media \(max-width: 1199px\)[\s\S]*grid-template-columns: minmax\(0, 1fr\)/);
+    const guideSelectors = css.match(/\.landing-page :where\(([^)]+)\)\s*\{\s*padding-inline:/)?.[1];
+    expect(guideSelectors).not.toMatch(/landing-hero|landing-courses|landing-how|landing-final-cta/);
+    expect([...container.querySelectorAll('main > section')].map((section) => section.classList[0])).toEqual([
+      'landing-hero', 'landing-showcase', 'landing-building', 'landing-split',
+      'landing-projects', 'landing-mentor', 'landing-how', 'landing-final-cta',
+    ]);
   });
 
   it('routes the AI Mentor CTA through the existing authentication boundary', () => {

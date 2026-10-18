@@ -331,3 +331,44 @@
     width: 94vw;
   }
 }
+
+/* The four split sections use the same content track between the navbar brand and Login. */
+@media (min-width: 1200px) {
+  .landing-page {
+    --landing-header-gutter: max(2rem, calc((100vw - 94rem) / 2));
+    --landing-brand-region: 7.875rem;
+    --landing-auth-region: 9.625rem;
+  }
+
+  .landing-page .marketing-brand {
+    width: var(--landing-brand-region);
+    flex: none;
+  }
+
+  .landing-page .marketing-auth-actions {
+    width: var(--landing-auth-region);
+    flex: none;
+  }
+
+  .landing-page :where(.landing-building, .landing-practice, .landing-projects, .landing-mentor) {
+    padding-inline:
+      calc(var(--landing-header-gutter) + var(--landing-brand-region))
+      calc(var(--landing-header-gutter) + var(--landing-auth-region));
+  }
+}
+
+@media (max-width: 1199px) {
+  .landing-page :where(.landing-building, .landing-practice, .landing-projects, .landing-mentor) {
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: clamp(1rem, 5vw, 3rem);
+  }
+
+  .landing-building h2 {
+    white-space: normal;
+  }
+
+  .landing-feature-panel,
+  .landing-mentor-illustration {
+    min-width: 0;
+  }
+}
