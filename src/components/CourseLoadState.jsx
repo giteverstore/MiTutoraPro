@@ -1,5 +1,7 @@
 import { LessonSkeleton } from './LoadingSkeleton';
 import { ErrorState } from '../errors/ErrorState';
+import { useEffect } from 'react';
+import { phase5Mark } from '../performance/phase5Mark.js';
 
 export function courseErrorPresentation(error, message) {
   if (error?.code === 'content/course-coming-soon' || message === 'This course is coming soon.') {
@@ -12,6 +14,11 @@ export function courseErrorPresentation(error, message) {
 }
 
 export function CourseLoadState({ state, message, error }) {
+  useEffect(() => {
+    if (state !== 'loading') return undefined;
+    phase5Mark('course:skeleton:shown');
+    return () => phase5Mark('course:skeleton:removed');
+  }, [state]);
   if (state === 'loading') {
     return (
       <div className="app-shell course-load-state">

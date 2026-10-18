@@ -2,7 +2,8 @@ import { spawn, spawnSync } from 'node:child_process';
 import { createServer } from 'node:net';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { delimiter, join } from 'node:path';
+import { delimiter, dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 const PROJECT_ID = 'demo-mitutora';
@@ -11,7 +12,7 @@ const REQUIRED_PORTS = Object.freeze([
   { name: 'Auth', port: 9099 },
 ]);
 const root = fileURLToPath(new URL('..', import.meta.url));
-const firebaseCli = fileURLToPath(new URL('../node_modules/firebase-tools/lib/bin/firebase.js', import.meta.url));
+const firebaseCli = join(dirname(createRequire(import.meta.url).resolve('firebase-tools/package.json')), 'lib', 'bin', 'firebase.js');
 const temporary = mkdtempSync(join(tmpdir(), 'ycoders-e2e-firebase-'));
 const ownershipDirectory = join(root, '.tmp-firebase-config');
 const ownershipFile = join(ownershipDirectory, 'playwright-emulator-owner.json');

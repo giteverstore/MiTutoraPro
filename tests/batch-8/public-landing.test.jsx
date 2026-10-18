@@ -462,6 +462,7 @@ describe('public browse routing', () => {
   });
 
   it('renders Practice metadata without anonymous learner statistics', async () => {
+    Object.defineProperty(window, 'matchMedia', { configurable: true, value: vi.fn().mockReturnValue({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }) });
     window.history.replaceState({}, '', '/practice');
     render(<PublicBrowseApplication />);
     expect(await screen.findByText('Add two values')).toBeVisible();

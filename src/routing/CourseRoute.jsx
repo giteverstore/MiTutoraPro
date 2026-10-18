@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import '../styles/pages/learning-engine.css';
+import { Suspense, useEffect, useState } from 'react';
 import '../styles/routing.css';
 import { CourseLoaderProvider, useCourseLoader } from '../course/CourseLoader';
 import { CourseLoadState } from '../components/CourseLoadState';
 import { CourseOverviewPage } from '../pages/CourseOverviewPage';
-import { LearningEnginePage } from '../pages/LearningEnginePage';
+import { lazyNamedExport } from './lazyRoute';
 import { useUser } from '../auth/UserContext';
 import {
   LearningProgressProvider,
@@ -14,6 +13,9 @@ import { canonicalLessonIndex, canAccessLesson } from '../access/accessPolicy';
 import { useSubscriptionAccess } from '../access/SubscriptionAccessContext';
 import { PremiumGate } from '../access/PremiumGate';
 import { progressRepository } from '../progress/progressRepository.js';
+import { phase5Mark } from '../performance/phase5Mark.js';
+
+const LearningEnginePage = lazyNamedExport(() => import('../pages/LearningEnginePage'), 'LearningEnginePage');
 
 export function CourseRoute({
   courseId,
@@ -28,11 +30,19 @@ export function CourseRoute({
 }) {
   const user = useUser({ optional: true })?.user;
   const [pin, setPin] = useState({ status: anonymous || !user?.id ? 'ready' : 'loading', version: null });
+  useEffect(() => { phase5Mark('course:route-mounted', { courseId }); }, [courseId]);
   useEffect(() => {
     let active = true;
     if (anonymous || !user?.id) { setPin({ status: 'ready', version: null }); return () => { active = false; }; }
     setPin({ status: 'loading', version: null });
-    progressRepository.load(user.id, courseId).then((record) => { if (active) setPin({ status: 'ready', version: Number.isSafeInteger(record?.contentVersion) ? record.contentVersion : null }); }).catch(() => { if (active) setPin({ status: 'ready', version: null }); });
+    phase5Mark('course:pin:start', { courseId });
+    progressRepository.load(user.id, courseId).then((record) => {
+      phase5Mark('course:pin:end', { courseId, pinned: Number.isSafeInteger(record?.contentVersion) });
+      if (active) setPin({ status: 'ready', version: Number.isSafeInteger(record?.contentVersion) ? record.contentVersion : null, storedProgress: record });
+    }).catch(() => {
+      phase5Mark('course:pin:error', { courseId });
+      if (active) setPin({ status: 'ready', version: null });
+    });
     return () => { active = false; };
   }, [anonymous, courseId, user?.id]);
   if (pin.status === 'loading') return <CourseLoadState state="loading" />;
@@ -51,6 +61,7 @@ export function CourseRoute({
         onLessonRoute={onLessonRoute}
         onStartExam={onStartExam}
         anonymous={anonymous}
+        initialStoredProgress={pin.storedProgress}
       />
     </CourseLoaderProvider>
   );
@@ -64,6 +75,7 @@ function LoadedCourseApplication({
   onLessonRoute,
   onStartExam,
   anonymous,
+  initialStoredProgress,
 }) {
   const courseLoader = useCourseLoader();
   const user = useUser({ optional: true })?.user;
@@ -83,6 +95,7 @@ function LoadedCourseApplication({
       initialCompletedLessons={user.completedLessons}
       initialVisitedLessons={user.visitedLessons}
       initialBookmarks={user.bookmarks}
+      initialStoredProgress={initialStoredProgress}
     >
       <ProgressProfileSync />
       {stage === 'overview' ? (
@@ -165,5 +178,7 @@ function ProgressAwareApplication({ courseLoader, onExitCourse, onLessonRoute })
   }, [courseLoader.currentLesson?.id, onLessonRoute]);
 
   if (!allowed) return <div className="course-premium-gate"><PremiumGate context="lesson" /></div>;
-  return <LearningEnginePage courseLoader={courseLoader} onExitCourse={onExitCourse} />;
+  return <Suspense fallback={<CourseLoadState state="loading" />}>
+    <LearningEnginePage courseLoader={courseLoader} onExitCourse={onExitCourse} />
+  </Suspense>;
 }

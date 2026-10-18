@@ -4,7 +4,7 @@ import { CourseCompletionEngine } from '../functions/src/certification/CourseCom
 import { findLessonProgressScope } from '../src/course/courseStructure.js';
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
-const [course, layout, topNavigation, sidebar, contentArea, footer, learningStyles, shellStyles, courseRoute, completionContext, completionService] = await Promise.all([
+const [course, layout, topNavigation, sidebar, contentArea, footer, learningStyles, shellStyles, learningEnginePage, completionContext, completionService] = await Promise.all([
   read('public/courses/python-course.json').then(JSON.parse),
   read('src/components/Layout.jsx'),
   read('src/components/TopNavigation.jsx'),
@@ -13,13 +13,13 @@ const [course, layout, topNavigation, sidebar, contentArea, footer, learningStyl
   read('src/components/LessonFooter.jsx'),
   read('src/styles/pages/learning-engine.css'),
   read('src/styles/pages/dashboard.css'),
-  read('src/routing/CourseRoute.jsx'),
+  read('src/pages/LearningEnginePage.jsx'),
   read('src/progress/LearningProgressContext.jsx'),
   read('functions/src/certification/CourseCompletionService.js'),
 ]);
 const styles = `${learningStyles}\n${shellStyles}`;
 
-assert.match(courseRoute, /import ['"]\.\.\/styles\/pages\/learning-engine\.css['"];/, 'The Course route must load its Learning Engine stylesheet owner.');
+assert.match(learningEnginePage, /import ['"]\.\.\/styles\/pages\/learning-engine\.css['"];/, 'The lazy Learning Engine page must load its stylesheet owner.');
 
 assert.match(layout, /<section className="lesson-region"[\s\S]*?<ContentArea[\s\S]*?<LessonFooter[\s\S]*?<\/section>/, 'The bounded lesson region must own its scroll area and navigation.');
 assert.doesNotMatch(contentArea, /<LessonFooter/, 'Lesson navigation must not scroll inside lesson content.');
@@ -30,9 +30,9 @@ assert.match(styles, /@media \(max-width: 1180px\)[\s\S]*?\.lesson-region\s*\{\s
 assert.match(styles, /\.lesson-panel\s*\{[^}]*min-height:\s*0;[^}]*overflow-y:\s*auto;/, 'Only the lesson content row may scroll.');
 assert.doesNotMatch(styles, /lesson-navigation-dock/, 'The former competing workspace navigation grid item must not remain.');
 assert.match(styles, /\.lesson-body\s*\{[^}]*gap:\s*var\(--space-5\)/, 'Lesson blocks must use a shared spacing rhythm.');
-assert.match(topNavigation, /label="Back to course overview"[\s\S]*?onClick=\{onExitCourse\}[\s\S]*?<ArrowLeft/, 'The lesson header must return to the existing course overview flow.');
+assert.doesNotMatch(topNavigation, /label="Back to course overview"|onExitCourse/, 'The lesson header must not restore the removed back control.');
 assert.doesNotMatch(topNavigation, /<Menu\b|course-context-copy|context-divider/, 'The lesson header must not duplicate course or chapter context.');
-assert.match(topNavigation, /className="overview-brand lesson-topbar-brand"[\s\S]*?ycoders/, 'The lesson header must reuse the established ycoders brand treatment.');
+assert.match(topNavigation, /className="lesson-topbar-brand"[\s\S]*?<BrandWordmark/, 'The lesson header must reuse the established Y Coders wordmark.');
 assert.doesNotMatch(topNavigation, /currentLessonLabel|lesson\?\.title/, 'The top navigation must not duplicate current lesson context.');
 assert.doesNotMatch(footer, /scopeLabel/, 'The footer must not repeat chapter or section context.');
 assert.match(styles, /\.lesson-region\s*\{[^}]*container:\s*lesson-region \/ inline-size;/, 'Footer responsiveness must follow the lesson column rather than viewport width.');

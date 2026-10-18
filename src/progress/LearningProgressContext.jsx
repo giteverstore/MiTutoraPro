@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { progressRepository as defaultRepository } from './progressRepository';
 import { trustedCompletionService as defaultTrustedCompletionService } from './TrustedCompletionService';
+import { phase5Mark } from '../performance/phase5Mark.js';
 
 const LearningProgressContext = createContext(null);
 
@@ -139,6 +140,7 @@ export function LearningProgressProvider({
   initialCompletedLessons = [],
   initialBookmarks = [],
   initialVisitedLessons = [],
+  initialStoredProgress,
   repository = defaultRepository,
   trustedCompletionService = defaultTrustedCompletionService,
 }) {
@@ -160,8 +162,11 @@ export function LearningProgressProvider({
 
   useEffect(() => {
     let active = true;
+    phase5Mark('course:progress-hydrate:start', { courseId: course.id, reusedPinRecord: initialStoredProgress !== undefined });
 
-    repository.load(userId, course.id).then((stored) => {
+    (initialStoredProgress !== undefined
+      ? Promise.resolve(initialStoredProgress)
+      : repository.load(userId, course.id)).then((stored) => {
       if (!active) return;
       const activeCourse = courseRef.current;
       const initial = createInitialProgress(
@@ -191,6 +196,7 @@ export function LearningProgressProvider({
         : initial;
       setProgress(deriveProgress(activeCourse, restored));
       setStatus('ready');
+      phase5Mark('course:progress-hydrate:end', { courseId: course.id });
     }).catch((loadError) => {
       if (!active) return;
       console.error('[Progress] Unable to load saved progress.', loadError);
@@ -200,7 +206,7 @@ export function LearningProgressProvider({
     return () => {
       active = false;
     };
-  }, [course.id, repository, userId]);
+  }, [course.id, initialStoredProgress, repository, userId]);
 
   useEffect(() => {
     setProgress((current) => deriveProgress(course, current));

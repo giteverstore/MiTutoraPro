@@ -16,6 +16,7 @@ import { recentCourseRepository } from './home/recentCourseRepository';
 import { LearnerActivityProvider } from './activity/LearnerActivityContext';
 import { shouldShowApplicationFooter } from './app-shell/footerPolicy';
 import { isStandaloneCompilerRequest } from './standalone-compiler/standaloneCompilerHost';
+import { phase5Mark } from './performance/phase5Mark.js';
 
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
 const BookmarkProvider = lazyNamedExport(() => import('./bookmarks/BookmarkContext'), 'BookmarkProvider');
@@ -186,6 +187,10 @@ function AuthenticatedApplication({ user }) {
   const [examOpen, setExamOpen] = useState(false);
   const [setupVerificationOpen, setSetupVerificationOpen] = useState(false);
   const ActivePage = APPLICATION_PAGES[activePage];
+  useEffect(() => {
+    if (activeCourseId) phase5Mark('route:matched', { kind: 'course', courseId: activeCourseId, stage: courseStage });
+    else if (activePage === 'projects') phase5Mark('route:matched', { kind: 'projects' });
+  }, [activeCourseId, activePage, courseStage]);
 
   const applyRoute = (route) => {
     setRouteNotFound(route.kind === 'not-found');
@@ -210,6 +215,7 @@ function AuthenticatedApplication({ user }) {
   }, [activeCourseId, courseStage, user.id]);
 
   const handlePageNavigation = (page) => {
+    if (page === 'projects') phase5Mark('navigation:start', { kind: 'projects' });
     setNavigationTarget(null);
     setActivePage(page);
     setActiveCourseId(null);
@@ -232,6 +238,7 @@ function AuthenticatedApplication({ user }) {
   };
 
   const openCourseOverview = (courseId) => {
+    phase5Mark('navigation:start', { kind: 'course', courseId });
     recentCourseRepository.record(user.id, courseId);
     setLaunchLessonId(null);
     setActiveCourseId(courseId);

@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { projectCatalog } from '../repositories/ProjectCatalog';
 import { ProjectFoundationCard as ProjectCard } from '../components/ProjectFoundationCard';
 import { ProjectFoundationDetails as ProjectDetails } from './ProjectFoundationDetails';
-import { ProjectWorkspace } from './ProjectWorkspace';
+import { lazyNamedExport } from '../../routing/lazyRoute';
 import { projectProgressService } from '../services/ProjectProgressService';
 import { useOptionalSubscriptionAccess } from '../../access/SubscriptionAccessContext';
 import { ProjectStartDialog } from '../components/ProjectStartDialog';
@@ -12,6 +12,7 @@ import { ActiveProjectRepository } from '../repositories/ActiveProjectRepository
 import { PublishedContentRepository } from '../repositories/PublishedContentRepository';
 import { ErrorState } from '../../errors/ErrorState';
 import { projectDisplayDifficulty, sortProjectsByDifficulty } from '../presentation/projectPresentation';
+import { phase5Mark } from '../../performance/phase5Mark.js';
 
 export const DEFAULT_PROJECT_FILTERS = Object.freeze({ language: 'all', category: 'all', difficulty: 'all' });
 
@@ -27,6 +28,7 @@ export function projectResultsHeading(difficulty) {
 }
 
 const anonymousProgress = Object.freeze({ status: 'not-started', completedPages: [] });
+const ProjectWorkspace = lazyNamedExport(() => import('./ProjectWorkspace'), 'ProjectWorkspace');
 
 export function mergeProjectCatalog(legacyProjects, publishedProjects) {
   const publishedIds = new Set(publishedProjects.map(({ id }) => id));
@@ -42,6 +44,7 @@ export async function resolveProjectForRoute(projectId, progress, publicationRep
 }
 
 export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, initialProjectId = null, onProjectChange = () => {}, publishedRepository = null }) {
+  useEffect(() => { phase5Mark('projects:route-mounted'); }, []);
   const auth = useOptionalAuth();
   const user = auth?.user ?? null;
   const authLoading = auth?.loading ?? false;
@@ -69,9 +72,11 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
 
   useEffect(() => {
     let active = true;
+    phase5Mark('projects:catalog:start');
     publicationRepository.listProjects().then(
-      (items) => { if (active) setCatalog({ status: 'ready', projects: items }); },
+      (items) => { phase5Mark('projects:catalog:end', { count: items.length }); if (active) setCatalog({ status: 'ready', projects: items }); },
       () => {
+        phase5Mark('projects:catalog:error');
         if (active) {
           setCatalog({ status: 'error', projects: [] });
           setContentError('Published projects could not be loaded. Bundled projects remain available.');
@@ -92,11 +97,31 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     let active = true;
     setCloudReady(false);
     projectProgressService.connect(user?.uid ?? null, (uid) => new ActiveProjectRepository(uid));
-    Promise.all(projects.map(({ id }) => projectProgressService.hydrate(id))).finally(() => { if (active) { setCloudReady(true); refresh((value) => value + 1); } });
+    phase5Mark('projects:hydration:start', { count: projects.length });
+    Promise.all(projects.map(async ({ id }) => {
+      phase5Mark('projects:progress:start', { projectId: id });
+      const progress = await projectProgressService.hydrate(id);
+      phase5Mark('projects:progress:end', { projectId: id });
+      return progress;
+    })).finally(() => {
+      phase5Mark('projects:hydration:end', { count: projects.length });
+      if (active) { setCloudReady(true); refresh((value) => value + 1); }
+    });
     return () => { active = false; };
   }, [authLoading, browseOnly, catalog.status, projects, user?.uid]);
 
   const progressFor = (projectId) => browseOnly ? anonymousProgress : projectProgressService.get(projectId);
+  useLayoutEffect(() => {
+    phase5Mark(catalog.status === 'loading' ? 'projects:skeleton:shown' : 'projects:skeleton:removed');
+  }, [catalog.status]);
+  useLayoutEffect(() => {
+    if (!browseOnly) phase5Mark(cloudReady ? 'projects:progress-pending:removed' : 'projects:progress-pending:shown');
+  }, [browseOnly, cloudReady]);
+  useLayoutEffect(() => {
+    if (catalog.status !== 'loading' && !initialProjectId && visible.length) {
+      phase5Mark('projects:first-card-committed', { count: visible.length, progressReady: cloudReady });
+    }
+  }, [catalog.status, cloudReady, initialProjectId, visible.length]);
   useEffect(() => {
     if (!initialProjectId) return undefined;
     if (!browseOnly && !cloudReady) return undefined;
@@ -135,7 +160,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     setSelected(resolved); setScreen('details'); onProjectChange(resolved.id);
   };
 
-  if (!browseOnly && !cloudReady) return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading your projects…</p></div>;
+  if (!browseOnly && !cloudReady && initialProjectId) return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading your projects…</p></div>;
 
   if (initialProjectId && routeState === 'loading') return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading project...</p></div>;
   if (initialProjectId && (routeState === 'missing' || routeState === 'error')) return <div className="projects-page"><ErrorState
@@ -152,7 +177,9 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     setStartDialogOpen(true);
   }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName, selected.contentVersion ?? null); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
   if (selected && screen === 'workspace') {
-    return <ProjectWorkspace project={selected} tier={tier} onProgress={() => refresh((value) => value + 1)} />;
+    return <Suspense fallback={<div className="projects-page"><p className="project-cloud-loading" role="status">Loading project workspace…</p></div>}>
+      <ProjectWorkspace project={selected} tier={tier} onProgress={() => refresh((value) => value + 1)} />
+    </Suspense>;
   }
 
   return <div className="projects-page">
@@ -164,7 +191,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     <section className="project-catalog" aria-labelledby="project-catalog-title" aria-busy={catalog.status === 'loading'}>
       <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{catalog.status === 'loading' ? 'Loading projects…' : `${visible.length} ${visible.length === 1 ? 'project' : 'projects'} available`}</p></div>
       {contentError ? <ErrorState title="Some projects could not be loaded." description={contentError} variant="compact" alert /> : null}
-      {catalog.status === 'loading' ? <div className="project-grid project-grid-loading" role="status" aria-label="Loading projects">{Array.from({ length: 6 }, (_, index) => <div className="project-card project-card-skeleton" aria-hidden="true" key={index}><span /><div><span /><span /><span /></div></div>)}</div> : visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={progressFor(project.id)} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
+      {catalog.status === 'loading' ? <div className="project-grid project-grid-loading" role="status" aria-label="Loading projects">{Array.from({ length: 6 }, (_, index) => <div className="project-card project-card-skeleton" aria-hidden="true" key={index}><span /><div><span /><span /><span /></div></div>)}</div> : visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={cloudReady ? progressFor(project.id) : null} progressPending={!browseOnly && !cloudReady} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
     </section>
   </div>;
 }

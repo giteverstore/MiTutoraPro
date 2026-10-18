@@ -1,26 +1,51 @@
 import { CONTENT_TYPES } from '../../../shared/content/constants.js';
 import { normalizeContent } from '../../../shared/content/normalization.js';
+import { phase5Mark } from '../../performance/phase5Mark.js';
+
+const defaultFetcher = (...args) => globalThis.fetch(...args);
+// Exact published versions are immutable. ACTIVE pointers and catalogs are not.
+const exactSessionReads = new Map();
+const MAX_EXACT_SESSION_READS = 48;
 
 export class CanonicalPublishedRepositoryError extends Error {
   constructor(code, message) { super(message); this.name = 'CanonicalPublishedRepositoryError'; this.code = code; }
 }
 
 export class CanonicalPublishedRepository {
-  constructor({ contentType, fetcher = (...args) => globalThis.fetch(...args), endpoint = '/api/admin-content/public' }) {
+  constructor({ contentType, fetcher = defaultFetcher, endpoint = '/api/admin-content/public' }) {
     if (![CONTENT_TYPES.COURSE, CONTENT_TYPES.PRACTICE, CONTENT_TYPES.CHALLENGE].includes(contentType)) throw new TypeError('Canonical learner repository supports COURSE, PRACTICE, or CHALLENGE.');
     this.contentType = contentType; this.fetcher = fetcher; this.endpoint = endpoint;
   }
   async list() {
+    phase5Mark('canonical:catalog:start', { contentType: this.contentType });
     const response = await this.fetcher(`${this.endpoint}?contentType=${this.contentType}`);
+    phase5Mark('canonical:catalog:end', { contentType: this.contentType, status: response.status });
     if (!response.ok) throw new CanonicalPublishedRepositoryError('content/catalog-failed', 'Published content catalog could not be loaded.');
     const payload = await response.json().catch(() => ({}));
     return (payload.items ?? []).filter((item) => item?.contentId && Number.isSafeInteger(item.activeVersion));
   }
   async active(contentId) { return this.fetch(contentId); }
-  async exact(contentId, contentVersion) { return this.fetch(contentId, contentVersion); }
+  async exact(contentId, contentVersion) {
+    if (this.fetcher !== defaultFetcher || !Number.isSafeInteger(contentVersion) || contentVersion < 1) return this.fetch(contentId, contentVersion);
+    const key = JSON.stringify([this.endpoint, this.contentType, contentId, contentVersion]);
+    if (exactSessionReads.has(key)) {
+      phase5Mark('canonical:exact:cache-hit', { contentType: this.contentType, contentId, contentVersion });
+      return exactSessionReads.get(key);
+    }
+    const request = this.fetch(contentId, contentVersion).catch((error) => {
+      if (exactSessionReads.get(key) === request) exactSessionReads.delete(key);
+      throw error;
+    });
+    exactSessionReads.set(key, request);
+    if (exactSessionReads.size > MAX_EXACT_SESSION_READS) exactSessionReads.delete(exactSessionReads.keys().next().value);
+    return request;
+  }
   async fetch(contentId, version) {
     const suffix = version == null ? '' : `/${encodeURIComponent(version)}`;
+    const operation = version == null ? 'active' : 'exact';
+    phase5Mark(`canonical:${operation}:start`, { contentType: this.contentType, contentId, version });
     const response = await this.fetcher(`${this.endpoint}/${encodeURIComponent(contentId)}${suffix}`);
+    phase5Mark(`canonical:${operation}:end`, { contentType: this.contentType, contentId, version, status: response.status });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new CanonicalPublishedRepositoryError(payload.error?.code ?? 'content/delivery-failed', payload.error?.message ?? 'Published content could not be loaded.');
     try {

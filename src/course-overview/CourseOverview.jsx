@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import {
   ArrowRight,
   Award,
@@ -22,10 +22,12 @@ import { trustedCompletionDevelopmentService } from '../progress/TrustedCompleti
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
 import '../styles/hero-pointer-grid.css';
 import '../styles/pages/dashboard.css';
+import { phase5Mark } from '../performance/phase5Mark.js';
 
 const anonymousProgress = Object.freeze({ courseProgress: 0, completedLessons: [], completedLessonCount: 0, sequentialCompletedLessons: 0, visitedLessonCount: 0 });
 
 export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartExam, anonymous = false }) {
+  useLayoutEffect(() => { phase5Mark('course:hero-committed', { courseId: course.id }); }, [course.id]);
   const { heroRef, onPointerEnter, onPointerMove, onPointerLeave } = useHeroPointerGrid();
   const storedProgress = useOptionalLearningProgress();
   const progress = storedProgress ?? anonymousProgress;

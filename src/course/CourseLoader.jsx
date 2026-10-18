@@ -20,6 +20,7 @@ import {
 } from './CourseSession';
 import { createCourseNavigation } from './courseNavigation';
 import { createCourseModel } from './createCourseModel';
+import { phase5Mark } from '../performance/phase5Mark.js';
 
 const CourseLoaderContext = createContext(null);
 
@@ -81,7 +82,10 @@ export function CourseLoaderProvider({
       courseEntryRef.current = null;
 
       try {
+        phase5Mark('course:metadata:start', { courseId, pinned: contentVersion != null });
         const loadedMetadata = await loadCourseMetadata(controller.signal, courseId, contentVersion);
+        phase5Mark('course:metadata:end', { courseId, provider: loadedMetadata.provider });
+        phase5Mark('course:document:start', { courseId });
         const {
           course: courseDocument,
           courseEntry,
@@ -93,6 +97,7 @@ export function CourseLoaderProvider({
           controller.signal,
           initialLessonIdRef.current,
         );
+        phase5Mark('course:document:end', { courseId, provider });
         if (controller.signal.aborted) return;
 
         let course;
@@ -124,6 +129,7 @@ export function CourseLoaderProvider({
         }
 
         setMetadata(loadedMetadata);
+        phase5Mark('course:data-ready', { courseId });
         setCurrentCourse(course);
         const storedLessonExists = course.modules.some((module) =>
           module.lessons.some((lesson) => lesson.id === initialLessonIdRef.current),
