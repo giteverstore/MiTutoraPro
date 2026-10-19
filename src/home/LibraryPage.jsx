@@ -5,6 +5,7 @@ import { browseCatalog } from './homeData';
 import { loadActiveCourseCatalog, mergeCourseCatalog } from './canonicalCourseCatalog';
 import { createHomeLearningModel } from './homeLearningModel';
 import { BrowseCoursesSection } from './HomeSections';
+import { learnerComingSoonCourses, learnerComingSoonIds } from './learnerComingSoonCourses';
 
 export function groupLibraryCourses(courses, languages, activeLanguage, search) {
   const query = search.trim().toLowerCase();
@@ -53,8 +54,11 @@ export function LibraryPage({ onOpenCourse, anonymous = false, onRequireAuth = (
     return () => { active = false; };
   }, [anonymous, user?.id]);
   const enrollmentByCourse = useMemo(() => new Map(createHomeLearningModel({ progressRecords, publishedCourses: catalog.courses }).enrollments.map((course) => [course.id, course])), [progressRecords, catalog.courses]);
-  const languageCourses = useMemo(() => mergeCourseCatalog(browseCatalog.languages, catalog.courses).map((course) => {
-    const enrollment = enrollmentByCourse.get(course.id);
+  const languageCourses = useMemo(() => mergeCourseCatalog(
+    [...browseCatalog.languages.filter((course) => course.available !== false), ...learnerComingSoonCourses],
+    catalog.courses,
+  ).filter((course) => course.available !== false || learnerComingSoonIds.has(course.id)).map((course) => {
+    const enrollment = course.available === false ? null : enrollmentByCourse.get(course.id);
     return { ...course, enrolled: Boolean(enrollment), started: Boolean(enrollment), progress: enrollment?.progress ?? null };
   }), [enrollmentByCourse, catalog.courses]);
   const languages = useMemo(() => [...new Set(languageCourses.map((course) => course.filter))], [languageCourses]);

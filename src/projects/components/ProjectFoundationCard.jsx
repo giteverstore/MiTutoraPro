@@ -3,6 +3,7 @@ import { ContentTypeBadge } from '../../components/ContentTypeBadge';
 import { DifficultyBadge } from '../../components/DifficultyBadge';
 import { ProgressCircle } from '../../components/ProgressCircle';
 import { projectArtwork, projectDisplayDifficulty } from '../presentation/projectPresentation';
+import { projectCardLanguages } from '../presentation/projectCardLanguages';
 import '../../styles/components/card-footer.css';
 
 export function ProjectFoundationCard({ project, progress, progressPending = false, onOpen }) {
@@ -13,6 +14,7 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
   const percentage = progress?.status === 'completed' ? 100 : total ? Math.round((completed / total) * 100) : 0;
   const artwork = projectArtwork(project);
   const difficulty = projectDisplayDifficulty(project.difficulty);
+  const languages = comingSoon ? { icons: [], overflow: 0 } : projectCardLanguages(project.supportedLanguages);
   const open = () => { if (!pending && !comingSoon) onOpen(project); };
   return <article
     className={`project-card${pending ? ' is-progress-pending' : ''}${comingSoon ? ' is-coming-soon' : ''}`}
@@ -34,6 +36,10 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
       {comingSoon ? <span className="card-footer-coming-soon">Coming Soon</span>
         : pending ? <span className="project-card-progress-pending" role="status">Loading progress…</span>
           : <ProgressCircle progress={percentage} label="Project" />}
+      {languages.icons.length ? <div className="project-card-languages" aria-label="Supported languages">
+        {languages.icons.map(({ id, label, icon }) => <img key={id} src={icon} alt={label} title={label} width="16" height="16" />)}
+        {languages.overflow ? <span className="project-card-language-overflow" aria-label={`${languages.overflow} more languages`} title={`${languages.overflow} more languages`}>+{languages.overflow}</span> : null}
+      </div> : null}
       {!comingSoon ? <div className="project-card-meta card-footer-meta"><span><Clock3 aria-hidden="true" />{project.estimatedMinutes} min</span><span><Layers3 aria-hidden="true" />{total} checkpoints</span></div> : null}
     </footer>
   </article>;

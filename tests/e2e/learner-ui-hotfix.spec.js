@@ -26,7 +26,7 @@ test('Project cards and overview keep the Course rhythm at four viewport widths'
     expect(metrics.columns).toBe(columns);
     if (width > 640) expect(metrics.cardWidth).toBeLessThanOrEqual(237);
     else expect(metrics.cardWidth).toBeLessThanOrEqual(width);
-    expect(metrics.cardHeight).toBe(334);
+    expect(metrics.cardHeight).toBe(350);
     expect(metrics.overflowing).toBe(false);
     const lightSurface = await card.evaluate((node) => getComputedStyle(node).backgroundColor);
     await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
@@ -52,6 +52,13 @@ test('Course and Project footers share clear metadata and Coming Soon geometry',
     await page.goto('/library');
     const courseCard = page.locator('.library-course-card').filter({ hasText: 'Python Foundations' }).first();
     const courseSoon = page.locator('.library-course-card.is-unavailable').first();
+    const comingSoonCards = page.locator('.library-coming-soon-section .library-course-card');
+    await expect(comingSoonCards).toHaveCount(6);
+    expect(await comingSoonCards.locator('h3').allTextContents()).toEqual([
+      'C Programming', 'HTML Fundamentals for Webpage', 'CSS Fundamentals for Webpage',
+      'Build Your Web App with React', 'React Beyond Basics', 'SQL Basics',
+    ]);
+    expect(await comingSoonCards.locator('.library-course-artwork img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true);
     await expect(courseCard.locator('.library-course-meta')).toBeVisible();
     await expect(courseSoon.locator('.card-footer-coming-soon')).toBeVisible();
     await expect(courseSoon.locator('.library-course-meta, .library-course-progress')).toHaveCount(0);
@@ -85,10 +92,16 @@ test('Course and Project footers share clear metadata and Coming Soon geometry',
         metaContentRight: meta.lastElementChild.getBoundingClientRect().right,
         cardRight: node.getBoundingClientRect().right,
         circleBottom: circle?.getBoundingClientRect().bottom ?? 0,
+        languageBottom: node.querySelector('.project-card-languages')?.getBoundingClientRect().bottom ?? 0,
+        languageTop: node.querySelector('.project-card-languages')?.getBoundingClientRect().top ?? 0,
+        languageWidth: node.querySelector('.project-card-languages')?.getBoundingClientRect().width ?? 0,
       };
     });
-    expect(project.cardHeight).toBeCloseTo(course.cardHeight, 1);
+    expect(project.cardHeight).toBeCloseTo(course.cardHeight + 16, 1);
     expect(project.metaTop).toBeGreaterThanOrEqual(project.circleBottom);
+    expect(project.languageTop).toBeGreaterThanOrEqual(project.circleBottom);
+    expect(project.metaTop).toBeGreaterThanOrEqual(project.languageBottom);
+    expect(project.languageWidth).toBeGreaterThan(0);
     expect(project.metaContentRight).toBeLessThan(project.cardRight);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
   }

@@ -188,9 +188,9 @@
 .project-card {
   display: grid;
   width: min(100%, 14.8125rem);
-  height: 20.875rem;
+  height: 21.875rem;
   min-width: 0;
-  min-height: 20.875rem;
+  min-height: 21.875rem;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 7.5rem 3.75rem 1fr;
   align-items: stretch;
@@ -213,7 +213,7 @@
 }
 
 .project-card.is-progress-pending { cursor: wait; }
-.project-card.is-coming-soon { cursor: default; }
+.project-card.is-coming-soon { height: 20.875rem; min-height: 20.875rem; cursor: default; }
 .project-card.is-coming-soon:hover { border-color: var(--color-border); box-shadow: var(--shadow-sm); }
 
 .project-card-header {
@@ -287,10 +287,12 @@
 .project-card-footer {
   position: relative;
   display: block;
-  height: 5rem;
-  min-height: 5rem;
+  height: 6rem;
+  min-height: 6rem;
   margin-top: auto;
 }
+
+.project-card.is-coming-soon .project-card-footer { height: 5rem; min-height: 5rem; }
 
 .project-card-divider {
   position: absolute;
@@ -302,6 +304,21 @@
 }
 
 .project-card-progress-pending { position: absolute; top: .5rem; right: 0; padding: .2rem .35rem; color: var(--color-text-muted); background: var(--color-surface); font-size: .75rem; }
+
+.project-card-languages {
+  position: absolute;
+  top: 2.875rem;
+  left: calc(var(--space-1) * -1);
+  display: flex;
+  max-width: 100%;
+  height: 1rem;
+  align-items: center;
+  gap: .25rem;
+  white-space: nowrap;
+}
+
+.project-card-languages img { display: block; width: 1rem; height: 1rem; flex: 0 0 auto; object-fit: contain; }
+.project-card-language-overflow { display: inline-grid; width: 1rem; height: 1rem; flex: 0 0 auto; place-items: center; color: var(--color-text-muted); font-size: .625rem; font-weight: 700; }
 
 .project-overview-hero {
   position: relative;

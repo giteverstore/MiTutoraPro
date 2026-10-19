@@ -6,6 +6,7 @@ import { projectCatalog } from '../../src/projects/repositories/ProjectCatalog';
 import { ProjectFoundationCard } from '../../src/projects/components/ProjectFoundationCard';
 import { ProjectFoundationDetails } from '../../src/projects/pages/ProjectFoundationDetails';
 import { projectArtwork, projectDisplayDifficulty, sortProjectsByDifficulty } from '../../src/projects/presentation/projectPresentation';
+import { projectCardLanguages, unmappedProjectCardLanguages } from '../../src/projects/presentation/projectCardLanguages';
 
 afterEach(cleanup);
 
@@ -58,6 +59,36 @@ describe('Project presentation consistency', () => {
     expect(css).toMatch(/\.card-footer-meta span\s*\{[^}]*white-space:\s*nowrap/);
   });
 
+  it('shows canonical supported-language icons between progress and metadata', () => {
+    const project = { ...easyProject, supportedLanguages: ['python'] };
+    const { container } = render(<ProjectFoundationCard project={project} progress={progress} onOpen={vi.fn()} />);
+    const footer = container.querySelector('.project-card-footer');
+    const row = footer.querySelector('.project-card-languages');
+    expect(row.querySelectorAll('img')).toHaveLength(1);
+    expect(row.querySelector('img')).toHaveAttribute('src', '/assets/languages/python.svg');
+    expect(row.querySelector('img')).toHaveAttribute('alt', 'Python');
+    expect(row.compareDocumentPosition(footer.querySelector('.project-card-meta')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    const css = readFileSync(resolve(process.cwd(), 'src/styles/pages/projects.css'), 'utf8');
+    expect(css).toMatch(/\.project-card-languages\s*\{[^}]*white-space:\s*nowrap/);
+    expect(css).toMatch(/\.project-card-languages\s*\{[^}]*top:\s*2\.875rem/);
+    expect(css).toMatch(/\.project-card-languages img\s*\{[^}]*width:\s*1rem;[^}]*height:\s*1rem/);
+  });
+
+  it('shows seven icons, then first six plus the accurate overflow count', () => {
+    const ids = ['python', 'java', 'cpp', 'javascript', 'sql', 'go', 'rust', 'typescript', 'csharp', 'kotlin', 'swift'];
+    expect(projectCardLanguages(ids.slice(0, 7))).toMatchObject({ overflow: 0 });
+    expect(projectCardLanguages(ids.slice(0, 7)).icons.map(({ id }) => id)).toEqual(ids.slice(0, 7));
+    expect(projectCardLanguages(ids.slice(0, 8)).icons.map(({ id }) => id)).toEqual(ids.slice(0, 6));
+    expect(projectCardLanguages(ids.slice(0, 8)).overflow).toBe(2);
+    expect(projectCardLanguages(ids).icons.map(({ id }) => id)).toEqual(ids.slice(0, 6));
+    expect(projectCardLanguages(ids).overflow).toBe(5);
+    expect(unmappedProjectCardLanguages(['python', 'c'])).toEqual(['c']);
+    expect(projectCardLanguages(['python', 'c']).icons.map(({ id }) => id)).toEqual(['python']);
+    const { container } = render(<ProjectFoundationCard project={{ ...easyProject, supportedLanguages: ids }} progress={progress} onOpen={vi.fn()} />);
+    expect(container.querySelectorAll('.project-card-languages img')).toHaveLength(6);
+    expect(container.querySelector('.project-card-language-overflow')).toHaveTextContent('+5');
+  });
+
   it('preserves explicitly configured terminal artwork and does not invent initials', () => {
     expect(projectArtwork(legacyProject)).toEqual({ kind: 'terminal' });
     const { container } = render(<ProjectFoundationCard project={legacyProject} progress={progress} onOpen={() => {}} />);
@@ -88,8 +119,9 @@ describe('Project presentation consistency', () => {
     expect(css).toMatch(/max-width: 640px[\s\S]*?\.project-grid\s*\{[^}]*minmax\(0, 1fr\)/);
     expect(css).toContain('width: var(--shell-brand-mark-size)');
     expect(css).toContain('width: var(--shell-brand-mark-size)');
-    expect(css).toMatch(/\.project-card\s*\{[^}]*width:\s*min\(100%, 14\.8125rem\);[^}]*height:\s*20\.875rem/);
-    expect(css).toMatch(/\.project-card-footer\s*\{[^}]*min-height:\s*5rem/);
+    expect(css).toMatch(/\.project-card\s*\{[^}]*width:\s*min\(100%, 14\.8125rem\);[^}]*height:\s*21\.875rem/);
+    expect(css).toMatch(/\.project-card-footer\s*\{[^}]*min-height:\s*6rem/);
+    expect(css).toMatch(/\.project-card\.is-coming-soon\s*\{[^}]*height:\s*20\.875rem/);
     const workspace = readFileSync(resolve(process.cwd(), 'src/projects/pages/ProjectWorkspace.jsx'), 'utf8');
     expect(workspace).toContain('className="project-ide-brand workspace-brand-link"');
     expect(workspace).toContain('<BrandMark />');

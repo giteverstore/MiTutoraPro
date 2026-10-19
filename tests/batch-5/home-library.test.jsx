@@ -1,11 +1,13 @@
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { APP_NAVIGATION } from '../../src/app-shell/navigation';
 import { BrowseCoursesSection, ContinueLearningSection, RecentlyViewedSection } from '../../src/home/HomeSections';
 import { LibraryPage, groupLibraryCourses } from '../../src/home/LibraryPage';
 import { CourseCard } from '../../src/home/CourseCard';
 import { browseCatalog } from '../../src/home/homeData';
+import { learnerComingSoonCourses } from '../../src/home/learnerComingSoonCourses';
+import { getCourseCardArtwork } from '../../src/home/courseCardArtwork';
 import { createHomeLearningModel } from '../../src/home/homeLearningModel';
 import { createRecentCourseRepository } from '../../src/home/recentCourseRepository';
 import { parseAppRoute, routePath } from '../../src/routing/appRoutes';
@@ -24,6 +26,17 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('Home learner state', () => {
+  it('maps exactly six learner-only Coming Soon courses to existing card artwork', () => {
+    expect(learnerComingSoonCourses.map(({ title }) => title)).toEqual([
+      'C Programming', 'HTML Fundamentals for Webpage', 'CSS Fundamentals for Webpage',
+      'Build Your Web App with React', 'React Beyond Basics', 'SQL Basics',
+    ]);
+    for (const course of learnerComingSoonCourses) {
+      const artwork = getCourseCardArtwork(course.id);
+      expect(artwork).toBe(`/assets/course-cards/${course.id}.png`);
+      expect(existsSync(`public${artwork}`)).toBe(true);
+    }
+  });
   it('starts with zero enrollments and does not implicitly enroll Python', () => {
     const model = createHomeLearningModel();
     expect(model.enrollments).toEqual([]);
@@ -176,10 +189,10 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('heading', { name: 'No courses found' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Python' })).not.toBeInTheDocument();
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search courses' }), { target: { value: '' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Rust' }));
-    expect(screen.queryByRole('heading', { name: 'Rust' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'C' }));
+    expect(screen.queryByRole('heading', { name: 'C' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Coming Soon' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Rust Essentials' }).closest('article')).toHaveAttribute('aria-disabled', 'true');
+    expect(screen.getByRole('heading', { name: 'C Programming' }).closest('article')).toHaveAttribute('aria-disabled', 'true');
   });
 
   it('renders available language groups after a single Coming Soon section and preserves the normal grid', async () => {
@@ -187,7 +200,7 @@ describe('Library navigation and discovery', () => {
     await screen.findByRole('heading', { name: 'Python' });
     const chips = within(screen.getByLabelText('Course filters')).getAllByRole('button');
     expect(chips[0]).toHaveTextContent('All Courses');
-    expect(chips.slice(1).map((chip) => chip.textContent)).toEqual(browseCatalog.languages.map((course) => course.filter));
+    expect(chips.slice(1).map((chip) => chip.textContent)).toEqual(['Python', 'Java', 'C', 'HTML', 'CSS', 'React', 'SQL']);
     const sections = container.querySelectorAll('.library-language-section');
     expect(sections).toHaveLength(3);
     expect(sections[0]).toHaveClass('library-coming-soon-section');
@@ -195,6 +208,17 @@ describe('Library navigation and discovery', () => {
     expect(sections[2]).toHaveAttribute('aria-labelledby', 'library-language-java');
     expect(within(sections[0]).getByRole('region', { name: 'Coming soon courses' })).toHaveClass('library-coming-soon-strip');
     expect(within(sections[0]).getByRole('region', { name: 'Coming soon courses' })).toHaveAttribute('tabindex', '0');
+    expect([...sections[0].querySelectorAll('.library-course-card h3')].map((heading) => heading.textContent)).toEqual([
+      'C Programming', 'HTML Fundamentals for Webpage', 'CSS Fundamentals for Webpage',
+      'Build Your Web App with React', 'React Beyond Basics', 'SQL Basics',
+    ]);
+    expect(screen.queryByRole('heading', { name: 'Rust Essentials' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'C++ Essentials' })).not.toBeInTheDocument();
+    for (const card of sections[0].querySelectorAll('.library-course-card')) {
+      expect(card).toHaveAttribute('aria-disabled', 'true');
+      expect(card.querySelector('.card-footer-coming-soon')).toHaveTextContent('Coming Soon');
+      expect(card.querySelector('.library-course-meta, .library-course-progress')).not.toBeInTheDocument();
+    }
     expect(screen.queryByRole('heading', { name: 'C++' })).not.toBeInTheDocument();
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
     expect(css).toMatch(/\.library-language-course-grid \{[\s\S]*?grid-template-columns: repeat\(4, minmax\(0, 14\.8125rem\)\)/);
