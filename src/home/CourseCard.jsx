@@ -1,31 +1,10 @@
-import { useId } from 'react';
 import { ArrowRight, BookOpen, Clock3 } from 'lucide-react';
+import { ProgressCircle } from '../components/ProgressCircle';
 import { ContentTypeBadge } from '../components/ContentTypeBadge';
 import { DifficultyBadge, courseDifficultyBadge } from '../components/DifficultyBadge';
 import { getCourseCardArtwork } from './courseCardArtwork';
 
 const boundedProgress = (value) => Math.min(100, Math.max(0, Math.round(Number(value) || 0)));
-
-function LibraryProgress({ course }) {
-  const maskId = `course-progress-${useId().replaceAll(':', '')}`;
-  const progress = boundedProgress(course.progress);
-  const boundary = 100 - progress;
-  const wavePath = progress === 0
-    ? 'M0 100 H100 V100 H0 Z'
-    : progress === 100
-      ? 'M0 0 H100 V100 H0 Z'
-      : `M0 ${boundary} Q25 ${boundary - 4} 50 ${boundary} T100 ${boundary} V100 H0 Z`;
-  return <div className="library-course-progress" role="img" aria-label={`Course progress ${progress} percent`}>
-    <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-      <defs><clipPath id={maskId}><path d={wavePath} /></clipPath></defs>
-      <circle className="library-course-progress-base" cx="50" cy="50" r="48" />
-      <g clipPath={`url(#${maskId})`}><circle className="library-course-progress-fill" cx="50" cy="50" r="48" /></g>
-      <text className="library-course-progress-value" x="50" y="50">{progress}%</text>
-      <g clipPath={`url(#${maskId})`}><text className="library-course-progress-value is-contrast" x="50" y="50">{progress}%</text></g>
-      <circle className="library-course-progress-border" cx="50" cy="50" r="48" />
-    </svg>
-  </div>;
-}
 
 export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   const isList = variant === 'list';
@@ -53,7 +32,7 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
       <h3 id={`course-title-${course.id}`}>{course.title}</h3>
       <footer className="library-course-card-footer">
         <div className="library-course-divider" aria-hidden="true" />
-        {hasProgress ? <LibraryProgress course={{ ...course, progress }} /> : null}
+        {hasProgress ? <ProgressCircle progress={progress} label="Course" /> : null}
         <div className="library-course-meta">
           <span><Clock3 aria-hidden="true" />{course.duration}</span>
           <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>

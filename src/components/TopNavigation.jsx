@@ -4,8 +4,7 @@ import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { GlobalTopbarActions } from '../app-shell/GlobalTopbarActions';
-import { brandAssets } from '../branding/brandAssets.js';
-import { BrandWordmark } from '../branding/BrandWordmark.jsx';
+import { BrandMark } from '../branding/BrandMark.jsx';
 
 export function TopNavigation({
   onMenuClick,
@@ -37,9 +36,8 @@ export function TopNavigation({
   return (
     <header className="topbar">
       <div className="topbar-context">
-        <a className="lesson-topbar-brand" href="/" aria-label="Y Coders home">
-          <BrandWordmark className="lesson-topbar-wordmark" />
-          <span className="lesson-topbar-mark"><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
+        <a className="lesson-topbar-brand workspace-brand-link" href="/" aria-label="Y Coders home">
+          <BrandMark />
         </a>
         {isSidebarOverlay ? (
           <IconButton

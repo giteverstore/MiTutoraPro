@@ -3,7 +3,10 @@ import { expect, test } from '@playwright/test';
 test.skip(!process.env.COURSE_HERO_VISUAL_CHECK, 'Run explicitly with COURSE_HERO_VISUAL_CHECK=1 and the local Course source.');
 
 test('Course hero background fills its region while content stays aligned in light and dark themes', async ({ page }) => {
-  for (const width of [1440, 820, 390]) {
+  await page.route('**/api/admin-content/public/python', (route) => route.fulfill({
+    status: 404, contentType: 'application/json', body: JSON.stringify({ error: { code: 'content/not-published' } }),
+  }));
+  for (const width of [1440, 1024, 820, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/courses/python');
     await expect(page.getByRole('heading', { level: 1, name: 'Python Foundations' })).toBeVisible();
@@ -45,11 +48,11 @@ test('Course hero background fills its region while content stays aligned in lig
       expect(layout.summaryBackground).not.toBe('rgba(0, 0, 0, 0)');
       await expect(page.getByRole('button', { name: 'Dashboard' })).toHaveCount(0);
       summaryBackgrounds.push(layout.summaryBackground);
-      if (width === 1440) {
-        expect(layout.heroHeight).toBe(230);
+      if (width >= 1024) {
+        expect(layout.heroHeight).toBe(300);
         expect(layout.summaryLeft).toBeGreaterThan(layout.copyLeft);
       } else {
-        expect(layout.heroHeight).toBeGreaterThan(230);
+        expect(layout.heroHeight).toBeGreaterThan(300);
       }
       if (width === 390) await expect(page.locator('.overview-hero-metrics strong').last()).toHaveCSS('white-space', 'normal');
       await expect(page.locator('.overview-primary-action').first()).toBeVisible();

@@ -38,7 +38,9 @@ describe('Project presentation consistency', () => {
     expect(container.querySelector('.project-card-artwork')).toHaveClass('is-empty');
     expect(container.querySelector('.project-card-artwork')).toBeEmptyDOMElement();
     expect(container.querySelector('.project-card-meta')).toHaveTextContent('checkpoints');
-    expect(screen.getByRole('button', { name: 'Start Project' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Start Project' })).not.toBeInTheDocument();
+    expect(container.querySelector('.project-card-description')).not.toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
     fireEvent.keyDown(screen.getByRole('link', { name: easyProject.title }), { key: 'Enter' });
     expect(onOpen).toHaveBeenCalledWith(easyProject);
   });
@@ -62,6 +64,8 @@ describe('Project presentation consistency', () => {
     expect(screen.getByRole('progressbar', { name: 'Project progress' })).toHaveAttribute('aria-valuenow', '0');
     expect(screen.getByRole('button', { name: 'Start Project' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Back to Projects' })).not.toBeInTheDocument();
+    const css = readFileSync(resolve(process.cwd(), 'src/styles/pages/projects.css'), 'utf8');
+    expect(css).toMatch(/\.project-overview-hero\s*\{[^}]*height:\s*300px/);
   });
 
   it('keeps four/two/one card columns and the shared brand dimensions in CSS', () => {
@@ -69,7 +73,13 @@ describe('Project presentation consistency', () => {
     expect(css).toMatch(/\.project-grid\s*\{[^}]*repeat\(4, minmax\(0, 1fr\)\)/s);
     expect(css).toMatch(/max-width: 1199px[\s\S]*?\.project-grid\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/max-width: 640px[\s\S]*?\.project-grid\s*\{[^}]*minmax\(0, 1fr\)/);
-    expect(css).toContain('width: var(--shell-brand-wordmark-width)');
     expect(css).toContain('width: var(--shell-brand-mark-size)');
+    expect(css).toContain('width: var(--shell-brand-mark-size)');
+    expect(css).toMatch(/\.project-card\s*\{[^}]*width:\s*min\(100%, 14\.8125rem\);[^}]*height:\s*20\.875rem/);
+    expect(css).toMatch(/\.project-card-footer\s*\{[^}]*min-height:\s*5rem/);
+    const workspace = readFileSync(resolve(process.cwd(), 'src/projects/pages/ProjectWorkspace.jsx'), 'utf8');
+    expect(workspace).toContain('className="project-ide-brand workspace-brand-link"');
+    expect(workspace).toContain('<BrandMark />');
+    expect(workspace).not.toContain('<BrandWordmark');
   });
 });

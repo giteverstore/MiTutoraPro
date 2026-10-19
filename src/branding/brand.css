@@ -4,6 +4,21 @@
   --shell-brand-mark-size: 2.25rem;
 }
 
+.workspace-brand-link {
+  display: inline-flex;
+  width: var(--shell-brand-mark-size);
+  height: var(--shell-brand-mark-size);
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.workspace-brand-mark {
+  display: block;
+  width: var(--shell-brand-mark-size);
+  height: var(--shell-brand-mark-size);
+  object-fit: contain;
+}
+
 .brand-wordmark {
   position: relative;
   display: inline-block;

@@ -14,6 +14,7 @@ import { ErrorState } from '../../errors/ErrorState';
 import { projectDisplayDifficulty } from '../presentation/projectPresentation';
 import { learnerProjectCatalog } from '../presentation/learnerProjectCatalog';
 import { phase5Mark } from '../../performance/phase5Mark.js';
+import { resetApplicationPageScroll } from '../../routing/appRoutes';
 
 export const DEFAULT_PROJECT_FILTERS = Object.freeze({ language: 'all', category: 'all', difficulty: 'all' });
 
@@ -159,7 +160,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
         return;
       }
     }
-    setSelected(resolved); setScreen('details'); onProjectChange(resolved.id);
+    setSelected(resolved); setScreen('details'); onProjectChange(resolved.id); resetApplicationPageScroll();
   };
 
   if (!browseOnly && !cloudReady && initialProjectId) return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading your projects…</p></div>;

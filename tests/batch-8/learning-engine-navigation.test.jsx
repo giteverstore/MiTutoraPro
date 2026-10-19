@@ -44,7 +44,8 @@ describe('Learning Engine navigation alignment', () => {
     render(<TopNavigation {...values} />);
 
     expect(screen.getByRole('link', { name: 'Y Coders home' })).toHaveAttribute('href', '/');
-    expect(screen.getByRole('link', { name: 'Y Coders home' }).querySelector('.brand-wordmark')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Y Coders home' }).querySelector('.workspace-brand-mark')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Y Coders home' }).querySelector('.brand-wordmark')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Back to course overview' })).not.toBeInTheDocument();
     expect(screen.getByText('Lesson progress')).toBeInTheDocument();
     expect(screen.getByText('4 of 6')).toBeInTheDocument();

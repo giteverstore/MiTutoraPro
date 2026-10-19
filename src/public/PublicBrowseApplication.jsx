@@ -7,6 +7,7 @@ import { LandingPage } from './LandingPage';
 import { requestAuthentication } from './publicAuthNavigation';
 import { ErrorState } from '../errors/ErrorState';
 import '../styles/public-pages.css';
+import { resetApplicationPageScroll } from '../routing/appRoutes';
 
 const AuthFlow = lazyNamedExport(() => import('../components/auth/AuthFlow'), 'AuthFlow');
 const LibraryPage = lazyNamedExport(() => import('../pages/LibraryPage'), 'LibraryPage');
@@ -33,7 +34,7 @@ function PublicNotFound() {
 export function PublicBrowseApplication() {
   const [pathname, setPathname] = useState(cleanPath);
   useEffect(() => { const update = () => setPathname(cleanPath()); window.addEventListener('popstate', update); return () => window.removeEventListener('popstate', update); }, []);
-  const navigate = (next) => { window.history.pushState({ ycoders: true }, '', next); setPathname(next); };
+  const navigate = (next) => { window.history.pushState({ ycoders: true }, '', next); setPathname(next); resetApplicationPageScroll(); };
   const requireAuth = (destination) => requestAuthentication(destination, 'login');
 
   if (pathname === '/') return <LandingPage />;

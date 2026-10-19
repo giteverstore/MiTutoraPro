@@ -15,20 +15,28 @@ describe('Project card hydration', () => {
     const onOpen = vi.fn();
     const { rerender } = render(<ProjectFoundationCard project={project} progress={null} progressPending onOpen={onOpen} />);
     expect(screen.getByText('Loading progress…')).toBeInTheDocument();
-    expect(screen.queryByText(/0 \/ 2 checkpoints/)).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Loading…' })).toBeDisabled();
+    expect(screen.queryByRole('img', { name: /Project progress 0 percent/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('link', { name: /Simple Calculator/i }));
     expect(onOpen).not.toHaveBeenCalled();
 
     rerender(<ProjectFoundationCard project={project} progress={{ status: 'active', completedCheckpoints: ['checkpoint-1'] }} onOpen={onOpen} />);
-    expect(screen.getByText('1 / 2 checkpoints')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Continue Project' }));
+    expect(screen.getByRole('img', { name: 'Project progress 50 percent' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('link', { name: /Simple Calculator/i }));
     expect(onOpen).toHaveBeenCalledWith(project);
   });
 
-  it('shows Start only after a known not-started result', () => {
+  it('shows a real 0% circle only after a known not-started result', () => {
     render(<ProjectFoundationCard project={project} progress={{ status: 'not-started', completedCheckpoints: [] }} onOpen={vi.fn()} />);
-    expect(screen.getByRole('button', { name: 'Start Project' })).toBeEnabled();
+    expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByText('30 min')).toBeInTheDocument();
+    expect(screen.getByText('2 checkpoints')).toBeInTheDocument();
     expect(screen.queryByText('Loading progress…')).not.toBeInTheDocument();
+  });
+
+  it('shows 100% for a completed project', () => {
+    render(<ProjectFoundationCard project={project} progress={{ status: 'completed', completedCheckpoints: [] }} onOpen={vi.fn()} />);
+    expect(screen.getByRole('img', { name: 'Project progress 100 percent' })).toBeInTheDocument();
   });
 });

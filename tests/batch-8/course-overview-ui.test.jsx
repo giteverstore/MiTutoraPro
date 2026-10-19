@@ -136,12 +136,12 @@ describe('course overview shell and completed actions', () => {
     expect(screen.getByRole('button', { name: /Start Course/ })).toBeInTheDocument();
   });
 
-  it('uses a 230px full-bleed gradient hero with aligned inner content and stacked responsive layout', () => {
+  it('uses a 300px full-bleed gradient hero with aligned inner content and stacked responsive layout', () => {
     const css = readFileSync('src/styles/pages/dashboard.css', 'utf8');
     const gridCss = readFileSync('src/styles/hero-pointer-grid.css', 'utf8');
     const component = readFileSync('src/course-overview/CourseOverview.jsx', 'utf8');
     expect(component).toContain("import '../styles/pages/dashboard.css';");
-    expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*height:\s*230px/);
+    expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*height:\s*300px/);
     expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*width:\s*min\(100%, 86rem\);[^}]*margin-inline:\s*auto;[^}]*padding:\s*var\(--space-4\)/);
     expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.6fr\) minmax\(0, 1fr\)/);
     expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*?\.overview-hero\s*\{\s*height:\s*auto;/);

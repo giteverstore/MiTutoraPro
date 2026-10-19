@@ -1,21 +1,24 @@
 import { Clock3, Layers3, TerminalSquare } from 'lucide-react';
 import { ContentTypeBadge } from '../../components/ContentTypeBadge';
 import { DifficultyBadge } from '../../components/DifficultyBadge';
-import { getProjectRuntime } from '../runtime/projectRuntimeRegistry';
+import { ProgressCircle } from '../../components/ProgressCircle';
 import { projectArtwork, projectDisplayDifficulty } from '../presentation/projectPresentation';
 
 export function ProjectFoundationCard({ project, progress, progressPending = false, onOpen }) {
   const comingSoon = project.comingSoon === true;
-  const completed = progress?.completedCheckpoints?.length ?? 0;
+  const pending = !comingSoon && (progressPending || !progress);
+  const total = project.checkpoints.length;
+  const completed = Math.min(total, progress?.completedCheckpoints?.length ?? 0);
+  const percentage = progress?.status === 'completed' ? 100 : total ? Math.round((completed / total) * 100) : 0;
   const artwork = projectArtwork(project);
   const difficulty = projectDisplayDifficulty(project.difficulty);
-  const open = () => { if (!progressPending && !comingSoon) onOpen(project); };
+  const open = () => { if (!pending && !comingSoon) onOpen(project); };
   return <article
-    className={`project-card${comingSoon ? ' is-coming-soon' : ''}`}
+    className={`project-card${pending ? ' is-progress-pending' : ''}${comingSoon ? ' is-coming-soon' : ''}`}
     aria-labelledby={`project-card-title-${project.id}`}
     role={comingSoon ? undefined : 'link'}
-    aria-disabled={comingSoon || progressPending || undefined}
-    tabIndex={comingSoon || progressPending ? undefined : 0}
+    aria-disabled={comingSoon || pending || undefined}
+    tabIndex={comingSoon || pending ? undefined : 0}
     onClick={(event) => { if (!event.target.closest('button, a')) open(); }}
     onKeyDown={(event) => { if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('button, a')) { event.preventDefault(); open(); } }}
   >
@@ -25,16 +28,12 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
       {artwork?.kind === 'terminal' ? <TerminalSquare /> : null}
     </div>
     <h3 id={`project-card-title-${project.id}`}>{project.title}</h3>
-    <p className="project-card-description">{project.description}</p>
-    <div className="project-card-languages" aria-label="Supported languages">{project.supportedLanguages.map((id) => <small key={id}>{getProjectRuntime(id).displayName}</small>)}</div>
-    {!comingSoon && (progressPending ? <p className="project-card-progress" role="status">Loading progress…</p>
-      : progress.status !== 'not-started' ? <p className="project-card-progress">{completed} / {project.checkpoints.length} checkpoints</p> : null)}
     <footer className="project-card-footer">
       <div className="project-card-divider" aria-hidden="true" />
-      {comingSoon ? <span className="project-card-coming-soon">Coming Soon</span> : <>
-        <div className="project-card-meta"><span><Clock3 aria-hidden="true" />{project.estimatedMinutes} min</span><span><Layers3 aria-hidden="true" />{project.checkpoints.length} checkpoints</span></div>
-        <button className="project-card-action" type="button" onClick={open} disabled={progressPending}>{progressPending ? 'Loading…' : progress.status === 'completed' ? 'Review Project' : progress.status === 'active' ? 'Continue Project' : 'Start Project'}</button>
-      </>}
+      {comingSoon ? <span className="project-card-coming-soon">Coming Soon</span>
+        : pending ? <span className="project-card-progress-pending" role="status">Loading progress…</span>
+          : <ProgressCircle progress={percentage} label="Project" />}
+      {!comingSoon ? <div className="project-card-meta"><span><Clock3 aria-hidden="true" />{project.estimatedMinutes} min</span><span><Layers3 aria-hidden="true" />{total} checkpoints</span></div> : null}
     </footer>
   </article>;
 }

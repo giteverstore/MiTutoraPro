@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { parseAppRoute, routePage, routePath } from '../../src/routing/appRoutes';
+import { describe, expect, it, vi } from 'vitest';
+import { parseAppRoute, routePage, routePath, resetApplicationPageScroll, writeAppRoute } from '../../src/routing/appRoutes';
 import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
 import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
@@ -65,6 +65,46 @@ describe('application URL adapter', () => {
     expect(routePage({ kind: 'practice-question', questionId: 'fund-variables-001' })).toBe('practice');
     expect(routePage({ kind: 'challenge-daily', date: '2026-09-13' })).toBe('challenges');
     expect(routePage({ kind: 'page', page: 'settings' })).toBe('settings');
+  });
+
+  it('resets only the AppShell page on a push route, leaving internal scroll regions alone', () => {
+    const original = window.location.pathname;
+    window.history.replaceState({}, '', '/');
+    const page = document.createElement('main');
+    page.id = 'application-page';
+    page.scrollTop = 180;
+    const editor = document.createElement('div');
+    editor.scrollTop = 90;
+    page.append(editor);
+    document.body.append(page);
+    const scrollTo = vi.fn(({ top }) => { page.scrollTop = top; });
+    page.scrollTo = scrollTo;
+    try {
+      writeAppRoute({ kind: 'page', page: 'library' });
+      expect(page.scrollTop).toBe(0);
+      expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'instant' });
+      expect(editor.scrollTop).toBe(90);
+      page.scrollTop = 175;
+      writeAppRoute({ kind: 'page', page: 'library' });
+      expect(page.scrollTop).toBe(175);
+      writeAppRoute({ kind: 'page', page: 'home' }, { replace: true });
+      expect(page.scrollTop).toBe(175);
+      resetApplicationPageScroll();
+      expect(page.scrollTop).toBe(0);
+    } finally {
+      page.remove();
+      window.history.replaceState({}, '', original);
+    }
+  });
+
+  it('uses the window scroll only when no AppShell page exists', () => {
+    const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    try {
+      resetApplicationPageScroll();
+      expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'instant' });
+    } finally {
+      scrollTo.mockRestore();
+    }
   });
 });
 

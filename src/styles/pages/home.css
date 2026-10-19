@@ -1373,18 +1373,6 @@
 
 .library-course-divider { position: absolute; top: 1.25rem; right: calc(-1 * var(--space-3)); left: calc(-1 * var(--space-3)); height: 1px; background: var(--color-border); }
 
-.library-course-progress {
-  position: absolute;
-  top: -0.3125rem;
-  right: 0;
-  width: 3.125rem;
-  height: 3.125rem;
-  align-self: end;
-  padding: .15rem;
-  background: var(--color-surface);
-  border-radius: var(--radius-full);
-}
-
 .library-course-card-footer .library-course-meta { min-height: 100%; align-items: center; padding-top: .625rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .75rem; }
 .library-course-card:not(.course-card--has-progress) .library-course-card-footer { min-height: 3.75rem; }
 .library-course-coming-soon { position: absolute; top: .9rem; left: 0; color: var(--color-text-muted); font-size: .75rem; font-weight: 700; }
@@ -1400,39 +1388,6 @@
   .home-dashboard-grid .home-continue { grid-area: continue; }
   .home-dashboard-grid .home-recent { grid-area: recent; }
   .home-dashboard-grid .challenge-calendar-card { grid-area: calendar; }
-}
-
-.library-course-progress svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.library-course-progress-base {
-  fill: var(--color-surface-subtle);
-}
-
-.library-course-progress-fill {
-  fill: var(--color-accent);
-}
-
-.library-course-progress-border {
-  fill: none;
-  stroke: color-mix(in srgb, var(--color-border-strong) 72%, transparent);
-  stroke-width: 2;
-}
-
-.library-course-progress-value {
-  fill: var(--color-text);
-  font-size: 1.625rem;
-  font-weight: var(--font-weight-bold);
-  line-height: 1;
-  text-anchor: middle;
-  dominant-baseline: central;
-}
-
-.library-course-progress-value.is-contrast {
-  fill: var(--color-text-on-accent);
 }
 
 .home-course-empty {

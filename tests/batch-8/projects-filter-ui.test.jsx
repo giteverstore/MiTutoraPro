@@ -56,16 +56,17 @@ describe('Projects filter cleanup', () => {
     expect(projectResultsHeading('all')).toBe('Projects');
   });
 
-  it('preserves existing project actions', async () => {
+  it('opens an overview from the whole project card', async () => {
     await renderCatalog();
-    fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
+    fireEvent.click(screen.getAllByRole('link', { name: /Simple Calculator/ })[0]);
     expect(screen.getByRole('button', { name: /Start Project/ })).toBeInTheDocument();
   });
 
   it('keeps project cards and overview available without Premium access', async () => {
     await renderCatalog();
-    expect(screen.getAllByRole('button', { name: /Start Project/ })).toHaveLength(1);
-    fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
+    expect(screen.getAllByRole('link')).toHaveLength(1);
+    expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
+    fireEvent.click(screen.getAllByRole('link', { name: /Simple Calculator/ })[0]);
     expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
     expect(screen.queryByText('Premium required')).not.toBeInTheDocument();
   });

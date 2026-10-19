@@ -210,7 +210,8 @@ describe('Library navigation and discovery', () => {
     expect(screen.getByRole('heading', { name: 'Java' }).querySelector('img')).toHaveAttribute('src', '/assets/languages/java.svg');
     expect(screen.queryByRole('heading', { name: 'SQL' })).not.toBeInTheDocument();
     expect(css).toMatch(/\.library-language-logo \{[\s\S]*?object-fit: contain/);
-    expect(css).toMatch(/\.library-course-progress-value \{[\s\S]*?font-size: 1\.625rem;[\s\S]*?line-height: 1/);
+    const progressCss = readFileSync('src/styles/components/progress-circle.css', 'utf8');
+    expect(progressCss).toMatch(/\.library-course-progress-value \{[\s\S]*?font-size: 1\.625rem;[\s\S]*?line-height: 1/);
     expect(css).toMatch(/\.library-course-card>h3 \{[\s\S]*?-webkit-line-clamp: 2/);
   });
 
@@ -316,8 +317,9 @@ describe('Library navigation and discovery', () => {
 
   it('keeps the progress circle on the divider and centers 12px metadata below it', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
+    const progressCss = readFileSync('src/styles/components/progress-circle.css', 'utf8');
     expect(css).toMatch(/\.library-course-divider\s*\{[^}]*top:\s*1\.25rem/);
-    expect(css).toMatch(/\.library-course-progress\s*\{[^}]*top:\s*-0\.3125rem;[^}]*width:\s*3\.125rem;[^}]*height:\s*3\.125rem/);
+    expect(progressCss).toMatch(/\.library-course-progress\s*\{[^}]*top:\s*-0\.3125rem;[^}]*width:\s*3\.125rem;[^}]*height:\s*3\.125rem/);
     expect(css).toMatch(/\.library-course-card-footer \.library-course-meta\s*\{[^}]*align-items:\s*center;[^}]*padding-top:\s*\.625rem;[^}]*font-size:\s*\.75rem/);
     expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/\.home-dashboard-grid \.home-recent\s*\{\s*grid-area:\s*recent/);

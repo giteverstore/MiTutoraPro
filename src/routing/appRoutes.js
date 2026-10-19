@@ -53,7 +53,20 @@ export function routePage(route) {
   return 'home';
 }
 
+export function resetApplicationPageScroll() {
+  const page = document.getElementById('application-page');
+  if (page) {
+    if (typeof page.scrollTo === 'function') page.scrollTo({ top: 0, behavior: 'instant' });
+    else page.scrollTop = 0;
+  } else if (typeof window.scrollTo === 'function') {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+}
+
 export function writeAppRoute(route, { replace = false } = {}) {
   const next = routePath(route);
-  if (window.location.pathname !== next) window.history[replace ? 'replaceState' : 'pushState']({ mitutora: true }, '', next);
+  if (window.location.pathname !== next) {
+    window.history[replace ? 'replaceState' : 'pushState']({ mitutora: true }, '', next);
+    if (!replace) resetApplicationPageScroll();
+  }
 }

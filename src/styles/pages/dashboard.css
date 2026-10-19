@@ -2077,7 +2077,7 @@
 .overview-hero {
   display: grid;
   width: 100%;
-  height: 230px;
+  height: 300px;
   overflow: hidden;
   color: #fff;
   background: linear-gradient(to bottom, var(--color-accent) 0%, color-mix(in srgb, var(--color-accent) 48%, #05070b) 58%, #05070b 100%);

@@ -99,9 +99,9 @@ for (const pinned of [false, true]) {
       await capture(page, `${pinned ? 'pinned' : 'new'} projects ${pass}`,
         () => page.getByRole('button', { name: 'Projects', exact: true }).first().click(),
         () => expect(page.locator('.project-card').first()).toBeVisible(),
-        () => expect(page.locator('.project-card-action:disabled')).toHaveCount(0));
+        () => expect(page.locator('.project-card.is-coming-soon')).toHaveCount(4));
       if (pinned) {
-        await expect(page.locator('.project-card').filter({ hasText: 'Simple Calculator' }).getByRole('button', { name: 'Continue Project' })).toBeVisible();
+        await expect(page.locator('.project-card').filter({ hasText: 'Simple Calculator' }).getByRole('img', { name: /Project progress \d+ percent/ })).toBeVisible();
         await expect(page.locator('.project-card').filter({ hasText: 'Number Guessing Game' })).toHaveCount(0);
       }
       await page.locator('.project-card').filter({ hasText: 'Simple Calculator' }).click();
