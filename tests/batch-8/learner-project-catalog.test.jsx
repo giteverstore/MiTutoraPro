@@ -29,7 +29,7 @@ describe('learner Project catalog presentation', () => {
   it('maps six exact artworks to shipped files with no initial fallback', () => {
     const cards = learnerProjectCatalog(projectCatalog.getProjects(), [bingo]);
     for (const card of cards) {
-      expect(card.artwork).toBe(`/assets/projects/${card.id}.png`);
+      expect(card.artwork).toBe(`/assets/projects/${card.id}.webp`);
       expect(statSync(`public${card.artwork}`).size).toBeGreaterThan(1000);
     }
     expect(readFileSync('src/styles/pages/projects.css', 'utf8')).toMatch(/\.project-card-artwork img\s*\{[^}]*object-fit:\s*contain/s);

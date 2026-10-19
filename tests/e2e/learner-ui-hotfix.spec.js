@@ -58,7 +58,10 @@ test('Course and Project footers share clear metadata and Coming Soon geometry',
       'C Programming', 'HTML Fundamentals for Webpage', 'CSS Fundamentals for Webpage',
       'Build Your Web App with React', 'React Beyond Basics', 'SQL Basics',
     ]);
-    expect(await comingSoonCards.locator('.library-course-artwork img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true);
+    for (const image of await comingSoonCards.locator('.library-course-artwork img').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate((node) => node.complete && node.naturalWidth > 0)).toBe(true);
+    }
     await expect(courseCard.locator('.library-course-meta')).toBeVisible();
     await expect(courseSoon.locator('.card-footer-coming-soon')).toBeVisible();
     await expect(courseSoon.locator('.library-course-meta, .library-course-progress')).toHaveCount(0);

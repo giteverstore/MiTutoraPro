@@ -29,7 +29,7 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
         {difficulty ? <DifficultyBadge difficulty={difficulty} /> : null}
       </header>
       <div className={`library-course-artwork${artwork ? '' : ' is-empty'}`} aria-hidden="true">
-        {artwork ? <img src={artwork} alt="" /> : null}
+        {artwork ? <img src={artwork} alt="" loading="lazy" decoding="async" /> : null}
       </div>
       <h3 id={`course-title-${course.id}`}>{course.title}</h3>
       <footer className="library-course-card-footer">
@@ -52,7 +52,7 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
       data-tone={tone}
     >
       <div className="home-course-visual" aria-hidden="true">
-        {artwork ? <img src={artwork} alt="" /> : null}
+        {artwork ? <img src={artwork} alt="" loading="lazy" decoding="async" /> : null}
         {course.badge ? <small>{course.badge}</small> : null}
       </div>
       <div className="home-course-body">

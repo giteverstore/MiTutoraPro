@@ -33,7 +33,7 @@ describe('Home learner state', () => {
     ]);
     for (const course of learnerComingSoonCourses) {
       const artwork = getCourseCardArtwork(course.id);
-      expect(artwork).toBe(`/assets/course-cards/${course.id}.png`);
+      expect(artwork).toBe(`/assets/course-cards/${course.id}.webp`);
       expect(existsSync(`public${artwork}`)).toBe(true);
     }
   });
@@ -380,13 +380,14 @@ describe('Library navigation and discovery', () => {
 
   it('uses only matched supplied Course artwork and leaves other cards free of letter placeholders', () => {
     for (const [id, path] of [
-      ['python', '/assets/course-cards/python-basics.png'],
-      ['java', '/assets/course-cards/java-basics.png'],
-      ['practical-git-and-github', '/assets/course-cards/git.png'],
-      ['ai-prompt-tutorial', '/assets/course-cards/ai-prompt-tutorial.png'],
+      ['python', '/assets/course-cards/python-basics.webp'],
+      ['java', '/assets/course-cards/java-basics.webp'],
+      ['practical-git-and-github', '/assets/course-cards/git.webp'],
+      ['ai-prompt-tutorial', '/assets/course-cards/ai-prompt-tutorial.webp'],
     ]) {
       const { container, unmount } = render(<CourseCard course={{ id, title: id, duration: '1h', lessonCount: 1, available: true }} onOpenCourse={vi.fn()} variant="list" />);
       expect(container.querySelector('.library-course-artwork img')).toHaveAttribute('src', path);
+      expect(container.querySelector('.library-course-artwork img')).toHaveAttribute('loading', 'lazy');
       unmount();
     }
     const { container } = render(<CourseCard course={{ id: 'languages-cplusplus', title: 'C++ Essentials', filter: 'C++', duration: '1h', lessonCount: 1, available: false }} onOpenCourse={vi.fn()} variant="list" />);

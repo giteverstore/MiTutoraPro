@@ -27,7 +27,7 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
   >
     <header className="project-card-header"><ContentTypeBadge type="Project" />{difficulty ? <DifficultyBadge difficulty={difficulty} /> : null}</header>
     <div className={`project-card-artwork${artwork ? '' : ' is-empty'}`} aria-hidden="true">
-      {artwork?.kind === 'image' ? <img src={artwork.src} alt="" /> : null}
+      {artwork?.kind === 'image' ? <img src={artwork.src} alt="" loading="lazy" decoding="async" /> : null}
       {artwork?.kind === 'terminal' ? <TerminalSquare /> : null}
     </div>
     <h3 id={`project-card-title-${project.id}`}>{project.title}</h3>

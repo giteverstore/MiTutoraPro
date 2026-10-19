@@ -359,7 +359,7 @@ function LandingPageContent() {
     <LandingCoursesShowcase />
     <LandingFeatureShowcase />
     <section className="landing-split landing-practice"><div><h2>Practice What<br />You Learn.</h2><p>Browse coding questions by topic and difficulty, then sign in when you are ready to run solutions and track completion.</p><a className="button button--primary" href="/practice">Explore Practice <ArrowRight /></a></div><LandingPracticeShowcase /></section>
-    <section className="landing-projects"><div className="landing-project-illustration"><img src="/assets/landing/project-building-illustration.png" alt="Developer building a web project across multiple screens" /></div><div className="landing-section-copy"><h2>Don’t Just Learn. Build Something Real.</h2><p>Build hands-on projects, explore in-demand technologies, and gain job-ready skills with Y Coders.</p><LandingProjectFeatures /><a className="button button--primary" href="/projects">Explore Projects <ArrowRight /></a></div></section>
+    <section className="landing-projects"><div className="landing-project-illustration"><img src="/assets/landing/project-building-illustration.png" alt="Developer building a web project across multiple screens" loading="lazy" decoding="async" /></div><div className="landing-section-copy"><h2>Don’t Just Learn. Build Something Real.</h2><p>Build hands-on projects, explore in-demand technologies, and gain job-ready skills with Y Coders.</p><LandingProjectFeatures /><a className="button button--primary" href="/projects">Explore Projects <ArrowRight /></a></div></section>
     <section className="landing-mentor" aria-labelledby="landing-mentor-title">
       <div className="landing-mentor-copy">
         <h2 id="landing-mentor-title">Stuck on Code? Ask Your AI Mentor.</h2>
@@ -376,7 +376,7 @@ function LandingPageContent() {
         <button className="button button--primary" type="button" onClick={() => requestAuthentication('/practice', 'login')}>Ask AI Mentor <ArrowRight /></button>
       </div>
       <div className="landing-mentor-illustration">
-        <img src="/assets/landing/friendly-robot-and-teen-coding-together.png" alt="Friendly robot and teen coding together" />
+        <img src="/assets/landing/friendly-robot-and-teen-coding-together.webp" alt="Friendly robot and teen coding together" loading="lazy" decoding="async" />
       </div>
     </section>
     <section className="landing-how" id="how-it-works" aria-labelledby="landing-how-title">
@@ -397,7 +397,7 @@ function LandingPageContent() {
           <path className="landing-final-cta-wave-rear" d="M0 58 C250 80 350 284 720 280 C1090 276 1190 80 1440 58 L1440 320 L0 320 Z" />
           <path className="landing-final-cta-wave-front" d="M0 92 C260 112 390 315 720 300 C1050 285 1180 112 1440 92 L1440 320 L0 320 Z" />
         </svg>
-        <img className="landing-final-cta-character" src="/assets/landing/final-cta-characters.png" alt="" />
+        <img className="landing-final-cta-character" src="/assets/landing/final-cta-characters.png" alt="" loading="lazy" decoding="async" />
       </div>
     </section>
   </main><PublicFooter /></div>;

@@ -1,11 +1,11 @@
 // Learner catalog visibility only. Canonical and bundled Project records remain unchanged.
 const artwork = Object.freeze({
-  bingo: '/assets/projects/bingo.png',
-  'simple-calculator': '/assets/projects/simple-calculator.png',
-  blackjack: '/assets/projects/blackjack.png',
-  hangman: '/assets/projects/hangman.png',
-  'stone-paper-scissors': '/assets/projects/stone-paper-scissors.png',
-  'currency-converter': '/assets/projects/currency-converter.png',
+  bingo: '/assets/projects/bingo.webp',
+  'simple-calculator': '/assets/projects/simple-calculator.webp',
+  blackjack: '/assets/projects/blackjack.webp',
+  hangman: '/assets/projects/hangman.webp',
+  'stone-paper-scissors': '/assets/projects/stone-paper-scissors.webp',
+  'currency-converter': '/assets/projects/currency-converter.webp',
 });
 
 const upcoming = Object.freeze([

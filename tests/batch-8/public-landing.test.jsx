@@ -82,7 +82,8 @@ describe('public Y Coders landing page', () => {
     for (const removedEyebrow of ['Structured paths', 'Practice', 'Real-World Projects', 'Your AI Coding Mentor', 'How It Works']) {
       expect(screen.queryByText(removedEyebrow, { selector: '.landing-eyebrow, .landing-mentor-eyebrow' })).not.toBeInTheDocument();
     }
-    expect(screen.getByRole('img', { name: 'Friendly robot and teen coding together' })).toHaveAttribute('src', '/assets/landing/friendly-robot-and-teen-coding-together.png');
+    expect(screen.getByRole('img', { name: 'Friendly robot and teen coding together' })).toHaveAttribute('src', '/assets/landing/friendly-robot-and-teen-coding-together.webp');
+    expect(screen.getByRole('img', { name: 'Friendly robot and teen coding together' })).toHaveAttribute('loading', 'lazy');
     expect(screen.getByRole('heading', { level: 3, name: 'How It Works' })).toBeVisible();
     expect(container.querySelectorAll('.landing-mentor-steps > li')).toHaveLength(3);
     expect(container.querySelector('.app-shell')).not.toBeInTheDocument();
