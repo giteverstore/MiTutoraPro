@@ -52,6 +52,8 @@ describe('minimal canonical Course learner release', () => {
     const card = screen.getByRole('heading', { name: 'Untitled Course' }).closest('article');
     expect(card).toHaveAttribute('aria-disabled', 'true');
     expect(card).toHaveTextContent('Coming Soon');
+    expect(card.querySelector('.library-course-card-footer')).toHaveTextContent('Coming Soon');
+    expect(card.querySelector('.library-course-meta, .library-course-progress')).toBeNull();
     fireEvent.click(card);
     expect(open).not.toHaveBeenCalled();
   });

@@ -3,25 +3,27 @@ import { ProgressCircle } from '../components/ProgressCircle';
 import { ContentTypeBadge } from '../components/ContentTypeBadge';
 import { DifficultyBadge, courseDifficultyBadge } from '../components/DifficultyBadge';
 import { getCourseCardArtwork } from './courseCardArtwork';
+import '../styles/components/card-footer.css';
 
 const boundedProgress = (value) => Math.min(100, Math.max(0, Math.round(Number(value) || 0)));
 
 export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
   const isList = variant === 'list';
+  const comingSoon = course.available === false;
   const progress = boundedProgress(course.progress);
-  const hasProgress = course.started === true;
+  const hasProgress = !comingSoon && course.started === true;
   const tone = [...course.id].reduce((total, character) => total + character.charCodeAt(0), 0) % 5;
   const artwork = getCourseCardArtwork(course.id);
   const difficulty = courseDifficultyBadge(course.difficulty ?? course.level);
-  const openCard = () => { if (course.available !== false) onOpenCourse(course.id); };
+  const openCard = () => { if (!comingSoon) onOpenCourse(course.id); };
   const handleKeyDown = (event) => {
-    if (event.target.closest('button, a') || course.available === false || (event.key !== 'Enter' && event.key !== ' ')) return;
+    if (event.target.closest('button, a') || comingSoon || (event.key !== 'Enter' && event.key !== ' ')) return;
     event.preventDefault();
     openCard();
   };
 
   if (isList) return (
-    <article className={`home-course-card is-list library-course-card${hasProgress ? ' course-card--has-progress' : ''}${course.available === false ? ' is-unavailable' : ''}`} aria-labelledby={`course-title-${course.id}`} data-tone={tone} role={course.available === false ? undefined : 'link'} tabIndex={course.available === false ? undefined : 0} aria-disabled={course.available === false ? 'true' : undefined} onClick={(event) => { if (!event.target.closest('button, a')) openCard(); }} onKeyDown={handleKeyDown}>
+    <article className={`home-course-card is-list library-course-card${hasProgress ? ' course-card--has-progress' : ''}${comingSoon ? ' is-unavailable' : ''}`} aria-labelledby={`course-title-${course.id}`} data-tone={tone} role={comingSoon ? undefined : 'link'} tabIndex={comingSoon ? undefined : 0} aria-disabled={comingSoon ? 'true' : undefined} onClick={(event) => { if (!event.target.closest('button, a')) openCard(); }} onKeyDown={handleKeyDown}>
       <header className="library-course-card-header">
         <ContentTypeBadge type="Course" />
         {difficulty ? <DifficultyBadge difficulty={difficulty} /> : null}
@@ -32,12 +34,13 @@ export function CourseCard({ course, onOpenCourse, variant = 'card' }) {
       <h3 id={`course-title-${course.id}`}>{course.title}</h3>
       <footer className="library-course-card-footer">
         <div className="library-course-divider" aria-hidden="true" />
-        {hasProgress ? <ProgressCircle progress={progress} label="Course" /> : null}
-        <div className="library-course-meta">
-          <span><Clock3 aria-hidden="true" />{course.duration}</span>
-          <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>
-        </div>
-        {course.available === false ? <span className="library-course-coming-soon">Coming Soon</span> : null}
+        {comingSoon ? <span className="card-footer-coming-soon">Coming Soon</span> : <>
+          {hasProgress ? <ProgressCircle progress={progress} label="Course" /> : null}
+          <div className="library-course-meta card-footer-meta">
+            <span><Clock3 aria-hidden="true" />{course.duration}</span>
+            <span><BookOpen aria-hidden="true" />{course.lessonCount} lessons</span>
+          </div>
+        </>}
       </footer>
     </article>
   );

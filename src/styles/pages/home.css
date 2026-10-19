@@ -1343,39 +1343,16 @@
   -webkit-line-clamp: 2;
 }
 
-.library-course-meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: var(--space-2) var(--space-3);
-  color: var(--color-text);
-  font-size: .875rem;
-}
-
-.library-course-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  white-space: nowrap;
-}
-
-.library-course-meta svg {
-  width: var(--icon-xs);
-  height: var(--icon-xs);
-}
-
 .library-course-card-footer {
   position: relative;
   display: block;
+  height: 5rem;
   min-height: 5rem;
   margin-top: auto;
 }
 
 .library-course-divider { position: absolute; top: 1.25rem; right: calc(-1 * var(--space-3)); left: calc(-1 * var(--space-3)); height: 1px; background: var(--color-border); }
 
-.library-course-card-footer .library-course-meta { min-height: 100%; align-items: center; padding-top: .625rem; padding-right: 0; flex-wrap: nowrap; gap: var(--space-2); font-size: .75rem; }
-.library-course-card:not(.course-card--has-progress) .library-course-card-footer { min-height: 3.75rem; }
-.library-course-coming-soon { position: absolute; top: .9rem; left: 0; color: var(--color-text-muted); font-size: .75rem; font-weight: 700; }
 .home-recent-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); justify-content: start; }
 
 @media (min-width: 1360px) {

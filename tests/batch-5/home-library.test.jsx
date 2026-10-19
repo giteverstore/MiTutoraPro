@@ -315,14 +315,43 @@ describe('Library navigation and discovery', () => {
     expect(container.querySelectorAll('.library-course-card-header .difficulty-badge')).toHaveLength(1);
   });
 
-  it('keeps the progress circle on the divider and centers 12px metadata below it', () => {
+  it('keeps the progress circle on the divider and shares 40px, 12px footer metadata', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
     const progressCss = readFileSync('src/styles/components/progress-circle.css', 'utf8');
+    const footerCss = readFileSync('src/styles/components/card-footer.css', 'utf8');
     expect(css).toMatch(/\.library-course-divider\s*\{[^}]*top:\s*1\.25rem/);
     expect(progressCss).toMatch(/\.library-course-progress\s*\{[^}]*top:\s*-0\.3125rem;[^}]*width:\s*3\.125rem;[^}]*height:\s*3\.125rem/);
-    expect(css).toMatch(/\.library-course-card-footer \.library-course-meta\s*\{[^}]*align-items:\s*center;[^}]*padding-top:\s*\.625rem;[^}]*font-size:\s*\.75rem/);
+    expect(footerCss).toMatch(/\.card-footer-meta\s*\{[^}]*justify-content:\s*flex-start;[^}]*flex-wrap:\s*nowrap;[^}]*gap:\s*var\(--space-2\);[^}]*padding-top:\s*2\.5rem;[^}]*font-size:\s*\.75rem/);
+    expect(footerCss).toMatch(/\.card-footer-meta svg\s*\{[^}]*width:\s*var\(--icon-xs\);[^}]*height:\s*var\(--icon-xs\)/);
     expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/\.home-dashboard-grid \.home-recent\s*\{\s*grid-area:\s*recent/);
+  });
+
+  it('renders a footer-only, non-interactive Coming Soon Course even with stale progress data', () => {
+    const open = vi.fn();
+    const course = { id: 'languages-cplusplus', title: 'C++ Essentials', duration: '12h', lessonCount: 18, available: false, started: true, progress: 35 };
+    const { container } = render(<CourseCard course={course} onOpenCourse={open} variant="list" />);
+    const card = container.querySelector('.library-course-card');
+    const footer = card.querySelector('.library-course-card-footer');
+    expect(footer).toHaveTextContent('Coming Soon');
+    expect(footer.querySelector('.card-footer-coming-soon')).toBeInTheDocument();
+    expect(footer.querySelector('.library-course-meta, .library-course-progress, button')).toBeNull();
+    expect(footer).not.toHaveTextContent('12h');
+    expect(footer).not.toHaveTextContent('18 lessons');
+    expect(card).not.toHaveAttribute('role', 'link');
+    expect(card).not.toHaveAttribute('tabindex');
+    fireEvent.click(card);
+    fireEvent.keyDown(card, { key: 'Enter' });
+    expect(open).not.toHaveBeenCalled();
+  });
+
+  it('retains metadata and progress for an available Course card', () => {
+    const course = { id: 'python', title: 'Python Foundations', duration: '12h', lessonCount: 18, available: true, started: true, progress: 35 };
+    const { container } = render(<CourseCard course={course} onOpenCourse={vi.fn()} variant="list" />);
+    const footer = container.querySelector('.library-course-card-footer');
+    expect(footer.querySelector('.library-course-meta.card-footer-meta')).toHaveTextContent('12h18 lessons');
+    expect(screen.getByRole('img', { name: 'Course progress 35 percent' })).toBeInTheDocument();
+    expect(footer.querySelector('.card-footer-coming-soon')).toBeNull();
   });
 
   it('uses only matched supplied Course artwork and leaves other cards free of letter placeholders', () => {

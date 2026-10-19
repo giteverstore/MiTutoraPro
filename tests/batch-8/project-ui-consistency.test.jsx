@@ -38,11 +38,24 @@ describe('Project presentation consistency', () => {
     expect(container.querySelector('.project-card-artwork')).toHaveClass('is-empty');
     expect(container.querySelector('.project-card-artwork')).toBeEmptyDOMElement();
     expect(container.querySelector('.project-card-meta')).toHaveTextContent('checkpoints');
+    expect(container.querySelector('.project-card-meta')).toHaveClass('card-footer-meta');
     expect(screen.queryByRole('button', { name: 'Start Project' })).not.toBeInTheDocument();
     expect(container.querySelector('.project-card-description')).not.toBeInTheDocument();
     expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
     fireEvent.keyDown(screen.getByRole('link', { name: easyProject.title }), { key: 'Enter' });
     expect(onOpen).toHaveBeenCalledWith(easyProject);
+  });
+
+  it('uses the shared Course footer geometry without clipping Project metadata', () => {
+    const project = { ...easyProject, estimatedMinutes: 600, checkpoints: Array.from({ length: 8 }, (_, index) => ({ id: `checkpoint-${index + 1}` })) };
+    const { container } = render(<ProjectFoundationCard project={project} progress={progress} onOpen={vi.fn()} />);
+    const footer = container.querySelector('.project-card-footer');
+    expect(footer.querySelector('.project-card-meta.card-footer-meta')).toHaveTextContent('600 min');
+    expect(footer.querySelector('.project-card-meta')).toHaveTextContent(`${project.checkpoints.length} checkpoints`);
+    expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
+    const css = readFileSync(resolve(process.cwd(), 'src/styles/components/card-footer.css'), 'utf8');
+    expect(css).toMatch(/\.card-footer-meta\s*\{[^}]*padding-top:\s*2\.5rem/);
+    expect(css).toMatch(/\.card-footer-meta span\s*\{[^}]*white-space:\s*nowrap/);
   });
 
   it('preserves explicitly configured terminal artwork and does not invent initials', () => {

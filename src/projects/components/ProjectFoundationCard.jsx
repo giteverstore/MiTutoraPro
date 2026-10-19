@@ -3,6 +3,7 @@ import { ContentTypeBadge } from '../../components/ContentTypeBadge';
 import { DifficultyBadge } from '../../components/DifficultyBadge';
 import { ProgressCircle } from '../../components/ProgressCircle';
 import { projectArtwork, projectDisplayDifficulty } from '../presentation/projectPresentation';
+import '../../styles/components/card-footer.css';
 
 export function ProjectFoundationCard({ project, progress, progressPending = false, onOpen }) {
   const comingSoon = project.comingSoon === true;
@@ -30,10 +31,10 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
     <h3 id={`project-card-title-${project.id}`}>{project.title}</h3>
     <footer className="project-card-footer">
       <div className="project-card-divider" aria-hidden="true" />
-      {comingSoon ? <span className="project-card-coming-soon">Coming Soon</span>
+      {comingSoon ? <span className="card-footer-coming-soon">Coming Soon</span>
         : pending ? <span className="project-card-progress-pending" role="status">Loading progress…</span>
           : <ProgressCircle progress={percentage} label="Project" />}
-      {!comingSoon ? <div className="project-card-meta"><span><Clock3 aria-hidden="true" />{project.estimatedMinutes} min</span><span><Layers3 aria-hidden="true" />{total} checkpoints</span></div> : null}
+      {!comingSoon ? <div className="project-card-meta card-footer-meta"><span><Clock3 aria-hidden="true" />{project.estimatedMinutes} min</span><span><Layers3 aria-hidden="true" />{total} checkpoints</span></div> : null}
     </footer>
   </article>;
 }

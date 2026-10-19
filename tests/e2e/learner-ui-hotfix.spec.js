@@ -42,3 +42,54 @@ test('Project cards and overview keep the Course rhythm at four viewport widths'
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
   }
 });
+
+test('Course and Project footers share clear metadata and Coming Soon geometry', async ({ page }) => {
+  await page.route('**/api/admin-content/public/simple-calculator', (route) => route.fulfill({
+    status: 404, contentType: 'application/json', body: JSON.stringify({ error: { code: 'content/not-published' } }),
+  }));
+  for (const width of [1440, 1024, 820, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/library');
+    const courseCard = page.locator('.library-course-card').filter({ hasText: 'Python Foundations' }).first();
+    const courseSoon = page.locator('.library-course-card.is-unavailable').first();
+    await expect(courseCard.locator('.library-course-meta')).toBeVisible();
+    await expect(courseSoon.locator('.card-footer-coming-soon')).toBeVisible();
+    await expect(courseSoon.locator('.library-course-meta, .library-course-progress')).toHaveCount(0);
+    const course = await courseCard.evaluate((node) => ({
+      cardHeight: node.getBoundingClientRect().height,
+      metaTop: node.querySelector('.card-footer-meta span').getBoundingClientRect().top,
+      dividerTop: node.querySelector('.library-course-divider').getBoundingClientRect().top,
+      metaRight: node.querySelector('.card-footer-meta').getBoundingClientRect().right,
+      cardRight: node.getBoundingClientRect().right,
+    }));
+    expect(course.cardHeight).toBeCloseTo(334, 1);
+    expect(course.metaTop).toBeGreaterThan(course.dividerTop + 15);
+    expect(course.metaRight).toBeLessThanOrEqual(course.cardRight);
+
+    await page.goto('/projects');
+    const projectCard = page.locator('.project-card').filter({ hasText: 'Simple Calculator' }).first();
+    const projectSoon = page.locator('.project-card.is-coming-soon').first();
+    await expect(projectCard.locator('.project-card-meta')).toBeVisible();
+    await expect(projectSoon.locator('.card-footer-coming-soon')).toBeVisible();
+    await projectCard.evaluate((node) => {
+      const [duration, checkpoints] = node.querySelectorAll('.project-card-meta span');
+      duration.lastChild.textContent = '600 min';
+      checkpoints.lastChild.textContent = '8 checkpoints';
+    });
+    const project = await projectCard.evaluate((node) => {
+      const meta = node.querySelector('.card-footer-meta');
+      const circle = node.querySelector('.library-course-progress');
+      return {
+        cardHeight: node.getBoundingClientRect().height,
+        metaTop: meta.firstElementChild.getBoundingClientRect().top,
+        metaContentRight: meta.lastElementChild.getBoundingClientRect().right,
+        cardRight: node.getBoundingClientRect().right,
+        circleBottom: circle?.getBoundingClientRect().bottom ?? 0,
+      };
+    });
+    expect(project.cardHeight).toBeCloseTo(course.cardHeight, 1);
+    expect(project.metaTop).toBeGreaterThanOrEqual(project.circleBottom);
+    expect(project.metaContentRight).toBeLessThan(project.cardRight);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+  }
+});
