@@ -102,7 +102,7 @@ for (const pinned of [false, true]) {
         () => expect(page.locator('.project-card-action:disabled')).toHaveCount(0));
       if (pinned) {
         await expect(page.locator('.project-card').filter({ hasText: 'Simple Calculator' }).getByRole('button', { name: 'Continue Project' })).toBeVisible();
-        await expect(page.locator('.project-card').filter({ hasText: 'Number Guessing Game' }).getByRole('button', { name: 'Start Project' })).toBeVisible();
+        await expect(page.locator('.project-card').filter({ hasText: 'Number Guessing Game' })).toHaveCount(0);
       }
       await page.locator('.project-card').filter({ hasText: 'Simple Calculator' }).click();
       await expect(page.locator('.project-details h1')).toHaveText('Simple Calculator');

@@ -39,7 +39,8 @@ test('native browser fetch loads canonical Project catalog and direct route @run
   // Do not install the E2E fetch override: this must exercise the repository default.
   await page.goto('/projects');
   await expect(page.locator('.project-card h3', { hasText: 'Bingo' })).toHaveCount(1);
-  await expect(page.locator('.project-card h3')).toHaveCount(7);
+  await expect(page.locator('.project-card h3')).toHaveCount(6);
+  await expect(page.locator('.project-card.is-coming-soon')).toHaveCount(4);
   await expect(page.getByText('Published projects could not be loaded.')).toHaveCount(0);
   expect(catalogRequests).toBeGreaterThan(0);
   expect(artifactRequests).toBeGreaterThan(0);

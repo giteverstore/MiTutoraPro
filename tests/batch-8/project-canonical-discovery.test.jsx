@@ -96,7 +96,7 @@ describe('canonical Project learner discovery', () => {
       .toEqual([['calculator', 'Calculator'], ['bingo', 'Bingo']]);
   });
 
-  it('holds bundled cards until canonical discovery settles, then renders Bingo once', async () => {
+  it('holds catalog cards until canonical discovery settles, then renders Bingo once', async () => {
     let finishDiscovery;
     const repository = { listProjects: () => new Promise((resolve) => { finishDiscovery = resolve; }) };
     const { container } = render(<ProjectsPage browseOnly publishedRepository={repository} />);
@@ -104,15 +104,15 @@ describe('canonical Project learner discovery', () => {
     expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
     await act(async () => { finishDiscovery([published]); });
     expect(screen.queryByRole('status', { name: 'Loading projects' })).not.toBeInTheDocument();
-    expect(container.querySelectorAll('.project-card')).toHaveLength(7);
+    expect(container.querySelectorAll('.project-card')).toHaveLength(6);
     expect(screen.getAllByRole('heading', { name: 'Bingo' })).toHaveLength(1);
   });
 
-  it('retains bundled projects when canonical discovery fails', async () => {
+  it('retains Coming Soon cards without exposing other bundled projects when canonical discovery fails', async () => {
     const repository = { listProjects: vi.fn().mockRejectedValue(new Error('catalog unavailable')) };
     const { container } = render(<ProjectsPage browseOnly publishedRepository={repository} />);
-    expect(await screen.findByText('6 projects available')).toBeInTheDocument();
-    expect(container.querySelectorAll('.project-card')).toHaveLength(6);
+    expect(await screen.findByText('5 projects')).toBeInTheDocument();
+    expect(container.querySelectorAll('.project-card')).toHaveLength(5);
     expect(screen.queryByRole('status', { name: 'Loading projects' })).not.toBeInTheDocument();
   });
 

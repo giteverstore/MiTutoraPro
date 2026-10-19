@@ -17,7 +17,7 @@ describe('Projects filter cleanup', () => {
     render(<ProjectsPage publishedRepository={{ listProjects: async () => [] }} />);
     expect(screen.getByRole('status', { name: 'Loading projects' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
-    await screen.findByText('6 projects available');
+    await screen.findByText('5 projects');
   }
 
   it('starts directly with three balanced filters and no retired hero or tabs', async () => {
@@ -29,18 +29,18 @@ describe('Projects filter cleanup', () => {
     expect(screen.getByLabelText('Category')).toBeInTheDocument();
     expect(screen.getByLabelText('Difficulty')).toHaveValue(DEFAULT_PROJECT_FILTERS.difficulty);
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument();
-    expect(screen.getByText('6 projects available')).toBeInTheDocument();
+    expect(screen.getByText('5 projects')).toBeInTheDocument();
   });
 
   it.each([
-    ['easy', 'Easy Projects', 6],
+    ['easy', 'Easy Projects', 1],
     ['medium', 'Medium Projects', 0],
     ['hard', 'Hard Projects', 0],
   ])('filters %s projects and updates heading/count', async (difficulty, heading, count) => {
     await renderCatalog();
     fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: difficulty } });
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
-    expect(screen.getByText(`${count} ${count === 1 ? 'project' : 'projects'} available`)).toBeInTheDocument();
+    expect(screen.getByText(`${count} ${count === 1 ? 'project' : 'projects'}`)).toBeInTheDocument();
     if (count === 0) expect(screen.getByText('No projects match these filters yet.')).toBeInTheDocument();
   });
 
@@ -64,7 +64,7 @@ describe('Projects filter cleanup', () => {
 
   it('keeps project cards and overview available without Premium access', async () => {
     await renderCatalog();
-    expect(screen.getAllByRole('button', { name: /Start Project/ })).toHaveLength(6);
+    expect(screen.getAllByRole('button', { name: /Start Project/ })).toHaveLength(1);
     fireEvent.click(screen.getAllByRole('button', { name: /Start Project/ })[0]);
     expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
     expect(screen.queryByText('Premium required')).not.toBeInTheDocument();

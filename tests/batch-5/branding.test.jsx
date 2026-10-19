@@ -65,7 +65,10 @@ describe('ycoders product branding', () => {
 
   it('uses the appropriate wordmark on public chrome and certificate paper', () => {
     const { container, rerender } = render(<PublicHeader />);
-    expect(container.querySelector('.marketing-brand img')).toHaveAttribute('src', brandAssets.mark);
+    expect(container.querySelector('.marketing-brand .brand-wordmark--auto')).toBeInTheDocument();
+    expect(container.querySelector('.marketing-brand .brand-wordmark__dark')).toHaveAttribute('src', brandAssets.wordmarkDark);
+    expect(container.querySelector('.marketing-brand .brand-wordmark__light')).toHaveAttribute('src', brandAssets.wordmarkLight);
+    expect(container.querySelector('.marketing-brand')).not.toHaveTextContent('Y CODERS');
     rerender(<PublicFooter />);
     expect(container.querySelector('.public-footer-brand .brand-wordmark--auto')).toBeInTheDocument();
     rerender(<CertificateViewer certificate={{ sample: true, courseTitle: 'Python', recipientName: 'Sample', credentialId: 'SAMPLE' }} onClose={vi.fn()} />);

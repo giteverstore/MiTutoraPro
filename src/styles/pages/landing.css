@@ -333,6 +333,8 @@
 }
 
 /* The four split sections use the same content track between the navbar brand and Login. */
+.marketing-brand .brand-wordmark { width: 7.875rem; height: 2.25rem; }
+.marketing-brand .brand-wordmark img { width: 100%; height: auto; }
 @media (min-width: 1200px) {
   .landing-page {
     --landing-header-gutter: max(2rem, calc((100vw - 94rem) / 2));
