@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { normalizeContent, safeContentId } from '../../../shared/content/index.js';
 import { ContentPublicationError } from './ContentPublicationError.js';
+import { timePublicSync } from './publicContentTiming.js';
 
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
@@ -17,7 +18,7 @@ export class PublishedContentService {
   }
   async listActive(contentType) {
     const pointers = await this.store.listActivePointers(contentType);
-    return pointers.map(({ contentId, activeVersion, metadataSnapshot, updatedAt }) => ({ contentId, activeVersion, metadata: metadataSnapshot ?? {}, updatedAt }));
+    return timePublicSync('catalog_map', () => pointers.map(({ contentId, activeVersion, metadataSnapshot, updatedAt }) => ({ contentId, activeVersion, metadata: metadataSnapshot ?? {}, updatedAt })));
   }
   async fetchVersion(contentId, version) {
     const id = safeContentId(contentId);
@@ -34,8 +35,8 @@ export class PublishedContentService {
     try { bytes = await this.artifacts.read(metadata.artifactPath); } catch (cause) { throw new ContentPublicationError('content/artifact-unavailable', 'Published content is temporarily unavailable.', { status: 503, cause }); }
     if (digest(bytes) !== metadata.artifactHash) throw new ContentPublicationError('content/artifact-corrupt', 'Published content failed its integrity check.', { status: 503 });
     let parsed;
-    try { parsed = JSON.parse(bytes.toString('utf8')); } catch (cause) { throw new ContentPublicationError('content/artifact-corrupt', 'Published content is malformed.', { status: 503, cause }); }
+    try { parsed = timePublicSync('parse', () => JSON.parse(bytes.toString('utf8'))); } catch (cause) { throw new ContentPublicationError('content/artifact-corrupt', 'Published content is malformed.', { status: 503, cause }); }
     if (parsed.contentId !== id || parsed.version !== expectedVersion || parsed.schemaVersion !== metadata.schemaVersion) throw new ContentPublicationError('content/artifact-corrupt', 'Published content identity does not match its metadata.', { status: 503 });
-    try { return { document: normalizeContent(parsed), metadata }; } catch (cause) { throw new ContentPublicationError('content/artifact-corrupt', 'Published content did not pass validation.', { status: 503, cause }); }
+    try { return timePublicSync('parse', () => ({ document: normalizeContent(parsed), metadata })); } catch (cause) { throw new ContentPublicationError('content/artifact-corrupt', 'Published content did not pass validation.', { status: 503, cause }); }
   }
 }

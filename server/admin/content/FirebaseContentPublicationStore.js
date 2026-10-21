@@ -2,6 +2,7 @@ import { PUBLICATION_STATUS } from '../../../shared/content/index.js';
 import { FieldPath } from 'firebase-admin/firestore';
 import { ContentPublicationError } from './ContentPublicationError.js';
 import { assertStaleFailedPublicationRecovery } from './staleFailedPublicationRecovery.js';
+import { recordPublicCatalogCount, timePublic, timePublicSync } from './publicContentTiming.js';
 
 const draftRef = (db, id) => db.collection('adminContentDrafts').doc(id);
 const pointerRef = (db, id) => db.collection('publishedContent').doc(id);
@@ -114,7 +115,7 @@ export class FirebaseContentPublicationStore {
   async activateVersion({ contentId, version, actor, timestamp, expectedActiveRevision, auditEvent }) { return this.db.runTransaction(async (tx) => { const ref = pointerRef(this.db, contentId); const vref = versionRef(this.db, contentId, version); const [pointerSnapshot, versionSnapshot] = await Promise.all([tx.get(ref), tx.get(vref)]); const pointer = pointerSnapshot.data(); const target = versionSnapshot.data(); if (!pointer || pointer.activeRevision !== expectedActiveRevision) throw new ContentPublicationError('content/active-conflict', 'Publication state changed elsewhere.', { status: 409 }); if (!target || target.status !== PUBLICATION_STATUS.READY) throw new ContentPublicationError('content/version-not-ready', 'Only a READY version may be activated.', { status: 409 }); const active = { ...pointer, activeVersion: version, activeArtifactPath: target.artifactPath, activeArtifactHash: target.artifactHash, metadataSnapshot: target.metadataSnapshot, publicationStatus: 'ACTIVE', activeRevision: expectedActiveRevision + 1, updatedAt: timestamp, updatedBy: actor.uid }; tx.set(ref, active); tx.create(this.db.collection('adminContentAudit').doc(), { event: auditEvent, actorUid: actor.uid, actorRole: actor.role, timestamp, contentId, contentType: target.contentType, version, previousActiveVersion: pointer.activeVersion, newActiveVersion: version }); return active; }); }
   async archiveContent({ contentId, actor, timestamp, expectedActiveRevision }) { return this.db.runTransaction(async (tx) => { const ref = pointerRef(this.db, contentId); const snapshot = await tx.get(ref); const pointer = snapshot.data(); if (!pointer || pointer.activeRevision !== expectedActiveRevision) throw new ContentPublicationError('content/active-conflict', 'Publication state changed elsewhere.', { status: 409 }); const archived = { ...pointer, publicationStatus: 'ARCHIVED', activeRevision: expectedActiveRevision + 1, updatedAt: timestamp, updatedBy: actor.uid }; tx.set(ref, archived); tx.create(this.db.collection('adminContentAudit').doc(), { event: 'CONTENT_ARCHIVED', actorUid: actor.uid, actorRole: actor.role, timestamp, contentId, contentType: pointer.contentType, version: pointer.activeVersion }); return archived; }); }
   async listVersions(id) { return (await pointerRef(this.db, id).collection('versions').orderBy('version', 'desc').limit(100).get()).docs.map((doc) => doc.data()); }
-  async getPointer(id) { const snapshot = await pointerRef(this.db, id).get(); return snapshot.exists ? snapshot.data() : null; }
+  async getPointer(id) { return timePublic('pointer_get', async () => { const snapshot = await pointerRef(this.db, id).get(); return snapshot.exists ? snapshot.data() : null; }); }
   async listPointers({ limit = 25, cursor = null } = {}) {
     let query = this.db.collection('publishedContent').orderBy(FieldPath.documentId()).limit(limit);
     if (cursor) {
@@ -131,8 +132,8 @@ export class FirebaseContentPublicationStore {
     }));
     return { items, nextCursor: page.docs.length === limit ? page.docs.at(-1).id : null };
   }
-  async listActivePointers(contentType) { let query = this.db.collection('publishedContent').where('publicationStatus', '==', 'ACTIVE'); if (contentType) query = query.where('contentType', '==', contentType); return (await query.limit(100).get()).docs.map((doc) => doc.data()); }
-  async getVersion(id, version) { const snapshot = await versionRef(this.db, id, version).get(); return snapshot.exists ? snapshot.data() : null; }
+  async listActivePointers(contentType) { let query = this.db.collection('publishedContent').where('publicationStatus', '==', 'ACTIVE'); if (contentType) query = query.where('contentType', '==', contentType); const page = await timePublic('catalog_query', () => query.limit(100).get()); recordPublicCatalogCount(page.docs.length); return timePublicSync('catalog_map', () => page.docs.map((doc) => doc.data())); }
+  async getVersion(id, version) { return timePublic('version_get', async () => { const snapshot = await versionRef(this.db, id, version).get(); return snapshot.exists ? snapshot.data() : null; }); }
 }
 
 const safeArtifactPath = (path) => /^published-content\/(?:projects|courses|practices|challenges)\/[a-z0-9][a-z0-9._-]{0,119}\/v[1-9]\d*\.json$/i.test(path)
@@ -174,7 +175,7 @@ export class FirebaseArtifactStore {
       throw error;
     }
   }
-  async read(path) { const [bytes] = await this.bucket.file(path).download(); return bytes; }
+  async read(path) { return timePublic('artifact_read', async () => { const [bytes] = await this.bucket.file(path).download(); return bytes; }); }
   async markReady(path) { const file = this.bucket.file(path); const [metadata] = await file.getMetadata(); await file.setMetadata({ metadata: { ...(metadata.metadata ?? {}), publicationState: 'READY' } }); }
 }
 

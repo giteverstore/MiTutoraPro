@@ -13,6 +13,7 @@ import { FirebaseArtifactStore, FirebaseAssetRegistry, FirebaseContentPublicatio
 import { ContentPublicationError } from './ContentPublicationError.js';
 import { AdminAssetService } from './AdminAssetService.js';
 import { ChallengeAssignmentService } from './ChallengeAssignmentService.js';
+import { observePublicResponseFinish, runWithPublicContentTiming, setPublicContentTimingHeader, timePublic, timePublicSync } from './publicContentTiming.js';
 
 const allowedContentTypes = new Set(Object.values(CONTENT_TYPES));
 export const ADMIN_CONTENT_BUCKET_NAME = 'mi-tutora-pro-admin-content';
@@ -152,10 +153,10 @@ export async function createAdminStorageBucket(environment = process.env, google
 }
 
 export async function createDefaultContentDependencies({ environment = process.env, googleCredentials, useDedicatedAdminBucket = false } = {}) {
-  const firestoreSession = await createDefaultFirestore(environment, googleCredentials);
+  const firestoreSession = await timePublic('firestore_client', () => createDefaultFirestore(environment, googleCredentials));
   let storageSession;
   try {
-    storageSession = await createAdminStorageBucket(environment, googleCredentials, { useDedicatedAdminBucket });
+    storageSession = await timePublic('storage_client', () => createAdminStorageBucket(environment, googleCredentials, { useDedicatedAdminBucket }));
   } catch (error) {
     await firestoreSession.close();
     throw error;
@@ -175,8 +176,11 @@ export async function createDefaultContentDependencies({ environment = process.e
 
 export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, configurationResolver = resolveGoogleWifConfiguration, useDedicatedAdminBucket = false, publicOnly = false, environment = process.env, fetcher = globalThis.fetch } = {}) {
   return async (request, response) => {
-    response.setHeader('Cache-Control', 'no-store');
     const path = segments(request);
+    const isPublic = request.method === 'GET' && path[0] === 'public';
+    return runWithPublicContentTiming(isPublic, async () => {
+    observePublicResponseFinish(response);
+    response.setHeader('Cache-Control', 'no-store');
     let resources;
     try {
       if (publicOnly && !(request.method === 'GET' && path[0] === 'public')) {
@@ -189,14 +193,13 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         if (path[0] !== 'public' && !/^Bearer\s+\S+$/i.test(String(request.headers?.authorization ?? ''))) return response.status(401).json({ error: { code: 'admin/auth-required', message: 'Admin authentication is required.' } });
         return response.status(503).json({ error: { code: 'admin/preview-backend-disabled', message: 'Preview content is not configured.' } });
       }
-      const isPublic = request.method === 'GET' && path[0] === 'public';
       let actor;
       let googleCredentials;
       if (!isPublic && authorize === requireAdminPermission && !/^Bearer\s+\S+$/i.test(String(request.headers?.authorization ?? ''))) {
         return response.status(401).json({ error: { code: 'admin/auth-required', message: 'Admin authentication is required.' } });
       }
-      googleCredentials = credentialFactory({ request, environment, configurationResolver });
-      await googleCredentials.preflight();
+      googleCredentials = timePublicSync('credential_setup', () => credentialFactory({ request, environment, configurationResolver }));
+      await timePublic('wif', () => googleCredentials.preflight());
       if (!isPublic) {
         const permission = request.method === 'GET' ? ADMIN_PERMISSIONS.ADMIN_ACCESS
           : path[0] === 'publish' || path[0] === 'rollback' || path[0] === 'archive' || path[0] === 'assign-challenge' ? ADMIN_PERMISSIONS.CONTENT_PUBLISH
@@ -233,10 +236,12 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         const contentType = String(request.query?.contentType ?? '').toUpperCase() || 'PROJECT';
         if (!['PROJECT', 'COURSE', 'PRACTICE', 'CHALLENGE'].includes(contentType)) return response.status(400).json({ error: { code: 'content/type-invalid', message: 'Unsupported content type.' } });
         const items = await delivery.listActive(contentType);
+        setPublicContentTimingHeader(response);
         return response.status(200).json({ items, ...(contentType === 'PROJECT' ? { projects: items } : {}) });
       }
       if (request.method === 'GET' && path[0] === 'public' && path[1]) {
         const result = path[2] ? await delivery.fetchVersion(path[1], path[2]) : await delivery.resolveActive(path[1]);
+        setPublicContentTimingHeader(response);
         return result ? response.status(200).json(result) : response.status(404).json({ error: { code: 'content/not-published', message: 'Published content was not found.' } });
       }
       if (request.method === 'POST' && path[0] === 'assign-challenge' && !path[1]) {
@@ -288,7 +293,8 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       if (path[0] === 'rollback') return response.status(200).json({ active: await service.activate({ actor, contentId: input.contentId, version: input.version, expectedActiveRevision: input.expectedActiveRevision }) });
       if (path[0] === 'archive') return response.status(200).json({ active: await service.archive({ actor, contentId: input.contentId, expectedActiveRevision: input.expectedActiveRevision }) });
       return response.status(404).json({ error: { code: 'content/not-found', message: 'Content API route not found.' } });
-    } catch (error) { return sendError(response, error); }
+    } catch (error) { setPublicContentTimingHeader(response); return sendError(response, error); }
     finally { await resources?.close?.(); }
+    });
   };
 }
