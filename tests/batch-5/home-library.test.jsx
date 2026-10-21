@@ -128,6 +128,23 @@ describe('Home learner state', () => {
     expect(screen.getByRole('button', { name: /Continue Learning/i })).toBeInTheDocument();
   });
 
+  it('uses mapped course artwork in Continue Learning and preserves the book fallback', () => {
+    const { container } = render(<ContinueLearningSection courses={[
+      { id: 'python', title: 'Python Foundations', progress: 25 },
+      { id: 'unknown-course', title: 'Unknown Course', progress: 0 },
+    ]} status="ready" onOpenCourse={vi.fn()} />);
+    const cards = container.querySelectorAll('.home-continue-card');
+    expect(cards[0].querySelector('.home-continue-mark img')).toHaveAttribute('src', getCourseCardArtwork('python'));
+    expect(cards[0].querySelector('.home-continue-mark svg')).toBeNull();
+    expect(cards[1].querySelector('.home-continue-mark img')).toBeNull();
+    expect(cards[1].querySelector('.home-continue-mark svg')).toBeInTheDocument();
+  });
+
+  it('uses a five-column left-aligned Recently Viewed grid on large screens', () => {
+    const css = readFileSync('src/styles/pages/home.css', 'utf8');
+    expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*repeat\(5, minmax\(0, 14\.8125rem\)\)[^}]*justify-content:\s*start/s);
+  });
+
   it('keeps course cards and empty states hidden while discovery is pending', () => {
     const { rerender } = render(<ContinueLearningSection courses={[]} status="loading" onBrowseLibrary={vi.fn()} />);
     expect(screen.getByRole('status', { name: 'Loading your courses' })).toBeInTheDocument();
@@ -347,7 +364,7 @@ describe('Library navigation and discovery', () => {
     expect(progressCss).toMatch(/\.library-course-progress\s*\{[^}]*top:\s*-0\.3125rem;[^}]*width:\s*3\.125rem;[^}]*height:\s*3\.125rem/);
     expect(footerCss).toMatch(/\.card-footer-meta\s*\{[^}]*justify-content:\s*flex-start;[^}]*flex-wrap:\s*nowrap;[^}]*gap:\s*var\(--space-2\);[^}]*padding-top:\s*2\.5rem;[^}]*font-size:\s*\.75rem/);
     expect(footerCss).toMatch(/\.card-footer-meta svg\s*\{[^}]*width:\s*var\(--icon-xs\);[^}]*height:\s*var\(--icon-xs\)/);
-    expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*grid-template-columns:\s*repeat\(5, minmax\(0, 14\.8125rem\)\);[^}]*justify-content:\s*start/);
     expect(css).toMatch(/\.home-dashboard-grid \.home-recent\s*\{\s*grid-area:\s*recent/);
   });
 

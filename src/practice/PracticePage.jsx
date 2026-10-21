@@ -9,8 +9,9 @@ import { getPracticeDiagnostic, PRACTICE_DIAGNOSTIC_STAGES } from './practiceDia
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { ErrorState } from '../errors/ErrorState';
+import { ACTIVITY_LANGUAGE_OPTIONS } from '../compiler/languages/activityLanguageOptions';
 
-const initialFilters = { difficulty: 'all', topic: 'all', search: '' };
+const initialFilters = { language: 'python', difficulty: 'all', topic: 'all', search: '' };
 const practiceDifficulties = ['easy', 'medium', 'hard'];
 const PAGE_CACHE_LIMIT = 5;
 const uniqueValues = (items, property) => [...new Set(items.map((item) => item[property]))].sort();
@@ -44,6 +45,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   const pageCursors = useRef(new Map([[1, null]]));
   const reachablePageCount = useRef(1);
   const filterOptions = useMemo(() => ({
+    languages: ACTIVITY_LANGUAGE_OPTIONS,
     difficulties: practiceDifficulties,
     topics: catalog.facets?.topics ?? uniqueValues(catalog.items, 'topic'),
   }), [catalog.facets, catalog.items]);

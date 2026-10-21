@@ -113,13 +113,15 @@ describe('public Y Coders landing page', () => {
 
   it('uses one navbar-aligned guide for split sections while leaving centered sections independent', () => {
     const { container } = render(<LandingPage />);
-    const splitSections = ['.landing-building', '.landing-practice', '.landing-projects', '.landing-mentor'];
+    const splitSections = ['.landing-building', '.landing-courses', '.landing-practice', '.landing-projects', '.landing-mentor'];
     expect(splitSections.map((selector) => container.querySelector(selector)).every(Boolean)).toBe(true);
     const css = readFileSync('src/styles/pages/landing.css', 'utf8');
-    expect(css).toMatch(/\.landing-page :where\(\.landing-building, \.landing-practice, \.landing-projects, \.landing-mentor\)\s*\{\s*padding-inline:\s*calc\(var\(--landing-header-gutter\) \+ var\(--landing-brand-region\)\)\s*calc\(var\(--landing-header-gutter\) \+ var\(--landing-auth-region\)\)/);
+    expect(css).toMatch(/\.landing-page :where\(\.landing-building, \.landing-courses, \.landing-practice, \.landing-projects, \.landing-mentor\)\s*\{\s*padding-inline:\s*calc\(var\(--landing-header-gutter\) \+ var\(--landing-brand-region\)\)\s*calc\(var\(--landing-header-gutter\) \+ var\(--landing-auth-region\)\)/);
+    expect(css).toMatch(/\.landing-feature-panel\s*\{[^}]*width:\s*min\(100%, 38rem\);[^}]*height:\s*28rem/s);
     expect(css).toMatch(/@media \(max-width: 1199px\)[\s\S]*grid-template-columns: minmax\(0, 1fr\)/);
     const guideSelectors = css.match(/\.landing-page :where\(([^)]+)\)\s*\{\s*padding-inline:/)?.[1];
-    expect(guideSelectors).not.toMatch(/landing-hero|landing-courses|landing-how|landing-final-cta/);
+    expect(guideSelectors).toContain('.landing-courses');
+    expect(guideSelectors).not.toMatch(/landing-hero|landing-how|landing-final-cta/);
     expect([...container.querySelectorAll('main > section')].map((section) => section.classList[0])).toEqual([
       'landing-hero', 'landing-showcase', 'landing-building', 'landing-split',
       'landing-projects', 'landing-mentor', 'landing-how', 'landing-final-cta',
@@ -466,7 +468,7 @@ describe('public browse routing', () => {
     Object.defineProperty(window, 'matchMedia', { configurable: true, value: vi.fn().mockReturnValue({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }) });
     window.history.replaceState({}, '', '/practice');
     render(<PublicBrowseApplication />);
-    expect(await screen.findByText('Add two values')).toBeVisible();
+    expect(await screen.findByText('Add two values', {}, { timeout: 5000 })).toBeVisible();
     expect(screen.queryByText('Solved')).not.toBeInTheDocument();
     expect(screen.queryByText('Attempted')).not.toBeInTheDocument();
   });

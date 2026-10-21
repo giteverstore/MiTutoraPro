@@ -21,11 +21,13 @@ const sidebarProps = {
 afterEach(cleanup);
 
 describe('ycoders product branding', () => {
-  it('renders the new mark and lowercase name in expanded and collapsed navigation', () => {
+  it('renders the shared mark and YCODERS lockup in expanded navigation and mark alone when collapsed', () => {
     const { container, rerender } = render(<AppSidebar {...sidebarProps} collapsed={false} />);
     expect(screen.getByRole('button', { name: 'Y Coders home' })).toBeInTheDocument();
     expect(container.querySelector('.application-brand-mark img')).toHaveAttribute('src', brandAssets.mark);
-    expect(container.querySelector('.application-brand-full')).toHaveClass('brand-wordmark--auto');
+    expect(container.querySelector('.application-brand-full')).toHaveClass('brand-lockup');
+    expect(container.querySelector('.application-brand-full .brand-lockup__mark')).toHaveAttribute('src', brandAssets.mark);
+    expect(container.querySelector('.application-brand-full')).toHaveTextContent('YCODERS');
     expect(container).not.toHaveTextContent(/Mi\s*Tutora/i);
 
     rerender(<AppSidebar {...sidebarProps} collapsed />);
@@ -33,9 +35,9 @@ describe('ycoders product branding', () => {
     expect(container.querySelector('.application-brand-mark img')).toBeInTheDocument();
   });
 
-  it('keeps the expanded sidebar wordmark compact without changing the collapsed mark', async () => {
+  it('keeps the expanded sidebar lockup compact without changing the collapsed mark', async () => {
     const css = await readFile('src/styles/layout/app-shell.css', 'utf8');
-    expect(css).toMatch(/\.application-brand>\.application-brand-full\s*\{[^}]*width:\s*var\(--shell-brand-wordmark-width\);[^}]*height:\s*var\(--shell-brand-height\);/s);
+    expect(css).toMatch(/\.application-brand>\.application-brand-full\s*\{[^}]*width:\s*auto;[^}]*height:\s*var\(--shell-brand-height\);/s);
     const brandCss = await readFile('src/branding/brand.css', 'utf8');
     expect(brandCss).toMatch(/--shell-brand-wordmark-width:\s*10rem;[\s\S]*--shell-brand-height:\s*2\.25rem;[\s\S]*--shell-brand-mark-size:\s*2\.25rem;/);
     expect(css).toMatch(/\.application-sidebar\.is-collapsed \.application-brand-full,[^}]*display:\s*none;/s);
@@ -63,41 +65,41 @@ describe('ycoders product branding', () => {
     expect(css).toContain('.brand-wordmark--light .brand-wordmark__dark');
   });
 
-  it('uses the appropriate wordmark on public chrome and certificate paper', () => {
+  it('uses the mark plus YCODERS lockup on public chrome while preserving certificate artwork', async () => {
     const { container, rerender } = render(<PublicHeader />);
-    expect(container.querySelector('.marketing-brand .brand-wordmark--auto')).toBeInTheDocument();
-    expect(container.querySelector('.marketing-brand .brand-wordmark__dark')).toHaveAttribute('src', brandAssets.wordmarkDark);
-    expect(container.querySelector('.marketing-brand .brand-wordmark__light')).toHaveAttribute('src', brandAssets.wordmarkLight);
-    expect(container.querySelector('.marketing-brand')).not.toHaveTextContent('Y CODERS');
+    expect(container.querySelector('.marketing-brand .brand-lockup__mark')).toHaveAttribute('src', brandAssets.mark);
+    expect(container.querySelector('.marketing-brand')).toHaveTextContent('YCODERS');
+    expect(container.querySelector('.marketing-brand .brand-wordmark')).not.toBeInTheDocument();
     rerender(<PublicFooter />);
-    expect(container.querySelector('.public-footer-brand .brand-wordmark--auto')).toBeInTheDocument();
+    expect(container.querySelector('.public-footer-brand .brand-lockup__mark')).toHaveAttribute('src', brandAssets.mark);
+    expect(container.querySelector('.public-footer-brand')).toHaveTextContent('YCODERS');
+    expect(container.querySelector('.public-footer-brand .brand-wordmark')).not.toBeInTheDocument();
     rerender(<CertificateViewer certificate={{ sample: true, courseTitle: 'Python', recipientName: 'Sample', credentialId: 'SAMPLE' }} onClose={vi.fn()} />);
     expect(document.querySelector('.certificate-preview-brand .brand-wordmark--dark')).toBeInTheDocument();
+    const [headerSource, footerSource, sidebarSource] = await Promise.all([
+      readFile('src/public/PublicHeader.jsx', 'utf8'), readFile('src/public/PublicFooter.jsx', 'utf8'), readFile('src/app-shell/AppSidebar.jsx', 'utf8'),
+    ]);
+    expect(`${headerSource}${footerSource}${sidebarSource}`).not.toContain('BrandWordmark');
   });
 
-  it('sizes only the public footer wordmark to its frame without distorting it', async () => {
+  it('sizes the public footer lockup without distorting its mark', async () => {
     const { container } = render(<PublicFooter />);
-    expect(container.querySelector('.public-footer-brand .brand-wordmark img')).toBeInTheDocument();
+    expect(container.querySelector('.public-footer-brand .brand-lockup__mark')).toBeInTheDocument();
 
     const css = await readFile('src/styles/public-pages.css', 'utf8');
-    expect(css).toMatch(/\.public-footer-brand \.brand-wordmark img\s*\{[^}]*width:\s*100%;[^}]*height:\s*auto;/s);
-    expect(css).toMatch(/\.public-header img,\s*\.public-footer img\s*\{[^}]*width:\s*2rem;[^}]*height:\s*2rem;/s);
+    expect(css).toMatch(/\.public-footer-brand \.brand-lockup__mark\s*\{[^}]*width:\s*2\.5rem;[^}]*height:\s*2\.5rem;/s);
   });
 
-  it('uses the light and dark footer wordmark through the shared theme-aware variant', async () => {
+  it('inherits valid light and dark theme text color through the shared footer lockup', async () => {
     const { container, rerender } = render(<div data-theme="light"><PublicFooter /></div>);
-    const wordmark = () => container.querySelector('.public-footer-brand .brand-wordmark');
-    expect(wordmark()).toHaveClass('brand-wordmark--auto');
-    expect(wordmark().querySelector('.brand-wordmark__dark')).toHaveAttribute('src', brandAssets.wordmarkDark);
-    expect(wordmark().querySelector('.brand-wordmark__light')).toHaveAttribute('src', brandAssets.wordmarkLight);
+    const lockup = () => container.querySelector('.public-footer-brand .brand-lockup');
+    expect(lockup()).toHaveTextContent('YCODERS');
     rerender(<div data-theme="dark"><PublicFooter /></div>);
-    expect(wordmark().closest('[data-theme]')).toHaveAttribute('data-theme', 'dark');
-    expect(wordmark()).toHaveClass('brand-wordmark--auto');
+    expect(lockup().closest('[data-theme]')).toHaveAttribute('data-theme', 'dark');
     rerender(<div data-theme="light"><PublicFooter /></div>);
-    expect(wordmark().closest('[data-theme]')).toHaveAttribute('data-theme', 'light');
+    expect(lockup().closest('[data-theme]')).toHaveAttribute('data-theme', 'light');
     const css = await readFile('src/branding/brand.css', 'utf8');
-    expect(css).toContain('[data-theme="dark"] .brand-wordmark--auto .brand-wordmark__dark');
-    expect(css).toContain('[data-theme="dark"] .brand-wordmark--auto .brand-wordmark__light');
+    expect(css).toMatch(/\.brand-lockup\s*\{[^}]*color:\s*currentColor/s);
   });
 
   it('uses the mark on a verified public certificate', async () => {

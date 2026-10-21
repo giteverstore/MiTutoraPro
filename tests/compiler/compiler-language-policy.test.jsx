@@ -12,6 +12,7 @@ import { createCompilerData } from '../../src/components/blocks/CompilerBlock.js
 import { useSelectableCompilerLanguage } from '../../src/compiler/useSelectableCompilerLanguage.js';
 import { EditorHeader } from '../../src/components/EditorHeader.jsx';
 import { createDevelopmentCompilerDefinition, getDevelopmentCompilerOptions } from '../../src/compiler/developmentCompilerOverride.js';
+import { ACTIVITY_LANGUAGE_OPTIONS } from '../../src/compiler/languages/activityLanguageOptions.js';
 
 const definition = (language, fileName) => ({
   id: `${language}-compiler`,
@@ -320,5 +321,30 @@ describe('compiler language policy', () => {
     await act(() => result.current.selectLanguage('java'));
 
     expect(result.current.language).toBe('python');
+  });
+
+  it('uses the canonical nine-language activity list and creates a blank non-runtime definition only when content is unconfigured', async () => {
+    localStorage.clear();
+    const definitions = [createCompilerData({ ...definition('python', 'main.py'), starterCode: 'print("Python")', stdin: 'input', expectedOutput: 'Python' })];
+    const { result } = renderHook(() => useSelectableCompilerLanguage(definitions, 'python', {
+      languages: ACTIVITY_LANGUAGE_OPTIONS,
+      includeUnavailable: true,
+    }));
+    expect(result.current.options.map(({ id, label }) => [id, label])).toEqual([
+      ['python', 'Python'], ['java', 'Java'], ['javascript', 'JavaScript'], ['typescript', 'TypeScript'],
+      ['c', 'C'], ['cpp', 'C++'], ['php', 'PHP'], ['r', 'R'], ['csharp', 'C#'],
+    ]);
+    expect(result.current.activeDefinition.starterCode).toBe('print("Python")');
+    const loadDefinition = vi.fn().mockResolvedValue(true);
+    result.current.panelRef.current = { loadDefinition };
+
+    await act(() => result.current.selectLanguage('java'));
+
+    const blank = loadDefinition.mock.calls[0][0];
+    expect(blank).toMatchObject({ language: 'java', runtimeAvailable: false, starterCode: '', stdin: '', testCases: [] });
+    expect(blank.expectedOutput).toBeUndefined();
+    expect(blank.editor).toMatchObject({ fileName: 'Main.java', language: 'java', lines: [] });
+    expect(result.current.language).toBe('java');
+    expect(result.current.configured).toBe(false);
   });
 });

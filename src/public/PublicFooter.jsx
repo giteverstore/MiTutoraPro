@@ -2,7 +2,7 @@ import { Facebook, Instagram, Linkedin, Mail, MapPin, Youtube } from 'lucide-rea
 import { SUPPORT_EMAIL } from './publicPageContent';
 import { requestAuthentication } from './publicAuthNavigation';
 import '../styles/public-pages.css';
-import { BrandWordmark } from '../branding/BrandWordmark.jsx';
+import { BrandLockup } from '../branding/BrandLockup.jsx';
 
 const quickLinks = [
   ['/', 'Home'],
@@ -56,7 +56,7 @@ export function PublicFooter() {
       <div className="public-footer-inner">
         <div className="public-footer-grid">
           <section className="public-footer-brand-column" aria-labelledby="public-footer-brand-title">
-            <a className="public-footer-brand" href="/" aria-label="Y Coders home"><BrandWordmark /><span className="visually-hidden" id="public-footer-brand-title">Y Coders</span></a>
+            <a className="public-footer-brand" href="/" aria-label="Y Coders home"><BrandLockup /><span className="visually-hidden" id="public-footer-brand-title">Y Coders</span></a>
             <p>Practical software learning built around doing.<br />Learn, practice, build, and grow with Y Coders.</p>
             <address>
               <a href={`mailto:${SUPPORT_EMAIL}`}><Mail aria-hidden="true" /><span>{SUPPORT_EMAIL}</span></a>

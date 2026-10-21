@@ -112,9 +112,9 @@ describe('Project presentation consistency', () => {
     expect(css).toMatch(/\.project-overview-hero\s*\{[^}]*height:\s*300px/);
   });
 
-  it('keeps four/two/one card columns and the shared brand dimensions in CSS', () => {
+  it('keeps five/two/one left-aligned card columns and the shared brand dimensions in CSS', () => {
     const css = readFileSync(resolve(process.cwd(), 'src/styles/pages/projects.css'), 'utf8');
-    expect(css).toMatch(/\.project-grid\s*\{[^}]*repeat\(4, minmax\(0, 1fr\)\)/s);
+    expect(css).toMatch(/\.project-grid\s*\{[^}]*repeat\(5, minmax\(0, 14\.8125rem\)\)[^}]*justify-content:\s*start/s);
     expect(css).toMatch(/max-width: 1199px[\s\S]*?\.project-grid\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/max-width: 640px[\s\S]*?\.project-grid\s*\{[^}]*minmax\(0, 1fr\)/);
     expect(css).toContain('width: var(--shell-brand-mark-size)');

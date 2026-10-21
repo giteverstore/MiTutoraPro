@@ -1,5 +1,23 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { resolveCompilerLanguageOptions } from './languages/supportedLanguages.js';
+import { getSupportedCompilerLanguage, resolveCompilerLanguageOptions } from './languages/supportedLanguages.js';
+
+function createUnavailableActivityCompilerDefinition(option) {
+  const language = getSupportedCompilerLanguage(option.id);
+  if (!language) throw new Error(`Missing canonical compiler language: ${option.id}`);
+  return {
+    id: `unconfigured-${language.id}`,
+    title: 'Compiler', status: 'Unavailable', language: language.id, languageLabel: 'Language',
+    runtimeAvailable: false, runLabel: 'Run', resetLabel: 'Reset',
+    editor: { fileName: language.defaultFileName, ariaLabel: `${language.label} code editor`, language: language.monacoLanguage, lines: [] },
+    output: {
+      outputTabLabel: 'Output', errorsTabLabel: 'Errors', errorCount: 0, prompt: '>_',
+      emptyTitle: 'Compiler not available for this language yet',
+      emptyDescription: 'You can use the editor, but this activity has no configured runtime for the selected language.',
+      errorTitle: 'No errors', errorDescription: 'Compiler errors will appear here.',
+    },
+    starterCode: '', stdin: '', expectedOutput: undefined, testCases: [],
+  };
+}
 
 const PREFERENCE_KEY = 'ycoders.compiler.preferredLanguage';
 
@@ -11,9 +29,12 @@ function writePreference(languageId) {
   try { window.localStorage.setItem(PREFERENCE_KEY, languageId); } catch { /* preference is optional */ }
 }
 
-export function useSelectableCompilerLanguage(definitions, preferredLanguage = 'python') {
+export function useSelectableCompilerLanguage(definitions, preferredLanguage = 'python', { languages, includeUnavailable = false } = {}) {
   const panelRef = useRef(null);
-  const options = useMemo(() => resolveCompilerLanguageOptions(definitions), [definitions]);
+  const options = useMemo(() => resolveCompilerLanguageOptions(definitions, languages)
+    .map((option) => includeUnavailable && !option.definition
+      ? { ...option, available: true, configured: false, definition: createUnavailableActivityCompilerDefinition(option) }
+      : { ...option, configured: Boolean(option.definition) }), [definitions, includeUnavailable, languages]);
   const [language, setLanguage] = useState(() => {
     const available = new Set(options.filter((option) => option.available).map((option) => option.id));
     const persisted = readPreference();
@@ -62,5 +83,6 @@ export function useSelectableCompilerLanguage(definitions, preferredLanguage = '
   }, [language, options]);
 
   const languageLabel = options.find((option) => option.id === language)?.label ?? language;
-  return { activeDefinition, language, languageLabel, options, panelRef, selectLanguage, switching };
+  const configured = options.find((option) => option.id === language)?.configured !== false;
+  return { activeDefinition, configured, language, languageLabel, options, panelRef, selectLanguage, switching };
 }

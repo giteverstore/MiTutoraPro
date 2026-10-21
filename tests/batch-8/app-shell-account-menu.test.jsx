@@ -1,4 +1,6 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const signOut = vi.fn();
@@ -61,6 +63,12 @@ describe('AppShell account navigation menu', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Open user menu' }));
     fireEvent.click(screen.getByRole('menuitem', { name: 'Sign out' }));
     expect(signOut).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses the shared danger treatment for Sign out', () => {
+    const css = readFileSync(resolve(process.cwd(), 'src/styles/layout/app-shell.css'), 'utf8');
+    expect(css).toMatch(/\.application-user-menu-signout button\s*\{[^}]*color:\s*var\(--color-danger\)/s);
+    expect(css).toMatch(/\.application-user-menu-signout button:hover,[\s\S]*?background:\s*var\(--color-danger-soft\)/);
   });
 
   it('dismisses either popover outside, but not for clicks inside it', () => {

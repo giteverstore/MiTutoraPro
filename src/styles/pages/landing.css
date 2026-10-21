@@ -332,9 +332,7 @@
   }
 }
 
-/* The four split sections use the same content track between the navbar brand and Login. */
-.marketing-brand .brand-wordmark { width: 7.875rem; height: 2.25rem; }
-.marketing-brand .brand-wordmark img { width: 100%; height: auto; }
+/* Major landing sections use the same content track between the navbar brand and Login. */
 @media (min-width: 1200px) {
   .landing-page {
     --landing-header-gutter: max(2rem, calc((100vw - 94rem) / 2));
@@ -352,15 +350,34 @@
     flex: none;
   }
 
-  .landing-page :where(.landing-building, .landing-practice, .landing-projects, .landing-mentor) {
+  .landing-page :where(.landing-building, .landing-courses, .landing-practice, .landing-projects, .landing-mentor) {
     padding-inline:
       calc(var(--landing-header-gutter) + var(--landing-brand-region))
       calc(var(--landing-header-gutter) + var(--landing-auth-region));
   }
 }
 
+/* Keep the course showcase on the shared landing content track and give the
+   interactive build preview more presence without increasing section height. */
+.landing-feature-panel {
+  width: min(100%, 38rem);
+  max-width: 38rem;
+  height: 28rem;
+}
+
+@media (min-width: 1200px) {
+  .landing-building {
+    grid-template-columns: minmax(0, 1fr) minmax(32.5rem, 38rem);
+    gap: clamp(2.5rem, 4vw, 4.5rem);
+  }
+}
+
+@media (max-width: 520px) {
+  .landing-feature-panel { height: 22rem; }
+}
+
 @media (max-width: 1199px) {
-  .landing-page :where(.landing-building, .landing-practice, .landing-projects, .landing-mentor) {
+  .landing-page :where(.landing-building, .landing-courses, .landing-practice, .landing-projects, .landing-mentor) {
     grid-template-columns: minmax(0, 1fr);
     padding-inline: clamp(1rem, 5vw, 3rem);
   }

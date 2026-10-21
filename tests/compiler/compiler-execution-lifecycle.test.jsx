@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { CompilerProvider } from '../../src/compiler/CompilerProvider.jsx';
 import { CompilerPanel } from '../../src/components/CompilerPanel.jsx';
@@ -29,6 +29,50 @@ function selectDevelopmentLanguage(label) {
 }
 
 describe('shared compiler execution lifecycle', () => {
+  it('keeps an unconfigured activity language blank and cannot execute it through another runtime', () => {
+    const manager = {
+      execute: vi.fn(), format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(), dispose: vi.fn(),
+    };
+    const unavailable = {
+      ...compiler,
+      language: 'java',
+      runtimeAvailable: false,
+      starterCode: '', stdin: '', expectedOutput: undefined, testCases: [],
+      editor: { fileName: 'Main.java', language: 'java', lines: [] },
+      output: { emptyTitle: 'Compiler not available for this language yet' },
+    };
+    render(<CompilerProvider manager={manager}><CompilerPanel compiler={unavailable} activityType="practice" languageSelector={<span>Java</span>} /></CompilerProvider>);
+    expect(screen.getByRole('textbox', { name: 'Code editor' })).toHaveValue('');
+    expect(screen.getByRole('button', { name: 'Run code' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Reset code' }));
+    expect(manager.reset).not.toHaveBeenCalled();
+    expect(manager.execute).not.toHaveBeenCalled();
+  });
+
+  it('clears prior output and errors when an activity switches to an unconfigured language', async () => {
+    const manager = {
+      execute: vi.fn().mockResolvedValue({ status: 'success', output: 'old Python output', errors: [], executionTimeMs: 2 }),
+      format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(), dispose: vi.fn(),
+    };
+    const panelRef = React.createRef();
+    render(<CompilerProvider manager={manager}><CompilerPanel ref={panelRef} compiler={compiler} activityType="practice" languageSelector={<span>Python</span>} /></CompilerProvider>);
+    fireEvent.click(screen.getByRole('button', { name: 'Run code' }));
+    expect(await screen.findByText('old Python output')).toBeVisible();
+
+    await act(() => panelRef.current.loadDefinition({
+      ...compiler,
+      id: 'unconfigured-java', language: 'java', runtimeAvailable: false,
+      starterCode: '', stdin: '', expectedOutput: undefined, testCases: [],
+      editor: { fileName: 'Main.java', language: 'java', lines: [] },
+      output: { emptyTitle: 'Compiler not available for this language yet' },
+    }, { confirmReplace: false }));
+
+    expect(screen.getByRole('textbox', { name: 'Code editor' })).toHaveValue('');
+    expect(screen.queryByText('old Python output')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Run code' })).toBeDisabled();
+    expect(manager.execute).toHaveBeenCalledOnce();
+  });
+
   it('keeps Course lessons content-locked even when the DEV selector is available elsewhere', () => {
     const manager = {
       execute: vi.fn(), format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(), dispose: vi.fn(),

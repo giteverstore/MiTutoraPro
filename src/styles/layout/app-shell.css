@@ -82,9 +82,11 @@
 }
 
 .application-brand>.application-brand-full {
-  width: var(--shell-brand-wordmark-width);
+  width: auto;
   height: var(--shell-brand-height);
 }
+
+.application-brand>.application-brand-full .brand-lockup__mark { width: var(--shell-brand-mark-size); height: var(--shell-brand-mark-size); }
 
 .application-brand-mark img,
 .dashboard-brand img,
@@ -459,6 +461,10 @@
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-border);
 }
+
+.application-user-menu-signout button { color: var(--color-danger); }
+.application-user-menu-signout button:hover,
+.application-user-menu-signout button:focus-visible { color: var(--color-danger); background: var(--color-danger-soft); }
 
 .application-user-menu svg {
   width: var(--icon-md);

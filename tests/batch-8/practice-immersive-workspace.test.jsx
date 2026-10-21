@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../src/components/CompilerPanel', () => ({
-  CompilerPanel: ({ compiler, activityType, aiEnabled, onVerificationChange, onToggleCompiler }) => <div data-testid="compiler" data-activity-type={activityType} data-ai-enabled={aiEnabled}><span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button" onClick={() => onVerificationChange?.('matched')}>Check Output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button><span>Editor</span></div>,
+  CompilerPanel: ({ compiler, activityType, aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="compiler" data-activity-type={activityType} data-ai-enabled={aiEnabled}>{languageSelector}<span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button" onClick={() => onVerificationChange?.('matched')}>Check Output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button><span>Editor</span></div>,
 }));
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 
@@ -65,6 +65,15 @@ describe('Practice immersive coding workspace', () => {
     expect(screen.getByRole('button', { name: /Save Completion/ })).toBeEnabled();
     fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
     expect(onComplete).toHaveBeenCalledWith(question);
+  });
+
+  it('offers the shared nine-language activity selector while preserving Python content', () => {
+    render(<PracticeDetail question={question} solved={false} onBack={() => {}} onComplete={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Compiler language' }));
+    expect(screen.getAllByRole('menuitemradio').map((option) => option.textContent)).toEqual([
+      'Python', 'Java', 'JavaScript', 'TypeScript', 'C', 'C++', 'PHP', 'R', 'C#',
+    ]);
+    expect(screen.getByText('print("ready")')).toBeInTheDocument();
   });
 
   it('celebrates only a newly saved completion, not an already solved problem or output match', async () => {

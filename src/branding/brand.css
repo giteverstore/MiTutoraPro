@@ -19,6 +19,28 @@
   object-fit: contain;
 }
 
+.brand-lockup {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: .65rem;
+  color: currentColor;
+  white-space: nowrap;
+}
+
+.brand-lockup__mark {
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 auto;
+}
+
+.brand-lockup__name {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1;
+}
+
 .brand-wordmark {
   position: relative;
   display: inline-block;

@@ -4,7 +4,9 @@ export const PRACTICE_PAGE_SIZE = 24;
 
 export function matchesPracticeFilters(question, filters = {}) {
   const query = String(filters.search ?? '').trim().toLowerCase();
-  return (filters.difficulty === 'all' || !filters.difficulty || question.difficulty === filters.difficulty)
+  const questionLanguage = String(question.language ?? '').trim().toLowerCase();
+  return (filters.language === 'all' || !filters.language || questionLanguage === filters.language)
+    && (filters.difficulty === 'all' || !filters.difficulty || question.difficulty === filters.difficulty)
     && (filters.topic === 'all' || !filters.topic || question.topic === filters.topic)
     && (!query || `${question.title} ${question.summary} ${question.topic} ${question.category ?? ''} ${(question.skills ?? []).join(' ')}`.toLowerCase().includes(query));
 }

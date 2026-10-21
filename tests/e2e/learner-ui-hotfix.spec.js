@@ -6,7 +6,7 @@ test('Project cards and overview keep the Course rhythm at four viewport widths'
   await page.route('**/api/admin-content/public/simple-calculator', (route) => route.fulfill({
     status: 404, contentType: 'application/json', body: JSON.stringify({ error: { code: 'content/not-published' } }),
   }));
-  for (const [width, columns] of [[1440, 4], [1024, 2], [820, 2], [390, 1]]) {
+  for (const [width, columns] of [[1440, 5], [1024, 2], [820, 2], [390, 1]]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/projects');
     await expect(page.locator('.project-card').first()).toBeVisible();

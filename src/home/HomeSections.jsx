@@ -14,6 +14,7 @@ import {
   SearchX,
 } from 'lucide-react';
 import { CourseCard } from './CourseCard';
+import { getCourseCardArtwork } from './courseCardArtwork';
 import { ErrorState } from '../errors/ErrorState';
 
 const LANGUAGE_ICONS = {
@@ -116,7 +117,7 @@ export function ContinueLearningSection({ courses = [], status, onOpenCourse, on
         {canExpand ? <button className="home-continue-toggle" type="button" aria-expanded={expanded} aria-controls="continue-learning-courses" onClick={() => setExpanded((current) => !current)}>{expanded ? 'Show less' : 'View all'}</button> : null}
       </div>
       {status === 'loading' ? <CourseCardsLoadingState label="Loading your courses" /> : visibleCourses.length ? <div className="home-continue-grid" id="continue-learning-courses">{visibleCourses.map((course) => <article className="home-continue-card" key={course.id}>
-        <div className="home-continue-mark" aria-hidden="true"><BookOpen /></div>
+        <div className="home-continue-mark" aria-hidden="true">{getCourseCardArtwork(course.id) ? <img src={getCourseCardArtwork(course.id)} alt="" width="64" height="64" loading="lazy" decoding="async" /> : <BookOpen />}</div>
         <div className="home-continue-copy">
           <h3>{course.title}</h3>
           <p>{course.currentLesson ?? 'Start with the first lesson'}</p>

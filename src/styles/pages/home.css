@@ -725,6 +725,13 @@
   width: 1.5rem;
 }
 
+.home-continue-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .home-continue-copy {
   min-width: 0;
 }
@@ -1353,7 +1360,7 @@
 
 .library-course-divider { position: absolute; top: 1.25rem; right: calc(-1 * var(--space-3)); left: calc(-1 * var(--space-3)); height: 1px; background: var(--color-border); }
 
-.home-recent-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); justify-content: start; }
+.home-recent-grid { grid-template-columns: repeat(5, minmax(0, 14.8125rem)); justify-content: start; gap: var(--space-3); }
 
 @media (min-width: 1360px) {
   .home-dashboard-grid {

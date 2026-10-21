@@ -33,7 +33,8 @@ import { getVisiblePracticePages } from '../../src/practice/PracticePagination';
 function pageFor({ cursor, filters }) {
   const search = String(filters?.search ?? '').toLowerCase();
   const matches = questions.filter((question) => (
-    (!filters?.difficulty || filters.difficulty === 'all' || question.difficulty === filters.difficulty)
+    (!filters?.language || filters.language === 'all' || question.language.toLowerCase() === filters.language)
+    && (!filters?.difficulty || filters.difficulty === 'all' || question.difficulty === filters.difficulty)
     && (!filters?.topic || filters.topic === 'all' || question.topic === filters.topic)
     && (!search || `${question.title} ${question.summary}`.toLowerCase().includes(search))
   ));
@@ -64,6 +65,20 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('Practice cursor pagination', () => {
+  it('filters through exactly nine canonical languages without falling back to Python questions', async () => {
+    render(<PracticePage />);
+    await screen.findByText('Question 1');
+    const selector = screen.getByRole('combobox', { name: 'Language' });
+    expect([...selector.options].map(({ value, text }) => [value, text])).toEqual([
+      ['python', 'Python'], ['java', 'Java'], ['javascript', 'JavaScript'], ['typescript', 'TypeScript'],
+      ['c', 'C'], ['cpp', 'C++'], ['php', 'PHP'], ['r', 'R'], ['csharp', 'C#'],
+    ]);
+    fireEvent.change(selector, { target: { value: 'java' } });
+    await waitFor(() => expect(screen.getByText('No questions match your filters.')).toBeVisible());
+    expect(screen.queryByText('Question 1')).not.toBeInTheDocument();
+    expect(listPage).toHaveBeenLastCalledWith(expect.objectContaining({ filters: expect.objectContaining({ language: 'java' }) }));
+  });
+
   it('starts with statistics and keeps difficulty beside each question title', async () => {
     const { container } = render(<PracticePage />);
     const title = await screen.findByText('Question 1');

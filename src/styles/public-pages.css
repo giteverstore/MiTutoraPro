@@ -284,14 +284,13 @@
   font-weight: var(--font-weight-bold);
 }
 
-.public-footer-brand .brand-wordmark {
-  width: 14rem;
-  height: 3rem;
+.public-footer-brand .brand-lockup__mark {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
-.public-footer-brand .brand-wordmark img {
-  width: 100%;
-  height: auto;
+.public-footer-brand .brand-lockup__name {
+  font-size: 1.35rem;
 }
 
 .public-footer-brand-column>p {

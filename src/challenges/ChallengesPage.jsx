@@ -22,6 +22,7 @@ import { authService } from '../auth/AuthService';
 import { SharedCompilerDock } from '../components/SharedCompilerDock';
 import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
 import { ErrorState } from '../errors/ErrorState';
+import { ACTIVITY_LANGUAGE_OPTIONS } from '../compiler/languages/activityLanguageOptions';
 
 const isCompleted = (completion, date) => completion.activityType === 'DAILY_CHALLENGE'
   && completion.occurrenceDate === date
@@ -94,7 +95,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   const { theme, brandTheme } = useApplicationTheme();
   const compilerResize = useCompilerPaneResize();
   const compilerDefinitions = useMemo(() => challenge?.blocks.filter((block) => block.type === 'compiler').map(createCompilerData) ?? [], [challenge]);
-  const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, challenge?.language);
+  const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, challenge?.language, { languages: ACTIVITY_LANGUAGE_OPTIONS, includeUnavailable: true });
   const compiler = compilerLanguage.activeDefinition;
   const today = kolkataDate();
   const reviewMode = completed || (occurrenceDate !== today && !recoveryUnlocked);

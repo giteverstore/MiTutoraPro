@@ -1,7 +1,7 @@
 import { Check, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { PRIMARY_NAVIGATION } from './navigation';
 import { brandAssets } from '../branding/brandAssets.js';
-import { BrandWordmark } from '../branding/BrandWordmark.jsx';
+import { BrandLockup } from '../branding/BrandLockup.jsx';
 
 export function AppSidebar({
   activePage,
@@ -21,7 +21,7 @@ export function AppSidebar({
         <div className="application-sidebar-header">
           <button className="application-brand" type="button" aria-label="Y Coders home" onClick={() => onNavigate('home')}>
             <span className="application-brand-mark"><img src={brandAssets.mark} alt="" width="486" height="513" /></span>
-            <BrandWordmark className="application-brand-full" />
+            <BrandLockup className="application-brand-full" />
           </button>
           <button
             className="application-icon-button application-drawer-close"

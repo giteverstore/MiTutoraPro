@@ -13,6 +13,7 @@ export function EditorHeader({
   languageSelector,
   isCompilerMinimized = false,
   onToggleCompiler,
+  runDisabled = false,
 }) {
   const isSelectable = Boolean(languageSelector);
   const state = isRunning ? 'running' : executionStatus;
@@ -37,7 +38,7 @@ export function EditorHeader({
           className="compiler-run-button"
           label="Run code"
           onClick={onRun}
-          disabled={isRunning}
+          disabled={isRunning || runDisabled}
         >
           <Play size={ICON_SIZE.sm} fill="currentColor" aria-hidden="true" />
         </IconButton>

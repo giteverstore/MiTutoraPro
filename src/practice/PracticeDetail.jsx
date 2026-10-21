@@ -11,6 +11,7 @@ import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar
 import { AITutorWorkspace } from '../ai/AITutorWorkspace';
 import { SharedCompilerDock } from '../components/SharedCompilerDock';
 import { CompletionCelebration } from '../components/CompletionCelebration';
+import { ACTIVITY_LANGUAGE_OPTIONS } from '../compiler/languages/activityLanguageOptions';
 
 export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {} }) {
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
@@ -27,7 +28,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
     () => question.blocks.filter((block) => block.type === 'compiler').map(createCompilerData),
     [question],
   );
-  const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, question.language);
+  const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, question.language, { languages: ACTIVITY_LANGUAGE_OPTIONS, includeUnavailable: true });
   const compiler = compilerLanguage.activeDefinition;
   useEffect(() => { if (solved) setCompleted(true); }, [solved]);
   const canComplete = !completed && !requireAuthentication;
@@ -82,7 +83,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
         panelRef={compilerLanguage.panelRef}
         compiler={compiler}
         unavailableContent={requireAuthentication ? <div className="practice-auth-required"><LockKeyhole /><h2>Sign in to solve this question</h2><p>Browse the problem now, then sign in to run code and save tracked progress.</p><button className="button button--primary" type="button" onClick={onRequireAuth}>Login to continue</button></div> : null}
-        panelProps={{ instanceId: `practice-${question.id}`, activityType: 'practice', onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: toggleCompiler, onAskAITutor: handleAskAITutor, onContextChange: setCompilerContext, aiEnabled: true, publicTests: question.publicTests ?? [], contract: question.contract }}
+        panelProps={{ instanceId: `practice-${question.id}`, activityType: 'practice', onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: toggleCompiler, onAskAITutor: handleAskAITutor, onContextChange: setCompilerContext, aiEnabled: true, publicTests: compilerLanguage.configured ? question.publicTests ?? [] : [], contract: compilerLanguage.configured ? question.contract : null }}
         errorBoundary={{ name: 'practice-compiler', title: 'The code workspace could not be displayed.', description: 'The problem statement is still available. Retry the workspace when you are ready.', resetKeys: [question.id] }}
         resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
       />

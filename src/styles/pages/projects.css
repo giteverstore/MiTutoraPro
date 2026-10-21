@@ -168,8 +168,9 @@
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(5, minmax(0, 14.8125rem));
+  justify-content: start;
+  gap: var(--space-4);
 }
 
 .project-card-skeleton { pointer-events: none; }

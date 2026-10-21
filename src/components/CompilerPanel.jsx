@@ -72,6 +72,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   }, [executionStatus, isRunning, onExecutionStateChange]);
 
   const showRunFeedback = useCallback(async (executionOverride = null) => {
+    if ((executionOverride?.compiler ?? activeCompilerRef.current).runtimeAvailable === false) return;
     expandOutputDrawer();
     const definition = executionOverride?.compiler ?? activeCompilerRef.current;
     const requestedSource = executionOverride?.source ?? currentCodeRef.current;
@@ -275,7 +276,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     executionControllerRef.current = null;
     const definition = activeCompilerRef.current;
     const resetSource = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    await compilerManager.reset(definition.language, instanceId);
+    if (definition.runtimeAvailable !== false) await compilerManager.reset(definition.language, instanceId);
     setIsRunning(false);
     currentCodeRef.current = resetSource;
     lastLoadedCodeRef.current = resetSource;
@@ -353,7 +354,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     }
   }, [applyCompilerDefinition, compilerManager, instanceId]);
 
-  const effectiveLanguageSelector = import.meta.env.DEV && activityType !== 'lesson' ? (
+  const effectiveLanguageSelector = import.meta.env.DEV && activityType !== 'lesson' && !languageSelector ? (
     <CompilerLanguageSelector
       label="DEV Compiler:"
       ariaLabel="Development compiler runtime"
@@ -391,7 +392,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
 
   useEffect(() => {
     const handleKeyboardRun = (event) => {
-      if (event.detail?.instanceId === instanceId && panelRef.current?.getClientRects().length) {
+      if (event.detail?.instanceId === instanceId && panelRef.current?.getClientRects().length && activeCompilerRef.current.runtimeAvailable !== false) {
         showRunFeedback();
       }
     };
@@ -414,6 +415,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           languageSelector={effectiveLanguageSelector}
           isCompilerMinimized={isCompilerMinimized}
           onToggleCompiler={onToggleCompiler}
+          runDisabled={activeCompiler.runtimeAvailable === false}
         />
         <div className="compiler-workspace compiler-workspace-editor-only">
           <div className="compiler-main-row">

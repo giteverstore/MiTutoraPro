@@ -13,8 +13,7 @@ vi.mock('../../src/home/challengeCalendar', () => ({ kolkataDate: () => '2026-09
 vi.mock('../../src/coins/ActivityCompletionClient', () => ({ activityCompletionClient: { complete: state.complete } }));
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 vi.mock('../../src/hooks/useCompilerPaneResize', () => ({ useCompilerPaneResize: () => ({ workspaceRef: { current: null }, value: 640, max: 900, startDragging: vi.fn(), handleKeyDown: vi.fn() }) }));
-vi.mock('../../src/compiler/useSelectableCompilerLanguage', () => ({ useSelectableCompilerLanguage: (definitions) => ({ activeDefinition: definitions[0], language: 'python', options: [{ value: 'python', label: 'Python' }], switching: false, selectLanguage: vi.fn(), panelRef: { current: null } }) }));
-vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onVerificationChange, onToggleCompiler }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}><button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
+vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}>{languageSelector}<button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
 vi.mock('../../src/components/ResizeHandle', () => ({ ResizeHandle: () => <div data-testid="resize-handle" /> }));
 
 import { buildChallengeHistory, ChallengeHub, ChallengeWorkspace } from '../../src/challenges/ChallengesPage';
@@ -100,6 +99,17 @@ describe('dated Daily Challenge workspace', () => {
     expect(screen.getByTestId('resize-handle')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Back to Challenges' }));
     expect(back).toHaveBeenCalledOnce();
+  });
+
+  it('offers exactly the shared nine languages and keeps AI unavailable', () => {
+    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Compiler language' }));
+    expect(screen.getAllByRole('menuitemradio').map((option) => option.textContent)).toEqual([
+      'Python', 'Java', 'JavaScript', 'TypeScript', 'C', 'C++', 'PHP', 'R', 'C#',
+    ]);
+    expect(screen.getByTestId('challenge-compiler')).toHaveAttribute('data-ai-enabled', 'false');
+    expect(screen.queryByText(/Ask AI Tutor/i)).not.toBeInTheDocument();
   });
 
   it('minimizes through the shared toolbar without exposing any AI route', () => {
