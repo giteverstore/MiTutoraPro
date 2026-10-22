@@ -1,6 +1,6 @@
 import { AIServiceError } from '../AIServiceError.js';
 
-const SUPPORTED_PROVIDERS = new Set(['openai', 'huggingface']);
+const SUPPORTED_PROVIDERS = new Set(['openai', 'huggingface', 'gemini']);
 export const APPROVED_FIREBASE_PROJECT_ID = 'mi-tutora-pro';
 export const APPROVED_TUTOR_QUOTA_DATABASE_ID = 'ai-tutor-quota';
 export const APPROVED_VALIDATION_FIREBASE_PROJECT_ID = 'mi-tutora-ai-val-260904-k7m3';
