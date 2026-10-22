@@ -186,6 +186,7 @@ export function createProviderFailureLog({ provider, model, diagnostic, duration
   if (typeof diagnostic.providerRequestId === 'string' && PROVIDER_REQUEST_ID_PATTERN.test(diagnostic.providerRequestId)) {
     event.providerRequestId = diagnostic.providerRequestId;
   }
+  if (typeof diagnostic.fetchAborted === 'boolean') event.fetchAborted = diagnostic.fetchAborted;
   if (Number.isFinite(durationMs) && durationMs >= 0) event.durationMs = Math.round(durationMs);
   return Object.freeze(event);
 }

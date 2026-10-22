@@ -32,6 +32,18 @@ function providerUsage(payload) {
   };
 }
 
+function attachTiming(error, request, startedAt, diagnostic) {
+  if (!error || typeof error !== 'object') return error;
+  error.providerDurationMs = Date.now() - startedAt;
+  if (diagnostic) {
+    error.providerDiagnostic = Object.freeze({
+      ...diagnostic,
+      fetchAborted: request.signal.aborted,
+    });
+  }
+  return error;
+}
+
 export class GeminiProvider extends AIProvider {
   constructor({ apiKey, model, fetchImpl = globalThis.fetch, timeoutMs = DEFAULT_PROVIDER_TIMEOUT_MS } = {}) {
     super();
@@ -50,6 +62,7 @@ export class GeminiProvider extends AIProvider {
 
   async explain(tutorRequest, { signal } = {}) {
     const request = createProviderSignal(signal, this.timeoutMs);
+    const startedAt = Date.now();
     try {
       let response;
       try {
@@ -61,6 +74,7 @@ export class GeminiProvider extends AIProvider {
             contents: [{ role: 'user', parts: [{ text: tutorRequest.userContent }] }],
             generationConfig: {
               maxOutputTokens: tutorRequest.maxProviderTokens,
+              thinkingConfig: { thinkingLevel: 'low' },
               responseMimeType: 'application/json',
               responseJsonSchema: (tutorRequest.responseSchema ?? TUTOR_PROVIDER_RESPONSE_SCHEMA).schema,
             },
@@ -68,10 +82,16 @@ export class GeminiProvider extends AIProvider {
           signal: request.signal,
         });
       } catch (error) {
-        throw providerTransportError(error, request, signal);
+        const transportError = providerTransportError(error, request, signal);
+        if (transportError === error) throw error;
+        throw attachTiming(transportError, request, startedAt, {
+          providerCode: 'unknown',
+          providerClassification: request.didTimeOut() ? 'timeout' : 'unknown',
+        });
       }
       if (!response.ok) {
-        throw providerHttpError(response.status, await inspectProviderRejection(response));
+        const diagnostic = await inspectProviderRejection(response);
+        throw attachTiming(providerHttpError(response.status, diagnostic), request, startedAt, diagnostic);
       }
       let payload;
       try {

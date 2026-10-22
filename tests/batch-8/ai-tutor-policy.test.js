@@ -306,4 +306,39 @@ describe('AI Tutor reliability and observability controls', () => {
       body: { error: { code: 'ai/provider-rejected', message: 'The AI Tutor provider rejected this explanation request.', retryable: false } },
     });
   });
+
+  it('logs Gemini provider-only timeout duration and abort state', async () => {
+    const logged = [];
+    const providerError = new AIServiceError('ai/provider-timeout', 'The AI Tutor took too long to respond. Please try again.', { status: 504 });
+    providerError.providerDurationMs = 45_004;
+    providerError.providerDiagnostic = Object.freeze({
+      providerCode: 'unknown',
+      providerClassification: 'timeout',
+      fetchAborted: true,
+      prompt: 'must not be logged',
+    });
+    const provider = {
+      getMetadata: () => ({ provider: 'gemini', model: 'gemini-3.8-flash' }),
+      explain: vi.fn().mockRejectedValue(providerError),
+    };
+    await expect(explainCode(baseRequest, {
+      principal: { uid: 'test-user' },
+      featureGate: enabledFeatureGate,
+      providerFactory: () => provider,
+      rateLimiter: { assertAllowed: vi.fn() },
+      requestCoordinator: new TutorRequestCoordinator(),
+      telemetry: new TutorTelemetry(),
+      providerFailureLogger: (event) => logged.push(event),
+    })).rejects.toMatchObject({ code: 'ai/provider-timeout', status: 504 });
+    expect(logged).toEqual([{
+      operation: 'ai-tutor-provider-request',
+      provider: 'gemini',
+      model: 'gemini-3.8-flash',
+      providerCode: 'unknown',
+      providerClassification: 'timeout',
+      fetchAborted: true,
+      durationMs: 45_004,
+    }]);
+    expect(JSON.stringify(logged)).not.toContain('must not be logged');
+  });
 });

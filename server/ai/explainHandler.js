@@ -143,7 +143,9 @@ export async function explainCode(body, {
     const providerFailure = createProviderFailureLog({
       ...metadata,
       diagnostic: normalizedError?.providerDiagnostic,
-      durationMs: Date.now() - startedAt,
+      durationMs: Number.isFinite(normalizedError?.providerDurationMs)
+        ? normalizedError.providerDurationMs
+        : Date.now() - startedAt,
     });
     if (providerFailure) {
       try { providerFailureLogger(providerFailure); }

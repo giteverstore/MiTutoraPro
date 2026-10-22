@@ -62,6 +62,7 @@ describe('Gemini AI Tutor provider', () => {
       contents: [{ role: 'user', parts: [{ text: 'Learner data' }] }],
       generationConfig: {
         maxOutputTokens: 1_200,
+        thinkingConfig: { thinkingLevel: 'low' },
         responseMimeType: 'application/json',
         responseJsonSchema: providerRequest.responseSchema.schema,
       },
@@ -104,6 +105,7 @@ describe('Gemini AI Tutor provider', () => {
       providerCode: 'unknown',
       providerClassification: 'request-rejected',
       providerRequestId: 'gemini_request-123',
+      fetchAborted: false,
     });
     const publicError = publicAIError(error);
     expect(publicError).toMatchObject({ status: 502, body: { error: { code: 'ai/provider-rejected' } } });
@@ -117,7 +119,14 @@ describe('Gemini AI Tutor provider', () => {
       signal.addEventListener('abort', () => reject(signal.reason), { once: true });
     }));
     const timed = new GeminiProvider({ apiKey: 'private-key', model: 'gemini-3.8-flash', fetchImpl: timeoutFetch, timeoutMs: 5 });
-    await expect(timed.explain(providerRequest)).rejects.toMatchObject({ code: 'ai/provider-timeout', status: 504 });
+    let timeoutError;
+    try { await timed.explain(providerRequest); } catch (caught) { timeoutError = caught; }
+    expect(timeoutError).toMatchObject({ code: 'ai/provider-timeout', status: 504 });
+    expect(timeoutError.providerDiagnostic).toMatchObject({
+      providerCode: 'unknown', providerClassification: 'timeout', fetchAborted: true,
+    });
+    expect(timeoutError.providerDiagnostic).not.toHaveProperty('providerStatus');
+    expect(timeoutError.providerDurationMs).toBeGreaterThanOrEqual(0);
     const network = new GeminiProvider({ apiKey: 'private-key', model: 'gemini-3.8-flash', fetchImpl: vi.fn().mockRejectedValue(new Error('private network detail')) });
     await expect(network.explain(providerRequest)).rejects.toMatchObject({ code: 'ai/provider-unavailable', status: 502 });
   });

@@ -300,6 +300,7 @@ describe('bounded provider rejection observability', () => {
         providerCode: 'unknown',
         providerClassification: 'request-rejected',
         providerRequestId: 'req_safe-123',
+        fetchAborted: false,
         message: 'private provider message',
         token: 'server-only-token',
       },
@@ -315,6 +316,7 @@ describe('bounded provider rejection observability', () => {
       providerCode: 'unknown',
       providerClassification: 'request-rejected',
       providerRequestId: 'req_safe-123',
+      fetchAborted: false,
       durationMs: 10123,
     });
     expect(JSON.stringify(event)).not.toMatch(/private|token|prompt|learner code/i);
