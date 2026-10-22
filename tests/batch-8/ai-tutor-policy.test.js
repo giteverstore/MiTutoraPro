@@ -262,4 +262,48 @@ describe('AI Tutor reliability and observability controls', () => {
     const error = new AIServiceError('ai/provider-auth', 'The AI Tutor is not configured yet.', { status: 503, cause: new Error(token) });
     expect(JSON.stringify(publicAIError(error))).not.toContain(token);
   });
+
+  it('logs sanitized provider diagnostics without changing the public failure', async () => {
+    const logged = [];
+    const secret = 'server-only-token private prompt private learner code';
+    const providerError = new AIServiceError('ai/provider-rejected', 'The AI Tutor provider rejected this explanation request.', { status: 502 });
+    providerError.providerDiagnostic = Object.freeze({
+      providerStatus: 400,
+      providerCode: 'unknown',
+      providerClassification: 'request-rejected',
+      providerRequestId: 'req_safe-456',
+      arbitraryMessage: secret,
+    });
+    const provider = {
+      getMetadata: () => ({ provider: 'huggingface', model: 'openai/gpt-oss-120b:fastest' }),
+      explain: vi.fn().mockRejectedValue(providerError),
+    };
+    let caught;
+    try {
+      await explainCode(baseRequest, {
+        principal: { uid: 'test-user' },
+        featureGate: enabledFeatureGate,
+        providerFactory: () => provider,
+        rateLimiter: { assertAllowed: vi.fn() },
+        requestCoordinator: new TutorRequestCoordinator(),
+        telemetry: new TutorTelemetry(),
+        providerFailureLogger: (event) => logged.push(event),
+      });
+    } catch (error) { caught = error; }
+
+    expect(logged).toEqual([expect.objectContaining({
+      operation: 'ai-tutor-provider-request',
+      provider: 'huggingface',
+      model: 'openai/gpt-oss-120b:fastest',
+      providerStatus: 400,
+      providerCode: 'unknown',
+      providerClassification: 'request-rejected',
+      providerRequestId: 'req_safe-456',
+    })]);
+    expect(JSON.stringify(logged)).not.toContain(secret);
+    expect(publicAIError(caught)).toEqual({
+      status: 502,
+      body: { error: { code: 'ai/provider-rejected', message: 'The AI Tutor provider rejected this explanation request.', retryable: false } },
+    });
+  });
 });

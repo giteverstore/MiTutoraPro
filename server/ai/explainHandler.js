@@ -15,6 +15,7 @@ import { classifyAIError } from './aiErrorTaxonomy.js';
 import { tutorFeatureGate } from './tutor/tutorFeatureGate.js';
 import { createTutorPricingConfiguration, createTutorProviderTokenConstraints } from './tutor/tutorRuntimeConfig.js';
 import { createTutorUsagePlan, normalizeProviderUsage, usageFitsReservation } from './tutor/tutorUsage.js';
+import { createProviderFailureLog } from './providerTransport.js';
 
 const ZERO_USAGE = Object.freeze({ inputTokens: 0, outputTokens: 0, costMicros: 0 });
 
@@ -37,6 +38,7 @@ export async function explainCode(body, {
   featureGate = tutorFeatureGate,
   pricing,
   providerTokenConstraints,
+  providerFailureLogger = console.error,
 } = {}) {
   if (!principal?.uid) throw new AIServiceError('ai/auth-required', 'Sign in to use the AI Tutor.', { status: 401 });
   const startedAt = Date.now();
@@ -138,6 +140,15 @@ export async function explainCode(body, {
       ? new AIServiceError('ai/cancelled', 'The explanation was cancelled.', { status: 499, cause: error })
       : error;
     const classification = classifyAIError(normalizedError);
+    const providerFailure = createProviderFailureLog({
+      ...metadata,
+      diagnostic: normalizedError?.providerDiagnostic,
+      durationMs: Date.now() - startedAt,
+    });
+    if (providerFailure) {
+      try { providerFailureLogger(providerFailure); }
+      catch { /* Diagnostic logging must never alter the learner response. */ }
+    }
     if (classification.code === 'ai/rate-limited') quotaDecision = 'rejected';
     else if (classification.code === 'ai/quota-unavailable') quotaDecision = 'unavailable';
     await settleQuota(classification.code);

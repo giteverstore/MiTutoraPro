@@ -2,6 +2,7 @@ import { AIServiceError } from './AIServiceError.js';
 
 export const DEFAULT_PROVIDER_TIMEOUT_MS = 45_000;
 export const MAX_PROVIDER_ERROR_BYTES = 4_096;
+const PROVIDER_REQUEST_ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
 
 const PROVIDER_CODE_ALLOWLIST = new Map([
   ['content_filter', Object.freeze({
@@ -12,6 +13,10 @@ const PROVIDER_CODE_ALLOWLIST = new Map([
 const SANITIZED_PROVIDER_CODE_ALLOWLIST = new Map(
   [...PROVIDER_CODE_ALLOWLIST.values()].map((entry) => [entry.providerCode, entry]),
 );
+const PROVIDER_CLASSIFICATION_ALLOWLIST = new Set([
+  'authentication-failed', 'model-unavailable', 'timeout', 'rate-limited',
+  'transient-provider-error', 'request-rejected', 'safety-rejected', 'unknown',
+]);
 
 function safeProviderStatus(status) {
   return Number.isInteger(status) && status >= 100 && status <= 599 ? status : null;
@@ -37,6 +42,15 @@ function extractAllowlistedCode(payload) {
   const error = payload.error;
   if (!error || typeof error !== 'object' || Array.isArray(error)) return null;
   return sanitizeProviderCode(error.code) ?? sanitizeProviderCode(error.type);
+}
+
+function readProviderRequestId(response) {
+  try {
+    const value = response?.headers?.get?.('x-request-id');
+    return typeof value === 'string' && PROVIDER_REQUEST_ID_PATTERN.test(value) ? value : null;
+  } catch {
+    return null;
+  }
 }
 
 async function readBoundedProviderError(response, maximumBytes) {
@@ -75,7 +89,7 @@ async function readBoundedProviderError(response, maximumBytes) {
   }
 }
 
-export function createProviderDiagnostic(status, allowlistedCode = null) {
+export function createProviderDiagnostic(status, allowlistedCode = null, providerRequestId = null) {
   const providerStatus = safeProviderStatus(status);
   const code = typeof allowlistedCode === 'string'
     ? PROVIDER_CODE_ALLOWLIST.get(allowlistedCode) ?? SANITIZED_PROVIDER_CODE_ALLOWLIST.get(allowlistedCode) ?? null
@@ -87,6 +101,9 @@ export function createProviderDiagnostic(status, allowlistedCode = null) {
     providerClassification: statusBasedClassification === 'request-rejected' && code
       ? code.providerClassification
       : statusBasedClassification,
+    ...(typeof providerRequestId === 'string' && PROVIDER_REQUEST_ID_PATTERN.test(providerRequestId)
+      ? { providerRequestId }
+      : {}),
   });
 }
 
@@ -94,7 +111,7 @@ export async function inspectProviderRejection(response, { maximumBytes = MAX_PR
   const payload = Number.isInteger(maximumBytes) && maximumBytes > 0
     ? await readBoundedProviderError(response, maximumBytes)
     : null;
-  return createProviderDiagnostic(response?.status, extractAllowlistedCode(payload));
+  return createProviderDiagnostic(response?.status, extractAllowlistedCode(payload), readProviderRequestId(response));
 }
 
 export function createProviderSignal(signal, timeoutMs = DEFAULT_PROVIDER_TIMEOUT_MS) {
@@ -148,6 +165,27 @@ export function providerHttpError(status, providerDiagnostic = createProviderDia
   else {
     error = new AIServiceError('ai/provider-failed', 'The AI Tutor could not complete this explanation. Please try again.', { status: 502 });
   }
-  error.providerDiagnostic = createProviderDiagnostic(status, providerDiagnostic);
+  error.providerDiagnostic = createProviderDiagnostic(status, providerDiagnostic, providerDiagnostic?.providerRequestId);
   return error;
+}
+
+export function createProviderFailureLog({ provider, model, diagnostic, durationMs } = {}) {
+  if (!diagnostic || typeof diagnostic !== 'object') return null;
+  const event = { operation: 'ai-tutor-provider-request' };
+  if (typeof provider === 'string' && provider) event.provider = provider.slice(0, 80);
+  if (typeof model === 'string' && model) event.model = model.slice(0, 160);
+  if (Number.isInteger(diagnostic.providerStatus) && diagnostic.providerStatus >= 100 && diagnostic.providerStatus <= 599) {
+    event.providerStatus = diagnostic.providerStatus;
+  }
+  if (SANITIZED_PROVIDER_CODE_ALLOWLIST.has(diagnostic.providerCode) || diagnostic.providerCode === 'unknown') {
+    event.providerCode = diagnostic.providerCode;
+  }
+  if (PROVIDER_CLASSIFICATION_ALLOWLIST.has(diagnostic.providerClassification)) {
+    event.providerClassification = diagnostic.providerClassification;
+  }
+  if (typeof diagnostic.providerRequestId === 'string' && PROVIDER_REQUEST_ID_PATTERN.test(diagnostic.providerRequestId)) {
+    event.providerRequestId = diagnostic.providerRequestId;
+  }
+  if (Number.isFinite(durationMs) && durationMs >= 0) event.durationMs = Math.round(durationMs);
+  return Object.freeze(event);
 }

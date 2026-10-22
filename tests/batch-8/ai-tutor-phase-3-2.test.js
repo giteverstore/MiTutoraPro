@@ -6,6 +6,7 @@ import { createTutorPricingConfiguration } from '../../server/ai/tutor/tutorRunt
 import { createTutorUsagePlan, estimateCostMicros, usageFitsReservation } from '../../server/ai/tutor/tutorUsage.js';
 import {
   inspectProviderRejection,
+  createProviderFailureLog,
   MAX_PROVIDER_ERROR_BYTES,
   providerHttpError,
 } from '../../server/ai/providerTransport.js';
@@ -273,6 +274,50 @@ describe('bounded provider rejection observability', () => {
     expect(JSON.stringify(error)).not.toContain(marker);
     expect(error).not.toHaveProperty('headers');
     expect(error).not.toHaveProperty('body');
+  });
+
+  it('retains only a conservatively validated provider request ID', async () => {
+    const accepted = rejection(400, { error: { message: 'private provider message' } });
+    accepted.headers = { get: (name) => name === 'x-request-id' ? 'req_ABC-123' : null };
+    await expect(inspectProviderRejection(accepted)).resolves.toEqual({
+      providerStatus: 400,
+      providerCode: 'unknown',
+      providerClassification: 'request-rejected',
+      providerRequestId: 'req_ABC-123',
+    });
+
+    const rejected = rejection(400, undefined);
+    rejected.headers = { get: () => 'bad request id: private detail' };
+    await expect(inspectProviderRejection(rejected)).resolves.not.toHaveProperty('providerRequestId');
+  });
+
+  it('creates an allowlisted provider failure log without arbitrary content', () => {
+    const event = createProviderFailureLog({
+      provider: 'huggingface',
+      model: 'openai/gpt-oss-120b:fastest',
+      diagnostic: {
+        providerStatus: 400,
+        providerCode: 'unknown',
+        providerClassification: 'request-rejected',
+        providerRequestId: 'req_safe-123',
+        message: 'private provider message',
+        token: 'server-only-token',
+      },
+      durationMs: 10_123.4,
+      prompt: 'private prompt',
+      code: 'private learner code',
+    });
+    expect(event).toEqual({
+      operation: 'ai-tutor-provider-request',
+      provider: 'huggingface',
+      model: 'openai/gpt-oss-120b:fastest',
+      providerStatus: 400,
+      providerCode: 'unknown',
+      providerClassification: 'request-rejected',
+      providerRequestId: 'req_safe-123',
+      durationMs: 10123,
+    });
+    expect(JSON.stringify(event)).not.toMatch(/private|token|prompt|learner code/i);
   });
 
   it('records allowlisted diagnostics without changing evaluation rejection accounting', async () => {
