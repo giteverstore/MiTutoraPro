@@ -19,6 +19,23 @@ import { createProviderFailureLog } from './providerTransport.js';
 
 const ZERO_USAGE = Object.freeze({ inputTokens: 0, outputTokens: 0, costMicros: 0 });
 
+function attachResponseDiagnostic(error, result, providerRequest, fields) {
+  if (!error || typeof error !== 'object') return error;
+  const outputTokens = Number(result?.usage?.output_tokens ?? result?.usage?.completion_tokens);
+  error.providerDurationMs = Number.isFinite(result?.providerDurationMs) ? result.providerDurationMs : error.providerDurationMs;
+  error.providerDiagnostic = Object.freeze({
+    providerClassification: fields.providerClassification,
+    finishReason: result?.finishReason ?? 'unknown',
+    ...(Number.isInteger(outputTokens) && outputTokens >= 0 ? { outputTokens } : {}),
+    maxOutputTokens: providerRequest.maxProviderTokens,
+    jsonParseSucceeded: fields.jsonParseSucceeded,
+    schemaValidationSucceeded: fields.schemaValidationSucceeded,
+    ...(fields.releasePolicyClassification ? { releasePolicyClassification: fields.releasePolicyClassification } : {}),
+    responseCharacters: Number.isInteger(result?.responseCharacters) ? result.responseCharacters : String(result?.text ?? '').length,
+  });
+  return error;
+}
+
 export function normalizeExplainRequest(body, options) {
   return normalizeTutorRequest(body, options);
 }
@@ -114,8 +131,32 @@ export async function explainCode(body, {
         usageExceededReservation = true;
         throw new AIServiceError('ai/quota-integrity', 'The AI Tutor usage report exceeded its authorized reservation.', { status: 503 });
       }
-      const structured = validateTutorResponse(result?.text, context);
-      return releasePolicy.assertReleasable(structured, context);
+      if (result?.finishReason === 'length') {
+        const error = new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 });
+        error.validationReason = 'suspected-truncation';
+        throw attachResponseDiagnostic(error, result, providerRequest, {
+          providerClassification: 'suspected-truncation', jsonParseSucceeded: false, schemaValidationSucceeded: false,
+        });
+      }
+      let structured;
+      try {
+        structured = validateTutorResponse(result?.text, context);
+      } catch (error) {
+        const invalidJson = String(error?.validationReason ?? '').startsWith('malformed-json');
+        throw attachResponseDiagnostic(error, result, providerRequest, {
+          providerClassification: invalidJson ? 'invalid-json' : 'schema-validation-failed',
+          jsonParseSucceeded: !invalidJson,
+          schemaValidationSucceeded: false,
+        });
+      }
+      try {
+        return releasePolicy.assertReleasable(structured, context);
+      } catch (error) {
+        throw attachResponseDiagnostic(error, result, providerRequest, {
+          providerClassification: 'release-policy-failed', jsonParseSucceeded: true, schemaValidationSucceeded: true,
+          releasePolicyClassification: error?.releaseReason,
+        });
+      }
     });
     await settleQuota('success');
     telemetry.record({

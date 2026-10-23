@@ -41,7 +41,7 @@ EVIDENCE:
 - Expected output is not actual output. Label static reasoning as inference and acknowledge relevant unknowns.
 
 OUTPUT CONTRACT:
-- Return one JSON object only; no Markdown fence or HTML.
+- Return valid JSON only: one object, with no Markdown fence or surrounding prose. Put complete code in string fields and JSON-escape newlines and quotes.
 - Use schemaVersion "${RESPONSE_SCHEMA_VERSION}" and policyVersion "${TUTOR_POLICY_VERSION}".
 - Required keys: schemaVersion, policyVersion, operation, evidence, summary, sections, codeReferences, concepts, issues, nextStep.
 - For conversation or refusal, reply in summary, use empty arrays, and use nextStep {"kind":"none","text":""}.

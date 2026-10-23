@@ -4,7 +4,7 @@ import { isConversationalGlue } from './tutorConversationPolicy.js';
 
 function responseBudget(context) {
   if (isConversationalGlue(context.learnerMessage)) return TUTOR_RESPONSE_TOKEN_BUDGETS.conversation;
-  if (context.directAnswerRequested) return TUTOR_RESPONSE_TOKEN_BUDGETS.complex;
+  if (context.directAnswerRequested) return TUTOR_RESPONSE_TOKEN_BUDGETS.completeSolution;
   if (context.operation === TUTOR_REQUEST_TYPES.explainSelection) return TUTOR_RESPONSE_TOKEN_BUDGETS.simple;
   if (context.compilerStatus === 'failed') return TUTOR_RESPONSE_TOKEN_BUDGETS.moderate;
   const lineCount = context.code.split(/\r?\n/).length;

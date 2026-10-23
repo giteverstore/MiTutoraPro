@@ -15,8 +15,10 @@ const SANITIZED_PROVIDER_CODE_ALLOWLIST = new Map(
 );
 const PROVIDER_CLASSIFICATION_ALLOWLIST = new Set([
   'authentication-failed', 'model-unavailable', 'timeout', 'rate-limited',
-  'transient-provider-error', 'request-rejected', 'safety-rejected', 'unknown',
+  'transient-provider-error', 'request-rejected', 'safety-rejected', 'invalid-json',
+  'schema-validation-failed', 'release-policy-failed', 'suspected-truncation', 'unknown',
 ]);
+const PROVIDER_FINISH_REASON_ALLOWLIST = new Set(['stop', 'length', 'content_filter', 'tool_calls', 'unknown']);
 
 function safeProviderStatus(status) {
   return Number.isInteger(status) && status >= 100 && status <= 599 ? status : null;
@@ -187,6 +189,13 @@ export function createProviderFailureLog({ provider, model, diagnostic, duration
     event.providerRequestId = diagnostic.providerRequestId;
   }
   if (typeof diagnostic.fetchAborted === 'boolean') event.fetchAborted = diagnostic.fetchAborted;
+  if (PROVIDER_FINISH_REASON_ALLOWLIST.has(diagnostic.finishReason)) event.finishReason = diagnostic.finishReason;
+  if (Number.isInteger(diagnostic.outputTokens) && diagnostic.outputTokens >= 0) event.outputTokens = diagnostic.outputTokens;
+  if (Number.isInteger(diagnostic.maxOutputTokens) && diagnostic.maxOutputTokens > 0) event.maxOutputTokens = diagnostic.maxOutputTokens;
+  if (typeof diagnostic.jsonParseSucceeded === 'boolean') event.jsonParseSucceeded = diagnostic.jsonParseSucceeded;
+  if (typeof diagnostic.schemaValidationSucceeded === 'boolean') event.schemaValidationSucceeded = diagnostic.schemaValidationSucceeded;
+  if (typeof diagnostic.releasePolicyClassification === 'string' && /^[a-z0-9-]{1,80}$/u.test(diagnostic.releasePolicyClassification)) event.releasePolicyClassification = diagnostic.releasePolicyClassification;
+  if (Number.isInteger(diagnostic.responseCharacters) && diagnostic.responseCharacters >= 0) event.responseCharacters = diagnostic.responseCharacters;
   if (Number.isFinite(durationMs) && durationMs >= 0) event.durationMs = Math.round(durationMs);
   return Object.freeze(event);
 }

@@ -51,6 +51,7 @@ describe('DeepInfra AI Tutor provider', () => {
     const provider = new DeepInfraProvider({ apiKey: 'server-only-key', model: MODEL, fetchImpl });
     await expect(provider.explain(providerRequest)).resolves.toEqual({
       text: '{"ok":true}', usage: { prompt_tokens: 12, completion_tokens: 5 },
+      finishReason: 'stop', responseCharacters: 11, providerDurationMs: expect.any(Number),
     });
     const [url, request] = fetchImpl.mock.calls[0];
     expect(url).toBe('https://api.deepinfra.com/v1/openai/chat/completions');

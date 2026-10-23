@@ -48,8 +48,8 @@ describe('AI Tutor token budgets', () => {
     expect(createTutorProviderRequest(context('Hi')).targetResponseTokens).toBe(220);
     expect(createTutorProviderRequest(context('Hi')).maxProviderTokens).toBe(220);
     expect(createTutorProviderRequest(context('What does len() do?')).targetResponseTokens).toBe(350);
-    expect(createTutorProviderRequest(context('Just give me the complete code')).targetResponseTokens).toBe(1_200);
-    expect(createTutorProviderRequest(context('Just give me the complete code')).maxProviderTokens).toBe(1_200);
+    expect(createTutorProviderRequest(context('Just give me the complete code')).targetResponseTokens).toBe(2_400);
+    expect(createTutorProviderRequest(context('Just give me the complete code')).maxProviderTokens).toBe(2_400);
   });
 
   it('sends only tutoring-relevant Project metadata and uses bounded output budgets', () => {

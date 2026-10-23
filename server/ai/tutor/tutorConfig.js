@@ -47,6 +47,7 @@ export const TUTOR_RESPONSE_TOKEN_BUDGETS = Object.freeze({
   simple: 350,
   moderate: 700,
   complex: 1_200,
+  completeSolution: 2_400,
 });
 
 export const DEFAULT_HINT_LEVEL = 1;

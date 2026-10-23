@@ -21,6 +21,11 @@ function extractMessageText(payload) {
     .trim();
 }
 
+const SAFE_FINISH_REASONS = new Set(['stop', 'length', 'content_filter', 'tool_calls']);
+function safeFinishReason(value) {
+  return typeof value === 'string' && SAFE_FINISH_REASONS.has(value) ? value : 'unknown';
+}
+
 function attachTiming(error, request, startedAt, diagnostic) {
   if (!error || typeof error !== 'object') return error;
   error.providerDurationMs = Date.now() - startedAt;
@@ -87,14 +92,33 @@ export class DeepInfraProvider extends AIProvider {
         payload = await response.json();
       } catch (error) {
         if (request.didTimeOut()) throw providerTransportError(error, request, signal);
-        throw new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502, cause: error });
+        const invalid = new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502, cause: error });
+        invalid.validationReason = 'provider-payload-invalid';
+        throw attachTiming(invalid, request, startedAt, {
+          providerClassification: 'invalid-json', finishReason: 'unknown', maxOutputTokens: tutorRequest.maxProviderTokens,
+          jsonParseSucceeded: false, schemaValidationSucceeded: false, responseCharacters: 0,
+        });
       }
       if (payload?.choices?.[0]?.finish_reason === 'content_filter') {
         throw new AIServiceError('ai/provider-refusal', 'The AI Tutor could not answer that request. Try asking about the code or compiler result.', { status: 422 });
       }
       const text = extractMessageText(payload);
-      if (!text) throw new AIServiceError('ai/empty-response', 'The AI Tutor returned an empty response.', { status: 502 });
-      return { text, usage: payload?.usage };
+      if (!text) {
+        const empty = new AIServiceError('ai/empty-response', 'The AI Tutor returned an empty response.', { status: 502 });
+        const finishReason = safeFinishReason(payload?.choices?.[0]?.finish_reason);
+        throw attachTiming(empty, request, startedAt, {
+          providerClassification: finishReason === 'length' ? 'suspected-truncation' : 'schema-validation-failed',
+          finishReason, maxOutputTokens: tutorRequest.maxProviderTokens,
+          jsonParseSucceeded: true, schemaValidationSucceeded: false, responseCharacters: 0,
+        });
+      }
+      return {
+        text,
+        usage: payload?.usage,
+        finishReason: safeFinishReason(payload?.choices?.[0]?.finish_reason),
+        responseCharacters: text.length,
+        providerDurationMs: Date.now() - startedAt,
+      };
     } finally {
       request.cleanup();
     }

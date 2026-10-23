@@ -39,7 +39,7 @@ export function createTutorUsagePlan(tutorRequest, pricing, constraints) {
   if (maximumInputTokens > constraints.maxInputTokens) {
     throw new AIServiceError('ai/request-too-large', 'The code context is too large to explain in one request.', { status: 413 });
   }
-  const maximumOutputTokens = Math.min(tutorRequest.maxProviderTokens, TUTOR_RESPONSE_TOKEN_BUDGETS.complex);
+  const maximumOutputTokens = Math.min(tutorRequest.maxProviderTokens, TUTOR_RESPONSE_TOKEN_BUDGETS.completeSolution);
   const estimate = Object.freeze({
     inputTokens: estimatedInputTokens,
     outputTokens: tutorRequest.targetResponseTokens,
