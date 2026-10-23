@@ -14,6 +14,19 @@ describe('shared learner workspace style ownership', () => {
     }
   });
 
+  it('uses theme-aware readable foregrounds for Course, Practice, and Project Tutor responses', () => {
+    const shared = source('src/styles/pages/learning-engine.css');
+    const projects = source('src/styles/pages/projects.css');
+    expect(shared).toMatch(/\.ai-workspace-message\.is-assistant\s*\{[^}]*--ai-tutor-response-text:\s*var\(--color-text\);[^}]*color:\s*var\(--color-text\);/s);
+    expect(shared).toMatch(/\.ai-tutor-structured-response\s*\{[^}]*color:\s*var\(--ai-tutor-response-text,\s*var\(--color-text\)\);/s);
+    expect(shared).toContain('.ai-tutor-structured-response strong { color: var(--ai-tutor-response-strong, var(--color-text)); }');
+    expect(shared).toContain('.ai-tutor-structured-response :not(pre)>code { color: var(--ai-tutor-response-strong, var(--color-text)); background: var(--ai-tutor-response-inline-surface, var(--color-surface-subtle)); }');
+    expect(shared).toContain('.ai-tutor-structured-response pre { color: var(--color-code-text);');
+    expect(shared).toContain('.ai-tutor-structured-response a { color: var(--ai-tutor-response-accent, var(--color-accent)); }');
+    expect(projects).toContain('.project-ai-turn.is-mentor>div { color: var(--project-text); }');
+    expect(source('src/pages/PracticePage.jsx')).toContain("import '../styles/pages/learning-engine.css'");
+  });
+
   it('loads the same compiler shell plus Practice layout for Challenges, with no AI tab', () => {
     const route = source('src/pages/ChallengesPage.jsx');
     expect(route.indexOf("import '../styles/pages/learning-engine.css'"))
