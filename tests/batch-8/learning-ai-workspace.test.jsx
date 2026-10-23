@@ -123,7 +123,8 @@ describe('Learning AI Tutor workspace', () => {
     await waitFor(() => expect(explain).toHaveBeenCalledOnce());
     expect(explain).toHaveBeenCalledWith(expect.objectContaining({
       requestType: 'explain-full-code', selectedCode: '', code: compilerContext.code,
-      lessonContext: expect.stringContaining('Why store this value?'),
+      learnerMessage: expect.stringContaining('Why store this value?'),
+      conversation: [],
     }), expect.objectContaining({ signal: expect.any(AbortSignal) }));
   });
 
@@ -152,7 +153,8 @@ describe('Learning AI Tutor workspace', () => {
     expect(explain.mock.calls[0][0]).toEqual(expect.objectContaining({
       requestType: 'explain-full-code',
       selectedCode: '',
-      lessonContext: expect.stringContaining('Learner question: Why is this variable useful?'),
+      learnerMessage: 'Why is this variable useful?',
+      conversation: [],
     }));
   });
 

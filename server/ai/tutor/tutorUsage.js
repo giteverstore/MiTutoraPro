@@ -65,6 +65,7 @@ export function normalizeProviderUsage(usage, estimate, pricing) {
   const inputTokens = tokens(usage?.inputTokens ?? usage?.input_tokens ?? usage?.prompt_tokens);
   const outputTokens = tokens(usage?.outputTokens ?? usage?.output_tokens ?? usage?.completion_tokens);
   const known = inputTokens != null && outputTokens != null;
+  const cachedInputTokens = tokens(usage?.cachedInputTokens ?? usage?.cached_input_tokens ?? usage?.prompt_tokens_details?.cached_tokens);
   const effective = {
     inputTokens: inputTokens ?? estimate.inputTokens,
     outputTokens: outputTokens ?? estimate.outputTokens,
@@ -72,6 +73,7 @@ export function normalizeProviderUsage(usage, estimate, pricing) {
   return Object.freeze({
     ...effective,
     tokenUsageKnown: known,
+    ...(cachedInputTokens == null ? {} : { cachedInputTokens }),
     costMicros: estimateCostMicros(effective, pricing),
     costKnown: pricing?.known === true,
   });

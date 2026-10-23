@@ -108,6 +108,7 @@ export async function explainCode(body, {
       usage = normalizeProviderUsage({
         inputTokens: result?.usage?.input_tokens ?? result?.usage?.prompt_tokens,
         outputTokens: result?.usage?.output_tokens ?? result?.usage?.completion_tokens,
+        cachedInputTokens: result?.usage?.prompt_tokens_details?.cached_tokens ?? result?.usage?.cached_input_tokens,
       }, usageEstimate, resolvedPricing);
       if (!usageFitsReservation(usage, reservation ?? { maximum: usageMaximum })) {
         usageExceededReservation = true;
@@ -122,6 +123,7 @@ export async function explainCode(body, {
       inputTokens: usage?.inputTokens,
       outputTokens: usage?.outputTokens,
       totalTokens: usage ? usage.inputTokens + usage.outputTokens : undefined,
+      cachedInputTokens: usage?.cachedInputTokens,
       estimatedCostMicros: usage?.costMicros,
       costKnown: usage?.costKnown,
       operation: context.operation,

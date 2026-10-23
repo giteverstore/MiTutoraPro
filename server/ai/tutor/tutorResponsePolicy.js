@@ -3,6 +3,7 @@ import { canReleaseCompleteSolution } from './tutorActivityPolicy.js';
 import { containsSensitiveContent } from './tutorSensitiveContent.js';
 import { createTutorSystemInstruction } from './tutorPolicy.js';
 import { inspectStructuredSolutionDisclosure } from './solutionDisclosureSignals.js';
+import { canHonorDirectAnswer } from './tutorConversationPolicy.js';
 
 const DIRECT_SOLUTION_LANGUAGE = /\b(?:here|below)\s+(?:is|are)\s+(?:the\s+)?(?:complete|completed|corrected|full|final|working)\s+(?:solution|code|program)|\b(?:the\s+)?(?:complete|completed|corrected|full|final|working)\s+(?:solution|code|program)\s+(?:is|follows)\b|\breplace\s+(?:your|the)\s+(?:code|program|solution)\s+with\b|\buse\s+the\s+following\s+(?:solution|code|program)\b/iu;
 const FENCED_CODE = /```(?:python|py|java)?\s*([\s\S]*?)```/giu;
@@ -151,7 +152,7 @@ const protectedInstructionInspector = Object.freeze({
 const completeSolutionInspector = Object.freeze({
   name: 'complete-solution',
   inspect({ fields, context }) {
-    if (canReleaseCompleteSolution(context.assessment, context.hintLevel)) {
+    if (canReleaseCompleteSolution(context.assessment, context.hintLevel) || canHonorDirectAnswer(context)) {
       return Object.freeze({ state: INSPECTOR_STATE.ALLOW, reasonCode: 'trusted-complete-solution-policy', fieldCategory: 'none' });
     }
     const text = fields.map((field) => field.value).filter(Boolean).join('\n');
@@ -182,7 +183,7 @@ const completeSolutionInspector = Object.freeze({
 const solutionDisclosureInspector = Object.freeze({
   name: 'solution-disclosure',
   inspect({ fields, context }) {
-    if (canReleaseCompleteSolution(context.assessment, context.hintLevel)) {
+    if (canReleaseCompleteSolution(context.assessment, context.hintLevel) || canHonorDirectAnswer(context)) {
       return Object.freeze({ state: INSPECTOR_STATE.ALLOW, reasonCode: 'trusted-complete-solution-policy', fieldCategory: 'none' });
     }
 

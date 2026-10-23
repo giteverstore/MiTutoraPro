@@ -6,6 +6,7 @@ import {
 } from './tutorConfig.js';
 import { resolveHintLevel } from './tutorActivityPolicy.js';
 import { createSourceSnapshotHash } from './sourceSnapshot.js';
+import { requestsDirectAnswer } from './tutorConversationPolicy.js';
 
 const REQUEST_TYPE_ALIASES = new Map([
   ['explain-selection', TUTOR_REQUEST_TYPES.explainSelection],
@@ -56,6 +57,22 @@ function normalizeCompilerStatus(value) {
   if (status === 'running') return 'running';
   if (NON_EXECUTED.has(status)) return status === 'running' ? 'running' : 'not-run';
   return 'unknown';
+}
+
+function normalizeConversation(value) {
+  const turns = (Array.isArray(value) ? value : []).slice(-TUTOR_REQUEST_LIMITS.conversationTurns).map((turn) => Object.freeze({
+    question: boundedText(turn?.question, 'previous question', TUTOR_REQUEST_LIMITS.conversationQuestion, { required: true }).trim(),
+    answer: boundedText(turn?.answer, 'previous answer', TUTOR_REQUEST_LIMITS.conversationAnswer, { required: true }).trim(),
+  }));
+  const retained = [];
+  let characters = 0;
+  for (let index = turns.length - 1; index >= 0; index -= 1) {
+    const size = turns[index].question.length + turns[index].answer.length;
+    if (characters + size > TUTOR_REQUEST_LIMITS.conversationTotal) break;
+    retained.unshift(turns[index]);
+    characters += size;
+  }
+  return Object.freeze(retained);
 }
 
 function deriveEvidence(body, code, language) {
@@ -141,6 +158,8 @@ export function normalizeTutorRequest(body, { activityPolicy } = {}) {
   const selection = validateSelection(body, operation, code, language);
 
   const lessonContext = boundedText(body.lessonContext, 'lesson context', TUTOR_REQUEST_LIMITS.lessonContext);
+  const learnerMessage = boundedText(body.learnerMessage, 'learner question', TUTOR_REQUEST_LIMITS.learnerMessage).trim();
+  const conversation = normalizeConversation(body.conversation);
   const compiler = deriveEvidence(body, code, language);
   const assessment = Object.freeze(activityPolicy ?? { activityType: 'unknown', solutionPolicy: 'hints-only', maximumHintLevel: 1 });
   const hintLevel = resolveHintLevel(body.requestedHintLevel, assessment);
@@ -154,6 +173,9 @@ export function normalizeTutorRequest(body, { activityPolicy } = {}) {
     compilerOutput: compiler.compilerOutput,
     compilerStatus: compiler.compilerStatus,
     lessonContext,
+    learnerMessage,
+    conversation,
+    directAnswerRequested: requestsDirectAnswer(learnerMessage),
     currentSourceHash: compiler.currentSourceHash,
     evidence: compiler.evidence,
     hintLevel,

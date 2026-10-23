@@ -8,6 +8,16 @@ import { AITutorResponse } from './AITutorResponse';
 import { ErrorState } from '../errors/ErrorState';
 import { mergeTutorDraft } from './tutorComposer';
 
+function conversationAnswer(response) {
+  return [
+    response?.summary,
+    ...(response?.sections ?? []).map((item) => item.body),
+    ...(response?.concepts ?? []).map((item) => `${item.name}: ${item.explanation}`),
+    ...(response?.issues ?? []).map((item) => `${item.title}: ${item.explanation}`),
+    response?.nextStep?.kind === 'none' ? '' : response?.nextStep?.text,
+  ].filter(Boolean).join('\n').slice(0, 4_000);
+}
+
 export function AITutorWorkspace({ course, lesson, compilerContext, pendingRequest, client = aiTutorClient, accessTier, activityType = 'lesson', contextLines = [], emptyTitle = 'Ask about your code', emptyText = 'Select code in the editor or ask a question about this lesson.', composerPlaceholder = 'Ask a question…', assistantLabel = 'AI Tutor' }) {
   const access = useOptionalSubscriptionAccess();
   const tier = accessTier ?? access?.tier ?? 'FREE';
@@ -46,6 +56,12 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     setError('');
     scrollIfNearBottom();
     try {
+      const conversation = [];
+      for (let index = 0; index < messages.length - 1; index += 1) {
+        const user = messages[index];
+        const assistant = messages[index + 1];
+        if (user.role === 'user' && assistant.role === 'assistant') conversation.push({ question: user.text, answer: conversationAnswer(assistant.response) });
+      }
       const response = await client.explain({
         requestType: 'explain-full-code',
         language: compilerContext.language,
@@ -54,11 +70,12 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         compilerEvidence: compilerContext.compilerEvidence ?? undefined,
         compilerStatus: compilerContext.compilerStatus ?? 'ready',
         activityType,
+        learnerMessage: prompt,
+        conversation: conversation.slice(-3),
         lessonContext: [
-          `Course: ${course.id} · ${course.title}`,
-          `Lesson: ${lesson.id} · ${lesson.title}`,
+          `Course: ${course.title}`,
+          `Lesson: ${lesson.title}`,
           ...contextLines,
-          `Learner question: ${prompt}`,
         ].join('\n'),
       }, { signal: controller.signal });
       setMessages((current) => [...current, { id: `assistant-${Date.now()}-${current.length}`, role: 'assistant', response }]);
@@ -71,7 +88,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     } finally {
       if (requestRef.current === controller) requestRef.current = null;
     }
-  }, [activityType, client, compilerContext, contextLines, course.id, course.title, lesson.id, lesson.title, messages.length, scrollIfNearBottom, status]);
+  }, [activityType, client, compilerContext, contextLines, course.id, course.title, lesson.id, lesson.title, messages, scrollIfNearBottom, status]);
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {

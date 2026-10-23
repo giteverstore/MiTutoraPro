@@ -4,7 +4,7 @@ import { InMemoryTutorAlertEvaluator } from './tutorAlerts.js';
 const ALLOWED_FIELDS = new Set([
   'event', 'eventVersion', 'policyVersion', 'schemaVersion', 'provider', 'model', 'operation',
   'latencyMs', 'success', 'httpStatus', 'retryable', 'errorCategory', 'responseBytes',
-  'inputTokens', 'outputTokens', 'totalTokens', 'estimatedCostMicros', 'costKnown',
+  'inputTokens', 'outputTokens', 'totalTokens', 'cachedInputTokens', 'estimatedCostMicros', 'costKnown',
   'quotaDecision', 'featureFlagState', 'rolloutBucket', 'rolloutVersion',
 ]);
 const ALLOWED_TYPES = new Set(['string', 'number', 'boolean']);

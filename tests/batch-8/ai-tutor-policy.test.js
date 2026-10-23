@@ -63,7 +63,7 @@ describe('AI Tutor learning policy', () => {
   });
 
   it('enforces concise budgets according to operation and code complexity', () => {
-    expect(createTutorProviderRequest(parseContext())).toMatchObject({ targetResponseTokens: 350, maxProviderTokens: 1_200 });
+    expect(createTutorProviderRequest(parseContext())).toMatchObject({ targetResponseTokens: 350, maxProviderTokens: 350 });
     expect(createTutorProviderRequest(parseContext(selectionRequest())).targetResponseTokens).toBe(350);
     expect(createTutorProviderRequest(parseContext({
       compilerStatus: 'error',

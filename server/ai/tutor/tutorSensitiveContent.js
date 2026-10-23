@@ -39,10 +39,15 @@ export class TutorSensitiveContentInspector {
     }
     const output = redact(context.compilerOutput);
     const lesson = redact(context.lessonContext);
+    const learnerMessage = redact(context.learnerMessage);
+    const conversation = (context.conversation ?? []).map((turn) => ({ question: redact(turn.question), answer: redact(turn.answer) }));
+    if (learnerMessage.changed || conversation.some((turn) => turn.question.changed || turn.answer.changed)) throw new AIServiceError('ai/sensitive-content', 'Remove credentials or private information before asking the AI Tutor.', { status: 400 });
     return Object.freeze({
       ...context,
       compilerOutput: output.text,
       lessonContext: lesson.text,
+      learnerMessage: learnerMessage.text,
+      conversation: Object.freeze(conversation.map((turn) => Object.freeze({ question: turn.question.text, answer: turn.answer.text }))),
       sensitiveContentRedacted: output.changed || lesson.changed,
     });
   }

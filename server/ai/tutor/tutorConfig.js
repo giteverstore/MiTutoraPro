@@ -15,6 +15,11 @@ export const TUTOR_REQUEST_LIMITS = Object.freeze({
   compilerOutput: 12_000,
   compilerStatus: 40,
   lessonContext: 2_000,
+  learnerMessage: 9_000,
+  conversationQuestion: 2_000,
+  conversationAnswer: 4_000,
+  conversationTurns: 3,
+  conversationTotal: 6_000,
   evidenceSource: 50_000,
   sourceHash: 64,
 });
@@ -38,6 +43,7 @@ export const TUTOR_RESPONSE_LIMITS = Object.freeze({
 });
 
 export const TUTOR_RESPONSE_TOKEN_BUDGETS = Object.freeze({
+  conversation: 220,
   simple: 350,
   moderate: 700,
   complex: 1_200,

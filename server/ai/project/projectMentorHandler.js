@@ -47,13 +47,13 @@ export async function explainProjectMentor(body, { principal, signal, quotaGuard
     metadata = provider.getMetadata?.() ?? metadata;
     providerInvoked = true;
     const result = await provider.explain(providerRequest, { signal });
-    usage = normalizeProviderUsage({ inputTokens: result?.usage?.input_tokens ?? result?.usage?.prompt_tokens, outputTokens: result?.usage?.output_tokens ?? result?.usage?.completion_tokens }, plan.estimate, resolvedPricing);
+    usage = normalizeProviderUsage({ inputTokens: result?.usage?.input_tokens ?? result?.usage?.prompt_tokens, outputTokens: result?.usage?.output_tokens ?? result?.usage?.completion_tokens, cachedInputTokens: result?.usage?.prompt_tokens_details?.cached_tokens ?? result?.usage?.cached_input_tokens }, plan.estimate, resolvedPricing);
     if (!usageFitsReservation(usage, reservation ?? { maximum: plan.maximum })) {
       throw new AIServiceError('ai/quota-integrity', 'The AI Tutor usage report exceeded its authorized reservation.', { status: 503 });
     }
     const response = validateProjectMentorResponse(result?.text, request.operation);
     await settleQuota('success');
-    telemetry.record({ ...metadata, operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens, totalTokens: usage.inputTokens + usage.outputTokens, estimatedCostMicros: usage.costMicros, costKnown: usage.costKnown, responseBytes: Buffer.byteLength(JSON.stringify(response), 'utf8'), quotaDecision: 'allowed' });
+    telemetry.record({ ...metadata, operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens, totalTokens: usage.inputTokens + usage.outputTokens, cachedInputTokens: usage.cachedInputTokens, estimatedCostMicros: usage.costMicros, costKnown: usage.costKnown, responseBytes: Buffer.byteLength(JSON.stringify(response), 'utf8'), quotaDecision: 'allowed' });
     return response;
   } catch (error) {
     const normalizedError = error?.name === 'AbortError' ? new AIServiceError('ai/cancelled', 'The explanation was cancelled.', { status: 499, cause: error }) : error;
