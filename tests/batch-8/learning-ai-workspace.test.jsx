@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { AITutorWorkspace } from '../../src/ai/AITutorWorkspace.jsx';
+import { quoteTutorSelection } from '../../src/ai/tutorComposer.js';
 import { LearningWorkspaceToolbar } from '../../src/components/LearningWorkspaceToolbar.jsx';
 
 afterEach(cleanup);
@@ -68,11 +69,17 @@ describe('Learning workspace controls', () => {
     expect(source).toContain("useState('course')");
     expect(source).toContain('isSidebarCollapsed ? 60 : sidebarResize.value');
     expect(source).toContain("setActiveWorkspace('ai')");
-    expect(source).toContain('compilerMinimized={isCompilerMinimized}');
+    expect(source).toContain('compilerMinimized={hasCourseCompiler && isCompilerMinimized}');
   });
 });
 
 describe('Learning AI Tutor workspace', () => {
+  it('bounds quoted selection context and marks truncation visibly', () => {
+    const quoted = quoteTutorSelection('x'.repeat(8_100));
+    expect(quoted).toHaveLength(8_026);
+    expect(quoted.endsWith('\n> [Selection truncated]')).toBe(true);
+  });
+
   it('keeps the Premium entitlement boundary', () => {
     const explain = vi.fn();
     render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={{ explain }} accessTier="FREE" />);
@@ -80,7 +87,7 @@ describe('Learning AI Tutor workspace', () => {
     expect(explain).not.toHaveBeenCalled();
   });
 
-  it('auto-submits a selected-code request with compiler and lesson context', async () => {
+  it('inserts selected code into the focused composer and waits for explicit Send', async () => {
     const explain = vi.fn().mockResolvedValue(response);
     const selectionContext = {
       text: 'name = "Ada"',
@@ -107,17 +114,30 @@ describe('Learning AI Tutor workspace', () => {
       />,
     );
 
-    await screen.findByText(response.summary);
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Tutor' });
+    await waitFor(() => expect(composer).toHaveFocus());
+    expect(composer).toHaveValue('> name = "Ada"\n\n');
+    expect(explain).not.toHaveBeenCalled();
+    fireEvent.change(composer, { target: { value: `${composer.value}Why store this value?` } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
+    await waitFor(() => expect(explain).toHaveBeenCalledOnce());
     expect(explain).toHaveBeenCalledWith(expect.objectContaining({
-      requestType: 'explain-selection',
-      code: compilerContext.code,
-      selectedCode: selectionContext.text,
-      selectionSnapshot: selectionContext.snapshot,
-      language: 'python',
-      activityType: 'lesson',
-      lessonContext: expect.stringContaining('Lesson: variables-1'),
+      requestType: 'explain-full-code', selectedCode: '', code: compilerContext.code,
+      lessonContext: expect.stringContaining('Why store this value?'),
     }), expect.objectContaining({ signal: expect.any(AbortSignal) }));
-    expect(screen.getByText(selectionContext.text)).toBeVisible();
+  });
+
+  it('preserves an existing draft when Ask AI adds editable visible context', async () => {
+    const explain = vi.fn();
+    const { rerender } = render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={{ explain }} accessTier="PREMIUM" />);
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Tutor' });
+    fireEvent.change(composer, { target: { value: 'Why does this fail?' } });
+    rerender(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} pendingRequest={{ id: 'selection-2', selectionContext: { text: 'numbers[10]' } }} client={{ explain }} accessTier="PREMIUM" />);
+    await waitFor(() => expect(composer).toHaveFocus());
+    expect(composer).toHaveValue('Why does this fail?\n\n> numbers[10]\n');
+    fireEvent.change(composer, { target: { value: 'Edited question' } });
+    expect(composer).toHaveValue('Edited question');
+    expect(explain).not.toHaveBeenCalled();
   });
 
   it('sends Enter as a bounded full-code follow-up and keeps Shift+Enter as a newline', async () => {

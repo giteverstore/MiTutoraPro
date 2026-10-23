@@ -192,15 +192,15 @@ describe('immersive project workspace shell', () => {
     expect(screen.queryByRole('button', { name: 'calculator.py' })).not.toBeInTheDocument();
   });
 
-  it('keeps Explorer on the left and keeps the contextual AI panel mounted without a composer', () => {
+  it('keeps Explorer on the left and keeps the contextual AI composer mounted for the current checkpoint', () => {
     const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
     expect(screen.queryByRole('button', { name: 'Project Guide' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: 'AI' }));
-    expect(screen.getByText('No context selected')).toBeInTheDocument();
-    expect(screen.queryByRole('textbox', { name: 'AI draft' })).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Send AI Mentor message' })).toBeDisabled();
     fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
     fireEvent.click(screen.getByRole('tab', { name: 'AI' }));
-    expect(screen.getByText('No context selected')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Collapse Guide and AI' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Restore Guide and AI' })).not.toBeInTheDocument();
     expect(container.querySelector('.project-ai-panel')).toBeInTheDocument();

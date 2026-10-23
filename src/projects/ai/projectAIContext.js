@@ -1,6 +1,6 @@
 import { deriveMentorContext } from '../../../shared/content/mentorContext.js';
 
-export const PROJECT_AI_SELECTION_TYPES = Object.freeze(['guide_text', 'guide_code', 'user_code', 'terminal_output']);
+export const PROJECT_AI_SELECTION_TYPES = Object.freeze(['checkpoint_context', 'guide_text', 'guide_code', 'user_code', 'terminal_output']);
 const clip = (value, limit) => { const text = String(value ?? '').trim(); return text.length <= limit ? text : `${text.slice(0, limit - 1)}…`; };
 function boundedSource(source, selectedContent, limit = 12_000) {
   const value = String(source ?? ''); if (value.length <= limit) return value;

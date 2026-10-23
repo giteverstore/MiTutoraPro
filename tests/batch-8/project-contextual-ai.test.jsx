@@ -1,5 +1,5 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createProjectAIContext } from '../../src/projects/ai/projectAIContext';
 import { ProjectAIClient, validateProjectAIResponse } from '../../src/projects/ai/ProjectAIClient';
 import { ProjectContextualAIConversation as ProjectContextualAI } from '../../src/projects/components/ProjectContextualAIConversation';
@@ -9,8 +9,11 @@ const project = { id: 'task-manager', title: 'Task Manager', description: 'A CLI
 const checkpoint = { id: 'model', title: 'Task Representation', objective: 'Represent one task', requirements: ['Store a title'] };
 const context = (type, selectedContent, extra = {}) => createProjectAIContext({ project, checkpoint, languageId: 'javascript', selectionType: type, selectedContent, guideContext: 'Keep title and completed together.', ...extra });
 
+afterEach(cleanup);
+
 describe('Projects contextual AI mentor', () => {
   it.each([
+    ['checkpoint_context', 'Represent one task', {}],
     ['guide_text', 'Each task needs a title.', {}],
     ['guide_code', 'const task = { title };', {}],
     ['user_code', 'tasks.push(task)', { currentFile: { path: 'index.js', content: 'x'.repeat(7000) + 'tasks.push(task)' + 'y'.repeat(7000) } }],
@@ -30,11 +33,13 @@ describe('Projects contextual AI mentor', () => {
     expect(validateProjectAIResponse({ operation: 'project-answer', answer: 'Hint', followUps: [] }, 'project-answer')).toBe(true);
   });
 
-  it('generates questions, answers a selection, and offers contextual follow-ups without a composer', async () => {
-    const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'why', label: 'Why is this needed?', intent: 'understand' }, { id: 'bug', label: 'Where is the bug?', intent: 'debug' }, { id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValueOnce({ answer: 'Inspect where the task is stored before changing more code.', followUps: [{ id: 'more', label: 'Give me a more specific hint', intent: 'stronger-hint' }] }).mockResolvedValueOnce({ answer: 'Trace the array mutation in the add function.', followUps: [] }) };
+  it('supports direct typed questions and optional contextual follow-ups in one composer history', async () => {
+    const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'why', label: 'Why is this needed?', intent: 'understand' }, { id: 'bug', label: 'Where is the bug?', intent: 'debug' }, { id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValueOnce({ answer: 'Inspect where the task is stored before changing more code.', followUps: [{ id: 'more', label: 'Give me a more specific hint', intent: 'stronger-hint' }] }).mockResolvedValueOnce({ answer: 'Trace the array mutation in the add function.', followUps: [] }).mockResolvedValueOnce({ answer: 'It changes the shared task list.', followUps: [] }) };
     render(<ProjectContextualAI context={context('user_code', 'tasks.push(task)', { currentFile: { path: 'index.js', content: 'tasks.push(task)' } })} client={client} accessTier="PREMIUM" />);
-    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Mentor' });
     expect(screen.getByRole('region', { name: 'AI Mentor conversation' })).toBeInTheDocument();
+    expect(client.generateQuestions).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Suggest questions' }));
     expect(screen.getByRole('status')).toHaveTextContent(/preparing questions/i);
     fireEvent.click(await screen.findByRole('button', { name: 'Give me a hint' }));
     expect(screen.getByRole('status')).toHaveTextContent(/focused answer/i);
@@ -47,23 +52,33 @@ describe('Projects contextual AI mentor', () => {
     expect(screen.getAllByLabelText('You')).toHaveLength(2);
     expect(screen.getAllByLabelText('AI Mentor')).toHaveLength(2);
     expect(client.answer.mock.calls[1][2]).toHaveLength(1);
+    fireEvent.change(composer, { target: { value: 'Why does this mutation matter?' } });
+    fireEvent.keyDown(composer, { key: 'Enter' });
+    await waitFor(() => expect(client.answer).toHaveBeenCalledTimes(3));
+    expect(client.answer.mock.calls[2][1]).toMatchObject({ label: 'Why does this mutation matter?', intent: 'learner-question' });
   });
 
-  it('resets the ephemeral conversation when selected context changes', async () => {
+  it('does not submit Ask AI selection context and preserves the existing conversation and draft', async () => {
     const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValue({ answer: 'First context answer.', followUps: [] }) };
     const { rerender } = render(<ProjectContextualAI context={context('guide_text', 'First selection')} client={client} accessTier="PREMIUM" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Suggest questions' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Give me a hint' }));
     expect(await screen.findByText('First context answer.')).toBeInTheDocument();
 
     rerender(<ProjectContextualAI context={context('guide_code', 'const second = true;')} client={client} accessTier="PREMIUM" />);
-    expect(screen.queryByText('First context answer.')).not.toBeInTheDocument();
+    expect(screen.getByText('First context answer.')).toBeInTheDocument();
     expect(screen.getByText('const second = true;')).toBeInTheDocument();
-    await waitFor(() => expect(client.generateQuestions).toHaveBeenCalledTimes(2));
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Mentor' });
+    await waitFor(() => expect(composer).toHaveFocus());
+    expect(composer).toHaveValue('> First selection\n\n> const second = true;\n');
+    expect(client.generateQuestions).toHaveBeenCalledTimes(1);
+    expect(client.answer).toHaveBeenCalledTimes(1);
   });
 
   it('shows provider and quota failures as friendly panel errors', async () => {
     const client = { generateQuestions: vi.fn().mockRejectedValue(new Error('AI usage limit reached.')) };
     render(<ProjectContextualAI context={context('guide_text', 'Represent a task')} client={client} accessTier="PREMIUM" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Suggest questions' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('AI usage limit reached.');
   });
 
@@ -75,6 +90,15 @@ describe('Projects contextual AI mentor', () => {
     await expect(explainProjectMentor({ requestType: 'project-questions', context: context('guide_text', 'Represent a task') }, { principal: { uid: 'learner' }, quotaGuard, featureGate, providerFactory: () => provider, pricing: { known: false }, providerTokenConstraints: { inputOverheadTokens: 0, maxInputTokens: 50_000 } })).resolves.toEqual(response);
     expect(featureGate.assertEnabled).toHaveBeenCalled(); expect(quotaGuard.assertAllowed).toHaveBeenCalled(); expect(quotaGuard.settle).toHaveBeenCalled();
     expect(provider.explain.mock.calls[0][0].systemInstruction).toMatch(/Do not answer them/);
+  });
+
+  it('accepts a bounded learner-authored project question through the existing answer path', async () => {
+    const response = { operation: 'project-answer', answer: 'Start by tracing the task state.', followUps: [] };
+    const quotaGuard = { assertAllowed: vi.fn().mockResolvedValue({ maximum: { inputTokens: 12000, outputTokens: 900, costMicros: 1000000 } }), settle: vi.fn().mockResolvedValue(true) };
+    const provider = { explain: vi.fn().mockResolvedValue({ text: JSON.stringify(response), usage: { input_tokens: 100, output_tokens: 50 } }) };
+    const body = { requestType: 'project-answer', context: context('checkpoint_context', 'Represent one task'), question: { id: 'learner-1', label: 'Why are we using an object here?', intent: 'learner-question' }, conversation: [] };
+    await expect(explainProjectMentor(body, { principal: { uid: 'learner' }, quotaGuard, featureGate: { assertEnabled: vi.fn().mockResolvedValue({ state: 'enabled' }) }, providerFactory: () => provider, pricing: { known: false }, providerTokenConstraints: { inputOverheadTokens: 0, maxInputTokens: 50_000 } })).resolves.toEqual(response);
+    expect(provider.explain.mock.calls[0][0].userContent).toContain('Why are we using an object here?');
   });
 
   it('maps malformed provider output to a safe error', async () => {

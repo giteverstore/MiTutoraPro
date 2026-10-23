@@ -6,8 +6,7 @@ import { PremiumGate } from '../access/PremiumGate';
 import { aiTutorClient } from './AITutorClient';
 import { AITutorResponse } from './AITutorResponse';
 import { ErrorState } from '../errors/ErrorState';
-
-const DEFAULT_SELECTION_INTENT = "Explain this selected code in the context of what I'm learning.";
+import { mergeTutorDraft } from './tutorComposer';
 
 export function AITutorWorkspace({ course, lesson, compilerContext, pendingRequest, client = aiTutorClient, accessTier, activityType = 'lesson', contextLines = [], emptyTitle = 'Ask about your code', emptyText = 'Select code in the editor or ask a question about this lesson.', composerPlaceholder = 'Ask a question…', assistantLabel = 'AI Tutor' }) {
   const access = useOptionalSubscriptionAccess();
@@ -19,6 +18,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   const requestRef = useRef(null);
   const handledRequestRef = useRef(null);
   const conversationRef = useRef(null);
+  const composerRef = useRef(null);
 
   const scrollIfNearBottom = useCallback(() => {
     requestAnimationFrame(() => {
@@ -29,19 +29,17 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     });
   }, []);
 
-  const submit = useCallback(async ({ question, selectionContext = null }) => {
+  const submit = useCallback(async ({ question }) => {
     if (status === 'loading' || !compilerContext?.code?.trim()) return;
     const prompt = question.trim();
     if (!prompt) return;
     const controller = new AbortController();
     requestRef.current?.abort();
     requestRef.current = controller;
-    const requestType = selectionContext ? 'explain-selection' : 'explain-full-code';
     const userMessage = {
       id: `user-${Date.now()}-${messages.length}`,
       role: 'user',
       text: prompt,
-      selectedCode: selectionContext?.text ?? '',
     };
     setMessages((current) => [...current, userMessage]);
     setStatus('loading');
@@ -49,11 +47,10 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     scrollIfNearBottom();
     try {
       const response = await client.explain({
-        requestType,
+        requestType: 'explain-full-code',
         language: compilerContext.language,
         code: compilerContext.code,
-        selectedCode: selectionContext?.text ?? '',
-        selectionSnapshot: selectionContext?.snapshot,
+        selectedCode: '',
         compilerEvidence: compilerContext.compilerEvidence ?? undefined,
         compilerStatus: compilerContext.compilerStatus ?? 'ready',
         activityType,
@@ -80,8 +77,14 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   useEffect(() => {
     if (!pendingRequest || handledRequestRef.current === pendingRequest.id) return;
     handledRequestRef.current = pendingRequest.id;
-    void submit({ question: DEFAULT_SELECTION_INTENT, selectionContext: pendingRequest.selectionContext });
-  }, [pendingRequest, submit]);
+    setDraft((current) => mergeTutorDraft(current, pendingRequest.selectionContext?.text));
+    requestAnimationFrame(() => {
+      const composer = composerRef.current;
+      if (!composer) return;
+      composer.focus();
+      composer.setSelectionRange(composer.value.length, composer.value.length);
+    });
+  }, [pendingRequest]);
 
   if (!canAccessFeature({ tier, feature: ACCESS_FEATURES.AI_TUTOR })) {
     return <div className="ai-workspace-gate"><PremiumGate context="AI Tutor" /></div>;
@@ -117,6 +120,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
       </div>
       <div className="ai-workspace-composer">
         <textarea
+          ref={composerRef}
           aria-label="Ask AI Tutor"
           placeholder={composerPlaceholder}
           value={draft}
