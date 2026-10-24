@@ -19,6 +19,23 @@ const PROVIDER_CLASSIFICATION_ALLOWLIST = new Set([
   'schema-validation-failed', 'release-policy-failed', 'suspected-truncation', 'unknown',
 ]);
 const PROVIDER_FINISH_REASON_ALLOWLIST = new Set(['stop', 'length', 'content_filter', 'tool_calls', 'unknown']);
+const VALIDATION_RULE_ALLOWLIST = new Set(['required', 'type', 'enum', 'minLength', 'maxLength', 'maxItems', 'controlCharacters']);
+const VALIDATION_TYPE_ALLOWLIST = new Set(['array', 'object', 'string', 'number', 'boolean', 'null', 'undefined']);
+const SAFE_SCHEMA_PATHS = Object.freeze([
+  /^(?:schemaVersion|policyVersion|operation|summary|evidence|sections|codeReferences|concepts|issues|nextStep)$/u,
+  /^evidence\.(?:basis|note)$/u,
+  /^sections\.\d+\.(?:title|body)$/u,
+  /^codeReferences\.\d+\.(?:startLine|endLine|explanation)$/u,
+  /^concepts\.\d+\.(?:name|explanation)$/u,
+  /^issues\.\d+\.(?:title|explanation|hintLevel|codeReference)$/u,
+  /^issues\.\d+\.codeReference\.(?:startLine|endLine)$/u,
+  /^nextStep\.(?:kind|text)$/u,
+]);
+const SAFE_SCHEMA_FIELDS = new Set([
+  'schemaVersion', 'policyVersion', 'operation', 'evidence', 'basis', 'note', 'summary',
+  'sections', 'title', 'body', 'codeReferences', 'startLine', 'endLine', 'explanation',
+  'concepts', 'name', 'issues', 'hintLevel', 'codeReference', 'nextStep', 'kind', 'text',
+]);
 
 function safeProviderStatus(status) {
   return Number.isInteger(status) && status >= 100 && status <= 599 ? status : null;
@@ -195,6 +212,11 @@ export function createProviderFailureLog({ provider, model, diagnostic, duration
   if (typeof diagnostic.jsonParseSucceeded === 'boolean') event.jsonParseSucceeded = diagnostic.jsonParseSucceeded;
   if (typeof diagnostic.schemaValidationSucceeded === 'boolean') event.schemaValidationSucceeded = diagnostic.schemaValidationSucceeded;
   if (typeof diagnostic.releasePolicyClassification === 'string' && /^[a-z0-9-]{1,80}$/u.test(diagnostic.releasePolicyClassification)) event.releasePolicyClassification = diagnostic.releasePolicyClassification;
+  if (typeof diagnostic.validationPath === 'string' && diagnostic.validationPath.length <= 120 && SAFE_SCHEMA_PATHS.some((pattern) => pattern.test(diagnostic.validationPath))) event.validationPath = diagnostic.validationPath;
+  if (VALIDATION_RULE_ALLOWLIST.has(diagnostic.validationRule)) event.validationRule = diagnostic.validationRule;
+  if (VALIDATION_TYPE_ALLOWLIST.has(diagnostic.expectedType)) event.expectedType = diagnostic.expectedType;
+  if (VALIDATION_TYPE_ALLOWLIST.has(diagnostic.actualType)) event.actualType = diagnostic.actualType;
+  if (SAFE_SCHEMA_FIELDS.has(diagnostic.missingField)) event.missingField = diagnostic.missingField;
   if (Number.isInteger(diagnostic.responseCharacters) && diagnostic.responseCharacters >= 0) event.responseCharacters = diagnostic.responseCharacters;
   if (Number.isFinite(durationMs) && durationMs >= 0) event.durationMs = Math.round(durationMs);
   return Object.freeze(event);

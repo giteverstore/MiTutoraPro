@@ -7,6 +7,7 @@ import {
   TUTOR_POLICY_VERSION,
   TUTOR_RESPONSE_LIMITS,
 } from './tutorConfig.js';
+import { isConversationalGlue } from './tutorConversationPolicy.js';
 
 const DANGEROUS_KEYS = new Set(['__proto__', 'prototype', 'constructor']);
 const CONTROL_CHARACTERS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u;
@@ -65,10 +66,28 @@ export const TUTOR_PROVIDER_RESPONSE_SCHEMA = Object.freeze({
   },
 });
 
-function invalidResponse(cause, validationReason = 'schema-invalid') {
+function valueType(value) {
+  if (value === null) return 'null';
+  if (Array.isArray(value)) return 'array';
+  return typeof value;
+}
+
+function invalidResponse(cause, validationReason = 'schema-invalid', diagnostic) {
   const error = new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502, cause });
   error.validationReason = validationReason;
+  if (diagnostic) error.validationDiagnostic = Object.freeze(diagnostic);
   return error;
+}
+
+function requiredField(container, field, path = field) {
+  if (!Object.hasOwn(container, field)) {
+    throw invalidResponse(undefined, 'schema-required-field', {
+      validationPath: path,
+      validationRule: 'required',
+      missingField: field,
+    });
+  }
+  return container[field];
 }
 
 function extractStructuredObject(source) {
@@ -138,23 +157,57 @@ function assertSafeTree(value, depth = 0) {
   }
 }
 
-function object(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) throw invalidResponse(undefined, 'object-required');
+function object(value, path = '$') {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw invalidResponse(undefined, 'object-required', {
+      validationPath: path,
+      validationRule: 'type',
+      expectedType: 'object',
+      actualType: valueType(value),
+    });
+  }
   return value;
 }
 
-function string(value, limit, { required = true } = {}) {
+function string(value, limit, { required = true, path = '$' } = {}) {
   if (typeof value !== 'string') {
     if (!required && value == null) return '';
-    throw invalidResponse(undefined, 'string-required');
+    throw invalidResponse(undefined, 'string-required', {
+      validationPath: path,
+      validationRule: 'type',
+      expectedType: 'string',
+      actualType: valueType(value),
+    });
   }
   const normalized = value.trim();
-  if ((required && !normalized) || normalized.length > limit || CONTROL_CHARACTERS.test(normalized)) throw invalidResponse(undefined, 'invalid-string');
+  if ((required && !normalized) || normalized.length > limit || CONTROL_CHARACTERS.test(normalized)) {
+    throw invalidResponse(undefined, 'invalid-string', {
+      validationPath: path,
+      validationRule: !normalized ? 'minLength' : normalized.length > limit ? 'maxLength' : 'controlCharacters',
+      expectedType: 'string',
+      actualType: 'string',
+    });
+  }
   return normalized;
 }
 
-function array(value, limit) {
-  if (!Array.isArray(value) || value.length > limit) throw invalidResponse(undefined, 'invalid-array');
+function array(value, limit, path) {
+  if (!Array.isArray(value)) {
+    throw invalidResponse(undefined, 'invalid-array', {
+      validationPath: path,
+      validationRule: 'type',
+      expectedType: 'array',
+      actualType: valueType(value),
+    });
+  }
+  if (value.length > limit) {
+    throw invalidResponse(undefined, 'invalid-array', {
+      validationPath: path,
+      validationRule: 'maxItems',
+      expectedType: 'array',
+      actualType: 'array',
+    });
+  }
   return value;
 }
 
@@ -173,36 +226,74 @@ function lineReference(value, context, { explanation = true } = {}) {
   };
 }
 
+export function createMinimalTutorEnvelope(summary, context) {
+  return Object.freeze({
+    schemaVersion: RESPONSE_SCHEMA_VERSION,
+    policyVersion: TUTOR_POLICY_VERSION,
+    operation: context.operation,
+    evidence: Object.freeze({ basis: context.evidence.basis, note: null }),
+    summary,
+    sections: Object.freeze([]),
+    codeReferences: Object.freeze([]),
+    concepts: Object.freeze([]),
+    issues: Object.freeze([]),
+    nextStep: Object.freeze({ kind: 'none', text: '' }),
+  });
+}
+
+export function normalizeTutorResponseEnvelope(parsed, context) {
+  if (!isConversationalGlue(context.learnerMessage)
+    || !parsed || typeof parsed !== 'object' || Array.isArray(parsed)
+    || typeof parsed.summary !== 'string') return parsed;
+  const defaults = createMinimalTutorEnvelope(parsed.summary, context);
+  if (Object.keys(parsed).some((field) => !Object.hasOwn(defaults, field))) {
+    throw invalidResponse(undefined, 'unknown-top-level-field');
+  }
+  return Object.freeze(Object.fromEntries(Object.keys(defaults).map((field) => [
+    field,
+    Object.hasOwn(parsed, field) ? parsed[field] : defaults[field],
+  ])));
+}
+
 export function validateTutorResponse(rawText, context) {
-  const parsed = parseTutorResponseText(rawText);
+  const parsed = normalizeTutorResponseEnvelope(parseTutorResponseText(rawText), context);
   assertSafeTree(parsed);
   const response = object(parsed);
+  for (const field of TUTOR_PROVIDER_RESPONSE_SCHEMA.schema.required) requiredField(response, field);
   if (response.schemaVersion !== RESPONSE_SCHEMA_VERSION
     || response.policyVersion !== TUTOR_POLICY_VERSION
-    || response.operation !== context.operation) throw invalidResponse(undefined, 'version-or-operation-mismatch');
+    || response.operation !== context.operation) throw invalidResponse(undefined, 'version-or-operation-mismatch', {
+    validationPath: response.schemaVersion !== RESPONSE_SCHEMA_VERSION ? 'schemaVersion' : response.policyVersion !== TUTOR_POLICY_VERSION ? 'policyVersion' : 'operation',
+    validationRule: 'enum',
+    expectedType: 'string',
+    actualType: valueType(response.schemaVersion !== RESPONSE_SCHEMA_VERSION ? response.schemaVersion : response.policyVersion !== TUTOR_POLICY_VERSION ? response.policyVersion : response.operation),
+  });
 
-  const evidence = object(response.evidence);
-  if (!TUTOR_EVIDENCE_BASES.includes(evidence.basis)) throw invalidResponse(undefined, 'invalid-evidence-basis');
+  const evidence = object(response.evidence, 'evidence');
+  requiredField(evidence, 'basis', 'evidence.basis');
+  if (!TUTOR_EVIDENCE_BASES.includes(evidence.basis)) throw invalidResponse(undefined, 'invalid-evidence-basis', {
+    validationPath: 'evidence.basis', validationRule: 'enum', expectedType: 'string', actualType: valueType(evidence.basis),
+  });
   if (context.evidence.basis === 'static' && evidence.basis === 'runtime') throw invalidResponse(undefined, 'unsupported-runtime-claim');
 
-  const sections = array(response.sections, TUTOR_RESPONSE_LIMITS.sectionCount).map((item) => {
-    const section = object(item);
+  const sections = array(response.sections, TUTOR_RESPONSE_LIMITS.sectionCount, 'sections').map((item, index) => {
+    const section = object(item, `sections.${index}`);
     return {
-      title: string(section.title, TUTOR_RESPONSE_LIMITS.sectionTitle),
-      body: string(section.body, TUTOR_RESPONSE_LIMITS.sectionBody),
+      title: string(requiredField(section, 'title', `sections.${index}.title`), TUTOR_RESPONSE_LIMITS.sectionTitle, { path: `sections.${index}.title` }),
+      body: string(requiredField(section, 'body', `sections.${index}.body`), TUTOR_RESPONSE_LIMITS.sectionBody, { path: `sections.${index}.body` }),
     };
   });
-  const codeReferences = array(response.codeReferences, TUTOR_RESPONSE_LIMITS.codeReferenceCount)
+  const codeReferences = array(response.codeReferences, TUTOR_RESPONSE_LIMITS.codeReferenceCount, 'codeReferences')
     .map((item) => lineReference(item, context));
-  const concepts = array(response.concepts, TUTOR_RESPONSE_LIMITS.conceptCount).map((item) => {
-    const concept = object(item);
+  const concepts = array(response.concepts, TUTOR_RESPONSE_LIMITS.conceptCount, 'concepts').map((item, index) => {
+    const concept = object(item, `concepts.${index}`);
     return {
-      name: string(concept.name, TUTOR_RESPONSE_LIMITS.conceptName),
-      explanation: string(concept.explanation, TUTOR_RESPONSE_LIMITS.conceptExplanation),
+      name: string(requiredField(concept, 'name', `concepts.${index}.name`), TUTOR_RESPONSE_LIMITS.conceptName, { path: `concepts.${index}.name` }),
+      explanation: string(requiredField(concept, 'explanation', `concepts.${index}.explanation`), TUTOR_RESPONSE_LIMITS.conceptExplanation, { path: `concepts.${index}.explanation` }),
     };
   });
-  const issues = array(response.issues, TUTOR_RESPONSE_LIMITS.issueCount).map((item) => {
-    const issue = object(item);
+  const issues = array(response.issues, TUTOR_RESPONSE_LIMITS.issueCount, 'issues').map((item, index) => {
+    const issue = object(item, `issues.${index}`);
     const hintLevel = Number(issue.hintLevel);
     if (!Number.isInteger(hintLevel) || hintLevel < 1 || hintLevel > context.hintLevel) throw invalidResponse(undefined, 'disallowed-hint-level');
     return {
@@ -212,8 +303,11 @@ export function validateTutorResponse(rawText, context) {
       ...(issue.codeReference ? { codeReference: lineReference(issue.codeReference, context, { explanation: false }) } : {}),
     };
   });
-  const nextStep = object(response.nextStep);
-  if (!TUTOR_NEXT_STEP_KINDS.includes(nextStep.kind)) throw invalidResponse(undefined, 'invalid-next-step-kind');
+  const nextStep = object(response.nextStep, 'nextStep');
+  requiredField(nextStep, 'kind', 'nextStep.kind');
+  if (!TUTOR_NEXT_STEP_KINDS.includes(nextStep.kind)) throw invalidResponse(undefined, 'invalid-next-step-kind', {
+    validationPath: 'nextStep.kind', validationRule: 'enum', expectedType: 'string', actualType: valueType(nextStep.kind),
+  });
 
   return Object.freeze({
     schemaVersion: RESPONSE_SCHEMA_VERSION,
@@ -223,14 +317,14 @@ export function validateTutorResponse(rawText, context) {
       basis: evidence.basis,
       ...(evidence.note == null || evidence.note === '' ? {} : { note: string(evidence.note, TUTOR_RESPONSE_LIMITS.evidenceNote) }),
     }),
-    summary: string(response.summary, TUTOR_RESPONSE_LIMITS.summary),
+    summary: string(response.summary, TUTOR_RESPONSE_LIMITS.summary, { path: 'summary' }),
     sections: Object.freeze(sections.map(Object.freeze)),
     codeReferences: Object.freeze(codeReferences.map(Object.freeze)),
     concepts: Object.freeze(concepts.map(Object.freeze)),
     issues: Object.freeze(issues.map(Object.freeze)),
     nextStep: Object.freeze({
       kind: nextStep.kind,
-      text: string(nextStep.text, TUTOR_RESPONSE_LIMITS.nextStepText, { required: nextStep.kind !== 'none' }),
+      text: string(nextStep.text, TUTOR_RESPONSE_LIMITS.nextStepText, { required: nextStep.kind !== 'none', path: 'nextStep.text' }),
     }),
   });
 }

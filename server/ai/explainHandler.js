@@ -31,6 +31,7 @@ function attachResponseDiagnostic(error, result, providerRequest, fields) {
     jsonParseSucceeded: fields.jsonParseSucceeded,
     schemaValidationSucceeded: fields.schemaValidationSucceeded,
     ...(fields.releasePolicyClassification ? { releasePolicyClassification: fields.releasePolicyClassification } : {}),
+    ...(error.validationDiagnostic ?? {}),
     responseCharacters: Number.isInteger(result?.responseCharacters) ? result.responseCharacters : String(result?.text ?? '').length,
   });
   return error;
