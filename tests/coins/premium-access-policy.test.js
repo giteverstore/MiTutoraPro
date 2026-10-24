@@ -51,6 +51,7 @@ describe('M4 AI Tutor server entitlement boundary', () => {
       quotaGuardFactory: () => { calls.push('quota'); return {}; },
       featureGateFactory: () => ({}),
       explain: async () => { calls.push('provider-path'); return { summary: 'safe' }; },
+      experienceFactory: () => ({ prepare: async () => ({}), complete: async () => ({ usedMessages: 1, includedLimit: 30 }), release: async () => {} }),
     });
     const res = response();
     await handler({ method: 'POST', headers: {}, body: { premium: true, tier: 'PREMIUM' }, once: vi.fn(), off: vi.fn() }, res);

@@ -95,6 +95,7 @@ describe('AI Tutor authentication boundary', () => {
       scopeResolver: vi.fn(async () => ({ surface: 'course', scopeId: 'python', activityId: 'lesson-1', contentVersion: 1 })),
       authenticator: { authenticate: vi.fn().mockResolvedValue({ uid: 'verified-user' }) },
       premiumAccessGuardFactory: () => ({ assertPremium: vi.fn().mockResolvedValue({ tier: 'PREMIUM' }) }),
+      experienceFactory: () => ({ prepare: vi.fn().mockResolvedValue({}), complete: vi.fn().mockResolvedValue({ usedMessages: 1, includedLimit: 30 }), release: vi.fn() }),
       explain,
     });
     const req = Object.assign(new EventEmitter(), { method: 'POST', headers: {}, body: { uid: 'attacker-user' } });

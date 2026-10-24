@@ -1,6 +1,7 @@
 import { Firestore, Timestamp } from '@google-cloud/firestore';
 import { AIServiceError } from '../ai/AIServiceError.js';
 import { SubscriptionService } from '../../functions/src/subscriptions/SubscriptionService.js';
+import { resolveTutorEntitlement } from '../ai/tutor/tutorEntitlement.js';
 
 export function createPremiumAccessGuard(environment = process.env, { FirestoreClient = Firestore, authClient = null } = {}) {
   const projectId = String(environment.FIREBASE_PROJECT_ID ?? environment.GCLOUD_PROJECT ?? '').trim();
@@ -15,7 +16,8 @@ export function createPremiumAccessGuard(environment = process.env, { FirestoreC
       if (entitlement.tier !== 'PREMIUM') {
         throw new AIServiceError('ai/premium-required', 'Premium is required to use the AI Tutor.', { status: 403 });
       }
-      return entitlement;
+      const unlimitedPlanIds = String(environment.AI_TUTOR_UNLIMITED_PLAN_IDS ?? '').split(',').map((value) => value.trim()).filter(Boolean);
+      return Object.freeze({ ...entitlement, ...resolveTutorEntitlement(entitlement, { unlimitedPlanIds }) });
     },
   });
 }

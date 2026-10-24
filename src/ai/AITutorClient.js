@@ -35,7 +35,15 @@ export class AITutorClient {
     if (!validateAITutorResponse(body)) {
       throw new AITutorClientError('The AI Tutor returned an invalid response.', { code: 'ai/provider-response-invalid', retryable: true });
     }
+    const limit = response.headers?.get?.('X-AI-Messages-Limit');
+    body._tutorUsage = limit ? { usedMessages: Number(response.headers.get('X-AI-Messages-Used')) || 0, includedLimit: limit === 'unlimited' ? null : Number(limit), unlimited: limit === 'unlimited' } : null;
     return body;
+  }
+
+  async history(scope, { before, signal } = {}) {
+    const token = await withAbort(this.tokenProvider(), signal); if (!token) throw new AITutorClientError('Sign in to use the AI Tutor.', { code: 'ai/auth-required' });
+    const query = new URLSearchParams(Object.entries({ ...scope, ...(before ? { before } : {}) }).filter(([, value]) => value != null).map(([key, value]) => [key, String(value)]));
+    const response = await this.fetchImpl.call(globalThis, `/api/ai/history?${query}`, { headers: { Authorization: `Bearer ${token}` }, signal }); const body = await response.json(); if (!response.ok) throw new AITutorClientError(body?.error?.message || 'Tutor history could not be loaded.', { code: body?.error?.code, status: response.status }); return body;
   }
 }
 

@@ -13,11 +13,14 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
   const tier = accessTier ?? access?.tier ?? 'FREE';
   const [state, setState] = useState(emptyState);
   const [draft, setDraft] = useState('');
+  const [usage, setUsage] = useState(null);
+  const [historyCursor, setHistoryCursor] = useState(null);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const request = useRef(null);
   const scrollRef = useRef(null);
   const composerRef = useRef(null);
   const nearBottom = useRef(true);
-  const scopeKey = JSON.stringify({ project: context?.project?.id, version: context?.project?.version, checkpoint: context?.checkpoint?.id, languageId: context?.languageId });
+  const scopeKey = JSON.stringify({ project: context?.project?.id, version: context?.project?.version });
   const selectionKey = context?.selectionType === 'checkpoint_context' ? '' : JSON.stringify({ type: context?.selectionType, content: context?.selectedContent });
 
   const generate = async () => {
@@ -28,6 +31,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     setState({ ...emptyState(), phase: 'questions-loading' });
     try {
       const result = await client.generateQuestions(context, { signal: controller.signal });
+      if (result._tutorUsage) setUsage({ ...result._tutorUsage, remainingMessages: result._tutorUsage.unlimited ? null : Math.max(0, result._tutorUsage.includedLimit - result._tutorUsage.usedMessages) });
       setState({ ...emptyState(), phase: 'questions', questions: result.questions });
     } catch (error) {
       if (error.name !== 'AbortError') setState({ ...emptyState(), phase: 'error', error: error.message || 'The AI Mentor is unavailable.' });
@@ -45,6 +49,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     setState((value) => ({ ...value, phase: 'answer-loading', selected: question, questions: [], followUps: [], error: '' }));
     try {
       const result = await client.answer(context, question, history, { signal: controller.signal });
+      if (result._tutorUsage) setUsage({ ...result._tutorUsage, remainingMessages: result._tutorUsage.unlimited ? null : Math.max(0, result._tutorUsage.includedLimit - result._tutorUsage.usedMessages) });
       setState((value) => ({ ...value, phase: 'answer', selected: null, followUps: result.followUps, conversation: [...history, { question: question.label, answer: result.answer }].slice(-3), error: '' }));
     } catch (error) {
       if (error.name !== 'AbortError') setState((value) => ({ ...value, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
@@ -69,6 +74,16 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     // A new project/checkpoint/language scope intentionally starts a new bounded conversation.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scopeKey]);
+
+  const historyTurns = (items = []) => { const turns = []; for (let index = 0; index < items.length;) { const item = items[index]; const next = items[index + 1]; if (item.role === 'user' && next?.role === 'assistant' && item.requestId === next.requestId) { turns.push({ id: item.requestId, question: item.text, answer: next.response?.answer ?? next.response?.summary ?? '' }); index += 2; } else { turns.push({ id: item.id, ...(item.role === 'user' ? { question: item.text } : { answer: item.response?.answer ?? item.response?.summary ?? '' }) }); index += 1; } } return turns; };
+  useEffect(() => {
+    if (!context?.tutorScope || typeof client.history !== 'function') return undefined;
+    const controller = new AbortController(); setHistoryLoading(true);
+    client.history(context.tutorScope, { signal: controller.signal }).then((page) => { setState((value) => ({ ...value, conversation: historyTurns(page.items) })); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch(() => {}).finally(() => setHistoryLoading(false));
+    return () => controller.abort();
+  }, [client, scopeKey]);
+
+  const loadOlder = async (node) => { if (!historyCursor || historyLoading) return; const oldHeight = node.scrollHeight; setHistoryLoading(true); try { const page = await client.history(context.tutorScope, { before: historyCursor }); const turns = historyTurns(page.items); setState((value) => ({ ...value, conversation: [...turns.filter((turn) => !value.conversation.some((current) => current.id === turn.id)), ...value.conversation] })); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
 
   useEffect(() => {
     if (!selectionKey) return;
@@ -95,7 +110,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
 
   return <section className="project-contextual-ai" aria-label="Contextual project AI" aria-busy={loading}>
     <header><Bot aria-hidden="true" /><h2>Contextual AI Mentor</h2></header>
-    <div className="project-ai-conversation-scroll" ref={scrollRef} role="region" aria-label="AI Mentor conversation" onScroll={(event) => { const node = event.currentTarget; nearBottom.current = node.scrollHeight - node.scrollTop - node.clientHeight < 72; }}>
+    <div className="project-ai-conversation-scroll" ref={scrollRef} role="region" aria-label="AI Mentor conversation" onScroll={(event) => { const node = event.currentTarget; nearBottom.current = node.scrollHeight - node.scrollTop - node.clientHeight < 72; if (node.scrollTop === 0) void loadOlder(node); }}>
       {!context ? <div className="project-ai-empty"><p>Ask a question about the current project checkpoint.</p></div> : <>
         {context.selectionType !== 'checkpoint_context' ? <div className="project-ai-context-preview"><span>Selected context</span><strong>{context.selectionType.replaceAll('_', ' ')}</strong><pre>{context.selectedContent}</pre></div> : null}
         {state.phase === 'idle' ? <button className="project-ai-suggest" type="button" onClick={generate}>Suggest questions</button> : null}
@@ -110,14 +125,15 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
       </>}
     </div>
     <div className="project-ai-composer">
-      <textarea ref={composerRef} aria-label="Ask AI Mentor" value={draft} maxLength={9_000} placeholder="Ask about this checkpoint or your code…" disabled={loading} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendDraft(); } }} />
-      <button type="button" aria-label="Send AI Mentor message" disabled={!draft.trim() || loading} onClick={sendDraft}><Send aria-hidden="true" /> Send</button>
+      {usage ? <small className="project-ai-usage">{usage.unlimited ? 'Unlimited AI messages' : `${usage.remainingMessages} AI messages remaining`}</small> : null}
+      <textarea ref={composerRef} aria-label="Ask AI Mentor" value={draft} maxLength={9_000} placeholder="Ask about this checkpoint or your code…" disabled={loading || usage?.remainingMessages === 0} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendDraft(); } }} />
+      <button type="button" aria-label="Send AI Mentor message" disabled={!draft.trim() || loading || usage?.remainingMessages === 0} onClick={sendDraft}><Send aria-hidden="true" /> Send</button>
     </div>
   </section>;
 }
 
 function ConversationTurn({ turn }) {
-  return <><div className="project-ai-turn is-user" aria-label="You"><span>You</span><div>{turn.question}</div></div><div className="project-ai-turn is-mentor" aria-label="AI Mentor"><span><Sparkles aria-hidden="true" /> AI Mentor</span><div><p>{turn.answer}</p></div></div></>;
+  return <>{turn.question ? <div className="project-ai-turn is-user" aria-label="You"><span>You</span><div>{turn.question}</div></div> : null}{turn.answer ? <div className="project-ai-turn is-mentor" aria-label="AI Mentor"><span><Sparkles aria-hidden="true" /> AI Mentor</span><div><p>{turn.answer}</p></div></div> : null}</>;
 }
 
 function MentorStatus({ children }) {

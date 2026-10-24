@@ -14,6 +14,7 @@ const DEFINITIONS = Object.freeze({
   'ai/disabled': { status: 503, retryable: false },
   'ai/request-too-large': { status: 413, retryable: false },
   'ai/rate-limited': { status: 429, retryable: true },
+  'ai/included-messages-exhausted': { status: 429, retryable: false },
   'ai/provider-rate-limited': { status: 429, retryable: true },
   'ai/provider-unavailable': { status: 502, retryable: true },
   'ai/provider-rejected': { status: 502, retryable: false },

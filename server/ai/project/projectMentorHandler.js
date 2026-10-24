@@ -10,7 +10,7 @@ import { validateProjectMentorResponse } from './projectMentorSchema.js';
 
 const ZERO_USAGE = Object.freeze({ inputTokens: 0, outputTokens: 0, costMicros: 0 });
 
-export async function explainProjectMentor(body, { principal, signal, quotaGuard, featureGate, providerFactory = createAIProvider, telemetry = tutorTelemetry, pricing, providerTokenConstraints } = {}) {
+export async function explainProjectMentor(body, { principal, signal, quotaGuard, featureGate, providerFactory = createAIProvider, telemetry = tutorTelemetry, pricing, providerTokenConstraints, cachedResponse = null, cacheEligible = false } = {}) {
   if (!principal?.uid) throw new AIServiceError('ai/auth-required', 'Sign in to use the AI Tutor.', { status: 401 });
   const startedAt = Date.now();
   let operation;
@@ -43,6 +43,7 @@ export async function explainProjectMentor(body, { principal, signal, quotaGuard
     const plan = createTutorUsagePlan(providerRequest, resolvedPricing, providerTokenConstraints ?? createTutorProviderTokenConstraints());
     usageMaximum = plan.maximum;
     reservation = await quotaGuard.assertAllowed({ uid: principal.uid, usageEstimate: plan.estimate, usageMaximum: plan.maximum });
+    if (cachedResponse) { await settleQuota('cache-hit'); telemetry.record({ operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, quotaDecision: 'allowed', cacheEligible: true, cacheHit: true, cacheType: 'exact' }); return cachedResponse; }
     const provider = providerFactory();
     metadata = provider.getMetadata?.() ?? metadata;
     providerInvoked = true;
@@ -53,7 +54,7 @@ export async function explainProjectMentor(body, { principal, signal, quotaGuard
     }
     const response = validateProjectMentorResponse(result?.text, request.operation);
     await settleQuota('success');
-    telemetry.record({ ...metadata, operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens, totalTokens: usage.inputTokens + usage.outputTokens, cachedInputTokens: usage.cachedInputTokens, estimatedCostMicros: usage.costMicros, costKnown: usage.costKnown, responseBytes: Buffer.byteLength(JSON.stringify(response), 'utf8'), quotaDecision: 'allowed' });
+    telemetry.record({ ...metadata, operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens, totalTokens: usage.inputTokens + usage.outputTokens, cachedInputTokens: usage.cachedInputTokens, estimatedCostMicros: usage.costMicros, costKnown: usage.costKnown, responseBytes: Buffer.byteLength(JSON.stringify(response), 'utf8'), quotaDecision: 'allowed', cacheEligible, cacheHit: false, cacheType: 'none' });
     return response;
   } catch (error) {
     const normalizedError = error?.name === 'AbortError' ? new AIServiceError('ai/cancelled', 'The explanation was cancelled.', { status: 499, cause: error }) : error;

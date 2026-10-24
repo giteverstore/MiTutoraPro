@@ -8,6 +8,8 @@ import { createTutorQuotaFirestore } from '../../server/ai/quota/createTutorQuot
 import { createRequestTutorFeatureGate } from '../../server/ai/tutor/tutorSmokeAuthorization.js';
 import { createPremiumAccessGuard } from '../../server/subscriptions/PremiumAccessGuard.js';
 import { createTutorScopeResolver } from '../../server/ai/tutor/resolveTutorScope.js';
+import { FirestoreTutorExperienceStore } from '../../server/ai/tutor/FirestoreTutorExperienceStore.js';
+import { TutorExperienceService } from '../../server/ai/tutor/TutorExperienceService.js';
 
 function createRequestQuotaGuard(environment, googleCredentials) {
   return createDefaultTutorQuotaGuard(environment, {
@@ -26,6 +28,11 @@ function createRequestFeatureGate(environment, googleCredentials, request) {
   });
 }
 
+function createRequestExperience(environment, googleCredentials, quotaGuard) {
+  const db = createTutorQuotaFirestore(environment, { authClient: googleCredentials.authClient });
+  return new TutorExperienceService({ store: new FirestoreTutorExperienceStore({ db }), identityKey: (uid) => quotaGuard.identityKey(uid) });
+}
+
 export function createAIExplainHandler({
   authenticator = firebaseAITutorAuthenticator,
   explain = (body, options) => String(body?.requestType ?? '').startsWith('project-') ? explainProjectMentor(body, options) : explainCode(body, options),
@@ -35,6 +42,7 @@ export function createAIExplainHandler({
   featureGateFactory = createRequestFeatureGate,
   premiumAccessGuardFactory = (currentEnvironment, credentials) => createPremiumAccessGuard(currentEnvironment, { authClient: credentials.authClient }),
   scopeResolver = createTutorScopeResolver(),
+  experienceFactory = createRequestExperience,
 } = {}) {
   return async function handler(request, response) {
     if (request.method !== 'POST') {
@@ -47,13 +55,25 @@ export function createAIExplainHandler({
       await googleCredentials.preflight();
       const principal = await authenticator.authenticate(request, { environment, googleCredentials });
       const premiumAccessGuard = premiumAccessGuardFactory(environment, googleCredentials);
-      await premiumAccessGuard.assertPremium(principal);
+      const entitlement = await premiumAccessGuard.assertPremium(principal);
       const tutorScope = await scopeResolver({ body: request.body, principal, signal: lifecycle.signal });
       const quotaGuard = quotaGuardFactory(environment, googleCredentials);
       const featureGate = featureGateFactory(environment, googleCredentials, request);
-      const result = await explain(request.body, { principal, signal: lifecycle.signal, quotaGuard, featureGate, tutorScope });
-      if (!lifecycle.signal.aborted && !response.writableEnded) return response.status(200).json(result);
-      return undefined;
+      const experience = experienceFactory(environment, googleCredentials, quotaGuard);
+      let prepared;
+      try {
+        prepared = await experience.prepare({ principal, entitlement, scope: tutorScope, body: request.body });
+        const result = await explain(request.body, { principal, signal: lifecycle.signal, quotaGuard, featureGate, tutorScope, cachedResponse: prepared.cachedResponse, cacheEligible: prepared.cache?.eligible === true });
+        const usage = await experience.complete(prepared, { scope: tutorScope, body: request.body, response: result });
+        response.setHeader('X-AI-Messages-Used', String(usage.usedMessages));
+        response.setHeader('X-AI-Messages-Limit', usage.unlimited ? 'unlimited' : String(usage.includedLimit));
+        response.setHeader('X-AI-Cache', prepared?.cachedResponse ? 'hit' : prepared?.cache?.eligible ? 'miss' : 'none');
+        if (!lifecycle.signal.aborted && !response.writableEnded) return response.status(200).json(result);
+        return undefined;
+      } catch (error) {
+        await experience.release(prepared);
+        throw error;
+      }
     } catch (error) {
       if (lifecycle.signal.aborted || response.writableEnded) return undefined;
       const sanitized = publicAIError(error);

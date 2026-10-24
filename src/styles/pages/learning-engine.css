@@ -781,6 +781,7 @@
 }
 
 .ai-workspace-composer textarea { min-height: 3rem; max-height: 8rem; resize: vertical; padding: var(--space-3); color: var(--color-text); background: var(--color-canvas); border: 1px solid var(--color-border); border-radius: var(--radius-md); font: inherit; }
+.ai-workspace-usage { grid-column: 1 / -1; color: var(--color-text-secondary); font-size: .75rem; }
 .ai-workspace-composer button { display: inline-flex; min-height: 3rem; align-items: center; gap: var(--space-2); padding: 0 var(--space-4); color: var(--color-text-on-accent); background: var(--color-accent); border: 0; border-radius: var(--radius-md); font-weight: var(--font-weight-bold); }
 .ai-workspace-composer button:disabled { opacity: .5; cursor: not-allowed; }
 

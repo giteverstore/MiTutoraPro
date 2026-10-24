@@ -549,6 +549,7 @@ describe('Vercel OIDC to Google WIF credential adapter', () => {
         expect(credentials).toBe(googleCredentials);
         return quotaGuard;
       }),
+      experienceFactory: vi.fn(() => ({ prepare: vi.fn().mockResolvedValue({}), complete: vi.fn().mockResolvedValue({ usedMessages: 1, includedLimit: 30 }), release: vi.fn() })),
       explain: vi.fn(async (_body, options) => {
         calls.push('explain');
         expect(options.quotaGuard).toBe(quotaGuard);

@@ -57,6 +57,8 @@ export async function explainCode(body, {
   pricing,
   providerTokenConstraints,
   providerFailureLogger = console.error,
+  cachedResponse = null,
+  cacheEligible = false,
 } = {}) {
   if (!principal?.uid) throw new AIServiceError('ai/auth-required', 'Sign in to use the AI Tutor.', { status: 401 });
   const startedAt = Date.now();
@@ -117,6 +119,11 @@ export async function explainCode(body, {
     if (rateLimiter) rateLimiter.assertAllowed(createTutorIdentityKey(principal.uid, trustedNetworkKey));
     else reservation = await quotaGuard.assertAllowed({ uid: principal.uid, usageEstimate, usageMaximum });
     quotaDecision = 'allowed';
+    if (cachedResponse) {
+      await settleQuota('cache-hit');
+      telemetry.record({ operation: context.operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, quotaDecision, cacheEligible: true, cacheHit: true, cacheType: 'exact' });
+      return cachedResponse;
+    }
     const provider = providerFactory();
     metadata = provider.getMetadata?.() ?? metadata;
     const requestKey = createTutorIdentityKey(principal.uid, trustedNetworkKey);
@@ -177,6 +184,9 @@ export async function explainCode(body, {
       rolloutBucket: featureDecision.bucket ?? undefined,
       rolloutVersion: featureDecision.version,
       responseBytes: Buffer.byteLength(JSON.stringify(response), 'utf8'),
+      cacheEligible,
+      cacheHit: false,
+      cacheType: 'none',
     });
     return response;
   } catch (error) {

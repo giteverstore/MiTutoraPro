@@ -6,6 +6,7 @@ const ALLOWED_FIELDS = new Set([
   'latencyMs', 'success', 'httpStatus', 'retryable', 'errorCategory', 'responseBytes',
   'inputTokens', 'outputTokens', 'totalTokens', 'cachedInputTokens', 'estimatedCostMicros', 'costKnown',
   'quotaDecision', 'featureFlagState', 'rolloutBucket', 'rolloutVersion',
+  'cacheEligible', 'cacheHit', 'cacheType',
 ]);
 const ALLOWED_TYPES = new Set(['string', 'number', 'boolean']);
 

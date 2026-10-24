@@ -25,6 +25,9 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   const [draft, setDraft] = useState('');
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [usage, setUsage] = useState(null);
+  const [historyCursor, setHistoryCursor] = useState(null);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const requestRef = useRef(null);
   const handledRequestRef = useRef(null);
   const conversationRef = useRef(null);
@@ -40,7 +43,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   }, []);
 
   const submit = useCallback(async ({ question }) => {
-    if (status === 'loading' || !compilerContext?.code?.trim()) return;
+    if (status === 'loading' || usage?.remainingMessages === 0 || !compilerContext?.code?.trim()) return;
     const prompt = question.trim();
     if (!prompt) return;
     const controller = new AbortController();
@@ -63,6 +66,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         if (user.role === 'user' && assistant.role === 'assistant') conversation.push({ question: user.text, answer: conversationAnswer(assistant.response) });
       }
       const response = await client.explain({
+        requestId: globalThis.crypto?.randomUUID?.() ?? `tutor-${Date.now()}-${Math.random().toString(36).slice(2)}`,
         requestType: 'explain-full-code',
         language: compilerContext.language,
         code: compilerContext.code,
@@ -85,6 +89,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         ].join('\n'),
       }, { signal: controller.signal });
       setMessages((current) => [...current, { id: `assistant-${Date.now()}-${current.length}`, role: 'assistant', response }]);
+      if (response._tutorUsage) setUsage({ ...response._tutorUsage, remainingMessages: response._tutorUsage.unlimited ? null : Math.max(0, response._tutorUsage.includedLimit - response._tutorUsage.usedMessages) });
       setStatus('success');
       scrollIfNearBottom();
     } catch (requestError) {
@@ -94,7 +99,16 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     } finally {
       if (requestRef.current === controller) requestRef.current = null;
     }
-  }, [activityType, client, compilerContext, contextLines, course.id, course.title, lesson.id, lesson.title, messages, scrollIfNearBottom, status]);
+  }, [activityType, client, compilerContext, contextLines, course.id, course.title, lesson.id, lesson.title, messages, scrollIfNearBottom, status, usage]);
+
+  const scope = { surface: activityType === 'practice' ? 'practice' : 'course', scopeId: activityType === 'practice' ? lesson.id : course.id, activityId: lesson.id, ...(Number.isSafeInteger(activityType === 'practice' ? lesson.version : course.contentVersion) ? { contentVersion: activityType === 'practice' ? lesson.version : course.contentVersion } : {}) };
+  useEffect(() => {
+    if (activityType === 'practice' || typeof client.history !== 'function') return undefined;
+    const controller = new AbortController(); setHistoryLoading(true);
+    client.history(scope, { signal: controller.signal }).then((page) => { setMessages(page.items ?? []); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch((cause) => { if (cause.name !== 'AbortError') setError(cause.message); }).finally(() => setHistoryLoading(false));
+    return () => controller.abort();
+  }, [activityType, client, course.id, course.contentVersion]);
+  const loadOlder = async () => { if (!historyCursor || historyLoading || typeof client.history !== 'function') return; const node = conversationRef.current; const oldHeight = node?.scrollHeight ?? 0; setHistoryLoading(true); try { const page = await client.history(scope, { before: historyCursor }); setMessages((current) => [...(page.items ?? []).filter((item) => !current.some((existing) => existing.id === item.id)), ...current]); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { if (node) node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
@@ -126,7 +140,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         <span className="ai-workspace-icon" aria-hidden="true"><Bot /></span>
         <div><h2 id="learning-ai-title">AI Tutor</h2><p>{course.title} · {lesson.title}</p></div>
       </header>
-      <div className="ai-workspace-conversation" ref={conversationRef} aria-live="polite">
+      <div className="ai-workspace-conversation" ref={conversationRef} aria-live="polite" onScroll={(event) => { if (event.currentTarget.scrollTop === 0) void loadOlder(); }}>
         {messages.length === 0 ? <div className="ai-workspace-empty"><Sparkles aria-hidden="true" /><strong>{emptyTitle}</strong><p>{emptyText}</p></div> : null}
         {messages.map((message) => message.role === 'user' ? (
           <article className="ai-workspace-message is-user" key={message.id}>
@@ -142,6 +156,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         {error ? <ErrorState title={status === 'unavailable' ? 'AI Tutor unavailable' : 'AI Tutor could not respond'} description={error} variant="compact" kind={status === 'unavailable' ? 'unavailable' : 'failure'} alert /> : null}
       </div>
       <div className="ai-workspace-composer">
+        {usage ? <small className="ai-workspace-usage">{usage.unlimited ? 'Unlimited AI messages' : `${usage.remainingMessages} AI messages remaining`}</small> : null}
         <textarea
           ref={composerRef}
           aria-label="Ask AI Tutor"
@@ -151,9 +166,9 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
           onKeyDown={(event) => {
             if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendDraft(); }
           }}
-          disabled={status === 'loading' || status === 'unavailable'}
+          disabled={status === 'loading' || status === 'unavailable' || usage?.remainingMessages === 0}
         />
-        <button type="button" onClick={sendDraft} disabled={!draft.trim() || status === 'loading' || status === 'unavailable'}><Send aria-hidden="true" /> Send</button>
+        <button type="button" onClick={sendDraft} disabled={!draft.trim() || status === 'loading' || status === 'unavailable' || usage?.remainingMessages === 0}><Send aria-hidden="true" /> Send</button>
       </div>
     </section>
   );
