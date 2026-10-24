@@ -92,6 +92,7 @@ describe('AI Tutor authentication boundary', () => {
   it('uses the authenticated principal rather than a client-supplied uid', async () => {
     const explain = vi.fn().mockResolvedValue({ summary: 'safe' });
     const handler = createAIExplainHandler({
+      scopeResolver: vi.fn(async () => ({ surface: 'course', scopeId: 'python', activityId: 'lesson-1', contentVersion: 1 })),
       authenticator: { authenticate: vi.fn().mockResolvedValue({ uid: 'verified-user' }) },
       premiumAccessGuardFactory: () => ({ assertPremium: vi.fn().mockResolvedValue({ tier: 'PREMIUM' }) }),
       explain,
@@ -104,7 +105,10 @@ describe('AI Tutor authentication boundary', () => {
       setHeader: vi.fn(),
     });
     await handler(req, res);
-    expect(explain).toHaveBeenCalledWith({ uid: 'attacker-user' }, expect.objectContaining({ principal: { uid: 'verified-user' } }));
+    expect(explain).toHaveBeenCalledWith({ uid: 'attacker-user' }, expect.objectContaining({
+      principal: { uid: 'verified-user' },
+      tutorScope: { surface: 'course', scopeId: 'python', activityId: 'lesson-1', contentVersion: 1 },
+    }));
   });
 });
 

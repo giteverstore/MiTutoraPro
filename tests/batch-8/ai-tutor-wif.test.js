@@ -132,6 +132,7 @@ describe('Vercel OIDC to Google WIF credential adapter', () => {
 
     const calls = [];
     const handler = createAIExplainHandler({
+      scopeResolver: vi.fn(),
       environment: productionEnvironment(),
       credentialFactory: vi.fn(() => ({
         authClient: {},
@@ -534,6 +535,7 @@ describe('Vercel OIDC to Google WIF credential adapter', () => {
     const googleCredentials = { preflight: vi.fn(async () => calls.push('preflight')), authClient: {}, firebaseCredential: {} };
     const quotaGuard = {};
     const handler = createAIExplainHandler({
+      scopeResolver: vi.fn(async () => ({ surface: 'course', scopeId: 'python', activityId: 'lesson-1', contentVersion: 1 })),
       environment: productionEnvironment(),
       credentialFactory: vi.fn(() => googleCredentials),
       authenticator: { authenticate: vi.fn(async (_request, options) => {

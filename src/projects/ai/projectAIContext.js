@@ -13,6 +13,7 @@ export function createProjectAIContext({ project, checkpoint, taskId = null, lan
   if (!PROJECT_AI_SELECTION_TYPES.includes(selectionType)) throw new TypeError('Choose a supported project AI selection type.');
   const selection = clip(selectedContent, 8_000); if (selection.length < 2) throw new TypeError('Select meaningful content before asking AI.');
   const context = { project: { id: project.id, title: project.title, description: clip(project.description, 800), difficulty: project.difficulty, learningObjectives: (project.learningObjectives ?? []).slice(0, 8) }, checkpoint: { id: checkpoint.id, title: checkpoint.title ?? checkpoint.label, objective: clip(checkpoint.objective, 600), requirements: (checkpoint.requirements ?? []).slice(0, 12) }, languageId, selectionType, selectedContent: selection, guideContext: clip(guideContext, 2_000) };
+  context.tutorScope = { surface: 'project', scopeId: project.id, activityId: taskId ?? checkpoint.id, checkpointId: checkpoint.id, ...(taskId ? { taskId } : {}), ...(Number.isSafeInteger(project.contentVersion) ? { contentVersion: project.contentVersion } : {}) };
   if (Number.isSafeInteger(project.contentVersion)) context.project.version = project.contentVersion;
   if (project.projectId && taskId && checkpoint.checkpointId) {
     const mentor = deriveMentorContext(project, checkpoint.checkpointId, taskId, languageId);

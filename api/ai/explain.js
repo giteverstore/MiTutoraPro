@@ -7,6 +7,7 @@ import { createDefaultTutorQuotaGuard } from '../../server/ai/tutor/tutorQuota.j
 import { createTutorQuotaFirestore } from '../../server/ai/quota/createTutorQuotaFirestore.js';
 import { createRequestTutorFeatureGate } from '../../server/ai/tutor/tutorSmokeAuthorization.js';
 import { createPremiumAccessGuard } from '../../server/subscriptions/PremiumAccessGuard.js';
+import { createTutorScopeResolver } from '../../server/ai/tutor/resolveTutorScope.js';
 
 function createRequestQuotaGuard(environment, googleCredentials) {
   return createDefaultTutorQuotaGuard(environment, {
@@ -33,6 +34,7 @@ export function createAIExplainHandler({
   quotaGuardFactory = createRequestQuotaGuard,
   featureGateFactory = createRequestFeatureGate,
   premiumAccessGuardFactory = (currentEnvironment, credentials) => createPremiumAccessGuard(currentEnvironment, { authClient: credentials.authClient }),
+  scopeResolver = createTutorScopeResolver(),
 } = {}) {
   return async function handler(request, response) {
     if (request.method !== 'POST') {
@@ -46,9 +48,10 @@ export function createAIExplainHandler({
       const principal = await authenticator.authenticate(request, { environment, googleCredentials });
       const premiumAccessGuard = premiumAccessGuardFactory(environment, googleCredentials);
       await premiumAccessGuard.assertPremium(principal);
+      const tutorScope = await scopeResolver({ body: request.body, principal, signal: lifecycle.signal });
       const quotaGuard = quotaGuardFactory(environment, googleCredentials);
       const featureGate = featureGateFactory(environment, googleCredentials, request);
-      const result = await explain(request.body, { principal, signal: lifecycle.signal, quotaGuard, featureGate });
+      const result = await explain(request.body, { principal, signal: lifecycle.signal, quotaGuard, featureGate, tutorScope });
       if (!lifecycle.signal.aborted && !response.writableEnded) return response.status(200).json(result);
       return undefined;
     } catch (error) {

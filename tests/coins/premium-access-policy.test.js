@@ -43,6 +43,7 @@ describe('M4 AI Tutor server entitlement boundary', () => {
   const run = async ({ access }) => {
     const calls = [];
     const handler = createAIExplainHandler({
+      scopeResolver: async () => ({ surface: 'course', scopeId: 'python', activityId: 'lesson-1', contentVersion: 1 }),
       environment: {},
       credentialFactory: () => ({ authClient: null, preflight: async () => calls.push('preflight') }),
       authenticator: { authenticate: async () => { calls.push('authenticate'); return { uid: 'verified-user' }; } },

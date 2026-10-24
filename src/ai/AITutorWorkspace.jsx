@@ -70,6 +70,12 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         compilerEvidence: compilerContext.compilerEvidence ?? undefined,
         compilerStatus: compilerContext.compilerStatus ?? 'ready',
         activityType,
+        tutorScope: {
+          surface: activityType === 'practice' ? 'practice' : 'course',
+          scopeId: activityType === 'practice' ? lesson.id : course.id,
+          activityId: lesson.id,
+          ...(Number.isSafeInteger(activityType === 'practice' ? lesson.version : course.contentVersion) ? { contentVersion: activityType === 'practice' ? lesson.version : course.contentVersion } : {}),
+        },
         learnerMessage: prompt,
         conversation: conversation.slice(-3),
         lessonContext: [
