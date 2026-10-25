@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildProjectTree, createInitialProjectFiles, normalizeProjectPath, supportsMultiFileProjectExecution, validateProjectFilePath } from '../../src/projects/workspace/projectWorkspaceFiles';
+import { buildProjectTree, createInitialProjectFiles, languageForPath, normalizeProjectPath, supportsMultiFileProjectExecution, validateProjectFilePath } from '../../src/projects/workspace/projectWorkspaceFiles';
 
 describe('project workspace file model', () => {
   const project = { language: 'python', starterCode: 'print("hello")', template: { sourcePath: 'src/main.py' } };
@@ -12,13 +12,24 @@ describe('project workspace file model', () => {
     });
   });
 
-  it('accepts bounded virtual paths and rejects traversal, absolute, duplicate, and invalid extensions', () => {
+  it('accepts arbitrary safe filenames and rejects traversal, absolute, and duplicate paths', () => {
     expect(normalizeProjectPath('src\\utils.py')).toBe('src/utils.py');
     expect(normalizeProjectPath('../secret.py')).toBeNull();
     expect(normalizeProjectPath('C:\\secret.py')).toBeNull();
     expect(validateProjectFilePath('src/utils.py', {}, 'python')).toMatchObject({ valid: true });
     expect(validateProjectFilePath('src/main.py', { 'src/main.py': {} }, 'python')).toMatchObject({ valid: false });
-    expect(validateProjectFilePath('script.exe', {}, 'python')).toMatchObject({ valid: false });
+    for (const path of ['Main.java', 'index.js', 'App.jsx', 'style.css', 'main.cpp', 'main.c', 'hello.go', 'Cargo.toml', 'Dockerfile', 'Makefile', '.gitignore', 'README', 'config.yaml']) {
+      expect(validateProjectFilePath(path, {}, 'python')).toEqual({ valid: true, path });
+    }
+    expect(validateProjectFilePath('src/../secret.py', {}, 'python')).toMatchObject({ valid: false });
+  });
+
+  it('maps known editor languages and safely falls back to plaintext', () => {
+    expect(validateProjectFilePath('custom.unknown', {}, 'python')).toEqual({ valid: true, path: 'custom.unknown' });
+    expect(languageForPath('App.jsx', 'python')).toBe('javascript');
+    expect(languageForPath('style.css', 'python')).toBe('css');
+    expect(languageForPath('custom.unknown', 'python')).toBe('plaintext');
+    expect(languageForPath('README', 'python')).toBe('plaintext');
   });
 
   it('derives multi-file execution support from runtime capabilities', () => {

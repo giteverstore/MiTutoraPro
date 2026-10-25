@@ -49,8 +49,8 @@ describe('immersive project workspace shell', () => {
     expect(explorer.querySelector('header')).toContainElement(screen.getByRole('button', { name: 'New File' }));
     expect(explorer.querySelector('.project-tree-root')).toHaveTextContent(project.title);
     expect(container.querySelector('.project-checkpoints-section')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Checkpoints' }));
-    expect(screen.getByRole('complementary', { name: 'Checkpoints' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Tasks' }));
+    expect(screen.getByRole('complementary', { name: 'Tasks' })).toBeInTheDocument();
     expect(container.querySelector('.project-checkpoints-section')).toBeInTheDocument();
     expect(container.querySelector('.project-files-section')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Explorer' }));
@@ -101,6 +101,17 @@ describe('immersive project workspace shell', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Restore bottom panel' }));
     expect(screen.getByRole('complementary', { name: 'Explorer' })).toBeInTheDocument();
     expect(screen.getByRole('complementary', { name: 'Guide and AI' })).toBeInTheDocument();
+  });
+
+  it('owns the editor, horizontal resizer, and results panel inside one center column', () => {
+    const { container } = render(<ProjectWorkspace project={project} tier="PREMIUM" onBack={vi.fn()} onProgress={vi.fn()} />);
+    const center = container.querySelector('.project-center-column');
+    expect(center).toBeInTheDocument();
+    expect(center.children[0]).toHaveClass('project-editor-pane');
+    expect(center.children[1]).toHaveClass('project-horizontal-resizer');
+    expect(center.children[2]).toHaveClass('project-bottom-panel');
+    expect(container.querySelector('.project-explorer-panel').parentElement).not.toBe(center);
+    expect(container.querySelector('.project-ai-panel').parentElement).not.toBe(center);
   });
 
   it('removes active workspace resize listeners when navigation unmounts mid-drag', () => {
@@ -357,6 +368,7 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('--project-ide-canvas: var(--color-canvas);');
     expect(css).toContain('.project-ide-shell[data-project-theme="dark"]');
     expect(css).toContain('height: 100dvh;');
+    expect(css).toContain('.project-center-column { grid-column: 4; grid-row: 1;');
     expect(css).toContain('grid-template-rows: minmax(15rem,1fr) 4px clamp(7.5rem,var(--project-bottom-height),35dvh);');
     expect(css).toContain('grid-template-rows: 2.5rem minmax(12.5rem,1fr);');
     expect(css).toContain('.project-editor-pane .editor-window { grid-row: 2; width: 100%; height: auto;');
@@ -369,7 +381,7 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('.project-ide-shell.is-explorer-collapsed .project-ide-main { grid-template-columns: var(--project-ide-rail) minmax(0,1fr); }');
     expect(css).toContain('@media (max-width: 600px)');
     expect(css).toContain('.project-explorer-panel,.project-guide-panel { left: 0; grid-column: 1; width: 100%; }');
-    expect(css).toContain('grid-column: 1; width: auto; height: min(45dvh,var(--project-bottom-height));');
+    expect(css).toContain('.project-center-column { grid-column: 1; grid-row: 1;');
     expect(css).toContain('.project-ai-panel { position: absolute;');
     expect(css).toContain('.project-activity-bar { grid-column: 1; grid-row: 2; flex-direction: row;');
     expect(css).toContain('minmax(20rem,1fr) 4px var(--project-guide-width)');

@@ -94,7 +94,7 @@ describe('canonical source-page Project Guide', () => {
     visitPage.mockRestore();
   });
 
-  it('opens checkpoint review after the final guide page, without inline validation on task pages', () => {
+  it('uses the task page itself as the verification gate', () => {
     renderWorkspace();
     for (let page = 1; page < 6; page += 1) {
       expect(within(guide()).queryByText('Task verification')).not.toBeInTheDocument();
@@ -102,56 +102,44 @@ describe('canonical source-page Project Guide', () => {
     }
     expect(within(guide()).getByText('Page 6 — Task 1 — Guide 6')).toBeVisible();
     expect(within(guide()).getByText('Task verification')).toBeVisible();
-    expect(within(guide()).getByRole('button', { name: 'Verify Task' }).parentElement).toHaveClass('project-task-verification__actions');
-    expect(readFileSync(resolve(process.cwd(), 'src/styles/pages/projects.css'), 'utf8')).toMatch(/\.project-task-verification__actions\s*\{[^}]*justify-content:\s*flex-end/);
+    expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' })).toBeDisabled();
+    expect(within(document.querySelector('.project-guide-navigation')).queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
     expect(within(guide()).queryByRole('button', { name: 'Validate Checkpoint' })).not.toBeInTheDocument();
-    next();
-    expect(within(guide()).getByText('Page 7 — Guide 7')).toBeVisible();
-    expect(within(guide()).queryByText('Task verification')).not.toBeInTheDocument();
-    for (let page = 7; page < 12; page += 1) next();
-    expect(within(guide()).getByText('Page 12 — Guide 12')).toBeVisible();
-    next();
-    expect(screen.getByRole('heading', { name: 'Ready to complete this checkpoint?' })).toBeVisible();
-    expect(screen.getByText('Checkpoint 1 of 8')).toBeVisible();
-    expect(screen.getByText('0% project complete')).toBeVisible();
-    expect(screen.getByRole('button', { name: 'Validate Checkpoint' })).toBeDisabled();
-    fireEvent.click(screen.getByRole('button', { name: 'Back to Guide' }));
-    expect(within(guide()).getByText('Page 12 — Guide 12')).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Checkpoints', exact: true }));
-    expect(document.querySelectorAll('.project-checkpoint-list > li')).toHaveLength(8);
-    fireEvent.click(screen.getByRole('button', { name: /Checkpoint 1 (Available|Current)/ }));
-    expect(within(guide()).getByText('Page 1 — Guide 1')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'Tasks', exact: true }));
+    expect(document.querySelectorAll('.project-checkpoint-list > li')).toHaveLength(17);
+    fireEvent.click(screen.getByRole('button', { name: /Task 1 (Available|Completed)/ }));
+    expect(within(guide()).getByText('Page 6 — Task 1 — Guide 6')).toBeVisible();
   });
 
-  it('opens the first source page when an unlocked checkpoint is clicked', () => {
+  it('opens the matching source page when an unlocked task is clicked', () => {
     storage.set('mi-tutora:projects:v1', JSON.stringify({ bingo: {
       currentCheckpoint: 1, checkpointProgress: { 'bingo-c1': { status: 'COMPLETED' } },
     } }));
     renderWorkspace();
     expect(within(guide()).getByText('Page 13 — Guide 13')).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Checkpoints', exact: true }));
-    fireEvent.click(screen.getByRole('button', { name: /Checkpoint 1 Completed/ }));
-    expect(within(guide()).getByText('Page 1 — Guide 1')).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: /Checkpoint 2 Available/ }));
-    expect(within(guide()).getByText('Page 13 — Guide 13')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'Tasks', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: /Task 1 (Available|Completed)/ }));
+    expect(within(guide()).getByText('Page 6 — Task 1 — Guide 6')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: /Task 3 Available/ }));
+    expect(within(guide()).getByText('Page 17 — Task 3 — Guide 17')).toBeVisible();
   });
 
-  it('keeps the 66 published guide pages separate from the checkpoint review screen', () => {
+  it('keeps published guide pages separate with no checkpoint-review screen', () => {
+    const taskProgress = Object.fromEntries(project.checkpoints[0].tasks.map(({ taskId }) => [taskId, { status: 'COMPLETED' }]));
+    const checkpointProgress = { [project.checkpoints[0].checkpointId]: { status: 'COMPLETED' } };
+    storage.set('mi-tutora:projects:v1', JSON.stringify({ bingo: { taskProgress, checkpointProgress } }));
     renderWorkspace();
     for (let number = 1; number <= 12; number += 1) {
       expect(within(guide()).getByText(`Page ${number} — ${[6, 11, 17, 20, 24, 27, 31, 34, 38, 40, 43, 46, 51, 53, 56, 58, 60].includes(number) ? `Task ${[6, 11, 17, 20, 24, 27, 31, 34, 38, 40, 43, 46, 51, 53, 56, 58, 60].indexOf(number) + 1} — ` : ''}Guide ${number}`)).toBeVisible();
       expect(within(guide()).queryByText(`Body for source page ${number + 1}`)).not.toBeInTheDocument();
       if (number < 12) next();
     }
-    next();
-    expect(screen.getByRole('heading', { name: 'Ready to complete this checkpoint?' })).toBeVisible();
     expect(buildProjectSourcePages(project).pages).toHaveLength(66);
-    fireEvent.click(screen.getByRole('button', { name: 'Back to Guide' }));
     previous();
     expect(within(guide()).getByText('Page 11 — Task 2 — Guide 11')).toBeVisible();
   });
 
-  it('places final checkpoint review before the five reflection pages, then preserves pages 62–66', () => {
+  it('moves directly from verified tasks to the five reflection pages', () => {
     const taskProgress = Object.fromEntries(project.checkpoints.flatMap(({ tasks }) => tasks.map(({ taskId }) => [taskId, { status: 'COMPLETED' }])));
     const checkpointProgress = Object.fromEntries(project.checkpoints.map(({ checkpointId }) => [checkpointId, { status: 'COMPLETED' }]));
     storage.set('mi-tutora:projects:v1', JSON.stringify({ bingo: { currentCheckpoint: 7, taskProgress, checkpointProgress } }));
@@ -160,9 +148,6 @@ describe('canonical source-page Project Guide', () => {
     for (let page = 55; page < 61; page += 1) next();
     expect(within(guide()).getByText('Page 61 — Guide 61')).toBeVisible();
     next();
-    expect(screen.getByRole('heading', { name: 'Checkpoint validated!' })).toBeVisible();
-    expect(screen.getByText('100% project complete')).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
     for (let page = 62; page <= 66; page += 1) {
       expect(within(guide()).getByText(`Page ${page} — Guide ${page}`)).toBeVisible();
       if (page < 66) next();
@@ -170,18 +155,16 @@ describe('canonical source-page Project Guide', () => {
     expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: /Next/ })).toBeDisabled();
   });
 
-  it('celebrates a first task verification and keeps Verify Again available', async () => {
+  it('celebrates first task verification and changes Verify to Next', async () => {
     const taskProject = { ...project, checkpoints: project.checkpoints.map((checkpoint, index) => index ? checkpoint : { ...checkpoint, tasks: checkpoint.tasks.map((task, taskIndex) => taskIndex ? task : { ...task, validators: [{ validatorId: 'first-task' }] }) }) };
     const runScope = vi.spyOn(TrustedDescriptorExecutor.prototype, 'runScope').mockResolvedValue({ passed: true, results: [{ validatorId: 'first-task', type: 'output', status: 'passed', passed: true }] });
     render(<ProjectWorkspace project={taskProject} tier="PREMIUM" onBack={vi.fn()} />);
     for (let page = 1; page < 6; page += 1) next();
-    fireEvent.click(within(guide()).getByRole('button', { name: 'Verify Task' }));
-    await waitFor(() => expect(within(guide()).getByRole('button', { name: 'Verify Again' })).toBeVisible());
+    fireEvent.click(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' }));
+    await waitFor(() => expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Next' })).toBeVisible());
     expect(screen.getByText('Task verified!')).toBeVisible();
     await waitFor(() => expect(screen.queryByText('Task verified!')).not.toBeInTheDocument(), { timeout: 3000 });
-    fireEvent.click(within(guide()).getByRole('button', { name: 'Verify Again' }));
-    await waitFor(() => expect(runScope).toHaveBeenCalledTimes(2));
-    await waitFor(() => expect(within(guide()).getByRole('button', { name: 'Verify Again' })).toBeEnabled());
+    expect(runScope).toHaveBeenCalledTimes(1);
     expect(screen.queryByText('Task verified!')).not.toBeInTheDocument();
   });
 
@@ -190,41 +173,38 @@ describe('canonical source-page Project Guide', () => {
     vi.spyOn(TrustedDescriptorExecutor.prototype, 'runScope').mockResolvedValue({ passed: false, results: [{ validatorId: 'first-task', type: 'output', status: 'failed', passed: false, message: 'Output did not match.' }] });
     render(<ProjectWorkspace project={taskProject} tier="PREMIUM" onBack={vi.fn()} />);
     for (let page = 1; page < 6; page += 1) next();
-    fireEvent.click(within(guide()).getByRole('button', { name: 'Verify Task' }));
-    await waitFor(() => expect(within(guide()).getByRole('button', { name: 'Verify Task' })).toBeEnabled());
+    fireEvent.click(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' }));
+    await waitFor(() => expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' })).toBeEnabled());
     expect(screen.queryByText('Task verified!')).not.toBeInTheDocument();
     expect(within(guide()).queryByText('Task verified')).not.toBeInTheDocument();
   });
 
-  it('validates on the separate checkpoint screen and continues only after success', async () => {
-    const taskProgress = Object.fromEntries(project.checkpoints[0].tasks.map(({ taskId }) => [taskId, { status: 'COMPLETED' }]));
+  it('runs internal checkpoint validation through the final Task Verify action', async () => {
+    const taskProgress = { [project.checkpoints[0].tasks[0].taskId]: { status: 'COMPLETED' } };
     storage.set('mi-tutora:projects:v1', JSON.stringify({ bingo: { taskProgress } }));
-    const checkpointProject = { ...project, checkpoints: project.checkpoints.map((checkpoint, index) => index ? checkpoint : { ...checkpoint, validators: [{ validatorId: 'checkpoint-one' }] }) };
+    const checkpointProject = { ...project, checkpoints: project.checkpoints.map((checkpoint, index) => index ? checkpoint : { ...checkpoint, validators: [{ validatorId: 'checkpoint-one' }], tasks: checkpoint.tasks.map((task, taskIndex) => taskIndex ? { ...task, validators: [{ validatorId: 'final-task' }] } : task) }) };
     vi.spyOn(TrustedDescriptorExecutor.prototype, 'runScope').mockResolvedValue({ passed: true, results: [{ validatorId: 'checkpoint-one', type: 'output', status: 'passed', passed: true }] });
     render(<ProjectWorkspace project={checkpointProject} tier="PREMIUM" onBack={vi.fn()} />);
-    for (let page = 1; page <= 12; page += 1) next();
-    expect(screen.getByRole('button', { name: 'Validate Checkpoint' })).toBeEnabled();
-    fireEvent.click(screen.getByRole('button', { name: 'Validate Checkpoint' }));
-    await waitFor(() => expect(screen.getByRole('heading', { name: 'Checkpoint validated!' })).toBeVisible());
-    expect(screen.getByText('13% project complete')).toBeVisible();
-    expect(screen.getByText('2 of 2 tasks verified')).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: /Continue to next checkpoint/ }));
+    for (let page = 1; page < 11; page += 1) next();
+    fireEvent.click(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' }));
+    await waitFor(() => expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Next' })).toBeVisible());
+    next();
+    expect(within(guide()).getByText('Page 12 — Guide 12')).toBeVisible();
+    next();
     expect(within(guide()).getByText('Page 13 — Guide 13')).toBeVisible();
     expect(buildProjectSourcePages(checkpointProject).pages).toHaveLength(66);
   });
 
-  it('keeps checkpoint validation failures on the review screen without celebration or Continue', async () => {
-    const taskProgress = Object.fromEntries(project.checkpoints[0].tasks.map(({ taskId }) => [taskId, { status: 'COMPLETED' }]));
+  it('keeps the final Task gated when internal checkpoint validation fails', async () => {
+    const taskProgress = { [project.checkpoints[0].tasks[0].taskId]: { status: 'COMPLETED' } };
     storage.set('mi-tutora:projects:v1', JSON.stringify({ bingo: { taskProgress } }));
-    const checkpointProject = { ...project, checkpoints: project.checkpoints.map((checkpoint, index) => index ? checkpoint : { ...checkpoint, validators: [{ validatorId: 'checkpoint-one' }] }) };
+    const checkpointProject = { ...project, checkpoints: project.checkpoints.map((checkpoint, index) => index ? checkpoint : { ...checkpoint, validators: [{ validatorId: 'checkpoint-one' }], tasks: checkpoint.tasks.map((task, taskIndex) => taskIndex ? { ...task, validators: [{ validatorId: 'final-task' }] } : task) }) };
     vi.spyOn(TrustedDescriptorExecutor.prototype, 'runScope').mockResolvedValue({ passed: false, results: [{ validatorId: 'checkpoint-one', type: 'output', status: 'failed', passed: false, message: 'Complete the required output.' }] });
     render(<ProjectWorkspace project={checkpointProject} tier="PREMIUM" onBack={vi.fn()} />);
-    for (let page = 1; page <= 12; page += 1) next();
-    fireEvent.click(screen.getByRole('button', { name: 'Validate Checkpoint' }));
-    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Complete the required output.'));
-    expect(screen.getByRole('heading', { name: 'Ready to complete this checkpoint?' })).toBeVisible();
-    expect(screen.queryByRole('button', { name: /Continue to next checkpoint/ })).not.toBeInTheDocument();
-    expect(screen.queryByText('Checkpoint validated!')).not.toBeInTheDocument();
+    for (let page = 1; page < 11; page += 1) next();
+    fireEvent.click(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' }));
+    await waitFor(() => expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' })).toBeEnabled());
+    expect(within(document.querySelector('.project-guide-navigation')).queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
   });
 
   it.each([['python', 'Python'], ['cpp', 'C++'], ['java', 'Java']])('keeps %s guidance on the current page', (languageId, label) => {

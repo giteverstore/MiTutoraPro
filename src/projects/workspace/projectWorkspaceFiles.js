@@ -1,13 +1,4 @@
 const MAX_PATH_LENGTH = 120;
-const EXTENSIONS = Object.freeze({
-  python: ['.py', '.txt', '.md', '.json'],
-  javascript: ['.js', '.mjs', '.json', '.txt', '.md'],
-  typescript: ['.ts', '.json', '.txt', '.md'],
-  java: ['.java', '.txt', '.md'],
-  c: ['.c', '.h', '.txt', '.md'],
-  cpp: ['.cpp', '.cc', '.h', '.hpp', '.txt', '.md'],
-});
-
 export function normalizeProjectPath(value) {
   const path = String(value ?? '').trim().replaceAll('\\', '/').replace(/^\.\//, '');
   if (!path || path.length > MAX_PATH_LENGTH || path.startsWith('/') || /^[a-z]:/i.test(path)) return null;
@@ -18,16 +9,13 @@ export function normalizeProjectPath(value) {
 
 export function languageForPath(path, fallback = 'plaintext') {
   const extension = `.${String(path).split('.').at(-1)?.toLowerCase()}`;
-  return ({ '.py': 'python', '.js': 'javascript', '.mjs': 'javascript', '.ts': 'typescript', '.java': 'java', '.c': 'c', '.h': 'c', '.cpp': 'cpp', '.cc': 'cpp', '.hpp': 'cpp', '.json': 'json', '.md': 'markdown', '.txt': 'plaintext' })[extension] ?? fallback;
+  return ({ '.py': 'python', '.js': 'javascript', '.mjs': 'javascript', '.jsx': 'javascript', '.ts': 'typescript', '.tsx': 'typescript', '.java': 'java', '.c': 'c', '.h': 'c', '.cpp': 'cpp', '.cc': 'cpp', '.hpp': 'cpp', '.go': 'go', '.rs': 'rust', '.php': 'php', '.r': 'r', '.cs': 'csharp', '.css': 'css', '.html': 'html', '.htm': 'html', '.json': 'json', '.yaml': 'yaml', '.yml': 'yaml', '.toml': 'ini', '.md': 'markdown', '.txt': 'plaintext' })[extension] ?? 'plaintext';
 }
 
-export function validateProjectFilePath(value, files, projectLanguage) {
+export function validateProjectFilePath(value, files) {
   const path = normalizeProjectPath(value);
   if (!path) return { valid: false, error: 'Enter a safe relative file path (maximum 120 characters).' };
   if (files[path]) return { valid: false, error: 'A file with that path already exists.' };
-  const allowed = EXTENSIONS[projectLanguage] ?? [];
-  const extension = path.includes('.') ? `.${path.split('.').at(-1).toLowerCase()}` : '';
-  if (allowed.length && !allowed.includes(extension)) return { valid: false, error: `Use one of: ${allowed.join(', ')}` };
   return { valid: true, path };
 }
 
