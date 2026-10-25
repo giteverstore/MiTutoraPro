@@ -14,6 +14,7 @@ vi.mock('../../src/coins/ActivityCompletionClient', () => ({ activityCompletionC
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 vi.mock('../../src/hooks/useCompilerPaneResize', () => ({ useCompilerPaneResize: () => ({ workspaceRef: { current: null }, value: 640, max: 900, startDragging: vi.fn(), handleKeyDown: vi.fn() }) }));
 vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
+vi.mock('../../src/challenges/DailyChallengeFirePlayer.jsx', () => ({ default: () => <canvas data-testid="daily-challenge-fire-player" /> }));
 vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}>{languageSelector}<button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
 vi.mock('../../src/components/ResizeHandle', () => ({ ResizeHandle: () => <div data-testid="resize-handle" /> }));
 
@@ -35,6 +36,7 @@ const entry = (date, title) => ({ metadata: { id: `challenge-${date}`, date, dif
 
 afterEach(cleanup);
 beforeEach(() => {
+  window.matchMedia = vi.fn().mockReturnValue({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() });
   state.activity.completions = [];
   state.activity.refresh.mockReset();
   state.activity.refresh.mockResolvedValue(undefined);
@@ -134,18 +136,37 @@ describe('dated Daily Challenge workspace', () => {
     expect(state.activity.refresh).toHaveBeenCalledOnce();
     expect(state.complete).toHaveBeenCalledWith({ activityType: 'DAILY_CHALLENGE', activityId: 'challenge-2026-09-13', activityVersion: 'v1' });
     const completedButton = await screen.findByRole('button', { name: 'Completed' });
-    const dialog = screen.getByRole('dialog', { name: 'Daily Challenge Completed!' });
-    expect(within(dialog).getByRole('heading', { name: 'Daily Challenge Completed!' })).toBeVisible();
+    const dialog = screen.getByRole('dialog', { name: 'Daily Coding Challenge Completed!' });
+    expect(within(dialog).getByRole('heading', { name: 'Daily Coding Challenge Completed!' })).toBeVisible();
     expect(document.querySelector('.completion-celebration')).toBeInTheDocument();
-    expect(dialog).toHaveTextContent('Balanced Brackets');
-    expect(dialog).toHaveTextContent('+20');
-    expect(dialog).toHaveTextContent('4 day streak');
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(within(dialog).getByText('Balanced Brackets')).toHaveClass('challenge-completion-dialog-title');
+    expect(dialog).toHaveTextContent('Completion Streak: 4 Days');
+    expect(dialog).toHaveTextContent('+20 coins earned');
+    expect(dialog).toHaveTextContent('Consistency is key, see you tomorrow!');
+    expect(within(dialog).queryByText(/Friends Check-in|friend count|sorting/i)).not.toBeInTheDocument();
+    expect(dialog.querySelector('.challenge-completion-dialog-results')).not.toBeInTheDocument();
+    expect(await within(dialog).findByTestId('daily-challenge-fire-player')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Close completion dialog' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('daily-challenge-fire-player')).not.toBeInTheDocument();
     expect(completedButton).toBeDisabled();
     fireEvent.click(completedButton);
     expect(state.complete).toHaveBeenCalledOnce();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('uses singular Day and a static fire fallback for reduced motion', async () => {
+    window.matchMedia = vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() });
+    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 35, streak: { currentStreak: 1 } });
+    render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
+    const dialog = await screen.findByRole('dialog', { name: 'Daily Coding Challenge Completed!' });
+    expect(dialog).toHaveTextContent('Completion Streak: 1 Day');
+    expect(dialog).toHaveTextContent('+35 coins earned');
+    expect(within(dialog).queryByTestId('daily-challenge-fire-player')).not.toBeInTheDocument();
+    expect(dialog.querySelector('.challenge-completion-fire-fallback')).toBeInTheDocument();
   });
 
   it('closes and returns to Challenges from a first-completion popup', async () => {

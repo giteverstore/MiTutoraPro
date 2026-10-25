@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, Clock3, Coins, Flame, LockKeyhole } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock3, Coins, Flame, LockKeyhole, X } from 'lucide-react';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
@@ -23,6 +23,7 @@ import { SharedCompilerDock } from '../components/SharedCompilerDock';
 import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
 import { ErrorState } from '../errors/ErrorState';
 import { ACTIVITY_LANGUAGE_OPTIONS } from '../compiler/languages/activityLanguageOptions';
+import { DailyChallengeFireAnimation } from './DailyChallengeFireAnimation';
 
 const isCompleted = (completion, date) => completion.activityType === 'DAILY_CHALLENGE'
   && completion.occurrenceDate === date
@@ -140,17 +141,17 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       </section>
       <SharedCompilerDock ariaLabel="Challenge compiler" className="practice-compiler-dock" compilerStatus={compilerStatus} minimized={isCompilerMinimized} panelRef={compilerLanguage.panelRef} compiler={compiler} panelProps={{ instanceId: `challenge-${challenge.id}-${occurrenceDate}`, activityType: 'challenge', onVerificationChange: setVerificationStatus, onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: () => setIsCompilerMinimized((current) => !current), aiEnabled: false, publicTests: [] }} errorBoundary={{ name: 'challenge-compiler', title: 'The code workspace could not be displayed.', description: 'The challenge remains available. Retry the workspace to continue.', resetKeys: [challenge.id] }} resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }} />
     </div>
-    <Dialog open={Boolean(celebration)} title="Daily Challenge Completed!" description="Come back tomorrow for the next challenge." onClose={() => setCelebration(null)} className="challenge-completion-dialog">
+    <Dialog open={Boolean(celebration)} title="Daily Coding Challenge Completed!" onClose={() => setCelebration(null)} className="challenge-completion-dialog">
       <CompletionCelebration event={celebration} inline />
       <div className="challenge-completion-dialog-mark" aria-hidden="true"><CheckCircle2 /></div>
-      <strong className="challenge-completion-dialog-title">{celebration?.challengeTitle}</strong>
-      <div className="challenge-completion-dialog-results">
-        <span><Flame aria-hidden="true" fill="currentColor" /><strong>{celebration?.streak ?? 0}</strong> day streak</span>
-        <span><Coins aria-hidden="true" /><strong>+{celebration?.rewardAmount ?? 0}</strong> coins earned</span>
-      </div>
+      <button className="challenge-completion-dialog-close" type="button" aria-label="Close completion dialog" onClick={() => setCelebration(null)} data-autofocus><X /></button>
+      <p className="challenge-completion-dialog-streak">Completion Streak: <strong>{celebration?.streak ?? 0}</strong> {(celebration?.streak ?? 0) === 1 ? 'Day' : 'Days'}</p>
+      <p className="challenge-completion-dialog-copy">Consistency is key, see you tomorrow!</p>
+      <p className="challenge-completion-dialog-title">{celebration?.challengeTitle}</p>
+      <DailyChallengeFireAnimation />
+      <p className="challenge-completion-dialog-reward"><Coins aria-hidden="true" /><strong>+{celebration?.rewardAmount ?? 0}</strong> coins earned</p>
       <div className="challenge-completion-dialog-actions">
         <button className="button button--secondary" type="button" onClick={() => { setCelebration(null); onBack(); }}>Back to Challenges</button>
-        <button className="button button--primary" type="button" onClick={() => setCelebration(null)} data-autofocus>Close</button>
       </div>
     </Dialog>
   </div>;
