@@ -13,6 +13,7 @@ vi.mock('../../src/home/challengeCalendar', () => ({ kolkataDate: () => '2026-09
 vi.mock('../../src/coins/ActivityCompletionClient', () => ({ activityCompletionClient: { complete: state.complete } }));
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 vi.mock('../../src/hooks/useCompilerPaneResize', () => ({ useCompilerPaneResize: () => ({ workspaceRef: { current: null }, value: 640, max: 900, startDragging: vi.fn(), handleKeyDown: vi.fn() }) }));
+vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}>{languageSelector}<button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
 vi.mock('../../src/components/ResizeHandle', () => ({ ResizeHandle: () => <div data-testid="resize-handle" /> }));
 

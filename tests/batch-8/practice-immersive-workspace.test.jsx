@@ -5,6 +5,7 @@ vi.mock('../../src/components/CompilerPanel', () => ({
   CompilerPanel: ({ compiler, activityType, aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="compiler" data-activity-type={activityType} data-ai-enabled={aiEnabled}>{languageSelector}<span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button" onClick={() => onVerificationChange?.('matched')}>Check Output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button><span>Editor</span></div>,
 }));
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
+vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 
 import { PracticeDetail } from '../../src/practice/PracticeDetail';
 

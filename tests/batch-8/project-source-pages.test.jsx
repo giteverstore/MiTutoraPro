@@ -11,6 +11,7 @@ import { TrustedDescriptorExecutor } from '../../src/projects/validation/Trusted
 
 vi.mock('../../src/compiler/CompilerProvider', () => ({ useCompilerManager: () => ({}) }));
 vi.mock('../../src/components/EditorPlaceholder', () => ({ EditorPlaceholder: ({ editor }) => <div aria-label={editor.ariaLabel}>Editor</div> }));
+vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 
 const storage = new Map();
 vi.stubGlobal('localStorage', {
