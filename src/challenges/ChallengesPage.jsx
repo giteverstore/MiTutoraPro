@@ -119,7 +119,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       setCompleted(['completed', 'already_completed'].includes(result.completionStatus));
       setCompletion({ pending: false, rewardStatus: result.rewardStatus, rewardAmount: result.rewardAmount ?? 0, error: null });
       if (result.completionStatus === 'completed') {
-        setCelebration({ variant: 'challenge', message: 'Daily Challenge completed!', challengeTitle: challenge.title, rewardAmount: result.rewardAmount ?? 0, streak: Math.max(0, Number(result.streak?.currentStreak) || 0) });
+        setCelebration({ variant: 'challenge', message: 'Daily Challenge completed!', rewardAmount: result.rewardAmount ?? 0, streak: Math.max(0, Number(result.streak?.currentStreak) || 0) });
       }
       await activity.refresh?.();
     } catch (nextError) { setCompletion((current) => ({ ...current, pending: false, error: nextError.message })); }
@@ -147,12 +147,8 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       <button className="challenge-completion-dialog-close" type="button" aria-label="Close completion dialog" onClick={() => setCelebration(null)} data-autofocus><X /></button>
       <p className="challenge-completion-dialog-streak">Completion Streak: <strong>{celebration?.streak ?? 0}</strong> {(celebration?.streak ?? 0) === 1 ? 'Day' : 'Days'}</p>
       <p className="challenge-completion-dialog-copy">Consistency is key, see you tomorrow!</p>
-      <p className="challenge-completion-dialog-title">{celebration?.challengeTitle}</p>
       <DailyChallengeFireAnimation />
       <p className="challenge-completion-dialog-reward"><Coins aria-hidden="true" /><strong>+{celebration?.rewardAmount ?? 0}</strong> coins earned</p>
-      <div className="challenge-completion-dialog-actions">
-        <button className="button button--secondary" type="button" onClick={() => { setCelebration(null); onBack(); }}>Back to Challenges</button>
-      </div>
     </Dialog>
   </div>;
 }

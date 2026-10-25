@@ -139,10 +139,11 @@ describe('dated Daily Challenge workspace', () => {
     const dialog = screen.getByRole('dialog', { name: 'Daily Coding Challenge Completed!' });
     expect(within(dialog).getByRole('heading', { name: 'Daily Coding Challenge Completed!' })).toBeVisible();
     expect(document.querySelector('.completion-celebration')).toBeInTheDocument();
-    expect(within(dialog).getByText('Balanced Brackets')).toHaveClass('challenge-completion-dialog-title');
+    expect(within(dialog).queryByText('Balanced Brackets')).not.toBeInTheDocument();
     expect(dialog).toHaveTextContent('Completion Streak: 4 Days');
     expect(dialog).toHaveTextContent('+20 coins earned');
     expect(dialog).toHaveTextContent('Consistency is key, see you tomorrow!');
+    expect(within(dialog).queryByRole('button', { name: 'Back to Challenges' })).not.toBeInTheDocument();
     expect(within(dialog).queryByText(/Friends Check-in|friend count|sorting/i)).not.toBeInTheDocument();
     expect(dialog.querySelector('.challenge-completion-dialog-results')).not.toBeInTheDocument();
     expect(await within(dialog).findByTestId('daily-challenge-fire-player')).toBeInTheDocument();
@@ -169,7 +170,7 @@ describe('dated Daily Challenge workspace', () => {
     expect(dialog.querySelector('.challenge-completion-fire-fallback')).toBeInTheDocument();
   });
 
-  it('closes and returns to Challenges from a first-completion popup', async () => {
+  it('keeps the completion popup dismissal-only without navigating away', async () => {
     state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 2 } });
     const back = vi.fn();
@@ -177,8 +178,9 @@ describe('dated Daily Challenge workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
     fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
     const dialog = await screen.findByRole('dialog');
-    fireEvent.click(within(dialog).getByRole('button', { name: 'Back to Challenges' }));
-    expect(back).toHaveBeenCalledOnce();
+    expect(within(dialog).queryByRole('button', { name: 'Back to Challenges' })).not.toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Close completion dialog' }));
+    expect(back).not.toHaveBeenCalled();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 

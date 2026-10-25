@@ -9,7 +9,7 @@
   display: grid;
   width: min(40rem, 100%);
   justify-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   padding: clamp(var(--space-6), 5vw, var(--space-8));
   text-align: center;
 }
@@ -17,7 +17,8 @@
 .challenge-completion-dialog>h2 {
   width: 100%;
   padding: 0 2.75rem 0 2.75rem;
-  font-size: var(--font-size-xl);
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
   text-align: left;
 }
 
@@ -58,16 +59,15 @@
 .challenge-completion-dialog-close:hover { color: var(--color-text); background: var(--color-surface-subtle); }
 .challenge-completion-dialog-close:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 .challenge-completion-dialog-close svg { width: var(--icon-md); height: var(--icon-md); }
-.challenge-completion-dialog-streak { margin: var(--space-8) 0 0; color: var(--color-text); font-size: var(--font-size-lg); }
-.challenge-completion-dialog-streak strong { color: var(--color-accent); font-size: var(--font-size-2xl); }
-.challenge-completion-dialog-copy { margin: 0; color: var(--color-text-muted); }
-.challenge-completion-dialog-title { margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.challenge-completion-dialog-streak { margin: var(--space-6) 0 0; color: var(--color-text); font-size: 1.75rem; font-weight: var(--font-weight-bold); }
+.challenge-completion-dialog-streak strong { color: var(--color-accent); font-size: inherit; }
+.challenge-completion-dialog-copy { margin: 0; color: var(--color-text-muted); font-size: 1.125rem; }
 .challenge-completion-fire {
   display: grid;
-  width: clamp(7.5rem, 24vw, 10rem);
-  aspect-ratio: 1;
+  width: clamp(7.7rem, 22vw, 9.05rem);
+  aspect-ratio: 500 / 690;
   place-items: center;
-  margin-block: var(--space-2);
+  margin-block: var(--space-1);
   color: var(--color-warning);
   pointer-events: none;
 }
@@ -85,22 +85,12 @@
 .challenge-completion-dialog-reward svg { width: var(--icon-md); height: var(--icon-md); color: var(--color-coin); }
 .challenge-completion-dialog-reward strong { color: var(--color-coin); }
 
-.challenge-completion-dialog-actions {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: var(--space-3);
-  padding-top: var(--space-4);
-}
-
 @media (max-width: 38rem) {
   .challenge-completion-dialog { padding: var(--space-5); }
-  .challenge-completion-dialog>h2 { padding-inline: 2.4rem; font-size: var(--font-size-lg); text-align: center; }
+  .challenge-completion-dialog>h2 { padding-inline: 2.4rem; text-align: center; }
   .challenge-completion-dialog-mark { top: var(--space-5); left: var(--space-5); }
   .challenge-completion-dialog-close { top: var(--space-5); right: var(--space-5); }
-  .challenge-completion-dialog-streak { margin-top: var(--space-6); font-size: var(--font-size-base); }
-  .challenge-completion-fire { width: 7.5rem; }
-  .challenge-completion-dialog-actions .button { width: 100%; }
+  .challenge-completion-dialog-streak { margin-top: var(--space-5); }
 }
 
 .challenges-page {
