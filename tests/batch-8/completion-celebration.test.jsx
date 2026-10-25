@@ -1,73 +1,97 @@
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const progress = vi.hoisted(() => ({ completedLessons: [], completeLesson: vi.fn() }));
-vi.mock('../../src/progress/LearningProgressContext', () => ({ useLearningProgress: () => ({ ...progress, quizScores: {}, exerciseCompletion: {} }) }));
+const progress = vi.hoisted(() => ({ completedLessons: [], completeLesson: vi.fn(), quizScores: {}, recordQuizScore: vi.fn(), exerciseCompletion: {}, completeExercise: vi.fn() }));
+const runtime = vi.hoisted(() => ({ mounts: 0 }));
+vi.mock('../../src/progress/LearningProgressContext', () => ({ useLearningProgress: () => progress }));
+vi.mock('../../src/compiler/LearningCompilerContext', () => ({ useOptionalLearningCompiler: () => null }));
+vi.mock('../../src/components/CelebrationLottiePlayer.jsx', () => ({ default: ({ onComplete }) => { runtime.mounts += 1; return <button data-testid="celebration-player" type="button" onClick={onComplete}>finish</button>; } }));
 
-import { LessonFooter } from '../../src/components/LessonFooter.jsx';
 import { CompletionCelebration } from '../../src/components/CompletionCelebration.jsx';
+import { ExerciseBlock } from '../../src/components/blocks/ExerciseBlock.jsx';
+import { QuizBlock } from '../../src/components/blocks/QuizBlock.jsx';
+import { LessonFooter } from '../../src/components/LessonFooter.jsx';
 
-const lesson = { id: 'final-lesson', blocks: [] };
+const setReducedMotion = (matches) => { window.matchMedia = vi.fn().mockReturnValue({ matches, addEventListener: vi.fn(), removeEventListener: vi.fn() }); };
 
 beforeEach(() => {
-  progress.completedLessons = [];
-  progress.completeLesson.mockReset().mockResolvedValue(undefined);
+  setReducedMotion(false); runtime.mounts = 0; progress.completedLessons = []; progress.quizScores = {}; progress.exerciseCompletion = {};
+  progress.completeLesson.mockReset().mockResolvedValue(undefined); progress.recordQuizScore.mockReset(); progress.completeExercise.mockReset();
 });
-afterEach(cleanup);
+afterEach(() => { cleanup(); vi.useRealTimers(); });
 
-describe('shared completion acknowledgement', () => {
-  it('celebrates only after trusted final Course lesson completion succeeds', async () => {
-    render(<LessonFooter lesson={lesson} previousLesson={null} nextLesson={null} lessonCount={1} currentLessonIndex={0} />);
-    expect(screen.queryByText('Course complete!')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
-    await waitFor(() => expect(screen.getByText('Course complete!')).toBeVisible());
-    expect(progress.completeLesson).toHaveBeenCalledWith('final-lesson');
+describe('shared completion celebration', () => {
+  it('uses the reviewed asset as a one-shot non-worker player', () => {
+    const playerSource = readFileSync(resolve(process.cwd(), 'src/components/CelebrationLottiePlayer.jsx'), 'utf8');
+    expect(playerSource).toContain("const CELEBRATION_ASSET = '/assets/animations/celebration.lottie'");
+    expect(playerSource).toContain('src={CELEBRATION_ASSET}');
+    expect(playerSource).toContain('autoplay');
+    expect(playerSource).toContain('loop={false}');
+    expect(playerSource).toContain("addEventListener('complete'");
+    expect(playerSource).not.toMatch(/worker/i);
   });
 
-  it('uses the lighter acknowledgement for a non-final lesson completion', async () => {
-    render(<LessonFooter lesson={lesson} previousLesson={null} nextLesson={{ id: 'next' }} lessonCount={2} currentLessonIndex={0} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
-    await waitFor(() => expect(screen.getByText('Lesson complete!')).toBeVisible());
-    expect(screen.queryByText('Course complete!')).not.toBeInTheDocument();
+  it('mounts one lazy decorative player, ignores overlap, and cleans up on completion', async () => {
+    const { container, rerender } = render(<CompletionCelebration event={{ id: 1 }} />);
+    expect(await screen.findByTestId('celebration-player')).toBeInTheDocument();
+    expect(container.querySelector('.completion-celebration')).toHaveAttribute('aria-hidden', 'true');
+    rerender(<CompletionCelebration event={{ id: 2 }} />);
+    expect(screen.getAllByTestId('celebration-player')).toHaveLength(1);
+    fireEvent.click(screen.getByTestId('celebration-player'));
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
   });
 
-  it('does not celebrate a failed Course completion or an already completed lesson', async () => {
-    progress.completeLesson.mockRejectedValueOnce(new Error('unavailable'));
-    const { unmount } = render(<LessonFooter lesson={lesson} previousLesson={null} nextLesson={null} lessonCount={1} currentLessonIndex={0} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
-    await waitFor(() => expect(screen.getByText(/Lesson could not be completed/i)).toBeVisible());
-    expect(screen.queryByText('Course complete!')).not.toBeInTheDocument();
-    unmount();
-    progress.completedLessons = ['final-lesson'];
-    render(<LessonFooter lesson={lesson} previousLesson={null} nextLesson={null} lessonCount={1} currentLessonIndex={0} />);
-    expect(screen.queryByText('Course complete!')).not.toBeInTheDocument();
-  });
-
-  it('is visual-only, short-lived, and has a reduced-motion static fallback', () => {
-    const { container } = render(<CompletionCelebration event={{ message: 'Well done!' }} />);
-    expect(screen.getByRole('status')).toHaveTextContent('Well done!');
-    expect(container.querySelector('.completion-celebration')).not.toHaveAttribute('tabindex');
-    expect(container.querySelector('.completion-celebration__art')).toHaveAttribute('aria-hidden', 'true');
-    const css = readFileSync(resolve(process.cwd(), 'src/components/completion-celebration.css'), 'utf8');
-    expect(css).toMatch(/prefers-reduced-motion:\s*reduce/);
-    expect(css).toMatch(/pointer-events:\s*none/);
-    expect(css).toMatch(/animation:\s*none/);
-  });
-
-  it('dismisses its visual acknowledgement after the short duration without moving focus', () => {
+  it('uses a bounded cleanup fallback', async () => {
     vi.useFakeTimers();
-    const focus = document.createElement('button');
-    document.body.append(focus);
-    focus.focus();
-    render(<CompletionCelebration event={{ variant: 'task', message: 'Task verified!' }} />);
-    expect(screen.getByText('Task verified!')).toBeVisible();
-    expect(document.activeElement).toBe(focus);
-    act(() => vi.advanceTimersByTime(1800));
-    expect(screen.queryByText('Task verified!')).not.toBeInTheDocument();
-    expect(document.activeElement).toBe(focus);
-    focus.remove();
-    vi.useRealTimers();
+    render(<CompletionCelebration event={{ id: 1 }} fallbackDuration={1000} />);
+    await act(async () => {});
+    expect(screen.getByTestId('celebration-player')).toBeInTheDocument();
+    act(() => vi.advanceTimersByTime(1000));
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
+  });
+
+  it('does not load the player when reduced motion is requested', async () => {
+    setReducedMotion(true);
+    render(<CompletionCelebration event={{ id: 1 }} />);
+    await act(async () => {});
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
+    expect(runtime.mounts).toBe(0);
+  });
+
+  it('does not celebrate ordinary lesson completion', async () => {
+    render(<LessonFooter lesson={{ id: 'lesson-1' }} previousLesson={null} nextLesson={null} lessonCount={1} currentLessonIndex={0} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
+    await waitFor(() => expect(progress.completeLesson).toHaveBeenCalledWith('lesson-1'));
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
+  });
+
+  it('celebrates only the first correct Quiz completion', async () => {
+    const props = { blockId: 'quiz-1', question: 'Pick A', options: [{ id: 'a', text: 'A' }, { id: 'b', text: 'B' }], correctOptionIds: ['a'] };
+    const { unmount } = render(<QuizBlock {...props} />);
+    fireEvent.click(screen.getByLabelText('A')); fireEvent.click(screen.getByRole('button', { name: /Check answer/ }));
+    expect(await screen.findByTestId('celebration-player')).toBeInTheDocument();
+    unmount(); progress.quizScores = { 'quiz-1': { passed: true, percentage: 100, attempts: 1 } };
+    render(<QuizBlock {...props} />);
+    fireEvent.click(screen.getByLabelText('A')); fireEvent.click(screen.getByRole('button', { name: /Check answer/ }));
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
+  });
+
+  it('does not celebrate an incorrect Quiz attempt', () => {
+    render(<QuizBlock blockId="quiz-1" question="Pick A" options={[{ id: 'a', text: 'A' }, { id: 'b', text: 'B' }]} correctOptionIds={['a']} />);
+    fireEvent.click(screen.getByLabelText('B')); fireEvent.click(screen.getByRole('button', { name: /Check answer/ }));
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
+  });
+
+  it('celebrates only a newly completed Exercise', async () => {
+    const { unmount } = render(<ExerciseBlock blockId="exercise-1" title="Exercise" />);
+    fireEvent.click(screen.getByRole('button', { name: /Mark Complete/ }));
+    expect(await screen.findByTestId('celebration-player')).toBeInTheDocument();
+    expect(progress.completeExercise).toHaveBeenCalledWith('exercise-1');
+    unmount(); progress.exerciseCompletion = { 'exercise-1': { completed: true } };
+    render(<ExerciseBlock blockId="exercise-1" title="Exercise" />);
+    expect(screen.getByRole('button', { name: 'Completed' })).toBeDisabled();
+    expect(screen.queryByTestId('celebration-player')).not.toBeInTheDocument();
   });
 });

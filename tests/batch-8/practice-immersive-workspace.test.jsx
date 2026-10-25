@@ -82,12 +82,12 @@ describe('Practice immersive coding workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Check Output' }));
     expect(screen.queryByText('Practice question completed!')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
-    await waitFor(() => expect(screen.getByText('Practice question completed!')).toBeVisible());
+    await waitFor(() => expect(document.querySelector('.completion-celebration')).toBeInTheDocument());
     expect(screen.getByRole('button', { name: 'Completed' })).toBeDisabled();
     expect(onComplete).toHaveBeenCalledOnce();
     unmount();
     render(<PracticeDetail question={question} solved onBack={vi.fn()} onComplete={onComplete} />);
-    expect(screen.queryByText('Practice question completed!')).not.toBeInTheDocument();
+    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
 
   it('does not complete on open or a failed save, and requires sign-in for tracked completion', async () => {
@@ -97,7 +97,7 @@ describe('Practice immersive coding workspace', () => {
     expect(screen.getByRole('button', { name: 'Save Completion' })).toBeEnabled();
     fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
     await waitFor(() => expect(screen.getByText('Save unavailable')).toBeVisible());
-    expect(screen.queryByText('Practice question completed!')).not.toBeInTheDocument();
+    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
     unmount();
 
     const onRequireAuth = vi.fn();

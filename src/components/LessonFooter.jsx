@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { useLearningProgress } from '../progress/LearningProgressContext';
-import { CompletionCelebration } from './CompletionCelebration';
 
 function completionErrorMessage(error) {
   const code = String(error?.code ?? '').replace(/^functions\//, '');
@@ -26,7 +25,6 @@ export function LessonFooter({
     completeLesson,
   } = useLearningProgress();
   const [completionState, setCompletionState] = useState({ status: 'idle', message: '' });
-  const [celebration, setCelebration] = useState(null);
   const isCompleted = completedLessons.includes(lesson.id);
 
   useEffect(() => {
@@ -39,9 +37,6 @@ export function LessonFooter({
     try {
       await completeLesson(lesson.id);
       setCompletionState({ status: 'complete', message: 'Lesson completed.' });
-      if (!isCompleted) setCelebration(lessonCount > 0 && new Set([...completedLessons, lesson.id]).size === lessonCount
-        ? { variant: 'course', message: 'Course complete!' }
-        : { variant: 'lesson', message: 'Lesson complete!' });
     } catch (error) {
       setCompletionState({ status: 'error', message: completionErrorMessage(error) });
     }
@@ -63,7 +58,6 @@ export function LessonFooter({
 
   return (
     <footer className="lesson-completion-footer">
-      <CompletionCelebration event={celebration} />
       <button
         className="button button--secondary lesson-footer-button"
         type="button"

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChevronRight, Lightbulb } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
 import { useLearningProgress } from '../../progress/LearningProgressContext';
+import { CompletionCelebration } from '../CompletionCelebration';
 
 export function QuizBlock({
   kicker,
@@ -20,6 +21,7 @@ export function QuizBlock({
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [feedback, setFeedback] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [celebration, setCelebration] = useState(null);
 
   const handleSelection = (optionId) => {
     setIsSubmitted(false);
@@ -42,6 +44,7 @@ export function QuizBlock({
     const isCorrect = selectedOptions.length === correctOptionIds.length
       && correctSelections.length === correctOptionIds.length;
 
+    const alreadyPassed = Boolean(quizScores[blockId]?.passed);
     recordQuizScore(
       blockId,
       correctSelections.length,
@@ -50,6 +53,7 @@ export function QuizBlock({
       selectedOptions,
     );
     setIsSubmitted(true);
+    if (isCorrect && !alreadyPassed) setCelebration({ blockId, completedAt: Date.now() });
     setFeedback(
       isCorrect
         ? 'Correct — nicely done.'
@@ -59,6 +63,7 @@ export function QuizBlock({
 
   return (
     <section className="card card--elevated card--interactive content-section interactive-card">
+      <CompletionCelebration event={celebration} />
       <div className="interactive-icon"><Lightbulb size={ICON_SIZE.lg} /></div>
       <div className="interactive-copy">
         <span className="section-kicker">{kicker || 'Knowledge check'}</span>

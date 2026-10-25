@@ -1,19 +1,32 @@
-import { useEffect, useState } from 'react';
-import { CheckCircle2, Sparkles } from 'lucide-react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import './completion-celebration.css';
 
-// A visual acknowledgement only. The verified completion state remains the source of truth.
-export function CompletionCelebration({ event, duration = 1800, inline = false }) {
+const CelebrationLottiePlayer = lazy(() => import('./CelebrationLottiePlayer.jsx'));
+const FALLBACK_DURATION_MS = 6000;
+const prefersReducedMotion = () => typeof window.matchMedia === 'function'
+  && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Decorative only. Completion state and its existing success message remain authoritative.
+export function CompletionCelebration({ event, fallbackDuration = FALLBACK_DURATION_MS }) {
   const [visibleEvent, setVisibleEvent] = useState(null);
+  const running = useRef(false);
+  const fallbackTimer = useRef(null);
   useEffect(() => {
-    if (!event) return undefined;
+    if (!event || running.current || prefersReducedMotion()) return undefined;
+    running.current = true;
     setVisibleEvent(event);
-    const timer = window.setTimeout(() => setVisibleEvent((current) => current === event ? null : current), duration);
-    return () => window.clearTimeout(timer);
-  }, [event, duration]);
+    fallbackTimer.current = window.setTimeout(() => {
+      running.current = false;
+      setVisibleEvent(null);
+    }, fallbackDuration);
+    return undefined;
+  }, [event, fallbackDuration]);
+  useEffect(() => () => window.clearTimeout(fallbackTimer.current), []);
+  const finish = () => {
+    window.clearTimeout(fallbackTimer.current);
+    running.current = false;
+    setVisibleEvent(null);
+  };
   if (!visibleEvent) return null;
-  return <div className={`completion-celebration is-${visibleEvent.variant ?? 'default'}${inline ? ' is-inline' : ''}`} role="status" aria-live="polite">
-    <span className="completion-celebration__art" aria-hidden="true"><Sparkles /><CheckCircle2 /><Sparkles /></span>
-    <span>{visibleEvent.message}</span>
-  </div>;
+  return <div className="completion-celebration" aria-hidden="true"><Suspense fallback={null}><CelebrationLottiePlayer onComplete={finish} /></Suspense></div>;
 }

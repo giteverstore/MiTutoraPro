@@ -153,6 +153,7 @@ describe('canonical source-page Project Guide', () => {
       if (page < 66) next();
     }
     expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: /Next/ })).toBeDisabled();
+    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
 
   it('celebrates first task verification and changes Verify to Next', async () => {
@@ -162,10 +163,9 @@ describe('canonical source-page Project Guide', () => {
     for (let page = 1; page < 6; page += 1) next();
     fireEvent.click(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' }));
     await waitFor(() => expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Next' })).toBeVisible());
-    expect(screen.getByText('Task verified!')).toBeVisible();
-    await waitFor(() => expect(screen.queryByText('Task verified!')).not.toBeInTheDocument(), { timeout: 3000 });
+    expect(document.querySelector('.completion-celebration')).toBeInTheDocument();
     expect(runScope).toHaveBeenCalledTimes(1);
-    expect(screen.queryByText('Task verified!')).not.toBeInTheDocument();
+    expect(document.querySelectorAll('.completion-celebration')).toHaveLength(1);
   });
 
   it('does not celebrate an unsuccessful task verification', async () => {
@@ -175,7 +175,7 @@ describe('canonical source-page Project Guide', () => {
     for (let page = 1; page < 6; page += 1) next();
     fireEvent.click(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' }));
     await waitFor(() => expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' })).toBeEnabled());
-    expect(screen.queryByText('Task verified!')).not.toBeInTheDocument();
+    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
     expect(within(guide()).queryByText('Task verified')).not.toBeInTheDocument();
   });
 

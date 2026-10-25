@@ -4,6 +4,7 @@ import { ICON_SIZE } from '../../design-system/theme';
 import { useLearningProgress } from '../../progress/LearningProgressContext';
 import { RichText } from '../RichText';
 import { useOptionalLearningCompiler } from '../../compiler/LearningCompilerContext';
+import { CompletionCelebration } from '../CompletionCelebration';
 
 export function ExerciseBlock({
   badge,
@@ -17,6 +18,7 @@ export function ExerciseBlock({
   blockId,
 }) {
   const [isStarted, setIsStarted] = useState(false);
+  const [celebration, setCelebration] = useState(null);
   const learningCompiler = useOptionalLearningCompiler();
   const { exerciseCompletion, completeExercise } = useLearningProgress();
   const exerciseState = exerciseCompletion[blockId] ?? {};
@@ -30,9 +32,15 @@ export function ExerciseBlock({
       editor?.focus({ preventScroll: true });
     });
   };
+  const finishExercise = () => {
+    if (isCompleted) return;
+    completeExercise(blockId);
+    setCelebration({ blockId, completedAt: Date.now() });
+  };
 
   return (
     <section className="card card--muted card--interactive content-section exercise-card">
+      <CompletionCelebration event={celebration} />
       <div className="exercise-top">
         <span className="interactive-icon"><Dumbbell size={ICON_SIZE.lg} /></span>
         <span className="difficulty-pill">{difficulty || badge}</span>
@@ -63,7 +71,7 @@ export function ExerciseBlock({
         <button className="button button--secondary" type="button" onClick={startExercise}>
           {actionLabel ?? 'Open compiler'} <ChevronRight size={ICON_SIZE.base} />
         </button>
-        <button className="button button--primary inline-action" type="button" onClick={() => completeExercise(blockId)} disabled={isCompleted}>
+        <button className="button button--primary inline-action" type="button" onClick={finishExercise} disabled={isCompleted}>
           {isCompleted ? 'Completed' : 'Mark Complete'} <CheckCircle2 size={ICON_SIZE.base} />
         </button>
       </div>
