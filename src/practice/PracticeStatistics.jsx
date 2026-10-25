@@ -1,4 +1,4 @@
-import { BarChart3, CheckCircle2, Gauge, Target } from 'lucide-react';
+import { learnerUiIcons } from '../assets/learnerUiIcons';
 
 export const practiceDifficultyLevels = ['easy', 'medium', 'hard'];
 
@@ -29,17 +29,17 @@ export function PracticeStatistics({ completedQuestionIds = new Set(), questions
   const attempted = solved;
   const successRate = attempted ? Math.round((solved / attempted) * 100) : 0;
   const items = [
-    { label: 'Solved', value: solved, icon: CheckCircle2 },
-    { label: 'Attempted', value: attempted, icon: Target },
-    { label: 'Success Rate', value: `${successRate}%`, icon: BarChart3 },
+    { label: 'Solved', value: solved, icon: learnerUiIcons.checked },
+    { label: 'Attempted', value: attempted, icon: learnerUiIcons.arrow },
+    { label: 'Success Rate', value: `${successRate}%`, icon: learnerUiIcons.rating },
   ];
   return (
     <section className="practice-statistics" aria-labelledby="practice-statistics-title">
       <h2 id="practice-statistics-title">Practice Statistics</h2>
       <div>
-        {items.map(({ label, value, icon: Icon }) => <article key={label}><Icon aria-hidden="true" /><span><strong>{value}</strong><small>{label}</small></span></article>)}
+        {items.map(({ label, value, icon }) => <article key={label}><img className="learner-ui-icon" src={icon} alt="" aria-hidden="true" /><span><strong>{value}</strong><small>{label}</small></span></article>)}
         <article className="practice-difficulty-summary">
-          <Gauge aria-hidden="true" />
+          <img className="learner-ui-icon" src={learnerUiIcons.performance} alt="" aria-hidden="true" />
           <span className="practice-difficulty-content">
             <span className="practice-difficulty-counts">{practiceDifficultyLevels.map((difficulty) => {
               const label = `${difficulty[0].toUpperCase()}${difficulty.slice(1)}`;

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { Bell, Flame, LogOut, Moon, Sun, UserRound } from 'lucide-react';
+import { Bell, LogOut, Moon, Sun, UserRound } from 'lucide-react';
+import { learnerUiIcons } from '../assets/learnerUiIcons';
 import { UserAvatar } from '../components/UserAvatar';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { hasCompletedDailyChallenge, kolkataDate } from '../home/challengeCalendar';
@@ -50,8 +51,8 @@ export function GlobalTopbarActions({
 
   return (
     <div className="application-topbar-actions">
-      <span className={`application-streak-badge is-${activity.status}${todayCompleted ? ' is-today-completed' : ''}`} aria-label={activity.status === 'ready' ? streakLabel : 'Streak unavailable'}>
-        <Flame aria-hidden="true" fill={todayCompleted ? 'currentColor' : 'none'} />
+      <span className={`application-streak-indicator is-${activity.status}`} aria-label={activity.status === 'ready' ? streakLabel : 'Streak unavailable'}>
+        <img src={todayCompleted ? learnerUiIcons.fireComplete : learnerUiIcons.fireIncomplete} alt="" aria-hidden="true" />
         {activity.status === 'ready' ? <strong>{streak}</strong> : <span aria-hidden="true">—</span>}
       </span>
       <button className="application-icon-button" type="button" onClick={onThemeToggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>

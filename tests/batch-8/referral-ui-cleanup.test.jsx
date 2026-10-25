@@ -37,6 +37,8 @@ describe('Referral page cleanup', () => {
     expect(screen.getAllByText(profile.referralCode)).toHaveLength(1);
     expect(screen.queryAllByText('Referral Code')).toHaveLength(1);
     expect(screen.getAllByRole('article')).toHaveLength(3);
+    expect(screen.getByText('Referred').closest('article').querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/group.png');
+    expect(screen.getByText('Qualified', { selector: '.referral-overview small' }).closest('article').querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/quality.png');
     expect(screen.getByText('Referral History')).toBeInTheDocument();
     expect(screen.getAllByText('₹49.90')).not.toHaveLength(0);
   });

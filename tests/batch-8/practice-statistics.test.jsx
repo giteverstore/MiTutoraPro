@@ -17,6 +17,11 @@ describe('Practice statistics', () => {
     expect(valueFor(container, 'Solved')).toHaveTextContent('0');
     expect(valueFor(container, 'Attempted')).toHaveTextContent('0');
     expect(valueFor(container, 'Success Rate')).toHaveTextContent('0%');
+    const iconFor = (label) => within(container).getByText(label, { selector: 'small' }).closest('article').querySelector('img');
+    expect(iconFor('Solved')).toHaveAttribute('src', '/assets/ui-icons/checked.png');
+    expect(iconFor('Attempted')).toHaveAttribute('src', '/assets/ui-icons/arrow.png');
+    expect(iconFor('Success Rate')).toHaveAttribute('src', '/assets/ui-icons/rating.png');
+    expect(iconFor('Solved by Difficulty')).toHaveAttribute('src', '/assets/ui-icons/performance.png');
   });
 
   it('classifies only canonically solved questions and exposes accessible difficulty names', () => {

@@ -221,6 +221,7 @@ describe('Library navigation and discovery', () => {
     const sections = container.querySelectorAll('.library-language-section');
     expect(sections).toHaveLength(3);
     expect(sections[0]).toHaveClass('library-coming-soon-section');
+    expect(within(sections[0]).getByRole('heading', { name: 'Coming Soon' }).querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/hourglass-3.png');
     expect(sections[1]).toHaveAttribute('aria-labelledby', 'library-language-python');
     expect(sections[2]).toHaveAttribute('aria-labelledby', 'library-language-java');
     expect(within(sections[0]).getByRole('region', { name: 'Coming soon courses' })).toHaveClass('library-coming-soon-strip');

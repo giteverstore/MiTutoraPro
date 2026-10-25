@@ -1748,12 +1748,6 @@
     gap: var(--space-1);
   }
 
-  .lesson-navigation .application-streak-badge {
-    min-width: 2.5rem;
-    min-height: 2rem;
-    padding-inline: var(--space-1);
-  }
-
   .lesson-navigation .application-icon-button,
   .lesson-navigation .application-profile-button {
     width: 2rem;
@@ -1821,11 +1815,6 @@
 
   .console-window {
     height: 210px;
-  }
-
-  .lesson-navigation .application-streak-badge {
-    min-width: 3rem;
-    padding-inline: var(--space-2);
   }
 
   .lesson-navigation .application-icon-button,

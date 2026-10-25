@@ -177,8 +177,8 @@ describe('Learning Engine navigation alignment', () => {
     activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: kolkataDate(), completionStatus: 'COMPLETED' }];
     render(<TopNavigation {...props()} />);
     const badge = screen.getByLabelText("6 day streak. Today's Daily Challenge completed.");
-    expect(badge).toHaveClass('is-today-completed');
-    expect(badge.querySelector('svg')).toHaveAttribute('fill', 'currentColor');
+    expect(badge).toHaveClass('application-streak-indicator');
+    expect(badge.querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/fire-complete.png');
     activity.completions = [];
   });
 

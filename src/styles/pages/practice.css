@@ -447,8 +447,11 @@
   border-radius: var(--radius-lg);
 }
 
-.practice-statistics article>svg {
-  color: var(--color-accent);
+.practice-statistics article>.learner-ui-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .practice-statistics article span {

@@ -950,6 +950,13 @@
   object-fit: contain;
 }
 
+.library-section-icon {
+  width: 1.625rem;
+  height: 1.625rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
 /* Rust's official mark is monochrome, so a neutral backing keeps it legible in dark mode. */
 .library-language-logo[src$="/rust.svg"] {
   padding: .125rem;
@@ -1520,9 +1527,11 @@
   box-shadow: var(--shadow-sm);
 }
 
-.home-stat-card>svg {
+.home-stat-card>.learner-ui-icon {
+  width: 2rem;
+  height: 2rem;
   flex: 0 0 auto;
-  color: var(--color-accent);
+  object-fit: contain;
 }
 
 .home-stat-card div {

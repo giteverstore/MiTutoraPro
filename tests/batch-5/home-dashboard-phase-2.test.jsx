@@ -51,14 +51,25 @@ describe('canonical streak navbar', () => {
     activity.status = 'ready'; activity.streak = { currentStreak: 5 }; activity.completions = [];
     const { rerender } = render(<AppTopNavigation {...navigationProps()} />);
     const inactive = screen.getByLabelText("5 day streak. Today's Daily Challenge is not completed.");
-    expect(inactive).not.toHaveClass('is-today-completed');
-    expect(inactive.querySelector('svg')).toHaveAttribute('fill', 'none');
+    expect(inactive).toHaveClass('application-streak-indicator');
+    expect(inactive.querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/fire-incomplete.png');
     activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: kolkataDate(), completionStatus: 'COMPLETED' }];
     rerender(<AppTopNavigation {...navigationProps()} />);
     const active = screen.getByLabelText("5 day streak. Today's Daily Challenge completed.");
-    expect(active).toHaveClass('is-today-completed');
     expect(active).toHaveTextContent('5');
-    expect(active.querySelector('svg')).toHaveAttribute('fill', 'currentColor');
+    expect(active.querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/fire-complete.png');
+  });
+
+  it('restores the completed fire from persisted canonical activity and has no pill treatment', () => {
+    activity.status = 'ready'; activity.streak = { currentStreak: 3 };
+    activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: kolkataDate(), completionStatus: 'COMPLETED' }];
+    const { container } = render(<AppTopNavigation {...navigationProps()} />);
+    expect(screen.getByLabelText("3 day streak. Today's Daily Challenge completed.").querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/fire-complete.png');
+    const css = readFileSync('src/styles/layout/app-shell.css', 'utf8');
+    expect(container.querySelector('.application-streak-badge')).not.toBeInTheDocument();
+    expect(css).not.toContain('.application-streak-badge');
+    expect(css).toMatch(/\.application-streak-indicator \{[\s\S]*?display: inline-flex;[\s\S]*?gap: var\(--space-2\);/);
+    expect(css).not.toMatch(/\.application-streak-indicator \{[^}]*?(?:background|border|box-shadow|border-radius):/s);
   });
 
   it('shows the same canonical completion badge in expanded and collapsed Challenges navigation', () => {
@@ -237,6 +248,10 @@ describe('compact Home presentation', () => {
     expect(screen.getAllByRole('article')).toHaveLength(3);
     expect(screen.getByRole('heading', { name: 'Start a new course' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'No recently viewed courses' })).toBeInTheDocument();
+    const statisticCards = screen.getByRole('heading', { name: 'Learning Statistics' }).closest('section').querySelectorAll('.home-stat-card');
+    expect(statisticCards[0].querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/mortarboard.png');
+    expect(statisticCards[1].querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/checked.png');
+    expect(statisticCards[2].querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/calendar.png');
   });
 
   it('keeps desktop columns independent and uses compact token-based spacing', () => {

@@ -2,17 +2,14 @@ import { useState } from 'react';
 import {
   ArrowRight,
   BookOpen,
-  CalendarCheck2,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Clock3,
   Code2,
   Database,
-  GraduationCap,
   Search,
   SearchX,
 } from 'lucide-react';
+import { learnerUiIcons } from '../assets/learnerUiIcons';
 import { CourseCard } from './CourseCard';
 import { getCourseCardArtwork } from './courseCardArtwork';
 import { ErrorState } from '../errors/ErrorState';
@@ -211,7 +208,7 @@ export function BrowseCoursesSection({
         {loading ? <CourseCardsLoadingState label="Loading course catalog" count={4} /> : comingSoonCourses.length || languageGroups.length ? <>
           {comingSoonCourses.length ? <section className="library-language-section library-coming-soon-section" aria-labelledby="library-coming-soon-title">
             <header className="library-language-section-header">
-              <h2 id="library-coming-soon-title"><Clock3 aria-hidden="true" />Coming Soon</h2>
+              <h2 id="library-coming-soon-title"><img className="library-section-icon" src={learnerUiIcons.hourglass} alt="" aria-hidden="true" />Coming Soon</h2>
             </header>
             <div className="library-coming-soon-strip" role="region" aria-label="Coming soon courses" tabIndex={0}>
               {comingSoonCourses.map((course) => <CourseCard course={course} onOpenCourse={onOpenCourse} variant="list" allowBookmark={allowBookmarks} onRequireAuth={onRequireAuth} key={course.id} />)}
@@ -256,9 +253,9 @@ export function RecentlyViewedSection({ courses, onOpenCourse, status = 'ready' 
 }
 
 const statisticIcons = {
-  courses: GraduationCap,
-  lessons: CheckCircle2,
-  challenges: CalendarCheck2,
+  courses: learnerUiIcons.mortarboard,
+  lessons: learnerUiIcons.checked,
+  challenges: learnerUiIcons.calendar,
 };
 
 export function LearningStatisticsSection({ statistics, status, challengeStatus = status }) {
@@ -267,11 +264,11 @@ export function LearningStatisticsSection({ statistics, status, challengeStatus 
       <SectionHeading id="statistics-title" title="Learning Statistics" />
       <div className="home-stat-grid">
         {statistics.map((statistic) => {
-          const Icon = statisticIcons[statistic.id];
+          const icon = statisticIcons[statistic.id];
           const metricStatus = statistic.id === 'challenges' ? challengeStatus : status;
           return (
             <article className="home-stat-card" key={statistic.id}>
-              <Icon aria-hidden="true" />
+              <img className="learner-ui-icon" src={icon} alt="" aria-hidden="true" />
               <div>
                 <strong>{metricStatus === 'loading' ? '—' : metricStatus === 'error' || statistic.value == null ? 'Unavailable' : statistic.value}</strong>
                 <span>{statistic.label}</span>

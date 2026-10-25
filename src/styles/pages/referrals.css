@@ -72,6 +72,13 @@
   color: var(--color-accent);
 }
 
+.referral-overview article>.learner-ui-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
 .referral-overview article span {
   display: grid;
   min-width: 0;
