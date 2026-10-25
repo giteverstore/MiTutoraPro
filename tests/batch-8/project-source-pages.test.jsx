@@ -102,7 +102,7 @@ describe('canonical source-page Project Guide', () => {
       next();
     }
     expect(within(guide()).getByText('Page 6 — Task 1 — Guide 6')).toBeVisible();
-    expect(within(guide()).getByText('Task verification')).toBeVisible();
+    expect(within(guide()).queryByText('Task verification')).not.toBeInTheDocument();
     expect(within(document.querySelector('.project-guide-navigation')).getByRole('button', { name: 'Verify' })).toBeDisabled();
     expect(within(document.querySelector('.project-guide-navigation')).queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
     expect(within(guide()).queryByRole('button', { name: 'Validate Checkpoint' })).not.toBeInTheDocument();

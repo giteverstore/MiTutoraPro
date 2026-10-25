@@ -38,4 +38,12 @@ describe('shared learner content tables', () => {
     expect(wrapper.querySelectorAll('thead th')).toHaveLength(3);
     expect(wrapper.querySelectorAll('tbody td')).toHaveLength(3);
   });
+
+  it('renders semantic Project notes with the canonical callout treatment', () => {
+    const { container } = render(<ProjectGuideRenderer blocks={[{ type: 'note', text: 'Keep each Bingo value unique.' }]} />);
+    const note = container.querySelector('.project-guide-note');
+    expect(note).toHaveTextContent('Note: Keep each Bingo value unique.');
+    expect(note.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
+    expect(note.querySelector('strong')).toHaveTextContent('Note:');
+  });
 });

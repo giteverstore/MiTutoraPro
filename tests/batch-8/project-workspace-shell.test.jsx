@@ -128,6 +128,7 @@ describe('immersive project workspace shell', () => {
     const left = screen.getByRole('separator', { name: 'Resize left panel' });
     const right = screen.getByRole('separator', { name: 'Resize Guide and AI' });
     const bottom = screen.getByRole('separator', { name: 'Resize bottom panel' });
+    expect(right).toHaveAttribute('aria-valuenow', right.getAttribute('aria-valuemax'));
     expect(left).toHaveAttribute('tabindex', '0');
     expect(left).toHaveAttribute('aria-valuenow', '280');
     fireEvent.keyDown(left, { key: 'ArrowRight' });
@@ -343,7 +344,11 @@ describe('immersive project workspace shell', () => {
     fireEvent.click(screen.getByRole('button', { name: /Next/ }));
     expect(screen.getByRole('heading', { name: 'Function contract' })).toBeInTheDocument();
     expect(screen.getByText('2 / 4')).toBeInTheDocument();
-    expect(css).toContain('.project-guide-content { font-size: 16px; line-height: 1.6; }');
+    expect(css).toContain('padding: var(--space-5) clamp(1.25rem,5%,2rem) var(--space-8);');
+    expect(css).toContain('.project-guide-content > h2 { margin: 0 0 var(--space-5); font-size: 24px;');
+    expect(css).toContain('font-size: 20px; font-weight: 700;');
+    expect(css).toContain('--project-guide-table-border: #111111;');
+    expect(css).toContain('--project-guide-table-border: #d7dee7;');
   });
 
   it('renders a semantic compact tree with inline folders and collapse-all behavior', () => {
@@ -406,11 +411,11 @@ describe('immersive project workspace shell', () => {
     expect(monaco).toContain('compactScrollbars ? { scrollbar: { verticalScrollbarSize: 8, horizontalScrollbarSize: 8 } }');
   });
 
-  it('keeps Projects UI typography on the 12, 14, 16, and 24 pixel scale', () => {
+  it('keeps Projects UI typography on the approved scale including 20px Guide subheadings', () => {
     const generalCss = css.replace(/\.project-overview-copy h1\s*\{[^}]*\}/, '');
     const sizes = [...generalCss.matchAll(/font-size:\s*([^;]+);/g)].map((match) => match[1].trim().replace(/\s*\/\*.*\*\//, ''));
     const pixels = sizes.map((size) => size === 'inherit' ? size : size.endsWith('rem') ? Number.parseFloat(size) * 16 : Number.parseFloat(size));
-    expect(pixels.every((size) => size === 'inherit' || [12, 14, 16, 24].includes(size))).toBe(true);
+    expect(pixels.every((size) => size === 'inherit' || [12, 14, 16, 20, 24].includes(size))).toBe(true);
     expect(css).toContain('font-size: clamp(1.75rem, 2.8vw, 2.25rem)');
     expect(css).toContain('.project-ide-topbar strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1rem; }');
     expect(css).toContain('.project-guide-completion>h2 { max-width: 100%; font-size: 1.5rem; overflow-wrap: anywhere; }');

@@ -1,4 +1,5 @@
 import { resolveLanguageVariant } from '../../../shared/content/normalization.js';
+import { Lightbulb } from 'lucide-react';
 import { ContentTable } from '../../components/ContentTable.jsx';
 
 export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppliedRuntime }) {
@@ -11,11 +12,11 @@ export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppl
     if (block.audience?.languages && !block.audience.languages.includes(runtimeId)) return null;
     if (block.type === 'heading') { const Heading = `h${block.level ?? 3}`; return <Heading key={key}>{text(block.text)}</Heading>; }
     if (block.type === 'paragraph') return <p key={key}>{text(block.text)}</p>;
-    if (block.type === 'note') return <aside className="project-guide-note" key={key}>{block.text}</aside>;
+    if (block.type === 'note') return <aside className="project-guide-note" key={key}><Lightbulb aria-hidden="true" /><p><strong>Note:</strong> {text(block.text)}</p></aside>;
     if (block.type === 'list') return <ul key={key}>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>;
     if (block.type === 'code') { const code = block.codeKey ? content[block.codeKey] : block.byLanguage?.[runtimeId] ?? text(block.code); return code ? <pre key={key}><code>{code}</code></pre> : null; }
     if (block.type === 'expected-output') return <div className="project-guide-output" key={key}><strong>Expected output</strong><pre>{text(block.output ?? block.text)}</pre></div>;
-    if (block.type === 'callout') return <aside className={`project-guide-note is-${block.variant}`} key={key}><strong>{block.title}</strong><p>{text(block.text)}</p></aside>;
+    if (block.type === 'callout') return <aside className={`project-guide-note is-${block.variant}`} key={key}><Lightbulb aria-hidden="true" /><div><strong>{block.title}</strong><p>{text(block.text)}</p></div></aside>;
     if (block.type === 'concept') return <section key={key}><h4>{block.title ?? block.conceptId}</h4><p>{block.text}</p></section>;
     if (block.type === 'requirements' || block.type === 'common-mistakes') return <section key={key}><strong>{block.type === 'requirements' ? 'Requirements' : 'Common mistakes'}</strong><ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul></section>;
     if (block.type === 'table') return <ContentTable key={key} columns={block.columns} rows={block.rows} />;
