@@ -389,6 +389,21 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('overflow-y: auto; overscroll-behavior: contain;');
     expect(css).toContain('.project-ai-mode.is-active { display: block; min-height: 0; overflow: hidden; }');
     expect(css).toContain('.project-guide-mode.is-active { display: grid; grid-template-rows: minmax(0,1fr) auto; }');
+    expect(css).toContain('grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);');
+    expect(css).toContain('.project-guide-navigation>span { justify-self: center; }');
+    expect(css).toContain('width: max-content; min-height: var(--control-height-md);');
+    expect(css).toContain('.project-guide-navigation button:first-child { justify-self: start; }');
+    expect(css).toContain('.project-guide-navigation button:last-child { justify-self: end; }');
+    expect(css).toContain('gap: var(--space-2); padding-inline: var(--space-4);');
+  });
+
+  it('uses the Project-only compact Monaco scrollbar option', () => {
+    const workspace = readFileSync('src/projects/pages/ProjectWorkspace.jsx', 'utf8');
+    const placeholder = readFileSync('src/components/EditorPlaceholder.jsx', 'utf8');
+    const monaco = readFileSync('src/components/MonacoCodeEditor.jsx', 'utf8');
+    expect(workspace).toContain('compactScrollbars />');
+    expect(placeholder).toContain('compactScrollbars={compactScrollbars}');
+    expect(monaco).toContain('compactScrollbars ? { scrollbar: { verticalScrollbarSize: 8, horizontalScrollbarSize: 8 } }');
   });
 
   it('keeps Projects UI typography on the 12, 14, 16, and 24 pixel scale', () => {

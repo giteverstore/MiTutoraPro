@@ -198,7 +198,7 @@ function configureMonaco(monacoInstance) {
   });
 }
 
-export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onCursorPositionChange, onAskSelection, instanceId, standalonePreferences, workspacePreferences, layoutSignal, modelOwnerPrefix, retainedModelPaths = [] }) {
+export default function MonacoCodeEditor({ editor, value, onChange, onSelectionChange, onCursorPositionChange, onAskSelection, instanceId, standalonePreferences, workspacePreferences, layoutSignal, modelOwnerPrefix, retainedModelPaths = [], compactScrollbars = false }) {
   const settings = useSettings();
   const editorSettings = workspacePreferences ?? standalonePreferences ?? settings.editor;
   const editorTheme = workspacePreferences?.monacoTheme ?? standalonePreferences?.monacoTheme ?? editorThemeById(settings.editor.theme).monacoTheme;
@@ -375,6 +375,7 @@ export default function MonacoCodeEditor({ editor, value, onChange, onSelectionC
           renderLineHighlight: 'line',
           renderWhitespace: 'selection',
           scrollBeyondLastLine: false,
+          ...(compactScrollbars ? { scrollbar: { verticalScrollbarSize: 8, horizontalScrollbarSize: 8 } } : {}),
           smoothScrolling: true,
           stickyScroll: { enabled: false },
           tabFocusMode: false,
