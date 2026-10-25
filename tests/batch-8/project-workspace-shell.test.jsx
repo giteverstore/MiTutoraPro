@@ -55,6 +55,7 @@ describe('immersive project workspace shell', () => {
     expect(container.querySelector('.project-files-section')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Explorer' }));
     expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toBeInTheDocument();
+    expect(container.querySelector('[data-file-icon="python"]')).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-model-owner-prefix', projectModelOwnerPrefix(project.id));
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-retained-model-paths', projectModelPath(project.id, project.template.sourcePath));
@@ -334,6 +335,12 @@ describe('immersive project workspace shell', () => {
     expect(editor).toHaveAttribute('data-loading-theme', 'light');
     expect(editor).toHaveValue('theme-safe learner source');
     expect(JSON.parse(storage.get('ycoders.projectWorkspace.editorPreferences'))).toMatchObject({ fontSize: 18, tabSize: 2, appearance: 'light', wordWrap: false });
+    expect(screen.getByRole('button', { name: 'Reset' })).toHaveClass('project-settings-reset');
+    expect(screen.queryByRole('button', { name: 'Reset editor settings' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(editor).toHaveAttribute('data-font-size', '14');
+    expect(editor).toHaveAttribute('data-tab-size', '4');
+    expect(editor).toHaveAttribute('data-word-wrap', 'true');
   });
 
   it('removes the stage-list section while retaining compact Guide navigation', () => {
@@ -349,6 +356,14 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('font-size: 20px; font-weight: 700;');
     expect(css).toContain('--project-guide-table-border: #111111;');
     expect(css).toContain('--project-guide-table-border: #d7dee7;');
+    expect(css).toContain('.project-ide-topbar .project-cloud-save-control,.project-cloud-save-state { font-size: 14px; }');
+    expect(css).toContain('.project-file-row,.project-task-list button');
+    expect(css).toContain('font-size: 16px; text-align: left; cursor: pointer;');
+    expect(css).toContain('.project-settings-panel>.project-settings-reset');
+    expect(css).toContain('justify-self: end; width: max-content;');
+    expect(css).toContain('background: var(--color-danger-soft);');
+    expect(css).toContain('.project-task-title { font-weight: 400; }');
+    expect(css).toContain('.project-task-list small { display: block; margin-top: .15rem; font-size: 16px; font-weight: 400; }');
   });
 
   it('renders a semantic compact tree with inline folders and collapse-all behavior', () => {

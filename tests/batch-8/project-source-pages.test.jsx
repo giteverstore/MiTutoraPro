@@ -108,6 +108,9 @@ describe('canonical source-page Project Guide', () => {
     expect(within(guide()).queryByRole('button', { name: 'Validate Checkpoint' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Tasks', exact: true }));
     expect(document.querySelectorAll('.project-checkpoint-list > li')).toHaveLength(17);
+    expect(document.querySelector('.project-task-title')).toHaveTextContent('Task 1');
+    expect(document.querySelector('.project-task-title').tagName).toBe('SPAN');
+    expect(document.querySelector('.project-task-title').closest('button')).toHaveTextContent(/Completed|Available/);
     fireEvent.click(screen.getByRole('button', { name: /Task 1 (Available|Completed)/ }));
     expect(within(guide()).getByText('Page 6 — Task 1 — Guide 6')).toBeVisible();
   });

@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, Bell, Bot, CheckCircle2, ChevronDown, ChevronRight, ChevronUp, Circle, Crown, Download, FileCode2, FileJson, FileText, Folder, FolderOpen, FolderPlus, ListChecks, Pencil, Plus, RotateCcw, Settings, Sparkles, Trash2, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bell, Bot, Braces, CheckCircle2, ChevronDown, ChevronRight, ChevronUp, Circle, Container, Crown, Download, File, FileCode2, FileJson, FileText, Folder, FolderOpen, FolderPlus, GitBranch, ListChecks, Pencil, Plus, RotateCcw, Settings, Sparkles, SquareTerminal, Trash2, X } from 'lucide-react';
 import { EditorPlaceholder } from '../../components/EditorPlaceholder';
 import { CompletionCelebration } from '../../components/CompletionCelebration';
 import { useCompilerManager } from '../../compiler/CompilerProvider';
@@ -23,6 +23,7 @@ import { classifyProjectTerminalCommand } from '../workspace/projectTerminalComm
 import { TrustedDescriptorExecutor } from '../validation/TrustedDescriptorExecutor';
 import { deriveTaskProgress, isTaskBasedProject, recordCheckpointValidation, recordFinalValidation, recordTaskVerification, startTaskState } from '../services/ProjectTaskProgression';
 import { BrandMark } from '../../branding/BrandMark';
+import { projectFileIcon } from '../workspace/projectFileIcons';
 
 export const PROJECT_WORKSPACE_PAGES = Object.freeze([
   { id: 'requirements', label: 'Requirements' }, { id: 'contract', label: 'Function contract' },
@@ -333,14 +334,21 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
 }
 
 function FileIcon({ path }) {
-  if (path.endsWith('.json')) return <FileJson />;
-  if (path.endsWith('.md')) return <FileText />;
-  if (path.endsWith('.txt')) return <FileText />;
-  return <FileCode2 />;
+  const icon = projectFileIcon(path);
+  if (icon.asset) return <img className="project-file-type-icon" src={icon.asset} alt="" aria-hidden="true" data-file-icon={icon.id} />;
+  if (icon.monogram) return <span className="project-file-type-icon is-monogram" aria-hidden="true" data-file-icon={icon.id}>{icon.monogram}</span>;
+  const Icon = icon.lucide === 'json' ? FileJson
+    : icon.lucide === 'text' ? FileText
+      : icon.lucide === 'braces' ? Braces
+        : icon.lucide === 'terminal' ? SquareTerminal
+          : icon.lucide === 'container' ? Container
+            : icon.lucide === 'git' ? GitBranch
+              : File;
+  return <Icon className="project-file-type-icon" aria-hidden="true" data-file-icon={icon.id} />;
 }
 
 function CheckpointPanel({ checkpoints, pageIndex, completed = [], onVisit, taskBased = false, activeTaskId, onSelectTask }) {
-  if (taskBased) return <section className="project-checkpoints-section"><header><span>Tasks</span></header><ol className="project-checkpoint-list project-task-list">{checkpoints.flatMap((checkpoint, index) => checkpoint.tasks.map((task) => <li className={task.completed ? 'is-complete' : task.taskId === activeTaskId ? 'is-current' : task.unlocked ? 'is-available' : 'is-locked'} key={task.taskId}><button type="button" disabled={!task.unlocked} aria-current={task.taskId === activeTaskId ? 'step' : undefined} aria-label={`${task.title} ${task.completed ? 'Completed' : task.unlocked ? 'Available' : 'Locked'}`} onClick={() => { onVisit(index); onSelectTask(checkpoint.checkpointId, task.taskId); }}>{task.completed ? <CheckCircle2 aria-hidden="true" /> : <Circle aria-hidden="true" />}<span><strong>{task.title}</strong><small>{task.completed ? 'Completed' : task.unlocked ? 'Available' : 'Locked'}</small></span></button></li>))}</ol></section>;
+  if (taskBased) return <section className="project-checkpoints-section"><header><span>Tasks</span></header><ol className="project-checkpoint-list project-task-list">{checkpoints.flatMap((checkpoint, index) => checkpoint.tasks.map((task) => <li className={task.completed ? 'is-complete' : task.taskId === activeTaskId ? 'is-current' : task.unlocked ? 'is-available' : 'is-locked'} key={task.taskId}><button type="button" disabled={!task.unlocked} aria-current={task.taskId === activeTaskId ? 'step' : undefined} aria-label={`${task.title} ${task.completed ? 'Completed' : task.unlocked ? 'Available' : 'Locked'}`} onClick={() => { onVisit(index); onSelectTask(checkpoint.checkpointId, task.taskId); }}>{task.completed ? <CheckCircle2 aria-hidden="true" /> : <Circle aria-hidden="true" />}<span><span className="project-task-title">{task.title}</span><small>{task.completed ? 'Completed' : task.unlocked ? 'Available' : 'Locked'}</small></span></button></li>))}</ol></section>;
   return <section className="project-checkpoints-section"><header><span>Tasks</span></header><ol className="project-checkpoint-list">{checkpoints.map((checkpoint, index) => { const checkpointId = checkpoint.checkpointId ?? checkpoint.id; const isComplete = taskBased ? checkpoint.completed : completed.includes(checkpointId); const isCurrent = index === pageIndex; const state = isComplete ? 'Completed' : checkpoint.unlocked === false ? 'Locked' : isCurrent ? 'Current' : 'Available'; return <li className={isComplete ? 'is-complete' : isCurrent ? 'is-current' : checkpoint.unlocked === false ? 'is-locked' : 'is-available'} key={checkpointId}><button type="button" aria-current={isCurrent ? 'step' : undefined} aria-label={`${checkpoint.title} ${state}`} disabled={checkpoint.unlocked === false} title={checkpoint.unlocked === false ? 'Complete the previous task group to unlock these tasks.' : undefined} onClick={() => onVisit(index)}>{isComplete ? <CheckCircle2 aria-hidden="true" /> : <Circle aria-hidden="true" />}<span><strong>{checkpoint.title}</strong><small>{taskBased ? `${checkpoint.completedCount} / ${checkpoint.totalCount} tasks · ${state}` : state}</small></span></button>{taskBased && checkpoint.unlocked ? <ol className="project-task-progress-list">{checkpoint.tasks.map((task) => <li key={task.taskId}><button type="button" disabled={!task.unlocked} aria-current={task.taskId === activeTaskId ? 'step' : undefined} aria-label={`${task.title} ${task.completed ? 'Completed' : task.unlocked ? 'Available' : 'Locked'}`} onClick={() => { onVisit(index); onSelectTask(checkpointId, task.taskId); }}>{task.completed ? <CheckCircle2 aria-hidden="true" /> : <Circle aria-hidden="true" />}<span>{task.title}</span></button></li>)}</ol> : null}</li>; })}</ol></section>;
 }
 
@@ -378,7 +386,7 @@ function InlineTreeInput({ depth, inline, setInline, submit }) {
 
 function SettingsPanel({ preferences }) {
   const { preferences: value, update, reset } = preferences;
-  return <><header><span>Settings</span></header><div className="project-settings-panel"><h2>Editor</h2><label><span>Appearance</span><select value={value.appearance} onChange={(event) => update('appearance', event.target.value)}><option value="follow-app">Follow application</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label><span>Font size</span><select value={value.fontSize} onChange={(event) => update('fontSize', Number(event.target.value))}>{Array.from({ length: 13 }, (_, index) => index + 12).map((size) => <option value={size} key={size}>{size}px</option>)}</select></label><label><span>Spaces</span><select value={value.tabSize} onChange={(event) => update('tabSize', Number(event.target.value))}>{[2, 4, 8].map((size) => <option value={size} key={size}>{size}</option>)}</select></label><label><span>Word wrap</span><select value={value.wordWrap ? 'on' : 'off'} onChange={(event) => update('wordWrap', event.target.value === 'on')}><option value="on">On</option><option value="off">Off</option></select></label><button type="button" onClick={reset}><RotateCcw /> Reset editor settings</button></div></>;
+  return <><header><span>Settings</span></header><div className="project-settings-panel"><h2>Editor</h2><label><span>Appearance</span><select value={value.appearance} onChange={(event) => update('appearance', event.target.value)}><option value="follow-app">Follow application</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label><span>Font size</span><select value={value.fontSize} onChange={(event) => update('fontSize', Number(event.target.value))}>{Array.from({ length: 13 }, (_, index) => index + 12).map((size) => <option value={size} key={size}>{size}px</option>)}</select></label><label><span>Spaces</span><select value={value.tabSize} onChange={(event) => update('tabSize', Number(event.target.value))}>{[2, 4, 8].map((size) => <option value={size} key={size}>{size}</option>)}</select></label><label><span>Word wrap</span><select value={value.wordWrap ? 'on' : 'off'} onChange={(event) => update('wordWrap', event.target.value === 'on')}><option value="on">On</option><option value="off">Off</option></select></label><button className="project-settings-reset" type="button" onClick={reset}><RotateCcw /> Reset</button></div></>;
 }
 
 function GuidePanel({ project: sourceProject, page, sourcePage, runtime, pageIndex, pageCount = 4, allowed, onVisit, onStageForAI, complete, displayName, languageLabel, onDownload, downloading, task: sourceTask, taskVerified, taskCheckpoint, running, onVerifyTask, onValidateFinal, finalReady }) {
