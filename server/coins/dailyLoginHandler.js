@@ -5,6 +5,7 @@ import { DailyLoginRewardService } from '../../functions/src/coins/DailyLoginRew
 import { firebaseAITutorAuthenticator } from '../ai/auth/FirebaseAITutorAuthenticator.js';
 import { createVercelGoogleCredentialContext } from '../auth/VercelGoogleCredentialAdapter.js';
 import { createDefaultFirestore } from '../firestore/createDefaultFirestore.js';
+import { createServerTiming } from '../http/serverTiming.js';
 
 function publicError(error) {
   if (error instanceof CoinError) {
@@ -28,34 +29,47 @@ export function dailyLoginFailureCategory(error) {
   return 'RUNTIME_FAILURE';
 }
 
-export function createDailyLoginHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, firestoreFactory = createDefaultFirestore, logger = console } = {}) {
+export function createDailyLoginHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, firestoreFactory = createDefaultFirestore, rewardServiceFactory = ({ ledger, timestamp }) => new DailyLoginRewardService({ ledger, timestamp }), logger = console } = {}) {
   return async function dailyLoginHandler(request, response) {
+    const timing = createServerTiming();
     if (request.method !== 'POST') {
       response.setHeader('Allow', 'POST');
+      timing.apply(response, { include: ['total'] });
       return response.status(405).json({ error: { code: 'coin/method-not-allowed', message: 'Use POST for the daily login reward.' } });
     }
     let session;
     let stage = 'OIDC_WIF_CONTEXT';
     try {
+      const finishWif = timing.start('wif');
       const googleCredentials = credentialFactory({ request, environment });
       stage = 'WIF_PREFLIGHT';
       await googleCredentials.preflight();
+      finishWif();
       stage = 'FIREBASE_AUTH';
+      const finishAuth = timing.start('auth');
       const authenticated = await authenticator.authenticate(request, { environment, googleCredentials });
+      finishAuth();
       stage = 'FIRESTORE_CONSTRUCTION';
+      const finishClient = timing.start('client');
       session = await firestoreFactory(environment, googleCredentials);
+      finishClient();
       const db = session.db;
       const timestamp = () => Timestamp.now();
       const ledger = new CoinLedgerService({ db, timestamp });
-      const service = new DailyLoginRewardService({ ledger, timestamp });
+      const service = rewardServiceFactory({ ledger, timestamp });
       stage = 'DAILY_LOGIN_TRANSACTION';
-      return response.status(200).json(await service.claim({
+      const finishClaim = timing.start('claim');
+      const result = await service.claim({
         principal: { authenticated: true, uid: authenticated.uid },
         request: request.body,
-      }));
+      });
+      finishClaim();
+      timing.apply(response);
+      return response.status(200).json(result);
     } catch (error) {
       logger?.error?.('daily-login-runtime-failure', { stage, category: dailyLoginFailureCategory(error) });
       const sanitized = publicError(error);
+      timing.apply(response, { include: ['total'] });
       return response.status(sanitized.status).json(sanitized.body);
     } finally {
       await session?.close();
