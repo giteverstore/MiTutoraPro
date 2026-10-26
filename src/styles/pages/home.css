@@ -127,7 +127,7 @@
 
 .home-icon-button:hover {
   color: var(--color-text);
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
   transform: translateY(-1px);
 }
 
@@ -247,6 +247,10 @@
   gap: var(--space-3);
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
+}
+
+.challenge-calendar-redeem .coin-balance-badge {
+  background: var(--color-brand-soft-surface);
 }
 
 .challenge-calendar-redeem button {
@@ -513,7 +517,7 @@
 .challenge-calendar-navigation button:hover,
 .challenge-calendar-navigation button:focus-visible {
   color: var(--color-text);
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
 }
 
 .challenge-calendar-navigation button:disabled {
@@ -602,7 +606,7 @@
 
 .challenge-calendar-day.is-past-missed {
   color: var(--color-text-muted);
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
 }
 
 .challenge-calendar-day.is-past-completed,
@@ -1457,7 +1461,7 @@
 
 .home-course-pagination button:not(:disabled):hover {
   color: var(--color-text);
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
   transform: translateY(-1px);
 }
 

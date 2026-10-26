@@ -205,7 +205,7 @@
 }
 
 .practice-question-card:hover {
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
 }
 
 .practice-question-card:focus-visible {
@@ -271,7 +271,7 @@
 
 .practice-pagination button:not(:disabled):hover {
   color: var(--color-text);
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
   border-color: var(--color-border);
 }
 
@@ -443,8 +443,13 @@
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-4);
-  background: var(--color-surface-subtle);
+  background: var(--color-brand-soft-surface);
   border-radius: var(--radius-lg);
+  transition: background var(--duration-fast);
+}
+
+.practice-statistics article:hover {
+  background: var(--color-brand-soft-surface);
 }
 
 .practice-statistics article>.learner-ui-icon {

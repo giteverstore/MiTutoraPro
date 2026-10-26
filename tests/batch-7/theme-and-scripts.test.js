@@ -55,6 +55,21 @@ describe('theme ownership', () => {
     expect(css).toContain('--difficulty-hard-base: #ffb3be');
   });
 
+  it('defines brand-aware soft surfaces for every light and dark palette', async () => {
+    const css = await readFile(resolve('src/styles/theme.css'), 'utf8');
+    expect(css).toMatch(/:root[\s\S]*--color-brand-soft-surface: #f1f5f9;/);
+    for (const [theme, light, dark] of [
+      ['ember', '#fff7ed', '#30251d'],
+      ['violet', '#f5f3ff', '#28223a'],
+      ['crimson', '#fff1f2', '#302127'],
+      ['cyber', '#ecfeff', '#172e2c'],
+    ]) {
+      expect(css).toMatch(new RegExp(`data-brand-theme="${theme}"[^}]*--color-brand-soft-surface: ${light};`));
+      expect(css).toMatch(new RegExp(`data-theme="dark"\\]\\[data-brand-theme="${theme}"[^}]*--color-brand-soft-surface: ${dark};`));
+    }
+    expect(css).toMatch(/data-theme="dark"[\s\S]*--color-brand-soft-surface: #1b2638;/);
+  });
+
   it('loads the theme palette before non-color and component styles', async () => {
     const source = await readFile(resolve('src/main.jsx'), 'utf8');
     expect(source.indexOf("import './styles/theme.css'")).toBeLessThan(source.indexOf("import './design-system/tokens.css'"));
