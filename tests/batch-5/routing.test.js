@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { parseAppRoute, routePage, routePath, resetApplicationPageScroll, writeAppRoute } from '../../src/routing/appRoutes';
-import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, createVercelConfig } from '../../vercel.mjs';
+import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, HASHED_ASSET_CACHE_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, PRIVATE_API_CACHE_ROUTE, createVercelConfig } from '../../vercel.mjs';
 import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
 const pageRoutes = [
@@ -115,6 +115,8 @@ describe('Vercel SPA routing contract', () => {
     expect(config.routes).toEqual([
       DOCUMENT_SECURITY_ROUTE,
       API_SECURITY_ROUTE,
+      HASHED_ASSET_CACHE_ROUTE,
+      PRIVATE_API_CACHE_ROUTE,
       COMPILER_ISOLATION_ROUTE,
       JAVASCRIPT_LEARNER_WORKER_ROUTE,
       ADMIN_PUBLIC_CONTENT_LIST_ROUTE,

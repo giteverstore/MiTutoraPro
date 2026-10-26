@@ -8,6 +8,18 @@ import {
 const MAIN_DEPLOYMENT_TARGET = 'main';
 const COMPILER_DEPLOYMENT_TARGET = 'compiler';
 
+export const HASHED_ASSET_CACHE_ROUTE = Object.freeze({
+  src: '^/assets/(.*)-[A-Za-z0-9_-]{8,}\\.(js|css)$',
+  headers: Object.freeze({ 'Cache-Control': 'public, max-age=31536000, immutable' }),
+  continue: true,
+});
+
+export const PRIVATE_API_CACHE_ROUTE = Object.freeze({
+  src: '^/api/(?!admin-content/public(?:/|$))(.*)$',
+  headers: Object.freeze({ 'Cache-Control': 'private, no-store' }),
+  continue: true,
+});
+
 export const CRON_SCHEDULES = Object.freeze({
   payments: Object.freeze({ path: '/api/payments/reconcile', schedule: '15 2 * * *' }),
   shares: Object.freeze({ path: '/api/compiler/share/janitor', schedule: '50 3 * * *' }),
@@ -65,6 +77,8 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
     routes: [
       DOCUMENT_SECURITY_ROUTE,
       API_SECURITY_ROUTE,
+      HASHED_ASSET_CACHE_ROUTE,
+      PRIVATE_API_CACHE_ROUTE,
       COMPILER_ISOLATION_ROUTE,
       JAVASCRIPT_LEARNER_WORKER_ROUTE,
       ...(target === MAIN_DEPLOYMENT_TARGET ? [ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE] : []),
