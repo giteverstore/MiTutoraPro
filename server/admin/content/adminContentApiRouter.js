@@ -42,6 +42,23 @@ const pageOptions = (request) => {
 const sendError = (response, error) => response.status(error.status ?? 500).json({ error: { code: error.code ?? 'content/internal', message: error.status && error.status < 500 ? error.message : 'Content service is temporarily unavailable.', ...(error.details ? { details: error.details } : {}) } });
 const assetIdPattern = /^asset-[a-f0-9-]{36}$/;
 const mediaTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
+export const PUBLIC_CACHE_POLICY = Object.freeze({
+  private: Object.freeze({ 'Cache-Control': 'private, no-store' }),
+  mutable: Object.freeze({
+    'Cache-Control': 'public, max-age=0, must-revalidate',
+    'CDN-Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+    'Vercel-CDN-Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+  }),
+  immutable: Object.freeze({
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    'CDN-Cache-Control': 'public, max-age=31536000, immutable',
+    'Vercel-CDN-Cache-Control': 'public, max-age=31536000, immutable',
+  }),
+});
+
+function applyCachePolicy(response, policy) {
+  for (const [name, value] of Object.entries(PUBLIC_CACHE_POLICY[policy])) response.setHeader(name, value);
+}
 
 function courseReferencesAsset(document, assetId) {
   if (document?.contentType !== 'COURSE') return false;
@@ -175,7 +192,7 @@ export async function createDefaultContentDependencies({ environment = process.e
 
 export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, configurationResolver = resolveGoogleWifConfiguration, useDedicatedAdminBucket = false, publicOnly = false, environment = process.env, fetcher = globalThis.fetch } = {}) {
   return async (request, response) => {
-    response.setHeader('Cache-Control', 'no-store');
+    applyCachePolicy(response, 'private');
     const path = segments(request);
     let resources;
     try {
@@ -227,21 +244,28 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         }
         response.setHeader('Content-Type', result.mediaType);
         response.setHeader('X-Content-Type-Options', 'nosniff');
+        applyCachePolicy(response, 'immutable');
         return response.status(200).send(result.bytes);
       }
       if (request.method === 'GET' && path[0] === 'public' && !path[1]) {
         const contentType = String(request.query?.contentType ?? '').toUpperCase() || 'PROJECT';
         if (!['PROJECT', 'COURSE', 'PRACTICE', 'CHALLENGE'].includes(contentType)) return response.status(400).json({ error: { code: 'content/type-invalid', message: 'Unsupported content type.' } });
         const items = await delivery.listActive(contentType);
+        applyCachePolicy(response, 'mutable');
         return response.status(200).json({ items, ...(contentType === 'PROJECT' ? { projects: items } : {}) });
       }
       if (request.method === 'GET' && path[0] === 'public' && path[1]) {
         if (path.length === 4 && path[3] === 'summary') {
           const result = await delivery.fetchVersionSummary(path[1], path[2]);
+          // Version summaries remain short-lived until the Phase 3B backfill is
+          // complete because missing/outdated snapshots may still be repaired.
+          applyCachePolicy(response, 'mutable');
           return response.status(200).json(result);
         }
         const result = path[2] ? await delivery.fetchVersion(path[1], path[2]) : await delivery.resolveActive(path[1]);
-        return result ? response.status(200).json(result) : response.status(404).json({ error: { code: 'content/not-published', message: 'Published content was not found.' } });
+        if (!result) return response.status(404).json({ error: { code: 'content/not-published', message: 'Published content was not found.' } });
+        applyCachePolicy(response, path[2] ? 'immutable' : 'mutable');
+        return response.status(200).json(result);
       }
       if (request.method === 'POST' && path[0] === 'assign-challenge' && !path[1]) {
         const input = body(request);
