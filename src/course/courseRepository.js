@@ -1,5 +1,6 @@
 import { CourseService, resolveLessonModuleNumber } from '../content/services/CourseService';
 import { adaptCanonicalCourse, CanonicalPublishedRepository, CanonicalPublishedRepositoryError } from '../content/repositories/CanonicalPublishedRepository.js';
+import { COURSE_SOURCES, getCourseSource } from './courseSource.js';
 
 const LOCAL_METADATA_URL = '/courses/course-metadata.json';
 const isDevelopmentRuntime = import.meta.env.DEV || import.meta.env.MODE === 'e2e';
@@ -25,7 +26,10 @@ async function loadLocalMetadata(signal) {
   return { ...metadata, provider: 'local-fallback' };
 }
 
-export async function loadCourseMetadata(signal, courseId, contentVersion = null) {
+export async function loadCourseMetadata(signal, courseId, contentVersion = null, {
+  canonicalRepository = canonicalCourses,
+  legacyService = courseService,
+} = {}) {
   throwIfAborted(signal);
   if (LOCAL_CONTENT_PREFERRED) return loadLocalMetadata(signal);
   if (!courseId) {
@@ -33,21 +37,24 @@ export async function loadCourseMetadata(signal, courseId, contentVersion = null
     throw new Error('A course ID is required to load Firebase course metadata.');
   }
 
-  try {
-    const published = contentVersion == null ? await canonicalCourses.active(courseId) : await canonicalCourses.exact(courseId, contentVersion);
-    const course = adaptCanonicalCourse(published.document);
-    // Existing learners retain their pinned version; new visitors cannot start
-    // the current active version while it is marked Coming Soon.
-    if (contentVersion == null && course.comingSoon) {
-      throw new CanonicalPublishedRepositoryError('content/course-coming-soon', 'This course is coming soon.');
+  const source = getCourseSource(courseId);
+  if (source !== COURSE_SOURCES.legacy) {
+    try {
+      const published = contentVersion == null ? await canonicalRepository.active(courseId) : await canonicalRepository.exact(courseId, contentVersion);
+      const course = adaptCanonicalCourse(published.document);
+      // Existing learners retain their pinned version; new visitors cannot start
+      // the current active version while it is marked Coming Soon.
+      if (contentVersion == null && course.comingSoon) {
+        throw new CanonicalPublishedRepositoryError('content/course-coming-soon', 'This course is coming soon.');
+      }
+      return { defaultCourseId: courseId, courses: [{ id: courseId, version: published.document.version }], provider: 'canonical', canonicalCourse: course };
+    } catch (error) {
+      if (contentVersion != null || !['content/not-published', 'content/delivery-failed', 'content/catalog-failed'].includes(error?.code)) throw error;
     }
-    return { defaultCourseId: courseId, courses: [{ id: courseId, version: published.document.version }], provider: 'canonical', canonicalCourse: course };
-  } catch (error) {
-    if (contentVersion != null || !['content/not-published', 'content/delivery-failed', 'content/catalog-failed'].includes(error?.code)) throw error;
   }
 
   try {
-    const metadata = await courseService.getMetadata(courseId);
+    const metadata = await legacyService.getMetadata(courseId);
     throwIfAborted(signal);
     return { defaultCourseId: metadata.id, courses: [metadata], provider: 'firebase' };
   } catch (error) {

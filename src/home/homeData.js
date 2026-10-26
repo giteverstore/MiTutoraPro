@@ -1,3 +1,5 @@
+import { getCourseSource } from '../course/courseSource.js';
+
 const domainNames = [
   'Artificial Intelligence',
   'Machine Learning',
@@ -103,6 +105,7 @@ function createCourse(name, kind, index) {
     available: details.available ?? false,
     filter: name,
     kind,
+    source: getCourseSource(details.id ?? `${kind}-${toId(name)}`),
   };
 }
 

@@ -25,6 +25,7 @@ export function mapPublishedCourse(entry) {
     filter: group,
     kind: neutral ? 'domains' : 'languages',
     publishedVersion: entry.activeVersion,
+    source: 'canonical',
   };
 }
 
