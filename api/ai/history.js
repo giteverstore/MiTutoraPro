@@ -22,8 +22,18 @@ export function createAIHistoryHandler({ environment = process.env, authenticato
       const finishClient = timing.start('client');
       const quota = createDefaultTutorQuotaGuard(environment, { createFirestore: (env) => createTutorQuotaFirestore(env, { authClient: credentials.authClient }) }); const ownerKey = quota.identityKey(principal.uid); const store = storeFactory ? storeFactory() : new FirestoreTutorExperienceStore({ db: createTutorQuotaFirestore(environment, { authClient: credentials.authClient }) });
       finishClient();
-      const finishHistory = timing.start('history'); const page = await store.history({ ownerKey, scope, limit: 5, before: request.query?.before || null }); finishHistory();
-      const finishUsage = timing.start('usage'); const usage = await store.usageSnapshot(ownerKey); finishUsage();
+      const measure = async (name, operation) => {
+        const finish = timing.start(name);
+        try { return await operation(); }
+        finally { finish(); }
+      };
+      const [historyResult, usageResult] = await Promise.allSettled([
+        measure('history', () => store.history({ ownerKey, scope, limit: 5, before: request.query?.before || null })),
+        measure('usage', () => store.usageSnapshot(ownerKey)),
+      ]);
+      if (historyResult.status === 'rejected') throw historyResult.reason;
+      if (usageResult.status === 'rejected') throw usageResult.reason;
+      const page = historyResult.value; const usage = usageResult.value;
       const payload = { ...page, usage: { usedMessages: usage.usedMessages ?? 0, includedLimit: entitlement.includedTutorMessages ?? 30, unlimited: entitlement.unlimitedTutorMessages === true, remainingMessages: entitlement.unlimitedTutorMessages === true ? null : Math.max(0, (entitlement.includedTutorMessages ?? 30) - (usage.usedMessages ?? 0)) } };
       timing.apply(response);
       return response.status(200).json(payload);
