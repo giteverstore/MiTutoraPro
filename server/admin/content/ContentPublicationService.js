@@ -10,6 +10,7 @@ import {
   validateContent,
 } from '../../../shared/content/index.js';
 import { ContentPublicationError } from './ContentPublicationError.js';
+import { publicContentSummary } from './publicContentSummary.js';
 
 const now = (clock) => clock().toISOString();
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
@@ -96,14 +97,7 @@ export class ContentPublicationService {
         status: PUBLICATION_STATUS.READY, artifactPath, artifactHash, artifactSize: bytes.byteLength,
         ...(this.artifacts.bucketName ? { artifactBucket: this.artifacts.bucketName } : {}),
         publishedAt: timestamp, publishedBy: actor.uid, sourceDraftRevision: draft.draftRevision,
-        locale: canonical.locale, metadataSnapshot: {
-          title: canonical.content?.title ?? '', summary: canonical.content?.summary ?? canonical.content?.description ?? '',
-          language: canonical.content?.language ?? '', difficulty: canonical.content?.difficulty ?? '',
-          topic: canonical.content?.topic ?? (canonical.contentType === 'COURSE' ? canonical.content?.tags?.[0] : '') ?? '', category: canonical.content?.category ?? '',
-          estimatedMinutes: canonical.content?.estimatedMinutes ?? 0, xp: canonical.content?.xp ?? 0,
-          lessonCount: canonical.contentType === 'COURSE' ? canonical.content.modules.flatMap((module) => module.sections?.flatMap((section) => section.lessons) ?? module.lessons ?? []).length : 0,
-          moduleCount: canonical.contentType === 'COURSE' ? canonical.content.modules.length : 0,
-        },
+        locale: canonical.locale, metadataSnapshot: publicContentSummary(canonical),
       };
       const active = await this.store.completePublication({ metadata, actor, timestamp, expectedActiveRevision: allocation.activeRevision });
       return { version: metadata, active };

@@ -133,6 +133,16 @@ export class FirebaseContentPublicationStore {
   }
   async listActivePointers(contentType) { let query = this.db.collection('publishedContent').where('publicationStatus', '==', 'ACTIVE'); if (contentType) query = query.where('contentType', '==', contentType); return (await query.limit(100).get()).docs.map((doc) => doc.data()); }
   async getVersion(id, version) { const snapshot = await versionRef(this.db, id, version).get(); return snapshot.exists ? snapshot.data() : null; }
+  async updateVersionSummary(id, version, metadataSnapshot) {
+    return this.db.runTransaction(async (tx) => {
+      const pref = pointerRef(this.db, id); const vref = versionRef(this.db, id, version);
+      const [pointerSnapshot, versionSnapshot] = await Promise.all([tx.get(pref), tx.get(vref)]);
+      if (!versionSnapshot.exists) return false;
+      tx.update(vref, { metadataSnapshot });
+      if (pointerSnapshot.data()?.activeVersion === Number(version)) tx.update(pref, { metadataSnapshot });
+      return true;
+    });
+  }
 }
 
 const safeArtifactPath = (path) => /^published-content\/(?:projects|courses|practices|challenges)\/[a-z0-9][a-z0-9._-]{0,119}\/v[1-9]\d*\.json$/i.test(path)

@@ -236,6 +236,10 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         return response.status(200).json({ items, ...(contentType === 'PROJECT' ? { projects: items } : {}) });
       }
       if (request.method === 'GET' && path[0] === 'public' && path[1]) {
+        if (path.length === 4 && path[3] === 'summary') {
+          const result = await delivery.fetchVersionSummary(path[1], path[2]);
+          return response.status(200).json(result);
+        }
         const result = path[2] ? await delivery.fetchVersion(path[1], path[2]) : await delivery.resolveActive(path[1]);
         return result ? response.status(200).json(result) : response.status(404).json({ error: { code: 'content/not-published', message: 'Published content was not found.' } });
       }

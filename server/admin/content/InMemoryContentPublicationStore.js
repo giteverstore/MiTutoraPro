@@ -95,6 +95,14 @@ export class InMemoryContentPublicationStore {
   listPointers({ limit = 25, cursor = null } = {}) { const values = [...this.pointers.values()].sort((a, b) => a.contentId.localeCompare(b.contentId)); const start = cursor ? values.findIndex((item) => item.contentId === cursor) + 1 : 0; const items = values.slice(start, start + limit).map((pointer) => { const version = this.versions.get(pointer.contentId)?.get(pointer.activeVersion); return { ...clone(pointer), publishedAt: version?.publishedAt ?? null, publishedBy: version?.publishedBy ?? null, sourceDraftRevision: version?.sourceDraftRevision ?? null }; }); return { items, nextCursor: start + limit < values.length ? items.at(-1)?.contentId : null }; }
   listActivePointers(contentType) { return [...this.pointers.values()].filter((pointer) => pointer.publicationStatus === 'ACTIVE' && (!contentType || pointer.contentType === contentType)).map(clone); }
   getVersion(id, version) { return clone(this.versions.get(id)?.get(Number(version)) ?? null); }
+  updateVersionSummary(id, version, metadataSnapshot) {
+    const record = this.versions.get(id)?.get(Number(version));
+    if (!record) return false;
+    record.metadataSnapshot = clone(metadataSnapshot);
+    const pointer = this.pointers.get(id);
+    if (pointer?.activeVersion === Number(version)) pointer.metadataSnapshot = clone(metadataSnapshot);
+    return true;
+  }
 }
 
 export class InMemoryArtifactStore {

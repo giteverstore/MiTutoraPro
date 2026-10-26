@@ -19,6 +19,14 @@ export class PublishedContentService {
     const pointers = await this.store.listActivePointers(contentType);
     return pointers.map(({ contentId, activeVersion, metadataSnapshot, updatedAt }) => ({ contentId, activeVersion, metadata: metadataSnapshot ?? {}, updatedAt }));
   }
+  async fetchVersionSummary(contentId, version) {
+    const id = safeContentId(contentId);
+    const expectedVersion = Number(version);
+    if (!Number.isSafeInteger(expectedVersion) || expectedVersion < 1) throw new ContentPublicationError('content/version-invalid', 'Content version is invalid.', { status: 400 });
+    const metadata = await this.store.getVersion(id, expectedVersion);
+    if (!metadata || metadata.status !== 'READY') throw new ContentPublicationError('content/version-not-found', 'Published content version was not found.', { status: 404 });
+    return { contentId: id, contentType: metadata.contentType, version: expectedVersion, metadata: metadata.metadataSnapshot ?? {} };
+  }
   async fetchVersion(contentId, version) {
     const id = safeContentId(contentId);
     const expectedVersion = Number(version);

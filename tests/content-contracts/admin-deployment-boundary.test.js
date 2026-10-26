@@ -56,6 +56,22 @@ describe('Admin deployment boundary', () => {
     expect(delivery.resolveActive).toHaveBeenCalledWith('not-found');
   });
 
+  it('serves a public immutable-version summary without invoking full detail delivery', async () => {
+    const delivery = {
+      fetchVersionSummary: vi.fn(async () => ({ contentId: 'course', contentType: 'COURSE', version: 1, metadata: { title: 'Course' } })),
+      fetchVersion: vi.fn(), resolveActive: vi.fn(),
+    };
+    const route = createAdminContentApiRouter({ environment: production,
+      credentialFactory: () => ({ preflight: async () => {} }), dependencies: async () => ({ delivery, close: async () => {} }),
+    });
+    const result = response();
+    await route({ method: 'GET', query: { path: ['public', 'course', '1', 'summary'] }, headers: {} }, result);
+    expect(result.statusCode).toBe(200);
+    expect(result.body).toMatchObject({ contentId: 'course', version: 1, metadata: { title: 'Course' } });
+    expect(delivery.fetchVersionSummary).toHaveBeenCalledWith('course', '1');
+    expect(delivery.fetchVersion).not.toHaveBeenCalled();
+  });
+
   it('blocks every Preview write before credentials, auth, or dependencies are acquired', async () => {
     const dependencies = vi.fn();
     const credentialFactory = vi.fn();
