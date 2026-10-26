@@ -7,7 +7,7 @@ import { recentCourseRepository } from './recentCourseRepository';
 import { createHomeLearningModel } from './homeLearningModel';
 import { loadActiveCourseCatalog, loadPinnedCourseCatalog } from './canonicalCourseCatalog';
 import { DailyChallengeCalendar } from './DailyChallengeCalendar';
-import { dailyChallengeCompletionDates, kolkataDate } from './challengeCalendar';
+import { dailyChallengeCompletionDates, kolkataDate, monthDateRange, monthIdentity } from './challengeCalendar';
 import { ContinueLearningSection, LearningStatisticsSection, RecentlyViewedSection } from './HomeSections';
 import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
 
@@ -19,6 +19,9 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
   const [unlockedDates, setUnlockedDates] = useState([]);
   const [publishedCatalog, setPublishedCatalog] = useState({ status: 'loading', courses: [] });
   const [pinnedCatalog, setPinnedCatalog] = useState({ status: 'loading', courses: [] });
+  const today = kolkataDate();
+  const [challengeMonth, setChallengeMonth] = useState(() => monthIdentity(new Date(`${today}T12:00:00+05:30`)));
+  const [challengeCompletionCount, setChallengeCompletionCount] = useState(0);
   useEffect(() => {
     let active = true;
     loadActiveCourseCatalog().then(
@@ -47,6 +50,17 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
   }, [user.id]);
 
   useEffect(() => {
+    const range = monthDateRange(challengeMonth);
+    void activity.loadChallengeRange?.(range.startDate, range.endDate).catch(() => undefined);
+  }, [activity.loadChallengeRange, challengeMonth]);
+
+  useEffect(() => {
+    let active = true;
+    activity.countCompleted?.('DAILY_CHALLENGE').then((count) => { if (active) setChallengeCompletionCount(count); }, () => undefined);
+    return () => { active = false; };
+  }, [activity.countCompleted]);
+
+  useEffect(() => {
     let active = true;
     loadChallengeCalendarMetadata().then(
       (items) => { if (active) setChallengeCatalog({ status: 'ready', items }); },
@@ -68,13 +82,12 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
   const model = useMemo(() => createHomeLearningModel({
     progressRecords: learnerState.progress,
     recentCourseIds: recentCourseRepository.list(user.id),
-    challengesCompleted: completedChallengeDates.length,
+    challengesCompleted: activity.countCompleted ? challengeCompletionCount : completedChallengeDates.length,
     publishedCourses: publishedCatalog.courses,
     pinnedCourses: pinnedCatalog.courses,
-  }), [completedChallengeDates.length, learnerState.progress, publishedCatalog.courses, pinnedCatalog.courses, user.id]);
+  }), [activity.countCompleted, challengeCompletionCount, completedChallengeDates.length, learnerState.progress, publishedCatalog.courses, pinnedCatalog.courses, user.id]);
   const courseCatalogLoading = publishedCatalog.status === 'loading' || pinnedCatalog.status === 'loading';
   const courseSectionStatus = learnerState.status === 'error' ? 'error' : learnerState.status === 'loading' || courseCatalogLoading ? 'loading' : 'ready';
-  const today = kolkataDate();
   const latestChallenge = selectLatestPublishedChallenge(challengeCatalog.items);
 
   return <div className="home-main" id="home-content">
@@ -87,7 +100,7 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
         <ContinueLearningSection courses={model.enrollments} status={courseSectionStatus} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
         <RecentlyViewedSection courses={model.recentlyViewed} status={courseSectionStatus} onOpenCourse={onOpenCourse} />
       </div>
-      <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} />
+      <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} onMonthChange={setChallengeMonth} />
     </div>
   </div>;
 }

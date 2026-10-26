@@ -5,7 +5,7 @@ import { buildChallengeMonth, monthIdentity, monthLabel, shiftMonth } from './ch
 
 const STATE_LABELS = { TODAY_INCOMPLETE: 'challenge not completed', TODAY_COMPLETED: 'challenge completed', PAST_COMPLETED: 'challenge completed', PAST_UNLOCKED: 'challenge not completed', PAST_MISSED: 'challenge not completed', FUTURE: 'future day', UNAVAILABLE: 'no challenge available', OUTSIDE_MONTH: 'outside current month' };
 
-export function DailyChallengeCalendar({ today, challengeDates, completedDates, unlockedDates = [], supportedDate, historyStatus, catalogStatus, onOpenChallenge, onRedeem }) {
+export function DailyChallengeCalendar({ today, challengeDates, completedDates, unlockedDates = [], supportedDate, historyStatus, catalogStatus, onOpenChallenge, onRedeem, onMonthChange }) {
   const [month, setMonth] = useState(() => monthIdentity(new Date(`${today}T12:00:00+05:30`)));
   const days = useMemo(() => buildChallengeMonth({ month, today, challengeDates, completedDates, unlockedDates, supportedDate }), [month, today, challengeDates, completedDates, unlockedDates, supportedDate]);
   const formatter = useMemo(() => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }), []);
@@ -15,8 +15,8 @@ export function DailyChallengeCalendar({ today, challengeDates, completedDates, 
   const nextMonthDisabled = month >= currentMonth;
   return <aside className="challenge-calendar-card" aria-labelledby="challenge-calendar-title">
     <header className="challenge-calendar-header"><div><span>Daily Challenge</span><h2 id="challenge-calendar-title">{monthLabel(month)}</h2></div><div className="challenge-calendar-navigation">
-      <button type="button" aria-label="Previous month" onClick={() => setMonth((current) => shiftMonth(current, -1))}><ChevronLeft /></button>
-      <button type="button" aria-label="Next month" disabled={nextMonthDisabled} onClick={() => setMonth((current) => current >= currentMonth ? current : shiftMonth(current, 1))}><ChevronRight /></button>
+      <button type="button" aria-label="Previous month" onClick={() => setMonth((current) => { const next = shiftMonth(current, -1); onMonthChange?.(next); return next; })}><ChevronLeft /></button>
+      <button type="button" aria-label="Next month" disabled={nextMonthDisabled} onClick={() => setMonth((current) => { const next = current >= currentMonth ? current : shiftMonth(current, 1); if (next !== current) onMonthChange?.(next); return next; })}><ChevronRight /></button>
     </div></header>
     {loading ? <div className="challenge-calendar-message" role="status">Loading challenge calendar…</div> : error ? <div className="challenge-calendar-message" role="status">Challenge calendar unavailable.</div> : <>
       <div className="challenge-calendar-weekdays" aria-hidden="true">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => <span key={day}>{day}</span>)}</div>

@@ -56,6 +56,10 @@ export function ChallengeHub({ onOpenChallenge }) {
   const [passDialog, setPassDialog] = useState(null);
   const loadRedemptions = useCallback(async () => { if (!userId) return; const repository = new CoinRedemptionRepository(userId); const [balance, redemptions] = await Promise.all([repository.getBalance(), repository.listRedemptions()]); setRedemptionState({ balance, redemptions }); }, [userId]);
   useEffect(() => { void loadRedemptions(); }, [loadRedemptions]);
+  useEffect(() => {
+    const dates = (catalog ?? []).map(({ metadata }) => metadata.date).filter(Boolean).sort();
+    if (dates.length) void activity.loadChallengeRange?.(dates[0], dates[dates.length - 1]).catch(() => undefined);
+  }, [activity.loadChallengeRange, catalog]);
   const todayEntry = catalog?.find(({ metadata }) => metadata.date === today);
   const completed = activity.completions.some((item) => isCompleted(item, today));
   const history = useMemo(() => buildChallengeHistory(catalog ?? [], activity.completions, today, redemptionState.redemptions), [activity.completions, catalog, redemptionState.redemptions, today]);
@@ -110,6 +114,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   }, [occurrenceDate, today, userId]);
 
   useEffect(() => { if (initiallyCompleted) setCompleted(true); }, [initiallyCompleted]);
+  useEffect(() => { void activity.loadChallengeRange?.(occurrenceDate, occurrenceDate).catch(() => undefined); }, [activity.loadChallengeRange, occurrenceDate]);
 
   const complete = async () => {
     if (!canComplete) return;
@@ -121,6 +126,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       if (result.completionStatus === 'completed') {
         setCelebration({ variant: 'challenge', message: 'Daily Challenge completed!', rewardAmount: result.rewardAmount ?? 0, streak: Math.max(0, Number(result.streak?.currentStreak) || 0) });
       }
+      if (['completed', 'already_completed'].includes(result.completionStatus)) activity.recordCompletion?.({ activityType: 'DAILY_CHALLENGE', activityId: challenge.activityId ?? challenge.id, occurrenceDate, completionStatus: 'COMPLETED' });
       await activity.refresh?.();
     } catch (nextError) { setCompletion((current) => ({ ...current, pending: false, error: nextError.message })); }
   };

@@ -40,6 +40,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   const solvedQuestionIds = useMemo(() => new Set((activity?.completions ?? [])
     .filter((completion) => completion.activityType === 'PRACTICE' && completion.completionStatus === 'COMPLETED')
     .map((completion) => completion.activityId)), [activity?.completions]);
+  useEffect(() => { void activity?.loadPracticeCompletions?.().catch(() => undefined); }, [activity?.loadPracticeCompletions]);
   const catalogRequest = useRef(0);
   const pageCache = useRef(new Map());
   const pageCursors = useRef(new Map([[1, null]]));
@@ -140,7 +141,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
   if (openQuestion) {
     return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} requireAuthentication={anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
       const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.version });
-      if (['completed', 'already_completed'].includes(result.completionStatus)) await activity?.refresh();
+      if (['completed', 'already_completed'].includes(result.completionStatus)) activity?.recordCompletion?.({ activityType: 'PRACTICE', activityId: question.id, completionStatus: 'COMPLETED' });
       return result;
     }} />;
   }

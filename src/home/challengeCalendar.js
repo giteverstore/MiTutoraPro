@@ -9,6 +9,12 @@ export function kolkataDate(value = new Date()) {
 
 export function monthIdentity(value = new Date()) { return kolkataDate(value).slice(0, 7); }
 
+export function monthDateRange(month) {
+  const [year, monthNumber] = month.split('-').map(Number);
+  const lastDay = new Date(Date.UTC(year, monthNumber, 0)).getUTCDate();
+  return { startDate: `${month}-01`, endDate: `${month}-${String(lastDay).padStart(2, '0')}` };
+}
+
 export function shiftMonth(month, amount) {
   const [year, monthNumber] = month.split('-').map(Number);
   const shifted = new Date(Date.UTC(year, monthNumber - 1 + amount, 1));
