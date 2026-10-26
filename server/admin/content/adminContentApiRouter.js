@@ -5,7 +5,7 @@ import { createDefaultFirestore } from '../../firestore/createDefaultFirestore.j
 import { createRequestFirebaseApp } from '../../firebaseAdminApp.js';
 import { requiresFederatedTutorCredentials } from '../../ai/tutor/tutorRuntimeConfig.js';
 import { CONTENT_TYPES } from '../../../shared/content/index.js';
-import { ADMIN_PERMISSIONS } from '../../../shared/admin/adminAuthorization.js';
+import { ADMIN_PERMISSIONS, ADMIN_ROLES } from '../../../shared/admin/adminAuthorization.js';
 import { requireAdminPermission } from '../AdminAuthorization.js';
 import { ContentPublicationService } from './ContentPublicationService.js';
 import { PublishedContentService } from './PublishedContentService.js';
@@ -13,8 +13,10 @@ import { FirebaseArtifactStore, FirebaseAssetRegistry, FirebaseContentPublicatio
 import { ContentPublicationError } from './ContentPublicationError.js';
 import { AdminAssetService } from './AdminAssetService.js';
 import { ChallengeAssignmentService } from './ChallengeAssignmentService.js';
+import { PublicationSummaryBackfillService } from './PublicationSummaryBackfillService.js';
 
 const allowedContentTypes = new Set(Object.values(CONTENT_TYPES));
+export const PUBLICATION_SUMMARY_BACKFILL_CONFIRMATION = 'APPLY_PUBLICATION_SUMMARY_BACKFILL';
 export const ADMIN_CONTENT_BUCKET_NAME = 'mi-tutora-pro-admin-content';
 function requireMatchingContentType(requested, actual) {
   if (!allowedContentTypes.has(requested)) throw new ContentPublicationError('content/type-invalid', 'A valid content type is required.', { status: 400 });
@@ -187,7 +189,14 @@ export async function createDefaultContentDependencies({ environment = process.e
     externalVersionReader: useDedicatedAdminBucket ? null : createAdminPublicVersionReader(environment),
     legacyVersionReader: useDedicatedAdminBucket ? createLegacyPublicVersionReader(environment) : null,
   });
-  return { service: new ContentPublicationService({ store, artifacts, assets }), delivery, assetService: new AdminAssetService(assets), challengeAssignments: new ChallengeAssignmentService({ db, delivery }), async close() { await Promise.allSettled([firestoreSession.close(), storageSession.close()]); } };
+  return {
+    service: new ContentPublicationService({ store, artifacts, assets }),
+    delivery,
+    assetService: new AdminAssetService(assets),
+    challengeAssignments: new ChallengeAssignmentService({ db, delivery }),
+    summaryBackfill: new PublicationSummaryBackfillService({ store, delivery }),
+    async close() { await Promise.allSettled([firestoreSession.close(), storageSession.close()]); },
+  };
 }
 
 export function createAdminContentApiRouter({ dependencies = createDefaultContentDependencies, authorize = requireAdminPermission, credentialFactory = createVercelGoogleCredentialContext, configurationResolver = resolveGoogleWifConfiguration, useDedicatedAdminBucket = false, publicOnly = false, environment = process.env, fetcher = globalThis.fetch } = {}) {
@@ -207,6 +216,10 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         return response.status(503).json({ error: { code: 'admin/preview-backend-disabled', message: 'Preview content is not configured.' } });
       }
       const isPublic = request.method === 'GET' && path[0] === 'public';
+      const isSummaryBackfill = path[0] === 'maintenance' && path[1] === 'publication-summary-backfill' && !path[2];
+      if (isSummaryBackfill && request.method !== 'POST') {
+        throw new ContentPublicationError('content/method-not-allowed', 'Method not allowed.', { status: 405 });
+      }
       let actor;
       let googleCredentials;
       if (!isPublic && authorize === requireAdminPermission && !/^Bearer\s+\S+$/i.test(String(request.headers?.authorization ?? ''))) {
@@ -215,12 +228,29 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       googleCredentials = credentialFactory({ request, environment, configurationResolver });
       await googleCredentials.preflight();
       if (!isPublic) {
-        const permission = request.method === 'GET' ? ADMIN_PERMISSIONS.ADMIN_ACCESS
+        const permission = isSummaryBackfill ? ADMIN_PERMISSIONS.ADMIN_MANAGE
+          : request.method === 'GET' ? ADMIN_PERMISSIONS.ADMIN_ACCESS
           : path[0] === 'publish' || path[0] === 'rollback' || path[0] === 'archive' || path[0] === 'assign-challenge' ? ADMIN_PERMISSIONS.CONTENT_PUBLISH
             : path[0] === 'validate' ? ADMIN_PERMISSIONS.CONTENT_VALIDATE : ADMIN_PERMISSIONS.CONTENT_EDIT;
         actor = authorize === requireAdminPermission
           ? await authorize(request, permission, { environment, googleCredentials })
           : await authorize(request, permission);
+        if (isSummaryBackfill) {
+          if (actor?.role !== ADMIN_ROLES.SUPER_ADMIN) throw new ContentPublicationError('admin/permission-denied', 'This operation requires Super Admin access.', { status: 403 });
+          const input = body(request);
+          if (!input || typeof input !== 'object' || Array.isArray(input)
+            || Object.keys(input).some((key) => !['dryRun', 'confirm'].includes(key))
+            || (Object.prototype.hasOwnProperty.call(input, 'dryRun') && typeof input.dryRun !== 'boolean')) {
+            throw new ContentPublicationError('content/body-invalid', 'Invalid publication summary backfill request.', { status: 400 });
+          }
+          const dryRun = input.dryRun !== false;
+          if (!dryRun && input.confirm !== PUBLICATION_SUMMARY_BACKFILL_CONFIRMATION) {
+            throw new ContentPublicationError('content/backfill-confirmation-required', 'Explicit confirmation is required for apply mode.', { status: 400 });
+          }
+          resources = await dependencies({ environment, googleCredentials, useDedicatedAdminBucket });
+          const result = await resources.summaryBackfill.run({ dryRun });
+          return response.status(200).json({ backfill: result });
+        }
       }
       resources = await dependencies({ environment, googleCredentials, useDedicatedAdminBucket });
       const { service, delivery, assetService, challengeAssignments } = resources;
