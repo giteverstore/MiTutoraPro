@@ -33,7 +33,7 @@
   gap: var(--space-4);
   padding: var(--space-3) clamp(var(--space-4), 4vw, var(--space-12));
   background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
   backdrop-filter: blur(16px);
 }
 
@@ -123,7 +123,7 @@
 .exam-card {
   padding: clamp(var(--space-6), 4vw, var(--space-10));
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
 }
@@ -271,7 +271,7 @@
   top: 0;
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-lg);
 }
 
@@ -301,7 +301,7 @@
   aspect-ratio: 1;
   color: var(--color-text-muted);
   background: transparent;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-sm);
   cursor: pointer;
 }
@@ -322,7 +322,7 @@
   align-self: start;
   padding: clamp(var(--space-6), 5vw, var(--space-10));
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
 }
@@ -349,7 +349,7 @@
   gap: var(--space-3);
   min-height: 4rem;
   padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: border var(--duration-fast), background var(--duration-fast), transform var(--duration-fast);
@@ -396,7 +396,7 @@
   gap: var(--space-4);
   margin-top: var(--space-8);
   padding-top: var(--space-5);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-fixed);
 }
 
 .exam-dialog-backdrop {
@@ -415,7 +415,7 @@
   padding: var(--space-8);
   text-align: center;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
 }
@@ -492,7 +492,7 @@
   padding: var(--space-10);
   text-align: center;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
 }
 
@@ -523,7 +523,7 @@
   gap: var(--space-2);
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-lg);
 }
 
@@ -550,7 +550,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
 }
 
 .exam-timeline li div {
@@ -612,7 +612,7 @@
   gap: var(--space-4);
   padding: clamp(var(--space-8), 6vw, var(--space-12));
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   text-align: center;
@@ -680,7 +680,7 @@
 .environment-health {
   padding: clamp(var(--space-5), 3vw, var(--space-8));
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
 }
@@ -800,7 +800,7 @@
   gap: var(--space-3);
   min-height: 3.6rem;
   padding: var(--space-2) var(--space-3);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
 }
 
 .environment-checklist li:last-child {
@@ -962,7 +962,7 @@
   gap: var(--space-3);
   padding: var(--space-3);
   background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-md);
 }
 
@@ -1027,7 +1027,7 @@
   gap: var(--space-3);
   margin-top: var(--space-6);
   padding-top: var(--space-5);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-fixed);
 }
 
 .quality-indicators>div>span {
@@ -1129,7 +1129,7 @@
   display: flex;
   gap: var(--space-2);
   padding: var(--space-3);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-md);
 }
 

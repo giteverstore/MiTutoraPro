@@ -21,7 +21,7 @@
   gap: var(--space-5);
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xs);
 }
@@ -118,7 +118,7 @@
   margin: var(--space-5) 0 0;
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   text-align: left;
 }
@@ -180,7 +180,7 @@
   gap: var(--space-4);
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xs);
 }
@@ -208,7 +208,7 @@
 .certificate-verification {
   margin-top: var(--space-6);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xs);
   overflow: hidden;
@@ -220,7 +220,7 @@
   justify-content: space-between;
   gap: var(--space-6);
   padding: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
 }
 
 .certificates-section-heading h2 {
@@ -251,7 +251,7 @@
   align-items: center;
   gap: var(--space-5);
   padding: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
   transition: background var(--duration-fast);
 }
 
@@ -347,7 +347,7 @@
   flex-direction: column;
   padding: var(--space-5);
   background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-lg);
 }
 
@@ -493,7 +493,7 @@
   gap: 2px;
   padding: var(--space-2);
   background: #fff;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
 }
 
 .certificate-qr-placeholder i {
@@ -526,7 +526,7 @@
   overflow: auto;
   color: var(--color-text);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   animation: application-popover-in var(--duration-normal) var(--ease-emphasized);
@@ -542,7 +542,7 @@
   gap: var(--space-4);
   padding: var(--space-5) var(--space-6);
   background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
   backdrop-filter: blur(12px);
 }
 
@@ -570,7 +570,7 @@
   place-items: center;
   color: var(--color-text-muted);
   background: transparent;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-full);
   cursor: pointer;
 }
@@ -664,7 +664,7 @@
 
 .certificate-viewer-details h3 { margin: 0; color: var(--color-text); font-size: 1rem; }
 .certificate-viewer-details dl { margin-top: 1rem; }
-.certificate-viewer-details dl>div { gap: .35rem; padding: .85rem 0; border-bottom: 1px solid var(--color-border); }
+.certificate-viewer-details dl>div { gap: .35rem; padding: .85rem 0; border-bottom: 1px solid var(--color-border-fixed); }
 .certificate-viewer-details dt { font-size: .875rem; }
 .certificate-viewer-details dd { color: var(--color-text); font-size: 1rem; }
 .certificate-viewer-actions .button { min-height: 2.75rem; font-size: 1rem; }

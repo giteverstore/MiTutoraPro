@@ -47,7 +47,7 @@
   grid-area: sidebar;
   flex-direction: column;
   background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border-fixed);
   overflow: hidden;
   transition: width var(--duration-normal) var(--ease-emphasized), transform var(--duration-normal) var(--ease-emphasized);
 }
@@ -58,7 +58,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-5);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
 }
 
 .application-brand {
@@ -144,7 +144,7 @@
 .application-sidebar-toggle {
   width: calc(100% - var(--space-6));
   margin: auto var(--space-3) var(--space-4);
-  border-color: var(--color-border);
+  border-color: var(--color-border-fixed);
 }
 
 .application-sidebar-toggle:hover {
@@ -194,7 +194,7 @@
   gap: var(--space-5);
   padding: 0 clamp(var(--space-4), 3vw, var(--space-8));
   background: color-mix(in srgb, var(--color-canvas) 90%, transparent);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
   backdrop-filter: blur(18px);
 }
 
@@ -268,7 +268,7 @@
   padding: 0 var(--space-3);
   color: var(--color-text);
   background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
 }
@@ -295,7 +295,7 @@
   place-items: center;
   color: var(--color-text-muted);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: color var(--duration-fast), background var(--duration-fast), transform var(--duration-fast);
@@ -380,7 +380,7 @@
   width: min(18rem, calc(100vw - 2rem));
   padding: var(--space-4);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   animation: application-popover-in var(--duration-fast) var(--ease-emphasized);
@@ -397,7 +397,7 @@
   align-items: center;
   gap: var(--space-3);
   padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-fixed);
 }
 
 .application-user-identity>span {
@@ -444,7 +444,7 @@
 
 .application-user-menu-signout {
   padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-fixed);
 }
 
 .application-user-menu-signout button { color: var(--color-danger); }

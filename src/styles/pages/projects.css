@@ -4,11 +4,11 @@
    ========================================================= */
 
 .project-language-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.project-language-badges span { padding: .3rem .6rem; color: var(--color-text); background: var(--color-accent-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: .75rem; }
+.project-language-badges span { padding: .3rem .6rem; color: var(--color-text); background: var(--color-accent-subtle); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-full); font-size: .75rem; }
 .project-language-badges { margin: calc(var(--space-5) * -1) 0 var(--space-6); }
 .project-roadmap { display: grid !important; gap: var(--space-3) !important; margin: 0 0 var(--space-6); padding: 0 !important; list-style: none; }
 .project-roadmap li { display: grid; grid-template-columns: 2rem 1fr; gap: var(--space-3); align-items: start; }
-.project-roadmap li > span { display: grid; place-items: center; width: 2rem; height: 2rem; background: var(--color-canvas); border: 1px solid var(--color-border); border-radius: 50%; }
+.project-roadmap li > span { display: grid; place-items: center; width: 2rem; height: 2rem; background: var(--color-canvas); border: 1px solid var(--color-border-fixed); border-radius: 50%; }
 .project-roadmap li.is-current > span,
 .project-roadmap li.is-complete > span { color: var(--color-text-on-accent); background: var(--color-accent); border-color: var(--color-accent); }
 .project-roadmap strong,
@@ -19,13 +19,13 @@
 .project-start-dialog>p,.project-start-dialog button,.project-start-dialog input { font-size: .875rem; }
 .project-start-dialog small,.project-start-dialog [role="alert"] { font-size: .75rem; line-height: 1.5; }
 .project-start-languages { display: grid; gap: var(--space-3); margin: var(--space-5) 0; }
-.project-start-languages button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: var(--space-4); color: var(--color-text); text-align: left; background: var(--color-canvas); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.project-start-languages button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: var(--space-4); color: var(--color-text); text-align: left; background: var(--color-canvas); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-md); }
 .project-start-languages button.is-selected { border-color: var(--color-accent); box-shadow: 0 0 0 2px var(--color-accent-soft); }
 .project-start-languages span,
 .project-start-languages small { display: block; }
 .project-start-languages small { margin-top: .25rem; color: var(--color-text-muted); }
 .project-start-actions { display: flex; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-5); }
-.project-language-warning { padding: var(--space-4); background: var(--color-accent-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.project-language-warning { padding: var(--space-4); background: var(--color-accent-subtle); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-md); }
 .project-checkpoint-list { display: grid; gap: .25rem; margin: 0; padding: var(--space-2); list-style: none; }
 .project-checkpoint-list button { display: flex; gap: var(--space-3); align-items: flex-start; width: 100%; padding: var(--space-3); color: var(--project-text); text-align: left; background: transparent; border: 0; border-radius: var(--radius-sm); }
 .project-checkpoint-list button:hover,
@@ -121,7 +121,7 @@
   gap: var(--space-4);
   padding: var(--space-4);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-lg);
 }
 
@@ -139,7 +139,7 @@
   padding: var(--space-3);
   color: var(--color-text);
   background: var(--color-canvas);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-md);
 }
 
@@ -166,7 +166,7 @@
 
 .project-empty {
   padding: var(--space-8);
-  border: 1px dashed var(--color-border);
+  border: 1px dashed var(--color-border-fixed);
   border-radius: var(--radius-lg);
   text-align: center;
 }
@@ -205,7 +205,7 @@
   padding: var(--space-3);
   overflow: hidden;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -220,7 +220,7 @@
 
 .project-card.is-progress-pending { cursor: wait; }
 .project-card.is-coming-soon { height: 20.875rem; min-height: 20.875rem; cursor: default; }
-.project-card.is-coming-soon:hover { border-color: var(--color-border); box-shadow: var(--shadow-sm); }
+.project-card.is-coming-soon:hover { border-color: var(--color-border-fixed); box-shadow: var(--shadow-sm); }
 
 .project-card-header {
   display: flex;
@@ -348,10 +348,10 @@
 .project-overview-kicker { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); font-size: .875rem; font-weight: 600; }
 .project-overview-copy h1 { margin: var(--space-2) 0; color: #fff; font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.12; }
 .project-overview-copy p { display: -webkit-box; max-width: 56ch; margin: 0; overflow: hidden; color: #fff; font-size: 1rem; line-height: var(--line-height-body); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-.project-overview-summary { display: grid; min-width: 0; gap: var(--space-4); padding: var(--space-4); color: var(--color-text); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+.project-overview-summary { display: grid; min-width: 0; gap: var(--space-4); padding: var(--space-4); color: var(--color-text); background: var(--color-surface-raised); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
 .project-overview-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .project-overview-metrics > div { display: grid; min-width: 0; justify-items: center; gap: .15rem; padding-inline: var(--space-2); text-align: center; }
-.project-overview-metrics > div + div { border-left: 1px solid var(--color-border); }
+.project-overview-metrics > div + div { border-left: 1px solid var(--color-border-fixed); }
 .project-overview-metrics svg { width: 1rem; height: 1rem; color: var(--color-accent); }
 .project-overview-metrics strong { max-width: 100%; overflow: hidden; font-size: 1rem; text-overflow: ellipsis; white-space: nowrap; }
 .project-overview-metrics span { color: var(--color-text-muted); font-size: .875rem; }
@@ -381,7 +381,7 @@
 .project-details-grid>* {
   padding: var(--space-6);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
 }
 
@@ -409,10 +409,10 @@
 }
 
 .project-step-navigation { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); margin-bottom: var(--space-5); }
-.project-step-navigation button { display: flex; gap: var(--space-2); align-items: center; padding: var(--space-3); color: var(--color-text-muted); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; }
+.project-step-navigation button { display: flex; gap: var(--space-2); align-items: center; padding: var(--space-3); color: var(--color-text-muted); background: var(--color-surface); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-md); cursor: pointer; }
 .project-step-navigation button span { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; background: var(--color-canvas); border-radius: var(--radius-full); }
 .project-step-navigation button.is-active { color: var(--color-accent); border-color: var(--color-accent); }
-.project-step-content { min-height: 22rem; padding: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); }
+.project-step-content { min-height: 22rem; padding: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-xl); }
 .project-step-content>h2 { margin-top: 0; }
 .project-step-content li { margin-bottom: var(--space-3); line-height: 1.6; }
 .project-step-content dt { color: var(--color-text-muted); font-size: .75rem; }
@@ -435,7 +435,7 @@
 .project-complete {
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
 }
