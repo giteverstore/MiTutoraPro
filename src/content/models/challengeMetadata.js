@@ -1,6 +1,7 @@
 import {
   metadataStoragePath,
   nonNegativeNumber,
+  optionalString,
   positiveVersion,
   requiredString,
   requireMetadataObject,
@@ -18,6 +19,14 @@ export function createChallengeMetadata(value) {
     );
   }
   const assignment = typeof metadata.practiceQuestionId === 'string' && metadata.practiceQuestionId.trim();
+  const summaryFields = {
+    title: optionalString(metadata.title),
+    summary: optionalString(metadata.summary),
+    topic: optionalString(metadata.topic),
+    category: optionalString(metadata.category),
+    language: optionalString(metadata.language),
+    estimatedMinutes: metadata.estimatedMinutes == null ? null : nonNegativeNumber(metadata.estimatedMinutes, 'estimatedMinutes', 'Challenge'),
+  };
   if (assignment) {
     return Object.freeze({
       id: requiredString(metadata.id, 'id', 'Challenge'),
@@ -30,6 +39,7 @@ export function createChallengeMetadata(value) {
       policyVersion: requiredString(metadata.policyVersion, 'policyVersion', 'Challenge'),
       version: positiveVersion(metadata.version, 'Challenge'),
       sourceType: 'practice-reference',
+      ...summaryFields,
     });
   }
   return Object.freeze({
@@ -43,5 +53,6 @@ export function createChallengeMetadata(value) {
     version: positiveVersion(metadata.version, 'Challenge'),
     storagePath: metadataStoragePath(metadata.storagePath, 'Challenge'),
     sourceType: 'legacy-storage',
+    ...summaryFields,
   });
 }

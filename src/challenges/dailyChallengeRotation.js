@@ -46,7 +46,19 @@ export function eligiblePracticeQuestions(catalog) {
       && (typeof compiler.expectedOutput === 'string' || Array.isArray(compiler.testCases)));
     if (!content || typeof content.id !== 'string' || metadata?.id !== content.id
       || metadata?.published === false || !DIFFICULTIES.includes(difficulty) || !validCompiler) return [];
-    return [{ id: content.id, difficulty, content }];
+    return [{
+      id: content.id,
+      difficulty,
+      content,
+      summary: Object.freeze({
+        title: String(content.title ?? metadata.title ?? '').trim(),
+        summary: String(content.summary ?? metadata.summary ?? '').trim(),
+        topic: String(content.topic ?? metadata.topic ?? '').trim(),
+        category: String(content.category ?? metadata.category ?? '').trim(),
+        language: String(content.language ?? metadata.language ?? '').trim(),
+        estimatedMinutes: Number(content.estimatedMinutes ?? metadata.estimatedMinutes) || 0,
+      }),
+    }];
   });
 }
 
@@ -96,6 +108,7 @@ export function generateDailyChallengeAssignments({ startDate, endDate = startDa
       id: date, date, practiceQuestionId: question.id, difficulty,
       rewardCoins: policy.rewardCoins, rewardXp: 0, published: true,
       policyVersion: policy.version, version: policy.assignmentVersion,
+      ...question.summary,
     });
     generated.push(assignment); sequence.push(assignment);
   }

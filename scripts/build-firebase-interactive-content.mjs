@@ -54,6 +54,11 @@ const challengeFile = `${dailyChallenge.date}.json`;
 const challengeMetadata = [{
   id: dailyChallenge.id,
   date: dailyChallenge.date,
+  title: dailyChallenge.title,
+  summary: dailyChallenge.summary,
+  topic: dailyChallenge.topic,
+  category: dailyChallenge.category ?? '',
+  estimatedMinutes: dailyChallenge.estimatedMinutes,
   language: dailyChallenge.language,
   difficulty: dailyChallenge.difficulty,
   rewardCoins: dailyChallenge.reward.coins,
