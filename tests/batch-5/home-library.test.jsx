@@ -140,6 +140,19 @@ describe('Home learner state', () => {
     expect(cards[1].querySelector('.home-continue-mark svg')).toBeInTheDocument();
   });
 
+  it('keeps Continue Learning artwork untinted with fixed track and brand-aware hover styling', () => {
+    const css = readFileSync('src/styles/pages/home.css', 'utf8');
+    const theme = readFileSync('src/styles/theme.css', 'utf8');
+    expect(css).toMatch(/\.home-continue-mark\s*\{[^}]*background:\s*transparent;/s);
+    expect(css).toMatch(/\.home-continue-mark img\s*\{[^}]*object-fit:\s*contain;/s);
+    expect(css).not.toMatch(/\.home-continue-mark img\s*\{[^}]*(?:filter:|mask:|color:|--color-accent)/s);
+    expect(theme).toContain('--color-progress-track-fixed: #F1F5F9;');
+    expect(theme.match(/--color-progress-track-fixed:/g)).toHaveLength(1);
+    expect(css).toMatch(/\.home-progress-track\s*\{[^}]*background:\s*var\(--color-progress-track-fixed\);/s);
+    expect(css).toMatch(/\.home-progress-track>span\s*\{[^}]*background:\s*var\(--color-accent\);/s);
+    expect(css).toMatch(/\.home-continue-card:hover\s*\{[^}]*background:\s*var\(--color-brand-soft-surface\);/s);
+  });
+
   it('uses a five-column left-aligned Recently Viewed grid on large screens', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
     expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*repeat\(5, minmax\(0, 14\.8125rem\)\)[^}]*justify-content:\s*start/s);
