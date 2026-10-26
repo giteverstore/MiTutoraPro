@@ -1,6 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_PROJECT_FILTERS, filterProjects, projectResultsHeading, ProjectsPage } from '../../src/projects/pages/ProjectsPage';
+import { projectCatalog } from '../../src/projects/repositories/ProjectCatalog.js';
 
 const storage = new Map();
 vi.stubGlobal('localStorage', {
@@ -14,7 +15,10 @@ afterEach(cleanup);
 
 describe('Projects filter cleanup', () => {
   async function renderCatalog() {
-    render(<ProjectsPage publishedRepository={{ listProjects: async () => [] }} />);
+    render(<ProjectsPage publishedRepository={{
+      listProjects: async () => [],
+      resolveProject: async (projectId) => ({ project: projectCatalog.getProjectById(projectId) }),
+    }} />);
     expect(screen.getByRole('status', { name: 'Loading projects' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
     await screen.findByText('5 projects');
@@ -59,7 +63,7 @@ describe('Projects filter cleanup', () => {
   it('opens an overview from the whole project card', async () => {
     await renderCatalog();
     fireEvent.click(screen.getAllByRole('link', { name: /Simple Calculator/ })[0]);
-    expect(screen.getByRole('button', { name: /Start Project/ })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: /Start Project/ })).toBeInTheDocument();
   });
 
   it('keeps project cards and overview available without Premium access', async () => {
@@ -67,7 +71,7 @@ describe('Projects filter cleanup', () => {
     expect(screen.getAllByRole('link')).toHaveLength(1);
     expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
     fireEvent.click(screen.getAllByRole('link', { name: /Simple Calculator/ })[0]);
-    expect(screen.getByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'Simple Calculator' })).toBeInTheDocument();
     expect(screen.queryByText('Premium required')).not.toBeInTheDocument();
   });
 });

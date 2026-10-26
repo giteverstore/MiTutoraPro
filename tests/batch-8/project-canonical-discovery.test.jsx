@@ -67,15 +67,41 @@ describe('canonical Project learner discovery', () => {
   it('uses a valid canonical Project fixture', () => {
     expect(validateContent(document)).toMatchObject({ valid: true, errors: [] });
   });
-  it('lists only published ACTIVE Projects and loads the canonical artifact', async () => {
+  it('lists published ACTIVE Project summaries without loading canonical artifacts', async () => {
     const fetcher = vi.fn(async (url) => url.endsWith('?contentType=PROJECT')
-      ? json({ items: [{ contentId: 'bingo', activeVersion: 1 }] })
+      ? json({ items: [{ contentId: 'bingo', activeVersion: 1, metadata: {
+        title: 'Bingo', summary: content.description, supportedLanguages: languages,
+        category: content.category, difficulty: content.difficulty,
+        estimatedMinutes: content.estimatedMinutes, checkpointCount: checkpoints.length,
+        skills: ['Loops', 'Input validation'],
+      } }] })
       : json({ document }));
     const repository = new PublishedContentRepository({ fetcher });
-    expect((await repository.listProjects()).map(({ id, contentVersion }) => [id, contentVersion])).toEqual([['bingo', 1]]);
-    expect(fetcher.mock.calls.map(([url]) => url)).toEqual(['/api/admin-content/public?contentType=PROJECT', '/api/admin-content/public/bingo']);
+    const [summary] = await repository.listProjects();
+    expect(summary).toMatchObject({
+      id: 'bingo', contentVersion: 1, title: 'Bingo', supportedLanguages: languages,
+      estimatedMinutes: 600, checkpointCount: 8, skills: ['Loops', 'Input validation'],
+    });
+    expect(summary).not.toHaveProperty('checkpoints');
+    expect(fetcher.mock.calls.map(([url]) => url)).toEqual(['/api/admin-content/public?contentType=PROJECT']);
     const unpublished = new PublishedContentRepository({ fetcher: async () => json({ items: [] }) });
     expect(await unpublished.listProjects()).toEqual([]);
+  });
+
+  it('keeps catalog fan-out at zero and loads only one selected Project detail', async () => {
+    const items = Array.from({ length: 20 }, (_, index) => ({
+      contentId: `project-${index + 1}`, activeVersion: 1,
+      metadata: { title: `Project ${index + 1}`, supportedLanguages: ['python'], checkpointCount: 2 },
+    }));
+    const fetcher = vi.fn(async (url) => url.includes('?contentType=PROJECT')
+      ? json({ items })
+      : json({ document: { ...document, contentId: 'project-1', content: { ...content, projectId: 'project-1', title: 'Project 1' } } }));
+    const repository = new PublishedContentRepository({ fetcher });
+    expect(await repository.listProjects()).toHaveLength(20);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    await repository.resolveProject('project-1');
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(fetcher).toHaveBeenLastCalledWith('/api/admin-content/public/project-1');
   });
 
   it('rejects a non-Project artifact returned for a Project route', async () => {

@@ -25,6 +25,12 @@ export class CanonicalPublishedRepository {
     return (payload.items ?? []).filter((item) => item?.contentId && Number.isSafeInteger(item.activeVersion));
   }
   async active(contentId) { return this.fetch(contentId); }
+  async exactSummary(contentId, contentVersion) {
+    const response = await this.fetcher(`${this.endpoint}/${encodeURIComponent(contentId)}/${encodeURIComponent(contentVersion)}/summary`);
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new CanonicalPublishedRepositoryError(payload.error?.code ?? 'content/delivery-failed', payload.error?.message ?? 'Published content summary could not be loaded.');
+    return payload;
+  }
   async exact(contentId, contentVersion) {
     if (this.fetcher !== defaultFetcher || !Number.isSafeInteger(contentVersion) || contentVersion < 1) return this.fetch(contentId, contentVersion);
     const key = JSON.stringify([this.endpoint, this.contentType, contentId, contentVersion]);

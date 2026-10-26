@@ -10,7 +10,10 @@ import { createVercelConfig, ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTE
 vi.mock('../../src/bookmarks/BookmarkToggle', () => ({ BookmarkToggle: () => null }));
 
 const contentId = 'course-1791616150410';
-const pointer = { contentId, activeVersion: 2, metadata: { title: 'Untitled Course', language: 'python' } };
+const pointer = { contentId, activeVersion: 2, metadata: {
+  title: 'Untitled Course', summary: 'A diagnostic course.', language: 'python', difficulty: 'Beginner',
+  estimatedMinutes: 5, lessonCount: 1,
+} };
 
 function courseDocument(comingSoon) {
   const content = {
@@ -36,16 +39,21 @@ describe('minimal canonical Course learner release', () => {
 
   it.each([[false, true], [true, false], [undefined, true]])('maps ACTIVE comingSoon=%s to available=%s', async (comingSoon, available) => {
     const document = courseDocument(comingSoon);
-    const fetcher = fetcherFor(document);
+    const fetcher = vi.fn(async (url) => url.includes('?contentType=')
+      ? response({ items: [{ ...pointer, metadata: { ...pointer.metadata, ...(comingSoon === undefined ? {} : { comingSoon }) } }] })
+      : response({ document }));
     const repository = new CanonicalPublishedRepository({ contentType: 'COURSE', fetcher });
     const [catalogCourse] = await loadActiveCourseCatalog(repository);
     expect(catalogCourse).toMatchObject({ id: contentId, publishedVersion: 2, comingSoon: !available, available });
+    expect(fetcher).toHaveBeenCalledTimes(1);
     expect(adaptCanonicalCourse((await repository.active(contentId)).document)).toMatchObject({ comingSoon: !available, available });
-    expect(fetcher).toHaveBeenCalledWith(`/api/admin-content/public/${contentId}/2`);
+    expect(fetcher).toHaveBeenCalledWith(`/api/admin-content/public/${contentId}`);
   });
 
   it('uses the existing disabled Coming Soon card for the live diagnostic shape', async () => {
-    const repository = new CanonicalPublishedRepository({ contentType: 'COURSE', fetcher: fetcherFor(courseDocument(true)) });
+    const repository = new CanonicalPublishedRepository({ contentType: 'COURSE', fetcher: vi.fn(async (url) => url.includes('?contentType=')
+      ? response({ items: [{ ...pointer, metadata: { ...pointer.metadata, comingSoon: true } }] })
+      : response({ document: courseDocument(true) })) });
     const [course] = await loadActiveCourseCatalog(repository);
     const open = vi.fn();
     render(<CourseCard course={course} onOpenCourse={open} variant="list" allowBookmark={false} />);
@@ -64,16 +72,35 @@ describe('minimal canonical Course learner release', () => {
     await expect(loadCourseMetadata(undefined, contentId, 2)).resolves.toMatchObject({
       provider: 'canonical', canonicalCourse: { comingSoon: true, contentVersion: 2 },
     });
-    const [pinned] = await loadPinnedCourseCatalog([{ courseId: contentId, contentVersion: 2 }], {
-      exact: async () => ({ document: courseDocument(true) }),
-    });
-    expect(pinned).toMatchObject({ id: contentId, publishedVersion: 2 });
+    const list = vi.fn().mockResolvedValue([{ ...pointer, activeVersion: 3, metadata: { ...pointer.metadata, title: 'Current title' } }]);
+    const exactSummary = vi.fn().mockResolvedValue({ contentId, version: 2, metadata: { ...pointer.metadata, title: 'Pinned title', comingSoon: true } });
+    const exact = vi.fn();
+    const [pinned] = await loadPinnedCourseCatalog([{ courseId: contentId, contentVersion: 2 }], { list, exact, exactSummary });
+    expect(pinned).toMatchObject({ id: contentId, title: 'Pinned title', publishedVersion: 2 });
+    expect(list).toHaveBeenCalledTimes(1);
+    expect(exactSummary).toHaveBeenCalledWith(contentId, 2);
+    expect(exact).not.toHaveBeenCalled();
   });
 
-  it('does not treat an unreadable artifact as evidence that the Course is available', async () => {
-    const repository = new CanonicalPublishedRepository({ contentType: 'COURSE', fetcher: async (url) => url.includes('?contentType=')
-      ? response({ items: [pointer] }) : response({ error: { code: 'content/artifact-unavailable' } }, false) });
-    await expect(loadActiveCourseCatalog(repository)).rejects.toMatchObject({ code: 'content/artifact-unavailable' });
+  it('loads twenty Course cards without reading any full Course detail', async () => {
+    const items = Array.from({ length: 20 }, (_, index) => ({
+      ...pointer, contentId: `course-${index + 1}`, metadata: { ...pointer.metadata, title: `Course ${index + 1}` },
+    }));
+    const fetcher = vi.fn(async () => response({ items }));
+    const repository = new CanonicalPublishedRepository({ contentType: 'COURSE', fetcher });
+    expect(await loadActiveCourseCatalog(repository)).toHaveLength(20);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(fetcher).toHaveBeenCalledWith('/api/admin-content/public?contentType=COURSE');
+  });
+
+  it('loads a pinned immutable summary without downloading the Course body', async () => {
+    const fetcher = vi.fn(async (url) => url.endsWith(`/${contentId}/1/summary`)
+      ? response({ contentId, contentType: 'COURSE', version: 1, metadata: { ...pointer.metadata, title: 'Historical title' } })
+      : response({}, false));
+    const repository = new CanonicalPublishedRepository({ contentType: 'COURSE', fetcher });
+    await expect(repository.exactSummary(contentId, 1)).resolves.toMatchObject({ version: 1, metadata: { title: 'Historical title' } });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(fetcher).toHaveBeenCalledWith(`/api/admin-content/public/${contentId}/1/summary`);
   });
 
   it('retains the legacy Firebase Course path when no canonical publication exists', async () => {

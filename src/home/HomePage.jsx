@@ -28,14 +28,14 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
     return () => { active = false; };
   }, []);
   useEffect(() => {
-    if (learnerState.status === 'loading') return undefined;
+    if (learnerState.status === 'loading' || publishedCatalog.status === 'loading') return undefined;
     let active = true;
-    loadPinnedCourseCatalog(learnerState.progress).then(
+    loadPinnedCourseCatalog(learnerState.progress, undefined, publishedCatalog.courses).then(
       (courses) => { if (active) setPinnedCatalog({ status: 'ready', courses }); },
       () => { if (active) setPinnedCatalog({ status: 'error', courses: [] }); },
     );
     return () => { active = false; };
-  }, [learnerState.status, learnerState.progress]);
+  }, [learnerState.status, learnerState.progress, publishedCatalog.status, publishedCatalog.courses]);
 
   useEffect(() => {
     let active = true;

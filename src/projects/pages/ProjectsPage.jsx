@@ -152,14 +152,16 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
   const openProject = async (candidate) => {
     setContentError('');
     const progress = progressFor(candidate.id);
-    let resolved = candidate;
-    if (progress.contentVersion != null && progress.contentVersion !== candidate.contentVersion) {
-      try { resolved = (await publicationRepository.resumeProject(candidate.id, progress.contentVersion)).project; }
-      catch {
-        setContentError('This project version is temporarily unavailable. Your saved progress is safe; please try again later.');
-        return;
-      }
+    let resolved;
+    try {
+      resolved = progress.contentVersion != null
+        ? (await publicationRepository.resumeProject(candidate.id, progress.contentVersion)).project
+        : (await publicationRepository.resolveProject(candidate.id))?.project;
+    } catch {
+      setContentError('This project version is temporarily unavailable. Your saved progress is safe; please try again later.');
+      return;
     }
+    if (!resolved) { setContentError('This project is temporarily unavailable. Please try again later.'); return; }
     setSelected(resolved); setScreen('details'); onProjectChange(resolved.id); resetApplicationPageScroll();
   };
 

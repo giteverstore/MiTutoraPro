@@ -9,7 +9,7 @@ import '../../styles/components/card-footer.css';
 export function ProjectFoundationCard({ project, progress, progressPending = false, onOpen }) {
   const comingSoon = project.comingSoon === true;
   const pending = !comingSoon && (progressPending || !progress);
-  const total = project.checkpoints.length;
+  const total = project.checkpointCount ?? project.checkpoints?.length ?? 0;
   const completed = Math.min(total, progress?.completedCheckpoints?.length ?? 0);
   const percentage = progress?.status === 'completed' ? 100 : total ? Math.round((completed / total) * 100) : 0;
   const artwork = projectArtwork(project);

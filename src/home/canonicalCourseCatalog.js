@@ -12,7 +12,7 @@ export function mapPublishedCourse(entry) {
   const metadata = entry.metadata ?? {};
   const neutral = metadata.language === 'none';
   const group = neutral ? (metadata.topic || 'Other topics') : titleCase(metadata.language || 'Programming');
-  const comingSoon = entry.comingSoon === true;
+  const comingSoon = entry.comingSoon === true || metadata.comingSoon === true || metadata.status === 'coming-soon';
   return {
     id: entry.contentId,
     title: metadata.title || entry.contentId,
@@ -30,29 +30,38 @@ export function mapPublishedCourse(entry) {
 
 export async function loadActiveCourseCatalog(repository = publishedCourses) {
   const entries = await repository.list();
-  return Promise.all(entries.map(async (entry) => {
-    // Pointer metadata omits comingSoon, including for already-published versions.
-    const { document } = await repository.exact(entry.contentId, entry.activeVersion);
-    return mapPublishedCourse({ ...entry, comingSoon: document.content.comingSoon === true });
-  }));
+  return entries.map(mapPublishedCourse);
 }
 
-export async function loadPinnedCourseCatalog(progressRecords, repository = publishedCourses) {
+export async function loadPinnedCourseCatalog(progressRecords, repository = publishedCourses, catalogEntries = null) {
   const records = progressRecords.filter((record) => Number.isSafeInteger(record.contentVersion) && (record.courseId ?? record.id));
+  const entries = catalogEntries ?? await repository.list();
+  const summaries = new Map(entries.map((entry) => {
+    const course = entry.contentId ? mapPublishedCourse(entry) : entry;
+    return [course.id, course];
+  }));
   const resolved = await Promise.all(records.map(async (record) => {
     const contentId = record.courseId ?? record.id;
+    const summary = summaries.get(contentId);
+    if (summary?.publishedVersion === record.contentVersion) return summary;
     try {
-      const { document } = await repository.exact(contentId, record.contentVersion);
-      const course = document.content;
-      return mapPublishedCourse({ contentId, activeVersion: document.version, comingSoon: course.comingSoon === true, metadata: {
-        title: course.title, summary: course.description, language: course.language,
-        topic: course.language === 'none' ? course.tags?.[0] : undefined,
-        difficulty: course.difficulty, estimatedMinutes: course.estimatedMinutes,
-        lessonCount: course.modules.flatMap((module) => module.sections?.flatMap((section) => section.lessons) ?? module.lessons ?? []).length,
-      } });
-    } catch { return null; }
+      const exact = await repository.exactSummary(contentId, record.contentVersion);
+      return mapPublishedCourse({ contentId, activeVersion: exact.version, metadata: exact.metadata });
+    } catch { /* Preserve the pinned route with bounded progress metadata when its summary is unavailable. */ }
+    return mapPublishedCourse({
+      contentId,
+      activeVersion: record.contentVersion,
+      metadata: {
+        title: record.courseTitle ?? record.title ?? contentId,
+        summary: record.courseDescription ?? record.description ?? '',
+        language: record.language,
+        difficulty: record.difficulty,
+        estimatedMinutes: record.estimatedMinutes,
+        lessonCount: record.lessonCount,
+      },
+    });
   }));
-  return resolved.filter(Boolean);
+  return resolved;
 }
 
 export function mergeCourseCatalog(legacy, published) {

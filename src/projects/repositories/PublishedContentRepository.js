@@ -31,6 +31,34 @@ export function adaptPublishedProject(project, contentVersion = null, metadata =
   };
 }
 
+const boundedCount = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 0;
+
+export function adaptPublishedProjectSummary(entry) {
+  const metadata = entry?.metadata ?? {};
+  const supportedLanguages = Array.isArray(metadata.supportedLanguages)
+    ? metadata.supportedLanguages.filter((language) => typeof language === 'string')
+    : typeof metadata.language === 'string' && metadata.language ? [metadata.language] : [];
+  const checkpointCount = boundedCount(metadata.checkpointCount ?? metadata.checkpoints);
+  return {
+    id: entry.contentId,
+    slug: entry.contentId,
+    contentVersion: entry.activeVersion,
+    title: metadata.title || entry.contentId,
+    description: metadata.summary || metadata.description || '',
+    supportedLanguages,
+    language: supportedLanguages[0] ?? '',
+    category: metadata.category || '',
+    difficulty: metadata.difficulty || '',
+    estimatedMinutes: Math.max(0, Number(metadata.estimatedMinutes) || 0),
+    artwork: metadata.artwork,
+    comingSoon: metadata.comingSoon === true || metadata.status === 'coming-soon',
+    skills: Array.isArray(metadata.skills)
+      ? metadata.skills.slice(0, 3)
+      : Array.isArray(metadata.tags) ? metadata.tags.slice(0, 3) : [],
+    checkpointCount,
+  };
+}
+
 export class PublishedContentRepository {
   constructor({ fetcher = (...args) => globalThis.fetch(...args), legacyCatalog = null, endpoint = '/api/admin-content/public' } = {}) {
     this.fetcher = fetcher;
@@ -42,7 +70,8 @@ export class PublishedContentRepository {
     if (!response.ok) throw new PublishedContentDeliveryError('content/catalog-failed', 'Published projects could not be loaded.');
     const payload = await response.json().catch(() => ({}));
     const records = Array.isArray(payload.items) ? payload.items : [];
-    return Promise.all(records.map(async ({ contentId }) => { const { document } = await this.fetch(contentId); return adaptPublishedProject(document.content, document.version, document.metadata); }));
+    return records.filter(({ contentId, activeVersion }) => contentId && Number.isSafeInteger(activeVersion))
+      .map(adaptPublishedProjectSummary);
   }
   async resolveProject(projectId) {
     const published = await this.fetch(projectId).catch((error) => {
