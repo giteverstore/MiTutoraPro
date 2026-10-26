@@ -22,6 +22,8 @@
   --color-border-strong: #cbc9c1;
   --color-border-fixed: #F1F5F9;
   --color-progress-track-fixed: #F1F5F9;
+  --color-neutral-surface-fixed: #F1F5F9;
+  --color-text-on-neutral-fixed: #111111;
 
   /* Brand / interaction */
   --color-accent: #2563eb;

@@ -140,7 +140,7 @@ describe('Home learner state', () => {
     expect(cards[1].querySelector('.home-continue-mark svg')).toBeInTheDocument();
   });
 
-  it('keeps Continue Learning artwork untinted with fixed track and brand-aware hover styling', () => {
+  it('keeps Continue Learning artwork untinted with a fixed track and subtle hover behavior', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
     const theme = readFileSync('src/styles/theme.css', 'utf8');
     expect(css).toMatch(/\.home-continue-mark\s*\{[^}]*background:\s*transparent;/s);
@@ -150,7 +150,7 @@ describe('Home learner state', () => {
     expect(theme.match(/--color-progress-track-fixed:/g)).toHaveLength(1);
     expect(css).toMatch(/\.home-progress-track\s*\{[^}]*background:\s*var\(--color-progress-track-fixed\);/s);
     expect(css).toMatch(/\.home-progress-track>span\s*\{[^}]*background:\s*var\(--color-accent\);/s);
-    expect(css).toMatch(/\.home-continue-card:hover\s*\{[^}]*background:\s*var\(--color-brand-soft-surface\);/s);
+    expect(css).not.toMatch(/\.home-continue-card:hover\s*\{[^}]*background:/s);
   });
 
   it('uses a five-column left-aligned Recently Viewed grid on large screens', () => {

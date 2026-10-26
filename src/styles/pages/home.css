@@ -707,11 +707,6 @@
   border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
-  transition: background var(--duration-fast);
-}
-
-.home-continue-card:hover {
-  background: var(--color-brand-soft-surface);
 }
 
 .home-continue-grid .home-continue-card {
@@ -887,9 +882,10 @@
   font-size: var(--font-size-sm);
 }
 
-.home-filter-list button:hover {
+.home-filter-list button:hover,
+.home-filter-list button:focus-visible {
   color: var(--color-text);
-  border-color: var(--color-border-strong);
+  border-color: var(--color-accent);
   transform: translateY(-1px);
 }
 

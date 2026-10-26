@@ -137,8 +137,8 @@
   min-width: 0;
   min-height: 2.875rem;
   padding: var(--space-3);
-  color: var(--color-text);
-  background: var(--color-canvas);
+  color: var(--color-text-on-neutral-fixed);
+  background: var(--color-neutral-surface-fixed);
   border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-md);
 }

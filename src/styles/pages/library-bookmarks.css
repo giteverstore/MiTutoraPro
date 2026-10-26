@@ -148,7 +148,7 @@
   display: inline-flex;
   gap: var(--space-1);
   padding: var(--space-1);
-  background: var(--color-surface-subtle);
+  background: var(--color-neutral-surface-fixed);
   border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-full);
 }
@@ -159,7 +159,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: 0 var(--space-4);
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-neutral-fixed);
   background: transparent;
   border: 0;
   border-radius: var(--radius-full);
@@ -325,8 +325,8 @@
 
 .saved-item-copy>div span {
   padding: var(--space-1) var(--space-2);
-  color: var(--color-text-muted);
-  background: var(--color-surface-subtle);
+  color: var(--color-text-on-neutral-fixed);
+  background: var(--color-neutral-surface-fixed);
   border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
 }

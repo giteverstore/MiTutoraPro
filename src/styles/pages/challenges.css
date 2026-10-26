@@ -398,6 +398,10 @@
   border-bottom: 0;
 }
 
+.challenge-history-list .button--secondary {
+  border-color: var(--color-border-fixed);
+}
+
 .challenge-history-list article>span:first-child {
   color: var(--color-text-muted);
 }

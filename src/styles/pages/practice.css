@@ -70,8 +70,8 @@
 .practice-search>div {
   width: 100%;
   min-height: var(--control-height-lg);
-  color: var(--color-text);
-  background: var(--color-surface-raised);
+  color: var(--color-text-on-neutral-fixed);
+  background: var(--color-neutral-surface-fixed);
   border: 1px solid var(--color-border-fixed);
   border-radius: var(--radius-md);
 }
@@ -91,13 +91,13 @@
 
 .practice-search svg {
   width: var(--icon-md);
-  color: var(--color-text-muted);
+  color: var(--color-text-on-neutral-fixed);
 }
 
 .practice-search input {
   width: 100%;
   min-width: 0;
-  color: var(--color-text);
+  color: var(--color-text-on-neutral-fixed);
   background: transparent;
   border: 0;
   outline: 0;
@@ -134,6 +134,12 @@
   border-radius: var(--radius-full);
   font-size: 1rem; /* 16px */
   cursor: pointer;
+}
+
+.practice-topic-chips button:hover,
+.practice-topic-chips button:focus-visible {
+  color: var(--color-text);
+  border-color: var(--color-accent);
 }
 
 .practice-topic-chips button.is-active {
