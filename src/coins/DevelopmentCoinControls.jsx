@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { authenticatedJsonPost } from '../api/authenticatedJsonRequest';
 import { authService } from '../auth/AuthService';
 import { COIN_BALANCE_UPDATED_EVENT } from './coinEvents';
 
@@ -13,10 +14,9 @@ export function DevelopmentCoinControls({ currentBalance, onAdjusted }) {
     if (!Number.isSafeInteger(targetBalance) || targetBalance > 100_000) return setStatus({ pending: false, error: 'Enter a whole number from 0 to 100000.' });
     setStatus({ pending: true, error: '' });
     try {
-      const idToken = await authService.getIdToken();
-      if (!idToken) throw new Error('Sign in with the local emulator first.');
-      const response = await fetch('/api/dev/coins/set-balance', { method: 'POST', headers: { Authorization: `Bearer ${idToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ targetBalance, requestId: crypto.randomUUID() }) });
-      const body = await response.json().catch(() => null);
+      const result = await authenticatedJsonPost({ tokenProvider: () => authService.getIdToken(), fetchImpl: (...args) => globalThis.fetch(...args), url: '/api/dev/coins/set-balance', body: { targetBalance, requestId: crypto.randomUUID() } });
+      if (!result) throw new Error('Sign in with the local emulator first.');
+      const { response, payload: body } = result;
       if (!response.ok) throw new Error(body?.error?.message || 'The development adjustment failed.');
       globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: body.balance } }));
       await onAdjusted?.();

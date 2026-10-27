@@ -56,7 +56,16 @@ describe('M4.2 subscription plan actions', () => {
     expect(screen.getByText(/Current plan: monthly .* expires/)).toBeTruthy();
     const request = JSON.parse(fetchImpl.mock.calls[0][1].body);
     expect(request).toEqual({ planId: 'monthly', requestId: 'request-ui-idempotency-0001' });
+    expect(fetchImpl.mock.calls[0][1].headers).toEqual({ Authorization: 'Bearer emulator-token', 'Content-Type': 'application/json' });
     expect(request).not.toHaveProperty('priceMinor');
+  });
+
+  it('keeps development-grant missing auth sanitized and suppresses fetch', async () => {
+    const fetchImpl = vi.fn();
+    render(<SubscriptionPanel developmentGrantsEnabled currentUser={user} tokenProvider={async () => null} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} />);
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Get Premium' }))[0]);
+    expect((await screen.findByRole('alert')).textContent).toBe('The development grant was rejected.');
+    expect(fetchImpl).not.toHaveBeenCalled();
   });
 
   it('opens one production checkout and waits for verified CAPTURED state before showing Premium', async () => {

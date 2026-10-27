@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { authenticatedJsonPost } from '../api/authenticatedJsonRequest';
 import { authService } from '../auth/AuthService';
 import { useFirebaseEmulators } from '../firebase/firebase';
 import { SubscriptionRepository } from './SubscriptionRepository';
@@ -27,9 +28,8 @@ export function SubscriptionPanel({ developmentGrantsEnabled = useFirebaseEmulat
     grantingRef.current = true;
     setState((current) => ({ ...current, status: 'granting', grantingPlanId: planId, error: '' }));
     try {
-      const token = await tokenProvider();
-      const response = await fetchImpl('/api/subscriptions/development-grant', { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ planId, requestId: crypto.randomUUID() }) });
-      if (!response.ok) throw new Error();
+      const result = await authenticatedJsonPost({ tokenProvider, fetchImpl, url: '/api/subscriptions/development-grant', body: { planId, requestId: crypto.randomUUID() } });
+      if (!result?.response.ok) throw new Error();
       await load(); window.dispatchEvent(new Event('mitutora:subscription-updated'));
     } catch { setState((current) => ({ ...current, status: 'error', grantingPlanId: null, error: 'The development grant was rejected.' })); }
     finally { grantingRef.current = false; }

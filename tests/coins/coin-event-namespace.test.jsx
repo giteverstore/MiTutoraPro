@@ -85,12 +85,40 @@ describe('coin balance event namespace', () => {
   });
 
   it('uses the canonical event for development balance adjustments', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => response({ balance: 42 })));
+    const fetchImpl = vi.fn(async () => response({ balance: 42 }));
+    vi.stubGlobal('fetch', fetchImpl);
     const event = captureNextBalance();
     render(<DevelopmentCoinControls currentBalance={5} />);
     fireEvent.change(screen.getByLabelText('Set canonical balance'), { target: { value: '42' } });
     fireEvent.click(screen.getByRole('button', { name: 'Set Coins' }));
     await expect(event).resolves.toMatchObject({ detail: { balance: 42 } });
+    expect(fetchImpl).toHaveBeenCalledWith('/api/dev/coins/set-balance', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer test-token', 'Content-Type': 'application/json' },
+      body: expect.any(String),
+    });
+    expect(JSON.parse(fetchImpl.mock.calls[0][1].body)).toEqual({ targetBalance: 42, requestId: expect.any(String) });
+  });
+
+  it('preserves development coin missing-auth and server error messages', async () => {
+    const fetchImpl = vi.fn();
+    vi.stubGlobal('fetch', fetchImpl);
+    mocks.getIdToken.mockResolvedValueOnce(null);
+    const { unmount } = render(<DevelopmentCoinControls currentBalance={5} />);
+    fireEvent.change(screen.getByLabelText('Set canonical balance'), { target: { value: '42' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Set Coins' }));
+    expect((await screen.findByRole('alert')).textContent).toBe('Sign in with the local emulator first.');
+    expect(fetchImpl).not.toHaveBeenCalled();
+    unmount();
+
+    fetchImpl.mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({ error: { message: 'Development balance rejected.' } }),
+    });
+    render(<DevelopmentCoinControls currentBalance={5} />);
+    fireEvent.change(screen.getByLabelText('Set canonical balance'), { target: { value: '42' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Set Coins' }));
+    expect((await screen.findByRole('alert')).textContent).toBe('Development balance rejected.');
   });
 
   it('temporarily accepts the legacy redemption event at the balance consumer boundary', async () => {
