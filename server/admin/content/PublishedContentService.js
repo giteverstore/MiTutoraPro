@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { normalizeContent, safeContentId } from '../../../shared/content/index.js';
 import { ContentPublicationError } from './ContentPublicationError.js';
+import { timePublicContent, timePublicContentSync } from './publicContentTiming.js';
 
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
@@ -16,8 +17,8 @@ export class PublishedContentService {
     return this.listActive('PROJECT');
   }
   async listActive(contentType) {
-    const pointers = await this.store.listActivePointers(contentType);
-    return pointers.map(({ contentId, activeVersion, metadataSnapshot, updatedAt }) => ({ contentId, activeVersion, metadata: metadataSnapshot ?? {}, updatedAt }));
+    const pointers = await timePublicContent('query', () => this.store.listActivePointers(contentType));
+    return timePublicContentSync('project', () => pointers.map(({ contentId, activeVersion, metadataSnapshot, updatedAt }) => ({ contentId, activeVersion, metadata: metadataSnapshot ?? {}, updatedAt })));
   }
   async fetchVersionSummary(contentId, version) {
     const id = safeContentId(contentId);

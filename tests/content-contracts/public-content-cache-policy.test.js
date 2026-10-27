@@ -21,9 +21,19 @@ const routeFor = (delivery) => createAdminContentApiRouter({
 });
 
 describe('public content cache policy', () => {
-  it('uses short shared caching for catalog and ACTIVE responses', async () => {
+  it('uses bounded five-minute shared caching for catalogs', async () => {
+    const delivery = { listActive: vi.fn(async () => []) };
+    const result = response();
+    await routeFor(delivery)(request(['public']), result);
+    expect(result.statusCode).toBe(200);
+    expect(result.headers).toMatchObject(PUBLIC_CACHE_POLICY.catalog);
+    expect(result.headers['CDN-Cache-Control']).toBe('public, s-maxage=300, stale-while-revalidate=3600');
+    expect(result.headers['Cache-Control']).not.toContain('immutable');
+  });
+
+  it('keeps short shared caching for ACTIVE responses', async () => {
     const delivery = { listActive: vi.fn(async () => []), resolveActive: vi.fn(async () => ({ document: { contentId: 'course' } })) };
-    for (const path of [['public'], ['public', 'course']]) {
+    for (const path of [['public', 'course']]) {
       const result = response();
       await routeFor(delivery)(request(path), result);
       expect(result.statusCode).toBe(200);

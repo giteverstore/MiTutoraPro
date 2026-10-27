@@ -14,6 +14,7 @@ import { ContentPublicationError } from './ContentPublicationError.js';
 import { AdminAssetService } from './AdminAssetService.js';
 import { ChallengeAssignmentService } from './ChallengeAssignmentService.js';
 import { PublicationSummaryBackfillService } from './PublicationSummaryBackfillService.js';
+import { runWithPublicContentTiming, setPublicContentTimingHeader, timePublicContent } from './publicContentTiming.js';
 
 const allowedContentTypes = new Set(Object.values(CONTENT_TYPES));
 export const PUBLICATION_SUMMARY_BACKFILL_CONFIRMATION = 'APPLY_PUBLICATION_SUMMARY_BACKFILL';
@@ -46,6 +47,14 @@ const assetIdPattern = /^asset-[a-f0-9-]{36}$/;
 const mediaTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
 export const PUBLIC_CACHE_POLICY = Object.freeze({
   private: Object.freeze({ 'Cache-Control': 'private, no-store' }),
+  catalog: Object.freeze({
+    'Cache-Control': 'public, max-age=0, must-revalidate',
+    // Publication is an explicit Admin operation. Five minutes bounds normal
+    // catalog visibility while the longer SWR window keeps regional cold
+    // starts off the learner navigation path when origin is temporarily slow.
+    'CDN-Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600',
+    'Vercel-CDN-Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600',
+  }),
   mutable: Object.freeze({
     'Cache-Control': 'public, max-age=0, must-revalidate',
     'CDN-Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
@@ -170,17 +179,26 @@ export async function createAdminStorageBucket(environment = process.env, google
   catch (error) { await session.close(); throw error; }
 }
 
-export async function createDefaultContentDependencies({ environment = process.env, googleCredentials, useDedicatedAdminBucket = false } = {}) {
-  const firestoreSession = await createDefaultFirestore(environment, googleCredentials);
+export async function createDefaultContentDependencies({ environment = process.env, googleCredentials, useDedicatedAdminBucket = false, catalogOnly = false } = {}, {
+  firestoreFactory = createDefaultFirestore,
+  storageFactory = createAdminStorageBucket,
+} = {}) {
+  const firestoreSession = await firestoreFactory(environment, googleCredentials);
+  const db = firestoreSession.db;
+  const store = new FirebaseContentPublicationStore(db);
+  if (catalogOnly) {
+    return {
+      delivery: new PublishedContentService({ store, artifacts: null }),
+      close: () => firestoreSession.close(),
+    };
+  }
   let storageSession;
   try {
-    storageSession = await createAdminStorageBucket(environment, googleCredentials, { useDedicatedAdminBucket });
+    storageSession = await storageFactory(environment, googleCredentials, { useDedicatedAdminBucket });
   } catch (error) {
     await firestoreSession.close();
     throw error;
   }
-  const db = firestoreSession.db;
-  const store = new FirebaseContentPublicationStore(db);
   const bucket = storageSession.bucket;
   const artifacts = new FirebaseArtifactStore(bucket);
   const assets = new FirebaseAssetRegistry(db, bucket);
@@ -203,6 +221,9 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
   return async (request, response) => {
     applyCachePolicy(response, 'private');
     const path = segments(request);
+    const isPublic = request.method === 'GET' && path[0] === 'public';
+    const isPublicCatalog = isPublic && !path[1];
+    return runWithPublicContentTiming(isPublic, async () => {
     let resources;
     try {
       if (publicOnly && !(request.method === 'GET' && path[0] === 'public')) {
@@ -215,7 +236,6 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         if (path[0] !== 'public' && !/^Bearer\s+\S+$/i.test(String(request.headers?.authorization ?? ''))) return response.status(401).json({ error: { code: 'admin/auth-required', message: 'Admin authentication is required.' } });
         return response.status(503).json({ error: { code: 'admin/preview-backend-disabled', message: 'Preview content is not configured.' } });
       }
-      const isPublic = request.method === 'GET' && path[0] === 'public';
       const isSummaryBackfill = path[0] === 'maintenance' && path[1] === 'publication-summary-backfill' && !path[2];
       if (isSummaryBackfill && request.method !== 'POST') {
         throw new ContentPublicationError('content/method-not-allowed', 'Method not allowed.', { status: 405 });
@@ -226,7 +246,7 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
         return response.status(401).json({ error: { code: 'admin/auth-required', message: 'Admin authentication is required.' } });
       }
       googleCredentials = credentialFactory({ request, environment, configurationResolver });
-      await googleCredentials.preflight();
+      await timePublicContent('wif', () => googleCredentials.preflight());
       if (!isPublic) {
         const permission = isSummaryBackfill ? ADMIN_PERMISSIONS.ADMIN_MANAGE
           : request.method === 'GET' ? ADMIN_PERMISSIONS.ADMIN_ACCESS
@@ -252,7 +272,9 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
           return response.status(200).json({ backfill: result });
         }
       }
-      resources = await dependencies({ environment, googleCredentials, useDedicatedAdminBucket });
+      const dependencyOptions = { environment, googleCredentials, useDedicatedAdminBucket };
+      if (isPublicCatalog) dependencyOptions.catalogOnly = true;
+      resources = await timePublicContent('client', () => dependencies(dependencyOptions));
       const { service, delivery, assetService, challengeAssignments } = resources;
       if (request.method === 'GET' && path[0] === 'public' && path[1] === 'assets' && path.length === 5) {
         if (!assetIdPattern.test(path[4])) return response.status(404).json({ error: { code: 'content/asset-not-found', message: 'Published image was not found.' } });
@@ -279,9 +301,10 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       }
       if (request.method === 'GET' && path[0] === 'public' && !path[1]) {
         const contentType = String(request.query?.contentType ?? '').toUpperCase() || 'PROJECT';
-        if (!['PROJECT', 'COURSE', 'PRACTICE', 'CHALLENGE'].includes(contentType)) return response.status(400).json({ error: { code: 'content/type-invalid', message: 'Unsupported content type.' } });
+        if (!['PROJECT', 'COURSE', 'PRACTICE', 'CHALLENGE'].includes(contentType)) throw new ContentPublicationError('content/type-invalid', 'Unsupported content type.', { status: 400 });
         const items = await delivery.listActive(contentType);
-        applyCachePolicy(response, 'mutable');
+        applyCachePolicy(response, 'catalog');
+        setPublicContentTimingHeader(response);
         return response.status(200).json({ items, ...(contentType === 'PROJECT' ? { projects: items } : {}) });
       }
       if (request.method === 'GET' && path[0] === 'public' && path[1]) {
@@ -346,7 +369,11 @@ export function createAdminContentApiRouter({ dependencies = createDefaultConten
       if (path[0] === 'rollback') return response.status(200).json({ active: await service.activate({ actor, contentId: input.contentId, version: input.version, expectedActiveRevision: input.expectedActiveRevision }) });
       if (path[0] === 'archive') return response.status(200).json({ active: await service.archive({ actor, contentId: input.contentId, expectedActiveRevision: input.expectedActiveRevision }) });
       return response.status(404).json({ error: { code: 'content/not-found', message: 'Content API route not found.' } });
-    } catch (error) { return sendError(response, error); }
+    } catch (error) {
+      if (isPublic) setPublicContentTimingHeader(response, { success: false });
+      return sendError(response, error);
+    }
     finally { await resources?.close?.(); }
+    });
   };
 }
