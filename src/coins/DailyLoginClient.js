@@ -1,4 +1,5 @@
 import { authService } from '../auth/AuthService';
+import { COIN_BALANCE_UPDATED_EVENT } from './coinEvents';
 
 export class DailyLoginClient {
   constructor({ endpoint = '/api/activity/daily-login', fetchImpl = globalThis.fetch, tokenProvider = () => authService.getIdToken() } = {}) {
@@ -18,7 +19,7 @@ export class DailyLoginClient {
     if (!response.ok) return null;
     const result = await response.json().catch(() => null);
     if (Number.isSafeInteger(result?.balance)) {
-      globalThis.dispatchEvent?.(new CustomEvent('mi-tutora:coin-balance', { detail: { balance: result.balance } }));
+      globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: result.balance } }));
     }
     return result;
   }

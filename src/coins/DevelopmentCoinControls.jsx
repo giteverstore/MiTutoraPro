@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { authService } from '../auth/AuthService';
+import { COIN_BALANCE_UPDATED_EVENT } from './coinEvents';
 
 export function DevelopmentCoinControls({ currentBalance, onAdjusted }) {
   const [value, setValue] = useState(String(currentBalance));
@@ -17,7 +18,7 @@ export function DevelopmentCoinControls({ currentBalance, onAdjusted }) {
       const response = await fetch('/api/dev/coins/set-balance', { method: 'POST', headers: { Authorization: `Bearer ${idToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ targetBalance, requestId: crypto.randomUUID() }) });
       const body = await response.json().catch(() => null);
       if (!response.ok) throw new Error(body?.error?.message || 'The development adjustment failed.');
-      globalThis.dispatchEvent?.(new CustomEvent('mi-tutora:coin-balance', { detail: { balance: body.balance } }));
+      globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: body.balance } }));
       await onAdjusted?.();
       setValue(String(body.balance));
       setStatus({ pending: false, error: '' });

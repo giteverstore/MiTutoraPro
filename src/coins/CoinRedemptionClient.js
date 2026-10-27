@@ -1,3 +1,5 @@
+import { COIN_BALANCE_UPDATED_EVENT } from './coinEvents';
+
 async function token() { const { authService } = await import('../auth/AuthService'); return authService.getIdToken(); }
 
 export class CoinRedemptionClient {
@@ -9,7 +11,7 @@ export class CoinRedemptionClient {
     const response = await this.fetchImpl(endpoint, { method: 'POST', headers: { Authorization: `Bearer ${idToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify(request) });
     const body = await response.json().catch(() => null);
     if (!response.ok) { const error = new Error(body?.error?.message || 'Redemption could not be completed.'); error.code = body?.error?.code; throw error; }
-    globalThis.dispatchEvent?.(new CustomEvent('mitutora:coin-balance', { detail: { balance: body.balance } }));
+    globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: body.balance } }));
     globalThis.dispatchEvent?.(new Event('mitutora:redemption-updated'));
     if (type === 'PREMIUM_MONTH') globalThis.dispatchEvent?.(new Event('mitutora:subscription-updated'));
     return body;

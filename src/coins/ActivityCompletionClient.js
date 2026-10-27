@@ -1,3 +1,5 @@
+import { COIN_BALANCE_UPDATED_EVENT } from './coinEvents';
+
 export class ActivityCompletionClientError extends Error {
   constructor(message, { code = 'coin/service-unavailable', status = 0 } = {}) { super(message); this.name = 'ActivityCompletionClientError'; this.code = code; this.status = status; }
 }
@@ -26,7 +28,7 @@ export class ActivityCompletionClient {
     const body = await response.json().catch(() => null);
     if (!response.ok) throw new ActivityCompletionClientError(body?.error?.message || 'Completion could not be saved.', { code: body?.error?.code, status: response.status });
     if (body?.rewardStatus === 'credited' && Number.isSafeInteger(body.balance)) {
-      globalThis.dispatchEvent?.(new CustomEvent('mi-tutora:coin-balance', { detail: { balance: body.balance } }));
+      globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: body.balance } }));
     }
     return body;
   }

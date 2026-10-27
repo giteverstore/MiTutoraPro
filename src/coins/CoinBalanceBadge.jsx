@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Coins } from 'lucide-react';
 import { authService } from '../auth/AuthService';
 import { CoinAccountRepository } from '../repositories/firestore/CoinAccountRepository';
+import { COIN_BALANCE_UPDATE_EVENTS } from './coinEvents';
 
 export function CoinBalanceBadge() {
   const [state, setState] = useState({ status: 'loading', balance: 0 });
@@ -20,10 +21,10 @@ export function CoinBalanceBadge() {
     const update = (event) => {
       if (active && Number.isSafeInteger(event.detail?.balance)) setState({ status: 'ready', balance: event.detail.balance });
     };
-    globalThis.addEventListener?.('mi-tutora:coin-balance', update);
+    COIN_BALANCE_UPDATE_EVENTS.forEach((eventName) => globalThis.addEventListener?.(eventName, update));
     return () => {
       active = false;
-      globalThis.removeEventListener?.('mi-tutora:coin-balance', update);
+      COIN_BALANCE_UPDATE_EVENTS.forEach((eventName) => globalThis.removeEventListener?.(eventName, update));
     };
   }, []);
 
