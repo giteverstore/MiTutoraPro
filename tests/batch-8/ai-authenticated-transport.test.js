@@ -302,10 +302,26 @@ describe('Project AI authenticated transport integration', () => {
       });
   });
 
-  it('documents the existing Project history Bearer null behavior and cursor contract', async () => {
+  it.each([null, undefined, ''])('rejects missing Project history token %s before fetch', async (token) => {
+    const fetchImpl = vi.fn();
+    const client = new ProjectAIClient({
+      tokenProvider: vi.fn().mockResolvedValue(token),
+      fetchImpl,
+    });
+
+    await expect(client.history({ contentId: 'project-1' })).rejects.toMatchObject({
+      name: 'AITutorClientError',
+      message: 'Sign in to use the AI Mentor.',
+      code: 'ai/auth-required',
+      status: 0,
+    });
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it('preserves the valid Project history bearer and cursor contract', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(jsonResponse({ messages: [] }));
     const client = new ProjectAIClient({
-      tokenProvider: vi.fn().mockResolvedValue(null),
+      tokenProvider: vi.fn().mockResolvedValue('project-history-token'),
       fetchImpl,
     });
 
@@ -321,6 +337,29 @@ describe('Project AI authenticated transport integration', () => {
     expect(url).toContain('projectVersion=v5');
     expect(url).toContain('checkpointId=checkpoint-2');
     expect(url).toContain('cursor=cursor-4');
-    expect(options.headers.Authorization).toBe('Bearer null');
+    expect(options.headers.Authorization).toBe('Bearer project-history-token');
+    expect(options.method).toBeUndefined();
+    expect(options.body).toBeUndefined();
+  });
+
+  it('preserves Project history token rejection and fetch abort behavior', async () => {
+    const tokenError = new Error('token provider failed');
+    const rejectedFetch = vi.fn();
+    const rejectedClient = new ProjectAIClient({
+      tokenProvider: vi.fn().mockRejectedValue(tokenError),
+      fetchImpl: rejectedFetch,
+    });
+    await expect(rejectedClient.history({ contentId: 'project-1' })).rejects.toBe(tokenError);
+    expect(rejectedFetch).not.toHaveBeenCalled();
+
+    const abortError = new DOMException('cancelled', 'AbortError');
+    const abortFetch = vi.fn().mockRejectedValue(abortError);
+    const abortClient = new ProjectAIClient({
+      tokenProvider: vi.fn().mockResolvedValue('token'),
+      fetchImpl: abortFetch,
+    });
+    const signal = new AbortController().signal;
+    await expect(abortClient.history({ contentId: 'project-1' }, { signal })).rejects.toBe(abortError);
+    expect(abortFetch).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ signal }));
   });
 });
