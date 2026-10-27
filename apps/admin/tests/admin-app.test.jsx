@@ -66,7 +66,7 @@ describe('Admin routing foundation', () => {
     expect(within(navigation).queryByText('Document Editor')).not.toBeInTheDocument();
   });
   it.each([
-    ['/admin/users', 'Users / Roles'], ['/admin/settings', 'Settings'], ['/admin/audit', 'Audit Log'],
+    ['/admin/users', 'Users / Roles'], ['/admin/audit', 'Audit Log'],
   ])('renders the honest placeholder for %s', async (path, title) => {
     render(<AdminApplication authClient={authClientFor(session(ADMIN_ROLES.CONTENT_ADMIN))} initialPath={path} />);
     expect(await screen.findByRole('heading', { name: title, level: 1 })).toBeInTheDocument();

@@ -13,6 +13,7 @@ import { AssetsPage } from './publishing/AssetsPage.jsx';
 import { DraftsPage, PublishedPage, VersionsPage } from './publishing/PublishingPages.jsx';
 import { adminContentRequest } from './publishing/publishingApi.js';
 import { isPreviewContentDisabled } from './publishing/adminContentError.js';
+import { AdminSettingsPage } from './PublicationSummaryMaintenance.jsx';
 
 const needsCloudContent = (path) => /^\/content\/(?:projects|courses|practice|challenges)(?:\/|$)|^\/publishing(?:\/|$)|^\/media\/assets$/.test(path);
 
@@ -25,7 +26,7 @@ export function AdminAccessDenied({ session, authClient, onRefresh }) {
   return <main className="admin-state-page"><section className="admin-state-card"><h1>This account does not have access to Y Coders Admin.</h1><p>You are signed in as <strong>{session.email || session.uid}</strong>, but no authorized Admin role is present.</p><div className="admin-state-actions"><button className="admin-primary-button" type="button" disabled={refreshing} onClick={async () => { setRefreshing(true); try { await onRefresh(); } finally { setRefreshing(false); } }}>{refreshing ? 'Checking…' : 'Check access again'}</button><button className="admin-secondary-button" type="button" onClick={authClient.signOut}>Sign out</button></div></section></main>;
 }
 
-export function AdminApplication({ authClient, initialPath, checkContentAccess = adminContentRequest, enableContentGate = typeof __ADMIN_PREVIEW_DEPLOYMENT__ !== 'undefined' && __ADMIN_PREVIEW_DEPLOYMENT__ }) {
+export function AdminApplication({ authClient, initialPath, checkContentAccess = adminContentRequest, maintenanceRequest = adminContentRequest, enableContentGate = typeof __ADMIN_PREVIEW_DEPLOYMENT__ !== 'undefined' && __ADMIN_PREVIEW_DEPLOYMENT__ }) {
   const [authState, setAuthState] = useState({ status: 'loading', session: null, message: '' });
   const [path, setPath] = useState(() => normalizeAdminPath(initialPath ?? window.location.pathname));
   const [versionSelection, setVersionSelection] = useState(() => new URLSearchParams((initialPath?.split('?')[1] ?? window.location.search.slice(1))).get('contentId') ?? '');
@@ -80,6 +81,7 @@ export function AdminApplication({ authClient, initialPath, checkContentAccess =
   if (route?.path === '/publishing/drafts') page = <DraftsPage role={session.role} onNavigate={navigate} />;
   if (route?.path === '/publishing/published') page = <PublishedPage role={session.role} onNavigate={navigate} />;
   if (route?.path === '/publishing/versions') page = <VersionsPage role={session.role} onNavigate={navigate} selectedContentId={versionSelection} />;
+  if (route?.path === '/admin/settings') page = <AdminSettingsPage role={session.role} request={maintenanceRequest} />;
   if (enableContentGate && needsCloudContent(path)) {
     if (contentAccess === 'unknown') page = <main className="admin-page" role="status">Checking content access…</main>;
     if (contentAccess === 'preview-disabled') page = <PreviewContentDisabled />;
