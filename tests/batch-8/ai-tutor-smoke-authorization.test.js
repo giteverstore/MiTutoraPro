@@ -223,7 +223,9 @@ describe('Production one-shot AI Tutor smoke authorization', () => {
 
   it('keeps the smoke credential and marker capability out of the browser client', async () => {
     const client = await readFile('src/ai/AITutorClient.js', 'utf8');
+    const transport = await readFile('src/ai/aiAuthenticatedRequest.js', 'utf8');
     expect(client).not.toMatch(/AI_TUTOR_SMOKE_TEST_SECRET|AI_TUTOR_SMOKE_TEST_UID|x-ai-tutor-smoke-authorization|tutorSmokeAuthorization/);
-    expect(client).toContain("Authorization: `Bearer ${token}`");
+    expect(transport).not.toMatch(/AI_TUTOR_SMOKE_TEST_SECRET|AI_TUTOR_SMOKE_TEST_UID|x-ai-tutor-smoke-authorization|tutorSmokeAuthorization/);
+    expect(transport).toContain("Authorization: `Bearer ${token}`");
   });
 });

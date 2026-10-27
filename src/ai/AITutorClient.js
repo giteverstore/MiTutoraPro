@@ -1,3 +1,5 @@
+import { aiAuthenticatedRequest } from './aiAuthenticatedRequest';
+
 export class AITutorClient {
   constructor({ endpoint = '/api/ai/explain', fetchImpl = globalThis.fetch, tokenProvider = defaultTokenProvider } = {}) {
     this.endpoint = endpoint;
@@ -16,10 +18,7 @@ export class AITutorClient {
     if (!token) throw new AITutorClientError('Sign in to use the AI Tutor.', { code: 'ai/auth-required' });
     let response;
     try {
-      response = await this.fetchImpl.call(globalThis, this.endpoint, {
-        method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload), signal,
-      });
+      response = await aiAuthenticatedRequest({ fetchImpl: this.fetchImpl, url: this.endpoint, token, body: payload, signal });
     } catch (error) {
       if (error.name === 'AbortError') throw error;
       throw new AITutorClientError('The AI Tutor could not be reached. Check your connection and try again.', { code: 'ai/provider-unavailable', retryable: true });
@@ -43,7 +42,7 @@ export class AITutorClient {
   async history(scope, { before, signal } = {}) {
     const token = await withAbort(this.tokenProvider(), signal); if (!token) throw new AITutorClientError('Sign in to use the AI Tutor.', { code: 'ai/auth-required' });
     const query = new URLSearchParams(Object.entries({ ...scope, ...(before ? { before } : {}) }).filter(([, value]) => value != null).map(([key, value]) => [key, String(value)]));
-    const response = await this.fetchImpl.call(globalThis, `/api/ai/history?${query}`, { headers: { Authorization: `Bearer ${token}` }, signal }); const body = await response.json(); if (!response.ok) throw new AITutorClientError(body?.error?.message || 'Tutor history could not be loaded.', { code: body?.error?.code, status: response.status }); return body;
+    const response = await aiAuthenticatedRequest({ fetchImpl: this.fetchImpl, url: `/api/ai/history?${query}`, token, signal }); const body = await response.json(); if (!response.ok) throw new AITutorClientError(body?.error?.message || 'Tutor history could not be loaded.', { code: body?.error?.code, status: response.status }); return body;
   }
 }
 
