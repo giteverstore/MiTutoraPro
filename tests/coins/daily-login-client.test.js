@@ -20,4 +20,16 @@ describe('DailyLoginClient', () => {
     const failed = new DailyLoginClient({ fetchImpl: vi.fn(async () => ({ ok: false })), tokenProvider: async () => 'token' });
     await expect(failed.claim()).resolves.toBeNull();
   });
+
+  it('preserves token-provider failures and tolerates malformed success JSON', async () => {
+    const tokenFailure = new Error('token failed');
+    await expect(new DailyLoginClient({ fetchImpl: vi.fn(), tokenProvider: async () => { throw tokenFailure; } }).claim())
+      .rejects.toBe(tokenFailure);
+
+    const malformed = new DailyLoginClient({
+      fetchImpl: vi.fn(async () => ({ ok: true, json: vi.fn().mockRejectedValue(new SyntaxError('invalid')) })),
+      tokenProvider: async () => 'token',
+    });
+    await expect(malformed.claim()).resolves.toBeNull();
+  });
 });

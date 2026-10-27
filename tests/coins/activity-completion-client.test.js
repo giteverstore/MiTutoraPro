@@ -59,5 +59,24 @@ describe('ActivityCompletionClient browser request boundary', () => {
     const rejected = new ActivityCompletionClient({ fetchImpl: async () => response({ error: { code: 'coin/service-unavailable', message: 'Completion could not be saved.' } }, { ok: false, status: 503 }), tokenProvider: async () => 'firebase-token' });
     await expect(rejected.complete({ activityType: 'PRACTICE', activityId: 'practice-1', activityVersion: 'v2' }))
       .rejects.toMatchObject({ code: 'coin/service-unavailable', status: 503 });
+
+    const tokenFailure = new Error('token failed');
+    await expect(new ActivityCompletionClient({ fetchImpl, tokenProvider: async () => { throw tokenFailure; } })
+      .complete({ activityType: 'PRACTICE', activityId: 'practice-1', activityVersion: 'v2' }))
+      .rejects.toBe(tokenFailure);
+  });
+
+  it('preserves the typed fallback for malformed HTTP error responses', async () => {
+    const client = new ActivityCompletionClient({
+      tokenProvider: async () => 'firebase-token',
+      fetchImpl: async () => ({ ok: false, status: 502, json: vi.fn().mockRejectedValue(new SyntaxError('invalid')) }),
+    });
+    await expect(client.complete({ activityType: 'PRACTICE', activityId: 'practice-1', activityVersion: 'v2' }))
+      .rejects.toMatchObject({
+        name: 'ActivityCompletionClientError',
+        message: 'Completion could not be saved.',
+        code: 'coin/service-unavailable',
+        status: 502,
+      });
   });
 });

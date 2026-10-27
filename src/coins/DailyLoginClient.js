@@ -1,4 +1,5 @@
 import { authService } from '../auth/AuthService';
+import { authenticatedJsonPost } from '../api/authenticatedJsonRequest';
 import { COIN_BALANCE_UPDATED_EVENT } from './coinEvents';
 
 export class DailyLoginClient {
@@ -9,19 +10,19 @@ export class DailyLoginClient {
   }
 
   async claim() {
-    const idToken = await this.tokenProvider();
-    if (!idToken) return null;
-    const response = await this.fetchImpl(this.endpoint, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${idToken}`, 'Content-Type': 'application/json' },
-      body: '{}',
+    const result = await authenticatedJsonPost({
+      tokenProvider: this.tokenProvider,
+      fetchImpl: this.fetchImpl,
+      url: this.endpoint,
+      body: {},
     });
+    if (!result) return null;
+    const { response, payload } = result;
     if (!response.ok) return null;
-    const result = await response.json().catch(() => null);
-    if (Number.isSafeInteger(result?.balance)) {
-      globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: result.balance } }));
+    if (Number.isSafeInteger(payload?.balance)) {
+      globalThis.dispatchEvent?.(new CustomEvent(COIN_BALANCE_UPDATED_EVENT, { detail: { balance: payload.balance } }));
     }
-    return result;
+    return payload;
   }
 }
 
