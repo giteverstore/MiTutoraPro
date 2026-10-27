@@ -5,8 +5,18 @@ import react from '@vitejs/plugin-react';
 import { build, preview } from 'vite';
 
 const outDir = resolve('.tmp-monaco-lifecycle');
+const testFirebaseEnvironment = {
+  VITE_FIREBASE_API_KEY: 'test-api-key',
+  VITE_FIREBASE_AUTH_DOMAIN: 'test.invalid',
+  VITE_FIREBASE_PROJECT_ID: 'test-project',
+  VITE_FIREBASE_STORAGE_BUCKET: 'test-project.appspot.com',
+  VITE_FIREBASE_MESSAGING_SENDER_ID: '123456789',
+  VITE_FIREBASE_APP_ID: '1:123456789:web:monaco-lifecycle',
+};
 await build({
   configFile: false,
+  define: Object.fromEntries(Object.entries(testFirebaseEnvironment)
+    .map(([name, value]) => [`import.meta.env.${name}`, JSON.stringify(value)])),
   plugins: [react()],
   worker: { format: 'es' },
   build: { emptyOutDir: true, outDir, rollupOptions: { input: resolve('tests/fixtures/monaco-lifecycle.html') } },
@@ -15,6 +25,10 @@ const server = await preview({ configFile: false, preview: { host: '127.0.0.1', 
 const baseUrl = server.resolvedUrls.local[0];
 const browser = await chromium.launch({ headless: true, args: ['--js-flags=--expose-gc'] });
 const page = await browser.newPage();
+if (process.env.MONACO_LIFECYCLE_FORCE_PAGE_ERROR === 'true') {
+  await page.addInitScript(() => queueMicrotask(() => { throw new Error('Controlled lifecycle fixture failure.'); }));
+}
+const pageError = new Promise((resolveError) => page.once('pageerror', resolveError));
 const cdp = await page.context().newCDPSession(page);
 await cdp.send('Performance.enable');
 
@@ -25,7 +39,16 @@ async function metrics() {
 
 try {
   await page.goto(new URL('tests/fixtures/monaco-lifecycle.html', baseUrl).href, { waitUntil: 'domcontentloaded', timeout: 120_000 });
-  await page.getByLabel('Lifecycle editor').waitFor({ timeout: 90_000 });
+  const readiness = await Promise.race([
+    page.getByLabel('Lifecycle editor').waitFor({ timeout: 90_000 }).then(() => ({ ready: true })),
+    pageError.then((error) => ({ error })),
+  ]);
+  if (readiness.error) {
+    const message = String(readiness.error.message || 'Unknown page error.')
+      .split('\n', 1)[0]
+      .replaceAll(/https?:\/\/\S+/g, '<url>');
+    throw new Error(`Monaco lifecycle fixture failed before the editor mounted: ${message}`);
+  }
   const baseline = await page.evaluate(() => monacoLifecycle.modelCount());
   const heapBefore = await page.evaluate(() => monacoLifecycle.heap());
   const workersBefore = page.workers().length;
