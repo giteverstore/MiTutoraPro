@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .vite/
+*.log
 *.local
 .env
 test-results/
@@ -21,3 +22,5 @@ firebase-admin-credentials*.json
 .vercel
 .env*
 .tmp/
+.tmp-monaco-lifecycle/
+tools/dotnet-runtime/obj/
