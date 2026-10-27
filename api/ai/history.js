@@ -16,17 +16,23 @@ export function createAIHistoryHandler({ environment = process.env, authenticato
     try {
       const finishWif = timing.start('wif'); const credentials = credentialFactory({ request, environment }); await credentials.preflight(); finishWif();
       const finishAuth = timing.start('auth'); const principal = await authenticator.authenticate(request, { environment, googleCredentials: credentials }); finishAuth();
-      const finishPremium = timing.start('premium'); const entitlement = await premiumAccessGuardFactory(environment, credentials).assertPremium(principal); finishPremium();
-      const version = request.query?.contentVersion == null ? undefined : Number(request.query.contentVersion); const body = { tutorScope: { surface: request.query?.surface, scopeId: request.query?.scopeId, activityId: request.query?.activityId, checkpointId: request.query?.checkpointId, taskId: request.query?.taskId, contentVersion: version } }; const finishScope = timing.start('scope'); const scope = await scopeResolver({ body, principal }); finishScope();
-      if (scope.surface === 'practice') throw new AIServiceError('ai/forbidden', 'Practice Tutor history is not available.', { status: 403 });
-      const finishClient = timing.start('client');
-      const quota = createDefaultTutorQuotaGuard(environment, { createFirestore: (env) => createTutorQuotaFirestore(env, { authClient: credentials.authClient }) }); const ownerKey = quota.identityKey(principal.uid); const store = storeFactory ? storeFactory() : new FirestoreTutorExperienceStore({ db: createTutorQuotaFirestore(environment, { authClient: credentials.authClient }) });
-      finishClient();
       const measure = async (name, operation) => {
         const finish = timing.start(name);
         try { return await operation(); }
         finally { finish(); }
       };
+      const version = request.query?.contentVersion == null ? undefined : Number(request.query.contentVersion); const body = { tutorScope: { surface: request.query?.surface, scopeId: request.query?.scopeId, activityId: request.query?.activityId, checkpointId: request.query?.checkpointId, taskId: request.query?.taskId, contentVersion: version } };
+      const [premiumResult, scopeResult] = await Promise.allSettled([
+        measure('premium', () => premiumAccessGuardFactory(environment, credentials).assertPremium(principal)),
+        measure('scope', () => scopeResolver({ body, principal })),
+      ]);
+      if (premiumResult.status === 'rejected') throw premiumResult.reason;
+      if (scopeResult.status === 'rejected') throw scopeResult.reason;
+      const entitlement = premiumResult.value; const scope = scopeResult.value;
+      if (scope.surface === 'practice') throw new AIServiceError('ai/forbidden', 'Practice Tutor history is not available.', { status: 403 });
+      const finishClient = timing.start('client');
+      const quota = createDefaultTutorQuotaGuard(environment, { createFirestore: (env) => createTutorQuotaFirestore(env, { authClient: credentials.authClient }) }); const ownerKey = quota.identityKey(principal.uid); const store = storeFactory ? storeFactory() : new FirestoreTutorExperienceStore({ db: createTutorQuotaFirestore(environment, { authClient: credentials.authClient }) });
+      finishClient();
       const [historyResult, usageResult] = await Promise.allSettled([
         measure('history', () => store.history({ ownerKey, scope, limit: 5, before: request.query?.before || null })),
         measure('usage', () => store.usageSnapshot(ownerKey)),

@@ -47,6 +47,58 @@ describe('Tutor history API ownership boundary', () => {
     expect(res.status).toHaveBeenCalledWith(200); expect(res.body.usage.remainingMessages).toBe(28);
   });
 
+  it('starts Premium and canonical scope checks together, then gates private reads behind both', async () => {
+    const premiumResult = deferred(); const scopeResult = deferred(); const started = [];
+    const assertPremium = vi.fn(() => { started.push('premium'); return premiumResult.promise; });
+    const scopeResolver = vi.fn(() => { started.push('scope'); return scopeResult.promise; });
+    const history = vi.fn().mockResolvedValue({ items: [], nextCursor: null });
+    const usageSnapshot = vi.fn().mockResolvedValue({ usedMessages: 0, reservedMessages: 0 });
+    const res = response();
+    const pending = createHandler({
+      premiumAccessGuardFactory: () => ({ assertPremium }), scopeResolver,
+      storeFactory: () => ({ history, usageSnapshot }),
+    })({ method: 'GET', query: {}, headers: {} }, res);
+    await vi.waitFor(() => expect(started).toEqual(['premium', 'scope']));
+    expect(history).not.toHaveBeenCalled(); expect(usageSnapshot).not.toHaveBeenCalled();
+    premiumResult.resolve(entitlement);
+    await Promise.resolve();
+    expect(history).not.toHaveBeenCalled(); expect(usageSnapshot).not.toHaveBeenCalled();
+    scopeResult.resolve(scope);
+    await pending;
+    expect(history).toHaveBeenCalledTimes(1); expect(usageSnapshot).toHaveBeenCalledTimes(1);
+    expect(res.status).toHaveBeenCalledWith(200);
+  });
+
+  it('settles both authorization checks and preserves Premium-error precedence when both fail', async () => {
+    const premiumResult = deferred(); const scopeResult = deferred();
+    const history = vi.fn(); const usageSnapshot = vi.fn(); const res = response();
+    const pending = createHandler({
+      premiumAccessGuardFactory: () => ({ assertPremium: () => premiumResult.promise }),
+      scopeResolver: () => scopeResult.promise,
+      storeFactory: () => ({ history, usageSnapshot }),
+    })({ method: 'GET', query: {}, headers: {} }, res);
+    premiumResult.reject(new Error('premium failed'));
+    await Promise.resolve();
+    expect(res.json).not.toHaveBeenCalled();
+    scopeResult.reject(new Error('scope failed'));
+    await pending;
+    expect(history).not.toHaveBeenCalled(); expect(usageSnapshot).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.headers['Server-Timing']).toMatch(/^total;dur=\d+\.\d$/);
+  });
+
+  it('does not start Premium, scope, history, or usage work when authentication fails', async () => {
+    const assertPremium = vi.fn(); const scopeResolver = vi.fn(); const history = vi.fn(); const usageSnapshot = vi.fn(); const res = response();
+    await createHandler({
+      authenticator: { authenticate: async () => { throw new Error('auth failed'); } },
+      premiumAccessGuardFactory: () => ({ assertPremium }), scopeResolver,
+      storeFactory: () => ({ history, usageSnapshot }),
+    })({ method: 'GET', query: {}, headers: {} }, res);
+    expect(assertPremium).not.toHaveBeenCalled(); expect(scopeResolver).not.toHaveBeenCalled();
+    expect(history).not.toHaveBeenCalled(); expect(usageSnapshot).not.toHaveBeenCalled();
+    expect(res.headers['Server-Timing']).toMatch(/^total;dur=\d+\.\d$/);
+  });
+
   it.each([
     ['authentication', { authenticator: { authenticate: async () => { throw new Error('auth failed'); } } }],
     ['Premium authorization', { premiumAccessGuardFactory: () => ({ assertPremium: async () => { throw new Error('premium failed'); } }) }],
