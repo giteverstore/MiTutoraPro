@@ -29,7 +29,7 @@ export function dailyLoginFailureCategory(error) {
   return 'RUNTIME_FAILURE';
 }
 
-export function createDailyLoginHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, firestoreFactory = createDefaultFirestore, rewardServiceFactory = ({ ledger, timestamp }) => new DailyLoginRewardService({ ledger, timestamp }), logger = console } = {}) {
+export function createDailyLoginHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, firestoreFactory = createDefaultFirestore, rewardServiceFactory = ({ ledger, timestamp, claimTiming }) => new DailyLoginRewardService({ ledger, timestamp, claimTiming }), logger = console } = {}) {
   return async function dailyLoginHandler(request, response) {
     const timing = createServerTiming();
     if (request.method !== 'POST') {
@@ -56,7 +56,16 @@ export function createDailyLoginHandler({ environment = process.env, authenticat
       const db = session.db;
       const timestamp = () => Timestamp.now();
       const ledger = new CoinLedgerService({ db, timestamp });
-      const service = rewardServiceFactory({ ledger, timestamp });
+      const timed = (name) => async (action) => {
+        const finish = timing.start(name);
+        try { return await action(); }
+        finally { finish(); }
+      };
+      const service = rewardServiceFactory({
+        ledger,
+        timestamp,
+        claimTiming: { read: timed('claim_read'), transaction: timed('claim_txn') },
+      });
       stage = 'DAILY_LOGIN_TRANSACTION';
       const finishClaim = timing.start('claim');
       const result = await service.claim({

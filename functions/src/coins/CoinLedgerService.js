@@ -139,13 +139,42 @@ export class CoinLedgerService {
     });
   }
 
-  async claimActivityReward(input, claim, { verifyEligibility, dailyCredit } = {}) {
+  async claimActivityReward(input, claim, { verifyEligibility, dailyCredit, replayFastPath = false, timing = null } = {}) {
     if (!claim?.path || !claim?.data) failCoin('coin/invalid-argument', 'A server-derived reward claim is required.');
     if (typeof verifyEligibility !== 'function') failCoin('coin/invalid-argument', 'Transactional eligibility verification is required.');
-    return this.#post(normalizeMutation(input, COIN_DIRECTIONS.CREDIT), { claimToCreate: claim, verifyEligibility, dailyCredit });
+    return this.#post(normalizeMutation(input, COIN_DIRECTIONS.CREDIT), {
+      claimToCreate: claim, verifyEligibility, dailyCredit, replayFastPath, timing,
+    });
   }
 
-  async #post(mutation, { claim = null, claimToCreate = null, verifyEligibility = null, dailyCredit = null } = {}) {
+  #validatedReplay(mutation, fingerprint, transactionId, replaySnapshot, ledgerSnapshot) {
+    if (!replaySnapshot.exists) return null;
+    const replay = replaySnapshot.data();
+    if (replay.fingerprint !== fingerprint || replay.ownerUid !== mutation.uid || replay.transactionId !== transactionId) {
+      failCoin('coin/idempotency-conflict', 'The idempotency key is already bound to another mutation.');
+    }
+    if (!ledgerSnapshot.exists) failCoin('coin/data-integrity', 'Idempotency record has no matching ledger entry.');
+    const existing = ledgerSnapshot.data();
+    if (existing.ownerUid !== mutation.uid
+      || existing.amount !== mutation.amount
+      || existing.direction !== mutation.direction
+      || existing.type !== mutation.type
+      || existing.sourceType !== mutation.sourceType
+      || existing.sourceId !== mutation.sourceId
+      || existing.idempotencyKey !== mutation.idempotencyKey
+      || existing.policyVersion !== mutation.policyVersion
+      || existing.status !== COIN_TRANSACTION_STATUSES.POSTED) {
+      failCoin('coin/data-integrity', 'Replay protection does not match its ledger entry.');
+    }
+    return {
+      transactionId,
+      balance: nonNegativeInteger(existing.balanceAfter, 'balanceAfter'),
+      revision: nonNegativeInteger(existing.accountRevision, 'accountRevision'),
+      duplicate: true,
+    };
+  }
+
+  async #post(mutation, { claim = null, claimToCreate = null, verifyEligibility = null, dailyCredit = null, replayFastPath = false, timing = null } = {}) {
     const fingerprint = mutationFingerprint(mutation);
     const idempotencyId = digestIdentifier('idem', mutation.idempotencyKey);
     const transactionId = digestIdentifier('coin', mutation.idempotencyKey);
@@ -153,39 +182,30 @@ export class CoinLedgerService {
     const accountReference = this.db.doc(accountPath(mutation.uid));
     const ledgerReference = this.db.doc(transactionPath(mutation.uid, transactionId));
     const claimReference = (claim?.path || claimToCreate?.path) ? this.db.doc(claim?.path || claimToCreate.path) : null;
+    const usageReference = dailyCredit ? this.db.doc(dailyCredit.path) : null;
 
-    return this.db.runTransaction(async (transaction) => {
-      const replaySnapshot = await transaction.get(replayReference);
+    const measure = async (stage, action) => typeof timing?.[stage] === 'function' ? timing[stage](action) : action();
+    if (replayFastPath) {
+      const replay = await measure('read', async () => {
+        const [replaySnapshot, ledgerSnapshot] = await this.db.getAll(replayReference, ledgerReference);
+        return this.#validatedReplay(mutation, fingerprint, transactionId, replaySnapshot, ledgerSnapshot);
+      });
+      if (replay) return replay;
+    }
+
+    return measure('transaction', () => this.db.runTransaction(async (transaction) => {
+      const references = [replayReference, accountReference, ledgerReference];
+      if (claimReference) references.push(claimReference);
+      if (usageReference) references.push(usageReference);
+      const snapshots = await transaction.getAll(...references);
+      const [replaySnapshot, accountSnapshot, ledgerSnapshot] = snapshots;
+      let offset = 3;
+      const claimSnapshot = claimReference ? snapshots[offset++] : null;
+      const usageSnapshot = usageReference ? snapshots[offset] : null;
       if (replaySnapshot.exists) {
-        const replay = replaySnapshot.data();
-        if (replay.fingerprint !== fingerprint || replay.ownerUid !== mutation.uid || replay.transactionId !== transactionId) {
-          failCoin('coin/idempotency-conflict', 'The idempotency key is already bound to another mutation.');
-        }
-        const existingLedger = await transaction.get(ledgerReference);
-        if (!existingLedger.exists) failCoin('coin/data-integrity', 'Idempotency record has no matching ledger entry.');
-        const existing = existingLedger.data();
-        if (existing.ownerUid !== mutation.uid
-          || existing.amount !== mutation.amount
-          || existing.direction !== mutation.direction
-          || existing.type !== mutation.type
-          || existing.sourceType !== mutation.sourceType
-          || existing.sourceId !== mutation.sourceId
-          || existing.idempotencyKey !== mutation.idempotencyKey
-          || existing.policyVersion !== mutation.policyVersion
-          || existing.status !== COIN_TRANSACTION_STATUSES.POSTED) {
-          failCoin('coin/data-integrity', 'Replay protection does not match its ledger entry.');
-        }
-        return {
-          transactionId,
-          balance: nonNegativeInteger(existing.balanceAfter, 'balanceAfter'),
-          revision: nonNegativeInteger(existing.accountRevision, 'accountRevision'),
-          duplicate: true,
-        };
+        return this.#validatedReplay(mutation, fingerprint, transactionId, replaySnapshot, ledgerSnapshot);
       }
 
-      const references = claimReference ? [accountReference, ledgerReference, claimReference] : [accountReference, ledgerReference];
-      const snapshots = await transaction.getAll(...references);
-      const [accountSnapshot, ledgerSnapshot, claimSnapshot] = snapshots;
       if (ledgerSnapshot.exists) failCoin('coin/data-integrity', 'Ledger entry exists without replay protection.');
 
       let claimData = null;
@@ -212,11 +232,8 @@ export class CoinLedgerService {
 
       if (verifyEligibility) await verifyEligibility(transaction);
 
-      let usageReference = null;
       let usage = null;
       if (dailyCredit) {
-        usageReference = this.db.doc(dailyCredit.path);
-        const usageSnapshot = await transaction.get(usageReference);
         if (!usageSnapshot.exists && dailyCredit.createIfMissing !== true) failCoin('coin/data-integrity', 'Daily activity usage is missing for this completion.');
         usage = usageSnapshot.exists ? usageSnapshot.data() : {
           completionAttempts: 0,
@@ -286,6 +303,6 @@ export class CoinLedgerService {
         else transaction.update(claimReference, { rewardStatus: 'GRANTED', rewardTransactionId: transactionId, rewardedAt: timestamp });
       }
       return { transactionId, balance: next.availableBalance, revision: next.revision, duplicate: false };
-    });
+    }));
   }
 }

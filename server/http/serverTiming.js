@@ -6,6 +6,8 @@ const APPROVED_METRICS = new Set([
   'auth',
   'client',
   'claim',
+  'claim_read',
+  'claim_txn',
   'premium',
   'scope',
   'history',

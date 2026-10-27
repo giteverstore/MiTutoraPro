@@ -51,6 +51,7 @@ describe('server-authoritative daily login reward', () => {
     expect(options.dailyCredit).toEqual({
       path: 'users/learner-a/activityUsage/2026-09-10', cap: MVP_DAILY_ACTIVITY_COIN_CAP, createIfMissing: true,
     });
+    expect(options.replayFastPath).toBe(true);
   });
 
   it('rejects every client-controlled reward authority field', async () => {

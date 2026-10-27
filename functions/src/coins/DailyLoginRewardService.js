@@ -31,6 +31,7 @@ export class DailyLoginRewardService {
     now = () => new Date(),
     timestamp = () => Timestamp.now(),
     dailyCreditCap = MVP_DAILY_ACTIVITY_COIN_CAP,
+    claimTiming = null,
   }) {
     if (!ledger?.claimActivityReward) throw new TypeError('DailyLoginRewardService requires the coin ledger.');
     this.ledger = ledger;
@@ -38,6 +39,7 @@ export class DailyLoginRewardService {
     this.now = now;
     this.timestamp = timestamp;
     this.dailyCreditCap = dailyCreditCap;
+    this.claimTiming = claimTiming;
   }
 
   async claim({ principal, request }) {
@@ -106,6 +108,8 @@ export class DailyLoginRewardService {
         cap: this.dailyCreditCap,
         createIfMissing: true,
       },
+      replayFastPath: true,
+      timing: this.claimTiming,
     });
 
     return Object.freeze({

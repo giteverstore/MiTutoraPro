@@ -72,4 +72,26 @@ describe('Daily Login runtime diagnostics', () => {
     expect(response.state.headers['Server-Timing']).toMatch(/^wif;dur=\d+\.\d, auth;dur=\d+\.\d, client;dur=\d+\.\d, claim;dur=\d+\.\d, total;dur=\d+\.\d$/);
     expect(response.state.headers['Server-Timing']).not.toMatch(/private-user|desc=/);
   });
+
+  it('adds safe replay-read and transaction timings while preserving the outer claim metric', async () => {
+    const response = responseRecorder();
+    const handler = createDailyLoginHandler({
+      environment: {},
+      credentialFactory: () => ({ preflight: async () => {} }),
+      authenticator: { authenticate: async () => ({ uid: 'private-user' }) },
+      firestoreFactory: async () => ({ db: { doc: vi.fn(), runTransaction: vi.fn() }, close: async () => {} }),
+      rewardServiceFactory: ({ claimTiming }) => ({
+        claim: async () => {
+          await claimTiming.read(async () => {});
+          await claimTiming.transaction(async () => {});
+          return { status: 'already_claimed', rewardAmount: 0, balance: 11, revision: 2 };
+        },
+      }),
+    });
+    await handler({ method: 'POST', headers: {}, body: {} }, response);
+    expect(response.state.headers['Server-Timing']).toMatch(/claim_read;dur=\d+\.\d/);
+    expect(response.state.headers['Server-Timing']).toMatch(/claim_txn;dur=\d+\.\d/);
+    expect(response.state.headers['Server-Timing']).toMatch(/claim;dur=\d+\.\d/);
+    expect(response.state.headers['Server-Timing']).not.toMatch(/private-user|desc=/);
+  });
 });
