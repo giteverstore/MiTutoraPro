@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { parseAppRoute, routePage, routePath, resetApplicationPageScroll, writeAppRoute } from '../../src/routing/appRoutes';
+import { deriveAuthenticatedRouteState, parseAppRoute, routePage, routePath, resetApplicationPageScroll, writeAppRoute } from '../../src/routing/appRoutes';
 import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, HASHED_ASSET_CACHE_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, PRIVATE_API_CACHE_ROUTE, createVercelConfig } from '../../vercel.mjs';
 import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
@@ -18,6 +18,16 @@ const pageRoutes = [
 ];
 
 describe('application URL adapter', () => {
+  it.each([
+    [{ kind: 'page', page: 'library' }, { activeCourseId: null, courseStage: 'overview', activePage: 'library', navigationTarget: null, launchLessonId: null, routeNotFound: false }],
+    [{ kind: 'course-lesson', courseId: 'python', lessonId: 'intro' }, { activeCourseId: 'python', courseStage: 'learning', activePage: 'home', navigationTarget: null, launchLessonId: 'intro', routeNotFound: false }],
+    [{ kind: 'practice-question', page: 'practice', questionId: 'q-1' }, { activeCourseId: null, courseStage: 'overview', activePage: 'practice', navigationTarget: { page: 'practice', questionId: 'q-1' }, launchLessonId: null, routeNotFound: false }],
+    [{ kind: 'challenge-daily', page: 'challenges', date: '2026-10-28' }, { activeCourseId: null, courseStage: 'overview', activePage: 'challenges', navigationTarget: { page: 'challenges', date: '2026-10-28' }, launchLessonId: null, routeNotFound: false }],
+    [{ kind: 'not-found' }, { activeCourseId: null, courseStage: 'overview', activePage: 'home', navigationTarget: null, launchLessonId: null, routeNotFound: true }],
+  ])('derives authenticated application state from %o', (route, expected) => {
+    expect(deriveAuthenticatedRouteState(route)).toEqual(expected);
+  });
+
   it.each([
     ['/privacy', 'privacy'],
     ['/terms', 'terms'],

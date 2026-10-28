@@ -8,7 +8,7 @@ import { createCompilerManager } from './compiler/createCompilerManager';
 import { UserDataLifecycle } from './user-data/UserDataLifecycle';
 import { DomainErrorBoundary } from './errors/ErrorBoundary';
 import { ErrorState } from './errors/ErrorState';
-import { parseAppRoute, routePage, writeAppRoute } from './routing/appRoutes';
+import { deriveAuthenticatedRouteState, parseAppRoute, writeAppRoute } from './routing/appRoutes';
 import { lazyNamedExport } from './routing/lazyRoute';
 import { SubscriptionAccessProvider, useSubscriptionAccess } from './access/SubscriptionAccessContext';
 import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
@@ -176,14 +176,13 @@ function UserGate() {
 function AuthenticatedApplication({ user }) {
   const { tier } = useSubscriptionAccess();
   const [initialRoute] = useState(() => parseAppRoute(window.location.pathname));
-  const [activeCourseId, setActiveCourseId] = useState(() => initialRoute.courseId ?? null);
-  const [courseStage, setCourseStage] = useState(() => initialRoute.kind === 'course-lesson' ? 'learning' : 'overview');
-  const [activePage, setActivePage] = useState(() => initialRoute.page ?? 'home');
-  const [navigationTarget, setNavigationTarget] = useState(() => initialRoute.questionId
-    ? { page: 'practice', questionId: initialRoute.questionId }
-    : initialRoute.date ? { page: 'challenges', date: initialRoute.date } : null);
-  const [launchLessonId, setLaunchLessonId] = useState(() => initialRoute.lessonId ?? null);
-  const [routeNotFound, setRouteNotFound] = useState(() => initialRoute.kind === 'not-found');
+  const [initialRouteState] = useState(() => deriveAuthenticatedRouteState(initialRoute));
+  const [activeCourseId, setActiveCourseId] = useState(initialRouteState.activeCourseId);
+  const [courseStage, setCourseStage] = useState(initialRouteState.courseStage);
+  const [activePage, setActivePage] = useState(initialRouteState.activePage);
+  const [navigationTarget, setNavigationTarget] = useState(initialRouteState.navigationTarget);
+  const [launchLessonId, setLaunchLessonId] = useState(initialRouteState.launchLessonId);
+  const [routeNotFound, setRouteNotFound] = useState(initialRouteState.routeNotFound);
   const [examOpen, setExamOpen] = useState(false);
   const [setupVerificationOpen, setSetupVerificationOpen] = useState(false);
   const ActivePage = APPLICATION_PAGES[activePage];
@@ -193,13 +192,13 @@ function AuthenticatedApplication({ user }) {
   }, [activeCourseId, activePage, courseStage]);
 
   const applyRoute = (route) => {
-    setRouteNotFound(route.kind === 'not-found');
-    setActiveCourseId(route.courseId ?? null);
-    setCourseStage(route.kind === 'course-lesson' ? 'learning' : 'overview');
-    setLaunchLessonId(route.lessonId ?? null);
-    setActivePage(routePage(route));
-    setNavigationTarget(route.questionId ? { page: 'practice', questionId: route.questionId }
-      : route.date ? { page: 'challenges', date: route.date } : null);
+    const next = deriveAuthenticatedRouteState(route);
+    setRouteNotFound(next.routeNotFound);
+    setActiveCourseId(next.activeCourseId);
+    setCourseStage(next.courseStage);
+    setLaunchLessonId(next.launchLessonId);
+    setActivePage(next.activePage);
+    setNavigationTarget(next.navigationTarget);
   };
 
   const navigateTo = (route, options) => { writeAppRoute(route, options); applyRoute(route); };

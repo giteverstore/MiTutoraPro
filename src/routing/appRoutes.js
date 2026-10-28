@@ -53,6 +53,19 @@ export function routePage(route) {
   return 'home';
 }
 
+export function deriveAuthenticatedRouteState(route) {
+  return {
+    activeCourseId: route.courseId ?? null,
+    courseStage: route.kind === 'course-lesson' ? 'learning' : 'overview',
+    activePage: routePage(route),
+    navigationTarget: route.questionId
+      ? { page: 'practice', questionId: route.questionId }
+      : route.date ? { page: 'challenges', date: route.date } : null,
+    launchLessonId: route.lessonId ?? null,
+    routeNotFound: route.kind === 'not-found',
+  };
+}
+
 export function resetApplicationPageScroll() {
   const page = document.getElementById('application-page');
   if (page) {
