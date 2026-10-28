@@ -1,21 +1,23 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
 const source = (path) => readFileSync(path, 'utf8');
+const learningSource = () => readStylesheetGraph('src/styles/pages/learning-engine.css');
 
 describe('shared learner workspace style ownership', () => {
   it('loads the canonical compiler and AI styles before Practice overrides', () => {
     const route = source('src/pages/PracticePage.jsx');
     expect(route.indexOf("import '../styles/pages/learning-engine.css'"))
       .toBeLessThan(route.indexOf("import '../styles/pages/practice.css'"));
-    const shared = source('src/styles/pages/learning-engine.css');
+    const shared = learningSource();
     for (const selector of ['.learning-workspace-tabs', '.compiler-panel', '.terminal-tabs', '.ai-workspace']) {
       expect(shared).toContain(selector);
     }
   });
 
   it('uses theme-aware readable foregrounds for Course, Practice, and Project Tutor responses', () => {
-    const shared = source('src/styles/pages/learning-engine.css');
+    const shared = learningSource();
     const projects = source('src/styles/pages/projects.css');
     expect(shared).toMatch(/\.ai-workspace-message\.is-assistant\s*\{[^}]*--ai-tutor-response-text:\s*var\(--color-text\);[^}]*color:\s*var\(--color-text\);/s);
     expect(shared).toMatch(/\.ai-tutor-structured-response\s*\{[^}]*color:\s*var\(--ai-tutor-response-text,\s*var\(--color-text\)\);/s);
@@ -65,7 +67,7 @@ describe('shared learner workspace style ownership', () => {
       ['src/styles/pages/projects.css', '.project-activity-bar button.is-active'],
       ['src/styles/pages/projects.css', '.project-task-list button.is-active'],
     ]) {
-      const rule = source(path).match(new RegExp(`${selector.replaceAll('.', '\\.')}\\s*\\{([^}]*)\\}`));
+      const rule = (path.endsWith('learning-engine.css') ? learningSource() : source(path)).match(new RegExp(`${selector.replaceAll('.', '\\.')}\\s*\\{([^}]*)\\}`));
       expect(rule?.[1]).toMatch(/background:/);
       expect(rule?.[1]).not.toMatch(/box-shadow|border-left/);
     }

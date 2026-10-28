@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
-const learningCss = readFileSync('src/styles/pages/learning-engine.css', 'utf8');
+const learningCss = readStylesheetGraph('src/styles/pages/learning-engine.css');
 const dashboardCss = readFileSync('src/styles/pages/dashboard.css', 'utf8');
 const editorCss = readFileSync('src/styles/editor-themes.css', 'utf8');
 const applicationCss = learningCss.slice(0, learningCss.indexOf('.desktop-compiler'));

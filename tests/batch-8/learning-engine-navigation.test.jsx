@@ -1,6 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 import { kolkataDate } from '../../src/home/challengeCalendar';
 import { findLessonProgressScope } from '../../src/course/courseStructure';
 
@@ -184,7 +185,7 @@ describe('Learning Engine navigation alignment', () => {
 
   it('keeps the immersive header compact at mobile widths', () => {
     const css = [
-      readFileSync('src/styles/pages/learning-engine.css', 'utf8'),
+      readStylesheetGraph('src/styles/pages/learning-engine.css'),
       readFileSync('src/styles/pages/dashboard.css', 'utf8'),
     ].join('\n');
     expect(css).toMatch(/@media \(max-width: 560px\)[\s\S]*?\.topbar \{[^}]*padding-inline: var\(--space-2\)/);
@@ -194,7 +195,7 @@ describe('Learning Engine navigation alignment', () => {
 
   it('uses the expanded Learning Path typography hierarchy without the old eyebrow', () => {
     const sidebar = readFileSync('src/components/Sidebar.jsx', 'utf8');
-    const css = readFileSync('src/styles/pages/learning-engine.css', 'utf8');
+    const css = readStylesheetGraph('src/styles/pages/learning-engine.css');
     expect(sidebar).not.toContain('{sidebar.eyebrow}');
     expect(css).toMatch(/\.sidebar-header h2 \{[^}]*margin: 0;[^}]*font-size: 1rem;/);
     expect(css).toMatch(/\.sidebar-summary \{[^}]*font-size: \.875rem;/);

@@ -12,6 +12,7 @@ import { createCompilerData } from '../../src/components/blocks/CompilerBlock.js
 import { StandaloneCompilerPage } from '../../src/standalone-compiler/StandaloneCompilerPage.jsx';
 import { StandaloneTerminalPanel } from '../../src/standalone-compiler/StandaloneTerminalPanel.jsx';
 import { isStandaloneCompilerRequest } from '../../src/standalone-compiler/standaloneCompilerHost.js';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 import { STANDALONE_MONACO_THEMES, standaloneMonacoOptions } from '../../src/standalone-compiler/standaloneMonacoThemes.js';
 
 const standaloneCompilerCss = readFileSync(resolve(process.cwd(), 'src/styles/standalone-compiler.css'), 'utf8');
@@ -21,7 +22,7 @@ it('loads the shared Preview/Console panel foundation before standalone override
   const entry = readFileSync(resolve(process.cwd(), 'src/standalone-compiler/StandaloneCompilerApp.jsx'), 'utf8');
   expect(entry.indexOf("import '../styles/pages/learning-engine.css'")).toBeGreaterThan(-1);
   expect(entry.indexOf("import '../styles/pages/learning-engine.css'")).toBeLessThan(entry.indexOf("import '../styles/standalone-compiler.css'"));
-  const sharedCss = readFileSync(resolve(process.cwd(), 'src/styles/pages/learning-engine.css'), 'utf8');
+  const sharedCss = readStylesheetGraph('src/styles/pages/learning-engine.css');
   expect(sharedCss).toMatch(/\.ide-result-tabs\s*\{[^}]*display:\s*flex/);
   expect(sharedCss).toContain('.web-preview-panel');
 });

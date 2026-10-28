@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
 const css = (path) => readFile(resolve(path), 'utf8');
 
@@ -28,7 +29,8 @@ describe('fixed learner neutral borders', () => {
     ['Settings', 'src/styles/pages/settings.css'],
     ['App shell', 'src/styles/layout/app-shell.css'],
   ])('%s ordinary component borders use the fixed token', async (_surface, path) => {
-    expect(await css(path)).toContain('var(--color-border-fixed)');
+    const source = path.endsWith('learning-engine.css') ? readStylesheetGraph(path) : await css(path);
+    expect(source).toContain('var(--color-border-fixed)');
   });
 
   it('preserves semantic state borders and Project Guide table contrast', async () => {
