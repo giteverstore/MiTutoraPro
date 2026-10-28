@@ -3,6 +3,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-libra
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { CompilerProvider } from '../../src/compiler/CompilerProvider.jsx';
 import { CompilerPanel } from '../../src/components/CompilerPanel.jsx';
+import { dispatchCompilerRun } from '../../src/compiler/core/compilerEvents.js';
 
 vi.mock('../../src/components/EditorPlaceholder.jsx', () => ({
   EditorPlaceholder: ({ editor, value, onChange }) => <textarea aria-label="Code editor" data-language={editor.language} value={value} onChange={(event) => onChange(event.target.value)} />,
@@ -188,5 +189,29 @@ describe('shared compiler execution lifecycle', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Run code' }));
     await screen.findByText('runtime failed');
     expect(screen.getByRole('button', { name: 'Check Output' })).toBeDisabled();
+  });
+
+  it('routes keyboard execution only to the visible matching instance', async () => {
+    const manager = {
+      execute: vi.fn().mockResolvedValue({ status: 'success', output: 'keyboard result', errors: [], executionTimeMs: 2 }),
+      format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(), dispose: vi.fn(),
+    };
+    const { container } = render(<CompilerProvider manager={manager}><CompilerPanel compiler={compiler} instanceId="keyboard-target" /></CompilerProvider>);
+    container.querySelector('.compiler-panel').getClientRects = () => [{ width: 100, height: 100 }];
+
+    act(() => dispatchCompilerRun('other-instance'));
+    expect(manager.execute).not.toHaveBeenCalled();
+    act(() => dispatchCompilerRun('keyboard-target'));
+    expect(await screen.findByText('keyboard result')).toBeVisible();
+    expect(manager.execute).toHaveBeenCalledOnce();
+  });
+
+  it('does not route keyboard execution to a hidden matching instance', () => {
+    const manager = {
+      execute: vi.fn(), format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(), dispose: vi.fn(),
+    };
+    render(<CompilerProvider manager={manager}><CompilerPanel compiler={compiler} instanceId="hidden-target" /></CompilerProvider>);
+    act(() => dispatchCompilerRun('hidden-target'));
+    expect(manager.execute).not.toHaveBeenCalled();
   });
 });

@@ -4,7 +4,7 @@ import { EditorPlaceholder } from './EditorPlaceholder';
 import { useCompilerManager } from '../compiler/CompilerProvider';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { useSettings } from '../settings/useSettings';
-import { COMPILER_EVENTS, createCompilerExecutionEvent } from '../compiler/core/compilerEvents';
+import { COMPILER_EVENTS } from '../compiler/core/compilerEvents';
 import { ConfirmDialog } from './Dialog';
 import { createSourceSnapshotHash } from '../compiler/core/sourceSnapshot';
 import { useCompilerBottomDrawer } from '../compiler/useCompilerBottomDrawer';
@@ -12,6 +12,7 @@ import { normalizeEditorThemeId } from '../theme/editorThemeCatalog';
 import { CompilerLanguageSelector } from './CompilerLanguageSelector';
 import { createDevelopmentCompilerDefinition, getDevelopmentCompilerOptions } from '../compiler/developmentCompilerOverride';
 import { CompilerOutputRegion } from './CompilerOutputRegion';
+import { useCompilerExecution } from '../compiler/useCompilerExecution';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -38,149 +39,35 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const editorThemeId = normalizeEditorThemeId(settings.editor.theme);
   const verifyExercise = learningProgress?.verifyExercise;
   const invalidateExerciseVerification = learningProgress?.invalidateExerciseVerification;
-  const [isRunning, setIsRunning] = useState(false);
   const [activeCompiler, setActiveCompiler] = useState(compiler);
   const initialCode = activeCompiler.editor.lines.map((line) => line.text ?? '').join('\n');
   const [code, setCode] = useState(initialCode);
   const currentCodeRef = useRef(initialCode);
   const lastLoadedCodeRef = useRef(initialCode);
   const activeCompilerRef = useRef(activeCompiler);
-  const [result, setResult] = useState('');
-  const [error, setError] = useState('');
-  const [executionStatus, setExecutionStatus] = useState('idle');
-  const [verificationStatus, setVerificationStatus] = useState('idle');
-  const [executionTimeMs, setExecutionTimeMs] = useState(null);
   const [selectionSnapshot, setSelectionSnapshot] = useState(null);
   const selectionVersionRef = useRef(0);
-  const [compilerEvidence, setCompilerEvidence] = useState(null);
   const [replaceConfirmation, setReplaceConfirmation] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [database, setDatabase] = useState(null);
-  const [emulator, setEmulator] = useState(null);
   const [isDevelopmentCompilerSwitching, setIsDevelopmentCompilerSwitching] = useState(false);
-  const executionControllerRef = useRef(null);
   const collapsibleOutput = activityType === 'lesson' || Boolean(languageSelector);
   const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput, containerRef: panelRef });
   const expandOutputDrawer = outputDrawer.expand;
+
+  const onFormattedSource = useCallback((source) => { currentCodeRef.current = source; setCode(source); }, []);
+  const execution = useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource, expandOutput: expandOutputDrawer, verifyExercise, invalidateExerciseVerification, onVerificationChange });
+  const { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run: showRunFeedback, checkOutput, reset: resetExecution, clearExecution, cancelExecution } = execution;
 
   useEffect(() => {
     onExecutionStateChange?.(isRunning ? 'running' : executionStatus === 'error' ? 'failed' : 'ready');
   }, [executionStatus, isRunning, onExecutionStateChange]);
 
-  const showRunFeedback = useCallback(async (executionOverride = null) => {
-    if ((executionOverride?.compiler ?? activeCompilerRef.current).runtimeAvailable === false) return;
-    expandOutputDrawer();
-    const definition = executionOverride?.compiler ?? activeCompilerRef.current;
-    const requestedSource = executionOverride?.source ?? currentCodeRef.current;
-    executionControllerRef.current?.abort();
-    const controller = new AbortController();
-    executionControllerRef.current = controller;
-    setIsRunning(true);
-    setExecutionStatus('running');
-    setVerificationStatus('idle');
-    if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
-    onVerificationChange?.('idle');
-    setError('');
-    setExecutionTimeMs(null);
-    setCompilerEvidence(null);
-    setEmulator(null);
-
-    try {
-      let source = requestedSource;
-      if (settings.editor.autoFormatOnRun) {
-        source = await compilerManager.format({
-          language: definition.language,
-          source,
-          instanceId,
-        });
-        currentCodeRef.current = source;
-        setCode(source);
-      }
-      const execution = await compilerManager.execute({
-        source,
-        language: definition.language,
-        stdin: definition.stdin,
-        filename: definition.editor.fileName,
-        execution: definition.execution,
-        setupSql: definition.setupSql,
-        timeoutMs: definition.timeoutMs,
-        signal: controller.signal,
-        instanceId,
-      });
-
-      setResult(execution.output);
-      setError(execution.errors.join('\n'));
-      setExecutionTimeMs(execution.executionTimeMs);
-      setExecutionStatus(execution.status);
-      setPreview(execution.preview ?? null);
-      setDatabase(execution.database ?? null);
-      setEmulator(execution.emulator ?? null);
-      try {
-        setCompilerEvidence(Object.freeze({
-          source,
-          sourceHash: await createSourceSnapshotHash(source),
-          language: definition.language,
-          status: execution.status,
-          output: execution.errors.length ? execution.errors.join('\n') : execution.output,
-          stdout: execution.stdout ?? execution.output ?? '',
-          stderr: execution.stderr ?? '',
-          exitCode: execution.exitCode ?? null,
-          diagnostics: execution.diagnostics ?? [],
-          warnings: execution.warnings ?? [],
-          compileTimeMs: execution.compileTimeMs ?? null,
-          executionTimeMs: execution.executionTimeMs ?? null,
-          database: execution.database ?? null,
-          emulator: execution.emulator ?? null,
-        }));
-      } catch {
-        setCompilerEvidence(null);
-      }
-      window.dispatchEvent(createCompilerExecutionEvent(instanceId, execution, {
-        language: definition.language,
-      }));
-    } catch (executionError) {
-      if (executionError.name !== 'AbortError') {
-        setResult('');
-        setError(executionError.message || 'The compiler adapter could not complete the request.');
-        setExecutionStatus('error');
-        setCompilerEvidence(null);
-        setPreview(null);
-        setDatabase(null);
-        setEmulator(null);
-      }
-    } finally {
-      if (executionControllerRef.current === controller) {
-        executionControllerRef.current = null;
-        setIsRunning(false);
-      }
-    }
-  }, [
-    compilerManager,
-    invalidateExerciseVerification,
-    onVerificationChange,
-    settings.editor.autoFormatOnRun,
-    instanceId,
-    expandOutputDrawer,
-  ]);
-
   const handleCodeChange = useCallback((nextCode) => {
     currentCodeRef.current = nextCode;
     selectionVersionRef.current += 1;
     setCode(nextCode);
-    setResult('');
-    setError('');
-    setExecutionStatus('idle');
+    clearExecution(activeCompilerRef.current);
     setSelectionSnapshot(null);
-    setVerificationStatus('idle');
-    setExecutionTimeMs(null);
-    setCompilerEvidence(null);
-    setPreview(null);
-    setDatabase(null);
-    setEmulator(null);
-    const definition = activeCompilerRef.current;
-    if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
-    onVerificationChange?.('idle');
-  }, [invalidateExerciseVerification, onVerificationChange]);
+  }, [clearExecution]);
 
   const handleSelectionChange = useCallback(async (selection) => {
     const version = selectionVersionRef.current + 1;
@@ -235,89 +122,29 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     });
   }, [activeCompiler.editor.fileName, activeCompiler.language, code, compilerEvidence, executionStatus, isRunning, onContextChange, selectionSnapshot]);
 
-  const checkOutput = useCallback(() => {
-    expandOutputDrawer();
-    if (executionStatus !== 'success') return;
-    const definition = activeCompilerRef.current;
-    const matches = compilerManager.validateOutput({
-      expectedOutput: definition.expectedOutput,
-      programOutput: result,
-      validatorType: definition.validatorType,
-      validatorOptions: definition.validatorOptions,
-    });
-    setVerificationStatus(matches ? 'matched' : 'mismatched');
-    onVerificationChange?.(matches ? 'matched' : 'mismatched');
-    if (matches && definition.exerciseId) {
-      verifyExercise?.(definition.exerciseId, {
-        expectedOutput: definition.expectedOutput,
-        programOutput: result,
-        sourceCode: currentCodeRef.current,
-        compilerId: definition.id,
-      });
-    } else if (definition.exerciseId) {
-      invalidateExerciseVerification?.(definition.exerciseId);
-    }
-  }, [
-    compilerManager,
-    executionStatus,
-    invalidateExerciseVerification,
-    result,
-    verifyExercise,
-    onVerificationChange,
-    expandOutputDrawer,
-  ]);
-
   const resetEditor = useCallback(async () => {
-    executionControllerRef.current?.abort();
-    executionControllerRef.current = null;
     const definition = activeCompilerRef.current;
     const resetSource = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    if (definition.runtimeAvailable !== false) await compilerManager.reset(definition.language, instanceId);
-    setIsRunning(false);
-    currentCodeRef.current = resetSource;
-    lastLoadedCodeRef.current = resetSource;
-    setCode(resetSource);
-    setResult('');
-    setError('');
-    setExecutionStatus('idle');
-    setVerificationStatus('idle');
-    if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
-    onVerificationChange?.('idle');
-    setExecutionTimeMs(null);
-    setSelectionSnapshot(null);
-    setCompilerEvidence(null);
-    setPreview(null);
-    setDatabase(null);
-    setEmulator(null);
-  }, [
-    compilerManager,
-    invalidateExerciseVerification,
-    onVerificationChange,
-    instanceId,
-  ]);
+    await resetExecution(definition, () => {
+      currentCodeRef.current = resetSource;
+      lastLoadedCodeRef.current = resetSource;
+      setCode(resetSource);
+      setSelectionSnapshot(null);
+    });
+  }, [resetExecution]);
 
   const applyCompilerDefinition = useCallback((definition) => {
     const source = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    executionControllerRef.current?.abort();
+    cancelExecution();
     activeCompilerRef.current = definition;
     setActiveCompiler(definition);
     currentCodeRef.current = source;
     lastLoadedCodeRef.current = source;
     setCode(source);
-    setResult('');
-    setError('');
-    setExecutionStatus('idle');
-    setVerificationStatus('idle');
-    setExecutionTimeMs(null);
+    clearExecution(definition);
     setSelectionSnapshot(null);
-    setCompilerEvidence(null);
-    setPreview(null);
-    setDatabase(null);
-    setEmulator(null);
-    if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
-    onVerificationChange?.('idle');
     return true;
-  }, [invalidateExerciseVerification, onVerificationChange]);
+  }, [cancelExecution, clearExecution]);
 
   const requestReplaceConfirmation = useCallback((description, confirmLabel) => new Promise((resolve) => {
     setReplaceConfirmation({ resolve, description, confirmLabel });
@@ -395,8 +222,6 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     window.addEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
     return () => window.removeEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
   }, [instanceId, showRunFeedback]);
-
-  useEffect(() => () => executionControllerRef.current?.abort(), []);
 
   return (
     <div className="compiler-panel" ref={panelRef} data-compiler-instance-id={instanceId}>
