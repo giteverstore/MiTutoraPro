@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { learnerUiIcons } from '../../src/assets/learnerUiIcons';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
 describe('learner supplied UI icons', () => {
   it('uses one production PNG per supplied artwork and shares repeated mappings', () => {
@@ -26,7 +27,7 @@ describe('learner supplied UI icons', () => {
       'src/styles/pages/home.css',
       'src/styles/pages/practice.css',
       'src/styles/pages/referrals.css',
-    ].map((path) => readFileSync(path, 'utf8')).join('\n');
+    ].map((path) => readStylesheetGraph(path)).join('\n');
     expect(styles).toMatch(/\.learner-ui-icon[\s\S]*?object-fit: contain/);
     expect(styles).toMatch(/\.application-streak-indicator img[\s\S]*?object-fit: contain/);
     expect(styles).not.toMatch(/(?:learner-ui-icon|application-streak-indicator img)[^{]*\{[^}]*(?:currentColor|--color-accent|filter:|mask:)/s);

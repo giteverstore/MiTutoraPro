@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
-const css = (path) => readFileSync(path, 'utf8');
+const css = (path) => readStylesheetGraph(path);
 
 describe('learner filter and hover surfaces', () => {
   it('restores the subtle Continue Learning hover while preserving artwork and progress styling', () => {

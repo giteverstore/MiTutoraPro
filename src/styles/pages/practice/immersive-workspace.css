@@ -1,0 +1,445 @@
+/* Shared immersive coding treatment: Practice uses the Course compiler sizing and divider. */
+.practice-immersive-shell {
+  height: calc(100vh - var(--layout-topbar-height));
+  height: calc(100dvh - var(--layout-topbar-height));
+  max-height: calc(100dvh - var(--layout-topbar-height));
+  min-height: 0;
+  overflow: hidden;
+}
+
+.coding-workspace {
+  position: relative;
+  display: grid;
+  height: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.practice-immersive-workspace {
+  grid-template-columns: minmax(var(--lesson-pane-min), 1fr);
+}
+
+.practice-immersive-workspace.has-compiler {
+  grid-template-columns: minmax(var(--lesson-pane-min), 1fr) var(--compiler-width);
+}
+
+.coding-workspace__content {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.coding-workspace__compiler {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.practice-main-region .learning-workspace-view,
+.practice-ai-region {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.practice-ai-region[hidden],
+.practice-problem[hidden] {
+  display: none;
+}
+
+.practice-ai-region {
+  background: var(--color-canvas);
+}
+
+.practice-immersive-workspace .practice-problem {
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0;
+  background: var(--canvas);
+  border: 0;
+  border-radius: 0;
+  scrollbar-width: thin;
+}
+
+.practice-immersive-workspace .practice-detail-header {
+  display: block;
+  padding: 5rem clamp(var(--space-6), 6vw, var(--space-16)) var(--space-5);
+  border-bottom: 1px solid var(--color-border-fixed);
+}
+
+.practice-immersive-workspace .practice-detail-header h1 {
+  margin: var(--space-4) 0 0;
+  font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-3xl));
+  letter-spacing: var(--letter-spacing-heading);
+}
+
+.practice-immersive-workspace .practice-back-button {
+  margin: 0;
+}
+
+.practice-immersive-workspace .practice-problem .lesson-body {
+  gap: 0;
+  padding: var(--space-5) clamp(var(--space-6), 6vw, var(--space-16));
+}
+
+.practice-document {
+  padding: var(--space-6) clamp(var(--space-6), 6vw, var(--space-16)) var(--space-8);
+}
+
+.practice-problem-description {
+  max-width: 52rem;
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body);
+}
+
+.practice-problem-description p {
+  margin: 0;
+}
+
+.practice-document-section {
+  max-width: 52rem;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border-fixed);
+}
+
+.practice-document-section h2 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-size-lg);
+  letter-spacing: -.02em;
+}
+
+.practice-example {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.practice-example+.practice-example {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-fixed);
+}
+
+.practice-example>div {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.practice-example strong {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.practice-example pre {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  overflow-x: auto;
+  color: var(--color-text);
+  background: var(--color-surface-subtle);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.practice-example p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-body);
+}
+
+.practice-constraints ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--color-text);
+}
+
+.practice-constraints li {
+  padding-left: var(--space-1);
+  line-height: var(--line-height-body);
+}
+
+.practice-constraints li p {
+  margin: 0;
+}
+
+.practice-hint-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.practice-hint {
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border-fixed);
+}
+
+.practice-hint header {
+  display: flex;
+  min-height: var(--control-height-lg);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.practice-hint header>span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--font-weight-semibold);
+}
+
+.practice-hint header>span svg {
+  color: var(--color-accent);
+}
+
+.practice-hint button {
+  padding: var(--space-2);
+  color: var(--color-accent);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.practice-hint button:hover {
+  background: var(--color-accent-soft);
+}
+
+.practice-hint button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.practice-hint-content {
+  padding: 0 var(--space-10) var(--space-4) 0;
+  color: var(--color-text-muted);
+  line-height: var(--line-height-body);
+}
+
+.practice-hint-content p {
+  margin: 0;
+}
+
+.practice-immersive-workspace .practice-completion {
+  margin: 0 clamp(var(--space-6), 6vw, var(--space-16)) var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-fixed);
+  border-radius: var(--radius-lg);
+}
+
+.practice-compiler-dock {
+  grid-column: 2;
+}
+
+.practice-immersive-workspace .compiler-resize-handle {
+  right: calc(var(--compiler-width) - 5px);
+}
+
+@media (max-width: 840px) {
+  .practice-immersive-shell {
+    height: auto;
+    max-height: none;
+    min-height: calc(100dvh - var(--layout-topbar-height-mobile));
+    overflow: visible;
+  }
+
+  .practice-immersive-workspace {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .practice-immersive-workspace.has-compiler {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(15rem, 1fr) minmax(24rem, 55dvh);
+  }
+
+  .practice-immersive-workspace .practice-problem {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .practice-immersive-workspace .practice-main-region {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .practice-immersive-workspace .practice-compiler-dock {
+    position: relative;
+    inset: auto;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border: 0;
+    border-top: 1px solid var(--color-border-fixed);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .practice-immersive-workspace .compiler-resize-handle {
+    display: none;
+  }
+}
+
+.shared-compiler-tests {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color: var(--editor-text);
+}
+
+.shared-compiler-tests section {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background: var(--editor-panel);
+  border: 1px solid var(--editor-border);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 1120px) {
+  .practice-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .practice-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-workspace {
+    position: static;
+  }
+
+  .practice-workspace>.compiler-panel {
+    height: 46rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .practice-catalog {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-preview {
+    position: static;
+    min-height: 20rem;
+  }
+
+  .practice-statistics>div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .practice-question-meta {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .practice-page,
+  .practice-detail {
+    width: min(100% - 2rem, 38rem);
+    padding-top: var(--space-6);
+  }
+
+  .practice-filters {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
+
+  .practice-pagination {
+    justify-content: space-between;
+    gap: var(--space-1);
+  }
+
+  .practice-pagination>button {
+    padding: 0 var(--space-2);
+  }
+
+  .practice-pagination>button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .practice-question-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .practice-question-meta {
+    grid-column: 1 / -1;
+  }
+
+  .practice-statistics>div {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-detail {
+    width: min(100% - 1.25rem, 38rem);
+  }
+
+  .practice-detail-meta {
+    gap: var(--space-2);
+  }
+
+  .practice-detail-meta>span {
+    padding-inline: var(--space-2);
+  }
+
+  .practice-problem {
+    padding-inline: var(--space-4);
+  }
+
+  .practice-workspace>.compiler-panel {
+    height: 46rem;
+    min-height: 40rem;
+    padding: 0;
+  }
+
+  .practice-test-footer {
+    align-items: stretch;
+    flex-direction: column;
+    padding: var(--space-3);
+  }
+
+  .practice-test-footer .ide-check-button {
+    width: 100%;
+  }
+
+  .practice-completion {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .practice-completion .button {
+    width: 100%;
+  }
+}
+.practice-auth-required { display: grid; min-height: 20rem; place-content: center; justify-items: center; gap: var(--space-3); padding: var(--space-8); color: var(--color-code-text); text-align: center; }
+.practice-auth-required svg { color: var(--color-accent); }
+.practice-auth-required h2,.practice-auth-required p { margin: 0; }
+.practice-auth-required p { max-width: 28rem; color: var(--color-text); line-height: var(--line-height-body); }

@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
 const source = (path) => readFileSync(path, 'utf8');
+const styleSource = (path) => readStylesheetGraph(path);
 const learningSource = () => readStylesheetGraph('src/styles/pages/learning-engine.css');
 
 describe('shared learner workspace style ownership', () => {
@@ -41,7 +42,7 @@ describe('shared learner workspace style ownership', () => {
   });
 
   it('keeps the shared viewport-bounded editor and internally scrollable Practice content', () => {
-    const css = source('src/styles/pages/practice.css');
+    const css = styleSource('src/styles/pages/practice.css');
     expect(css).toMatch(/\.practice-immersive-shell\s*\{[^}]*height:\s*calc\(100dvh - var\(--layout-topbar-height\)\);/);
     expect(css).toMatch(/\.practice-immersive-workspace \.practice-problem\s*\{[^}]*overflow-y:\s*auto;/);
     expect(css).toMatch(/\.coding-workspace__compiler\s*\{[^}]*min-height:\s*0;/);
@@ -67,7 +68,7 @@ describe('shared learner workspace style ownership', () => {
       ['src/styles/pages/projects.css', '.project-activity-bar button.is-active'],
       ['src/styles/pages/projects.css', '.project-task-list button.is-active'],
     ]) {
-      const rule = (path.endsWith('learning-engine.css') ? learningSource() : source(path)).match(new RegExp(`${selector.replaceAll('.', '\\.')}\\s*\\{([^}]*)\\}`));
+      const rule = styleSource(path).match(new RegExp(`${selector.replaceAll('.', '\\.')}\\s*\\{([^}]*)\\}`));
       expect(rule?.[1]).toMatch(/background:/);
       expect(rule?.[1]).not.toMatch(/box-shadow|border-left/);
     }

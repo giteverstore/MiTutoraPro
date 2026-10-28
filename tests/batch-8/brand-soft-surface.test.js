@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 
 describe('brand-aware learner soft surfaces', () => {
   it('uses the semantic surface in the Daily Challenge calendar without replacing state colors', async () => {
@@ -16,7 +17,7 @@ describe('brand-aware learner soft surfaces', () => {
   });
 
   it('uses the semantic surface for Practice catalog, pagination, and all four statistic cards', async () => {
-    const css = await readFile(resolve('src/styles/pages/practice.css'), 'utf8');
+    const css = readStylesheetGraph('src/styles/pages/practice.css');
     expect(css).toMatch(/\.practice-question-card:hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.practice-pagination button:not\(:disabled\):hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.practice-statistics article \{[^}]*background: var\(--color-brand-soft-surface\)/);

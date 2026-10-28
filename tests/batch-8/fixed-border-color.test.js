@@ -29,7 +29,7 @@ describe('fixed learner neutral borders', () => {
     ['Settings', 'src/styles/pages/settings.css'],
     ['App shell', 'src/styles/layout/app-shell.css'],
   ])('%s ordinary component borders use the fixed token', async (_surface, path) => {
-    const source = path.endsWith('learning-engine.css') ? readStylesheetGraph(path) : await css(path);
+    const source = readStylesheetGraph(path);
     expect(source).toContain('var(--color-border-fixed)');
   });
 
@@ -37,7 +37,7 @@ describe('fixed learner neutral borders', () => {
     const [theme, home, practice, projects] = await Promise.all([
       css('src/styles/theme.css'),
       css('src/styles/pages/home.css'),
-      css('src/styles/pages/practice.css'),
+      Promise.resolve(readStylesheetGraph('src/styles/pages/practice.css')),
       css('src/styles/pages/projects.css'),
     ]);
     expect(theme).toContain('--color-success: #3f6658;');
