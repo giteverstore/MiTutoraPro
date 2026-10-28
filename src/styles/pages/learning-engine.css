@@ -1,5 +1,7 @@
 @import './learning-engine/shell-sidebar.css';
+@import './learning-engine/learning-workspace.css';
 @import './learning-engine/lesson-content.css';
 @import './learning-engine/compiler-workspace.css';
-@import './learning-engine/compiler-editor.css';
+@import './learning-engine/compiler-controls.css';
+@import './learning-engine/compiler-output-panels.css';
 @import './learning-engine/compiler-results.css';
