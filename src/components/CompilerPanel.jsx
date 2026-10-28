@@ -10,9 +10,10 @@ import { createSourceSnapshotHash } from '../compiler/core/sourceSnapshot';
 import { useCompilerBottomDrawer } from '../compiler/useCompilerBottomDrawer';
 import { normalizeEditorThemeId } from '../theme/editorThemeCatalog';
 import { CompilerLanguageSelector } from './CompilerLanguageSelector';
-import { createDevelopmentCompilerDefinition, getDevelopmentCompilerOptions } from '../compiler/developmentCompilerOverride';
+import { getDevelopmentCompilerOptions } from '../compiler/developmentCompilerOverride';
 import { CompilerOutputRegion } from './CompilerOutputRegion';
 import { useCompilerExecution } from '../compiler/useCompilerExecution';
+import { useCompilerDefinitionSession } from '../compiler/useCompilerDefinitionSession';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -39,35 +40,23 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const editorThemeId = normalizeEditorThemeId(settings.editor.theme);
   const verifyExercise = learningProgress?.verifyExercise;
   const invalidateExerciseVerification = learningProgress?.invalidateExerciseVerification;
-  const [activeCompiler, setActiveCompiler] = useState(compiler);
-  const initialCode = activeCompiler.editor.lines.map((line) => line.text ?? '').join('\n');
-  const [code, setCode] = useState(initialCode);
-  const currentCodeRef = useRef(initialCode);
-  const lastLoadedCodeRef = useRef(initialCode);
-  const activeCompilerRef = useRef(activeCompiler);
   const [selectionSnapshot, setSelectionSnapshot] = useState(null);
   const selectionVersionRef = useRef(0);
-  const [replaceConfirmation, setReplaceConfirmation] = useState(null);
-  const [isDevelopmentCompilerSwitching, setIsDevelopmentCompilerSwitching] = useState(false);
   const collapsibleOutput = activityType === 'lesson' || Boolean(languageSelector);
   const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput, containerRef: panelRef });
   const expandOutputDrawer = outputDrawer.expand;
 
-  const onFormattedSource = useCallback((source) => { currentCodeRef.current = source; setCode(source); }, []);
-  const execution = useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource, expandOutput: expandOutputDrawer, verifyExercise, invalidateExerciseVerification, onVerificationChange });
+  const onSourceChanged = useCallback(() => { selectionVersionRef.current += 1; setSelectionSnapshot(null); }, []);
+  const executionActionsRef = useRef(null);
+  const definitionSession = useCompilerDefinitionSession({ initialCompiler: compiler, compilerManager, instanceId, executionActionsRef, onSourceChanged });
+  const { activeCompiler, activeCompilerRef, code, currentCodeRef, replaceConfirmation, isDevelopmentCompilerSwitching, isDirty, setFormattedSource, handleCodeChange, resetEditor, loadDefinition: loadCompilerDefinition, selectDevelopmentCompiler, resolveReplaceConfirmation } = definitionSession;
+  const execution = useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource: setFormattedSource, expandOutput: expandOutputDrawer, verifyExercise, invalidateExerciseVerification, onVerificationChange });
   const { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run: showRunFeedback, checkOutput, reset: resetExecution, clearExecution, cancelExecution } = execution;
+  executionActionsRef.current = { reset: resetExecution, clear: clearExecution, cancel: cancelExecution };
 
   useEffect(() => {
     onExecutionStateChange?.(isRunning ? 'running' : executionStatus === 'error' ? 'failed' : 'ready');
   }, [executionStatus, isRunning, onExecutionStateChange]);
-
-  const handleCodeChange = useCallback((nextCode) => {
-    currentCodeRef.current = nextCode;
-    selectionVersionRef.current += 1;
-    setCode(nextCode);
-    clearExecution(activeCompilerRef.current);
-    setSelectionSnapshot(null);
-  }, [clearExecution]);
 
   const handleSelectionChange = useCallback(async (selection) => {
     const version = selectionVersionRef.current + 1;
@@ -122,61 +111,6 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     });
   }, [activeCompiler.editor.fileName, activeCompiler.language, code, compilerEvidence, executionStatus, isRunning, onContextChange, selectionSnapshot]);
 
-  const resetEditor = useCallback(async () => {
-    const definition = activeCompilerRef.current;
-    const resetSource = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    await resetExecution(definition, () => {
-      currentCodeRef.current = resetSource;
-      lastLoadedCodeRef.current = resetSource;
-      setCode(resetSource);
-      setSelectionSnapshot(null);
-    });
-  }, [resetExecution]);
-
-  const applyCompilerDefinition = useCallback((definition) => {
-    const source = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    cancelExecution();
-    activeCompilerRef.current = definition;
-    setActiveCompiler(definition);
-    currentCodeRef.current = source;
-    lastLoadedCodeRef.current = source;
-    setCode(source);
-    clearExecution(definition);
-    setSelectionSnapshot(null);
-    return true;
-  }, [cancelExecution, clearExecution]);
-
-  const requestReplaceConfirmation = useCallback((description, confirmLabel) => new Promise((resolve) => {
-    setReplaceConfirmation({ resolve, description, confirmLabel });
-  }), []);
-
-  const loadCompilerDefinition = useCallback(async (definition, { confirmReplace = true, replacementDescription, replacementConfirmLabel } = {}) => {
-    const source = definition.editor.lines.map((line) => line.text ?? '').join('\n');
-    const hasLearnerEdits = currentCodeRef.current !== lastLoadedCodeRef.current;
-    if (hasLearnerEdits && source !== currentCodeRef.current && confirmReplace) {
-      const accepted = await requestReplaceConfirmation(replacementDescription, replacementConfirmLabel);
-      if (!accepted) return false;
-    }
-    return applyCompilerDefinition(definition);
-  }, [applyCompilerDefinition, requestReplaceConfirmation]);
-
-  const selectDevelopmentCompiler = useCallback(async (nextLanguage) => {
-    if (!import.meta.env.DEV || nextLanguage === activeCompilerRef.current.language) return;
-    const definition = createDevelopmentCompilerDefinition(
-      activeCompilerRef.current,
-      nextLanguage,
-      currentCodeRef.current,
-    );
-    if (!definition) return;
-    setIsDevelopmentCompilerSwitching(true);
-    try {
-      await compilerManager.reset(activeCompilerRef.current.language, instanceId);
-      applyCompilerDefinition(definition);
-    } finally {
-      setIsDevelopmentCompilerSwitching(false);
-    }
-  }, [applyCompilerDefinition, compilerManager, instanceId]);
-
   const effectiveLanguageSelector = import.meta.env.DEV && activityType !== 'lesson' && !languageSelector ? (
     <CompilerLanguageSelector
       label="DEV Compiler:"
@@ -189,7 +123,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   ) : languageSelector;
 
   useImperativeHandle(forwardedRef, () => ({
-    isDirty: () => currentCodeRef.current !== lastLoadedCodeRef.current,
+    isDirty,
     loadDefinition: (definition, options) => loadCompilerDefinition(definition, options),
     loadExample: async ({ source, language, filename = 'main.py', stdin = '' }) => {
       const base = activeCompilerRef.current;
@@ -261,8 +195,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         title="Replace current code?"
         description={replaceConfirmation?.description ?? 'Your current editor changes will be replaced.'}
         confirmLabel={replaceConfirmation?.confirmLabel ?? 'Replace code'}
-        onConfirm={() => { replaceConfirmation?.resolve(true); setReplaceConfirmation(null); }}
-        onCancel={() => { replaceConfirmation?.resolve(false); setReplaceConfirmation(null); }}
+        onConfirm={() => resolveReplaceConfirmation(true)}
+        onCancel={() => resolveReplaceConfirmation(false)}
       />
     </div>
   );
