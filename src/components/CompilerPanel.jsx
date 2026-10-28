@@ -1,8 +1,6 @@
 import { forwardRef, useCallback, useEffect, useId, useImperativeHandle, useRef, useState } from 'react';
 import { EditorHeader } from './EditorHeader';
 import { EditorPlaceholder } from './EditorPlaceholder';
-import { OutputPanel } from './OutputPanel';
-import { ResizeHandle } from './ResizeHandle';
 import { useCompilerManager } from '../compiler/CompilerProvider';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { useSettings } from '../settings/useSettings';
@@ -13,9 +11,7 @@ import { useCompilerBottomDrawer } from '../compiler/useCompilerBottomDrawer';
 import { normalizeEditorThemeId } from '../theme/editorThemeCatalog';
 import { CompilerLanguageSelector } from './CompilerLanguageSelector';
 import { createDevelopmentCompilerDefinition, getDevelopmentCompilerOptions } from '../compiler/developmentCompilerOverride';
-import { PreviewPanel } from './PreviewPanel';
-import { DatabaseResultPanel } from './DatabaseResultPanel';
-import { EmulatorResultPanel } from './EmulatorResultPanel';
+import { CompilerOutputRegion } from './CompilerOutputRegion';
 
 export const CompilerPanel = forwardRef(function CompilerPanel({
   compiler,
@@ -424,92 +420,16 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
             </div>
           </div>
         </div>
-        <ResizeHandle
-          className="output-resize-handle"
-          label={activeCompiler.resizeLabel}
-          min={outputDrawer.min}
-          max={outputDrawer.max}
-          value={outputDrawer.collapsed ? outputDrawer.min : outputDrawer.value}
-          orientation="horizontal"
-          onPointerDown={outputDrawer.startDragging}
-          onKeyDown={(event) => {
-            if (outputDrawer.collapsed) outputDrawer.expand();
-            outputDrawer.handleKeyDown(event);
-          }}
+        <CompilerOutputRegion
+          compiler={activeCompiler}
+          drawer={{ ...outputDrawer, expand: expandOutputDrawer }}
+          execution={{ preview, database, emulator, result, error, isRunning, executionTimeMs, executionStatus }}
+          verificationStatus={verificationStatus}
+          renderOutput={renderOutput}
+          publicTests={publicTests}
+          contract={contract}
+          onCheckOutput={checkOutput}
         />
-        {activeCompiler.executionMode === 'preview' ? (
-          <PreviewPanel
-            preview={preview}
-            height={outputDrawer.renderedHeight}
-            collapsed={outputDrawer.collapsed}
-            onExpand={expandOutputDrawer}
-            onToggleCollapsed={outputDrawer.toggle}
-            executionStatus={executionStatus}
-          />
-        ) : activeCompiler.executionMode === 'database' ? (
-          <DatabaseResultPanel
-            database={database}
-            error={error}
-            isRunning={isRunning}
-            executionTimeMs={executionTimeMs}
-            executionStatus={executionStatus}
-            height={outputDrawer.renderedHeight}
-            collapsed={outputDrawer.collapsed}
-            onExpand={expandOutputDrawer}
-            onToggleCollapsed={outputDrawer.toggle}
-          />
-        ) : activeCompiler.executionMode === 'emulator' ? (
-          <EmulatorResultPanel
-            emulator={emulator}
-            result={result}
-            error={error}
-            isRunning={isRunning}
-            executionTimeMs={executionTimeMs}
-            executionStatus={executionStatus}
-            height={outputDrawer.renderedHeight}
-            collapsed={outputDrawer.collapsed}
-            onExpand={expandOutputDrawer}
-            onToggleCollapsed={outputDrawer.toggle}
-          />
-        ) : renderOutput?.({
-          height: outputDrawer.renderedHeight,
-          collapsed: outputDrawer.collapsed,
-          onExpand: expandOutputDrawer,
-          onToggleCollapsed: outputDrawer.toggle,
-          result,
-          error,
-          isRunning,
-          executionTimeMs,
-          expectedOutput: activeCompiler.expectedOutput,
-          inputs: activeCompiler.stdin,
-          executionStatus,
-          verificationStatus,
-          language: activeCompiler.language,
-          complexity: activeCompiler.complexity ?? {},
-          onCheckOutput: checkOutput,
-          canCheckOutput: executionStatus === 'success' && activeCompiler.expectedOutput !== undefined,
-        }) ?? (
-          <OutputPanel
-            output={activeCompiler.output}
-            height={outputDrawer.renderedHeight}
-            collapsed={outputDrawer.collapsed}
-            onExpand={expandOutputDrawer}
-            onToggleCollapsed={outputDrawer.toggle}
-            result={result}
-            error={error}
-            isRunning={isRunning}
-            executionTimeMs={executionTimeMs}
-            complexity={activeCompiler.complexity ?? {}}
-            tests={publicTests}
-            contract={contract}
-            expectedOutput={activeCompiler.expectedOutput}
-            inputs={activeCompiler.stdin}
-            executionStatus={executionStatus}
-            verificationStatus={verificationStatus}
-            onCheckOutput={checkOutput}
-            canCheckOutput={executionStatus === 'success' && activeCompiler.expectedOutput !== undefined}
-          />
-        )}
       </div>
       <ConfirmDialog
         open={Boolean(replaceConfirmation)}
