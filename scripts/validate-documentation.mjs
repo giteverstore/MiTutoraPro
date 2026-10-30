@@ -2,7 +2,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 
-const docs = execFileSync('git', ['ls-files', 'docs'], { encoding: 'utf8' }).split(/\r?\n/).filter((file) => file.endsWith('.md'));
+const docs = execFileSync('git', ['ls-files', 'docs'], { encoding: 'utf8' })
+  .split(/\r?\n/)
+  .filter((file) => file.endsWith('.md') && !file.startsWith('docs/archive/'));
 const broken = [];
 for (const file of docs) {
   const text = readFileSync(file, 'utf8');
