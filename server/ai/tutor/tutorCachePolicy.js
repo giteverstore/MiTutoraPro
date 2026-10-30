@@ -22,6 +22,6 @@ export function classifyTutorCacheEligibility(body = {}, scope = {}) {
 }
 
 export function createExactTutorCacheKey({ scope, language = '', normalizedQuestion }) {
-  const identity = [scope.surface, scope.scopeId, scope.activityId, scope.contentVersion, language, normalizedQuestion, TUTOR_POLICY_VERSION, RESPONSE_SCHEMA_VERSION].join('\0');
+  const identity = [scope.surface, scope.scopeId, scope.activityId, scope.contentSource ?? 'admin', typeof scope.contentVersion, scope.contentVersion, language, normalizedQuestion, TUTOR_POLICY_VERSION, RESPONSE_SCHEMA_VERSION].join('\0');
   return createHash('sha256').update(identity).digest('hex');
 }

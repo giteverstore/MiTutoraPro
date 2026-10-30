@@ -56,7 +56,7 @@ export function createAIExplainHandler({
       const principal = await authenticator.authenticate(request, { environment, googleCredentials });
       const premiumAccessGuard = premiumAccessGuardFactory(environment, googleCredentials);
       const entitlement = await premiumAccessGuard.assertPremium(principal);
-      const tutorScope = await scopeResolver({ body: request.body, principal, signal: lifecycle.signal });
+      const tutorScope = await scopeResolver({ body: request.body, principal, signal: lifecycle.signal, environment, credentials: googleCredentials });
       const quotaGuard = quotaGuardFactory(environment, googleCredentials);
       const featureGate = featureGateFactory(environment, googleCredentials, request);
       const experience = experienceFactory(environment, googleCredentials, quotaGuard);

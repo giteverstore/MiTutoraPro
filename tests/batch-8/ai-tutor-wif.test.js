@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { describe, expect, it, vi } from 'vitest';
 import { createAIExplainHandler } from '../../api/ai/explain.js';
+import { AIServiceError } from '../../server/ai/AIServiceError.js';
 import { FirebaseAITutorAuthenticator } from '../../server/ai/auth/FirebaseAITutorAuthenticator.js';
 import {
   createVercelGoogleCredentialContext,
@@ -566,6 +567,33 @@ describe('Vercel OIDC to Google WIF credential adapter', () => {
     };
     await handler({ method: 'POST', headers: { authorization: 'Bearer learner-token' }, body: {}, once: vi.fn(), off: vi.fn() }, response);
     expect(calls).toEqual(['preflight', 'authenticate', 'premium', 'quota', 'explain']);
+  });
+
+  it('never reaches provider work when authoritative Tutor content resolution rejects the scope', async () => {
+    const explain = vi.fn();
+    const handler = createAIExplainHandler({
+      environment: productionEnvironment(),
+      credentialFactory: () => ({ preflight: vi.fn(), authClient: {}, firebaseCredential: {} }),
+      authenticator: { authenticate: vi.fn(async () => ({ uid: 'synthetic-user' })) },
+      premiumAccessGuardFactory: () => ({ assertPremium: vi.fn(async () => ({ includedTutorMessages: 30 })) }),
+      scopeResolver: vi.fn(async () => { throw new AIServiceError('ai/content-unavailable', 'unavailable', { status: 503 }); }),
+      quotaGuardFactory: vi.fn(),
+      featureGateFactory: vi.fn(),
+      experienceFactory: vi.fn(),
+      explain,
+    });
+    const response = {
+      writableEnded: false,
+      setHeader: vi.fn(),
+      status: vi.fn(function status() { return this; }),
+      json: vi.fn((value) => value),
+      once: vi.fn(),
+      off: vi.fn(),
+    };
+    await handler({ method: 'POST', headers: { authorization: 'Bearer learner-token' }, body: {}, once: vi.fn(), off: vi.fn() }, response);
+    expect(explain).not.toHaveBeenCalled();
+    expect(response.status).toHaveBeenCalledWith(503);
+    expect(response.json).toHaveBeenCalledWith({ error: expect.objectContaining({ code: 'ai/content-unavailable' }) });
   });
 
   it('keeps platform credentials out of browser source', () => {

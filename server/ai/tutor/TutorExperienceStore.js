@@ -27,12 +27,12 @@ export class ProcessLocalTutorExperienceStore {
   }
   snapshot(ownerKey) { return this.usage.get(ownerKey) ?? { usedMessages: 0, reservedMessages: 0 }; }
   async usageSnapshot(ownerKey) { return this.snapshot(ownerKey); }
-  threadKey(ownerKey, scope) { return `${ownerKey}\0${scope.surface}\0${scope.scopeId}`; }
+  threadKey(ownerKey, scope) { return `${ownerKey}\0${scope.surface}\0${scope.scopeId}\0${scope.contentSource ?? 'admin'}\0${typeof scope.contentVersion}\0${scope.contentVersion}`; }
   async persistInteraction({ ownerKey, requestId, scope, userText, assistant, metadata }) {
     if (scope.surface === 'practice') { if (!this.analytics.some((item) => item.requestId === requestId)) this.analytics.push(retained({ ownerKey, requestId, scope, metadata, createdAt: this.now() })); return; }
     const key = this.threadKey(ownerKey, scope); const messages = this.threads.get(key) ?? [];
     if (messages.some((item) => item.requestId === requestId)) return;
-    const createdAt = this.now() * 1_000 + messages.length; messages.push({ id: `${requestId}-user`, requestId, role: 'user', text: userText, createdAt, activityId: scope.activityId, contentVersion: scope.contentVersion }, { id: `${requestId}-assistant`, requestId, role: 'assistant', response: retained(assistant), createdAt: createdAt + 1, activityId: scope.activityId, contentVersion: scope.contentVersion }); this.threads.set(key, messages);
+    const createdAt = this.now() * 1_000 + messages.length; messages.push({ id: `${requestId}-user`, requestId, role: 'user', text: userText, createdAt, activityId: scope.activityId, contentSource: scope.contentSource ?? 'admin', contentVersion: scope.contentVersion }, { id: `${requestId}-assistant`, requestId, role: 'assistant', response: retained(assistant), createdAt: createdAt + 1, activityId: scope.activityId, contentSource: scope.contentSource ?? 'admin', contentVersion: scope.contentVersion }); this.threads.set(key, messages);
   }
   async history({ ownerKey, scope, limit = 5, before }) { const all = this.threads.get(this.threadKey(ownerKey, scope)) ?? []; const end = before == null ? all.length : all.findIndex((item) => item.id === before); const safeEnd = end < 0 ? 0 : end; const items = all.slice(Math.max(0, safeEnd - limit), safeEnd); return { items: retained(items), nextCursor: safeEnd - limit > 0 ? items[0]?.id : null }; }
   async getCache(key) { return retained(this.cache.get(key) ?? null); }

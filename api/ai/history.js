@@ -24,7 +24,7 @@ export function createAIHistoryHandler({ environment = process.env, authenticato
       const version = request.query?.contentVersion == null ? undefined : Number(request.query.contentVersion); const body = { tutorScope: { surface: request.query?.surface, scopeId: request.query?.scopeId, activityId: request.query?.activityId, checkpointId: request.query?.checkpointId, taskId: request.query?.taskId, contentVersion: version } };
       const [premiumResult, scopeResult] = await Promise.allSettled([
         measure('premium', () => premiumAccessGuardFactory(environment, credentials).assertPremium(principal)),
-        measure('scope', () => scopeResolver({ body, principal })),
+        measure('scope', () => scopeResolver({ body, principal, environment, credentials })),
       ]);
       if (premiumResult.status === 'rejected') throw premiumResult.reason;
       if (scopeResult.status === 'rejected') throw scopeResult.reason;

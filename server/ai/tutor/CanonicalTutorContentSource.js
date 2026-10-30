@@ -26,11 +26,15 @@ export class CanonicalTutorContentSource {
     } catch (cause) {
       throw new AIServiceError('ai/content-unavailable', 'The learning content required by AI Tutor is unavailable.', { status: 503, cause });
     }
+    const payload = await response.json().catch(() => null);
     if (!response.ok) {
       const code = contentVersion == null ? 'ai/content-unavailable' : 'ai/content-version-invalid';
-      throw new AIServiceError(code, 'The requested learning content is unavailable.', { status: contentVersion == null ? 503 : 409 });
+      const error = new AIServiceError(code, 'The requested learning content is unavailable.', { status: contentVersion == null ? 503 : 409 });
+      if (contentVersion == null && response.status === 404 && payload?.error?.code === 'content/not-published') {
+        error.contentSourceFailure = 'not-published';
+      }
+      throw error;
     }
-    const payload = await response.json().catch(() => null);
     const document = payload?.document;
     if (!document || document.contentType !== TYPES[surface] || document.contentId !== id || !Number.isSafeInteger(document.version) || document.version < 1) {
       throw new AIServiceError('ai/content-unavailable', 'The learning content required by AI Tutor is unavailable.', { status: 503 });
@@ -38,6 +42,6 @@ export class CanonicalTutorContentSource {
     if (contentVersion != null && document.version !== contentVersion) {
       throw new AIServiceError('ai/content-version-invalid', 'The requested learning content version is unavailable.', { status: 409 });
     }
-    return document;
+    return Object.freeze({ ...document, contentSource: 'admin' });
   }
 }
