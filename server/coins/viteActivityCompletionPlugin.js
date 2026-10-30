@@ -5,16 +5,10 @@ import { createDevelopmentGrantHandler } from '../subscriptions/developmentGrant
 import { createCoinRedemptionHandler } from './coinRedemptionHandler.js';
 import { createDevelopmentCoinAdjustmentHandler } from './developmentCoinAdjustmentHandler.js';
 import { createDevelopmentTrustedCompletionHandler } from '../courses/developmentTrustedCompletionHandler.js';
+import { writeJsonResponse } from '../http/writeJsonResponse.js';
 
 const MAX_BODY_BYTES = 16_384;
 const LOOPBACK = /^(?:127\.0\.0\.1|localhost)(?::\d+)?$/;
-
-function send(response, status, payload, headers = {}) {
-  response.statusCode = status;
-  for (const [name, value] of Object.entries(headers)) response.setHeader(name, value);
-  response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  response.end(JSON.stringify(payload));
-}
 
 function readJson(request) {
   return new Promise((resolve, reject) => {
@@ -86,15 +80,15 @@ export function viteActivityCompletionPlugin(environment, {
           : pathname === '/api/subscriptions/development-grant' ? subscriptionHandler : null;
         if (!routeHandler) return next();
         if (request.method !== 'POST') {
-          return send(response, 405, { error: { code: 'coin/method-not-allowed', message: 'Use POST for activity completion.' } }, { Allow: 'POST' });
+          return writeJsonResponse(response, 405, { error: { code: 'coin/method-not-allowed', message: 'Use POST for activity completion.' } }, { Allow: 'POST' });
         }
         try {
           request.body = await readJson(request);
         } catch {
-          return send(response, 400, { error: { code: 'coin/invalid-request', message: 'The completion request is invalid.' } });
+          return writeJsonResponse(response, 400, { error: { code: 'coin/invalid-request', message: 'The completion request is invalid.' } });
         }
         const adapter = Object.create(response);
-        adapter.status = (status) => ({ json: (payload) => send(response, status, payload) });
+        adapter.status = (status) => ({ json: (payload) => writeJsonResponse(response, status, payload) });
         return routeHandler(request, adapter);
       });
     },

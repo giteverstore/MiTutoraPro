@@ -1,14 +1,9 @@
 import { Buffer } from 'node:buffer';
 import { createMySqlExecutionHandler } from './mysqlExecutionHandler.js';
 import { createPublicMySqlExecutionHandler } from './publicMySqlExecutionHandler.js';
+import { writeJsonResponse } from '../http/writeJsonResponse.js';
 
 const MAX_BODY_BYTES = 80 * 1024;
-
-function send(response, status, payload) {
-  response.statusCode = status;
-  response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  response.end(JSON.stringify(payload));
-}
 
 function adaptResponse(response) {
   return {
@@ -16,7 +11,7 @@ function adaptResponse(response) {
     once: (...args) => response.once(...args),
     removeListener: (...args) => response.removeListener(...args),
     get writableEnded() { return response.writableEnded; },
-    status: (status) => ({ json: (payload) => send(response, status, payload) }),
+    status: (status) => ({ json: (payload) => writeJsonResponse(response, status, payload) }),
   };
 }
 
@@ -46,12 +41,12 @@ export function viteMySqlPlugin(environment) {
       if (!handler) return;
       if (publicHandler) server.middlewares.use('/api/compiler/mysql/public', async (request, response) => {
         try { request.body = await readJson(request); }
-        catch { return send(response, 400, { error: { code: 'compiler/mysql-invalid-request', message: 'The MySQL request is invalid.' } }); }
+        catch { return writeJsonResponse(response, 400, { error: { code: 'compiler/mysql-invalid-request', message: 'The MySQL request is invalid.' } }); }
         return publicHandler(request, adaptResponse(response));
       });
       server.middlewares.use('/api/compiler/mysql/run', async (request, response) => {
         try { request.body = await readJson(request); }
-        catch { return send(response, 400, { error: { code: 'mysql/invalid-request', message: 'The MySQL request is invalid.' } }); }
+        catch { return writeJsonResponse(response, 400, { error: { code: 'mysql/invalid-request', message: 'The MySQL request is invalid.' } }); }
         return handler(request, adaptResponse(response));
       });
     },

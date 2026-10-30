@@ -9,6 +9,7 @@ import { createHttpRequestLifecycle } from './httpRequestLifecycle.js';
 import { createDefaultTutorQuotaGuard } from './tutor/tutorQuota.js';
 import { createTutorFeatureGate } from './tutor/tutorFeatureGate.js';
 import { createPremiumAccessGuard } from '../subscriptions/PremiumAccessGuard.js';
+import { writeJsonResponse } from '../http/writeJsonResponse.js';
 
 const readBody = (request) => new Promise((resolve, reject) => {
   let body = '';
@@ -24,12 +25,6 @@ const readBody = (request) => new Promise((resolve, reject) => {
   request.on('error', reject);
 });
 
-const send = (response, status, payload) => {
-  response.statusCode = status;
-  response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  response.end(JSON.stringify(payload));
-};
-
 export function viteAITutorPlugin(environment, {
   authenticator = firebaseAITutorAuthenticator,
   quotaGuard = createDefaultTutorQuotaGuard(environment),
@@ -40,7 +35,7 @@ export function viteAITutorPlugin(environment, {
     name: 'mi-tutora-ai-tutor-api',
     configureServer(server) {
       server.middlewares.use('/api/ai/explain', async (request, response) => {
-        if (request.method !== 'POST') return send(response, 405, { error: { code: 'ai/method-not-allowed', message: 'Use POST for AI explanations.' } });
+        if (request.method !== 'POST') return writeJsonResponse(response, 405, { error: { code: 'ai/method-not-allowed', message: 'Use POST for AI explanations.' } });
         const lifecycle = createHttpRequestLifecycle(request, response);
         try {
           const principal = await authenticator.authenticate(request);
@@ -59,12 +54,12 @@ export function viteAITutorPlugin(environment, {
             featureGate,
             signal: lifecycle.signal,
           });
-          if (!lifecycle.signal.aborted && !response.writableEnded) return send(response, 200, result);
+          if (!lifecycle.signal.aborted && !response.writableEnded) return writeJsonResponse(response, 200, result);
           return undefined;
         } catch (error) {
           if (lifecycle.signal.aborted || response.writableEnded) return undefined;
           const sanitized = publicAIError(error, { includeDiagnostics: true });
-          return send(response, sanitized.status, sanitized.body);
+          return writeJsonResponse(response, sanitized.status, sanitized.body);
         } finally {
           lifecycle.cleanup();
         }
