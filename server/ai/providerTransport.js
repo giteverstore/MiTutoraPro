@@ -20,9 +20,18 @@ const PROVIDER_CLASSIFICATION_ALLOWLIST = new Set([
 ]);
 const PROVIDER_FINISH_REASON_ALLOWLIST = new Set(['stop', 'length', 'content_filter', 'tool_calls', 'unknown']);
 const VALIDATION_RULE_ALLOWLIST = new Set(['required', 'type', 'enum', 'minLength', 'maxLength', 'maxItems', 'controlCharacters']);
+const PROJECT_VALIDATION_REASON_ALLOWLIST = new Set([
+  'provider-envelope-invalid', 'assistant-text-not-json', 'operation-mismatch',
+  'answer-missing', 'answer-empty', 'answer-too-long', 'followups-missing',
+  'followups-not-array', 'followups-too-many', 'followup-invalid',
+  'duplicate-followup-id', 'questions-missing', 'questions-not-array',
+  'questions-too-few', 'questions-too-many', 'question-invalid', 'duplicate-question-id',
+]);
 const VALIDATION_TYPE_ALLOWLIST = new Set(['array', 'object', 'string', 'number', 'boolean', 'null', 'undefined']);
 const SAFE_SCHEMA_PATHS = Object.freeze([
   /^(?:schemaVersion|policyVersion|operation|summary|evidence|sections|codeReferences|concepts|issues|nextStep)$/u,
+  /^(?:answer|followUps|questions)$/u,
+  /^(?:followUps|questions)\.\d+\.(?:id|label|intent)$/u,
   /^evidence\.(?:basis|note)$/u,
   /^sections\.\d+\.(?:title|body)$/u,
   /^codeReferences\.\d+\.(?:startLine|endLine|explanation)$/u,
@@ -35,7 +44,9 @@ const SAFE_SCHEMA_FIELDS = new Set([
   'schemaVersion', 'policyVersion', 'operation', 'evidence', 'basis', 'note', 'summary',
   'sections', 'title', 'body', 'codeReferences', 'startLine', 'endLine', 'explanation',
   'concepts', 'name', 'issues', 'hintLevel', 'codeReference', 'nextStep', 'kind', 'text',
+  'answer', 'followUps', 'questions', 'id', 'label', 'intent',
 ]);
+const DECLARED_MIME_TYPE_ALLOWLIST = new Set(['application/json']);
 
 function safeProviderStatus(status) {
   return Number.isInteger(status) && status >= 100 && status <= 599 ? status : null;
@@ -210,13 +221,20 @@ export function createProviderFailureLog({ provider, model, diagnostic, duration
   if (Number.isInteger(diagnostic.outputTokens) && diagnostic.outputTokens >= 0) event.outputTokens = diagnostic.outputTokens;
   if (Number.isInteger(diagnostic.maxOutputTokens) && diagnostic.maxOutputTokens > 0) event.maxOutputTokens = diagnostic.maxOutputTokens;
   if (typeof diagnostic.jsonParseSucceeded === 'boolean') event.jsonParseSucceeded = diagnostic.jsonParseSucceeded;
+  if (typeof diagnostic.providerEnvelopeParsed === 'boolean') event.providerEnvelopeParsed = diagnostic.providerEnvelopeParsed;
+  if (typeof diagnostic.assistantTextJsonParsed === 'boolean') event.assistantTextJsonParsed = diagnostic.assistantTextJsonParsed;
   if (typeof diagnostic.schemaValidationSucceeded === 'boolean') event.schemaValidationSucceeded = diagnostic.schemaValidationSucceeded;
+  if (PROJECT_VALIDATION_REASON_ALLOWLIST.has(diagnostic.validationReason)) event.validationReason = diagnostic.validationReason;
   if (typeof diagnostic.releasePolicyClassification === 'string' && /^[a-z0-9-]{1,80}$/u.test(diagnostic.releasePolicyClassification)) event.releasePolicyClassification = diagnostic.releasePolicyClassification;
   if (typeof diagnostic.validationPath === 'string' && diagnostic.validationPath.length <= 120 && SAFE_SCHEMA_PATHS.some((pattern) => pattern.test(diagnostic.validationPath))) event.validationPath = diagnostic.validationPath;
   if (VALIDATION_RULE_ALLOWLIST.has(diagnostic.validationRule)) event.validationRule = diagnostic.validationRule;
   if (VALIDATION_TYPE_ALLOWLIST.has(diagnostic.expectedType)) event.expectedType = diagnostic.expectedType;
   if (VALIDATION_TYPE_ALLOWLIST.has(diagnostic.actualType)) event.actualType = diagnostic.actualType;
   if (SAFE_SCHEMA_FIELDS.has(diagnostic.missingField)) event.missingField = diagnostic.missingField;
+  if (SAFE_SCHEMA_FIELDS.has(diagnostic.topLevelField)) event.topLevelField = diagnostic.topLevelField;
+  if (Number.isInteger(diagnostic.candidateCount) && diagnostic.candidateCount >= 0 && diagnostic.candidateCount <= 100) event.candidateCount = diagnostic.candidateCount;
+  if (Number.isInteger(diagnostic.outputCount) && diagnostic.outputCount >= 0 && diagnostic.outputCount <= 100) event.outputCount = diagnostic.outputCount;
+  if (DECLARED_MIME_TYPE_ALLOWLIST.has(diagnostic.declaredMimeType)) event.declaredMimeType = diagnostic.declaredMimeType;
   if (Number.isInteger(diagnostic.responseCharacters) && diagnostic.responseCharacters >= 0) event.responseCharacters = diagnostic.responseCharacters;
   if (Number.isFinite(durationMs) && durationMs >= 0) event.durationMs = Math.round(durationMs);
   return Object.freeze(event);
