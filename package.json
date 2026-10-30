@@ -124,7 +124,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "canvas-confetti": "1.9.4",
     "es-module-lexer": "^2.3.2",
-    "firebase": "^12.17.0",
+    "firebase": "12.19.0",
     "firebase-admin": "^14.2.0",
     "google-auth-library": "10.9.1",
     "jszip": "^3.10.1",
