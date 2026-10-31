@@ -1,5 +1,6 @@
 import { AIServiceError } from '../AIServiceError.js';
 import { CompositeTutorContentSource } from './CompositeTutorContentSource.js';
+import { reportTutorContentFailure } from './tutorContentDiagnostics.js';
 
 const SURFACES = new Set(['course', 'practice', 'project']);
 
@@ -19,7 +20,7 @@ function compactCourse(course, lesson) { return { courseTitle: course.title, les
 function compactPractice(question) { return { questionTitle: question.title, questionSummary: question.summary ?? '', topic: question.topic ?? '', difficulty: question.difficulty }; }
 function compactProject(project, checkpoint, task) { return { projectTitle: project.title, projectDescription: project.description ?? '', checkpointTitle: checkpoint.title, checkpointObjective: checkpoint.summary ?? '', task: task ? { title: task.title, objective: task.objective, expectedBehavior: task.expectedBehavior ?? [] } : null }; }
 
-export function createTutorScopeResolver({ contentSource = new CompositeTutorContentSource() } = {}) {
+export function createTutorScopeResolver({ contentSource = new CompositeTutorContentSource(), failureLogger = console.error } = {}) {
   return async function resolveTutorScope({ body, signal, environment, credentials }) {
     const hint = body?.tutorScope ?? body?.context?.tutorScope;
     const surface = typeof hint?.surface === 'string' ? hint.surface.trim().toLowerCase() : '';
@@ -36,13 +37,22 @@ export function createTutorScopeResolver({ contentSource = new CompositeTutorCon
     const content = document.content;
 
     if (surface === 'course') {
-      if (content?.courseId !== document.contentId) throw invalid('course');
+      if (content?.courseId !== document.contentId) {
+        reportTutorContentFailure(failureLogger, { reason: 'content-identity-mismatch', surface, source: document.contentSource });
+        throw invalid('course');
+      }
       const lesson = lessons(content).find((entry) => entry.id === activityHint);
-      if (!lesson) throw invalid('lesson');
+      if (!lesson) {
+        reportTutorContentFailure(failureLogger, { reason: 'lesson-not-found', surface, source: document.contentSource });
+        throw invalid('lesson');
+      }
       return Object.freeze({ surface, scopeId: document.contentId, activityId: lesson.id, contentSource: document.contentSource ?? 'admin', contentVersion: document.version, courseId: content.courseId, lessonId: lesson.id, canonicalContext: compactCourse(content, lesson) });
     }
     if (surface === 'practice') {
-      if (content?.questionId !== document.contentId || content.questionId !== activityHint) throw invalid('practice question');
+      if (content?.questionId !== document.contentId || content.questionId !== activityHint) {
+        reportTutorContentFailure(failureLogger, { reason: 'practice-question-not-found', surface, source: document.contentSource });
+        throw invalid('practice question');
+      }
       return Object.freeze({ surface, scopeId: document.contentId, activityId: content.questionId, contentSource: document.contentSource ?? 'admin', contentVersion: document.version, practiceQuestionId: content.questionId, canonicalContext: compactPractice(content) });
     }
     if (content?.projectId !== document.contentId) throw invalid('project');
