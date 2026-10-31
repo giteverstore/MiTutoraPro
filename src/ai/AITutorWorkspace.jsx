@@ -7,6 +7,7 @@ import { aiTutorClient } from './AITutorClient';
 import { AITutorResponse } from './AITutorResponse';
 import { ErrorState } from '../errors/ErrorState';
 import { mergeTutorDraft } from './tutorComposer';
+import { createConversationRequestId, reconcileConversation } from './conversationReconciliation';
 
 function conversationAnswer(response) {
   return [
@@ -28,10 +29,12 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   const [usage, setUsage] = useState(null);
   const [historyCursor, setHistoryCursor] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyNotice, setHistoryNotice] = useState('');
   const requestRef = useRef(null);
   const handledRequestRef = useRef(null);
   const conversationRef = useRef(null);
   const composerRef = useRef(null);
+  const scopeRef = useRef('');
 
   const scrollIfNearBottom = useCallback(() => {
     requestAnimationFrame(() => {
@@ -49,10 +52,14 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     const controller = new AbortController();
     requestRef.current?.abort();
     requestRef.current = controller;
+    const requestId = createConversationRequestId('tutor');
+    const requestScope = scopeRef.current;
     const userMessage = {
-      id: `user-${Date.now()}-${messages.length}`,
+      id: `${requestId}-user`,
+      requestId,
       role: 'user',
       text: prompt,
+      createdAt: Date.now(),
     };
     setMessages((current) => [...current, userMessage]);
     setStatus('loading');
@@ -66,7 +73,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         if (user.role === 'user' && assistant.role === 'assistant') conversation.push({ question: user.text, answer: conversationAnswer(assistant.response) });
       }
       const response = await client.explain({
-        requestId: globalThis.crypto?.randomUUID?.() ?? `tutor-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        requestId,
         requestType: 'explain-full-code',
         language: compilerContext.language,
         code: compilerContext.code,
@@ -88,7 +95,8 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
           ...contextLines,
         ].join('\n'),
       }, { signal: controller.signal });
-      setMessages((current) => [...current, { id: `assistant-${Date.now()}-${current.length}`, role: 'assistant', response }]);
+      if (requestRef.current !== controller || scopeRef.current !== requestScope) return;
+      setMessages((current) => reconcileConversation(current, [{ id: `${requestId}-assistant`, requestId, role: 'assistant', response, createdAt: Date.now() }]));
       if (response._tutorUsage) setUsage({ ...response._tutorUsage, remainingMessages: response._tutorUsage.unlimited ? null : Math.max(0, response._tutorUsage.includedLimit - response._tutorUsage.usedMessages) });
       setStatus('success');
       scrollIfNearBottom();
@@ -102,13 +110,20 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   }, [activityType, client, compilerContext, contextLines, course.id, course.title, lesson.id, lesson.title, messages, scrollIfNearBottom, status, usage]);
 
   const scope = { surface: activityType === 'practice' ? 'practice' : 'course', scopeId: activityType === 'practice' ? lesson.id : course.id, activityId: lesson.id, ...(Number.isSafeInteger(activityType === 'practice' ? lesson.version : course.contentVersion) ? { contentVersion: activityType === 'practice' ? lesson.version : course.contentVersion } : {}) };
+  const scopeKey = JSON.stringify(scope);
+  scopeRef.current = scopeKey;
+  useEffect(() => {
+    requestRef.current?.abort();
+    requestRef.current = null;
+    setStatus('idle');
+  }, [scopeKey]);
   useEffect(() => {
     if (activityType === 'practice' || typeof client.history !== 'function') return undefined;
-    const controller = new AbortController(); setHistoryLoading(true);
-    client.history(scope, { signal: controller.signal }).then((page) => { setMessages(page.items ?? []); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch((cause) => { if (cause.name !== 'AbortError') setError(cause.message); }).finally(() => setHistoryLoading(false));
+    const controller = new AbortController(); setHistoryLoading(true); setHistoryNotice('');
+    client.history(scope, { signal: controller.signal }).then((page) => { setMessages((current) => reconcileConversation(current, page.items ?? [])); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch((cause) => { if (cause.name !== 'AbortError') setHistoryNotice("Previous messages couldn't be loaded. You can still continue using the AI Tutor."); }).finally(() => setHistoryLoading(false));
     return () => controller.abort();
   }, [activityType, client, course.id, course.contentVersion]);
-  const loadOlder = async () => { if (!historyCursor || historyLoading || typeof client.history !== 'function') return; const node = conversationRef.current; const oldHeight = node?.scrollHeight ?? 0; setHistoryLoading(true); try { const page = await client.history(scope, { before: historyCursor }); setMessages((current) => [...(page.items ?? []).filter((item) => !current.some((existing) => existing.id === item.id)), ...current]); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { if (node) node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
+  const loadOlder = async () => { if (!historyCursor || historyLoading || typeof client.history !== 'function') return; const node = conversationRef.current; const oldHeight = node?.scrollHeight ?? 0; setHistoryLoading(true); try { const page = await client.history(scope, { before: historyCursor }); setMessages((current) => reconcileConversation(current, page.items ?? [])); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { if (node) node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
@@ -153,6 +168,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
           </article>
         ))}
         {status === 'loading' ? <div className="ai-workspace-thinking" role="status"><LoaderCircle className="is-spinning" aria-hidden="true" /> AI Tutor is thinking…</div> : null}
+        {historyNotice ? <div className="ai-workspace-history-notice" role="status">{historyNotice}</div> : null}
         {error ? <ErrorState title={status === 'unavailable' ? 'AI Tutor unavailable' : 'AI Tutor could not respond'} description={error} variant="compact" kind={status === 'unavailable' ? 'unavailable' : 'failure'} alert /> : null}
       </div>
       <div className="ai-workspace-composer">

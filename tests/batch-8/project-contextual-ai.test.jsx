@@ -11,7 +11,67 @@ const context = (type, selectedContent, extra = {}) => createProjectAIContext({ 
 
 afterEach(cleanup);
 
+function deferred() {
+  let resolve;
+  let reject;
+  const promise = new Promise((resolvePromise, rejectPromise) => { resolve = resolvePromise; reject = rejectPromise; });
+  return { promise, resolve, reject };
+}
+
 describe('Projects contextual AI mentor', () => {
+  it('preserves loaded turns through suggestion generation and appends an answer without truncating history', async () => {
+    const oldItems = Array.from({ length: 4 }, (_, index) => [
+      { id: `old-${index}-user`, requestId: `old-${index}`, role: 'user', text: `Old question ${index}`, createdAt: index * 2 },
+      { id: `old-${index}-assistant`, requestId: `old-${index}`, role: 'assistant', response: { answer: `Old answer ${index}` }, createdAt: index * 2 + 1 },
+    ]).flat();
+    const client = {
+      history: vi.fn().mockResolvedValue({ items: oldItems, nextCursor: null }),
+      generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'why', label: 'Why?', intent: 'understand' }] }),
+      answer: vi.fn().mockResolvedValue({ answer: 'New answer', followUps: [] }),
+    };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    await screen.findByText('Old answer 3');
+    fireEvent.click(screen.getByRole('button', { name: 'Suggest questions' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Why?' }));
+    await screen.findByText('New answer');
+
+    expect(screen.getAllByLabelText('You')).toHaveLength(5);
+    expect(screen.getAllByLabelText('AI Mentor')).toHaveLength(5);
+    expect(client.answer.mock.calls[0][2]).toHaveLength(3);
+    expect(client.answer.mock.calls[0][3].requestId).toBeTruthy();
+  });
+
+  it('merges history that arrives during an answer instead of replacing either side', async () => {
+    const history = deferred();
+    const answer = deferred();
+    const client = {
+      history: vi.fn(() => history.promise),
+      generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'why', label: 'Why?', intent: 'understand' }] }),
+      answer: vi.fn(() => answer.promise),
+    };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Suggest questions' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Why?' }));
+    history.resolve({ items: [
+      { id: 'history-user', requestId: 'history', role: 'user', text: 'Historical question', createdAt: 1 },
+      { id: 'history-assistant', requestId: 'history', role: 'assistant', response: { answer: 'Historical answer' }, createdAt: 2 },
+    ], nextCursor: null });
+    await screen.findByText('Historical answer');
+    answer.resolve({ answer: 'Live answer', followUps: [] });
+    await screen.findByText('Live answer');
+
+    expect(screen.getByText('Historical question')).toBeInTheDocument();
+    expect(screen.getAllByLabelText('You')).toHaveLength(2);
+    expect(screen.getAllByLabelText('AI Mentor')).toHaveLength(2);
+  });
+
+  it('keeps Project history failures non-blocking', async () => {
+    const client = { history: vi.fn().mockRejectedValue(new Error('unavailable')), generateQuestions: vi.fn(), answer: vi.fn() };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    expect(await screen.findByText(/Previous messages couldn't be loaded/)).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeEnabled();
+  });
+
   it.each([
     ['checkpoint_context', 'Represent one task', {}],
     ['guide_text', 'Each task needs a title.', {}],

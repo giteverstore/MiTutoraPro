@@ -5,6 +5,7 @@ import { PremiumGate } from '../../access/PremiumGate';
 import { useOptionalSubscriptionAccess } from '../../access/SubscriptionAccessContext';
 import { projectAIClient } from '../ai/ProjectAIClient';
 import { mergeTutorDraft } from '../../ai/tutorComposer';
+import { createConversationRequestId, reconcileConversation } from '../../ai/conversationReconciliation';
 
 const emptyState = () => ({ phase: 'idle', questions: [], selected: null, followUps: [], conversation: [], error: '' });
 
@@ -16,25 +17,31 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
   const [usage, setUsage] = useState(null);
   const [historyCursor, setHistoryCursor] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyNotice, setHistoryNotice] = useState('');
   const request = useRef(null);
   const scrollRef = useRef(null);
   const composerRef = useRef(null);
   const nearBottom = useRef(true);
   const scopeKey = JSON.stringify({ project: context?.project?.id, version: context?.project?.version });
   const selectionKey = context?.selectionType === 'checkpoint_context' ? '' : JSON.stringify({ type: context?.selectionType, content: context?.selectedContent });
+  const scopeRef = useRef(scopeKey);
+  scopeRef.current = scopeKey;
 
   const generate = async () => {
     if (!context?.selectedContent?.trim()) return;
     request.current?.abort();
     const controller = new AbortController();
     request.current = controller;
-    setState({ ...emptyState(), phase: 'questions-loading' });
+    const requestId = createConversationRequestId('mentor');
+    const requestScope = scopeRef.current;
+    setState((current) => ({ ...current, phase: 'questions-loading', questions: [], selected: null, followUps: [], error: '' }));
     try {
-      const result = await client.generateQuestions(context, { signal: controller.signal });
+      const result = await client.generateQuestions(context, { signal: controller.signal, requestId });
       if (result._tutorUsage) setUsage({ ...result._tutorUsage, remainingMessages: result._tutorUsage.unlimited ? null : Math.max(0, result._tutorUsage.includedLimit - result._tutorUsage.usedMessages) });
-      setState({ ...emptyState(), phase: 'questions', questions: result.questions });
+      if (request.current !== controller || scopeRef.current !== requestScope) return;
+      setState((current) => ({ ...current, phase: 'questions', questions: result.questions, selected: null, followUps: [], error: '' }));
     } catch (error) {
-      if (error.name !== 'AbortError') setState({ ...emptyState(), phase: 'error', error: error.message || 'The AI Mentor is unavailable.' });
+      if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) setState((current) => ({ ...current, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
     } finally {
       if (request.current === controller) request.current = null;
     }
@@ -45,14 +52,17 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     request.current?.abort();
     const controller = new AbortController();
     request.current = controller;
-    const history = state.conversation;
+    const requestId = createConversationRequestId('mentor');
+    const requestScope = scopeRef.current;
+    const history = state.conversation.slice(-3);
     setState((value) => ({ ...value, phase: 'answer-loading', selected: question, questions: [], followUps: [], error: '' }));
     try {
-      const result = await client.answer(context, question, history, { signal: controller.signal });
+      const result = await client.answer(context, question, history, { signal: controller.signal, requestId });
+      if (request.current !== controller || scopeRef.current !== requestScope) return;
       if (result._tutorUsage) setUsage({ ...result._tutorUsage, remainingMessages: result._tutorUsage.unlimited ? null : Math.max(0, result._tutorUsage.includedLimit - result._tutorUsage.usedMessages) });
-      setState((value) => ({ ...value, phase: 'answer', selected: null, followUps: result.followUps, conversation: [...history, { question: question.label, answer: result.answer }].slice(-3), error: '' }));
+      setState((value) => ({ ...value, phase: 'answer', selected: null, followUps: result.followUps, conversation: reconcileConversation(value.conversation, [{ id: requestId, requestId, question: question.label, answer: result.answer, createdAt: Date.now() }]), error: '' }));
     } catch (error) {
-      if (error.name !== 'AbortError') setState((value) => ({ ...value, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
+      if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) setState((value) => ({ ...value, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
     } finally {
       if (request.current === controller) request.current = null;
     }
@@ -75,15 +85,15 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scopeKey]);
 
-  const historyTurns = (items = []) => { const turns = []; for (let index = 0; index < items.length;) { const item = items[index]; const next = items[index + 1]; if (item.role === 'user' && next?.role === 'assistant' && item.requestId === next.requestId) { turns.push({ id: item.requestId, question: item.text, answer: next.response?.answer ?? next.response?.summary ?? '' }); index += 2; } else { turns.push({ id: item.id, ...(item.role === 'user' ? { question: item.text } : { answer: item.response?.answer ?? item.response?.summary ?? '' }) }); index += 1; } } return turns; };
+  const historyTurns = (items = []) => { const turns = []; for (let index = 0; index < items.length;) { const item = items[index]; const next = items[index + 1]; if (item.role === 'user' && next?.role === 'assistant' && item.requestId === next.requestId) { turns.push({ id: item.requestId, requestId: item.requestId, question: item.text, answer: next.response?.answer ?? next.response?.summary ?? '', createdAt: item.createdAt }); index += 2; } else { turns.push({ id: item.requestId ?? item.id, requestId: item.requestId, createdAt: item.createdAt, ...(item.role === 'user' ? { question: item.text } : { answer: item.response?.answer ?? item.response?.summary ?? '' }) }); index += 1; } } return turns; };
   useEffect(() => {
     if (!context?.tutorScope || typeof client.history !== 'function') return undefined;
-    const controller = new AbortController(); setHistoryLoading(true);
-    client.history(context.tutorScope, { signal: controller.signal }).then((page) => { setState((value) => ({ ...value, conversation: historyTurns(page.items) })); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch(() => {}).finally(() => setHistoryLoading(false));
+    const controller = new AbortController(); setHistoryLoading(true); setHistoryNotice('');
+    client.history(context.tutorScope, { signal: controller.signal }).then((page) => { setState((value) => ({ ...value, conversation: reconcileConversation(value.conversation, historyTurns(page.items)) })); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch((error) => { if (error.name !== 'AbortError') setHistoryNotice("Previous messages couldn't be loaded. You can still continue using the AI Mentor."); }).finally(() => setHistoryLoading(false));
     return () => controller.abort();
   }, [client, scopeKey]);
 
-  const loadOlder = async (node) => { if (!historyCursor || historyLoading) return; const oldHeight = node.scrollHeight; setHistoryLoading(true); try { const page = await client.history(context.tutorScope, { before: historyCursor }); const turns = historyTurns(page.items); setState((value) => ({ ...value, conversation: [...turns.filter((turn) => !value.conversation.some((current) => current.id === turn.id)), ...value.conversation] })); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
+  const loadOlder = async (node) => { if (!historyCursor || historyLoading) return; const oldHeight = node.scrollHeight; setHistoryLoading(true); try { const page = await client.history(context.tutorScope, { before: historyCursor }); const turns = historyTurns(page.items); setState((value) => ({ ...value, conversation: reconcileConversation(value.conversation, turns) })); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
 
   useEffect(() => {
     if (!selectionKey) return;
@@ -116,10 +126,11 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
         {state.phase === 'idle' ? <button className="project-ai-suggest" type="button" onClick={generate}>Suggest questions</button> : null}
         {state.phase === 'questions-loading' ? <MentorStatus>AI Mentor is preparing questions...</MentorStatus> : null}
         {state.questions.length ? <section className="project-ai-suggestions" aria-labelledby="project-ai-explore-title"><h3 id="project-ai-explore-title">What would you like to explore?</h3><div>{state.questions.map((question) => <button type="button" disabled={loading} onClick={() => choose(question)} key={question.id}>{question.label}</button>)}</div></section> : null}
-        <div className="project-ai-turns" aria-live="polite">{state.conversation.map((turn, index) => <ConversationTurn turn={turn} key={`${index}-${turn.question}`} />)}
+        <div className="project-ai-turns" aria-live="polite">{state.conversation.map((turn) => <ConversationTurn turn={turn} key={turn.id} />)}
           {state.selected ? <div className="project-ai-turn is-user" aria-label="You"><span>You</span><div>{state.selected.label}</div></div> : null}
           {state.phase === 'answer-loading' ? <MentorStatus>AI Mentor is preparing a focused answer...</MentorStatus> : null}
         </div>
+        {historyNotice ? <div className="project-ai-history-notice" role="status">{historyNotice}</div> : null}
         {state.followUps.length ? <section className="project-ai-suggestions is-follow-up" aria-labelledby="project-ai-follow-up-title"><h3 id="project-ai-follow-up-title">Continue with:</h3><div>{state.followUps.map((question) => <button type="button" disabled={loading} onClick={() => choose(question)} key={question.id}>{question.label}</button>)}</div></section> : null}
         {state.error ? <div className="project-ai-turn is-mentor is-error" role="alert"><span>AI Mentor</span><div><p>I couldn't generate a response right now.</p><small>{state.error}</small><button type="button" onClick={retry}><RotateCcw /> Retry</button></div></div> : null}
       </>}

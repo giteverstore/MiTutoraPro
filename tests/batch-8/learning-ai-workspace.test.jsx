@@ -28,6 +28,13 @@ const response = {
   nextStep: { kind: 'experiment', text: 'Change the value.' },
 };
 
+function deferred() {
+  let resolve;
+  let reject;
+  const promise = new Promise((resolvePromise, rejectPromise) => { resolve = resolvePromise; reject = rejectPromise; });
+  return { promise, resolve, reject };
+}
+
 describe('Learning workspace controls', () => {
   it('switches between Course and AI and only exposes Compiler restore while minimized', () => {
     const onViewChange = vi.fn();
@@ -74,6 +81,33 @@ describe('Learning workspace controls', () => {
 });
 
 describe('Learning AI Tutor workspace', () => {
+  it('reconciles a late persisted history page with the live request IDs without duplicating the response', async () => {
+    const history = deferred();
+    const explain = vi.fn().mockResolvedValue({ ...response, operation: 'explain-full-code' });
+    const client = { history: vi.fn(() => history.promise), explain };
+    render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={client} accessTier="PREMIUM" />);
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Ask AI Tutor' }), { target: { value: 'Explain this once.' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
+    await screen.findByText(response.summary);
+    const requestId = explain.mock.calls[0][0].requestId;
+    history.resolve({ items: [
+      { id: `${requestId}-user`, requestId, role: 'user', text: 'Explain this once.', createdAt: 10 },
+      { id: `${requestId}-assistant`, requestId, role: 'assistant', response: { ...response, operation: 'explain-full-code' }, createdAt: 11 },
+    ], nextCursor: null });
+
+    await waitFor(() => expect(screen.getAllByText('Explain this once.')).toHaveLength(1));
+    expect(screen.getAllByText(response.summary)).toHaveLength(1);
+  });
+
+  it('keeps the composer usable and reports history failures separately from generation errors', async () => {
+    const client = { history: vi.fn().mockRejectedValue(new Error('history unavailable')), explain: vi.fn().mockResolvedValue({ ...response, operation: 'explain-full-code' }) };
+    render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={client} accessTier="PREMIUM" />);
+    expect(await screen.findByText(/Previous messages couldn't be loaded/)).toBeInTheDocument();
+    expect(screen.queryByText('AI Tutor could not respond')).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Ask AI Tutor' })).toBeEnabled();
+  });
+
   it('bounds quoted selection context and marks truncation visibly', () => {
     const quoted = quoteTutorSelection('x'.repeat(8_100));
     expect(quoted).toHaveLength(8_026);
