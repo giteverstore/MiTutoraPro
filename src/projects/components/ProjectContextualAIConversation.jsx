@@ -4,8 +4,9 @@ import { ACCESS_FEATURES, canAccessFeature } from '../../access/accessPolicy';
 import { PremiumGate } from '../../access/PremiumGate';
 import { useOptionalSubscriptionAccess } from '../../access/SubscriptionAccessContext';
 import { projectAIClient } from '../ai/ProjectAIClient';
-import { createConversationRequestId, reconcileConversation } from '../../ai/conversationReconciliation';
+import { createConversationRequestId } from '../../ai/conversationReconciliation';
 import { AITextContent } from '../../ai/AITextContent';
+import { projectProviderConversation, reconcileProjectTurns } from '../ai/projectConversation';
 
 const emptyState = () => ({ phase: 'idle', questions: [], selected: null, followUps: [], conversation: [], error: '' });
 
@@ -22,6 +23,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
   const scrollRef = useRef(null);
   const composerRef = useRef(null);
   const nearBottom = useRef(true);
+  const retryRequest = useRef(null);
   const scopeKey = JSON.stringify({ project: context?.project?.id, version: context?.project?.version });
   const selectionKey = context?.selectionType === 'checkpoint_context' ? '' : JSON.stringify({ type: context?.selectionType, content: context?.selectedContent });
   const scopeRef = useRef(scopeKey);
@@ -47,20 +49,22 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     }
   };
 
-  const choose = async (question) => {
+  const choose = async (question, retrySnapshot = null) => {
     if (!context || !question?.label?.trim() || request.current) return;
     request.current?.abort();
     const controller = new AbortController();
     request.current = controller;
-    const requestId = createConversationRequestId('mentor');
+    const requestId = retrySnapshot?.requestId ?? createConversationRequestId('mentor');
     const requestScope = scopeRef.current;
-    const history = state.conversation.slice(-3);
+    const history = retrySnapshot?.conversation ?? projectProviderConversation(state.conversation);
+    retryRequest.current = Object.freeze({ requestId, question, conversation: history, scopeKey: requestScope });
     setState((value) => ({ ...value, phase: 'answer-loading', selected: question, questions: [], followUps: [], error: '' }));
     try {
       const result = await client.answer(context, question, history, { signal: controller.signal, requestId });
       if (request.current !== controller || scopeRef.current !== requestScope) return;
       if (result._tutorUsage) setUsage({ ...result._tutorUsage, remainingMessages: result._tutorUsage.unlimited ? null : Math.max(0, result._tutorUsage.includedLimit - result._tutorUsage.usedMessages) });
-      setState((value) => ({ ...value, phase: 'answer', selected: null, followUps: result.followUps, conversation: reconcileConversation(value.conversation, [{ id: requestId, requestId, question: question.label, answer: result.answer, createdAt: Date.now() }]), error: '' }));
+      retryRequest.current = null;
+      setState((value) => ({ ...value, phase: 'answer', selected: null, followUps: result.followUps, conversation: reconcileProjectTurns(value.conversation, [{ id: requestId, requestId, question: question.label, answer: result.answer, createdAt: Date.now() }]), error: '' }));
     } catch (error) {
       if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) setState((value) => ({ ...value, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
     } finally {
@@ -78,6 +82,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
   useEffect(() => {
     request.current?.abort();
     request.current = null;
+    retryRequest.current = null;
     setState(emptyState());
     nearBottom.current = true;
     return () => { request.current?.abort(); request.current = null; };
@@ -85,15 +90,14 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scopeKey]);
 
-  const historyTurns = (items = []) => { const turns = []; for (let index = 0; index < items.length;) { const item = items[index]; const next = items[index + 1]; if (item.role === 'user' && next?.role === 'assistant' && item.requestId === next.requestId) { turns.push({ id: item.requestId, requestId: item.requestId, question: item.text, answer: next.response?.answer ?? next.response?.summary ?? '', createdAt: item.createdAt }); index += 2; } else { turns.push({ id: item.requestId ?? item.id, requestId: item.requestId, createdAt: item.createdAt, ...(item.role === 'user' ? { question: item.text } : { answer: item.response?.answer ?? item.response?.summary ?? '' }) }); index += 1; } } return turns; };
   useEffect(() => {
     if (!context?.tutorScope || typeof client.history !== 'function') return undefined;
     const controller = new AbortController(); setHistoryLoading(true); setHistoryNotice('');
-    client.history(context.tutorScope, { signal: controller.signal }).then((page) => { setState((value) => ({ ...value, conversation: reconcileConversation(value.conversation, historyTurns(page.items)) })); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch((error) => { if (error.name !== 'AbortError') setHistoryNotice("Previous messages couldn't be loaded. You can still continue using the AI Mentor."); }).finally(() => setHistoryLoading(false));
+    client.history(context.tutorScope, { signal: controller.signal }).then((page) => { setState((value) => ({ ...value, conversation: reconcileProjectTurns(value.conversation, page.items) })); setHistoryCursor(page.nextCursor ?? null); if (page.usage) setUsage(page.usage); }).catch((error) => { if (error.name !== 'AbortError') setHistoryNotice("Previous messages couldn't be loaded. You can still continue using the AI Mentor."); }).finally(() => setHistoryLoading(false));
     return () => controller.abort();
   }, [client, scopeKey]);
 
-  const loadOlder = async (node) => { if (!historyCursor || historyLoading) return; const oldHeight = node.scrollHeight; setHistoryLoading(true); try { const page = await client.history(context.tutorScope, { before: historyCursor }); const turns = historyTurns(page.items); setState((value) => ({ ...value, conversation: reconcileConversation(value.conversation, turns) })); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
+  const loadOlder = async (node) => { if (!historyCursor || historyLoading) return; const oldHeight = node.scrollHeight; setHistoryLoading(true); try { const page = await client.history(context.tutorScope, { before: historyCursor }); setState((value) => ({ ...value, conversation: reconcileProjectTurns(value.conversation, page.items) })); setHistoryCursor(page.nextCursor ?? null); requestAnimationFrame(() => { node.scrollTop += node.scrollHeight - oldHeight; }); } finally { setHistoryLoading(false); } };
 
   useEffect(() => {
     if (!selectionKey) return;
@@ -121,7 +125,9 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
 
   if (!canAccessFeature({ tier, feature: ACCESS_FEATURES.AI_TUTOR })) return <PremiumGate context="Project AI Mentor" />;
   const loading = state.phase.endsWith('loading');
-  const retry = state.selected ? () => choose(state.selected) : generate;
+  const retry = retryRequest.current?.scopeKey === scopeRef.current
+    ? () => choose(retryRequest.current.question, retryRequest.current)
+    : generate;
 
   return <section className="project-contextual-ai" aria-label="Contextual project AI" aria-busy={loading}>
     <header><Bot aria-hidden="true" /><h2>Contextual AI Mentor</h2></header>

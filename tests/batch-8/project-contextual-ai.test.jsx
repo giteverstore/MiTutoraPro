@@ -137,6 +137,47 @@ describe('Projects contextual AI mentor', () => {
     expect(screen.getByRole('button', { name: 'Show the next check' })).toBeInTheDocument();
   });
 
+  it('includes a valid long live answer in the next Project request', async () => {
+    const longAnswer = `Start here. ${'detail '.repeat(350)}`;
+    const client = { answer: vi.fn()
+      .mockResolvedValueOnce({ answer: longAnswer, followUps: [] })
+      .mockResolvedValueOnce({ answer: 'A class groups state and behavior.', followUps: [] }) };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Mentor' });
+    fireEvent.change(composer, { target: { value: 'How should I begin?' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send AI Mentor message' }));
+    await screen.findByText((content) => content.startsWith('Start here.'));
+    fireEvent.change(composer, { target: { value: 'What is a class?' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send AI Mentor message' }));
+    await screen.findByText('A class groups state and behavior.');
+    expect(client.answer.mock.calls[1][2]).toEqual([{ question: 'How should I begin?', answer: longAnswer.trim() }]);
+  });
+
+  it('reuses the validated request context for Retry without adding a duplicate turn', async () => {
+    const priorItems = [
+      { id: 'prior-user', requestId: 'prior', role: 'user', text: 'Previous question', createdAt: 1 },
+      { id: 'prior-assistant', requestId: 'prior', role: 'assistant', response: { answer: 'Previous answer' }, createdAt: 2 },
+    ];
+    const client = {
+      history: vi.fn().mockResolvedValue({ items: priorItems, nextCursor: null }),
+      answer: vi.fn().mockRejectedValueOnce(new Error('Temporary failure')).mockResolvedValueOnce({ answer: 'Recovered answer', followUps: [] }),
+    };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    await screen.findByText('Previous answer');
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Mentor' });
+    fireEvent.change(composer, { target: { value: 'What is a class?' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send AI Mentor message' }));
+    await screen.findByRole('alert');
+    fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+    await screen.findByText('Recovered answer');
+
+    expect(client.answer).toHaveBeenCalledTimes(2);
+    expect(client.answer.mock.calls[1][1]).toEqual(client.answer.mock.calls[0][1]);
+    expect(client.answer.mock.calls[1][2]).toEqual(client.answer.mock.calls[0][2]);
+    expect(client.answer.mock.calls[1][3].requestId).toBe(client.answer.mock.calls[0][3].requestId);
+    expect(screen.getAllByText('What is a class?')).toHaveLength(1);
+  });
+
   it('does not submit Ask AI selection context and preserves the existing conversation and draft', async () => {
     const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValue({ answer: 'First context answer.', followUps: [] }) };
     const { rerender } = render(<ProjectContextualAI context={context('guide_text', 'First selection')} client={client} accessTier="PREMIUM" />);
