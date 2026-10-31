@@ -1,3 +1,5 @@
+import './AITextContent.css';
+
 function InlineContent({ text }) {
   return String(text ?? '').split(/(`[^`\n]+`|\*\*[^*\n]+\*\*)/g).filter(Boolean).map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) return <code key={`${index}-${part}`}>{part.slice(1, -1)}</code>;

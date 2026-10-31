@@ -81,6 +81,17 @@ describe('Learning workspace controls', () => {
 });
 
 describe('Learning AI Tutor workspace', () => {
+  it('shows a non-blocking initial history loading state and removes it when history resolves', async () => {
+    const history = deferred();
+    const client = { history: vi.fn(() => history.promise), explain: vi.fn() };
+    render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={client} accessTier="PREMIUM" />);
+
+    expect(await screen.findByText(/Loading previous messages/)).toHaveAttribute('role', 'status');
+    expect(screen.getByRole('textbox', { name: 'Ask AI Tutor' })).toBeEnabled();
+    history.resolve({ items: [], nextCursor: null });
+    await waitFor(() => expect(screen.queryByText(/Loading previous messages/)).not.toBeInTheDocument());
+  });
+
   it('reconciles a late persisted history page with the live request IDs without duplicating the response', async () => {
     const history = deferred();
     const explain = vi.fn().mockResolvedValue({ ...response, operation: 'explain-full-code' });

@@ -162,7 +162,8 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         <div><h2 id="learning-ai-title">AI Tutor</h2><p>{course.title} · {lesson.title}</p></div>
       </header>
       <div className="ai-workspace-conversation" ref={conversationRef} aria-live="polite" onScroll={(event) => { if (event.currentTarget.scrollTop === 0) void loadOlder(); }}>
-        {messages.length === 0 ? <div className="ai-workspace-empty"><Sparkles aria-hidden="true" /><strong>{emptyTitle}</strong><p>{emptyText}</p></div> : null}
+        {historyLoading && messages.length === 0 ? <div className="ai-workspace-history-loading" role="status"><LoaderCircle className="is-spinning" aria-hidden="true" /> Loading previous messages…</div> : null}
+        {!historyLoading && messages.length === 0 ? <div className="ai-workspace-empty"><Sparkles aria-hidden="true" /><strong>{emptyTitle}</strong><p>{emptyText}</p></div> : null}
         {messages.map((message) => message.role === 'user' ? (
           <article className="ai-workspace-message is-user" key={message.id}>
             <strong>You</strong><p>{message.text}</p>

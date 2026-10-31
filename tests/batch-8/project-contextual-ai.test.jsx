@@ -19,6 +19,17 @@ function deferred() {
 }
 
 describe('Projects contextual AI mentor', () => {
+  it('shows initial history loading without blocking the Project composer', async () => {
+    const history = deferred();
+    const client = { history: vi.fn(() => history.promise), generateQuestions: vi.fn(), answer: vi.fn() };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+
+    expect(await screen.findByText(/Loading previous messages/)).toHaveAttribute('role', 'status');
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeEnabled();
+    history.resolve({ items: [], nextCursor: null });
+    await waitFor(() => expect(screen.queryByText(/Loading previous messages/)).not.toBeInTheDocument());
+  });
+
   it('preserves loaded turns through suggestion generation and appends an answer without truncating history', async () => {
     const oldItems = Array.from({ length: 4 }, (_, index) => [
       { id: `old-${index}-user`, requestId: `old-${index}`, role: 'user', text: `Old question ${index}`, createdAt: index * 2 },

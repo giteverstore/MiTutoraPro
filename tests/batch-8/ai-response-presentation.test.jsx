@@ -1,11 +1,24 @@
 import { cleanup, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { AITextContent } from '../../src/ai/AITextContent.jsx';
 import { AITutorResponse } from '../../src/ai/AITutorResponse.jsx';
 
 afterEach(cleanup);
 
 describe('AI response presentation', () => {
+  it('uses the shared 16px reading scale and bounded code presentation contract', () => {
+    const tokens = readFileSync('src/design-system/tokens.css', 'utf8');
+    const styles = readFileSync('src/ai/AITextContent.css', 'utf8');
+
+    expect(tokens).toContain('--font-size-reading: 1rem');
+    expect(styles).toContain('font-size: var(--font-size-reading)');
+    expect(styles).toContain('font-size: var(--font-size-lg)');
+    expect(styles).toContain('overflow-x: auto');
+    expect(styles).toContain('max-width: 100%');
+    expect(styles).toContain('var(--ai-tutor-response-code-surface, var(--color-code-surface))');
+  });
+
   it('renders a safe supported structure while preserving fenced-code indentation', () => {
     const { container } = render(<AITextContent text={'## Why it works\n\nUse `total` carefully.\n\n- Read the value\n- Print the value\n\n```python\nif ready:\n    print(total)\n```\n\n<script>alert(1)</script>'} />);
 
