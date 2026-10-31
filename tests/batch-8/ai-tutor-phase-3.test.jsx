@@ -300,7 +300,7 @@ describe('Phase 3 distributed quota contract and accounting', () => {
     const daily = store.snapshot(guard.identityKey('user')).daily;
     expect(daily.requests).toBe(1);
     expect(daily.inputTokens).toBeGreaterThan(0);
-    expect(daily.outputTokens).toBe(350);
+    expect(daily.outputTokens).toBe(700);
     expect(daily.reservedOutputTokens).toBe(0);
   });
 

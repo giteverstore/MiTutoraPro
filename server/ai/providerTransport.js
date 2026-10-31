@@ -26,6 +26,7 @@ const PROJECT_VALIDATION_REASON_ALLOWLIST = new Set([
   'followups-not-array', 'followups-too-many', 'followup-invalid',
   'duplicate-followup-id', 'questions-missing', 'questions-not-array',
   'questions-too-few', 'questions-too-many', 'question-invalid', 'duplicate-question-id',
+  'suspected-truncation',
 ]);
 const VALIDATION_TYPE_ALLOWLIST = new Set(['array', 'object', 'string', 'number', 'boolean', 'null', 'undefined']);
 const SAFE_SCHEMA_PATHS = Object.freeze([
@@ -47,6 +48,7 @@ const SAFE_SCHEMA_FIELDS = new Set([
   'answer', 'followUps', 'questions', 'id', 'label', 'intent',
 ]);
 const DECLARED_MIME_TYPE_ALLOWLIST = new Set(['application/json']);
+const STRUCTURED_OUTPUT_MODE_ALLOWLIST = new Set(['json-object', 'json-schema', 'tool', 'unknown']);
 
 function safeProviderStatus(status) {
   return Number.isInteger(status) && status >= 100 && status <= 599 ? status : null;
@@ -236,6 +238,13 @@ export function createProviderFailureLog({ provider, model, diagnostic, duration
   if (Number.isInteger(diagnostic.outputCount) && diagnostic.outputCount >= 0 && diagnostic.outputCount <= 100) event.outputCount = diagnostic.outputCount;
   if (DECLARED_MIME_TYPE_ALLOWLIST.has(diagnostic.declaredMimeType)) event.declaredMimeType = diagnostic.declaredMimeType;
   if (Number.isInteger(diagnostic.responseCharacters) && diagnostic.responseCharacters >= 0) event.responseCharacters = diagnostic.responseCharacters;
+  if (Number.isInteger(diagnostic.attemptCount) && diagnostic.attemptCount >= 1 && diagnostic.attemptCount <= 2) event.attemptCount = diagnostic.attemptCount;
+  if (diagnostic.retryReason === 'truncation') event.retryReason = diagnostic.retryReason;
+  if (PROVIDER_FINISH_REASON_ALLOWLIST.has(diagnostic.firstFinishReason)) event.firstFinishReason = diagnostic.firstFinishReason;
+  if (PROVIDER_FINISH_REASON_ALLOWLIST.has(diagnostic.finalFinishReason)) event.finalFinishReason = diagnostic.finalFinishReason;
+  if (Number.isInteger(diagnostic.firstOutputTokens) && diagnostic.firstOutputTokens >= 0) event.firstOutputTokens = diagnostic.firstOutputTokens;
+  if (Number.isInteger(diagnostic.finalOutputTokens) && diagnostic.finalOutputTokens >= 0) event.finalOutputTokens = diagnostic.finalOutputTokens;
+  if (STRUCTURED_OUTPUT_MODE_ALLOWLIST.has(diagnostic.structuredOutputMode)) event.structuredOutputMode = diagnostic.structuredOutputMode;
   if (Number.isFinite(durationMs) && durationMs >= 0) event.durationMs = Math.round(durationMs);
   return Object.freeze(event);
 }

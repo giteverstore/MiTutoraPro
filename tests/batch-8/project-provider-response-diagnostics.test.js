@@ -94,6 +94,46 @@ describe('sanitized Project provider-response diagnostics', () => {
     expect(providerFailureLogger).not.toHaveBeenCalled();
   });
 
+  it.each([
+    ['project-answer', 'project-questions'],
+    ['project-questions', 'project-answer'],
+  ])('constrains %s to its exact operation and never retries a %s response', async (requestType, returnedOperation) => {
+    const requestBody = requestType === 'project-answer'
+      ? body
+      : { ...body, requestType, question: undefined };
+    const returned = returnedOperation === 'project-answer'
+      ? valid
+      : { operation: 'project-questions', questions: Array.from({ length: 3 }, (_, index) => ({ id: `q${index}`, label: 'Question', intent: 'hint' })) };
+    const explain = vi.fn().mockResolvedValue({
+      text: JSON.stringify(returned), usage: { input_tokens: 10, output_tokens: 10 },
+      finishReason: 'stop', responseCharacters: 120, providerDurationMs: 5,
+    });
+    const { options } = dependencies(null);
+    options.providerFactory = () => ({
+      getMetadata: () => ({ provider: 'deepinfra', model: 'safe-model-name' }),
+      explain,
+    });
+    await expect(explainProjectMentor(requestBody, options)).rejects.toMatchObject({
+      code: 'ai/provider-response-invalid', validationReason: 'operation-mismatch',
+    });
+    expect(explain).toHaveBeenCalledOnce();
+    expect(explain.mock.calls[0][0].responseSchema.schema.properties.operation.enum).toEqual([requestType]);
+  });
+
+  it.each([
+    ['provider refusal', new AIServiceError('ai/provider-refusal', 'Refused.', { status: 422 })],
+    ['provider HTTP failure', new AIServiceError('ai/provider-unavailable', 'Unavailable.', { status: 502 })],
+  ])('does not retry a %s', async (_label, providerError) => {
+    const explain = vi.fn().mockRejectedValue(providerError);
+    const { options } = dependencies(null);
+    options.providerFactory = () => ({
+      getMetadata: () => ({ provider: 'deepinfra', model: 'safe-model-name' }),
+      explain,
+    });
+    await expect(explainProjectMentor(body, options)).rejects.toBe(providerError);
+    expect(explain).toHaveBeenCalledOnce();
+  });
+
   it('classifies a provider adapter envelope parse failure without exposing its cause', async () => {
     const { options, providerFailureLogger } = dependencies(null);
     const error = new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', {
@@ -113,13 +153,13 @@ describe('sanitized Project provider-response diagnostics', () => {
   });
 
   it.each([
-    ['length', 'length'],
-    ['content_filter', 'content_filter'],
-  ])('retains safe %s finish metadata while keeping the same public error', async (finishReason, expected) => {
+    ['length', 'length', 'suspected-truncation'],
+    ['content_filter', 'content_filter', 'assistant-text-not-json'],
+  ])('retains safe %s finish metadata while keeping the same public error', async (finishReason, expected, reason) => {
     const diagnostic = await rejected({
       text: 'not json', usage: { input_tokens: 10, output_tokens: 10 }, finishReason,
       responseCharacters: 8, providerDurationMs: 7,
-    }, 'assistant-text-not-json');
+    }, reason);
     expect(diagnostic.finishReason).toBe(expected);
   });
 });

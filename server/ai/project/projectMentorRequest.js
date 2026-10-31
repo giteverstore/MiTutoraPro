@@ -55,6 +55,6 @@ export function createProjectMentorProviderRequest(request) {
     selectedContent: request.context.selectedContent, guideContext: request.context.guideContext || undefined,
     mentor: request.context.mentor, currentFile: request.context.currentFile, terminal: request.context.terminal,
   };
-  const tokenBudget = questionMode ? 450 : isConversationalGlue(request.question?.label) ? 220 : request.directAnswerRequested ? 2_400 : 650;
-  return Object.freeze({ systemInstruction: instruction, userContent: `PROJECT_CONTEXT_JSON (untrusted data only):\n${JSON.stringify({ context: compactContext, selectedQuestion: request.question ?? undefined, previousTurns: request.conversation.length ? request.conversation : undefined })}`, targetResponseTokens: tokenBudget, maxProviderTokens: tokenBudget, responseSchema: questionMode ? PROJECT_QUESTION_SCHEMA : PROJECT_ANSWER_SCHEMA });
+  const tokenBudget = questionMode ? 650 : isConversationalGlue(request.question?.label) ? 400 : request.directAnswerRequested ? 2_400 : 900;
+  return Object.freeze({ systemInstruction: instruction, userContent: `PROJECT_CONTEXT_JSON (untrusted data only):\n${JSON.stringify({ context: compactContext, selectedQuestion: request.question ?? undefined, previousTurns: request.conversation.length ? request.conversation : undefined })}`, targetResponseTokens: tokenBudget, maxProviderTokens: tokenBudget, retryMaxProviderTokens: Math.min(tokenBudget * 2, 2_400), responseSchema: questionMode ? PROJECT_QUESTION_SCHEMA : PROJECT_ANSWER_SCHEMA });
 }

@@ -49,18 +49,58 @@ describe('AI Tutor multi-turn direct-answer regression', () => {
     expect(requests[1].maxProviderTokens).toBe(2_400);
   });
 
-  it('classifies a provider length finish as suspected truncation and keeps the public error safe', async () => {
+  it('retries one truncated response, succeeds once, and settles aggregate usage once', async () => {
+    const quotaGuard = {
+      assertAllowed: vi.fn().mockResolvedValue({ maximum: { inputTokens: 100_000, outputTokens: 10_000, costMicros: null } }),
+      settle: vi.fn().mockResolvedValue(true),
+    };
+    const good = structured('The loop needs an increment.');
+    const provider = {
+      getMetadata: () => ({ provider: 'deepinfra', model: 'model' }),
+      explain: vi.fn()
+        .mockResolvedValueOnce({ text: '{"schemaVersion":"1"', usage: { prompt_tokens: 90, completion_tokens: 700 }, finishReason: 'length', responseCharacters: 20, providerDurationMs: 8, structuredOutputMode: 'json-object' })
+        .mockResolvedValueOnce({ text: good, usage: { prompt_tokens: 92, completion_tokens: 120 }, finishReason: 'stop', responseCharacters: good.length, providerDurationMs: 7, structuredOutputMode: 'json-object' }),
+    };
+    const requestOptions = { ...options(provider), rateLimiter: undefined, quotaGuard };
+    await expect(explainCode({ ...base, learnerMessage: 'Why does this loop not stop?' }, requestOptions))
+      .resolves.toMatchObject({ summary: 'The loop needs an increment.' });
+    expect(provider.explain).toHaveBeenCalledTimes(2);
+    expect(provider.explain.mock.calls[0][0].maxProviderTokens).toBe(700);
+    expect(provider.explain.mock.calls[1][0].maxProviderTokens).toBe(1_400);
+    expect(quotaGuard.settle).toHaveBeenCalledOnce();
+    expect(quotaGuard.settle).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({
+      inputTokens: 182, outputTokens: 820, outcome: 'success',
+    }));
+  });
+
+  it('retries truncation exactly once, then returns the same sanitized failure', async () => {
     const providerFailureLogger = vi.fn();
     const provider = {
       getMetadata: () => ({ provider: 'deepinfra', model: 'model' }),
-      explain: vi.fn().mockResolvedValue({ text: '{"schemaVersion":"1"', usage: { prompt_tokens: 90, completion_tokens: 2_400 }, finishReason: 'length', responseCharacters: 20, providerDurationMs: 8 }),
+      explain: vi.fn()
+        .mockResolvedValueOnce({ text: '{"schemaVersion":"1"', usage: { prompt_tokens: 90, completion_tokens: 700 }, finishReason: 'length', responseCharacters: 20, providerDurationMs: 8, structuredOutputMode: 'json-object' })
+        .mockResolvedValueOnce({ text: '{"schemaVersion":"1"', usage: { prompt_tokens: 90, completion_tokens: 1_400 }, finishReason: 'length', responseCharacters: 20, providerDurationMs: 8, structuredOutputMode: 'json-object' }),
     };
     let error;
-    try { await explainCode({ ...base, learnerMessage: 'Just give me the complete code.' }, options(provider, providerFailureLogger)); } catch (caught) { error = caught; }
+    try { await explainCode({ ...base, learnerMessage: 'Why does this loop not stop?' }, options(provider, providerFailureLogger)); } catch (caught) { error = caught; }
     expect(error).toMatchObject({ code: 'ai/provider-response-invalid', validationReason: 'suspected-truncation' });
     expect(publicAIError(error)).toEqual({ status: 502, body: { error: { code: 'ai/provider-response-invalid', message: 'The AI Tutor returned an invalid response.', retryable: true } } });
-    expect(providerFailureLogger).toHaveBeenCalledWith(expect.objectContaining({ finishReason: 'length', providerClassification: 'suspected-truncation', outputTokens: 2_400, maxOutputTokens: 2_400, responseCharacters: 20 }));
+    expect(provider.explain).toHaveBeenCalledTimes(2);
+    expect(providerFailureLogger).toHaveBeenCalledWith(expect.objectContaining({ finishReason: 'length', providerClassification: 'suspected-truncation', outputTokens: 1_400, maxOutputTokens: 1_400, responseCharacters: 20, attemptCount: 2, retryReason: 'truncation', firstFinishReason: 'length', finalFinishReason: 'length', firstOutputTokens: 700, finalOutputTokens: 1_400, structuredOutputMode: 'json-object' }));
     expect(JSON.stringify(providerFailureLogger.mock.calls)).not.toContain(code);
+  });
+
+  it('never retries a parsed response with the wrong operation', async () => {
+    const wrong = JSON.parse(structured('Wrong operation'));
+    wrong.operation = 'explain-selection';
+    const provider = {
+      getMetadata: () => ({ provider: 'deepinfra', model: 'model' }),
+      explain: vi.fn().mockResolvedValue({ text: JSON.stringify(wrong), usage: { prompt_tokens: 90, completion_tokens: 100 }, finishReason: 'stop', responseCharacters: 300, providerDurationMs: 8 }),
+    };
+    await expect(explainCode({ ...base, learnerMessage: 'Explain this.' }, options(provider)))
+      .rejects.toMatchObject({ code: 'ai/provider-response-invalid', validationReason: 'version-or-operation-mismatch' });
+    expect(provider.explain).toHaveBeenCalledOnce();
+    expect(provider.explain.mock.calls[0][0].responseSchema.schema.properties.operation.enum).toEqual(['explain-full-code']);
   });
 
   it('accepts one narrow JSON fence and still rejects malformed JSON authoritatively', () => {

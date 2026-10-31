@@ -60,17 +60,22 @@ export class DeepInfraProvider extends AIProvider {
     try {
       let response;
       try {
+        const schemaInstruction = tutorRequest.responseSchema?.schema
+          ? `\n\nREQUIRED OUTPUT JSON SCHEMA (trusted; follow exactly):\n${JSON.stringify(tutorRequest.responseSchema.schema)}`
+          : '';
         response = await this.fetchImpl(DEEPINFRA_CHAT_COMPLETIONS_URL, {
           method: 'POST',
           headers: { Authorization: `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model: this.model,
             messages: [
-              { role: 'system', content: tutorRequest.systemInstruction },
+              { role: 'system', content: `${tutorRequest.systemInstruction}${schemaInstruction}` },
               { role: 'user', content: tutorRequest.userContent },
             ],
             max_tokens: tutorRequest.maxProviderTokens,
             reasoning_effort: 'low',
+            temperature: 0,
+            top_p: 1,
             response_format: { type: 'json_object' },
           }),
           signal: request.signal,
@@ -118,6 +123,7 @@ export class DeepInfraProvider extends AIProvider {
         finishReason: safeFinishReason(payload?.choices?.[0]?.finish_reason),
         responseCharacters: text.length,
         providerDurationMs: Date.now() - startedAt,
+        structuredOutputMode: 'json-object',
       };
     } finally {
       request.cleanup();

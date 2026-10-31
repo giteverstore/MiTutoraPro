@@ -14,8 +14,9 @@ import { tutorSensitiveContentInspector } from './tutor/tutorSensitiveContent.js
 import { classifyAIError } from './aiErrorTaxonomy.js';
 import { tutorFeatureGate } from './tutor/tutorFeatureGate.js';
 import { createTutorPricingConfiguration, createTutorProviderTokenConstraints } from './tutor/tutorRuntimeConfig.js';
-import { createTutorUsagePlan, normalizeProviderUsage, usageFitsReservation } from './tutor/tutorUsage.js';
+import { combineProviderUsage, createTutorUsagePlan, normalizeProviderUsage, usageFitsReservation } from './tutor/tutorUsage.js';
 import { createProviderFailureLog } from './providerTransport.js';
+import { executeProviderWithTruncationRetry } from './providerExecution.js';
 
 const ZERO_USAGE = Object.freeze({ inputTokens: 0, outputTokens: 0, costMicros: 0 });
 
@@ -27,11 +28,14 @@ function attachResponseDiagnostic(error, result, providerRequest, fields) {
     providerClassification: fields.providerClassification,
     finishReason: result?.finishReason ?? 'unknown',
     ...(Number.isInteger(outputTokens) && outputTokens >= 0 ? { outputTokens } : {}),
-    maxOutputTokens: providerRequest.maxProviderTokens,
+    maxOutputTokens: result?.retryDiagnostic?.attemptCount === 2
+      ? providerRequest.retryMaxProviderTokens
+      : providerRequest.maxProviderTokens,
     jsonParseSucceeded: fields.jsonParseSucceeded,
     schemaValidationSucceeded: fields.schemaValidationSucceeded,
     ...(fields.releasePolicyClassification ? { releasePolicyClassification: fields.releasePolicyClassification } : {}),
     ...(error.validationDiagnostic ?? {}),
+    ...(result?.retryDiagnostic ?? {}),
     responseCharacters: Number.isInteger(result?.responseCharacters) ? result.responseCharacters : String(result?.text ?? '').length,
   });
   return error;
@@ -73,15 +77,17 @@ export async function explainCode(body, {
   let usageEstimate = ZERO_USAGE;
   let usageMaximum = ZERO_USAGE;
   let usageExceededReservation = false;
+  let usagePlan = null;
+  let providerAttemptCount = 0;
 
   const settleQuota = async (outcome) => {
     if (!reservation || rateLimiter) return;
-    const normalized = usage ?? Object.freeze({
-      ...usageMaximum,
+    const fallbackMaximum = usagePlan?.attemptMaximums?.[Math.max(0, providerAttemptCount - 1)] ?? usageMaximum;
+    const charge = providerInvoked ? (usage?.tokenUsageKnown === true ? usage : Object.freeze({
+      ...fallbackMaximum,
       tokenUsageKnown: false,
       costKnown: pricing?.known === true,
-    });
-    const charge = providerInvoked ? normalized : Object.freeze({
+    })) : Object.freeze({
       inputTokens: 0,
       outputTokens: 0,
       costMicros: 0,
@@ -92,7 +98,7 @@ export async function explainCode(body, {
       inputTokens: charge.inputTokens,
       outputTokens: charge.outputTokens,
       costMicros: charge.costMicros,
-      chargeEstimate: providerInvoked && (charge.tokenUsageKnown !== true || usageExceededReservation),
+      chargeEstimate: providerInvoked && usageExceededReservation,
       outcome,
     });
     if (settled === false) quotaDecision = 'settlement-failed';
@@ -107,7 +113,7 @@ export async function explainCode(body, {
     try {
       context = sensitiveContentInspector.inspect(normalizeExplainRequest(body, { activityPolicy }));
       providerRequest = createTutorProviderRequest(context);
-      const usagePlan = createTutorUsagePlan(providerRequest, resolvedPricing, resolvedConstraints);
+      usagePlan = createTutorUsagePlan(providerRequest, resolvedPricing, resolvedConstraints);
       usageEstimate = usagePlan.estimate;
       usageMaximum = usagePlan.maximum;
     } catch (preProviderError) {
@@ -129,12 +135,19 @@ export async function explainCode(body, {
     const requestKey = createTutorIdentityKey(principal.uid, trustedNetworkKey);
     const response = await requestCoordinator.run(context, requestKey, async () => {
       providerInvoked = true;
-      const result = await provider.explain(providerRequest, { signal });
-      usage = normalizeProviderUsage({
-        inputTokens: result?.usage?.input_tokens ?? result?.usage?.prompt_tokens,
-        outputTokens: result?.usage?.output_tokens ?? result?.usage?.completion_tokens,
-        cachedInputTokens: result?.usage?.prompt_tokens_details?.cached_tokens ?? result?.usage?.cached_input_tokens,
-      }, usageEstimate, resolvedPricing);
+      let execution;
+      try { execution = await executeProviderWithTruncationRetry(provider, providerRequest, { signal }); }
+      catch (error) {
+        providerAttemptCount = error?.providerAttemptCount ?? 1;
+        throw error;
+      }
+      providerAttemptCount = execution.attempts.length;
+      const result = Object.freeze({ ...execution.result, retryDiagnostic: execution.diagnostic });
+      usage = combineProviderUsage(execution.attempts.map((attempt, index) => normalizeProviderUsage({
+        inputTokens: attempt?.usage?.input_tokens ?? attempt?.usage?.prompt_tokens,
+        outputTokens: attempt?.usage?.output_tokens ?? attempt?.usage?.completion_tokens,
+        cachedInputTokens: attempt?.usage?.prompt_tokens_details?.cached_tokens ?? attempt?.usage?.cached_input_tokens,
+      }, usagePlan.attemptEstimates[index] ?? usagePlan.estimate, resolvedPricing)), resolvedPricing);
       if (!usageFitsReservation(usage, reservation ?? { maximum: usageMaximum })) {
         usageExceededReservation = true;
         throw new AIServiceError('ai/quota-integrity', 'The AI Tutor usage report exceeded its authorized reservation.', { status: 503 });

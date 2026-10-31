@@ -63,13 +63,13 @@ describe('AI Tutor learning policy', () => {
   });
 
   it('enforces concise budgets according to operation and code complexity', () => {
-    expect(createTutorProviderRequest(parseContext())).toMatchObject({ targetResponseTokens: 350, maxProviderTokens: 350 });
-    expect(createTutorProviderRequest(parseContext(selectionRequest())).targetResponseTokens).toBe(350);
+    expect(createTutorProviderRequest(parseContext())).toMatchObject({ targetResponseTokens: 700, maxProviderTokens: 700 });
+    expect(createTutorProviderRequest(parseContext(selectionRequest())).targetResponseTokens).toBe(700);
     expect(createTutorProviderRequest(parseContext({
       compilerStatus: 'error',
       compilerEvidence: { ...baseRequest.compilerEvidence, status: 'error', output: 'NameError' },
-    })).targetResponseTokens).toBe(700);
-    expect(createTutorProviderRequest(parseContext({ code: Array.from({ length: 210 }, (_, index) => `value_${index} = ${index}`).join('\n'), compilerEvidence: undefined })).targetResponseTokens).toBe(1_200);
+    })).targetResponseTokens).toBe(1_000);
+    expect(createTutorProviderRequest(parseContext({ code: Array.from({ length: 210 }, (_, index) => `value_${index} = ${index}`).join('\n'), compilerEvidence: undefined })).targetResponseTokens).toBe(1_600);
   });
 
   it('limits provider learner data to the approved explanation context', () => {

@@ -51,7 +51,7 @@ describe('DeepInfra AI Tutor provider', () => {
     const provider = new DeepInfraProvider({ apiKey: 'server-only-key', model: MODEL, fetchImpl });
     await expect(provider.explain(providerRequest)).resolves.toEqual({
       text: '{"ok":true}', usage: { prompt_tokens: 12, completion_tokens: 5 },
-      finishReason: 'stop', responseCharacters: 11, providerDurationMs: expect.any(Number),
+      finishReason: 'stop', responseCharacters: 11, providerDurationMs: expect.any(Number), structuredOutputMode: 'json-object',
     });
     const [url, request] = fetchImpl.mock.calls[0];
     expect(url).toBe('https://api.deepinfra.com/v1/openai/chat/completions');
@@ -59,11 +59,13 @@ describe('DeepInfra AI Tutor provider', () => {
     expect(JSON.parse(request.body)).toEqual({
       model: MODEL,
       messages: [
-        { role: 'system', content: 'Tutor policy' },
+        { role: 'system', content: `Tutor policy\n\nREQUIRED OUTPUT JSON SCHEMA (trusted; follow exactly):\n${JSON.stringify(providerRequest.responseSchema.schema)}` },
         { role: 'user', content: 'Learner data' },
       ],
       max_tokens: 1_200,
       reasoning_effort: 'low',
+      temperature: 0,
+      top_p: 1,
       response_format: { type: 'json_object' },
     });
   });

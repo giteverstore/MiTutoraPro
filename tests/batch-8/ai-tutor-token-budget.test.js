@@ -45,9 +45,9 @@ describe('AI Tutor token budgets', () => {
   });
 
   it('uses intent-aware output budgets without constraining explicit solutions', () => {
-    expect(createTutorProviderRequest(context('Hi')).targetResponseTokens).toBe(220);
-    expect(createTutorProviderRequest(context('Hi')).maxProviderTokens).toBe(220);
-    expect(createTutorProviderRequest(context('What does len() do?')).targetResponseTokens).toBe(350);
+    expect(createTutorProviderRequest(context('Hi')).targetResponseTokens).toBe(400);
+    expect(createTutorProviderRequest(context('Hi')).maxProviderTokens).toBe(400);
+    expect(createTutorProviderRequest(context('What does len() do?')).targetResponseTokens).toBe(700);
     expect(createTutorProviderRequest(context('Just give me the complete code')).targetResponseTokens).toBe(2_400);
     expect(createTutorProviderRequest(context('Just give me the complete code')).maxProviderTokens).toBe(2_400);
   });
@@ -59,7 +59,7 @@ describe('AI Tutor token budgets', () => {
       question: { id: 'q', label: 'Hi', intent: 'learner-question' }, conversation: [],
     });
     const request = createProjectMentorProviderRequest(normalized);
-    expect(request.targetResponseTokens).toBe(220);
+    expect(request.targetResponseTokens).toBe(400);
     expect(request.userContent).not.toContain('decorative description');
     expect(request.userContent).not.toContain('broad objective');
     expect(request.userContent).not.toContain('"id":"bingo"');

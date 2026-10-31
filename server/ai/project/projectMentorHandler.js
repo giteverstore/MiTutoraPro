@@ -3,11 +3,12 @@ import { createAIProvider } from '../createAIProvider.js';
 import { AIServiceError } from '../AIServiceError.js';
 import { classifyAIError } from '../aiErrorTaxonomy.js';
 import { tutorTelemetry } from '../tutor/tutorTelemetry.js';
-import { createTutorUsagePlan, normalizeProviderUsage, usageFitsReservation } from '../tutor/tutorUsage.js';
+import { combineProviderUsage, createTutorUsagePlan, normalizeProviderUsage, usageFitsReservation } from '../tutor/tutorUsage.js';
 import { createTutorPricingConfiguration, createTutorProviderTokenConstraints } from '../tutor/tutorRuntimeConfig.js';
 import { normalizeProjectMentorRequest, createProjectMentorProviderRequest } from './projectMentorRequest.js';
 import { validateProjectMentorResponse } from './projectMentorSchema.js';
 import { createProviderFailureLog } from '../providerTransport.js';
+import { executeProviderWithTruncationRetry } from '../providerExecution.js';
 
 const ZERO_USAGE = Object.freeze({ inputTokens: 0, outputTokens: 0, costMicros: 0 });
 
@@ -23,14 +24,16 @@ function safeFinishReason(value) {
 function attachProjectResponseDiagnostic(error, result, providerRequest, reason = error?.validationReason) {
   if (!error || typeof error !== 'object') return error;
   const envelopeParsed = Boolean(result && typeof result === 'object' && !Array.isArray(result) && typeof result.text === 'string');
-  const parsedJson = envelopeParsed && reason !== 'assistant-text-not-json' && reason !== 'provider-envelope-invalid';
+  const parsedJson = envelopeParsed && reason !== 'assistant-text-not-json' && reason !== 'provider-envelope-invalid' && reason !== 'suspected-truncation';
   error.providerDurationMs = Number.isFinite(result?.providerDurationMs) ? result.providerDurationMs : error.providerDurationMs;
   error.providerDiagnostic = Object.freeze({
     ...(error.providerDiagnostic ?? {}),
     ...(Number.isInteger(result?.providerStatus) ? { providerStatus: result.providerStatus } : {}),
-    providerClassification: reason === 'assistant-text-not-json' ? 'invalid-json' : 'schema-validation-failed',
+    providerClassification: reason === 'suspected-truncation' ? 'suspected-truncation' : reason === 'assistant-text-not-json' ? 'invalid-json' : 'schema-validation-failed',
     finishReason: safeFinishReason(result?.finishReason),
-    maxOutputTokens: providerRequest?.maxProviderTokens,
+    maxOutputTokens: result?.retryDiagnostic?.attemptCount === 2
+      ? providerRequest?.retryMaxProviderTokens
+      : providerRequest?.maxProviderTokens,
     providerEnvelopeParsed: envelopeParsed,
     assistantTextJsonParsed: parsedJson,
     jsonParseSucceeded: parsedJson,
@@ -41,6 +44,7 @@ function attachProjectResponseDiagnostic(error, result, providerRequest, reason 
     ...(Number.isInteger(result?.candidateCount) ? { candidateCount: result.candidateCount } : {}),
     ...(Number.isInteger(result?.outputCount) ? { outputCount: result.outputCount } : {}),
     ...(typeof result?.declaredMimeType === 'string' ? { declaredMimeType: result.declaredMimeType } : {}),
+    ...(result?.retryDiagnostic ?? {}),
   });
   return error;
 }
@@ -56,17 +60,20 @@ export async function explainProjectMentor(body, { principal, signal, quotaGuard
   let resolvedPricing;
   let providerRequest;
   let providerResult;
+  let usagePlan;
+  let providerAttemptCount = 0;
   let metadata = { provider: 'unknown', model: 'unknown' };
   const settleQuota = async (outcome) => {
     if (!reservation) return;
+    const fallbackMaximum = usagePlan?.attemptMaximums?.[Math.max(0, providerAttemptCount - 1)] ?? usageMaximum;
     const charge = providerInvoked
-      ? usage ?? { ...usageMaximum, tokenUsageKnown: false, costKnown: resolvedPricing?.known === true }
+      ? usage?.tokenUsageKnown === true ? usage : { ...fallbackMaximum, tokenUsageKnown: false, costKnown: resolvedPricing?.known === true }
       : { ...ZERO_USAGE, tokenUsageKnown: true, costKnown: true };
     await quotaGuard.settle(reservation, {
       inputTokens: charge.inputTokens,
       outputTokens: charge.outputTokens,
       costMicros: charge.costMicros,
-      chargeEstimate: providerInvoked && charge.tokenUsageKnown !== true,
+      chargeEstimate: false,
       outcome,
     });
     reservation = null;
@@ -77,20 +84,32 @@ export async function explainProjectMentor(body, { principal, signal, quotaGuard
     operation = request.operation;
     providerRequest = createProjectMentorProviderRequest(request);
     resolvedPricing = pricing ?? createTutorPricingConfiguration();
-    const plan = createTutorUsagePlan(providerRequest, resolvedPricing, providerTokenConstraints ?? createTutorProviderTokenConstraints());
-    usageMaximum = plan.maximum;
-    reservation = await quotaGuard.assertAllowed({ uid: principal.uid, usageEstimate: plan.estimate, usageMaximum: plan.maximum });
+    usagePlan = createTutorUsagePlan(providerRequest, resolvedPricing, providerTokenConstraints ?? createTutorProviderTokenConstraints());
+    usageMaximum = usagePlan.maximum;
+    reservation = await quotaGuard.assertAllowed({ uid: principal.uid, usageEstimate: usagePlan.estimate, usageMaximum: usagePlan.maximum });
     if (cachedResponse) { await settleQuota('cache-hit'); telemetry.record({ operation, latencyMs: Date.now() - startedAt, httpStatus: 200, success: true, quotaDecision: 'allowed', cacheEligible: true, cacheHit: true, cacheType: 'exact' }); return cachedResponse; }
     const provider = providerFactory();
     metadata = provider.getMetadata?.() ?? metadata;
     providerInvoked = true;
-    providerResult = await provider.explain(providerRequest, { signal });
-    usage = normalizeProviderUsage({ inputTokens: providerResult?.usage?.input_tokens ?? providerResult?.usage?.prompt_tokens, outputTokens: providerResult?.usage?.output_tokens ?? providerResult?.usage?.completion_tokens, cachedInputTokens: providerResult?.usage?.prompt_tokens_details?.cached_tokens ?? providerResult?.usage?.cached_input_tokens }, plan.estimate, resolvedPricing);
+    let execution;
+    try { execution = await executeProviderWithTruncationRetry(provider, providerRequest, { signal }); }
+    catch (error) {
+      providerAttemptCount = error?.providerAttemptCount ?? 1;
+      throw error;
+    }
+    providerAttemptCount = execution.attempts.length;
+    providerResult = Object.freeze({ ...execution.result, retryDiagnostic: execution.diagnostic });
+    usage = combineProviderUsage(execution.attempts.map((attempt, index) => normalizeProviderUsage({ inputTokens: attempt?.usage?.input_tokens ?? attempt?.usage?.prompt_tokens, outputTokens: attempt?.usage?.output_tokens ?? attempt?.usage?.completion_tokens, cachedInputTokens: attempt?.usage?.prompt_tokens_details?.cached_tokens ?? attempt?.usage?.cached_input_tokens }, usagePlan.attemptEstimates[index] ?? usagePlan.estimate, resolvedPricing)), resolvedPricing);
     if (!usageFitsReservation(usage, reservation ?? { maximum: plan.maximum })) {
       throw new AIServiceError('ai/quota-integrity', 'The AI Tutor usage report exceeded its authorized reservation.', { status: 503 });
     }
     let response;
     try {
+      if (providerResult?.finishReason === 'length') {
+        const truncated = new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 });
+        truncated.validationReason = 'suspected-truncation';
+        throw truncated;
+      }
       if (!providerResult || typeof providerResult !== 'object' || Array.isArray(providerResult) || typeof providerResult.text !== 'string') {
         const invalid = new AIServiceError('ai/provider-response-invalid', 'The AI Tutor returned an invalid response.', { status: 502 });
         invalid.validationReason = 'provider-envelope-invalid';

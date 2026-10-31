@@ -43,10 +43,10 @@ export const TUTOR_RESPONSE_LIMITS = Object.freeze({
 });
 
 export const TUTOR_RESPONSE_TOKEN_BUDGETS = Object.freeze({
-  conversation: 220,
-  simple: 350,
-  moderate: 700,
-  complex: 1_200,
+  conversation: 400,
+  simple: 700,
+  moderate: 1_000,
+  complex: 1_600,
   completeSolution: 2_400,
 });
 

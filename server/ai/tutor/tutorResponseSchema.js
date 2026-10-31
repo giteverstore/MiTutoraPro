@@ -66,6 +66,19 @@ export const TUTOR_PROVIDER_RESPONSE_SCHEMA = Object.freeze({
   },
 });
 
+export function createTutorProviderResponseSchema(operation) {
+  return Object.freeze({
+    ...TUTOR_PROVIDER_RESPONSE_SCHEMA,
+    schema: Object.freeze({
+      ...TUTOR_PROVIDER_RESPONSE_SCHEMA.schema,
+      properties: Object.freeze({
+        ...TUTOR_PROVIDER_RESPONSE_SCHEMA.schema.properties,
+        operation: Object.freeze({ type: 'string', enum: Object.freeze([operation]) }),
+      }),
+    }),
+  });
+}
+
 function valueType(value) {
   if (value === null) return 'null';
   if (Array.isArray(value)) return 'array';

@@ -39,18 +39,36 @@ export function createTutorUsagePlan(tutorRequest, pricing, constraints) {
   if (maximumInputTokens > constraints.maxInputTokens) {
     throw new AIServiceError('ai/request-too-large', 'The code context is too large to explain in one request.', { status: 413 });
   }
-  const maximumOutputTokens = Math.min(tutorRequest.maxProviderTokens, TUTOR_RESPONSE_TOKEN_BUDGETS.completeSolution);
+  const firstOutputTokens = Math.min(tutorRequest.maxProviderTokens, TUTOR_RESPONSE_TOKEN_BUDGETS.completeSolution);
+  const retryOutputTokens = Number.isInteger(tutorRequest.retryMaxProviderTokens)
+    && tutorRequest.retryMaxProviderTokens > tutorRequest.maxProviderTokens
+    ? Math.min(tutorRequest.retryMaxProviderTokens, TUTOR_RESPONSE_TOKEN_BUDGETS.completeSolution)
+    : 0;
+  const attemptCount = retryOutputTokens > 0 ? 2 : 1;
   const estimate = Object.freeze({
     inputTokens: estimatedInputTokens,
     outputTokens: tutorRequest.targetResponseTokens,
     costMicros: estimateCostMicros({ inputTokens: estimatedInputTokens, outputTokens: tutorRequest.targetResponseTokens }, pricing),
   });
-  const maximum = Object.freeze({
+  const firstMaximum = Object.freeze({
     inputTokens: maximumInputTokens,
-    outputTokens: maximumOutputTokens,
-    costMicros: estimateCostMicros({ inputTokens: maximumInputTokens, outputTokens: maximumOutputTokens }, pricing),
+    outputTokens: firstOutputTokens,
+    costMicros: estimateCostMicros({ inputTokens: maximumInputTokens, outputTokens: firstOutputTokens }, pricing),
   });
-  return Object.freeze({ estimate, maximum });
+  const maximum = attemptCount === 1 ? firstMaximum : Object.freeze({
+    inputTokens: maximumInputTokens * attemptCount,
+    outputTokens: firstOutputTokens + retryOutputTokens,
+    costMicros: estimateCostMicros({ inputTokens: maximumInputTokens * attemptCount, outputTokens: firstOutputTokens + retryOutputTokens }, pricing),
+  });
+  const attemptEstimates = Object.freeze([
+    estimate,
+    ...(retryOutputTokens > 0 ? [Object.freeze({
+      inputTokens: estimatedInputTokens,
+      outputTokens: retryOutputTokens,
+      costMicros: estimateCostMicros({ inputTokens: estimatedInputTokens, outputTokens: retryOutputTokens }, pricing),
+    })] : []),
+  ]);
+  return Object.freeze({ estimate, maximum, attemptEstimates, attemptMaximums: Object.freeze([firstMaximum, maximum]) });
 }
 
 export function usageFitsReservation(usage, reservation) {
@@ -75,6 +93,20 @@ export function normalizeProviderUsage(usage, estimate, pricing) {
     tokenUsageKnown: known,
     ...(cachedInputTokens == null ? {} : { cachedInputTokens }),
     costMicros: estimateCostMicros(effective, pricing),
+    costKnown: pricing?.known === true,
+  });
+}
+
+export function combineProviderUsage(usages, pricing) {
+  const inputTokens = usages.reduce((total, usage) => total + usage.inputTokens, 0);
+  const outputTokens = usages.reduce((total, usage) => total + usage.outputTokens, 0);
+  const cached = usages.map((usage) => usage.cachedInputTokens).filter(Number.isInteger);
+  return Object.freeze({
+    inputTokens,
+    outputTokens,
+    tokenUsageKnown: usages.every((usage) => usage.tokenUsageKnown === true),
+    ...(cached.length ? { cachedInputTokens: cached.reduce((total, value) => total + value, 0) } : {}),
+    costMicros: estimateCostMicros({ inputTokens, outputTokens }, pricing),
     costKnown: pricing?.known === true,
   });
 }

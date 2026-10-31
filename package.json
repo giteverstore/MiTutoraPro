@@ -31,6 +31,7 @@
     "retrieve:python-judge-runtime": "node scripts/judge/retrieve-canonical-python-runtime.mjs",
     "validate:activity-verification": "node scripts/validate-activity-verification.mjs",
     "smoke:ai-tutor": "node scripts/smoke-ai-tutor.mjs",
+    "probe:ai-structured-output": "node scripts/probe-ai-structured-output.mjs",
     "evaluate:ai-tutor": "node scripts/evaluate-ai-tutor.mjs",
     "audit:content-integrity": "node scripts/audit-content-integrity.mjs",
     "validate:remediation-batch-8": "npm run test:batch-8 && npm run audit:content-integrity && npm run validate:bundle-budgets",
