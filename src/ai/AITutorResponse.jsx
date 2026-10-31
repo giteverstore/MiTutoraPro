@@ -1,3 +1,5 @@
+import { AITextContent } from './AITextContent';
+
 function LineRange({ reference }) {
   const label = reference.startLine === reference.endLine
     ? `Line ${reference.startLine}`
@@ -6,63 +8,69 @@ function LineRange({ reference }) {
 }
 
 export function AITutorResponse({ response, stale = false }) {
+  if (typeof response === 'string') return <AITextContent text={response} className="ai-tutor-structured-response" />;
+  const sections = response?.sections ?? [];
+  const codeReferences = response?.codeReferences ?? [];
+  const concepts = response?.concepts ?? [];
+  const issues = response?.issues ?? [];
+  const nextStep = response?.nextStep ?? { kind: 'none', text: '' };
   return (
     <article className="ai-tutor-structured-response" aria-label="AI Tutor explanation">
       {stale ? <p className="ai-tutor-stale" role="status">This explanation is based on an earlier code or compiler snapshot.</p> : null}
-      <p className="ai-tutor-summary">{response.summary}</p>
-      {response.evidence.note ? <p className="ai-tutor-evidence"><strong>Evidence:</strong> {response.evidence.note}</p> : null}
+      <AITextContent text={response?.summary} className="ai-tutor-summary" />
+      {response?.evidence?.note ? <div className="ai-tutor-evidence"><strong>Evidence</strong><AITextContent text={response.evidence.note} /></div> : null}
 
-      {response.sections.map((section, index) => (
+      {sections.filter((section) => section?.title?.trim() && section?.body?.trim()).map((section, index) => (
         <section className="ai-tutor-response-section" key={`${section.title}-${index}`}>
           <h4>{section.title}</h4>
-          <p>{section.body}</p>
+          <AITextContent text={section.body} />
         </section>
       ))}
 
-      {response.codeReferences.length ? (
+      {codeReferences.length ? (
         <section className="ai-tutor-response-section">
           <h4>Code references</h4>
           <ul className="ai-tutor-response-list">
-            {response.codeReferences.map((reference, index) => (
+            {codeReferences.map((reference, index) => (
               <li key={`${reference.startLine}-${reference.endLine}-${index}`}>
                 <LineRange reference={reference} />
-                <span>{reference.explanation}</span>
+                <AITextContent text={reference.explanation} />
               </li>
             ))}
           </ul>
         </section>
       ) : null}
 
-      {response.concepts.length ? (
+      {concepts.length ? (
         <section className="ai-tutor-response-section">
           <h4>Key concepts</h4>
           <dl className="ai-tutor-concepts">
-            {response.concepts.map((concept, index) => (
-              <div key={`${concept.name}-${index}`}><dt>{concept.name}</dt><dd>{concept.explanation}</dd></div>
+            {concepts.map((concept, index) => (
+              <div key={`${concept.name}-${index}`}><dt>{concept.name}</dt><dd><AITextContent text={concept.explanation} /></dd></div>
             ))}
           </dl>
         </section>
       ) : null}
 
-      {response.issues.length ? (
+      {issues.length ? (
         <section className="ai-tutor-response-section">
           <h4>Issues to investigate</h4>
           <ul className="ai-tutor-response-list">
-            {response.issues.map((issue, index) => (
+            {issues.map((issue, index) => (
               <li key={`${issue.title}-${index}`}>
                 <strong>{issue.title}</strong>
                 {issue.codeReference ? <LineRange reference={issue.codeReference} /> : null}
-                <span>{issue.explanation}</span>
+                <AITextContent text={issue.explanation} />
               </li>
             ))}
           </ul>
         </section>
       ) : null}
 
-      {response.nextStep.kind !== 'none' && response.nextStep.text ? (
+      {nextStep.kind !== 'none' && nextStep.text ? (
         <section className="ai-tutor-next-step" aria-label="Suggested next step">
           <h4>Next step</h4>
-          <p>{response.nextStep.text}</p>
+          <AITextContent text={nextStep.text} />
         </section>
       ) : null}
     </article>

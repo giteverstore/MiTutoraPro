@@ -121,7 +121,7 @@ describe('Learning AI Tutor workspace', () => {
     expect(explain).not.toHaveBeenCalled();
   });
 
-  it('inserts selected code into the focused composer and waits for explicit Send', async () => {
+  it('keeps selected code out of the focused composer and sends it as structured context', async () => {
     const explain = vi.fn().mockResolvedValue(response);
     const selectionContext = {
       text: 'name = "Ada"',
@@ -150,29 +150,33 @@ describe('Learning AI Tutor workspace', () => {
 
     const composer = screen.getByRole('textbox', { name: 'Ask AI Tutor' });
     await waitFor(() => expect(composer).toHaveFocus());
-    expect(composer).toHaveValue('> name = "Ada"\n\n');
+    expect(composer).toHaveValue('Explain this code.');
+    expect(composer.value).not.toContain('name = "Ada"');
     expect(explain).not.toHaveBeenCalled();
-    fireEvent.change(composer, { target: { value: `${composer.value}Why store this value?` } });
+    fireEvent.change(composer, { target: { value: 'Why store this value?' } });
     fireEvent.click(screen.getByRole('button', { name: 'Send' }));
     await waitFor(() => expect(explain).toHaveBeenCalledOnce());
     expect(explain).toHaveBeenCalledWith(expect.objectContaining({
-      requestType: 'explain-full-code', selectedCode: '', code: compilerContext.code,
-      learnerMessage: expect.stringContaining('Why store this value?'),
+      requestType: 'explain-selection', selectedCode: 'name = "Ada"', code: compilerContext.code,
+      selectionSnapshot: selectionContext.snapshot,
+      learnerMessage: 'Why store this value?',
       conversation: [],
     }), expect.objectContaining({ signal: expect.any(AbortSignal) }));
   });
 
-  it('preserves an existing draft when Ask AI adds editable visible context', async () => {
+  it('preserves an existing draft while keeping Ask AI context outside the composer', async () => {
     const explain = vi.fn();
     const { rerender } = render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={{ explain }} accessTier="PREMIUM" />);
     const composer = screen.getByRole('textbox', { name: 'Ask AI Tutor' });
     fireEvent.change(composer, { target: { value: 'Why does this fail?' } });
-    rerender(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} pendingRequest={{ id: 'selection-2', selectionContext: { text: 'numbers[10]' } }} client={{ explain }} accessTier="PREMIUM" />);
+    rerender(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} pendingRequest={{ id: 'selection-2', selectionContext: { text: 'numbers[10]', snapshot: { text: 'numbers[10]', startOffset: 0, endOffset: 11, sourceHash: 'source-hash', selectionHash: 'selection-hash', language: 'python' } } }} client={{ explain }} accessTier="PREMIUM" />);
     await waitFor(() => expect(composer).toHaveFocus());
-    expect(composer).toHaveValue('Why does this fail?\n\n> numbers[10]\n');
+    expect(composer).toHaveValue('Why does this fail?');
     fireEvent.change(composer, { target: { value: 'Edited question' } });
     expect(composer).toHaveValue('Edited question');
-    expect(explain).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
+    await waitFor(() => expect(explain).toHaveBeenCalledOnce());
+    expect(explain.mock.calls[0][0]).toEqual(expect.objectContaining({ requestType: 'explain-selection', selectedCode: 'numbers[10]', learnerMessage: 'Edited question' }));
   });
 
   it('sends Enter as a bounded full-code follow-up and keeps Shift+Enter as a newline', async () => {

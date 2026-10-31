@@ -6,7 +6,6 @@ import { PremiumGate } from '../access/PremiumGate';
 import { aiTutorClient } from './AITutorClient';
 import { AITutorResponse } from './AITutorResponse';
 import { ErrorState } from '../errors/ErrorState';
-import { mergeTutorDraft } from './tutorComposer';
 import { createConversationRequestId, reconcileConversation } from './conversationReconciliation';
 
 function conversationAnswer(response) {
@@ -24,6 +23,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   const tier = accessTier ?? access?.tier ?? 'FREE';
   const [messages, setMessages] = useState([]);
   const [draft, setDraft] = useState('');
+  const [selectionContext, setSelectionContext] = useState(null);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const [usage, setUsage] = useState(null);
@@ -45,7 +45,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     });
   }, []);
 
-  const submit = useCallback(async ({ question }) => {
+  const submit = useCallback(async ({ question, selection }) => {
     if (status === 'loading' || usage?.remainingMessages === 0 || !compilerContext?.code?.trim()) return;
     const prompt = question.trim();
     if (!prompt) return;
@@ -53,6 +53,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     requestRef.current?.abort();
     requestRef.current = controller;
     const requestId = createConversationRequestId('tutor');
+    const hasVerifiedSelection = Boolean(selection?.text?.trim() && selection?.snapshot);
     const requestScope = scopeRef.current;
     const userMessage = {
       id: `${requestId}-user`,
@@ -74,10 +75,11 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
       }
       const response = await client.explain({
         requestId,
-        requestType: 'explain-full-code',
+        requestType: hasVerifiedSelection ? 'explain-selection' : 'explain-full-code',
         language: compilerContext.language,
         code: compilerContext.code,
-        selectedCode: '',
+        selectedCode: hasVerifiedSelection ? selection.text : '',
+        ...(hasVerifiedSelection ? { selectionSnapshot: selection.snapshot } : {}),
         compilerEvidence: compilerContext.compilerEvidence ?? undefined,
         compilerStatus: compilerContext.compilerStatus ?? 'ready',
         activityType,
@@ -116,6 +118,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     requestRef.current?.abort();
     requestRef.current = null;
     setStatus('idle');
+    setSelectionContext(null);
   }, [scopeKey]);
   useEffect(() => {
     if (activityType === 'practice' || typeof client.history !== 'function') return undefined;
@@ -129,7 +132,8 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   useEffect(() => {
     if (!pendingRequest || handledRequestRef.current === pendingRequest.id) return;
     handledRequestRef.current = pendingRequest.id;
-    setDraft((current) => mergeTutorDraft(current, pendingRequest.selectionContext?.text));
+    setSelectionContext(pendingRequest.selectionContext?.text?.trim() ? pendingRequest.selectionContext : null);
+    setDraft((current) => current.trim() ? current : 'Explain this code.');
     requestAnimationFrame(() => {
       const composer = composerRef.current;
       if (!composer) return;
@@ -145,8 +149,10 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
   const sendDraft = () => {
     const question = draft.trim();
     if (!question) return;
+    const selection = selectionContext;
     setDraft('');
-    void submit({ question });
+    setSelectionContext(null);
+    void submit({ question, selection });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createProjectAIContext } from '../../src/projects/ai/projectAIContext';
 import { ProjectAIClient, validateProjectAIResponse } from '../../src/projects/ai/ProjectAIClient';
@@ -118,6 +118,25 @@ describe('Projects contextual AI mentor', () => {
     expect(client.answer.mock.calls[2][1]).toMatchObject({ label: 'Why does this mutation matter?', intent: 'learner-question' });
   });
 
+  it('formats Project answers and keeps follow-up suggestions visually separate', async () => {
+    const client = {
+      answer: vi.fn().mockResolvedValue({
+        answer: '## Check the state\n\n- Read `tasks` first\n- Keep the mutation focused\n\n```javascript\nif (ready) {\n  tasks.push(task);\n}\n```',
+        followUps: [{ id: 'next', label: 'Show the next check', intent: 'follow-up' }],
+      }),
+    };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Mentor' });
+    fireEvent.change(composer, { target: { value: 'How should I update it?' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send AI Mentor message' }));
+
+    const answer = await screen.findByLabelText('AI Mentor');
+    expect(within(answer).getByRole('heading', { name: 'Check the state' })).toBeInTheDocument();
+    expect(within(answer).getByRole('list')).toHaveTextContent('Keep the mutation focused');
+    expect(answer.querySelector('pre code')?.textContent).toContain('  tasks.push(task);');
+    expect(screen.getByRole('button', { name: 'Show the next check' })).toBeInTheDocument();
+  });
+
   it('does not submit Ask AI selection context and preserves the existing conversation and draft', async () => {
     const client = { generateQuestions: vi.fn().mockResolvedValue({ questions: [{ id: 'hint', label: 'Give me a hint', intent: 'hint' }] }), answer: vi.fn().mockResolvedValue({ answer: 'First context answer.', followUps: [] }) };
     const { rerender } = render(<ProjectContextualAI context={context('guide_text', 'First selection')} client={client} accessTier="PREMIUM" />);
@@ -130,7 +149,8 @@ describe('Projects contextual AI mentor', () => {
     expect(screen.getByText('const second = true;')).toBeInTheDocument();
     const composer = screen.getByRole('textbox', { name: 'Ask AI Mentor' });
     await waitFor(() => expect(composer).toHaveFocus());
-    expect(composer).toHaveValue('> First selection\n\n> const second = true;\n');
+    expect(composer).toHaveValue('Explain this selection.');
+    expect(composer.value).not.toContain('const second = true;');
     expect(client.generateQuestions).toHaveBeenCalledTimes(1);
     expect(client.answer).toHaveBeenCalledTimes(1);
   });

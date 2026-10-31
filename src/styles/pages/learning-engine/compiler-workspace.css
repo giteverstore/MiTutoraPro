@@ -336,10 +336,31 @@
   display: grid;
   gap: var(--space-4);
   color: var(--ai-tutor-response-text, var(--color-text));
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
+
+.ai-response-content {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.ai-response-content p,
+.ai-response-content h5,
+.ai-response-content ul,
+.ai-response-content ol,
+.ai-response-content pre { margin: 0; }
+.ai-response-content h5 { font-size: var(--font-size-md); line-height: 1.4; }
+.ai-response-content ul,
+.ai-response-content ol { display: grid; gap: var(--space-1); padding-left: var(--space-5); }
+.ai-response-content :not(pre)>code { padding: .08em .3em; border-radius: var(--radius-sm); font-family: var(--font-family-mono); font-size: .9em; }
+.ai-response-content .ai-response-code { position: relative; margin: 0; padding: var(--space-3); overflow-x: auto; border-radius: var(--radius-md); font-family: var(--font-family-mono); font-size: .84rem; line-height: 1.55; white-space: pre; }
+.ai-response-code>code { display: block; min-width: max-content; font: inherit; white-space: inherit; }
+.ai-response-code-language { display: block; margin-bottom: var(--space-2); color: var(--color-text-muted); font-family: var(--font-family-sans); font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); text-transform: uppercase; }
 
 .ai-tutor-structured-response p,
 .ai-tutor-structured-response h4,

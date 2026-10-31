@@ -150,6 +150,7 @@
 .ai-workspace-empty svg { color: var(--color-accent); }
 .ai-workspace-empty p { margin: 0; }
 .ai-workspace-message { max-width: 46rem; margin-bottom: var(--space-5); padding: var(--space-4); background: var(--color-surface); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-lg); }
+.ai-workspace-message { font-size: var(--font-size-sm); line-height: 1.6; }
 .ai-workspace-message.is-user { margin-left: auto; background: var(--color-accent-subtle); border-color: var(--color-accent-soft); }
 .ai-workspace-message.is-assistant {
   --ai-tutor-response-text: var(--color-text);
@@ -163,7 +164,7 @@
   color: var(--color-text);
 }
 .ai-workspace-message>p { margin: var(--space-2) 0 0; }
-.ai-workspace-message pre { margin: var(--space-3) 0 0; padding: var(--space-3); overflow-x: auto; color: var(--color-code-text); background: var(--color-code-surface); border-radius: var(--radius-md); font-family: var(--font-family-mono); white-space: pre-wrap; }
+.ai-workspace-message pre { margin: var(--space-3) 0 0; padding: var(--space-3); overflow-x: auto; color: var(--color-code-text); background: var(--color-code-surface); border-radius: var(--radius-md); font-family: var(--font-family-mono); white-space: pre; }
 .ai-workspace-thinking { display: flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); }
 .ai-workspace-error { margin-top: var(--space-3); padding: var(--space-3); color: var(--color-danger); background: var(--color-danger-soft); border-radius: var(--radius-md); }
 

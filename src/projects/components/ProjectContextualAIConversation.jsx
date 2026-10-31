@@ -4,8 +4,8 @@ import { ACCESS_FEATURES, canAccessFeature } from '../../access/accessPolicy';
 import { PremiumGate } from '../../access/PremiumGate';
 import { useOptionalSubscriptionAccess } from '../../access/SubscriptionAccessContext';
 import { projectAIClient } from '../ai/ProjectAIClient';
-import { mergeTutorDraft } from '../../ai/tutorComposer';
 import { createConversationRequestId, reconcileConversation } from '../../ai/conversationReconciliation';
+import { AITextContent } from '../../ai/AITextContent';
 
 const emptyState = () => ({ phase: 'idle', questions: [], selected: null, followUps: [], conversation: [], error: '' });
 
@@ -97,7 +97,12 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
 
   useEffect(() => {
     if (!selectionKey) return;
-    setDraft((current) => mergeTutorDraft(current, context.selectedContent));
+    const selectionPrompt = context.selectionType === 'terminal_output'
+      ? 'Help me understand this output.'
+      : context.selectionType === 'guide_code' || context.selectionType === 'user_code'
+        ? 'Explain this code.'
+        : 'Explain this selection.';
+    setDraft((current) => current.trim() ? current : selectionPrompt);
     requestAnimationFrame(() => {
       const composer = composerRef.current;
       if (!composer) return;
@@ -144,7 +149,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
 }
 
 function ConversationTurn({ turn }) {
-  return <>{turn.question ? <div className="project-ai-turn is-user" aria-label="You"><span>You</span><div>{turn.question}</div></div> : null}{turn.answer ? <div className="project-ai-turn is-mentor" aria-label="AI Mentor"><span><Sparkles aria-hidden="true" /> AI Mentor</span><div><p>{turn.answer}</p></div></div> : null}</>;
+  return <>{turn.question ? <div className="project-ai-turn is-user" aria-label="You"><span>You</span><div>{turn.question}</div></div> : null}{turn.answer ? <div className="project-ai-turn is-mentor" aria-label="AI Mentor"><span><Sparkles aria-hidden="true" /> AI Mentor</span><div><AITextContent text={turn.answer} /></div></div> : null}</>;
 }
 
 function MentorStatus({ children }) {
