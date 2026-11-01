@@ -47,5 +47,6 @@ export function createCertificate(record) {
     credentialId: record.credentialId ?? id,
     verificationStatus: record.status === 'ACTIVE' ? 'verified' : record.verificationStatus ?? 'pending',
     verificationUrl: record.verificationUrl ?? null,
+    recipientName: typeof record.recipientName === 'string' && record.recipientName.trim() ? record.recipientName.trim() : null,
   };
 }

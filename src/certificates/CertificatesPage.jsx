@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ShieldCheck } from 'lucide-react';
+import { Award, FlaskConical, ShieldCheck } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { CERTIFICATE_STATUS } from './certificateModel';
 import { certificateService } from './CertificateService';
@@ -12,10 +12,11 @@ const sampleCertificate = Object.freeze({
   id: 'sample',
   credentialId: 'SAMPLE',
   courseId: 'python',
-  courseTitle: 'Python Foundations',
+  courseTitle: 'Sample Certificate',
   issueDate: null,
   sample: true,
-  recipientName: 'ycoders',
+  recipientName: 'SAMPLE',
+  verificationStatus: 'sample',
 });
 
 export function CertificatesPage({ onTestSetup }) {
@@ -29,13 +30,18 @@ export function CertificatesPage({ onTestSetup }) {
     let active = true;
     certificateService.getCertificates(user.id).then((records) => {
       if (!active) return;
-      setCertificates(records);
+      const displayCertificates = records.map((certificate) => ({
+        ...certificate,
+        recipientName: certificate.recipientName || user.name || null,
+        verificationUrl: certificate.verificationUrl || publicVerificationUrl(certificate.credentialId),
+      }));
+      setCertificates(displayCertificates);
       const requested = new URLSearchParams(window.location.search).get('credential');
-      if (requested) setViewerCertificate(records.find(({ credentialId }) => credentialId === requested) ?? null);
+      if (requested) setViewerCertificate(displayCertificates.find(({ credentialId }) => credentialId === requested) ?? null);
       setStatus('ready');
     }).catch(() => { if (active) { setNotice(''); setStatus('error'); } });
     return () => { active = false; };
-  }, [user.id]);
+  }, [user.id, user.name]);
 
   const completed = useMemo(() => certificates.filter(({ status: recordStatus }) => recordStatus === CERTIFICATE_STATUS.earned), [certificates]);
   const copyText = async (value) => {
@@ -59,21 +65,26 @@ export function CertificatesPage({ onTestSetup }) {
   };
 
   return <div className="certificates-page certificates-page--simple">
-    <section className="certificate-setup-card" aria-labelledby="certificate-setup-title">
-      <ShieldCheck aria-hidden="true" />
-      <div><h1 id="certificate-setup-title">Test My Setup</h1></div>
-      <div className="certificate-setup-actions">
+    <header className="certificates-page-header">
+      <div><span>Credentials</span><h1>Certificates</h1><p>View and verify your earned certificates.</p></div>
+      <div className="certificate-setup-actions" aria-label="Certificate tools">
         <button className="button button--secondary" type="button" onClick={onTestSetup}>Test My Setup</button>
         <button className="button button--secondary" type="button" onClick={() => setViewerCertificate(sampleCertificate)}>View Example</button>
       </div>
+    </header>
+
+    <section className="certificate-setup-card" aria-labelledby="certificate-setup-title">
+      <ShieldCheck aria-hidden="true" />
+      <div><h2 id="certificate-setup-title">Ready for certification</h2><p>Check your camera, microphone, and browser before starting an eligible certification assessment.</p></div>
+      <FlaskConical aria-hidden="true" />
     </section>
 
     <section className="completed-certificates" aria-labelledby="completed-certificates-title">
-      <header className="certificates-section-heading"><div><h2 id="completed-certificates-title">My Certificates</h2></div></header>
+      <header className="certificates-section-heading"><div><span>Your achievements</span><h2 id="completed-certificates-title">My Certificates</h2><p>Issued credentials linked to your account.</p></div><Award aria-hidden="true" /></header>
       {status === 'loading' ? <p className="certificate-loading">Loading certificates…</p>
         : status === 'error' ? <ErrorState title="Certificates could not be loaded." description="Please try again later. Your certificates remain unchanged." variant="panel" alert />
-          : completed.length ? <div className="certificate-list">{completed.map((certificate) => <CertificateCard certificate={certificate} onView={setViewerCertificate} onDownload={downloadCertificate} onShare={shareCertificate} key={certificate.id} />)}</div>
-            : <div className="certificate-empty"><h3>No certificates yet</h3></div>}
+          : completed.length ? <div className="certificate-list">{completed.map((certificate) => <CertificateCard certificate={certificate} onView={setViewerCertificate} key={certificate.id} />)}</div>
+            : <div className="certificate-empty"><Award aria-hidden="true" /><h3>No certificates yet</h3><p>Complete an eligible certification assessment to earn your first certificate.</p></div>}
     </section>
 
     <CertificateViewer certificate={viewerCertificate} onClose={() => setViewerCertificate(null)} onDownload={downloadCertificate} onShare={shareCertificate} onCopy={(value) => copyText(value)} />
