@@ -15,6 +15,7 @@ import { ACCESS_FEATURES, canAccessFeature } from './access/accessPolicy';
 import { recentCourseRepository } from './home/recentCourseRepository';
 import { LearnerActivityProvider } from './activity/LearnerActivityContext';
 import { shouldShowApplicationFooter } from './app-shell/footerPolicy';
+import { useAuthenticatedShellScrollLock } from './app-shell/useAuthenticatedShellScrollLock';
 import { isStandaloneCompilerRequest } from './standalone-compiler/standaloneCompilerHost';
 import { phase5Mark } from './performance/phase5Mark.js';
 
@@ -174,6 +175,7 @@ function UserGate() {
 }
 
 function AuthenticatedApplication({ user }) {
+  useAuthenticatedShellScrollLock();
   const { tier } = useSubscriptionAccess();
   const [initialRoute] = useState(() => parseAppRoute(window.location.pathname));
   const [initialRouteState] = useState(() => deriveAuthenticatedRouteState(initialRoute));

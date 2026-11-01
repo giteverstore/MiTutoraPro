@@ -26,6 +26,10 @@ body {
   overflow: auto;
 }
 
+body.has-application-shell {
+  overflow: hidden;
+}
+
 html {
   scroll-behavior: smooth;
 }
