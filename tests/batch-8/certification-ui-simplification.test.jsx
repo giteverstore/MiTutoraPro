@@ -67,6 +67,12 @@ describe('certification learner UI simplification', () => {
     expect(dialog).toBeInTheDocument();
     expect(dialog.querySelector('#certificate-viewer-title')).toHaveTextContent('Python Foundations');
     expect(within(dialog).getByRole('region', { name: 'Certificate preview' })).toBeInTheDocument();
+    const artifact = within(dialog).getByTestId('certificate-artifact');
+    expect(within(artifact).getByRole('img', { name: 'Y Coders certificate' }).getAttribute('src')).toMatch(/\/certificate\.svg$/i);
+    expect(artifact.children).toHaveLength(1);
+    expect(within(artifact).queryByText('Avinash Kumar')).not.toBeInTheDocument();
+    expect(within(artifact).queryByText('Python Foundations')).not.toBeInTheDocument();
+    expect(within(artifact).queryByText(credentialId)).not.toBeInTheDocument();
     expect(within(dialog).getByRole('complementary', { name: 'Credential details' })).toBeInTheDocument();
     expect(within(dialog).getByRole('button', { name: 'Close certificate viewer' })).toBeInTheDocument();
     expect(within(dialog).getAllByText('Credential ID').length).toBeGreaterThan(0);
@@ -97,9 +103,14 @@ describe('certification learner UI simplification', () => {
     fireEvent.click(screen.getByRole('button', { name: 'View Example' }));
 
     const dialog = screen.getByRole('dialog');
+    const artifact = within(dialog).getByTestId('certificate-artifact');
     expect(dialog).toHaveTextContent('Certificate Example');
     expect(dialog).toHaveTextContent('SAMPLE');
     expect(dialog).toHaveTextContent('Sample Certificate');
+    expect(within(artifact).queryByText('SAMPLE')).not.toBeInTheDocument();
+    expect(within(artifact).queryByText('Sample Certificate')).not.toBeInTheDocument();
+    expect(within(artifact).queryByText('Not issued')).not.toBeInTheDocument();
+    expect(artifact.children).toHaveLength(1);
     expect(dialog).toHaveTextContent('Not issued');
     expect(dialog).toHaveTextContent('Sample Certificate');
     expect(screen.queryByRole('button', { name: 'Download Certificate' })).not.toBeInTheDocument();
@@ -112,16 +123,17 @@ describe('certification learner UI simplification', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
-  it('keeps long authoritative names and course titles inside the scalable certificate artifact', () => {
+  it('renders the supplied certificate image without React-generated overlays', () => {
     render(<CertificateArtifact certificate={{
       ...certificate,
       recipientName: 'Muhammad Abdul Rahman Khan',
       courseTitle: 'Advanced Object-Oriented Programming and Application Architecture',
     }} />);
     const artifact = screen.getByTestId('certificate-artifact');
-    expect(artifact).toHaveAccessibleName(/Muhammad Abdul Rahman Khan.*Advanced Object-Oriented Programming/);
-    expect(within(artifact).getByTitle('Muhammad Abdul Rahman Khan')).toBeInTheDocument();
-    expect(within(artifact).getByTitle('Advanced Object-Oriented Programming and Application Architecture')).toBeInTheDocument();
+    expect(within(artifact).getByRole('img', { name: 'Y Coders certificate' })).toBeInTheDocument();
+    expect(within(artifact).queryByText('Muhammad Abdul Rahman Khan')).not.toBeInTheDocument();
+    expect(within(artifact).queryByText('Advanced Object-Oriented Programming and Application Architecture')).not.toBeInTheDocument();
+    expect(artifact.children).toHaveLength(1);
   });
 
   it('stacks the modal layout responsively without fixed certificate dimensions', () => {

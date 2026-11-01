@@ -647,13 +647,10 @@
 }
 
 .certificate-artifact {
-  position: relative;
   width: 100%;
   aspect-ratio: 3837 / 2421;
   overflow: hidden;
-  color: #090f4f;
   background: #fff;
-  container-type: inline-size;
 }
 
 .certificate-artifact>img {
@@ -661,111 +658,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-.certificate-artifact-field {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0 .8cqw;
-  overflow-wrap: anywhere;
-  text-align: center;
-  text-wrap: balance;
-  background: #fff;
-}
-
-.certificate-artifact-name {
-  top: 31.7%;
-  left: 35%;
-  width: 28.5%;
-  height: 8.2%;
-  color: #304ee8;
-  font-size: clamp(.7rem, 4cqw, 3.75rem);
-  line-height: 1.05;
-}
-
-.certificate-artifact-course {
-  top: 49.1%;
-  left: 27.5%;
-  width: 44%;
-  height: 8.8%;
-  color: #050505;
-  font-size: clamp(.62rem, 3.25cqw, 3rem);
-  line-height: 1.08;
-}
-
-.certificate-artifact-date {
-  top: 58.1%;
-  left: 37.5%;
-  width: 26%;
-  height: 6.1%;
-  color: #090909;
-  font-size: clamp(.45rem, 2.15cqw, 2rem);
-  font-weight: 400;
-  line-height: 1.1;
-}
-
-.certificate-artifact-verification {
-  right: 7.1%;
-  bottom: 8.7%;
-  display: grid;
-  width: 9.4%;
-  height: 13.6%;
-  align-content: center;
-  gap: .35cqw;
-  color: #0b47ac;
-}
-
-.certificate-artifact-verification span,
-.certificate-artifact-credential span {
-  font-size: clamp(.28rem, .88cqw, .8rem);
-  font-weight: 500;
-}
-
-.certificate-artifact-verification strong {
-  font-size: clamp(.34rem, 1.25cqw, 1.15rem);
-}
-
-.certificate-artifact-credential {
-  right: 2.8%;
-  bottom: 4.45%;
-  display: flex;
-  width: 18.5%;
-  height: 3.7%;
-  align-items: center;
-  gap: .45cqw;
-  white-space: nowrap;
-}
-
-.certificate-artifact-credential strong {
-  min-width: 0;
-  overflow: hidden;
-  font-size: clamp(.28rem, .82cqw, .75rem);
-  text-overflow: ellipsis;
-}
-
-.certificate-artifact-unverified-seal {
-  position: absolute;
-  z-index: 3;
-  top: 23.4%;
-  right: 1.7%;
-  display: grid;
-  width: 17.5%;
-  aspect-ratio: 1;
-  place-items: center;
-  border: .8cqw solid #f2b400;
-  border-radius: 50%;
-  color: #0b4a8f;
-  background: #fff;
-  box-shadow: inset 0 0 0 .45cqw #f8dc58;
-}
-
-.certificate-artifact-unverified-seal strong {
-  font-size: clamp(.45rem, 1.8cqw, 1.7rem);
-  letter-spacing: .12em;
 }
 
 .certificate-viewer-details {
