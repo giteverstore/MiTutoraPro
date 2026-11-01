@@ -9,6 +9,22 @@ export function kolkataDate(value = new Date()) {
 
 export function monthIdentity(value = new Date()) { return kolkataDate(value).slice(0, 7); }
 
+const CANONICAL_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+function canonicalDateValue(value) {
+  if (!CANONICAL_DATE.test(value ?? '')) return null;
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.toISOString().slice(0, 10) === value ? date : null;
+}
+
+export function shiftChallengeDate(date, amount) {
+  const value = canonicalDateValue(date);
+  if (!value || !Number.isInteger(amount)) return null;
+  value.setUTCDate(value.getUTCDate() + amount);
+  return value.toISOString().slice(0, 10);
+}
+
 export function monthDateRange(month) {
   const [year, monthNumber] = month.split('-').map(Number);
   const lastDay = new Date(Date.UTC(year, monthNumber, 0)).getUTCDate();
@@ -54,8 +70,21 @@ export function buildChallengeMonth({ month, today, challengeDates = [], complet
 
 export function dailyChallengeCompletionDates(completions) {
   return [...new Set((completions ?? []).filter((item) => item.activityType === 'DAILY_CHALLENGE'
-    && item.completionStatus === 'COMPLETED' && /^\d{4}-\d{2}-\d{2}$/.test(item.occurrenceDate ?? ''))
+    && String(item.completionStatus).toUpperCase() === 'COMPLETED' && canonicalDateValue(item.occurrenceDate))
     .map((item) => item.occurrenceDate))];
+}
+
+export function deriveCurrentChallengeStreak(completions, today = kolkataDate()) {
+  if (!canonicalDateValue(today)) return 0;
+  const completed = new Set(dailyChallengeCompletionDates(completions).filter((date) => date <= today));
+  let date = completed.has(today) ? today : shiftChallengeDate(today, -1);
+  if (!date || !completed.has(date)) return 0;
+  let streak = 0;
+  while (completed.has(date)) {
+    streak += 1;
+    date = shiftChallengeDate(date, -1);
+  }
+  return streak;
 }
 
 export function hasCompletedDailyChallenge(completions, date) {

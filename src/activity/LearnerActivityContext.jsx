@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useUser } from '../auth/UserContext';
 import { ActivityStateRepository } from '../repositories/firestore/ActivityStateRepository';
-import { kolkataDate } from '../home/challengeCalendar';
+import { deriveCurrentChallengeStreak, kolkataDate, shiftChallengeDate } from '../home/challengeCalendar';
 
 const LearnerActivityContext = createContext(null);
 
@@ -21,18 +21,32 @@ export function LearnerActivityProvider({ children }) {
   }, []);
 
   const loadActivity = useCallback(async () => {
-    const [streak, todayCompletion] = await Promise.allSettled([repository.getStreakSummary(), repository.getTodayChallengeCompletion(kolkataDate())]);
+    const today = kolkataDate();
+    const streak = await Promise.resolve().then(() => repository.getStreakSummary()).then(
+      (value) => ({ status: 'fulfilled', value }),
+      (reason) => ({ status: 'rejected', reason }),
+    );
+    const persistedLength = streak.status === 'fulfilled' ? Math.max(0, Math.floor(Number(streak.value?.currentStreak) || 0)) : 0;
+    const startDate = shiftChallengeDate(today, -Math.max(1, persistedLength));
+    const completions = await Promise.resolve().then(() => repository.listCompletionsForDateRange(startDate, today)).then(
+      (value) => ({ status: 'fulfilled', value }),
+      (reason) => ({ status: 'rejected', reason }),
+    );
+    const ready = streak.status === 'fulfilled' && completions.status === 'fulfilled';
     return {
-      status: streak.status === 'fulfilled' ? 'ready' : 'error',
-      historyStatus: todayCompletion.status === 'fulfilled' ? 'ready' : 'error',
-      streak: streak.status === 'fulfilled' ? streak.value : null,
-      completions: todayCompletion.status === 'fulfilled' && todayCompletion.value ? [todayCompletion.value] : [],
+      status: ready ? 'ready' : 'error',
+      historyStatus: completions.status === 'fulfilled' ? 'ready' : 'error',
+      streak: ready ? { ...streak.value, currentStreak: deriveCurrentChallengeStreak(completions.value, today) } : null,
+      completions: completions.status === 'fulfilled' ? completions.value : [],
     };
   }, [repository]);
 
   const refresh = useCallback(async () => {
     const next = await loadActivity();
-    setState((current) => ({ ...next, completions: [...current.completions.filter((item) => item.occurrenceDate !== kolkataDate()), ...next.completions] }));
+    setState((current) => {
+      const refreshedDates = new Set(next.completions.filter((item) => item.activityType === 'DAILY_CHALLENGE').map((item) => item.occurrenceDate));
+      return { ...next, completions: [...current.completions.filter((item) => item.activityType !== 'DAILY_CHALLENGE' || !refreshedDates.has(item.occurrenceDate)), ...next.completions] };
+    });
     return next;
   }, [loadActivity]);
 
