@@ -1,5 +1,4 @@
 import certificateTemplateUrl from '../../Logo/certificate.svg';
-import { BadgeCheck } from 'lucide-react';
 import { formatCertificateDate } from './certificateModel';
 
 function verificationLabel(certificate, sample) {
@@ -21,22 +20,28 @@ export function CertificateArtifact({ certificate }) {
       data-testid="certificate-artifact"
     >
       <img src={certificateTemplateUrl} alt="" aria-hidden="true" />
-      <div className="certificate-artifact-copy">
-        {sample ? <strong className="certificate-artifact-sample">SAMPLE</strong> : null}
-        <p>This is to certify that</p>
-        <h3 title={recipientName}>{recipientName}</h3>
-        <p>has successfully completed</p>
-        <h4 title={certificate.courseTitle}>{certificate.courseTitle}</h4>
-        <p className="certificate-artifact-date">{sample ? 'Sample Certificate' : `Issued ${issueDate}`}</p>
+      <strong className="certificate-artifact-field certificate-artifact-name" title={recipientName}>
+        {recipientName}
+      </strong>
+      <strong className="certificate-artifact-field certificate-artifact-course" title={certificate.courseTitle}>
+        {sample ? 'Sample Certificate' : certificate.courseTitle}
+      </strong>
+      <span className="certificate-artifact-field certificate-artifact-date">
+        {sample ? 'Not issued' : `in ${issueDate}`}
+      </span>
+      <div className="certificate-artifact-field certificate-artifact-verification">
+        <span>Verification</span>
+        <strong>{status}</strong>
       </div>
-      <div className="certificate-artifact-footer">
-        <div><span>Credential ID</span><strong>{certificate.credentialId}</strong></div>
-        <div className={sample ? '' : certificate.verificationStatus === 'verified' ? 'is-verified' : ''}>
-          <span>Verification</span>
-          <strong>{certificate.verificationStatus === 'verified' && !sample ? <BadgeCheck aria-hidden="true" /> : null}{status}</strong>
+      <div className="certificate-artifact-field certificate-artifact-credential">
+        <span>Credential ID:</span>
+        <strong>{sample ? 'Not issued' : certificate.credentialId}</strong>
+      </div>
+      {sample || certificate.verificationStatus !== 'verified' ? (
+        <div className="certificate-artifact-unverified-seal" aria-hidden="true">
+          <strong>{sample ? 'SAMPLE' : 'PENDING'}</strong>
         </div>
-      </div>
-      {sample || certificate.verificationStatus !== 'verified' ? <div className="certificate-artifact-seal-mask" aria-hidden="true" /> : null}
+      ) : null}
     </div>
   );
 }

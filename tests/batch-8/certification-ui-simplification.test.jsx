@@ -127,7 +127,7 @@ describe('certification learner UI simplification', () => {
   it('stacks the modal layout responsively without fixed certificate dimensions', () => {
     const css = readFileSync('src/styles/pages/certificates.css', 'utf8');
     expect(css).toMatch(/@media \(max-width: 960px\)[\s\S]*\.certificate-viewer-body\s*{\s*grid-template-columns:\s*1fr/);
-    expect(css).toContain('aspect-ratio: 1579 / 996');
+    expect(css).toContain('aspect-ratio: 3837 / 2421');
   });
 });
 
