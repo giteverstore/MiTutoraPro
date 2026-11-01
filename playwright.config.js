@@ -36,7 +36,9 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'mobile-chromium', grepInvert: /@runtime/, use: { ...devices['Pixel 7'] } },
+    { name: 'firefox', grep: /@cross-browser/, use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', grep: /@cross-browser/, use: { ...devices['Desktop Safari'] } },
+    { name: 'mobile-chromium', grepInvert: /@runtime|@cross-browser/, use: { ...devices['Pixel 7'] } },
   ],
   webServer: [
     {

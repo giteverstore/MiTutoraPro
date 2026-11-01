@@ -70,7 +70,7 @@
 /* Public navigation underline and lightweight pointer-reactive hero grid. */
 .public-nav-link{position:relative;transition:color 180ms ease}.public-nav-link::after{position:absolute;right:0;bottom:-.375rem;left:0;height:2px;background:var(--color-accent);border-radius:999px;content:"";transform:scaleX(0);transform-origin:left;transition:transform 180ms ease}.public-nav-link:hover::after,.public-nav-link:focus-visible::after,.public-nav-link[aria-current=page]::after{transform:scaleX(1)}
 .online-compilers-menu{position:relative}.online-compilers-trigger{display:inline-flex;gap:.3rem;align-items:center;padding:0;color:var(--color-text);font:inherit;font-size:.9375rem;background:none;border:0;cursor:pointer}.online-compilers-trigger>svg{width:.9rem;height:.9rem;transition:transform 180ms ease}.online-compilers-trigger[aria-expanded=true]{color:var(--color-accent)}.online-compilers-trigger[aria-expanded=true]>svg{transform:rotate(180deg)}.online-compilers-trigger:focus-visible{outline:3px solid var(--color-focus);outline-offset:3px}.online-compilers-panel{position:absolute;z-index:20;top:calc(100% + 1rem);left:50%;display:none;grid-template-columns:repeat(4,minmax(8rem,1fr));gap:.35rem;width:min(42rem,calc(100vw - 2rem));padding:.65rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:.8rem;box-shadow:var(--shadow-md);transform:translateX(-50%)}.online-compilers-panel.is-open{display:grid}.marketing-navigation .online-compiler-link{display:flex;gap:.6rem;align-items:center;min-height:2.8rem;padding:.45rem .6rem;color:var(--color-text);border-radius:.55rem}.marketing-navigation .online-compiler-link:hover,.marketing-navigation .online-compiler-link:focus-visible{color:var(--color-accent);background:var(--color-accent-subtle)}.online-compiler-link::after{display:none}.online-compiler-icon{display:grid;flex:0 0 1.85rem;place-items:center;width:1.85rem;height:1.85rem}.online-compiler-icon img{width:1.55rem;height:1.55rem;object-fit:contain}.online-compiler-icon b{font-size:.68rem;letter-spacing:-.02em}
-@media(max-width:1100px) and (min-width:801px){.marketing-navigation{margin-left:clamp(1.5rem,3vw,3rem)}.marketing-navigation nav{gap:1.25rem}.online-compilers-panel{right:0;left:auto;grid-template-columns:repeat(3,minmax(8rem,1fr));transform:none}}
+@media(max-width:1199px) and (min-width:801px){.marketing-navigation{margin-left:clamp(1.5rem,3vw,3rem)}.marketing-navigation nav{gap:1.25rem}.online-compilers-panel{right:0;left:auto;grid-template-columns:repeat(3,minmax(8rem,1fr));transform:none}}
 .landing-hero{--hero-grid-size:2.25rem;--hero-pointer-x:50%;--hero-pointer-y:50%}.landing-hero-grid{background-size:var(--hero-grid-size) var(--hero-grid-size)}.landing-hero-grid-highlight{position:absolute!important;z-index:0!important;inset:0;background-image:linear-gradient(var(--color-accent) 1px,transparent 1px),linear-gradient(90deg,var(--color-accent) 1px,transparent 1px);background-size:var(--hero-grid-size) var(--hero-grid-size);opacity:0;pointer-events:none;transition:opacity 200ms ease;-webkit-mask-image:radial-gradient(circle 190px at var(--hero-pointer-x) var(--hero-pointer-y),#000 0%,rgba(0,0,0,.86) 30%,transparent 76%);mask-image:radial-gradient(circle 190px at var(--hero-pointer-x) var(--hero-pointer-y),#000 0%,rgba(0,0,0,.86) 30%,transparent 76%)}
 @media(hover:hover) and (pointer:fine){.landing-hero.is-pointer-active .landing-hero-grid-highlight{opacity:.86}}
 @media(prefers-reduced-motion:reduce){.public-nav-link,.public-nav-link::after{transition:none}.landing-hero-grid-highlight{display:none;transition:none}}
@@ -128,7 +128,30 @@
 
 /* Landing spacing and alternating-section alignment refinement. */
 .marketing-header {
-  padding-inline: max(2rem, calc((100vw - 94rem) / 2));
+  padding-inline: max(2rem, calc((100% - 94rem) / 2));
+}
+
+@media (min-width: 801px) {
+  .marketing-navigation {
+    min-width: 0;
+  }
+
+  .marketing-navigation nav a,
+  .online-compilers-trigger,
+  .marketing-auth-actions button {
+    white-space: nowrap;
+  }
+
+  .marketing-auth-actions {
+    width: auto;
+    min-width: max-content;
+    flex: 0 0 auto;
+  }
+
+  .marketing-auth-actions button {
+    flex-shrink: 0;
+    line-height: 1.25;
+  }
 }
 
 .landing-hero h1 {
@@ -346,8 +369,9 @@
   }
 
   .landing-page .marketing-auth-actions {
-    width: var(--landing-auth-region);
-    flex: none;
+    width: auto;
+    min-width: max-content;
+    flex: 0 0 auto;
   }
 
   .landing-page :where(.landing-building, .landing-courses, .landing-practice, .landing-projects, .landing-mentor) {
