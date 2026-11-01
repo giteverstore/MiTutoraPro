@@ -24,7 +24,7 @@ export function CompilerOutputRegion({
     executionTimeMs,
     executionStatus,
   } = execution;
-  const canCheckOutput = executionStatus === 'success' && compiler.expectedOutput !== undefined;
+  const canCheckOutput = Boolean(onCheckOutput) && executionStatus === 'success' && compiler.expectedOutput !== undefined;
   const sharedPanelProps = {
     height: drawer.renderedHeight,
     collapsed: drawer.collapsed,
@@ -89,6 +89,7 @@ export function CompilerOutputRegion({
         verificationStatus={verificationStatus}
         onCheckOutput={onCheckOutput}
         canCheckOutput={canCheckOutput}
+        showCheckOutput={Boolean(onCheckOutput)}
         {...sharedPanelProps}
       />
     );

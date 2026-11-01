@@ -30,6 +30,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   aiEnabled = false,
   publicTests = [],
   contract = null,
+  onSubmit,
+  submitDisabled = false,
 }, forwardedRef) {
   const generatedInstanceId = useId();
   const instanceId = requestedInstanceId ?? `compiler-${generatedInstanceId.replace(/:/g, '')}`;
@@ -41,6 +43,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const verifyExercise = learningProgress?.verifyExercise;
   const invalidateExerciseVerification = learningProgress?.invalidateExerciseVerification;
   const [selectionSnapshot, setSelectionSnapshot] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState('idle');
+  const submittingRef = useRef(false);
   const selectionVersionRef = useRef(0);
   const collapsibleOutput = activityType === 'lesson' || Boolean(languageSelector);
   const outputDrawer = useCompilerBottomDrawer({ collapsible: collapsibleOutput, containerRef: panelRef });
@@ -51,7 +55,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const definitionSession = useCompilerDefinitionSession({ initialCompiler: compiler, compilerManager, instanceId, executionActionsRef, onSourceChanged });
   const { activeCompiler, activeCompilerRef, code, currentCodeRef, replaceConfirmation, isDevelopmentCompilerSwitching, isDirty, setFormattedSource, handleCodeChange, resetEditor, loadDefinition: loadCompilerDefinition, selectDevelopmentCompiler, resolveReplaceConfirmation } = definitionSession;
   const execution = useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource: setFormattedSource, expandOutput: expandOutputDrawer, verifyExercise, invalidateExerciseVerification, onVerificationChange });
-  const { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run: showRunFeedback, checkOutput, reset: resetExecution, clearExecution, cancelExecution } = execution;
+  const { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run: showRunFeedback, validateExecution, checkOutput, reset: resetExecution, clearExecution, cancelExecution } = execution;
   executionActionsRef.current = { reset: resetExecution, clear: clearExecution, cancel: cancelExecution };
 
   useEffect(() => {
@@ -157,6 +161,27 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     return () => window.removeEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
   }, [instanceId, showRunFeedback]);
 
+  const submit = useCallback(async () => {
+    if (!onSubmit || submittingRef.current || submitDisabled || activeCompilerRef.current.runtimeAvailable === false) return;
+    submittingRef.current = true;
+    const source = currentCodeRef.current;
+    const definition = activeCompilerRef.current;
+    try {
+      setSubmitStatus('running');
+      const record = await showRunFeedback({ source, compiler: definition });
+      if (!record) return;
+      setSubmitStatus('checking');
+      if (!validateExecution(record)) return;
+      setSubmitStatus('saving');
+      await onSubmit({ source: record.source, definition: record.definition, execution: record.execution });
+    } catch {
+      // The activity surface reports persistence failures separately from code failures.
+    } finally {
+      submittingRef.current = false;
+      setSubmitStatus('idle');
+    }
+  }, [activeCompilerRef, currentCodeRef, onSubmit, showRunFeedback, submitDisabled, validateExecution]);
+
   return (
     <div className="compiler-panel" ref={panelRef} data-compiler-instance-id={instanceId}>
       <div className="compiler-ide" data-editor-theme={editorThemeId}>
@@ -171,6 +196,9 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           isCompilerMinimized={isCompilerMinimized}
           onToggleCompiler={onToggleCompiler}
           runDisabled={activeCompiler.runtimeAvailable === false}
+          onSubmit={onSubmit ? submit : undefined}
+          submitStatus={submitStatus}
+          submitDisabled={submitDisabled}
         />
         <div className="compiler-workspace compiler-workspace-editor-only">
           <div className="compiler-main-row">
@@ -187,7 +215,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           renderOutput={renderOutput}
           publicTests={publicTests}
           contract={contract}
-          onCheckOutput={checkOutput}
+          onCheckOutput={onSubmit ? undefined : checkOutput}
         />
       </div>
       <ConfirmDialog

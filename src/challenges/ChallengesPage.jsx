@@ -90,7 +90,6 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   const loadChallenge = useCallback(() => loadDailyChallengeByDate(occurrenceDate), [occurrenceDate]);
   const { data: challenge, error, loading } = useContentResource(loadChallenge);
   const initiallyCompleted = activity.completions.some((item) => isCompleted(item, occurrenceDate));
-  const [verificationStatus, setVerificationStatus] = useState('idle');
   const [completed, setCompleted] = useState(initiallyCompleted);
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const [celebration, setCelebration] = useState(null);
@@ -104,7 +103,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   const compiler = compilerLanguage.activeDefinition;
   const today = kolkataDate();
   const reviewMode = completed || (occurrenceDate !== today && !recoveryUnlocked);
-  const canComplete = (occurrenceDate === today || recoveryUnlocked) && !completed && verificationStatus === 'matched';
+  const canSubmit = occurrenceDate === today || recoveryUnlocked || completed;
 
   useEffect(() => {
     if (occurrenceDate >= today || !userId) return undefined;
@@ -117,7 +116,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
   useEffect(() => { void activity.loadChallengeRange?.(occurrenceDate, occurrenceDate).catch(() => undefined); }, [activity.loadChallengeRange, occurrenceDate]);
 
   const complete = async () => {
-    if (!canComplete) return;
+    if (!canSubmit || completion.pending || completed) return;
     setCompletion((current) => ({ ...current, pending: true, error: null }));
     try {
       const result = await activityCompletionClient.complete({ activityType: 'DAILY_CHALLENGE', activityId: challenge.activityId ?? challenge.id, activityVersion: challenge.version });
@@ -128,7 +127,8 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       }
       if (['completed', 'already_completed'].includes(result.completionStatus)) activity.recordCompletion?.({ activityType: 'DAILY_CHALLENGE', activityId: challenge.activityId ?? challenge.id, occurrenceDate, completionStatus: 'COMPLETED' });
       await activity.refresh?.();
-    } catch (nextError) { setCompletion((current) => ({ ...current, pending: false, error: nextError.message })); }
+      return result;
+    } catch (nextError) { setCompletion((current) => ({ ...current, pending: false, error: `Your solution passed, but completion could not be saved. ${nextError.message}` })); throw nextError; }
   };
 
   if (loading || error || !challenge || !compiler) return <div className="challenges-page">{loading
@@ -142,10 +142,10 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       <article className="practice-problem lesson-panel">
         <header className="practice-detail-header"><button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Challenges</button><h1>{challenge.title}</h1>{reviewMode ? <span className="challenge-review-label">Review mode</span> : null}</header>
         <PracticeProblemContent question={challenge} />
-        <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}><span>{completion.error ? completion.error : completed ? <><CheckCircle2 /> Challenge completed</> : reviewMode ? <><LockKeyhole /> Historical challenges require a Challenge Pass.</> : canComplete ? <><CheckCircle2 /> Output verified. Save completion to earn the daily reward.</> : <><LockKeyhole /> Run and check your solution to continue.</>}</span><button className="button button--primary" type="button" disabled={!canComplete || completion.pending} onClick={complete}><Coins /> {completion.pending ? 'Saving…' : completed ? 'Completed' : reviewMode ? 'Review only' : 'Save Completion'}</button></footer>
+        <footer className={`practice-completion ${completed ? 'is-ready' : ''}`}><span>{completion.error ? completion.error : completed ? <><CheckCircle2 /> Challenge completed</> : reviewMode ? <><LockKeyhole /> Historical challenges require a Challenge Pass.</> : <><LockKeyhole /> Run or submit your solution from the compiler.</>}</span></footer>
       </article>
       </section>
-      <SharedCompilerDock ariaLabel="Challenge compiler" className="practice-compiler-dock" compilerStatus={compilerStatus} minimized={isCompilerMinimized} panelRef={compilerLanguage.panelRef} compiler={compiler} panelProps={{ instanceId: `challenge-${challenge.id}-${occurrenceDate}`, activityType: 'challenge', onVerificationChange: setVerificationStatus, onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: () => setIsCompilerMinimized((current) => !current), aiEnabled: false, publicTests: [] }} errorBoundary={{ name: 'challenge-compiler', title: 'The code workspace could not be displayed.', description: 'The challenge remains available. Retry the workspace to continue.', resetKeys: [challenge.id] }} resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }} />
+      <SharedCompilerDock ariaLabel="Challenge compiler" className="practice-compiler-dock" compilerStatus={compilerStatus} minimized={isCompilerMinimized} panelRef={compilerLanguage.panelRef} compiler={compiler} panelProps={{ instanceId: `challenge-${challenge.id}-${occurrenceDate}`, activityType: 'challenge', onSubmit: complete, submitDisabled: !canSubmit, onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: () => setIsCompilerMinimized((current) => !current), aiEnabled: false, publicTests: [] }} errorBoundary={{ name: 'challenge-compiler', title: 'The code workspace could not be displayed.', description: 'The challenge remains available. Retry the workspace to continue.', resetKeys: [challenge.id] }} resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }} />
     </div>
     <Dialog open={Boolean(celebration)} title="Daily Coding Challenge Completed!" onClose={() => setCelebration(null)} className="challenge-completion-dialog">
       <CompletionCelebration event={celebration} inline />

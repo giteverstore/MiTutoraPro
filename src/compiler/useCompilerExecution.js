@@ -63,26 +63,35 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
         }));
       } catch { setCompilerEvidence(null); }
       window.dispatchEvent(createCompilerExecutionEvent(instanceId, execution, { language: definition.language }));
+      return { definition, execution, source };
     } catch (executionError) {
       if (executionError.name !== 'AbortError') {
         setResult(''); setError(executionError.message || 'The compiler adapter could not complete the request.');
         setExecutionStatus('error'); setCompilerEvidence(null); setPreview(null); setDatabase(null); setEmulator(null);
       }
+      return null;
     } finally {
       if (executionControllerRef.current === controller) { executionControllerRef.current = null; setIsRunning(false); }
     }
   }, [activeCompilerRef, cancelExecution, compilerManager, currentCodeRef, expandOutput, instanceId, invalidateExerciseVerification, onFormattedSource, onVerificationChange, settings.editor.autoFormatOnRun]);
 
-  const checkOutput = useCallback(() => {
+  const validateExecution = useCallback((record, { recordExercise = true } = {}) => {
     expandOutput();
-    if (executionStatus !== 'success') return;
-    const definition = activeCompilerRef.current;
-    const matches = compilerManager.validateOutput({ expectedOutput: definition.expectedOutput, programOutput: result, validatorType: definition.validatorType, validatorOptions: definition.validatorOptions });
+    if (!record || record.execution.status !== 'success') return false;
+    const { definition, execution, source } = record;
+    const matches = compilerManager.validateOutput({ expectedOutput: definition.expectedOutput, programOutput: execution.output, validatorType: definition.validatorType, validatorOptions: definition.validatorOptions });
     setVerificationStatus(matches ? 'matched' : 'mismatched');
     onVerificationChange?.(matches ? 'matched' : 'mismatched');
-    if (matches && definition.exerciseId) verifyExercise?.(definition.exerciseId, { expectedOutput: definition.expectedOutput, programOutput: result, sourceCode: currentCodeRef.current, compilerId: definition.id });
+    if (matches && recordExercise && definition.exerciseId) verifyExercise?.(definition.exerciseId, { expectedOutput: definition.expectedOutput, programOutput: execution.output, sourceCode: source, compilerId: definition.id });
     else if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
-  }, [activeCompilerRef, compilerManager, currentCodeRef, executionStatus, expandOutput, invalidateExerciseVerification, onVerificationChange, result, verifyExercise]);
+    return matches;
+  }, [compilerManager, expandOutput, invalidateExerciseVerification, onVerificationChange, verifyExercise]);
+
+  const checkOutput = useCallback(() => {
+    if (executionStatus !== 'success') return;
+    const definition = activeCompilerRef.current;
+    validateExecution({ definition, execution: { status: executionStatus, output: result }, source: currentCodeRef.current });
+  }, [activeCompilerRef, currentCodeRef, executionStatus, result, validateExecution]);
 
   const reset = useCallback(async (definition, onResetSource) => {
     cancelExecution();
@@ -94,5 +103,5 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
 
   useEffect(() => () => executionControllerRef.current?.abort(), []);
 
-  return { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run, checkOutput, reset, clearExecution, cancelExecution };
+  return { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run, validateExecution, checkOutput, reset, clearExecution, cancelExecution };
 }

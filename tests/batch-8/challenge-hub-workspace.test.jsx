@@ -15,7 +15,7 @@ vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () 
 vi.mock('../../src/hooks/useCompilerPaneResize', () => ({ useCompilerPaneResize: () => ({ workspaceRef: { current: null }, value: 640, max: 900, startDragging: vi.fn(), handleKeyDown: vi.fn() }) }));
 vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 vi.mock('../../src/challenges/DailyChallengeFirePlayer.jsx', () => ({ default: () => <canvas data-testid="daily-challenge-fire-player" /> }));
-vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}>{languageSelector}<button type="button" onClick={() => onVerificationChange('matched')}>Verify output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
+vi.mock('../../src/components/CompilerPanel', () => ({ CompilerPanel: ({ aiEnabled, onSubmit, submitDisabled, onToggleCompiler, languageSelector }) => <div data-testid="challenge-compiler" data-ai-enabled={aiEnabled}>{languageSelector}<button type="button">Run</button><button type="button" disabled={submitDisabled} onClick={() => { void Promise.resolve(onSubmit?.({})).catch(() => undefined); }}>Submit</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button></div> }));
 vi.mock('../../src/components/ResizeHandle', () => ({ ResizeHandle: () => <div data-testid="resize-handle" /> }));
 
 import { buildChallengeHistory, ChallengeHub, ChallengeWorkspace } from '../../src/challenges/ChallengesPage';
@@ -129,13 +129,12 @@ describe('dated Daily Challenge workspace', () => {
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 4 } });
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
+    expect(state.complete).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     await waitFor(() => expect(state.complete).toHaveBeenCalledOnce());
     expect(state.activity.refresh).toHaveBeenCalledOnce();
     expect(state.complete).toHaveBeenCalledWith({ activityType: 'DAILY_CHALLENGE', activityId: 'challenge-2026-09-13', activityVersion: 'v1' });
-    const completedButton = await screen.findByRole('button', { name: 'Completed' });
     const dialog = screen.getByRole('dialog', { name: 'Daily Coding Challenge Completed!' });
     expect(within(dialog).getByRole('heading', { name: 'Daily Coding Challenge Completed!' })).toBeVisible();
     expect(document.querySelector('.completion-celebration')).toBeInTheDocument();
@@ -150,8 +149,7 @@ describe('dated Daily Challenge workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Close completion dialog' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.queryByTestId('daily-challenge-fire-player')).not.toBeInTheDocument();
-    expect(completedButton).toBeDisabled();
-    fireEvent.click(completedButton);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     expect(state.complete).toHaveBeenCalledOnce();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
@@ -161,8 +159,7 @@ describe('dated Daily Challenge workspace', () => {
     state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 35, streak: { currentStreak: 1 } });
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     const dialog = await screen.findByRole('dialog', { name: 'Daily Coding Challenge Completed!' });
     expect(dialog).toHaveTextContent('Completion Streak: 1 Day');
     expect(dialog).toHaveTextContent('+35 coins earned');
@@ -175,8 +172,7 @@ describe('dated Daily Challenge workspace', () => {
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 2 } });
     const back = vi.fn();
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={back} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     const dialog = await screen.findByRole('dialog');
     expect(within(dialog).queryByRole('button', { name: 'Back to Challenges' })).not.toBeInTheDocument();
     fireEvent.click(within(dialog).getByRole('button', { name: 'Close completion dialog' }));
@@ -189,8 +185,7 @@ describe('dated Daily Challenge workspace', () => {
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 2 } });
     const back = vi.fn();
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={back} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     await screen.findByRole('dialog');
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -201,8 +196,7 @@ describe('dated Daily Challenge workspace', () => {
     state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
     state.complete.mockResolvedValueOnce({ completionStatus: 'already_completed', rewardStatus: 'already_credited', rewardAmount: 0, streak: { currentStreak: 3 } });
     const { unmount } = render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     await waitFor(() => expect(state.complete).toHaveBeenCalledOnce());
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
@@ -210,9 +204,8 @@ describe('dated Daily Challenge workspace', () => {
     state.complete.mockReset();
     state.complete.mockRejectedValue(new Error('Completion could not be saved.'));
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
-    expect(await screen.findByText('Completion could not be saved.')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(await screen.findByText(/Your solution passed, but completion could not be saved/)).toBeInTheDocument();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
@@ -221,8 +214,8 @@ describe('dated Daily Challenge workspace', () => {
     state.resource = { data: content('2026-09-12', 'Count Vowels'), error: null, loading: false };
     render(<ChallengeWorkspace occurrenceDate="2026-09-12" onBack={vi.fn()} />);
     expect(screen.getByText('Review mode')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Review only' })).toBeDisabled();
-    fireEvent.click(screen.getByRole('button', { name: 'Verify output' }));
+    expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
     expect(state.complete).not.toHaveBeenCalled();
   });
 

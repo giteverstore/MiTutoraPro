@@ -31,22 +31,24 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
   const compilerLanguage = useSelectableCompilerLanguage(compilerDefinitions, question.language, { languages: ACTIVITY_LANGUAGE_OPTIONS, includeUnavailable: true });
   const compiler = compilerLanguage.activeDefinition;
   useEffect(() => { if (solved) setCompleted(true); }, [solved]);
-  const canComplete = !completed && !requireAuthentication;
+  const canComplete = !requireAuthentication;
   const rewardMessage = {
     credited: `+${completion.rewardAmount} coins earned`, already_claimed: 'reward already claimed',
     daily_reward_cap_reached: 'daily reward cap reached', unavailable: 'reward reconciliation pending',
     daily_limit_reached: 'reward unavailable', activity_not_rewardable: 'reward unavailable', policy_disabled: 'reward unavailable',
   }[completion.rewardStatus] ?? 'completion recorded';
   const complete = async () => {
-    if (!canComplete || completion.pending) return;
+    if (!canComplete || completion.pending || completed) return;
     setCompletion((current) => ({ ...current, pending: true, error: null }));
     try {
       const result = await onComplete(question);
       setCompletion({ pending: false, rewardStatus: result.rewardStatus, rewardAmount: result.rewardAmount ?? 0, error: null });
       if (['completed', 'already_completed'].includes(result.completionStatus)) setCompleted(true);
       if (result.completionStatus === 'completed') setCelebration({ variant: 'practice', message: 'Practice question completed!' });
+      return result;
     } catch (error) {
       setCompletion({ pending: false, rewardStatus: null, rewardAmount: 0, error: error.message });
+      throw error;
     }
   };
   const toggleCompiler = useCallback(() => setIsCompilerMinimized((current) => !current), []);
@@ -66,9 +68,8 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
           <h1>{question.title}</h1>
         </header>
         <PracticeProblemContent question={question} />
-        <footer className={`practice-completion ${canComplete ? 'is-ready' : ''}`}>
-          <span>{canComplete || completed ? <CheckCircle2 /> : <LockKeyhole />}{completion.error ? completion.error : completed ? `Completed · ${rewardMessage}` : requireAuthentication ? 'Sign in to save your completion.' : 'Ready to complete.'}</span>
-          <button className="button button--primary" type="button" disabled={completed || completion.pending} onClick={requireAuthentication ? onRequireAuth : complete}><CheckCircle2 /> {completion.pending ? 'Saving…' : completed ? 'Completed' : requireAuthentication ? 'Sign in to complete' : 'Save Completion'}</button>
+        <footer className={`practice-completion ${completed ? 'is-ready' : ''}`}>
+          <span>{canComplete || completed ? <CheckCircle2 /> : <LockKeyhole />}{completion.error ? `Your solution passed, but completion could not be saved. ${completion.error}` : completed ? `Completed · ${rewardMessage}` : requireAuthentication ? 'Sign in to save your completion.' : 'Run or submit your solution from the compiler.'}</span>
         </footer>
       </article>
       <div className="practice-ai-region" id="practice-ai-panel" role="tabpanel" hidden={activeWorkspace !== 'ai'}>
@@ -83,7 +84,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
         panelRef={compilerLanguage.panelRef}
         compiler={compiler}
         unavailableContent={requireAuthentication ? <div className="practice-auth-required"><LockKeyhole /><h2>Sign in to solve this question</h2><p>Browse the problem now, then sign in to run code and save tracked progress.</p><button className="button button--primary" type="button" onClick={onRequireAuth}>Login to continue</button></div> : null}
-        panelProps={{ instanceId: `practice-${question.id}`, activityType: 'practice', onExecutionStateChange: setCompilerStatus, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: toggleCompiler, onAskAITutor: handleAskAITutor, onContextChange: setCompilerContext, aiEnabled: true, publicTests: compilerLanguage.configured ? question.publicTests ?? [] : [], contract: compilerLanguage.configured ? question.contract : null }}
+        panelProps={{ instanceId: `practice-${question.id}`, activityType: 'practice', onExecutionStateChange: setCompilerStatus, onSubmit: complete, languageSelector: <CompilerLanguageSelector value={compilerLanguage.language} options={compilerLanguage.options} disabled={compilerLanguage.switching} onChange={compilerLanguage.selectLanguage} />, isCompilerMinimized, onToggleCompiler: toggleCompiler, onAskAITutor: handleAskAITutor, onContextChange: setCompilerContext, aiEnabled: true, publicTests: compilerLanguage.configured ? question.publicTests ?? [] : [], contract: compilerLanguage.configured ? question.contract : null }}
         errorBoundary={{ name: 'practice-compiler', title: 'The code workspace could not be displayed.', description: 'The problem statement is still available. Retry the workspace when you are ready.', resetKeys: [question.id] }}
         resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
       />

@@ -30,6 +30,49 @@ function selectDevelopmentLanguage(label) {
 }
 
 describe('shared compiler execution lifecycle', () => {
+  it('keeps Run execution-only and submits the exact executed source once', async () => {
+    let release;
+    const manager = {
+      execute: vi.fn(({ source }) => new Promise((resolve) => { release = () => resolve({ status: 'success', output: source, errors: [], executionTimeMs: 2 }); })),
+      format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(() => true), dispose: vi.fn(),
+    };
+    const onSubmit = vi.fn().mockResolvedValue({ completionStatus: 'completed' });
+    render(<CompilerProvider manager={manager}><CompilerPanel compiler={{ ...compiler, expectedOutput: 'submitted source' }} activityType="practice" languageSelector={<span>Python</span>} onSubmit={onSubmit} /></CompilerProvider>);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
+    await waitFor(() => expect(manager.execute).toHaveBeenCalledOnce());
+    release();
+    await screen.findByText('print("Hello there")');
+    expect(manager.validateOutput).not.toHaveBeenCalled();
+    expect(onSubmit).not.toHaveBeenCalled();
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Code editor' }), { target: { value: 'submitted source' } });
+    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    fireEvent.click(submitButton);
+    fireEvent.click(submitButton);
+    await waitFor(() => expect(manager.execute).toHaveBeenCalledTimes(2));
+    fireEvent.change(screen.getByRole('textbox', { name: 'Code editor' }), { target: { value: 'edited after submit' } });
+    release();
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledOnce());
+    expect(manager.execute).toHaveBeenLastCalledWith(expect.objectContaining({ source: 'submitted source' }));
+    expect(manager.validateOutput).toHaveBeenCalledWith(expect.objectContaining({ programOutput: 'submitted source' }));
+    expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ source: 'submitted source' }));
+    expect(screen.queryByRole('button', { name: 'Check Output' })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['execution failure', { status: 'error', output: '', errors: ['runtime failed'], executionTimeMs: 2 }, true],
+    ['validation failure', { status: 'success', output: 'wrong', errors: [], executionTimeMs: 2 }, false],
+  ])('does not persist after %s', async (_label, execution, validationResult) => {
+    const manager = { execute: vi.fn().mockResolvedValue(execution), format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(() => validationResult), dispose: vi.fn() };
+    const onSubmit = vi.fn();
+    render(<CompilerProvider manager={manager}><CompilerPanel compiler={compiler} activityType="challenge" languageSelector={<span>Python</span>} onSubmit={onSubmit} /></CompilerProvider>);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(manager.execute).toHaveBeenCalledOnce());
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Submit' })).toBeEnabled());
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
   it('keeps an unconfigured activity language blank and cannot execute it through another runtime', () => {
     const manager = {
       execute: vi.fn(), format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(), dispose: vi.fn(),

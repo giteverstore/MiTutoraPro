@@ -13,6 +13,7 @@ export function OutputPanel({
   verificationStatus,
   onCheckOutput,
   canCheckOutput,
+  showCheckOutput = true,
   collapsed = false,
   onExpand,
   onToggleCollapsed,
@@ -149,7 +150,7 @@ export function OutputPanel({
             Space <strong>{spaceComplexity ?? '—'}</strong>
           </span>
         </div>
-        <button
+        {showCheckOutput ? <button
           className="button button--secondary ide-check-button"
           type="button"
           onClick={onCheckOutput}
@@ -157,7 +158,7 @@ export function OutputPanel({
         >
           <SearchCheck size={ICON_SIZE.sm} aria-hidden="true" />
           {verificationStatus === 'matched' ? 'Output Verified' : 'Check Output'}
-        </button>
+        </button> : null}
       </footer> : null}
     </section>
   );

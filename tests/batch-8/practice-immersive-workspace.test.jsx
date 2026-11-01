@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../src/components/CompilerPanel', () => ({
-  CompilerPanel: ({ compiler, activityType, aiEnabled, onVerificationChange, onToggleCompiler, languageSelector }) => <div data-testid="compiler" data-activity-type={activityType} data-ai-enabled={aiEnabled}>{languageSelector}<span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button" onClick={() => onVerificationChange?.('matched')}>Check Output</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button><span>Editor</span></div>,
+  CompilerPanel: ({ compiler, activityType, aiEnabled, onSubmit, onToggleCompiler, languageSelector }) => <div data-testid="compiler" data-activity-type={activityType} data-ai-enabled={aiEnabled}>{languageSelector}<span>{compiler.editor.lines.map(({ text }) => text).join('\n')}</span><button type="button">Run</button><button type="button" onClick={() => { void Promise.resolve(onSubmit?.({})).catch(() => undefined); }}>Submit</button><button type="button" onClick={onToggleCompiler}>Minimize compiler</button><span>Editor</span></div>,
 }));
 vi.mock('../../src/theme/useApplicationTheme', () => ({ useApplicationTheme: () => ({ theme: 'light' }) }));
 vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
@@ -63,8 +63,9 @@ describe('Practice immersive coding workspace', () => {
     expect(screen.getByTestId('compiler')).toHaveAttribute('data-activity-type', 'practice');
     expect(screen.getByText('print("ready")')).toBeInTheDocument();
     expect(screen.getByTestId('compiler')).toHaveAttribute('data-ai-enabled', 'true');
-    expect(screen.getByRole('button', { name: /Save Completion/ })).toBeEnabled();
-    fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
+    expect(screen.queryByRole('button', { name: 'Check Output' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Save Completion/ })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     expect(onComplete).toHaveBeenCalledWith(question);
   });
 
@@ -80,11 +81,11 @@ describe('Practice immersive coding workspace', () => {
   it('celebrates only a newly saved completion, not an already solved problem or output match', async () => {
     const onComplete = vi.fn().mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 10 });
     const { unmount } = render(<PracticeDetail question={question} solved={false} onBack={vi.fn()} onComplete={onComplete} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Check Output' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
     expect(screen.queryByText('Practice question completed!')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Save Completion/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     await waitFor(() => expect(document.querySelector('.completion-celebration')).toBeInTheDocument());
-    expect(screen.getByRole('button', { name: 'Completed' })).toBeDisabled();
+    expect(screen.getByText(/Completed/)).toBeVisible();
     expect(onComplete).toHaveBeenCalledOnce();
     unmount();
     render(<PracticeDetail question={question} solved onBack={vi.fn()} onComplete={onComplete} />);
@@ -95,15 +96,14 @@ describe('Practice immersive coding workspace', () => {
     const onComplete = vi.fn().mockRejectedValueOnce(new Error('Save unavailable'));
     const { unmount } = render(<PracticeDetail question={question} solved={false} onBack={vi.fn()} onComplete={onComplete} />);
     expect(onComplete).not.toHaveBeenCalled();
-    expect(screen.getByRole('button', { name: 'Save Completion' })).toBeEnabled();
-    fireEvent.click(screen.getByRole('button', { name: 'Save Completion' }));
-    await waitFor(() => expect(screen.getByText('Save unavailable')).toBeVisible());
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(screen.getByText(/Your solution passed, but completion could not be saved. Save unavailable/)).toBeVisible());
     expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
     unmount();
 
     const onRequireAuth = vi.fn();
     render(<PracticeDetail question={question} solved={false} onBack={vi.fn()} onComplete={onComplete} requireAuthentication onRequireAuth={onRequireAuth} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Sign in to complete' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Login to continue' }));
     expect(onRequireAuth).toHaveBeenCalledOnce();
     expect(onComplete).toHaveBeenCalledOnce();
   });
