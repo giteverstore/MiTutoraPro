@@ -1,7 +1,8 @@
-import { CheckCircle2, Minus, Play, RotateCcw } from 'lucide-react';
+import { Minus, Play, RotateCcw } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 import { IconButton } from './IconButton';
 import { getSupportedCompilerLanguage } from '../compiler/languages/supportedLanguages';
+import submitIcon from '../../Logo/upload.png';
 
 export function EditorHeader({
   data,
@@ -37,15 +38,19 @@ export function EditorHeader({
         <IconButton label="Reset code" onClick={onReset}>
           <RotateCcw size={ICON_SIZE.md} aria-hidden="true" />
         </IconButton>
-        {onSubmit ? <button className="button button--secondary compiler-run-button" type="button" onClick={onRun} disabled={isRunning || submitStatus !== 'idle' || runDisabled}><Play size={ICON_SIZE.sm} fill="currentColor" aria-hidden="true" /> Run</button> : <IconButton className="compiler-run-button" label="Run code" onClick={onRun} disabled={isRunning || runDisabled}><Play size={ICON_SIZE.sm} fill="currentColor" aria-hidden="true" /></IconButton>}
+        <IconButton className="compiler-run-button" label="Run code" onClick={onRun} disabled={isRunning || submitStatus !== 'idle' || runDisabled}>
+          <Play size={ICON_SIZE.sm} fill="currentColor" aria-hidden="true" />
+        </IconButton>
         {onSubmit ? (
           <button
-            className="button button--primary compiler-submit-button"
+            className="button compiler-submit-button"
             type="button"
+            aria-label="Submit"
+            title="Submit"
             onClick={onSubmit}
             disabled={isRunning || submitDisabled || submitStatus !== 'idle'}
           >
-            <CheckCircle2 size={ICON_SIZE.sm} aria-hidden="true" />
+            <img className="compiler-submit-icon" src={submitIcon} alt="" aria-hidden="true" />
             {{ running: 'Running…', checking: 'Checking…', saving: 'Saving…' }[submitStatus] ?? 'Submit'}
           </button>
         ) : null}

@@ -39,7 +39,7 @@ describe('shared compiler execution lifecycle', () => {
     const onSubmit = vi.fn().mockResolvedValue({ completionStatus: 'completed' });
     render(<CompilerProvider manager={manager}><CompilerPanel compiler={{ ...compiler, expectedOutput: 'submitted source' }} activityType="practice" languageSelector={<span>Python</span>} onSubmit={onSubmit} /></CompilerProvider>);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Run' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Run code' }));
     await waitFor(() => expect(manager.execute).toHaveBeenCalledOnce());
     release();
     await screen.findByText('print("Hello there")');
@@ -48,6 +48,7 @@ describe('shared compiler execution lifecycle', () => {
 
     fireEvent.change(screen.getByRole('textbox', { name: 'Code editor' }), { target: { value: 'submitted source' } });
     const submitButton = screen.getByRole('button', { name: 'Submit' });
+    expect(submitButton.querySelector('.compiler-submit-icon')).toHaveAttribute('src', expect.stringContaining('upload.png'));
     fireEvent.click(submitButton);
     fireEvent.click(submitButton);
     await waitFor(() => expect(manager.execute).toHaveBeenCalledTimes(2));
@@ -67,6 +68,8 @@ describe('shared compiler execution lifecycle', () => {
     const manager = { execute: vi.fn().mockResolvedValue(execution), format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn(() => validationResult), dispose: vi.fn() };
     const onSubmit = vi.fn();
     render(<CompilerProvider manager={manager}><CompilerPanel compiler={compiler} activityType="challenge" languageSelector={<span>Python</span>} onSubmit={onSubmit} /></CompilerProvider>);
+    expect(screen.getByRole('button', { name: 'Run code' })).toHaveClass('compiler-run-button', 'icon-button');
+    expect(screen.getByRole('button', { name: 'Submit' }).querySelector('.compiler-submit-icon')).toHaveAttribute('src', expect.stringContaining('upload.png'));
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
     await waitFor(() => expect(manager.execute).toHaveBeenCalledOnce());
     await waitFor(() => expect(screen.getByRole('button', { name: 'Submit' })).toBeEnabled());
@@ -124,6 +127,8 @@ describe('shared compiler execution lifecycle', () => {
     render(<CompilerProvider manager={manager}><CompilerPanel compiler={compiler} activityType="lesson" /></CompilerProvider>);
     expect(screen.queryByRole('button', { name: 'Development compiler runtime' })).not.toBeInTheDocument();
     expect(screen.getByText('Python')).toHaveClass('compiler-language-label');
+    expect(screen.getByRole('button', { name: 'Run code' })).toHaveClass('compiler-run-button', 'icon-button');
+    expect(screen.queryByRole('button', { name: 'Submit' })).not.toBeInTheDocument();
   });
 
   it('switches registered runtimes locally in development and executes without content validation metadata', async () => {

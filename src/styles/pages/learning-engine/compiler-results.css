@@ -313,6 +313,16 @@ body:not(.is-resizing) .practice-test-panel.console-window {
   }
 }
 
+@container compiler (max-width: 25rem) {
+  .compiler-submit-button {
+    width: var(--control-height-md);
+    padding-inline: 0;
+    gap: 0;
+    justify-content: center;
+    font-size: 0;
+  }
+}
+
 @container compiler (max-width: 22rem) {
   .ide-header-actions {
     display: grid;
