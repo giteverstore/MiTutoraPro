@@ -76,8 +76,9 @@ describe('shared learner workspace style ownership', () => {
 
   it('keeps avatar hover subtle and keyboard focus visible', () => {
     const css = source('src/styles/layout/app-shell.css');
-    expect(css).toMatch(/\.application-profile-button:hover\s*\{[^}]*background:\s*var\(--color-accent-soft\);[^}]*\}/);
+    expect(css).toMatch(/\.application-profile-button:hover\s*\{[^}]*background:\s*var\(--application-shell-hover\);[^}]*\}/);
     expect(css).toMatch(/\.application-profile-button:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--color-accent\)/);
     expect(css.match(/\.application-profile-button:hover\s*\{([^}]*)\}/)?.[1]).not.toMatch(/border-color/);
+    expect(css).toMatch(/\.application-profile-button\s*\{[^}]*width:\s*2\.375rem;[^}]*height:\s*2\.375rem;[^}]*padding:\s*0;/s);
   });
 });

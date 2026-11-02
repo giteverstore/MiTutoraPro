@@ -71,6 +71,25 @@ describe('AppShell account navigation menu', () => {
     expect(css).toMatch(/\.application-user-menu-signout button:hover,[\s\S]*?background:\s*var\(--color-danger-soft\)/);
   });
 
+  it('shares shell surfaces and neutral hover treatment without overriding Sign out', () => {
+    const css = readFileSync(resolve(process.cwd(), 'src/styles/layout/app-shell.css'), 'utf8');
+    expect(css).toMatch(/\.application-shell\s*\{[^}]*--application-shell-hover:\s*#d3dce6;/s);
+    expect(css).toMatch(/\.application-sidebar\s*\{[^}]*background:\s*var\(--color-surface\);/s);
+    expect(css).toMatch(/\.application-topbar\s*\{[^}]*background:\s*var\(--color-surface\);/s);
+    for (const selector of [
+      '.application-navigation button:hover',
+      '.application-sidebar-toggle:hover',
+      '.application-icon-button:hover',
+      '.application-profile-button:hover',
+      '.application-user-menu-links button:hover',
+    ]) {
+      const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      expect(css).toMatch(new RegExp(`${escaped}\\s*\\{[^}]*background:\\s*var\\(--application-shell-hover\\);`, 's'));
+    }
+    expect(css).toMatch(/\.application-shell\[data-theme="dark"\]\s*\{[^}]*--application-shell-hover:\s*var\(--color-surface-subtle\);/s);
+    expect(css).toMatch(/\.application-user-menu-signout button:hover,[\s\S]*?background:\s*var\(--color-danger-soft\)/);
+  });
+
   it('dismisses either popover outside, but not for clicks inside it', () => {
     render(<AppShell activePage="home" onNavigate={vi.fn()}><p>Content</p></AppShell>);
     fireEvent.click(screen.getByRole('button', { name: 'Open user menu' }));
