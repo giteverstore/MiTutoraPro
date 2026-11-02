@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const getReferralProfile = vi.fn();
@@ -14,7 +15,10 @@ const profile = {
   attributed: 1,
   qualified: 1,
   calculatedRewardsMinor: 4990,
-  history: [{ id: 'referral-12345678', status: 'QUALIFIED', attributedAt: '2026-09-10T00:00:00Z', calculatedRewardMinor: 4990 }],
+  history: [
+    { id: 'referral-12345678', status: 'QUALIFIED', attributedAt: '2026-09-10T00:00:00Z', calculatedRewardMinor: 4990 },
+    { id: '8e46b11c-extra', status: 'ATTRIBUTED', attributedAt: '2026-09-10T00:00:00Z', calculatedRewardMinor: null },
+  ],
 };
 
 beforeEach(() => {
@@ -39,7 +43,11 @@ describe('Referral page cleanup', () => {
     expect(screen.getAllByRole('article')).toHaveLength(3);
     expect(screen.getByText('Referred').closest('article').querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/group.png');
     expect(screen.getByText('Qualified', { selector: '.referral-overview small' }).closest('article').querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/quality.png');
+    expect(screen.getByText('Calculated rewards').closest('article').querySelector('svg')).toHaveClass('lucide-coins', 'referral-coin-icon');
     expect(screen.getByText('Referral History')).toBeInTheDocument();
+    expect(screen.getByText('Referral 8e46b11c')).toBeInTheDocument();
+    expect(screen.getByText('Attributed', { selector: '.referral-status' })).toBeInTheDocument();
+    expect(screen.getByText('Not calculated')).toBeInTheDocument();
     expect(screen.getAllByText('₹49.90')).not.toHaveLength(0);
   });
 
@@ -66,5 +74,22 @@ describe('Referral page cleanup', () => {
       /Self-referrals are not allowed/i,
     ];
     answers.forEach((answer) => expect(screen.getByText(answer)).toBeInTheDocument());
+    expect(screen.queryByText('Need to know', { exact: true })).not.toBeInTheDocument();
+    const firstQuestion = screen.getByText('How do referrals work?').closest('details');
+    expect(firstQuestion).not.toHaveAttribute('open');
+    fireEvent.click(screen.getByText('How do referrals work?'));
+    expect(firstQuestion).toHaveAttribute('open');
+  });
+
+  it('uses the reviewed neutral card, field, history, and FAQ presentation', () => {
+    const css = readFileSync('src/styles/pages/referrals.css', 'utf8');
+    expect(css).toMatch(/\.referral-overview article\s*\{[^}]*background:\s*#fff;[^}]*border:\s*1px solid #d3dce6;/s);
+    expect(css).toMatch(/\.invite-friends,[\s\S]*?\.referral-faq\s*\{[^}]*border:\s*1px solid #d3dce6;/s);
+    expect(css).toMatch(/\.referral-fields>div\s*\{[^}]*background:\s*#fff;[^}]*border:\s*1px solid #d3dce6;/s);
+    expect(css).toMatch(/\.referral-history-table article\s*\{[^}]*color:\s*var\(--color-text\);[^}]*border-top:\s*1px solid #d3dce6;/s);
+    expect(css).toMatch(/\.referral-status,[\s\S]*?\.referral-reward-status\s*\{[^}]*color:\s*var\(--color-text\);/s);
+    expect(css).not.toMatch(/\.referral-status,[\s\S]*?\.referral-reward-status\s*\{[^}]*(?:background|border-radius|padding):/s);
+    expect(css).toMatch(/\.referral-faq details\s*\{[^}]*border:\s*1px solid #d3dce6;/s);
+    expect(css).toMatch(/\[data-theme="dark"\] \.referral-overview article,[\s\S]*?background:\s*var\(--color-surface\);[^}]*border-color:\s*var\(--color-border\);/s);
   });
 });
