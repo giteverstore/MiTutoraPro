@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Award, FlaskConical, ShieldCheck } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { CERTIFICATE_STATUS } from './certificateModel';
 import { certificateService } from './CertificateService';
@@ -66,21 +66,14 @@ export function CertificatesPage({ onTestSetup }) {
 
   return <div className="certificates-page certificates-page--simple">
     <header className="certificates-page-header">
-      <div><span>Credentials</span><h1>Certificates</h1><p>View and verify your earned certificates.</p></div>
+      <h1>Certificates</h1>
       <div className="certificate-setup-actions" aria-label="Certificate tools">
         <button className="button button--secondary" type="button" onClick={onTestSetup}>Test My Setup</button>
         <button className="button button--secondary" type="button" onClick={() => setViewerCertificate(sampleCertificate)}>View Example</button>
       </div>
     </header>
 
-    <section className="certificate-setup-card" aria-labelledby="certificate-setup-title">
-      <ShieldCheck aria-hidden="true" />
-      <div><h2 id="certificate-setup-title">Ready for certification</h2><p>Check your camera, microphone, and browser before starting an eligible certification assessment.</p></div>
-      <FlaskConical aria-hidden="true" />
-    </section>
-
-    <section className="completed-certificates" aria-labelledby="completed-certificates-title">
-      <header className="certificates-section-heading"><div><span>Your achievements</span><h2 id="completed-certificates-title">My Certificates</h2><p>Issued credentials linked to your account.</p></div><Award aria-hidden="true" /></header>
+    <section className="completed-certificates" aria-label="Certificates">
       {status === 'loading' ? <p className="certificate-loading">Loading certificates…</p>
         : status === 'error' ? <ErrorState title="Certificates could not be loaded." description="Please try again later. Your certificates remain unchanged." variant="panel" alert />
           : completed.length ? <div className="certificate-list">{completed.map((certificate) => <CertificateCard certificate={certificate} onView={setViewerCertificate} key={certificate.id} />)}</div>

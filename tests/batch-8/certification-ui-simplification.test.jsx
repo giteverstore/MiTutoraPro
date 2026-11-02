@@ -54,13 +54,13 @@ describe('certification learner UI simplification', () => {
     expect(screen.queryByRole('button', { name: 'View Certificate' })).not.toBeInTheDocument();
   });
 
-  it('keeps only setup and issued certificates and shares a public URL', async () => {
+  it('keeps the simplified header, tools, and issued certificates and shares a public URL', async () => {
     render(<CertificatesPage onTestSetup={vi.fn()} />);
     expect(screen.getByRole('heading', { name: 'Certificates' })).toBeInTheDocument();
-    expect(screen.getByText('View and verify your earned certificates.')).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: 'My Certificates' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Test My Setup' })).toBeInTheDocument();
-    expect(screen.getByText('Python Foundations')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'View Example' })).toBeInTheDocument();
+    for (const removed of ['Credentials', 'View and verify your earned certificates.', 'Ready for certification', 'Check your camera, microphone, and browser before starting an eligible certification assessment.', 'Your achievements', 'My Certificates', 'Issued credentials linked to your account.']) expect(screen.queryByText(removed, { exact: true })).not.toBeInTheDocument();
+    expect(await screen.findByText('Python Foundations')).toBeInTheDocument();
     for (const removed of ['Certificates Earned', 'Courses in Progress', 'In Progress', 'Verification', 'Completed Certificates']) expect(screen.queryByText(removed)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'View Certificate' }));
     const dialog = screen.getByRole('dialog');
@@ -94,6 +94,7 @@ describe('certification learner UI simplification', () => {
     render(<CertificatesPage onTestSetup={vi.fn()} />);
     expect(await screen.findByRole('heading', { name: 'No certificates yet' })).toBeInTheDocument();
     expect(screen.getByText('Complete an eligible certification assessment to earn your first certificate.')).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Certificates' })).toHaveClass('completed-certificates');
   });
 
   it('previews a clearly non-authoritative sample through the shared certificate viewer', async () => {
@@ -140,6 +141,9 @@ describe('certification learner UI simplification', () => {
     const css = readFileSync('src/styles/pages/certificates.css', 'utf8');
     expect(css).toMatch(/@media \(max-width: 960px\)[\s\S]*\.certificate-viewer-body\s*{\s*grid-template-columns:\s*1fr/);
     expect(css).toContain('aspect-ratio: 3837 / 2421');
+    expect(css).toMatch(/\.completed-certificates\s*\{[^}]*background:\s*var\(--color-surface\);[^}]*border:\s*1px solid #d3dce6;[^}]*box-shadow:\s*var\(--shadow-xs\);/s);
+    expect(css).toMatch(/\[data-theme="dark"\] \.completed-certificates\s*\{[^}]*border-color:\s*var\(--color-border\);/s);
+    expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*?\.certificates-page-header\s*\{[^}]*flex-direction:\s*column;/s);
   });
 });
 
