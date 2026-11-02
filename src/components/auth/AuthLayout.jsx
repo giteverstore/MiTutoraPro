@@ -1,8 +1,10 @@
 import { brandAssets } from '../../branding/brandAssets.js';
 
-export function AuthLayout({ eyebrow, title, description, children }) {
+export function AuthLayout({ eyebrow, title, description, variant, children }) {
+  const pageClassName = ['auth-page', variant ? `auth-page--${variant}` : ''].filter(Boolean).join(' ');
+
   return (
-    <main className="auth-page" data-theme="light">
+    <main className={pageClassName} data-theme="light">
       <section className="auth-form-panel" aria-labelledby="auth-page-title">
         <div className="auth-form-wrap">
           <a className="auth-brand" href="/" aria-label="Y Coders home">

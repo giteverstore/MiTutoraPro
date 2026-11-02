@@ -1203,7 +1203,7 @@
 }
 
 .auth-page {
-  --color-canvas: #f8fafc;
+  --color-canvas: #f1f5f9;
   --color-surface: #ffffff;
   --color-surface-subtle: #f1f0eb;
   --color-text: #111111;
@@ -1226,7 +1226,7 @@
   place-items: center;
   padding: clamp(var(--space-6), 6vh, var(--space-12)) var(--space-6);
   color: var(--color-text);
-  background: radial-gradient(circle at 50% 0, var(--color-accent-subtle), transparent 38rem), var(--color-canvas);
+  background: var(--color-canvas);
   color-scheme: light;
 }
 
@@ -1347,6 +1347,47 @@
   width: 100%;
 }
 
+.auth-google-button:hover:not(:disabled),
+.auth-google-button:focus-visible {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+.auth-google-button:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+.auth-page--sign-up {
+  padding-block: clamp(var(--space-3), 2.5vh, var(--space-6));
+}
+
+.auth-page--sign-up .auth-form-panel {
+  padding-block: clamp(var(--space-5), 3vh, var(--space-6));
+}
+
+.auth-page--sign-up .auth-brand {
+  margin-bottom: var(--space-4);
+}
+
+.auth-page--sign-up .auth-form {
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.auth-page--sign-up .form-field {
+  gap: var(--space-1);
+}
+
+.auth-page--sign-up .auth-switch {
+  margin-top: var(--space-4);
+}
+
+.auth-page--sign-up .auth-public-links {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+}
+
 .auth-button-spinner {
   animation: auth-button-spin .75s linear infinite;
 }
@@ -1462,54 +1503,6 @@
 .auth-confirmation p {
   margin: 0;
   line-height: var(--line-height-body);
-}
-
-.avatar-picker {
-  display: grid;
-  gap: var(--space-3);
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.avatar-picker legend {
-  margin-bottom: var(--space-3);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
-}
-
-.avatar-picker>div {
-  display: flex;
-  gap: var(--space-3);
-}
-
-.avatar-picker label {
-  display: grid;
-  width: 3.25rem;
-  height: 3.25rem;
-  place-items: center;
-  border: 1px solid var(--color-border-fixed);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  font-size: var(--font-size-xl);
-  cursor: pointer;
-  transition: border-color var(--duration-fast), transform var(--duration-fast), box-shadow var(--duration-fast);
-}
-
-.avatar-picker label:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.avatar-picker label.is-selected {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-focus);
-}
-
-.avatar-picker input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .topbar-user {

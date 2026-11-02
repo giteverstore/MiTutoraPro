@@ -4,7 +4,6 @@ import '../../styles/public-pages.css';
 import { useUser } from '../../auth/UserContext';
 import { useAuth } from '../../auth/AuthContext';
 import { ForgotPassword } from './ForgotPassword';
-import { ProfileCreation } from './ProfileCreation';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 
@@ -12,15 +11,14 @@ export function AuthFlow({ initialScreen = 'sign-in' }) {
   const { createProfile } = useUser();
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const [screen, setScreen] = useState(initialScreen);
-  const [pendingAccount, setPendingAccount] = useState(null);
 
   if (screen === 'sign-up') {
     return (
       <SignUp
         onGoogle={signInWithGoogle}
-        onContinue={(account) => {
-          setPendingAccount(account);
-          setScreen('profile');
+        onContinue={async ({ password, referralCode, ...profile }) => {
+          await createProfile(profile);
+          await signUpWithEmail(profile.email, password, referralCode);
         }}
         onSignIn={() => setScreen('sign-in')}
       />
@@ -29,18 +27,6 @@ export function AuthFlow({ initialScreen = 'sign-in' }) {
 
   if (screen === 'forgot-password') {
     return <ForgotPassword onBack={() => setScreen('sign-in')} />;
-  }
-
-  if (screen === 'profile' && pendingAccount) {
-    return (
-      <ProfileCreation
-        account={pendingAccount}
-        onComplete={async (profile) => {
-          await createProfile(profile);
-          await signUpWithEmail(profile.email, pendingAccount.password, pendingAccount.referralCode);
-        }}
-      />
-    );
   }
 
   return (

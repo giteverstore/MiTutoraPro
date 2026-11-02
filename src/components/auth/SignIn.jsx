@@ -79,7 +79,7 @@ export function SignIn({ onSubmit, onGoogle, onSignUp, onForgotPassword }) {
             Sign in <ArrowRight size={ICON_SIZE.base} />
           </AuthButtonLabel>
         </button>
-        <button className="button button--secondary auth-submit" type="button" onClick={handleGoogleSignIn} disabled={Boolean(pendingAction)} aria-busy={pendingAction === 'google'}>
+        <button className="button button--secondary auth-submit auth-google-button" type="button" onClick={handleGoogleSignIn} disabled={Boolean(pendingAction)} aria-busy={pendingAction === 'google'}>
           <AuthButtonLabel loading={pendingAction === 'google'} loadingLabel="Opening Google…">
             Continue with Google
           </AuthButtonLabel>

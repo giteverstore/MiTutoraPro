@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SignIn } from '../../src/components/auth/SignIn';
 import { SignUp } from '../../src/components/auth/SignUp';
@@ -10,6 +11,7 @@ describe('centered authentication layout', () => {
     const { container } = render(<SignIn onSubmit={vi.fn()} onGoogle={vi.fn()} onSignUp={vi.fn()} onForgotPassword={vi.fn()} />);
     expect(container.querySelectorAll('.auth-form-panel')).toHaveLength(1);
     expect(container.querySelector('.auth-page')).toHaveAttribute('data-theme', 'light');
+    expect(container.querySelector('.auth-page')).toHaveClass('auth-page');
     expect(container.querySelector('.auth-brand-panel')).not.toBeInTheDocument();
     expect(screen.queryByText('Learn by building')).not.toBeInTheDocument();
     expect(screen.queryByText('Welcome back')).not.toBeInTheDocument();
@@ -28,6 +30,7 @@ describe('centered authentication layout', () => {
     const { container } = render(<SignUp onContinue={vi.fn()} onGoogle={vi.fn()} onSignIn={vi.fn()} />);
     expect(container.querySelector('.auth-brand-panel')).not.toBeInTheDocument();
     expect(container.querySelector('.auth-page')).toHaveAttribute('data-theme', 'light');
+    expect(container.querySelector('.auth-page')).toHaveClass('auth-page--sign-up');
     expect(screen.queryByText('Create account')).not.toBeInTheDocument();
     expect(screen.queryByText('Set up the basics, then personalize how you want to learn.')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Start your learning profile' })).toBeInTheDocument();
@@ -37,7 +40,20 @@ describe('centered authentication layout', () => {
     expect(screen.getByLabelText('Confirm password')).toBeInTheDocument();
     expect(screen.getByLabelText('Referral code (optional)')).toHaveValue('FRIEND42');
     expect(screen.getByRole('button', { name: /continue with google/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /continue with google/i })).toHaveClass('auth-google-button');
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
+  });
+
+  it('uses the shared Google button treatment on sign in', () => {
+    render(<SignIn onSubmit={vi.fn()} onGoogle={vi.fn()} onSignUp={vi.fn()} onForgotPassword={vi.fn()} />);
+    expect(screen.getByRole('button', { name: /continue with google/i })).toHaveClass('auth-google-button');
+  });
+
+  it('keeps the auth canvas and card backgrounds distinct in the shared CSS contract', () => {
+    const styles = readFileSync('src/styles/pages/dashboard.css', 'utf8');
+    expect(styles).toMatch(/\.auth-page\s*\{[\s\S]*?--color-canvas:\s*#f1f5f9;/);
+    expect(styles).toMatch(/\.auth-form-panel\s*\{[\s\S]*?background:\s*var\(--color-surface\);/);
+    expect(styles).toMatch(/\.auth-google-button:hover:not\(:disabled\),[\s\S]*?border-color:\s*var\(--color-accent\);/);
   });
 
   it('keeps authentication failures in an accessible compact inline alert', async () => {

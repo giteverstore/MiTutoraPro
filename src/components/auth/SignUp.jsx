@@ -15,39 +15,48 @@ export function SignUp({ onContinue, onGoogle, onSignIn }) {
     referralCode: new URLSearchParams(globalThis.location?.search ?? '').get('ref') ?? '',
   });
   const [error, setError] = useState('');
-  const [googlePending, setGooglePending] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
 
   const updateField = (event) => {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
     setError('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (pendingAction) return;
     const validationError = validateRegistration(form);
     if (validationError) {
       setError(validationError);
       return;
     }
-    onContinue({ name: form.name.trim(), email: form.email.trim(), password: form.password, referralCode: form.referralCode.trim() });
+    setPendingAction('email');
+    try {
+      await onContinue({ name: form.name.trim(), email: form.email.trim(), password: form.password, referralCode: form.referralCode.trim() });
+    } catch (authError) {
+      setError(authError.message || 'Unable to create your account.');
+    } finally {
+      setPendingAction(null);
+    }
   };
 
   const handleGoogleRegistration = async () => {
-    if (googlePending) return;
+    if (pendingAction) return;
     setError('');
-    setGooglePending(true);
+    setPendingAction('google');
     try {
       await onGoogle();
     } catch (authError) {
       setError(authError.message || 'Unable to continue with Google.');
     } finally {
-      setGooglePending(false);
+      setPendingAction(null);
     }
   };
 
   return (
     <AuthLayout
       title="Start your learning profile"
+      variant="sign-up"
     >
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         <FormField label="Name" name="name" autoComplete="name" value={form.name} onChange={updateField} required />
@@ -65,17 +74,19 @@ export function SignUp({ onContinue, onGoogle, onSignIn }) {
         <FormField label="Confirm password" name="confirmPassword" type="password" autoComplete="new-password" value={form.confirmPassword} onChange={updateField} required />
         <FormField label="Referral code (optional)" name="referralCode" autoComplete="off" value={form.referralCode} onChange={updateField} />
         {error ? <p className="form-error" role="alert">{error}</p> : null}
-        <button className="button button--primary auth-submit" type="submit" disabled={googlePending}>
-          Continue <ArrowRight size={ICON_SIZE.base} />
+        <button className="button button--primary auth-submit" type="submit" disabled={Boolean(pendingAction)} aria-busy={pendingAction === 'email'}>
+          <AuthButtonLabel loading={pendingAction === 'email'} loadingLabel="Creating account…">
+            Continue <ArrowRight size={ICON_SIZE.base} />
+          </AuthButtonLabel>
         </button>
-        <button className="button button--secondary auth-submit" type="button" onClick={handleGoogleRegistration} disabled={googlePending} aria-busy={googlePending}>
-          <AuthButtonLabel loading={googlePending} loadingLabel="Opening Google…">
+        <button className="button button--secondary auth-submit auth-google-button" type="button" onClick={handleGoogleRegistration} disabled={Boolean(pendingAction)} aria-busy={pendingAction === 'google'}>
+          <AuthButtonLabel loading={pendingAction === 'google'} loadingLabel="Opening Google…">
             Continue with Google
           </AuthButtonLabel>
         </button>
       </form>
       <p className="auth-switch">
-        Already have a profile? <button type="button" onClick={onSignIn} disabled={googlePending}>Sign in</button>
+        Already have a profile? <button type="button" onClick={onSignIn} disabled={Boolean(pendingAction)}>Sign in</button>
       </p>
     </AuthLayout>
   );
