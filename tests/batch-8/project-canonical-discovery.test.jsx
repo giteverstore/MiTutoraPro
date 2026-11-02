@@ -137,7 +137,8 @@ describe('canonical Project learner discovery', () => {
   it('retains Coming Soon cards without exposing other bundled projects when canonical discovery fails', async () => {
     const repository = { listProjects: vi.fn().mockRejectedValue(new Error('catalog unavailable')) };
     const { container } = render(<ProjectsPage browseOnly publishedRepository={repository} />);
-    expect(await screen.findByText('5 projects')).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Projects' })).toBeInTheDocument();
+    expect(screen.queryByText('5 projects')).not.toBeInTheDocument();
     expect(container.querySelectorAll('.project-card')).toHaveLength(5);
     expect(screen.queryByRole('status', { name: 'Loading projects' })).not.toBeInTheDocument();
   });

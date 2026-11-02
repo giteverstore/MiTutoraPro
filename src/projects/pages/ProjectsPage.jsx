@@ -194,7 +194,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
       <label>Difficulty<select value={filters.difficulty} onChange={(event) => setFilters((current) => ({ ...current, difficulty: event.target.value }))}><option value="all">All difficulties</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label>
     </section>
     <section className="project-catalog" aria-labelledby="project-catalog-title" aria-busy={catalog.status === 'loading'}>
-      <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2><p>{catalog.status === 'loading' ? 'Loading projects…' : `${visible.length} ${visible.length === 1 ? 'project' : 'projects'}`}</p></div>
+      <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2></div>
       {contentError ? <ErrorState title="Some projects could not be loaded." description={contentError} variant="compact" alert /> : null}
       {catalog.status === 'loading' ? <div className="project-grid project-grid-loading" role="status" aria-label="Loading projects">{Array.from({ length: 6 }, (_, index) => <div className="project-card project-card-skeleton" aria-hidden="true" key={index}><span /><div><span /><span /><span /></div></div>)}</div> : visible.length ? <div className="project-grid">{visible.map((project) => <ProjectCard key={project.id} project={project} progress={project.comingSoon ? null : cloudReady ? progressFor(project.id) : null} progressPending={!project.comingSoon && !browseOnly && !cloudReady} onOpen={(next) => void openProject(next)} />)}</div> : <p className="project-empty">No projects match these filters yet.</p>}
     </section>

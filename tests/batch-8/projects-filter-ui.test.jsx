@@ -21,7 +21,7 @@ describe('Projects filter cleanup', () => {
     }} />);
     expect(screen.getByRole('status', { name: 'Loading projects' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Start Project/ })).not.toBeInTheDocument();
-    await screen.findByText('5 projects');
+    await screen.findByRole('link', { name: /Simple Calculator/ });
   }
 
   it('starts directly with three balanced filters and no retired hero or tabs', async () => {
@@ -33,18 +33,18 @@ describe('Projects filter cleanup', () => {
     expect(screen.getByLabelText('Category')).toBeInTheDocument();
     expect(screen.getByLabelText('Difficulty')).toHaveValue(DEFAULT_PROJECT_FILTERS.difficulty);
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument();
-    expect(screen.getByText('5 projects')).toBeInTheDocument();
+    expect(screen.queryByText(/^\d+ projects?$/)).not.toBeInTheDocument();
   });
 
   it.each([
     ['easy', 'Easy Projects', 1],
     ['medium', 'Medium Projects', 0],
     ['hard', 'Hard Projects', 0],
-  ])('filters %s projects and updates heading/count', async (difficulty, heading, count) => {
+  ])('filters %s projects and updates the heading without rendering a count', async (difficulty, heading, count) => {
     await renderCatalog();
     fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: difficulty } });
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
-    expect(screen.getByText(`${count} ${count === 1 ? 'project' : 'projects'}`)).toBeInTheDocument();
+    expect(screen.queryByText(`${count} ${count === 1 ? 'project' : 'projects'}`)).not.toBeInTheDocument();
     if (count === 0) expect(screen.getByText('No projects match these filters yet.')).toBeInTheDocument();
   });
 

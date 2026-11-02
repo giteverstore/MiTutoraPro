@@ -121,7 +121,7 @@
   gap: var(--space-4);
   padding: var(--space-4);
   background: var(--color-surface);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-lg);
 }
 
@@ -138,9 +138,15 @@
   min-height: 2.875rem;
   padding: var(--space-3);
   color: var(--color-text-on-neutral-fixed);
-  background: var(--color-neutral-surface-fixed);
-  border: 1px solid var(--color-border-fixed);
+  background: #fff;
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-md);
+}
+
+.project-filters select:focus-visible {
+  border-color: #d3dce6;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 1px;
 }
 
 .project-catalog {
@@ -205,7 +211,7 @@
   padding: var(--space-3);
   overflow: hidden;
   background: var(--color-surface);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -220,7 +226,7 @@
 
 .project-card.is-progress-pending { cursor: wait; }
 .project-card.is-coming-soon { height: 20.875rem; min-height: 20.875rem; cursor: default; }
-.project-card.is-coming-soon:hover { border-color: var(--color-border-fixed); box-shadow: var(--shadow-sm); }
+.project-card.is-coming-soon:hover { border-color: #d3dce6; box-shadow: var(--shadow-sm); }
 
 .project-card-header {
   display: flex;
@@ -306,7 +312,49 @@
   right: calc(-1 * var(--space-3));
   left: calc(-1 * var(--space-3));
   height: 1px;
+  background: #d3dce6;
+}
+
+.project-card .library-course-progress {
+  background: #d3dce6;
+}
+
+.project-card .library-course-progress-base {
+  fill: #d3dce6;
+}
+
+.project-card .library-course-progress-border {
+  display: none;
+}
+
+[data-theme="dark"] .project-filters,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .project-card.is-coming-soon:hover {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .project-card:hover:not(.is-coming-soon),
+[data-theme="dark"] .project-card:focus-visible:not(.is-coming-soon) {
+  border-color: var(--color-accent);
+}
+
+[data-theme="dark"] .project-filters select {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .project-filters select:focus-visible {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .project-card-divider,
+[data-theme="dark"] .project-card .library-course-progress {
   background: var(--color-border);
+}
+
+[data-theme="dark"] .project-card .library-course-progress-base {
+  fill: var(--color-border);
 }
 
 .project-card-progress-pending { position: absolute; top: .5rem; right: 0; padding: .2rem .35rem; color: var(--color-text-muted); background: var(--color-surface); font-size: .75rem; }
