@@ -16,12 +16,13 @@ describe('brand-aware learner soft surfaces', () => {
     expect(css).toMatch(/\.home-course-pagination button:not\(:disabled\):hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
   });
 
-  it('uses the semantic surface for Practice catalog, pagination, and all four statistic cards', async () => {
+  it('uses the semantic surface for Practice catalog and pagination while keeping statistic cards neutral', async () => {
     const css = readStylesheetGraph('src/styles/pages/practice.css');
     expect(css).toMatch(/\.practice-question-card:hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.practice-pagination button:not\(:disabled\):hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
-    expect(css).toMatch(/\.practice-statistics article \{[^}]*background: var\(--color-brand-soft-surface\)/);
-    expect(css).toMatch(/\.practice-statistics article:hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
+    expect(css).toMatch(/\.practice-statistics article \{[^}]*background: #fff;[^}]*border: 1px solid #d3dce6/);
+    expect(css).toMatch(/\.practice-statistics article:hover \{[^}]*background: #fff/);
+    expect(css).toMatch(/\[data-theme="dark"\] \.practice-filter select,[\s\S]*?\.practice-statistics article \{[^}]*background: var\(--color-surface\);[^}]*border-color: var\(--color-border\)/);
     expect(css).toMatch(/\.practice-question-card\.is-active \{[^}]*background: var\(--color-accent-soft\)/);
   });
 });

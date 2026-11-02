@@ -71,8 +71,8 @@
   width: 100%;
   min-height: var(--control-height-lg);
   color: var(--color-text-on-neutral-fixed);
-  background: var(--color-neutral-surface-fixed);
-  border: 1px solid var(--color-border-fixed);
+  background: #fff;
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-md);
 }
 
@@ -103,8 +103,14 @@
   outline: 0;
 }
 
-.practice-filter select:focus-visible,
+.practice-filter select:focus-visible {
+  border-color: #d3dce6;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 1px;
+}
+
 .practice-search>div:focus-within {
+  border-color: var(--color-accent);
   outline: 3px solid var(--color-focus);
   outline-offset: 1px;
 }
@@ -130,7 +136,7 @@
   padding: 0 var(--space-4);
   color: var(--color-text-muted);
   background: transparent;
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-full);
   font-size: 1rem; /* 16px */
   cursor: pointer;
@@ -449,13 +455,14 @@
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-4);
-  background: var(--color-brand-soft-surface);
+  background: #fff;
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-lg);
   transition: background var(--duration-fast);
 }
 
 .practice-statistics article:hover {
-  background: var(--color-brand-soft-surface);
+  background: #fff;
 }
 
 .practice-statistics article>.learner-ui-icon {
@@ -539,6 +546,32 @@
 
 [data-theme="dark"] .practice-difficulty-summary .is-hard {
   color: var(--color-danger);
+}
+
+[data-theme="dark"] .practice-filter select,
+[data-theme="dark"] .practice-search>div,
+[data-theme="dark"] .practice-statistics article {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .practice-filter select:focus-visible {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .practice-search svg,
+[data-theme="dark"] .practice-search input {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .practice-topic-chips button:not(.is-active) {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .practice-topic-chips button:hover,
+[data-theme="dark"] .practice-topic-chips button:focus-visible {
+  border-color: var(--color-accent);
 }
 
 .practice-back-button {
