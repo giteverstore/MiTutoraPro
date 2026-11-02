@@ -235,9 +235,9 @@
   gap: var(--space-5);
   padding: var(--space-5);
   background: var(--color-surface);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
 .challenge-calendar-redeem {
@@ -254,17 +254,19 @@
 }
 
 .challenge-calendar-redeem button {
-  border: 0;
+  border: 1px solid transparent;
   background: transparent;
-  color: var(--color-success);
+  color: #2cbb5d;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
 
-.challenge-calendar-redeem button:hover,
+.challenge-calendar-redeem button:hover {
+  border-color: #2cbb5d;
+}
+
 .challenge-calendar-redeem button:focus-visible {
-  color: color-mix(in srgb, var(--color-success) 82%, var(--color-text));
   outline: 3px solid color-mix(in srgb, var(--color-success) 32%, transparent);
   outline-offset: 2px;
 }
@@ -566,20 +568,11 @@
   line-height: 1;
 }
 
-.challenge-calendar-complete {
-  display: grid;
+.challenge-calendar-complete-icon {
+  display: block;
   width: 1.55rem;
   height: 1.55rem;
-  place-items: center;
-  color: var(--color-success);
-  border: 1.5px solid var(--color-success);
-  border-radius: var(--radius-full);
-}
-
-.challenge-calendar-complete svg {
-  width: var(--icon-xs);
-  height: var(--icon-xs);
-  stroke-width: 2.5;
+  object-fit: contain;
 }
 
 .challenge-calendar-incomplete-dot {
@@ -704,9 +697,9 @@
   gap: clamp(var(--space-5), 3vw, var(--space-10));
   padding: clamp(var(--space-5), 3vw, var(--space-8));
   background: var(--color-surface);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
 .home-continue-grid .home-continue-card {
@@ -1374,6 +1367,39 @@
 
 .home-recent-grid { grid-template-columns: repeat(5, minmax(0, 14.8125rem)); justify-content: start; gap: var(--space-3); }
 
+.home-recent-grid .library-course-card {
+  border-color: #d3dce6;
+}
+
+.home-recent-grid .library-course-divider {
+  background: #d3dce6;
+}
+
+.home-recent-grid .library-course-progress {
+  background: #d3dce6;
+}
+
+.home-recent-grid .library-course-progress-base {
+  fill: #d3dce6;
+}
+
+.home-recent-grid .library-course-progress-border {
+  display: none;
+}
+
+.application-shell[data-theme="dark"] .home-recent-grid .library-course-card {
+  border-color: var(--color-border);
+}
+
+.application-shell[data-theme="dark"] .home-recent-grid .library-course-divider,
+.application-shell[data-theme="dark"] .home-recent-grid .library-course-progress {
+  background: var(--color-border);
+}
+
+.application-shell[data-theme="dark"] .home-recent-grid .library-course-progress-base {
+  fill: var(--color-border);
+}
+
 @media (min-width: 1360px) {
   .home-dashboard-grid {
     grid-template-areas: "statistics calendar" "continue calendar" "recent recent";
@@ -1521,10 +1547,15 @@
   gap: var(--space-4);
   padding: var(--space-6);
   background: var(--color-surface);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xs);
   transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.application-shell[data-theme="dark"] :is(.home-stat-card, .home-continue-card, .challenge-calendar-card) {
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-xs);
 }
 
 .home-stat-card:hover {

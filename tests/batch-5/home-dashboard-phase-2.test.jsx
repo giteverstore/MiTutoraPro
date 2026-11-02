@@ -144,23 +144,23 @@ describe('Daily Challenge calendar UI', () => {
     expect(screen.getByRole('gridcell', { name: 'September 11, no challenge available' }).querySelector('.challenge-calendar-incomplete-dot')).not.toBeInTheDocument();
   });
 
-  it('replaces completed date numbers with a checkmark while retaining accessible date identity', () => {
+  it('replaces completed date numbers with the supplied completed-day icon while retaining accessible date identity', () => {
     render(<DailyChallengeCalendar {...props} completedDates={['2026-09-11', '2026-09-12']} />);
     const historical = screen.getByRole('gridcell', { name: 'September 11, challenge completed' });
     const today = screen.getByRole('gridcell', { name: 'September 12, challenge completed' });
-    expect(historical.querySelector('.challenge-calendar-complete')).toBeInTheDocument();
-    expect(today.querySelector('.challenge-calendar-complete')).toBeInTheDocument();
+    expect(historical.querySelector('.challenge-calendar-complete-icon')).toHaveAttribute('src', expect.stringContaining('calendar_checked.png'));
+    expect(today.querySelector('.challenge-calendar-complete-icon')).toHaveAttribute('src', expect.stringContaining('calendar_checked.png'));
     expect(historical).not.toHaveTextContent('11');
     expect(today).not.toHaveTextContent('12');
     fireEvent.click(historical);
     expect(props.onOpenChallenge).toHaveBeenCalledWith('2026-09-11');
   });
 
-  it('updates today from its number to a checkmark after canonical activity refresh without remounting', () => {
+  it('updates today from its number to the completed-day icon after canonical activity refresh without remounting', () => {
     const { rerender } = render(<DailyChallengeCalendar {...props} completedDates={[]} />);
     expect(visibleCellContent('September 12, challenge not completed')).toBe('12');
     rerender(<DailyChallengeCalendar {...props} completedDates={['2026-09-12']} />);
-    expect(screen.getByRole('gridcell', { name: 'September 12, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: 'September 12, challenge completed' }).querySelector('.challenge-calendar-complete-icon')).toBeInTheDocument();
   });
 
   it('does not mark a failed or non-canonical completion and treats duplicates as one completed state', () => {
@@ -175,16 +175,16 @@ describe('Daily Challenge calendar UI', () => {
       { activityType: 'DAILY_CHALLENGE', completionStatus: 'COMPLETED', occurrenceDate: '2026-09-12' },
     ]);
     rerender(<DailyChallengeCalendar {...props} completedDates={duplicateDates} />);
-    expect(screen.getByRole('gridcell', { name: 'September 12, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: 'September 12, challenge completed' }).querySelector('.challenge-calendar-complete-icon')).toBeInTheDocument();
   });
 
   it('preserves canonical completion marks across month navigation', () => {
     render(<DailyChallengeCalendar {...props} challengeDates={['2026-08-20', '2026-09-12']} completedDates={['2026-08-20']} />);
     fireEvent.click(screen.getByRole('button', { name: 'Previous month' }));
-    expect(screen.getByRole('gridcell', { name: 'August 20, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: 'August 20, challenge completed' }).querySelector('.challenge-calendar-complete-icon')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Next month' }));
     fireEvent.click(screen.getByRole('button', { name: 'Previous month' }));
-    expect(screen.getByRole('gridcell', { name: 'August 20, challenge completed' }).querySelector('.challenge-calendar-complete')).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: 'August 20, challenge completed' }).querySelector('.challenge-calendar-complete-icon')).toBeInTheDocument();
   });
 
   it('supports month navigation and honest loading/error states', () => {

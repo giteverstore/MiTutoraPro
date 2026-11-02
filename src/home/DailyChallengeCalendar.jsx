@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import completedDayIcon from '../../Logo/calendar_checked.png';
 import { CoinBalanceBadge } from '../coins/CoinBalanceBadge';
 import { buildChallengeMonth, monthIdentity, monthLabel, shiftMonth } from './challengeCalendar';
 
@@ -24,7 +25,7 @@ export function DailyChallengeCalendar({ today, challengeDates, completedDates, 
         const label = `${formatter.format(new Date(`${day.id}T00:00:00Z`))}, ${STATE_LABELS[day.state]}`;
         const completed = day.state === 'TODAY_COMPLETED' || day.state === 'PAST_COMPLETED';
         const incomplete = day.state === 'TODAY_INCOMPLETE' || day.state === 'PAST_MISSED' || day.state === 'PAST_UNLOCKED';
-        return <button type="button" role="gridcell" key={day.id} className={`challenge-calendar-day is-${day.state.toLowerCase().replaceAll('_', '-')}`} aria-label={label} aria-current={day.current ? 'date' : undefined} disabled={!day.clickable} onClick={day.clickable ? () => onOpenChallenge(day.id) : undefined}><span className="challenge-calendar-day-content" aria-hidden="true">{completed ? <span className="challenge-calendar-complete"><Check /></span> : <><span>{day.day}</span>{incomplete ? <span className="challenge-calendar-incomplete-dot" /> : null}</>}</span></button>;
+        return <button type="button" role="gridcell" key={day.id} className={`challenge-calendar-day is-${day.state.toLowerCase().replaceAll('_', '-')}`} aria-label={label} aria-current={day.current ? 'date' : undefined} disabled={!day.clickable} onClick={day.clickable ? () => onOpenChallenge(day.id) : undefined}><span className="challenge-calendar-day-content" aria-hidden="true">{completed ? <img className="challenge-calendar-complete-icon" src={completedDayIcon} alt="" /> : <><span>{day.day}</span>{incomplete ? <span className="challenge-calendar-incomplete-dot" /> : null}</>}</span></button>;
       })}</div>
     </>}
     {onRedeem ? <footer className="challenge-calendar-redeem"><CoinBalanceBadge /><button type="button" onClick={onRedeem}>Redeem <span aria-hidden="true">→</span></button></footer> : null}
