@@ -6,15 +6,15 @@ import { LibraryPage } from '../../src/bookmarks/LibraryPage';
 afterEach(cleanup);
 
 const bookmarks = [
-  { id: 'course-1', type: 'course', title: 'Python Basics', language: 'Python', topic: 'Basics' },
+  { id: 'course-1', type: 'course', title: 'Python Basics', language: 'Python', topic: 'Basics', target: { page: 'course', courseId: 'python', lessonId: 'lesson-1' } },
   { id: 'practice-1', type: 'practice', title: 'Variables Practice', language: 'Python', topic: 'Variables' },
   { id: 'challenge-1', type: 'challenge', title: 'Daily Variables', language: 'Python', topic: 'Variables' },
 ];
 function renderPage(items = bookmarks) {
   const repository = { load: vi.fn().mockResolvedValue(items), save: vi.fn().mockResolvedValue(undefined) };
   const onOpenBookmark = vi.fn();
-  render(<BookmarkProvider userId="test-user" repository={repository}><LibraryPage onOpenBookmark={onOpenBookmark} /></BookmarkProvider>);
-  return { repository, onOpenBookmark };
+  const view = render(<BookmarkProvider userId="test-user" repository={repository}><LibraryPage onOpenBookmark={onOpenBookmark} /></BookmarkProvider>);
+  return { repository, onOpenBookmark, ...view };
 }
 
 describe('Bookmarks compact layout', () => {
@@ -54,5 +54,22 @@ describe('Bookmarks compact layout', () => {
     renderPage([bookmarks[0]]);
     fireEvent.click(await screen.findByRole('tab', { name: 'Challenges0' }));
     expect(screen.getByText('No saved items match')).toBeInTheDocument();
+  });
+
+  it('uses authoritative Course metadata for contextual icons and retains a safe fallback', async () => {
+    const items = [
+      bookmarks[0],
+      { id: 'course-java', type: 'course', title: 'Java Basics', language: '', topic: 'Basics', target: { page: 'course', courseId: 'java', lessonId: 'java-lesson-1' } },
+      { id: 'course-generic', type: 'course', title: 'General Basics', language: '', topic: 'Basics', target: { page: 'course', courseId: 'general', lessonId: 'lesson-1' } },
+    ];
+    const { container } = renderPage(items);
+    await screen.findByText('Python Basics');
+    const icons = [...container.querySelectorAll('.saved-item-icon img')];
+    expect(icons.map((icon) => icon.getAttribute('src'))).toEqual([
+      '/assets/languages/python.svg',
+      '/assets/languages/java.svg',
+    ]);
+    expect(container.querySelector('.saved-item-icon:not(.has-context-icon) svg')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Remove Python Basics from Library' })).toBeInTheDocument();
   });
 });

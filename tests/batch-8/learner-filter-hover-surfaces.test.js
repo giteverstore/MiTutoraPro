@@ -19,7 +19,7 @@ describe('learner filter and hover surfaces', () => {
     const practice = css('src/styles/pages/practice.css');
     expect(home).toMatch(/\.home-filter-list button:hover,[\s\S]*?\.home-filter-list button:focus-visible\s*\{[^}]*border-color:\s*var\(--color-accent\);/s);
     expect(practice).toMatch(/\.practice-topic-chips button:hover,[\s\S]*?\.practice-topic-chips button:focus-visible\s*\{[^}]*border-color:\s*var\(--color-accent\);/s);
-    expect(practice).toMatch(/\.practice-topic-chips button\s*\{[^}]*border:\s*1px solid var\(--color-border-fixed\);[^}]*border-radius:\s*var\(--radius-full\);[^}]*font-size:\s*1rem;/s);
+    expect(practice).toMatch(/\.practice-topic-chips button\s*\{[^}]*border:\s*1px solid #d3dce6;[^}]*border-radius:\s*var\(--radius-full\);[^}]*font-size:\s*1rem;/s);
   });
 
   it('keeps requested selector and bookmark surfaces fixed across themes', () => {
@@ -31,9 +31,12 @@ describe('learner filter and hover surfaces', () => {
     expect(theme.match(/--color-neutral-surface-fixed:/g)).toHaveLength(1);
     expect(theme).toContain('--color-text-on-neutral-fixed: #111111;');
     expect(theme.match(/--color-text-on-neutral-fixed:/g)).toHaveLength(1);
-    expect(practice).toMatch(/\.practice-filter select,[\s\S]*?\.practice-search>div\s*\{[^}]*background:\s*var\(--color-neutral-surface-fixed\);/s);
-    expect(projects).toMatch(/\.project-filters select\s*\{[^}]*background:\s*var\(--color-neutral-surface-fixed\);/s);
-    expect(bookmarks).toMatch(/\.library-tabs\s*\{[^}]*background:\s*var\(--color-neutral-surface-fixed\);/s);
+    expect(practice).toMatch(/\.practice-filter select,[\s\S]*?\.practice-search>div\s*\{[^}]*background:\s*#fff;[^}]*border:\s*1px solid #d3dce6;/s);
+    expect(practice).toMatch(/\.practice-filter select:focus-visible\s*\{[^}]*border-color:\s*#d3dce6;[^}]*outline:\s*3px solid var\(--color-focus\);/s);
+    expect(practice).toMatch(/\.practice-search>div:focus-within\s*\{[^}]*border-color:\s*var\(--color-accent\);[^}]*outline:\s*3px solid var\(--color-focus\);/s);
+    expect(practice).toMatch(/\[data-theme="dark"\] \.practice-filter select,[\s\S]*?background:\s*var\(--color-surface\);[^}]*border-color:\s*var\(--color-border\);/s);
+    expect(projects).toMatch(/\.project-filters select\s*\{[^}]*background:\s*#fff;[^}]*border:\s*1px solid #d3dce6;/s);
+    expect(bookmarks).toMatch(/\.library-tabs\s*\{[^}]*background:\s*#d3dce6;/s);
     expect(bookmarks).toMatch(/\.saved-item-copy>div span\s*\{[^}]*background:\s*var\(--color-neutral-surface-fixed\);/s);
   });
 
