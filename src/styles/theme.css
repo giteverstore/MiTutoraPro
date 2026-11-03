@@ -8,6 +8,8 @@
   --color-surface: #ffffff;
   --color-surface-subtle: #f1f0eb;
   --color-surface-raised: #faf9f6;
+  --color-surface-interactive: var(--color-surface);
+  --color-surface-hover: var(--color-surface-subtle);
   --color-surface-inverse: #202321;
 
   /* Text */
@@ -20,6 +22,7 @@
   /* Borders */
   --color-border: #deddd6;
   --color-border-strong: #cbc9c1;
+  --color-divider: var(--color-border);
   --color-border-fixed: #F1F5F9;
   --color-progress-track-fixed: #F1F5F9;
   --color-neutral-surface-fixed: #F1F5F9;
@@ -101,18 +104,25 @@
    ========================================================= */
 
 :is(:root, .app-shell, .dashboard-shell, .course-overview-shell, .home-shell, .application-shell, .exam-experience, .practice-immersive-shell)[data-theme="dark"] {
-  --color-canvas: #171a18;
-  --color-surface: #222522;
-  --color-surface-subtle: #272a27;
-  --color-surface-raised: #1f221f;
-  --color-surface-inverse: #111311;
-  --color-text: #f5f5f5;
-  --color-text-secondary: #d1d5db;
-  --color-text-muted: #9ca3af;
+  --color-canvas: #121513;
+  --color-surface: #1b201d;
+  --color-surface-subtle: #222824;
+  --color-surface-raised: #252c27;
+  --color-surface-interactive: #282f2a;
+  --color-surface-hover: #303832;
+  --color-surface-inverse: #0d100e;
+  --color-text: #eef2ef;
+  --color-text-secondary: #cbd3ce;
+  --color-text-muted: #aab4ae;
   --color-text-inverse: #18201c;
   --color-text-on-inverse: #e6e9e6;
-  --color-border: #393d39;
-  --color-border-strong: #4b504b;
+  --color-border: #3b443e;
+  --color-border-strong: #566159;
+  --color-divider: #303832;
+  --color-border-fixed: var(--color-border);
+  --color-progress-track-fixed: var(--color-surface-hover);
+  --color-neutral-surface-fixed: var(--color-surface-interactive);
+  --color-text-on-neutral-fixed: var(--color-text);
 
   --color-accent: #60a5fa;
   --color-accent-hover: #93c5fd;
@@ -143,12 +153,12 @@
   --difficulty-medium-bg: var(--difficulty-medium-base);
   --difficulty-hard-bg: var(--difficulty-hard-base);
 
-  --shadow-xs: 0 2px 14px rgb(0 0 0 / 18%);
-  --shadow-sm: 0 8px 25px rgb(0 0 0 / 20%);
-  --shadow-md: 0 14px 34px rgb(0 0 0 / 24%);
-  --shadow-lg: 0 16px 35px rgb(0 0 0 / 28%);
-  --shadow-panel: 15px 0 40px rgb(0 0 0 / 32%);
-  --shadow-control: 0 5px 14px rgb(0 0 0 / 30%);
+  --shadow-xs: 0 1px 4px rgb(0 0 0 / 18%);
+  --shadow-sm: 0 5px 14px rgb(0 0 0 / 20%);
+  --shadow-md: 0 10px 24px rgb(0 0 0 / 22%);
+  --shadow-lg: 0 14px 30px rgb(0 0 0 / 25%);
+  --shadow-panel: 10px 0 24px rgb(0 0 0 / 26%);
+  --shadow-control: 0 2px 7px rgb(0 0 0 / 24%);
 }
 
 /* Brand themes are independent from appearance mode. */

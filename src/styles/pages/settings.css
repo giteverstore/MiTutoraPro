@@ -26,6 +26,11 @@
   --settings-neutral-border: var(--color-border);
 }
 
+.application-shell[data-theme="dark"] .settings-navigation { background: var(--color-surface); }
+.application-shell[data-theme="dark"] .settings-content { background: var(--color-surface); border-color: var(--color-border); }
+.application-shell[data-theme="dark"] .settings-navigation button:hover { background: var(--color-surface-hover); }
+.application-shell[data-theme="dark"] .settings-section :is(input, select, textarea) { background: var(--color-surface-interactive); }
+
 @keyframes settings-saving {
   to {
     transform: rotate(360deg);

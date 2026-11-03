@@ -20,6 +20,6 @@ describe('Bookmarks UI polish', () => {
   it('uses theme-safe dark equivalents without changing geometry', () => {
     expect(css).toMatch(/\[data-theme="dark"\] \.library-tabs\s*\{[^}]*background:\s*var\(--color-surface-subtle\);[^}]*border-color:\s*var\(--color-border\);/s);
     expect(css).toMatch(/\[data-theme="dark"\] \.library-search,[\s\S]*?border-color:\s*var\(--color-border\);/s);
-    expect(css).toMatch(/\[data-theme="dark"\] \.saved-item-card\s*\{[^}]*border-bottom-color:\s*var\(--color-border\);/s);
+    expect(css).toMatch(/\[data-theme="dark"\] \.saved-item-card\s*\{[^}]*border-bottom-color:\s*var\(--color-divider\);/s);
   });
 });

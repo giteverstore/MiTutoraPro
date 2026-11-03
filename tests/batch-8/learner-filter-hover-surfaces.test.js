@@ -22,21 +22,21 @@ describe('learner filter and hover surfaces', () => {
     expect(practice).toMatch(/\.practice-topic-chips button\s*\{[^}]*border:\s*1px solid #d3dce6;[^}]*border-radius:\s*var\(--radius-full\);[^}]*font-size:\s*1rem;/s);
   });
 
-  it('keeps requested selector and bookmark surfaces fixed across themes', () => {
+  it('keeps light selector surfaces fixed while mapping dark controls to semantic surfaces', () => {
     const theme = css('src/styles/theme.css');
     const practice = css('src/styles/pages/practice.css');
     const projects = css('src/styles/pages/projects.css');
     const select = css('src/styles/components/learner-select.css');
     const bookmarks = css('src/styles/pages/library-bookmarks.css');
     expect(theme).toContain('--color-neutral-surface-fixed: #F1F5F9;');
-    expect(theme.match(/--color-neutral-surface-fixed:/g)).toHaveLength(1);
+    expect(theme.match(/--color-neutral-surface-fixed:/g)).toHaveLength(2);
     expect(theme).toContain('--color-text-on-neutral-fixed: #111111;');
-    expect(theme.match(/--color-text-on-neutral-fixed:/g)).toHaveLength(1);
+    expect(theme.match(/--color-text-on-neutral-fixed:/g)).toHaveLength(2);
     expect(practice).toMatch(/\.practice-search>div\s*\{[^}]*background:\s*#fff;[^}]*border:\s*1px solid #d3dce6;/s);
     expect(select).toMatch(/\.learner-select > button\s*\{[^}]*background:\s*#fff;[^}]*border:\s*1px solid #d3dce6;/s);
     expect(select).toMatch(/\.learner-select > button:focus-visible\s*\{[^}]*border-color:\s*#d3dce6;[^}]*outline:\s*3px solid var\(--color-focus\);/s);
     expect(practice).toMatch(/\.practice-search>div:focus-within\s*\{[^}]*border-color:\s*var\(--color-accent\);[^}]*outline:\s*3px solid var\(--color-focus\);/s);
-    expect(select).toMatch(/\[data-theme="dark"\] \.learner-select > button,[\s\S]*?background:\s*var\(--color-surface\);[^}]*border-color:\s*var\(--color-border\);/s);
+    expect(select).toMatch(/\[data-theme="dark"\] \.learner-select > button,[\s\S]*?background:\s*var\(--color-surface-interactive\);[^}]*border-color:\s*var\(--color-border\);/s);
     expect(projects).toMatch(/\.project-filters \.learner-select\s*\{[^}]*--learner-select-height:\s*2\.875rem;/s);
     expect(bookmarks).toMatch(/\.library-tabs\s*\{[^}]*background:\s*#d3dce6;/s);
     expect(bookmarks).toMatch(/\.saved-item-copy>div span\s*\{[^}]*background:\s*var\(--color-neutral-surface-fixed\);/s);

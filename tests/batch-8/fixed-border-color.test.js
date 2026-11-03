@@ -6,10 +6,11 @@ import { readStylesheetGraph } from '../helpers/read-stylesheet-graph.js';
 const css = (path) => readFile(resolve(path), 'utf8');
 
 describe('fixed learner neutral borders', () => {
-  it('defines one brand-independent fixed border token', async () => {
+  it('keeps the fixed light border brand-independent and maps it to the dark border contract', async () => {
     const theme = await css('src/styles/theme.css');
     expect(theme).toContain('--color-border-fixed: #F1F5F9;');
-    expect(theme.match(/--color-border-fixed:/g)).toHaveLength(1);
+    expect(theme.match(/--color-border-fixed:/g)).toHaveLength(2);
+    expect(theme).toMatch(/\[data-theme="dark"\][\s\S]*--color-border-fixed:\s*var\(--color-border\);/);
     for (const brand of ['ember', 'violet', 'crimson', 'cyber']) {
       const block = theme.match(new RegExp(`data-brand-theme="${brand}"[^}]*\\{([^}]*)\\}`))?.[1] ?? '';
       expect(block).not.toContain('--color-border-fixed');

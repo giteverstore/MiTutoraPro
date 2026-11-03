@@ -1654,6 +1654,24 @@
   box-shadow: var(--shadow-xs);
 }
 
+.application-shell[data-theme="dark"] :is(.home-stat-card, .home-continue-card, .challenge-calendar-card, .library-course-card) {
+  background: var(--color-surface);
+}
+
+.application-shell[data-theme="dark"] :is(.home-discovery-bar, .library-language-section) {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+.application-shell[data-theme="dark"] :is(.home-course-search, .coin-balance-badge) {
+  background: var(--color-surface-interactive);
+  border-color: var(--color-border);
+}
+
+.application-shell[data-theme="dark"] .challenge-calendar-redeem {
+  border-top-color: var(--color-divider);
+}
+
 .home-stat-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);

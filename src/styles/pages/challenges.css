@@ -542,13 +542,16 @@
 }
 
 [data-theme="dark"] .challenge-history {
+  background: var(--color-surface);
   border-color: var(--color-border);
 }
 
 [data-theme="dark"] .challenge-history>header,
 [data-theme="dark"] .challenge-history-list article {
-  border-bottom-color: var(--color-border);
+  border-bottom-color: var(--color-divider);
 }
+
+[data-theme="dark"] .challenge-history-list article:hover { background: var(--color-surface-hover); }
 
 .challenge-review-label {
   display: inline-flex;

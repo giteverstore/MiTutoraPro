@@ -351,7 +351,7 @@
 
 [data-theme="dark"] .referral-overview article,
 [data-theme="dark"] .referral-fields>div {
-  background: var(--color-surface);
+  background: var(--color-surface-interactive);
   border-color: var(--color-border);
 }
 
@@ -365,8 +365,10 @@
 
 [data-theme="dark"] .referral-history>header,
 [data-theme="dark"] .referral-history-table article {
-  border-color: var(--color-border);
+  border-color: var(--color-divider);
 }
+
+[data-theme="dark"] .referral-faq details { background: var(--color-surface-raised); }
 
 @media (max-width: 900px) {
   .referral-overview {

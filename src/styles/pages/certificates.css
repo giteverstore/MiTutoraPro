@@ -213,7 +213,10 @@
   box-shadow: var(--shadow-xs);
 }
 
-[data-theme="dark"] .completed-certificates { border-color: var(--color-border); }
+[data-theme="dark"] .completed-certificates { background: var(--color-surface); border-color: var(--color-border); }
+[data-theme="dark"] .certificate-viewer { background: var(--color-surface-raised); border-color: var(--color-border); }
+[data-theme="dark"] .certificate-viewer-details { background: var(--color-surface); border-color: var(--color-border); }
+[data-theme="dark"] .certificate-viewer-details dl>div { border-bottom-color: var(--color-divider); }
 
 .certificate-list {
   display: grid;

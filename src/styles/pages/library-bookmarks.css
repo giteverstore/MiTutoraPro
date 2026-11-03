@@ -293,8 +293,13 @@
   border-color: var(--color-border);
 }
 
+[data-theme="dark"] .library-search { background: var(--color-surface-interactive); }
+[data-theme="dark"] .library-tabs button.is-active { background: var(--color-surface-raised); }
+[data-theme="dark"] .library-saved-items>header { border-bottom-color: var(--color-divider); }
+[data-theme="dark"] .saved-item-card:hover { background: var(--color-surface-hover); }
+
 [data-theme="dark"] .saved-item-card {
-  border-bottom-color: var(--color-border);
+  border-bottom-color: var(--color-divider);
 }
 
 .saved-item-copy {

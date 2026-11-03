@@ -542,12 +542,26 @@
   border-color: var(--color-border);
 }
 
+[data-theme="dark"] .practice-search>div { background: var(--color-surface-interactive); }
+
+[data-theme="dark"] :is(.practice-filters, .practice-question-list, .practice-preview, .practice-statistics) {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] :is(.practice-question-list>header, .practice-question-card) {
+  border-color: var(--color-divider);
+}
+
+[data-theme="dark"] .practice-question-card:hover { background: var(--color-surface-hover); }
+
 [data-theme="dark"] .practice-search svg,
 [data-theme="dark"] .practice-search input {
   color: var(--color-text);
 }
 
 [data-theme="dark"] .practice-topic-chips button:not(.is-active) {
+  background: var(--color-surface-interactive);
   border-color: var(--color-border);
 }
 

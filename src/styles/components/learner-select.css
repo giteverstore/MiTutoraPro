@@ -93,11 +93,11 @@
 [data-theme="dark"] .learner-select > button,
 [data-theme="dark"] .learner-select-menu {
   color: var(--color-text);
-  background: var(--color-surface);
+  background: var(--color-surface-interactive);
   border-color: var(--color-border);
 }
 
 [data-theme="dark"] .learner-select > button:focus-visible { border-color: var(--color-border); }
 
 [data-theme="dark"] .learner-select-menu > button:hover,
-[data-theme="dark"] .learner-select-menu > button.is-active { background: var(--color-surface-subtle); }
+[data-theme="dark"] .learner-select-menu > button.is-active { background: var(--color-surface-hover); }

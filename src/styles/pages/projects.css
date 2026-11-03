@@ -313,8 +313,11 @@
 [data-theme="dark"] .project-filters,
 [data-theme="dark"] .project-card,
 [data-theme="dark"] .project-card.is-coming-soon:hover {
+  background: var(--color-surface);
   border-color: var(--color-border);
 }
+
+[data-theme="dark"] .project-card.is-coming-soon { background: var(--color-surface-subtle); }
 
 [data-theme="dark"] .project-card:hover:not(.is-coming-soon),
 [data-theme="dark"] .project-card:focus-visible:not(.is-coming-soon) {
@@ -713,15 +716,15 @@
 .project-ide-shell[data-project-theme="dark"] {
   --project-bg: #0d1117;
   --project-surface: #161b22;
-  --project-surface-subtle: #11161d;
-  --project-surface-raised: #1c222b;
+  --project-surface-subtle: #1b2129;
+  --project-surface-raised: #202832;
   --project-border: #30363d;
   --project-text: #e6edf3;
   --project-text-muted: #a4afbb;
   --project-text-subtle: #89939f;
-  --project-hover: #21262d;
+  --project-hover: #28313b;
   --project-selected: #172554;
-  --project-input-bg: #0d1117;
+  --project-input-bg: #1b2129;
   --project-code-surface: #0b0f14;
   --project-code-text: #dbe7f3;
   --project-scrollbar: #485463;

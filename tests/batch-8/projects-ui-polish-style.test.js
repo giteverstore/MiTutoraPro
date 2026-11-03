@@ -25,7 +25,7 @@ describe('Projects list UI polish', () => {
   it('uses dark theme equivalents and does not render the catalog count', () => {
     expect(css).toMatch(/\[data-theme="dark"\] \.project-filters,[\s\S]*?border-color:\s*var\(--color-border\);/s);
     expect(css).toMatch(/\[data-theme="dark"\] \.project-card:hover:not\(\.is-coming-soon\),[\s\S]*?border-color:\s*var\(--color-accent\);/s);
-    expect(selectCss).toMatch(/\[data-theme="dark"\] \.learner-select > button,[\s\S]*?background:\s*var\(--color-surface\);[^}]*border-color:\s*var\(--color-border\);/s);
+    expect(selectCss).toMatch(/\[data-theme="dark"\] \.learner-select > button,[\s\S]*?background:\s*var\(--color-surface-interactive\);[^}]*border-color:\s*var\(--color-border\);/s);
     expect(page).not.toMatch(/visible\.length === 1 \? 'project' : 'projects'/);
   });
 });

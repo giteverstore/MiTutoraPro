@@ -1158,7 +1158,7 @@
 .app-shell[data-theme="dark"] .module-trigger:hover,
 .app-shell[data-theme="dark"] .lesson-link:hover:not(:disabled),
 .app-shell[data-theme="dark"] .icon-button:hover {
-  background: var(--color-surface-subtle);
+  background: var(--color-surface-hover);
 }
 
 .app-shell[data-theme="dark"] .sidebar-footer,
@@ -1195,7 +1195,8 @@
 }
 
 .app-shell[data-theme="dark"] .lesson-completion-footer {
-  border-color: var(--color-border-fixed);
+  background: var(--color-surface);
+  border-color: var(--color-divider);
 }
 
 .application-shell[data-theme="dark"] .overview-hero {

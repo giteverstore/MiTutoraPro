@@ -165,11 +165,12 @@
 }
 
 [data-theme="dark"] :is(.wallet-balances article, .wallet-transactions) {
+  background: var(--color-surface);
   border-color: var(--color-border);
 }
 
 [data-theme="dark"] .wallet-transactions li {
-  border-top-color: var(--color-border);
+  border-top-color: var(--color-divider);
 }
 
 .wallet-withdrawals label {
