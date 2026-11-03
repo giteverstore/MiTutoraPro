@@ -56,6 +56,7 @@ describe('immersive project workspace shell', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Explorer' }));
     expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toBeInTheDocument();
     expect(container.querySelector('[data-file-icon="python"]')).toBeInTheDocument();
+    expect(container.querySelector('.project-tree img')).not.toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-model-owner-prefix', projectModelOwnerPrefix(project.id));
     expect(screen.getByLabelText(`${project.title} implementation editor`)).toHaveAttribute('data-retained-model-paths', projectModelPath(project.id, project.template.sourcePath));
@@ -139,7 +140,10 @@ describe('immersive project workspace shell', () => {
     fireEvent.keyDown(bottom, { key: 'ArrowUp' });
     expect(bottom).toHaveAttribute('aria-valuenow', '200');
     expect(screen.getByRole('toolbar', { name: 'Open project files' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) })).toHaveAttribute('aria-pressed', 'true');
+    const activeFileTab = screen.getByRole('button', { name: project.template.sourcePath.split('/').at(-1) });
+    expect(activeFileTab).toHaveAttribute('aria-pressed', 'true');
+    expect(activeFileTab.querySelector('[data-file-icon="python"]')).toBeInTheDocument();
+    expect(activeFileTab.querySelector('img')).not.toBeInTheDocument();
     fireEvent.keyDown(screen.getByRole('tab', { name: 'output' }), { key: 'ArrowRight' });
     expect(screen.getByRole('tab', { name: 'problems' })).toHaveAttribute('aria-selected', 'true');
     fireEvent.keyDown(screen.getByRole('tab', { name: 'Guide' }), { key: 'ArrowRight' });
@@ -196,7 +200,10 @@ describe('immersive project workspace shell', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Rename src/utils.py' }));
     fireEvent.change(screen.getByRole('textbox', { name: 'Rename src/utils.py' }), { target: { value: 'calculator.py' } });
     fireEvent.keyDown(screen.getByRole('textbox', { name: 'Rename src/utils.py' }), { key: 'Enter' });
-    expect(screen.getByRole('button', { name: 'calculator.py' })).toBeInTheDocument();
+    const renamedFileTab = screen.getByRole('button', { name: 'calculator.py' });
+    expect(renamedFileTab).toBeInTheDocument();
+    expect(renamedFileTab.querySelector('[data-file-icon="python"]')).toBeInTheDocument();
+    expect(screen.getByLabelText('Modified')).toBeInTheDocument();
     expect(screen.getByLabelText(`${project.title} src/calculator.py editor`)).toHaveValue('def add(a, b):\n    return a + b');
     fireEvent.click(screen.getByRole('button', { name: 'Close src/calculator.py' }));
     expect(screen.queryByLabelText(`${project.title} src/calculator.py editor`)).not.toBeInTheDocument();

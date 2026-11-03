@@ -40,4 +40,16 @@ describe('Project Explorer file icons', () => {
     expect(projectFileIcon('notes.custom')).toMatchObject({ id: 'file', lucide: 'file' });
     expect(projectFileIcon('LICENSE')).toMatchObject({ id: 'file', lucide: 'file' });
   });
+
+  it.each(['logo.png', 'photo.jpg', 'diagram.svg', 'banner.webp'])('uses a generic image glyph instead of the actual %s asset', (path) => {
+    expect(projectFileIcon(path)).toEqual({ id: 'image', lucide: 'image' });
+  });
+
+  it('never returns arbitrary artwork or thumbnail assets', () => {
+    for (const path of ['main.py', 'Main.java', 'app.js', 'view.tsx', 'data.json', 'index.html', 'styles.css', 'logo.svg', 'unknown.bin']) {
+      expect(projectFileIcon(path)).not.toHaveProperty('asset');
+      expect(projectFileIcon(path)).not.toHaveProperty('src');
+      expect(projectFileIcon(path)).not.toHaveProperty('thumbnail');
+    }
+  });
 });

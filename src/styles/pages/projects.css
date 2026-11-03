@@ -912,10 +912,15 @@
 .project-checkpoint-review__actions .button { min-height: 2.75rem; font-size: 16px; }
 @media (max-width: 38rem) { .project-checkpoint-review__actions { flex-direction: column; }.project-checkpoint-review__actions .button { width: 100%; } }
 .project-open-tabs { display: flex; min-width: 0; overflow-x: auto; scrollbar-width: thin; }
-.project-open-tabs>div { display: flex; flex: 0 0 auto; align-items: stretch; border-right: 1px solid var(--project-ide-border); }
+.project-open-tabs>div { display: flex; min-width: 0; max-width: 14rem; flex: 0 0 auto; align-items: stretch; border-right: 1px solid var(--project-ide-border); }
 .project-open-tabs>div.is-active { background: var(--project-ide-canvas); box-shadow: inset 0 2px var(--color-accent); }
-.project-open-tabs button { display: flex; align-items: center; gap: .35rem; padding: 0 .5rem; color: var(--color-text-muted); background: transparent; border: 0; cursor: pointer; }
+.project-open-tabs button { display: flex; min-width: 0; align-items: center; gap: .35rem; padding: 0 .5rem; color: var(--color-text-muted); background: transparent; border: 0; cursor: pointer; }
+.project-open-tabs>div>button:first-child { min-width: 0; flex: 1; }
 .project-open-tabs button+button { width: 1.7rem; padding: 0; justify-content: center; }.project-open-tabs svg { width: .9rem; }
+.project-editor-tab-icon { display: block; width: .9rem; height: .9rem; max-width: .9rem; max-height: .9rem; flex: 0 0 .9rem; }
+.project-editor-tab-icon:is(svg,img),.project-editor-tab-icon :is(svg,img) { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
+.project-editor-tab-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-editor-tab-dirty { flex: 0 0 auto; color: var(--color-accent); }
 .project-editor-empty { display: grid; height: 100%; place-content: center; justify-items: center; color: var(--color-text-muted); }.project-editor-empty svg { width: 2rem; }
 .project-ai-panel { grid-column: 6; grid-row: 1; display: grid; grid-template-rows: 2.4rem minmax(0,1fr); min-width: 0; overflow: hidden; background: var(--project-ide-panel); border: 1px solid var(--project-pane-border); border-radius: var(--project-pane-radius); }
 .project-ai-panel>header { display: flex; align-items: center; justify-content: space-between; padding: 0 .65rem; border-bottom: 1px solid var(--project-ide-border); font-size: 16px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
@@ -991,16 +996,19 @@
 .project-files-section>header button { display: grid; width: 1.65rem; height: 1.65rem; place-items: center; padding: 0; color: var(--color-text-muted); background: transparent; border: 0; border-radius: .2rem; cursor: pointer; }
 .project-files-section>header button:hover,.project-files-section>header button:focus-visible { color: var(--color-text); background: var(--color-surface-hover); }
 .project-tree { min-height: 0; overflow: auto; color: var(--color-text); font-size: 16px; scrollbar-width: thin; }
-.project-tree-root,.project-tree-row { min-width: 0; height: 1.5rem; }
-.project-tree-root>button,.project-tree-main { display: flex; width: 100%; min-width: 0; height: 100%; align-items: center; gap: .2rem; padding: 0 .35rem; color: inherit; text-align: left; background: transparent; border: 0; border-radius: 0; cursor: pointer; }
+.project-tree-root,.project-tree-row { min-width: 0; height: 1.625rem; }
+.project-tree-root>button,.project-tree-main { display: flex; width: 100%; min-width: 0; height: 100%; align-items: center; gap: .25rem; padding: 0 .35rem; overflow: hidden; color: inherit; text-align: left; background: transparent; border: 0; border-radius: 0; cursor: pointer; }
 .project-tree-root>button { padding-left: .25rem; text-transform: uppercase; }.project-tree-root strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16px; letter-spacing: .03em; }
 .project-tree-row { position: relative; display: flex; align-items: center; padding-left: calc(var(--tree-depth) * .875rem); }
 .project-tree-row:hover,.project-tree-row:focus-within { background: var(--color-surface-hover); }
 .project-tree-row.is-selected { background: var(--color-accent-subtle); }
 .project-tree-main { flex: 1; padding: 0 .3rem 0 0; overflow: hidden; }
-.project-tree svg,.project-tree-root svg { width: .9rem; height: .9rem; flex: 0 0 auto; color: var(--color-text-muted); }
-.project-tree-main>span:not(.project-tree-spacer) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.project-tree-spacer { width: .9rem; flex: 0 0 auto; }.project-tree-main i { margin-left: auto; color: var(--color-accent); font-size: .75rem; font-style: normal; }
+.project-tree-chevron { display: grid; width: 1rem; height: 1rem; flex: 0 0 1rem; place-items: center; }
+.project-tree-chevron svg { display: block; width: .875rem; height: .875rem; color: var(--color-text-muted); }
+.project-tree-icon { display: block; width: 1rem; height: 1rem; max-width: 1rem; max-height: 1rem; flex: 0 0 1rem; color: var(--color-text-muted); object-fit: contain; }
+.project-tree-icon:is(svg,img),.project-tree-icon :is(svg,img) { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
+.project-tree-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-tree-main i { margin-left: auto; color: var(--color-accent); font-size: .75rem; font-style: normal; }
 .project-tree-actions { display: flex; height: 100%; align-items: center; padding-right: .2rem; opacity: 0; }
 .project-tree-row:hover .project-tree-actions,.project-tree-row:focus-within .project-tree-actions { opacity: 1; }
 .project-tree-actions button { display: grid; width: 1.35rem; height: 1.35rem; place-items: center; padding: 0; color: var(--color-text-muted); background: transparent; border: 0; border-radius: .15rem; cursor: pointer; }

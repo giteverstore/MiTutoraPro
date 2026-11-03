@@ -1,30 +1,27 @@
-const LANGUAGE_ASSET = Object.freeze({
-  python: '/assets/languages/python.svg',
-  java: '/assets/languages/java.svg',
-  javascript: '/assets/languages/javascript.svg',
-  typescript: '/assets/languages/typescript.svg',
-  cpp: '/assets/languages/cplusplus.svg',
-  go: '/assets/languages/go.svg',
-  rust: '/assets/languages/rust.svg',
-  html: '/assets/languages/html5.svg',
-});
-
 const EXTENSION_ICONS = Object.freeze({
-  py: { id: 'python', asset: LANGUAGE_ASSET.python },
-  java: { id: 'java', asset: LANGUAGE_ASSET.java },
-  js: { id: 'javascript', asset: LANGUAGE_ASSET.javascript },
-  jsx: { id: 'javascript', asset: LANGUAGE_ASSET.javascript },
-  ts: { id: 'typescript', asset: LANGUAGE_ASSET.typescript },
-  tsx: { id: 'typescript', asset: LANGUAGE_ASSET.typescript },
-  c: { id: 'c', monogram: 'C' },
-  cpp: { id: 'cpp', asset: LANGUAGE_ASSET.cpp },
-  cc: { id: 'cpp', asset: LANGUAGE_ASSET.cpp },
-  cxx: { id: 'cpp', asset: LANGUAGE_ASSET.cpp },
-  go: { id: 'go', asset: LANGUAGE_ASSET.go },
-  rs: { id: 'rust', asset: LANGUAGE_ASSET.rust },
-  html: { id: 'html', asset: LANGUAGE_ASSET.html },
-  htm: { id: 'html', asset: LANGUAGE_ASSET.html },
-  css: { id: 'css', monogram: 'CSS' },
+  py: { id: 'python', lucide: 'code' },
+  java: { id: 'java', lucide: 'code' },
+  js: { id: 'javascript', lucide: 'code' },
+  jsx: { id: 'javascript', lucide: 'code' },
+  ts: { id: 'typescript', lucide: 'code' },
+  tsx: { id: 'typescript', lucide: 'code' },
+  c: { id: 'c', lucide: 'code' },
+  cpp: { id: 'cpp', lucide: 'code' },
+  cc: { id: 'cpp', lucide: 'code' },
+  cxx: { id: 'cpp', lucide: 'code' },
+  go: { id: 'go', lucide: 'code' },
+  rs: { id: 'rust', lucide: 'code' },
+  html: { id: 'html', lucide: 'code' },
+  htm: { id: 'html', lucide: 'code' },
+  css: { id: 'css', lucide: 'code' },
+  png: { id: 'image', lucide: 'image' },
+  jpg: { id: 'image', lucide: 'image' },
+  jpeg: { id: 'image', lucide: 'image' },
+  gif: { id: 'image', lucide: 'image' },
+  webp: { id: 'image', lucide: 'image' },
+  svg: { id: 'image', lucide: 'image' },
+  bmp: { id: 'image', lucide: 'image' },
+  avif: { id: 'image', lucide: 'image' },
   json: { id: 'json', lucide: 'json' },
   md: { id: 'markdown', lucide: 'text' },
   markdown: { id: 'markdown', lucide: 'text' },
@@ -39,7 +36,7 @@ export function projectFileIcon(path) {
   const name = String(path ?? '').split('/').at(-1).toLowerCase();
   if (name === 'dockerfile') return { id: 'dockerfile', lucide: 'container' };
   if (name === '.gitignore') return { id: 'gitignore', lucide: 'git' };
-  if (name === 'cargo.toml') return { id: 'rust', asset: LANGUAGE_ASSET.rust };
+  if (name === 'cargo.toml') return { id: 'rust', lucide: 'code' };
   if (name === 'readme' || name.startsWith('readme.')) return { id: 'readme', lucide: 'text' };
   const extension = name.includes('.') ? name.split('.').at(-1) : '';
   return EXTENSION_ICONS[extension] ?? { id: 'file', lucide: 'file' };
