@@ -1,4 +1,4 @@
-import { ArrowRight, Clock3, Code2, Layers3, Map, Target } from 'lucide-react';
+import { ArrowRight, Clock3, Code2, Layers3, Map } from 'lucide-react';
 import { DifficultyBadge } from '../../components/DifficultyBadge';
 import { useHeroPointerGrid } from '../../components/useHeroPointerGrid';
 import { getProjectRuntime } from '../runtime/projectRuntimeRegistry';
@@ -17,7 +17,7 @@ export function ProjectFoundationDetails({ project, progress, onStart }) {
       <div className="project-overview-grid-highlight hero-pointer-grid-highlight" aria-hidden="true" />
       <div className="project-overview-layout">
         <div className="project-overview-copy">
-          <div className="project-overview-kicker"><span>Project · {project.category}</span>{difficulty ? <DifficultyBadge difficulty={difficulty} /> : null}</div>
+          {difficulty ? <div className="project-overview-kicker"><DifficultyBadge difficulty={difficulty} /></div> : null}
           <h1>{project.title}</h1><p>{project.description}</p>
         </div>
         <aside className="project-overview-summary" aria-label="Project summary">
@@ -34,6 +34,6 @@ export function ProjectFoundationDetails({ project, progress, onStart }) {
       </div>
     </section>
     <div className="project-details-main"><div className="project-language-badges" aria-label="Supported languages">{project.supportedLanguages.map((id) => <span key={id}>{getProjectRuntime(id).displayName}</span>)}</div>
-    <div className="project-details-grid"><section><h2>What You’ll Build</h2><p>{project.whatYouWillBuild ?? project.instructions}</p><h2>What You’ll Learn</h2><ul>{project.learningObjectives.map((item) => <li key={item}>{item}</li>)}</ul><h2>Prerequisites</h2>{project.prerequisites.length ? <ul>{project.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul> : <p>Basic familiarity with the selected language.</p>}</section><aside><Map aria-hidden="true" /><h2>Project Roadmap</h2><ol className="project-roadmap">{project.checkpoints.map((checkpoint, index) => <li className={progress.completedCheckpoints?.includes(checkpoint.id) ? 'is-complete' : index === (progress.currentCheckpoint ?? 0) && progress.status !== 'not-started' ? 'is-current' : ''} key={checkpoint.id}><span>{index + 1}</span><div><strong>{checkpoint.title}</strong><small>{checkpoint.objective}</small></div></li>)}</ol><Target aria-hidden="true" /><h3>Skills</h3><div>{project.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></aside></div></div>
+    <div className="project-details-grid"><section><h2>What You’ll Build</h2><p>{project.whatYouWillBuild ?? project.instructions}</p><h2>What You’ll Learn</h2><ul>{project.learningObjectives.map((item) => <li key={item}>{item}</li>)}</ul><h2>Prerequisites</h2>{project.prerequisites.length ? <ul>{project.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul> : <p>Basic familiarity with the selected language.</p>}<div className="project-overview-skills"><h2>Skills</h2><div>{project.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div></section><aside><Map aria-hidden="true" /><h2>Project Roadmap</h2><ol className="project-roadmap">{project.checkpoints.map((checkpoint, index) => <li className={progress.completedCheckpoints?.includes(checkpoint.id) ? 'is-complete' : index === (progress.currentCheckpoint ?? 0) && progress.status !== 'not-started' ? 'is-current' : ''} key={checkpoint.id}><span>{index + 1}</span><strong>{checkpoint.title}</strong></li>)}</ol></aside></div></div>
   </div>;
 }

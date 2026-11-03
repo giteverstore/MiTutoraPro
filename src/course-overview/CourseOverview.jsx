@@ -141,7 +141,7 @@ function ModuleList({ modules }) {
   return (
     <section className="overview-modules">
       <div className="overview-section-heading">
-        <div><span className="section-kicker">Curriculum</span><h2>What you’ll learn</h2></div>
+        <div><h2>What you’ll learn</h2></div>
         <span>{modules.length} {modules.length === 1 ? 'module' : 'modules'}</span>
       </div>
       <div className="overview-module-list">

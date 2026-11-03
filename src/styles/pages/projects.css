@@ -6,14 +6,12 @@
 .project-language-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .project-language-badges span { padding: .3rem .6rem; color: var(--color-text); background: var(--color-accent-subtle); border: 1px solid #d3dce6; border-radius: var(--radius-full); font-size: .75rem; }
 .project-language-badges { margin: calc(var(--space-5) * -1) 0 var(--space-6); }
-.project-roadmap { display: grid !important; gap: var(--space-3) !important; margin: 0 0 var(--space-6); padding: 0 !important; list-style: none; }
-.project-roadmap li { display: grid; grid-template-columns: 2rem 1fr; gap: var(--space-3); align-items: start; }
+.project-roadmap { display: grid !important; gap: var(--space-2) !important; margin: 0; padding: 0 !important; list-style: none; }
+.project-roadmap li { display: grid; min-height: 2.5rem; grid-template-columns: 2rem 1fr; gap: var(--space-3); align-items: center; }
 .project-roadmap li > span { display: grid; place-items: center; width: 2rem; height: 2rem; background: var(--color-canvas); border: 1px solid #d3dce6; border-radius: 50%; }
 .project-roadmap li.is-current > span,
 .project-roadmap li.is-complete > span { color: var(--color-text-on-accent); background: var(--color-accent); border-color: var(--color-accent); }
-.project-roadmap strong,
-.project-roadmap small { display: block; }
-.project-roadmap small { margin-top: .25rem; color: var(--color-text-muted); }
+.project-roadmap strong { display: block; }
 .project-start-dialog { width: min(34rem, calc(100vw - 2rem)); font-size: .875rem; }
 .project-start-dialog>h2 { font-size: 1rem; }
 .project-start-dialog>p,.project-start-dialog button,.project-start-dialog input { font-size: .875rem; }
@@ -448,14 +446,32 @@
 }
 
 .project-details-grid section {
+  font-size: 1rem;
   line-height: 1.75;
 }
 
 .project-details-grid h2,
 .project-details-grid h3,
-.project-roadmap strong { font-size: 1rem; }
-.project-roadmap small,
+.project-roadmap strong { font-size: 1.125rem; }
 .project-detail-meta { font-size: .75rem; }
+
+.project-overview-skills {
+  margin-top: var(--space-6);
+}
+
+.project-overview-skills>div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.project-overview-skills span {
+  padding: .35rem .65rem;
+  color: var(--color-text);
+  background: var(--color-accent-subtle);
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+}
 
 .project-details-grid dt {
   color: var(--color-text-muted);
