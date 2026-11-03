@@ -389,7 +389,7 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('.project-ide-shell[data-project-theme="dark"]');
     expect(css).toContain('height: 100dvh;');
     expect(css).toContain('.project-center-column { grid-column: 4; grid-row: 1;');
-    expect(css).toContain('grid-template-rows: minmax(15rem,1fr) 4px clamp(7.5rem,var(--project-bottom-height),35dvh);');
+    expect(css).toContain('grid-template-rows: minmax(15rem,1fr) var(--project-pane-gap) clamp(7.5rem,var(--project-bottom-height),35dvh);');
     expect(css).toContain('grid-template-rows: 2.5rem minmax(12.5rem,1fr);');
     expect(css).toContain('.project-editor-pane .editor-window { grid-row: 2; width: 100%; height: auto;');
     expect(css).toContain('.project-editor-pane .monaco-editor-shell { width: 100%; height: 100%;');
@@ -404,7 +404,7 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('.project-center-column { grid-column: 1; grid-row: 1;');
     expect(css).toContain('.project-ai-panel { position: absolute;');
     expect(css).toContain('.project-activity-bar { grid-column: 1; grid-row: 2; flex-direction: row;');
-    expect(css).toContain('minmax(20rem,1fr) 4px var(--project-guide-width)');
+    expect(css).toContain('minmax(20rem,1fr) var(--project-pane-gap) var(--project-guide-width)');
     expect(css).toContain('.project-ai-conversation-scroll { min-width: 0; min-height: 0;');
     expect(css).toContain('overflow-y: auto; overscroll-behavior: contain;');
     expect(css).toContain('.project-ai-mode.is-active { display: block; min-height: 0; overflow: hidden; }');
