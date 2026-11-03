@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { createRef } from 'react';
 
 const progress = vi.hoisted(() => ({ completedLessons: [], completeLesson: vi.fn() }));
 vi.mock('../../src/progress/LearningProgressContext', () => ({ useLearningProgress: () => progress, useOptionalLearningProgress: () => null }));
@@ -10,7 +11,7 @@ import { CompilerPanel } from '../../src/components/CompilerPanel.jsx';
 import { LessonFooter } from '../../src/components/LessonFooter.jsx';
 
 const compiler = {
-  id: 'lesson-compiler', language: 'python', resizeLabel: 'Resize output', expectedOutput: 'expected',
+  id: 'lesson-compiler', exerciseId: 'exercise-1', language: 'python', resizeLabel: 'Resize output', expectedOutput: 'expected',
   editor: { fileName: 'main.py', lines: [{ number: 1, text: 'print("actual")' }] }, output: {},
 };
 
@@ -34,5 +35,31 @@ describe('Course manual completion after execution failure', () => {
     expect(screen.getByRole('button', { name: 'Complete Lesson' })).toBeEnabled();
     fireEvent.click(screen.getByRole('button', { name: 'Complete Lesson' }));
     await waitFor(() => expect(progress.completeLesson).toHaveBeenCalledWith('lesson-1'));
+  });
+
+  it('runs a fresh source snapshot and only navigates when exercise output validates', async () => {
+    progress.completeLesson.mockReset().mockResolvedValue(undefined);
+    const panelRef = createRef();
+    const onNext = vi.fn();
+    const manager = {
+      execute: vi.fn().mockResolvedValue({ status: 'success', output: 'expected', errors: [] }),
+      format: vi.fn(), reset: vi.fn(), validateOutput: vi.fn().mockReturnValueOnce(false).mockReturnValueOnce(true), dispose: vi.fn(),
+    };
+    render(<CompilerProvider manager={manager}>
+      <CompilerPanel ref={panelRef} compiler={compiler} activityType="lesson" />
+      <LessonFooter lesson={{ id: 'exercise-lesson' }} previousLesson={null} nextLesson={{ id: 'next' }} onNext={onNext} lessonCount={2} currentLessonIndex={0} forwardMode="validated" onValidateForward={() => panelRef.current.validateCurrentSource()} />
+    </CompilerProvider>);
+
+    expect(screen.queryByRole('button', { name: /Complete Lesson|Mark Complete/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Code editor' })).toHaveValue('print("actual")');
+    fireEvent.click(screen.getByRole('button', { name: 'Next Lesson' }));
+    await waitFor(() => expect(manager.validateOutput).toHaveBeenCalledOnce());
+    expect(onNext).not.toHaveBeenCalled();
+    expect(screen.getByRole('textbox', { name: 'Code editor' })).toHaveValue('print("actual")');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Next Lesson' }));
+    await waitFor(() => expect(onNext).toHaveBeenCalledOnce());
+    expect(manager.execute).toHaveBeenCalledTimes(2);
+    expect(progress.completeLesson).not.toHaveBeenCalled();
   });
 });

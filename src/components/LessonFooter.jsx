@@ -19,16 +19,20 @@ export function LessonFooter({
   onNext,
   lessonCount,
   currentLessonIndex,
+  forwardMode = 'completion',
+  onValidateForward,
 }) {
   const {
     completedLessons,
     completeLesson,
   } = useLearningProgress();
   const [completionState, setCompletionState] = useState({ status: 'idle', message: '' });
+  const [isValidating, setIsValidating] = useState(false);
   const isCompleted = completedLessons.includes(lesson.id);
 
   useEffect(() => {
     setCompletionState({ status: 'idle', message: '' });
+    setIsValidating(false);
   }, [lesson.id]);
 
   const handleComplete = async () => {
@@ -41,8 +45,19 @@ export function LessonFooter({
       setCompletionState({ status: 'error', message: completionErrorMessage(error) });
     }
   };
+  const handleValidatedNext = async () => {
+    if (!nextLesson || isValidating) return;
+    setIsValidating(true);
+    try {
+      if (await onValidateForward?.()) onNext();
+    } finally {
+      setIsValidating(false);
+    }
+  };
 
-  const statusLabel = completionState.status === 'error'
+  const statusLabel = forwardMode === 'validated'
+    ? 'Complete the activity to continue'
+    : completionState.status === 'error'
     ? 'Lesson not completed'
     : isCompleted
       ? 'Lesson completed'
@@ -80,7 +95,17 @@ export function LessonFooter({
           {completionState.message || statusLabel}
         </small>
       </div>
-      {isCompleted ? (
+      {forwardMode === 'validated' ? (
+          <button
+            className="button button--primary lesson-footer-button"
+            type="button"
+            disabled={!nextLesson || isValidating}
+            onClick={handleValidatedNext}
+          >
+            <span className="lesson-footer-button-label">{nextLesson ? 'Next Lesson' : 'Course Complete'}</span>
+            {nextLesson ? <ArrowRight size={ICON_SIZE.md} aria-hidden="true" /> : <CheckCircle2 size={ICON_SIZE.md} aria-hidden="true" />}
+          </button>
+        ) : isCompleted ? (
           <button
             className="button button--primary lesson-footer-button"
             type="button"

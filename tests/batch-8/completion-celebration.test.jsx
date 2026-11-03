@@ -67,31 +67,16 @@ describe('shared completion celebration', () => {
     expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
 
-  it('celebrates only the first correct Quiz completion', async () => {
+  it('does not expose a standalone Quiz completion action', () => {
     const props = { blockId: 'quiz-1', question: 'Pick A', options: [{ id: 'a', text: 'A' }, { id: 'b', text: 'B' }], correctOptionIds: ['a'] };
-    const { unmount } = render(<QuizBlock {...props} />);
-    fireEvent.click(screen.getByLabelText('A')); fireEvent.click(screen.getByRole('button', { name: /Check answer/ }));
-    await waitFor(() => expect(document.querySelector('.completion-celebration')).toBeInTheDocument());
-    unmount(); progress.quizScores = { 'quiz-1': { passed: true, percentage: 100, attempts: 1 } };
     render(<QuizBlock {...props} />);
-    fireEvent.click(screen.getByLabelText('A')); fireEvent.click(screen.getByRole('button', { name: /Check answer/ }));
+    expect(screen.queryByRole('button', { name: /Check answer/ })).not.toBeInTheDocument();
     expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
 
-  it('does not celebrate an incorrect Quiz attempt', () => {
-    render(<QuizBlock blockId="quiz-1" question="Pick A" options={[{ id: 'a', text: 'A' }, { id: 'b', text: 'B' }]} correctOptionIds={['a']} />);
-    fireEvent.click(screen.getByLabelText('B')); fireEvent.click(screen.getByRole('button', { name: /Check answer/ }));
-    expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
-  });
-
-  it('celebrates only a newly completed Exercise', async () => {
-    const { unmount } = render(<ExerciseBlock blockId="exercise-1" title="Exercise" />);
-    fireEvent.click(screen.getByRole('button', { name: /Mark Complete/ }));
-    await waitFor(() => expect(document.querySelector('.completion-celebration')).toBeInTheDocument());
-    expect(progress.completeExercise).toHaveBeenCalledWith('exercise-1');
-    unmount(); progress.exerciseCompletion = { 'exercise-1': { completed: true } };
+  it('does not expose a standalone Exercise completion action', () => {
     render(<ExerciseBlock blockId="exercise-1" title="Exercise" />);
-    expect(screen.getByRole('button', { name: 'Completed' })).toBeDisabled();
+    expect(screen.queryByRole('button', { name: /Mark Complete|Completed/ })).not.toBeInTheDocument();
     expect(document.querySelector('.completion-celebration')).not.toBeInTheDocument();
   });
 });

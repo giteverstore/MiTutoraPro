@@ -57,6 +57,7 @@ export function Layout({ courseLoader }) {
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const compilerPanelRef = useRef(null);
+  const lessonValidationRef = useRef(null);
   const [isCompilerMinimized, setIsCompilerMinimized] = useState(
     () => window.localStorage.getItem('mi-tutora:compiler-minimized') === 'true',
   );
@@ -196,6 +197,19 @@ export function Layout({ courseLoader }) {
     setPendingTutorRequest({ id: `${Date.now()}-${context.selectionContext.snapshot.selectionHash}`, selectionContext: context.selectionContext });
     setActiveWorkspace('ai');
   }, []);
+  const gatedLessonType = currentBlockList.some((block) => block.type === 'quiz')
+    ? 'quiz'
+    : exerciseBlock
+      ? 'exercise'
+      : null;
+  const blockRuntimeProps = useCallback((block) => block.type === 'quiz'
+    ? { validationRef: lessonValidationRef }
+    : undefined, []);
+  const validateForwardNavigation = useCallback(async () => {
+    if (gatedLessonType === 'quiz') return Boolean(lessonValidationRef.current?.());
+    if (gatedLessonType === 'exercise') return Boolean(await compilerPanelRef.current?.validateCurrentSource?.());
+    return true;
+  }, [gatedLessonType]);
 
   return (
     <LearningCompilerProvider controller={learningCompiler}>
@@ -270,6 +284,7 @@ export function Layout({ courseLoader }) {
               isLoading={false}
               emptyState={course.ui.emptyLesson}
               unavailableState={course.ui.emptyCourse}
+              blockRuntimeProps={blockRuntimeProps}
             />
             <LessonFooter
               lesson={currentLesson}
@@ -277,6 +292,8 @@ export function Layout({ courseLoader }) {
               nextLesson={nextLesson}
               onPrevious={goToPreviousLesson}
               onNext={() => goToNextLesson()}
+              forwardMode={gatedLessonType ? 'validated' : 'completion'}
+              onValidateForward={validateForwardNavigation}
               lessonCount={lessonProgressScope?.lessons.length ?? lessonCount}
               currentLessonIndex={lessonProgressScope?.index ?? -1}
             />

@@ -11,6 +11,7 @@ export function ContentArea({
   isLoading = false,
   emptyState,
   unavailableState,
+  blockRuntimeProps,
 }) {
   return (
     <main className="lesson-panel" tabIndex="0" aria-label="Lesson content">
@@ -26,6 +27,7 @@ export function ContentArea({
           <BlockRenderer
             lesson={{ ...lesson, blocks }}
             emptyState={emptyState}
+            blockRuntimeProps={blockRuntimeProps}
           />
           {children}
         </article>

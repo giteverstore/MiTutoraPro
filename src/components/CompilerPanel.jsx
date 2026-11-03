@@ -128,6 +128,10 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
 
   useImperativeHandle(forwardedRef, () => ({
     isDirty,
+    validateCurrentSource: async () => {
+      const record = await showRunFeedback({ source: currentCodeRef.current, compiler: activeCompilerRef.current });
+      return record ? validateExecution(record) : false;
+    },
     loadDefinition: (definition, options) => loadCompilerDefinition(definition, options),
     loadExample: async ({ source, language, filename = 'main.py', stdin = '' }) => {
       const base = activeCompilerRef.current;
@@ -149,7 +153,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
       await showRunFeedback({ source, compiler: definition });
       return true;
     },
-  }), [loadCompilerDefinition, showRunFeedback]);
+  }), [activeCompilerRef, currentCodeRef, loadCompilerDefinition, showRunFeedback, validateExecution]);
 
   useEffect(() => {
     const handleKeyboardRun = (event) => {

@@ -530,7 +530,45 @@
 .exercise-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--space-3);
+}
+
+.solution-block {
+  overflow: hidden;
+}
+
+.solution-block>summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.solution-block>summary::-webkit-details-marker { display: none; }
+.solution-block>summary svg { flex: 0 0 auto; transition: transform var(--duration-fast) var(--ease-standard); }
+.solution-block[open]>summary svg { transform: rotate(90deg); }
+
+.solution-block-content {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.solution-block-content>p {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body);
+}
+
+.solution-block-content>.code-card {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
 }
 
 .exercise-card {
