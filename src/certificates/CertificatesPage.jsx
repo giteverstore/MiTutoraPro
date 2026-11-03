@@ -6,19 +6,9 @@ import { certificateService } from './CertificateService';
 import { CertificateCard } from './CertificateCard';
 import { CertificateViewer } from './CertificateViewer';
 import { preloadCertificateArtifact } from './CertificateArtifact';
+import { SAMPLE_CERTIFICATE } from './sampleCertificate';
 import { publicVerificationUrl } from './publicCertificateVerification';
 import { ErrorState } from '../errors/ErrorState';
-
-const sampleCertificate = Object.freeze({
-  id: 'sample',
-  credentialId: 'SAMPLE',
-  courseId: 'python',
-  courseTitle: 'Sample Certificate',
-  issueDate: null,
-  sample: true,
-  recipientName: 'SAMPLE',
-  verificationStatus: 'sample',
-});
 
 export function CertificatesPage({ onTestSetup, preloadArtifact = preloadCertificateArtifact }) {
   const { user } = useUser();
@@ -79,7 +69,7 @@ export function CertificatesPage({ onTestSetup, preloadArtifact = preloadCertifi
       <h1>Certificates</h1>
       <div className="certificate-setup-actions" aria-label="Certificate tools">
         <button className="button button--secondary" type="button" onClick={onTestSetup}>Test My Setup</button>
-        <button className="button button--secondary" type="button" onClick={() => setViewerCertificate(sampleCertificate)}>View Example</button>
+        <button className="button button--secondary" type="button" onClick={() => setViewerCertificate(SAMPLE_CERTIFICATE)}>View Example</button>
       </div>
     </header>
 

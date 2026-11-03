@@ -7,6 +7,7 @@ import {
   ChevronDown,
   Clock3,
   Code2,
+  Eye,
   FileCheck2,
   FlaskConical,
   Layers3,
@@ -20,13 +21,18 @@ import { ICON_SIZE } from '../design-system/theme';
 import { useOptionalLearningProgress } from '../progress/LearningProgressContext';
 import { trustedCompletionDevelopmentService } from '../progress/TrustedCompletionDevelopmentService';
 import { getCourseOverviewPresentation } from './courseOverviewPresentation';
+import { CertificateViewer } from '../certificates/CertificateViewer';
+import { preloadCertificateArtifact } from '../certificates/CertificateArtifact';
+import { SAMPLE_CERTIFICATE } from '../certificates/sampleCertificate';
 import '../styles/hero-pointer-grid.css';
 import '../styles/pages/dashboard.css';
+import '../styles/pages/certificates.css';
 import { phase5Mark } from '../performance/phase5Mark.js';
 
 const anonymousProgress = Object.freeze({ courseProgress: 0, completedLessons: [], completedLessonCount: 0, sequentialCompletedLessons: 0, visitedLessonCount: 0 });
 
 export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartExam, anonymous = false }) {
+  const [certificatePreviewOpen, setCertificatePreviewOpen] = useState(false);
   useLayoutEffect(() => { phase5Mark('course:hero-committed', { courseId: course.id }); }, [course.id]);
   const { heroRef, onPointerEnter, onPointerMove, onPointerLeave } = useHeroPointerGrid();
   const storedProgress = useOptionalLearningProgress();
@@ -57,6 +63,11 @@ export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartEx
     document.title = `${model.title} · ycoders`;
   }, [model.title]);
 
+  useEffect(() => {
+    if (!model.certificateAvailable) return;
+    void preloadCertificateArtifact().catch(() => {});
+  }, [model.certificateAvailable]);
+
   return (
     <div className="course-overview-shell">
       <section className="overview-hero overview-hero--full-bleed hero-pointer-grid-host" ref={heroRef} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
@@ -67,7 +78,7 @@ export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartEx
               <div className="overview-hero-kicker"><span>{courseLabel}</span>{difficultyBadge ? <DifficultyBadge difficulty={difficultyBadge} /> : null}</div>
               <h1>{model.title}</h1>
               <p>{model.description}</p>
-              {model.certificateAvailable ? <span className="overview-certification-badge"><Award size={ICON_SIZE.sm} aria-hidden="true" /> Certification Available</span> : null}
+              {model.certificateAvailable ? <span className="overview-certification-actions"><span className="overview-certification-badge"><Award size={ICON_SIZE.sm} aria-hidden="true" /> Certification Available</span><button className="overview-certificate-preview" type="button" aria-label="Preview certificate" onClick={() => setCertificatePreviewOpen(true)}><Eye size={ICON_SIZE.sm} aria-hidden="true" /></button></span> : null}
             </div>
             <aside className="overview-hero-summary" aria-label="Course summary">
               <div className="overview-hero-metrics">
@@ -110,6 +121,7 @@ export function CourseOverview({ course, onEnterCourse, onResetCourse, onStartEx
         ) : null}
 
       </main>
+      <CertificateViewer certificate={certificatePreviewOpen ? SAMPLE_CERTIFICATE : null} onClose={() => setCertificatePreviewOpen(false)} />
     </div>
   );
 }

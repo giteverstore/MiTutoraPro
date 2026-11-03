@@ -141,6 +141,8 @@ describe('course overview shell and completed actions', () => {
     const gridCss = readFileSync('src/styles/hero-pointer-grid.css', 'utf8');
     const component = readFileSync('src/course-overview/CourseOverview.jsx', 'utf8');
     expect(component).toContain("import '../styles/pages/dashboard.css';");
+    expect(component).toContain('if (!model.certificateAvailable) return;');
+    expect(component).toContain('void preloadCertificateArtifact().catch(() => {});');
     expect(css).toMatch(/\.overview-hero\s*\{[^}]*width:\s*100%;[^}]*height:\s*300px/);
     expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*width:\s*min\(100%, 86rem\);[^}]*margin-inline:\s*auto;[^}]*padding:\s*var\(--space-4\)/);
     expect(css).toMatch(/\.overview-hero-layout\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.6fr\) minmax\(0, 1fr\)/);
@@ -151,6 +153,8 @@ describe('course overview shell and completed actions', () => {
     expect(css).toMatch(/\.overview-hero h1\s*\{[^}]*color:\s*#fff/);
     expect(css).toMatch(/\.overview-hero-copy>p\s*\{[^}]*color:\s*#fff/);
     expect(css).toMatch(/\.overview-certification-badge\s*\{[^}]*color:\s*#fff/);
+    expect(css).toMatch(/\.overview-certification-actions\s*\{[^}]*display:\s*inline-flex;[^}]*white-space:\s*nowrap;/s);
+    expect(css).toMatch(/\.overview-certificate-preview\s*\{[^}]*width:\s*2rem;[^}]*height:\s*2rem;[^}]*border-radius:\s*50%;/s);
     expect(css).toMatch(/\.course-overview-main\s*\{[^}]*padding:\s*var\(--space-10\)/);
     expect(css).toMatch(/\.overview-stat-grid\s*\{[^}]*margin-top:\s*0/);
     expect(css).toMatch(/\.overview-hero-grid\s*\{[^}]*rgb\(229 231 235 \/ 68%\)/);
@@ -177,6 +181,29 @@ describe('course overview shell and completed actions', () => {
     expect(hero).not.toHaveTextContent(/review|rating|stars/i);
     expect(summary.getByRole('progressbar', { name: 'Course progress' })).toHaveAttribute('aria-valuenow', '0');
     expect(summary.getByText('0% done')).toBeInTheDocument();
+  });
+
+  it('opens and closes the shared sample certificate viewer from the eligible hero', () => {
+    render(<CourseOverview course={course} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
+    const badge = screen.getByText('Certification Available');
+    const preview = screen.getByRole('button', { name: 'Preview certificate' });
+    expect(badge.closest('.overview-certification-actions')).toContainElement(preview);
+
+    fireEvent.click(preview);
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toHaveTextContent('Sample Certificate');
+    expect(dialog).toHaveTextContent('SAMPLE');
+    expect(dialog).toHaveTextContent('Not issued');
+    expect(within(dialog).getByTestId('certificate-artifact')).toBeInTheDocument();
+
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Close certificate viewer' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('omits both certification controls for a non-certification course', () => {
+    render(<CourseOverview course={{ ...course, status: 'archived' }} onBack={vi.fn()} onEnterCourse={vi.fn()} />);
+    expect(screen.queryByText('Certification Available')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Preview certificate' })).not.toBeInTheDocument();
   });
 
   it.each([
