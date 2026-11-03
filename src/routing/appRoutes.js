@@ -31,6 +31,12 @@ export function parseAppRoute(pathname = '/') {
     if (!courseId || (match[2] && !lessonId)) return { kind: 'not-found' };
     return { kind: lessonId ? 'course-lesson' : 'course-overview', courseId, lessonId };
   }
+  match = path.match(/^\/projects\/([^/]+)(?:\/(workspace))?$/);
+  if (match) {
+    const projectId = decodeId(match[1]);
+    if (!projectId) return { kind: 'not-found' };
+    return { kind: match[2] ? 'project-workspace' : 'project-overview', page: 'projects', projectId };
+  }
   match = path.match(/^\/verify\/([^/]+)$/);
   if (match) { const credentialId = decodeId(match[1]); return credentialId ? { kind: 'certificate-verification', credentialId } : { kind: 'not-found' }; }
   return { kind: 'not-found' };
@@ -43,6 +49,8 @@ export function routePath(route) {
   if (route.kind === 'course-lesson') return `/courses/${encodeURIComponent(route.courseId)}/lesson/${encodeURIComponent(route.lessonId)}`;
   if (route.kind === 'practice-question') return `/practice/${encodeURIComponent(route.questionId)}`;
   if (route.kind === 'challenge-daily') return `/challenges/daily/${route.date}`;
+  if (route.kind === 'project-overview') return `/projects/${encodeURIComponent(route.projectId)}`;
+  if (route.kind === 'project-workspace') return `/projects/${encodeURIComponent(route.projectId)}/workspace`;
   return PAGE_PATHS[route.page] ?? '/';
 }
 
@@ -60,7 +68,9 @@ export function deriveAuthenticatedRouteState(route) {
     activePage: routePage(route),
     navigationTarget: route.questionId
       ? { page: 'practice', questionId: route.questionId }
-      : route.date ? { page: 'challenges', date: route.date } : null,
+      : route.date ? { page: 'challenges', date: route.date }
+        : route.projectId ? { page: 'projects', projectId: route.projectId, projectStage: route.kind === 'project-workspace' ? 'workspace' : 'overview' }
+          : null,
     launchLessonId: route.lessonId ?? null,
     routeNotFound: route.kind === 'not-found',
   };

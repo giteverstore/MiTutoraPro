@@ -46,7 +46,7 @@ export async function resolveProjectForRoute(projectId, progress, publicationRep
   return published?.project ?? legacyCatalog.getProjectById(projectId);
 }
 
-export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, initialProjectId = null, onProjectChange = () => {}, publishedRepository = null }) {
+export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, initialProjectId = null, initialProjectStage = null, onProjectChange = () => {}, publishedRepository = null }) {
   useEffect(() => { phase5Mark('projects:route-mounted'); }, []);
   const auth = useOptionalAuth();
   const user = auth?.user ?? null;
@@ -64,7 +64,8 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
   const progressProjects = useMemo(() => projects.filter(({ comingSoon }) => !comingSoon), [projects]);
   const [filters, setFilters] = useState(DEFAULT_PROJECT_FILTERS);
   const [selected, setSelected] = useState(null);
-  const [screen, setScreen] = useState(() => initialProjectId ? 'details' : 'catalog');
+  const routedScreen = initialProjectStage === 'workspace' ? 'workspace' : 'details';
+  const [screen, setScreen] = useState(() => initialProjectId ? routedScreen : 'catalog');
   const [routeState, setRouteState] = useState(() => initialProjectId ? 'loading' : 'idle');
   const [, refresh] = useState(0);
   const [startDialogOpen, setStartDialogOpen] = useState(false);
@@ -139,7 +140,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
       .then((project) => {
         if (!active) return;
         setSelected(project);
-        setScreen('details');
+        setScreen(routedScreen);
         setRouteState(project ? 'ready' : 'missing');
       })
       .catch(() => {
@@ -148,7 +149,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
         setRouteState('error');
       });
     return () => { active = false; };
-  }, [browseOnly, cloudReady, initialProjectId, publicationRepository, user?.uid]);
+  }, [browseOnly, cloudReady, initialProjectId, publicationRepository, routedScreen, user?.uid]);
 
   const openProject = async (candidate) => {
     setContentError('');
@@ -163,7 +164,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
       return;
     }
     if (!resolved) { setContentError('This project is temporarily unavailable. Please try again later.'); return; }
-    setSelected(resolved); setScreen('details'); onProjectChange(resolved.id); resetApplicationPageScroll();
+    setSelected(resolved); setScreen('details'); onProjectChange(resolved.id, 'overview'); resetApplicationPageScroll();
   };
 
   if (!browseOnly && !cloudReady && initialProjectId) return <div className="projects-page"><p className="project-cloud-loading" role="status">Loading your projects…</p></div>;
@@ -179,9 +180,9 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
 
   if (selected && screen === 'details') { const progress = progressFor(selected.id); return <><ProjectDetails project={selected} progress={progress} onStart={() => {
     if (browseOnly) { onRequireAuth('/projects'); return; }
-    if (progress.languageId) { setScreen('workspace'); return; }
+    if (progress.languageId) { setScreen('workspace'); onProjectChange(selected.id, 'workspace'); return; }
     setStartDialogOpen(true);
-  }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName, selected.contentVersion ?? null); setStartDialogOpen(false); setScreen('workspace'); }} /></>; }
+  }} /><ProjectStartDialog open={startDialogOpen} project={selected} onClose={() => setStartDialogOpen(false)} onConfirm={(languageId, displayName) => { projectProgressService.resetForLanguage(selected.id, languageId, displayName, selected.contentVersion ?? null); setStartDialogOpen(false); setScreen('workspace'); onProjectChange(selected.id, 'workspace'); }} /></>; }
   if (selected && screen === 'workspace') {
     return <Suspense fallback={<div className="projects-page"><p className="project-cloud-loading" role="status">Loading project workspace…</p></div>}>
       <ProjectWorkspace project={selected} tier={tier} onProgress={() => refresh((value) => value + 1)} />

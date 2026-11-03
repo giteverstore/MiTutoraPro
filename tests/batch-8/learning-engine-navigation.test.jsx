@@ -215,4 +215,20 @@ describe('Learning Engine navigation alignment', () => {
     expect(shell).not.toContain('<LearnerActivityProvider>');
     expect(layout).not.toContain('<LearnerActivityProvider>');
   });
+
+  it('owns shared topbar styles on direct lesson mounts and keeps chrome outside the compiler', () => {
+    const actions = readFileSync('src/app-shell/GlobalTopbarActions.jsx', 'utf8');
+    const layout = readFileSync('src/components/Layout.jsx', 'utf8');
+    expect(actions).toContain("import '../styles/pages/dashboard.css'");
+    expect(actions).toContain("import '../styles/layout/app-shell.css'");
+    expect((layout.match(/<TopNavigation/g) ?? [])).toHaveLength(1);
+    expect(layout.indexOf('<TopNavigation')).toBeLessThan(layout.indexOf('className={`workspace'));
+    expect(layout.indexOf('<SharedCompilerDock')).toBeGreaterThan(layout.indexOf('className="lesson-region"'));
+
+    const { container } = render(<TopNavigation {...props()} />);
+    const topbar = container.querySelector('.topbar');
+    expect(topbar.querySelectorAll('.application-topbar-actions')).toHaveLength(1);
+    expect(topbar.querySelectorAll('.application-icon-button')).toHaveLength(2);
+    expect(container.querySelector('.shared-compiler-dock .application-topbar-actions')).toBeNull();
+  });
 });

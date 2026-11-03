@@ -354,7 +354,14 @@ function AuthenticatedApplication({ user }) {
             }}
           />
         ) : activePage === 'projects' ? (
-          <ProjectsPage />
+          <ProjectsPage
+            key={`${navigationTarget?.projectId ?? 'catalog'}:${navigationTarget?.projectStage ?? 'catalog'}`}
+            initialProjectId={navigationTarget?.page === 'projects' ? navigationTarget.projectId : null}
+            initialProjectStage={navigationTarget?.page === 'projects' ? navigationTarget.projectStage : null}
+            onProjectChange={(projectId, projectStage = 'overview') => navigateTo(projectId
+              ? { kind: projectStage === 'workspace' ? 'project-workspace' : 'project-overview', page: 'projects', projectId }
+              : { kind: 'page', page: 'projects' })}
+          />
         ) : <ActivePage />}
         </Suspense>
         </DomainErrorBoundary>

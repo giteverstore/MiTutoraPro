@@ -5,6 +5,8 @@ import { UserAvatar } from '../components/UserAvatar';
 import { useLearnerActivity } from '../activity/LearnerActivityContext';
 import { hasCompletedDailyChallenge, kolkataDate } from '../home/challengeCalendar';
 import { ACCOUNT_NAVIGATION } from './navigation';
+import '../styles/pages/dashboard.css';
+import '../styles/layout/app-shell.css';
 
 export function GlobalTopbarActions({
   user,

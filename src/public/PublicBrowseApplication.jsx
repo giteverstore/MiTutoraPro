@@ -51,6 +51,7 @@ export function PublicBrowseApplication() {
   if (question) return <PublicFeatureShell activePath="/practice"><Suspense fallback={loading}><PracticePage anonymous initialQuestionId={decodeURIComponent(question[1])} onRequireAuth={requireAuth} onQuestionChange={(questionId) => navigate(questionId ? `/practice/${questionId}` : '/practice')} /></Suspense></PublicFeatureShell>;
   const project = pathname.match(/^\/projects\/([^/]+)$/);
   if (project) return <PublicFeatureShell activePath="/projects"><Suspense fallback={loading}><ProjectsPage browseOnly initialProjectId={decodeURIComponent(project[1])} onRequireAuth={requireAuth} onProjectChange={(projectId) => navigate(projectId ? `/projects/${projectId}` : '/projects')} /></Suspense></PublicFeatureShell>;
+  if (/^\/projects\/[^/]+\/workspace$/.test(pathname)) return <ProtectedAuthRoute pathname={pathname} />;
   if (privatePaths.has(pathname) || pathname.startsWith('/challenges/')) return <ProtectedAuthRoute pathname={pathname} />;
   return <PublicNotFound />;
 }

@@ -169,6 +169,20 @@ describe('canonical Project learner discovery', () => {
     await waitFor(() => expect(repository.resolveProject).toHaveBeenCalledWith('bingo'));
   });
 
+  it('restores a direct workspace route from the canonical project id without navigation state', async () => {
+    const repository = {
+      listProjects: vi.fn().mockResolvedValue([published]),
+      resolveProject: vi.fn().mockResolvedValue({ project: published }),
+      resumeProject: vi.fn(),
+    };
+    const onProjectChange = vi.fn();
+    const { container } = render(<ProjectsPage browseOnly initialProjectId="bingo" initialProjectStage="workspace" onProjectChange={onProjectChange} publishedRepository={repository} />);
+    expect(screen.getByRole('status')).toHaveTextContent('Loading project');
+    await waitFor(() => expect(container.querySelector('.project-ide-shell')).toBeInTheDocument());
+    expect(repository.resolveProject).toHaveBeenCalledWith('bingo');
+    expect(onProjectChange).not.toHaveBeenCalled();
+  });
+
   it('fails closed for an unknown direct Project route', async () => {
     const repository = { listProjects: vi.fn().mockResolvedValue([]), resolveProject: vi.fn().mockResolvedValue(null) };
     render(<ProjectsPage browseOnly initialProjectId="not-a-project" publishedRepository={repository} />);

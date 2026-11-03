@@ -23,6 +23,7 @@ describe('application URL adapter', () => {
     [{ kind: 'course-lesson', courseId: 'python', lessonId: 'intro' }, { activeCourseId: 'python', courseStage: 'learning', activePage: 'home', navigationTarget: null, launchLessonId: 'intro', routeNotFound: false }],
     [{ kind: 'practice-question', page: 'practice', questionId: 'q-1' }, { activeCourseId: null, courseStage: 'overview', activePage: 'practice', navigationTarget: { page: 'practice', questionId: 'q-1' }, launchLessonId: null, routeNotFound: false }],
     [{ kind: 'challenge-daily', page: 'challenges', date: '2026-10-28' }, { activeCourseId: null, courseStage: 'overview', activePage: 'challenges', navigationTarget: { page: 'challenges', date: '2026-10-28' }, launchLessonId: null, routeNotFound: false }],
+    [{ kind: 'project-workspace', page: 'projects', projectId: 'bingo' }, { activeCourseId: null, courseStage: 'overview', activePage: 'projects', navigationTarget: { page: 'projects', projectId: 'bingo', projectStage: 'workspace' }, launchLessonId: null, routeNotFound: false }],
     [{ kind: 'not-found' }, { activeCourseId: null, courseStage: 'overview', activePage: 'home', navigationTarget: null, launchLessonId: null, routeNotFound: true }],
   ])('derives authenticated application state from %o', (route, expected) => {
     expect(deriveAuthenticatedRouteState(route)).toEqual(expected);
@@ -51,6 +52,8 @@ describe('application URL adapter', () => {
     ['/courses/python/lesson/lesson-1-1-introduction-to-python', { kind: 'course-lesson', courseId: 'python', lessonId: 'lesson-1-1-introduction-to-python' }],
     ['/courses/java', { kind: 'course-overview', courseId: 'java', lessonId: null }],
     ['/courses/java/lesson/java-lesson-1-1-1-getting-started-with-java', { kind: 'course-lesson', courseId: 'java', lessonId: 'java-lesson-1-1-1-getting-started-with-java' }],
+    ['/projects/bingo', { kind: 'project-overview', page: 'projects', projectId: 'bingo' }],
+    ['/projects/bingo/workspace', { kind: 'project-workspace', page: 'projects', projectId: 'bingo' }],
   ])('parses the resource route %s', (path, expected) => {
     expect(parseAppRoute(path)).toEqual(expected);
   });
@@ -58,6 +61,7 @@ describe('application URL adapter', () => {
   it('rejects malformed and path-traversal identifiers', () => {
     expect(parseAppRoute('/courses/%2e%2e/lesson/x').kind).toBe('not-found');
     expect(parseAppRoute('/practice/a%2Fb').kind).toBe('not-found');
+    expect(parseAppRoute('/projects/a%2Fb/workspace').kind).toBe('not-found');
     expect(parseAppRoute('/challenges/daily/2026-02-30').kind).toBe('not-found');
     expect(parseAppRoute('/unknown').kind).toBe('not-found');
     expect(parseAppRoute('/exam').kind).toBe('not-found');
