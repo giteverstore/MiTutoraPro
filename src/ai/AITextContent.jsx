@@ -1,4 +1,33 @@
+import { useEffect, useRef, useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import './AITextContent.css';
+
+function CodeBlock({ code, language }) {
+  const [copied, setCopied] = useState(false);
+  const resetTimer = useRef(null);
+
+  useEffect(() => () => clearTimeout(resetTimer.current), []);
+
+  const copy = async () => {
+    try {
+      if (!globalThis.navigator?.clipboard?.writeText) throw new Error('Clipboard API unavailable');
+      await globalThis.navigator.clipboard.writeText(code);
+      setCopied(true);
+      clearTimeout(resetTimer.current);
+      resetTimer.current = setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // Copy is an enhancement; keep the code readable and the control retryable.
+    }
+  };
+
+  return <div className="ai-response-code">
+    <div className="ai-response-code-toolbar">
+      {language ? <span className="ai-response-code-language">{language}</span> : <span />}
+      <button type="button" aria-label={copied ? 'Code copied' : 'Copy code'} onClick={copy}>{copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}<span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span></button>
+    </div>
+    <pre><code>{code}</code></pre>
+  </div>;
+}
 
 function InlineContent({ text }) {
   return String(text ?? '').split(/(`[^`\n]+`|\*\*[^*\n]+\*\*)/g).filter(Boolean).map((part, index) => {
@@ -36,7 +65,7 @@ export function AITextContent({ text, className = '' }) {
     const fence = line.match(/^\s*```([A-Za-z0-9_+#.-]*)\s*$/);
     if (fence) {
       if (code) {
-        nodes.push(<pre className="ai-response-code" key={`code-${nodes.length}`}>{code.language ? <span className="ai-response-code-language">{code.language}</span> : null}<code>{code.lines.join('\n')}</code></pre>);
+        nodes.push(<CodeBlock code={code.lines.join('\n')} language={code.language} key={`code-${nodes.length}`} />);
         code = null;
       } else {
         flushText();
@@ -65,7 +94,7 @@ export function AITextContent({ text, className = '' }) {
       paragraph.push(line.trimEnd());
     }
   }
-  if (code) nodes.push(<pre className="ai-response-code" key={`code-${nodes.length}`}>{code.language ? <span className="ai-response-code-language">{code.language}</span> : null}<code>{code.lines.join('\n')}</code></pre>);
+  if (code) nodes.push(<CodeBlock code={code.lines.join('\n')} language={code.language} key={`code-${nodes.length}`} />);
   flushText();
   return <div className={`ai-response-content ${className}`.trim()}>{nodes}</div>;
 }

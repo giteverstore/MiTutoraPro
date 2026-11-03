@@ -145,6 +145,7 @@ describe('Projects contextual AI mentor', () => {
     expect(within(answer).getByRole('heading', { name: 'Check the state' })).toBeInTheDocument();
     expect(within(answer).getByRole('list')).toHaveTextContent('Keep the mutation focused');
     expect(answer.querySelector('pre code')?.textContent).toContain('  tasks.push(task);');
+    expect(within(answer).getByRole('button', { name: 'Copy code' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Show the next check' })).toBeInTheDocument();
   });
 
