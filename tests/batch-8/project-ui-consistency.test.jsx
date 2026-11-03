@@ -121,7 +121,9 @@ describe('Project presentation consistency', () => {
     expect(css).toContain('width: var(--shell-brand-mark-size)');
     expect(css).toMatch(/\.project-card\s*\{[^}]*width:\s*min\(100%, 14\.8125rem\);[^}]*height:\s*21\.875rem/);
     expect(css).toMatch(/\.project-card-footer\s*\{[^}]*min-height:\s*6rem/);
-    expect(css).toMatch(/\.project-card\.is-coming-soon\s*\{[^}]*height:\s*20\.875rem/);
+    expect(css).toMatch(/\.project-card\.is-coming-soon\s*\{[^}]*cursor:\s*default;/);
+    expect(css).not.toMatch(/\.project-card\.is-coming-soon\s*\{[^}]*(?:height|min-height):/);
+    expect(css).not.toMatch(/\.project-card\.is-coming-soon \.project-card-footer/);
     const workspace = readFileSync(resolve(process.cwd(), 'src/projects/pages/ProjectWorkspace.jsx'), 'utf8');
     expect(workspace).toContain('className="project-ide-brand workspace-brand-link"');
     expect(workspace).toContain('<BrandMark />');

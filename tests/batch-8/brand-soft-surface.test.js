@@ -22,7 +22,7 @@ describe('brand-aware learner soft surfaces', () => {
     expect(css).toMatch(/\.practice-pagination button:not\(:disabled\):hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.practice-statistics article \{[^}]*background: #fff;[^}]*border: 1px solid #d3dce6/);
     expect(css).toMatch(/\.practice-statistics article:hover \{[^}]*background: #fff/);
-    expect(css).toMatch(/\[data-theme="dark"\] \.practice-filter select,[\s\S]*?\.practice-statistics article \{[^}]*background: var\(--color-surface\);[^}]*border-color: var\(--color-border\)/);
+    expect(css).toMatch(/\[data-theme="dark"\] \.practice-search>div,[\s\S]*?\.practice-statistics article \{[^}]*background: var\(--color-surface\);[^}]*border-color: var\(--color-border\)/);
     expect(css).toMatch(/\.practice-question-card\.is-active \{[^}]*background: var\(--color-accent-soft\)/);
   });
 });

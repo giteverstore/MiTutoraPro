@@ -1,17 +1,18 @@
 import { Search } from 'lucide-react';
+import { LearnerSelect } from '../components/LearnerSelect';
 
 function SelectFilter({ label, value, options, onChange, includeAll = true }) {
   return (
     <label className="practice-filter">
       <span>{label}</span>
-      <select value={value} onChange={(event) => onChange(event.target.value)}>
-        {includeAll ? <option value="all">All {label === 'Difficulty' ? 'Difficulties' : label.toLowerCase()}</option> : null}
-        {options.map((option) => {
+      <LearnerSelect ariaLabel={label} value={value} onChange={onChange} options={[
+        ...(includeAll ? [{ value: 'all', label: `All ${label === 'Difficulty' ? 'Difficulties' : label === 'Topic' ? 'Topics' : label.toLowerCase()}` }] : []),
+        ...options.map((option) => {
           const id = typeof option === 'string' ? option : option.id;
           const text = typeof option === 'string' ? option.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()) : option.label;
-          return <option value={id} key={id}>{text}</option>;
-        })}
-      </select>
+          return { value: id, label: text };
+        }),
+      ]} />
     </label>
   );
 }

@@ -15,6 +15,7 @@ import { projectDisplayDifficulty } from '../presentation/projectPresentation';
 import { learnerProjectCatalog } from '../presentation/learnerProjectCatalog';
 import { phase5Mark } from '../../performance/phase5Mark.js';
 import { resetApplicationPageScroll } from '../../routing/appRoutes';
+import { LearnerSelect } from '../../components/LearnerSelect';
 
 export const DEFAULT_PROJECT_FILTERS = Object.freeze({ language: 'all', category: 'all', difficulty: 'all' });
 
@@ -189,9 +190,9 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
 
   return <div className="projects-page">
     <section className="project-filters" aria-label="Project filters">
-      <label>Language<select value={filters.language} onChange={(event) => setFilters((current) => ({ ...current, language: event.target.value }))}><option value="all">All languages</option>{languages.map((language) => <option key={language} value={language}>{getProjectRuntime(language).displayName}</option>)}</select></label>
-      <label>Category<select value={filters.category} onChange={(event) => setFilters((current) => ({ ...current, category: event.target.value }))}><option value="all">All categories</option>{categories.map((category) => <option key={category} value={category}>{category}</option>)}</select></label>
-      <label>Difficulty<select value={filters.difficulty} onChange={(event) => setFilters((current) => ({ ...current, difficulty: event.target.value }))}><option value="all">All difficulties</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label>
+      <label><span>Language</span><LearnerSelect ariaLabel="Language" value={filters.language} onChange={(language) => setFilters((current) => ({ ...current, language }))} options={[{ value: 'all', label: 'All languages' }, ...languages.map((language) => ({ value: language, label: getProjectRuntime(language).displayName }))]} /></label>
+      <label><span>Category</span><LearnerSelect ariaLabel="Category" value={filters.category} onChange={(category) => setFilters((current) => ({ ...current, category }))} options={[{ value: 'all', label: 'All categories' }, ...categories.map((category) => ({ value: category, label: category }))]} /></label>
+      <label><span>Difficulty</span><LearnerSelect ariaLabel="Difficulty" value={filters.difficulty} onChange={(difficulty) => setFilters((current) => ({ ...current, difficulty }))} options={[{ value: 'all', label: 'All difficulties' }, { value: 'easy', label: 'Easy' }, { value: 'medium', label: 'Medium' }, { value: 'hard', label: 'Hard' }]} /></label>
     </section>
     <section className="project-catalog" aria-labelledby="project-catalog-title" aria-busy={catalog.status === 'loading'}>
       <div><h2 id="project-catalog-title">{projectResultsHeading(filters.difficulty)}</h2></div>

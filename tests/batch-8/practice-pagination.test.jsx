@@ -65,15 +65,21 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('Practice cursor pagination', () => {
+  const chooseFilter = (name, option) => {
+    fireEvent.click(screen.getByRole('combobox', { name }));
+    fireEvent.click(screen.getByRole('option', { name: option }));
+  };
+
   it('filters through exactly nine canonical languages without falling back to Python questions', async () => {
     render(<PracticePage />);
     await screen.findByText('Question 1');
     const selector = screen.getByRole('combobox', { name: 'Language' });
-    expect([...selector.options].map(({ value, text }) => [value, text])).toEqual([
-      ['python', 'Python'], ['java', 'Java'], ['javascript', 'JavaScript'], ['typescript', 'TypeScript'],
-      ['c', 'C'], ['cpp', 'C++'], ['php', 'PHP'], ['r', 'R'], ['csharp', 'C#'],
+    expect(selector).toHaveTextContent('Python');
+    fireEvent.click(selector);
+    expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
+      'Python', 'Java', 'JavaScript', 'TypeScript', 'C', 'C++', 'PHP', 'R', 'C#',
     ]);
-    fireEvent.change(selector, { target: { value: 'java' } });
+    fireEvent.click(screen.getByRole('option', { name: 'Java' }));
     await waitFor(() => expect(screen.getByText('No questions match your filters.')).toBeVisible());
     expect(screen.queryByText('Question 1')).not.toBeInTheDocument();
     expect(listPage).toHaveBeenLastCalledWith(expect.objectContaining({ filters: expect.objectContaining({ language: 'java' }) }));
@@ -97,7 +103,7 @@ describe('Practice cursor pagination', () => {
     expect(title.parentElement?.querySelector('.practice-difficulty')).toHaveTextContent('Hard');
     expect(card?.firstElementChild).toHaveClass('practice-question-title');
     expect(within(card).queryByText(/XP$/)).not.toBeInTheDocument();
-    expect(screen.getByLabelText('Difficulty')).toHaveTextContent('All DifficultiesEasyMediumHard');
+    expect(screen.getByRole('combobox', { name: 'Difficulty' })).toHaveTextContent('All Difficulties');
     expect(screen.queryByText('Very Easy')).not.toBeInTheDocument();
   });
 
@@ -142,20 +148,20 @@ describe('Practice cursor pagination', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
     await screen.findByText('Question 25');
 
-    fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: 'hard' } });
+    chooseFilter('Difficulty', 'Hard');
     await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
     expect(screen.getByLabelText('Easy — 1 question')).toHaveTextContent('1');
     expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1');
     expect(screen.getByRole('region', { name: 'Question Catalog' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
 
-    fireEvent.change(screen.getByLabelText('Topic'), { target: { value: 'Loops' } });
+    chooseFilter('Topic', 'Loops');
     await waitFor(() => expect(screen.getByRole('button', { name: 'Page 1' })).toHaveAttribute('aria-current', 'page'));
     expect(screen.getByLabelText('Easy — 1 question')).toHaveTextContent('1');
     expect(screen.getByLabelText('Hard — 1 question')).toHaveTextContent('1');
     expect(screen.getByRole('region', { name: 'Question Catalog' })).toBeInTheDocument();
 
-    fireEvent.change(screen.getByLabelText('Topic'), { target: { value: 'all' } });
+    chooseFilter('Topic', 'All Topics');
     fireEvent.change(screen.getByLabelText('Search'), { target: { value: 'Question 49' } });
     expect((await screen.findByText('Question 49')).closest('button')).toBeVisible();
     expect(screen.getByRole('region', { name: 'Question Catalog' })).toBeInTheDocument();

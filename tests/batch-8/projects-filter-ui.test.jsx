@@ -31,7 +31,9 @@ describe('Projects filter cleanup', () => {
     expect(screen.queryByRole('region', { name: 'Project difficulty' })).not.toBeInTheDocument();
     expect(screen.getByLabelText('Language')).toBeInTheDocument();
     expect(screen.getByLabelText('Category')).toBeInTheDocument();
-    expect(screen.getByLabelText('Difficulty')).toHaveValue(DEFAULT_PROJECT_FILTERS.difficulty);
+    expect(DEFAULT_PROJECT_FILTERS.difficulty).toBe('all');
+    expect(screen.getByRole('combobox', { name: 'Difficulty' })).toHaveTextContent('All difficulties');
+    expect(document.querySelector('.project-filters select')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument();
     expect(screen.queryByText(/^\d+ projects?$/)).not.toBeInTheDocument();
   });
@@ -42,7 +44,8 @@ describe('Projects filter cleanup', () => {
     ['hard', 'Hard Projects', 0],
   ])('filters %s projects and updates the heading without rendering a count', async (difficulty, heading, count) => {
     await renderCatalog();
-    fireEvent.change(screen.getByLabelText('Difficulty'), { target: { value: difficulty } });
+    fireEvent.click(screen.getByRole('combobox', { name: 'Difficulty' }));
+    fireEvent.click(screen.getByRole('option', { name: difficulty[0].toUpperCase() + difficulty.slice(1) }));
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
     expect(screen.queryByText(`${count} ${count === 1 ? 'project' : 'projects'}`)).not.toBeInTheDocument();
     if (count === 0) expect(screen.getByText('No projects match these filters yet.')).toBeInTheDocument();
