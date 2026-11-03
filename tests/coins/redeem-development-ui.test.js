@@ -21,10 +21,11 @@ describe('Redeem development presentation boundary', () => {
     expect(redeemStyles).toMatch(/@media \(max-width: 800px\)[^{]*\{[^}]*\.redeem-balance-position/);
   });
 
-  it('keeps coin color theme-owned and consumed by coin presentation', () => {
+  it('keeps the pre-colored coin image intact while preserving semantic reward colors', () => {
     expect(themeStyles).toMatch(/:root \{[\s\S]*?--color-coin: #b7791f;/);
     expect(themeStyles).toMatch(/\[data-theme="dark"\] \{[\s\S]*?--color-coin: #facc15;/);
-    expect(appShellStyles).toMatch(/\.coin-icon \{[^}]*color: var\(--color-coin\)/);
+    expect(appShellStyles).toMatch(/\.coin-icon \{[^}]*object-fit: contain/);
+    expect(appShellStyles).not.toMatch(/\.coin-icon \{[^}]*color:/);
     expect(redeemStyles).toMatch(/\.challenge-calendar-redeem button \{[^}]*color: var\(--color-success\)/);
   });
 

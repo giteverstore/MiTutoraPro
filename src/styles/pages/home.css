@@ -299,7 +299,7 @@
   pointer-events: auto;
 }
 
-.redeem-balance>svg {
+.redeem-balance>.coin-icon {
   width: 1.5rem;
   height: 1.5rem;
 }

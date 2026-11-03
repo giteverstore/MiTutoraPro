@@ -278,12 +278,16 @@
   font-size: var(--font-size-sm);
 }
 
-.coin-balance-badge svg {
+.coin-balance-badge .coin-icon {
   width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 .coin-icon {
-  color: var(--color-coin);
+  display: inline-block;
+  flex: 0 0 auto;
+  object-fit: contain;
+  vertical-align: middle;
 }
 
 .coin-balance-badge>span {

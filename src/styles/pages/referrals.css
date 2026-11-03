@@ -78,6 +78,11 @@
   object-fit: contain;
 }
 
+.referral-overview article>.coin-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .referral-overview article span {
   display: grid;
   min-width: 0;

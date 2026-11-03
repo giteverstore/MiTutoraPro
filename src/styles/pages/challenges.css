@@ -82,7 +82,7 @@
   color: var(--color-text);
   font-size: var(--font-size-lg);
 }
-.challenge-completion-dialog-reward svg { width: var(--icon-md); height: var(--icon-md); color: var(--color-coin); }
+.challenge-completion-dialog-reward .coin-icon { width: var(--icon-md); height: var(--icon-md); }
 .challenge-completion-dialog-reward strong { color: var(--color-coin); }
 
 @media (max-width: 38rem) {

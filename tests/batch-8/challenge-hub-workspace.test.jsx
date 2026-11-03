@@ -145,7 +145,7 @@ describe('dated Daily Challenge workspace', () => {
     expect(within(dialog).queryByText('Balanced Brackets')).not.toBeInTheDocument();
     expect(dialog).toHaveTextContent('Completion Streak: 4 Days');
     expect(dialog).toHaveTextContent('+20 coins earned');
-    expect(dialog.querySelector('.challenge-completion-dialog-reward svg')).toHaveClass('lucide-circle-dollar-sign', 'coin-icon');
+    expect(dialog.querySelector('.challenge-completion-dialog-reward img.coin-icon')).toHaveAttribute('src', expect.stringContaining('golden_coin_4k_transparent.png'));
     expect(dialog).toHaveTextContent('Consistency is key, see you tomorrow!');
     expect(within(dialog).queryByRole('button', { name: 'Back to Challenges' })).not.toBeInTheDocument();
     expect(within(dialog).queryByText(/Friends Check-in|friend count|sorting/i)).not.toBeInTheDocument();
