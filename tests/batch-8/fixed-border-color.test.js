@@ -48,7 +48,7 @@ describe('fixed learner neutral borders', () => {
     expect(theme).toContain('--color-success: #3f6658;');
     expect(theme).toContain('--color-danger: #a85b56;');
     expect(theme).toContain('--difficulty-easy-base: #b8e8c5;');
-    expect(home).toMatch(/\.challenge-calendar-day\.is-today-completed \{[^}]*border-color: var\(--color-success\)/);
+    expect(home).not.toMatch(/\.challenge-calendar-day\.is-today-completed \{[^}]*border-color:/);
     expect(practice).toMatch(/\.practice-topic-chips button\.is-active \{[^}]*border-color: var\(--color-accent\)/);
     expect(projects).toContain('--project-guide-table-border: #111111;');
     expect(projects).toContain('--project-guide-table-border: #d7dee7;');

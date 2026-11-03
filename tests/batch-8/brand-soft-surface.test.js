@@ -10,7 +10,7 @@ describe('brand-aware learner soft surfaces', () => {
     expect(css).toMatch(/\.challenge-calendar-navigation button:hover,[\s\S]*?background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.challenge-calendar-day\.is-past-missed \{[^}]*background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.challenge-calendar-navigation button:disabled \{[^}]*background: var\(--color-surface-subtle\)/);
-    expect(css).toMatch(/\.challenge-calendar-day\.is-today-completed \{[^}]*background: var\(--color-success-soft\)/);
+    expect(css).toMatch(/\.challenge-calendar-day\.is-past-completed,[\s\S]*?\.challenge-calendar-day\.is-today-completed \{[^}]*background: transparent/);
     expect(css).toMatch(/\.challenge-calendar-day\.is-today-incomplete \{[^}]*background: var\(--color-accent-soft\)/);
     expect(css).toMatch(/\.home-icon-button:hover \{[^}]*background: var\(--color-brand-soft-surface\)/);
     expect(css).toMatch(/\.home-course-pagination button:not\(:disabled\):hover \{[^}]*background: var\(--color-brand-soft-surface\)/);

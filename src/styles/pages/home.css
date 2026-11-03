@@ -254,7 +254,10 @@
 }
 
 .challenge-calendar-redeem button {
-  border: 1px solid transparent;
+  min-height: 2.5rem;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: #2cbb5d;
   font: inherit;
@@ -263,7 +266,7 @@
 }
 
 .challenge-calendar-redeem button:hover {
-  border-color: #2cbb5d;
+  background: color-mix(in srgb, #2cbb5d 10%, transparent);
 }
 
 .challenge-calendar-redeem button:focus-visible {
@@ -606,11 +609,6 @@
   color: var(--color-success);
   background: transparent;
   font-weight: var(--font-weight-bold);
-}
-
-.challenge-calendar-day.is-today-completed {
-  background: var(--color-success-soft);
-  border-color: var(--color-success);
 }
 
 .challenge-calendar-day.is-today-incomplete {
