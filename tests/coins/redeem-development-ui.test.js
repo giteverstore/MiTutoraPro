@@ -21,6 +21,27 @@ describe('Redeem development presentation boundary', () => {
     expect(redeemStyles).toMatch(/@media \(max-width: 800px\)[^{]*\{[^}]*\.redeem-balance-position/);
   });
 
+  it('keeps the essential reward copy and removes redundant helper text', () => {
+    expect(redeemSource).toContain('Brand Themes');
+    expect(redeemSource).not.toContain('Personalize brand accents without changing semantic status colors.');
+    expect(redeemSource).toContain('Unlock one Daily Challenge you previously missed.');
+    expect(redeemSource).toContain('of 3 uses remaining this month');
+    expect(redeemSource).not.toContain('Choose a missed challenge in Challenge History.');
+    expect(redeemSource).toContain('Choose in Challenges');
+  });
+
+  it('uses fixed light borders and semantic dark borders on Redeem surfaces', () => {
+    expect(redeemStyles).toMatch(/\.redeem-balance \{[^}]*border: 1px solid #d3dce6/s);
+    expect(redeemStyles).toMatch(/\.theme-reward-grid article \{[^}]*border: 1px solid #d3dce6/s);
+    expect(redeemStyles).toMatch(/\.redeem-catalog article \{[^}]*border: 1px solid #d3dce6/s);
+    expect(redeemStyles).toMatch(/\.coin-history>div \{[^}]*border: 1px solid #d3dce6/s);
+    expect(redeemStyles).toMatch(/\.coin-history article \{[^}]*border-bottom: 1px solid #d3dce6/s);
+    expect(redeemStyles).toMatch(/\.redeem-page \.button--secondary \{[^}]*border-color: #d3dce6/s);
+    expect(redeemStyles).toMatch(/\[data-theme="dark"\] \.redeem-page :is\([\s\S]*?\) \{[^}]*border-color: var\(--color-border\)/s);
+    expect(redeemStyles).toMatch(/\[data-theme="dark"\] \.redeem-page \.coin-history article \{[^}]*border-bottom-color: var\(--color-border\)/s);
+    expect(redeemStyles).toMatch(/\.theme-reward-grid article\.is-selected \{[^}]*border-color: var\(--color-accent\)/s);
+  });
+
   it('keeps the pre-colored coin image intact while preserving semantic reward colors', () => {
     expect(themeStyles).toMatch(/:root \{[\s\S]*?--color-coin: #b7791f;/);
     expect(themeStyles).toMatch(/\[data-theme="dark"\] \{[\s\S]*?--color-coin: #facc15;/);

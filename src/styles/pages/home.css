@@ -295,7 +295,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
   background: var(--color-surface);
   box-shadow: var(--shadow-sm);
@@ -307,14 +307,14 @@
   height: 1.5rem;
 }
 
-.theme-reward-shop { display: grid; gap: var(--space-4); }
+.theme-reward-shop { display: grid; gap: var(--space-3); }
 .theme-reward-shop>header h2, .theme-reward-shop>header p { margin: 0; }
 .theme-reward-shop>header p, .theme-reward-note { color: var(--color-text-muted); }
 .theme-reward-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-4); }
-.theme-reward-grid article { display: grid; gap: var(--space-3); padding: var(--space-4); background: var(--color-surface); border: 1px solid var(--color-border-fixed); border-radius: var(--radius-xl); }
+.theme-reward-grid article { display: grid; gap: var(--space-3); padding: var(--space-4); background: var(--color-surface); border: 1px solid #d3dce6; border-radius: var(--radius-xl); }
 .theme-reward-grid article.is-selected { border-color: var(--color-accent); box-shadow: 0 0 0 2px var(--color-focus); }
 .theme-reward-grid h3, .theme-reward-grid p, .theme-reward-note { margin: 0; }
-.theme-reward-preview { display: grid; height: 3rem; grid-template-columns: 2fr 1fr 1fr; overflow: hidden; border: 1px solid var(--color-border-fixed); border-radius: var(--radius-md); }
+.theme-reward-preview { display: grid; height: 3rem; grid-template-columns: 2fr 1fr 1fr; overflow: hidden; border: 1px solid #d3dce6; border-radius: var(--radius-md); }
 
 .redeem-balance div {
   display: grid;
@@ -337,7 +337,7 @@
   align-items: flex-start;
   gap: var(--space-2);
   padding: var(--space-5);
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
   background: var(--color-surface);
 }
@@ -360,12 +360,16 @@
   margin-top: auto;
 }
 
+.redeem-page .button--secondary {
+  border-color: #d3dce6;
+}
+
 .redeem-coming-soon {
   opacity: .72;
 }
 
 .coin-history>div {
-  border: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--color-surface);
@@ -376,7 +380,7 @@
   grid-template-columns: 4rem 1fr;
   gap: var(--space-4);
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border-fixed);
+  border-bottom: 1px solid #d3dce6;
 }
 
 .coin-history article:last-child {
@@ -407,6 +411,21 @@
 
 .coin-history h2 {
   margin: 0 0 var(--space-3);
+}
+
+[data-theme="dark"] .redeem-page :is(
+  .redeem-balance,
+  .theme-reward-grid article:not(.is-selected),
+  .theme-reward-preview,
+  .redeem-catalog article,
+  .coin-history>div,
+  .button--secondary
+) {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .redeem-page .coin-history article {
+  border-bottom-color: var(--color-border);
 }
 
 .development-coin-controls {
