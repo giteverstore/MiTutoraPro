@@ -108,18 +108,20 @@ export function EditorThemeSelector({ value, onChange }) {
     '--editor-preview-accent': activeTheme.palette.accent,
   };
   return <div className="settings-editor-theme-control">
-    <div className="settings-editor-theme-options" role="radiogroup" aria-label="Editor theme">
-      {EDITOR_THEME_CATALOG.map((theme) => <button
-        type="button"
-        role="radio"
-        aria-checked={activeId === theme.id}
-        className={activeId === theme.id ? 'is-active' : ''}
-        onClick={() => onChange(theme.id)}
-        key={theme.id}
-      >
-        <span className="settings-editor-theme-swatches" aria-hidden="true">{theme.preview.map((color) => <i style={{ backgroundColor: color }} key={color} />)}</span>
-        <strong>{theme.name}</strong>
-      </button>)}
+    <div className="settings-editor-theme-selector">
+      <div className="settings-editor-theme-options" role="radiogroup" aria-label="Editor theme">
+        {EDITOR_THEME_CATALOG.map((theme) => <button
+          type="button"
+          role="radio"
+          aria-checked={activeId === theme.id}
+          className={activeId === theme.id ? 'is-active' : ''}
+          onClick={() => onChange(theme.id)}
+          key={theme.id}
+        >
+          <span className="settings-editor-theme-swatches" aria-hidden="true">{theme.preview.map((color) => <i style={{ backgroundColor: color }} key={color} />)}</span>
+          <strong>{theme.name}</strong>
+        </button>)}
+      </div>
     </div>
     <div className="settings-editor-theme-preview" data-editor-theme={activeId} style={previewStyle} aria-label={`${activeTheme.name} editor preview`}>
       <header><strong>Python</strong><span aria-hidden="true">â–¶</span></header>
@@ -238,7 +240,7 @@ export function SettingsPage() {
     ),
     editor: (
       <Section id="editor" title="Editor">
-        <SettingRow title="Editor Theme">
+        <SettingRow title="Editor Theme" wide>
           <EditorThemeSelector value={settings.editor.theme} onChange={(value) => setSetting('editor.theme', value)} />
         </SettingRow>
         <SettingRow title="Font Size"><SelectSetting label="Editor font size" value={settings.editor.fontSize} onChange={(value) => setSetting('editor.fontSize', Number(value))}>{[12, 13, 14, 16, 18, 20].map((size) => <option value={size} key={size}>{size}px</option>)}</SelectSetting></SettingRow>
@@ -269,7 +271,7 @@ export function SettingsPage() {
     appearance: (
       <Section id="appearance" title="Appearance">
         <div className="settings-theme-options" role="radiogroup" aria-label="Application theme">
-          {['system', 'light', 'dark'].map((theme) => <button className={settings.appearance.theme === theme ? 'is-active' : ''} type="button" role="radio" aria-checked={settings.appearance.theme === theme} onClick={() => setSetting('appearance.theme', theme)} key={theme}><Palette /><strong>{theme[0].toUpperCase() + theme.slice(1)} Theme</strong></button>)}
+          {['system', 'light', 'dark'].map((theme) => <button className={settings.appearance.theme === theme ? 'is-active' : ''} type="button" role="radio" aria-checked={settings.appearance.theme === theme} onClick={() => setSetting('appearance.theme', theme)} key={theme}><span className="settings-theme-option-label"><Palette /><strong>{theme[0].toUpperCase() + theme.slice(1)} Theme</strong></span></button>)}
         </div>
         <BrandThemeSelector activeThemeId={settings.appearance.brandTheme ?? 'blue'} mode={resolvedTheme} ownership={ownership} onApply={applyBrandTheme} />
         <SettingRow title="Reduced Motion"><SwitchSetting label="Reduced motion" checked={settings.appearance.reducedMotion} onChange={(value) => setSetting('appearance.reducedMotion', value)} /></SettingRow>

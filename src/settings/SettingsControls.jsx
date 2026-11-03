@@ -1,6 +1,6 @@
-export function SettingRow({ title, description, children, danger = false }) {
+export function SettingRow({ title, description, children, danger = false, wide = false }) {
   return (
-    <div className={`setting-row ${danger ? 'is-danger' : ''}`}>
+    <div className={`setting-row${danger ? ' is-danger' : ''}${wide ? ' is-wide' : ''}`}>
       <div><strong>{title}</strong>{description ? <p>{description}</p> : null}</div>
       <div className="setting-control">{children}</div>
     </div>

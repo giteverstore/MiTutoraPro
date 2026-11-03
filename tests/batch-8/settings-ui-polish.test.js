@@ -49,4 +49,16 @@ describe('Settings UI polish', () => {
     expect(page).toContain('Reset all lesson visits, completions, quiz attempts, exercise attempts, and course progress?');
     expect(page).toContain('Settings reset to defaults.');
   });
+
+  it('splits the editor selector and preview and stacks them responsively', () => {
+    expect(page).toContain('settings-editor-theme-selector');
+    expect(page).toContain('settings-editor-theme-preview');
+    expect(css).toMatch(/\.settings-editor-theme-control\s*{[^}]*grid-template-columns:minmax\(0,3fr\) minmax\(15rem,2fr\)/s);
+    expect(css).toMatch(/@media \(max-width: 760px\)[\s\S]*?\.settings-editor-theme-control\s*{[^}]*grid-template-columns:\s*1fr/s);
+  });
+
+  it('keeps each Appearance icon and label in one inline row', () => {
+    expect(page.match(/className="settings-theme-option-label"/g)).toHaveLength(1);
+    expect(css).toMatch(/\.settings-theme-option-label\s*{[^}]*display:\s*flex[^}]*align-items:\s*center/s);
+  });
 });

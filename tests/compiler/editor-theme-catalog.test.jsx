@@ -38,6 +38,8 @@ describe('editor theme catalog', () => {
       'Y Coders Dark', 'Y Coders Light', 'AMOLED', 'Cream', 'GitHub Dark', 'GitHub Light',
     ]);
     expect(screen.getByRole('radio', { name: 'AMOLED' })).toHaveClass('is-active');
+    expect(container.querySelector('.settings-editor-theme-selector')).toBeInTheDocument();
+    expect(container.querySelector('.settings-editor-theme-preview')).toBeInTheDocument();
     expect(container.querySelectorAll('.settings-editor-theme-swatches')).toHaveLength(6);
     expect(container.querySelectorAll('.settings-editor-theme-swatches i')).toHaveLength(18);
     expect(screen.getByLabelText('AMOLED editor preview')).toHaveAttribute('data-editor-theme', 'amoled');
