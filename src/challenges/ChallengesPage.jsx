@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, Clock3, Coins, Flame, LockKeyhole, X } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock3, Flame, LockKeyhole, X } from 'lucide-react';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
@@ -18,6 +18,7 @@ import { ChallengeHistory } from './ChallengeHistory';
 import { loadDailyChallengeByDate, loadPublishedChallengeCatalog } from './challengeContentSource';
 import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
 import { coinRedemptionClient } from '../coins/CoinRedemptionClient';
+import { CoinIcon } from '../coins/CoinIcon';
 import { authService } from '../auth/AuthService';
 import { SharedCompilerDock } from '../components/SharedCompilerDock';
 import { LearningWorkspaceToolbar } from '../components/LearningWorkspaceToolbar';
@@ -71,10 +72,10 @@ export function ChallengeHub({ onOpenChallenge }) {
       <div><h1 id="today-challenge-title">{todayEntry?.content.title ?? 'Today’s challenge'}</h1>
         {loading ? <p>Loading today’s challenge…</p> : error ? <p>Today’s challenge could not be loaded.</p> : todayEntry ? <>
           <p>{todayEntry.content.summary}</p>
-          <div className="challenge-today-meta"><DifficultyBadge difficulty={todayEntry.content.difficulty} /><span><Clock3 /> ~{todayEntry.content.estimatedMinutes} min</span><span><Coins /> +{todayEntry.metadata.rewardCoins} coins</span></div>
+          <div className="challenge-today-meta"><DifficultyBadge difficulty={todayEntry.content.difficulty} /><span><Clock3 /> ~{todayEntry.content.estimatedMinutes} min</span><span><CoinIcon /> +{todayEntry.metadata.rewardCoins} coins</span></div>
         </> : <p>Today’s challenge is not available yet.</p>}
       </div>
-      {todayEntry ? completed ? <div className="challenge-today-action"><strong><CheckCircle2 /> Today’s challenge completed</strong><span>+{todayEntry.metadata.rewardCoins} coins earned</span><button className="button button--secondary" type="button" onClick={() => onOpenChallenge(today)}>Review Challenge</button></div>
+      {todayEntry ? completed ? <div className="challenge-today-action"><strong><CheckCircle2 /> Today’s challenge completed</strong><span className="challenge-today-reward"><CoinIcon /> +{todayEntry.metadata.rewardCoins} coins earned</span><button className="button button--secondary" type="button" onClick={() => onOpenChallenge(today)}>Review Challenge</button></div>
         : <button className="button button--primary" type="button" onClick={() => onOpenChallenge(today)}>Start Today’s Challenge</button> : null}
     </section>
     <ChallengeHistory history={history} onOpenChallenge={onOpenChallenge} onUsePass={setPassDialog} balance={redemptionState.balance} passUses={passUses} redemptionReady={Boolean(userId)} />
@@ -154,7 +155,7 @@ export function ChallengeWorkspace({ occurrenceDate, onBack }) {
       <p className="challenge-completion-dialog-streak">Completion Streak: <strong>{celebration?.streak ?? 0}</strong> {(celebration?.streak ?? 0) === 1 ? 'Day' : 'Days'}</p>
       <p className="challenge-completion-dialog-copy">Consistency is key, see you tomorrow!</p>
       <DailyChallengeFireAnimation />
-      <p className="challenge-completion-dialog-reward"><Coins aria-hidden="true" /><strong>+{celebration?.rewardAmount ?? 0}</strong> coins earned</p>
+      <p className="challenge-completion-dialog-reward"><CoinIcon /><strong>+{celebration?.rewardAmount ?? 0}</strong> coins earned</p>
     </Dialog>
   </div>;
 }

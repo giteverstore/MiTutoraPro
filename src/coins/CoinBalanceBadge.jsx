@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Coins } from 'lucide-react';
 import { authService } from '../auth/AuthService';
 import { CoinAccountRepository } from '../repositories/firestore/CoinAccountRepository';
+import { CoinIcon } from './CoinIcon';
 import { COIN_BALANCE_UPDATE_EVENTS } from './coinEvents';
 
 export function CoinBalanceBadge() {
@@ -29,5 +29,5 @@ export function CoinBalanceBadge() {
   }, []);
 
   const label = state.status === 'loading' ? 'Loading coin balance' : state.status === 'error' ? 'Coin balance unavailable' : `${state.balance} coins`;
-  return <span className={`coin-balance-badge is-${state.status}`} aria-label={label}><Coins aria-hidden="true" /><strong>{state.status === 'loading' ? '…' : state.status === 'error' ? '—' : state.balance}</strong><span>coins</span></span>;
+  return <span className={`coin-balance-badge is-${state.status}`} aria-label={label}><CoinIcon /><strong>{state.status === 'loading' ? '…' : state.status === 'error' ? '—' : state.balance}</strong><span>coins</span></span>;
 }

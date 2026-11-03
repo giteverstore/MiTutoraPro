@@ -52,7 +52,9 @@ describe('Daily Challenge Hub', () => {
     render(<ChallengeHub onOpenChallenge={open} />);
 
     expect(screen.getByRole('heading', { name: 'Balanced Brackets' })).toBeInTheDocument();
-    expect(screen.getByText('+20 coins')).toBeInTheDocument();
+    const reward = screen.getByText('+20 coins');
+    expect(reward).toBeInTheDocument();
+    expect(reward.closest('span').querySelector('svg')).toHaveClass('lucide-coins', 'coin-icon');
     expect(screen.getByText('Medium')).toHaveClass('difficulty-badge', 'difficulty-badge--medium');
     fireEvent.click(screen.getByRole('button', { name: /Start Today.s Challenge/ }));
     expect(open).toHaveBeenCalledWith('2026-09-13');
@@ -72,6 +74,7 @@ describe('Daily Challenge Hub', () => {
     const open = vi.fn();
     render(<ChallengeHub onOpenChallenge={open} />);
     expect(screen.getByText(/Today.s challenge completed/)).toBeInTheDocument();
+    expect(screen.getByText('+20 coins earned').closest('span').querySelector('svg')).toHaveClass('lucide-coins', 'coin-icon');
     expect(screen.queryByRole('button', { name: /Start Today.s Challenge/ })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Review Challenge' }));
     expect(open).toHaveBeenCalledWith('2026-09-13');
@@ -141,6 +144,7 @@ describe('dated Daily Challenge workspace', () => {
     expect(within(dialog).queryByText('Balanced Brackets')).not.toBeInTheDocument();
     expect(dialog).toHaveTextContent('Completion Streak: 4 Days');
     expect(dialog).toHaveTextContent('+20 coins earned');
+    expect(dialog.querySelector('.challenge-completion-dialog-reward svg')).toHaveClass('lucide-coins', 'coin-icon');
     expect(dialog).toHaveTextContent('Consistency is key, see you tomorrow!');
     expect(within(dialog).queryByRole('button', { name: 'Back to Challenges' })).not.toBeInTheDocument();
     expect(within(dialog).queryByText(/Friends Check-in|friend count|sorting/i)).not.toBeInTheDocument();

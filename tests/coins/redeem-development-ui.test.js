@@ -24,8 +24,7 @@ describe('Redeem development presentation boundary', () => {
   it('keeps coin color theme-owned and consumed by coin presentation', () => {
     expect(themeStyles).toMatch(/:root \{[\s\S]*?--color-coin: #b7791f;/);
     expect(themeStyles).toMatch(/\[data-theme="dark"\] \{[\s\S]*?--color-coin: #facc15;/);
-    expect(redeemStyles).toMatch(/\.redeem-balance>svg \{[^}]*color: var\(--color-coin\)/);
-    expect(appShellStyles).toMatch(/\.coin-balance-badge svg \{[^}]*color: var\(--color-coin\)/);
+    expect(appShellStyles).toMatch(/\.coin-icon \{[^}]*color: var\(--color-coin\)/);
     expect(redeemStyles).toMatch(/\.challenge-calendar-redeem button \{[^}]*color: var\(--color-success\)/);
   });
 

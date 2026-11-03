@@ -1,11 +1,12 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import '../styles/pages/home.css';
 import '../styles/pages/subscription-wallet.css';
-import { Coins, Gift, TicketCheck, Crown } from 'lucide-react';
+import { Gift, TicketCheck, Crown } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { Dialog } from '../components/Dialog';
 import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
 import { coinRedemptionClient } from './CoinRedemptionClient';
+import { CoinIcon } from './CoinIcon';
 import { useApplicationTheme } from '../theme/useApplicationTheme';
 import { BRAND_THEME_CATALOG, ownedThemeIdsFromRedemptions } from '../theme/brandThemeCatalog';
 
@@ -49,7 +50,7 @@ export function RedeemPage() {
     catch (error) { setDialog((current) => ({ ...current, pending: false, error: error.message })); }
   };
   return <div className="redeem-page">
-    <div className="redeem-balance-position"><section className="redeem-balance" aria-labelledby="redeem-balance-title"><Coins /><div><span id="redeem-balance-title">Your Balance</span><strong>{state.status === 'ready' ? state.balance : '—'} coins</strong></div></section></div>
+    <div className="redeem-balance-position"><section className="redeem-balance" aria-labelledby="redeem-balance-title"><CoinIcon /><div><span id="redeem-balance-title">Your Balance</span><strong>{state.status === 'ready' ? state.balance : '—'} coins</strong></div></section></div>
     {notice ? <p className="redeem-notice" role="status">{notice}</p> : null}
     <section className="theme-reward-shop" aria-labelledby="theme-reward-title"><header><h2 id="theme-reward-title">Brand Themes</h2><p>Personalize brand accents without changing semantic status colors.</p></header><div className="theme-reward-grid">{BRAND_THEME_CATALOG.map((themeReward) => { const presentation = getThemeRedemptionPresentation({ theme: themeReward, ownedThemeIds, activeThemeId: brandTheme, balance: state.balance, status: state.status }); const colors = themeReward.preview.light; return <article className={presentation.selected ? 'is-selected' : ''} key={themeReward.id}><div className="theme-reward-preview" aria-hidden="true">{colors.map((color) => <span style={{ backgroundColor: color }} key={color} />)}</div><h3>{themeReward.name}</h3><p>{presentation.detail}</p><button className="button button--secondary" type="button" disabled={presentation.disabled} aria-label={`${presentation.action} ${themeReward.name}`} onClick={() => presentation.owned ? void setBrandTheme(themeReward.id) : setDialog({ type: 'BRAND_THEME', themeId: themeReward.id, title: themeReward.name, cost: themeReward.price, pending: false })}>{presentation.action}</button></article>; })}</div></section>
     <section aria-label="Coin rewards"><div className="redeem-catalog">{REDEMPTION_CATALOG.map(({ type, title, cost, description, Icon }) => { const short = Math.max(0, cost - state.balance); const limited = type === 'PREMIUM_MONTH' && premiumUses >= 1; return <article key={type}><Icon /><h3>{title}</h3><strong>{cost.toLocaleString('en-IN')} coins</strong><p>{description}</p>{type === 'CHALLENGE_PASS' ? <small>{Math.max(0, 3 - passUses)} of 3 uses remaining this month · Choose a missed challenge in Challenge History.</small> : <small>Maximum one coin redemption each calendar month.</small>}<button className="button button--primary" type="button" disabled={type === 'CHALLENGE_PASS' || short > 0 || limited || state.status !== 'ready'} onClick={() => setDialog({ type, title, cost, pending: false })}>{type === 'CHALLENGE_PASS' ? 'Choose in Challenges' : limited ? 'Monthly limit reached' : short ? `Need ${short.toLocaleString('en-IN')} more coins` : 'Redeem'}</button></article>; })}<article className="redeem-coming-soon"><Gift /><h3>ycoders Merch</h3><p>Learning gear and community rewards.</p><span>Coming later</span></article></div></section>

@@ -71,8 +71,6 @@
   color: var(--color-accent);
 }
 
-.referral-overview article>.referral-coin-icon { color: var(--color-coin); }
-
 .referral-overview article>.learner-ui-icon {
   width: 1.5rem;
   height: 1.5rem;

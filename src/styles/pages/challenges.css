@@ -510,6 +510,10 @@
   color: var(--color-accent);
 }
 
+.challenge-today-meta .coin-icon {
+  color: var(--color-coin);
+}
+
 .challenge-today-action {
   display: grid;
   min-width: 14rem;
@@ -531,6 +535,17 @@
 .challenge-today-action>span {
   color: color-mix(in srgb, var(--color-text-on-inverse) 72%, transparent);
   font-size: var(--font-size-sm);
+}
+
+.challenge-today-action .challenge-today-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.challenge-today-reward .coin-icon {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 .challenge-history {

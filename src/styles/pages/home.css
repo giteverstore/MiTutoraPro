@@ -302,7 +302,6 @@
 .redeem-balance>svg {
   width: 1.5rem;
   height: 1.5rem;
-  color: var(--color-coin);
 }
 
 .theme-reward-shop { display: grid; gap: var(--space-4); }

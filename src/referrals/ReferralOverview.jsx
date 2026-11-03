@@ -1,5 +1,5 @@
-import { Coins } from 'lucide-react';
 import { learnerUiIcons } from '../assets/learnerUiIcons';
+import { CoinIcon } from '../coins/CoinIcon';
 
 const money = (minor) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(minor / 100);
 
@@ -7,7 +7,7 @@ export function ReferralOverview({ profile }) {
   const items = [
     { label: 'Referred', value: profile.totalReferred, image: learnerUiIcons.group },
     { label: 'Qualified', value: profile.qualified, image: learnerUiIcons.quality },
-    { label: 'Calculated rewards', value: money(profile.calculatedRewardsMinor), Icon: Coins, iconClassName: 'referral-coin-icon' },
+    { label: 'Calculated rewards', value: money(profile.calculatedRewardsMinor), Icon: CoinIcon, iconClassName: 'referral-coin-icon' },
   ];
   return (
     <section className="referral-overview" aria-labelledby="referral-overview-title">
