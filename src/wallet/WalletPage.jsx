@@ -46,10 +46,7 @@ export function WalletPage({ repositoryFactory = createWalletRepository }) {
       {state.transactions.length === 0 ? <p>No wallet transactions yet.</p> : <ul>{state.transactions.map((entry) => { const [label, sign] = transactionPresentation[entry.type] ?? ['Wallet transaction', '']; return <li key={entry.transactionId ?? entry.id}><span><strong>{label}</strong><small>{date(entry.createdAt)}</small></span><strong>{sign}{money(entry.amountMinor)}</strong></li>; })}</ul>}
     </section>
     <section className="wallet-transactions wallet-withdrawals"><h2>Withdrawals</h2>
-      <p>Your legitimate referral earnings remain visible above. Withdrawals are not available yet.</p>
-      <button className="button button--primary" type="button" disabled aria-describedby="withdrawal-unavailable">Withdrawals coming soon</button>
-      <p id="withdrawal-unavailable">No funds have been paid out or reserved.</p>
-      {state.withdrawals.length === 0 ? <p>No withdrawal requests yet.</p> : <ul>{state.withdrawals.map((entry) => <li key={entry.withdrawalId ?? entry.id}><span><strong>{entry.status?.[0]}{entry.status?.slice(1).toLowerCase()}</strong><small>{date(entry.requestedAt)}</small></span><strong>{money(entry.amountMinor)}</strong></li>)}</ul>}
+      <div className="wallet-withdrawals-empty">Coming soon</div>
     </section>
   </section>;
 }
