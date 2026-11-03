@@ -18,19 +18,22 @@ describe('Canonical coin icon presentation', () => {
     render(<ReferralOverview profile={{ totalReferred: 0, qualified: 0, calculatedRewardsMinor: 0 }} />);
     const reward = screen.getByText('Calculated rewards').closest('article');
     expect(reward).toHaveTextContent('₹0.00');
-    expect(reward.querySelector('svg')).toHaveClass('lucide-coins', 'coin-icon', 'referral-coin-icon');
+    expect(reward.querySelector('svg')).toHaveClass('lucide-circle-dollar-sign', 'coin-icon', 'referral-coin-icon');
   });
 
   it('uses the shared glyph without changing the Daily Challenge balance contract', () => {
     render(<CoinBalanceBadge />);
     const balance = screen.getByLabelText('0 coins');
     expect(balance).toHaveTextContent('0coins');
-    expect(balance.querySelector('svg')).toHaveClass('lucide-coins', 'coin-icon');
+    expect(balance.querySelector('svg')).toHaveClass('lucide-circle-dollar-sign', 'coin-icon');
   });
 
   it('keeps the shared icon implementation and all active gold token consumers', () => {
     const icon = render(<CoinIcon className="context-icon" />).container.querySelector('svg');
-    expect(icon).toHaveClass('lucide-coins', 'coin-icon', 'context-icon');
+    expect(icon).toHaveClass('lucide-circle-dollar-sign', 'coin-icon', 'context-icon');
+    expect(icon).not.toHaveClass('lucide-coins');
+    expect(icon).toHaveAttribute('fill', 'currentColor');
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
 
     const home = readFileSync('src/styles/pages/home.css', 'utf8');
     const shell = readFileSync('src/styles/layout/app-shell.css', 'utf8');

@@ -43,7 +43,7 @@ describe('Referral page cleanup', () => {
     expect(screen.getAllByRole('article')).toHaveLength(3);
     expect(screen.getByText('Referred').closest('article').querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/group.png');
     expect(screen.getByText('Qualified', { selector: '.referral-overview small' }).closest('article').querySelector('img')).toHaveAttribute('src', '/assets/ui-icons/quality.png');
-    expect(screen.getByText('Calculated rewards').closest('article').querySelector('svg')).toHaveClass('lucide-coins', 'referral-coin-icon');
+    expect(screen.getByText('Calculated rewards').closest('article').querySelector('svg')).toHaveClass('lucide-circle-dollar-sign', 'referral-coin-icon');
     expect(screen.getByText('Referral History')).toBeInTheDocument();
     expect(screen.getByText('Referral 8e46b11c')).toBeInTheDocument();
     expect(screen.getByText('Attributed', { selector: '.referral-status' })).toBeInTheDocument();
