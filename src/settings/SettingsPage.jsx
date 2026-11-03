@@ -3,9 +3,7 @@ import {
   Bell,
   BookOpen,
   Braces,
-  Download,
   Info,
-  LockKeyhole,
   Palette,
   RotateCcw,
   UserRound,
@@ -32,7 +30,6 @@ const sections = [
   { id: 'learning', label: 'Learning', icon: BookOpen },
   { id: 'notifications', label: 'Notifications', icon: Bell },
   { id: 'appearance', label: 'Appearance', icon: Palette },
-  { id: 'privacy', label: 'Privacy', icon: LockKeyhole },
   { id: 'about', label: 'About', icon: Info },
 ];
 
@@ -49,10 +46,10 @@ function initialSettingsSection() {
   return sections.some(({ id }) => id === requested) ? requested : 'profile';
 }
 
-function Section({ id, title, description, children }) {
+function Section({ id, title, children }) {
   return (
     <section className="settings-section" aria-labelledby={`${id}-settings-title`}>
-      <header><h2 id={`${id}-settings-title`}>{title}</h2><p>{description}</p></header>
+      <header><h2 id={`${id}-settings-title`}>{title}</h2></header>
       <div>{children}</div>
     </section>
   );
@@ -155,7 +152,7 @@ export function BrandThemeSelector({ activeThemeId, mode, ownership, onApply }) 
     event.preventDefault(); setOpen(true); setActiveIndex((index) => (index + (event.key === 'ArrowDown' ? 1 : -1) + ownedThemes.length) % ownedThemes.length);
   };
   return <div className="settings-brand-theme" ref={rootRef}>
-    <div className="settings-brand-heading"><label id={labelId}>Brand Theme</label><p>Choose how Y Coders looks across the app.</p></div>
+    <div className="settings-brand-heading"><label id={labelId}>Brand Theme</label></div>
     {ownership.status === 'loading' ? <div className="settings-brand-loading" role="status">Loading owned themes…</div> : <>
       <div className="settings-brand-picker">
         <button className="settings-brand-combobox" type="button" role="combobox" aria-labelledby={labelId} aria-controls={listboxId} aria-activedescendant={open ? `${id}-option-${ownedThemes[activeIndex].id}` : undefined} aria-expanded={open} aria-haspopup="listbox" onClick={toggle} onKeyDown={onKeyDown}><ThemeSwatches theme={selected} mode={mode} /><span className="settings-brand-name">{selected.name}</span>{selectedId === safeActiveId ? <span className="settings-brand-current">Current</span> : null}<ChevronDown className={open ? 'is-open' : ''} aria-hidden="true" /></button>
@@ -216,39 +213,32 @@ export function SettingsPage() {
     },
   );
 
-  const exportSettings = () => {
-    const blob = new Blob([settingsService.exportSettings()], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'ycoders-settings.json';
-    link.click();
-    URL.revokeObjectURL(url);
-    setNotice('Settings exported.');
-  };
-
   const content = {
     profile: (
-      <Section id="profile" title="Profile" description="Manage the identity shown across your learning workspace.">
-        <SettingRow title="Display name" description="Used in your profile and welcome messages.">
+      <Section id="profile" title="Profile">
+        <SettingRow title="Display name">
           <input type="text" value={profileName} onChange={(event) => setProfileName(event.target.value)} aria-label="Display name" />
         </SettingRow>
-        <SettingRow title="Email" description="Local profile email address.">
+        <SettingRow title="Email">
           <input type="email" value={user.email} disabled aria-label="Email" />
         </SettingRow>
         <div className="settings-section-actions">
           <button className="button button--primary" type="button" disabled={!profileName.trim() || profileName.trim() === user.name} onClick={() => { updateProfile({ name: profileName.trim() }); setNotice('Profile updated.'); }}>Save Profile</button>
         </div>
+        <div className="settings-profile-danger">
+          <strong>Delete Account</strong>
+          <button className="settings-delete-account" type="button" onClick={() => setNotice('Account deletion requires the future authentication service.')}>Delete Account</button>
+        </div>
       </Section>
     ),
     subscription: (
-      <Section id="subscription" title="Subscription" description="Review your current access and ycoders Premium plans.">
+      <Section id="subscription" title="Subscription">
         <SubscriptionPanel />
       </Section>
     ),
     editor: (
-      <Section id="editor" title="Editor" description="Preferences are shared by every Monaco workspace.">
-        <SettingRow title="Editor Theme" description="Independent from the application appearance.">
+      <Section id="editor" title="Editor">
+        <SettingRow title="Editor Theme">
           <EditorThemeSelector value={settings.editor.theme} onChange={(value) => setSetting('editor.theme', value)} />
         </SettingRow>
         <SettingRow title="Font Size"><SelectSetting label="Editor font size" value={settings.editor.fontSize} onChange={(value) => setSetting('editor.fontSize', Number(value))}>{[12, 13, 14, 16, 18, 20].map((size) => <option value={size} key={size}>{size}px</option>)}</SelectSetting></SettingRow>
@@ -256,13 +246,13 @@ export function SettingsPage() {
         <SettingRow title="Word Wrap"><SwitchSetting label="Word wrap" checked={settings.editor.wordWrap} onChange={(value) => setSetting('editor.wordWrap', value)} /></SettingRow>
         <SettingRow title="Line Numbers"><SwitchSetting label="Line numbers" checked={settings.editor.lineNumbers} onChange={(value) => setSetting('editor.lineNumbers', value)} /></SettingRow>
         <SettingRow title="Minimap"><SwitchSetting label="Editor minimap" checked={settings.editor.minimap} onChange={(value) => setSetting('editor.minimap', value)} /></SettingRow>
-        <SettingRow title="Auto Format on Run" description="Runs the active runtime formatter before execution when available."><SwitchSetting label="Auto format on run" checked={settings.editor.autoFormatOnRun} onChange={(value) => setSetting('editor.autoFormatOnRun', value)} /></SettingRow>
+        <SettingRow title="Auto Format on Run"><SwitchSetting label="Auto format on run" checked={settings.editor.autoFormatOnRun} onChange={(value) => setSetting('editor.autoFormatOnRun', value)} /></SettingRow>
       </Section>
     ),
     learning: (
-      <Section id="learning" title="Learning" description="Choose defaults and manage your saved learning data.">
+      <Section id="learning" title="Learning">
         <SettingRow title="Default Programming Language"><SelectSetting label="Default programming language" value={settings.learning.defaultLanguage} onChange={(value) => setSetting('learning.defaultLanguage', value)}><option>Python</option><option>JavaScript</option><option>Java</option><option>C++</option></SelectSetting></SettingRow>
-        <SettingRow title="Auto-open Continue Learning" description="Open your current course automatically after login."><SwitchSetting label="Auto-open continue learning" checked={settings.learning.autoOpenContinueLearning} onChange={(value) => setSetting('learning.autoOpenContinueLearning', value)} /></SettingRow>
+        <SettingRow title="Auto-open Continue Learning"><SwitchSetting label="Auto-open continue learning" checked={settings.learning.autoOpenContinueLearning} onChange={(value) => setSetting('learning.autoOpenContinueLearning', value)} /></SettingRow>
         <SettingRow title="Reset Learning Progress" description="Clears lesson, quiz, exercise, and course progress." danger><button className="button button--secondary settings-danger-button" type="button" onClick={resetLearning}>Reset</button></SettingRow>
         <SettingRow title="Reset Practice Progress" description="Clears Practice attempts and completions." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => setNotice('Practice attempt persistence is not part of this migration.')}>Reset</button></SettingRow>
         <SettingRow title="Reset Challenge History" description="Clears challenge claims, rewards, and streak history." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => setNotice('Challenge reward persistence is not part of this migration.')}>Reset</button></SettingRow>
@@ -270,30 +260,23 @@ export function SettingsPage() {
       </Section>
     ),
     notifications: (
-      <Section id="notifications" title="Notifications" description="Control which local reminders ycoders may show.">
+      <Section id="notifications" title="Notifications">
         <SettingRow title="Learning Reminders"><SwitchSetting label="Learning reminders" checked={settings.notifications.learningReminders} onChange={(value) => setSetting('notifications.learningReminders', value)} /></SettingRow>
         <SettingRow title="Daily Challenge Reminders"><SwitchSetting label="Daily challenge reminders" checked={settings.notifications.challengeReminders} onChange={(value) => setSetting('notifications.challengeReminders', value)} /></SettingRow>
         <SettingRow title="Product Updates"><SwitchSetting label="Product updates" checked={settings.notifications.productUpdates} onChange={(value) => setSetting('notifications.productUpdates', value)} /></SettingRow>
       </Section>
     ),
     appearance: (
-      <Section id="appearance" title="Appearance" description="Application appearance is separate from the code editor theme.">
+      <Section id="appearance" title="Appearance">
         <div className="settings-theme-options" role="radiogroup" aria-label="Application theme">
-          {['system', 'light', 'dark'].map((theme) => <button className={settings.appearance.theme === theme ? 'is-active' : ''} type="button" role="radio" aria-checked={settings.appearance.theme === theme} onClick={() => setSetting('appearance.theme', theme)} key={theme}><Palette /><strong>{theme[0].toUpperCase() + theme.slice(1)} Theme</strong><span>{theme === 'system' ? 'Follow your device' : `Always use ${theme}`}</span></button>)}
+          {['system', 'light', 'dark'].map((theme) => <button className={settings.appearance.theme === theme ? 'is-active' : ''} type="button" role="radio" aria-checked={settings.appearance.theme === theme} onClick={() => setSetting('appearance.theme', theme)} key={theme}><Palette /><strong>{theme[0].toUpperCase() + theme.slice(1)} Theme</strong></button>)}
         </div>
         <BrandThemeSelector activeThemeId={settings.appearance.brandTheme ?? 'blue'} mode={resolvedTheme} ownership={ownership} onApply={applyBrandTheme} />
-        <SettingRow title="Reduced Motion" description="Minimizes interface animations and smooth transitions."><SwitchSetting label="Reduced motion" checked={settings.appearance.reducedMotion} onChange={(value) => setSetting('appearance.reducedMotion', value)} /></SettingRow>
-      </Section>
-    ),
-    privacy: (
-      <Section id="privacy" title="Privacy" description="Data portability and account controls prepared for future backend services.">
-        <SettingRow title="Download My Data" description="Profile, preferences, and activity archive."><button className="button button--secondary" type="button" onClick={() => setNotice('Full data download will be available with account services.')}><Download /> Request Download</button></SettingRow>
-        <SettingRow title="Export Progress" description="Portable learning-progress export."><button className="button button--secondary" type="button" onClick={() => setNotice('Progress export is prepared for the future progress API.')}><Download /> Export Progress</button></SettingRow>
-        <SettingRow title="Delete Account" description="Permanently remove your account and learning data." danger><button className="button button--secondary settings-danger-button" type="button" onClick={() => setNotice('Account deletion requires the future authentication service.')}>Delete Account</button></SettingRow>
+        <SettingRow title="Reduced Motion"><SwitchSetting label="Reduced motion" checked={settings.appearance.reducedMotion} onChange={(value) => setSetting('appearance.reducedMotion', value)} /></SettingRow>
       </Section>
     ),
     about: (
-      <Section id="about" title="About" description="Runtime and application version information.">
+      <Section id="about" title="About">
         <div className="settings-version-list">{versions.map(([label, value]) => <div key={label}><span>{label}</span><code>{value}</code></div>)}</div>
       </Section>
     ),
@@ -305,7 +288,6 @@ export function SettingsPage() {
         <aside className="settings-navigation" aria-label="Settings sections">
           <nav>{sections.map(({ id, label, icon: Icon }) => <button className={activeSection === id ? 'is-active' : ''} type="button" onClick={() => setActiveSection(id)} aria-label={label} aria-current={activeSection === id ? 'page' : undefined} key={id}><Icon /> <span>{label}</span></button>)}</nav>
           <div>
-            <button type="button" onClick={exportSettings}><Download /> Export Settings</button>
             <button type="button" onClick={() => confirmReset('Reset all application and editor settings to their defaults?', async () => { await settingsService.resetSettings(); setNotice('Settings reset to defaults.'); })}><RotateCcw /> Reset Settings</button>
           </div>
         </aside>

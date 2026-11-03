@@ -26,11 +26,16 @@ describe('fixed learner neutral borders', () => {
     ['Referrals', 'src/styles/pages/referrals.css'],
     ['Wallet', 'src/styles/pages/subscription-wallet.css'],
     ['Certificates', 'src/styles/pages/certificates.css'],
-    ['Settings', 'src/styles/pages/settings.css'],
     ['App shell', 'src/styles/layout/app-shell.css'],
   ])('%s ordinary component borders use the fixed token', async (_surface, path) => {
     const source = readStylesheetGraph(path);
     expect(source).toContain('var(--color-border-fixed)');
+  });
+
+  it('uses the approved Settings neutral border with a dark-mode token fallback', async () => {
+    const settings = await css('src/styles/pages/settings.css');
+    expect(settings).toContain('--settings-neutral-border: #d3dce6;');
+    expect(settings).toMatch(/data-theme="dark"[^}]*--settings-neutral-border:\s*var\(--color-border\)/s);
   });
 
   it('preserves semantic state borders and Project Guide table contrast', async () => {
