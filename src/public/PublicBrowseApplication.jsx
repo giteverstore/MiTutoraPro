@@ -47,6 +47,7 @@ export function PublicBrowseApplication() {
 
   const course = pathname.match(/^\/courses\/([^/]+)$/);
   if (course) return <PublicFeatureShell activePath="/library"><Suspense fallback={loading}><CourseRoute courseId={decodeURIComponent(course[1])} stage="overview" anonymous onExitCourse={() => navigate('/library')} onEnterCourse={() => requireAuth(pathname)} /></Suspense></PublicFeatureShell>;
+  if (/^\/courses\/[^/]+\/lesson\/[^/]+$/.test(pathname)) return <ProtectedAuthRoute pathname={pathname} />;
   const question = pathname.match(/^\/practice\/([^/]+)$/);
   if (question) return <PublicFeatureShell activePath="/practice"><Suspense fallback={loading}><PracticePage anonymous initialQuestionId={decodeURIComponent(question[1])} onRequireAuth={requireAuth} onQuestionChange={(questionId) => navigate(questionId ? `/practice/${questionId}` : '/practice')} /></Suspense></PublicFeatureShell>;
   const project = pathname.match(/^\/projects\/([^/]+)$/);

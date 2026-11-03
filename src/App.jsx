@@ -18,6 +18,7 @@ import { shouldShowApplicationFooter } from './app-shell/footerPolicy';
 import { useAuthenticatedShellScrollLock } from './app-shell/useAuthenticatedShellScrollLock';
 import { isStandaloneCompilerRequest } from './standalone-compiler/standaloneCompilerHost';
 import { phase5Mark } from './performance/phase5Mark.js';
+import { MobileLoginNotice, MobileWorkspaceGuard } from './responsive/MobileAccessDialog';
 
 const AppShell = lazyNamedExport(() => import('./app-shell/AppShell'), 'AppShell');
 const BookmarkProvider = lazyNamedExport(() => import('./bookmarks/BookmarkContext'), 'BookmarkProvider');
@@ -166,6 +167,7 @@ function UserGate() {
         <SubscriptionAccessProvider userId={user.id}>
           <LearnerActivityProvider>
             <AuthenticatedApplication user={user} />
+            <MobileLoginNotice />
           </LearnerActivityProvider>
         </SubscriptionAccessProvider>
       </BookmarkProvider>
@@ -354,14 +356,25 @@ function AuthenticatedApplication({ user }) {
             }}
           />
         ) : activePage === 'projects' ? (
-          <ProjectsPage
+          <MobileWorkspaceGuard
             key={`${navigationTarget?.projectId ?? 'catalog'}:${navigationTarget?.projectStage ?? 'catalog'}`}
-            initialProjectId={navigationTarget?.page === 'projects' ? navigationTarget.projectId : null}
-            initialProjectStage={navigationTarget?.page === 'projects' ? navigationTarget.projectStage : null}
-            onProjectChange={(projectId, projectStage = 'overview') => navigateTo(projectId
-              ? { kind: projectStage === 'workspace' ? 'project-workspace' : 'project-overview', page: 'projects', projectId }
-              : { kind: 'page', page: 'projects' })}
-          />
+            kind="project"
+            restricted={navigationTarget?.projectStage === 'workspace'}
+            onClose={() => navigateTo(
+              navigationTarget?.projectId
+                ? { kind: 'project-overview', page: 'projects', projectId: navigationTarget.projectId }
+                : { kind: 'page', page: 'projects' },
+              { replace: true },
+            )}
+          >
+            <ProjectsPage
+              initialProjectId={navigationTarget?.page === 'projects' ? navigationTarget.projectId : null}
+              initialProjectStage={navigationTarget?.page === 'projects' ? navigationTarget.projectStage : null}
+              onProjectChange={(projectId, projectStage = 'overview') => navigateTo(projectId
+                ? { kind: projectStage === 'workspace' ? 'project-workspace' : 'project-overview', page: 'projects', projectId }
+                : { kind: 'page', page: 'projects' })}
+            />
+          </MobileWorkspaceGuard>
         ) : <ActivePage />}
         </Suspense>
         </DomainErrorBoundary>
@@ -404,5 +417,13 @@ function AuthenticatedApplication({ user }) {
     <AppShell activePage={activePage} onNavigate={handlePageNavigation} pageLabel="Course Overview" showFooter={false}>
       {courseApplication}
     </AppShell>
-  ) : courseApplication;
+  ) : (
+    <MobileWorkspaceGuard
+      key={`${activeCourseId}:${launchLessonId ?? 'learning'}`}
+      kind="course"
+      onClose={() => navigateTo({ kind: 'course-overview', courseId: activeCourseId }, { replace: true })}
+    >
+      {courseApplication}
+    </MobileWorkspaceGuard>
+  );
 }

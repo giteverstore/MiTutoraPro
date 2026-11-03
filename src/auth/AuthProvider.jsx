@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { authService as defaultService } from './AuthService';
+import { markMobileLoginNoticePending } from '../responsive/mobileAccess';
 
 export function createExclusiveAuthenticationRunner() {
   let activeRequest = null;
@@ -39,16 +40,25 @@ export function AuthProvider({ children, service = defaultService }) {
   const runAuthenticationRequest = requestRunnerRef.current;
 
   const signInWithGoogle = useCallback(() => runAuthenticationRequest(
-    () => service.signInWithGoogle(),
+    async () => {
+      const result = await service.signInWithGoogle();
+      markMobileLoginNoticePending();
+      return result;
+    },
   ), [runAuthenticationRequest, service]);
 
   const signInWithEmail = useCallback((email, password) => runAuthenticationRequest(
-    () => service.signInWithEmail(email, password),
+    async () => {
+      const result = await service.signInWithEmail(email, password);
+      markMobileLoginNoticePending();
+      return result;
+    },
   ), [runAuthenticationRequest, service]);
 
   const signUpWithEmail = useCallback((email, password, referralCode = '') => runAuthenticationRequest(
     async () => {
       await service.signUpWithEmail(email, password);
+      markMobileLoginNoticePending();
       if (!referralCode) return;
       try {
         const { attributeReferralCode } = await import('../referrals/ReferralService');
@@ -64,6 +74,8 @@ export function AuthProvider({ children, service = defaultService }) {
     setLoading(true);
     try {
       await service.signOut();
+      window.history.replaceState({ ycoders: true }, '', '/');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     } catch (error) {
       setLoading(false);
       throw error;
