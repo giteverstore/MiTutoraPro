@@ -1,6 +1,7 @@
 import { AIServiceError } from '../AIServiceError.js';
+import { currentTutorIncludedUsage } from './tutorIncludedUsageDay.js';
 
-const exhausted = () => new AIServiceError('ai/included-messages-exhausted', 'Your included AI Tutor messages have been used.', { status: 429 });
+const exhausted = () => new AIServiceError('ai/included-messages-exhausted', 'Daily AI limit reached. Try again tomorrow.', { status: 429 });
 const retentionMs = 7 * 24 * 60 * 60 * 1_000;
 const threadId = (ownerKey, scope) => scope.contentSource && scope.contentSource !== 'admin'
   ? `${ownerKey}_${scope.surface}_${scope.scopeId}_${scope.contentSource}_${typeof scope.contentVersion}_${scope.contentVersion}`
@@ -12,23 +13,25 @@ export class FirestoreTutorExperienceStore {
     const usageRef = this.db.collection('aiTutorIncludedUsage').doc(ownerKey); const reservationRef = this.db.collection('aiTutorIncludedReservations').doc(requestId); const now = this.now();
     return this.db.runTransaction(async (tx) => {
       const existing = await tx.get(reservationRef); if (existing.exists) { const value = existing.data(); if (value.ownerKey !== ownerKey) throw new AIServiceError('ai/idempotency-conflict', 'The AI Tutor request could not be safely resumed.', { status: 409 }); return value; }
-      const snapshot = await tx.get(usageRef); const current = snapshot.exists ? snapshot.data() : { usedMessages: 0, reservedMessages: 0 };
+      const snapshot = await tx.get(usageRef); const current = currentTutorIncludedUsage(snapshot.exists ? snapshot.data() : null, now);
       if (!unlimited && current.usedMessages + current.reservedMessages >= limit) throw exhausted();
-      const reservation = { ownerKey, requestId, state: 'PENDING', unlimited, createdAt: now, expiresAt: new Date(now + retentionMs) };
-      if (!unlimited) tx.set(usageRef, { usedMessages: current.usedMessages, reservedMessages: current.reservedMessages + 1, updatedAt: now }, { merge: false });
+      const reservation = { ownerKey, requestId, state: 'PENDING', unlimited, dateKey: current.dateKey, createdAt: now, expiresAt: new Date(now + retentionMs) };
+      if (!unlimited) tx.set(usageRef, { ...current, reservedMessages: current.reservedMessages + 1, updatedAt: now }, { merge: false });
       tx.create(reservationRef, reservation); return reservation;
     });
   }
   async settleIncluded(reservation, { consume }) {
     if (!reservation?.requestId) return null; const reservationRef = this.db.collection('aiTutorIncludedReservations').doc(reservation.requestId); const usageRef = this.db.collection('aiTutorIncludedUsage').doc(reservation.ownerKey); const now = this.now();
     return this.db.runTransaction(async (tx) => {
-      const [storedSnapshot, usageSnapshot] = await Promise.all([tx.get(reservationRef), tx.get(usageRef)]); if (!storedSnapshot.exists || storedSnapshot.data().state !== 'PENDING') return usageSnapshot.exists ? usageSnapshot.data() : { usedMessages: 0, reservedMessages: 0 };
+      const [storedSnapshot, usageSnapshot] = await Promise.all([tx.get(reservationRef), tx.get(usageRef)]); if (!storedSnapshot.exists || storedSnapshot.data().state !== 'PENDING') return currentTutorIncludedUsage(usageSnapshot.exists ? usageSnapshot.data() : null, now);
       const stored = storedSnapshot.data(); if (stored.ownerKey !== reservation.ownerKey) throw new AIServiceError('ai/idempotency-conflict', 'The AI Tutor request could not be safely resumed.', { status: 409 });
-      const current = usageSnapshot.exists ? usageSnapshot.data() : { usedMessages: 0, reservedMessages: 0 }; const next = stored.unlimited ? current : { usedMessages: current.usedMessages + (consume ? 1 : 0), reservedMessages: Math.max(0, current.reservedMessages - 1), updatedAt: now };
-      if (!stored.unlimited) tx.set(usageRef, next, { merge: false }); tx.update(reservationRef, { state: consume ? 'CONSUMED' : 'RELEASED', settledAt: now }); return next;
+      const current = currentTutorIncludedUsage(usageSnapshot.exists ? usageSnapshot.data() : null, now);
+      const sameDay = stored.dateKey === current.dateKey;
+      const next = stored.unlimited || !sameDay ? current : { ...current, usedMessages: current.usedMessages + (consume ? 1 : 0), reservedMessages: Math.max(0, current.reservedMessages - 1), updatedAt: now };
+      if (!stored.unlimited && sameDay) tx.set(usageRef, next, { merge: false }); tx.update(reservationRef, { state: consume ? 'CONSUMED' : 'RELEASED', settledAt: now }); return next;
     });
   }
-  async usageSnapshot(ownerKey) { const snapshot = await this.db.collection('aiTutorIncludedUsage').doc(ownerKey).get(); return snapshot.exists ? snapshot.data() : { usedMessages: 0, reservedMessages: 0 }; }
+  async usageSnapshot(ownerKey) { const now = this.now(); const snapshot = await this.db.collection('aiTutorIncludedUsage').doc(ownerKey).get(); return currentTutorIncludedUsage(snapshot.exists ? snapshot.data() : null, now); }
   async persistInteraction({ ownerKey, requestId, scope, userText, assistant, metadata }) {
     if (scope.surface === 'practice') { const ref = this.db.collection('aiTutorPracticeInteractions').doc(requestId); await this.db.runTransaction(async (tx) => { if ((await tx.get(ref)).exists) return; tx.create(ref, { ownerKey, requestId, surface: scope.surface, scopeId: scope.scopeId, activityId: scope.activityId, contentVersion: scope.contentVersion, ...metadata, createdAt: this.now() }); }); return; }
     const threadRef = this.db.collection('aiTutorConversations').doc(threadId(ownerKey, scope)); const userRef = threadRef.collection('messages').doc(`${requestId}-user`); const assistantRef = threadRef.collection('messages').doc(`${requestId}-assistant`); const now = this.now();

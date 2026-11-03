@@ -28,6 +28,9 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
   const selectionKey = context?.selectionType === 'checkpoint_context' ? '' : JSON.stringify({ type: context?.selectionType, content: context?.selectedContent });
   const scopeRef = useRef(scopeKey);
   scopeRef.current = scopeKey;
+  const reflectQuotaExhaustion = (error) => {
+    if (error?.code === 'ai/included-messages-exhausted') setUsage((current) => ({ usedMessages: current?.includedLimit ?? 30, includedLimit: current?.includedLimit ?? 30, unlimited: false, remainingMessages: 0 }));
+  };
 
   const generate = async () => {
     if (!context?.selectedContent?.trim()) return;
@@ -43,7 +46,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
       if (request.current !== controller || scopeRef.current !== requestScope) return;
       setState((current) => ({ ...current, phase: 'questions', questions: result.questions, selected: null, followUps: [], error: '' }));
     } catch (error) {
-      if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) setState((current) => ({ ...current, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
+      if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) { reflectQuotaExhaustion(error); setState((current) => ({ ...current, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' })); }
     } finally {
       if (request.current === controller) request.current = null;
     }
@@ -66,7 +69,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
       retryRequest.current = null;
       setState((value) => ({ ...value, phase: 'answer', selected: null, followUps: result.followUps, conversation: reconcileProjectTurns(value.conversation, [{ id: requestId, requestId, question: question.label, answer: result.answer, createdAt: Date.now() }]), error: '' }));
     } catch (error) {
-      if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) setState((value) => ({ ...value, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' }));
+      if (error.name !== 'AbortError' && request.current === controller && scopeRef.current === requestScope) { reflectQuotaExhaustion(error); setState((value) => ({ ...value, phase: 'error', error: error.message || 'The AI Mentor is unavailable.' })); }
     } finally {
       if (request.current === controller) request.current = null;
     }
@@ -148,7 +151,7 @@ export function ProjectContextualAIConversation({ context, client = projectAICli
       </>}
     </div>
     <div className="project-ai-composer">
-      {usage ? <small className="project-ai-usage">{usage.unlimited ? 'Unlimited AI messages' : `${usage.remainingMessages} AI messages remaining`}</small> : null}
+      {usage?.remainingMessages === 0 ? <small className="project-ai-limit" role="status">Daily AI limit reached. Try again tomorrow.</small> : null}
       <textarea ref={composerRef} aria-label="Ask AI Mentor" value={draft} maxLength={9_000} placeholder="Ask about this checkpoint or your code…" disabled={loading || usage?.remainingMessages === 0} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendDraft(); } }} />
       <button type="button" aria-label="Send AI Mentor message" disabled={!draft.trim() || loading || usage?.remainingMessages === 0} onClick={sendDraft}><Send aria-hidden="true" /> Send</button>
     </div>

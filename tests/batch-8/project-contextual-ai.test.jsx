@@ -30,6 +30,21 @@ describe('Projects contextual AI mentor', () => {
     await waitFor(() => expect(screen.queryByText(/Loading previous messages/)).not.toBeInTheDocument());
   });
 
+  it('hides the live remaining counter but preserves the daily-limit blocked state', async () => {
+    const client = { history: vi.fn().mockResolvedValue({ items: [], nextCursor: null, usage: { usedMessages: 20, includedLimit: 30, unlimited: false, remainingMessages: 10 } }), generateQuestions: vi.fn(), answer: vi.fn() };
+    const { unmount } = render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    await waitFor(() => expect(client.history).toHaveBeenCalled());
+    expect(screen.queryByText(/AI messages remaining/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeEnabled();
+
+    client.history.mockResolvedValue({ items: [], nextCursor: null, usage: { usedMessages: 30, includedLimit: 30, unlimited: false, remainingMessages: 0 } });
+    unmount();
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    expect(await screen.findByText('Daily AI limit reached. Try again tomorrow.')).toHaveAttribute('role', 'status');
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Send AI Mentor message' })).toBeDisabled();
+  });
+
   it('preserves loaded turns through suggestion generation and appends an answer without truncating history', async () => {
     const oldItems = Array.from({ length: 4 }, (_, index) => [
       { id: `old-${index}-user`, requestId: `old-${index}`, role: 'user', text: `Old question ${index}`, createdAt: index * 2 },
@@ -213,6 +228,16 @@ describe('Projects contextual AI mentor', () => {
     render(<ProjectContextualAI context={context('guide_text', 'Represent a task')} client={client} accessTier="PREMIUM" />);
     fireEvent.click(screen.getByRole('button', { name: 'Suggest questions' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('AI usage limit reached.');
+  });
+
+  it('locks the composer when the authoritative server rejects an exhausted quota', async () => {
+    const exhausted = Object.assign(new Error('Daily AI limit reached. Try again tomorrow.'), { code: 'ai/included-messages-exhausted' });
+    const client = { answer: vi.fn().mockRejectedValue(exhausted) };
+    render(<ProjectContextualAI context={context('checkpoint_context', 'Represent one task')} client={client} accessTier="PREMIUM" />);
+    fireEvent.change(screen.getByRole('textbox', { name: 'Ask AI Mentor' }), { target: { value: 'Help me.' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Send AI Mentor message' }));
+    expect(await screen.findByText('Daily AI limit reached. Try again tomorrow.', { selector: '.project-ai-limit' })).toHaveAttribute('role', 'status');
+    expect(screen.getByRole('textbox', { name: 'Ask AI Mentor' })).toBeDisabled();
   });
 
   it('preserves the existing provider, feature gate, and quota boundary on the server', async () => {

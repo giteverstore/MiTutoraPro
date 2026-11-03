@@ -1,7 +1,8 @@
 import { AIServiceError } from '../AIServiceError.js';
+import { currentTutorIncludedUsage } from './tutorIncludedUsageDay.js';
 
 const retained = (value) => JSON.parse(JSON.stringify(value));
-const exhausted = () => new AIServiceError('ai/included-messages-exhausted', 'Your included AI Tutor messages have been used.', { status: 429 });
+const exhausted = () => new AIServiceError('ai/included-messages-exhausted', 'Daily AI limit reached. Try again tomorrow.', { status: 429 });
 
 export class ProcessLocalTutorExperienceStore {
   constructor({ now = Date.now } = {}) { this.now = now; this.usage = new Map(); this.reservations = new Map(); this.threads = new Map(); this.analytics = []; this.cache = new Map(); }
@@ -11,21 +12,23 @@ export class ProcessLocalTutorExperienceStore {
       if (existing.ownerKey !== ownerKey) throw new AIServiceError('ai/idempotency-conflict', 'The AI Tutor request could not be safely resumed.', { status: 409 });
       return existing;
     }
-    const current = this.usage.get(ownerKey) ?? { usedMessages: 0, reservedMessages: 0 };
+    const now = this.now();
+    const current = currentTutorIncludedUsage(this.usage.get(ownerKey), now);
     if (!unlimited && current.usedMessages + current.reservedMessages >= limit) throw exhausted();
-    const reservation = { ownerKey, requestId, state: 'PENDING', unlimited, createdAt: this.now() };
+    const reservation = { ownerKey, requestId, state: 'PENDING', unlimited, dateKey: current.dateKey, createdAt: now };
     this.reservations.set(requestId, reservation);
     if (!unlimited) this.usage.set(ownerKey, { ...current, reservedMessages: current.reservedMessages + 1 });
     return reservation;
   }
   async settleIncluded(reservation, { consume }) {
     const stored = this.reservations.get(reservation?.requestId); if (!stored || stored.state !== 'PENDING') return this.snapshot(stored?.ownerKey);
-    const current = this.usage.get(stored.ownerKey) ?? { usedMessages: 0, reservedMessages: 0 };
-    if (!stored.unlimited) this.usage.set(stored.ownerKey, { usedMessages: current.usedMessages + (consume ? 1 : 0), reservedMessages: Math.max(0, current.reservedMessages - 1) });
-    this.reservations.set(stored.requestId, { ...stored, state: consume ? 'CONSUMED' : 'RELEASED', settledAt: this.now() });
+    const now = this.now();
+    const current = currentTutorIncludedUsage(this.usage.get(stored.ownerKey), now);
+    if (!stored.unlimited && stored.dateKey === current.dateKey) this.usage.set(stored.ownerKey, { ...current, usedMessages: current.usedMessages + (consume ? 1 : 0), reservedMessages: Math.max(0, current.reservedMessages - 1) });
+    this.reservations.set(stored.requestId, { ...stored, state: consume ? 'CONSUMED' : 'RELEASED', settledAt: now });
     return this.snapshot(stored.ownerKey);
   }
-  snapshot(ownerKey) { return this.usage.get(ownerKey) ?? { usedMessages: 0, reservedMessages: 0 }; }
+  snapshot(ownerKey) { return currentTutorIncludedUsage(this.usage.get(ownerKey), this.now()); }
   async usageSnapshot(ownerKey) { return this.snapshot(ownerKey); }
   threadKey(ownerKey, scope) { return `${ownerKey}\0${scope.surface}\0${scope.scopeId}\0${scope.contentSource ?? 'admin'}\0${typeof scope.contentVersion}\0${scope.contentVersion}`; }
   async persistInteraction({ ownerKey, requestId, scope, userText, assistant, metadata }) {

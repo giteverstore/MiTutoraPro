@@ -924,11 +924,11 @@
 .project-contextual-ai { display: grid; min-width: 0; min-height: 0; grid-template-rows: auto minmax(0,1fr) auto; justify-items: stretch; gap: 0; padding: 0; color: var(--project-text); }
 .project-contextual-ai>header { display: flex; align-items: center; gap: .5rem; padding: .8rem 1rem; border-bottom: 1px solid var(--project-border); }.project-contextual-ai>header svg { width: 1rem; color: var(--project-accent); }.project-contextual-ai>header h2 { margin: 0; font-size: 1rem; }
 .project-ai-conversation-scroll { min-width: 0; min-height: 0; padding: 1rem; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
-.project-ai-composer { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: .5rem; padding: .75rem 1rem; border-top: 1px solid var(--project-border); }
-.project-ai-composer textarea { min-height: 3rem; max-height: 8rem; resize: vertical; padding: .65rem .75rem; color: var(--project-text); background: var(--project-surface-raised); border: 1px solid var(--project-border); border-radius: var(--radius-md); font: inherit; font-size: var(--font-size-reading); line-height: 1.5; }
+.project-ai-composer { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: .5rem; padding: .5rem .75rem; border-top: 1px solid var(--project-border); }
+.project-ai-composer textarea { min-height: 2.875rem; max-height: 8rem; resize: vertical; padding: .55rem .7rem; color: var(--project-text); background: var(--project-surface-raised); border: 1px solid var(--project-border); border-radius: var(--radius-md); font: inherit; font-size: var(--font-size-reading); line-height: 1.35; }
 .project-ai-composer textarea::placeholder { color: var(--project-muted); opacity: .85; }
-.project-ai-usage { grid-column: 1 / -1; color: var(--project-text-muted); font-size: 16px; }
-.project-ai-composer button,.project-ai-suggest { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: .375rem; padding: 0 .8rem; color: var(--color-text-on-accent); background: var(--project-accent); border: 0; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; }
+.project-ai-limit { grid-column: 1 / -1; color: var(--color-danger); font-size: 14px; }
+.project-ai-composer button,.project-ai-suggest { display: inline-flex; min-height: 2.875rem; align-items: center; justify-content: center; gap: .375rem; padding: 0 .8rem; color: var(--color-text-on-accent); background: var(--project-accent); border: 0; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; }
 .project-ai-composer button:disabled { opacity: .5; cursor: not-allowed; }
 .project-ai-suggest { min-height: 2.25rem; margin-bottom: .75rem; font-size: 16px; }
 @media (max-width: 390px) { .project-ai-composer { grid-template-columns: 1fr; }.project-ai-composer button { width: 100%; } }
