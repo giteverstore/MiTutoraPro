@@ -42,11 +42,14 @@ describe('Canonical coin icon presentation', () => {
     expect(shell).toMatch(/\.coin-balance-badge svg\s*\{[^}]*width:\s*var\(--icon-sm\)/s);
     expect(redeem).toContain('<CoinIcon />');
     expect(redeem).toContain("state.status === 'ready' ? state.balance");
-    expect(challenges).toMatch(/\.challenge-today-meta \.coin-icon\s*\{[^}]*color:\s*var\(--color-coin\)/s);
-    expect(challengePage.match(/<CoinIcon \/>/g)).toHaveLength(3);
+    expect(challengePage.match(/<CoinIcon \/>/g)).toHaveLength(1);
     expect(challengePage).not.toMatch(/\bCoins\b/);
-    expect(challengePage).toContain('+{todayEntry.metadata.rewardCoins} coins');
-    expect(challengePage).toContain('+{todayEntry.metadata.rewardCoins} coins earned');
+    expect(challengePage).not.toContain('+{todayEntry.metadata.rewardCoins} coins');
+    expect(challengePage).not.toContain('+{todayEntry.metadata.rewardCoins} coins earned');
     expect(challengePage).toContain('+{celebration?.rewardAmount ?? 0}');
+    expect(challenges).toMatch(/\.challenge-history\s*\{[^}]*border-color:\s*#d3dce6;/s);
+    expect(challenges).toMatch(/\.challenge-history>header\s*\{[^}]*border-bottom-color:\s*#d3dce6;/s);
+    expect(challenges).toMatch(/\.challenge-history-list article\s*\{[^}]*border-bottom-color:\s*#d3dce6;/s);
+    expect(challenges).toMatch(/\[data-theme="dark"\] \.challenge-history\s*\{[^}]*border-color:\s*var\(--color-border\);/s);
   });
 });

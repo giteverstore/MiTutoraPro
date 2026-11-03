@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, Clock3, Flame, LockKeyhole, X } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Flame, LockKeyhole, X } from 'lucide-react';
 import { createCompilerData } from '../components/blocks/CompilerBlock';
 import { activityCompletionClient } from '../coins/ActivityCompletionClient';
 import { CompilerLanguageSelector } from '../components/CompilerLanguageSelector';
@@ -72,10 +72,10 @@ export function ChallengeHub({ onOpenChallenge }) {
       <div><h1 id="today-challenge-title">{todayEntry?.content.title ?? 'Today’s challenge'}</h1>
         {loading ? <p>Loading today’s challenge…</p> : error ? <p>Today’s challenge could not be loaded.</p> : todayEntry ? <>
           <p>{todayEntry.content.summary}</p>
-          <div className="challenge-today-meta"><DifficultyBadge difficulty={todayEntry.content.difficulty} /><span><Clock3 /> ~{todayEntry.content.estimatedMinutes} min</span><span><CoinIcon /> +{todayEntry.metadata.rewardCoins} coins</span></div>
+          <div className="challenge-today-meta"><DifficultyBadge difficulty={todayEntry.content.difficulty} /></div>
         </> : <p>Today’s challenge is not available yet.</p>}
       </div>
-      {todayEntry ? completed ? <div className="challenge-today-action"><strong><CheckCircle2 /> Today’s challenge completed</strong><span className="challenge-today-reward"><CoinIcon /> +{todayEntry.metadata.rewardCoins} coins earned</span><button className="button button--secondary" type="button" onClick={() => onOpenChallenge(today)}>Review Challenge</button></div>
+      {todayEntry ? completed ? <div className="challenge-today-action"><button className="button button--secondary" type="button" onClick={() => onOpenChallenge(today)}>Review Challenge</button></div>
         : <button className="button button--primary" type="button" onClick={() => onOpenChallenge(today)}>Start Today’s Challenge</button> : null}
     </section>
     <ChallengeHistory history={history} onOpenChallenge={onOpenChallenge} onUsePass={setPassDialog} balance={redemptionState.balance} passUses={passUses} redemptionReady={Boolean(userId)} />

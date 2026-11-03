@@ -52,9 +52,8 @@ describe('Daily Challenge Hub', () => {
     render(<ChallengeHub onOpenChallenge={open} />);
 
     expect(screen.getByRole('heading', { name: 'Balanced Brackets' })).toBeInTheDocument();
-    const reward = screen.getByText('+20 coins');
-    expect(reward).toBeInTheDocument();
-    expect(reward.closest('span').querySelector('svg')).toHaveClass('lucide-coins', 'coin-icon');
+    expect(screen.queryByText(/~15 min/i)).not.toBeInTheDocument();
+    expect(screen.queryByText('+20 coins')).not.toBeInTheDocument();
     expect(screen.getByText('Medium')).toHaveClass('difficulty-badge', 'difficulty-badge--medium');
     fireEvent.click(screen.getByRole('button', { name: /Start Today.s Challenge/ }));
     expect(open).toHaveBeenCalledWith('2026-09-13');
@@ -73,9 +72,11 @@ describe('Daily Challenge Hub', () => {
     state.activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: '2026-09-13', completionStatus: 'COMPLETED' }];
     const open = vi.fn();
     render(<ChallengeHub onOpenChallenge={open} />);
-    expect(screen.getByText(/Today.s challenge completed/)).toBeInTheDocument();
-    expect(screen.getByText('+20 coins earned').closest('span').querySelector('svg')).toHaveClass('lucide-coins', 'coin-icon');
+    expect(document.querySelector('.challenge-today-card')).toHaveClass('is-completed');
+    expect(screen.queryByText(/Today.s challenge completed/)).not.toBeInTheDocument();
+    expect(screen.queryByText('+20 coins earned')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Start Today.s Challenge/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Review Challenge' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Review Challenge' }));
     expect(open).toHaveBeenCalledWith('2026-09-13');
   });
