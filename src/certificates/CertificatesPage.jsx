@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Award } from 'lucide-react';
 import { useUser } from '../auth/UserContext';
 import { CERTIFICATE_STATUS } from './certificateModel';
 import { certificateService } from './CertificateService';
 import { CertificateCard } from './CertificateCard';
 import { CertificateViewer } from './CertificateViewer';
+import { preloadCertificateArtifact } from './CertificateArtifact';
 import { publicVerificationUrl } from './publicCertificateVerification';
 import { ErrorState } from '../errors/ErrorState';
 
@@ -19,12 +20,21 @@ const sampleCertificate = Object.freeze({
   verificationStatus: 'sample',
 });
 
-export function CertificatesPage({ onTestSetup }) {
+export function CertificatesPage({ onTestSetup, preloadArtifact = preloadCertificateArtifact }) {
   const { user } = useUser();
   const [certificates, setCertificates] = useState([]);
   const [status, setStatus] = useState('loading');
   const [viewerCertificate, setViewerCertificate] = useState(null);
   const [notice, setNotice] = useState('');
+  const artifactPreloadStarted = useRef(false);
+
+  useEffect(() => {
+    if (artifactPreloadStarted.current) return;
+    artifactPreloadStarted.current = true;
+    void preloadArtifact().catch((error) => {
+      console.warn('[Certificates] Certificate artifact preload failed; on-demand loading remains available.', error);
+    });
+  }, [preloadArtifact]);
 
   useEffect(() => {
     let active = true;

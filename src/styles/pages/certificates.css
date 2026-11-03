@@ -544,6 +544,14 @@
   line-height: 1.25;
 }
 
+.certificate-viewer>header.is-sample h2 {
+  margin-top: 0;
+}
+
+.certificate-viewer>header.is-sample {
+  padding-block: var(--space-4);
+}
+
 .certificate-viewer>header p { margin: .35rem 0 0; color: var(--color-text-muted); font-size: .875rem; }
 .certificate-viewer>header>div { min-width: 0; }
 .certificate-viewer>header button { flex: none; align-self: flex-start; }
@@ -604,8 +612,8 @@
 .certificate-viewer-details h3 { margin: 0; color: var(--color-text); font-size: 1rem; }
 .certificate-viewer-details dl { margin-top: 1rem; }
 .certificate-viewer-details dl>div { gap: .35rem; padding: .85rem 0; border-bottom: 1px solid var(--color-border-fixed); }
-.certificate-viewer-details dt { font-size: .875rem; }
-.certificate-viewer-details dd { color: var(--color-text); font-size: 1rem; }
+.certificate-viewer-details dt { font-size: 1rem; }
+.certificate-viewer-details dd { color: var(--color-text); font-size: .875rem; }
 .certificate-viewer-actions .button { min-height: 2.75rem; font-size: 1rem; }
 
 .certificate-viewer-details dl>div {

@@ -58,4 +58,11 @@ describe('certification setup presentation cleanup', () => {
     expect(examCss).toMatch(/\.readiness-score\.is-ready \{[^}]*background: var\(--color-accent-soft\);/s);
     expect(examCss).toMatch(/\.readiness-score \{[^}]*background: var\(--color-danger-soft\);/s);
   });
+
+  it('allocates more desktop width to Environment health without creating an inner scroller', () => {
+    expect(examCss).toMatch(/\.vision-verification \{[^}]*grid-template-columns: minmax\(0, 1\.8fr\) minmax\(20rem, 1fr\);/s);
+    expect(examCss).toMatch(/\.vision-preview-column,\s*\.environment-health \{[^}]*min-width: 0;/s);
+    expect(examCss).not.toMatch(/\.environment-health \{[^}]*(?:overflow|block-size|max-height):/s);
+    expect(examCss).toMatch(/@media \(max-width: 800px\)[\s\S]*?\.vision-verification \{\s*grid-template-columns: 1fr;/s);
+  });
 });

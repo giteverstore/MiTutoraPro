@@ -15,8 +15,8 @@ export function CertificateViewer({
 
   return (
     <Dialog open title={certificate.courseTitle} titleHidden onClose={onClose} className="certificate-viewer" backdropClassName="certificate-viewer-backdrop">
-        <header>
-          <div><span>{sample ? 'Certificate Example' : 'Certificate'}</span><h2 id="certificate-viewer-title">{certificate.courseTitle}</h2><p>Certificate preview and credential details</p></div>
+        <header className={sample ? 'is-sample' : undefined}>
+          <div>{sample ? null : <span>Certificate</span>}<h2 id="certificate-viewer-title">{certificate.courseTitle}</h2>{sample ? null : <p>Certificate preview and credential details</p>}</div>
           <button type="button" onClick={onClose} aria-label="Close certificate viewer" data-autofocus><X /></button>
         </header>
         <div className="certificate-viewer-body">

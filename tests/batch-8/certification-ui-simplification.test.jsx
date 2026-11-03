@@ -105,7 +105,8 @@ describe('certification learner UI simplification', () => {
 
     const dialog = screen.getByRole('dialog');
     const artifact = within(dialog).getByTestId('certificate-artifact');
-    expect(dialog).toHaveTextContent('Certificate Example');
+    expect(dialog).not.toHaveTextContent('Certificate Example');
+    expect(dialog).not.toHaveTextContent('Certificate preview and credential details');
     expect(dialog).toHaveTextContent('SAMPLE');
     expect(dialog).toHaveTextContent('Sample Certificate');
     expect(within(artifact).queryByText('SAMPLE')).not.toBeInTheDocument();
@@ -122,6 +123,37 @@ describe('certification learner UI simplification', () => {
     expect(certificateState.records).toEqual([]);
     fireEvent.click(screen.getByRole('button', { name: 'Close certificate viewer' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('starts best-effort artifact preload after render without blocking the page', async () => {
+    let resolvePreload;
+    const preloadArtifact = vi.fn(() => new Promise((resolve) => { resolvePreload = resolve; }));
+    certificateState.getCertificates.mockImplementation(() => new Promise(() => {}));
+
+    render(<React.StrictMode><CertificatesPage onTestSetup={vi.fn()} preloadArtifact={preloadArtifact} /></React.StrictMode>);
+
+    expect(screen.getByRole('heading', { name: 'Certificates' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'View Example' })).toBeInTheDocument();
+    expect(screen.getByText(/Loading certificates/)).toBeInTheDocument();
+    await waitFor(() => expect(preloadArtifact).toHaveBeenCalledOnce());
+    resolvePreload();
+  });
+
+  it('keeps the page and sample viewer usable when background preload fails', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const preloadArtifact = vi.fn(async () => { throw new Error('preload failed'); });
+    certificateState.records = [];
+
+    render(<CertificatesPage onTestSetup={vi.fn()} preloadArtifact={preloadArtifact} />);
+
+    expect(screen.getByRole('heading', { name: 'Certificates' })).toBeInTheDocument();
+    await waitFor(() => expect(warning).toHaveBeenCalledWith(
+      expect.stringContaining('on-demand loading remains available'),
+      expect.any(Error),
+    ));
+    fireEvent.click(screen.getByRole('button', { name: 'View Example' }));
+    expect(screen.getByRole('dialog')).toHaveTextContent('Sample Certificate');
+    warning.mockRestore();
   });
 
   it('renders the supplied certificate image without React-generated overlays', () => {
@@ -144,6 +176,10 @@ describe('certification learner UI simplification', () => {
     expect(css).toMatch(/\.completed-certificates\s*\{[^}]*background:\s*var\(--color-surface\);[^}]*border:\s*1px solid #d3dce6;[^}]*box-shadow:\s*var\(--shadow-xs\);/s);
     expect(css).toMatch(/\[data-theme="dark"\] \.completed-certificates\s*\{[^}]*border-color:\s*var\(--color-border\);/s);
     expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*?\.certificates-page-header\s*\{[^}]*flex-direction:\s*column;/s);
+    expect(css).toMatch(/\.certificate-viewer-details dt \{ font-size: 1rem; \}/);
+    expect(css).toMatch(/\.certificate-viewer-details dd \{[^}]*font-size: \.875rem; \}/);
+    expect(css).toMatch(/\.certificate-viewer>header\.is-sample h2 \{[^}]*margin-top: 0;/s);
+    expect(css).toMatch(/\.certificate-viewer>header\.is-sample \{[^}]*padding-block: var\(--space-4\);/s);
   });
 });
 
