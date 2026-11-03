@@ -6,7 +6,6 @@ import { VerificationCountdown } from '../VerificationCountdown/VerificationCoun
 import { DeveloperSimulator } from '../DeveloperSimulator/DeveloperSimulator';
 import { DeveloperCalibrationPanel } from '../DeveloperCalibrationPanel/DeveloperCalibrationPanel';
 import { ExamEvent, EXAM_EVENT_TYPES } from '../../models/ExamEvent';
-import { AcousticFeedback } from '../AcousticFeedback/AcousticFeedback';
 
 export function EnvironmentCheck({ vision, config, onAttachVideo, onReconnectCamera, onEmit }) {
   const [fullscreenError, setFullscreenError] = useState('');
@@ -24,14 +23,13 @@ export function EnvironmentCheck({ vision, config, onAttachVideo, onReconnectCam
   return (
     <section className="vision-verification" aria-labelledby="environment-check-title">
       <div className="vision-preview-column">
-        <div className="exam-card-heading"><span>System readiness</span><h2 id="environment-check-title">Verify your exam environment</h2><p>Remain visible in a well-lit, focused, fullscreen environment while the verification completes.</p></div>
+        <div className="exam-card-heading"><h2 id="environment-check-title">Verify your exam environment</h2></div>
         <CameraPreview camera={vision.camera} onAttach={attachVideo} onReconnect={onReconnectCamera} />
         {!vision.browser.fullscreen && config.browser.fullscreenRequired ? <button className="button button--secondary vision-fullscreen-button" type="button" onClick={enableFullscreen}><Maximize2 /> Enable fullscreen</button> : null}
         {fullscreenError ? <p className="exam-check-error" role="alert">{fullscreenError}</p> : null}
         <VerificationCountdown vision={vision} durationMs={config.vision.verificationDurationMs} stabilityDurationMs={config.vision.stabilityDurationMs} />
       </div>
       <EnvironmentChecklist vision={vision} />
-      <AcousticFeedback audio={vision.audio} />
       {import.meta.env.DEV ? <DeveloperSimulator mode="vision" vision={vision} onEmit={onEmit} /> : null}
       {import.meta.env.DEV ? <DeveloperCalibrationPanel vision={vision} onTune={(values) => onEmit(new ExamEvent({ type: EXAM_EVENT_TYPES.CUSTOM, metadata: { action: 'AUDIO_CALIBRATION', values } }))} /> : null}
     </section>

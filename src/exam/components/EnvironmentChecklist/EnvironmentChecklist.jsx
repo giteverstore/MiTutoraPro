@@ -25,7 +25,7 @@ export function EnvironmentChecklist({ vision }) {
   return (
     <section className="environment-health" aria-labelledby="environment-checklist-title">
       <header className="environment-health-header">
-        <div className="exam-card-heading"><span>Live system health</span><h2 id="environment-checklist-title">Environment health</h2><p>Checks update automatically as your environment changes.</p></div>
+        <div className="exam-card-heading"><h2 id="environment-checklist-title">Environment health</h2></div>
         <div className={`readiness-score ${vision.readinessScore >= vision.minimumReadinessScore ? 'is-ready' : ''}`} aria-label={`Readiness score ${vision.readinessScore} out of 100`}>
           <strong>{vision.readinessScore}%</strong><span>{vision.readinessScore >= vision.minimumReadinessScore ? 'Environment ready' : 'Improvement needed'}</span>
         </div>
@@ -39,9 +39,6 @@ export function EnvironmentChecklist({ vision }) {
             <StateIcon severity={state.severity} />
           </article>;
         })}
-      </div>
-      <div className="quality-indicators" aria-label="Live camera quality">
-        {[['Lighting', vision.quality.lighting], ['Background', vision.quality.background], ['Audio', vision.quality.audio], ['Face stability', vision.quality.face], ['Camera stability', vision.quality.camera]].map(([label, quality]) => <div key={label}><span><strong>{label}</strong><em>{quality}%</em></span><div role="meter" aria-label={`${label} ${quality}%`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={quality}><span style={{ width: `${quality}%` }} /></div></div>)}
       </div>
     </section>
   );
