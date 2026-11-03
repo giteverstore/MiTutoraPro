@@ -455,7 +455,11 @@
   padding: clamp(var(--space-6), 4vw, var(--space-8));
 
   color: var(--color-text);
-  background: transparent;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-surface-inverse) 18%, var(--color-surface)),
+    color-mix(in srgb, var(--color-accent) 20%, var(--color-surface))
+  );
   border-radius: 0;
   box-shadow: none;
 }

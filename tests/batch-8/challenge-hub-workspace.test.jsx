@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const state = vi.hoisted(() => ({
@@ -45,12 +46,34 @@ beforeEach(() => {
 });
 
 describe('Daily Challenge Hub', () => {
+  it('keeps a stable base gradient before completion evidence is available', () => {
+    const css = readFileSync('src/styles/pages/challenges.css', 'utf8');
+    const baseRule = css.match(/\.challenge-today-card\s*\{([^}]*)\}/s)?.[1] ?? '';
+    const completedRule = css.match(/\.challenge-today-card\.is-completed\s*\{([^}]*)\}/s)?.[1] ?? '';
+
+    expect(baseRule).toMatch(/background:\s*linear-gradient\(/);
+    expect(baseRule).not.toMatch(/background:\s*transparent/);
+    expect(baseRule).toContain('var(--color-surface)');
+    expect(baseRule).toContain('var(--color-accent)');
+    expect(completedRule).toMatch(/background:\s*linear-gradient\(/);
+  });
+
+  it('uses the reviewed neutral borders for Challenge History', () => {
+    const css = readFileSync('src/styles/pages/challenges.css', 'utf8');
+
+    expect(css).toMatch(/\.challenge-history\s*\{[^}]*border-color:\s*#d3dce6;/s);
+    expect(css).toMatch(/\.challenge-history>header\s*\{[^}]*border-bottom-color:\s*#d3dce6;/s);
+    expect(css).toMatch(/\.challenge-history-list article\s*\{[^}]*border-bottom-color:\s*#d3dce6;/s);
+    expect(css).toMatch(/\[data-theme="dark"\] \.challenge-history\s*\{[^}]*border-color:\s*var\(--color-border\);/s);
+  });
+
   it('renders the real today card and history without the monolithic workspace', () => {
     state.resource = { data: [entry('2026-09-13', 'Balanced Brackets'), entry('2026-09-12', 'Count Vowels'), entry('2026-09-11', 'Rotate a List'), entry('2026-09-14', 'Future Challenge')], error: null, loading: false };
     state.activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: '2026-09-12', completionStatus: 'COMPLETED' }];
     const open = vi.fn();
     render(<ChallengeHub onOpenChallenge={open} />);
 
+    expect(document.querySelector('.challenge-today-card')).not.toHaveClass('is-completed');
     expect(screen.getByRole('heading', { name: 'Balanced Brackets' })).toBeInTheDocument();
     expect(screen.queryByText(/~15 min/i)).not.toBeInTheDocument();
     expect(screen.queryByText('+20 coins')).not.toBeInTheDocument();
