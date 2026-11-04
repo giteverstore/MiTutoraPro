@@ -12,7 +12,6 @@ export function LibraryPage({ onOpenBookmark }) {
     all: bookmarks.length,
     course: bookmarks.filter(({ type }) => type === 'course').length,
     practice: bookmarks.filter(({ type }) => type === 'practice').length,
-    challenge: bookmarks.filter(({ type }) => type === 'challenge').length,
   }), [bookmarks]);
   const visibleBookmarks = useMemo(() => {
     const query = search.trim().toLowerCase();

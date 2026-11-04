@@ -4,7 +4,6 @@ const tabs = [
   { id: 'all', label: 'All' },
   { id: 'course', label: 'Courses' },
   { id: 'practice', label: 'Practice' },
-  { id: 'challenge', label: 'Challenges' },
 ];
 
 export function LibraryFilters({ activeTab, search, onTabChange, onSearchChange, counts }) {

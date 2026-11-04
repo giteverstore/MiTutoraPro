@@ -23,7 +23,9 @@ describe('Bookmarks compact layout', () => {
     expect(await screen.findByRole('tab', { name: 'All3' })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: 'Courses1' })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: 'Practice1' })).toBeInTheDocument();
-    expect(screen.getByRole('tab', { name: 'Challenges1' })).toBeInTheDocument();
+    expect(screen.queryByRole('tab', { name: /Challenges/ })).not.toBeInTheDocument();
+    expect(screen.getAllByRole('tab')).toHaveLength(3);
+    expect(screen.getByText('Daily Variables')).toBeInTheDocument();
     expect(screen.queryByText('Everything you saved, in one place.')).not.toBeInTheDocument();
     expect(screen.queryByText(/Return to useful lessons/)).not.toBeInTheDocument();
     expect(screen.queryByText('Saved Items')).not.toBeInTheDocument();
@@ -39,6 +41,19 @@ describe('Bookmarks compact layout', () => {
     expect(onOpenBookmark).toHaveBeenCalledWith(expect.objectContaining({ id: 'practice-1' }));
   });
 
+  it('keeps Course filtering and search behavior while legacy Challenges remain available through All', async () => {
+    renderPage();
+    fireEvent.click(await screen.findByRole('tab', { name: 'Courses1' }));
+    expect(screen.getByText('Python Basics')).toBeInTheDocument();
+    expect(screen.queryByText('Variables Practice')).not.toBeInTheDocument();
+    expect(screen.queryByText('Daily Variables')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('tab', { name: 'All3' }));
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Search saved items' }), { target: { value: 'Daily' } });
+    expect(screen.getByText('Daily Variables')).toBeInTheDocument();
+    expect(screen.queryByText('Python Basics')).not.toBeInTheDocument();
+  });
+
   it('preserves unbookmark behavior and updates counts', async () => {
     const { repository } = renderPage([bookmarks[0]]);
     fireEvent.click(await screen.findByRole('button', { name: 'Remove Python Basics from Library' }));
@@ -52,7 +67,8 @@ describe('Bookmarks compact layout', () => {
     expect(await screen.findByText('Your Library is ready')).toBeInTheDocument();
     cleanup();
     renderPage([bookmarks[0]]);
-    fireEvent.click(await screen.findByRole('tab', { name: 'Challenges0' }));
+    await screen.findByRole('tab', { name: 'All1' });
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Search saved items' }), { target: { value: 'missing item' } });
     expect(screen.getByText('No saved items match')).toBeInTheDocument();
   });
 
