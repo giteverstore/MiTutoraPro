@@ -12,8 +12,10 @@ import { AITutorWorkspace } from '../ai/AITutorWorkspace';
 import { SharedCompilerDock } from '../components/SharedCompilerDock';
 import { CompletionCelebration } from '../components/CompletionCelebration';
 import { ACTIVITY_LANGUAGE_OPTIONS } from '../compiler/languages/activityLanguageOptions';
+import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
+import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
 
-export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {} }) {
+export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {}, allowBookmark = false }) {
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
   const [completed, setCompleted] = useState(solved);
   const [celebration, setCelebration] = useState(null);
@@ -61,7 +63,9 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
   return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
     <div className={`practice-immersive-workspace coding-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="practice" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
       <section className="practice-main-region coding-workspace__content">
-        <LearningWorkspaceToolbar activeView={activeWorkspace} onViewChange={setActiveWorkspace} compilerMinimized={isCompilerMinimized} onRestoreCompiler={toggleCompiler} primaryView="question" primaryLabel="Question" panelPrefix="practice" />
+        <LearningWorkspaceToolbar activeView={activeWorkspace} onViewChange={setActiveWorkspace} compilerMinimized={isCompilerMinimized} onRestoreCompiler={toggleCompiler} primaryView="question" primaryLabel="Question" panelPrefix="practice">
+          {allowBookmark ? <BookmarkToggle bookmark={createPracticeBookmark(question)} iconOnly className="practice-workspace-bookmark" /> : null}
+        </LearningWorkspaceToolbar>
       <article className="practice-problem lesson-panel" id="practice-question-panel" role="tabpanel" hidden={activeWorkspace !== 'question'}>
         <header className="practice-detail-header">
           <button className="practice-back-button" type="button" onClick={onBack}><ArrowLeft /> Back to Practice</button>

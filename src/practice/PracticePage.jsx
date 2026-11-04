@@ -139,7 +139,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
       : <header className="practice-page-heading"><h1>Loading question…</h1><p>Verifying and preparing the question content.</p><button className="button button--ghost" type="button" onClick={() => setOpenQuestionId(null)}>Back to Practice</button></header>}</div>;
   }
   if (openQuestion) {
-    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} requireAuthentication={anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
+    return <PracticeDetail question={openQuestion} solved={solvedQuestionIds.has(openQuestion.id)} requireAuthentication={anonymous} allowBookmark={!anonymous} onRequireAuth={() => onRequireAuth(`/practice/${openQuestion.id}`)} onBack={() => { setOpenQuestionId(null); onQuestionChange(null); }} onComplete={async (question) => {
       const result = await activityCompletionClient.complete({ activityType: 'PRACTICE', activityId: question.id, activityVersion: question.version });
       if (['completed', 'already_completed'].includes(result.completionStatus)) activity?.recordCompletion?.({ activityType: 'PRACTICE', activityId: question.id, completionStatus: 'COMPLETED' });
       return result;

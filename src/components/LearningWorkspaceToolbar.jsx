@@ -1,7 +1,7 @@
 import { Bot, Code2, BookOpen } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
 
-export function LearningWorkspaceToolbar({ activeView, onViewChange, compilerMinimized, onRestoreCompiler, primaryView = 'course', primaryLabel = 'Course', panelPrefix = 'learning', aiEnabled = true }) {
+export function LearningWorkspaceToolbar({ activeView, onViewChange, compilerMinimized, onRestoreCompiler, primaryView = 'course', primaryLabel = 'Course', panelPrefix = 'learning', aiEnabled = true, children = null }) {
   const tabs = [
     { id: primaryView, label: primaryLabel, icon: BookOpen },
     ...(aiEnabled ? [{ id: 'ai', label: 'AI', accessibleLabel: 'AI Tutor', icon: Bot }] : []),
@@ -26,6 +26,7 @@ export function LearningWorkspaceToolbar({ activeView, onViewChange, compilerMin
           </button>
         ))}
       </div> : null}
+      {children}
       {compilerMinimized ? (
         <button className="learning-compiler-launcher" type="button" onClick={onRestoreCompiler}>
           <span className="learning-compiler-launcher-icon" aria-hidden="true">
