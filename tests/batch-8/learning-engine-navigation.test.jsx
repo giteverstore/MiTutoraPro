@@ -231,4 +231,22 @@ describe('Learning Engine navigation alignment', () => {
     expect(topbar.querySelectorAll('.application-icon-button')).toHaveLength(2);
     expect(container.querySelector('.shared-compiler-dock .application-topbar-actions')).toBeNull();
   });
+
+  it('owns the bookmark control contract independently of prior Library navigation', () => {
+    const bookmark = readFileSync('src/bookmarks/BookmarkToggle.jsx', 'utf8');
+    const bookmarkCss = readFileSync('src/styles/components/bookmark-toggle.css', 'utf8');
+    const libraryCss = readFileSync('src/styles/pages/library-bookmarks.css', 'utf8');
+
+    expect(bookmark).toContain("import '../styles/components/bookmark-toggle.css'");
+    expect(bookmarkCss).toMatch(/\.bookmark-toggle\s*\{[^}]*display:\s*inline-flex;[^}]*min-height:\s*var\(--control-height-md\);[^}]*border:\s*1px solid var\(--color-border-fixed\);[^}]*border-radius:\s*var\(--radius-full\);/s);
+    expect(bookmarkCss).toMatch(/\.bookmark-toggle\.is-icon-only\s*\{[^}]*width:\s*var\(--control-height-md\);[^}]*padding:\s*0;/s);
+    expect(bookmarkCss).toMatch(/\.topbar-bookmark-toggle\s*\{[^}]*width:\s*var\(--control-height-md\);[^}]*height:\s*var\(--control-height-md\);[^}]*flex:\s*0 0 var\(--control-height-md\);/s);
+    expect(bookmarkCss).toMatch(/\[data-theme='dark'\] \.bookmark-toggle\s*\{[^}]*border-color:\s*var\(--color-border\);/s);
+    expect(libraryCss).not.toMatch(/\.bookmark-toggle\s*\{/);
+
+    const { container } = render(<TopNavigation {...props()} />);
+    const control = screen.getByRole('button', { name: 'Save Variables to Library' });
+    expect(control).toHaveClass('topbar-bookmark-toggle');
+    expect(container.querySelectorAll('.topbar-bookmark-toggle')).toHaveLength(1);
+  });
 });

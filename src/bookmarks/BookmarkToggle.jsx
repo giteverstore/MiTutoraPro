@@ -1,5 +1,6 @@
 import { Bookmark } from 'lucide-react';
 import { useBookmarks } from './BookmarkContext';
+import '../styles/components/bookmark-toggle.css';
 
 export function BookmarkToggle({ bookmark, onChange, iconOnly = false, className = '' }) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
