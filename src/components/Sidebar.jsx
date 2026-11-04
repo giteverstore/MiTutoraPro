@@ -85,13 +85,6 @@ export function Sidebar({
             )}
           </nav>
         )}
-        <div className="sidebar-footer">
-          <span className="sidebar-footer-icon">{sidebar.support.icon}</span>
-          <span>
-            <strong>{sidebar.support.title}</strong>
-            <small>{sidebar.support.description}</small>
-          </span>
-        </div>
       </aside>
     </>
   );

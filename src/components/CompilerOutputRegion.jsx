@@ -10,6 +10,7 @@ export function CompilerOutputRegion({
   execution,
   verificationStatus,
   renderOutput,
+  onAskAISelection,
   publicTests,
   contract,
   onCheckOutput,
@@ -90,6 +91,7 @@ export function CompilerOutputRegion({
         onCheckOutput={onCheckOutput}
         canCheckOutput={canCheckOutput}
         showCheckOutput={Boolean(onCheckOutput)}
+        onAskAISelection={onAskAISelection}
         {...sharedPanelProps}
       />
     );

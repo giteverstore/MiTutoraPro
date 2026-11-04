@@ -190,6 +190,32 @@ describe('Learning AI Tutor workspace', () => {
     expect(explain.mock.calls[0][0]).toEqual(expect.objectContaining({ requestType: 'explain-selection', selectedCode: 'numbers[10]', learnerMessage: 'Edited question' }));
   });
 
+  it('attaches exact lesson and compiler result selections without bypassing source verification', async () => {
+    const explain = vi.fn().mockResolvedValue(response);
+    const client = { explain, history: vi.fn().mockResolvedValue({ items: [], nextCursor: null }) };
+    const { rerender } = render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} pendingRequest={{ id: 'lesson-selection', selectionContext: { sourceType: 'lesson_text', text: '  Exact lesson text\nwith line break  ' } }} client={client} accessTier="PREMIUM" />);
+    const composer = screen.getByRole('textbox', { name: 'Ask AI Tutor' });
+    expect(composer).toHaveValue('Help me understand this.');
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
+    await waitFor(() => expect(explain).toHaveBeenCalled());
+    expect(explain.mock.calls[0][0]).toEqual(expect.objectContaining({
+      requestType: 'explain-full-code',
+      selectedCode: '',
+      lessonContext: expect.stringContaining('Selected lesson text:\n  Exact lesson text\nwith line break  '),
+    }));
+
+    rerender(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} pendingRequest={{ id: 'error-selection', selectionContext: { sourceType: 'compiler_error', text: 'TypeError: exact failure' } }} client={client} accessTier="PREMIUM" />);
+    expect(composer).toHaveValue('Help me understand this.');
+  });
+
+  it('hides remaining-message counts while preserving the quota blocked state', async () => {
+    const client = { explain: vi.fn(), history: vi.fn().mockResolvedValue({ items: [], nextCursor: null, usage: { remainingMessages: 0, unlimited: false } }) };
+    render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={client} accessTier="PREMIUM" />);
+    expect(await screen.findByText('Daily AI limit reached. Try again tomorrow.')).toBeInTheDocument();
+    expect(screen.queryByText(/AI messages remaining/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Ask AI Tutor' })).toBeDisabled();
+  });
+
   it('sends Enter as a bounded full-code follow-up and keeps Shift+Enter as a newline', async () => {
     const explain = vi.fn().mockResolvedValue({ ...response, operation: 'explain-full-code' });
     render(<AITutorWorkspace course={course} lesson={lesson} compilerContext={compilerContext} client={{ explain }} accessTier="PREMIUM" />);

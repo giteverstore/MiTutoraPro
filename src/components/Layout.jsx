@@ -197,6 +197,10 @@ export function Layout({ courseLoader }) {
     setPendingTutorRequest({ id: `${Date.now()}-${context.selectionContext.snapshot.selectionHash}`, selectionContext: context.selectionContext });
     setActiveWorkspace('ai');
   }, []);
+  const handleAskAISelection = useCallback(({ sourceType, text }) => {
+    setPendingTutorRequest({ id: `${Date.now()}-${sourceType}`, selectionContext: { sourceType, text } });
+    setActiveWorkspace('ai');
+  }, []);
   const gatedLessonType = currentBlockList.some((block) => block.type === 'quiz')
     ? 'quiz'
     : exerciseBlock
@@ -285,6 +289,7 @@ export function Layout({ courseLoader }) {
               emptyState={course.ui.emptyLesson}
               unavailableState={course.ui.emptyCourse}
               blockRuntimeProps={blockRuntimeProps}
+              onAskAISelection={handleAskAISelection}
             />
             <LessonFooter
               lesson={currentLesson}
@@ -326,6 +331,7 @@ export function Layout({ courseLoader }) {
             onToggleCompiler: toggleCompilerMinimized,
             onAskAITutor: handleAskAITutor,
             onContextChange: handleCompilerContextChange,
+            onAskAISelection: handleAskAISelection,
             aiEnabled: true,
           }}
           errorBoundary={{

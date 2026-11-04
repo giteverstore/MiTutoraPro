@@ -8,9 +8,14 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  border-left: 1px solid var(--color-border-fixed);
+  border: 1px solid #d3dce6;
+  border-radius: var(--radius-lg);
   background: var(--color-surface-raised);
   container: compiler / inline-size;
+}
+
+[data-theme='dark'] .desktop-compiler {
+  border-color: var(--color-border);
 }
 
 .compiler-dock {

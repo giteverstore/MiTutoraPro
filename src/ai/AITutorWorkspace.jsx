@@ -54,6 +54,9 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     requestRef.current = controller;
     const requestId = createConversationRequestId('tutor');
     const hasVerifiedSelection = Boolean(selection?.text?.trim() && selection?.snapshot);
+    const contextualSelection = selection?.text?.trim() && selection?.sourceType
+      ? `Selected ${selection.sourceType.replaceAll('_', ' ')}:\n${selection.text}`
+      : '';
     const requestScope = scopeRef.current;
     const userMessage = {
       id: `${requestId}-user`,
@@ -94,8 +97,9 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         lessonContext: [
           `Course: ${course.title}`,
           `Lesson: ${lesson.title}`,
+          contextualSelection,
           ...contextLines,
-        ].join('\n'),
+        ].filter(Boolean).join('\n'),
       }, { signal: controller.signal });
       if (requestRef.current !== controller || scopeRef.current !== requestScope) return;
       setMessages((current) => reconcileConversation(current, [{ id: `${requestId}-assistant`, requestId, role: 'assistant', response, createdAt: Date.now() }]));
@@ -133,7 +137,8 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
     if (!pendingRequest || handledRequestRef.current === pendingRequest.id) return;
     handledRequestRef.current = pendingRequest.id;
     setSelectionContext(pendingRequest.selectionContext?.text?.trim() ? pendingRequest.selectionContext : null);
-    setDraft((current) => current.trim() ? current : 'Explain this code.');
+    const sourceType = pendingRequest.selectionContext?.sourceType;
+    setDraft((current) => current.trim() ? current : sourceType ? 'Help me understand this.' : 'Explain this code.');
     requestAnimationFrame(() => {
       const composer = composerRef.current;
       if (!composer) return;
@@ -179,7 +184,7 @@ export function AITutorWorkspace({ course, lesson, compilerContext, pendingReque
         {error ? <ErrorState title={status === 'unavailable' ? 'AI Tutor unavailable' : 'AI Tutor could not respond'} description={error} variant="compact" kind={status === 'unavailable' ? 'unavailable' : 'failure'} alert /> : null}
       </div>
       <div className="ai-workspace-composer">
-        {usage ? <small className="ai-workspace-usage">{usage.unlimited ? 'Unlimited AI messages' : `${usage.remainingMessages} AI messages remaining`}</small> : null}
+        {usage?.remainingMessages === 0 ? <small className="ai-workspace-limit" role="status">Daily AI limit reached. Try again tomorrow.</small> : null}
         <textarea
           ref={composerRef}
           aria-label="Ask AI Tutor"

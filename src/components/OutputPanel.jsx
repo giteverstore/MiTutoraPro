@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CheckCircle2, ChevronDown, ChevronUp, CircleAlert, LoaderCircle, SearchCheck } from 'lucide-react';
 import { ICON_SIZE } from '../design-system/theme';
+import { useSelectionAskAI } from './SelectionAskAIAction';
 
 export function OutputPanel({
   height,
@@ -20,6 +21,7 @@ export function OutputPanel({
   complexity = {},
   tests = [],
   contract = null,
+  onAskAISelection,
 }) {
   const inputContent = Array.isArray(inputs) ? inputs.join('\n') : inputs;
   const tabs = useMemo(() => [
@@ -30,6 +32,8 @@ export function OutputPanel({
     { id: 'errors', label: 'Errors', count: error ? 1 : 0 },
   ], [error, inputContent, tests.length]);
   const [activeTab, setActiveTab] = useState('output');
+  const selectionSource = { output: 'compiler_output', expected: 'expected_output', errors: 'compiler_error' }[activeTab] ?? null;
+  const selection = useSelectionAskAI({ sourceType: selectionSource, onAskAI: onAskAISelection });
   const status = isRunning ? 'running' : executionStatus;
   const stateTone = verificationStatus === 'mismatched' ? 'mismatch' : status;
   const statusLabel = {
@@ -104,10 +108,12 @@ export function OutputPanel({
       </div>
 
       {!collapsed ? <div
+        ref={selection.containerRef}
         className={`ide-result-terminal${activeTab === 'errors' && error ? ' is-error' : ''}`}
         id={`compiler-panel-${activeTab}`}
         role="tabpanel"
         tabIndex="0"
+        onMouseUp={selectionSource ? selection.captureSelection : undefined}
       >
         {activeTab === 'tests' ? (
           <div className="shared-compiler-tests">
@@ -122,6 +128,7 @@ export function OutputPanel({
           </div>
         ) : <pre><code>{tabContent}</code></pre>}
       </div> : null}
+      {selectionSource ? selection.action : null}
 
       {!collapsed && verificationStatus === 'mismatched' ? (
         <p className="ide-verification-message is-mismatch">

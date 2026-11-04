@@ -27,6 +27,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   onToggleCompiler,
   onAskAITutor,
   onContextChange,
+  onAskAISelection,
   aiEnabled = false,
   publicTests = [],
   contract = null,
@@ -217,6 +218,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           execution={{ preview, database, emulator, result, error, isRunning, executionTimeMs, executionStatus }}
           verificationStatus={verificationStatus}
           renderOutput={renderOutput}
+          onAskAISelection={onAskAISelection}
           publicTests={publicTests}
           contract={contract}
           onCheckOutput={onSubmit ? undefined : checkOutput}

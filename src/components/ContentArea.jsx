@@ -2,6 +2,7 @@ import { BlockRenderer } from './BlockRenderer';
 import { EmptyState } from './EmptyState';
 import { LessonHeader } from './LessonHeader';
 import { LessonSkeleton } from './LoadingSkeleton';
+import { useSelectionAskAI } from './SelectionAskAIAction';
 
 export function ContentArea({
   lesson,
@@ -12,9 +13,11 @@ export function ContentArea({
   emptyState,
   unavailableState,
   blockRuntimeProps,
+  onAskAISelection,
 }) {
+  const selection = useSelectionAskAI({ sourceType: 'lesson_text', onAskAI: onAskAISelection });
   return (
-    <main className="lesson-panel" tabIndex="0" aria-label="Lesson content">
+    <main ref={selection.containerRef} className="lesson-panel" tabIndex="0" aria-label="Lesson content" onMouseUp={selection.captureSelection}>
       {isLoading ? <LessonSkeleton /> : lesson && module ? (
         <article className="lesson-document">
           <LessonHeader
@@ -39,6 +42,7 @@ export function ContentArea({
           />
         </div>
       )}
+      {selection.action}
     </main>
   );
 }
