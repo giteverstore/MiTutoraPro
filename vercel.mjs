@@ -89,4 +89,21 @@ export function createVercelConfig(target = MAIN_DEPLOYMENT_TARGET) {
   };
 }
 
-export const config = createVercelConfig(process.env.YCODERS_DEPLOYMENT_TARGET || MAIN_DEPLOYMENT_TARGET);
+const deploymentTargetConfig = createVercelConfig(
+  process.env.YCODERS_DEPLOYMENT_TARGET || MAIN_DEPLOYMENT_TARGET,
+);
+
+// Vercel statically inspects build and framework properties before executing
+// programmatic configuration. Keep those fields (and the absence of other
+// static-only project settings) visible in the exported object, while the
+// supported per-project route and cron differences remain programmatic.
+export const config = {
+  framework: 'vite',
+  outputDirectory: 'dist',
+  functions: {
+    'api/ai/explain.js': { maxDuration: 60, supportsCancellation: true },
+    'api/compiler.js': { maxDuration: 60, supportsCancellation: true },
+  },
+  crons: deploymentTargetConfig.crons,
+  routes: deploymentTargetConfig.routes,
+};
