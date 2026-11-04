@@ -415,3 +415,64 @@
     min-width: 0;
   }
 }
+
+/* Keep the interactive build hero in normal flow at desktop widths. The copy
+   may wrap before either grid track can intrude into the other. */
+.landing-building-copy,
+.landing-feature-panel {
+  min-width: 0;
+}
+
+.landing-building h2 {
+  white-space: normal;
+}
+
+.landing-feature-tabs {
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1200px) {
+  .landing-building {
+    width: 100%;
+    grid-template-columns: minmax(22rem, 1fr) minmax(26rem, 38rem);
+    gap: clamp(2rem, 3.5vw, 4rem);
+  }
+
+  .landing-feature-panel {
+    width: 100%;
+    max-width: 38rem;
+    justify-self: end;
+  }
+}
+
+/* Give the supplied project artwork enough of its column to balance the copy. */
+.landing-projects {
+  grid-template-columns: minmax(0, 1.15fr) minmax(22rem, .85fr);
+}
+
+.landing-project-illustration {
+  width: 100%;
+  max-width: 48rem;
+  justify-self: center;
+}
+
+.landing-project-illustration img {
+  width: 100%;
+  max-width: 48rem;
+  max-height: 36rem;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 1199px) {
+  .landing-building,
+  .landing-projects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .landing-feature-panel,
+  .landing-project-illustration {
+    width: min(100%, 44rem);
+    justify-self: center;
+  }
+}
