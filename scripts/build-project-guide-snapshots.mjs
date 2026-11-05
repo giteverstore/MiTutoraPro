@@ -51,7 +51,10 @@ const imagePages = {
 const clean = (value) => String(value ?? '').replace(/\u000b/g, '\n').replace(/\r/g, '').trim();
 const isHeading = (item) => item.bold === -1 || Number(item.fontSize) >= 13 || /^(?:chapter|task|milestone|appendix|reflection|extension|expected output|driver|verify|project)/i.test(item.text);
 const looksLikeOutput = (heading) => /expected output|sample output|output/i.test(heading);
-const looksLikeCode = (item) => /consolas|courier/i.test(item.font ?? '') || /(?:public static void main|#include|def |class |System\.out|std::|print\(|```)/.test(item.text ?? '');
+const CODE_SYNTAX = /(?:^|\n)\s*(?:\/\/|#include\b|def\s+\w+|class\s+\w+|FUNCTION\b|CLASS\b|IF\b|ELSE\b|FOR\b|WHILE\b|RETURN\b|PRINT\b|SET\b|CALL\b|END\b|public\s+static\s+void\s+main\b|System\.out\b|std::|\w+\s*=)/m;
+// Source workbooks sometimes use a monospace font for explanatory prose. Font
+// choice alone must not turn a normal sentence into a preformatted code block.
+const looksLikeCode = (item) => CODE_SYNTAX.test(item.text ?? '');
 
 function paragraphBlock(item, heading) {
   const text = clean(item.text);
@@ -59,11 +62,8 @@ function paragraphBlock(item, heading) {
   if (item.listType || item.listLabel || /^[•·✓-]\s*/.test(text)) {
     return { type: 'list', ordered: /^\d+[.)]/.test(item.listLabel ?? ''), items: [text.replace(/^[•·✓-]\s*/, '')] };
   }
-  if (looksLikeCode(item) || text.includes('\n')) {
-    return looksLikeOutput(heading)
-      ? { type: 'expected-output', output: text }
-      : { type: 'code', code: text };
-  }
+  if (looksLikeOutput(heading) && text.includes('\n')) return { type: 'expected-output', output: text };
+  if (looksLikeCode(item)) return { type: 'code', code: text };
   if (isHeading(item)) return { type: 'heading', level: Number(item.fontSize) >= 14 ? 3 : 4, text };
   return { type: 'paragraph', text };
 }

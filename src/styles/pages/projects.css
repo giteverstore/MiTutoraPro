@@ -38,9 +38,9 @@
 .project-structured-guide > * { margin: 0; }
 .project-guide-note,
 .project-language-hint,
-.project-guide-output { min-width: 0; max-width: 100%; padding: var(--space-3); background: var(--project-hover); border-left: 3px solid var(--project-accent); border-radius: var(--radius-sm); box-sizing: border-box; }
+.project-guide-output { min-width: 0; max-width: 100%; padding: var(--space-3); background: var(--project-hover); border-radius: var(--radius-sm); box-sizing: border-box; }
 .project-guide-source-image { display: grid; width: 100%; min-width: 0; max-width: 100%; justify-items: center; gap: var(--space-2); box-sizing: border-box; }
-.project-guide-source-image img { display: block; width: auto; height: auto; max-width: 100%; max-height: 28rem; object-fit: contain; }
+.project-guide-source-image img { display: block; width: min(100%,30rem); height: auto; max-width: 100%; object-fit: contain; }
 .project-guide-source-image figcaption { color: var(--color-text-muted); font-size: 14px; text-align: center; }
 .project-guide-note { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); background: var(--project-note-surface); border: 1px solid var(--project-note-border); border-left-width: 3px; }
 .project-guide-note > svg { width: 1.1rem; height: 1.1rem; flex: 0 0 auto; margin-top: .15rem; color: var(--project-note-icon); }
@@ -829,6 +829,10 @@
 .project-guide-content ul,.project-guide-content ol { min-width: 0; max-width: 100%; padding-left: 1.4rem; box-sizing: border-box; }.project-guide-content li { margin-bottom: .55rem; }.project-guide-content dl div { min-width: 0; max-width: 100%; margin-bottom: 1rem; }.project-guide-content dt { color: var(--color-text-muted); font-size: .75rem; }.project-guide-content dd { margin: .3rem 0 0; }
 .project-guide-content pre { width: 100%; min-width: 0; max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: pre; box-sizing: border-box; }
 .project-guide-content pre code { white-space: inherit; }
+.project-guide-content .project-guide-monospace-prose { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; }
+.project-guide-content .project-guide-monospace-prose code,
+.project-guide-content .project-runtime-command code { white-space: normal; overflow-wrap: anywhere; word-break: normal; }
+.project-guide-content .project-guide-output pre { overflow-x: hidden; white-space: pre-wrap; overflow-wrap: anywhere; word-break: normal; }
 .project-guide-content .content-table-scroll { width: 100%; min-width: 0; max-width: 100%; margin-block: var(--space-2) var(--space-5); overflow-x: auto; border-color: var(--project-guide-table-border); box-sizing: border-box; }
 .project-guide-content .content-table-scroll table { width: 100%; max-width: 100%; table-layout: fixed; }
 .project-guide-content .content-table-scroll th,

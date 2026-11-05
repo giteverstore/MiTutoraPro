@@ -23,6 +23,27 @@ describe('physical DOCX Project Guide fidelity', () => {
     expect(screen.getByRole('img', { name: 'Blackjack game flow diagram' })).toHaveAttribute('src', '/assets/projects/guides/blackjack/image1.png');
   });
 
+  it('wraps source-styled monospace prose while preserving genuine code blocks', () => {
+    const { container, rerender } = render(<ProjectGuideRenderer blocks={[{ type: 'code', code: 'This sentence was styled with a monospace source font but remains prose.' }]} />);
+    expect(container.querySelector('.project-guide-monospace-prose')).toHaveTextContent('This sentence was styled with a monospace source font but remains prose.');
+    expect(container.querySelector('pre')).not.toBeInTheDocument();
+
+    rerender(<ProjectGuideRenderer blocks={[{ type: 'code', code: 'FUNCTION main():\n    PRINT "Hello"' }]} />);
+    expect(container.querySelector('.project-guide-code-block')).toHaveTextContent('FUNCTION main():');
+  });
+
+  it('keeps Hangman physical page 7 as its exact sparse two-step continuation', () => {
+    const page = projectCatalog.getProjectById('hangman').guidePages[6];
+    expect(page).toMatchObject({
+      id: 'hangman-source-page-07',
+      sourcePageStart: 7,
+      sourcePageEnd: 7,
+      sourcePages: [7],
+      title: '3.  If the character has not been guessed yet, replace it with an underscore (_).',
+    });
+    expect(page.blocks).toEqual([{ type: 'heading', level: 3, text: '4.  Join the resulting characters with single space delimiters (e.g., "P _ _ _ E _" for "PLANET" with guesses [\'P\', \'E\']).' }]);
+  });
+
   it('restores by stable ID/source page and safely migrates a legacy condensed index', () => {
     const guide = buildProjectSourcePages(projectCatalog.getProjectById('hangman'));
     expect(resolveSavedGuidePageIndex(guide, { guidePageId: 'hangman-source-page-09', guidePageIndex: 2 })).toBe(8);

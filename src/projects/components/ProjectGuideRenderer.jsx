@@ -2,6 +2,9 @@ import { resolveLanguageVariant } from '../../../shared/content/normalization.js
 import { Lightbulb } from 'lucide-react';
 import { ContentTable } from '../../components/ContentTable.jsx';
 
+const CODE_SYNTAX = /(?:^|\n)\s*(?:\/\/|#include\b|def\s+\w+|class\s+\w+|FUNCTION\b|CLASS\b|IF\b|ELSE\b|FOR\b|WHILE\b|RETURN\b|PRINT\b|SET\b|CALL\b|END\b|public\s+static\s+void\s+main\b|System\.out\b|std::|\w+\s*=)/m;
+const isPreformattedCode = (value) => CODE_SYNTAX.test(String(value ?? ''));
+
 export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppliedRuntime }) {
   const runtime = suppliedRuntime ?? project.runtime;
   const runtimeId = (typeof runtime === 'string' ? runtime : runtime?.id) ?? project.language ?? project.supportedLanguages?.[0];
@@ -14,7 +17,7 @@ export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppl
     if (block.type === 'paragraph') return <p key={key}>{text(block.text)}</p>;
     if (block.type === 'note') return <aside className="project-guide-note" key={key}><Lightbulb aria-hidden="true" /><p><strong>Note:</strong> {text(block.text)}</p></aside>;
     if (block.type === 'list') { const List = block.ordered ? 'ol' : 'ul'; return <List key={key}>{block.items.map((item, itemIndex) => <li key={`${item}-${itemIndex}`}>{item}</li>)}</List>; }
-    if (block.type === 'code') { const code = block.codeKey ? content[block.codeKey] : block.byLanguage?.[runtimeId] ?? text(block.code); return code ? <pre key={key}><code>{code}</code></pre> : null; }
+    if (block.type === 'code') { const code = block.codeKey ? content[block.codeKey] : block.byLanguage?.[runtimeId] ?? text(block.code); return code ? isPreformattedCode(code) ? <pre className="project-guide-code-block" key={key}><code>{code}</code></pre> : <p className="project-guide-monospace-prose" key={key}><code>{code}</code></p> : null; }
     if (block.type === 'expected-output') return <div className="project-guide-output" key={key}><strong>Expected output</strong><pre>{text(block.output ?? block.text)}</pre></div>;
     if (block.type === 'callout') return <aside className={`project-guide-note is-${block.variant}`} key={key}><Lightbulb aria-hidden="true" /><div><strong>{block.title}</strong><p>{text(block.text)}</p></div></aside>;
     if (block.type === 'concept') return <section key={key}><h4>{block.title ?? block.conceptId}</h4><p>{block.text}</p></section>;
