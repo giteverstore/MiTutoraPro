@@ -39,14 +39,15 @@ const validationResult = await new ProjectValidator(compilerManager).validatePro
 assert.equal(validationResult.passed, true, 'Generic validator must accept numerically equivalent int/float results.');
 assert.equal(validationResult.tests[0].message, 'Passed');
 
-const expectedIds = ['simple-calculator', 'number-guessing-game', 'unit-converter', 'expense-tracker', 'contact-book', 'cli-task-manager'];
+const expectedIds = ['simple-calculator', 'number-guessing-game', 'unit-converter', 'expense-tracker', 'contact-book', 'cli-task-manager', 'blackjack'];
 const obsoleteIds = ['reverse-string', 'word-counter', 'temperature-converter', 'palindrome-checker', 'number-frequency', 'password-strength-checker', 'shopping-cart-total', 'duplicate-remover', 'log-message-parser'];
 const catalog = new ProjectCatalog(); const projects = catalog.getProjects();
 assert.deepEqual(projects.map(({ id }) => id), expectedIds);
 assert.deepEqual(projects.map(({ slug }) => slug), expectedIds);
 assert.equal(new Set(projects.map(({ id }) => id)).size, projects.length);
 assert.equal(catalog.getProjectsByDifficulty('easy').length, 5);
-assert.equal(catalog.getProjectsByLanguage('python').length, 6);
+assert.equal(catalog.getProjectsByDifficulty('beginner').length, 2);
+assert.equal(catalog.getProjectsByLanguage('python').length, 7);
 assert.equal(catalog.getProjectsByCategory('Python Fundamentals').length, 5);
 obsoleteIds.forEach((id) => assert.equal(catalog.getProjectById(id), null, `${id} must not remain registered.`));
 for (const project of projects.filter(({ template }) => template)) {
@@ -127,6 +128,18 @@ for (const languageId of foundation.supportedLanguages) {
       if (block.type === 'language-hint') assert.ok(languageContent[block.key], `${languageId} is missing guide hint ${block.key}.`);
       if (block.type === 'code' && block.codeKey) assert.ok(languageContent[block.codeKey], `${languageId} is missing snippet ${block.codeKey}.`);
     });
+    checkpoint.validation.checks.filter(({ type }) => type === 'source_matches').forEach((check) => assert.ok(check.patternsByLanguage?.[languageId]?.length, `${checkpoint.id}/${check.id} is missing ${languageId} validation evidence.`));
+  }
+}
+const blackjack = catalog.getProjectById('blackjack');
+assert.deepEqual(blackjack.supportedLanguages, ['python', 'cpp', 'java']);
+assert.equal(blackjack.checkpoints.length, 16);
+assert.equal(blackjack.languageOverrides.python.entrypoint, 'Blackjack.py');
+assert.equal(blackjack.languageOverrides.cpp.entrypoint, 'Blackjack.cpp');
+assert.equal(blackjack.languageOverrides.java.entrypoint, 'Blackjack.java');
+for (const checkpoint of blackjack.checkpoints) {
+  assert.equal(checkpoint.validation.type, 'project-checks');
+  for (const languageId of blackjack.supportedLanguages) {
     checkpoint.validation.checks.filter(({ type }) => type === 'source_matches').forEach((check) => assert.ok(check.patternsByLanguage?.[languageId]?.length, `${checkpoint.id}/${check.id} is missing ${languageId} validation evidence.`));
   }
 }

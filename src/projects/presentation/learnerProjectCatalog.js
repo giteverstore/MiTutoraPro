@@ -9,7 +9,6 @@ const artwork = Object.freeze({
 });
 
 const upcoming = Object.freeze([
-  { id: 'blackjack', title: 'Blackjack' },
   { id: 'hangman', title: 'Hangman' },
   { id: 'stone-paper-scissors', title: 'Stone Paper Scissors' },
   { id: 'currency-converter', title: 'Currency Converter' },
@@ -18,9 +17,11 @@ const upcoming = Object.freeze([
 export function learnerProjectCatalog(bundledProjects, publishedProjects) {
   const bingo = publishedProjects.find(({ id }) => id === 'bingo');
   const calculator = bundledProjects.find(({ id }) => id === 'simple-calculator');
+  const blackjack = bundledProjects.find(({ id }) => id === 'blackjack');
   return [
     ...(bingo ? [{ ...bingo, artwork: artwork.bingo }] : []),
     ...(calculator ? [{ ...calculator, artwork: artwork['simple-calculator'] }] : []),
+    ...(blackjack ? [{ ...blackjack, artwork: artwork.blackjack }] : []),
     ...upcoming.map(({ id, title }) => ({ id, title, artwork: artwork[id], comingSoon: true, supportedLanguages: [], category: null, difficulty: null, checkpoints: [] })),
   ];
 }

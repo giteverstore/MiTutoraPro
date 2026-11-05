@@ -156,9 +156,7 @@ export function ProjectsPage({ browseOnly = false, onRequireAuth = () => {}, ini
     const progress = progressFor(candidate.id);
     let resolved;
     try {
-      resolved = progress.contentVersion != null
-        ? (await publicationRepository.resumeProject(candidate.id, progress.contentVersion)).project
-        : (await publicationRepository.resolveProject(candidate.id))?.project;
+      resolved = await resolveProjectForRoute(candidate.id, progress, publicationRepository);
     } catch {
       setContentError('This project version is temporarily unavailable. Your saved progress is safe; please try again later.');
       return;
