@@ -130,6 +130,10 @@ describe('Project presentation consistency', () => {
     expect(css).toContain('width: var(--shell-brand-mark-size)');
     expect(css).toContain('width: var(--shell-brand-mark-size)');
     expect(css).toMatch(/\.project-card\s*\{[^}]*width:\s*min\(100%, 14\.8125rem\);[^}]*height:\s*21\.875rem/);
+    expect(css).toMatch(/\.project-card h3\s*\{[^}]*min-height:\s*3\.75rem/);
+    expect(css).toMatch(/\.project-card h3\.project-card-title--long\s*\{[^}]*font-size:\s*1\.25rem/);
+    expect(css).not.toMatch(/\.project-card h3\s*\{[^}]*-webkit-line-clamp/);
+    expect(css).not.toMatch(/\.project-card h3\s*\{[^}]*text-overflow:\s*ellipsis/);
     expect(css).toMatch(/\.project-card-footer\s*\{[^}]*min-height:\s*6rem/);
     expect(css).toMatch(/\.project-card\.is-coming-soon\s*\{[^}]*cursor:\s*default;/);
     expect(css).not.toMatch(/\.project-card\.is-coming-soon\s*\{[^}]*(?:height|min-height):/);

@@ -21,6 +21,8 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
   const artwork = projectArtwork(project);
   const difficulty = projectDisplayDifficulty(project.difficulty);
   const languages = comingSoon ? { icons: [], overflow: 0 } : projectCardLanguages(project.supportedLanguages);
+  const displayTitle = project.cardTitle ?? project.title;
+  const longTitle = displayTitle.length > 24;
   const open = () => { if (!pending && !comingSoon) onOpen(project); };
   return <article
     className={`project-card${pending ? ' is-progress-pending' : ''}${comingSoon ? ' is-coming-soon' : ''}`}
@@ -36,7 +38,7 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
       {artwork?.kind === 'image' ? <img src={artwork.src} alt="" loading="lazy" decoding="async" /> : null}
       {artwork?.kind === 'terminal' ? <TerminalSquare /> : null}
     </div>
-    <h3 id={`project-card-title-${project.id}`}>{project.title}</h3>
+    <h3 className={longTitle ? 'project-card-title--long' : undefined} id={`project-card-title-${project.id}`}>{displayTitle}</h3>
     <footer className="project-card-footer">
       <div className="project-card-divider" aria-hidden="true" />
       {comingSoon ? <span className="card-footer-coming-soon">Coming Soon</span>

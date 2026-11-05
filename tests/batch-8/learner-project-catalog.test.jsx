@@ -20,10 +20,23 @@ describe('learner Project catalog presentation', () => {
     expect(cards.map(({ title }) => title)).toEqual([
       'Bingo', 'Simple Calculator', 'Blackjack', 'Hangman', 'Stone Paper Scissors', 'Multi-Unit & Currency Converter CLI',
     ]);
+    expect(cards.find(({ id }) => id === 'currency-converter')).toMatchObject({
+      title: 'Multi-Unit & Currency Converter CLI',
+      cardTitle: 'Multi-Unit & Currency Converter',
+    });
     expect(filterProjects(cards, DEFAULT_PROJECT_FILTERS)).toEqual(cards);
     expect(bundled.some(({ id }) => id === 'number-guessing-game')).toBe(true);
     expect(cards.some(({ id }) => id === 'number-guessing-game' || id === 'other-published')).toBe(false);
     expect(cards.find(({ id }) => id === 'simple-calculator').comingSoon).toBeUndefined();
+  });
+
+  it('renders complete Project titles without changing canonical catalog names', () => {
+    const cards = learnerProjectCatalog(projectCatalog.getProjects(), [bingo]);
+    const { container } = render(<div>{cards.map((card) => <ProjectFoundationCard key={card.id} project={card} progress={{ status: 'not-started', completedCheckpoints: [] }} onOpen={vi.fn()} />)}</div>);
+    expect(screen.getByRole('heading', { name: 'Multi-Unit & Currency Converter' })).toHaveClass('project-card-title--long');
+    expect(screen.getByRole('heading', { name: 'Stone Paper Scissors' })).not.toHaveClass('project-card-title--long');
+    expect(screen.getByRole('heading', { name: 'Bingo' })).not.toHaveClass('project-card-title--long');
+    expect(container.querySelectorAll('.project-card')).toHaveLength(6);
   });
 
   it('maps six exact artworks to shipped files with no initial fallback', () => {

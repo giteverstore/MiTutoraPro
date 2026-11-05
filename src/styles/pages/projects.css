@@ -252,19 +252,16 @@
 }
 
 .project-card h3 {
-  display: -webkit-box;
   min-height: 3.75rem;
   margin: 0;
-  overflow: hidden;
   color: var(--color-text);
   font-size: 1.5rem;
   line-height: 1.2;
   text-align: center;
   overflow-wrap: anywhere;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
+.project-card h3.project-card-title--long { font-size: 1.25rem; }
 
 .project-details aside div {
   display: flex;

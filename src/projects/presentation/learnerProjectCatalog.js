@@ -23,7 +23,7 @@ export function learnerProjectCatalog(bundledProjects, publishedProjects) {
     ...(blackjack ? [{ ...blackjack, artwork: artwork.blackjack }] : []),
     ...(hangman ? [{ ...hangman, artwork: artwork.hangman }] : []),
     ...(stonePaperScissors ? [{ ...stonePaperScissors, artwork: artwork['stone-paper-scissors'] }] : []),
-    ...(currencyConverter ? [{ ...currencyConverter, artwork: artwork['currency-converter'] }] : []),
+    ...(currencyConverter ? [{ ...currencyConverter, cardTitle: 'Multi-Unit & Currency Converter', artwork: artwork['currency-converter'] }] : []),
     ...upcoming.map(({ id, title }) => ({ id, title, artwork: artwork[id], comingSoon: true, supportedLanguages: [], category: null, difficulty: null, checkpoints: [] })),
   ];
 }
