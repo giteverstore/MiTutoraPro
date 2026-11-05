@@ -429,7 +429,7 @@ describe('immersive project workspace shell', () => {
     expect(css).toContain('.project-ai-conversation-scroll { min-width: 0; min-height: 0;');
     expect(css).toContain('overflow-y: auto; overscroll-behavior: contain;');
     expect(css).toContain('.project-ai-mode.is-active { display: block; min-height: 0; overflow: hidden; }');
-    expect(css).toContain('.project-guide-mode.is-active { display: grid; grid-template-rows: minmax(0,1fr) auto; }');
+    expect(css).toContain('.project-guide-mode.is-active { display: grid; width: 100%; min-width: 0; max-width: 100%; grid-template-columns: minmax(0,1fr); grid-template-rows: minmax(0,1fr) auto; }');
     expect(css).toContain('grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);');
     expect(css).toContain('.project-guide-navigation>span { justify-self: center; }');
     expect(css).toContain('width: max-content; min-height: var(--control-height-md);');
