@@ -40,9 +40,9 @@ describe('learner Project catalog presentation', () => {
     const onOpen = vi.fn();
     const { container } = render(<div>{cards.map((card) => <ProjectFoundationCard key={card.id} project={card} progress={card.comingSoon ? null : { status: 'not-started', completedCheckpoints: [] }} onOpen={onOpen} />)}</div>);
     expect(container.querySelectorAll('.project-card')).toHaveLength(6);
-    expect(container.querySelectorAll('.project-card.is-coming-soon')).toHaveLength(3);
-    expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-artwork img')).toHaveLength(3);
-    expect(container.querySelectorAll('.project-card.is-coming-soon .content-type-badge--project')).toHaveLength(3);
+    expect(container.querySelectorAll('.project-card.is-coming-soon')).toHaveLength(2);
+    expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-artwork img')).toHaveLength(2);
+    expect(container.querySelectorAll('.project-card.is-coming-soon .content-type-badge--project')).toHaveLength(2);
     expect(container.querySelectorAll('.project-card.is-coming-soon .library-course-progress')).toHaveLength(0);
     expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-progress')).toHaveLength(0);
     expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-action')).toHaveLength(0);

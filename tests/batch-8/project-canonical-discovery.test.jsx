@@ -138,6 +138,7 @@ describe('canonical Project learner discovery', () => {
     const repository = { listProjects: vi.fn().mockRejectedValue(new Error('catalog unavailable')) };
     const { container } = render(<ProjectsPage browseOnly publishedRepository={repository} />);
     expect(await screen.findByRole('heading', { name: 'Projects' })).toBeInTheDocument();
+    expect(await screen.findByText('Some projects could not be loaded.')).toBeInTheDocument();
     expect(screen.queryByText('5 projects')).not.toBeInTheDocument();
     expect(container.querySelectorAll('.project-card')).toHaveLength(5);
     expect(screen.queryByRole('status', { name: 'Loading projects' })).not.toBeInTheDocument();
