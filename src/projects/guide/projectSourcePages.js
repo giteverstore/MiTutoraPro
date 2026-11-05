@@ -46,3 +46,33 @@ export function buildProjectSourcePages(project) {
   const checkpointFirstPageIndices = project.checkpoints.map((_, index) => pages.findIndex((page) => page.checkpointIndex === index));
   return checkpointFirstPageIndices.includes(-1) ? null : { pages, checkpointFirstPageIndices };
 }
+
+export function resolveSavedGuidePageIndex(sourceGuide, savedProgress = {}, initialCheckpointIndex = null) {
+  if (!sourceGuide?.pages?.length) return 0;
+  const physicalSourceGuide = sourceGuide.pages.every(({ sourcePageStart, sourcePageEnd }) => Number.isInteger(sourcePageStart) && Number.isInteger(sourcePageEnd));
+  if (initialCheckpointIndex !== null && initialCheckpointIndex !== undefined) {
+    return Math.max(0, sourceGuide.checkpointFirstPageIndices[Math.max(0, Math.min(sourceGuide.checkpointFirstPageIndices.length - 1, initialCheckpointIndex))] ?? 0);
+  }
+  if (typeof savedProgress.guidePageId === 'string') {
+    const exact = sourceGuide.pages.findIndex(({ id }) => id === savedProgress.guidePageId);
+    if (exact >= 0) return exact;
+  }
+  if (Number.isSafeInteger(savedProgress.guideSourcePage)) {
+    const source = savedProgress.guideSourcePage;
+    const exact = sourceGuide.pages.findIndex(({ sourcePageStart, sourcePageEnd }) => source >= sourcePageStart && source <= sourcePageEnd);
+    if (exact >= 0) return exact;
+    return sourceGuide.pages.reduce((best, page, index) => Math.abs(page.sourcePageStart - source) < best.distance ? { index, distance: Math.abs(page.sourcePageStart - source) } : best, { index: 0, distance: Infinity }).index;
+  }
+  // Legacy progress stored only a condensed-page index. It cannot safely map to
+  // physical source pages, so resume at the learner's associated checkpoint.
+  if (Number.isSafeInteger(savedProgress.guidePageIndex)) {
+    if (!physicalSourceGuide) return Math.max(0, Math.min(sourceGuide.pages.length - 1, savedProgress.guidePageIndex));
+    const checkpoint = Math.max(0, Math.min(sourceGuide.checkpointFirstPageIndices.length - 1, savedProgress.currentCheckpoint ?? 0));
+    return sourceGuide.checkpointFirstPageIndices[checkpoint] ?? 0;
+  }
+  if (!physicalSourceGuide && Number.isSafeInteger(savedProgress.currentCheckpoint)) {
+    const checkpoint = Math.max(0, Math.min(sourceGuide.checkpointFirstPageIndices.length - 1, savedProgress.currentCheckpoint));
+    return sourceGuide.checkpointFirstPageIndices[checkpoint] ?? 0;
+  }
+  return 0;
+}

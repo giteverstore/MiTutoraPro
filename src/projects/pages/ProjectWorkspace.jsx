@@ -14,7 +14,7 @@ import { ProjectLanguagePicker } from '../workspace/ProjectLanguagePicker';
 import { useProjectWorkspacePreferences } from '../workspace/useProjectWorkspacePreferences';
 import { resolveProjectRuntime } from '../runtime/projectRuntimeRegistry';
 import { ProjectGuideRenderer } from '../components/ProjectGuideRenderer';
-import { buildProjectSourcePages } from '../guide/projectSourcePages';
+import { buildProjectSourcePages, resolveSavedGuidePageIndex } from '../guide/projectSourcePages';
 import { createProjectAIContext } from '../ai/projectAIContext';
 import { ProjectContextualAIConversation } from '../components/ProjectContextualAIConversation';
 import { ConfirmDialog } from '../../components/Dialog';
@@ -33,8 +33,8 @@ const PANEL_HEIGHT_KEY = 'ycoders.projectWorkspace.bottomPanelHeight';
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const presentDescriptorValidation = (validation) => ({ ...validation, tests: validation.results.map((item) => ({ ...item, name: item.validatorId })), score: validation.results.length ? Math.round(validation.results.filter(({ passed }) => passed).length / validation.results.length * 100) : 0, errors: validation.passed ? [] : validation.results.filter(({ passed }) => !passed).map(({ message }) => message) });
 const initialPanelHeight = () => { try { return clamp(Number(localStorage.getItem(PANEL_HEIGHT_KEY)) || 190, 120, 360); } catch { return 190; } };
-const guidePageText = (sourcePage, fallback) => sourcePage
-  ? [sourcePage.title, sourcePage.objective, ...(sourcePage.blocks ?? []).flatMap((block) => [block.text, ...(block.items ?? [])])].filter(Boolean).join('\n')
+export const guidePageText = (sourcePage, fallback) => sourcePage
+  ? [sourcePage.title, sourcePage.objective, ...(sourcePage.blocks ?? []).flatMap((block) => [block.text, block.code, block.output, block.caption, ...(block.items ?? []), ...(block.columns ?? []), ...(block.rows ?? []).flat()])].filter(Boolean).join('\n')
   : fallback;
 const handleTabListKeyDown = (event) => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
@@ -86,9 +86,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const [fileError, setFileError] = useState('');
   const [pageIndex, setPageIndex] = useState(clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? savedProgress.lastPageIndex ?? 0, 0, workspacePages.length - 1));
   const [guidePageIndex, setGuidePageIndex] = useState(() => sourceGuide
-    ? clamp(bundledInstructionalGuide && initialPageIndex == null
-      ? savedProgress.guidePageIndex ?? 0
-      : sourceGuide.checkpointFirstPageIndices[clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? 0, 0, workspacePages.length - 1)], 0, sourceGuide.pages.length - 1)
+    ? clamp(resolveSavedGuidePageIndex(sourceGuide, savedProgress, initialPageIndex), 0, sourceGuide.pages.length - 1)
     : 0);
   const [celebration, setCelebration] = useState(null);
   const [result, setResult] = useState(null);
@@ -137,7 +135,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const baseAIContext = useMemo(() => createProjectAIContext({
     project,
     checkpoint: aiCheckpoint,
-    taskId: activeTask?.taskId,
+    taskId: guidePage?.kind === 'task' ? activeTask?.taskId ?? guidePage.taskId : null,
     languageId: activeLanguageId,
     selectionType: 'checkpoint_context',
     selectedContent: guidePage?.title || page.objective || page.title || page.label,
@@ -156,7 +154,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const retainedModelPaths = openTabs.map((path) => projectModelPath(project.id, path));
   const persist = (nextFiles, nextEntry = entryFilePath, nextFolders = folders, options) => projectProgressService.saveWorkspace(project.id, nextFiles, nextEntry, nextFolders, options);
   const visit = (index) => { const safe = clamp(index, 0, workspacePages.length - 1); setPageIndex(safe); if (sourceGuide) { setGuidePageIndex(sourceGuide.checkpointFirstPageIndices[safe]); setAISelection(null); } else { projectProgressService.visitPage(project.id, safe); onProgress?.(); } };
-  const visitGuidePage = (index) => { const safe = clamp(index, 0, sourceGuide.pages.length - 1); setGuidePageIndex(safe); setPageIndex(sourceGuide.pages[safe].checkpointIndex); if (bundledInstructionalGuide) projectProgressService.visitGuidePage(project.id, safe); setAISelection(null); };
+  const visitGuidePage = (index) => { const safe = clamp(index, 0, sourceGuide.pages.length - 1); const sourcePage = sourceGuide.pages[safe]; setGuidePageIndex(safe); setPageIndex(sourcePage.checkpointIndex); if (bundledInstructionalGuide) projectProgressService.visitGuidePage(project.id, safe, sourcePage); setAISelection(null); };
   const visitFromGuide = (index) => {
     if (taskBased && activeTask && !activeTaskVerified && index > guidePageIndex) return;
     if (sourceGuide) visitGuidePage(index); else visit(index);
@@ -167,7 +165,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
     if (!task?.unlocked) return;
     if (sourceGuide) {
       const taskPageIndex = sourceGuide.pages.findIndex((sourcePage) => sourcePage.taskId === taskId);
-      if (taskPageIndex >= 0) { setGuidePageIndex(taskPageIndex); if (bundledInstructionalGuide) projectProgressService.visitGuidePage(project.id, taskPageIndex); }
+      if (taskPageIndex >= 0) { setGuidePageIndex(taskPageIndex); if (bundledInstructionalGuide) projectProgressService.visitGuidePage(project.id, taskPageIndex, sourceGuide.pages[taskPageIndex]); }
     }
     const next = projectProgressService.saveTaskProgress(project.id, startTaskState(activeProgress, checkpointId, taskId));
     setActiveProgress(next);

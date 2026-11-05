@@ -1,4 +1,4 @@
-import { composeInstructionalGuide, stonePaperScissorsInstructionalSections } from './projectInstructionalGuide.js';
+import { sourceGuidePagesFor } from './projectGuideSourcePages.js';
 
 const command = { type: 'runtime-command', command: 'run' };
 const validation = (...checks) => ({ type: 'project-checks', checks });
@@ -52,7 +52,7 @@ export const stonePaperScissorsProject = {
   prerequisites: ['Printing output and reading keyboard input', 'Variables, conditionals, and while loops', 'Basic functions and methods', 'Lists or arrays', 'Simple classes and objects', 'Random-number utilities'],
   skills: ['Collections', 'Input validation', 'Randomization', 'Inheritance', 'Outcome modeling', 'Match loops'],
   guide: [{ type: 'paragraph', text: 'Build the game in the exact 17-task order and validate each milestone before continuing.' }, command],
-  guidePages: composeInstructionalGuide(checkpoints, stonePaperScissorsInstructionalSections),
+  guidePages: sourceGuidePagesFor('stone-paper-scissors'),
   languageOverrides: {
     python: { entrypoint: 'StonePaperScissors.py', runCommand: 'python StonePaperScissors.py', defaultFiles: starters.python },
     cpp: { entrypoint: 'StonePaperScissors.cpp', buildCommand: 'g++ -std=c++17 StonePaperScissors.cpp -o stone-paper-scissors', runCommand: './stone-paper-scissors', defaultFiles: starters.cpp },

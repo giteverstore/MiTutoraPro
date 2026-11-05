@@ -1,4 +1,4 @@
-import { blackjackInstructionalSections, composeInstructionalGuide } from './projectInstructionalGuide.js';
+import { sourceGuidePagesFor } from './projectGuideSourcePages.js';
 
 const command = { type: 'runtime-command', command: 'run' };
 const validation = (...checks) => ({ type: 'project-checks', checks });
@@ -67,7 +67,7 @@ export const blackjackProject = {
   prerequisites: ['Printing output and reading input', 'Variables, conditionals, and loops', 'Arrays, lists, or vectors', 'Classes, structs, and objects', 'Functions or methods', 'Random-number utilities'],
   skills: ['Object modeling', 'Collections', 'Game loops', 'Input validation', 'Randomization', 'State management'],
   guide: [{ type: 'paragraph', text: 'Build the game in the exact task order. Validate each milestone before moving to the next one.' }, command],
-  guidePages: composeInstructionalGuide(checkpoints, blackjackInstructionalSections),
+  guidePages: sourceGuidePagesFor('blackjack'),
   languageOverrides: {
     python: { entrypoint: 'Blackjack.py', runCommand: 'python Blackjack.py', defaultFiles: starterWorkspaces.python },
     cpp: { entrypoint: 'Blackjack.cpp', buildCommand: 'g++ Blackjack.cpp -o blackjack', runCommand: './blackjack', defaultFiles: starterWorkspaces.cpp },

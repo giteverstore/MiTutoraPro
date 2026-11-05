@@ -13,7 +13,7 @@ export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppl
     if (block.type === 'heading') { const Heading = `h${block.level ?? 3}`; return <Heading key={key}>{text(block.text)}</Heading>; }
     if (block.type === 'paragraph') return <p key={key}>{text(block.text)}</p>;
     if (block.type === 'note') return <aside className="project-guide-note" key={key}><Lightbulb aria-hidden="true" /><p><strong>Note:</strong> {text(block.text)}</p></aside>;
-    if (block.type === 'list') return <ul key={key}>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>;
+    if (block.type === 'list') { const List = block.ordered ? 'ol' : 'ul'; return <List key={key}>{block.items.map((item, itemIndex) => <li key={`${item}-${itemIndex}`}>{item}</li>)}</List>; }
     if (block.type === 'code') { const code = block.codeKey ? content[block.codeKey] : block.byLanguage?.[runtimeId] ?? text(block.code); return code ? <pre key={key}><code>{code}</code></pre> : null; }
     if (block.type === 'expected-output') return <div className="project-guide-output" key={key}><strong>Expected output</strong><pre>{text(block.output ?? block.text)}</pre></div>;
     if (block.type === 'callout') return <aside className={`project-guide-note is-${block.variant}`} key={key}><Lightbulb aria-hidden="true" /><div><strong>{block.title}</strong><p>{text(block.text)}</p></div></aside>;
@@ -21,7 +21,7 @@ export function ProjectGuideRenderer({ blocks = [], project = {}, runtime: suppl
     if (block.type === 'requirements' || block.type === 'common-mistakes') return <section key={key}><strong>{block.type === 'requirements' ? 'Requirements' : 'Common mistakes'}</strong><ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul></section>;
     if (block.type === 'table') return <ContentTable key={key} columns={block.columns} rows={block.rows} />;
     if (block.type === 'divider') return <hr key={key} />;
-    if (block.type === 'image') return <figure key={key} data-asset-id={block.assetId}><div role="img" aria-label={block.alt} /><figcaption>{block.caption}</figcaption></figure>;
+    if (block.type === 'image') return <figure className="project-guide-source-image" key={key} data-asset-id={block.assetId}><img src={block.src} alt={block.alt} />{block.caption ? <figcaption>{block.caption}</figcaption> : null}</figure>;
     if (block.type === 'runtime-command' || block.type === 'terminal-command') { const command = block.type === 'terminal-command' ? text(block.display) : block.command === 'build' ? runtime?.buildCommand : runtime?.runCommand; return command ? <p className="project-runtime-command" key={key}>Run <code>{command}</code> in the terminal or use the Run control.</p> : null; }
     if (block.type === 'language-hint') return content[block.key] ? <aside className="project-language-hint" key={key}><strong>{runtime?.displayName ?? runtimeId} hint</strong><p>{content[block.key]}</p></aside> : null;
     if (block.type === 'language-section') return block.byLanguage?.[runtimeId] ? <ProjectGuideRenderer blocks={block.byLanguage[runtimeId]} project={project} runtime={runtime} key={key} /> : null;

@@ -86,6 +86,7 @@
     "validate:certification": "node scripts/validate-certification.mjs",
     "validate:certificate-dates": "node scripts/validate-certificate-dates.mjs",
     "validate:projects": "node scripts/validate-projects.mjs",
+    "validate:project-guide-fidelity": "node scripts/validate-project-guide-fidelity.mjs",
     "validate:certification-trust": "node scripts/validate-certification-trust.mjs",
     "validate:certification-evidence": "node scripts/validate-certification-evidence.mjs",
     "validate:remediation-batch-2": "node scripts/validate-remediation-batch-2.mjs",

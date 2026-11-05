@@ -1,4 +1,4 @@
-import { composeInstructionalGuide, currencyConverterInstructionalSections } from './projectInstructionalGuide.js';
+import { sourceGuidePagesFor } from './projectGuideSourcePages.js';
 
 const command = { type: 'runtime-command', command: 'run' };
 const validation = (...checks) => ({ type: 'project-checks', checks });
@@ -47,7 +47,7 @@ export const currencyConverterProject = {
   prerequisites: ['Formatted output and keyboard input', 'Variables, conditionals, and loops', 'Maps, dictionaries, or associative arrays', 'Floating-point arithmetic and formatting', 'Functions and subroutines', 'String case manipulation and exception handling'],
   skills: ['Lookup tables', 'Base-unit pivots', 'Floating-point arithmetic', 'Input validation', 'Numeric formatting', 'Menu routing'],
   guide: [{ type: 'paragraph', text: 'Build the converter in the exact 12-task order using only the fixed local rates and units defined in the project.' }, command],
-  guidePages: composeInstructionalGuide(checkpoints, currencyConverterInstructionalSections),
+  guidePages: sourceGuidePagesFor('currency-converter'),
   languageOverrides: {
     python: { entrypoint: 'Converter.py', runCommand: 'python Converter.py', defaultFiles: starters.python },
     cpp: { entrypoint: 'Converter.cpp', buildCommand: 'g++ Converter.cpp -o Converter', runCommand: './Converter', defaultFiles: starters.cpp },
