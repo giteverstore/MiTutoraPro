@@ -18,7 +18,7 @@ describe('learner Project catalog presentation', () => {
     const bundled = projectCatalog.getProjects();
     const cards = learnerProjectCatalog(bundled, [bingo, { ...bingo, id: 'other-published' }]);
     expect(cards.map(({ title }) => title)).toEqual([
-      'Bingo', 'Simple Calculator', 'Blackjack', 'Hangman', 'Stone Paper Scissors', 'Currency Converter',
+      'Bingo', 'Simple Calculator', 'Blackjack', 'Hangman', 'Stone Paper Scissors', 'Multi-Unit & Currency Converter CLI',
     ]);
     expect(filterProjects(cards, DEFAULT_PROJECT_FILTERS)).toEqual(cards);
     expect(bundled.some(({ id }) => id === 'number-guessing-game')).toBe(true);
@@ -40,9 +40,9 @@ describe('learner Project catalog presentation', () => {
     const onOpen = vi.fn();
     const { container } = render(<div>{cards.map((card) => <ProjectFoundationCard key={card.id} project={card} progress={card.comingSoon ? null : { status: 'not-started', completedCheckpoints: [] }} onOpen={onOpen} />)}</div>);
     expect(container.querySelectorAll('.project-card')).toHaveLength(6);
-    expect(container.querySelectorAll('.project-card.is-coming-soon')).toHaveLength(1);
-    expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-artwork img')).toHaveLength(1);
-    expect(container.querySelectorAll('.project-card.is-coming-soon .content-type-badge--project')).toHaveLength(1);
+    expect(container.querySelectorAll('.project-card.is-coming-soon')).toHaveLength(0);
+    expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-artwork img')).toHaveLength(0);
+    expect(container.querySelectorAll('.project-card.is-coming-soon .content-type-badge--project')).toHaveLength(0);
     expect(container.querySelectorAll('.project-card.is-coming-soon .library-course-progress')).toHaveLength(0);
     expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-progress')).toHaveLength(0);
     expect(container.querySelectorAll('.project-card.is-coming-soon .project-card-action')).toHaveLength(0);

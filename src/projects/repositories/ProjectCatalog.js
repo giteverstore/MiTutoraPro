@@ -3,9 +3,10 @@ import { cliTaskManagerProject } from '../catalog/cliTaskManagerProject.js';
 import { blackjackProject } from '../catalog/blackjackProject.js';
 import { hangmanProject } from '../catalog/hangmanProject.js';
 import { stonePaperScissorsProject } from '../catalog/stonePaperScissorsProject.js';
+import { currencyConverterProject } from '../catalog/currencyConverterProject.js';
 import { createProject } from '../models/projectModel.js';
 export class ProjectCatalog {
-  constructor(records = [...easyProjects, cliTaskManagerProject, blackjackProject, hangmanProject, stonePaperScissorsProject]) { this.projects = Object.freeze(records.map(createProject)); }
+  constructor(records = [...easyProjects, cliTaskManagerProject, blackjackProject, hangmanProject, stonePaperScissorsProject, currencyConverterProject]) { this.projects = Object.freeze(records.map(createProject)); }
   getProjects() { return this.projects; }
   getProjectById(id) { return this.projects.find((project) => project.id === id || project.slug === id) ?? null; }
   getProjectsByDifficulty(value) { return this.projects.filter(({ difficulty }) => difficulty.toLowerCase() === value.toLowerCase()); }

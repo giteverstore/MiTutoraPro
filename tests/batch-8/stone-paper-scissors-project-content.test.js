@@ -15,7 +15,7 @@ describe('Stone Paper Scissors authoritative project content', () => {
     expect(cards.find(({ id }) => id === 'hangman')).not.toHaveProperty('comingSoon');
     expect(cards.find(({ id }) => id === 'stone-paper-scissors')).toMatchObject({ difficulty: 'Beginner', estimatedMinutes: 0 });
     expect(cards.find(({ id }) => id === 'stone-paper-scissors')).not.toHaveProperty('comingSoon');
-    expect(cards.filter(({ comingSoon }) => comingSoon).map(({ id }) => id)).toEqual(['currency-converter']);
+    expect(cards.filter(({ comingSoon }) => comingSoon)).toEqual([]);
   });
 
   it('maps all seventeen source tasks and overview facts', () => {

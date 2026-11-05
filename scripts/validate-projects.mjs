@@ -39,15 +39,15 @@ const validationResult = await new ProjectValidator(compilerManager).validatePro
 assert.equal(validationResult.passed, true, 'Generic validator must accept numerically equivalent int/float results.');
 assert.equal(validationResult.tests[0].message, 'Passed');
 
-const expectedIds = ['simple-calculator', 'number-guessing-game', 'unit-converter', 'expense-tracker', 'contact-book', 'cli-task-manager', 'blackjack', 'hangman', 'stone-paper-scissors'];
+const expectedIds = ['simple-calculator', 'number-guessing-game', 'unit-converter', 'expense-tracker', 'contact-book', 'cli-task-manager', 'blackjack', 'hangman', 'stone-paper-scissors', 'currency-converter'];
 const obsoleteIds = ['reverse-string', 'word-counter', 'temperature-converter', 'palindrome-checker', 'number-frequency', 'password-strength-checker', 'shopping-cart-total', 'duplicate-remover', 'log-message-parser'];
 const catalog = new ProjectCatalog(); const projects = catalog.getProjects();
 assert.deepEqual(projects.map(({ id }) => id), expectedIds);
 assert.deepEqual(projects.map(({ slug }) => slug), expectedIds);
 assert.equal(new Set(projects.map(({ id }) => id)).size, projects.length);
 assert.equal(catalog.getProjectsByDifficulty('easy').length, 5);
-assert.equal(catalog.getProjectsByDifficulty('beginner').length, 4);
-assert.equal(catalog.getProjectsByLanguage('python').length, 9);
+assert.equal(catalog.getProjectsByDifficulty('beginner').length, 5);
+assert.equal(catalog.getProjectsByLanguage('python').length, 10);
 assert.equal(catalog.getProjectsByCategory('Python Fundamentals').length, 5);
 obsoleteIds.forEach((id) => assert.equal(catalog.getProjectById(id), null, `${id} must not remain registered.`));
 for (const project of projects.filter(({ template }) => template)) {
@@ -164,6 +164,18 @@ assert.equal(stonePaperScissors.languageOverrides.java.entrypoint, 'StonePaperSc
 for (const checkpoint of stonePaperScissors.checkpoints) {
   assert.equal(checkpoint.validation.type, 'project-checks');
   for (const languageId of stonePaperScissors.supportedLanguages) {
+    checkpoint.validation.checks.filter(({ type }) => type === 'source_matches').forEach((check) => assert.ok(check.patternsByLanguage?.[languageId]?.length, `${checkpoint.id}/${check.id} is missing ${languageId} validation evidence.`));
+  }
+}
+const currencyConverter = catalog.getProjectById('currency-converter');
+assert.deepEqual(currencyConverter.supportedLanguages, ['python', 'cpp', 'java']);
+assert.equal(currencyConverter.checkpoints.length, 12);
+assert.equal(currencyConverter.languageOverrides.python.entrypoint, 'Converter.py');
+assert.equal(currencyConverter.languageOverrides.cpp.entrypoint, 'Converter.cpp');
+assert.equal(currencyConverter.languageOverrides.java.entrypoint, 'Converter.java');
+for (const checkpoint of currencyConverter.checkpoints) {
+  assert.equal(checkpoint.validation.type, 'project-checks');
+  for (const languageId of currencyConverter.supportedLanguages) {
     checkpoint.validation.checks.filter(({ type }) => type === 'source_matches').forEach((check) => assert.ok(check.patternsByLanguage?.[languageId]?.length, `${checkpoint.id}/${check.id} is missing ${languageId} validation evidence.`));
   }
 }
