@@ -12,7 +12,7 @@ test('Project cards and overview keep the Course rhythm at four viewport widths'
     await expect(page.locator('.project-card').first()).toBeVisible();
     const card = page.locator('.project-card').first();
     await expect(card.locator('.project-card-description, .project-card-action')).toHaveCount(0);
-    await expect(card.getByRole('img', { name: /Project progress 0 percent/ })).toBeVisible();
+    await expect(card.getByRole('img', { name: /Project progress 0 percent/ })).toHaveCount(0);
     const metrics = await page.evaluate(() => {
       const cards = [...document.querySelectorAll('.project-card')];
       const first = cards[0].getBoundingClientRect();

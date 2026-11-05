@@ -33,6 +33,9 @@ const PANEL_HEIGHT_KEY = 'ycoders.projectWorkspace.bottomPanelHeight';
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const presentDescriptorValidation = (validation) => ({ ...validation, tests: validation.results.map((item) => ({ ...item, name: item.validatorId })), score: validation.results.length ? Math.round(validation.results.filter(({ passed }) => passed).length / validation.results.length * 100) : 0, errors: validation.passed ? [] : validation.results.filter(({ passed }) => !passed).map(({ message }) => message) });
 const initialPanelHeight = () => { try { return clamp(Number(localStorage.getItem(PANEL_HEIGHT_KEY)) || 190, 120, 360); } catch { return 190; } };
+const guidePageText = (sourcePage, fallback) => sourcePage
+  ? [sourcePage.title, sourcePage.objective, ...(sourcePage.blocks ?? []).flatMap((block) => [block.text, ...(block.items ?? [])])].filter(Boolean).join('\n')
+  : fallback;
 const handleTabListKeyDown = (event) => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
   const tabs = [...event.currentTarget.closest('[role="tablist"]').querySelectorAll('[role="tab"]')];
@@ -72,6 +75,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const runtime = useMemo(() => resolveProjectRuntime(project, activeLanguageId), [project, activeLanguageId]);
   const workspacePages = project.checkpoints.length > 1 ? project.checkpoints.map((checkpoint) => ({ ...checkpoint, label: checkpoint.title, runtime })) : PROJECT_WORKSPACE_PAGES;
   const sourceGuide = useMemo(() => buildProjectSourcePages(project), [project]);
+  const bundledInstructionalGuide = Boolean(project.guidePages?.length);
   const initialWorkspace = useMemo(() => createInitialProjectFiles(project, savedProgress, runtime), [project.id, activeLanguageId]);
   const [files, setFiles] = useState(initialWorkspace.files);
   const [folders, setFolders] = useState(initialWorkspace.folders);
@@ -81,7 +85,11 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const [dirtyFiles, setDirtyFiles] = useState(new Set());
   const [fileError, setFileError] = useState('');
   const [pageIndex, setPageIndex] = useState(clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? savedProgress.lastPageIndex ?? 0, 0, workspacePages.length - 1));
-  const [guidePageIndex, setGuidePageIndex] = useState(() => sourceGuide?.checkpointFirstPageIndices[clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? 0, 0, workspacePages.length - 1)] ?? 0);
+  const [guidePageIndex, setGuidePageIndex] = useState(() => sourceGuide
+    ? clamp(bundledInstructionalGuide && initialPageIndex == null
+      ? savedProgress.guidePageIndex ?? 0
+      : sourceGuide.checkpointFirstPageIndices[clamp(initialPageIndex ?? savedProgress.currentCheckpoint ?? 0, 0, workspacePages.length - 1)], 0, sourceGuide.pages.length - 1)
+    : 0);
   const [celebration, setCelebration] = useState(null);
   const [result, setResult] = useState(null);
   const [running, setRunning] = useState(false);
@@ -114,6 +122,9 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const taskBased = isTaskBasedProject(project);
   const taskModel = useMemo(() => deriveTaskProgress(project, activeProgress), [project, activeProgress]);
   const taskCheckpoint = taskBased ? taskModel.checkpoints[pageIndex] : null;
+  const aiCheckpoint = guidePage?.kind === 'information'
+    ? { id: guidePage.id, title: guidePage.title, objective: guidePageText(guidePage, guidePage.title), requirements: [] }
+    : page;
   const activeTask = sourceGuide
     ? taskCheckpoint?.tasks.find(({ taskId }) => taskId === guidePage?.taskId) ?? null
     : taskCheckpoint?.tasks.find(({ taskId }) => taskId === activeProgress.activeTaskId)
@@ -125,15 +136,15 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const activeTaskVerified = Boolean(activeTask?.completed && (!activeTaskIsLast || taskCheckpoint?.completed));
   const baseAIContext = useMemo(() => createProjectAIContext({
     project,
-    checkpoint: page,
+    checkpoint: aiCheckpoint,
     taskId: activeTask?.taskId,
     languageId: activeLanguageId,
     selectionType: 'checkpoint_context',
-    selectedContent: page.objective || page.title || page.label,
-    guideContext: page.objective,
-  }), [activeLanguageId, activeTask?.taskId, page, project]);
+    selectedContent: guidePage?.title || page.objective || page.title || page.label,
+    guideContext: guidePageText(guidePage, aiCheckpoint.objective),
+  }), [activeLanguageId, activeTask?.taskId, aiCheckpoint, guidePage, project]);
   const selectForAI = (selectionType, selectedContent, extra = {}) => {
-    try { setAISelection(createProjectAIContext({ project, checkpoint: page, taskId: activeTask?.taskId, languageId: activeLanguageId, selectionType, selectedContent, guideContext: page.objective, currentFile: activeFile ? { path: activeFilePath, content: activeFile.content } : null, ...extra })); setRightMode('ai'); }
+    try { setAISelection(createProjectAIContext({ project, checkpoint: aiCheckpoint, taskId: guidePage?.kind === 'information' ? null : activeTask?.taskId, languageId: activeLanguageId, selectionType, selectedContent, guideContext: guidePageText(guidePage, aiCheckpoint.objective), currentFile: activeFile ? { path: activeFilePath, content: activeFile.content } : null, ...extra })); setRightMode('ai'); }
     catch { /* Ignore empty or unsupported selections. */ }
   };
   const stageAISelection = (selectionType, selectedContent, bounds, extra = {}) => setPendingAISelection({ selectionType, selectedContent, bounds, extra });
@@ -145,7 +156,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
   const retainedModelPaths = openTabs.map((path) => projectModelPath(project.id, path));
   const persist = (nextFiles, nextEntry = entryFilePath, nextFolders = folders, options) => projectProgressService.saveWorkspace(project.id, nextFiles, nextEntry, nextFolders, options);
   const visit = (index) => { const safe = clamp(index, 0, workspacePages.length - 1); setPageIndex(safe); if (sourceGuide) { setGuidePageIndex(sourceGuide.checkpointFirstPageIndices[safe]); setAISelection(null); } else { projectProgressService.visitPage(project.id, safe); onProgress?.(); } };
-  const visitGuidePage = (index) => { const safe = clamp(index, 0, sourceGuide.pages.length - 1); setGuidePageIndex(safe); setPageIndex(sourceGuide.pages[safe].checkpointIndex); setAISelection(null); };
+  const visitGuidePage = (index) => { const safe = clamp(index, 0, sourceGuide.pages.length - 1); setGuidePageIndex(safe); setPageIndex(sourceGuide.pages[safe].checkpointIndex); if (bundledInstructionalGuide) projectProgressService.visitGuidePage(project.id, safe); setAISelection(null); };
   const visitFromGuide = (index) => {
     if (taskBased && activeTask && !activeTaskVerified && index > guidePageIndex) return;
     if (sourceGuide) visitGuidePage(index); else visit(index);
@@ -156,7 +167,7 @@ export function ProjectWorkspace({ project, tier = 'FREE', onProgress, initialPa
     if (!task?.unlocked) return;
     if (sourceGuide) {
       const taskPageIndex = sourceGuide.pages.findIndex((sourcePage) => sourcePage.taskId === taskId);
-      if (taskPageIndex >= 0) setGuidePageIndex(taskPageIndex);
+      if (taskPageIndex >= 0) { setGuidePageIndex(taskPageIndex); if (bundledInstructionalGuide) projectProgressService.visitGuidePage(project.id, taskPageIndex); }
     }
     const next = projectProgressService.saveTaskProgress(project.id, startTaskState(activeProgress, checkpointId, taskId));
     setActiveProgress(next);
@@ -399,7 +410,9 @@ function GuidePanel({ project: sourceProject, page, sourcePage, runtime, pageInd
       <header><span>Project Guide</span></header>
       <div className="project-guide-content" onMouseUp={select}>
         <h2>{sourcePage.title}</h2>
-        <ProjectGuideRenderer blocks={sourcePage.blocks.slice(1)} project={project} runtime={runtime} />
+        {sourcePage.objective ? <p className="project-checkpoint-objective">{sourcePage.objective}</p> : null}
+        <ProjectGuideRenderer blocks={sourcePage.number ? sourcePage.blocks.slice(sourcePage.blocks[0]?.type === 'heading' ? 1 : 0) : sourcePage.blocks} project={project} runtime={runtime} />
+        {sourcePage.requirements?.length ? <><h3>Task requirements</h3><ul>{sourcePage.requirements.map((item) => <li key={item}>{item}</li>)}</ul></> : null}
         {sourceTask ? <>
           <p className="project-checkpoint-objective">{sourceTask.objective}</p>
           {sourceTask.expectedBehavior?.length ? <><h3>Expected behavior</h3><ul>{sourceTask.expectedBehavior.map((item) => <li key={item}>{item}</li>)}</ul></> : null}
@@ -407,7 +420,7 @@ function GuidePanel({ project: sourceProject, page, sourcePage, runtime, pageInd
         {pageIndex === pageCount - 1 && finalReady && !complete ? <button className="button button--primary" type="button" disabled={running} onClick={onValidateFinal}>{running ? 'Validating…' : 'Verify Final Project'}</button> : null}
         {pageIndex === pageCount - 1 && complete ? <div className="project-guide-completion" role="status"><CheckCircle2 aria-hidden="true" /><p>Project Complete</p><h3>{displayName}</h3><p>Language: {languageLabel}</p><button className="button button--primary" type="button" disabled={downloading} onClick={onDownload}><Download /> {downloading ? 'Preparing…' : 'Download Project'}</button></div> : null}
       </div>
-      <footer className="project-guide-navigation"><button type="button" disabled={pageIndex === 0} onClick={() => onVisit(pageIndex - 1)}><ArrowLeft /> Previous</button><span>{pageIndex + 1} / {pageCount}</span>{sourceTask && !taskVerified ? <button className="is-primary" type="button" disabled={running || !sourceTask.unlocked || sourceTask.validators.length === 0} onClick={onVerifyTask}>{running ? 'Verifying…' : 'Verify'} <CheckCircle2 /></button> : <button className="is-primary" type="button" disabled={pageIndex === pageCount - 1} onClick={() => onVisit(pageIndex + 1)}>Next <ArrowRight /></button>}</footer>
+      <footer className="project-guide-navigation"><button type="button" disabled={pageIndex === 0} onClick={() => onVisit(pageIndex - 1)}><ArrowLeft /> Previous</button><span>Page {pageIndex + 1} of {pageCount}</span>{sourceTask && !taskVerified ? <button className="is-primary" type="button" disabled={running || !sourceTask.unlocked || sourceTask.validators.length === 0} onClick={onVerifyTask}>{running ? 'Verifying…' : 'Verify'} <CheckCircle2 /></button> : <button className="is-primary" type="button" disabled={pageIndex === pageCount - 1} onClick={() => onVisit(pageIndex + 1)}>Next <ArrowRight /></button>}</footer>
     </>;
   }
   if (task && !allowed) return <ProjectPremiumBoundary />;

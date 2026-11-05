@@ -8,6 +8,11 @@ const pageNumberFor = (block, projectId) => {
 // The published source-page heading IDs are stable content IDs. This is a
 // presentation index only; checkpoint and task progress remain the saved model.
 export function buildProjectSourcePages(project) {
+  if (Array.isArray(project?.guidePages) && project.guidePages.length) {
+    const pages = project.guidePages.map((page, index) => ({ ...page, number: index + 1 }));
+    const checkpointFirstPageIndices = project.checkpoints.map((checkpoint, checkpointIndex) => pages.findIndex((page) => page.kind === 'task' && (page.checkpointId === checkpoint.id || page.checkpointIndex === checkpointIndex)));
+    return checkpointFirstPageIndices.includes(-1) ? null : { pages, checkpointFirstPageIndices };
+  }
   if (!project?.projectId || !Array.isArray(project.checkpoints)) return null;
   const pages = [];
   let valid = true;

@@ -27,6 +27,7 @@ export function createProject(record) {
     languageOverrides: Object.freeze({ ...(record.languageOverrides ?? {}) }), languageContent: Object.freeze({ ...(record.languageContent ?? {}) }),
     skills: Object.freeze([...(record.skills ?? [])]), learningObjectives: Object.freeze([...(record.learningObjectives ?? [])]),
     prerequisites: Object.freeze([...(record.prerequisites ?? [])]), requirements: Object.freeze([...(record.requirements ?? [])]), validation,
+    guidePages: Object.freeze((record.guidePages ?? []).map((page) => Object.freeze({ ...page, blocks: Object.freeze([...(page.blocks ?? [])]), requirements: Object.freeze([...(page.requirements ?? [])]) }))),
     checkpoints: Object.freeze(checkpoints.map((checkpoint) => Object.freeze({ ...checkpoint, requirements: Object.freeze([...(checkpoint.requirements ?? [])]), guide: Object.freeze([...(checkpoint.guide ?? [])]) }))),
   });
 }

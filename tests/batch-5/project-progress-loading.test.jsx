@@ -26,13 +26,18 @@ describe('Project card hydration', () => {
     expect(onOpen).toHaveBeenCalledWith(project);
   });
 
-  it('shows a real 0% circle only after a known not-started result', () => {
-    render(<ProjectFoundationCard project={project} progress={{ status: 'not-started', completedCheckpoints: [] }} onOpen={vi.fn()} />);
+  it('shows a real 0% circle only after a canonical started record exists', () => {
+    render(<ProjectFoundationCard project={project} progress={{ status: 'active', languageId: 'python', completedCheckpoints: [] }} onOpen={vi.fn()} />);
     expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByText('30 min')).toBeInTheDocument();
     expect(screen.getByText('2 checkpoints')).toBeInTheDocument();
     expect(screen.queryByText('Loading progress…')).not.toBeInTheDocument();
+  });
+
+  it('does not infer started state from a bundled catalog entry', () => {
+    render(<ProjectFoundationCard project={project} progress={{ status: 'not-started', completedCheckpoints: [] }} onOpen={vi.fn()} />);
+    expect(screen.queryByRole('img', { name: 'Project progress 0 percent' })).not.toBeInTheDocument();
   });
 
   it('shows 100% for a completed project', () => {

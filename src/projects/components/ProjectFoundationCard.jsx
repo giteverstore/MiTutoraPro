@@ -6,12 +6,18 @@ import { projectArtwork, projectDisplayDifficulty } from '../presentation/projec
 import { projectCardLanguages } from '../presentation/projectCardLanguages';
 import '../../styles/components/card-footer.css';
 
+export const hasStartedProjectProgress = (progress) => Boolean(progress && (
+  progress.status === 'active' || progress.status === 'completed' || progress.status === 'started'
+  || progress.startedAt || progress.languageId
+));
+
 export function ProjectFoundationCard({ project, progress, progressPending = false, onOpen }) {
   const comingSoon = project.comingSoon === true;
   const pending = !comingSoon && (progressPending || !progress);
   const total = project.checkpointCount ?? project.checkpoints?.length ?? 0;
   const completed = Math.min(total, progress?.completedCheckpoints?.length ?? 0);
   const percentage = progress?.status === 'completed' ? 100 : total ? Math.round((completed / total) * 100) : 0;
+  const showProgress = hasStartedProjectProgress(progress);
   const artwork = projectArtwork(project);
   const difficulty = projectDisplayDifficulty(project.difficulty);
   const languages = comingSoon ? { icons: [], overflow: 0 } : projectCardLanguages(project.supportedLanguages);
@@ -35,7 +41,7 @@ export function ProjectFoundationCard({ project, progress, progressPending = fal
       <div className="project-card-divider" aria-hidden="true" />
       {comingSoon ? <span className="card-footer-coming-soon">Coming Soon</span>
         : pending ? <span className="project-card-progress-pending" role="status">Loading progress…</span>
-          : <ProgressCircle progress={percentage} label="Project" />}
+          : showProgress ? <ProgressCircle progress={percentage} label="Project" /> : null}
       {languages.icons.length ? <div className="project-card-languages" aria-label="Supported languages">
         {languages.icons.map(({ id, label, icon }) => <img key={id} src={icon} alt={label} title={label} width="16" height="16" />)}
         {languages.overflow ? <span className="project-card-language-overflow" aria-label={`${languages.overflow} more languages`} title={`${languages.overflow} more languages`}>+{languages.overflow}</span> : null}

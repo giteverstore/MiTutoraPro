@@ -29,6 +29,20 @@ function selectElementText(element) {
 }
 
 describe('immersive project workspace shell', () => {
+  it('navigates bundled educational pages independently while keeping the Tasks sidebar checkpoint-only', () => {
+    const blackjack = projectCatalog.getProjectById('blackjack');
+    render(<ProjectWorkspace project={blackjack} tier="PREMIUM" onProgress={vi.fn()} />);
+    expect(screen.getByRole('heading', { name: 'Meet Your Project' })).toBeInTheDocument();
+    expect(screen.getByText(`Page 1 of ${blackjack.guidePages.length}`)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Next/ }));
+    expect(screen.getByRole('heading', { name: 'What You Will Learn & What You Need' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Tasks' }));
+    expect(document.querySelectorAll('.project-checkpoint-list > li')).toHaveLength(16);
+    expect(screen.queryByText('Blackjack Mechanics & Point Scoring', { selector: '.project-checkpoint-list *' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Task 1: Welcome Message/ }));
+    expect(screen.getByRole('heading', { name: 'Task 1: Welcome Message' })).toBeInTheDocument();
+  });
+
   it('names models by encoded project/file identity so projects and renamed paths cannot collide', () => {
     expect(projectModelOwnerPrefix('project / one')).toBe('ycoders-project://project%20%2F%20one/');
     expect(projectModelPath('project / one', 'src/my file.py')).toBe('ycoders-project://project%20%2F%20one/src/my%20file.py');

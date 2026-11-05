@@ -1,3 +1,5 @@
+import { composeInstructionalGuide, hangmanInstructionalSections } from './projectInstructionalGuide.js';
+
 const command = { type: 'runtime-command', command: 'run' };
 const validation = (...checks) => ({ type: 'project-checks', checks });
 const source = (id, name, patternsByLanguage) => ({ id, name, type: 'source_matches', patternsByLanguage, visible: true });
@@ -50,6 +52,7 @@ export const hangmanProject = {
   prerequisites: ['Terminal input and output', 'Primitive data types, strings, lists, vectors, and arrays', 'Conditionals and loops', 'Basic classes and instance methods'],
   skills: ['String manipulation', 'Input validation', 'State tracking', 'ASCII rendering', 'Object-oriented design', 'Game loops'],
   guide: [{ type: 'paragraph', text: 'Build the Hangman application in the exact 17-task order and validate every milestone before continuing.' }, command],
+  guidePages: composeInstructionalGuide(checkpoints, hangmanInstructionalSections),
   languageOverrides: {
     python: { entrypoint: 'Hangman.py', runCommand: 'python Hangman.py', defaultFiles: starters.python },
     cpp: { entrypoint: 'Hangman.cpp', buildCommand: 'g++ Hangman.cpp -o hangman', runCommand: './hangman', defaultFiles: starters.cpp },

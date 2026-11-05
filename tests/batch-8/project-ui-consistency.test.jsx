@@ -42,7 +42,7 @@ describe('Project presentation consistency', () => {
     expect(container.querySelector('.project-card-meta')).toHaveClass('card-footer-meta');
     expect(screen.queryByRole('button', { name: 'Start Project' })).not.toBeInTheDocument();
     expect(container.querySelector('.project-card-description')).not.toBeInTheDocument();
-    expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
+    expect(screen.queryByRole('img', { name: 'Project progress 0 percent' })).not.toBeInTheDocument();
     fireEvent.keyDown(screen.getByRole('link', { name: easyProject.title }), { key: 'Enter' });
     expect(onOpen).toHaveBeenCalledWith(easyProject);
   });
@@ -53,10 +53,20 @@ describe('Project presentation consistency', () => {
     const footer = container.querySelector('.project-card-footer');
     expect(footer.querySelector('.project-card-meta.card-footer-meta')).toHaveTextContent('600 min');
     expect(footer.querySelector('.project-card-meta')).toHaveTextContent(`${project.checkpoints.length} checkpoints`);
-    expect(screen.getByRole('img', { name: 'Project progress 0 percent' })).toBeInTheDocument();
+    expect(screen.queryByRole('img', { name: 'Project progress 0 percent' })).not.toBeInTheDocument();
     const css = readFileSync(resolve(process.cwd(), 'src/styles/components/card-footer.css'), 'utf8');
     expect(css).toMatch(/\.card-footer-meta\s*\{[^}]*padding-top:\s*2\.5rem/);
     expect(css).toMatch(/\.card-footer-meta span\s*\{[^}]*white-space:\s*nowrap/);
+  });
+
+  it.each([
+    ['started with no completed checkpoints', { status: 'active', languageId: 'python', completedCheckpoints: [] }, 0],
+    ['partially complete', { status: 'active', languageId: 'python', completedCheckpoints: ['one', 'two'] }, 50],
+    ['complete', { status: 'completed', languageId: 'python', completedCheckpoints: ['one', 'two', 'three', 'four'] }, 100],
+  ])('shows progress only for a canonical project record: %s', (_, savedProgress, percentage) => {
+    const project = { ...easyProject, checkpoints: Array.from({ length: 4 }, (__, index) => ({ id: index === 0 ? 'one' : index === 1 ? 'two' : index === 2 ? 'three' : 'four' })) };
+    render(<ProjectFoundationCard project={project} progress={savedProgress} onOpen={vi.fn()} />);
+    expect(screen.getByRole('img', { name: `Project progress ${percentage} percent` })).toBeInTheDocument();
   });
 
   it('shows canonical supported-language icons between progress and metadata', () => {
