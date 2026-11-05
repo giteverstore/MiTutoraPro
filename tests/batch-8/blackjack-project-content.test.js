@@ -13,7 +13,7 @@ describe('Blackjack authoritative project content', () => {
     const blackjack = cards.find(({ id }) => id === 'blackjack');
     expect(blackjack).toMatchObject({ difficulty: 'Beginner' });
     expect(blackjack).not.toHaveProperty('comingSoon');
-    expect(cards.filter(({ comingSoon }) => comingSoon).map(({ id }) => id)).toEqual(['stone-paper-scissors', 'currency-converter']);
+    expect(cards.filter(({ comingSoon }) => comingSoon).map(({ id }) => id)).toEqual(['currency-converter']);
   });
 
   it('preserves the sixteen source-ordered tasks and source-backed overview content', () => {

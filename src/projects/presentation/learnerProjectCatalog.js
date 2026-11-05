@@ -9,7 +9,6 @@ const artwork = Object.freeze({
 });
 
 const upcoming = Object.freeze([
-  { id: 'stone-paper-scissors', title: 'Stone Paper Scissors' },
   { id: 'currency-converter', title: 'Currency Converter' },
 ]);
 
@@ -18,11 +17,13 @@ export function learnerProjectCatalog(bundledProjects, publishedProjects) {
   const calculator = bundledProjects.find(({ id }) => id === 'simple-calculator');
   const blackjack = bundledProjects.find(({ id }) => id === 'blackjack');
   const hangman = bundledProjects.find(({ id }) => id === 'hangman');
+  const stonePaperScissors = bundledProjects.find(({ id }) => id === 'stone-paper-scissors');
   return [
     ...(bingo ? [{ ...bingo, artwork: artwork.bingo }] : []),
     ...(calculator ? [{ ...calculator, artwork: artwork['simple-calculator'] }] : []),
     ...(blackjack ? [{ ...blackjack, artwork: artwork.blackjack }] : []),
     ...(hangman ? [{ ...hangman, artwork: artwork.hangman }] : []),
+    ...(stonePaperScissors ? [{ ...stonePaperScissors, artwork: artwork['stone-paper-scissors'] }] : []),
     ...upcoming.map(({ id, title }) => ({ id, title, artwork: artwork[id], comingSoon: true, supportedLanguages: [], category: null, difficulty: null, checkpoints: [] })),
   ];
 }

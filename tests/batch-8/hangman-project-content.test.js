@@ -14,7 +14,7 @@ describe('Hangman authoritative project content', () => {
     expect(cards.find(({ id }) => id === 'blackjack')).not.toHaveProperty('comingSoon');
     expect(cards.find(({ id }) => id === 'hangman')).toMatchObject({ difficulty: 'Beginner', estimatedMinutes: 0 });
     expect(cards.find(({ id }) => id === 'hangman')).not.toHaveProperty('comingSoon');
-    expect(cards.filter(({ comingSoon }) => comingSoon).map(({ id }) => id)).toEqual(['stone-paper-scissors', 'currency-converter']);
+    expect(cards.filter(({ comingSoon }) => comingSoon).map(({ id }) => id)).toEqual(['currency-converter']);
   });
 
   it('maps all seventeen source tasks and overview facts', () => {
