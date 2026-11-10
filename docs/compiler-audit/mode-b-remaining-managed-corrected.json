@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 18,
+  "matrix": {
+    "BLIND150-023": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18384,
+        "wallTimeMs": 18765,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 50916.675,
+        "wallTimeMs": 58190,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-132": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 23043,
+        "wallTimeMs": 23687,
+        "outputBytes": 706,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-132-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-132-T02",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-132-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 50920.835,
+        "wallTimeMs": 56917,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-135": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 17956,
+        "wallTimeMs": 18315,
+        "outputBytes": 763,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-135-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-135-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 55458.3299,
+        "wallTimeMs": 62994,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

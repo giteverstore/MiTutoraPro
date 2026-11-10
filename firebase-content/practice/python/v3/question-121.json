@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-121",
+  "title": "Regular Expression Matching",
+  "summary": "Match the entire string against the pattern.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "isMatch",
+    "signature": "def isMatch(s:",
+    "input": "`s` (string), `p` (string)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`s` (string), `p` (string)",
+    "result": "boolean.",
+    "constraints": "s and p have lengths 1–20. s is lowercase English letters. p contains lowercase letters, dots, and asterisks. Each asterisk follows a letter or dot.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Match the entire string against the pattern. A lowercase letter matches itself, a dot matches one character, and an asterisk repeats the immediately preceding letter or dot zero or more times.",
+  "examples": [
+    {
+      "input": "{\"s\":\"abb\",\"p\":\"ab*\"}",
+      "output": "true",
+      "explanation": "Use two copies of b."
+    },
+    {
+      "input": "{\"s\":\"abc\",\"p\":\"a.c\"}",
+      "output": "true",
+      "explanation": "The dot matches b."
+    },
+    {
+      "input": "{\"s\":\"abc\",\"p\":\"b*\"}",
+      "output": "false",
+      "explanation": "The whole input must match."
+    }
+  ],
+  "constraints": [
+    "s and p have lengths 1–20. s is lowercase English letters. p contains lowercase letters, dots, and asterisks. Each asterisk follows a letter or dot."
+  ],
+  "hints": [
+    "Conceptual: An asterisk can discard its preceding token entirely.",
+    "Directional: Track reachable pairs of input and pattern prefixes.",
+    "Implementation: For a star, combine the zero-copy transition with the one-more-copy transition when its token matches."
+  ],
+  "concepts": [
+    "pattern-matching",
+    "prefix-dp"
+  ],
+  "skills": [
+    "Pattern matching",
+    "prefix DP"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(n) space with rolling pattern-prefix rows.",
+  "publicTests": [
+    {
+      "name": "BLIND150-121-T01",
+      "arguments": [
+        "abb",
+        "ab*"
+      ],
+      "input": {
+        "s": "abb",
+        "p": "ab*"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-121-T02",
+      "arguments": [
+        "abc",
+        "a.c"
+      ],
+      "input": {
+        "s": "abc",
+        "p": "a.c"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-121-T03",
+      "arguments": [
+        "abc",
+        "b*"
+      ],
+      "input": {
+        "s": "abc",
+        "p": "b*"
+      },
+      "expected": false,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def isMatch(s: str, p: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean isMatch(String s, String p) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {string} p\n * @returns {boolean}\n */\nfunction isMatch(s, p) {\n  throw new Error('Implement isMatch');\n}",
+    "typescript": "function isMatch(s: string, p: string): boolean {\n  throw new Error('Implement isMatch');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool isMatch(ByteString s, ByteString p) {\n    (void)s;\n    (void)p;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isMatch(std::string s, std::string p) {\n    throw std::logic_error(\"Implement isMatch\");\n}",
+    "csharp": "public class Solution {\n    public bool isMatch(string s, string p) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param string $p\n * @return bool\n */\nfunction isMatch(string $s, string $p): bool {\n    throw new LogicException('Implement isMatch');\n}",
+    "r": "# Parameters: s (character scalar), p (character scalar). Result: logical scalar.\nisMatch <- function(s, p) {\n  stop(\"Implement isMatch\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-121-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-121-statement",
+      "type": "paragraph",
+      "content": "Match the entire string against the pattern. A lowercase letter matches itself, a dot matches one character, and an asterisk repeats the immediately preceding letter or dot zero or more times.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-121-contract",
+      "type": "note",
+      "title": "def isMatch(s:",
+      "content": "Input: `s` (string), `p` (string)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-121-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "s and p have lengths 1–20. s is lowercase English letters. p contains lowercase letters, dots, and asterisks. Each asterisk follows a letter or dot.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-121-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def isMatch(s: str, p: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean isMatch(String s, String p) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {string} p\n * @returns {boolean}\n */\nfunction isMatch(s, p) {\n  throw new Error('Implement isMatch');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function isMatch(s: string, p: string): boolean {\n  throw new Error('Implement isMatch');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool isMatch(ByteString s, ByteString p) {\n    (void)s;\n    (void)p;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isMatch(std::string s, std::string p) {\n    throw std::logic_error(\"Implement isMatch\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool isMatch(string s, string p) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param string $p\n * @return bool\n */\nfunction isMatch(string $s, string $p): bool {\n    throw new LogicException('Implement isMatch');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-121-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), p (character scalar). Result: logical scalar.\nisMatch <- function(s, p) {\n  stop(\"Implement isMatch\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

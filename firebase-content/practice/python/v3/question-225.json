@@ -1,0 +1,274 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-225",
+  "title": "Greatest Common Divisor Traversal",
+  "summary": "Treat every array position as a vertex.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "canTraverseAllPairs",
+    "signature": "def canTraverseAllPairs(nums:",
+    "input": "nums (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints)",
+    "callable": "canTraverseAllPairs",
+    "constraints": "1–100000 values in [1,100000]. Equal values can occur at separate positions.",
+    "output-checking": "Compare whether the implicit undirected graph of original positions is connected under gcd>1 adjacency."
+  },
+  "statement": "Treat every array position as a vertex. Two different vertices are connected directly when their values share a divisor greater than one. Decide whether every pair of vertices can reach one another through a sequence of such connections.",
+  "examples": [
+    {
+      "input": "{\"nums\":[6,10,35]}",
+      "output": "true",
+      "explanation": "10 connects 6 through factor 2 and 35 through factor 5."
+    },
+    {
+      "input": "{\"nums\":[2,9,25]}",
+      "output": "false",
+      "explanation": "No pair shares a prime factor."
+    },
+    {
+      "input": "{\"nums\":[1]}",
+      "output": "true",
+      "explanation": "There is no distinct pair to disconnect."
+    }
+  ],
+  "constraints": [
+    "1–100000 values in [1,100000]. Equal values can occur at separate positions."
+  ],
+  "hints": [
+    "Conceptual: A shared prime factor is enough to connect two positions.",
+    "Directional: Factor the values and track one earlier position for each prime.",
+    "Implementation: Union all indices sharing a prime factor, then check whether every index has the same representative. A single position is connected by itself."
+  ],
+  "concepts": [
+    "disjoint-sets",
+    "prime-factors",
+    "connectivity"
+  ],
+  "skills": [
+    "Disjoint sets",
+    "prime factors",
+    "connectivity"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(M log log M + n log M × α(n)",
+    "space": "O(M log log M + n log M × α(n)"
+  },
+  "complexityAnalysis": "O(M log log M + n log M × α(n)) time and O(M+n) auxiliary space, where M is the largest value, using a factor sieve and union-find.",
+  "publicTests": [
+    {
+      "name": "NC250-225-P1",
+      "arguments": [
+        [
+          6,
+          10,
+          35
+        ]
+      ],
+      "input": {
+        "nums": [
+          6,
+          10,
+          35
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-225-P2",
+      "arguments": [
+        [
+          2,
+          9,
+          25
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          9,
+          25
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-225-P3",
+      "arguments": [
+        [
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canTraverseAllPairs(nums: list[int]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canTraverseAllPairs(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {boolean}\n */\nfunction canTraverseAllPairs(nums) {\n  throw new Error('Implement canTraverseAllPairs');\n}",
+    "typescript": "function canTraverseAllPairs(nums: number[]): boolean {\n  throw new Error('Implement canTraverseAllPairs');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canTraverseAllPairs(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canTraverseAllPairs(std::vector<int> nums) {\n    throw std::logic_error(\"Implement canTraverseAllPairs\");\n}",
+    "csharp": "public class Solution {\n    public bool canTraverseAllPairs(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return bool\n */\nfunction canTraverseAllPairs(array $nums): bool {\n    throw new LogicException('Implement canTraverseAllPairs');\n}",
+    "r": "# Parameters: nums (integer vector). Result: logical scalar.\ncanTraverseAllPairs <- function(nums) {\n  stop(\"Implement canTraverseAllPairs\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "canTraverseAllPairs",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare whether the implicit undirected graph of original positions is connected under gcd>1 adjacency."
+  },
+  "blocks": [
+    {
+      "id": "nc250-225-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-225-statement",
+      "type": "paragraph",
+      "content": "Treat every array position as a vertex. Two different vertices are connected directly when their values share a divisor greater than one. Decide whether every pair of vertices can reach one another through a sequence of such connections.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-225-contract",
+      "type": "note",
+      "title": "def canTraverseAllPairs(nums:",
+      "content": "Input: nums (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-225-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 values in [1,100000]. Equal values can occur at separate positions.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-225-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canTraverseAllPairs(nums: list[int]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canTraverseAllPairs(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {boolean}\n */\nfunction canTraverseAllPairs(nums) {\n  throw new Error('Implement canTraverseAllPairs');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canTraverseAllPairs(nums: number[]): boolean {\n  throw new Error('Implement canTraverseAllPairs');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canTraverseAllPairs(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canTraverseAllPairs(std::vector<int> nums) {\n    throw std::logic_error(\"Implement canTraverseAllPairs\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canTraverseAllPairs(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return bool\n */\nfunction canTraverseAllPairs(array $nums): bool {\n    throw new LogicException('Implement canTraverseAllPairs');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-225-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: logical scalar.\ncanTraverseAllPairs <- function(nums) {\n  stop(\"Implement canTraverseAllPairs\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

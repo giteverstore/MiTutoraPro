@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-038",
+  "title": "Remove Nth Node from End of List",
+  "summary": "Remove the n-th node counted from the end of a singly linked list and return the resulting head.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "removeNthFromEnd",
+    "signature": "class ListNode:",
+    "input": "`head` (integer array), `n` (integer)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`head` (integer array), `n` (integer)",
+    "result": "integer array.",
+    "constraints": "The input has 1–30 nodes with integer values in [0, 100]. n is between 1 and the number of nodes. The input is acyclic.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Remove the n-th node counted from the end of a singly linked list and return the resulting head. n = 1 removes the tail. The judge represents an empty result with an empty array.",
+  "examples": [
+    {
+      "input": "{\"head\":[4,7,9,3],\"n\":2}",
+      "output": "[4,7,3]",
+      "explanation": "The second node from the tail has value 9."
+    },
+    {
+      "input": "{\"head\":[6,8,2],\"n\":3}",
+      "output": "[8,2]",
+      "explanation": "Counting back three positions removes the head."
+    },
+    {
+      "input": "{\"head\":[10],\"n\":1}",
+      "output": "[]",
+      "explanation": "Removing the only node leaves an empty list."
+    }
+  ],
+  "constraints": [
+    "The input has 1–30 nodes with integer values in [0, 100]. n is between 1 and the number of nodes. The input is acyclic."
+  ],
+  "hints": [
+    "Conceptual: To unlink the target, it helps to reach the node immediately before it.",
+    "Directional: Use a dummy node and maintain a gap between two pointers.",
+    "Implementation: Advance the leading pointer n links from the dummy, then move both until the leading pointer is at the tail. Skip the follower's next node."
+  ],
+  "concepts": [
+    "linked-lists",
+    "two-pointers",
+    "dummy-head"
+  ],
+  "skills": [
+    "Linked lists",
+    "two pointers",
+    "dummy head"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space for a list of n nodes. The fixed gap locates the predecessor in one traversal.",
+  "publicTests": [
+    {
+      "name": "BLIND150-038-T01",
+      "arguments": [
+        [
+          4,
+          7,
+          9,
+          3
+        ],
+        2
+      ],
+      "input": {
+        "head": [
+          4,
+          7,
+          9,
+          3
+        ],
+        "n": 2
+      },
+      "expected": [
+        4,
+        7,
+        3
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-038-T02",
+      "arguments": [
+        [
+          6,
+          8,
+          2
+        ],
+        3
+      ],
+      "input": {
+        "head": [
+          6,
+          8,
+          2
+        ],
+        "n": 3
+      },
+      "expected": [
+        8,
+        2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-038-T03",
+      "arguments": [
+        [
+          10
+        ],
+        1
+      ],
+      "input": {
+        "head": [
+          10
+        ],
+        "n": 1
+      },
+      "expected": [],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef removeNthFromEnd(head: ListNode | None, n: int) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @param {number} n\n * @returns {ListNode | null}\n */\nfunction removeNthFromEnd(head, n) {\n  throw new Error('Implement removeNthFromEnd');\n}",
+    "typescript": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {\n  throw new Error('Implement removeNthFromEnd');\n}",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * removeNthFromEnd(ListNode * head, int32_t n) {\n    (void)head;\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * removeNthFromEnd(ListNode * head, int n) {\n    (void)head;\n    (void)n;\n    throw std::logic_error(\"Implement removeNthFromEnd\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction removeNthFromEnd(?ListNode $head, int $n): ?ListNode {\n    throw new LogicException('Implement removeNthFromEnd');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL), n (integer scalar). Result node environment or NULL.\nremoveNthFromEnd <- function(head, n) {\n  stop(\"Implement removeNthFromEnd\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-038-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-038-statement",
+      "type": "paragraph",
+      "content": "Remove the n-th node counted from the end of a singly linked list and return the resulting head. n = 1 removes the tail. The judge represents an empty result with an empty array.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-038-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: `head` (integer array), `n` (integer)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-038-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The input has 1–30 nodes with integer values in [0, 100]. n is between 1 and the number of nodes. The input is acyclic.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-038-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef removeNthFromEnd(head: ListNode | None, n: int) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @param {number} n\n * @returns {ListNode | null}\n */\nfunction removeNthFromEnd(head, n) {\n  throw new Error('Implement removeNthFromEnd');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {\n  throw new Error('Implement removeNthFromEnd');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * removeNthFromEnd(ListNode * head, int32_t n) {\n    (void)head;\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * removeNthFromEnd(ListNode * head, int n) {\n    (void)head;\n    (void)n;\n    throw std::logic_error(\"Implement removeNthFromEnd\");\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction removeNthFromEnd(?ListNode $head, int $n): ?ListNode {\n    throw new LogicException('Implement removeNthFromEnd');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-038-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL), n (integer scalar). Result node environment or NULL.\nremoveNthFromEnd <- function(head, n) {\n  stop(\"Implement removeNthFromEnd\")\n}",
+      "stdin": "",
+      "expectedOutput": "[4,7,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

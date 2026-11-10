@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-073",
+  "title": "Word Search",
+  "summary": "Return whether the word can be read along a path of cells.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "exist",
+    "signature": "def exist(board:",
+    "input": "`board` (nested string arrays), `word` (string)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`board` (nested string arrays), `word` (string)",
+    "result": "boolean.",
+    "constraints": "A rectangular 1–6 by 1–6 board of English letters. Word length is 1–15 and uses only English letters.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return whether the word can be read along a path of cells. Consecutive cells must share a side and each cell can be used at most once in that path. Letter comparisons are case-sensitive. Leave the board unchanged when returning.",
+  "examples": [
+    {
+      "input": "{\"board\":[[\"A\",\"B\"],[\"D\",\"C\"]],\"word\":\"ABCD\"}",
+      "output": "true",
+      "explanation": "The path follows the four sides of the square."
+    },
+    {
+      "input": "{\"board\":[[\"A\",\"B\"]],\"word\":\"ABA\"}",
+      "output": "false",
+      "explanation": "Matching the last A would reuse the first cell."
+    },
+    {
+      "input": "{\"board\":[[\"b\",\"B\"]],\"word\":\"B\"}",
+      "output": "true",
+      "explanation": "The second cell is the uppercase match."
+    }
+  ],
+  "constraints": [
+    "A rectangular 1–6 by 1–6 board of English letters. Word length is 1–15 and uses only English letters."
+  ],
+  "hints": [
+    "Conceptual: A matching letter is useful only if the rest of the path can continue from it.",
+    "Directional: Try each starting cell and track cells in the current path.",
+    "Implementation: Check bounds, the next character, and visited status. Undo any temporary mark when returning, even after a successful match."
+  ],
+  "concepts": [
+    "backtracking",
+    "grid-paths",
+    "restoration"
+  ],
+  "skills": [
+    "Backtracking",
+    "grid paths",
+    "restoration"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn·4ᴸ)",
+    "space": "O(mn·4ᴸ)"
+  },
+  "complexityAnalysis": "O(mn·4ᴸ) worst-case time and O(mn+L) auxiliary space with separate marks and recursion, where L is word length.",
+  "publicTests": [
+    {
+      "name": "BLIND150-073-T01",
+      "arguments": [
+        [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "D",
+            "C"
+          ]
+        ],
+        "ABCD"
+      ],
+      "input": {
+        "board": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "D",
+            "C"
+          ]
+        ],
+        "word": "ABCD"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-073-T02",
+      "arguments": [
+        [
+          [
+            "A",
+            "B"
+          ]
+        ],
+        "ABA"
+      ],
+      "input": {
+        "board": [
+          [
+            "A",
+            "B"
+          ]
+        ],
+        "word": "ABA"
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-073-T03",
+      "arguments": [
+        [
+          [
+            "b",
+            "B"
+          ]
+        ],
+        "B"
+      ],
+      "input": {
+        "board": [
+          [
+            "b",
+            "B"
+          ]
+        ],
+        "word": "B"
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def exist(board: list[list[str]], word: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean exist(String[][] board, String word) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[][]} board\n * @param {string} word\n * @returns {boolean}\n */\nfunction exist(board, word) {\n  throw new Error('Implement exist');\n}",
+    "typescript": "function exist(board: string[][], word: string): boolean {\n  throw new Error('Implement exist');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nbool exist(StringMatrix board, ByteString word) {\n    (void)board;\n    (void)word;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool exist(std::vector<std::vector<std::string>> board, std::string word) {\n    throw std::logic_error(\"Implement exist\");\n}",
+    "csharp": "public class Solution {\n    public bool exist(string[][] board, string word) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[][] $board\n * @param string $word\n * @return bool\n */\nfunction exist(array $board, string $word): bool {\n    throw new LogicException('Implement exist');\n}",
+    "r": "# Parameters: board (list of character vectors), word (character scalar). Result: logical scalar.\nexist <- function(board, word) {\n  stop(\"Implement exist\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-073-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-073-statement",
+      "type": "paragraph",
+      "content": "Return whether the word can be read along a path of cells. Consecutive cells must share a side and each cell can be used at most once in that path. Letter comparisons are case-sensitive. Leave the board unchanged when returning.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-073-contract",
+      "type": "note",
+      "title": "def exist(board:",
+      "content": "Input: `board` (nested string arrays), `word` (string)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-073-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "A rectangular 1–6 by 1–6 board of English letters. Word length is 1–15 and uses only English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-073-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def exist(board: list[list[str]], word: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean exist(String[][] board, String word) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[][]} board\n * @param {string} word\n * @returns {boolean}\n */\nfunction exist(board, word) {\n  throw new Error('Implement exist');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function exist(board: string[][], word: string): boolean {\n  throw new Error('Implement exist');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nbool exist(StringMatrix board, ByteString word) {\n    (void)board;\n    (void)word;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool exist(std::vector<std::vector<std::string>> board, std::string word) {\n    throw std::logic_error(\"Implement exist\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool exist(string[][] board, string word) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[][] $board\n * @param string $word\n * @return bool\n */\nfunction exist(array $board, string $word): bool {\n    throw new LogicException('Implement exist');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-073-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: board (list of character vectors), word (character scalar). Result: logical scalar.\nexist <- function(board, word) {\n  stop(\"Implement exist\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

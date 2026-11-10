@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-241",
+  "title": "Candy",
+  "summary": "Give each child at least one candy.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "candy",
+    "signature": "def candy(ratings:",
+    "input": "ratings (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "ratings (ints)",
+    "callable": "candy",
+    "constraints": "1–50000 ratings, each in [0,50000]. Only immediate neighbors matter.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Give each child at least one candy. A child with a strictly higher rating than an adjacent child must receive more candies than that neighbor. Equal ratings impose no ordering. Return the minimum total number of candies.",
+  "examples": [
+    {
+      "input": "{\"ratings\":[2,1,3]}",
+      "output": "5",
+      "explanation": "Two candies for each end and one in the middle suffice."
+    },
+    {
+      "input": "{\"ratings\":[3,3,3]}",
+      "output": "3",
+      "explanation": "All equal ratings can receive one candy each."
+    },
+    {
+      "input": "{\"ratings\":[4,3,2,1]}",
+      "output": "10",
+      "explanation": "The required counts are 4, 3, 2, and 1."
+    }
+  ],
+  "constraints": [
+    "1–50000 ratings, each in [0,50000]. Only immediate neighbors matter."
+  ],
+  "hints": [
+    "Conceptual: A child may have requirements from both sides.",
+    "Directional: Compute the minimum imposed by each scan direction.",
+    "Implementation: Start with one candy per child. Increase counts along ascending runs, then scan backward and enforce the right-neighbor requirement without lowering an existing count."
+  ],
+  "concepts": [
+    "greedy",
+    "two-directional-scans"
+  ],
+  "skills": [
+    "Greedy",
+    "two directional scans"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-241-P1",
+      "arguments": [
+        [
+          2,
+          1,
+          3
+        ]
+      ],
+      "input": {
+        "ratings": [
+          2,
+          1,
+          3
+        ]
+      },
+      "expected": 5,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-241-P2",
+      "arguments": [
+        [
+          3,
+          3,
+          3
+        ]
+      ],
+      "input": {
+        "ratings": [
+          3,
+          3,
+          3
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-241-P3",
+      "arguments": [
+        [
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "input": {
+        "ratings": [
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 10,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def candy(ratings: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int candy(int[] ratings) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} ratings\n * @returns {number}\n */\nfunction candy(ratings) {\n  throw new Error('Implement candy');\n}",
+    "typescript": "function candy(ratings: number[]): number {\n  throw new Error('Implement candy');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t candy(IntArray ratings) {\n    (void)ratings;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint candy(std::vector<int> ratings) {\n    throw std::logic_error(\"Implement candy\");\n}",
+    "csharp": "public class Solution {\n    public int candy(int[] ratings) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $ratings\n * @return int\n */\nfunction candy(array $ratings): int {\n    throw new LogicException('Implement candy');\n}",
+    "r": "# Parameters: ratings (integer vector). Result: integer scalar.\ncandy <- function(ratings) {\n  stop(\"Implement candy\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "candy",
+    "arguments": [
+      [
+        "ratings",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-241-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-241-statement",
+      "type": "paragraph",
+      "content": "Give each child at least one candy. A child with a strictly higher rating than an adjacent child must receive more candies than that neighbor. Equal ratings impose no ordering. Return the minimum total number of candies.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-241-contract",
+      "type": "note",
+      "title": "def candy(ratings:",
+      "content": "Input: ratings (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-241-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50000 ratings, each in [0,50000]. Only immediate neighbors matter.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-241-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def candy(ratings: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int candy(int[] ratings) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} ratings\n * @returns {number}\n */\nfunction candy(ratings) {\n  throw new Error('Implement candy');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function candy(ratings: number[]): number {\n  throw new Error('Implement candy');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t candy(IntArray ratings) {\n    (void)ratings;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint candy(std::vector<int> ratings) {\n    throw std::logic_error(\"Implement candy\");\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int candy(int[] ratings) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $ratings\n * @return int\n */\nfunction candy(array $ratings): int {\n    throw new LogicException('Implement candy');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-241-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: ratings (integer vector). Result: integer scalar.\ncandy <- function(ratings) {\n  stop(\"Implement candy\")\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

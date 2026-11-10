@@ -1,0 +1,294 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-071",
+  "title": "Subsets II",
+  "summary": "Return each distinct subset of the input multiset, including the empty subset.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "subsetsWithDup",
+    "signature": "def subsetsWithDup(nums:",
+    "input": "`nums` (integer array)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "nested integer arrays.",
+    "constraints": "1–10 integers in [−10, 10]. Equal values are allowed.",
+    "output-checking": "Require every distinct answer once. The outer order and element order within each answer are free."
+  },
+  "statement": "Return each distinct subset of the input multiset, including the empty subset. A subset may contain a repeated value up to its input frequency. Order does not distinguish answers.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,2]}",
+      "output": "[[],[2],[2,2]]",
+      "explanation": "There are three allowed counts for 2."
+    },
+    {
+      "input": "{\"nums\":[0,-1,-1]}",
+      "output": "[[],[0],[-1],[-1,0],[-1,-1],[-1,-1,0]]",
+      "explanation": "Choose the count of −1 independently of whether 0 is selected."
+    },
+    {
+      "input": "{\"nums\":[7]}",
+      "output": "[[],[7]]",
+      "explanation": "The singleton and empty subset are both required."
+    }
+  ],
+  "constraints": [
+    "1–10 integers in [−10, 10]. Equal values are allowed."
+  ],
+  "hints": [
+    "Conceptual: A value that occurs twice may appear zero, one or two times.",
+    "Directional: Group equal values, or sort to put them together.",
+    "Implementation: When walking sorted indices, skip a repeated value only at the same decision depth."
+  ],
+  "concepts": [
+    "backtracking",
+    "multisets",
+    "duplicate-suppression"
+  ],
+  "skills": [
+    "Backtracking",
+    "multisets",
+    "duplicate suppression"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n + n·2ⁿ)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n log n + n·2ⁿ) time as a worst-case bound including output. O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-071-T01",
+      "arguments": [
+        [
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          2
+        ]
+      },
+      "expected": [
+        [],
+        [
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "validator": "bt_bag_rows"
+    },
+    {
+      "name": "BLIND150-071-T02",
+      "arguments": [
+        [
+          0,
+          -1,
+          -1
+        ]
+      ],
+      "input": {
+        "nums": [
+          0,
+          -1,
+          -1
+        ]
+      },
+      "expected": [
+        [],
+        [
+          0
+        ],
+        [
+          -1
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "validator": "bt_bag_rows"
+    },
+    {
+      "name": "BLIND150-071-T03",
+      "arguments": [
+        [
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          7
+        ]
+      },
+      "expected": [
+        [],
+        [
+          7
+        ]
+      ],
+      "validator": "bt_bag_rows"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def subsetsWithDup(nums: list[int]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] subsetsWithDup(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[][]}\n */\nfunction subsetsWithDup(nums) {\n  throw new Error('Implement subsetsWithDup');\n}",
+    "typescript": "function subsetsWithDup(nums: number[]): number[][] {\n  throw new Error('Implement subsetsWithDup');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix subsetsWithDup(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> subsetsWithDup(std::vector<int> nums) {\n    throw std::logic_error(\"Implement subsetsWithDup\");\n}",
+    "csharp": "public class Solution {\n    public int[][] subsetsWithDup(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[][]\n */\nfunction subsetsWithDup(array $nums): array {\n    throw new LogicException('Implement subsetsWithDup');\n}",
+    "r": "# Parameters: nums (integer vector). Result: list of integer vectors.\nsubsetsWithDup <- function(nums) {\n  stop(\"Implement subsetsWithDup\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-071-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-071-statement",
+      "type": "paragraph",
+      "content": "Return each distinct subset of the input multiset, including the empty subset. A subset may contain a repeated value up to its input frequency. Order does not distinguish answers.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-071-contract",
+      "type": "note",
+      "title": "def subsetsWithDup(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-071-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10 integers in [−10, 10]. Equal values are allowed.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-071-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def subsetsWithDup(nums: list[int]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] subsetsWithDup(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[][]}\n */\nfunction subsetsWithDup(nums) {\n  throw new Error('Implement subsetsWithDup');\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function subsetsWithDup(nums: number[]): number[][] {\n  throw new Error('Implement subsetsWithDup');\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix subsetsWithDup(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> subsetsWithDup(std::vector<int> nums) {\n    throw std::logic_error(\"Implement subsetsWithDup\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] subsetsWithDup(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[][]\n */\nfunction subsetsWithDup(array $nums): array {\n    throw new LogicException('Implement subsetsWithDup');\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-071-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: list of integer vectors.\nsubsetsWithDup <- function(nums) {\n  stop(\"Implement subsetsWithDup\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[],[2],[2,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

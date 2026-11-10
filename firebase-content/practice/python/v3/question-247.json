@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-247",
+  "title": "Roman to Integer",
+  "summary": "Convert a valid Roman numeral to its integer value.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "romanToInt",
+    "signature": "def romanToInt(s:",
+    "input": "s (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str)",
+    "callable": "romanToInt",
+    "constraints": "1–15 characters from the listed symbols. The numeral is valid and represents a value in [1,3999].",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Convert a valid Roman numeral to its integer value. Symbols I, V, X, L, C, D, M stand for 1, 5, 10, 50, 100, 500, and 1000. The valid subtractive pairs are IV, IX, XL, XC, CD, and CM.",
+  "examples": [
+    {
+      "input": "{\"s\":\"XLIV\"}",
+      "output": "44",
+      "explanation": "XL gives 40 and IV gives 4."
+    },
+    {
+      "input": "{\"s\":\"MDC\"}",
+      "output": "1600",
+      "explanation": "These decreasing symbols add directly."
+    },
+    {
+      "input": "{\"s\":\"IX\"}",
+      "output": "9",
+      "explanation": "I subtracts from X."
+    }
+  ],
+  "constraints": [
+    "1–15 characters from the listed symbols. The numeral is valid and represents a value in [1,3999]."
+  ],
+  "hints": [
+    "Conceptual: Most symbols add their value, but a smaller symbol before a larger one changes sign.",
+    "Directional: Compare each symbol with the one immediately after it.",
+    "Implementation: Subtract the current value when the next value is larger. Add it otherwise, including the final symbol."
+  ],
+  "concepts": [
+    "parsing",
+    "roman-numerals"
+  ],
+  "skills": [
+    "Parsing",
+    "Roman numerals"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-247-P1",
+      "arguments": [
+        "XLIV"
+      ],
+      "input": {
+        "s": "XLIV"
+      },
+      "expected": 44,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-247-P2",
+      "arguments": [
+        "MDC"
+      ],
+      "input": {
+        "s": "MDC"
+      },
+      "expected": 1600,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-247-P3",
+      "arguments": [
+        "IX"
+      ],
+      "input": {
+        "s": "IX"
+      },
+      "expected": 9,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def romanToInt(s: str) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int romanToInt(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @returns {number}\n */\nfunction romanToInt(s) {\n  throw new Error('Implement romanToInt');\n}",
+    "typescript": "function romanToInt(s: string): number {\n  throw new Error('Implement romanToInt');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t romanToInt(ByteString s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint romanToInt(std::string s) {\n    throw std::logic_error(\"Implement romanToInt\");\n}",
+    "csharp": "public class Solution {\n    public int romanToInt(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @return int\n */\nfunction romanToInt(string $s): int {\n    throw new LogicException('Implement romanToInt');\n}",
+    "r": "# Parameters: s (character scalar). Result: integer scalar.\nromanToInt <- function(s) {\n  stop(\"Implement romanToInt\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "romanToInt",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-247-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-247-statement",
+      "type": "paragraph",
+      "content": "Convert a valid Roman numeral to its integer value. Symbols I, V, X, L, C, D, M stand for 1, 5, 10, 50, 100, 500, and 1000. The valid subtractive pairs are IV, IX, XL, XC, CD, and CM.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-247-contract",
+      "type": "note",
+      "title": "def romanToInt(s:",
+      "content": "Input: s (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-247-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–15 characters from the listed symbols. The numeral is valid and represents a value in [1,3999].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-247-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def romanToInt(s: str) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int romanToInt(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @returns {number}\n */\nfunction romanToInt(s) {\n  throw new Error('Implement romanToInt');\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function romanToInt(s: string): number {\n  throw new Error('Implement romanToInt');\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t romanToInt(ByteString s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint romanToInt(std::string s) {\n    throw std::logic_error(\"Implement romanToInt\");\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int romanToInt(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @return int\n */\nfunction romanToInt(string $s): int {\n    throw new LogicException('Implement romanToInt');\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-247-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar). Result: integer scalar.\nromanToInt <- function(s) {\n  stop(\"Implement romanToInt\")\n}",
+      "stdin": "",
+      "expectedOutput": "44",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

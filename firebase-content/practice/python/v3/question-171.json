@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-171",
+  "title": "Boats to Save People",
+  "summary": "Find the fewest boats needed to carry everyone.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "numRescueBoats",
+    "signature": "def numRescueBoats(people:",
+    "input": "people (ints), limit (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "people (ints), limit (int)",
+    "callable": "numRescueBoats",
+    "constraints": "1–50000 people. 1 ≤ people[i] ≤ limit ≤ 30000. Return an integer boat count.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Find the fewest boats needed to carry everyone. A boat carries at most two people and their combined weight cannot exceed limit. Every person can fit alone.",
+  "examples": [
+    {
+      "input": "{\"people\":[2,4,3,1],\"limit\":5}",
+      "output": "2",
+      "explanation": "Pair 4 with 1 and 3 with 2."
+    },
+    {
+      "input": "{\"people\":[4,4,4],\"limit\":6}",
+      "output": "3",
+      "explanation": "No pair fits."
+    },
+    {
+      "input": "{\"people\":[1],\"limit\":1}",
+      "output": "1",
+      "explanation": "One person requires one boat."
+    }
+  ],
+  "constraints": [
+    "1–50000 people. 1 ≤ people[i] ≤ limit ≤ 30000. Return an integer boat count."
+  ],
+  "hints": [
+    "Conceptual: The heaviest remaining person must leave on some boat.",
+    "Directional: Try pairing that person with the lightest remaining person.",
+    "Implementation: After sorting, use two endpoints. Always consume the heavier endpoint and consume the lighter endpoint only when the pair fits."
+  ],
+  "concepts": [
+    "sorting",
+    "greedy-pairing"
+  ],
+  "skills": [
+    "Sorting",
+    "greedy pairing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(n log n) time and O(n) auxiliary sorting storage for the internal reference.",
+  "publicTests": [
+    {
+      "name": "NC250-171-P1",
+      "arguments": [
+        [
+          2,
+          4,
+          3,
+          1
+        ],
+        5
+      ],
+      "input": {
+        "people": [
+          2,
+          4,
+          3,
+          1
+        ],
+        "limit": 5
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-171-P2",
+      "arguments": [
+        [
+          4,
+          4,
+          4
+        ],
+        6
+      ],
+      "input": {
+        "people": [
+          4,
+          4,
+          4
+        ],
+        "limit": 6
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-171-P3",
+      "arguments": [
+        [
+          1
+        ],
+        1
+      ],
+      "input": {
+        "people": [
+          1
+        ],
+        "limit": 1
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def numRescueBoats(people: list[int], limit: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} people\n * @param {number} limit\n * @returns {number}\n */\nfunction numRescueBoats(people, limit) {\n  throw new Error('Implement numRescueBoats');\n}",
+    "typescript": "function numRescueBoats(people: number[], limit: number): number {\n  throw new Error('Implement numRescueBoats');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t numRescueBoats(IntArray people, int32_t limit) {\n    (void)people;\n    (void)limit;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numRescueBoats(std::vector<int> people, int limit) {\n    throw std::logic_error(\"Implement numRescueBoats\");\n}",
+    "csharp": "public class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $people\n * @param int $limit\n * @return int\n */\nfunction numRescueBoats(array $people, int $limit): int {\n    throw new LogicException('Implement numRescueBoats');\n}",
+    "r": "# Parameters: people (integer vector), limit (integer scalar). Result: integer scalar.\nnumRescueBoats <- function(people, limit) {\n  stop(\"Implement numRescueBoats\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "numRescueBoats",
+    "arguments": [
+      [
+        "people",
+        "ints"
+      ],
+      [
+        "limit",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-171-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-171-statement",
+      "type": "paragraph",
+      "content": "Find the fewest boats needed to carry everyone. A boat carries at most two people and their combined weight cannot exceed limit. Every person can fit alone.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-171-contract",
+      "type": "note",
+      "title": "def numRescueBoats(people:",
+      "content": "Input: people (ints), limit (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-171-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50000 people. 1 ≤ people[i] ≤ limit ≤ 30000. Return an integer boat count.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-171-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def numRescueBoats(people: list[int], limit: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} people\n * @param {number} limit\n * @returns {number}\n */\nfunction numRescueBoats(people, limit) {\n  throw new Error('Implement numRescueBoats');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function numRescueBoats(people: number[], limit: number): number {\n  throw new Error('Implement numRescueBoats');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t numRescueBoats(IntArray people, int32_t limit) {\n    (void)people;\n    (void)limit;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numRescueBoats(std::vector<int> people, int limit) {\n    throw std::logic_error(\"Implement numRescueBoats\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $people\n * @param int $limit\n * @return int\n */\nfunction numRescueBoats(array $people, int $limit): int {\n    throw new LogicException('Implement numRescueBoats');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-171-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: people (integer vector), limit (integer scalar). Result: integer scalar.\nnumRescueBoats <- function(people, limit) {\n  stop(\"Implement numRescueBoats\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

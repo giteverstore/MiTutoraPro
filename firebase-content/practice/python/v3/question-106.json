@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-106",
+  "title": "Coin Change",
+  "summary": "Use any number of each coin denomination to make exactly the given amount.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "coinChange",
+    "signature": "def coinChange(coins:",
+    "input": "`coins` (integer array), `amount` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`coins` (integer array), `amount` (integer)",
+    "result": "integer.",
+    "constraints": "1–12 denominations in [1,2147483647]. Amount is in [0,10000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Use any number of each coin denomination to make exactly the given amount. Return the fewest coins needed, or −1 if the amount is unreachable.",
+  "examples": [
+    {
+      "input": "{\"coins\":[1,3,4],\"amount\":6}",
+      "output": "2",
+      "explanation": "Two 3s beat taking 4 followed by two 1s."
+    },
+    {
+      "input": "{\"coins\":[4,6],\"amount\":7}",
+      "output": "-1",
+      "explanation": "Even denominations cannot make 7."
+    },
+    {
+      "input": "{\"coins\":[9],\"amount\":0}",
+      "output": "0",
+      "explanation": "The empty selection makes zero."
+    }
+  ],
+  "constraints": [
+    "1–12 denominations in [1,2147483647]. Amount is in [0,10000]."
+  ],
+  "hints": [
+    "Conceptual: Making zero requires no coins.",
+    "Directional: If a coin is used last, the remainder must be reachable.",
+    "Implementation: Compute the minimum for each amount in increasing order. Initialize positive amounts as unreachable."
+  ],
+  "concepts": [
+    "minimum-unbounded-change"
+  ],
+  "skills": [
+    "Minimum unbounded change"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(amount × number of denominations)",
+    "space": "O(amount × number of denominations)"
+  },
+  "complexityAnalysis": "O(amount × number of denominations) time and O(amount) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-106-T01",
+      "arguments": [
+        [
+          1,
+          3,
+          4
+        ],
+        6
+      ],
+      "input": {
+        "coins": [
+          1,
+          3,
+          4
+        ],
+        "amount": 6
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-106-T02",
+      "arguments": [
+        [
+          4,
+          6
+        ],
+        7
+      ],
+      "input": {
+        "coins": [
+          4,
+          6
+        ],
+        "amount": 7
+      },
+      "expected": -1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-106-T03",
+      "arguments": [
+        [
+          9
+        ],
+        0
+      ],
+      "input": {
+        "coins": [
+          9
+        ],
+        "amount": 0
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def coinChange(coins: list[int], amount: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int coinChange(int[] coins, int amount) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} coins\n * @param {number} amount\n * @returns {number}\n */\nfunction coinChange(coins, amount) {\n  throw new Error('Implement coinChange');\n}",
+    "typescript": "function coinChange(coins: number[], amount: number): number {\n  throw new Error('Implement coinChange');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t coinChange(IntArray coins, int32_t amount) {\n    (void)coins;\n    (void)amount;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint coinChange(std::vector<int> coins, int amount) {\n    throw std::logic_error(\"Implement coinChange\");\n}",
+    "csharp": "public class Solution {\n    public int coinChange(int[] coins, int amount) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $coins\n * @param int $amount\n * @return int\n */\nfunction coinChange(array $coins, int $amount): int {\n    throw new LogicException('Implement coinChange');\n}",
+    "r": "# Parameters: coins (integer vector), amount (integer scalar). Result: integer scalar.\ncoinChange <- function(coins, amount) {\n  stop(\"Implement coinChange\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-106-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-106-statement",
+      "type": "paragraph",
+      "content": "Use any number of each coin denomination to make exactly the given amount. Return the fewest coins needed, or −1 if the amount is unreachable.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-106-contract",
+      "type": "note",
+      "title": "def coinChange(coins:",
+      "content": "Input: `coins` (integer array), `amount` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-106-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–12 denominations in [1,2147483647]. Amount is in [0,10000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-106-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def coinChange(coins: list[int], amount: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int coinChange(int[] coins, int amount) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} coins\n * @param {number} amount\n * @returns {number}\n */\nfunction coinChange(coins, amount) {\n  throw new Error('Implement coinChange');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function coinChange(coins: number[], amount: number): number {\n  throw new Error('Implement coinChange');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t coinChange(IntArray coins, int32_t amount) {\n    (void)coins;\n    (void)amount;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint coinChange(std::vector<int> coins, int amount) {\n    throw std::logic_error(\"Implement coinChange\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int coinChange(int[] coins, int amount) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $coins\n * @param int $amount\n * @return int\n */\nfunction coinChange(array $coins, int $amount): int {\n    throw new LogicException('Implement coinChange');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-106-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: coins (integer vector), amount (integer scalar). Result: integer scalar.\ncoinChange <- function(coins, amount) {\n  stop(\"Implement coinChange\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

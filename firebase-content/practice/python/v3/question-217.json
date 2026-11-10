@@ -1,0 +1,274 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-217",
+  "title": "Open The Lock",
+  "summary": "A four-wheel lock starts at 0000.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "openLock",
+    "signature": "def openLock(deadends:",
+    "input": "deadends (strs), target (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "deadends (strs), target (str)",
+    "callable": "openLock",
+    "constraints": "1–500 forbidden strings. Each forbidden string and target has four decimal digits, including leading zeros. target is not forbidden.",
+    "output-checking": "Keep four-digit strings including leading zeros. Compare shortest turn count or −1."
+  },
+  "statement": "A four-wheel lock starts at 0000. One move changes one wheel by one digit, wrapping between 0 and 9. Forbidden combinations cannot be occupied. Return the fewest moves to reach target, or −1 if unreachable.",
+  "examples": [
+    {
+      "input": "{\"deadends\":[\"9999\"],\"target\":\"0011\"}",
+      "output": "2",
+      "explanation": "Change the last two wheels once each."
+    },
+    {
+      "input": "{\"deadends\":[\"0000\"],\"target\":\"0090\"}",
+      "output": "-1",
+      "explanation": "The lock cannot start in a forbidden combination."
+    },
+    {
+      "input": "{\"deadends\":[\"5555\"],\"target\":\"0000\"}",
+      "output": "0",
+      "explanation": "The starting state already matches."
+    }
+  ],
+  "constraints": [
+    "1–500 forbidden strings. Each forbidden string and target has four decimal digits, including leading zeros. target is not forbidden."
+  ],
+  "hints": [
+    "Conceptual: Every lock state has up to eight legal one-move neighbors.",
+    "Directional: Explore in layers of equal move count.",
+    "Implementation: Use BFS from 0000, excluding forbidden and already visited states. Treat a forbidden starting state as unreachable."
+  ],
+  "concepts": [
+    "unweighted-shortest-path",
+    "bfs"
+  ],
+  "skills": [
+    "Unweighted shortest path",
+    "BFS"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(10000)",
+    "space": "O(10000)"
+  },
+  "complexityAnalysis": "O(10000) time and auxiliary space for the fixed state graph.",
+  "publicTests": [
+    {
+      "name": "NC250-217-P1",
+      "arguments": [
+        [
+          "9999"
+        ],
+        "0011"
+      ],
+      "input": {
+        "deadends": [
+          "9999"
+        ],
+        "target": "0011"
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-217-P2",
+      "arguments": [
+        [
+          "0000"
+        ],
+        "0090"
+      ],
+      "input": {
+        "deadends": [
+          "0000"
+        ],
+        "target": "0090"
+      },
+      "expected": -1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-217-P3",
+      "arguments": [
+        [
+          "5555"
+        ],
+        "0000"
+      ],
+      "input": {
+        "deadends": [
+          "5555"
+        ],
+        "target": "0000"
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def openLock(deadends: list[str], target: str) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int openLock(String[] deadends, String target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} deadends\n * @param {string} target\n * @returns {number}\n */\nfunction openLock(deadends, target) {\n  throw new Error('Implement openLock');\n}",
+    "typescript": "function openLock(deadends: string[], target: string): number {\n  throw new Error('Implement openLock');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t openLock(StringArray deadends, ByteString target) {\n    (void)deadends;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint openLock(std::vector<std::string> deadends, std::string target) {\n    throw std::logic_error(\"Implement openLock\");\n}",
+    "csharp": "public class Solution {\n    public int openLock(string[] deadends, string target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $deadends\n * @param string $target\n * @return int\n */\nfunction openLock(array $deadends, string $target): int {\n    throw new LogicException('Implement openLock');\n}",
+    "r": "# Parameters: deadends (character vector), target (character scalar). Result: integer scalar.\nopenLock <- function(deadends, target) {\n  stop(\"Implement openLock\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "openLock",
+    "arguments": [
+      [
+        "deadends",
+        "strs"
+      ],
+      [
+        "target",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Keep four-digit strings including leading zeros. Compare shortest turn count or −1."
+  },
+  "blocks": [
+    {
+      "id": "nc250-217-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-217-statement",
+      "type": "paragraph",
+      "content": "A four-wheel lock starts at 0000. One move changes one wheel by one digit, wrapping between 0 and 9. Forbidden combinations cannot be occupied. Return the fewest moves to reach target, or −1 if unreachable.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-217-contract",
+      "type": "note",
+      "title": "def openLock(deadends:",
+      "content": "Input: deadends (strs), target (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-217-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–500 forbidden strings. Each forbidden string and target has four decimal digits, including leading zeros. target is not forbidden.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-217-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def openLock(deadends: list[str], target: str) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int openLock(String[] deadends, String target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} deadends\n * @param {string} target\n * @returns {number}\n */\nfunction openLock(deadends, target) {\n  throw new Error('Implement openLock');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function openLock(deadends: string[], target: string): number {\n  throw new Error('Implement openLock');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t openLock(StringArray deadends, ByteString target) {\n    (void)deadends;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint openLock(std::vector<std::string> deadends, std::string target) {\n    throw std::logic_error(\"Implement openLock\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int openLock(string[] deadends, string target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $deadends\n * @param string $target\n * @return int\n */\nfunction openLock(array $deadends, string $target): int {\n    throw new LogicException('Implement openLock');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-217-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: deadends (character vector), target (character scalar). Result: integer scalar.\nopenLock <- function(deadends, target) {\n  stop(\"Implement openLock\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

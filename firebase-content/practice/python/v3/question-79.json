@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-079",
+  "title": "Word Search II",
+  "summary": "Return every dictionary word that can be traced on the board.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Tries",
+  "category": "dsa",
+  "subtopic": "tries",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "findWords",
+    "signature": "def findWords(board:",
+    "input": "`board` (nested string arrays), `words` (string array)",
+    "output": "string array."
+  },
+  "contractDetails": {
+    "input": "`board` (nested string arrays), `words` (string array)",
+    "result": "string array.",
+    "constraints": "The rectangular board is 1–12 rows by 1–12 columns. It contains lowercase English letters. There are 1–30,000 distinct lowercase dictionary words, each of length 1–10.",
+    "output-checking": "Require the complete set of independently verified board words. Reject duplicates and accept any order."
+  },
+  "statement": "Return every dictionary word that can be traced on the board. Successive cells share an edge, and a cell may appear at most once in a single path. Return each discovered word once in any order, even when several paths spell it. Leave the board unchanged after the call.",
+  "examples": [
+    {
+      "input": "{\"board\":[[\"a\",\"b\"],[\"d\",\"c\"]],\"words\":[\"ab\",\"abc\",\"abcd\",\"ac\",\"ba\"]}",
+      "output": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "explanation": "The path around the square works, but a and c are diagonal."
+    },
+    {
+      "input": "{\"board\":[[\"x\"]],\"words\":[\"x\",\"xx\",\"y\"]}",
+      "output": "[\"x\"]",
+      "explanation": "A single cell cannot spell xx."
+    },
+    {
+      "input": "{\"board\":[[\"a\",\"a\",\"a\"]],\"words\":[\"a\",\"aa\",\"aaa\",\"aaaa\"]}",
+      "output": "[\"a\",\"aa\",\"aaa\"]",
+      "explanation": "Multiple paths do not duplicate the result, and four cells are unavailable."
+    }
+  ],
+  "constraints": [
+    "The rectangular board is 1–12 rows by 1–12 columns. It contains lowercase English letters. There are 1–30,000 distinct lowercase dictionary words, each of length 1–10."
+  ],
+  "hints": [
+    "Conceptual: A partial path only matters if it is a dictionary prefix.",
+    "Directional: Build a Trie and carry its current node while exploring neighbors.",
+    "Implementation: Stop on missing edges. Track visited cells per path, and record each terminal word at most once without blocking longer words below it."
+  ],
+  "concepts": [
+    "tries",
+    "grid-dfs",
+    "backtracking"
+  ],
+  "skills": [
+    "Tries",
+    "grid DFS",
+    "backtracking"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(S + mn·4ᴸ)",
+    "space": "O(S + mn + L)"
+  },
+  "complexityAnalysis": "O(S + mn·4ᴸ) worst-case time as a loose upper bound, with S total dictionary characters and longest length L. Auxiliary space is O(S + mn + L), excluding the result.",
+  "publicTests": [
+    {
+      "name": "BLIND150-079-T01",
+      "arguments": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "d",
+            "c"
+          ]
+        ],
+        [
+          "ab",
+          "abc",
+          "abcd",
+          "ac",
+          "ba"
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "d",
+            "c"
+          ]
+        ],
+        "words": [
+          "ab",
+          "abc",
+          "abcd",
+          "ac",
+          "ba"
+        ]
+      },
+      "expected": [
+        "ab",
+        "abc",
+        "abcd",
+        "ba"
+      ],
+      "validator": "trie_words"
+    },
+    {
+      "name": "BLIND150-079-T02",
+      "arguments": [
+        [
+          [
+            "x"
+          ]
+        ],
+        [
+          "x",
+          "xx",
+          "y"
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "x"
+          ]
+        ],
+        "words": [
+          "x",
+          "xx",
+          "y"
+        ]
+      },
+      "expected": [
+        "x"
+      ],
+      "validator": "trie_words"
+    },
+    {
+      "name": "BLIND150-079-T03",
+      "arguments": [
+        [
+          [
+            "a",
+            "a",
+            "a"
+          ]
+        ],
+        [
+          "a",
+          "aa",
+          "aaa",
+          "aaaa"
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "a",
+            "a",
+            "a"
+          ]
+        ],
+        "words": [
+          "a",
+          "aa",
+          "aaa",
+          "aaaa"
+        ]
+      },
+      "expected": [
+        "a",
+        "aa",
+        "aaa"
+      ],
+      "validator": "trie_words"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findWords(board: list[list[str]], words: list[str]) -> list[str]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String[] findWords(String[][] board, String[] words) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[][]} board\n * @param {string[]} words\n * @returns {string[]}\n */\nfunction findWords(board, words) {\n  throw new Error('Implement findWords');\n}",
+    "typescript": "function findWords(board: string[][], words: string[]): string[] {\n  throw new Error('Implement findWords');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nStringArray findWords(StringMatrix board, StringArray words) {\n    (void)board;\n    (void)words;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::string> findWords(std::vector<std::vector<std::string>> board, std::vector<std::string> words) {\n    throw std::logic_error(\"Implement findWords\");\n}",
+    "csharp": "public class Solution {\n    public string[] findWords(string[][] board, string[] words) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[][] $board\n * @param string[] $words\n * @return string[]\n */\nfunction findWords(array $board, array $words): array {\n    throw new LogicException('Implement findWords');\n}",
+    "r": "# Parameters: board (list of character vectors), words (character vector). Result: character vector.\nfindWords <- function(board, words) {\n  stop(\"Implement findWords\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-079-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-079-statement",
+      "type": "paragraph",
+      "content": "Return every dictionary word that can be traced on the board. Successive cells share an edge, and a cell may appear at most once in a single path. Return each discovered word once in any order, even when several paths spell it. Leave the board unchanged after the call.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-079-contract",
+      "type": "note",
+      "title": "def findWords(board:",
+      "content": "Input: `board` (nested string arrays), `words` (string array)\n\nOutput: string array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-079-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The rectangular board is 1–12 rows by 1–12 columns. It contains lowercase English letters. There are 1–30,000 distinct lowercase dictionary words, each of length 1–10.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-079-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findWords(board: list[list[str]], words: list[str]) -> list[str]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String[] findWords(String[][] board, String[] words) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[][]} board\n * @param {string[]} words\n * @returns {string[]}\n */\nfunction findWords(board, words) {\n  throw new Error('Implement findWords');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findWords(board: string[][], words: string[]): string[] {\n  throw new Error('Implement findWords');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nStringArray findWords(StringMatrix board, StringArray words) {\n    (void)board;\n    (void)words;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::string> findWords(std::vector<std::vector<std::string>> board, std::vector<std::string> words) {\n    throw std::logic_error(\"Implement findWords\");\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string[] findWords(string[][] board, string[] words) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[][] $board\n * @param string[] $words\n * @return string[]\n */\nfunction findWords(array $board, array $words): array {\n    throw new LogicException('Implement findWords');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-079-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: board (list of character vectors), words (character vector). Result: character vector.\nfindWords <- function(board, words) {\n  stop(\"Implement findWords\")\n}",
+      "stdin": "",
+      "expectedOutput": "[\"ab\",\"abc\",\"abcd\",\"ba\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

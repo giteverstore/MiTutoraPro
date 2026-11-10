@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-213",
+  "title": "Extra Characters in a String",
+  "summary": "Choose nonoverlapping pieces of s that each match a dictionary word.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Tries",
+  "category": "dsa",
+  "subtopic": "tries",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "minExtraChar",
+    "signature": "def minExtraChar(s:",
+    "input": "s (str), dictionary (strs)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str), dictionary (strs)",
+    "callable": "minExtraChar",
+    "constraints": "s has 1–50 lowercase English letters. dictionary has 1–50 distinct words of 1–50 lowercase English letters.",
+    "output-checking": "Compare the exact minimum count of uncovered characters."
+  },
+  "statement": "Choose nonoverlapping pieces of s that each match a dictionary word. Minimize the number of characters that lie outside all chosen pieces, and return that number. Words may be reused. If no word fits, every character remains uncovered.",
+  "examples": [
+    {
+      "input": "{\"s\":\"sunxray\",\"dictionary\":[\"sun\",\"ray\",\"s\"]}",
+      "output": "1",
+      "explanation": "Choose sun and ray, leaving only x."
+    },
+    {
+      "input": "{\"s\":\"mmmmm\",\"dictionary\":[\"mm\",\"mmm\"]}",
+      "output": "0",
+      "explanation": "The two dictionary lengths cover the string exactly."
+    },
+    {
+      "input": "{\"s\":\"abc\",\"dictionary\":[\"d\"]}",
+      "output": "3",
+      "explanation": "None of the characters can be covered."
+    }
+  ],
+  "constraints": [
+    "s has 1–50 lowercase English letters. dictionary has 1–50 distinct words of 1–50 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: An uncovered character can be skipped, so every suffix has a possible result.",
+    "Directional: At each position, compare skipping a character with taking a word that starts there.",
+    "Implementation: Fill a DP array from the end. A skip costs one plus the next suffix, while a matching word jumps directly to its ending position at no extra cost."
+  ],
+  "concepts": [
+    "string-segmentation",
+    "dynamic-programming"
+  ],
+  "skills": [
+    "String segmentation",
+    "dynamic programming"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nDL)",
+    "space": "O(nDL)"
+  },
+  "complexityAnalysis": "O(nDL) time and O(n) auxiliary space for direct dictionary scans, where D is dictionary size and L is maximum word length.",
+  "publicTests": [
+    {
+      "name": "NC250-213-P1",
+      "arguments": [
+        "sunxray",
+        [
+          "sun",
+          "ray",
+          "s"
+        ]
+      ],
+      "input": {
+        "s": "sunxray",
+        "dictionary": [
+          "sun",
+          "ray",
+          "s"
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-213-P2",
+      "arguments": [
+        "mmmmm",
+        [
+          "mm",
+          "mmm"
+        ]
+      ],
+      "input": {
+        "s": "mmmmm",
+        "dictionary": [
+          "mm",
+          "mmm"
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-213-P3",
+      "arguments": [
+        "abc",
+        [
+          "d"
+        ]
+      ],
+      "input": {
+        "s": "abc",
+        "dictionary": [
+          "d"
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minExtraChar(s: str, dictionary: list[str]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int minExtraChar(String s, String[] dictionary) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {string[]} dictionary\n * @returns {number}\n */\nfunction minExtraChar(s, dictionary) {\n  throw new Error('Implement minExtraChar');\n}",
+    "typescript": "function minExtraChar(s: string, dictionary: string[]): number {\n  throw new Error('Implement minExtraChar');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t minExtraChar(ByteString s, StringArray dictionary) {\n    (void)s;\n    (void)dictionary;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minExtraChar(std::string s, std::vector<std::string> dictionary) {\n    throw std::logic_error(\"Implement minExtraChar\");\n}",
+    "csharp": "public class Solution {\n    public int minExtraChar(string s, string[] dictionary) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param string[] $dictionary\n * @return int\n */\nfunction minExtraChar(string $s, array $dictionary): int {\n    throw new LogicException('Implement minExtraChar');\n}",
+    "r": "# Parameters: s (character scalar), dictionary (character vector). Result: integer scalar.\nminExtraChar <- function(s, dictionary) {\n  stop(\"Implement minExtraChar\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "minExtraChar",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ],
+      [
+        "dictionary",
+        "strs"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the exact minimum count of uncovered characters."
+  },
+  "blocks": [
+    {
+      "id": "nc250-213-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-213-statement",
+      "type": "paragraph",
+      "content": "Choose nonoverlapping pieces of s that each match a dictionary word. Minimize the number of characters that lie outside all chosen pieces, and return that number. Words may be reused. If no word fits, every character remains uncovered.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-213-contract",
+      "type": "note",
+      "title": "def minExtraChar(s:",
+      "content": "Input: s (str), dictionary (strs)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-213-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "s has 1–50 lowercase English letters. dictionary has 1–50 distinct words of 1–50 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-213-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minExtraChar(s: str, dictionary: list[str]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int minExtraChar(String s, String[] dictionary) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {string[]} dictionary\n * @returns {number}\n */\nfunction minExtraChar(s, dictionary) {\n  throw new Error('Implement minExtraChar');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minExtraChar(s: string, dictionary: string[]): number {\n  throw new Error('Implement minExtraChar');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t minExtraChar(ByteString s, StringArray dictionary) {\n    (void)s;\n    (void)dictionary;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minExtraChar(std::string s, std::vector<std::string> dictionary) {\n    throw std::logic_error(\"Implement minExtraChar\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int minExtraChar(string s, string[] dictionary) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param string[] $dictionary\n * @return int\n */\nfunction minExtraChar(string $s, array $dictionary): int {\n    throw new LogicException('Implement minExtraChar');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-213-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), dictionary (character vector). Result: integer scalar.\nminExtraChar <- function(s, dictionary) {\n  stop(\"Implement minExtraChar\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-236",
+  "title": "Lemonade Change",
+  "summary": "A drink costs 5.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "lemonadeChange",
+    "signature": "def lemonadeChange(bills:",
+    "input": "bills (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "bills (ints)",
+    "callable": "lemonadeChange",
+    "constraints": "1–100000 bills. Each is 5, 10, or 20.",
+    "output-checking": "Exact typed equality of the returned bool."
+  },
+  "statement": "A drink costs 5. Customers arrive in the given order and each pays with one bill. Start with an empty register. Return whether every customer can receive exact change using bills already collected.",
+  "examples": [
+    {
+      "input": "{\"bills\":[5,10,5,20]}",
+      "output": "true",
+      "explanation": "The final customer receives one 10 and one 5."
+    },
+    {
+      "input": "{\"bills\":[10]}",
+      "output": "false",
+      "explanation": "The first customer needs change before any bill is available."
+    },
+    {
+      "input": "{\"bills\":[5,5,5,20]}",
+      "output": "true",
+      "explanation": "Three 5 bills cover the final change."
+    }
+  ],
+  "constraints": [
+    "1–100000 bills. Each is 5, 10, or 20."
+  ],
+  "hints": [
+    "Conceptual: Only the cash from earlier customers can be used as change.",
+    "Directional: Track the useful denominations separately.",
+    "Implementation: For a 20, prefer one 10 plus one 5 when available. Otherwise try three 5s. A 10 always requires one 5."
+  ],
+  "concepts": [
+    "greedy-change",
+    "counting"
+  ],
+  "skills": [
+    "Greedy change",
+    "counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-236-P1",
+      "arguments": [
+        [
+          5,
+          10,
+          5,
+          20
+        ]
+      ],
+      "input": {
+        "bills": [
+          5,
+          10,
+          5,
+          20
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-236-P2",
+      "arguments": [
+        [
+          10
+        ]
+      ],
+      "input": {
+        "bills": [
+          10
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-236-P3",
+      "arguments": [
+        [
+          5,
+          5,
+          5,
+          20
+        ]
+      ],
+      "input": {
+        "bills": [
+          5,
+          5,
+          5,
+          20
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def lemonadeChange(bills: list[int]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean lemonadeChange(int[] bills) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} bills\n * @returns {boolean}\n */\nfunction lemonadeChange(bills) {\n  throw new Error('Implement lemonadeChange');\n}",
+    "typescript": "function lemonadeChange(bills: number[]): boolean {\n  throw new Error('Implement lemonadeChange');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool lemonadeChange(IntArray bills) {\n    (void)bills;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool lemonadeChange(std::vector<int> bills) {\n    throw std::logic_error(\"Implement lemonadeChange\");\n}",
+    "csharp": "public class Solution {\n    public bool lemonadeChange(int[] bills) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $bills\n * @return bool\n */\nfunction lemonadeChange(array $bills): bool {\n    throw new LogicException('Implement lemonadeChange');\n}",
+    "r": "# Parameters: bills (integer vector). Result: logical scalar.\nlemonadeChange <- function(bills) {\n  stop(\"Implement lemonadeChange\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "lemonadeChange",
+    "arguments": [
+      [
+        "bills",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-236-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-236-statement",
+      "type": "paragraph",
+      "content": "A drink costs 5. Customers arrive in the given order and each pays with one bill. Start with an empty register. Return whether every customer can receive exact change using bills already collected.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-236-contract",
+      "type": "note",
+      "title": "def lemonadeChange(bills:",
+      "content": "Input: bills (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-236-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 bills. Each is 5, 10, or 20.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-236-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def lemonadeChange(bills: list[int]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean lemonadeChange(int[] bills) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} bills\n * @returns {boolean}\n */\nfunction lemonadeChange(bills) {\n  throw new Error('Implement lemonadeChange');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function lemonadeChange(bills: number[]): boolean {\n  throw new Error('Implement lemonadeChange');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool lemonadeChange(IntArray bills) {\n    (void)bills;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool lemonadeChange(std::vector<int> bills) {\n    throw std::logic_error(\"Implement lemonadeChange\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool lemonadeChange(int[] bills) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $bills\n * @return bool\n */\nfunction lemonadeChange(array $bills): bool {\n    throw new LogicException('Implement lemonadeChange');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-236-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: bills (integer vector). Result: logical scalar.\nlemonadeChange <- function(bills) {\n  stop(\"Implement lemonadeChange\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

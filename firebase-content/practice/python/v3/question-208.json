@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-208",
+  "title": "Permutations II",
+  "summary": "Return every distinct ordering of all input values.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "permuteUnique",
+    "signature": "def permuteUnique(nums:",
+    "input": "nums (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints)",
+    "callable": "permuteUnique",
+    "constraints": "1–8 integers in [−10,10]. Every distinct permutation appears exactly once.",
+    "output-checking": "Compare complete sets of ordered tuples. Preserve member order within each permutation and reject duplicate rows or incorrect multiplicities."
+  },
+  "statement": "Return every distinct ordering of all input values. Each ordering must use the original multiplicities. The ordering within a result matters, while the outer result list may appear in any order.",
+  "examples": [
+    {
+      "input": "{\"nums\":[-1,-1,2]}",
+      "output": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "explanation": "Only the position of 2 distinguishes the three orderings."
+    },
+    {
+      "input": "{\"nums\":[0,0]}",
+      "output": "[[0,0]]",
+      "explanation": "The identical copies produce one ordering."
+    },
+    {
+      "input": "{\"nums\":[3,1]}",
+      "output": "[[1,3],[3,1]]",
+      "explanation": "Changing the positions of distinct values gives another permutation."
+    }
+  ],
+  "constraints": [
+    "1–8 integers in [−10,10]. Every distinct permutation appears exactly once."
+  ],
+  "hints": [
+    "Conceptual: Swapping equal copies does not create another ordering.",
+    "Directional: Keep remaining counts by value.",
+    "Implementation: At each position, try each distinct available value once. Consume a copy, recurse, then restore it."
+  ],
+  "concepts": [
+    "permutations",
+    "frequency",
+    "backtracking"
+  ],
+  "skills": [
+    "Permutations",
+    "frequency",
+    "backtracking"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nU + nP)",
+    "space": "O(nU + nP)"
+  },
+  "complexityAnalysis": "O(nU + nP) time for the fixed 21-value domain, expressed as O(nP) for P permutations, with O(n+U) auxiliary space and O(nP) output.",
+  "publicTests": [
+    {
+      "name": "NC250-208-P1",
+      "arguments": [
+        [
+          -1,
+          -1,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          -1,
+          -1,
+          2
+        ]
+      },
+      "expected": [
+        [
+          -1,
+          -1,
+          2
+        ],
+        [
+          -1,
+          2,
+          -1
+        ],
+        [
+          2,
+          -1,
+          -1
+        ]
+      ],
+      "validator": "permutation_set"
+    },
+    {
+      "name": "NC250-208-P2",
+      "arguments": [
+        [
+          0,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          0,
+          0
+        ]
+      },
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ],
+      "validator": "permutation_set"
+    },
+    {
+      "name": "NC250-208-P3",
+      "arguments": [
+        [
+          3,
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          3,
+          1
+        ]
+      },
+      "expected": [
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "validator": "permutation_set"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def permuteUnique(nums: list[int]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] permuteUnique(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[][]}\n */\nfunction permuteUnique(nums) {\n  throw new Error('Implement permuteUnique');\n}",
+    "typescript": "function permuteUnique(nums: number[]): number[][] {\n  throw new Error('Implement permuteUnique');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix permuteUnique(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> permuteUnique(std::vector<int> nums) {\n    throw std::logic_error(\"Implement permuteUnique\");\n}",
+    "csharp": "public class Solution {\n    public int[][] permuteUnique(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[][]\n */\nfunction permuteUnique(array $nums): array {\n    throw new LogicException('Implement permuteUnique');\n}",
+    "r": "# Parameters: nums (integer vector). Result: list of integer vectors.\npermuteUnique <- function(nums) {\n  stop(\"Implement permuteUnique\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "permuteUnique",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "function",
+    "validator": "permutation_set",
+    "notes": "Compare complete sets of ordered tuples. Preserve member order within each permutation and reject duplicate rows or incorrect multiplicities."
+  },
+  "blocks": [
+    {
+      "id": "nc250-208-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-208-statement",
+      "type": "paragraph",
+      "content": "Return every distinct ordering of all input values. Each ordering must use the original multiplicities. The ordering within a result matters, while the outer result list may appear in any order.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-208-contract",
+      "type": "note",
+      "title": "def permuteUnique(nums:",
+      "content": "Input: nums (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-208-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–8 integers in [−10,10]. Every distinct permutation appears exactly once.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-208-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def permuteUnique(nums: list[int]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] permuteUnique(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[][]}\n */\nfunction permuteUnique(nums) {\n  throw new Error('Implement permuteUnique');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function permuteUnique(nums: number[]): number[][] {\n  throw new Error('Implement permuteUnique');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix permuteUnique(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> permuteUnique(std::vector<int> nums) {\n    throw std::logic_error(\"Implement permuteUnique\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] permuteUnique(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[][]\n */\nfunction permuteUnique(array $nums): array {\n    throw new LogicException('Implement permuteUnique');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-208-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: list of integer vectors.\npermuteUnique <- function(nums) {\n  stop(\"Implement permuteUnique\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[-1,-1,2],[-1,2,-1],[2,-1,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

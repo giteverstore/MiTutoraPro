@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-104",
+  "title": "Palindromic Substrings",
+  "summary": "Count all contiguous palindromic substrings.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "countSubstrings",
+    "signature": "def countSubstrings(s:",
+    "input": "`s` (string)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`s` (string)",
+    "result": "integer.",
+    "constraints": "1–1000 lowercase English letters.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Count all contiguous palindromic substrings. Equal text at different positions counts separately.",
+  "examples": [
+    {
+      "input": "{\"s\":\"aba\"}",
+      "output": "4",
+      "explanation": "Three single letters and the whole string count."
+    },
+    {
+      "input": "{\"s\":\"aab\"}",
+      "output": "4",
+      "explanation": "Add the pair aa to the three single letters."
+    },
+    {
+      "input": "{\"s\":\"abcd\"}",
+      "output": "4",
+      "explanation": "Only the single letters qualify."
+    }
+  ],
+  "constraints": [
+    "1–1000 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: A one-character span always counts.",
+    "Directional: Each successful expansion identifies one distinct pair of endpoints.",
+    "Implementation: Try centers at characters and between characters, counting every matching radius."
+  ],
+  "concepts": [
+    "palindrome",
+    "counting-by-center"
+  ],
+  "skills": [
+    "Palindrome",
+    "counting by center"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n²)",
+    "space": "O(n²)"
+  },
+  "complexityAnalysis": "O(n²) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-104-T01",
+      "arguments": [
+        "aba"
+      ],
+      "input": {
+        "s": "aba"
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-104-T02",
+      "arguments": [
+        "aab"
+      ],
+      "input": {
+        "s": "aab"
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-104-T03",
+      "arguments": [
+        "abcd"
+      ],
+      "input": {
+        "s": "abcd"
+      },
+      "expected": 4,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def countSubstrings(s: str) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int countSubstrings(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @returns {number}\n */\nfunction countSubstrings(s) {\n  throw new Error('Implement countSubstrings');\n}",
+    "typescript": "function countSubstrings(s: string): number {\n  throw new Error('Implement countSubstrings');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t countSubstrings(ByteString s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint countSubstrings(std::string s) {\n    throw std::logic_error(\"Implement countSubstrings\");\n}",
+    "csharp": "public class Solution {\n    public int countSubstrings(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @return int\n */\nfunction countSubstrings(string $s): int {\n    throw new LogicException('Implement countSubstrings');\n}",
+    "r": "# Parameters: s (character scalar). Result: integer scalar.\ncountSubstrings <- function(s) {\n  stop(\"Implement countSubstrings\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-104-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-104-statement",
+      "type": "paragraph",
+      "content": "Count all contiguous palindromic substrings. Equal text at different positions counts separately.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-104-contract",
+      "type": "note",
+      "title": "def countSubstrings(s:",
+      "content": "Input: `s` (string)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-104-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-104-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def countSubstrings(s: str) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int countSubstrings(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @returns {number}\n */\nfunction countSubstrings(s) {\n  throw new Error('Implement countSubstrings');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function countSubstrings(s: string): number {\n  throw new Error('Implement countSubstrings');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t countSubstrings(ByteString s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint countSubstrings(std::string s) {\n    throw std::logic_error(\"Implement countSubstrings\");\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int countSubstrings(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @return int\n */\nfunction countSubstrings(string $s): int {\n    throw new LogicException('Implement countSubstrings');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-104-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar). Result: integer scalar.\ncountSubstrings <- function(s) {\n  stop(\"Implement countSubstrings\")\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-052",
+  "title": "Binary Tree Level Order Traversal",
+  "summary": "Return one array per depth, starting at the root.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "levelOrder",
+    "signature": "class TreeNode:",
+    "input": "`root` (level-order tree array)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`root` (level-order tree array)",
+    "result": "nested integer arrays.",
+    "constraints": "0–2,000 nodes with integer values in [−1,000, 1,000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return one array per depth, starting at the root. Within each array, list the nodes from left to right. Return an empty array for an empty tree.",
+  "examples": [
+    {
+      "input": "{\"root\":[9,4,12,null,6]}",
+      "output": "[[9],[4,12],[6]]",
+      "explanation": "Node 6 is the only node on the third level."
+    },
+    {
+      "input": "{\"root\":[]}",
+      "output": "[]",
+      "explanation": "There are no levels."
+    },
+    {
+      "input": "{\"root\":[2,null,2,2]}",
+      "output": "[[2],[2],[2]]",
+      "explanation": "Equal values occupy separate levels."
+    }
+  ],
+  "constraints": [
+    "0–2,000 nodes with integer values in [−1,000, 1,000]."
+  ],
+  "hints": [
+    "Conceptual: All children of the current level belong to the next level.",
+    "Directional: Use a queue or two arrays to separate levels.",
+    "Implementation: Process exactly the current level's nodes, enqueueing each left child before its right child."
+  ],
+  "concepts": [
+    "binary-trees",
+    "breadth-first-search",
+    "level-order"
+  ],
+  "skills": [
+    "Binary trees",
+    "breadth-first search",
+    "level order"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(w) auxiliary space excluding the result, for maximum level width w.",
+  "publicTests": [
+    {
+      "name": "BLIND150-052-T01",
+      "arguments": [
+        [
+          9,
+          4,
+          12,
+          null,
+          6
+        ]
+      ],
+      "input": {
+        "root": [
+          9,
+          4,
+          12,
+          null,
+          6
+        ]
+      },
+      "expected": [
+        [
+          9
+        ],
+        [
+          4,
+          12
+        ],
+        [
+          6
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-052-T02",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-052-T03",
+      "arguments": [
+        [
+          2,
+          null,
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "root": [
+          2,
+          null,
+          2,
+          2
+        ]
+      },
+      "expected": [
+        [
+          2
+        ],
+        [
+          2
+        ],
+        [
+          2
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef levelOrder(root: TreeNode | None) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[][] levelOrder(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number[][]}\n */\nfunction levelOrder(root) {\n  throw new Error('Implement levelOrder');\n}",
+    "typescript": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction levelOrder(root: TreeNode | null): number[][] {\n  throw new Error('Implement levelOrder');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix levelOrder(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\ntypedef struct { IntArray *data; std::size_t len; } IntMatrix;\n\nIntMatrix levelOrder(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement levelOrder\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[][] levelOrder(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction levelOrder(?TreeNode $root): array {\n    throw new LogicException('Implement levelOrder');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result list of integer vectors.\nlevelOrder <- function(root) {\n  stop(\"Implement levelOrder\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-052-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-052-statement",
+      "type": "paragraph",
+      "content": "Return one array per depth, starting at the root. Within each array, list the nodes from left to right. Return an empty array for an empty tree.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-052-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: `root` (level-order tree array)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-052-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–2,000 nodes with integer values in [−1,000, 1,000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-052-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef levelOrder(root: TreeNode | None) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[][] levelOrder(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number[][]}\n */\nfunction levelOrder(root) {\n  throw new Error('Implement levelOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction levelOrder(root: TreeNode | null): number[][] {\n  throw new Error('Implement levelOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix levelOrder(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\ntypedef struct { IntArray *data; std::size_t len; } IntMatrix;\n\nIntMatrix levelOrder(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement levelOrder\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[][] levelOrder(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction levelOrder(?TreeNode $root): array {\n    throw new LogicException('Implement levelOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-052-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result list of integer vectors.\nlevelOrder <- function(root) {\n  stop(\"Implement levelOrder\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[9],[4,12],[6]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

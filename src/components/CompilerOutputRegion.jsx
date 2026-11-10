@@ -24,6 +24,7 @@ export function CompilerOutputRegion({
     isRunning,
     executionTimeMs,
     executionStatus,
+    functionResults,
   } = execution;
   const canCheckOutput = Boolean(onCheckOutput) && executionStatus === 'success' && compiler.expectedOutput !== undefined;
   const sharedPanelProps = {
@@ -44,6 +45,7 @@ export function CompilerOutputRegion({
         isRunning={isRunning}
         executionTimeMs={executionTimeMs}
         executionStatus={executionStatus}
+        functionResults={functionResults}
         {...sharedPanelProps}
       />
     );

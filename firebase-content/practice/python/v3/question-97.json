@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-097",
+  "title": "Alien Dictionary",
+  "summary": "The words are listed in sorted order under an unknown alphabet.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "foreignDictionary",
+    "signature": "def foreignDictionary(words:",
+    "input": "`words` (string array)",
+    "output": "string."
+  },
+  "contractDetails": {
+    "input": "`words` (string array)",
+    "result": "string.",
+    "constraints": "1–100 words of 1–100 lowercase English letters.",
+    "output-checking": "Check that every observed letter appears once and the words are sorted under the returned order. Accept an empty string only for an impossible dictionary."
+  },
+  "statement": "The words are listed in sorted order under an unknown alphabet. Return any string containing each observed letter once that makes the list sorted. Return an empty string when no alphabet order works.",
+  "examples": [
+    {
+      "input": "{\"words\":[\"pa\",\"pb\",\"ra\"]}",
+      "output": "\"abpr\"",
+      "explanation": "The first pair implies a before b. The second implies p before r."
+    },
+    {
+      "input": "{\"words\":[\"lamp\",\"lam\"]}",
+      "output": "\"\"",
+      "explanation": "A word must precede its longer extensions, so the supplied order is impossible."
+    },
+    {
+      "input": "{\"words\":[\"mno\"]}",
+      "output": "\"mno\"",
+      "explanation": "One word imposes no ordering on its distinct letters."
+    }
+  ],
+  "constraints": [
+    "1–100 words of 1–100 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Compare neighboring words and look for the first position where they differ.",
+    "Directional: That mismatch establishes a directed precedence rule. A longer word before its own prefix is impossible.",
+    "Implementation: Include every observed letter, deduplicate precedence edges, and topologically sort. A cycle prevents a complete order."
+  ],
+  "concepts": [
+    "topological-order",
+    "directed-graph",
+    "prefix-rules"
+  ],
+  "skills": [
+    "Topological order",
+    "directed graph",
+    "prefix rules"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(L + A²)",
+    "space": "O(L + A²)"
+  },
+  "complexityAnalysis": "O(L + A²) time and O(A²) auxiliary space with an adjacency matrix, where L is the total number of letters and A ≤ 26.",
+  "publicTests": [
+    {
+      "name": "BLIND150-097-T01",
+      "arguments": [
+        [
+          "pa",
+          "pb",
+          "ra"
+        ]
+      ],
+      "input": {
+        "words": [
+          "pa",
+          "pb",
+          "ra"
+        ]
+      },
+      "expected": "abpr",
+      "validator": "alien_order"
+    },
+    {
+      "name": "BLIND150-097-T02",
+      "arguments": [
+        [
+          "lamp",
+          "lam"
+        ]
+      ],
+      "input": {
+        "words": [
+          "lamp",
+          "lam"
+        ]
+      },
+      "expected": "",
+      "validator": "alien_order"
+    },
+    {
+      "name": "BLIND150-097-T03",
+      "arguments": [
+        [
+          "mno"
+        ]
+      ],
+      "input": {
+        "words": [
+          "mno"
+        ]
+      },
+      "expected": "mno",
+      "validator": "alien_order"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def foreignDictionary(words: list[str]) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String foreignDictionary(String[] words) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} words\n * @returns {string}\n */\nfunction foreignDictionary(words) {\n  throw new Error('Implement foreignDictionary');\n}",
+    "typescript": "function foreignDictionary(words: string[]): string {\n  throw new Error('Implement foreignDictionary');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString foreignDictionary(StringArray words) {\n    (void)words;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string foreignDictionary(std::vector<std::string> words) {\n    throw std::logic_error(\"Implement foreignDictionary\");\n}",
+    "csharp": "public class Solution {\n    public string foreignDictionary(string[] words) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $words\n * @return string\n */\nfunction foreignDictionary(array $words): string {\n    throw new LogicException('Implement foreignDictionary');\n}",
+    "r": "# Parameters: words (character vector). Result: character scalar.\nforeignDictionary <- function(words) {\n  stop(\"Implement foreignDictionary\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-097-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-097-statement",
+      "type": "paragraph",
+      "content": "The words are listed in sorted order under an unknown alphabet. Return any string containing each observed letter once that makes the list sorted. Return an empty string when no alphabet order works.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-097-contract",
+      "type": "note",
+      "title": "def foreignDictionary(words:",
+      "content": "Input: `words` (string array)\n\nOutput: string.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-097-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 words of 1–100 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-097-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def foreignDictionary(words: list[str]) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String foreignDictionary(String[] words) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} words\n * @returns {string}\n */\nfunction foreignDictionary(words) {\n  throw new Error('Implement foreignDictionary');\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function foreignDictionary(words: string[]): string {\n  throw new Error('Implement foreignDictionary');\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString foreignDictionary(StringArray words) {\n    (void)words;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string foreignDictionary(std::vector<std::string> words) {\n    throw std::logic_error(\"Implement foreignDictionary\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string foreignDictionary(string[] words) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $words\n * @return string\n */\nfunction foreignDictionary(array $words): string {\n    throw new LogicException('Implement foreignDictionary');\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-097-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: words (character vector). Result: character scalar.\nforeignDictionary <- function(words) {\n  stop(\"Implement foreignDictionary\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"abpr\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

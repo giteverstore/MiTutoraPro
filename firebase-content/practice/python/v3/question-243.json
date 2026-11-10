@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-243",
+  "title": "Excel Sheet Column Title",
+  "summary": "Encode a spreadsheet column number using uppercase letters.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "convertToTitle",
+    "signature": "def convertToTitle(columnNumber:",
+    "input": "columnNumber (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "columnNumber (int)",
+    "callable": "convertToTitle",
+    "constraints": "1 ≤ columnNumber ≤ 2147483647.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Encode a spreadsheet column number using uppercase letters. The first 26 columns are A through Z, then AA, AB, and so on. Return the label for the given one-based number.",
+  "examples": [
+    {
+      "input": "{\"columnNumber\":26}",
+      "output": "\"Z\"",
+      "explanation": "The last one-letter column is Z."
+    },
+    {
+      "input": "{\"columnNumber\":27}",
+      "output": "\"AA\"",
+      "explanation": "The next column starts the two-letter labels."
+    },
+    {
+      "input": "{\"columnNumber\":2147483647}",
+      "output": "\"FXSHRXW\"",
+      "explanation": "The largest allowed column has seven letters."
+    }
+  ],
+  "constraints": [
+    "1 ≤ columnNumber ≤ 2147483647."
+  ],
+  "hints": [
+    "Conceptual: Unlike ordinary positional digits, this alphabet has no zero symbol.",
+    "Directional: Adjust the current number by one before extracting a digit.",
+    "Implementation: Repeatedly decrement, use the remainder modulo 26 for the next letter from the right, then divide by 26 and reverse the collected letters."
+  ],
+  "concepts": [
+    "bijective-base-26",
+    "strings"
+  ],
+  "skills": [
+    "Bijective base 26",
+    "strings"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log₍₂₆₎ n)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(log₍₂₆₎ n) time and O(log₍₂₆₎ n) result storage.",
+  "publicTests": [
+    {
+      "name": "NC250-243-P1",
+      "arguments": [
+        26
+      ],
+      "input": {
+        "columnNumber": 26
+      },
+      "expected": "Z",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-243-P2",
+      "arguments": [
+        27
+      ],
+      "input": {
+        "columnNumber": 27
+      },
+      "expected": "AA",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-243-P3",
+      "arguments": [
+        2147483647
+      ],
+      "input": {
+        "columnNumber": 2147483647
+      },
+      "expected": "FXSHRXW",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def convertToTitle(columnNumber: int) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String convertToTitle(int columnNumber) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} columnNumber\n * @returns {string}\n */\nfunction convertToTitle(columnNumber) {\n  throw new Error('Implement convertToTitle');\n}",
+    "typescript": "function convertToTitle(columnNumber: number): string {\n  throw new Error('Implement convertToTitle');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString convertToTitle(int32_t columnNumber) {\n    (void)columnNumber;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string convertToTitle(int columnNumber) {\n    throw std::logic_error(\"Implement convertToTitle\");\n}",
+    "csharp": "public class Solution {\n    public string convertToTitle(int columnNumber) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $columnNumber\n * @return string\n */\nfunction convertToTitle(int $columnNumber): string {\n    throw new LogicException('Implement convertToTitle');\n}",
+    "r": "# Parameters: columnNumber (integer scalar). Result: character scalar.\nconvertToTitle <- function(columnNumber) {\n  stop(\"Implement convertToTitle\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "convertToTitle",
+    "arguments": [
+      [
+        "columnNumber",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-243-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-243-statement",
+      "type": "paragraph",
+      "content": "Encode a spreadsheet column number using uppercase letters. The first 26 columns are A through Z, then AA, AB, and so on. Return the label for the given one-based number.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-243-contract",
+      "type": "note",
+      "title": "def convertToTitle(columnNumber:",
+      "content": "Input: columnNumber (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-243-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ columnNumber ≤ 2147483647.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-243-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def convertToTitle(columnNumber: int) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String convertToTitle(int columnNumber) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} columnNumber\n * @returns {string}\n */\nfunction convertToTitle(columnNumber) {\n  throw new Error('Implement convertToTitle');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function convertToTitle(columnNumber: number): string {\n  throw new Error('Implement convertToTitle');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString convertToTitle(int32_t columnNumber) {\n    (void)columnNumber;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string convertToTitle(int columnNumber) {\n    throw std::logic_error(\"Implement convertToTitle\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string convertToTitle(int columnNumber) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $columnNumber\n * @return string\n */\nfunction convertToTitle(int $columnNumber): string {\n    throw new LogicException('Implement convertToTitle');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-243-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: columnNumber (integer scalar). Result: character scalar.\nconvertToTitle <- function(columnNumber) {\n  stop(\"Implement convertToTitle\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"Z\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

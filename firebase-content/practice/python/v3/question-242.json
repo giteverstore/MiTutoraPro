@@ -1,0 +1,358 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-242",
+  "title": "Meeting Rooms III",
+  "summary": "Process meetings in increasing original start time.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Intervals",
+  "category": "dsa",
+  "subtopic": "intervals",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "mostBooked",
+    "signature": "def mostBooked(n:",
+    "input": "n (int), meetings (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), meetings (intgrid)",
+    "callable": "mostBooked",
+    "constraints": "1–100 rooms numbered 0 through n−1. 1–100000 rows [start,end] with 0 ≤ start < end ≤ 500000 and distinct start times. An ending meeting releases its room immediately. Delayed times may exceed signed 32-bit range.",
+    "output-checking": "Use at least 64-bit or exact numeric time for delayed meetings. Preserve durations, select the lowest eligible room, and compare the exact usage winner."
+  },
+  "statement": "Process meetings in increasing original start time. Use the lowest-numbered room free at that time. If every room is busy, delay the meeting until the first room becomes free and preserve its duration. Break simultaneous room availability ties by room number. Return the room that hosts the most meetings, choosing the smallest number on a tie.",
+  "examples": [
+    {
+      "input": "{\"n\":2,\"meetings\":[[0,8],[1,4],[2,3],[5,6]]}",
+      "output": "1",
+      "explanation": "Room 1 hosts the second, delayed third, and fourth meetings."
+    },
+    {
+      "input": "{\"n\":2,\"meetings\":[[0,4],[1,4],[2,3],[3,5]]}",
+      "output": "0",
+      "explanation": "The equal-time release is broken by room number, and the final usage counts tie."
+    },
+    {
+      "input": "{\"n\":3,\"meetings\":[[7,8],[0,2],[2,3]]}",
+      "output": "0",
+      "explanation": "Original start times determine processing order, and room 0 can be reused at time 2."
+    }
+  ],
+  "constraints": [
+    "1–100 rooms numbered 0 through n−1. 1–100000 rows [start,end] with 0 ≤ start < end ≤ 500000 and distinct start times. An ending meeting releases its room immediately. Delayed times may exceed signed 32-bit range."
+  ],
+  "hints": [
+    "Conceptual: The smallest free room and the earliest future release are different priorities.",
+    "Directional: Use a room-number heap for free rooms and an end-time heap for occupied rooms.",
+    "Implementation: Release every room ending at or before the requested start. If no room is free, pop the earliest ending room and schedule the same duration after its release."
+  ],
+  "concepts": [
+    "scheduling",
+    "two-priority-queues",
+    "64-bit-time"
+  ],
+  "skills": [
+    "Scheduling",
+    "two priority queues",
+    "64-bit time"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(m log m + m log n)",
+    "space": "O(m log m + m log n)"
+  },
+  "complexityAnalysis": "O(m log m + m log n) time and O(m+n) auxiliary space for m meetings and n rooms.",
+  "publicTests": [
+    {
+      "name": "NC250-242-P1",
+      "arguments": [
+        2,
+        [
+          [
+            0,
+            8
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      ],
+      "input": {
+        "n": 2,
+        "meetings": [
+          [
+            0,
+            8
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-242-P2",
+      "arguments": [
+        2,
+        [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            5
+          ]
+        ]
+      ],
+      "input": {
+        "n": 2,
+        "meetings": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-242-P3",
+      "arguments": [
+        3,
+        [
+          [
+            7,
+            8
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "n": 3,
+        "meetings": [
+          [
+            7,
+            8
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def mostBooked(n: int, meetings: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int mostBooked(int n, int[][] meetings) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} meetings\n * @returns {number}\n */\nfunction mostBooked(n, meetings) {\n  throw new Error('Implement mostBooked');\n}",
+    "typescript": "function mostBooked(n: number, meetings: number[][]): number {\n  throw new Error('Implement mostBooked');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t mostBooked(int32_t n, IntMatrix meetings) {\n    (void)n;\n    (void)meetings;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint mostBooked(int n, std::vector<std::vector<int>> meetings) {\n    throw std::logic_error(\"Implement mostBooked\");\n}",
+    "csharp": "public class Solution {\n    public int mostBooked(int n, int[][] meetings) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $meetings\n * @return int\n */\nfunction mostBooked(int $n, array $meetings): int {\n    throw new LogicException('Implement mostBooked');\n}",
+    "r": "# Parameters: n (integer scalar), meetings (list of integer vectors). Result: integer scalar.\nmostBooked <- function(n, meetings) {\n  stop(\"Implement mostBooked\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "mostBooked",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "meetings",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Use at least 64-bit or exact numeric time for delayed meetings. Preserve durations, select the lowest eligible room, and compare the exact usage winner."
+  },
+  "blocks": [
+    {
+      "id": "nc250-242-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-242-statement",
+      "type": "paragraph",
+      "content": "Process meetings in increasing original start time. Use the lowest-numbered room free at that time. If every room is busy, delay the meeting until the first room becomes free and preserve its duration. Break simultaneous room availability ties by room number. Return the room that hosts the most meetings, choosing the smallest number on a tie.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-242-contract",
+      "type": "note",
+      "title": "def mostBooked(n:",
+      "content": "Input: n (int), meetings (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-242-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 rooms numbered 0 through n−1. 1–100000 rows [start,end] with 0 ≤ start < end ≤ 500000 and distinct start times. An ending meeting releases its room immediately. Delayed times may exceed signed 32-bit range.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-242-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def mostBooked(n: int, meetings: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int mostBooked(int n, int[][] meetings) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number[][]} meetings\n * @returns {number}\n */\nfunction mostBooked(n, meetings) {\n  throw new Error('Implement mostBooked');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function mostBooked(n: number, meetings: number[][]): number {\n  throw new Error('Implement mostBooked');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t mostBooked(int32_t n, IntMatrix meetings) {\n    (void)n;\n    (void)meetings;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint mostBooked(int n, std::vector<std::vector<int>> meetings) {\n    throw std::logic_error(\"Implement mostBooked\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int mostBooked(int n, int[][] meetings) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $meetings\n * @return int\n */\nfunction mostBooked(int $n, array $meetings): int {\n    throw new LogicException('Implement mostBooked');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-242-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), meetings (list of integer vectors). Result: integer scalar.\nmostBooked <- function(n, meetings) {\n  stop(\"Implement mostBooked\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

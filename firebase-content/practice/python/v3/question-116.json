@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-116",
+  "title": "Interleaving String",
+  "summary": "Decide whether s3 can be formed by taking all characters from s1 and s2 while preserving the order from each source.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "isInterleave",
+    "signature": "def isInterleave(s1:",
+    "input": "`s1` (string), `s2` (string), `s3` (string)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`s1` (string), `s2` (string), `s3` (string)",
+    "result": "boolean.",
+    "constraints": "s1 and s2 have lengths 0–100. s3 has length 0–200. All characters are lowercase English letters.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Decide whether s3 can be formed by taking all characters from s1 and s2 while preserving the order from each source.",
+  "examples": [
+    {
+      "input": "{\"s1\":\"ab\",\"s2\":\"xy\",\"s3\":\"axby\"}",
+      "output": "true",
+      "explanation": "Alternate between sources."
+    },
+    {
+      "input": "{\"s1\":\"ab\",\"s2\":\"xy\",\"s3\":\"baxy\"}",
+      "output": "false",
+      "explanation": "The first source would need to produce b before a."
+    },
+    {
+      "input": "{\"s1\":\"\",\"s2\":\"cat\",\"s3\":\"cat\"}",
+      "output": "true",
+      "explanation": "Use just the second source."
+    }
+  ],
+  "constraints": [
+    "s1 and s2 have lengths 0–100. s3 has length 0–200. All characters are lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Check the total length first.",
+    "Directional: A state says how many characters each source has supplied.",
+    "Implementation: Accept a state if either preceding state was reachable and its next character matches s3."
+  ],
+  "concepts": [
+    "string-merge",
+    "feasibility"
+  ],
+  "skills": [
+    "String merge",
+    "feasibility"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn + m + n)",
+    "space": "O(mn + m + n)"
+  },
+  "complexityAnalysis": "O(mn + m + n) time and O(n) space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-116-T01",
+      "arguments": [
+        "ab",
+        "xy",
+        "axby"
+      ],
+      "input": {
+        "s1": "ab",
+        "s2": "xy",
+        "s3": "axby"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-116-T02",
+      "arguments": [
+        "ab",
+        "xy",
+        "baxy"
+      ],
+      "input": {
+        "s1": "ab",
+        "s2": "xy",
+        "s3": "baxy"
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-116-T03",
+      "arguments": [
+        "",
+        "cat",
+        "cat"
+      ],
+      "input": {
+        "s1": "",
+        "s2": "cat",
+        "s3": "cat"
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def isInterleave(s1: str, s2: str, s3: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @param {string} s3\n * @returns {boolean}\n */\nfunction isInterleave(s1, s2, s3) {\n  throw new Error('Implement isInterleave');\n}",
+    "typescript": "function isInterleave(s1: string, s2: string, s3: string): boolean {\n  throw new Error('Implement isInterleave');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool isInterleave(ByteString s1, ByteString s2, ByteString s3) {\n    (void)s1;\n    (void)s2;\n    (void)s3;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isInterleave(std::string s1, std::string s2, std::string s3) {\n    throw std::logic_error(\"Implement isInterleave\");\n}",
+    "csharp": "public class Solution {\n    public bool isInterleave(string s1, string s2, string s3) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s1\n * @param string $s2\n * @param string $s3\n * @return bool\n */\nfunction isInterleave(string $s1, string $s2, string $s3): bool {\n    throw new LogicException('Implement isInterleave');\n}",
+    "r": "# Parameters: s1 (character scalar), s2 (character scalar), s3 (character scalar). Result: logical scalar.\nisInterleave <- function(s1, s2, s3) {\n  stop(\"Implement isInterleave\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-116-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-116-statement",
+      "type": "paragraph",
+      "content": "Decide whether s3 can be formed by taking all characters from s1 and s2 while preserving the order from each source.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-116-contract",
+      "type": "note",
+      "title": "def isInterleave(s1:",
+      "content": "Input: `s1` (string), `s2` (string), `s3` (string)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-116-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "s1 and s2 have lengths 0–100. s3 has length 0–200. All characters are lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-116-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def isInterleave(s1: str, s2: str, s3: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s1\n * @param {string} s2\n * @param {string} s3\n * @returns {boolean}\n */\nfunction isInterleave(s1, s2, s3) {\n  throw new Error('Implement isInterleave');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function isInterleave(s1: string, s2: string, s3: string): boolean {\n  throw new Error('Implement isInterleave');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool isInterleave(ByteString s1, ByteString s2, ByteString s3) {\n    (void)s1;\n    (void)s2;\n    (void)s3;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isInterleave(std::string s1, std::string s2, std::string s3) {\n    throw std::logic_error(\"Implement isInterleave\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool isInterleave(string s1, string s2, string s3) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s1\n * @param string $s2\n * @param string $s3\n * @return bool\n */\nfunction isInterleave(string $s1, string $s2, string $s3): bool {\n    throw new LogicException('Implement isInterleave');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-116-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s1 (character scalar), s2 (character scalar), s3 (character scalar). Result: logical scalar.\nisInterleave <- function(s1, s2, s3) {\n  stop(\"Implement isInterleave\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

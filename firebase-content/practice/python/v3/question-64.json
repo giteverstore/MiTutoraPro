@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-064",
+  "title": "Task Scheduler",
+  "summary": "Schedule the supplied jobs on one processor.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "leastInterval",
+    "signature": "def leastInterval(tasks:",
+    "input": "`tasks` (string), `n` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`tasks` (string), `n` (integer)",
+    "result": "integer.",
+    "constraints": "1–10,000 tasks. Each letter is uppercase English. The cooldown n is an integer from 0 through 100.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Schedule the supplied jobs on one processor. Each job needs one time slot. Two jobs with the same letter must have at least n intervening slots. You may reorder jobs and insert idle slots. Return the smallest possible total length. The fixture represents the job letters as one string.",
+  "examples": [
+    {
+      "input": "{\"tasks\":\"AAABB\",\"n\":2}",
+      "output": "7",
+      "explanation": "One valid order is A B idle A B idle A."
+    },
+    {
+      "input": "{\"tasks\":\"AABC\",\"n\":0}",
+      "output": "4",
+      "explanation": "There is no cooldown, so no idle slot is needed."
+    },
+    {
+      "input": "{\"tasks\":\"BBCCDD\",\"n\":2}",
+      "output": "6",
+      "explanation": "Repeating B C D keeps two slots between copies."
+    }
+  ],
+  "constraints": [
+    "1–10,000 tasks. Each letter is uppercase English. The cooldown n is an integer from 0 through 100."
+  ],
+  "hints": [
+    "Conceptual: The most frequent letters create the longest repeated pattern.",
+    "Directional: Place the maximum-frequency letters in blocks with cooldown-sized gaps.",
+    "Implementation: If the maximum count is f and t letters have that count, compare the total jobs with (f−1)(n+1)+t and take the larger."
+  ],
+  "concepts": [
+    "scheduling",
+    "frequency-counting",
+    "greedy"
+  ],
+  "skills": [
+    "Scheduling",
+    "frequency counting",
+    "greedy"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(m+A)",
+    "space": "O(m+A)"
+  },
+  "complexityAnalysis": "O(m+A) time and O(A) space for m tasks and alphabet size A, which is 26 here.",
+  "publicTests": [
+    {
+      "name": "BLIND150-064-T01",
+      "arguments": [
+        "AAABB",
+        2
+      ],
+      "input": {
+        "tasks": "AAABB",
+        "n": 2
+      },
+      "expected": 7,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-064-T02",
+      "arguments": [
+        "AABC",
+        0
+      ],
+      "input": {
+        "tasks": "AABC",
+        "n": 0
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-064-T03",
+      "arguments": [
+        "BBCCDD",
+        2
+      ],
+      "input": {
+        "tasks": "BBCCDD",
+        "n": 2
+      },
+      "expected": 6,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def leastInterval(tasks: str, n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int leastInterval(String tasks, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} tasks\n * @param {number} n\n * @returns {number}\n */\nfunction leastInterval(tasks, n) {\n  throw new Error('Implement leastInterval');\n}",
+    "typescript": "function leastInterval(tasks: string, n: number): number {\n  throw new Error('Implement leastInterval');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t leastInterval(ByteString tasks, int32_t n) {\n    (void)tasks;\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint leastInterval(std::string tasks, int n) {\n    throw std::logic_error(\"Implement leastInterval\");\n}",
+    "csharp": "public class Solution {\n    public int leastInterval(string tasks, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $tasks\n * @param int $n\n * @return int\n */\nfunction leastInterval(string $tasks, int $n): int {\n    throw new LogicException('Implement leastInterval');\n}",
+    "r": "# Parameters: tasks (character scalar), n (integer scalar). Result: integer scalar.\nleastInterval <- function(tasks, n) {\n  stop(\"Implement leastInterval\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-064-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-064-statement",
+      "type": "paragraph",
+      "content": "Schedule the supplied jobs on one processor. Each job needs one time slot. Two jobs with the same letter must have at least n intervening slots. You may reorder jobs and insert idle slots. Return the smallest possible total length. The fixture represents the job letters as one string.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-064-contract",
+      "type": "note",
+      "title": "def leastInterval(tasks:",
+      "content": "Input: `tasks` (string), `n` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-064-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10,000 tasks. Each letter is uppercase English. The cooldown n is an integer from 0 through 100.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-064-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def leastInterval(tasks: str, n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int leastInterval(String tasks, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} tasks\n * @param {number} n\n * @returns {number}\n */\nfunction leastInterval(tasks, n) {\n  throw new Error('Implement leastInterval');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function leastInterval(tasks: string, n: number): number {\n  throw new Error('Implement leastInterval');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t leastInterval(ByteString tasks, int32_t n) {\n    (void)tasks;\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint leastInterval(std::string tasks, int n) {\n    throw std::logic_error(\"Implement leastInterval\");\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int leastInterval(string tasks, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $tasks\n * @param int $n\n * @return int\n */\nfunction leastInterval(string $tasks, int $n): int {\n    throw new LogicException('Implement leastInterval');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-064-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: tasks (character scalar), n (integer scalar). Result: integer scalar.\nleastInterval <- function(tasks, n) {\n  stop(\"Implement leastInterval\")\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

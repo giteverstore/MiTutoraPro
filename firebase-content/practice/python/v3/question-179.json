@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-179",
+  "title": "Online Stock Span",
+  "summary": "Create a StockSpanner and call next(price) for each day.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "StockSpanner",
+    "signature": "class StockSpanner:",
+    "input": "prices (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "prices (ints)",
+    "callable": "StockSpanner",
+    "constraints": "At most 10000 calls. Each price is in [1,100000]. Construct once and serialize every next return in call order.",
+    "output-checking": "Construct StockSpanner once. Call next(price) for each prices entry and serialize each return in order. R uses the quoted `next` member."
+  },
+  "statement": "Create a StockSpanner and call next(price) for each day. Return the number of consecutive days ending today whose prices are at most today’s price, including today.",
+  "examples": [
+    {
+      "input": "{\"prices\":[40,30,35,50]}",
+      "output": "[1,1,2,4]",
+      "explanation": "The final quote covers all four days."
+    },
+    {
+      "input": "{\"prices\":[7,7,7]}",
+      "output": "[1,2,3]",
+      "explanation": "Equal prices count toward the span."
+    },
+    {
+      "input": "{\"prices\":[9,8,7]}",
+      "output": "[1,1,1]",
+      "explanation": "Each earlier price is higher."
+    }
+  ],
+  "constraints": [
+    "At most 10000 calls. Each price is in [1,100000]. Construct once and serialize every next return in call order."
+  ],
+  "hints": [
+    "Conceptual: A higher current price can absorb earlier groups of days.",
+    "Directional: Keep decreasing prices with the span represented by each entry.",
+    "Implementation: Pop entries whose price is at most the new price, add their spans to one, then push the new price and combined span."
+  ],
+  "concepts": [
+    "stateful-class",
+    "monotonic-stack"
+  ],
+  "skills": [
+    "Stateful class",
+    "monotonic stack"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(1) amortized time per call, O(n) worst-case for one call, O(n) storage.",
+  "publicTests": [
+    {
+      "name": "NC250-179-P1",
+      "arguments": [
+        [
+          40,
+          30,
+          35,
+          50
+        ]
+      ],
+      "input": {
+        "prices": [
+          40,
+          30,
+          35,
+          50
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        2,
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-179-P2",
+      "arguments": [
+        [
+          7,
+          7,
+          7
+        ]
+      ],
+      "input": {
+        "prices": [
+          7,
+          7,
+          7
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-179-P3",
+      "arguments": [
+        [
+          9,
+          8,
+          7
+        ]
+      ],
+      "input": {
+        "prices": [
+          9,
+          8,
+          7
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class StockSpanner:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def next(self, price: int) -> int:\n        raise NotImplementedError",
+    "java": "class StockSpanner {\n    public StockSpanner() { throw new UnsupportedOperationException(); }\n    public int next(int price) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class StockSpanner {\n  constructor() { throw new Error('Implement constructor'); }\n  next(price) { throw new Error('Implement next'); }\n}",
+    "typescript": "class StockSpanner {\n  constructor() { throw new Error('Implement constructor'); }\n  next(price: number): number { throw new Error('Implement next'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct StockSpanner StockSpanner;\nStockSpanner * stockSpannerCreate(void) {  abort(); }\nint32_t stockSpannerNext(StockSpanner * self, int32_t price) { (void)self; (void)price; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass StockSpanner {\npublic:\n    StockSpanner() { throw std::logic_error(\"Implement method\"); }\n    int next(int price) { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class StockSpanner {\n    public StockSpanner() { throw new System.NotImplementedException(); }\n    public int next(int price) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass StockSpanner {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function next(int $price): int { throw new LogicException('Implement method'); }\n}",
+    "r": "StockSpanner <- function() {\n list(\n  `next` = function(price) stop(\"Implement next\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "StockSpanner",
+    "arguments": [
+      [
+        "prices",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "stateful",
+    "validator": "exact",
+    "notes": "Construct StockSpanner once. Call next(price) for each prices entry and serialize each return in order. R uses the quoted `next` member."
+  },
+  "blocks": [
+    {
+      "id": "nc250-179-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-179-statement",
+      "type": "paragraph",
+      "content": "Create a StockSpanner and call next(price) for each day. Return the number of consecutive days ending today whose prices are at most today’s price, including today.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-179-contract",
+      "type": "note",
+      "title": "class StockSpanner:",
+      "content": "Input: prices (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-179-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 10000 calls. Each price is in [1,100000]. Construct once and serialize every next return in call order.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-179-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class StockSpanner:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def next(self, price: int) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class StockSpanner {\n    public StockSpanner() { throw new UnsupportedOperationException(); }\n    public int next(int price) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class StockSpanner {\n  constructor() { throw new Error('Implement constructor'); }\n  next(price) { throw new Error('Implement next'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class StockSpanner {\n  constructor() { throw new Error('Implement constructor'); }\n  next(price: number): number { throw new Error('Implement next'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct StockSpanner StockSpanner;\nStockSpanner * stockSpannerCreate(void) {  abort(); }\nint32_t stockSpannerNext(StockSpanner * self, int32_t price) { (void)self; (void)price; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass StockSpanner {\npublic:\n    StockSpanner() { throw std::logic_error(\"Implement method\"); }\n    int next(int price) { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class StockSpanner {\n    public StockSpanner() { throw new System.NotImplementedException(); }\n    public int next(int price) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass StockSpanner {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function next(int $price): int { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-179-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "StockSpanner <- function() {\n list(\n  `next` = function(price) stop(\"Implement next\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,2,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

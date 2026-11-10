@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-014",
+  "title": "Trapping Rain Water",
+  "summary": "Treat the array as adjacent columns of unit width.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "trap",
+    "signature": "def trap(height:",
+    "input": "`height` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`height` (integer array)",
+    "result": "integer.",
+    "constraints": "The array has 1–20,000 heights in [0, 100,000]. Water can escape past either end.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Treat the array as adjacent columns of unit width. After rainfall, a low column can hold water when taller columns block escape to both sides. Return the total number of unit squares of water above the columns.",
+  "examples": [
+    {
+      "input": "{\"height\":[5,1,0,3]}",
+      "output": "5",
+      "explanation": "The inside columns hold 2 and 3 units."
+    },
+    {
+      "input": "{\"height\":[2,0,2,0,2]}",
+      "output": "4",
+      "explanation": "Each dip holds 2 units."
+    },
+    {
+      "input": "{\"height\":[3,2,1]}",
+      "output": "0",
+      "explanation": "Water flows out along the descending side."
+    }
+  ],
+  "constraints": [
+    "The array has 1–20,000 heights in [0, 100,000]. Water can escape past either end."
+  ],
+  "hints": [
+    "Conceptual: A column fills up to the lower of the highest walls on its two sides.",
+    "Directional: Track a maximum height seen from each end.",
+    "Implementation: Settle the side with the lower running maximum. Its water contribution is that maximum minus the current height after updating the maximum."
+  ],
+  "concepts": [
+    "arrays",
+    "two-pointers",
+    "prefix-maxima"
+  ],
+  "skills": [
+    "Arrays",
+    "two pointers",
+    "prefix maxima"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space. Each position is settled from one side.",
+  "publicTests": [
+    {
+      "name": "BLIND150-014-T01",
+      "arguments": [
+        [
+          5,
+          1,
+          0,
+          3
+        ]
+      ],
+      "input": {
+        "height": [
+          5,
+          1,
+          0,
+          3
+        ]
+      },
+      "expected": 5,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-014-T02",
+      "arguments": [
+        [
+          2,
+          0,
+          2,
+          0,
+          2
+        ]
+      ],
+      "input": {
+        "height": [
+          2,
+          0,
+          2,
+          0,
+          2
+        ]
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-014-T03",
+      "arguments": [
+        [
+          3,
+          2,
+          1
+        ]
+      ],
+      "input": {
+        "height": [
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def trap(height: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int trap(int[] height) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} height\n * @returns {number}\n */\nfunction trap(height) {\n  throw new Error('Implement trap');\n}",
+    "typescript": "function trap(height: number[]): number {\n  throw new Error('Implement trap');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t trap(IntArray height) {\n    (void)height;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint trap(std::vector<int> height) {\n    throw std::logic_error(\"Implement trap\");\n}",
+    "csharp": "public class Solution {\n    public int trap(int[] height) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $height\n * @return int\n */\nfunction trap(array $height): int {\n    throw new LogicException('Implement trap');\n}",
+    "r": "# Parameters: height (integer vector). Result: integer scalar.\ntrap <- function(height) {\n  stop(\"Implement trap\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-014-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-014-statement",
+      "type": "paragraph",
+      "content": "Treat the array as adjacent columns of unit width. After rainfall, a low column can hold water when taller columns block escape to both sides. Return the total number of unit squares of water above the columns.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-014-contract",
+      "type": "note",
+      "title": "def trap(height:",
+      "content": "Input: `height` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-014-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The array has 1–20,000 heights in [0, 100,000]. Water can escape past either end.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-014-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def trap(height: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int trap(int[] height) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} height\n * @returns {number}\n */\nfunction trap(height) {\n  throw new Error('Implement trap');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function trap(height: number[]): number {\n  throw new Error('Implement trap');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t trap(IntArray height) {\n    (void)height;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint trap(std::vector<int> height) {\n    throw std::logic_error(\"Implement trap\");\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int trap(int[] height) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $height\n * @return int\n */\nfunction trap(array $height): int {\n    throw new LogicException('Implement trap');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-014-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: height (integer vector). Result: integer scalar.\ntrap <- function(height) {\n  stop(\"Implement trap\")\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

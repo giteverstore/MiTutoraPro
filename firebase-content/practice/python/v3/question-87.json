@@ -1,0 +1,289 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-087",
+  "title": "Course Schedule",
+  "summary": "Courses are labeled from zero.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "canFinish",
+    "signature": "def canFinish(numCourses:",
+    "input": "`numCourses` (integer), `prerequisites` (nested integer arrays)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`numCourses` (integer), `prerequisites` (nested integer arrays)",
+    "result": "boolean.",
+    "constraints": "1–2000 courses and up to 5000 distinct prerequisite pairs. Each label is in [0, numCourses). A self-prerequisite is a cycle.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Courses are labeled from zero. Each pair [course, prerequisite] requires the second course to finish before the first can begin. Determine whether you can finish all courses.",
+  "examples": [
+    {
+      "input": "{\"numCourses\":4,\"prerequisites\":[[3,1],[1,0]]}",
+      "output": "true",
+      "explanation": "Take 0, then 1, then 3. Course 2 is independent."
+    },
+    {
+      "input": "{\"numCourses\":3,\"prerequisites\":[[0,1],[1,2],[2,0]]}",
+      "output": "false",
+      "explanation": "The three prerequisites form a cycle."
+    },
+    {
+      "input": "{\"numCourses\":3,\"prerequisites\":[]}",
+      "output": "true",
+      "explanation": "All courses are immediately available."
+    }
+  ],
+  "constraints": [
+    "1–2000 courses and up to 5000 distinct prerequisite pairs. Each label is in [0, numCourses). A self-prerequisite is a cycle."
+  ],
+  "hints": [
+    "Conceptual: A cycle can make courses wait for one another indefinitely.",
+    "Directional: Track how many prerequisites each course still needs.",
+    "Implementation: Start with all zero-in-degree courses and reduce the counts of their dependents. Check how many courses finish."
+  ],
+  "concepts": [
+    "directed-cycles",
+    "topological-sorting"
+  ],
+  "skills": [
+    "Directed cycles",
+    "topological sorting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(V + E)",
+    "space": "O(V + E)"
+  },
+  "complexityAnalysis": "O(V + E) time and space for directed adjacency and in-degrees.",
+  "publicTests": [
+    {
+      "name": "BLIND150-087-T01",
+      "arguments": [
+        4,
+        [
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 4,
+        "prerequisites": [
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-087-T02",
+      "arguments": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 3,
+        "prerequisites": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-087-T03",
+      "arguments": [
+        3,
+        []
+      ],
+      "input": {
+        "numCourses": 3,
+        "prerequisites": []
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canFinish(numCourses: int, prerequisites: list[list[int]]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @returns {boolean}\n */\nfunction canFinish(numCourses, prerequisites) {\n  throw new Error('Implement canFinish');\n}",
+    "typescript": "function canFinish(numCourses: number, prerequisites: number[][]): boolean {\n  throw new Error('Implement canFinish');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nbool canFinish(int32_t numCourses, IntMatrix prerequisites) {\n    (void)numCourses;\n    (void)prerequisites;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canFinish(int numCourses, std::vector<std::vector<int>> prerequisites) {\n    throw std::logic_error(\"Implement canFinish\");\n}",
+    "csharp": "public class Solution {\n    public bool canFinish(int numCourses, int[][] prerequisites) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $numCourses\n * @param nested int[]s $prerequisites\n * @return bool\n */\nfunction canFinish(int $numCourses, array $prerequisites): bool {\n    throw new LogicException('Implement canFinish');\n}",
+    "r": "# Parameters: numCourses (integer scalar), prerequisites (list of integer vectors). Result: logical scalar.\ncanFinish <- function(numCourses, prerequisites) {\n  stop(\"Implement canFinish\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-087-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-087-statement",
+      "type": "paragraph",
+      "content": "Courses are labeled from zero. Each pair [course, prerequisite] requires the second course to finish before the first can begin. Determine whether you can finish all courses.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-087-contract",
+      "type": "note",
+      "title": "def canFinish(numCourses:",
+      "content": "Input: `numCourses` (integer), `prerequisites` (nested integer arrays)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-087-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–2000 courses and up to 5000 distinct prerequisite pairs. Each label is in [0, numCourses). A self-prerequisite is a cycle.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-087-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canFinish(numCourses: int, prerequisites: list[list[int]]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @returns {boolean}\n */\nfunction canFinish(numCourses, prerequisites) {\n  throw new Error('Implement canFinish');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canFinish(numCourses: number, prerequisites: number[][]): boolean {\n  throw new Error('Implement canFinish');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nbool canFinish(int32_t numCourses, IntMatrix prerequisites) {\n    (void)numCourses;\n    (void)prerequisites;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canFinish(int numCourses, std::vector<std::vector<int>> prerequisites) {\n    throw std::logic_error(\"Implement canFinish\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canFinish(int numCourses, int[][] prerequisites) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $numCourses\n * @param nested int[]s $prerequisites\n * @return bool\n */\nfunction canFinish(int $numCourses, array $prerequisites): bool {\n    throw new LogicException('Implement canFinish');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-087-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: numCourses (integer scalar), prerequisites (list of integer vectors). Result: logical scalar.\ncanFinish <- function(numCourses, prerequisites) {\n  stop(\"Implement canFinish\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

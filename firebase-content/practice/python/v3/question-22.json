@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-022",
+  "title": "Min Stack",
+  "summary": "Implement a stack with push, pop, top and getMin.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "MinStack",
+    "signature": "class MinStack:",
+    "input": "`ops` (nested integer arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested integer arrays)",
+    "result": "integer array.",
+    "constraints": "At most 30,000 method calls after construction. Push values fit signed 32-bit integers. Pop, top and getMin only occur on nonempty stacks. The judge sends rows [0, value] for push, [1] for pop, [2] for top and [3] for getMin. The output array records top and getMin results in call order.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Implement a stack with push, pop, top and getMin. A new stack starts empty. Push adds a value, pop removes the newest value, top reads that value, and getMin reads the smallest value still present. Each operation must take constant time.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,9],[0,3],[3],[1],[3]]}",
+      "output": "[3,9]",
+      "explanation": "Removing 3 restores the previous minimum of 9."
+    },
+    {
+      "input": "{\"ops\":[[0,-8],[0,-8],[1],[3],[2]]}",
+      "output": "[-8,-8]",
+      "explanation": "One copy of −8 remains after pop."
+    },
+    {
+      "input": "{\"ops\":[[0,4],[0,7],[2],[3]]}",
+      "output": "[7,4]",
+      "explanation": "The most recent value and the minimum can differ."
+    }
+  ],
+  "constraints": [
+    "At most 30,000 method calls after construction. Push values fit signed 32-bit integers. Pop, top and getMin only occur on nonempty stacks. The judge sends rows [0, value] for push, [1] for pop, [2] for top and [3] for getMin. The output array records top and getMin results in call order."
+  ],
+  "hints": [
+    "Conceptual: Removing the smallest value should reveal what the minimum was just before it arrived.",
+    "Directional: Keep the minimum so far beside each stack value.",
+    "Implementation: On push, store the smaller of the new value and the previous minimum. On pop, discard both fields together."
+  ],
+  "concepts": [
+    "stacks",
+    "design",
+    "running-minima"
+  ],
+  "skills": [
+    "Stacks",
+    "design",
+    "running minima"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "complexityAnalysis": "O(1) time per method and O(n) auxiliary space for n active entries. Each entry stores one value and one minimum.",
+  "publicTests": [
+    {
+      "name": "BLIND150-022-T01",
+      "arguments": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      "expected": [
+        3,
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-022-T02",
+      "arguments": [
+        [
+          [
+            0,
+            -8
+          ],
+          [
+            0,
+            -8
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ],
+          [
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            -8
+          ],
+          [
+            0,
+            -8
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "expected": [
+        -8,
+        -8
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-022-T03",
+      "arguments": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      "expected": [
+        7,
+        4
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class MinStack:\n    def __init__(self) -> None:\n        pass\n\n    def push(self, value: int) -> None:\n        raise NotImplementedError\n\n    def pop(self) -> None:\n        raise NotImplementedError\n\n    def top(self) -> int:\n        raise NotImplementedError\n\n    def getMin(self) -> int:\n        raise NotImplementedError",
+    "java": "class MinStack {\n    public MinStack() {}\n    public void push(int value) { throw new UnsupportedOperationException(); }\n    public void pop() { throw new UnsupportedOperationException(); }\n    public int top() { throw new UnsupportedOperationException(); }\n    public int getMin() { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class MinStack {\n  constructor() {}\n  /** @param {number} value */\n  push(value) { throw new Error('Implement push'); }\n  pop() { throw new Error('Implement pop'); }\n  /** @returns {number} */\n  top() { throw new Error('Implement top'); }\n  /** @returns {number} */\n  getMin() { throw new Error('Implement getMin'); }\n}",
+    "typescript": "class MinStack {\n  constructor() {}\n  push(value: number): void { throw new Error('Implement push'); }\n  pop(): void { throw new Error('Implement pop'); }\n  top(): number { throw new Error('Implement top'); }\n  getMin(): number { throw new Error('Implement getMin'); }\n}",
+    "c": "#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct MinStack MinStack;\n\nMinStack *minStackCreate(void) { abort(); }\nvoid minStackPush(MinStack *stack, int32_t value) {\n    (void)stack;\n    (void)value;\n    abort();\n}\nvoid minStackPop(MinStack *stack) { (void)stack; abort(); }\nint32_t minStackTop(MinStack *stack) { (void)stack; abort(); }\nint32_t minStackGetMin(MinStack *stack) { (void)stack; abort(); }\nvoid minStackFree(MinStack *stack) { (void)stack; abort(); }",
+    "cpp": "#include <stdexcept>\n\nclass MinStack {\npublic:\n    MinStack() = default;\n    void push(int value) { (void)value; throw std::logic_error(\"Implement push\"); }\n    void pop() { throw std::logic_error(\"Implement pop\"); }\n    int top() { throw std::logic_error(\"Implement top\"); }\n    int getMin() { throw std::logic_error(\"Implement getMin\"); }\n};",
+    "csharp": "public class MinStack {\n    public MinStack() {}\n    public void push(int value) { throw new System.NotImplementedException(); }\n    public void pop() { throw new System.NotImplementedException(); }\n    public int top() { throw new System.NotImplementedException(); }\n    public int getMin() { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\n\nclass MinStack {\n    public function __construct() {}\n    public function push(int $value): void { throw new LogicException('Implement push'); }\n    public function pop(): void { throw new LogicException('Implement pop'); }\n    public function top(): int { throw new LogicException('Implement top'); }\n    public function getMin(): int { throw new LogicException('Implement getMin'); }\n}",
+    "r": "MinStack <- function() {\n  # Store signed 32-bit values as numeric scalars to support -2147483648.\n  list(\n    push = function(value) stop(\"Implement push\"),\n    pop = function() stop(\"Implement pop\"),\n    top = function() stop(\"Implement top\"),\n    getMin = function() stop(\"Implement getMin\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-022-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-022-statement",
+      "type": "paragraph",
+      "content": "Implement a stack with push, pop, top and getMin. A new stack starts empty. Push adds a value, pop removes the newest value, top reads that value, and getMin reads the smallest value still present. Each operation must take constant time.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-022-contract",
+      "type": "note",
+      "title": "class MinStack:",
+      "content": "Input: `ops` (nested integer arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-022-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 30,000 method calls after construction. Push values fit signed 32-bit integers. Pop, top and getMin only occur on nonempty stacks. The judge sends rows [0, value] for push, [1] for pop, [2] for top and [3] for getMin. The output array records top and getMin results in call order.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-022-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class MinStack:\n    def __init__(self) -> None:\n        pass\n\n    def push(self, value: int) -> None:\n        raise NotImplementedError\n\n    def pop(self) -> None:\n        raise NotImplementedError\n\n    def top(self) -> int:\n        raise NotImplementedError\n\n    def getMin(self) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class MinStack {\n    public MinStack() {}\n    public void push(int value) { throw new UnsupportedOperationException(); }\n    public void pop() { throw new UnsupportedOperationException(); }\n    public int top() { throw new UnsupportedOperationException(); }\n    public int getMin() { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class MinStack {\n  constructor() {}\n  /** @param {number} value */\n  push(value) { throw new Error('Implement push'); }\n  pop() { throw new Error('Implement pop'); }\n  /** @returns {number} */\n  top() { throw new Error('Implement top'); }\n  /** @returns {number} */\n  getMin() { throw new Error('Implement getMin'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class MinStack {\n  constructor() {}\n  push(value: number): void { throw new Error('Implement push'); }\n  pop(): void { throw new Error('Implement pop'); }\n  top(): number { throw new Error('Implement top'); }\n  getMin(): number { throw new Error('Implement getMin'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct MinStack MinStack;\n\nMinStack *minStackCreate(void) { abort(); }\nvoid minStackPush(MinStack *stack, int32_t value) {\n    (void)stack;\n    (void)value;\n    abort();\n}\nvoid minStackPop(MinStack *stack) { (void)stack; abort(); }\nint32_t minStackTop(MinStack *stack) { (void)stack; abort(); }\nint32_t minStackGetMin(MinStack *stack) { (void)stack; abort(); }\nvoid minStackFree(MinStack *stack) { (void)stack; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nclass MinStack {\npublic:\n    MinStack() = default;\n    void push(int value) { (void)value; throw std::logic_error(\"Implement push\"); }\n    void pop() { throw std::logic_error(\"Implement pop\"); }\n    int top() { throw std::logic_error(\"Implement top\"); }\n    int getMin() { throw std::logic_error(\"Implement getMin\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class MinStack {\n    public MinStack() {}\n    public void push(int value) { throw new System.NotImplementedException(); }\n    public void pop() { throw new System.NotImplementedException(); }\n    public int top() { throw new System.NotImplementedException(); }\n    public int getMin() { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass MinStack {\n    public function __construct() {}\n    public function push(int $value): void { throw new LogicException('Implement push'); }\n    public function pop(): void { throw new LogicException('Implement pop'); }\n    public function top(): int { throw new LogicException('Implement top'); }\n    public function getMin(): int { throw new LogicException('Implement getMin'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-022-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "MinStack <- function() {\n  # Store signed 32-bit values as numeric scalars to support -2147483648.\n  list(\n    push = function(value) stop(\"Implement push\"),\n    pop = function() stop(\"Implement pop\"),\n    top = function() stop(\"Implement top\"),\n    getMin = function() stop(\"Implement getMin\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[3,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

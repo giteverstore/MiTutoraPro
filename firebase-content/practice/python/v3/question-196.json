@@ -1,0 +1,294 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-196",
+  "title": "Insert into a Binary Search Tree",
+  "summary": "Add the absent value val to a binary search tree and return a root of a valid BST containing exactly the original values and the added value.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "insertIntoBST",
+    "signature": "class TreeNode:",
+    "input": "root (tree), val (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "root (tree), val (int)",
+    "callable": "insertIntoBST",
+    "constraints": "0–10000 nodes with distinct values in [−100000000,100000000]. val is in the same range and absent from the tree. Input and result use level-order values with null for missing children.",
+    "output-checking": "Serialize the returned root with null child positions. Verify strict BST ordering and the complete original value set plus val. Accept alternative valid shapes. No original-node identity constraint is imposed."
+  },
+  "statement": "Add the absent value val to a binary search tree and return a root of a valid BST containing exactly the original values and the added value. Any valid resulting shape is acceptable. Values in a node’s left subtree must be smaller and values in its right subtree must be larger.",
+  "examples": [
+    {
+      "input": "{\"root\":[4,2,6],\"val\":5}",
+      "output": "[4,2,6,null,null,5]",
+      "explanation": "One valid shape inserts 5 as the left child of 6."
+    },
+    {
+      "input": "{\"root\":[],\"val\":7}",
+      "output": "[7]",
+      "explanation": "The new value becomes the root."
+    },
+    {
+      "input": "{\"root\":[-2,-4,1],\"val\":0}",
+      "output": "[-2,-4,1,null,null,0]",
+      "explanation": "Zero belongs in the right subtree of −2 and the left subtree of 1."
+    }
+  ],
+  "constraints": [
+    "0–10000 nodes with distinct values in [−100000000,100000000]. val is in the same range and absent from the tree. Input and result use level-order values with null for missing children."
+  ],
+  "hints": [
+    "Conceptual: BST comparisons identify a direction for the new value.",
+    "Directional: Follow the same path that would search for val.",
+    "Implementation: At the first missing child on that path, attach a new node. If the root is absent, create the root."
+  ],
+  "concepts": [
+    "binary-search-tree",
+    "insertion"
+  ],
+  "skills": [
+    "Binary search tree",
+    "insertion"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(h)",
+    "space": "O(h)"
+  },
+  "complexityAnalysis": "O(h) time and O(1) auxiliary solution space for iterative insertion, excluding the new node.",
+  "publicTests": [
+    {
+      "name": "NC250-196-P1",
+      "arguments": [
+        [
+          4,
+          2,
+          6
+        ],
+        5
+      ],
+      "input": {
+        "root": [
+          4,
+          2,
+          6
+        ],
+        "val": 5
+      },
+      "expected": [
+        4,
+        2,
+        6,
+        null,
+        null,
+        5
+      ],
+      "validator": "bst_values"
+    },
+    {
+      "name": "NC250-196-P2",
+      "arguments": [
+        [],
+        7
+      ],
+      "input": {
+        "root": [],
+        "val": 7
+      },
+      "expected": [
+        7
+      ],
+      "validator": "bst_values"
+    },
+    {
+      "name": "NC250-196-P3",
+      "arguments": [
+        [
+          -2,
+          -4,
+          1
+        ],
+        0
+      ],
+      "input": {
+        "root": [
+          -2,
+          -4,
+          1
+        ],
+        "val": 0
+      },
+      "expected": [
+        -2,
+        -4,
+        1,
+        null,
+        null,
+        0
+      ],
+      "validator": "bst_values"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef insertIntoBST(root: TreeNode | None, val: int) -> TreeNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode insertIntoBST(TreeNode root, int val) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {number} val\n * @returns {TreeNode | null}\n */\nfunction insertIntoBST(root, val) {\n  throw new Error('Implement insertIntoBST');\n}",
+    "typescript": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction insertIntoBST(root: TreeNode | null, val: number): TreeNode | null {\n  throw new Error('Implement insertIntoBST');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * insertIntoBST(TreeNode * root, int32_t val) {\n    (void)root;\n    (void)val;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * insertIntoBST(TreeNode * root, int val) {\n    (void)root;\n    (void)val;\n    throw std::logic_error(\"Implement insertIntoBST\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode insertIntoBST(TreeNode root, int val) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction insertIntoBST(?TreeNode $root, int $val): ?TreeNode {\n    throw new LogicException('Implement insertIntoBST');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), val (integer scalar). Result tree environment or NULL.\ninsertIntoBST <- function(root, val) {\n  stop(\"Implement insertIntoBST\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "insertIntoBST",
+    "arguments": [
+      [
+        "root",
+        "tree"
+      ],
+      [
+        "val",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "tree",
+    "mode": "tree",
+    "validator": "bst_values",
+    "notes": "Serialize the returned root with null child positions. Verify strict BST ordering and the complete original value set plus val. Accept alternative valid shapes. No original-node identity constraint is imposed."
+  },
+  "blocks": [
+    {
+      "id": "nc250-196-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-196-statement",
+      "type": "paragraph",
+      "content": "Add the absent value val to a binary search tree and return a root of a valid BST containing exactly the original values and the added value. Any valid resulting shape is acceptable. Values in a node’s left subtree must be smaller and values in its right subtree must be larger.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-196-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: root (tree), val (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-196-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–10000 nodes with distinct values in [−100000000,100000000]. val is in the same range and absent from the tree. Input and result use level-order values with null for missing children.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-196-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef insertIntoBST(root: TreeNode | None, val: int) -> TreeNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode insertIntoBST(TreeNode root, int val) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {number} val\n * @returns {TreeNode | null}\n */\nfunction insertIntoBST(root, val) {\n  throw new Error('Implement insertIntoBST');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction insertIntoBST(root: TreeNode | null, val: number): TreeNode | null {\n  throw new Error('Implement insertIntoBST');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * insertIntoBST(TreeNode * root, int32_t val) {\n    (void)root;\n    (void)val;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * insertIntoBST(TreeNode * root, int val) {\n    (void)root;\n    (void)val;\n    throw std::logic_error(\"Implement insertIntoBST\");\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode insertIntoBST(TreeNode root, int val) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction insertIntoBST(?TreeNode $root, int $val): ?TreeNode {\n    throw new LogicException('Implement insertIntoBST');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-196-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), val (integer scalar). Result tree environment or NULL.\ninsertIntoBST <- function(root, val) {\n  stop(\"Implement insertIntoBST\")\n}",
+      "stdin": "",
+      "expectedOutput": "[4,2,6,null,null,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

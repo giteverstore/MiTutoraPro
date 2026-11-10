@@ -1,0 +1,334 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-198",
+  "title": "Construct Quad Tree",
+  "summary": "Represent a binary square grid as a quad tree.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "construct",
+    "signature": "class QuadNode:",
+    "input": "grid (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "grid (intgrid)",
+    "callable": "construct",
+    "constraints": "The grid is n×n with n = 2^x and 0 ≤ x ≤ 6. All cells are 0 or 1. QuadNode contains boolean val and isLeaf plus the four named child pointers. Leaves have no children. Fixtures serialize records [path,isLeaf,val], starting with path 1 and using child paths 4p,4p+1,4p+2,4p+3 in the stated quadrant order. Output record order is ignored. Internal val is ignored.",
+    "output-checking": "Invoke construct(grid) to obtain a QuadNode root. Reject cycles, sharing, null internal children, leaf children, and depth greater than six before serializing [path,isLeaf,val] records. Require the correct partition shape and leaf values. Ignore record order and internal-node val."
+  },
+  "statement": "Represent a binary square grid as a quad tree. A uniform square becomes one leaf whose val is its cell value. A mixed square becomes an internal node with four children for its top-left, top-right, bottom-left, and bottom-right quarters. An internal val may be either boolean. Return the constructed root.",
+  "examples": [
+    {
+      "input": "{\"grid\":[[1]]}",
+      "output": "[[1,1,1]]",
+      "explanation": "One cell is represented by one leaf."
+    },
+    {
+      "input": "{\"grid\":[[1,1],[0,0]]}",
+      "output": "[[1,0,0],[4,1,1],[5,1,1],[6,1,0],[7,1,0]]",
+      "explanation": "The root is mixed. Its four single-cell quadrants are leaves."
+    },
+    {
+      "input": "{\"grid\":[[0,0],[0,0]]}",
+      "output": "[[1,1,0]]",
+      "explanation": "The entire square is uniform and needs no children."
+    }
+  ],
+  "constraints": [
+    "The grid is n×n with n = 2^x and 0 ≤ x ≤ 6. All cells are 0 or 1. QuadNode contains boolean val and isLeaf plus the four named child pointers. Leaves have no children. Fixtures serialize records [path,isLeaf,val], starting with path 1 and using child paths 4p,4p+1,4p+2,4p+3 in the stated quadrant order. Output record order is ignored. Internal val is ignored."
+  ],
+  "hints": [
+    "Conceptual: Large uniform regions need no smaller nodes.",
+    "Directional: Split a mixed square into four equal quarters.",
+    "Implementation: Test uniformity, return a leaf when all cells agree, and otherwise construct each quarter and attach the four returned roots."
+  ],
+  "concepts": [
+    "quad-trees",
+    "divide-and-conquer"
+  ],
+  "skills": [
+    "Quad trees",
+    "divide and conquer"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n² log n)",
+    "space": "O(n² log n)"
+  },
+  "complexityAnalysis": "O(n² log n) time and O(log n) call stack space for scanning regions, excluding O(n²) output nodes.",
+  "publicTests": [
+    {
+      "name": "NC250-198-P1",
+      "arguments": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "validator": "quad_tree"
+    },
+    {
+      "name": "NC250-198-P2",
+      "arguments": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          5,
+          1,
+          1
+        ],
+        [
+          6,
+          1,
+          0
+        ],
+        [
+          7,
+          1,
+          0
+        ]
+      ],
+      "validator": "quad_tree"
+    },
+    {
+      "name": "NC250-198-P3",
+      "arguments": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "validator": "quad_tree"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\nclass QuadNode:\n    def __init__(self, val: bool, isLeaf: bool, topLeft: QuadNode | None = None,\n                 topRight: QuadNode | None = None, bottomLeft: QuadNode | None = None,\n                 bottomRight: QuadNode | None = None):\n        self.val, self.isLeaf = val, isLeaf\n        self.topLeft, self.topRight = topLeft, topRight\n        self.bottomLeft, self.bottomRight = bottomLeft, bottomRight\n\ndef construct(grid: list[list[int]]) -> QuadNode:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class QuadNode {\n        public boolean val, isLeaf;\n        public QuadNode topLeft, topRight, bottomLeft, bottomRight;\n        public QuadNode(boolean val, boolean isLeaf) { this.val = val; this.isLeaf = isLeaf; }\n    }\n    public QuadNode construct(int[][] grid) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class QuadNode {\n    constructor(val, isLeaf, topLeft = null, topRight = null, bottomLeft = null, bottomRight = null) {\n        this.val = val; this.isLeaf = isLeaf;\n        this.topLeft = topLeft; this.topRight = topRight;\n        this.bottomLeft = bottomLeft; this.bottomRight = bottomRight;\n    }\n}\nfunction construct(grid) { throw new Error('Implement construct'); }",
+    "typescript": "class QuadNode {\n    val: boolean; isLeaf: boolean;\n    topLeft: QuadNode | null; topRight: QuadNode | null;\n    bottomLeft: QuadNode | null; bottomRight: QuadNode | null;\n    constructor(val: boolean, isLeaf: boolean, topLeft: QuadNode | null = null,\n                topRight: QuadNode | null = null, bottomLeft: QuadNode | null = null,\n                bottomRight: QuadNode | null = null) {\n        this.val = val; this.isLeaf = isLeaf;\n        this.topLeft = topLeft; this.topRight = topRight;\n        this.bottomLeft = bottomLeft; this.bottomRight = bottomRight;\n    }\n}\nfunction construct(grid: number[][]): QuadNode { throw new Error('Implement construct'); }",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct QuadNode {\n    bool val, isLeaf;\n    struct QuadNode *topLeft, *topRight, *bottomLeft, *bottomRight;\n} QuadNode;\nQuadNode *construct(IntMatrix grid) { (void)grid; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\nstruct QuadNode {\n    bool val, isLeaf;\n    QuadNode *topLeft = nullptr, *topRight = nullptr;\n    QuadNode *bottomLeft = nullptr, *bottomRight = nullptr;\n};\nQuadNode *construct(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement construct\");\n}",
+    "csharp": "public class Solution {\n    public class QuadNode {\n        public bool val, isLeaf;\n        public QuadNode topLeft, topRight, bottomLeft, bottomRight;\n        public QuadNode(bool val, bool isLeaf) { this.val = val; this.isLeaf = isLeaf; }\n    }\n    public QuadNode construct(int[][] grid) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass QuadNode {\n    public function __construct(public bool $val, public bool $isLeaf,\n        public ?QuadNode $topLeft = null, public ?QuadNode $topRight = null,\n        public ?QuadNode $bottomLeft = null, public ?QuadNode $bottomRight = null) {}\n}\nfunction construct(array $grid): QuadNode { throw new LogicException('Implement construct'); }",
+    "r": "QuadNode <- function(val, isLeaf, topLeft=NULL, topRight=NULL, bottomLeft=NULL, bottomRight=NULL) {\n    node <- new.env(parent=emptyenv())\n    node$val <- val; node$isLeaf <- isLeaf\n    node$topLeft <- topLeft; node$topRight <- topRight\n    node$bottomLeft <- bottomLeft; node$bottomRight <- bottomRight\n    node\n}\n# Return a QuadNode environment.\nconstruct <- function(grid) { stop(\"Implement construct\") }"
+  },
+  "executionMetadata": {
+    "entry": "construct",
+    "arguments": [
+      [
+        "grid",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "quad_tree",
+    "validator": "quad_tree",
+    "notes": "Invoke construct(grid) to obtain a QuadNode root. Reject cycles, sharing, null internal children, leaf children, and depth greater than six before serializing [path,isLeaf,val] records. Require the correct partition shape and leaf values. Ignore record order and internal-node val."
+  },
+  "blocks": [
+    {
+      "id": "nc250-198-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-198-statement",
+      "type": "paragraph",
+      "content": "Represent a binary square grid as a quad tree. A uniform square becomes one leaf whose val is its cell value. A mixed square becomes an internal node with four children for its top-left, top-right, bottom-left, and bottom-right quarters. An internal val may be either boolean. Return the constructed root.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-198-contract",
+      "type": "note",
+      "title": "class QuadNode:",
+      "content": "Input: grid (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-198-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The grid is n×n with n = 2^x and 0 ≤ x ≤ 6. All cells are 0 or 1. QuadNode contains boolean val and isLeaf plus the four named child pointers. Leaves have no children. Fixtures serialize records [path,isLeaf,val], starting with path 1 and using child paths 4p,4p+1,4p+2,4p+3 in the stated quadrant order. Output record order is ignored. Internal val is ignored.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-198-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\nclass QuadNode:\n    def __init__(self, val: bool, isLeaf: bool, topLeft: QuadNode | None = None,\n                 topRight: QuadNode | None = None, bottomLeft: QuadNode | None = None,\n                 bottomRight: QuadNode | None = None):\n        self.val, self.isLeaf = val, isLeaf\n        self.topLeft, self.topRight = topLeft, topRight\n        self.bottomLeft, self.bottomRight = bottomLeft, bottomRight\n\ndef construct(grid: list[list[int]]) -> QuadNode:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class QuadNode {\n        public boolean val, isLeaf;\n        public QuadNode topLeft, topRight, bottomLeft, bottomRight;\n        public QuadNode(boolean val, boolean isLeaf) { this.val = val; this.isLeaf = isLeaf; }\n    }\n    public QuadNode construct(int[][] grid) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class QuadNode {\n    constructor(val, isLeaf, topLeft = null, topRight = null, bottomLeft = null, bottomRight = null) {\n        this.val = val; this.isLeaf = isLeaf;\n        this.topLeft = topLeft; this.topRight = topRight;\n        this.bottomLeft = bottomLeft; this.bottomRight = bottomRight;\n    }\n}\nfunction construct(grid) { throw new Error('Implement construct'); }",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class QuadNode {\n    val: boolean; isLeaf: boolean;\n    topLeft: QuadNode | null; topRight: QuadNode | null;\n    bottomLeft: QuadNode | null; bottomRight: QuadNode | null;\n    constructor(val: boolean, isLeaf: boolean, topLeft: QuadNode | null = null,\n                topRight: QuadNode | null = null, bottomLeft: QuadNode | null = null,\n                bottomRight: QuadNode | null = null) {\n        this.val = val; this.isLeaf = isLeaf;\n        this.topLeft = topLeft; this.topRight = topRight;\n        this.bottomLeft = bottomLeft; this.bottomRight = bottomRight;\n    }\n}\nfunction construct(grid: number[][]): QuadNode { throw new Error('Implement construct'); }",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct QuadNode {\n    bool val, isLeaf;\n    struct QuadNode *topLeft, *topRight, *bottomLeft, *bottomRight;\n} QuadNode;\nQuadNode *construct(IntMatrix grid) { (void)grid; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\nstruct QuadNode {\n    bool val, isLeaf;\n    QuadNode *topLeft = nullptr, *topRight = nullptr;\n    QuadNode *bottomLeft = nullptr, *bottomRight = nullptr;\n};\nQuadNode *construct(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement construct\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class QuadNode {\n        public bool val, isLeaf;\n        public QuadNode topLeft, topRight, bottomLeft, bottomRight;\n        public QuadNode(bool val, bool isLeaf) { this.val = val; this.isLeaf = isLeaf; }\n    }\n    public QuadNode construct(int[][] grid) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass QuadNode {\n    public function __construct(public bool $val, public bool $isLeaf,\n        public ?QuadNode $topLeft = null, public ?QuadNode $topRight = null,\n        public ?QuadNode $bottomLeft = null, public ?QuadNode $bottomRight = null) {}\n}\nfunction construct(array $grid): QuadNode { throw new LogicException('Implement construct'); }",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-198-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "QuadNode <- function(val, isLeaf, topLeft=NULL, topRight=NULL, bottomLeft=NULL, bottomRight=NULL) {\n    node <- new.env(parent=emptyenv())\n    node$val <- val; node$isLeaf <- isLeaf\n    node$topLeft <- topLeft; node$topRight <- topRight\n    node$bottomLeft <- bottomLeft; node$bottomRight <- bottomRight\n    node\n}\n# Return a QuadNode environment.\nconstruct <- function(grid) { stop(\"Implement construct\") }",
+      "stdin": "",
+      "expectedOutput": "[[1,1,1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

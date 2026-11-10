@@ -1,0 +1,277 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-007",
+  "title": "Product of Array Except Self",
+  "summary": "Build an output array of the same length.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "productExceptSelf",
+    "signature": "def productExceptSelf(nums:",
+    "input": "`nums` (integer array)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "integer array.",
+    "constraints": "2–100,000 integers, each between −30 and 30. Every prefix product, suffix product and required output fits a signed 32-bit integer.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Build an output array of the same length. At zero-based position i, store the product of the inputs at every position other than i. Keep the input order in the result. Use linear time and avoid division.",
+  "examples": [
+    {
+      "input": "{\"nums\":[-2,5,3]}",
+      "output": "[15,-6,-10]",
+      "explanation": "The first result is 5 × 3. Each later result excludes its own position."
+    },
+    {
+      "input": "{\"nums\":[4,0,-2]}",
+      "output": "[0,-8,0]",
+      "explanation": "Only the product at the zero's position leaves the zero out."
+    },
+    {
+      "input": "{\"nums\":[0,-6,0]}",
+      "output": "[0,0,0]",
+      "explanation": "Each product includes at least one zero."
+    }
+  ],
+  "constraints": [
+    "2–100,000 integers, each between −30 and 30. Every prefix product, suffix product and required output fits a signed 32-bit integer."
+  ],
+  "hints": [
+    "Conceptual: The factors for a position fall on its left or right.",
+    "Directional: Use the result array to save products of the values strictly to the left.",
+    "Implementation: Scan from right to left with a running suffix product. Multiply the stored value before adding the current element to the suffix."
+  ],
+  "concepts": [
+    "arrays",
+    "prefix-products",
+    "suffix-products"
+  ],
+  "skills": [
+    "Arrays",
+    "prefix products",
+    "suffix products"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space, excluding the result. The two passes each use one running product.",
+  "publicTests": [
+    {
+      "name": "BLIND150-007-T01",
+      "arguments": [
+        [
+          -2,
+          5,
+          3
+        ]
+      ],
+      "input": {
+        "nums": [
+          -2,
+          5,
+          3
+        ]
+      },
+      "expected": [
+        15,
+        -6,
+        -10
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-007-T02",
+      "arguments": [
+        [
+          4,
+          0,
+          -2
+        ]
+      ],
+      "input": {
+        "nums": [
+          4,
+          0,
+          -2
+        ]
+      },
+      "expected": [
+        0,
+        -8,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-007-T03",
+      "arguments": [
+        [
+          0,
+          -6,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          0,
+          -6,
+          0
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def productExceptSelf(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction productExceptSelf(nums) {\n  throw new Error('Implement productExceptSelf');\n}",
+    "typescript": "function productExceptSelf(nums: number[]): number[] {\n  throw new Error('Implement productExceptSelf');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray productExceptSelf(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> productExceptSelf(std::vector<int> nums) {\n    throw std::logic_error(\"Implement productExceptSelf\");\n}",
+    "csharp": "public class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction productExceptSelf(array $nums): array {\n    throw new LogicException('Implement productExceptSelf');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer vector.\nproductExceptSelf <- function(nums) {\n  stop(\"Implement productExceptSelf\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-007-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-007-statement",
+      "type": "paragraph",
+      "content": "Build an output array of the same length. At zero-based position i, store the product of the inputs at every position other than i. Keep the input order in the result. Use linear time and avoid division.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-007-contract",
+      "type": "note",
+      "title": "def productExceptSelf(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-007-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–100,000 integers, each between −30 and 30. Every prefix product, suffix product and required output fits a signed 32-bit integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-007-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def productExceptSelf(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction productExceptSelf(nums) {\n  throw new Error('Implement productExceptSelf');\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function productExceptSelf(nums: number[]): number[] {\n  throw new Error('Implement productExceptSelf');\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray productExceptSelf(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> productExceptSelf(std::vector<int> nums) {\n    throw std::logic_error(\"Implement productExceptSelf\");\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction productExceptSelf(array $nums): array {\n    throw new LogicException('Implement productExceptSelf');\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-007-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer vector.\nproductExceptSelf <- function(nums) {\n  stop(\"Implement productExceptSelf\")\n}",
+      "stdin": "",
+      "expectedOutput": "[15,-6,-10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

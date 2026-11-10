@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-240",
+  "title": "Dota2 Senate",
+  "summary": "The active senators take turns in the original cyclic order.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "predictPartyVictory",
+    "signature": "def predictPartyVictory(senate:",
+    "input": "senate (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "senate (str)",
+    "callable": "predictPartyVictory",
+    "constraints": "1–10000 characters, each R or D. Banned senators are skipped on every later pass.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "The active senators take turns in the original cyclic order. R and D are opposing parties. A senator can ban one active opponent, preventing all of that opponent’s future turns. The process ends when only one party remains. With both parties choosing to win, return Radiant for R or Dire for D.",
+  "examples": [
+    {
+      "input": "{\"senate\":\"DRR\"}",
+      "output": "\"Radiant\"",
+      "explanation": "The remaining R senator can ban D before D acts again."
+    },
+    {
+      "input": "{\"senate\":\"DD\"}",
+      "output": "\"Dire\"",
+      "explanation": "Only D is present."
+    },
+    {
+      "input": "{\"senate\":\"RDDD\"}",
+      "output": "\"Dire\"",
+      "explanation": "R can remove one opponent, but another D then bans R."
+    }
+  ],
+  "constraints": [
+    "1–10000 characters, each R or D. Banned senators are skipped on every later pass."
+  ],
+  "hints": [
+    "Conceptual: Removing the next opposing turn preserves the most immediate advantage.",
+    "Directional: Track upcoming turn positions separately for the two parties.",
+    "Implementation: The smaller next position acts first and removes the other front position. Requeue the acting senator one full cycle later."
+  ],
+  "concepts": [
+    "queues",
+    "simulation",
+    "greedy-banning"
+  ],
+  "skills": [
+    "Queues",
+    "simulation",
+    "greedy banning"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-240-P1",
+      "arguments": [
+        "DRR"
+      ],
+      "input": {
+        "senate": "DRR"
+      },
+      "expected": "Radiant",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-240-P2",
+      "arguments": [
+        "DD"
+      ],
+      "input": {
+        "senate": "DD"
+      },
+      "expected": "Dire",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-240-P3",
+      "arguments": [
+        "RDDD"
+      ],
+      "input": {
+        "senate": "RDDD"
+      },
+      "expected": "Dire",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def predictPartyVictory(senate: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String predictPartyVictory(String senate) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} senate\n * @returns {string}\n */\nfunction predictPartyVictory(senate) {\n  throw new Error('Implement predictPartyVictory');\n}",
+    "typescript": "function predictPartyVictory(senate: string): string {\n  throw new Error('Implement predictPartyVictory');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString predictPartyVictory(ByteString senate) {\n    (void)senate;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string predictPartyVictory(std::string senate) {\n    throw std::logic_error(\"Implement predictPartyVictory\");\n}",
+    "csharp": "public class Solution {\n    public string predictPartyVictory(string senate) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $senate\n * @return string\n */\nfunction predictPartyVictory(string $senate): string {\n    throw new LogicException('Implement predictPartyVictory');\n}",
+    "r": "# Parameters: senate (character scalar). Result: character scalar.\npredictPartyVictory <- function(senate) {\n  stop(\"Implement predictPartyVictory\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "predictPartyVictory",
+    "arguments": [
+      [
+        "senate",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-240-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-240-statement",
+      "type": "paragraph",
+      "content": "The active senators take turns in the original cyclic order. R and D are opposing parties. A senator can ban one active opponent, preventing all of that opponent’s future turns. The process ends when only one party remains. With both parties choosing to win, return Radiant for R or Dire for D.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-240-contract",
+      "type": "note",
+      "title": "def predictPartyVictory(senate:",
+      "content": "Input: senate (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-240-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 characters, each R or D. Banned senators are skipped on every later pass.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-240-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def predictPartyVictory(senate: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String predictPartyVictory(String senate) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} senate\n * @returns {string}\n */\nfunction predictPartyVictory(senate) {\n  throw new Error('Implement predictPartyVictory');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function predictPartyVictory(senate: string): string {\n  throw new Error('Implement predictPartyVictory');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString predictPartyVictory(ByteString senate) {\n    (void)senate;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string predictPartyVictory(std::string senate) {\n    throw std::logic_error(\"Implement predictPartyVictory\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string predictPartyVictory(string senate) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $senate\n * @return string\n */\nfunction predictPartyVictory(string $senate): string {\n    throw new LogicException('Implement predictPartyVictory');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-240-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: senate (character scalar). Result: character scalar.\npredictPartyVictory <- function(senate) {\n  stop(\"Implement predictPartyVictory\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"Radiant\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

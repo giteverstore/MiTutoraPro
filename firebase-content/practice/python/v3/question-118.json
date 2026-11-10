@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-118",
+  "title": "Distinct Subsequences",
+  "summary": "Count the choices of increasing indices in s whose characters spell t.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "numDistinct",
+    "signature": "def numDistinct(s:",
+    "input": "`s` (string), `t` (string)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`s` (string), `t` (string)",
+    "result": "integer.",
+    "constraints": "s and t each contain 1–1000 ASCII English letters. The answer fits a signed 32-bit integer.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Count the choices of increasing indices in s whose characters spell t. Choices using different indices count separately.",
+  "examples": [
+    {
+      "input": "{\"s\":\"aaaa\",\"t\":\"aa\"}",
+      "output": "6",
+      "explanation": "Choose any two of the four indices."
+    },
+    {
+      "input": "{\"s\":\"axbxc\",\"t\":\"abc\"}",
+      "output": "1",
+      "explanation": "There is one choice of the three required letters."
+    },
+    {
+      "input": "{\"s\":\"abc\",\"t\":\"ca\"}",
+      "output": "0",
+      "explanation": "The required order never occurs."
+    }
+  ],
+  "constraints": [
+    "s and t each contain 1–1000 ASCII English letters. The answer fits a signed 32-bit integer."
+  ],
+  "hints": [
+    "Conceptual: A source character can be skipped.",
+    "Directional: On a match, count ways to use the character as well as ways to skip it.",
+    "Implementation: Keep counts for target prefixes, updating backward so each source index can be used only once."
+  ],
+  "concepts": [
+    "subsequence-counting",
+    "alignment"
+  ],
+  "skills": [
+    "Subsequence counting",
+    "alignment"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(n) space, with n the target length.",
+  "publicTests": [
+    {
+      "name": "BLIND150-118-T01",
+      "arguments": [
+        "aaaa",
+        "aa"
+      ],
+      "input": {
+        "s": "aaaa",
+        "t": "aa"
+      },
+      "expected": 6,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-118-T02",
+      "arguments": [
+        "axbxc",
+        "abc"
+      ],
+      "input": {
+        "s": "axbxc",
+        "t": "abc"
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-118-T03",
+      "arguments": [
+        "abc",
+        "ca"
+      ],
+      "input": {
+        "s": "abc",
+        "t": "ca"
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def numDistinct(s: str, t: str) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int numDistinct(String s, String t) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @returns {number}\n */\nfunction numDistinct(s, t) {\n  throw new Error('Implement numDistinct');\n}",
+    "typescript": "function numDistinct(s: string, t: string): number {\n  throw new Error('Implement numDistinct');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t numDistinct(ByteString s, ByteString t) {\n    (void)s;\n    (void)t;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numDistinct(std::string s, std::string t) {\n    throw std::logic_error(\"Implement numDistinct\");\n}",
+    "csharp": "public class Solution {\n    public int numDistinct(string s, string t) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param string $t\n * @return int\n */\nfunction numDistinct(string $s, string $t): int {\n    throw new LogicException('Implement numDistinct');\n}",
+    "r": "# Parameters: s (character scalar), t (character scalar). Result: integer scalar.\nnumDistinct <- function(s, t) {\n  stop(\"Implement numDistinct\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-118-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-118-statement",
+      "type": "paragraph",
+      "content": "Count the choices of increasing indices in s whose characters spell t. Choices using different indices count separately.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-118-contract",
+      "type": "note",
+      "title": "def numDistinct(s:",
+      "content": "Input: `s` (string), `t` (string)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-118-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "s and t each contain 1–1000 ASCII English letters. The answer fits a signed 32-bit integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-118-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def numDistinct(s: str, t: str) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int numDistinct(String s, String t) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {string} t\n * @returns {number}\n */\nfunction numDistinct(s, t) {\n  throw new Error('Implement numDistinct');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function numDistinct(s: string, t: string): number {\n  throw new Error('Implement numDistinct');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t numDistinct(ByteString s, ByteString t) {\n    (void)s;\n    (void)t;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numDistinct(std::string s, std::string t) {\n    throw std::logic_error(\"Implement numDistinct\");\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int numDistinct(string s, string t) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param string $t\n * @return int\n */\nfunction numDistinct(string $s, string $t): int {\n    throw new LogicException('Implement numDistinct');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-118-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), t (character scalar). Result: integer scalar.\nnumDistinct <- function(s, t) {\n  stop(\"Implement numDistinct\")\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

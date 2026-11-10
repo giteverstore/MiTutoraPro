@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createCompilerExecutionEvent } from './core/compilerEvents';
 import { createSourceSnapshotHash } from './core/sourceSnapshot';
 
-export function useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource, expandOutput, verifyExercise, invalidateExerciseVerification, onVerificationChange }) {
+export function useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource, expandOutput, verifyExercise, invalidateExerciseVerification, onVerificationChange, executionStrategy = null }) {
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
@@ -13,11 +13,12 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
   const [preview, setPreview] = useState(null);
   const [database, setDatabase] = useState(null);
   const [emulator, setEmulator] = useState(null);
+  const [functionResults, setFunctionResults] = useState([]);
   const executionControllerRef = useRef(null);
 
   const clearExecution = useCallback((definition = activeCompilerRef.current) => {
     setResult(''); setError(''); setExecutionStatus('idle'); setVerificationStatus('idle');
-    setExecutionTimeMs(null); setCompilerEvidence(null); setPreview(null); setDatabase(null); setEmulator(null);
+    setExecutionTimeMs(null); setCompilerEvidence(null); setPreview(null); setDatabase(null); setEmulator(null); setFunctionResults([]);
     if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     onVerificationChange?.('idle');
   }, [activeCompilerRef, invalidateExerciseVerification, onVerificationChange]);
@@ -46,12 +47,15 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
         source = await compilerManager.format({ language: definition.language, source, instanceId });
         onFormattedSource(source);
       }
-      const execution = await compilerManager.execute({
+      const execution = executionStrategy?.mode === 'function' ? await executionStrategy.execute({
+        compilerManager, definition, source, signal: controller.signal, instanceId,
+      }) : await compilerManager.execute({
         source, language: definition.language, stdin: definition.stdin, filename: definition.editor.fileName,
         execution: definition.execution, setupSql: definition.setupSql, timeoutMs: definition.timeoutMs,
         signal: controller.signal, instanceId,
       });
       setResult(execution.output); setError(execution.errors.join('\n')); setExecutionTimeMs(execution.executionTimeMs);
+      setFunctionResults(execution.functionResults ?? []);
       setExecutionStatus(execution.status); setPreview(execution.preview ?? null); setDatabase(execution.database ?? null); setEmulator(execution.emulator ?? null);
       try {
         setCompilerEvidence(Object.freeze({
@@ -65,7 +69,9 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
       window.dispatchEvent(createCompilerExecutionEvent(instanceId, execution, { language: definition.language }));
       return { definition, execution, source };
     } catch (executionError) {
-      if (executionError.name !== 'AbortError') {
+      if (executionError.name === 'AbortError') {
+        setResult(''); setError('Execution cancelled.'); setExecutionStatus('cancelled'); setCompilerEvidence(null);
+      } else {
         setResult(''); setError(executionError.message || 'The compiler adapter could not complete the request.');
         setExecutionStatus('error'); setCompilerEvidence(null); setPreview(null); setDatabase(null); setEmulator(null);
       }
@@ -73,19 +79,21 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
     } finally {
       if (executionControllerRef.current === controller) { executionControllerRef.current = null; setIsRunning(false); }
     }
-  }, [activeCompilerRef, cancelExecution, compilerManager, currentCodeRef, expandOutput, instanceId, invalidateExerciseVerification, onFormattedSource, onVerificationChange, settings.editor.autoFormatOnRun]);
+  }, [activeCompilerRef, cancelExecution, compilerManager, currentCodeRef, executionStrategy, expandOutput, instanceId, invalidateExerciseVerification, onFormattedSource, onVerificationChange, settings.editor.autoFormatOnRun]);
 
   const validateExecution = useCallback((record, { recordExercise = true } = {}) => {
     expandOutput();
     if (!record || record.execution.status !== 'success') return false;
     const { definition, execution, source } = record;
-    const matches = compilerManager.validateOutput({ expectedOutput: definition.expectedOutput, programOutput: execution.output, validatorType: definition.validatorType, validatorOptions: definition.validatorOptions });
+    const matches = executionStrategy?.mode === 'function'
+      ? executionStrategy.validate(record)
+      : compilerManager.validateOutput({ expectedOutput: definition.expectedOutput, programOutput: execution.output, validatorType: definition.validatorType, validatorOptions: definition.validatorOptions });
     setVerificationStatus(matches ? 'matched' : 'mismatched');
     onVerificationChange?.(matches ? 'matched' : 'mismatched');
     if (matches && recordExercise && definition.exerciseId) verifyExercise?.(definition.exerciseId, { expectedOutput: definition.expectedOutput, programOutput: execution.output, sourceCode: source, compilerId: definition.id });
     else if (definition.exerciseId) invalidateExerciseVerification?.(definition.exerciseId);
     return matches;
-  }, [compilerManager, expandOutput, invalidateExerciseVerification, onVerificationChange, verifyExercise]);
+  }, [compilerManager, executionStrategy, expandOutput, invalidateExerciseVerification, onVerificationChange, verifyExercise]);
 
   const checkOutput = useCallback(() => {
     if (executionStatus !== 'success') return;
@@ -103,5 +111,5 @@ export function useCompilerExecution({ compilerManager, settings, instanceId, ac
 
   useEffect(() => () => executionControllerRef.current?.abort(), []);
 
-  return { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run, validateExecution, checkOutput, reset, clearExecution, cancelExecution };
+  return { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, functionResults, run, validateExecution, checkOutput, reset, clearExecution, cancelExecution };
 }

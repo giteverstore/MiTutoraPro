@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-161",
+  "title": "Majority Element II",
+  "summary": "Return every distinct number that appears strictly more than one third of the time.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "majorityElementThird",
+    "signature": "def majorityElementThird(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Return every distinct number that appears strictly more than one third of the time. Output order is unrestricted.",
+  "examples": [
+    {
+      "input": "{\"nums\":[1,2,1,2,3]}",
+      "output": "[1,2]",
+      "explanation": "Both 1 and 2 occur twice in five positions."
+    },
+    {
+      "input": "{\"nums\":[1,2,3,4]}",
+      "output": "[]",
+      "explanation": "No single occurrence is enough."
+    },
+    {
+      "input": "{\"nums\":[-1,-1,2]}",
+      "output": "[-1]",
+      "explanation": "Only −1 occurs more than once."
+    }
+  ],
+  "constraints": [
+    "1–50000 entries in [−1000000000,1000000000]."
+  ],
+  "hints": [
+    "Conceptual: At most two values can cross the threshold.",
+    "Directional: Cancel groups of three different values, keeping two candidate slots.",
+    "Implementation: Verify the candidate frequencies in a second pass before returning them."
+  ],
+  "concepts": [
+    "frequency",
+    "two-candidate-voting"
+  ],
+  "skills": [
+    "Frequency",
+    "two-candidate voting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space for two-candidate voting.",
+  "publicTests": [
+    {
+      "name": "NC250-161-P1",
+      "arguments": [
+        [
+          1,
+          2,
+          1,
+          2,
+          3
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        2
+      ],
+      "validator": "unordered_unique"
+    },
+    {
+      "name": "NC250-161-P2",
+      "arguments": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": [],
+      "validator": "unordered_unique"
+    },
+    {
+      "name": "NC250-161-P3",
+      "arguments": [
+        [
+          -1,
+          -1,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          -1,
+          -1,
+          2
+        ]
+      },
+      "expected": [
+        -1
+      ],
+      "validator": "unordered_unique"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def majorityElementThird(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] majorityElementThird(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction majorityElementThird(nums) {\n  throw new Error('Implement majorityElementThird');\n}",
+    "typescript": "function majorityElementThird(nums: number[]): number[] {\n  throw new Error('Implement majorityElementThird');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray majorityElementThird(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> majorityElementThird(std::vector<int> nums) {\n    throw std::logic_error(\"Implement majorityElementThird\");\n}",
+    "csharp": "public class Solution {\n    public int[] majorityElementThird(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction majorityElementThird(array $nums): array {\n    throw new LogicException('Implement majorityElementThird');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer vector.\nmajorityElementThird <- function(nums) {\n  stop(\"Implement majorityElementThird\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "majorityElementThird",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "mode": "function",
+    "validator": "unordered_unique",
+    "serialized_type": "ints",
+    "adapter_notes": "Accept any ordering of the complete result set and reject duplicates."
+  },
+  "blocks": [
+    {
+      "id": "nc250-161-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-161-statement",
+      "type": "paragraph",
+      "content": "Return every distinct number that appears strictly more than one third of the time. Output order is unrestricted.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-161-contract",
+      "type": "note",
+      "title": "def majorityElementThird(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-161-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50000 entries in [−1000000000,1000000000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-161-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def majorityElementThird(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] majorityElementThird(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction majorityElementThird(nums) {\n  throw new Error('Implement majorityElementThird');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function majorityElementThird(nums: number[]): number[] {\n  throw new Error('Implement majorityElementThird');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray majorityElementThird(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> majorityElementThird(std::vector<int> nums) {\n    throw std::logic_error(\"Implement majorityElementThird\");\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] majorityElementThird(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction majorityElementThird(array $nums): array {\n    throw new LogicException('Implement majorityElementThird');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-161-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer vector.\nmajorityElementThird <- function(nums) {\n  stop(\"Implement majorityElementThird\")\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

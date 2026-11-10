@@ -1,0 +1,384 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-182",
+  "title": "Maximum Frequency Stack",
+  "summary": "Implement a FreqStack.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "FreqStack",
+    "signature": "class FreqStack:",
+    "input": "ops (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "ops (intgrid)",
+    "callable": "FreqStack",
+    "constraints": "At most 20000 calls. 0 ≤ val ≤ 1000000000. pop only occurs when nonempty. Rows [0,val] and [1] mean push and pop. Construct once and serialize pop returns in order.",
+    "output-checking": "Construct FreqStack once. [0,val] calls push, [1] calls pop. Serialize pop returns in order."
+  },
+  "statement": "Implement a FreqStack. push(val) stores another occurrence. pop() removes and returns the value with the greatest current frequency. If several values tie, remove the occurrence that was pushed most recently among those values.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,2],[0,7],[0,2],[0,7],[0,9],[1],[1],[1]]}",
+      "output": "[7,2,9]",
+      "explanation": "7 wins the first frequency tie. After 2 leaves, 9 wins the remaining recency tie."
+    },
+    {
+      "input": "{\"ops\":[[0,0],[0,0],[1],[1]]}",
+      "output": "[0,0]",
+      "explanation": "Repeated zero values are retained."
+    },
+    {
+      "input": "{\"ops\":[[0,1000000000],[0,3],[1],[1]]}",
+      "output": "[3,1000000000]",
+      "explanation": "With equal frequencies, the more recent push leaves first."
+    }
+  ],
+  "constraints": [
+    "At most 20000 calls. 0 ≤ val ≤ 1000000000. pop only occurs when nonempty. Rows [0,val] and [1] mean push and pop. Construct once and serialize pop returns in order."
+  ],
+  "hints": [
+    "Conceptual: Frequency decides which values qualify, and recency breaks ties.",
+    "Directional: Keep a stack for each frequency level.",
+    "Implementation: On push, append the value to its new frequency’s stack. On pop, use the highest nonempty frequency stack, reduce that value’s count, and lower the maximum level when needed."
+  ],
+  "concepts": [
+    "stateful-class",
+    "frequency",
+    "stack"
+  ],
+  "skills": [
+    "Stateful class",
+    "frequency",
+    "stack"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(1) expected time per operation and O(n) storage using hash tables and frequency stacks.",
+  "publicTests": [
+    {
+      "name": "NC250-182-P1",
+      "arguments": [
+        [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        7,
+        2,
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-182-P2",
+      "arguments": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-182-P3",
+      "arguments": [
+        [
+          [
+            0,
+            1000000000
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            1000000000
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        3,
+        1000000000
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class FreqStack:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def push(self, val: int) -> None:\n        raise NotImplementedError\n\n    def pop(self) -> int:\n        raise NotImplementedError",
+    "java": "class FreqStack {\n    public FreqStack() { throw new UnsupportedOperationException(); }\n    public void push(int val) { throw new UnsupportedOperationException(); }\n    public int pop() { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class FreqStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(val) { throw new Error('Implement push'); }\n  pop() { throw new Error('Implement pop'); }\n}",
+    "typescript": "class FreqStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(val: number): void { throw new Error('Implement push'); }\n  pop(): number { throw new Error('Implement pop'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct FreqStack FreqStack;\nFreqStack * freqStackCreate(void) {  abort(); }\nvoid freqStackPush(FreqStack * self, int32_t val) { (void)self; (void)val; abort(); }\nint32_t freqStackPop(FreqStack * self) { (void)self; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass FreqStack {\npublic:\n    FreqStack() { throw std::logic_error(\"Implement method\"); }\n    void push(int val) { throw std::logic_error(\"Implement method\"); }\n    int pop() { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class FreqStack {\n    public FreqStack() { throw new System.NotImplementedException(); }\n    public void push(int val) { throw new System.NotImplementedException(); }\n    public int pop() { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass FreqStack {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function push(int $val): void { throw new LogicException('Implement method'); }\n    public function pop(): int { throw new LogicException('Implement method'); }\n}",
+    "r": "FreqStack <- function() {\n list(\n  push = function(val) stop(\"Implement push\"),\n  pop = function() stop(\"Implement pop\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "FreqStack",
+    "arguments": [
+      [
+        "ops",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "stateful",
+    "validator": "exact",
+    "notes": "Construct FreqStack once. [0,val] calls push, [1] calls pop. Serialize pop returns in order."
+  },
+  "blocks": [
+    {
+      "id": "nc250-182-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-182-statement",
+      "type": "paragraph",
+      "content": "Implement a FreqStack. push(val) stores another occurrence. pop() removes and returns the value with the greatest current frequency. If several values tie, remove the occurrence that was pushed most recently among those values.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-182-contract",
+      "type": "note",
+      "title": "class FreqStack:",
+      "content": "Input: ops (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-182-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 20000 calls. 0 ≤ val ≤ 1000000000. pop only occurs when nonempty. Rows [0,val] and [1] mean push and pop. Construct once and serialize pop returns in order.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-182-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class FreqStack:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def push(self, val: int) -> None:\n        raise NotImplementedError\n\n    def pop(self) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class FreqStack {\n    public FreqStack() { throw new UnsupportedOperationException(); }\n    public void push(int val) { throw new UnsupportedOperationException(); }\n    public int pop() { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class FreqStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(val) { throw new Error('Implement push'); }\n  pop() { throw new Error('Implement pop'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class FreqStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(val: number): void { throw new Error('Implement push'); }\n  pop(): number { throw new Error('Implement pop'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct FreqStack FreqStack;\nFreqStack * freqStackCreate(void) {  abort(); }\nvoid freqStackPush(FreqStack * self, int32_t val) { (void)self; (void)val; abort(); }\nint32_t freqStackPop(FreqStack * self) { (void)self; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass FreqStack {\npublic:\n    FreqStack() { throw std::logic_error(\"Implement method\"); }\n    void push(int val) { throw std::logic_error(\"Implement method\"); }\n    int pop() { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class FreqStack {\n    public FreqStack() { throw new System.NotImplementedException(); }\n    public void push(int val) { throw new System.NotImplementedException(); }\n    public int pop() { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass FreqStack {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function push(int $val): void { throw new LogicException('Implement method'); }\n    public function pop(): int { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-182-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "FreqStack <- function() {\n list(\n  push = function(val) stop(\"Implement push\"),\n  pop = function() stop(\"Implement pop\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[7,2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

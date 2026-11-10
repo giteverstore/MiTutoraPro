@@ -1,0 +1,250 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-072",
+  "title": "Generate Parentheses",
+  "summary": "Return every balanced string containing n opening and n closing parentheses.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "generateParenthesis",
+    "signature": "def generateParenthesis(n:",
+    "input": "`n` (integer)",
+    "output": "string array."
+  },
+  "contractDetails": {
+    "input": "`n` (integer)",
+    "result": "string array.",
+    "constraints": "1 ≤ n ≤ 8.",
+    "output-checking": "Require every distinct string once in any outer order."
+  },
+  "statement": "Return every balanced string containing n opening and n closing parentheses. In any prefix the number of closing parentheses must not exceed the number of opening parentheses. The output list may be in any order.",
+  "examples": [
+    {
+      "input": "{\"n\":1}",
+      "output": "[\"()\"]",
+      "explanation": "One pair has one arrangement."
+    },
+    {
+      "input": "{\"n\":2}",
+      "output": "[\"(())\",\"()()\"]",
+      "explanation": "The pairs are nested or adjacent."
+    },
+    {
+      "input": "{\"n\":3}",
+      "output": "[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]",
+      "explanation": "All five strings keep every prefix valid."
+    }
+  ],
+  "constraints": [
+    "1 ≤ n ≤ 8."
+  ],
+  "hints": [
+    "Conceptual: A prefix with too many closing parentheses cannot be repaired.",
+    "Directional: Track both counts during generation.",
+    "Implementation: Add an opening parenthesis while openings remain. Add a closing one only while an opening is unmatched."
+  ],
+  "concepts": [
+    "backtracking",
+    "prefix-feasibility"
+  ],
+  "skills": [
+    "Backtracking",
+    "prefix feasibility"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n·Cₙ)",
+    "space": "O(n·Cₙ)"
+  },
+  "complexityAnalysis": "O(n·Cₙ) time and O(n) auxiliary space excluding output, where Cₙ is the n-th Catalan number.",
+  "publicTests": [
+    {
+      "name": "BLIND150-072-T01",
+      "arguments": [
+        1
+      ],
+      "input": {
+        "n": 1
+      },
+      "expected": [
+        "()"
+      ],
+      "validator": "bt_strings"
+    },
+    {
+      "name": "BLIND150-072-T02",
+      "arguments": [
+        2
+      ],
+      "input": {
+        "n": 2
+      },
+      "expected": [
+        "(())",
+        "()()"
+      ],
+      "validator": "bt_strings"
+    },
+    {
+      "name": "BLIND150-072-T03",
+      "arguments": [
+        3
+      ],
+      "input": {
+        "n": 3
+      },
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ],
+      "validator": "bt_strings"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def generateParenthesis(n: int) -> list[str]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String[] generateParenthesis(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @returns {string[]}\n */\nfunction generateParenthesis(n) {\n  throw new Error('Implement generateParenthesis');\n}",
+    "typescript": "function generateParenthesis(n: number): string[] {\n  throw new Error('Implement generateParenthesis');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nStringArray generateParenthesis(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::string> generateParenthesis(int n) {\n    throw std::logic_error(\"Implement generateParenthesis\");\n}",
+    "csharp": "public class Solution {\n    public string[] generateParenthesis(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @return string[]\n */\nfunction generateParenthesis(int $n): array {\n    throw new LogicException('Implement generateParenthesis');\n}",
+    "r": "# Parameters: n (integer scalar). Result: character vector.\ngenerateParenthesis <- function(n) {\n  stop(\"Implement generateParenthesis\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-072-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-072-statement",
+      "type": "paragraph",
+      "content": "Return every balanced string containing n opening and n closing parentheses. In any prefix the number of closing parentheses must not exceed the number of opening parentheses. The output list may be in any order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-072-contract",
+      "type": "note",
+      "title": "def generateParenthesis(n:",
+      "content": "Input: `n` (integer)\n\nOutput: string array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-072-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n ≤ 8.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-072-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def generateParenthesis(n: int) -> list[str]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String[] generateParenthesis(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @returns {string[]}\n */\nfunction generateParenthesis(n) {\n  throw new Error('Implement generateParenthesis');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function generateParenthesis(n: number): string[] {\n  throw new Error('Implement generateParenthesis');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nStringArray generateParenthesis(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::string> generateParenthesis(int n) {\n    throw std::logic_error(\"Implement generateParenthesis\");\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string[] generateParenthesis(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @return string[]\n */\nfunction generateParenthesis(int $n): array {\n    throw new LogicException('Implement generateParenthesis');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-072-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar). Result: character vector.\ngenerateParenthesis <- function(n) {\n  stop(\"Implement generateParenthesis\")\n}",
+      "stdin": "",
+      "expectedOutput": "[\"()\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

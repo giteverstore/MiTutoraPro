@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-080",
+  "title": "Number of Islands",
+  "summary": "Count connected groups of land in a rectangular grid.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "numIslands",
+    "signature": "def numIslands(grid:",
+    "input": "`grid` (nested string arrays)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`grid` (nested string arrays)",
+    "result": "integer.",
+    "constraints": "1–300 rows and 1–300 columns. Every cell is the string 0 or 1. The result is the number of land components.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Count connected groups of land in a rectangular grid. The character 1 marks land, and 0 marks water. Land cells connect only through shared edges.",
+  "examples": [
+    {
+      "input": "{\"grid\":[[\"1\",\"0\",\"1\"],[\"1\",\"0\",\"0\"]]}",
+      "output": "2",
+      "explanation": "The two left cells connect, while the upper-right cell is isolated."
+    },
+    {
+      "input": "{\"grid\":[[\"1\",\"0\"],[\"0\",\"1\"]]}",
+      "output": "2",
+      "explanation": "A diagonal touch does not connect land."
+    },
+    {
+      "input": "{\"grid\":[[\"0\",\"0\"]]}",
+      "output": "0",
+      "explanation": "There is no land."
+    }
+  ],
+  "constraints": [
+    "1–300 rows and 1–300 columns. Every cell is the string 0 or 1. The result is the number of land components."
+  ],
+  "hints": [
+    "Conceptual: One island may contain many cells, so counting land cells overcounts.",
+    "Directional: Flood-fill from each unvisited land cell.",
+    "Implementation: When a new island is found, mark its whole component using a queue or stack. Only then continue scanning."
+  ],
+  "concepts": [
+    "graphs",
+    "grid-traversal",
+    "connected-components"
+  ],
+  "skills": [
+    "Graphs",
+    "grid traversal",
+    "connected components"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(mn) auxiliary space with a separate visited grid and iterative traversal.",
+  "publicTests": [
+    {
+      "name": "BLIND150-080-T01",
+      "arguments": [
+        [
+          [
+            "1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "0"
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            "1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-080-T02",
+      "arguments": [
+        [
+          [
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "1"
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "1"
+          ]
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-080-T03",
+      "arguments": [
+        [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def numIslands(grid: list[list[str]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int numIslands(String[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[][]} grid\n * @returns {number}\n */\nfunction numIslands(grid) {\n  throw new Error('Implement numIslands');\n}",
+    "typescript": "function numIslands(grid: string[][]): number {\n  throw new Error('Implement numIslands');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nint32_t numIslands(StringMatrix grid) {\n    (void)grid;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numIslands(std::vector<std::vector<std::string>> grid) {\n    throw std::logic_error(\"Implement numIslands\");\n}",
+    "csharp": "public class Solution {\n    public int numIslands(string[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[][] $grid\n * @return int\n */\nfunction numIslands(array $grid): int {\n    throw new LogicException('Implement numIslands');\n}",
+    "r": "# Parameters: grid (list of character vectors). Result: integer scalar.\nnumIslands <- function(grid) {\n  stop(\"Implement numIslands\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-080-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-080-statement",
+      "type": "paragraph",
+      "content": "Count connected groups of land in a rectangular grid. The character 1 marks land, and 0 marks water. Land cells connect only through shared edges.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-080-contract",
+      "type": "note",
+      "title": "def numIslands(grid:",
+      "content": "Input: `grid` (nested string arrays)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-080-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–300 rows and 1–300 columns. Every cell is the string 0 or 1. The result is the number of land components.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-080-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def numIslands(grid: list[list[str]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int numIslands(String[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[][]} grid\n * @returns {number}\n */\nfunction numIslands(grid) {\n  throw new Error('Implement numIslands');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function numIslands(grid: string[][]): number {\n  throw new Error('Implement numIslands');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nint32_t numIslands(StringMatrix grid) {\n    (void)grid;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numIslands(std::vector<std::vector<std::string>> grid) {\n    throw std::logic_error(\"Implement numIslands\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int numIslands(string[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[][] $grid\n * @return int\n */\nfunction numIslands(array $grid): int {\n    throw new LogicException('Implement numIslands');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-080-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: grid (list of character vectors). Result: integer scalar.\nnumIslands <- function(grid) {\n  stop(\"Implement numIslands\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

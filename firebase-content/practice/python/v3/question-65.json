@@ -1,0 +1,363 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-065",
+  "title": "Design Twitter",
+  "summary": "Implement a service with postTweet, getNewsFeed, follow, and unfollow.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "Twitter",
+    "signature": "class Twitter:",
+    "input": "`ops` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "User IDs are integers from 1 through 500. Tweet IDs are distinct integers from 0 through 10,000. There are at most 30,000 calls. A user cannot follow themself. The fixture uses [0,user,tweet], [1,user], [2,follower,followee], and [3,follower,followee] for the four methods in the order above. It collects only the feed results.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Implement a service with postTweet, getNewsFeed, follow, and unfollow. A feed contains up to ten tweet IDs from the user and the people they currently follow. Return IDs from newest to oldest by posting order. Repeated follows have no extra effect, and unfollowing someone who is not followed changes nothing.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,1,7],[2,1,2],[0,2,3],[1,1]]}",
+      "output": "[[3,7]]",
+      "explanation": "Tweet 3 is newest even though its ID is smaller."
+    },
+    {
+      "input": "{\"ops\":[[0,2,8],[2,1,2],[3,1,2],[1,1]]}",
+      "output": "[[]]",
+      "explanation": "Unfollowing hides that author's old tweets too."
+    },
+    {
+      "input": "{\"ops\":[[1,4],[0,4,0],[1,4]]}",
+      "output": "[[],[0]]",
+      "explanation": "A user sees their own tweet after posting."
+    }
+  ],
+  "constraints": [
+    "User IDs are integers from 1 through 500. Tweet IDs are distinct integers from 0 through 10,000. There are at most 30,000 calls. A user cannot follow themself. The fixture uses [0,user,tweet], [1,user], [2,follower,followee], and [3,follower,followee] for the four methods in the order above. It collects only the feed results."
+  ],
+  "hints": [
+    "Conceptual: A person's newest tweet can be checked without scanning all of their older tweets.",
+    "Directional: Store each author's history and use posting sequence numbers as priorities.",
+    "Implementation: For a feed, merge the latest available tweet from each eligible author using a max heap. After emitting one, offer its author's previous tweet."
+  ],
+  "concepts": [
+    "stateful-design",
+    "sets",
+    "priority-queues",
+    "timelines"
+  ],
+  "skills": [
+    "Stateful design",
+    "sets",
+    "priority queues",
+    "timelines"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O((f+10)"
+  },
+  "complexityAnalysis": "Posting, following and unfollowing take O(1) amortized or expected time with arrays and sets. A feed takes O((f+10) log(f+2)) time and O(f+1) extra space for f followees. Stored tweets and follow edges occupy O(T+E) space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-065-T01",
+      "arguments": [
+        [
+          [
+            0,
+            1,
+            7
+          ],
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            1,
+            7
+          ],
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          3,
+          7
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-065-T02",
+      "arguments": [
+        [
+          [
+            0,
+            2,
+            8
+          ],
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            3,
+            1,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            2,
+            8
+          ],
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            3,
+            1,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        []
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-065-T03",
+      "arguments": [
+        [
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            4,
+            0
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            4,
+            0
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        [],
+        [
+          0
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class Twitter:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def postTweet(self, user: int, tweet: int) -> None:\n        raise NotImplementedError\n\n    def getNewsFeed(self, user: int) -> list[int]:\n        raise NotImplementedError\n\n    def follow(self, user: int, other: int) -> None:\n        raise NotImplementedError\n\n    def unfollow(self, user: int, other: int) -> None:\n        raise NotImplementedError",
+    "java": "class Twitter {\n    public Twitter() {\n        throw new UnsupportedOperationException();\n    }\n\n    public void postTweet(int user, int tweet) {\n        throw new UnsupportedOperationException();\n    }\n\n    public int[] getNewsFeed(int user) {\n        throw new UnsupportedOperationException();\n    }\n\n    public void follow(int user, int other) {\n        throw new UnsupportedOperationException();\n    }\n\n    public void unfollow(int user, int other) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class Twitter {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number} user\n   * @param {number} tweet\n   * @returns {void}\n   */\n  postTweet(user, tweet) {\n    throw new Error('Implement postTweet');\n  }\n\n  /**\n   * @param {number} user\n   * @returns {number[]}\n   */\n  getNewsFeed(user) {\n    throw new Error('Implement getNewsFeed');\n  }\n\n  /**\n   * @param {number} user\n   * @param {number} other\n   * @returns {void}\n   */\n  follow(user, other) {\n    throw new Error('Implement follow');\n  }\n\n  /**\n   * @param {number} user\n   * @param {number} other\n   * @returns {void}\n   */\n  unfollow(user, other) {\n    throw new Error('Implement unfollow');\n  }\n}",
+    "typescript": "class Twitter {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  postTweet(user: number, tweet: number): void {\n    throw new Error('Implement postTweet');\n  }\n\n  getNewsFeed(user: number): number[] {\n    throw new Error('Implement getNewsFeed');\n  }\n\n  follow(user: number, other: number): void {\n    throw new Error('Implement follow');\n  }\n\n  unfollow(user: number, other: number): void {\n    throw new Error('Implement unfollow');\n  }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct Twitter Twitter;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nTwitter *twitterCreate(void) { abort(); }\n\nvoid twitterPostTweet(Twitter *app, int32_t user, int32_t tweet) {\n    (void)app;\n    (void)user;\n    (void)tweet;\n    abort();\n}\n\nIntArray twitterGetNewsFeed(Twitter *app, int32_t user) {\n    (void)app;\n    (void)user;\n    abort();\n}\n\nvoid twitterFollow(Twitter *app, int32_t user, int32_t other) {\n    (void)app;\n    (void)user;\n    (void)other;\n    abort();\n}\n\nvoid twitterUnfollow(Twitter *app, int32_t user, int32_t other) {\n    (void)app;\n    (void)user;\n    (void)other;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass Twitter {\npublic:\n    Twitter() {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void postTweet(int user, int tweet) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    std::vector<int> getNewsFeed(int user) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void follow(int user, int other) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void unfollow(int user, int other) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+    "csharp": "public class Twitter {\n    public Twitter() {\n        throw new System.NotImplementedException();\n    }\n\n    public void postTweet(int user, int tweet) {\n        throw new System.NotImplementedException();\n    }\n\n    public int[] getNewsFeed(int user) {\n        throw new System.NotImplementedException();\n    }\n\n    public void follow(int user, int other) {\n        throw new System.NotImplementedException();\n    }\n\n    public void unfollow(int user, int other) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass Twitter {\n    public function __construct() {\n        throw new LogicException('Implement method');\n    }\n\n    public function postTweet(int $user, int $tweet): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function getNewsFeed(int $user): array {\n        throw new LogicException('Implement method');\n    }\n\n    public function follow(int $user, int $other): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function unfollow(int $user, int $other): void {\n        throw new LogicException('Implement method');\n    }\n}",
+    "r": "Twitter <- function() {\n  list(\n    # user (integer scalar), tweet (integer scalar).\n    # Result invisible NULL.\n    postTweet = function(user, tweet) stop(\"Implement postTweet\"),\n    # user (integer scalar).\n    # Result integer vector.\n    getNewsFeed = function(user) stop(\"Implement getNewsFeed\"),\n    # user (integer scalar), other (integer scalar).\n    # Result invisible NULL.\n    follow = function(user, other) stop(\"Implement follow\"),\n    # user (integer scalar), other (integer scalar).\n    # Result invisible NULL.\n    unfollow = function(user, other) stop(\"Implement unfollow\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-065-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-065-statement",
+      "type": "paragraph",
+      "content": "Implement a service with postTweet, getNewsFeed, follow, and unfollow. A feed contains up to ten tweet IDs from the user and the people they currently follow. Return IDs from newest to oldest by posting order. Repeated follows have no extra effect, and unfollowing someone who is not followed changes nothing.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-065-contract",
+      "type": "note",
+      "title": "class Twitter:",
+      "content": "Input: `ops` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-065-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "User IDs are integers from 1 through 500. Tweet IDs are distinct integers from 0 through 10,000. There are at most 30,000 calls. A user cannot follow themself. The fixture uses [0,user,tweet], [1,user], [2,follower,followee], and [3,follower,followee] for the four methods in the order above. It collects only the feed results.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-065-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class Twitter:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def postTweet(self, user: int, tweet: int) -> None:\n        raise NotImplementedError\n\n    def getNewsFeed(self, user: int) -> list[int]:\n        raise NotImplementedError\n\n    def follow(self, user: int, other: int) -> None:\n        raise NotImplementedError\n\n    def unfollow(self, user: int, other: int) -> None:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class Twitter {\n    public Twitter() {\n        throw new UnsupportedOperationException();\n    }\n\n    public void postTweet(int user, int tweet) {\n        throw new UnsupportedOperationException();\n    }\n\n    public int[] getNewsFeed(int user) {\n        throw new UnsupportedOperationException();\n    }\n\n    public void follow(int user, int other) {\n        throw new UnsupportedOperationException();\n    }\n\n    public void unfollow(int user, int other) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class Twitter {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number} user\n   * @param {number} tweet\n   * @returns {void}\n   */\n  postTweet(user, tweet) {\n    throw new Error('Implement postTweet');\n  }\n\n  /**\n   * @param {number} user\n   * @returns {number[]}\n   */\n  getNewsFeed(user) {\n    throw new Error('Implement getNewsFeed');\n  }\n\n  /**\n   * @param {number} user\n   * @param {number} other\n   * @returns {void}\n   */\n  follow(user, other) {\n    throw new Error('Implement follow');\n  }\n\n  /**\n   * @param {number} user\n   * @param {number} other\n   * @returns {void}\n   */\n  unfollow(user, other) {\n    throw new Error('Implement unfollow');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class Twitter {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  postTweet(user: number, tweet: number): void {\n    throw new Error('Implement postTweet');\n  }\n\n  getNewsFeed(user: number): number[] {\n    throw new Error('Implement getNewsFeed');\n  }\n\n  follow(user: number, other: number): void {\n    throw new Error('Implement follow');\n  }\n\n  unfollow(user: number, other: number): void {\n    throw new Error('Implement unfollow');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct Twitter Twitter;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nTwitter *twitterCreate(void) { abort(); }\n\nvoid twitterPostTweet(Twitter *app, int32_t user, int32_t tweet) {\n    (void)app;\n    (void)user;\n    (void)tweet;\n    abort();\n}\n\nIntArray twitterGetNewsFeed(Twitter *app, int32_t user) {\n    (void)app;\n    (void)user;\n    abort();\n}\n\nvoid twitterFollow(Twitter *app, int32_t user, int32_t other) {\n    (void)app;\n    (void)user;\n    (void)other;\n    abort();\n}\n\nvoid twitterUnfollow(Twitter *app, int32_t user, int32_t other) {\n    (void)app;\n    (void)user;\n    (void)other;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass Twitter {\npublic:\n    Twitter() {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void postTweet(int user, int tweet) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    std::vector<int> getNewsFeed(int user) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void follow(int user, int other) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void unfollow(int user, int other) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Twitter {\n    public Twitter() {\n        throw new System.NotImplementedException();\n    }\n\n    public void postTweet(int user, int tweet) {\n        throw new System.NotImplementedException();\n    }\n\n    public int[] getNewsFeed(int user) {\n        throw new System.NotImplementedException();\n    }\n\n    public void follow(int user, int other) {\n        throw new System.NotImplementedException();\n    }\n\n    public void unfollow(int user, int other) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass Twitter {\n    public function __construct() {\n        throw new LogicException('Implement method');\n    }\n\n    public function postTweet(int $user, int $tweet): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function getNewsFeed(int $user): array {\n        throw new LogicException('Implement method');\n    }\n\n    public function follow(int $user, int $other): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function unfollow(int $user, int $other): void {\n        throw new LogicException('Implement method');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-065-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "Twitter <- function() {\n  list(\n    # user (integer scalar), tweet (integer scalar).\n    # Result invisible NULL.\n    postTweet = function(user, tweet) stop(\"Implement postTweet\"),\n    # user (integer scalar).\n    # Result integer vector.\n    getNewsFeed = function(user) stop(\"Implement getNewsFeed\"),\n    # user (integer scalar), other (integer scalar).\n    # Result invisible NULL.\n    follow = function(user, other) stop(\"Implement follow\"),\n    # user (integer scalar), other (integer scalar).\n    # Result invisible NULL.\n    unfollow = function(user, other) stop(\"Implement unfollow\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,7]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

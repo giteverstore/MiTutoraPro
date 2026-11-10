@@ -1,0 +1,296 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-035",
+  "title": "Merge Two Sorted Lists",
+  "summary": "Join the nodes from two sorted singly linked lists into one sorted list.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "mergeTwoLists",
+    "signature": "class ListNode:",
+    "input": "`list1` (integer array), `list2` (integer array)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`list1` (integer array), `list2` (integer array)",
+    "result": "integer array.",
+    "constraints": "There are 0–50 nodes across the two acyclic input lists. Each value is an integer in [−100, 100]. Both lists are nondecreasing and the inputs do not share nodes. Equal values retain their multiplicity.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Join the nodes from two sorted singly linked lists into one sorted list. Splice the supplied nodes together and return the new head. The judge uses arrays to show each list's values in traversal order.",
+  "examples": [
+    {
+      "input": "{\"list1\":[-6,2,8],\"list2\":[-4,2,9]}",
+      "output": "[-6,-4,2,2,8,9]",
+      "explanation": "The two copies of 2 both appear."
+    },
+    {
+      "input": "{\"list1\":[],\"list2\":[-3,4]}",
+      "output": "[-3,4]",
+      "explanation": "The second list supplies the whole output."
+    },
+    {
+      "input": "{\"list1\":[5,7],\"list2\":[1,2]}",
+      "output": "[1,2,5,7]",
+      "explanation": "All nodes of the second list come first."
+    }
+  ],
+  "constraints": [
+    "There are 0–50 nodes across the two acyclic input lists. Each value is an integer in [−100, 100]. Both lists are nondecreasing and the inputs do not share nodes. Equal values retain their multiplicity."
+  ],
+  "hints": [
+    "Conceptual: The smaller of the two head values can go next.",
+    "Directional: Keep a cursor for each input and a tail for the result.",
+    "Implementation: Attach the smaller current node and advance that input. Once one input is exhausted, link the result to the remaining chain."
+  ],
+  "concepts": [
+    "linked-lists",
+    "merging",
+    "pointer-rewiring"
+  ],
+  "skills": [
+    "Linked lists",
+    "merging",
+    "pointer rewiring"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  "complexityAnalysis": "O(n+m) time and O(1) auxiliary space for input lengths n and m. A dummy head can simplify the first attachment.",
+  "publicTests": [
+    {
+      "name": "BLIND150-035-T01",
+      "arguments": [
+        [
+          -6,
+          2,
+          8
+        ],
+        [
+          -4,
+          2,
+          9
+        ]
+      ],
+      "input": {
+        "list1": [
+          -6,
+          2,
+          8
+        ],
+        "list2": [
+          -4,
+          2,
+          9
+        ]
+      },
+      "expected": [
+        -6,
+        -4,
+        2,
+        2,
+        8,
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-035-T02",
+      "arguments": [
+        [],
+        [
+          -3,
+          4
+        ]
+      ],
+      "input": {
+        "list1": [],
+        "list2": [
+          -3,
+          4
+        ]
+      },
+      "expected": [
+        -3,
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-035-T03",
+      "arguments": [
+        [
+          5,
+          7
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "input": {
+        "list1": [
+          5,
+          7
+        ],
+        "list2": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        5,
+        7
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef mergeTwoLists(list1: ListNode | None, list2: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} list1\n * @param {ListNode | null} list2\n * @returns {ListNode | null}\n */\nfunction mergeTwoLists(list1, list2) {\n  throw new Error('Implement mergeTwoLists');\n}",
+    "typescript": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {\n  throw new Error('Implement mergeTwoLists');\n}",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * mergeTwoLists(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * mergeTwoLists(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    throw std::logic_error(\"Implement mergeTwoLists\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction mergeTwoLists(?ListNode $list1, ?ListNode $list2): ?ListNode {\n    throw new LogicException('Implement mergeTwoLists');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters list1 (node environment or NULL), list2 (node environment or NULL). Result node environment or NULL.\nmergeTwoLists <- function(list1, list2) {\n  stop(\"Implement mergeTwoLists\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-035-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-035-statement",
+      "type": "paragraph",
+      "content": "Join the nodes from two sorted singly linked lists into one sorted list. Splice the supplied nodes together and return the new head. The judge uses arrays to show each list's values in traversal order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-035-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: `list1` (integer array), `list2` (integer array)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-035-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "There are 0–50 nodes across the two acyclic input lists. Each value is an integer in [−100, 100]. Both lists are nondecreasing and the inputs do not share nodes. Equal values retain their multiplicity.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-035-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef mergeTwoLists(list1: ListNode | None, list2: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} list1\n * @param {ListNode | null} list2\n * @returns {ListNode | null}\n */\nfunction mergeTwoLists(list1, list2) {\n  throw new Error('Implement mergeTwoLists');\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {\n  throw new Error('Implement mergeTwoLists');\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * mergeTwoLists(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * mergeTwoLists(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    throw std::logic_error(\"Implement mergeTwoLists\");\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction mergeTwoLists(?ListNode $list1, ?ListNode $list2): ?ListNode {\n    throw new LogicException('Implement mergeTwoLists');\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-035-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters list1 (node environment or NULL), list2 (node environment or NULL). Result node environment or NULL.\nmergeTwoLists <- function(list1, list2) {\n  stop(\"Implement mergeTwoLists\")\n}",
+      "stdin": "",
+      "expectedOutput": "[-6,-4,2,2,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

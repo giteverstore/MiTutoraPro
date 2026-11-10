@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-184",
+  "title": "Guess Number Higher Or Lower",
+  "summary": "A supplied guess(num) API compares num to a fixed secret integer in [1,n].",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "guessNumber",
+    "signature": "def guess(num:",
+    "input": "n (int), pick (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), pick (int)",
+    "callable": "guessNumber",
+    "constraints": "1 ≤ pick ≤ n ≤ 2147483647. Use integer arithmetic that cannot overflow when finding a midpoint.",
+    "output-checking": "Configure guess(num) using fixture pick. Invoke guessNumber(n) without passing pick to the solution. The supplied API returns sign(pick−num)."
+  },
+  "statement": "A supplied guess(num) API compares num to a fixed secret integer in [1,n]. It returns −1 if num is too high, 1 if num is too low, and 0 for a match. Implement guessNumber(n) to recover the secret using this API. The pick field in fixtures configures the API and is not passed to the learner function.",
+  "examples": [
+    {
+      "input": "{\"n\":21,\"pick\":13}",
+      "output": "13",
+      "explanation": "The API comparisons narrow the range to 13."
+    },
+    {
+      "input": "{\"n\":1,\"pick\":1}",
+      "output": "1",
+      "explanation": "There is only one possible secret."
+    },
+    {
+      "input": "{\"n\":2147483647,\"pick\":2147483647}",
+      "output": "2147483647",
+      "explanation": "The upper endpoint must be reachable without midpoint overflow."
+    }
+  ],
+  "constraints": [
+    "1 ≤ pick ≤ n ≤ 2147483647. Use integer arithmetic that cannot overflow when finding a midpoint."
+  ],
+  "hints": [
+    "Conceptual: Each API answer rules out part of the remaining range.",
+    "Directional: Try the middle of the current possible interval.",
+    "Implementation: Compute mid = low + (high−low)//2. Move high below mid for −1 and low above mid for 1."
+  ],
+  "concepts": [
+    "binary-search",
+    "supplied-comparison-api"
+  ],
+  "skills": [
+    "Binary search",
+    "supplied comparison API"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log n)",
+    "space": "O(log n)"
+  },
+  "complexityAnalysis": "O(log n) API calls and time, O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-184-P1",
+      "arguments": [
+        21,
+        13
+      ],
+      "input": {
+        "n": 21,
+        "pick": 13
+      },
+      "expected": 13,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-184-P2",
+      "arguments": [
+        1,
+        1
+      ],
+      "input": {
+        "n": 1,
+        "pick": 1
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-184-P3",
+      "arguments": [
+        2147483647,
+        2147483647
+      ],
+      "input": {
+        "n": 2147483647,
+        "pick": 2147483647
+      },
+      "expected": 2147483647,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "# Supplied by the execution wrapper. Implement guessNumber only.\ndef guess(num: int) -> int:\n    raise NotImplementedError(\"Supplied comparison API\")\n\ndef guessNumber(n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    // Supplied by the execution wrapper.\n    protected int guess(int num) { throw new UnsupportedOperationException(\"Supplied API\"); }\n\n    public int guessNumber(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "// Supplied by the execution wrapper. Implement guessNumber only.\nfunction guess(num) { throw new Error(\"Supplied comparison API\"); }\n\n/**\n * @param {number} n\n * @returns {number}\n */\nfunction guessNumber(n) {\n  throw new Error('Implement guessNumber');\n}",
+    "typescript": "// Supplied by the execution wrapper. Implement guessNumber only.\nfunction guess(num: number): number { throw new Error(\"Supplied comparison API\"); }\n\nfunction guessNumber(n: number): number {\n  throw new Error('Implement guessNumber');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t guess(int32_t num);\n\nint32_t guessNumber(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint guess(int num);\n\nint guessNumber(int n) {\n    throw std::logic_error(\"Implement guessNumber\");\n}",
+    "csharp": "public class Solution {\n    // Supplied by the execution wrapper.\n    protected int guess(int num) { throw new System.NotImplementedException(\"Supplied API\"); }\n\n    public int guessNumber(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\nfunction guess(int $num): int { throw new LogicException(\"Supplied comparison API\"); }\n\n\n\n/**\n * @param int $n\n * @return int\n */\nfunction guessNumber(int $n): int {\n    throw new LogicException('Implement guessNumber');\n}",
+    "r": "# Supplied by the execution wrapper. Implement guessNumber only.\nguess <- function(num) stop(\"Supplied comparison API\")\n\n# Parameters: n (integer scalar). Result: integer scalar.\nguessNumber <- function(n) {\n  stop(\"Implement guessNumber\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "guessNumber",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "pick",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "supplied_api",
+    "validator": "exact",
+    "notes": "Configure guess(num) using fixture pick. Invoke guessNumber(n) without passing pick to the solution. The supplied API returns sign(pick−num)."
+  },
+  "blocks": [
+    {
+      "id": "nc250-184-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-184-statement",
+      "type": "paragraph",
+      "content": "A supplied guess(num) API compares num to a fixed secret integer in [1,n]. It returns −1 if num is too high, 1 if num is too low, and 0 for a match. Implement guessNumber(n) to recover the secret using this API. The pick field in fixtures configures the API and is not passed to the learner function.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-184-contract",
+      "type": "note",
+      "title": "def guess(num:",
+      "content": "Input: n (int), pick (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-184-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ pick ≤ n ≤ 2147483647. Use integer arithmetic that cannot overflow when finding a midpoint.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-184-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "# Supplied by the execution wrapper. Implement guessNumber only.\ndef guess(num: int) -> int:\n    raise NotImplementedError(\"Supplied comparison API\")\n\ndef guessNumber(n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    // Supplied by the execution wrapper.\n    protected int guess(int num) { throw new UnsupportedOperationException(\"Supplied API\"); }\n\n    public int guessNumber(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "// Supplied by the execution wrapper. Implement guessNumber only.\nfunction guess(num) { throw new Error(\"Supplied comparison API\"); }\n\n/**\n * @param {number} n\n * @returns {number}\n */\nfunction guessNumber(n) {\n  throw new Error('Implement guessNumber');\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "// Supplied by the execution wrapper. Implement guessNumber only.\nfunction guess(num: number): number { throw new Error(\"Supplied comparison API\"); }\n\nfunction guessNumber(n: number): number {\n  throw new Error('Implement guessNumber');\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t guess(int32_t num);\n\nint32_t guessNumber(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint guess(int num);\n\nint guessNumber(int n) {\n    throw std::logic_error(\"Implement guessNumber\");\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    // Supplied by the execution wrapper.\n    protected int guess(int num) { throw new System.NotImplementedException(\"Supplied API\"); }\n\n    public int guessNumber(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nfunction guess(int $num): int { throw new LogicException(\"Supplied comparison API\"); }\n\n\n\n/**\n * @param int $n\n * @return int\n */\nfunction guessNumber(int $n): int {\n    throw new LogicException('Implement guessNumber');\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-184-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Supplied by the execution wrapper. Implement guessNumber only.\nguess <- function(num) stop(\"Supplied comparison API\")\n\n# Parameters: n (integer scalar). Result: integer scalar.\nguessNumber <- function(n) {\n  stop(\"Implement guessNumber\")\n}",
+      "stdin": "",
+      "expectedOutput": "13",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

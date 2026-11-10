@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-138",
+  "title": "Set Matrix Zeroes",
+  "summary": "For every zero present in the original matrix, set its entire row and column to zero.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "setZeroes",
+    "signature": "def setZeroes(matrix:",
+    "input": "`matrix` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`matrix` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "1–200 rows and columns. Each entry is a signed 32-bit integer.",
+    "output-checking": "Exact typed equality.",
+    "callable": "`setZeroes` mutates the supplied matrix and returns no value outside R. The runner reads the changed matrix. R returns the changed list of rows."
+  },
+  "statement": "For every zero present in the original matrix, set its entire row and column to zero. Change the matrix in place and show the final contents.",
+  "examples": [
+    {
+      "input": "{\"matrix\":[[1,2],[0,4]]}",
+      "output": "[[0,2],[0,0]]",
+      "explanation": "Only the original zero triggers clearing."
+    },
+    {
+      "input": "{\"matrix\":[[1,0,2]]}",
+      "output": "[[0,0,0]]",
+      "explanation": "The single row is cleared."
+    },
+    {
+      "input": "{\"matrix\":[[1,2],[3,4]]}",
+      "output": "[[1,2],[3,4]]",
+      "explanation": "With no zero present, every value stays the same."
+    }
+  ],
+  "constraints": [
+    "1–200 rows and columns. Each entry is a signed 32-bit integer."
+  ],
+  "hints": [
+    "Conceptual: New zeros must not trigger additional rows or columns.",
+    "Directional: The first row and column can hold markers for the interior.",
+    "Implementation: Save whether the first row and column originally contain zeros. Mark and clear the interior before clearing those two borders."
+  ],
+  "concepts": [
+    "matrix-mutation",
+    "row-and-column-markers"
+  ],
+  "skills": [
+    "Matrix mutation",
+    "row and column markers"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(1) extra space in a mutable matrix representation.",
+  "publicTests": [
+    {
+      "name": "BLIND150-138-T01",
+      "arguments": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-138-T02",
+      "arguments": [
+        [
+          [
+            1,
+            0,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            1,
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-138-T03",
+      "arguments": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def setZeroes(matrix: list[list[int]]) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void setZeroes(int[][] matrix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "function setZeroes(matrix) {\n  throw new Error(\"Not implemented\");\n}",
+    "typescript": "function setZeroes(matrix: number[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid setZeroes(IntMatrix matrix) {\n    (void)matrix;\n}",
+    "cpp": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid setZeroes(IntMatrix matrix) {\n    (void)matrix;\n}",
+    "csharp": "public class Solution {\n    public void setZeroes(int[][] matrix) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\nfunction setZeroes(array &$matrix): void {\n    throw new LogicException(\"Not implemented\");\n}",
+    "r": "# Return the updated list of exact numeric vectors, including -2147483648.\nsetZeroes <- function(matrix) {\n  stop(\"Not implemented\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-138-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-138-statement",
+      "type": "paragraph",
+      "content": "For every zero present in the original matrix, set its entire row and column to zero. Change the matrix in place and show the final contents.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-138-contract",
+      "type": "note",
+      "title": "def setZeroes(matrix:",
+      "content": "Input: `matrix` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-138-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–200 rows and columns. Each entry is a signed 32-bit integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-138-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def setZeroes(matrix: list[list[int]]) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void setZeroes(int[][] matrix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "function setZeroes(matrix) {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function setZeroes(matrix: number[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid setZeroes(IntMatrix matrix) {\n    (void)matrix;\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid setZeroes(IntMatrix matrix) {\n    (void)matrix;\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void setZeroes(int[][] matrix) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nfunction setZeroes(array &$matrix): void {\n    throw new LogicException(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-138-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated list of exact numeric vectors, including -2147483648.\nsetZeroes <- function(matrix) {\n  stop(\"Not implemented\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,2],[0,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

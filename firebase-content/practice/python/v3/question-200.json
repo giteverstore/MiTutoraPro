@@ -1,0 +1,298 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-200",
+  "title": "Delete Leaves With a Given Value",
+  "summary": "Remove every leaf whose value equals target.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "removeLeafNodes",
+    "signature": "class TreeNode:",
+    "input": "root (tree), target (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "root (tree), target (int)",
+    "callable": "removeLeafNodes",
+    "constraints": "1–3000 nodes. Node values and target are in [1,1000]. Input and output use level-order values with null for absent children and omitted trailing nulls.",
+    "output-checking": "Invoke removeLeafNodes(root,target), then serialize the resulting tree. Preserve null child positions and reject cycles or shared nodes. Compare the final structure after cascading pruning."
+  },
+  "statement": "Remove every leaf whose value equals target. If those removals make another target-valued node into a leaf, remove it too. Continue until no such leaf remains and return the remaining root, which may be null.",
+  "examples": [
+    {
+      "input": "{\"root\":[7,2,9,2,null,2,3],\"target\":2}",
+      "output": "[7,null,9,null,3]",
+      "explanation": "Removing leaf 2s also turns the left internal 2 into a removable leaf."
+    },
+    {
+      "input": "{\"root\":[2,2,2],\"target\":2}",
+      "output": "[]",
+      "explanation": "Every node eventually disappears."
+    },
+    {
+      "input": "{\"root\":[5],\"target\":2}",
+      "output": "[5]",
+      "explanation": "The only node does not match the target."
+    }
+  ],
+  "constraints": [
+    "1–3000 nodes. Node values and target are in [1,1000]. Input and output use level-order values with null for absent children and omitted trailing nulls."
+  ],
+  "hints": [
+    "Conceptual: A node’s final leaf status depends on what remains below it.",
+    "Directional: Process children before deciding whether their parent survives.",
+    "Implementation: Update both child pointers from their processed results, then remove the current node only if both are absent and its value matches target."
+  ],
+  "concepts": [
+    "trees",
+    "postorder-pruning"
+  ],
+  "skills": [
+    "Trees",
+    "postorder pruning"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(n) time and O(h) active traversal state. Fixed-capacity internal buffers allocate O(Nmax) storage, where Nmax=3000; dynamically growing stacks need O(h).",
+  "publicTests": [
+    {
+      "name": "NC250-200-P1",
+      "arguments": [
+        [
+          7,
+          2,
+          9,
+          2,
+          null,
+          2,
+          3
+        ],
+        2
+      ],
+      "input": {
+        "root": [
+          7,
+          2,
+          9,
+          2,
+          null,
+          2,
+          3
+        ],
+        "target": 2
+      },
+      "expected": [
+        7,
+        null,
+        9,
+        null,
+        3
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-200-P2",
+      "arguments": [
+        [
+          2,
+          2,
+          2
+        ],
+        2
+      ],
+      "input": {
+        "root": [
+          2,
+          2,
+          2
+        ],
+        "target": 2
+      },
+      "expected": [],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-200-P3",
+      "arguments": [
+        [
+          5
+        ],
+        2
+      ],
+      "input": {
+        "root": [
+          5
+        ],
+        "target": 2
+      },
+      "expected": [
+        5
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef removeLeafNodes(root: TreeNode | None, target: int) -> TreeNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode removeLeafNodes(TreeNode root, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {number} target\n * @returns {TreeNode | null}\n */\nfunction removeLeafNodes(root, target) {\n  throw new Error('Implement removeLeafNodes');\n}",
+    "typescript": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction removeLeafNodes(root: TreeNode | null, target: number): TreeNode | null {\n  throw new Error('Implement removeLeafNodes');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * removeLeafNodes(TreeNode * root, int32_t target) {\n    (void)root;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * removeLeafNodes(TreeNode * root, int target) {\n    (void)root;\n    (void)target;\n    throw std::logic_error(\"Implement removeLeafNodes\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode removeLeafNodes(TreeNode root, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction removeLeafNodes(?TreeNode $root, int $target): ?TreeNode {\n    throw new LogicException('Implement removeLeafNodes');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), target (integer scalar). Result tree environment or NULL.\nremoveLeafNodes <- function(root, target) {\n  stop(\"Implement removeLeafNodes\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "removeLeafNodes",
+    "arguments": [
+      [
+        "root",
+        "tree"
+      ],
+      [
+        "target",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "tree",
+    "mode": "tree",
+    "validator": "exact",
+    "notes": "Invoke removeLeafNodes(root,target), then serialize the resulting tree. Preserve null child positions and reject cycles or shared nodes. Compare the final structure after cascading pruning."
+  },
+  "blocks": [
+    {
+      "id": "nc250-200-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-200-statement",
+      "type": "paragraph",
+      "content": "Remove every leaf whose value equals target. If those removals make another target-valued node into a leaf, remove it too. Continue until no such leaf remains and return the remaining root, which may be null.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-200-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: root (tree), target (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-200-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–3000 nodes. Node values and target are in [1,1000]. Input and output use level-order values with null for absent children and omitted trailing nulls.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-200-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef removeLeafNodes(root: TreeNode | None, target: int) -> TreeNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode removeLeafNodes(TreeNode root, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {number} target\n * @returns {TreeNode | null}\n */\nfunction removeLeafNodes(root, target) {\n  throw new Error('Implement removeLeafNodes');\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction removeLeafNodes(root: TreeNode | null, target: number): TreeNode | null {\n  throw new Error('Implement removeLeafNodes');\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * removeLeafNodes(TreeNode * root, int32_t target) {\n    (void)root;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * removeLeafNodes(TreeNode * root, int target) {\n    (void)root;\n    (void)target;\n    throw std::logic_error(\"Implement removeLeafNodes\");\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode removeLeafNodes(TreeNode root, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction removeLeafNodes(?TreeNode $root, int $target): ?TreeNode {\n    throw new LogicException('Implement removeLeafNodes');\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-200-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), target (integer scalar). Result tree environment or NULL.\nremoveLeafNodes <- function(root, target) {\n  stop(\"Implement removeLeafNodes\")\n}",
+      "stdin": "",
+      "expectedOutput": "[7,null,9,null,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

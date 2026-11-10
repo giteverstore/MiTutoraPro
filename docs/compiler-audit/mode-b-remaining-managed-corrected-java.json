@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 6,
+  "matrix": {
+    "BLIND150-132": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16123,
+        "wallTimeMs": 16370,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-135": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16456,
+        "wallTimeMs": 16821,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

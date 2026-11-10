@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 6,
+  "matrix": {
+    "NC250-208": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11519,
+        "wallTimeMs": 17606,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 34665,
+        "wallTimeMs": 41083,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

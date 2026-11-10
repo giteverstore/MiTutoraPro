@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-149",
+  "title": "Sum of Two Integers",
+  "summary": "Return the sum of a and b without using the addition or subtraction operators.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "getSum",
+    "signature": "def getSum(a:",
+    "input": "`a` (integer), `b` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`a` (integer), `b` (integer)",
+    "result": "integer.",
+    "constraints": "a and b are integers in [−1000,1000]. Use signed two’s-complement semantics on a 32-bit word.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return the sum of a and b without using the addition or subtraction operators.",
+  "examples": [
+    {
+      "input": "{\"a\":-3,\"b\":5}",
+      "output": "2",
+      "explanation": "Carries cancel the negative contribution."
+    },
+    {
+      "input": "{\"a\":-8,\"b\":-7}",
+      "output": "-15",
+      "explanation": "Two negative inputs stay negative."
+    },
+    {
+      "input": "{\"a\":0,\"b\":0}",
+      "output": "0",
+      "explanation": "No bits or carries are present."
+    }
+  ],
+  "constraints": [
+    "a and b are integers in [−1000,1000]. Use signed two’s-complement semantics on a 32-bit word."
+  ],
+  "hints": [
+    "Conceptual: XOR adds two bits without a carry.",
+    "Directional: AND identifies positions generating carries.",
+    "Implementation: Shift carries left and repeat until none remain. Mask to 32 bits in languages with arbitrary-width integers."
+  ],
+  "concepts": [
+    "two-s-complement",
+    "carry-propagation"
+  ],
+  "skills": [
+    "Two’s complement",
+    "carry propagation"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(w)",
+    "space": "O(w)"
+  },
+  "complexityAnalysis": "O(w) time and O(1) extra space, with w=32.",
+  "publicTests": [
+    {
+      "name": "BLIND150-149-T01",
+      "arguments": [
+        -3,
+        5
+      ],
+      "input": {
+        "a": -3,
+        "b": 5
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-149-T02",
+      "arguments": [
+        -8,
+        -7
+      ],
+      "input": {
+        "a": -8,
+        "b": -7
+      },
+      "expected": -15,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-149-T03",
+      "arguments": [
+        0,
+        0
+      ],
+      "input": {
+        "a": 0,
+        "b": 0
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def getSum(a: int, b: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int getSum(int a, int b) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @returns {number}\n */\nfunction getSum(a, b) {\n  throw new Error('Implement getSum');\n}",
+    "typescript": "function getSum(a: number, b: number): number {\n  throw new Error('Implement getSum');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t getSum(int32_t a, int32_t b) {\n    (void)a;\n    (void)b;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint getSum(int a, int b) {\n    throw std::logic_error(\"Implement getSum\");\n}",
+    "csharp": "public class Solution {\n    public int getSum(int a, int b) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $a\n * @param int $b\n * @return int\n */\nfunction getSum(int $a, int $b): int {\n    throw new LogicException('Implement getSum');\n}",
+    "r": "# Parameters: a (integer scalar), b (integer scalar). Result: integer scalar.\ngetSum <- function(a, b) {\n  stop(\"Implement getSum\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-149-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-149-statement",
+      "type": "paragraph",
+      "content": "Return the sum of a and b without using the addition or subtraction operators.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-149-contract",
+      "type": "note",
+      "title": "def getSum(a:",
+      "content": "Input: `a` (integer), `b` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-149-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "a and b are integers in [−1000,1000]. Use signed two’s-complement semantics on a 32-bit word.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-149-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def getSum(a: int, b: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int getSum(int a, int b) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} a\n * @param {number} b\n * @returns {number}\n */\nfunction getSum(a, b) {\n  throw new Error('Implement getSum');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function getSum(a: number, b: number): number {\n  throw new Error('Implement getSum');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t getSum(int32_t a, int32_t b) {\n    (void)a;\n    (void)b;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint getSum(int a, int b) {\n    throw std::logic_error(\"Implement getSum\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int getSum(int a, int b) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $a\n * @param int $b\n * @return int\n */\nfunction getSum(int $a, int $b): int {\n    throw new LogicException('Implement getSum');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-149-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: a (integer scalar), b (integer scalar). Result: integer scalar.\ngetSum <- function(a, b) {\n  stop(\"Implement getSum\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

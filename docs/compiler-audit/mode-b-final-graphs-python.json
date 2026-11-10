@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 6,
+  "matrix": {
+    "NC250-223": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 186,
+        "wallTimeMs": 23593,
+        "outputBytes": 842,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-224": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 189,
+        "wallTimeMs": 23709,
+        "outputBytes": 880,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

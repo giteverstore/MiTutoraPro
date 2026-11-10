@@ -22,6 +22,7 @@ export function OutputPanel({
   tests = [],
   contract = null,
   onAskAISelection,
+  functionResults = [],
 }) {
   const inputContent = Array.isArray(inputs) ? inputs.join('\n') : inputs;
   const tabs = useMemo(() => [
@@ -41,6 +42,7 @@ export function OutputPanel({
     running: 'Running',
     success: verificationStatus === 'matched' ? 'Output verified' : 'Completed',
     error: 'Failed',
+    cancelled: 'Cancelled',
   }[status] ?? 'Ready';
   const timeComplexity = complexity.time ?? null;
   const spaceComplexity = complexity.space ?? null;
@@ -59,9 +61,10 @@ export function OutputPanel({
   };
 
   useEffect(() => {
-    if (status === 'error') setActiveTab('errors');
+    if (functionResults.length) setActiveTab('tests');
+    else if (status === 'error') setActiveTab('errors');
     else if (status === 'running' || status === 'success') setActiveTab('output');
-  }, [status]);
+  }, [functionResults.length, status]);
 
   const tabContent = {
     output: isRunning ? 'Executing program…' : result || 'Run your program to see its output.',
@@ -117,13 +120,18 @@ export function OutputPanel({
       >
         {activeTab === 'tests' ? (
           <div className="shared-compiler-tests">
-            {tests.map((test, index) => (
+            {tests.map((test, index) => {
+              const testResult = functionResults.find(({ id }) => id === test.name);
+              return (
               <section key={`${test.name ?? 'test'}-${index}`}>
-                <strong>{test.name || `Case ${index + 1}`}</strong>
+                <strong>Test {index + 1}{testResult ? `  ${testResult.passed ? 'Passed' : testResult.status === 'wrong_answer' ? 'Failed' : 'Error'}` : ''}</strong>
                 <span>Input: {JSON.stringify(test.arguments ?? [])}</span>
                 {'expected' in test ? <span>Expected: {JSON.stringify(test.expected)}</span> : null}
+                {testResult && 'actual' in testResult ? <span>Actual: {JSON.stringify(testResult.actual)}</span> : null}
+                {testResult?.message ? <span>{testResult.status}: {testResult.message}</span> : null}
               </section>
-            ))}
+              );
+            })}
             {contract?.signature ? <small>Contract: {contract.signature}</small> : null}
           </div>
         ) : <pre><code>{tabContent}</code></pre>}

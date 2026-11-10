@@ -1,0 +1,263 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-034",
+  "title": "Reverse Linked List",
+  "summary": "Reverse the direction of every link in a singly linked list.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "reverseList",
+    "signature": "class ListNode:",
+    "input": "`head` (integer array)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`head` (integer array)",
+    "result": "integer array.",
+    "constraints": "0–5,000 nodes. Node values are integers in [−5,000, 5,000]. The input is acyclic and need not be sorted.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Reverse the direction of every link in a singly linked list. Return its new head, or a null head for an empty list. The judge constructs nodes from the input array and serializes the result by following next links.",
+  "examples": [
+    {
+      "input": "{\"head\":[9,-2,4]}",
+      "output": "[4,-2,9]",
+      "explanation": "The former tail becomes the head."
+    },
+    {
+      "input": "{\"head\":[]}",
+      "output": "[]",
+      "explanation": "An empty list has no links to reverse."
+    },
+    {
+      "input": "{\"head\":[6,6,1]}",
+      "output": "[1,6,6]",
+      "explanation": "Equal values still occupy distinct nodes."
+    }
+  ],
+  "constraints": [
+    "0–5,000 nodes. Node values are integers in [−5,000, 5,000]. The input is acyclic and need not be sorted."
+  ],
+  "hints": [
+    "Conceptual: Each original edge points the opposite way in the result.",
+    "Directional: Keep a pointer to the portion you have already reversed.",
+    "Implementation: Save the current node's original successor before redirecting its next link. Advance to the saved node and return the last node processed."
+  ],
+  "concepts": [
+    "linked-lists",
+    "pointer-rewiring"
+  ],
+  "skills": [
+    "Linked lists",
+    "pointer rewiring"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space with iterative pointer updates.",
+  "publicTests": [
+    {
+      "name": "BLIND150-034-T01",
+      "arguments": [
+        [
+          9,
+          -2,
+          4
+        ]
+      ],
+      "input": {
+        "head": [
+          9,
+          -2,
+          4
+        ]
+      },
+      "expected": [
+        4,
+        -2,
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-034-T02",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "head": []
+      },
+      "expected": [],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-034-T03",
+      "arguments": [
+        [
+          6,
+          6,
+          1
+        ]
+      ],
+      "input": {
+        "head": [
+          6,
+          6,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        6,
+        6
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef reverseList(head: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseList(ListNode head) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @returns {ListNode | null}\n */\nfunction reverseList(head) {\n  throw new Error('Implement reverseList');\n}",
+    "typescript": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction reverseList(head: ListNode | null): ListNode | null {\n  throw new Error('Implement reverseList');\n}",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * reverseList(ListNode * head) {\n    (void)head;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * reverseList(ListNode * head) {\n    (void)head;\n    throw std::logic_error(\"Implement reverseList\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseList(ListNode head) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction reverseList(?ListNode $head): ?ListNode {\n    throw new LogicException('Implement reverseList');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL). Result node environment or NULL.\nreverseList <- function(head) {\n  stop(\"Implement reverseList\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-034-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-034-statement",
+      "type": "paragraph",
+      "content": "Reverse the direction of every link in a singly linked list. Return its new head, or a null head for an empty list. The judge constructs nodes from the input array and serializes the result by following next links.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-034-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: `head` (integer array)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-034-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–5,000 nodes. Node values are integers in [−5,000, 5,000]. The input is acyclic and need not be sorted.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-034-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef reverseList(head: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseList(ListNode head) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @returns {ListNode | null}\n */\nfunction reverseList(head) {\n  throw new Error('Implement reverseList');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction reverseList(head: ListNode | null): ListNode | null {\n  throw new Error('Implement reverseList');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * reverseList(ListNode * head) {\n    (void)head;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * reverseList(ListNode * head) {\n    (void)head;\n    throw std::logic_error(\"Implement reverseList\");\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseList(ListNode head) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction reverseList(?ListNode $head): ?ListNode {\n    throw new LogicException('Implement reverseList');\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-034-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL). Result node environment or NULL.\nreverseList <- function(head) {\n  stop(\"Implement reverseList\")\n}",
+      "stdin": "",
+      "expectedOutput": "[4,-2,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

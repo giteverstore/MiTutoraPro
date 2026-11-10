@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-227",
+  "title": "Combination Sum IV",
+  "summary": "Count ordered sequences of values from nums whose sum equals target.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "combinationSum4",
+    "signature": "def combinationSum4(nums:",
+    "input": "nums (ints), target (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), target (int)",
+    "callable": "combinationSum4",
+    "constraints": "1–200 distinct integers in [1,1000]. 1 ≤ target ≤ 1000. The answer fits signed 32-bit range. Intermediate counts may need wider arithmetic or safe saturation.",
+    "output-checking": "Compare the exact ordered-sequence count. Saturating intermediate nonnegative counts at the maximum permitted answer preserves every valid final result."
+  },
+  "statement": "Count ordered sequences of values from nums whose sum equals target. A value may be used repeatedly. Changing the order produces a different sequence unless the resulting sequence is identical.",
+  "examples": [
+    {
+      "input": "{\"nums\":[1,3],\"target\":4}",
+      "output": "3",
+      "explanation": "The sequences are four 1s, [1,3], and [3,1]."
+    },
+    {
+      "input": "{\"nums\":[4,6],\"target\":5}",
+      "output": "0",
+      "explanation": "No sum using only even values is odd."
+    },
+    {
+      "input": "{\"nums\":[2],\"target\":6}",
+      "output": "1",
+      "explanation": "Only three copies of 2 can reach the target."
+    }
+  ],
+  "constraints": [
+    "1–200 distinct integers in [1,1000]. 1 ≤ target ≤ 1000. The answer fits signed 32-bit range. Intermediate counts may need wider arithmetic or safe saturation."
+  ],
+  "hints": [
+    "Conceptual: The final value leaves a smaller sum to construct.",
+    "Directional: Store the count for each smaller total.",
+    "Implementation: Seed the empty sequence at sum zero. For each total, add the counts obtained by choosing each possible final value."
+  ],
+  "concepts": [
+    "ordered-counting",
+    "dynamic-programming"
+  ],
+  "skills": [
+    "Ordered counting",
+    "dynamic programming"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(target × length(nums)",
+    "space": "O(target × length(nums)"
+  },
+  "complexityAnalysis": "O(target × length(nums)) time and O(target) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-227-P1",
+      "arguments": [
+        [
+          1,
+          3
+        ],
+        4
+      ],
+      "input": {
+        "nums": [
+          1,
+          3
+        ],
+        "target": 4
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-227-P2",
+      "arguments": [
+        [
+          4,
+          6
+        ],
+        5
+      ],
+      "input": {
+        "nums": [
+          4,
+          6
+        ],
+        "target": 5
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-227-P3",
+      "arguments": [
+        [
+          2
+        ],
+        6
+      ],
+      "input": {
+        "nums": [
+          2
+        ],
+        "target": 6
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def combinationSum4(nums: list[int], target: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int combinationSum4(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number}\n */\nfunction combinationSum4(nums, target) {\n  throw new Error('Implement combinationSum4');\n}",
+    "typescript": "function combinationSum4(nums: number[], target: number): number {\n  throw new Error('Implement combinationSum4');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t combinationSum4(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint combinationSum4(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement combinationSum4\");\n}",
+    "csharp": "public class Solution {\n    public int combinationSum4(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int\n */\nfunction combinationSum4(array $nums, int $target): int {\n    throw new LogicException('Implement combinationSum4');\n}",
+    "r": "# Parameters: nums (integer vector), target (integer scalar). Result: integer scalar.\ncombinationSum4 <- function(nums, target) {\n  stop(\"Implement combinationSum4\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "combinationSum4",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "target",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the exact ordered-sequence count. Saturating intermediate nonnegative counts at the maximum permitted answer preserves every valid final result."
+  },
+  "blocks": [
+    {
+      "id": "nc250-227-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-227-statement",
+      "type": "paragraph",
+      "content": "Count ordered sequences of values from nums whose sum equals target. A value may be used repeatedly. Changing the order produces a different sequence unless the resulting sequence is identical.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-227-contract",
+      "type": "note",
+      "title": "def combinationSum4(nums:",
+      "content": "Input: nums (ints), target (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-227-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–200 distinct integers in [1,1000]. 1 ≤ target ≤ 1000. The answer fits signed 32-bit range. Intermediate counts may need wider arithmetic or safe saturation.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-227-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def combinationSum4(nums: list[int], target: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int combinationSum4(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number}\n */\nfunction combinationSum4(nums, target) {\n  throw new Error('Implement combinationSum4');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function combinationSum4(nums: number[], target: number): number {\n  throw new Error('Implement combinationSum4');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t combinationSum4(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint combinationSum4(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement combinationSum4\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int combinationSum4(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int\n */\nfunction combinationSum4(array $nums, int $target): int {\n    throw new LogicException('Implement combinationSum4');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-227-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), target (integer scalar). Result: integer scalar.\ncombinationSum4 <- function(nums, target) {\n  stop(\"Implement combinationSum4\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

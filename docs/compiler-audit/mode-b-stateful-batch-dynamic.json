@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 36,
+  "matrix": {
+    "NC250-156": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4,
+        "wallTimeMs": 150,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5,
+        "wallTimeMs": 144,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1245,
+        "wallTimeMs": 1419,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 126,
+        "wallTimeMs": 5320,
+        "outputBytes": 726,
+        "message": "invalid 'envir' argument",
+        "failures": [
+          {
+            "id": "NC250-156-P1",
+            "status": "runtime_error",
+            "message": "invalid 'envir' argument"
+          },
+          {
+            "id": "NC250-156-P2",
+            "status": "runtime_error",
+            "message": "invalid 'envir' argument"
+          },
+          {
+            "id": "NC250-156-P3",
+            "status": "runtime_error",
+            "message": "invalid 'envir' argument"
+          }
+        ]
+      }
+    },
+    "NC250-176": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6,
+        "wallTimeMs": 124,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5,
+        "wallTimeMs": 195,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1294,
+        "wallTimeMs": 1447,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 128,
+        "wallTimeMs": 6104,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-177": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4,
+        "wallTimeMs": 145,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8,
+        "wallTimeMs": 331,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1622,
+        "wallTimeMs": 1834,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 143,
+        "wallTimeMs": 6500,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 72,
+  "matrix": {
+    "BLIND150-035": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 13,
+        "wallTimeMs": 94,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 299,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 117,
+        "wallTimeMs": 5133,
+        "outputBytes": 1182,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?",
+        "failures": [
+          {
+            "id": "BLIND150-035-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-035-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-035-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          }
+        ]
+      }
+    },
+    "BLIND150-036": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11,
+        "wallTimeMs": 68,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 210,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 114,
+        "wallTimeMs": 5193,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-037": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 72,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 184,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 124,
+        "wallTimeMs": 5663,
+        "outputBytes": 1123,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?",
+        "failures": [
+          {
+            "id": "BLIND150-037-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-037-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-037-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          }
+        ]
+      }
+    },
+    "BLIND150-038": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 12,
+        "wallTimeMs": 74,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 12,
+        "wallTimeMs": 232,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 119,
+        "wallTimeMs": 5450,
+        "outputBytes": 1129,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?",
+        "failures": [
+          {
+            "id": "BLIND150-038-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-038-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-038-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          }
+        ]
+      }
+    },
+    "BLIND150-039": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 66,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 245,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 111,
+        "wallTimeMs": 5215,
+        "outputBytes": 1165,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'true' is not defined. Did you mean: 'True'?",
+        "failures": [
+          {
+            "id": "BLIND150-039-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'true' is not defined. Did you mean: 'True'?"
+          },
+          {
+            "id": "BLIND150-039-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'true' is not defined. Did you mean: 'True'?"
+          },
+          {
+            "id": "BLIND150-039-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'true' is not defined. Did you mean: 'True'?"
+          }
+        ]
+      }
+    },
+    "BLIND150-040": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 71,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 193,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 117,
+        "wallTimeMs": 5184,
+        "outputBytes": 1153,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?",
+        "failures": [
+          {
+            "id": "BLIND150-040-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-040-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-040-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          }
+        ]
+      }
+    },
+    "BLIND150-043": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 68,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10,
+        "wallTimeMs": 198,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 116,
+        "wallTimeMs": 5186,
+        "outputBytes": 1139,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?",
+        "failures": [
+          {
+            "id": "BLIND150-043-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-043-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-043-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          }
+        ]
+      }
+    },
+    "BLIND150-044": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 68,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 221,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 116,
+        "wallTimeMs": 5110,
+        "outputBytes": 1168,
+        "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?",
+        "failures": [
+          {
+            "id": "BLIND150-044-T01",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-044-T02",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          },
+          {
+            "id": "BLIND150-044-T03",
+            "status": "runtime_error",
+            "message": "Traceback (most recent call last):\n  File \"<exec>\", line 55, in <module>\n  File \"main.py\", line 1794, in <module>\nNameError: name 'false' is not defined. Did you mean: 'False'?"
+          }
+        ]
+      }
+    }
+  }
+}

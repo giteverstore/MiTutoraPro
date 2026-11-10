@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-069",
+  "title": "Combination Sum II",
+  "summary": "List each distinct combination of input entries whose sum is target.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "combinationSum2",
+    "signature": "def combinationSum2(candidates:",
+    "input": "`candidates` (integer array), `target` (integer)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`candidates` (integer array), `target` (integer)",
+    "result": "nested integer arrays.",
+    "constraints": "1–100 integers in [1, 50]. Target is in [1, 30]. Order is free within combinations and in the outer result.",
+    "output-checking": "Require every distinct answer once. The outer order and element order within each answer are free."
+  },
+  "statement": "List each distinct combination of input entries whose sum is target. Each input position can be used once. Equal values at different positions may both be chosen. Two combinations with the same value multiplicities count as one.",
+  "examples": [
+    {
+      "input": "{\"candidates\":[2,2,3,5],\"target\":7}",
+      "output": "[[2,2,3],[2,5]]",
+      "explanation": "Either both twos or just one two can be used."
+    },
+    {
+      "input": "{\"candidates\":[1,1,1],\"target\":2}",
+      "output": "[[1,1]]",
+      "explanation": "All choices of two positions give the same answer."
+    },
+    {
+      "input": "{\"candidates\":[6,9],\"target\":5}",
+      "output": "[]",
+      "explanation": "No input entry can be selected without exceeding the target."
+    }
+  ],
+  "constraints": [
+    "1–100 integers in [1, 50]. Target is in [1, 30]. Order is free within combinations and in the outer result."
+  ],
+  "hints": [
+    "Conceptual: Equal values can occur in one answer without creating several copies of that answer.",
+    "Directional: Sort the input so equal candidates are adjacent.",
+    "Implementation: Skip equal choices at the same recursion depth and advance beyond the chosen index before recursing."
+  ],
+  "concepts": [
+    "backtracking",
+    "pruning",
+    "duplicate-suppression"
+  ],
+  "skills": [
+    "Backtracking",
+    "pruning",
+    "duplicate suppression"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "See complexity analysis",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n log n + n·2ⁿ) worst-case upper bound for sorting and enumeration. O(n) auxiliary space excluding output.",
+  "publicTests": [
+    {
+      "name": "BLIND150-069-T01",
+      "arguments": [
+        [
+          2,
+          2,
+          3,
+          5
+        ],
+        7
+      ],
+      "input": {
+        "candidates": [
+          2,
+          2,
+          3,
+          5
+        ],
+        "target": 7
+      },
+      "expected": [
+        [
+          2,
+          2,
+          3
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "validator": "bt_bag_rows"
+    },
+    {
+      "name": "BLIND150-069-T02",
+      "arguments": [
+        [
+          1,
+          1,
+          1
+        ],
+        2
+      ],
+      "input": {
+        "candidates": [
+          1,
+          1,
+          1
+        ],
+        "target": 2
+      },
+      "expected": [
+        [
+          1,
+          1
+        ]
+      ],
+      "validator": "bt_bag_rows"
+    },
+    {
+      "name": "BLIND150-069-T03",
+      "arguments": [
+        [
+          6,
+          9
+        ],
+        5
+      ],
+      "input": {
+        "candidates": [
+          6,
+          9
+        ],
+        "target": 5
+      },
+      "expected": [],
+      "validator": "bt_bag_rows"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] combinationSum2(int[] candidates, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} candidates\n * @param {number} target\n * @returns {number[][]}\n */\nfunction combinationSum2(candidates, target) {\n  throw new Error('Implement combinationSum2');\n}",
+    "typescript": "function combinationSum2(candidates: number[], target: number): number[][] {\n  throw new Error('Implement combinationSum2');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix combinationSum2(IntArray candidates, int32_t target) {\n    (void)candidates;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> combinationSum2(std::vector<int> candidates, int target) {\n    throw std::logic_error(\"Implement combinationSum2\");\n}",
+    "csharp": "public class Solution {\n    public int[][] combinationSum2(int[] candidates, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $candidates\n * @param int $target\n * @return int[][]\n */\nfunction combinationSum2(array $candidates, int $target): array {\n    throw new LogicException('Implement combinationSum2');\n}",
+    "r": "# Parameters: candidates (integer vector), target (integer scalar). Result: list of integer vectors.\ncombinationSum2 <- function(candidates, target) {\n  stop(\"Implement combinationSum2\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-069-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-069-statement",
+      "type": "paragraph",
+      "content": "List each distinct combination of input entries whose sum is target. Each input position can be used once. Equal values at different positions may both be chosen. Two combinations with the same value multiplicities count as one.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-069-contract",
+      "type": "note",
+      "title": "def combinationSum2(candidates:",
+      "content": "Input: `candidates` (integer array), `target` (integer)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-069-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 integers in [1, 50]. Target is in [1, 30]. Order is free within combinations and in the outer result.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-069-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] combinationSum2(int[] candidates, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} candidates\n * @param {number} target\n * @returns {number[][]}\n */\nfunction combinationSum2(candidates, target) {\n  throw new Error('Implement combinationSum2');\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function combinationSum2(candidates: number[], target: number): number[][] {\n  throw new Error('Implement combinationSum2');\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix combinationSum2(IntArray candidates, int32_t target) {\n    (void)candidates;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> combinationSum2(std::vector<int> candidates, int target) {\n    throw std::logic_error(\"Implement combinationSum2\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] combinationSum2(int[] candidates, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $candidates\n * @param int $target\n * @return int[][]\n */\nfunction combinationSum2(array $candidates, int $target): array {\n    throw new LogicException('Implement combinationSum2');\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-069-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: candidates (integer vector), target (integer scalar). Result: list of integer vectors.\ncombinationSum2 <- function(candidates, target) {\n  stop(\"Implement combinationSum2\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[2,2,3],[2,5]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

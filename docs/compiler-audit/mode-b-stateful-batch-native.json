@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 18,
+  "matrix": {
+    "NC250-156": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4944,
+        "wallTimeMs": 7926,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 14432,
+        "wallTimeMs": 18027,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-176": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5259,
+        "wallTimeMs": 8681,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 14267,
+        "wallTimeMs": 17525,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-177": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6444,
+        "wallTimeMs": 10588,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15570,
+        "wallTimeMs": 19351,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

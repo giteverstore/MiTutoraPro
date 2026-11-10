@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-173",
+  "title": "Minimum Size Subarray Sum",
+  "summary": "Return the smallest length of a nonempty contiguous segment whose sum is at least target.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Sliding Window",
+  "category": "dsa",
+  "subtopic": "sliding-window",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "minSubArrayLen",
+    "signature": "def minSubArrayLen(target:",
+    "input": "target (int), nums (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "target (int), nums (ints)",
+    "callable": "minSubArrayLen",
+    "constraints": "1 ≤ target ≤ 1000000000. 1–100000 entries, each in [1,10000].",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Return the smallest length of a nonempty contiguous segment whose sum is at least target. Return zero if no such segment exists.",
+  "examples": [
+    {
+      "input": "{\"target\":8,\"nums\":[3,1,5,2]}",
+      "output": "3",
+      "explanation": "The segment [3,1,5] reaches the target. No shorter segment does."
+    },
+    {
+      "input": "{\"target\":7,\"nums\":[7,1]}",
+      "output": "1",
+      "explanation": "The first entry alone reaches the target."
+    },
+    {
+      "input": "{\"target\":10,\"nums\":[2,3]}",
+      "output": "0",
+      "explanation": "Even the whole array is too small."
+    }
+  ],
+  "constraints": [
+    "1 ≤ target ≤ 1000000000. 1–100000 entries, each in [1,10000]."
+  ],
+  "hints": [
+    "Conceptual: All entries are positive, so extending a segment increases its sum.",
+    "Directional: Keep a window and shrink it whenever its sum reaches the target.",
+    "Implementation: Advance the right endpoint, then repeatedly remove the leftmost value while recording every qualifying length."
+  ],
+  "concepts": [
+    "sliding-window",
+    "positive-sums"
+  ],
+  "skills": [
+    "Sliding window",
+    "positive sums"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-173-P1",
+      "arguments": [
+        8,
+        [
+          3,
+          1,
+          5,
+          2
+        ]
+      ],
+      "input": {
+        "target": 8,
+        "nums": [
+          3,
+          1,
+          5,
+          2
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-173-P2",
+      "arguments": [
+        7,
+        [
+          7,
+          1
+        ]
+      ],
+      "input": {
+        "target": 7,
+        "nums": [
+          7,
+          1
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-173-P3",
+      "arguments": [
+        10,
+        [
+          2,
+          3
+        ]
+      ],
+      "input": {
+        "target": 10,
+        "nums": [
+          2,
+          3
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minSubArrayLen(target: int, nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} target\n * @param {number[]} nums\n * @returns {number}\n */\nfunction minSubArrayLen(target, nums) {\n  throw new Error('Implement minSubArrayLen');\n}",
+    "typescript": "function minSubArrayLen(target: number, nums: number[]): number {\n  throw new Error('Implement minSubArrayLen');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t minSubArrayLen(int32_t target, IntArray nums) {\n    (void)target;\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minSubArrayLen(int target, std::vector<int> nums) {\n    throw std::logic_error(\"Implement minSubArrayLen\");\n}",
+    "csharp": "public class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $target\n * @param int[] $nums\n * @return int\n */\nfunction minSubArrayLen(int $target, array $nums): int {\n    throw new LogicException('Implement minSubArrayLen');\n}",
+    "r": "# Parameters: target (integer scalar), nums (integer vector). Result: integer scalar.\nminSubArrayLen <- function(target, nums) {\n  stop(\"Implement minSubArrayLen\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "minSubArrayLen",
+    "arguments": [
+      [
+        "target",
+        "int"
+      ],
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-173-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-173-statement",
+      "type": "paragraph",
+      "content": "Return the smallest length of a nonempty contiguous segment whose sum is at least target. Return zero if no such segment exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-173-contract",
+      "type": "note",
+      "title": "def minSubArrayLen(target:",
+      "content": "Input: target (int), nums (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-173-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ target ≤ 1000000000. 1–100000 entries, each in [1,10000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-173-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minSubArrayLen(target: int, nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} target\n * @param {number[]} nums\n * @returns {number}\n */\nfunction minSubArrayLen(target, nums) {\n  throw new Error('Implement minSubArrayLen');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minSubArrayLen(target: number, nums: number[]): number {\n  throw new Error('Implement minSubArrayLen');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t minSubArrayLen(int32_t target, IntArray nums) {\n    (void)target;\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minSubArrayLen(int target, std::vector<int> nums) {\n    throw std::logic_error(\"Implement minSubArrayLen\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $target\n * @param int[] $nums\n * @return int\n */\nfunction minSubArrayLen(int $target, array $nums): int {\n    throw new LogicException('Implement minSubArrayLen');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-173-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: target (integer scalar), nums (integer vector). Result: integer scalar.\nminSubArrayLen <- function(target, nums) {\n  stop(\"Implement minSubArrayLen\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

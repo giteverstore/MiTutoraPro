@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-005",
+  "title": "Top K Frequent Elements",
+  "summary": "Count how many times each distinct integer occurs.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "topKFrequent",
+    "signature": "def topKFrequent(nums:",
+    "input": "`nums` (integer array), `k` (integer)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array), `k` (integer)",
+    "result": "integer array.",
+    "constraints": "1–100,000 integers in [−10,000, 10,000]. k is between 1 and the number of distinct values. There is a unique set of k winners, so a tie never crosses the selection boundary.",
+    "output-checking": "Compare the set of values and require exactly k distinct integers."
+  },
+  "statement": "Count how many times each distinct integer occurs. Return the k distinct values with the highest counts, in any order. Equal counts are allowed within the answer.",
+  "examples": [
+    {
+      "input": "{\"nums\":[8,8,-4,7,-4,8,-4,3,-4],\"k\":2}",
+      "output": "[-4,8]",
+      "explanation": "−4 occurs four times, and 8 occurs three times."
+    },
+    {
+      "input": "{\"nums\":[6,5,6,5,0],\"k\":2}",
+      "output": "[6,5]",
+      "explanation": "Both winners occur twice, ahead of 0."
+    },
+    {
+      "input": "{\"nums\":[-7,-7,-7],\"k\":1}",
+      "output": "[-7]",
+      "explanation": "There is only one distinct value."
+    }
+  ],
+  "constraints": [
+    "1–100,000 integers in [−10,000, 10,000]. k is between 1 and the number of distinct values. There is a unique set of k winners, so a tie never crosses the selection boundary."
+  ],
+  "hints": [
+    "Conceptual: The rank depends on occurrence counts, regardless of the integer's magnitude.",
+    "Directional: After counting, use frequency as a bucket index. No frequency can exceed the input length.",
+    "Implementation: Walk the buckets from highest to lowest and collect values until you have k."
+  ],
+  "concepts": [
+    "arrays",
+    "frequency-counting",
+    "buckets"
+  ],
+  "skills": [
+    "Arrays",
+    "frequency counting",
+    "buckets"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) expected time and O(n) auxiliary space. Count first, then use at most n frequency buckets instead of sorting the values by count.",
+  "publicTests": [
+    {
+      "name": "BLIND150-005-T01",
+      "arguments": [
+        [
+          8,
+          8,
+          -4,
+          7,
+          -4,
+          8,
+          -4,
+          3,
+          -4
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          8,
+          8,
+          -4,
+          7,
+          -4,
+          8,
+          -4,
+          3,
+          -4
+        ],
+        "k": 2
+      },
+      "expected": [
+        -4,
+        8
+      ],
+      "validator": "top_k"
+    },
+    {
+      "name": "BLIND150-005-T02",
+      "arguments": [
+        [
+          6,
+          5,
+          6,
+          5,
+          0
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          6,
+          5,
+          6,
+          5,
+          0
+        ],
+        "k": 2
+      },
+      "expected": [
+        6,
+        5
+      ],
+      "validator": "top_k"
+    },
+    {
+      "name": "BLIND150-005-T03",
+      "arguments": [
+        [
+          -7,
+          -7,
+          -7
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          -7,
+          -7,
+          -7
+        ],
+        "k": 1
+      },
+      "expected": [
+        -7
+      ],
+      "validator": "top_k"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def topKFrequent(nums: list[int], k: int) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number[]}\n */\nfunction topKFrequent(nums, k) {\n  throw new Error('Implement topKFrequent');\n}",
+    "typescript": "function topKFrequent(nums: number[], k: number): number[] {\n  throw new Error('Implement topKFrequent');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray topKFrequent(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> topKFrequent(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement topKFrequent\");\n}",
+    "csharp": "public class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int[]\n */\nfunction topKFrequent(array $nums, int $k): array {\n    throw new LogicException('Implement topKFrequent');\n}",
+    "r": "# Parameters: nums (integer vector), k (integer scalar). Result: integer vector.\ntopKFrequent <- function(nums, k) {\n  stop(\"Implement topKFrequent\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-005-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-005-statement",
+      "type": "paragraph",
+      "content": "Count how many times each distinct integer occurs. Return the k distinct values with the highest counts, in any order. Equal counts are allowed within the answer.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-005-contract",
+      "type": "note",
+      "title": "def topKFrequent(nums:",
+      "content": "Input: `nums` (integer array), `k` (integer)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-005-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100,000 integers in [−10,000, 10,000]. k is between 1 and the number of distinct values. There is a unique set of k winners, so a tie never crosses the selection boundary.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-005-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def topKFrequent(nums: list[int], k: int) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number[]}\n */\nfunction topKFrequent(nums, k) {\n  throw new Error('Implement topKFrequent');\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function topKFrequent(nums: number[], k: number): number[] {\n  throw new Error('Implement topKFrequent');\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray topKFrequent(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> topKFrequent(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement topKFrequent\");\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int[]\n */\nfunction topKFrequent(array $nums, int $k): array {\n    throw new LogicException('Implement topKFrequent');\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-005-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), k (integer scalar). Result: integer vector.\ntopKFrequent <- function(nums, k) {\n  stop(\"Implement topKFrequent\")\n}",
+      "stdin": "",
+      "expectedOutput": "[-4,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

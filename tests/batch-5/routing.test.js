@@ -46,7 +46,7 @@ describe('application URL adapter', () => {
   });
 
   it.each([
-    ['/practice/fund-variables-001', { kind: 'practice-question', page: 'practice', questionId: 'fund-variables-001' }],
+    ['/practice/question-fixture', { kind: 'practice-question', page: 'practice', questionId: 'question-fixture' }],
     ['/challenges/daily/2026-09-13', { kind: 'challenge-daily', page: 'challenges', date: '2026-09-13' }],
     ['/courses/python', { kind: 'course-overview', courseId: 'python', lessonId: null }],
     ['/courses/python/lesson/lesson-1-1-introduction-to-python', { kind: 'course-lesson', courseId: 'python', lessonId: 'lesson-1-1-introduction-to-python' }],
@@ -76,7 +76,7 @@ describe('application URL adapter', () => {
   });
 
   it('keeps resource routes in their owning AppShell page', () => {
-    expect(routePage({ kind: 'practice-question', questionId: 'fund-variables-001' })).toBe('practice');
+    expect(routePage({ kind: 'practice-question', questionId: 'question-fixture' })).toBe('practice');
     expect(routePage({ kind: 'challenge-daily', date: '2026-09-13' })).toBe('challenges');
     expect(routePage({ kind: 'page', page: 'settings' })).toBe('settings');
   });

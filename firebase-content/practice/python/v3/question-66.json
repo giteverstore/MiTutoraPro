@@ -1,0 +1,356 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-066",
+  "title": "Find Median from Data Stream",
+  "summary": "Start with an empty number stream.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "MedianFinder",
+    "signature": "class MedianFinder:",
+    "input": "`ops` (nested integer arrays)",
+    "output": "numeric array."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested integer arrays)",
+    "result": "numeric array.",
+    "constraints": "Inserted numbers are integers in [−100,000, 100,000]. At most 50,000 operations occur. Each median query follows at least one insertion. Numeric results within 0.00001 of the true median are accepted.",
+    "output-checking": "Compare each numeric result in operation order with an absolute tolerance of 0.00001."
+  },
+  "statement": "Start with an empty number stream. AddNum inserts one integer. FindMedian returns the middle value in sorted order, or the arithmetic mean of the two middle values if the count is even. The fixture uses [0,value] for addNum and [1] for findMedian and collects only median results.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,4],[1],[0,7],[1],[0,-2],[1]]}",
+      "output": "[4,5.5,4]",
+      "explanation": "The two-item median is the mean of 4 and 7."
+    },
+    {
+      "input": "{\"ops\":[[0,-6],[0,-3],[1]]}",
+      "output": "[-4.5]",
+      "explanation": "A negative half-integer is preserved."
+    },
+    {
+      "input": "{\"ops\":[[0,2],[0,2],[1],[0,8],[1]]}",
+      "output": "[2,2]",
+      "explanation": "Both copies of 2 affect the rank."
+    }
+  ],
+  "constraints": [
+    "Inserted numbers are integers in [−100,000, 100,000]. At most 50,000 operations occur. Each median query follows at least one insertion. Numeric results within 0.00001 of the true median are accepted."
+  ],
+  "hints": [
+    "Conceptual: The median is at the boundary between the lower and upper halves.",
+    "Directional: Keep the lower half in a max heap and the upper half in a min heap.",
+    "Implementation: Rebalance after every insertion so the lower half has the same number of items as the upper half or one extra. Read the relevant heap tops."
+  ],
+  "concepts": [
+    "streaming",
+    "heaps",
+    "median"
+  ],
+  "skills": [
+    "Streaming",
+    "heaps",
+    "median"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log(n+1)",
+    "space": "O(log(n+1)"
+  },
+  "complexityAnalysis": "O(log(n+1)) time per insertion, O(1) per query and O(n) space for n inserted values.",
+  "publicTests": [
+    {
+      "name": "BLIND150-066-T01",
+      "arguments": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            4
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        4,
+        5.5,
+        4
+      ],
+      "validator": "median_trace"
+    },
+    {
+      "name": "BLIND150-066-T02",
+      "arguments": [
+        [
+          [
+            0,
+            -6
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            -6
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        -4.5
+      ],
+      "validator": "median_trace"
+    },
+    {
+      "name": "BLIND150-066-T03",
+      "arguments": [
+        [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        2
+      ],
+      "validator": "median_trace"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class MedianFinder:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def addNum(self, value: int) -> None:\n        raise NotImplementedError\n\n    def findMedian(self) -> float:\n        raise NotImplementedError",
+    "java": "class MedianFinder {\n    public MedianFinder() {\n        throw new UnsupportedOperationException();\n    }\n\n    public void addNum(int value) {\n        throw new UnsupportedOperationException();\n    }\n\n    public double findMedian() {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class MedianFinder {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number} value\n   * @returns {void}\n   */\n  addNum(value) {\n    throw new Error('Implement addNum');\n  }\n\n  /**\n   * @returns {number}\n   */\n  findMedian() {\n    throw new Error('Implement findMedian');\n  }\n}",
+    "typescript": "class MedianFinder {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  addNum(value: number): void {\n    throw new Error('Implement addNum');\n  }\n\n  findMedian(): number {\n    throw new Error('Implement findMedian');\n  }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct MedianFinder MedianFinder;\n\nMedianFinder *medianFinderCreate(void) { abort(); }\n\nvoid medianFinderAddNum(MedianFinder *stream, int32_t value) {\n    (void)stream;\n    (void)value;\n    abort();\n}\n\ndouble medianFinderFindMedian(MedianFinder *stream) {\n    (void)stream;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass MedianFinder {\npublic:\n    MedianFinder() {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void addNum(int value) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    double findMedian() {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+    "csharp": "public class MedianFinder {\n    public MedianFinder() {\n        throw new System.NotImplementedException();\n    }\n\n    public void addNum(int value) {\n        throw new System.NotImplementedException();\n    }\n\n    public double findMedian() {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass MedianFinder {\n    public function __construct() {\n        throw new LogicException('Implement method');\n    }\n\n    public function addNum(int $value): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function findMedian(): float {\n        throw new LogicException('Implement method');\n    }\n}",
+    "r": "MedianFinder <- function() {\n  list(\n    # value (integer scalar).\n    # Result invisible NULL.\n    addNum = function(value) stop(\"Implement addNum\"),\n    # Result numeric scalar.\n    findMedian = function() stop(\"Implement findMedian\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-066-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-066-statement",
+      "type": "paragraph",
+      "content": "Start with an empty number stream. AddNum inserts one integer. FindMedian returns the middle value in sorted order, or the arithmetic mean of the two middle values if the count is even. The fixture uses [0,value] for addNum and [1] for findMedian and collects only median results.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-066-contract",
+      "type": "note",
+      "title": "class MedianFinder:",
+      "content": "Input: `ops` (nested integer arrays)\n\nOutput: numeric array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-066-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Inserted numbers are integers in [−100,000, 100,000]. At most 50,000 operations occur. Each median query follows at least one insertion. Numeric results within 0.00001 of the true median are accepted.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-066-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class MedianFinder:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def addNum(self, value: int) -> None:\n        raise NotImplementedError\n\n    def findMedian(self) -> float:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class MedianFinder {\n    public MedianFinder() {\n        throw new UnsupportedOperationException();\n    }\n\n    public void addNum(int value) {\n        throw new UnsupportedOperationException();\n    }\n\n    public double findMedian() {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class MedianFinder {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number} value\n   * @returns {void}\n   */\n  addNum(value) {\n    throw new Error('Implement addNum');\n  }\n\n  /**\n   * @returns {number}\n   */\n  findMedian() {\n    throw new Error('Implement findMedian');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class MedianFinder {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  addNum(value: number): void {\n    throw new Error('Implement addNum');\n  }\n\n  findMedian(): number {\n    throw new Error('Implement findMedian');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct MedianFinder MedianFinder;\n\nMedianFinder *medianFinderCreate(void) { abort(); }\n\nvoid medianFinderAddNum(MedianFinder *stream, int32_t value) {\n    (void)stream;\n    (void)value;\n    abort();\n}\n\ndouble medianFinderFindMedian(MedianFinder *stream) {\n    (void)stream;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass MedianFinder {\npublic:\n    MedianFinder() {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void addNum(int value) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    double findMedian() {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class MedianFinder {\n    public MedianFinder() {\n        throw new System.NotImplementedException();\n    }\n\n    public void addNum(int value) {\n        throw new System.NotImplementedException();\n    }\n\n    public double findMedian() {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass MedianFinder {\n    public function __construct() {\n        throw new LogicException('Implement method');\n    }\n\n    public function addNum(int $value): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function findMedian(): float {\n        throw new LogicException('Implement method');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-066-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "MedianFinder <- function() {\n  list(\n    # value (integer scalar).\n    # Result invisible NULL.\n    addNum = function(value) stop(\"Implement addNum\"),\n    # Result numeric scalar.\n    findMedian = function() stop(\"Implement findMedian\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[4,5.5,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

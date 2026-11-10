@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 21,
+  "matrix": {
+    "BLIND150-051": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 91,
+        "wallTimeMs": 15291,
+        "outputBytes": 1142,
+        "message": "<text>:41:62: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];args[[3]]<-a[[3]];;\n                                                                 ^",
+        "failures": [
+          {
+            "id": "BLIND150-051-T01",
+            "status": "runtime_error",
+            "message": "<text>:41:62: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];args[[3]]<-a[[3]];;\n                                                                 ^"
+          },
+          {
+            "id": "BLIND150-051-T02",
+            "status": "runtime_error",
+            "message": "<text>:41:62: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];args[[3]]<-a[[3]];;\n                                                                 ^"
+          },
+          {
+            "id": "BLIND150-051-T03",
+            "status": "runtime_error",
+            "message": "<text>:41:62: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];args[[3]]<-a[[3]];;\n                                                                 ^"
+          }
+        ]
+      }
+    },
+    "BLIND150-052": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 174,
+        "wallTimeMs": 15246,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-053": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 120,
+        "wallTimeMs": 8280,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-057": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 67,
+        "wallTimeMs": 8307,
+        "outputBytes": 1028,
+        "message": "<text>:41:37: unexpected ';'\n40: }\n41: args[[1]]<-a[[1]];args[[2]]<-a[[2]];;\n                                        ^",
+        "failures": [
+          {
+            "id": "BLIND150-057-T01",
+            "status": "runtime_error",
+            "message": "<text>:41:37: unexpected ';'\n40: }\n41: args[[1]]<-a[[1]];args[[2]]<-a[[2]];;\n                                        ^"
+          },
+          {
+            "id": "BLIND150-057-T02",
+            "status": "runtime_error",
+            "message": "<text>:41:37: unexpected ';'\n40: }\n41: args[[1]]<-a[[1]];args[[2]]<-a[[2]];;\n                                        ^"
+          },
+          {
+            "id": "BLIND150-057-T03",
+            "status": "runtime_error",
+            "message": "<text>:41:37: unexpected ';'\n40: }\n41: args[[1]]<-a[[1]];args[[2]]<-a[[2]];;\n                                        ^"
+          }
+        ]
+      }
+    },
+    "BLIND150-059": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 143,
+        "wallTimeMs": 8949,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-196": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 68,
+        "wallTimeMs": 8458,
+        "outputBytes": 1007,
+        "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^",
+        "failures": [
+          {
+            "id": "NC250-196-P1",
+            "status": "runtime_error",
+            "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^"
+          },
+          {
+            "id": "NC250-196-P2",
+            "status": "runtime_error",
+            "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^"
+          },
+          {
+            "id": "NC250-196-P3",
+            "status": "runtime_error",
+            "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^"
+          }
+        ]
+      }
+    },
+    "NC250-197": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 72,
+        "wallTimeMs": 11755,
+        "outputBytes": 991,
+        "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^",
+        "failures": [
+          {
+            "id": "NC250-197-P1",
+            "status": "runtime_error",
+            "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^"
+          },
+          {
+            "id": "NC250-197-P2",
+            "status": "runtime_error",
+            "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^"
+          },
+          {
+            "id": "NC250-197-P3",
+            "status": "runtime_error",
+            "message": "<text>:41:44: unexpected ';'\n40: }\n41: args[[1]]<-build(a[[1]]);args[[2]]<-a[[2]];;\n                                               ^"
+          }
+        ]
+      }
+    }
+  }
+}

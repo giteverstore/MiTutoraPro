@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-233",
+  "title": "Last Stone Weight II",
+  "summary": "Repeatedly pick any two stones.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "lastStoneWeightII",
+    "signature": "def lastStoneWeightII(stones:",
+    "input": "stones (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "stones (ints)",
+    "callable": "lastStoneWeightII",
+    "constraints": "1–30 stones, each with integer weight in [1,100].",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Repeatedly pick any two stones. Equal weights both disappear. Otherwise replace the pair with one stone whose weight is the difference. Return the smallest possible remaining weight, or zero if no stone remains.",
+  "examples": [
+    {
+      "input": "{\"stones\":[2,2,6]}",
+      "output": "2",
+      "explanation": "Smash 6 with 2, then 4 with 2."
+    },
+    {
+      "input": "{\"stones\":[5,5]}",
+      "output": "0",
+      "explanation": "The equal pair disappears."
+    },
+    {
+      "input": "{\"stones\":[7]}",
+      "output": "7",
+      "explanation": "No smash is possible."
+    }
+  ],
+  "constraints": [
+    "1–30 stones, each with integer weight in [1,100]."
+  ],
+  "hints": [
+    "Conceptual: Each subtraction corresponds to giving some original weights opposite signs.",
+    "Directional: Look for two groups with nearly equal sums.",
+    "Implementation: Find the greatest attainable subset sum no larger than half the total. The leftover is total minus twice that sum."
+  ],
+  "concepts": [
+    "subset-sums",
+    "knapsack"
+  ],
+  "skills": [
+    "Subset sums",
+    "knapsack"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nS)",
+    "space": "O(nS)"
+  },
+  "complexityAnalysis": "O(nS) time and O(S) auxiliary space, where S is half the total weight rounded down.",
+  "publicTests": [
+    {
+      "name": "NC250-233-P1",
+      "arguments": [
+        [
+          2,
+          2,
+          6
+        ]
+      ],
+      "input": {
+        "stones": [
+          2,
+          2,
+          6
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-233-P2",
+      "arguments": [
+        [
+          5,
+          5
+        ]
+      ],
+      "input": {
+        "stones": [
+          5,
+          5
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-233-P3",
+      "arguments": [
+        [
+          7
+        ]
+      ],
+      "input": {
+        "stones": [
+          7
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def lastStoneWeightII(stones: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int lastStoneWeightII(int[] stones) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} stones\n * @returns {number}\n */\nfunction lastStoneWeightII(stones) {\n  throw new Error('Implement lastStoneWeightII');\n}",
+    "typescript": "function lastStoneWeightII(stones: number[]): number {\n  throw new Error('Implement lastStoneWeightII');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t lastStoneWeightII(IntArray stones) {\n    (void)stones;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint lastStoneWeightII(std::vector<int> stones) {\n    throw std::logic_error(\"Implement lastStoneWeightII\");\n}",
+    "csharp": "public class Solution {\n    public int lastStoneWeightII(int[] stones) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $stones\n * @return int\n */\nfunction lastStoneWeightII(array $stones): int {\n    throw new LogicException('Implement lastStoneWeightII');\n}",
+    "r": "# Parameters: stones (integer vector). Result: integer scalar.\nlastStoneWeightII <- function(stones) {\n  stop(\"Implement lastStoneWeightII\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "lastStoneWeightII",
+    "arguments": [
+      [
+        "stones",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-233-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-233-statement",
+      "type": "paragraph",
+      "content": "Repeatedly pick any two stones. Equal weights both disappear. Otherwise replace the pair with one stone whose weight is the difference. Return the smallest possible remaining weight, or zero if no stone remains.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-233-contract",
+      "type": "note",
+      "title": "def lastStoneWeightII(stones:",
+      "content": "Input: stones (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-233-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–30 stones, each with integer weight in [1,100].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-233-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def lastStoneWeightII(stones: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int lastStoneWeightII(int[] stones) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} stones\n * @returns {number}\n */\nfunction lastStoneWeightII(stones) {\n  throw new Error('Implement lastStoneWeightII');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function lastStoneWeightII(stones: number[]): number {\n  throw new Error('Implement lastStoneWeightII');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t lastStoneWeightII(IntArray stones) {\n    (void)stones;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint lastStoneWeightII(std::vector<int> stones) {\n    throw std::logic_error(\"Implement lastStoneWeightII\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int lastStoneWeightII(int[] stones) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $stones\n * @return int\n */\nfunction lastStoneWeightII(array $stones): int {\n    throw new LogicException('Implement lastStoneWeightII');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-233-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: stones (integer vector). Result: integer scalar.\nlastStoneWeightII <- function(stones) {\n  stop(\"Implement lastStoneWeightII\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

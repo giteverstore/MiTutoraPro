@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-180",
+  "title": "Simplify Path",
+  "summary": "Normalize an absolute Unix path.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "simplifyPath",
+    "signature": "def simplifyPath(path:",
+    "input": "path (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "path (str)",
+    "callable": "simplifyPath",
+    "constraints": "1–3000 characters drawn from English letters, digits, periods, slashes, and underscores. Input is a valid absolute path.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Normalize an absolute Unix path. Repeated slashes separate the same components. Ignore . components. A .. component removes the preceding ordinary component when one exists. Treat all other names, including ..., literally. Return a single leading slash, one slash between retained names, and no trailing slash unless the result is root.",
+  "examples": [
+    {
+      "input": "{\"path\":\"/a//b/../c/\"}",
+      "output": "\"/a/c\"",
+      "explanation": "The parent step removes b."
+    },
+    {
+      "input": "{\"path\":\"/../../z\"}",
+      "output": "\"/z\"",
+      "explanation": "Parent steps cannot move above root."
+    },
+    {
+      "input": "{\"path\":\"/..././x/..\"}",
+      "output": "\"/...\"",
+      "explanation": "Three periods name a directory."
+    }
+  ],
+  "constraints": [
+    "1–3000 characters drawn from English letters, digits, periods, slashes, and underscores. Input is a valid absolute path."
+  ],
+  "hints": [
+    "Conceptual: Path components carry meaning as whole names.",
+    "Directional: Track the directory components that remain after each step.",
+    "Implementation: Split at slashes, skip empty or dot components, pop for dot-dot, and append every other name."
+  ],
+  "concepts": [
+    "stack",
+    "parsing"
+  ],
+  "skills": [
+    "Stack",
+    "parsing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-180-P1",
+      "arguments": [
+        "/a//b/../c/"
+      ],
+      "input": {
+        "path": "/a//b/../c/"
+      },
+      "expected": "/a/c",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-180-P2",
+      "arguments": [
+        "/../../z"
+      ],
+      "input": {
+        "path": "/../../z"
+      },
+      "expected": "/z",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-180-P3",
+      "arguments": [
+        "/..././x/.."
+      ],
+      "input": {
+        "path": "/..././x/.."
+      },
+      "expected": "/...",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def simplifyPath(path: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String simplifyPath(String path) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} path\n * @returns {string}\n */\nfunction simplifyPath(path) {\n  throw new Error('Implement simplifyPath');\n}",
+    "typescript": "function simplifyPath(path: string): string {\n  throw new Error('Implement simplifyPath');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString simplifyPath(ByteString path) {\n    (void)path;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string simplifyPath(std::string path) {\n    throw std::logic_error(\"Implement simplifyPath\");\n}",
+    "csharp": "public class Solution {\n    public string simplifyPath(string path) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $path\n * @return string\n */\nfunction simplifyPath(string $path): string {\n    throw new LogicException('Implement simplifyPath');\n}",
+    "r": "# Parameters: path (character scalar). Result: character scalar.\nsimplifyPath <- function(path) {\n  stop(\"Implement simplifyPath\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "simplifyPath",
+    "arguments": [
+      [
+        "path",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-180-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-180-statement",
+      "type": "paragraph",
+      "content": "Normalize an absolute Unix path. Repeated slashes separate the same components. Ignore . components. A .. component removes the preceding ordinary component when one exists. Treat all other names, including ..., literally. Return a single leading slash, one slash between retained names, and no trailing slash unless the result is root.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-180-contract",
+      "type": "note",
+      "title": "def simplifyPath(path:",
+      "content": "Input: path (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-180-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–3000 characters drawn from English letters, digits, periods, slashes, and underscores. Input is a valid absolute path.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-180-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def simplifyPath(path: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String simplifyPath(String path) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} path\n * @returns {string}\n */\nfunction simplifyPath(path) {\n  throw new Error('Implement simplifyPath');\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function simplifyPath(path: string): string {\n  throw new Error('Implement simplifyPath');\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString simplifyPath(ByteString path) {\n    (void)path;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string simplifyPath(std::string path) {\n    throw std::logic_error(\"Implement simplifyPath\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string simplifyPath(string path) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $path\n * @return string\n */\nfunction simplifyPath(string $path): string {\n    throw new LogicException('Implement simplifyPath');\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-180-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: path (character scalar). Result: character scalar.\nsimplifyPath <- function(path) {\n  stop(\"Implement simplifyPath\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"/a/c\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

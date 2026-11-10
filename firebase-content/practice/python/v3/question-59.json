@@ -1,0 +1,268 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-059",
+  "title": "Serialize and Deserialize Binary Tree",
+  "summary": "Implement two operations.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "serializeTree",
+    "signature": "class TreeNode:",
+    "input": "`root` (level-order tree array)",
+    "output": "level-order tree array."
+  },
+  "contractDetails": {
+    "input": "`root` (level-order tree array)",
+    "result": "level-order tree array.",
+    "constraints": "0–10,000 nodes with values in [−1,000, 1,000]. Deserialize receives a string produced by serialize.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Implement two operations. Serialize a tree into a string, then deserialize that string into a tree with the same values and shape. Choose any reversible format. The judge shows the tree before and after the round trip as level-order arrays.",
+  "examples": [
+    {
+      "input": "{\"root\":[5,null,6,-2]}",
+      "output": "[5,null,6,-2]",
+      "explanation": "The missing left child and the right subtree survive the round trip."
+    },
+    {
+      "input": "{\"root\":[]}",
+      "output": "[]",
+      "explanation": "The format represents an empty tree."
+    },
+    {
+      "input": "{\"root\":[7,7,7]}",
+      "output": "[7,7,7]",
+      "explanation": "Equal values preserve their separate positions."
+    }
+  ],
+  "constraints": [
+    "0–10,000 nodes with values in [−1,000, 1,000]. Deserialize receives a string produced by serialize."
+  ],
+  "hints": [
+    "Conceptual: A sequence of values alone cannot tell left-only and right-only children apart.",
+    "Directional: Record missing child slots explicitly and agree on one traversal order for both operations.",
+    "Implementation: Read tokens in the same order you wrote them. For level order, keep a queue of non-null parents awaiting child slots."
+  ],
+  "concepts": [
+    "binary-trees",
+    "serialization",
+    "structural-round-trip"
+  ],
+  "skills": [
+    "Binary trees",
+    "serialization",
+    "structural round trip"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space including the serialized representation and queue, excluding the new tree.",
+  "publicTests": [
+    {
+      "name": "BLIND150-059-T01",
+      "arguments": [
+        [
+          5,
+          null,
+          6,
+          -2
+        ]
+      ],
+      "input": {
+        "root": [
+          5,
+          null,
+          6,
+          -2
+        ]
+      },
+      "expected": [
+        5,
+        null,
+        6,
+        -2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-059-T02",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-059-T03",
+      "arguments": [
+        [
+          7,
+          7,
+          7
+        ]
+      ],
+      "input": {
+        "root": [
+          7,
+          7,
+          7
+        ]
+      },
+      "expected": [
+        7,
+        7,
+        7
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef serializeTree(root: TreeNode | None) -> str:\n    raise NotImplementedError\n\ndef deserializeTree(data: str) -> TreeNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public String serializeTree(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n\n    public TreeNode deserializeTree(String data) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/** @param {TreeNode | null} root @returns {string} */\nfunction serializeTree(root) { throw new Error('Implement serializeTree'); }\n\n/** @param {string} data @returns {TreeNode | null} */\nfunction deserializeTree(data) { throw new Error('Implement deserializeTree'); }",
+    "typescript": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction serializeTree(root: TreeNode | null): string {\n  throw new Error('Implement serializeTree');\n}\n\nfunction deserializeTree(data: string): TreeNode | null {\n  throw new Error('Implement deserializeTree');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString serializeTree(TreeNode *root) {\n    (void)root;\n    abort();\n}\n\nTreeNode *deserializeTree(ByteString data) {\n    (void)data;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\ntypedef struct { unsigned char *data; std::size_t len; } ByteString;\n\nByteString serializeTree(TreeNode *root) {\n    (void)root;\n    throw std::logic_error(\"Implement tree codec\");\n}\n\nTreeNode *deserializeTree(ByteString data) {\n    (void)data;\n    throw std::logic_error(\"Implement tree codec\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public string serializeTree(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n\n    public TreeNode deserializeTree(string data) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction serializeTree(?TreeNode $root): string {\n    throw new LogicException('Implement serializeTree');\n}\n\nfunction deserializeTree(string $data): ?TreeNode {\n    throw new LogicException('Implement deserializeTree');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# root is a node environment or NULL. Return a character scalar.\nserializeTree <- function(root) {\n  stop(\"Implement serializeTree\")\n}\n\n# data is a character scalar. Return a node environment or NULL.\ndeserializeTree <- function(data) {\n  stop(\"Implement deserializeTree\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-059-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-059-statement",
+      "type": "paragraph",
+      "content": "Implement two operations. Serialize a tree into a string, then deserialize that string into a tree with the same values and shape. Choose any reversible format. The judge shows the tree before and after the round trip as level-order arrays.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-059-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: `root` (level-order tree array)\n\nOutput: level-order tree array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-059-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–10,000 nodes with values in [−1,000, 1,000]. Deserialize receives a string produced by serialize.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-059-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef serializeTree(root: TreeNode | None) -> str:\n    raise NotImplementedError\n\ndef deserializeTree(data: str) -> TreeNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public String serializeTree(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n\n    public TreeNode deserializeTree(String data) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/** @param {TreeNode | null} root @returns {string} */\nfunction serializeTree(root) { throw new Error('Implement serializeTree'); }\n\n/** @param {string} data @returns {TreeNode | null} */\nfunction deserializeTree(data) { throw new Error('Implement deserializeTree'); }",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction serializeTree(root: TreeNode | null): string {\n  throw new Error('Implement serializeTree');\n}\n\nfunction deserializeTree(data: string): TreeNode | null {\n  throw new Error('Implement deserializeTree');\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString serializeTree(TreeNode *root) {\n    (void)root;\n    abort();\n}\n\nTreeNode *deserializeTree(ByteString data) {\n    (void)data;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\ntypedef struct { unsigned char *data; std::size_t len; } ByteString;\n\nByteString serializeTree(TreeNode *root) {\n    (void)root;\n    throw std::logic_error(\"Implement tree codec\");\n}\n\nTreeNode *deserializeTree(ByteString data) {\n    (void)data;\n    throw std::logic_error(\"Implement tree codec\");\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public string serializeTree(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n\n    public TreeNode deserializeTree(string data) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction serializeTree(?TreeNode $root): string {\n    throw new LogicException('Implement serializeTree');\n}\n\nfunction deserializeTree(string $data): ?TreeNode {\n    throw new LogicException('Implement deserializeTree');\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-059-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# root is a node environment or NULL. Return a character scalar.\nserializeTree <- function(root) {\n  stop(\"Implement serializeTree\")\n}\n\n# data is a character scalar. Return a node environment or NULL.\ndeserializeTree <- function(data) {\n  stop(\"Implement deserializeTree\")\n}",
+      "stdin": "",
+      "expectedOutput": "[5,null,6,-2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

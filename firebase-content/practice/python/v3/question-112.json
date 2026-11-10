@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-112",
+  "title": "Longest Common Subsequence",
+  "summary": "Return the greatest length of a string that can be obtained from both inputs by deleting characters without reordering those that remain.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "longestCommonSubsequence",
+    "signature": "def longestCommonSubsequence(text1:",
+    "input": "`text1` (string), `text2` (string)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`text1` (string), `text2` (string)",
+    "result": "integer.",
+    "constraints": "Both strings contain 1–1000 lowercase English letters.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return the greatest length of a string that can be obtained from both inputs by deleting characters without reordering those that remain.",
+  "examples": [
+    {
+      "input": "{\"text1\":\"axbzc\",\"text2\":\"abc\"}",
+      "output": "3",
+      "explanation": "Delete x and z from the first input."
+    },
+    {
+      "input": "{\"text1\":\"abc\",\"text2\":\"cba\"}",
+      "output": "1",
+      "explanation": "The letters are in opposite orders."
+    },
+    {
+      "input": "{\"text1\":\"moo\",\"text2\":\"noon\"}",
+      "output": "2",
+      "explanation": "Both inputs contain oo."
+    }
+  ],
+  "constraints": [
+    "Both strings contain 1–1000 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: The chosen letters can have gaps.",
+    "Directional: Consider prefixes of both strings.",
+    "Implementation: On a match extend the diagonal state. Otherwise use the larger result from dropping one of the two final letters."
+  ],
+  "concepts": [
+    "string-alignment",
+    "subsequences"
+  ],
+  "skills": [
+    "String alignment",
+    "subsequences"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(n) space using one rolling row.",
+  "publicTests": [
+    {
+      "name": "BLIND150-112-T01",
+      "arguments": [
+        "axbzc",
+        "abc"
+      ],
+      "input": {
+        "text1": "axbzc",
+        "text2": "abc"
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-112-T02",
+      "arguments": [
+        "abc",
+        "cba"
+      ],
+      "input": {
+        "text1": "abc",
+        "text2": "cba"
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-112-T03",
+      "arguments": [
+        "moo",
+        "noon"
+      ],
+      "input": {
+        "text1": "moo",
+        "text2": "noon"
+      },
+      "expected": 2,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def longestCommonSubsequence(text1: str, text2: str) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} text1\n * @param {string} text2\n * @returns {number}\n */\nfunction longestCommonSubsequence(text1, text2) {\n  throw new Error('Implement longestCommonSubsequence');\n}",
+    "typescript": "function longestCommonSubsequence(text1: string, text2: string): number {\n  throw new Error('Implement longestCommonSubsequence');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t longestCommonSubsequence(ByteString text1, ByteString text2) {\n    (void)text1;\n    (void)text2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint longestCommonSubsequence(std::string text1, std::string text2) {\n    throw std::logic_error(\"Implement longestCommonSubsequence\");\n}",
+    "csharp": "public class Solution {\n    public int longestCommonSubsequence(string text1, string text2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $text1\n * @param string $text2\n * @return int\n */\nfunction longestCommonSubsequence(string $text1, string $text2): int {\n    throw new LogicException('Implement longestCommonSubsequence');\n}",
+    "r": "# Parameters: text1 (character scalar), text2 (character scalar). Result: integer scalar.\nlongestCommonSubsequence <- function(text1, text2) {\n  stop(\"Implement longestCommonSubsequence\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-112-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-112-statement",
+      "type": "paragraph",
+      "content": "Return the greatest length of a string that can be obtained from both inputs by deleting characters without reordering those that remain.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-112-contract",
+      "type": "note",
+      "title": "def longestCommonSubsequence(text1:",
+      "content": "Input: `text1` (string), `text2` (string)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-112-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Both strings contain 1–1000 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-112-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def longestCommonSubsequence(text1: str, text2: str) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} text1\n * @param {string} text2\n * @returns {number}\n */\nfunction longestCommonSubsequence(text1, text2) {\n  throw new Error('Implement longestCommonSubsequence');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function longestCommonSubsequence(text1: string, text2: string): number {\n  throw new Error('Implement longestCommonSubsequence');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t longestCommonSubsequence(ByteString text1, ByteString text2) {\n    (void)text1;\n    (void)text2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint longestCommonSubsequence(std::string text1, std::string text2) {\n    throw std::logic_error(\"Implement longestCommonSubsequence\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int longestCommonSubsequence(string text1, string text2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $text1\n * @param string $text2\n * @return int\n */\nfunction longestCommonSubsequence(string $text1, string $text2): int {\n    throw new LogicException('Implement longestCommonSubsequence');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-112-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: text1 (character scalar), text2 (character scalar). Result: integer scalar.\nlongestCommonSubsequence <- function(text1, text2) {\n  stop(\"Implement longestCommonSubsequence\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

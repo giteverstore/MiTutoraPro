@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-126",
+  "title": "Hand of Straights",
+  "summary": "Use every card exactly once to form groups of groupSize cards.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "isNStraightHand",
+    "signature": "def isNStraightHand(hand:",
+    "input": "`hand` (integer array), `groupSize` (integer)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`hand` (integer array), `groupSize` (integer)",
+    "result": "boolean.",
+    "constraints": "1–10000 cards with values in [0,1000000000]. 1 ≤ groupSize ≤ number of cards.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Use every card exactly once to form groups of groupSize cards. Each group must contain consecutive values, with one occurrence of each value in that group. Decide whether this is possible.",
+  "examples": [
+    {
+      "input": "{\"hand\":[0,1,1,2],\"groupSize\":2}",
+      "output": "true",
+      "explanation": "Use groups [0,1] and [1,2]."
+    },
+    {
+      "input": "{\"hand\":[2,2,3,4],\"groupSize\":2}",
+      "output": "false",
+      "explanation": "Both 2s need a 3, but only one is available."
+    },
+    {
+      "input": "{\"hand\":[7,7,7],\"groupSize\":1}",
+      "output": "true",
+      "explanation": "Each card forms its own group."
+    }
+  ],
+  "constraints": [
+    "1–10000 cards with values in [0,1000000000]. 1 ≤ groupSize ≤ number of cards."
+  ],
+  "hints": [
+    "Conceptual: Card copies are separate resources.",
+    "Directional: The smallest unused card must begin a group.",
+    "Implementation: Visit possible starts in sorted order and subtract one copy of each required consecutive card for every group you start."
+  ],
+  "concepts": [
+    "multiset",
+    "sorting",
+    "consecutive-groups"
+  ],
+  "skills": [
+    "Multiset",
+    "sorting",
+    "consecutive groups"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n log n)"
+  },
+  "complexityAnalysis": "Expected O(n log n) time and O(n) extra space with sorting and hashed frequencies.",
+  "publicTests": [
+    {
+      "name": "BLIND150-126-T01",
+      "arguments": [
+        [
+          0,
+          1,
+          1,
+          2
+        ],
+        2
+      ],
+      "input": {
+        "hand": [
+          0,
+          1,
+          1,
+          2
+        ],
+        "groupSize": 2
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-126-T02",
+      "arguments": [
+        [
+          2,
+          2,
+          3,
+          4
+        ],
+        2
+      ],
+      "input": {
+        "hand": [
+          2,
+          2,
+          3,
+          4
+        ],
+        "groupSize": 2
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-126-T03",
+      "arguments": [
+        [
+          7,
+          7,
+          7
+        ],
+        1
+      ],
+      "input": {
+        "hand": [
+          7,
+          7,
+          7
+        ],
+        "groupSize": 1
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def isNStraightHand(hand: list[int], groupSize: int) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean isNStraightHand(int[] hand, int groupSize) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} hand\n * @param {number} groupSize\n * @returns {boolean}\n */\nfunction isNStraightHand(hand, groupSize) {\n  throw new Error('Implement isNStraightHand');\n}",
+    "typescript": "function isNStraightHand(hand: number[], groupSize: number): boolean {\n  throw new Error('Implement isNStraightHand');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool isNStraightHand(IntArray hand, int32_t groupSize) {\n    (void)hand;\n    (void)groupSize;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isNStraightHand(std::vector<int> hand, int groupSize) {\n    throw std::logic_error(\"Implement isNStraightHand\");\n}",
+    "csharp": "public class Solution {\n    public bool isNStraightHand(int[] hand, int groupSize) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $hand\n * @param int $groupSize\n * @return bool\n */\nfunction isNStraightHand(array $hand, int $groupSize): bool {\n    throw new LogicException('Implement isNStraightHand');\n}",
+    "r": "# Parameters: hand (integer vector), groupSize (integer scalar). Result: logical scalar.\nisNStraightHand <- function(hand, groupSize) {\n  stop(\"Implement isNStraightHand\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-126-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-126-statement",
+      "type": "paragraph",
+      "content": "Use every card exactly once to form groups of groupSize cards. Each group must contain consecutive values, with one occurrence of each value in that group. Decide whether this is possible.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-126-contract",
+      "type": "note",
+      "title": "def isNStraightHand(hand:",
+      "content": "Input: `hand` (integer array), `groupSize` (integer)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-126-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 cards with values in [0,1000000000]. 1 ≤ groupSize ≤ number of cards.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-126-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def isNStraightHand(hand: list[int], groupSize: int) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean isNStraightHand(int[] hand, int groupSize) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} hand\n * @param {number} groupSize\n * @returns {boolean}\n */\nfunction isNStraightHand(hand, groupSize) {\n  throw new Error('Implement isNStraightHand');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function isNStraightHand(hand: number[], groupSize: number): boolean {\n  throw new Error('Implement isNStraightHand');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool isNStraightHand(IntArray hand, int32_t groupSize) {\n    (void)hand;\n    (void)groupSize;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isNStraightHand(std::vector<int> hand, int groupSize) {\n    throw std::logic_error(\"Implement isNStraightHand\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool isNStraightHand(int[] hand, int groupSize) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $hand\n * @param int $groupSize\n * @return bool\n */\nfunction isNStraightHand(array $hand, int $groupSize): bool {\n    throw new LogicException('Implement isNStraightHand');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-126-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: hand (integer vector), groupSize (integer scalar). Result: logical scalar.\nisNStraightHand <- function(hand, groupSize) {\n  stop(\"Implement isNStraightHand\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

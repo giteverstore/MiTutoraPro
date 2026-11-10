@@ -1,0 +1,298 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-004",
+  "title": "Group Anagrams",
+  "summary": "Put words in the same group whenever their letters can be rearranged into one another.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "groupAnagrams",
+    "signature": "def groupAnagrams(strs:",
+    "input": "`strs` (string array)",
+    "output": "nested string arrays."
+  },
+  "contractDetails": {
+    "input": "`strs` (string array)",
+    "result": "nested string arrays.",
+    "constraints": "1–10,000 strings. Each has 0–100 lowercase English letters.",
+    "output-checking": "Compare the multiset of groups after sorting the words in each group. Keep multiplicities."
+  },
+  "statement": "Put words in the same group whenever their letters can be rearranged into one another. Return the groups as a list of lists. Keep every input occurrence, including copies of the same word. Both group order and order inside a group are free.",
+  "examples": [
+    {
+      "input": "{\"strs\":[\"tea\",\"sun\",\"eat\",\"ate\",\"nus\"]}",
+      "output": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "explanation": "The three words built from a, e and t form one group. The two words built from n, s and u form the other."
+    },
+    {
+      "input": "{\"strs\":[\"\",\"b\",\"\",\"bb\"]}",
+      "output": "[[\"\",\"\"],[\"b\"],[\"bb\"]]",
+      "explanation": "Both empty strings belong together. The other two have different counts of b."
+    },
+    {
+      "input": "{\"strs\":[\"mood\",\"doom\",\"mood\"]}",
+      "output": "[[\"mood\",\"doom\",\"mood\"]]",
+      "explanation": "All three share a signature, and both copies of mood remain."
+    }
+  ],
+  "constraints": [
+    "1–10,000 strings. Each has 0–100 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Anagrams share a fingerprint based on how often each letter occurs.",
+    "Directional: Make a hashable signature using the 26 letter counts.",
+    "Implementation: Use each signature as a map key and append the original word to that key's list."
+  ],
+  "concepts": [
+    "strings",
+    "hash-maps",
+    "frequency-signatures"
+  ],
+  "skills": [
+    "Strings",
+    "hash maps",
+    "frequency signatures"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(L + 26n)",
+    "space": "O(L + 26n)"
+  },
+  "complexityAnalysis": "O(L + 26n) expected time and O(26g) auxiliary space excluding returned groups. L counts input letters, n counts words, and g counts distinct signatures.",
+  "publicTests": [
+    {
+      "name": "BLIND150-004-T01",
+      "arguments": [
+        [
+          "tea",
+          "sun",
+          "eat",
+          "ate",
+          "nus"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "tea",
+          "sun",
+          "eat",
+          "ate",
+          "nus"
+        ]
+      },
+      "expected": [
+        [
+          "tea",
+          "eat",
+          "ate"
+        ],
+        [
+          "sun",
+          "nus"
+        ]
+      ],
+      "validator": "anagrams"
+    },
+    {
+      "name": "BLIND150-004-T02",
+      "arguments": [
+        [
+          "",
+          "b",
+          "",
+          "bb"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "",
+          "b",
+          "",
+          "bb"
+        ]
+      },
+      "expected": [
+        [
+          "",
+          ""
+        ],
+        [
+          "b"
+        ],
+        [
+          "bb"
+        ]
+      ],
+      "validator": "anagrams"
+    },
+    {
+      "name": "BLIND150-004-T03",
+      "arguments": [
+        [
+          "mood",
+          "doom",
+          "mood"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "mood",
+          "doom",
+          "mood"
+        ]
+      },
+      "expected": [
+        [
+          "mood",
+          "doom",
+          "mood"
+        ]
+      ],
+      "validator": "anagrams"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def groupAnagrams(strs: list[str]) -> list[list[str]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String[][] groupAnagrams(String[] strs) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} strs\n * @returns {string[][]}\n */\nfunction groupAnagrams(strs) {\n  throw new Error('Implement groupAnagrams');\n}",
+    "typescript": "function groupAnagrams(strs: string[]): string[][] {\n  throw new Error('Implement groupAnagrams');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nStringMatrix groupAnagrams(StringArray strs) {\n    (void)strs;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string> strs) {\n    throw std::logic_error(\"Implement groupAnagrams\");\n}",
+    "csharp": "public class Solution {\n    public string[][] groupAnagrams(string[] strs) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $strs\n * @return string[][]\n */\nfunction groupAnagrams(array $strs): array {\n    throw new LogicException('Implement groupAnagrams');\n}",
+    "r": "# Parameters: strs (character vector). Result: list of character vectors.\ngroupAnagrams <- function(strs) {\n  stop(\"Implement groupAnagrams\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-004-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-004-statement",
+      "type": "paragraph",
+      "content": "Put words in the same group whenever their letters can be rearranged into one another. Return the groups as a list of lists. Keep every input occurrence, including copies of the same word. Both group order and order inside a group are free.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-004-contract",
+      "type": "note",
+      "title": "def groupAnagrams(strs:",
+      "content": "Input: `strs` (string array)\n\nOutput: nested string arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-004-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10,000 strings. Each has 0–100 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-004-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def groupAnagrams(strs: list[str]) -> list[list[str]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String[][] groupAnagrams(String[] strs) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} strs\n * @returns {string[][]}\n */\nfunction groupAnagrams(strs) {\n  throw new Error('Implement groupAnagrams');\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function groupAnagrams(strs: string[]): string[][] {\n  throw new Error('Implement groupAnagrams');\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nStringMatrix groupAnagrams(StringArray strs) {\n    (void)strs;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string> strs) {\n    throw std::logic_error(\"Implement groupAnagrams\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string[][] groupAnagrams(string[] strs) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $strs\n * @return string[][]\n */\nfunction groupAnagrams(array $strs): array {\n    throw new LogicException('Implement groupAnagrams');\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-004-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: strs (character vector). Result: list of character vectors.\ngroupAnagrams <- function(strs) {\n  stop(\"Implement groupAnagrams\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"tea\",\"eat\",\"ate\"],[\"sun\",\"nus\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

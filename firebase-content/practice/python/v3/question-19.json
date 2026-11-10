@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-019",
+  "title": "Minimum Window Substring",
+  "summary": "Return the shortest contiguous piece of s that contains all the required letters from t.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Sliding Window",
+  "category": "dsa",
+  "subtopic": "sliding-window",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "minWindow",
+    "signature": "def minWindow(s:",
+    "input": "`s` (string), `t` (string)",
+    "output": "string."
+  },
+  "contractDetails": {
+    "input": "`s` (string), `t` (string)",
+    "result": "string.",
+    "constraints": "Each string has 1–100,000 English letters, with case significant. The shortest qualifying window is unique when it exists.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return the shortest contiguous piece of s that contains all the required letters from t. A letter appearing twice in t must appear at least twice in the chosen piece. Use an empty string when no piece qualifies.",
+  "examples": [
+    {
+      "input": "{\"s\":\"aXbcaab\",\"t\":\"aab\"}",
+      "output": "\"aab\"",
+      "explanation": "The final three letters meet the counts and no shorter window can."
+    },
+    {
+      "input": "{\"s\":\"kK\",\"t\":\"kk\"}",
+      "output": "\"\"",
+      "explanation": "Uppercase K cannot replace the missing lowercase k."
+    },
+    {
+      "input": "{\"s\":\"XXdYcZc\",\"t\":\"cd\"}",
+      "output": "\"dYc\"",
+      "explanation": "The closest qualifying d and c enclose Y."
+    }
+  ],
+  "constraints": [
+    "Each string has 1–100,000 English letters, with case significant. The shortest qualifying window is unique when it exists."
+  ],
+  "hints": [
+    "Conceptual: A window qualifies only when it meets every letter's required count.",
+    "Directional: Expand the right edge until the window covers the requirements, then try to shorten it.",
+    "Implementation: When coverage is complete, save the best interval and shrink from the left until a required count drops below its target."
+  ],
+  "concepts": [
+    "strings",
+    "sliding-window",
+    "multiplicity"
+  ],
+  "skills": [
+    "Strings",
+    "sliding window",
+    "multiplicity"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(|s| + |t|)",
+    "space": "O(|s| + |t|)"
+  },
+  "complexityAnalysis": "O(|s| + |t|) time and O(1) auxiliary space for the fixed alphabet, excluding the returned substring. Each edge moves forward only.",
+  "publicTests": [
+    {
+      "name": "BLIND150-019-T01",
+      "arguments": [
+        "aXbcaab",
+        "aab"
+      ],
+      "input": {
+        "s": "aXbcaab",
+        "t": "aab"
+      },
+      "expected": "aab",
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-019-T02",
+      "arguments": [
+        "kK",
+        "kk"
+      ],
+      "input": {
+        "s": "kK",
+        "t": "kk"
+      },
+      "expected": "",
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-019-T03",
+      "arguments": [
+        "XXdYcZc",
+        "cd"
+      ],
+      "input": {
+        "s": "XXdYcZc",
+        "t": "cd"
+      },
+      "expected": "dYc",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minWindow(s: str, t: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String minWindow(String s, String t) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @returns {string}\n */\nfunction minWindow(s, t) {\n  throw new Error('Implement minWindow');\n}",
+    "typescript": "function minWindow(s: string, t: string): string {\n  throw new Error('Implement minWindow');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString minWindow(ByteString s, ByteString t) {\n    (void)s;\n    (void)t;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string minWindow(std::string s, std::string t) {\n    throw std::logic_error(\"Implement minWindow\");\n}",
+    "csharp": "public class Solution {\n    public string minWindow(string s, string t) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param string $t\n * @return string\n */\nfunction minWindow(string $s, string $t): string {\n    throw new LogicException('Implement minWindow');\n}",
+    "r": "# Parameters: s (character scalar), t (character scalar). Result: character scalar.\nminWindow <- function(s, t) {\n  stop(\"Implement minWindow\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-019-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-019-statement",
+      "type": "paragraph",
+      "content": "Return the shortest contiguous piece of s that contains all the required letters from t. A letter appearing twice in t must appear at least twice in the chosen piece. Use an empty string when no piece qualifies.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-019-contract",
+      "type": "note",
+      "title": "def minWindow(s:",
+      "content": "Input: `s` (string), `t` (string)\n\nOutput: string.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-019-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each string has 1–100,000 English letters, with case significant. The shortest qualifying window is unique when it exists.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-019-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minWindow(s: str, t: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String minWindow(String s, String t) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {string} t\n * @returns {string}\n */\nfunction minWindow(s, t) {\n  throw new Error('Implement minWindow');\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minWindow(s: string, t: string): string {\n  throw new Error('Implement minWindow');\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString minWindow(ByteString s, ByteString t) {\n    (void)s;\n    (void)t;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string minWindow(std::string s, std::string t) {\n    throw std::logic_error(\"Implement minWindow\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string minWindow(string s, string t) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param string $t\n * @return string\n */\nfunction minWindow(string $s, string $t): string {\n    throw new LogicException('Implement minWindow');\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-019-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), t (character scalar). Result: character scalar.\nminWindow <- function(s, t) {\n  stop(\"Implement minWindow\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"aab\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

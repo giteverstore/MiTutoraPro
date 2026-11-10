@@ -1,5 +1,7 @@
 # Isolated Code Judge Architecture
 
+> Historical note (2026-11-07): Practice suite IDs and question-count observations in this document describe the removed legacy bank. They are retained as judge-design history and are not current active content.
+
 **Status: DEFERRED / CANONICAL PYTHON RUNTIME PINNED / REWARD AND PRODUCTION PATHS DISABLED**
 
 **Decision date: 2026-09-07**

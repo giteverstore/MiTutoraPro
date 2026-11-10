@@ -152,7 +152,7 @@ export function PracticePage({ initialQuestionId = null, onQuestionChange = () =
       <PracticeFilters filters={filters} options={filterOptions} onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))} />
       <div className="practice-catalog"><section className="practice-question-list" aria-labelledby="practice-question-list-title" aria-busy={catalog.loading || statisticsCatalog.status === 'loading'}><header><div><h2 id="practice-question-list-title">Question Catalog</h2></div></header><div>
         {catalog.items.map((question) => <PracticeQuestionCard question={question} solved={solvedQuestionIds.has(question.id)} onSelect={(nextQuestion) => { setOpenQuestionId(nextQuestion.id); onQuestionChange(nextQuestion.id); }} key={question.id} />)}
-        {!catalog.items.length ? <p className="practice-no-results">No questions match your filters.</p> : null}
+        {!catalog.items.length ? <p className="practice-no-results">No practice questions are currently available.</p> : null}
         {catalog.error ? <p className="practice-no-results">This page couldn’t be loaded. <button type="button" onClick={() => loadPage(catalog.currentPage, { force: true })}>Retry</button></p> : null}
       </div></section></div>
       {catalog.items.length ? <PracticePagination currentPage={catalog.currentPage} reachablePageCount={catalog.reachablePageCount} hasNextPage={catalog.hasMore} onPageChange={(pageNumber) => loadPage(pageNumber, { scroll: true })} /> : null}

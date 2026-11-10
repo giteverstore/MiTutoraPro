@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-101",
+  "title": "House Robber",
+  "summary": "Houses stand in a line.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "rob",
+    "signature": "def rob(nums:",
+    "input": "`nums` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "integer.",
+    "constraints": "1–100 values in [0,400].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Houses stand in a line. Choose houses to collect their values, with no two neighboring houses chosen. Return the greatest total you can collect.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,7,4,3]}",
+      "output": "10",
+      "explanation": "Choose values 7 and 3."
+    },
+    {
+      "input": "{\"nums\":[9]}",
+      "output": "9",
+      "explanation": "There is no competing house."
+    },
+    {
+      "input": "{\"nums\":[6,10,6]}",
+      "output": "12",
+      "explanation": "Taking both ends beats taking the middle."
+    }
+  ],
+  "constraints": [
+    "1–100 values in [0,400]."
+  ],
+  "hints": [
+    "Conceptual: Consider whether you choose the last house.",
+    "Directional: Choosing it rules out its immediate predecessor.",
+    "Implementation: Keep the best totals for the two previous prefixes. Compare skipping this house with adding its value to the shorter prefix."
+  ],
+  "concepts": [
+    "maximum-value",
+    "independent-choices"
+  ],
+  "skills": [
+    "Maximum value",
+    "independent choices"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-101-T01",
+      "arguments": [
+        [
+          2,
+          7,
+          4,
+          3
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          7,
+          4,
+          3
+        ]
+      },
+      "expected": 10,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-101-T02",
+      "arguments": [
+        [
+          9
+        ]
+      ],
+      "input": {
+        "nums": [
+          9
+        ]
+      },
+      "expected": 9,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-101-T03",
+      "arguments": [
+        [
+          6,
+          10,
+          6
+        ]
+      ],
+      "input": {
+        "nums": [
+          6,
+          10,
+          6
+        ]
+      },
+      "expected": 12,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def rob(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int rob(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction rob(nums) {\n  throw new Error('Implement rob');\n}",
+    "typescript": "function rob(nums: number[]): number {\n  throw new Error('Implement rob');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t rob(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint rob(std::vector<int> nums) {\n    throw std::logic_error(\"Implement rob\");\n}",
+    "csharp": "public class Solution {\n    public int rob(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction rob(array $nums): int {\n    throw new LogicException('Implement rob');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nrob <- function(nums) {\n  stop(\"Implement rob\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-101-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-101-statement",
+      "type": "paragraph",
+      "content": "Houses stand in a line. Choose houses to collect their values, with no two neighboring houses chosen. Return the greatest total you can collect.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-101-contract",
+      "type": "note",
+      "title": "def rob(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-101-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 values in [0,400].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-101-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def rob(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int rob(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction rob(nums) {\n  throw new Error('Implement rob');\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function rob(nums: number[]): number {\n  throw new Error('Implement rob');\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t rob(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint rob(std::vector<int> nums) {\n    throw std::logic_error(\"Implement rob\");\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int rob(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction rob(array $nums): int {\n    throw new LogicException('Implement rob');\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-101-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nrob <- function(nums) {\n  stop(\"Implement rob\")\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

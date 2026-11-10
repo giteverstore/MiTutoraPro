@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-201",
+  "title": "Single Threaded CPU",
+  "summary": "A single processor runs tasks without interruption.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "getOrder",
+    "signature": "def getOrder(tasks:",
+    "input": "tasks (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "tasks (intgrid)",
+    "callable": "getOrder",
+    "constraints": "1–100000 tasks. Each row has two integers in [1,1000000000]. Time accumulation needs 64-bit integers or exact numeric values up to 100001000000000.",
+    "output-checking": "Compare the full zero-based task order. Resolve ready-task ties by processing duration and then original index. Keep the simulated clock in at least signed 64-bit arithmetic, or exact numeric representation."
+  },
+  "statement": "A single processor runs tasks without interruption. Task i is [arrival,duration]. Whenever the processor is free, choose an arrived unfinished task with the shortest duration, breaking ties by smaller original index. If none has arrived, wait for the next arrival. Return the execution order of zero-based task indices.",
+  "examples": [
+    {
+      "input": "{\"tasks\":[[2,5],[3,2],[3,1]]}",
+      "output": "[0,2,1]",
+      "explanation": "Only task 0 is initially available. Task 2 is shorter than task 1 when it finishes."
+    },
+    {
+      "input": "{\"tasks\":[[4,2],[4,2],[4,1]]}",
+      "output": "[2,0,1]",
+      "explanation": "The two equal durations are resolved by original index."
+    },
+    {
+      "input": "{\"tasks\":[[1000000000,1000000000],[1000000000,1000000000],[1000000000,1000000000]]}",
+      "output": "[0,1,2]",
+      "explanation": "The simulated clock must exceed signed 32-bit range safely."
+    }
+  ],
+  "constraints": [
+    "1–100000 tasks. Each row has two integers in [1,1000000000]. Time accumulation needs 64-bit integers or exact numeric values up to 100001000000000."
+  ],
+  "hints": [
+    "Conceptual: The set of eligible tasks changes as time advances.",
+    "Directional: Use one ordering for arrivals and another for the next eligible task.",
+    "Implementation: Add every task that has arrived to a duration/index min-heap. Pop one, advance time by its duration, and jump to the next arrival when the heap is empty."
+  ],
+  "concepts": [
+    "priority-queues",
+    "scheduling",
+    "tie-breaking"
+  ],
+  "skills": [
+    "Priority queues",
+    "scheduling",
+    "tie-breaking"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n log n)"
+  },
+  "complexityAnalysis": "O(n log n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-201-P1",
+      "arguments": [
+        [
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "tasks": [
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        2,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-201-P2",
+      "arguments": [
+        [
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "tasks": [
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        0,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-201-P3",
+      "arguments": [
+        [
+          [
+            1000000000,
+            1000000000
+          ],
+          [
+            1000000000,
+            1000000000
+          ],
+          [
+            1000000000,
+            1000000000
+          ]
+        ]
+      ],
+      "input": {
+        "tasks": [
+          [
+            1000000000,
+            1000000000
+          ],
+          [
+            1000000000,
+            1000000000
+          ],
+          [
+            1000000000,
+            1000000000
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def getOrder(tasks: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] getOrder(int[][] tasks) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} tasks\n * @returns {number[]}\n */\nfunction getOrder(tasks) {\n  throw new Error('Implement getOrder');\n}",
+    "typescript": "function getOrder(tasks: number[][]): number[] {\n  throw new Error('Implement getOrder');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray getOrder(IntMatrix tasks) {\n    (void)tasks;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> getOrder(std::vector<std::vector<int>> tasks) {\n    throw std::logic_error(\"Implement getOrder\");\n}",
+    "csharp": "public class Solution {\n    public int[] getOrder(int[][] tasks) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $tasks\n * @return int[]\n */\nfunction getOrder(array $tasks): array {\n    throw new LogicException('Implement getOrder');\n}",
+    "r": "# Parameters: tasks (list of integer vectors). Result: integer vector.\ngetOrder <- function(tasks) {\n  stop(\"Implement getOrder\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "getOrder",
+    "arguments": [
+      [
+        "tasks",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the full zero-based task order. Resolve ready-task ties by processing duration and then original index. Keep the simulated clock in at least signed 64-bit arithmetic, or exact numeric representation."
+  },
+  "blocks": [
+    {
+      "id": "nc250-201-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-201-statement",
+      "type": "paragraph",
+      "content": "A single processor runs tasks without interruption. Task i is [arrival,duration]. Whenever the processor is free, choose an arrived unfinished task with the shortest duration, breaking ties by smaller original index. If none has arrived, wait for the next arrival. Return the execution order of zero-based task indices.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-201-contract",
+      "type": "note",
+      "title": "def getOrder(tasks:",
+      "content": "Input: tasks (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-201-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 tasks. Each row has two integers in [1,1000000000]. Time accumulation needs 64-bit integers or exact numeric values up to 100001000000000.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-201-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def getOrder(tasks: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] getOrder(int[][] tasks) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} tasks\n * @returns {number[]}\n */\nfunction getOrder(tasks) {\n  throw new Error('Implement getOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function getOrder(tasks: number[][]): number[] {\n  throw new Error('Implement getOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray getOrder(IntMatrix tasks) {\n    (void)tasks;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> getOrder(std::vector<std::vector<int>> tasks) {\n    throw std::logic_error(\"Implement getOrder\");\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] getOrder(int[][] tasks) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $tasks\n * @return int[]\n */\nfunction getOrder(array $tasks): array {\n    throw new LogicException('Implement getOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-201-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: tasks (list of integer vectors). Result: integer vector.\ngetOrder <- function(tasks) {\n  stop(\"Implement getOrder\")\n}",
+      "stdin": "",
+      "expectedOutput": "[0,2,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

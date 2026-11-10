@@ -1,0 +1,329 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-221",
+  "title": "Minimum Height Trees",
+  "summary": "You may choose any vertex as the root of the given undirected tree.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findMinHeightTrees",
+    "signature": "def findMinHeightTrees(n:",
+    "input": "n (int), edges (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), edges (intgrid)",
+    "callable": "findMinHeightTrees",
+    "constraints": "1 ≤ n ≤ 20000. Vertices use labels 0 through n−1. There are n−1 distinct undirected edges, with no self-loops, and they form a tree.",
+    "output-checking": "Compare a unique set of zero-based minimum-height roots. Root order is irrelevant."
+  },
+  "statement": "You may choose any vertex as the root of the given undirected tree. Its height is the longest distance from that root to another vertex. Return every root that achieves the smallest possible height, in any order.",
+  "examples": [
+    {
+      "input": "{\"n\":4,\"edges\":[[0,1],[1,2],[2,3]]}",
+      "output": "[1,2]",
+      "explanation": "Both middle vertices minimize the longest distance."
+    },
+    {
+      "input": "{\"n\":1,\"edges\":[]}",
+      "output": "[0]",
+      "explanation": "The only vertex is the only root."
+    },
+    {
+      "input": "{\"n\":5,\"edges\":[[0,2],[1,2],[2,3],[2,4]]}",
+      "output": "[2]",
+      "explanation": "The star center reaches each leaf in one edge."
+    }
+  ],
+  "constraints": [
+    "1 ≤ n ≤ 20000. Vertices use labels 0 through n−1. There are n−1 distinct undirected edges, with no self-loops, and they form a tree."
+  ],
+  "hints": [
+    "Conceptual: A minimum-height root is at the center of the tree.",
+    "Directional: Remove all leaves in rounds.",
+    "Implementation: Track current degrees and enqueue vertices when they become leaves. Stop when at most two vertices remain."
+  ],
+  "concepts": [
+    "undirected-tree",
+    "leaf-peeling"
+  ],
+  "skills": [
+    "Undirected tree",
+    "leaf peeling"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-221-P1",
+      "arguments": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        2
+      ],
+      "validator": "unordered_unique"
+    },
+    {
+      "name": "NC250-221-P2",
+      "arguments": [
+        1,
+        []
+      ],
+      "input": {
+        "n": 1,
+        "edges": []
+      },
+      "expected": [
+        0
+      ],
+      "validator": "unordered_unique"
+    },
+    {
+      "name": "NC250-221-P3",
+      "arguments": [
+        5,
+        [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        2
+      ],
+      "validator": "unordered_unique"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findMinHeightTrees(n: int, edges: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] findMinHeightTrees(int n, int[][] edges) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} edges\n * @returns {number[]}\n */\nfunction findMinHeightTrees(n, edges) {\n  throw new Error('Implement findMinHeightTrees');\n}",
+    "typescript": "function findMinHeightTrees(n: number, edges: number[][]): number[] {\n  throw new Error('Implement findMinHeightTrees');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray findMinHeightTrees(int32_t n, IntMatrix edges) {\n    (void)n;\n    (void)edges;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> findMinHeightTrees(int n, std::vector<std::vector<int>> edges) {\n    throw std::logic_error(\"Implement findMinHeightTrees\");\n}",
+    "csharp": "public class Solution {\n    public int[] findMinHeightTrees(int n, int[][] edges) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $edges\n * @return int[]\n */\nfunction findMinHeightTrees(int $n, array $edges): array {\n    throw new LogicException('Implement findMinHeightTrees');\n}",
+    "r": "# Parameters: n (integer scalar), edges (list of integer vectors). Result: integer vector.\nfindMinHeightTrees <- function(n, edges) {\n  stop(\"Implement findMinHeightTrees\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "findMinHeightTrees",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "edges",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "function",
+    "validator": "unordered_unique",
+    "notes": "Compare a unique set of zero-based minimum-height roots. Root order is irrelevant."
+  },
+  "blocks": [
+    {
+      "id": "nc250-221-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-221-statement",
+      "type": "paragraph",
+      "content": "You may choose any vertex as the root of the given undirected tree. Its height is the longest distance from that root to another vertex. Return every root that achieves the smallest possible height, in any order.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-221-contract",
+      "type": "note",
+      "title": "def findMinHeightTrees(n:",
+      "content": "Input: n (int), edges (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-221-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n ≤ 20000. Vertices use labels 0 through n−1. There are n−1 distinct undirected edges, with no self-loops, and they form a tree.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-221-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findMinHeightTrees(n: int, edges: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] findMinHeightTrees(int n, int[][] edges) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number[][]} edges\n * @returns {number[]}\n */\nfunction findMinHeightTrees(n, edges) {\n  throw new Error('Implement findMinHeightTrees');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findMinHeightTrees(n: number, edges: number[][]): number[] {\n  throw new Error('Implement findMinHeightTrees');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray findMinHeightTrees(int32_t n, IntMatrix edges) {\n    (void)n;\n    (void)edges;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> findMinHeightTrees(int n, std::vector<std::vector<int>> edges) {\n    throw std::logic_error(\"Implement findMinHeightTrees\");\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] findMinHeightTrees(int n, int[][] edges) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $edges\n * @return int[]\n */\nfunction findMinHeightTrees(int $n, array $edges): array {\n    throw new LogicException('Implement findMinHeightTrees');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-221-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), edges (list of integer vectors). Result: integer vector.\nfindMinHeightTrees <- function(n, edges) {\n  stop(\"Implement findMinHeightTrees\")\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

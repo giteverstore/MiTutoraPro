@@ -265,10 +265,9 @@ describe('M2.3B.1 Python authoritative judge', () => {
     expect(JSON.stringify(controller.lastCleanupDiagnostic)).not.toContain('private path detail');
   });
 
-  it('binds initial Practice suites to canonical IDs, versions and hashes', () => {
+  it('contains no legacy Practice suites before the replacement bank is imported', () => {
     const registry = createInitialPracticeProtectedTestRegistry();
-    expect(registry.resolve({ activityId: 'fund-variables-001', activityVersion: 'v2', contentHash: 'f82864abec10ea3c150af37372e32011ca53fb87868b0d57114230821bc48524', language: 'python', protectedSuiteId: 'practice-fund-variables-001', protectedSuiteVersion: 'v1' }).tests).toHaveLength(2);
-    expect(() => registry.resolve({ ...request, activityId: 'fund-variables-001' })).toThrow(expect.objectContaining({ code: 'judge/protected-suite-mismatch' }));
+    expect(() => registry.resolve(request)).toThrow(expect.objectContaining({ code: 'judge/protected-suite-mismatch' }));
   });
 
   it('adapts trusted PASS through PracticeVerifier without accepting browser status', async () => {

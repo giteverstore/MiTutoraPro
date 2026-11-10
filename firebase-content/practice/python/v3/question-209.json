@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-209",
+  "title": "Matchsticks to Square",
+  "summary": "Decide whether all sticks can be assigned to four sides of equal total length.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "makesquare",
+    "signature": "def makesquare(matchsticks:",
+    "input": "matchsticks (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "matchsticks (ints)",
+    "callable": "makesquare",
+    "constraints": "1–15 sticks with lengths in [1,100000000].",
+    "output-checking": "Compare boolean feasibility of assigning every position to one of four equal-sum sides."
+  },
+  "statement": "Decide whether all sticks can be assigned to four sides of equal total length. Use every stick exactly once and keep each stick intact.",
+  "examples": [
+    {
+      "input": "{\"matchsticks\":[3,3,3,1,2]}",
+      "output": "true",
+      "explanation": "Three sides use one length-3 stick each, and the last uses 1+2."
+    },
+    {
+      "input": "{\"matchsticks\":[1]}",
+      "output": "false",
+      "explanation": "One stick cannot form four equal sides."
+    },
+    {
+      "input": "{\"matchsticks\":[2,2,2,2,2,2]}",
+      "output": "false",
+      "explanation": "The required side length is 3, which these sticks cannot produce."
+    }
+  ],
+  "constraints": [
+    "1–15 sticks with lengths in [1,100000000]."
+  ],
+  "hints": [
+    "Conceptual: The sum of all lengths determines the required side length.",
+    "Directional: Place long sticks first to discover impossible placements early.",
+    "Implementation: Backtrack over sides whose remaining space is large enough. Skip equivalent choices with the same current side total."
+  ],
+  "concepts": [
+    "backtracking",
+    "partitioning"
+  ],
+  "skills": [
+    "Backtracking",
+    "partitioning"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(4^n)",
+    "space": "O(4^n)"
+  },
+  "complexityAnalysis": "O(4^n) worst-case search time and O(n) auxiliary space, including sorted working storage.",
+  "publicTests": [
+    {
+      "name": "NC250-209-P1",
+      "arguments": [
+        [
+          3,
+          3,
+          3,
+          1,
+          2
+        ]
+      ],
+      "input": {
+        "matchsticks": [
+          3,
+          3,
+          3,
+          1,
+          2
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-209-P2",
+      "arguments": [
+        [
+          1
+        ]
+      ],
+      "input": {
+        "matchsticks": [
+          1
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-209-P3",
+      "arguments": [
+        [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "matchsticks": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def makesquare(matchsticks: list[int]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean makesquare(int[] matchsticks) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} matchsticks\n * @returns {boolean}\n */\nfunction makesquare(matchsticks) {\n  throw new Error('Implement makesquare');\n}",
+    "typescript": "function makesquare(matchsticks: number[]): boolean {\n  throw new Error('Implement makesquare');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool makesquare(IntArray matchsticks) {\n    (void)matchsticks;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool makesquare(std::vector<int> matchsticks) {\n    throw std::logic_error(\"Implement makesquare\");\n}",
+    "csharp": "public class Solution {\n    public bool makesquare(int[] matchsticks) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $matchsticks\n * @return bool\n */\nfunction makesquare(array $matchsticks): bool {\n    throw new LogicException('Implement makesquare');\n}",
+    "r": "# Parameters: matchsticks (integer vector). Result: logical scalar.\nmakesquare <- function(matchsticks) {\n  stop(\"Implement makesquare\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "makesquare",
+    "arguments": [
+      [
+        "matchsticks",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare boolean feasibility of assigning every position to one of four equal-sum sides."
+  },
+  "blocks": [
+    {
+      "id": "nc250-209-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-209-statement",
+      "type": "paragraph",
+      "content": "Decide whether all sticks can be assigned to four sides of equal total length. Use every stick exactly once and keep each stick intact.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-209-contract",
+      "type": "note",
+      "title": "def makesquare(matchsticks:",
+      "content": "Input: matchsticks (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-209-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–15 sticks with lengths in [1,100000000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-209-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def makesquare(matchsticks: list[int]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean makesquare(int[] matchsticks) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} matchsticks\n * @returns {boolean}\n */\nfunction makesquare(matchsticks) {\n  throw new Error('Implement makesquare');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function makesquare(matchsticks: number[]): boolean {\n  throw new Error('Implement makesquare');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool makesquare(IntArray matchsticks) {\n    (void)matchsticks;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool makesquare(std::vector<int> matchsticks) {\n    throw std::logic_error(\"Implement makesquare\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool makesquare(int[] matchsticks) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $matchsticks\n * @return bool\n */\nfunction makesquare(array $matchsticks): bool {\n    throw new LogicException('Implement makesquare');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-209-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: matchsticks (integer vector). Result: logical scalar.\nmakesquare <- function(matchsticks) {\n  stop(\"Implement makesquare\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-219",
+  "title": "Accounts Merge",
+  "summary": "An account row starts with a name and then lists emails.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "accountsMerge",
+    "signature": "def accountsMerge(accounts:",
+    "input": "accounts (strgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "accounts (strgrid)",
+    "callable": "accountsMerge",
+    "constraints": "1–1000 account rows. Each row has 2–10 strings of length 1–30. Names use English letters, and the remaining strings are valid email addresses. Accounts belonging to the same person have the same name.",
+    "output-checking": "Compare complete account rows ignoring outer order. Require the original group name and sorted unique emails within each row. Reject duplicate groups."
+  },
+  "statement": "An account row starts with a name and then lists emails. Accounts sharing any email belong to the same person, including chains of sharing through other rows. Return one row for each resulting group. Start the row with its name, then list all distinct group emails in sorted order. People may share a name without sharing an email. Output row order is unrestricted.",
+  "examples": [
+    {
+      "input": "{\"accounts\":[[\"Mia\",\"b@x.io\",\"a@x.io\"],[\"Mia\",\"c@x.io\",\"b@x.io\"],[\"Lee\",\"z@x.io\"]]}",
+      "output": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "explanation": "The repeated email merges the two Mia rows."
+    },
+    {
+      "input": "{\"accounts\":[[\"Mia\",\"a@x.io\"],[\"Mia\",\"b@x.io\"]]}",
+      "output": "[[\"Mia\",\"a@x.io\"],[\"Mia\",\"b@x.io\"]]",
+      "explanation": "The same name is not a merge criterion."
+    },
+    {
+      "input": "{\"accounts\":[[\"Bo\",\"b@x.io\",\"b@x.io\"]]}",
+      "output": "[[\"Bo\",\"b@x.io\"]]",
+      "explanation": "Each merged row lists an email only once."
+    }
+  ],
+  "constraints": [
+    "1–1000 account rows. Each row has 2–10 strings of length 1–30. Names use English letters, and the remaining strings are valid email addresses. Accounts belonging to the same person have the same name."
+  ],
+  "hints": [
+    "Conceptual: A shared name alone gives no evidence of identity.",
+    "Directional: Connect rows through shared emails.",
+    "Implementation: Use union-find on account indices, with an email-to-first-account map. Collect unique emails under each final representative, then sort each group."
+  ],
+  "concepts": [
+    "disjoint-sets",
+    "email-grouping"
+  ],
+  "skills": [
+    "Disjoint sets",
+    "email grouping"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(E log E)",
+    "space": "O(E log E)"
+  },
+  "complexityAnalysis": "O(E log E) time and O(E+n) auxiliary space for E email occurrences and n accounts, treating bounded-length strings as constant-size.",
+  "publicTests": [
+    {
+      "name": "NC250-219-P1",
+      "arguments": [
+        [
+          [
+            "Mia",
+            "b@x.io",
+            "a@x.io"
+          ],
+          [
+            "Mia",
+            "c@x.io",
+            "b@x.io"
+          ],
+          [
+            "Lee",
+            "z@x.io"
+          ]
+        ]
+      ],
+      "input": {
+        "accounts": [
+          [
+            "Mia",
+            "b@x.io",
+            "a@x.io"
+          ],
+          [
+            "Mia",
+            "c@x.io",
+            "b@x.io"
+          ],
+          [
+            "Lee",
+            "z@x.io"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "Mia",
+          "a@x.io",
+          "b@x.io",
+          "c@x.io"
+        ],
+        [
+          "Lee",
+          "z@x.io"
+        ]
+      ],
+      "validator": "account_set"
+    },
+    {
+      "name": "NC250-219-P2",
+      "arguments": [
+        [
+          [
+            "Mia",
+            "a@x.io"
+          ],
+          [
+            "Mia",
+            "b@x.io"
+          ]
+        ]
+      ],
+      "input": {
+        "accounts": [
+          [
+            "Mia",
+            "a@x.io"
+          ],
+          [
+            "Mia",
+            "b@x.io"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "Mia",
+          "a@x.io"
+        ],
+        [
+          "Mia",
+          "b@x.io"
+        ]
+      ],
+      "validator": "account_set"
+    },
+    {
+      "name": "NC250-219-P3",
+      "arguments": [
+        [
+          [
+            "Bo",
+            "b@x.io",
+            "b@x.io"
+          ]
+        ]
+      ],
+      "input": {
+        "accounts": [
+          [
+            "Bo",
+            "b@x.io",
+            "b@x.io"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "Bo",
+          "b@x.io"
+        ]
+      ],
+      "validator": "account_set"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def accountsMerge(accounts: list[list[str]]) -> list[list[str]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String[][] accountsMerge(String[][] accounts) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[][]} accounts\n * @returns {string[][]}\n */\nfunction accountsMerge(accounts) {\n  throw new Error('Implement accountsMerge');\n}",
+    "typescript": "function accountsMerge(accounts: string[][]): string[][] {\n  throw new Error('Implement accountsMerge');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nStringMatrix accountsMerge(StringMatrix accounts) {\n    (void)accounts;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<std::string>> accountsMerge(std::vector<std::vector<std::string>> accounts) {\n    throw std::logic_error(\"Implement accountsMerge\");\n}",
+    "csharp": "public class Solution {\n    public string[][] accountsMerge(string[][] accounts) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[][] $accounts\n * @return string[][]\n */\nfunction accountsMerge(array $accounts): array {\n    throw new LogicException('Implement accountsMerge');\n}",
+    "r": "# Parameters: accounts (list of character vectors). Result: list of character vectors.\naccountsMerge <- function(accounts) {\n  stop(\"Implement accountsMerge\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "accountsMerge",
+    "arguments": [
+      [
+        "accounts",
+        "strgrid"
+      ]
+    ],
+    "serialized_result_type": "strgrid",
+    "mode": "function",
+    "validator": "account_set",
+    "notes": "Compare complete account rows ignoring outer order. Require the original group name and sorted unique emails within each row. Reject duplicate groups."
+  },
+  "blocks": [
+    {
+      "id": "nc250-219-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-219-statement",
+      "type": "paragraph",
+      "content": "An account row starts with a name and then lists emails. Accounts sharing any email belong to the same person, including chains of sharing through other rows. Return one row for each resulting group. Start the row with its name, then list all distinct group emails in sorted order. People may share a name without sharing an email. Output row order is unrestricted.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-219-contract",
+      "type": "note",
+      "title": "def accountsMerge(accounts:",
+      "content": "Input: accounts (strgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-219-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 account rows. Each row has 2–10 strings of length 1–30. Names use English letters, and the remaining strings are valid email addresses. Accounts belonging to the same person have the same name.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-219-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def accountsMerge(accounts: list[list[str]]) -> list[list[str]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String[][] accountsMerge(String[][] accounts) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[][]} accounts\n * @returns {string[][]}\n */\nfunction accountsMerge(accounts) {\n  throw new Error('Implement accountsMerge');\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function accountsMerge(accounts: string[][]): string[][] {\n  throw new Error('Implement accountsMerge');\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nStringMatrix accountsMerge(StringMatrix accounts) {\n    (void)accounts;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<std::string>> accountsMerge(std::vector<std::vector<std::string>> accounts) {\n    throw std::logic_error(\"Implement accountsMerge\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string[][] accountsMerge(string[][] accounts) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[][] $accounts\n * @return string[][]\n */\nfunction accountsMerge(array $accounts): array {\n    throw new LogicException('Implement accountsMerge');\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-219-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: accounts (list of character vectors). Result: list of character vectors.\naccountsMerge <- function(accounts) {\n  stop(\"Implement accountsMerge\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[\"Mia\",\"a@x.io\",\"b@x.io\",\"c@x.io\"],[\"Lee\",\"z@x.io\"]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

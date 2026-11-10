@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-238",
+  "title": "Longest Turbulent Subarray",
+  "summary": "Return the length of the longest contiguous segment in which comparisons between neighbors strictly alternate between less-than and greater-than.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "maxTurbulenceSize",
+    "signature": "def maxTurbulenceSize(arr:",
+    "input": "arr (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "arr (ints)",
+    "callable": "maxTurbulenceSize",
+    "constraints": "1–40000 entries in [0,1000000000].",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Return the length of the longest contiguous segment in which comparisons between neighbors strictly alternate between less-than and greater-than. Equal neighbors break a segment. A single value qualifies.",
+  "examples": [
+    {
+      "input": "{\"arr\":[4,1,3,2]}",
+      "output": "4",
+      "explanation": "The comparisons go down, up, down."
+    },
+    {
+      "input": "{\"arr\":[5,5,1,1]}",
+      "output": "2",
+      "explanation": "Only the unequal middle pair can be extended beyond length one."
+    },
+    {
+      "input": "{\"arr\":[0]}",
+      "output": "1",
+      "explanation": "A single value has no comparison to violate."
+    }
+  ],
+  "constraints": [
+    "1–40000 entries in [0,1000000000]."
+  ],
+  "hints": [
+    "Conceptual: The comparison signs matter more than the differences.",
+    "Directional: Track the longest suffix for each possible final comparison direction.",
+    "Implementation: An upward step extends a downward suffix and resets the downward length to one. Reverse the roles for a downward step, and reset both for equality."
+  ],
+  "concepts": [
+    "alternating-comparisons",
+    "rolling-state"
+  ],
+  "skills": [
+    "Alternating comparisons",
+    "rolling state"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-238-P1",
+      "arguments": [
+        [
+          4,
+          1,
+          3,
+          2
+        ]
+      ],
+      "input": {
+        "arr": [
+          4,
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-238-P2",
+      "arguments": [
+        [
+          5,
+          5,
+          1,
+          1
+        ]
+      ],
+      "input": {
+        "arr": [
+          5,
+          5,
+          1,
+          1
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-238-P3",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "input": {
+        "arr": [
+          0
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def maxTurbulenceSize(arr: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int maxTurbulenceSize(int[] arr) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} arr\n * @returns {number}\n */\nfunction maxTurbulenceSize(arr) {\n  throw new Error('Implement maxTurbulenceSize');\n}",
+    "typescript": "function maxTurbulenceSize(arr: number[]): number {\n  throw new Error('Implement maxTurbulenceSize');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxTurbulenceSize(IntArray arr) {\n    (void)arr;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxTurbulenceSize(std::vector<int> arr) {\n    throw std::logic_error(\"Implement maxTurbulenceSize\");\n}",
+    "csharp": "public class Solution {\n    public int maxTurbulenceSize(int[] arr) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $arr\n * @return int\n */\nfunction maxTurbulenceSize(array $arr): int {\n    throw new LogicException('Implement maxTurbulenceSize');\n}",
+    "r": "# Parameters: arr (integer vector). Result: integer scalar.\nmaxTurbulenceSize <- function(arr) {\n  stop(\"Implement maxTurbulenceSize\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "maxTurbulenceSize",
+    "arguments": [
+      [
+        "arr",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-238-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-238-statement",
+      "type": "paragraph",
+      "content": "Return the length of the longest contiguous segment in which comparisons between neighbors strictly alternate between less-than and greater-than. Equal neighbors break a segment. A single value qualifies.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-238-contract",
+      "type": "note",
+      "title": "def maxTurbulenceSize(arr:",
+      "content": "Input: arr (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-238-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–40000 entries in [0,1000000000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-238-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def maxTurbulenceSize(arr: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int maxTurbulenceSize(int[] arr) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} arr\n * @returns {number}\n */\nfunction maxTurbulenceSize(arr) {\n  throw new Error('Implement maxTurbulenceSize');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function maxTurbulenceSize(arr: number[]): number {\n  throw new Error('Implement maxTurbulenceSize');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxTurbulenceSize(IntArray arr) {\n    (void)arr;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxTurbulenceSize(std::vector<int> arr) {\n    throw std::logic_error(\"Implement maxTurbulenceSize\");\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int maxTurbulenceSize(int[] arr) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $arr\n * @return int\n */\nfunction maxTurbulenceSize(array $arr): int {\n    throw new LogicException('Implement maxTurbulenceSize');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-238-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: arr (integer vector). Result: integer scalar.\nmaxTurbulenceSize <- function(arr) {\n  stop(\"Implement maxTurbulenceSize\")\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

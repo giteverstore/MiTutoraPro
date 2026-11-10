@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-186",
+  "title": "Capacity to Ship Packages Within D Days",
+  "summary": "Ship the packages in their listed order over at most days days.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "shipWithinDays",
+    "signature": "def shipWithinDays(weights:",
+    "input": "weights (ints), days (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "weights (ints), days (int)",
+    "callable": "shipWithinDays",
+    "constraints": "1 ≤ days ≤ length(weights) ≤ 50000. Each weight is in [1,500]. Packages cannot be split or reordered.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Ship the packages in their listed order over at most days days. Each day carries a consecutive prefix of the remaining packages with total weight at most the ship capacity. Return the smallest integer capacity that allows all packages to leave.",
+  "examples": [
+    {
+      "input": "{\"weights\":[3,1,4,2],\"days\":2}",
+      "output": "6",
+      "explanation": "Split after the second package. Capacity 5 needs three days."
+    },
+    {
+      "input": "{\"weights\":[5,2,4],\"days\":3}",
+      "output": "5",
+      "explanation": "Each package may travel on its own day."
+    },
+    {
+      "input": "{\"weights\":[2,3],\"days\":1}",
+      "output": "5",
+      "explanation": "One day must hold everything."
+    }
+  ],
+  "constraints": [
+    "1 ≤ days ≤ length(weights) ≤ 50000. Each weight is in [1,500]. Packages cannot be split or reordered."
+  ],
+  "hints": [
+    "Conceptual: A capacity that works keeps working when increased.",
+    "Directional: Search capacities between the largest package and the total weight.",
+    "Implementation: For a candidate capacity, greedily fill each day in order and count how many days are needed."
+  ],
+  "concepts": [
+    "binary-search-on-answer",
+    "greedy-feasibility"
+  ],
+  "skills": [
+    "Binary search on answer",
+    "greedy feasibility"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log S)",
+    "space": "O(n log S)"
+  },
+  "complexityAnalysis": "O(n log S) time and O(1) auxiliary space, where S is the total weight.",
+  "publicTests": [
+    {
+      "name": "NC250-186-P1",
+      "arguments": [
+        [
+          3,
+          1,
+          4,
+          2
+        ],
+        2
+      ],
+      "input": {
+        "weights": [
+          3,
+          1,
+          4,
+          2
+        ],
+        "days": 2
+      },
+      "expected": 6,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-186-P2",
+      "arguments": [
+        [
+          5,
+          2,
+          4
+        ],
+        3
+      ],
+      "input": {
+        "weights": [
+          5,
+          2,
+          4
+        ],
+        "days": 3
+      },
+      "expected": 5,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-186-P3",
+      "arguments": [
+        [
+          2,
+          3
+        ],
+        1
+      ],
+      "input": {
+        "weights": [
+          2,
+          3
+        ],
+        "days": 1
+      },
+      "expected": 5,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def shipWithinDays(weights: list[int], days: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int shipWithinDays(int[] weights, int days) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} weights\n * @param {number} days\n * @returns {number}\n */\nfunction shipWithinDays(weights, days) {\n  throw new Error('Implement shipWithinDays');\n}",
+    "typescript": "function shipWithinDays(weights: number[], days: number): number {\n  throw new Error('Implement shipWithinDays');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t shipWithinDays(IntArray weights, int32_t days) {\n    (void)weights;\n    (void)days;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint shipWithinDays(std::vector<int> weights, int days) {\n    throw std::logic_error(\"Implement shipWithinDays\");\n}",
+    "csharp": "public class Solution {\n    public int shipWithinDays(int[] weights, int days) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $weights\n * @param int $days\n * @return int\n */\nfunction shipWithinDays(array $weights, int $days): int {\n    throw new LogicException('Implement shipWithinDays');\n}",
+    "r": "# Parameters: weights (integer vector), days (integer scalar). Result: integer scalar.\nshipWithinDays <- function(weights, days) {\n  stop(\"Implement shipWithinDays\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "shipWithinDays",
+    "arguments": [
+      [
+        "weights",
+        "ints"
+      ],
+      [
+        "days",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-186-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-186-statement",
+      "type": "paragraph",
+      "content": "Ship the packages in their listed order over at most days days. Each day carries a consecutive prefix of the remaining packages with total weight at most the ship capacity. Return the smallest integer capacity that allows all packages to leave.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-186-contract",
+      "type": "note",
+      "title": "def shipWithinDays(weights:",
+      "content": "Input: weights (ints), days (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-186-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ days ≤ length(weights) ≤ 50000. Each weight is in [1,500]. Packages cannot be split or reordered.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-186-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def shipWithinDays(weights: list[int], days: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int shipWithinDays(int[] weights, int days) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} weights\n * @param {number} days\n * @returns {number}\n */\nfunction shipWithinDays(weights, days) {\n  throw new Error('Implement shipWithinDays');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function shipWithinDays(weights: number[], days: number): number {\n  throw new Error('Implement shipWithinDays');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t shipWithinDays(IntArray weights, int32_t days) {\n    (void)weights;\n    (void)days;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint shipWithinDays(std::vector<int> weights, int days) {\n    throw std::logic_error(\"Implement shipWithinDays\");\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int shipWithinDays(int[] weights, int days) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $weights\n * @param int $days\n * @return int\n */\nfunction shipWithinDays(array $weights, int $days): int {\n    throw new LogicException('Implement shipWithinDays');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-186-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: weights (integer vector), days (integer scalar). Result: integer scalar.\nshipWithinDays <- function(weights, days) {\n  stop(\"Implement shipWithinDays\")\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

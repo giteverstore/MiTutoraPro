@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 12,
+  "matrix": {
+    "BLIND150-042": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23720,
+        "wallTimeMs": 24176,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 26061.895,
+        "wallTimeMs": 33430,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-182": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17778,
+        "wallTimeMs": 18117,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8157.46,
+        "wallTimeMs": 10953,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

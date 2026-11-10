@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-147",
+  "title": "Reverse Bits",
+  "summary": "Reverse all 32 bits of n, including the leading zeros.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "reverseBits",
+    "signature": "def reverseBits(n:",
+    "input": "`n` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`n` (integer)",
+    "result": "integer.",
+    "constraints": "0 ≤ n ≤ 2147483646 and n is even, following the linked LeetCode contract. The 32-bit reversed word fits a signed nonnegative 32-bit integer.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Reverse all 32 bits of n, including the leading zeros. Return the resulting word as a nonnegative integer.",
+  "examples": [
+    {
+      "input": "{\"n\":2}",
+      "output": "1073741824",
+      "explanation": "Bit 1 moves to bit 30."
+    },
+    {
+      "input": "{\"n\":6}",
+      "output": "1610612736",
+      "explanation": "Bits 1 and 2 move to bits 30 and 29."
+    },
+    {
+      "input": "{\"n\":0}",
+      "output": "0",
+      "explanation": "Every position remains zero."
+    }
+  ],
+  "constraints": [
+    "0 ≤ n ≤ 2147483646 and n is even, following the linked LeetCode contract. The 32-bit reversed word fits a signed nonnegative 32-bit integer."
+  ],
+  "hints": [
+    "Conceptual: The width stays 32 even when n has few significant bits.",
+    "Directional: Move the current low bit into the result as you shift both words.",
+    "Implementation: Perform exactly 32 rounds and use a logical right shift for the input."
+  ],
+  "concepts": [
+    "fixed-width-reversal",
+    "bit-order"
+  ],
+  "skills": [
+    "Fixed-width reversal",
+    "bit order"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(w)",
+    "space": "O(w)"
+  },
+  "complexityAnalysis": "O(w) time and O(1) space, with w=32.",
+  "publicTests": [
+    {
+      "name": "BLIND150-147-T01",
+      "arguments": [
+        2
+      ],
+      "input": {
+        "n": 2
+      },
+      "expected": 1073741824,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-147-T02",
+      "arguments": [
+        6
+      ],
+      "input": {
+        "n": 6
+      },
+      "expected": 1610612736,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-147-T03",
+      "arguments": [
+        0
+      ],
+      "input": {
+        "n": 0
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def reverseBits(n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int reverseBits(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction reverseBits(n) {\n  throw new Error('Implement reverseBits');\n}",
+    "typescript": "function reverseBits(n: number): number {\n  throw new Error('Implement reverseBits');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t reverseBits(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint reverseBits(int n) {\n    throw std::logic_error(\"Implement reverseBits\");\n}",
+    "csharp": "public class Solution {\n    public int reverseBits(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction reverseBits(int $n): int {\n    throw new LogicException('Implement reverseBits');\n}",
+    "r": "# Parameters: n (integer scalar). Result: integer scalar.\nreverseBits <- function(n) {\n  stop(\"Implement reverseBits\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-147-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-147-statement",
+      "type": "paragraph",
+      "content": "Reverse all 32 bits of n, including the leading zeros. Return the resulting word as a nonnegative integer.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-147-contract",
+      "type": "note",
+      "title": "def reverseBits(n:",
+      "content": "Input: `n` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-147-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 ≤ n ≤ 2147483646 and n is even, following the linked LeetCode contract. The 32-bit reversed word fits a signed nonnegative 32-bit integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-147-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def reverseBits(n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int reverseBits(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction reverseBits(n) {\n  throw new Error('Implement reverseBits');\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function reverseBits(n: number): number {\n  throw new Error('Implement reverseBits');\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t reverseBits(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint reverseBits(int n) {\n    throw std::logic_error(\"Implement reverseBits\");\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int reverseBits(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction reverseBits(int $n): int {\n    throw new LogicException('Implement reverseBits');\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-147-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar). Result: integer scalar.\nreverseBits <- function(n) {\n  stop(\"Implement reverseBits\")\n}",
+      "stdin": "",
+      "expectedOutput": "1073741824",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

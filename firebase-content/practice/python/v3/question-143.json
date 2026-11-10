@@ -1,0 +1,372 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-143",
+  "title": "Detect Squares",
+  "summary": "Start with an empty point multiset.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "DetectSquares",
+    "signature": "class DetectSquares:",
+    "input": "`ops` (nested integer arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested integer arrays)",
+    "result": "integer array.",
+    "constraints": "0–3000 operations. Coordinates are integers in [0,1000]. Duplicate additions are distinct choices. The query point does not need to be stored.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Start with an empty point multiset. An operation [0,x,y] adds one copy of the point. An operation [1,x,y] asks how many ways three stored points and the query point form the four corners of an axis-aligned square with positive area. Return one answer per query, in order.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,0,1],[0,1,0],[0,1,1],[1,0,0]]}",
+      "output": "[1]",
+      "explanation": "The three stored corners complete the unit square."
+    },
+    {
+      "input": "{\"ops\":[[1,2,2],[0,2,2],[1,2,2]]}",
+      "output": "[0,0]",
+      "explanation": "A point alone cannot make a positive-area square."
+    },
+    {
+      "input": "{\"ops\":[[0,1,0],[0,1,0],[0,0,1],[0,1,1],[1,0,0]]}",
+      "output": "[2]",
+      "explanation": "Either stored copy of the horizontal partner can be used."
+    }
+  ],
+  "constraints": [
+    "0–3000 operations. Coordinates are integers in [0,1000]. Duplicate additions are distinct choices. The query point does not need to be stored."
+  ],
+  "hints": [
+    "Conceptual: Choose a corner on the same row as the query to fix the side length.",
+    "Directional: For each horizontal partner, check the two possible vertical directions.",
+    "Implementation: Multiply the counts of the three required stored corners, then sum over eligible partners."
+  ],
+  "concepts": [
+    "stateful-point-counts",
+    "coordinate-geometry"
+  ],
+  "skills": [
+    "Stateful point counts",
+    "coordinate geometry"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "See complexity analysis",
+    "space": "O(U²)"
+  },
+  "complexityAnalysis": "O(1) per add and O(U) per count for a bounded coordinate row scan, with U=1001. A dense grid uses O(U²) space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-143-T01",
+      "arguments": [
+        [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-143-T02",
+      "arguments": [
+        [
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            0,
+            2,
+            2
+          ],
+          [
+            1,
+            2,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            0,
+            2,
+            2
+          ],
+          [
+            1,
+            2,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-143-T03",
+      "arguments": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        2
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class DetectSquares:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def add(self, point: list[int]) -> None:\n        raise NotImplementedError\n\n    def count(self, point: list[int]) -> int:\n        raise NotImplementedError",
+    "java": "class DetectSquares {\n    public DetectSquares() {\n        throw new UnsupportedOperationException();\n    }\n\n    public void add(int[] point) {\n        throw new UnsupportedOperationException();\n    }\n\n    public int count(int[] point) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class DetectSquares {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number[]} point\n   * @returns {void}\n   */\n  add(point) {\n    throw new Error('Implement add');\n  }\n\n  /**\n   * @param {number[]} point\n   * @returns {number}\n   */\n  count(point) {\n    throw new Error('Implement count');\n  }\n}",
+    "typescript": "class DetectSquares {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  add(point: number[]): void {\n    throw new Error('Implement add');\n  }\n\n  count(point: number[]): number {\n    throw new Error('Implement count');\n  }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct DetectSquares DetectSquares;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nDetectSquares *detectSquaresCreate(void) { abort(); }\n\nvoid detectSquaresAdd(DetectSquares *board, IntArray point) {\n    (void)board;\n    (void)point;\n    abort();\n}\n\nint32_t detectSquaresCount(DetectSquares *board, IntArray point) {\n    (void)board;\n    (void)point;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass DetectSquares {\npublic:\n    DetectSquares() {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void add(std::vector<int> point) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    int count(std::vector<int> point) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+    "csharp": "public class DetectSquares {\n    public DetectSquares() {\n        throw new System.NotImplementedException();\n    }\n\n    public void add(int[] point) {\n        throw new System.NotImplementedException();\n    }\n\n    public int count(int[] point) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass DetectSquares {\n    public function __construct() {\n        throw new LogicException('Implement method');\n    }\n\n    public function add(array $point): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function count(array $point): int {\n        throw new LogicException('Implement method');\n    }\n}",
+    "r": "DetectSquares <- function() {\n  list(\n    # point (integer vector).\n    # Result invisible NULL.\n    add = function(point) stop(\"Implement add\"),\n    # point (integer vector).\n    # Result integer scalar.\n    count = function(point) stop(\"Implement count\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-143-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-143-statement",
+      "type": "paragraph",
+      "content": "Start with an empty point multiset. An operation [0,x,y] adds one copy of the point. An operation [1,x,y] asks how many ways three stored points and the query point form the four corners of an axis-aligned square with positive area. Return one answer per query, in order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-143-contract",
+      "type": "note",
+      "title": "class DetectSquares:",
+      "content": "Input: `ops` (nested integer arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-143-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–3000 operations. Coordinates are integers in [0,1000]. Duplicate additions are distinct choices. The query point does not need to be stored.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-143-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class DetectSquares:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def add(self, point: list[int]) -> None:\n        raise NotImplementedError\n\n    def count(self, point: list[int]) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class DetectSquares {\n    public DetectSquares() {\n        throw new UnsupportedOperationException();\n    }\n\n    public void add(int[] point) {\n        throw new UnsupportedOperationException();\n    }\n\n    public int count(int[] point) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class DetectSquares {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number[]} point\n   * @returns {void}\n   */\n  add(point) {\n    throw new Error('Implement add');\n  }\n\n  /**\n   * @param {number[]} point\n   * @returns {number}\n   */\n  count(point) {\n    throw new Error('Implement count');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class DetectSquares {\n  constructor() {\n    throw new Error('Implement constructor');\n  }\n\n  add(point: number[]): void {\n    throw new Error('Implement add');\n  }\n\n  count(point: number[]): number {\n    throw new Error('Implement count');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct DetectSquares DetectSquares;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nDetectSquares *detectSquaresCreate(void) { abort(); }\n\nvoid detectSquaresAdd(DetectSquares *board, IntArray point) {\n    (void)board;\n    (void)point;\n    abort();\n}\n\nint32_t detectSquaresCount(DetectSquares *board, IntArray point) {\n    (void)board;\n    (void)point;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass DetectSquares {\npublic:\n    DetectSquares() {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    void add(std::vector<int> point) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    int count(std::vector<int> point) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class DetectSquares {\n    public DetectSquares() {\n        throw new System.NotImplementedException();\n    }\n\n    public void add(int[] point) {\n        throw new System.NotImplementedException();\n    }\n\n    public int count(int[] point) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass DetectSquares {\n    public function __construct() {\n        throw new LogicException('Implement method');\n    }\n\n    public function add(array $point): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function count(array $point): int {\n        throw new LogicException('Implement method');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-143-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "DetectSquares <- function() {\n  list(\n    # point (integer vector).\n    # Result invisible NULL.\n    add = function(point) stop(\"Implement add\"),\n    # point (integer vector).\n    # Result integer scalar.\n    count = function(point) stop(\"Implement count\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

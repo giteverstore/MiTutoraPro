@@ -1,0 +1,363 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-078",
+  "title": "Design Add and Search Words Data Structure",
+  "summary": "Build an initially empty WordDictionary.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Tries",
+  "category": "dsa",
+  "subtopic": "tries",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "WordDictionary",
+    "signature": "class WordDictionary:",
+    "input": "`ops` (nested string arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested string arrays)",
+    "result": "integer array.",
+    "constraints": "At most 10,000 calls. Text lengths are 1–25. AddWord takes lowercase English letters. Search takes lowercase letters and at most two dots. Fixture rows are [operation, text]. Search results are 1 or 0 in call order.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Build an initially empty WordDictionary. AddWord stores a literal word. Search tests whether any stored word matches the entire pattern. A dot matches exactly one lowercase letter. Search calls leave stored words unchanged.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[\"addWord\",\"sun\"],[\"search\",\"s.n\"],[\"search\",\"s.\"],[\"search\",\"..n\"]]}",
+      "output": "[1,0,1]",
+      "explanation": "Each dot consumes one letter, so the shorter pattern fails."
+    },
+    {
+      "input": "{\"ops\":[[\"search\",\".\"],[\"addWord\",\"x\"],[\"addWord\",\"x\"],[\"search\",\".\"],[\"search\",\"..\"]]}",
+      "output": "[0,1,0]",
+      "explanation": "Duplicate inserts still store one single-letter word."
+    },
+    {
+      "input": "{\"ops\":[[\"addWord\",\"code\"],[\"search\",\".at\"],[\"search\",\"c..e\"],[\"search\",\"code\"]]}",
+      "output": "[0,1,1]",
+      "explanation": "The failed wildcard query leaves the word intact."
+    }
+  ],
+  "constraints": [
+    "At most 10,000 calls. Text lengths are 1–25. AddWord takes lowercase English letters. Search takes lowercase letters and at most two dots. Fixture rows are [operation, text]. Search results are 1 or 0 in call order."
+  ],
+  "hints": [
+    "Conceptual: A dot changes the choice at one position, but the total length stays fixed.",
+    "Directional: Use a Trie and branch across existing child links at a dot.",
+    "Implementation: After the last character require an end-of-word mark. Return true as soon as any branch completes a match."
+  ],
+  "concepts": [
+    "tries",
+    "design",
+    "wildcard-search"
+  ],
+  "skills": [
+    "Tries",
+    "design",
+    "wildcard search"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(L·26ᵈ)",
+    "space": "O(L·26ᵈ)"
+  },
+  "complexityAnalysis": "AddWord takes O(L). Search takes O(L·26ᵈ) time as an upper bound for d dots and O(L) recursive stack space. The Trie stores O(S) distinct prefix nodes.",
+  "publicTests": [
+    {
+      "name": "BLIND150-078-T01",
+      "arguments": [
+        [
+          [
+            "addWord",
+            "sun"
+          ],
+          [
+            "search",
+            "s.n"
+          ],
+          [
+            "search",
+            "s."
+          ],
+          [
+            "search",
+            "..n"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "addWord",
+            "sun"
+          ],
+          [
+            "search",
+            "s.n"
+          ],
+          [
+            "search",
+            "s."
+          ],
+          [
+            "search",
+            "..n"
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        0,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-078-T02",
+      "arguments": [
+        [
+          [
+            "search",
+            "."
+          ],
+          [
+            "addWord",
+            "x"
+          ],
+          [
+            "addWord",
+            "x"
+          ],
+          [
+            "search",
+            "."
+          ],
+          [
+            "search",
+            ".."
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "search",
+            "."
+          ],
+          [
+            "addWord",
+            "x"
+          ],
+          [
+            "addWord",
+            "x"
+          ],
+          [
+            "search",
+            "."
+          ],
+          [
+            "search",
+            ".."
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-078-T03",
+      "arguments": [
+        [
+          [
+            "addWord",
+            "code"
+          ],
+          [
+            "search",
+            ".at"
+          ],
+          [
+            "search",
+            "c..e"
+          ],
+          [
+            "search",
+            "code"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "addWord",
+            "code"
+          ],
+          [
+            "search",
+            ".at"
+          ],
+          [
+            "search",
+            "c..e"
+          ],
+          [
+            "search",
+            "code"
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class WordDictionary:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def addWord(self, word: str) -> None:\n        raise NotImplementedError\n\n    def search(self, word: str) -> bool:\n        raise NotImplementedError",
+    "java": "class WordDictionary {\n    public WordDictionary() { throw new UnsupportedOperationException(); }\n\n    public void addWord(String word) {\n        throw new UnsupportedOperationException();\n    }\n\n    public boolean search(String word) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class WordDictionary {\n  constructor() { throw new Error('Implement constructor'); }\n\n  /** @param {string} word @returns {void} */\n  addWord(word) { throw new Error('Implement addWord'); }\n\n  /** @param {string} word @returns {boolean} */\n  search(word) { throw new Error('Implement search'); }\n}",
+    "typescript": "class WordDictionary {\n  constructor() { throw new Error('Implement constructor'); }\n\n  addWord(word: string): void { throw new Error('Implement addWord'); }\n\n  search(word: string): boolean { throw new Error('Implement search'); }\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdlib.h>\n\ntypedef struct WordDictionary WordDictionary;\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nWordDictionary *wordDictionaryCreate(void) { abort(); }\n\nvoid wordDictionaryAddWord(WordDictionary *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}\n\nbool wordDictionarySearch(WordDictionary *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n\nclass WordDictionary {\npublic:\n    WordDictionary() { throw std::logic_error(\"Implement method\"); }\n\n    void addWord(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    bool search(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+    "csharp": "public class WordDictionary {\n    public WordDictionary() { throw new System.NotImplementedException(); }\n\n    public void addWord(string word) {\n        throw new System.NotImplementedException();\n    }\n\n    public bool search(string word) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass WordDictionary {\n    public function __construct() { throw new LogicException('Implement method'); }\n\n    public function addWord(string $word): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function search(string $word): bool {\n        throw new LogicException('Implement method');\n    }\n}",
+    "r": "WordDictionary <- function() {\n  list(\n    # word is a character scalar. Returns invisible NULL.\n    addWord = function(word) stop('Implement addWord'),\n    # word is a character scalar. Returns a logical scalar.\n    search = function(word) stop('Implement search')\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-078-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-078-statement",
+      "type": "paragraph",
+      "content": "Build an initially empty WordDictionary. AddWord stores a literal word. Search tests whether any stored word matches the entire pattern. A dot matches exactly one lowercase letter. Search calls leave stored words unchanged.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-078-contract",
+      "type": "note",
+      "title": "class WordDictionary:",
+      "content": "Input: `ops` (nested string arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-078-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 10,000 calls. Text lengths are 1–25. AddWord takes lowercase English letters. Search takes lowercase letters and at most two dots. Fixture rows are [operation, text]. Search results are 1 or 0 in call order.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-078-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class WordDictionary:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def addWord(self, word: str) -> None:\n        raise NotImplementedError\n\n    def search(self, word: str) -> bool:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class WordDictionary {\n    public WordDictionary() { throw new UnsupportedOperationException(); }\n\n    public void addWord(String word) {\n        throw new UnsupportedOperationException();\n    }\n\n    public boolean search(String word) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class WordDictionary {\n  constructor() { throw new Error('Implement constructor'); }\n\n  /** @param {string} word @returns {void} */\n  addWord(word) { throw new Error('Implement addWord'); }\n\n  /** @param {string} word @returns {boolean} */\n  search(word) { throw new Error('Implement search'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class WordDictionary {\n  constructor() { throw new Error('Implement constructor'); }\n\n  addWord(word: string): void { throw new Error('Implement addWord'); }\n\n  search(word: string): boolean { throw new Error('Implement search'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdlib.h>\n\ntypedef struct WordDictionary WordDictionary;\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nWordDictionary *wordDictionaryCreate(void) { abort(); }\n\nvoid wordDictionaryAddWord(WordDictionary *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}\n\nbool wordDictionarySearch(WordDictionary *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n\nclass WordDictionary {\npublic:\n    WordDictionary() { throw std::logic_error(\"Implement method\"); }\n\n    void addWord(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    bool search(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class WordDictionary {\n    public WordDictionary() { throw new System.NotImplementedException(); }\n\n    public void addWord(string word) {\n        throw new System.NotImplementedException();\n    }\n\n    public bool search(string word) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass WordDictionary {\n    public function __construct() { throw new LogicException('Implement method'); }\n\n    public function addWord(string $word): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function search(string $word): bool {\n        throw new LogicException('Implement method');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-078-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "WordDictionary <- function() {\n  list(\n    # word is a character scalar. Returns invisible NULL.\n    addWord = function(word) stop('Implement addWord'),\n    # word is a character scalar. Returns a logical scalar.\n    search = function(word) stop('Implement search')\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

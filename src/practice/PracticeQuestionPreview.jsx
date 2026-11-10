@@ -5,7 +5,7 @@ import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
 
 export function PracticeQuestionPreview({ question, solved, onStart }) {
   if (!question) {
-    return <aside className="practice-preview is-empty"><p>No questions match these filters.</p></aside>;
+    return <aside className="practice-preview is-empty"><p>No practice questions are currently available.</p></aside>;
   }
   return (
     <aside className="practice-preview" aria-labelledby="practice-preview-title">

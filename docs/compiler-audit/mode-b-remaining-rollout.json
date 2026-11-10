@@ -1,0 +1,2753 @@
+{
+  "schemaVersion": "practice-mode-b-remaining-rollout-v1",
+  "considered": 48,
+  "previousActive": 60,
+  "newlyActivated": [
+    "BLIND150-008",
+    "BLIND150-023",
+    "BLIND150-068",
+    "BLIND150-071",
+    "BLIND150-073",
+    "BLIND150-080",
+    "BLIND150-081",
+    "BLIND150-084",
+    "BLIND150-090",
+    "BLIND150-091",
+    "BLIND150-092",
+    "BLIND150-093",
+    "BLIND150-095",
+    "BLIND150-096",
+    "BLIND150-098",
+    "BLIND150-105",
+    "BLIND150-108",
+    "BLIND150-117",
+    "BLIND150-127",
+    "BLIND150-130",
+    "BLIND150-132",
+    "BLIND150-133",
+    "BLIND150-134",
+    "BLIND150-135",
+    "BLIND150-137",
+    "BLIND150-139",
+    "BLIND150-142",
+    "BLIND150-150"
+  ],
+  "newlyActivatedCount": 28,
+  "totalActive": 88,
+  "remainingInactive": 162,
+  "deferred": 0,
+  "reclassified": [
+    {
+      "id": "BLIND150-032",
+      "title": "Time Based Key Value Store",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-035",
+      "title": "Merge Two Sorted Lists",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-038",
+      "title": "Remove Nth Node from End of List",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-040",
+      "title": "Add Two Numbers",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-042",
+      "title": "LRU Cache",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-043",
+      "title": "Merge K Sorted Lists",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-046",
+      "title": "Maximum Depth of Binary Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-047",
+      "title": "Diameter of Binary Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-048",
+      "title": "Balanced Binary Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-049",
+      "title": "Same Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-050",
+      "title": "Subtree of another Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-051",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-052",
+      "title": "Binary Tree Level Order Traversal",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-053",
+      "title": "Binary Tree Right Side View",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-054",
+      "title": "Count Good Nodes in Binary Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-055",
+      "title": "Validate Binary Search Tree",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-056",
+      "title": "Kth Smallest Element in a BST",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-057",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-058",
+      "title": "Binary Tree Maximum Path Sum",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    },
+    {
+      "id": "BLIND150-143",
+      "title": "Detect Squares",
+      "originalClassification": "metadata-only-mapping",
+      "newClassification": "new-adapter-required",
+      "exactMissingCapability": "Reclassified from metadata-only: imported contract requires a distinct linked-list, tree, graph, or stateful-object protocol beyond this primitive rollout."
+    }
+  ],
+  "selected": [
+    {
+      "id": "BLIND150-008",
+      "title": "Valid Sudoku",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 24474,
+          "executionTimeMs": 294,
+          "outputBytes": 2653
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11855,
+          "executionTimeMs": 11628,
+          "outputBytes": 2653
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 241,
+          "executionTimeMs": 28,
+          "outputBytes": 2653
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 813,
+          "executionTimeMs": 31,
+          "outputBytes": 2653
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 33334,
+          "executionTimeMs": 29263,
+          "outputBytes": 2653
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 48870,
+          "executionTimeMs": 45271,
+          "outputBytes": 2653
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 42577,
+          "executionTimeMs": 39044.215,
+          "outputBytes": 2653
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2731,
+          "executionTimeMs": 2500,
+          "outputBytes": 2653
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12989,
+          "executionTimeMs": 906,
+          "outputBytes": 2653
+        }
+      }
+    },
+    {
+      "id": "BLIND150-023",
+      "title": "Evaluate Reverse Polish Notation",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17847,
+          "executionTimeMs": 269,
+          "outputBytes": 688
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18765,
+          "executionTimeMs": 18384,
+          "outputBytes": 688
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 155,
+          "executionTimeMs": 22,
+          "outputBytes": 688
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 654,
+          "executionTimeMs": 20,
+          "outputBytes": 688
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18869,
+          "executionTimeMs": 16790,
+          "outputBytes": 688
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30813,
+          "executionTimeMs": 28723,
+          "outputBytes": 688
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 58190,
+          "executionTimeMs": 50916.675,
+          "outputBytes": 688
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2263,
+          "executionTimeMs": 2041,
+          "outputBytes": 688
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11653,
+          "executionTimeMs": 1077,
+          "outputBytes": 688
+        }
+      }
+    },
+    {
+      "id": "BLIND150-068",
+      "title": "Combination Sum",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_bag_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17747,
+          "executionTimeMs": 378,
+          "outputBytes": 764
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17774,
+          "executionTimeMs": 17323,
+          "outputBytes": 764
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 178,
+          "executionTimeMs": 17,
+          "outputBytes": 764
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 479,
+          "executionTimeMs": 22,
+          "outputBytes": 764
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 38338,
+          "executionTimeMs": 34909,
+          "outputBytes": 764
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 53223,
+          "executionTimeMs": 48522,
+          "outputBytes": 764
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56406,
+          "executionTimeMs": 49578.4399,
+          "outputBytes": 764
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2469,
+          "executionTimeMs": 2247,
+          "outputBytes": 764
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13394,
+          "executionTimeMs": 1153,
+          "outputBytes": 764
+        }
+      }
+    },
+    {
+      "id": "BLIND150-071",
+      "title": "Subsets II",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_bag_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34211,
+          "executionTimeMs": 529,
+          "outputBytes": 782
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 26855,
+          "executionTimeMs": 26318,
+          "outputBytes": 782
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 144,
+          "executionTimeMs": 16,
+          "outputBytes": 782
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 668,
+          "executionTimeMs": 20,
+          "outputBytes": 782
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18603,
+          "executionTimeMs": 16335,
+          "outputBytes": 782
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31504,
+          "executionTimeMs": 29249,
+          "outputBytes": 782
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 40166,
+          "executionTimeMs": 34268.090000000004,
+          "outputBytes": 782
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2314,
+          "executionTimeMs": 2132,
+          "outputBytes": 782
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12941,
+          "executionTimeMs": 869,
+          "outputBytes": 782
+        }
+      }
+    },
+    {
+      "id": "BLIND150-073",
+      "title": "Word Search",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 21718,
+          "executionTimeMs": 424,
+          "outputBytes": 733
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11719,
+          "executionTimeMs": 11495,
+          "outputBytes": 733
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 207,
+          "executionTimeMs": 24,
+          "outputBytes": 733
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 593,
+          "executionTimeMs": 24,
+          "outputBytes": 733
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22488,
+          "executionTimeMs": 20032,
+          "outputBytes": 733
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31179,
+          "executionTimeMs": 29162,
+          "outputBytes": 733
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29943,
+          "executionTimeMs": 27352.739999999998,
+          "outputBytes": 733
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3161,
+          "executionTimeMs": 2901,
+          "outputBytes": 733
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9828,
+          "executionTimeMs": 875,
+          "outputBytes": 733
+        }
+      }
+    },
+    {
+      "id": "BLIND150-080",
+      "title": "Number of Islands",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 20227,
+          "executionTimeMs": 462,
+          "outputBytes": 681
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14815,
+          "executionTimeMs": 14545,
+          "outputBytes": 681
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 212,
+          "executionTimeMs": 28,
+          "outputBytes": 681
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 943,
+          "executionTimeMs": 33,
+          "outputBytes": 681
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 21537,
+          "executionTimeMs": 18673,
+          "outputBytes": 681
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31332,
+          "executionTimeMs": 29240,
+          "outputBytes": 681
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30355,
+          "executionTimeMs": 26376.114899999997,
+          "outputBytes": 681
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3268,
+          "executionTimeMs": 2892,
+          "outputBytes": 681
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11424,
+          "executionTimeMs": 661,
+          "outputBytes": 681
+        }
+      }
+    },
+    {
+      "id": "BLIND150-081",
+      "title": "Max Area of Island",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14947,
+          "executionTimeMs": 314,
+          "outputBytes": 633
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10060,
+          "executionTimeMs": 9851,
+          "outputBytes": 633
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 260,
+          "executionTimeMs": 41,
+          "outputBytes": 633
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 970,
+          "executionTimeMs": 63,
+          "outputBytes": 633
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18689,
+          "executionTimeMs": 16439,
+          "outputBytes": 633
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34345,
+          "executionTimeMs": 32194,
+          "outputBytes": 633
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 32171,
+          "executionTimeMs": 28894.1849,
+          "outputBytes": 633
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3533,
+          "executionTimeMs": 3252,
+          "outputBytes": 633
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13740,
+          "executionTimeMs": 796,
+          "outputBytes": 633
+        }
+      }
+    },
+    {
+      "id": "BLIND150-084",
+      "title": "Rotting Oranges",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 19333,
+          "executionTimeMs": 333,
+          "outputBytes": 612
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10226,
+          "executionTimeMs": 10010,
+          "outputBytes": 612
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 574,
+          "executionTimeMs": 101,
+          "outputBytes": 612
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 786,
+          "executionTimeMs": 29,
+          "outputBytes": 612
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 19267,
+          "executionTimeMs": 16730,
+          "outputBytes": 612
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30079,
+          "executionTimeMs": 27862,
+          "outputBytes": 612
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34923,
+          "executionTimeMs": 30669.035,
+          "outputBytes": 612
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1803,
+          "executionTimeMs": 1630,
+          "outputBytes": 612
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9813,
+          "executionTimeMs": 687,
+          "outputBytes": 612
+        }
+      }
+    },
+    {
+      "id": "BLIND150-090",
+      "title": "Number of Connected Components in an Undirected Graph",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9646,
+          "executionTimeMs": 207,
+          "outputBytes": 664
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10726,
+          "executionTimeMs": 10522,
+          "outputBytes": 664
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 412,
+          "executionTimeMs": 60,
+          "outputBytes": 664
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1028,
+          "executionTimeMs": 30,
+          "outputBytes": 664
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 47860,
+          "executionTimeMs": 43453,
+          "outputBytes": 664
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 24442,
+          "executionTimeMs": 22651,
+          "outputBytes": 664
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 70165,
+          "executionTimeMs": 63235.8,
+          "outputBytes": 664
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3365,
+          "executionTimeMs": 2869,
+          "outputBytes": 664
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9784,
+          "executionTimeMs": 642,
+          "outputBytes": 664
+        }
+      }
+    },
+    {
+      "id": "BLIND150-091",
+      "title": "Redundant Connection",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10923,
+          "executionTimeMs": 176,
+          "outputBytes": 736
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 26190,
+          "executionTimeMs": 25237,
+          "outputBytes": 736
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 277,
+          "executionTimeMs": 23,
+          "outputBytes": 736
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 792,
+          "executionTimeMs": 46,
+          "outputBytes": 736
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22611,
+          "executionTimeMs": 19948,
+          "outputBytes": 736
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29717,
+          "executionTimeMs": 27585,
+          "outputBytes": 736
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 41702,
+          "executionTimeMs": 37386.555,
+          "outputBytes": 736
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3057,
+          "executionTimeMs": 2779,
+          "outputBytes": 736
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11479,
+          "executionTimeMs": 904,
+          "outputBytes": 736
+        }
+      }
+    },
+    {
+      "id": "BLIND150-092",
+      "title": "Word Ladder",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17675,
+          "executionTimeMs": 356,
+          "outputBytes": 811
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8944,
+          "executionTimeMs": 8725,
+          "outputBytes": 811
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 160,
+          "executionTimeMs": 23,
+          "outputBytes": 811
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 712,
+          "executionTimeMs": 42,
+          "outputBytes": 811
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 20375,
+          "executionTimeMs": 17930,
+          "outputBytes": 811
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30218,
+          "executionTimeMs": 27918,
+          "outputBytes": 811
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31644,
+          "executionTimeMs": 27565.8498,
+          "outputBytes": 811
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2306,
+          "executionTimeMs": 2103,
+          "outputBytes": 811
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13550,
+          "executionTimeMs": 860,
+          "outputBytes": 811
+        }
+      }
+    },
+    {
+      "id": "BLIND150-093",
+      "title": "Network Delay Time",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11888,
+          "executionTimeMs": 271,
+          "outputBytes": 731
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10464,
+          "executionTimeMs": 10127,
+          "outputBytes": 731
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 318,
+          "executionTimeMs": 36,
+          "outputBytes": 731
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 916,
+          "executionTimeMs": 24,
+          "outputBytes": 731
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16118,
+          "executionTimeMs": 14063,
+          "outputBytes": 731
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 24713,
+          "executionTimeMs": 22703,
+          "outputBytes": 731
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 28715,
+          "executionTimeMs": 26330.2649,
+          "outputBytes": 731
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 5526,
+          "executionTimeMs": 5022,
+          "outputBytes": 731
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10300,
+          "executionTimeMs": 679,
+          "outputBytes": 731
+        }
+      }
+    },
+    {
+      "id": "BLIND150-095",
+      "title": "Min Cost to Connect All Points",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18709,
+          "executionTimeMs": 488,
+          "outputBytes": 669
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9391,
+          "executionTimeMs": 9153,
+          "outputBytes": 669
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 146,
+          "executionTimeMs": 18,
+          "outputBytes": 669
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 561,
+          "executionTimeMs": 27,
+          "outputBytes": 669
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18660,
+          "executionTimeMs": 16443,
+          "outputBytes": 669
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 37734,
+          "executionTimeMs": 35033,
+          "outputBytes": 669
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 33834,
+          "executionTimeMs": 30599.975,
+          "outputBytes": 669
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2192,
+          "executionTimeMs": 1985,
+          "outputBytes": 669
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 25851,
+          "executionTimeMs": 1662,
+          "outputBytes": 669
+        }
+      }
+    },
+    {
+      "id": "BLIND150-096",
+      "title": "Swim in Rising Water",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18756,
+          "executionTimeMs": 365,
+          "outputBytes": 621
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9546,
+          "executionTimeMs": 9346,
+          "outputBytes": 621
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 222,
+          "executionTimeMs": 28,
+          "outputBytes": 621
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 545,
+          "executionTimeMs": 30,
+          "outputBytes": 621
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 23309,
+          "executionTimeMs": 20553,
+          "outputBytes": 621
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 48216,
+          "executionTimeMs": 45357,
+          "outputBytes": 621
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29610,
+          "executionTimeMs": 26476.2348,
+          "outputBytes": 621
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2374,
+          "executionTimeMs": 2143,
+          "outputBytes": 621
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10597,
+          "executionTimeMs": 905,
+          "outputBytes": 621
+        }
+      }
+    },
+    {
+      "id": "BLIND150-098",
+      "title": "Cheapest Flights Within K Stops",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array",
+        "number",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18283,
+          "executionTimeMs": 475,
+          "outputBytes": 836
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11418,
+          "executionTimeMs": 11249,
+          "outputBytes": 836
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 176,
+          "executionTimeMs": 21,
+          "outputBytes": 836
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 752,
+          "executionTimeMs": 24,
+          "outputBytes": 836
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 26383,
+          "executionTimeMs": 23866,
+          "outputBytes": 836
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 45486,
+          "executionTimeMs": 43032,
+          "outputBytes": 836
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34881,
+          "executionTimeMs": 30674.465,
+          "outputBytes": 836
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2907,
+          "executionTimeMs": 2449,
+          "outputBytes": 836
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29750,
+          "executionTimeMs": 840,
+          "outputBytes": 836
+        }
+      }
+    },
+    {
+      "id": "BLIND150-105",
+      "title": "Decode Ways",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18176,
+          "executionTimeMs": 314,
+          "outputBytes": 580
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12007,
+          "executionTimeMs": 11778,
+          "outputBytes": 580
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 366,
+          "executionTimeMs": 39,
+          "outputBytes": 580
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 584,
+          "executionTimeMs": 24,
+          "outputBytes": 580
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 26774,
+          "executionTimeMs": 24158,
+          "outputBytes": 580
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 52400,
+          "executionTimeMs": 49771,
+          "outputBytes": 580
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 47578,
+          "executionTimeMs": 43467.2699,
+          "outputBytes": 580
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2523,
+          "executionTimeMs": 2300,
+          "outputBytes": 580
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9730,
+          "executionTimeMs": 744,
+          "outputBytes": 580
+        }
+      }
+    },
+    {
+      "id": "BLIND150-108",
+      "title": "Word Break",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 20001,
+          "executionTimeMs": 352,
+          "outputBytes": 775
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16525,
+          "executionTimeMs": 16250,
+          "outputBytes": 775
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 135,
+          "executionTimeMs": 20,
+          "outputBytes": 775
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 446,
+          "executionTimeMs": 21,
+          "outputBytes": 775
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 39734,
+          "executionTimeMs": 36676,
+          "outputBytes": 775
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 79809,
+          "executionTimeMs": 74931,
+          "outputBytes": 775
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 43799,
+          "executionTimeMs": 39918.175,
+          "outputBytes": 775
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2013,
+          "executionTimeMs": 1859,
+          "outputBytes": 775
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11256,
+          "executionTimeMs": 737,
+          "outputBytes": 775
+        }
+      }
+    },
+    {
+      "id": "BLIND150-117",
+      "title": "Longest Increasing Path in a Matrix",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 27490,
+          "executionTimeMs": 439,
+          "outputBytes": 635
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15611,
+          "executionTimeMs": 15329,
+          "outputBytes": 635
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 137,
+          "executionTimeMs": 19,
+          "outputBytes": 635
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 394,
+          "executionTimeMs": 13,
+          "outputBytes": 635
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 28725,
+          "executionTimeMs": 25220,
+          "outputBytes": 635
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30815,
+          "executionTimeMs": 28349,
+          "outputBytes": 635
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 45258,
+          "executionTimeMs": 41170.69,
+          "outputBytes": 635
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1339,
+          "executionTimeMs": 1206,
+          "outputBytes": 635
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10860,
+          "executionTimeMs": 933,
+          "outputBytes": 635
+        }
+      }
+    },
+    {
+      "id": "BLIND150-127",
+      "title": "Merge Triplets to Form Target Triplet",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17465,
+          "executionTimeMs": 375,
+          "outputBytes": 762
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15523,
+          "executionTimeMs": 15255,
+          "outputBytes": 762
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 204,
+          "executionTimeMs": 26,
+          "outputBytes": 762
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 708,
+          "executionTimeMs": 23,
+          "outputBytes": 762
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18586,
+          "executionTimeMs": 16296,
+          "outputBytes": 762
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 32980,
+          "executionTimeMs": 30469,
+          "outputBytes": 762
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 62543,
+          "executionTimeMs": 57015.264899999995,
+          "outputBytes": 762
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2178,
+          "executionTimeMs": 1982,
+          "outputBytes": 762
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7849,
+          "executionTimeMs": 544,
+          "outputBytes": 762
+        }
+      }
+    },
+    {
+      "id": "BLIND150-130",
+      "title": "Insert Interval",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22824,
+          "executionTimeMs": 503,
+          "outputBytes": 792
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 25755,
+          "executionTimeMs": 25124,
+          "outputBytes": 792
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 185,
+          "executionTimeMs": 32,
+          "outputBytes": 792
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 565,
+          "executionTimeMs": 24,
+          "outputBytes": 792
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 37688,
+          "executionTimeMs": 33826,
+          "outputBytes": 792
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 81767,
+          "executionTimeMs": 77013,
+          "outputBytes": 792
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 69817,
+          "executionTimeMs": 62445.83499999999,
+          "outputBytes": 792
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1768,
+          "executionTimeMs": 1570,
+          "outputBytes": 792
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9280,
+          "executionTimeMs": 801,
+          "outputBytes": 792
+        }
+      }
+    },
+    {
+      "id": "BLIND150-132",
+      "title": "Non Overlapping Intervals",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 23038,
+          "executionTimeMs": 409,
+          "outputBytes": 676
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16370,
+          "executionTimeMs": 16123,
+          "outputBytes": 676
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 279,
+          "executionTimeMs": 28,
+          "outputBytes": 676
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 707,
+          "executionTimeMs": 32,
+          "outputBytes": 676
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 51230,
+          "executionTimeMs": 45206,
+          "outputBytes": 676
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 68462,
+          "executionTimeMs": 64757,
+          "outputBytes": 676
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56917,
+          "executionTimeMs": 50920.835,
+          "outputBytes": 676
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3150,
+          "executionTimeMs": 2890,
+          "outputBytes": 676
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13513,
+          "executionTimeMs": 626,
+          "outputBytes": 676
+        }
+      }
+    },
+    {
+      "id": "BLIND150-133",
+      "title": "Meeting Rooms",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 19425,
+          "executionTimeMs": 367,
+          "outputBytes": 660
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11977,
+          "executionTimeMs": 11745,
+          "outputBytes": 660
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 218,
+          "executionTimeMs": 28,
+          "outputBytes": 660
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 659,
+          "executionTimeMs": 27,
+          "outputBytes": 660
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 44486,
+          "executionTimeMs": 38846,
+          "outputBytes": 660
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 68587,
+          "executionTimeMs": 60627,
+          "outputBytes": 660
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 32218,
+          "executionTimeMs": 27964.989800000003,
+          "outputBytes": 660
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2481,
+          "executionTimeMs": 2237,
+          "outputBytes": 660
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14577,
+          "executionTimeMs": 1047,
+          "outputBytes": 660
+        }
+      }
+    },
+    {
+      "id": "BLIND150-134",
+      "title": "Meeting Rooms II",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 21633,
+          "executionTimeMs": 337,
+          "outputBytes": 642
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10042,
+          "executionTimeMs": 9797,
+          "outputBytes": 642
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 174,
+          "executionTimeMs": 22,
+          "outputBytes": 642
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 463,
+          "executionTimeMs": 21,
+          "outputBytes": 642
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 39219,
+          "executionTimeMs": 35336,
+          "outputBytes": 642
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 70232,
+          "executionTimeMs": 67050,
+          "outputBytes": 642
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 69954,
+          "executionTimeMs": 62308.2448,
+          "outputBytes": 642
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1967,
+          "executionTimeMs": 1763,
+          "outputBytes": 642
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14443,
+          "executionTimeMs": 969,
+          "outputBytes": 642
+        }
+      }
+    },
+    {
+      "id": "BLIND150-135",
+      "title": "Minimum Interval to Include Each Query",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 23355,
+          "executionTimeMs": 451,
+          "outputBytes": 763
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16821,
+          "executionTimeMs": 16456,
+          "outputBytes": 763
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 175,
+          "executionTimeMs": 22,
+          "outputBytes": 763
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 596,
+          "executionTimeMs": 28,
+          "outputBytes": 763
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 43340,
+          "executionTimeMs": 38302,
+          "outputBytes": 763
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 75101,
+          "executionTimeMs": 70940,
+          "outputBytes": 763
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 62994,
+          "executionTimeMs": 55458.3299,
+          "outputBytes": 763
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3252,
+          "executionTimeMs": 2944,
+          "outputBytes": 763
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14396,
+          "executionTimeMs": 793,
+          "outputBytes": 763
+        }
+      }
+    },
+    {
+      "id": "BLIND150-137",
+      "title": "Spiral Matrix",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18353,
+          "executionTimeMs": 295,
+          "outputBytes": 753
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22963,
+          "executionTimeMs": 22400,
+          "outputBytes": 753
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 203,
+          "executionTimeMs": 25,
+          "outputBytes": 753
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 709,
+          "executionTimeMs": 23,
+          "outputBytes": 753
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 48128,
+          "executionTimeMs": 42250,
+          "outputBytes": 753
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 73063,
+          "executionTimeMs": 68687,
+          "outputBytes": 753
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56687,
+          "executionTimeMs": 50615.345,
+          "outputBytes": 753
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2404,
+          "executionTimeMs": 2142,
+          "outputBytes": 753
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10431,
+          "executionTimeMs": 905,
+          "outputBytes": 753
+        }
+      }
+    },
+    {
+      "id": "BLIND150-139",
+      "title": "Happy Number",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "floating-point"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 20525,
+          "executionTimeMs": 433,
+          "outputBytes": 590
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30854,
+          "executionTimeMs": 30470,
+          "outputBytes": 590
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 149,
+          "executionTimeMs": 21,
+          "outputBytes": 590
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 697,
+          "executionTimeMs": 27,
+          "outputBytes": 590
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 43704,
+          "executionTimeMs": 38811,
+          "outputBytes": 590
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 70781,
+          "executionTimeMs": 66975,
+          "outputBytes": 590
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 65715,
+          "executionTimeMs": 52911.3,
+          "outputBytes": 590
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2209,
+          "executionTimeMs": 1985,
+          "outputBytes": 590
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13934,
+          "executionTimeMs": 820,
+          "outputBytes": 590
+        }
+      }
+    },
+    {
+      "id": "BLIND150-142",
+      "title": "Multiply Strings",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 23564,
+          "executionTimeMs": 537,
+          "outputBytes": 667
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22427,
+          "executionTimeMs": 22017,
+          "outputBytes": 667
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 196,
+          "executionTimeMs": 23,
+          "outputBytes": 667
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 891,
+          "executionTimeMs": 39,
+          "outputBytes": 667
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 42808,
+          "executionTimeMs": 38012,
+          "outputBytes": 667
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 69171,
+          "executionTimeMs": 64965,
+          "outputBytes": 667
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 60491,
+          "executionTimeMs": 55265.634900000005,
+          "outputBytes": 667
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3786,
+          "executionTimeMs": 3522,
+          "outputBytes": 667
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12387,
+          "executionTimeMs": 902,
+          "outputBytes": 667
+        }
+      }
+    },
+    {
+      "id": "BLIND150-150",
+      "title": "Reverse Integer",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "floating-point"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 26423,
+          "executionTimeMs": 345,
+          "outputBytes": 596
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 24565,
+          "executionTimeMs": 24097,
+          "outputBytes": 596
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 269,
+          "executionTimeMs": 35,
+          "outputBytes": 596
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 777,
+          "executionTimeMs": 25,
+          "outputBytes": 596
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 41761,
+          "executionTimeMs": 37446,
+          "outputBytes": 596
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 73908,
+          "executionTimeMs": 69265,
+          "outputBytes": 596
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 77599,
+          "executionTimeMs": 69526.63,
+          "outputBytes": 596
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2755,
+          "executionTimeMs": 2532,
+          "outputBytes": 596
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16669,
+          "executionTimeMs": 1212,
+          "outputBytes": 596
+        }
+      }
+    }
+  ]
+}

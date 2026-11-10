@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-039",
+  "title": "Copy List with Random Pointer",
+  "summary": "Create a deep copy of a singly linked list whose nodes also have a random pointer.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "copyRandomList",
+    "signature": "class RandomNode:",
+    "input": "`head` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`head` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "0–1,000 nodes with values in [−10,000, 10,000]. The next chain is acyclic. Each random pointer may target any node in the list or be null. A randomIndex of −1 represents null. Other indices are zero-based.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Create a deep copy of a singly linked list whose nodes also have a random pointer. Every copied node must be new, with the same value as its original. Translate both kinds of links to copied nodes and return the copied head. Leave the original list unchanged. The judge supplies the head, while examples show rows [value, randomIndex] in next order.",
+  "examples": [
+    {
+      "input": "{\"head\":[[4,1],[7,-1]]}",
+      "output": "[[4,1],[7,-1]]",
+      "explanation": "The first clone's random pointer targets the second clone."
+    },
+    {
+      "input": "{\"head\":[[6,0]]}",
+      "output": "[[6,0]]",
+      "explanation": "The one copied node points to itself through random."
+    },
+    {
+      "input": "{\"head\":[[2,2],[2,0],[2,1]]}",
+      "output": "[[2,2],[2,0],[2,1]]",
+      "explanation": "Identical values do not change which objects the random pointers target."
+    }
+  ],
+  "constraints": [
+    "0–1,000 nodes with values in [−10,000, 10,000]. The next chain is acyclic. Each random pointer may target any node in the list or be null. A randomIndex of −1 represents null. Other indices are zero-based."
+  ],
+  "hints": [
+    "Conceptual: Equal values do not tell you whether two pointers target the same node.",
+    "Directional: Build a mapping from each original node to its corresponding new node.",
+    "Implementation: Allocate all clones before wiring their links. For each original, look up the clones of its next and random targets, leaving null links null."
+  ],
+  "concepts": [
+    "linked-lists",
+    "object-identity",
+    "hash-maps"
+  ],
+  "skills": [
+    "Linked lists",
+    "object identity",
+    "hash maps"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) expected time and O(n) auxiliary space for a node-to-clone map, excluding the cloned nodes.",
+  "publicTests": [
+    {
+      "name": "BLIND150-039-T01",
+      "arguments": [
+        [
+          [
+            4,
+            1
+          ],
+          [
+            7,
+            -1
+          ]
+        ]
+      ],
+      "input": {
+        "head": [
+          [
+            4,
+            1
+          ],
+          [
+            7,
+            -1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          4,
+          1
+        ],
+        [
+          7,
+          -1
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-039-T02",
+      "arguments": [
+        [
+          [
+            6,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "head": [
+          [
+            6,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          6,
+          0
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-039-T03",
+      "arguments": [
+        [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "head": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass RandomNode:\n    def __init__(self, val: int = 0):\n        self.val = val\n        self.next: RandomNode | None = None\n        self.random: RandomNode | None = None\n\ndef copyRandomList(head: RandomNode | None) -> RandomNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class RandomNode {\n        public int val;\n        public RandomNode next, random;\n        public RandomNode(int val) { this.val = val; }\n    }\n\n    public RandomNode copyRandomList(RandomNode head) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class RandomNode {\n  constructor(val = 0) {\n    this.val = val;\n    this.next = null;\n    this.random = null;\n  }\n}\n\n/** @param {RandomNode | null} head @returns {RandomNode | null} */\nfunction copyRandomList(head) {\n  throw new Error('Implement copyRandomList');\n}",
+    "typescript": "class RandomNode {\n  next: RandomNode | null = null;\n  random: RandomNode | null = null;\n  constructor(public val = 0) {}\n}\n\nfunction copyRandomList(head: RandomNode | null): RandomNode | null {\n  throw new Error('Implement copyRandomList');\n}",
+    "c": "#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct RandomNode {\n    int32_t val;\n    struct RandomNode *next, *random;\n} RandomNode;\n\nRandomNode *copyRandomList(RandomNode *head) {\n    (void)head;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct RandomNode {\n    int val;\n    RandomNode *next, *random;\n};\n\nRandomNode *copyRandomList(RandomNode *head) {\n    (void)head;\n    throw std::logic_error(\"Implement copyRandomList\");\n}",
+    "csharp": "public class Solution {\n    public class RandomNode {\n        public int val;\n        public RandomNode next, random;\n        public RandomNode(int val) { this.val = val; }\n    }\n\n    public RandomNode copyRandomList(RandomNode head) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass RandomNode {\n    public ?RandomNode $next = null;\n    public ?RandomNode $random = null;\n    public function __construct(public int $val = 0) {}\n}\n\nfunction copyRandomList(?RandomNode $head): ?RandomNode {\n    throw new LogicException('Implement copyRandomList');\n}",
+    "r": "RandomNode <- function(val = 0L) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- NULL\n  node$random <- NULL\n  node\n}\n\n# Result is a RandomNode environment or NULL.\ncopyRandomList <- function(head) {\n  stop(\"Implement copyRandomList\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-039-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-039-statement",
+      "type": "paragraph",
+      "content": "Create a deep copy of a singly linked list whose nodes also have a random pointer. Every copied node must be new, with the same value as its original. Translate both kinds of links to copied nodes and return the copied head. Leave the original list unchanged. The judge supplies the head, while examples show rows [value, randomIndex] in next order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-039-contract",
+      "type": "note",
+      "title": "class RandomNode:",
+      "content": "Input: `head` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-039-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–1,000 nodes with values in [−10,000, 10,000]. The next chain is acyclic. Each random pointer may target any node in the list or be null. A randomIndex of −1 represents null. Other indices are zero-based.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-039-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass RandomNode:\n    def __init__(self, val: int = 0):\n        self.val = val\n        self.next: RandomNode | None = None\n        self.random: RandomNode | None = None\n\ndef copyRandomList(head: RandomNode | None) -> RandomNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class RandomNode {\n        public int val;\n        public RandomNode next, random;\n        public RandomNode(int val) { this.val = val; }\n    }\n\n    public RandomNode copyRandomList(RandomNode head) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class RandomNode {\n  constructor(val = 0) {\n    this.val = val;\n    this.next = null;\n    this.random = null;\n  }\n}\n\n/** @param {RandomNode | null} head @returns {RandomNode | null} */\nfunction copyRandomList(head) {\n  throw new Error('Implement copyRandomList');\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class RandomNode {\n  next: RandomNode | null = null;\n  random: RandomNode | null = null;\n  constructor(public val = 0) {}\n}\n\nfunction copyRandomList(head: RandomNode | null): RandomNode | null {\n  throw new Error('Implement copyRandomList');\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct RandomNode {\n    int32_t val;\n    struct RandomNode *next, *random;\n} RandomNode;\n\nRandomNode *copyRandomList(RandomNode *head) {\n    (void)head;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct RandomNode {\n    int val;\n    RandomNode *next, *random;\n};\n\nRandomNode *copyRandomList(RandomNode *head) {\n    (void)head;\n    throw std::logic_error(\"Implement copyRandomList\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class RandomNode {\n        public int val;\n        public RandomNode next, random;\n        public RandomNode(int val) { this.val = val; }\n    }\n\n    public RandomNode copyRandomList(RandomNode head) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass RandomNode {\n    public ?RandomNode $next = null;\n    public ?RandomNode $random = null;\n    public function __construct(public int $val = 0) {}\n}\n\nfunction copyRandomList(?RandomNode $head): ?RandomNode {\n    throw new LogicException('Implement copyRandomList');\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-039-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "RandomNode <- function(val = 0L) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- NULL\n  node$random <- NULL\n  node\n}\n\n# Result is a RandomNode environment or NULL.\ncopyRandomList <- function(head) {\n  stop(\"Implement copyRandomList\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[4,1],[7,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

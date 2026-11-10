@@ -1,0 +1,390 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-223",
+  "title": "Find Critical and Pseudo Critical Edges in Minimum Spanning Tree",
+  "summary": "Each weighted undirected edge has its original zero-based input index.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "findCriticalAndPseudoCriticalEdges",
+    "signature": "def findCriticalAndPseudoCriticalEdges(n:",
+    "input": "n (int), edges (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), edges (intgrid)",
+    "callable": "findCriticalAndPseudoCriticalEdges",
+    "constraints": "2 ≤ n ≤ 100. 1–min(200,n(n−1)/2) rows [a,b,weight] with 0 ≤ a < b < n and weights in [1,1000]. Vertex pairs are distinct and the graph is connected.",
+    "output-checking": "Compare each group as a unique set of original edge indices. Group 0 is critical and group 1 is pseudo-critical. Group order is fixed."
+  },
+  "statement": "Each weighted undirected edge has its original zero-based input index. Return two arrays. The first contains edges present in every minimum spanning tree. The second contains edges present in at least one minimum spanning tree but absent from another. Omit edges that never occur in a minimum tree. The two groups have fixed meaning, and order within each group is unrestricted.",
+  "examples": [
+    {
+      "input": "{\"n\":3,\"edges\":[[0,1,1],[1,2,2],[0,2,3]]}",
+      "output": "[[0,1],[]]",
+      "explanation": "The two lighter edges are both required."
+    },
+    {
+      "input": "{\"n\":3,\"edges\":[[0,1,1],[1,2,1],[0,2,1]]}",
+      "output": "[[],[0,1,2]]",
+      "explanation": "Any two edges form a minimum tree."
+    },
+    {
+      "input": "{\"n\":4,\"edges\":[[0,1,1],[1,2,1],[0,2,1],[2,3,5]]}",
+      "output": "[[3],[0,1,2]]",
+      "explanation": "Only the bridge is mandatory."
+    }
+  ],
+  "constraints": [
+    "2 ≤ n ≤ 100. 1–min(200,n(n−1)/2) rows [a,b,weight] with 0 ≤ a < b < n and weights in [1,1000]. Vertex pairs are distinct and the graph is connected."
+  ],
+  "hints": [
+    "Conceptual: Equal-weight choices can produce several minimum trees.",
+    "Directional: Compare minimum costs with an edge excluded or forced.",
+    "Implementation: Use Kruskal’s algorithm for the baseline and each constrained run. A higher exclusion cost makes an edge critical. For a noncritical edge, a baseline-cost forced run makes it pseudo-critical."
+  ],
+  "concepts": [
+    "minimum-spanning-tree",
+    "edge-classification"
+  ],
+  "skills": [
+    "Minimum spanning tree",
+    "edge classification"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(E² α(n)",
+    "space": "O(E+n)"
+  },
+  "complexityAnalysis": "O(E² α(n) + E log E) time with one sort and repeated Kruskal scans. O(E+n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-223-P1",
+      "arguments": [
+        3,
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          1
+        ],
+        []
+      ],
+      "validator": "edge_groups"
+    },
+    {
+      "name": "NC250-223-P2",
+      "arguments": [
+        3,
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            2,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            2,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        [],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "validator": "edge_groups"
+    },
+    {
+      "name": "NC250-223-P3",
+      "arguments": [
+        4,
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            5
+          ]
+        ]
+      ],
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        [
+          3
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "validator": "edge_groups"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findCriticalAndPseudoCriticalEdges(n: int, edges: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} edges\n * @returns {number[][]}\n */\nfunction findCriticalAndPseudoCriticalEdges(n, edges) {\n  throw new Error('Implement findCriticalAndPseudoCriticalEdges');\n}",
+    "typescript": "function findCriticalAndPseudoCriticalEdges(n: number, edges: number[][]): number[][] {\n  throw new Error('Implement findCriticalAndPseudoCriticalEdges');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix findCriticalAndPseudoCriticalEdges(int32_t n, IntMatrix edges) {\n    (void)n;\n    (void)edges;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> findCriticalAndPseudoCriticalEdges(int n, std::vector<std::vector<int>> edges) {\n    throw std::logic_error(\"Implement findCriticalAndPseudoCriticalEdges\");\n}",
+    "csharp": "public class Solution {\n    public int[][] findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $edges\n * @return int[][]\n */\nfunction findCriticalAndPseudoCriticalEdges(int $n, array $edges): array {\n    throw new LogicException('Implement findCriticalAndPseudoCriticalEdges');\n}",
+    "r": "# Parameters: n (integer scalar), edges (list of integer vectors). Result: list of integer vectors.\nfindCriticalAndPseudoCriticalEdges <- function(n, edges) {\n  stop(\"Implement findCriticalAndPseudoCriticalEdges\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "findCriticalAndPseudoCriticalEdges",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "edges",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "function",
+    "validator": "edge_groups",
+    "notes": "Compare each group as a unique set of original edge indices. Group 0 is critical and group 1 is pseudo-critical. Group order is fixed."
+  },
+  "blocks": [
+    {
+      "id": "nc250-223-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-223-statement",
+      "type": "paragraph",
+      "content": "Each weighted undirected edge has its original zero-based input index. Return two arrays. The first contains edges present in every minimum spanning tree. The second contains edges present in at least one minimum spanning tree but absent from another. Omit edges that never occur in a minimum tree. The two groups have fixed meaning, and order within each group is unrestricted.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-223-contract",
+      "type": "note",
+      "title": "def findCriticalAndPseudoCriticalEdges(n:",
+      "content": "Input: n (int), edges (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-223-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2 ≤ n ≤ 100. 1–min(200,n(n−1)/2) rows [a,b,weight] with 0 ≤ a < b < n and weights in [1,1000]. Vertex pairs are distinct and the graph is connected.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-223-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findCriticalAndPseudoCriticalEdges(n: int, edges: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number[][]} edges\n * @returns {number[][]}\n */\nfunction findCriticalAndPseudoCriticalEdges(n, edges) {\n  throw new Error('Implement findCriticalAndPseudoCriticalEdges');\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findCriticalAndPseudoCriticalEdges(n: number, edges: number[][]): number[][] {\n  throw new Error('Implement findCriticalAndPseudoCriticalEdges');\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix findCriticalAndPseudoCriticalEdges(int32_t n, IntMatrix edges) {\n    (void)n;\n    (void)edges;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> findCriticalAndPseudoCriticalEdges(int n, std::vector<std::vector<int>> edges) {\n    throw std::logic_error(\"Implement findCriticalAndPseudoCriticalEdges\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $edges\n * @return int[][]\n */\nfunction findCriticalAndPseudoCriticalEdges(int $n, array $edges): array {\n    throw new LogicException('Implement findCriticalAndPseudoCriticalEdges');\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-223-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), edges (list of integer vectors). Result: list of integer vectors.\nfindCriticalAndPseudoCriticalEdges <- function(n, edges) {\n  stop(\"Implement findCriticalAndPseudoCriticalEdges\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1],[]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

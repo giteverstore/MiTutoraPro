@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-185",
+  "title": "Sqrt(x)",
+  "summary": "Return the largest nonnegative integer r for which r×r does not exceed x.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "mySqrt",
+    "signature": "def mySqrt(x:",
+    "input": "x (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "x (int)",
+    "callable": "mySqrt",
+    "constraints": "0 ≤ x ≤ 2147483647. Return an integer.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Return the largest nonnegative integer r for which r×r does not exceed x. Do not call square-root, power, or exponentiation routines.",
+  "examples": [
+    {
+      "input": "{\"x\":15}",
+      "output": "3",
+      "explanation": "Nine fits but sixteen is too large."
+    },
+    {
+      "input": "{\"x\":0}",
+      "output": "0",
+      "explanation": "The square root of zero is zero."
+    },
+    {
+      "input": "{\"x\":2147483647}",
+      "output": "46340",
+      "explanation": "46340 squared fits, while 46341 squared does not."
+    }
+  ],
+  "constraints": [
+    "0 ≤ x ≤ 2147483647. Return an integer."
+  ],
+  "hints": [
+    "Conceptual: The desired integer separates squares that fit from squares that are too large.",
+    "Directional: Binary-search candidate roots.",
+    "Implementation: Compare mid with x divided by mid to avoid overflowing a square. Preserve the largest feasible candidate."
+  ],
+  "concepts": [
+    "binary-search",
+    "integer-arithmetic"
+  ],
+  "skills": [
+    "Binary search",
+    "integer arithmetic"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log(x+1)",
+    "space": "O(log(x+1)"
+  },
+  "complexityAnalysis": "O(log(x+1)) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-185-P1",
+      "arguments": [
+        15
+      ],
+      "input": {
+        "x": 15
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-185-P2",
+      "arguments": [
+        0
+      ],
+      "input": {
+        "x": 0
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-185-P3",
+      "arguments": [
+        2147483647
+      ],
+      "input": {
+        "x": 2147483647
+      },
+      "expected": 46340,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def mySqrt(x: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int mySqrt(int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} x\n * @returns {number}\n */\nfunction mySqrt(x) {\n  throw new Error('Implement mySqrt');\n}",
+    "typescript": "function mySqrt(x: number): number {\n  throw new Error('Implement mySqrt');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t mySqrt(int32_t x) {\n    (void)x;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint mySqrt(int x) {\n    throw std::logic_error(\"Implement mySqrt\");\n}",
+    "csharp": "public class Solution {\n    public int mySqrt(int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $x\n * @return int\n */\nfunction mySqrt(int $x): int {\n    throw new LogicException('Implement mySqrt');\n}",
+    "r": "# Parameters: x (integer scalar). Result: integer scalar.\nmySqrt <- function(x) {\n  stop(\"Implement mySqrt\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "mySqrt",
+    "arguments": [
+      [
+        "x",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-185-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-185-statement",
+      "type": "paragraph",
+      "content": "Return the largest nonnegative integer r for which r×r does not exceed x. Do not call square-root, power, or exponentiation routines.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-185-contract",
+      "type": "note",
+      "title": "def mySqrt(x:",
+      "content": "Input: x (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-185-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 ≤ x ≤ 2147483647. Return an integer.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-185-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def mySqrt(x: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int mySqrt(int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} x\n * @returns {number}\n */\nfunction mySqrt(x) {\n  throw new Error('Implement mySqrt');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function mySqrt(x: number): number {\n  throw new Error('Implement mySqrt');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t mySqrt(int32_t x) {\n    (void)x;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint mySqrt(int x) {\n    throw std::logic_error(\"Implement mySqrt\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int mySqrt(int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $x\n * @return int\n */\nfunction mySqrt(int $x): int {\n    throw new LogicException('Implement mySqrt');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-185-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: x (integer scalar). Result: integer scalar.\nmySqrt <- function(x) {\n  stop(\"Implement mySqrt\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 42,
+  "matrix": {
+    "BLIND150-004": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 186,
+        "wallTimeMs": 11279,
+        "outputBytes": 940,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-005": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 224,
+        "wallTimeMs": 10360,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-012": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 143,
+        "wallTimeMs": 10036,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-062": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 221,
+        "wallTimeMs": 9407,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-070": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 212,
+        "wallTimeMs": 11907,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-072": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 173,
+        "wallTimeMs": 10987,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-074": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 185,
+        "wallTimeMs": 9616,
+        "outputBytes": 791,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-075": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 199,
+        "wallTimeMs": 10130,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-076": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 259,
+        "wallTimeMs": 9275,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-079": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 188,
+        "wallTimeMs": 12224,
+        "outputBytes": 951,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-085": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 285,
+        "wallTimeMs": 9597,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-103": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 193,
+        "wallTimeMs": 10732,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-131": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 189,
+        "wallTimeMs": 8556,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-141": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 176,
+        "wallTimeMs": 8838,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

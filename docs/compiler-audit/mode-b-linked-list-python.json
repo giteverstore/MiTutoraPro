@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 24,
+  "matrix": {
+    "BLIND150-035": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 112,
+        "wallTimeMs": 5094,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-036": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 114,
+        "wallTimeMs": 5270,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-037": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 113,
+        "wallTimeMs": 5159,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-038": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 115,
+        "wallTimeMs": 5271,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-039": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 119,
+        "wallTimeMs": 5167,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-040": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 115,
+        "wallTimeMs": 5202,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-043": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 112,
+        "wallTimeMs": 5077,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-044": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 111,
+        "wallTimeMs": 5131,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

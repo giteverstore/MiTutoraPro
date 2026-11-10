@@ -1,0 +1,263 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-115",
+  "title": "Target Sum",
+  "summary": "Attach either a plus or minus sign to every indexed element.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findTargetSumWays",
+    "signature": "def findTargetSumWays(nums:",
+    "input": "`nums` (integer array), `target` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array), `target` (integer)",
+    "result": "integer.",
+    "constraints": "1–20 integers in [0,1000] with total at most 1000. The target is in [−1000,1000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Attach either a plus or minus sign to every indexed element. Count the assignments that evaluate to the target. The two sign choices for a zero are distinct.",
+  "examples": [
+    {
+      "input": "{\"nums\":[1,2],\"target\":-1}",
+      "output": "1",
+      "explanation": "Only +1−2 works."
+    },
+    {
+      "input": "{\"nums\":[0,3],\"target\":3}",
+      "output": "2",
+      "explanation": "Either sign on zero gives the same numeric result."
+    },
+    {
+      "input": "{\"nums\":[2,2],\"target\":0}",
+      "output": "2",
+      "explanation": "Either index can receive the plus sign."
+    }
+  ],
+  "constraints": [
+    "1–20 integers in [0,1000] with total at most 1000. The target is in [−1000,1000]."
+  ],
+  "hints": [
+    "Conceptual: The positive and negative groups together contain every index.",
+    "Directional: The positive group must sum to (total + target)/2.",
+    "Implementation: Count subsets of that sum in descending order, including both ways to handle every zero."
+  ],
+  "concepts": [
+    "signed-sums",
+    "subset-counts"
+  ],
+  "skills": [
+    "Signed sums",
+    "subset counts"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nS)",
+    "space": "O(nS)"
+  },
+  "complexityAnalysis": "O(nS) time and O(S) space, with S the sum of the input.",
+  "publicTests": [
+    {
+      "name": "BLIND150-115-T01",
+      "arguments": [
+        [
+          1,
+          2
+        ],
+        -1
+      ],
+      "input": {
+        "nums": [
+          1,
+          2
+        ],
+        "target": -1
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-115-T02",
+      "arguments": [
+        [
+          0,
+          3
+        ],
+        3
+      ],
+      "input": {
+        "nums": [
+          0,
+          3
+        ],
+        "target": 3
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-115-T03",
+      "arguments": [
+        [
+          2,
+          2
+        ],
+        0
+      ],
+      "input": {
+        "nums": [
+          2,
+          2
+        ],
+        "target": 0
+      },
+      "expected": 2,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findTargetSumWays(nums: list[int], target: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number}\n */\nfunction findTargetSumWays(nums, target) {\n  throw new Error('Implement findTargetSumWays');\n}",
+    "typescript": "function findTargetSumWays(nums: number[], target: number): number {\n  throw new Error('Implement findTargetSumWays');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findTargetSumWays(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findTargetSumWays(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement findTargetSumWays\");\n}",
+    "csharp": "public class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int\n */\nfunction findTargetSumWays(array $nums, int $target): int {\n    throw new LogicException('Implement findTargetSumWays');\n}",
+    "r": "# Parameters: nums (integer vector), target (integer scalar). Result: integer scalar.\nfindTargetSumWays <- function(nums, target) {\n  stop(\"Implement findTargetSumWays\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-115-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-115-statement",
+      "type": "paragraph",
+      "content": "Attach either a plus or minus sign to every indexed element. Count the assignments that evaluate to the target. The two sign choices for a zero are distinct.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-115-contract",
+      "type": "note",
+      "title": "def findTargetSumWays(nums:",
+      "content": "Input: `nums` (integer array), `target` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-115-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–20 integers in [0,1000] with total at most 1000. The target is in [−1000,1000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-115-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findTargetSumWays(nums: list[int], target: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number}\n */\nfunction findTargetSumWays(nums, target) {\n  throw new Error('Implement findTargetSumWays');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findTargetSumWays(nums: number[], target: number): number {\n  throw new Error('Implement findTargetSumWays');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findTargetSumWays(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findTargetSumWays(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement findTargetSumWays\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int\n */\nfunction findTargetSumWays(array $nums, int $target): int {\n    throw new LogicException('Implement findTargetSumWays');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-115-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), target (integer scalar). Result: integer scalar.\nfindTargetSumWays <- function(nums, target) {\n  stop(\"Implement findTargetSumWays\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

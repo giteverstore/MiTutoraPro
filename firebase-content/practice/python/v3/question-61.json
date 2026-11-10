@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-061",
+  "title": "Last Stone Weight",
+  "summary": "Take the two heaviest stones.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "lastStoneWeight",
+    "signature": "def lastStoneWeight(stones:",
+    "input": "`stones` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`stones` (integer array)",
+    "result": "integer.",
+    "constraints": "1–30 stones with integer weights in [1, 1,000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Take the two heaviest stones. If their weights match, discard both. Otherwise return their positive weight difference to the collection. Continue while at least two stones remain. Return the weight of the final stone, or zero if there is none.",
+  "examples": [
+    {
+      "input": "{\"stones\":[9,5,2]}",
+      "output": "2",
+      "explanation": "9 and 5 leave 4, then 4 and 2 leave 2."
+    },
+    {
+      "input": "{\"stones\":[4,4]}",
+      "output": "0",
+      "explanation": "The stones have the same weight and both vanish."
+    },
+    {
+      "input": "{\"stones\":[7]}",
+      "output": "7",
+      "explanation": "There is no second stone to remove."
+    }
+  ],
+  "constraints": [
+    "1–30 stones with integer weights in [1, 1,000]."
+  ],
+  "hints": [
+    "Conceptual: Each round needs the two heaviest current stones.",
+    "Directional: Use a max-priority queue to remove the largest weight twice.",
+    "Implementation: Insert the difference only when it is positive. Stop when the queue has fewer than two elements."
+  ],
+  "concepts": [
+    "maximum-heap",
+    "simulation",
+    "duplicates"
+  ],
+  "skills": [
+    "Maximum heap",
+    "simulation",
+    "duplicates"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log(n+1)",
+    "space": "O(n log(n+1)"
+  },
+  "complexityAnalysis": "O(n log(n+1)) time and O(n) space with a heap.",
+  "publicTests": [
+    {
+      "name": "BLIND150-061-T01",
+      "arguments": [
+        [
+          9,
+          5,
+          2
+        ]
+      ],
+      "input": {
+        "stones": [
+          9,
+          5,
+          2
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-061-T02",
+      "arguments": [
+        [
+          4,
+          4
+        ]
+      ],
+      "input": {
+        "stones": [
+          4,
+          4
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-061-T03",
+      "arguments": [
+        [
+          7
+        ]
+      ],
+      "input": {
+        "stones": [
+          7
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def lastStoneWeight(stones: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int lastStoneWeight(int[] stones) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} stones\n * @returns {number}\n */\nfunction lastStoneWeight(stones) {\n  throw new Error('Implement lastStoneWeight');\n}",
+    "typescript": "function lastStoneWeight(stones: number[]): number {\n  throw new Error('Implement lastStoneWeight');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t lastStoneWeight(IntArray stones) {\n    (void)stones;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint lastStoneWeight(std::vector<int> stones) {\n    throw std::logic_error(\"Implement lastStoneWeight\");\n}",
+    "csharp": "public class Solution {\n    public int lastStoneWeight(int[] stones) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $stones\n * @return int\n */\nfunction lastStoneWeight(array $stones): int {\n    throw new LogicException('Implement lastStoneWeight');\n}",
+    "r": "# Parameters: stones (integer vector). Result: integer scalar.\nlastStoneWeight <- function(stones) {\n  stop(\"Implement lastStoneWeight\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-061-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-061-statement",
+      "type": "paragraph",
+      "content": "Take the two heaviest stones. If their weights match, discard both. Otherwise return their positive weight difference to the collection. Continue while at least two stones remain. Return the weight of the final stone, or zero if there is none.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-061-contract",
+      "type": "note",
+      "title": "def lastStoneWeight(stones:",
+      "content": "Input: `stones` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-061-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–30 stones with integer weights in [1, 1,000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-061-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def lastStoneWeight(stones: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int lastStoneWeight(int[] stones) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} stones\n * @returns {number}\n */\nfunction lastStoneWeight(stones) {\n  throw new Error('Implement lastStoneWeight');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function lastStoneWeight(stones: number[]): number {\n  throw new Error('Implement lastStoneWeight');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t lastStoneWeight(IntArray stones) {\n    (void)stones;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint lastStoneWeight(std::vector<int> stones) {\n    throw std::logic_error(\"Implement lastStoneWeight\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int lastStoneWeight(int[] stones) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $stones\n * @return int\n */\nfunction lastStoneWeight(array $stones): int {\n    throw new LogicException('Implement lastStoneWeight');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-061-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: stones (integer vector). Result: integer scalar.\nlastStoneWeight <- function(stones) {\n  stop(\"Implement lastStoneWeight\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

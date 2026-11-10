@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-163",
+  "title": "First Missing Positive",
+  "summary": "Find the smallest positive integer absent from nums.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "firstMissingPositive",
+    "signature": "def firstMissingPositive(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Find the smallest positive integer absent from nums. Aim for linear time and constant auxiliary space, using the input array as working storage.",
+  "examples": [
+    {
+      "input": "{\"nums\":[3,4,-1,1]}",
+      "output": "2",
+      "explanation": "The smallest absent positive is 2."
+    },
+    {
+      "input": "{\"nums\":[1,2,3]}",
+      "output": "4",
+      "explanation": "All first three positive integers are present."
+    },
+    {
+      "input": "{\"nums\":[-2147483648,2,2]}",
+      "output": "1",
+      "explanation": "Neither the negative value nor the repeated 2 supplies 1."
+    }
+  ],
+  "constraints": [
+    "1–100000 signed 32-bit integers. Input may be reordered."
+  ],
+  "hints": [
+    "Conceptual: With n values, the answer cannot exceed n+1.",
+    "Directional: Only values in [1,n] need a slot.",
+    "Implementation: Swap each useful value v toward position v−1 unless that position already contains v. Scan for the first mismatch."
+  ],
+  "concepts": [
+    "in-place-indexing",
+    "pigeonhole-principle"
+  ],
+  "skills": [
+    "In-place indexing",
+    "pigeonhole principle"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space in mutable representations.",
+  "publicTests": [
+    {
+      "name": "NC250-163-P1",
+      "arguments": [
+        [
+          3,
+          4,
+          -1,
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          3,
+          4,
+          -1,
+          1
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-163-P2",
+      "arguments": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-163-P3",
+      "arguments": [
+        [
+          -2147483648,
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          -2147483648,
+          2,
+          2
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def firstMissingPositive(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int firstMissingPositive(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction firstMissingPositive(nums) {\n  throw new Error('Implement firstMissingPositive');\n}",
+    "typescript": "function firstMissingPositive(nums: number[]): number {\n  throw new Error('Implement firstMissingPositive');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t firstMissingPositive(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint firstMissingPositive(std::vector<int> nums) {\n    throw std::logic_error(\"Implement firstMissingPositive\");\n}",
+    "csharp": "public class Solution {\n    public int firstMissingPositive(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction firstMissingPositive(array $nums): int {\n    throw new LogicException('Implement firstMissingPositive');\n}",
+    "r": "# Parameters: nums (exact numeric vector). Result: integer scalar.\nfirstMissingPositive <- function(nums) {\n  stop(\"Implement firstMissingPositive\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "firstMissingPositive",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "int",
+    "adapter_notes": "R must use exact numeric values for signed 32-bit input because INT32_MIN is reserved in R integer storage."
+  },
+  "blocks": [
+    {
+      "id": "nc250-163-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-163-statement",
+      "type": "paragraph",
+      "content": "Find the smallest positive integer absent from nums. Aim for linear time and constant auxiliary space, using the input array as working storage.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-163-contract",
+      "type": "note",
+      "title": "def firstMissingPositive(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-163-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 signed 32-bit integers. Input may be reordered.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-163-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def firstMissingPositive(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int firstMissingPositive(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction firstMissingPositive(nums) {\n  throw new Error('Implement firstMissingPositive');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function firstMissingPositive(nums: number[]): number {\n  throw new Error('Implement firstMissingPositive');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t firstMissingPositive(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint firstMissingPositive(std::vector<int> nums) {\n    throw std::logic_error(\"Implement firstMissingPositive\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int firstMissingPositive(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction firstMissingPositive(array $nums): int {\n    throw new LogicException('Implement firstMissingPositive');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-163-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (exact numeric vector). Result: integer scalar.\nfirstMissingPositive <- function(nums) {\n  stop(\"Implement firstMissingPositive\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

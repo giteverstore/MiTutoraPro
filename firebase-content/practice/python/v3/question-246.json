@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-246",
+  "title": "Transpose Matrix",
+  "summary": "Return a matrix whose rows are the original columns.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "transpose",
+    "signature": "def transpose(matrix:",
+    "input": "matrix (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "matrix (intgrid)",
+    "callable": "transpose",
+    "constraints": "1–1000 rows and columns, with at most 100000 cells total. Values are in [−1000000000,1000000000].",
+    "output-checking": "Exact typed equality of the returned intgrid."
+  },
+  "statement": "Return a matrix whose rows are the original columns. A value at input row r and column c moves to output row c and column r.",
+  "examples": [
+    {
+      "input": "{\"matrix\":[[-2,5,8],[0,7,-1]]}",
+      "output": "[[-2,0],[5,7],[8,-1]]",
+      "explanation": "The 2×3 input becomes 3×2."
+    },
+    {
+      "input": "{\"matrix\":[[3],[9],[4]]}",
+      "output": "[[3,9,4]]",
+      "explanation": "One column becomes one row."
+    },
+    {
+      "input": "{\"matrix\":[[0]]}",
+      "output": "[[0]]",
+      "explanation": "A single cell stays at the same index."
+    }
+  ],
+  "constraints": [
+    "1–1000 rows and columns, with at most 100000 cells total. Values are in [−1000000000,1000000000]."
+  ],
+  "hints": [
+    "Conceptual: The row and column roles exchange.",
+    "Directional: Allocate the output with reversed dimensions.",
+    "Implementation: Copy each input cell to the position obtained by swapping its two indices."
+  ],
+  "concepts": [
+    "matrices",
+    "indexing"
+  ],
+  "skills": [
+    "Matrices",
+    "indexing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(mn) output space, with O(1) additional indexing state.",
+  "publicTests": [
+    {
+      "name": "NC250-246-P1",
+      "arguments": [
+        [
+          [
+            -2,
+            5,
+            8
+          ],
+          [
+            0,
+            7,
+            -1
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            -2,
+            5,
+            8
+          ],
+          [
+            0,
+            7,
+            -1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          -2,
+          0
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          8,
+          -1
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-246-P2",
+      "arguments": [
+        [
+          [
+            3
+          ],
+          [
+            9
+          ],
+          [
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            3
+          ],
+          [
+            9
+          ],
+          [
+            4
+          ]
+        ]
+      },
+      "expected": [
+        [
+          3,
+          9,
+          4
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-246-P3",
+      "arguments": [
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] transpose(int[][] matrix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @returns {number[][]}\n */\nfunction transpose(matrix) {\n  throw new Error('Implement transpose');\n}",
+    "typescript": "function transpose(matrix: number[][]): number[][] {\n  throw new Error('Implement transpose');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix transpose(IntMatrix matrix) {\n    (void)matrix;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> transpose(std::vector<std::vector<int>> matrix) {\n    throw std::logic_error(\"Implement transpose\");\n}",
+    "csharp": "public class Solution {\n    public int[][] transpose(int[][] matrix) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $matrix\n * @return int[][]\n */\nfunction transpose(array $matrix): array {\n    throw new LogicException('Implement transpose');\n}",
+    "r": "# Parameters: matrix (list of integer vectors). Result: list of integer vectors.\ntranspose <- function(matrix) {\n  stop(\"Implement transpose\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "transpose",
+    "arguments": [
+      [
+        "matrix",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-246-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-246-statement",
+      "type": "paragraph",
+      "content": "Return a matrix whose rows are the original columns. A value at input row r and column c moves to output row c and column r.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-246-contract",
+      "type": "note",
+      "title": "def transpose(matrix:",
+      "content": "Input: matrix (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-246-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 rows and columns, with at most 100000 cells total. Values are in [−1000000000,1000000000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-246-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] transpose(int[][] matrix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} matrix\n * @returns {number[][]}\n */\nfunction transpose(matrix) {\n  throw new Error('Implement transpose');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function transpose(matrix: number[][]): number[][] {\n  throw new Error('Implement transpose');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix transpose(IntMatrix matrix) {\n    (void)matrix;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> transpose(std::vector<std::vector<int>> matrix) {\n    throw std::logic_error(\"Implement transpose\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] transpose(int[][] matrix) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $matrix\n * @return int[][]\n */\nfunction transpose(array $matrix): array {\n    throw new LogicException('Implement transpose');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-246-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: matrix (list of integer vectors). Result: list of integer vectors.\ntranspose <- function(matrix) {\n  stop(\"Implement transpose\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[-2,0],[5,7],[8,-1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

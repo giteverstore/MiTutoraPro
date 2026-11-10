@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-239",
+  "title": "Jump Game VII",
+  "summary": "Start at index zero of a binary string.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "canReach",
+    "signature": "def canReach(s:",
+    "input": "s (str), minJump (int), maxJump (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str), minJump (int), maxJump (int)",
+    "callable": "canReach",
+    "constraints": "2–100000 characters, each 0 or 1, with s[0]=0. 1 ≤ minJump ≤ maxJump < length(s). Indices are zero-based.",
+    "output-checking": "Exact typed equality of the returned bool."
+  },
+  "statement": "Start at index zero of a binary string. From a reachable index, jump forward by any distance between minJump and maxJump, inclusive, and land only on a zero. Return whether the final index is reachable.",
+  "examples": [
+    {
+      "input": "{\"s\":\"0010010\",\"minJump\":2,\"maxJump\":3}",
+      "output": "true",
+      "explanation": "Jump from 0 to 3, then from 3 to 6."
+    },
+    {
+      "input": "{\"s\":\"00001\",\"minJump\":1,\"maxJump\":3}",
+      "output": "false",
+      "explanation": "The final position is blocked."
+    },
+    {
+      "input": "{\"s\":\"01110\",\"minJump\":1,\"maxJump\":2}",
+      "output": "false",
+      "explanation": "No legal first landing exists."
+    }
+  ],
+  "constraints": [
+    "2–100000 characters, each 0 or 1, with s[0]=0. 1 ≤ minJump ≤ maxJump < length(s). Indices are zero-based."
+  ],
+  "hints": [
+    "Conceptual: A destination needs one reachable predecessor in an interval.",
+    "Directional: Move a window of eligible predecessor indices along the string.",
+    "Implementation: Maintain how many reachable indices are in the window. Add the newly eligible index and remove the expired one before evaluating each zero."
+  ],
+  "concepts": [
+    "reachability",
+    "sliding-window"
+  ],
+  "skills": [
+    "Reachability",
+    "sliding window"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-239-P1",
+      "arguments": [
+        "0010010",
+        2,
+        3
+      ],
+      "input": {
+        "s": "0010010",
+        "minJump": 2,
+        "maxJump": 3
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-239-P2",
+      "arguments": [
+        "00001",
+        1,
+        3
+      ],
+      "input": {
+        "s": "00001",
+        "minJump": 1,
+        "maxJump": 3
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-239-P3",
+      "arguments": [
+        "01110",
+        1,
+        2
+      ],
+      "input": {
+        "s": "01110",
+        "minJump": 1,
+        "maxJump": 2
+      },
+      "expected": false,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canReach(s: str, minJump: int, maxJump: int) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canReach(String s, int minJump, int maxJump) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {number} minJump\n * @param {number} maxJump\n * @returns {boolean}\n */\nfunction canReach(s, minJump, maxJump) {\n  throw new Error('Implement canReach');\n}",
+    "typescript": "function canReach(s: string, minJump: number, maxJump: number): boolean {\n  throw new Error('Implement canReach');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool canReach(ByteString s, int32_t minJump, int32_t maxJump) {\n    (void)s;\n    (void)minJump;\n    (void)maxJump;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canReach(std::string s, int minJump, int maxJump) {\n    throw std::logic_error(\"Implement canReach\");\n}",
+    "csharp": "public class Solution {\n    public bool canReach(string s, int minJump, int maxJump) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param int $minJump\n * @param int $maxJump\n * @return bool\n */\nfunction canReach(string $s, int $minJump, int $maxJump): bool {\n    throw new LogicException('Implement canReach');\n}",
+    "r": "# Parameters: s (character scalar), minJump (integer scalar), maxJump (integer scalar). Result: logical scalar.\ncanReach <- function(s, minJump, maxJump) {\n  stop(\"Implement canReach\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "canReach",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ],
+      [
+        "minJump",
+        "int"
+      ],
+      [
+        "maxJump",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-239-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-239-statement",
+      "type": "paragraph",
+      "content": "Start at index zero of a binary string. From a reachable index, jump forward by any distance between minJump and maxJump, inclusive, and land only on a zero. Return whether the final index is reachable.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-239-contract",
+      "type": "note",
+      "title": "def canReach(s:",
+      "content": "Input: s (str), minJump (int), maxJump (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-239-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–100000 characters, each 0 or 1, with s[0]=0. 1 ≤ minJump ≤ maxJump < length(s). Indices are zero-based.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-239-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canReach(s: str, minJump: int, maxJump: int) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canReach(String s, int minJump, int maxJump) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {number} minJump\n * @param {number} maxJump\n * @returns {boolean}\n */\nfunction canReach(s, minJump, maxJump) {\n  throw new Error('Implement canReach');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canReach(s: string, minJump: number, maxJump: number): boolean {\n  throw new Error('Implement canReach');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool canReach(ByteString s, int32_t minJump, int32_t maxJump) {\n    (void)s;\n    (void)minJump;\n    (void)maxJump;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canReach(std::string s, int minJump, int maxJump) {\n    throw std::logic_error(\"Implement canReach\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canReach(string s, int minJump, int maxJump) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param int $minJump\n * @param int $maxJump\n * @return bool\n */\nfunction canReach(string $s, int $minJump, int $maxJump): bool {\n    throw new LogicException('Implement canReach');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-239-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), minJump (integer scalar), maxJump (integer scalar). Result: logical scalar.\ncanReach <- function(s, minJump, maxJump) {\n  stop(\"Implement canReach\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

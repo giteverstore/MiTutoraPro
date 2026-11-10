@@ -1,0 +1,369 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-159",
+  "title": "Range Sum Query 2D Immutable",
+  "summary": "Construct a read-only matrix query object.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "NumMatrix",
+    "signature": "class NumMatrix:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Construct a read-only matrix query object. For each query, return the sum of the cells in the inclusive rectangle from [r1,c1] to [r2,c2].",
+  "examples": [
+    {
+      "input": "{\"matrix\":[[2,-1],[4,3]],\"queries\":[[0,0,1,1],[0,1,1,1]]}",
+      "output": "[8,2]",
+      "explanation": "The full sum is 8. The right column sums to 2."
+    },
+    {
+      "input": "{\"matrix\":[[-8]],\"queries\":[[0,0,0,0]]}",
+      "output": "[-8]",
+      "explanation": "The rectangle contains just the negative cell."
+    },
+    {
+      "input": "{\"matrix\":[[1,2,3]],\"queries\":[[0,1,0,2],[0,0,0,0]]}",
+      "output": "[5,1]",
+      "explanation": "Both rectangles fit in a single row."
+    }
+  ],
+  "constraints": [
+    "Matrix is rectangular with 1–200 rows and columns and entries in [−10000,10000]. At most 10000 queries, with 0 ≤ r1 ≤ r2 < rows and 0 ≤ c1 ≤ c2 < columns."
+  ],
+  "hints": [
+    "Conceptual: Several rectangles can share the same accumulated totals.",
+    "Directional: Precompute sums from the upper-left corner.",
+    "Implementation: Subtract the strips above and left of a query. Add back their intersection once."
+  ],
+  "concepts": [
+    "stateful-class",
+    "two-dimensional-prefix-sums"
+  ],
+  "skills": [
+    "Stateful class",
+    "two-dimensional prefix sums"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) initialization time and space. O(1) per sumRegion call.",
+  "publicTests": [
+    {
+      "name": "NC250-159-P1",
+      "arguments": [
+        [
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "queries": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        8,
+        2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-159-P2",
+      "arguments": [
+        [
+          [
+            -8
+          ]
+        ],
+        [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            -8
+          ]
+        ],
+        "queries": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        -8
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-159-P3",
+      "arguments": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "queries": [
+          [
+            0,
+            1,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        5,
+        1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class NumMatrix:\n    def __init__(self, matrix: list[list[int]]) -> None:\n        raise NotImplementedError\n\n    def sumRegion(self, r1: int, c1: int, r2: int, c2: int) -> int:\n        raise NotImplementedError",
+    "java": "class NumMatrix {\n    public NumMatrix(int[][] matrix) { throw new UnsupportedOperationException(); }\n    public int sumRegion(int r1, int c1, int r2, int c2) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class NumMatrix {\n  constructor(matrix) { throw new Error('Implement constructor'); }\n  sumRegion(r1, c1, r2, c2) { throw new Error('Implement sumRegion'); }\n}",
+    "typescript": "class NumMatrix {\n  constructor(matrix: number[][]) { throw new Error('Implement constructor'); }\n  sumRegion(r1: number, c1: number, r2: number, c2: number): number { throw new Error('Implement sumRegion'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct NumMatrix NumMatrix;\nNumMatrix * numMatrixCreate(IntMatrix matrix) { (void)matrix; abort(); }\nint32_t numMatrixSumRegion(NumMatrix * self, int32_t r1, int32_t c1, int32_t r2, int32_t c2) { (void)self; (void)r1; (void)c1; (void)r2; (void)c2; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass NumMatrix {\npublic:\n    NumMatrix(std::vector<std::vector<int>> matrix) { throw std::logic_error(\"Implement method\"); }\n    int sumRegion(int r1, int c1, int r2, int c2) { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class NumMatrix {\n    public NumMatrix(int[][] matrix) { throw new System.NotImplementedException(); }\n    public int sumRegion(int r1, int c1, int r2, int c2) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass NumMatrix {\n    public function __construct(array $matrix) { throw new LogicException('Implement method'); }\n    public function sumRegion(int $r1, int $c1, int $r2, int $c2): int { throw new LogicException('Implement method'); }\n}",
+    "r": "NumMatrix <- function(matrix) {\n list(\n  sumRegion = function(r1, c1, r2, c2) stop(\"Implement sumRegion\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "NumMatrix",
+    "arguments": [
+      [
+        "matrix",
+        "intgrid"
+      ],
+      [
+        "queries",
+        "intgrid"
+      ]
+    ],
+    "mode": "stateful",
+    "validator": "exact",
+    "serialized_type": "ints",
+    "adapter_notes": "Construct NumMatrix once using matrix. Each row of queries supplies r1,c1,r2,c2, with zero-based inclusive endpoints. Serialize answers in call order."
+  },
+  "blocks": [
+    {
+      "id": "nc250-159-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-159-statement",
+      "type": "paragraph",
+      "content": "Construct a read-only matrix query object. For each query, return the sum of the cells in the inclusive rectangle from [r1,c1] to [r2,c2].",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-159-contract",
+      "type": "note",
+      "title": "class NumMatrix:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-159-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Matrix is rectangular with 1–200 rows and columns and entries in [−10000,10000]. At most 10000 queries, with 0 ≤ r1 ≤ r2 < rows and 0 ≤ c1 ≤ c2 < columns.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-159-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class NumMatrix:\n    def __init__(self, matrix: list[list[int]]) -> None:\n        raise NotImplementedError\n\n    def sumRegion(self, r1: int, c1: int, r2: int, c2: int) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class NumMatrix {\n    public NumMatrix(int[][] matrix) { throw new UnsupportedOperationException(); }\n    public int sumRegion(int r1, int c1, int r2, int c2) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class NumMatrix {\n  constructor(matrix) { throw new Error('Implement constructor'); }\n  sumRegion(r1, c1, r2, c2) { throw new Error('Implement sumRegion'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class NumMatrix {\n  constructor(matrix: number[][]) { throw new Error('Implement constructor'); }\n  sumRegion(r1: number, c1: number, r2: number, c2: number): number { throw new Error('Implement sumRegion'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct NumMatrix NumMatrix;\nNumMatrix * numMatrixCreate(IntMatrix matrix) { (void)matrix; abort(); }\nint32_t numMatrixSumRegion(NumMatrix * self, int32_t r1, int32_t c1, int32_t r2, int32_t c2) { (void)self; (void)r1; (void)c1; (void)r2; (void)c2; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass NumMatrix {\npublic:\n    NumMatrix(std::vector<std::vector<int>> matrix) { throw std::logic_error(\"Implement method\"); }\n    int sumRegion(int r1, int c1, int r2, int c2) { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class NumMatrix {\n    public NumMatrix(int[][] matrix) { throw new System.NotImplementedException(); }\n    public int sumRegion(int r1, int c1, int r2, int c2) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass NumMatrix {\n    public function __construct(array $matrix) { throw new LogicException('Implement method'); }\n    public function sumRegion(int $r1, int $c1, int $r2, int $c2): int { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-159-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "NumMatrix <- function(matrix) {\n list(\n  sumRegion = function(r1, c1, r2, c2) stop(\"Implement sumRegion\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

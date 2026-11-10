@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-092",
+  "title": "Word Ladder",
+  "summary": "Start with beginWord.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "ladderLength",
+    "signature": "def ladderLength(beginWord:",
+    "input": "`beginWord` (string), `endWord` (string), `wordList` (string array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`beginWord` (string), `endWord` (string), `wordList` (string array)",
+    "result": "integer.",
+    "constraints": "1–5000 distinct dictionary words. All strings have the same length from 1 to 10 and contain only lowercase English letters. The start and end differ.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Start with beginWord. On each move, change exactly one letter and land on a word in wordList. Return the number of words in a shortest sequence ending at endWord, counting both endpoints. Return zero if no sequence exists.",
+  "examples": [
+    {
+      "input": "{\"beginWord\":\"cat\",\"endWord\":\"dig\",\"wordList\":[\"cot\",\"dot\",\"dog\",\"dig\"]}",
+      "output": "5",
+      "explanation": "One shortest sequence is cat, cot, dot, dog, dig."
+    },
+    {
+      "input": "{\"beginWord\":\"jam\",\"endWord\":\"ram\",\"wordList\":[\"ram\",\"yam\"]}",
+      "output": "2",
+      "explanation": "One replacement reaches the target."
+    },
+    {
+      "input": "{\"beginWord\":\"abc\",\"endWord\":\"xyz\",\"wordList\":[\"xbc\",\"xyz\"]}",
+      "output": "0",
+      "explanation": "Neither available word connects the initial move to the target."
+    }
+  ],
+  "constraints": [
+    "1–5000 distinct dictionary words. All strings have the same length from 1 to 10 and contain only lowercase English letters. The start and end differ."
+  ],
+  "hints": [
+    "Conceptual: The words form a graph whose edges are single-letter changes.",
+    "Directional: Explore the word graph in BFS layers.",
+    "Implementation: Generate replacements one position at a time and remove each dictionary word from the unvisited set when it is enqueued."
+  ],
+  "concepts": [
+    "implicit-graphs",
+    "bfs"
+  ],
+  "skills": [
+    "Implicit graphs",
+    "BFS"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(N × 26 × L²)",
+    "space": "O(N × 26 × L²)"
+  },
+  "complexityAnalysis": "Expected O(N × 26 × L²) time with hashed string candidates and O(NL) space. N is dictionary size and L is word length.",
+  "publicTests": [
+    {
+      "name": "BLIND150-092-T01",
+      "arguments": [
+        "cat",
+        "dig",
+        [
+          "cot",
+          "dot",
+          "dog",
+          "dig"
+        ]
+      ],
+      "input": {
+        "beginWord": "cat",
+        "endWord": "dig",
+        "wordList": [
+          "cot",
+          "dot",
+          "dog",
+          "dig"
+        ]
+      },
+      "expected": 5,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-092-T02",
+      "arguments": [
+        "jam",
+        "ram",
+        [
+          "ram",
+          "yam"
+        ]
+      ],
+      "input": {
+        "beginWord": "jam",
+        "endWord": "ram",
+        "wordList": [
+          "ram",
+          "yam"
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-092-T03",
+      "arguments": [
+        "abc",
+        "xyz",
+        [
+          "xbc",
+          "xyz"
+        ]
+      ],
+      "input": {
+        "beginWord": "abc",
+        "endWord": "xyz",
+        "wordList": [
+          "xbc",
+          "xyz"
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def ladderLength(beginWord: str, endWord: str, wordList: list[str]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int ladderLength(String beginWord, String endWord, String[] wordList) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} beginWord\n * @param {string} endWord\n * @param {string[]} wordList\n * @returns {number}\n */\nfunction ladderLength(beginWord, endWord, wordList) {\n  throw new Error('Implement ladderLength');\n}",
+    "typescript": "function ladderLength(beginWord: string, endWord: string, wordList: string[]): number {\n  throw new Error('Implement ladderLength');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t ladderLength(ByteString beginWord, ByteString endWord, StringArray wordList) {\n    (void)beginWord;\n    (void)endWord;\n    (void)wordList;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint ladderLength(std::string beginWord, std::string endWord, std::vector<std::string> wordList) {\n    throw std::logic_error(\"Implement ladderLength\");\n}",
+    "csharp": "public class Solution {\n    public int ladderLength(string beginWord, string endWord, string[] wordList) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $beginWord\n * @param string $endWord\n * @param string[] $wordList\n * @return int\n */\nfunction ladderLength(string $beginWord, string $endWord, array $wordList): int {\n    throw new LogicException('Implement ladderLength');\n}",
+    "r": "# Parameters: beginWord (character scalar), endWord (character scalar), wordList (character vector). Result: integer scalar.\nladderLength <- function(beginWord, endWord, wordList) {\n  stop(\"Implement ladderLength\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-092-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-092-statement",
+      "type": "paragraph",
+      "content": "Start with beginWord. On each move, change exactly one letter and land on a word in wordList. Return the number of words in a shortest sequence ending at endWord, counting both endpoints. Return zero if no sequence exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-092-contract",
+      "type": "note",
+      "title": "def ladderLength(beginWord:",
+      "content": "Input: `beginWord` (string), `endWord` (string), `wordList` (string array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-092-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–5000 distinct dictionary words. All strings have the same length from 1 to 10 and contain only lowercase English letters. The start and end differ.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-092-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def ladderLength(beginWord: str, endWord: str, wordList: list[str]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int ladderLength(String beginWord, String endWord, String[] wordList) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} beginWord\n * @param {string} endWord\n * @param {string[]} wordList\n * @returns {number}\n */\nfunction ladderLength(beginWord, endWord, wordList) {\n  throw new Error('Implement ladderLength');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function ladderLength(beginWord: string, endWord: string, wordList: string[]): number {\n  throw new Error('Implement ladderLength');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t ladderLength(ByteString beginWord, ByteString endWord, StringArray wordList) {\n    (void)beginWord;\n    (void)endWord;\n    (void)wordList;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint ladderLength(std::string beginWord, std::string endWord, std::vector<std::string> wordList) {\n    throw std::logic_error(\"Implement ladderLength\");\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int ladderLength(string beginWord, string endWord, string[] wordList) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $beginWord\n * @param string $endWord\n * @param string[] $wordList\n * @return int\n */\nfunction ladderLength(string $beginWord, string $endWord, array $wordList): int {\n    throw new LogicException('Implement ladderLength');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-092-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: beginWord (character scalar), endWord (character scalar), wordList (character vector). Result: integer scalar.\nladderLength <- function(beginWord, endWord, wordList) {\n  stop(\"Implement ladderLength\")\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

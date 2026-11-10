@@ -1,0 +1,289 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-212",
+  "title": "Word Break II",
+  "summary": "Insert spaces to form sentences whose words all belong to wordDict.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "wordBreakSentences",
+    "signature": "def wordBreakSentences(s:",
+    "input": "s (str), wordDict (strs)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str), wordDict (strs)",
+    "callable": "wordBreakSentences",
+    "constraints": "s has 1–20 lowercase English letters. wordDict has 1–1000 distinct words of 1–10 lowercase English letters. The source gives an answer-length bound of 100000 without specifying a byte limit.",
+    "output-checking": "Compare complete sets of distinct strings. Require exact characters and single-space boundaries inside each sentence. Outer order is irrelevant."
+  },
+  "statement": "Insert spaces to form sentences whose words all belong to wordDict. Preserve every character and its position relative to the others. A dictionary word may be used repeatedly. Return all distinct sentences, in any order, with one space between words and none at the ends.",
+  "examples": [
+    {
+      "input": "{\"s\":\"redbed\",\"wordDict\":[\"red\",\"bed\",\"redbed\"]}",
+      "output": "[\"red bed\",\"redbed\"]",
+      "explanation": "The whole word and the two-word split are both legal."
+    },
+    {
+      "input": "{\"s\":\"gogo\",\"wordDict\":[\"go\"]}",
+      "output": "[\"go go\"]",
+      "explanation": "The same word can be used twice."
+    },
+    {
+      "input": "{\"s\":\"hopx\",\"wordDict\":[\"hop\",\"ho\",\"p\"]}",
+      "output": "[]",
+      "explanation": "No dictionary word covers the trailing x."
+    }
+  ],
+  "constraints": [
+    "s has 1–20 lowercase English letters. wordDict has 1–1000 distinct words of 1–10 lowercase English letters. The source gives an answer-length bound of 100000 without specifying a byte limit."
+  ],
+  "hints": [
+    "Conceptual: Each chosen word must match a prefix of the remaining text.",
+    "Directional: Precompute which suffixes can be completed.",
+    "Implementation: Store valid word endpoints at each position. Backtrack only through an endpoint whose remaining suffix is feasible, joining complete paths into sentences."
+  ],
+  "concepts": [
+    "backtracking",
+    "suffix-feasibility",
+    "strings"
+  ],
+  "skills": [
+    "Backtracking",
+    "suffix feasibility",
+    "strings"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nDL + nP + S)",
+    "space": "O(nDL + nP + S)"
+  },
+  "complexityAnalysis": "O(nDL + nP + S) time and O(n²) auxiliary space excluding output, where D is dictionary size, L is maximum word length, P is the number of explored viable prefixes, and S is the total output length.",
+  "publicTests": [
+    {
+      "name": "NC250-212-P1",
+      "arguments": [
+        "redbed",
+        [
+          "red",
+          "bed",
+          "redbed"
+        ]
+      ],
+      "input": {
+        "s": "redbed",
+        "wordDict": [
+          "red",
+          "bed",
+          "redbed"
+        ]
+      },
+      "expected": [
+        "red bed",
+        "redbed"
+      ],
+      "validator": "sentence_set"
+    },
+    {
+      "name": "NC250-212-P2",
+      "arguments": [
+        "gogo",
+        [
+          "go"
+        ]
+      ],
+      "input": {
+        "s": "gogo",
+        "wordDict": [
+          "go"
+        ]
+      },
+      "expected": [
+        "go go"
+      ],
+      "validator": "sentence_set"
+    },
+    {
+      "name": "NC250-212-P3",
+      "arguments": [
+        "hopx",
+        [
+          "hop",
+          "ho",
+          "p"
+        ]
+      ],
+      "input": {
+        "s": "hopx",
+        "wordDict": [
+          "hop",
+          "ho",
+          "p"
+        ]
+      },
+      "expected": [],
+      "validator": "sentence_set"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def wordBreakSentences(s: str, wordDict: list[str]) -> list[str]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String[] wordBreakSentences(String s, String[] wordDict) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {string[]} wordDict\n * @returns {string[]}\n */\nfunction wordBreakSentences(s, wordDict) {\n  throw new Error('Implement wordBreakSentences');\n}",
+    "typescript": "function wordBreakSentences(s: string, wordDict: string[]): string[] {\n  throw new Error('Implement wordBreakSentences');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nStringArray wordBreakSentences(ByteString s, StringArray wordDict) {\n    (void)s;\n    (void)wordDict;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::string> wordBreakSentences(std::string s, std::vector<std::string> wordDict) {\n    throw std::logic_error(\"Implement wordBreakSentences\");\n}",
+    "csharp": "public class Solution {\n    public string[] wordBreakSentences(string s, string[] wordDict) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param string[] $wordDict\n * @return string[]\n */\nfunction wordBreakSentences(string $s, array $wordDict): array {\n    throw new LogicException('Implement wordBreakSentences');\n}",
+    "r": "# Parameters: s (character scalar), wordDict (character vector). Result: character vector.\nwordBreakSentences <- function(s, wordDict) {\n  stop(\"Implement wordBreakSentences\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "wordBreakSentences",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ],
+      [
+        "wordDict",
+        "strs"
+      ]
+    ],
+    "serialized_result_type": "strs",
+    "mode": "function",
+    "validator": "sentence_set",
+    "notes": "Compare complete sets of distinct strings. Require exact characters and single-space boundaries inside each sentence. Outer order is irrelevant."
+  },
+  "blocks": [
+    {
+      "id": "nc250-212-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-212-statement",
+      "type": "paragraph",
+      "content": "Insert spaces to form sentences whose words all belong to wordDict. Preserve every character and its position relative to the others. A dictionary word may be used repeatedly. Return all distinct sentences, in any order, with one space between words and none at the ends.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-212-contract",
+      "type": "note",
+      "title": "def wordBreakSentences(s:",
+      "content": "Input: s (str), wordDict (strs)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-212-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "s has 1–20 lowercase English letters. wordDict has 1–1000 distinct words of 1–10 lowercase English letters. The source gives an answer-length bound of 100000 without specifying a byte limit.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-212-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def wordBreakSentences(s: str, wordDict: list[str]) -> list[str]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String[] wordBreakSentences(String s, String[] wordDict) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {string[]} wordDict\n * @returns {string[]}\n */\nfunction wordBreakSentences(s, wordDict) {\n  throw new Error('Implement wordBreakSentences');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function wordBreakSentences(s: string, wordDict: string[]): string[] {\n  throw new Error('Implement wordBreakSentences');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nStringArray wordBreakSentences(ByteString s, StringArray wordDict) {\n    (void)s;\n    (void)wordDict;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::string> wordBreakSentences(std::string s, std::vector<std::string> wordDict) {\n    throw std::logic_error(\"Implement wordBreakSentences\");\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string[] wordBreakSentences(string s, string[] wordDict) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param string[] $wordDict\n * @return string[]\n */\nfunction wordBreakSentences(string $s, array $wordDict): array {\n    throw new LogicException('Implement wordBreakSentences');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-212-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), wordDict (character vector). Result: character vector.\nwordBreakSentences <- function(s, wordDict) {\n  stop(\"Implement wordBreakSentences\")\n}",
+      "stdin": "",
+      "expectedOutput": "[\"red bed\",\"redbed\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

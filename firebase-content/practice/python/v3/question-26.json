@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-026",
+  "title": "Largest Rectangle in Histogram",
+  "summary": "Each value is the height of a bar with width one.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "largestRectangleArea",
+    "signature": "def largestRectangleArea(heights:",
+    "input": "`heights` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`heights` (integer array)",
+    "result": "integer.",
+    "constraints": "1–100,000 bars, with integer heights between 0 and 10,000. Bars have zero-based indices.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Each value is the height of a bar with width one. Choose a contiguous range of bars and draw a rectangle from the baseline across it. Its height cannot exceed the shortest bar in the range. Return the largest possible area.",
+  "examples": [
+    {
+      "input": "{\"heights\":[4,4,1,3]}",
+      "output": "8",
+      "explanation": "The first two bars support a rectangle of height 4 and width 2."
+    },
+    {
+      "input": "{\"heights\":[0,5,0,6]}",
+      "output": "6",
+      "explanation": "The zero-height bars separate the two positive bars."
+    },
+    {
+      "input": "{\"heights\":[2,3,4,5]}",
+      "output": "9",
+      "explanation": "Bars 1 through 3 give height 3 across width 3."
+    }
+  ],
+  "constraints": [
+    "1–100,000 bars, with integer heights between 0 and 10,000. Bars have zero-based indices."
+  ],
+  "hints": [
+    "Conceptual: The shortest bar in any chosen range limits the height.",
+    "Directional: Keep candidate heights and their earliest start positions in an increasing stack.",
+    "Implementation: When the next bar is shorter, finish taller candidates using the current index as the exclusive right edge. Finish any remaining candidates at the end."
+  ],
+  "concepts": [
+    "arrays",
+    "monotonic-stack",
+    "histogram"
+  ],
+  "skills": [
+    "Arrays",
+    "monotonic stack",
+    "histogram"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space. Each candidate is added and removed at most once.",
+  "publicTests": [
+    {
+      "name": "BLIND150-026-T01",
+      "arguments": [
+        [
+          4,
+          4,
+          1,
+          3
+        ]
+      ],
+      "input": {
+        "heights": [
+          4,
+          4,
+          1,
+          3
+        ]
+      },
+      "expected": 8,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-026-T02",
+      "arguments": [
+        [
+          0,
+          5,
+          0,
+          6
+        ]
+      ],
+      "input": {
+        "heights": [
+          0,
+          5,
+          0,
+          6
+        ]
+      },
+      "expected": 6,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-026-T03",
+      "arguments": [
+        [
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "input": {
+        "heights": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 9,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def largestRectangleArea(heights: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int largestRectangleArea(int[] heights) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} heights\n * @returns {number}\n */\nfunction largestRectangleArea(heights) {\n  throw new Error('Implement largestRectangleArea');\n}",
+    "typescript": "function largestRectangleArea(heights: number[]): number {\n  throw new Error('Implement largestRectangleArea');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t largestRectangleArea(IntArray heights) {\n    (void)heights;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint largestRectangleArea(std::vector<int> heights) {\n    throw std::logic_error(\"Implement largestRectangleArea\");\n}",
+    "csharp": "public class Solution {\n    public int largestRectangleArea(int[] heights) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $heights\n * @return int\n */\nfunction largestRectangleArea(array $heights): int {\n    throw new LogicException('Implement largestRectangleArea');\n}",
+    "r": "# Parameters: heights (integer vector). Result: integer scalar.\nlargestRectangleArea <- function(heights) {\n  stop(\"Implement largestRectangleArea\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-026-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-026-statement",
+      "type": "paragraph",
+      "content": "Each value is the height of a bar with width one. Choose a contiguous range of bars and draw a rectangle from the baseline across it. Its height cannot exceed the shortest bar in the range. Return the largest possible area.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-026-contract",
+      "type": "note",
+      "title": "def largestRectangleArea(heights:",
+      "content": "Input: `heights` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-026-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100,000 bars, with integer heights between 0 and 10,000. Bars have zero-based indices.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-026-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def largestRectangleArea(heights: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int largestRectangleArea(int[] heights) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} heights\n * @returns {number}\n */\nfunction largestRectangleArea(heights) {\n  throw new Error('Implement largestRectangleArea');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function largestRectangleArea(heights: number[]): number {\n  throw new Error('Implement largestRectangleArea');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t largestRectangleArea(IntArray heights) {\n    (void)heights;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint largestRectangleArea(std::vector<int> heights) {\n    throw std::logic_error(\"Implement largestRectangleArea\");\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int largestRectangleArea(int[] heights) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $heights\n * @return int\n */\nfunction largestRectangleArea(array $heights): int {\n    throw new LogicException('Implement largestRectangleArea');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-026-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: heights (integer vector). Result: integer scalar.\nlargestRectangleArea <- function(heights) {\n  stop(\"Implement largestRectangleArea\")\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

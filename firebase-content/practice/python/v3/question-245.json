@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-245",
+  "title": "Insert Greatest Common Divisors in Linked List",
+  "summary": "For every pair of neighboring original nodes, insert one new node between them.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "insertGreatestCommonDivisors",
+    "signature": "class ListNode:",
+    "input": "head (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "head (ints)",
+    "callable": "insertGreatestCommonDivisors",
+    "constraints": "1–5000 nodes with values in [1,1000]. Serialize the final next chain as values. The wrapper also checks original identities at alternating positions and fresh inserted nodes between them.",
+    "output-checking": "Build ListNode objects, invoke the callable, and verify alternating original and fresh inserted identities, preserved original values, bounded length, and a null tail. Then compare the full value sequence."
+  },
+  "statement": "For every pair of neighboring original nodes, insert one new node between them. Its value is the greatest common divisor of their values. Return the head of the modified list. Keep the original nodes, values, and relative order.",
+  "examples": [
+    {
+      "input": "{\"head\":[6,10,15]}",
+      "output": "[6,2,10,5,15]",
+      "explanation": "The gaps receive gcd values 2 and 5."
+    },
+    {
+      "input": "{\"head\":[11]}",
+      "output": "[11]",
+      "explanation": "One original node has no gaps."
+    },
+    {
+      "input": "{\"head\":[4,4,8]}",
+      "output": "[4,4,4,4,8]",
+      "explanation": "Equal values still represent different original and inserted node objects."
+    }
+  ],
+  "constraints": [
+    "1–5000 nodes with values in [1,1000]. Serialize the final next chain as values. The wrapper also checks original identities at alternating positions and fresh inserted nodes between them."
+  ],
+  "hints": [
+    "Conceptual: Every original gap needs its own new node.",
+    "Directional: Compute the divisor from the two original nodes at the gap.",
+    "Implementation: Save the next original node, insert a fresh node pointing to it, and advance to that original node rather than the inserted one."
+  ],
+  "concepts": [
+    "linked-lists",
+    "node-identity",
+    "greatest-common-divisor"
+  ],
+  "skills": [
+    "Linked lists",
+    "node identity",
+    "greatest common divisor"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log V)",
+    "space": "O(n log V)"
+  },
+  "complexityAnalysis": "O(n log V) time for Euclid’s algorithm and O(1) auxiliary solution space, excluding the n−1 new nodes. V is the largest value.",
+  "publicTests": [
+    {
+      "name": "NC250-245-P1",
+      "arguments": [
+        [
+          6,
+          10,
+          15
+        ]
+      ],
+      "input": {
+        "head": [
+          6,
+          10,
+          15
+        ]
+      },
+      "expected": [
+        6,
+        2,
+        10,
+        5,
+        15
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-245-P2",
+      "arguments": [
+        [
+          11
+        ]
+      ],
+      "input": {
+        "head": [
+          11
+        ]
+      },
+      "expected": [
+        11
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-245-P3",
+      "arguments": [
+        [
+          4,
+          4,
+          8
+        ]
+      ],
+      "input": {
+        "head": [
+          4,
+          4,
+          8
+        ]
+      },
+      "expected": [
+        4,
+        4,
+        4,
+        4,
+        8
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef insertGreatestCommonDivisors(head: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode insertGreatestCommonDivisors(ListNode head) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @returns {ListNode | null}\n */\nfunction insertGreatestCommonDivisors(head) {\n  throw new Error('Implement insertGreatestCommonDivisors');\n}",
+    "typescript": "class ListNode {\n  val: number;\n  next: ListNode | null;\n  constructor(val = 0, next: ListNode | null = null) { this.val = val; this.next = next; }\n}\n\nfunction insertGreatestCommonDivisors(head: ListNode | null): ListNode | null {\n  throw new Error('Implement insertGreatestCommonDivisors');\n}",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * insertGreatestCommonDivisors(ListNode * head) {\n    (void)head;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * insertGreatestCommonDivisors(ListNode * head) {\n    (void)head;\n    throw std::logic_error(\"Implement insertGreatestCommonDivisors\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode insertGreatestCommonDivisors(ListNode head) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction insertGreatestCommonDivisors(?ListNode $head): ?ListNode {\n    throw new LogicException('Implement insertGreatestCommonDivisors');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL). Result node environment or NULL.\ninsertGreatestCommonDivisors <- function(head) {\n  stop(\"Implement insertGreatestCommonDivisors\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "insertGreatestCommonDivisors",
+    "arguments": [
+      [
+        "head",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "node_mutation",
+    "validator": "exact",
+    "notes": "Build ListNode objects, invoke the callable, and verify alternating original and fresh inserted identities, preserved original values, bounded length, and a null tail. Then compare the full value sequence."
+  },
+  "blocks": [
+    {
+      "id": "nc250-245-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-245-statement",
+      "type": "paragraph",
+      "content": "For every pair of neighboring original nodes, insert one new node between them. Its value is the greatest common divisor of their values. Return the head of the modified list. Keep the original nodes, values, and relative order.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-245-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: head (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-245-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–5000 nodes with values in [1,1000]. Serialize the final next chain as values. The wrapper also checks original identities at alternating positions and fresh inserted nodes between them.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-245-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef insertGreatestCommonDivisors(head: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode insertGreatestCommonDivisors(ListNode head) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @returns {ListNode | null}\n */\nfunction insertGreatestCommonDivisors(head) {\n  throw new Error('Implement insertGreatestCommonDivisors');\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  val: number;\n  next: ListNode | null;\n  constructor(val = 0, next: ListNode | null = null) { this.val = val; this.next = next; }\n}\n\nfunction insertGreatestCommonDivisors(head: ListNode | null): ListNode | null {\n  throw new Error('Implement insertGreatestCommonDivisors');\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * insertGreatestCommonDivisors(ListNode * head) {\n    (void)head;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * insertGreatestCommonDivisors(ListNode * head) {\n    (void)head;\n    throw std::logic_error(\"Implement insertGreatestCommonDivisors\");\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode insertGreatestCommonDivisors(ListNode head) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction insertGreatestCommonDivisors(?ListNode $head): ?ListNode {\n    throw new LogicException('Implement insertGreatestCommonDivisors');\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-245-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL). Result node environment or NULL.\ninsertGreatestCommonDivisors <- function(head) {\n  stop(\"Implement insertGreatestCommonDivisors\")\n}",
+      "stdin": "",
+      "expectedOutput": "[6,2,10,5,15]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

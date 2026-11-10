@@ -1,0 +1,318 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-204",
+  "title": "Car Pooling",
+  "summary": "Each trip is [passengers,start,end] along a one-way route.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "carPooling",
+    "signature": "def carPooling(trips:",
+    "input": "trips (intgrid), capacity (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "trips (intgrid), capacity (int)",
+    "callable": "carPooling",
+    "constraints": "1–1000 trips. Each passenger count is in [1,100]. 0 ≤ start < end ≤ 1000. 1 ≤ capacity ≤ 100000.",
+    "output-checking": "Compare a boolean feasibility result. Trips use half-open intervals [start,end), with drop-offs before pickups at a shared location."
+  },
+  "statement": "Each trip is [passengers,start,end] along a one-way route. Carry its passengers from start through the interval before end. At a shared location, drop-offs happen before pickups. Decide whether the vehicle can complete every trip without exceeding capacity.",
+  "examples": [
+    {
+      "input": "{\"trips\":[[2,0,4],[3,4,7]],\"capacity\":3}",
+      "output": "true",
+      "explanation": "The first passengers leave before the next pickup."
+    },
+    {
+      "input": "{\"trips\":[[2,1,5],[2,3,6]],\"capacity\":3}",
+      "output": "false",
+      "explanation": "Four passengers overlap between locations 3 and 5."
+    },
+    {
+      "input": "{\"trips\":[[1,0,1000]],\"capacity\":1}",
+      "output": "true",
+      "explanation": "The trip can span the full location range."
+    }
+  ],
+  "constraints": [
+    "1–1000 trips. Each passenger count is in [1,100]. 0 ≤ start < end ≤ 1000. 1 ≤ capacity ≤ 100000."
+  ],
+  "hints": [
+    "Conceptual: Only pickup and drop-off locations can change occupancy.",
+    "Directional: Record each trip as two occupancy changes.",
+    "Implementation: Add its count at start and subtract it at end. Scan the cumulative changes and reject any load above capacity."
+  ],
+  "concepts": [
+    "difference-array",
+    "sweep-line"
+  ],
+  "skills": [
+    "Difference array",
+    "sweep line"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n+U)",
+    "space": "O(n+U)"
+  },
+  "complexityAnalysis": "O(n+U) time and O(U) auxiliary space, where U=1001 route locations.",
+  "publicTests": [
+    {
+      "name": "NC250-204-P1",
+      "arguments": [
+        [
+          [
+            2,
+            0,
+            4
+          ],
+          [
+            3,
+            4,
+            7
+          ]
+        ],
+        3
+      ],
+      "input": {
+        "trips": [
+          [
+            2,
+            0,
+            4
+          ],
+          [
+            3,
+            4,
+            7
+          ]
+        ],
+        "capacity": 3
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-204-P2",
+      "arguments": [
+        [
+          [
+            2,
+            1,
+            5
+          ],
+          [
+            2,
+            3,
+            6
+          ]
+        ],
+        3
+      ],
+      "input": {
+        "trips": [
+          [
+            2,
+            1,
+            5
+          ],
+          [
+            2,
+            3,
+            6
+          ]
+        ],
+        "capacity": 3
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-204-P3",
+      "arguments": [
+        [
+          [
+            1,
+            0,
+            1000
+          ]
+        ],
+        1
+      ],
+      "input": {
+        "trips": [
+          [
+            1,
+            0,
+            1000
+          ]
+        ],
+        "capacity": 1
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def carPooling(trips: list[list[int]], capacity: int) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean carPooling(int[][] trips, int capacity) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} trips\n * @param {number} capacity\n * @returns {boolean}\n */\nfunction carPooling(trips, capacity) {\n  throw new Error('Implement carPooling');\n}",
+    "typescript": "function carPooling(trips: number[][], capacity: number): boolean {\n  throw new Error('Implement carPooling');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nbool carPooling(IntMatrix trips, int32_t capacity) {\n    (void)trips;\n    (void)capacity;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool carPooling(std::vector<std::vector<int>> trips, int capacity) {\n    throw std::logic_error(\"Implement carPooling\");\n}",
+    "csharp": "public class Solution {\n    public bool carPooling(int[][] trips, int capacity) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $trips\n * @param int $capacity\n * @return bool\n */\nfunction carPooling(array $trips, int $capacity): bool {\n    throw new LogicException('Implement carPooling');\n}",
+    "r": "# Parameters: trips (list of integer vectors), capacity (integer scalar). Result: logical scalar.\ncarPooling <- function(trips, capacity) {\n  stop(\"Implement carPooling\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "carPooling",
+    "arguments": [
+      [
+        "trips",
+        "intgrid"
+      ],
+      [
+        "capacity",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare a boolean feasibility result. Trips use half-open intervals [start,end), with drop-offs before pickups at a shared location."
+  },
+  "blocks": [
+    {
+      "id": "nc250-204-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-204-statement",
+      "type": "paragraph",
+      "content": "Each trip is [passengers,start,end] along a one-way route. Carry its passengers from start through the interval before end. At a shared location, drop-offs happen before pickups. Decide whether the vehicle can complete every trip without exceeding capacity.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-204-contract",
+      "type": "note",
+      "title": "def carPooling(trips:",
+      "content": "Input: trips (intgrid), capacity (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-204-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 trips. Each passenger count is in [1,100]. 0 ≤ start < end ≤ 1000. 1 ≤ capacity ≤ 100000.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-204-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def carPooling(trips: list[list[int]], capacity: int) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean carPooling(int[][] trips, int capacity) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} trips\n * @param {number} capacity\n * @returns {boolean}\n */\nfunction carPooling(trips, capacity) {\n  throw new Error('Implement carPooling');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function carPooling(trips: number[][], capacity: number): boolean {\n  throw new Error('Implement carPooling');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nbool carPooling(IntMatrix trips, int32_t capacity) {\n    (void)trips;\n    (void)capacity;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool carPooling(std::vector<std::vector<int>> trips, int capacity) {\n    throw std::logic_error(\"Implement carPooling\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool carPooling(int[][] trips, int capacity) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $trips\n * @param int $capacity\n * @return bool\n */\nfunction carPooling(array $trips, int $capacity): bool {\n    throw new LogicException('Implement carPooling');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-204-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: trips (list of integer vectors), capacity (integer scalar). Result: logical scalar.\ncarPooling <- function(trips, capacity) {\n  stop(\"Implement carPooling\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

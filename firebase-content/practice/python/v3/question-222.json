@@ -1,0 +1,294 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-222",
+  "title": "Path with Minimum Effort",
+  "summary": "Travel from the upper-left to the lower-right cell by moving up, down, left, or right.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "minimumEffortPath",
+    "signature": "def minimumEffortPath(heights:",
+    "input": "heights (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "heights (intgrid)",
+    "callable": "minimumEffortPath",
+    "constraints": "1–100 rows and columns, with heights in [1,1000000].",
+    "output-checking": "Compare the integer optimum of the maximum edge difference along a path."
+  },
+  "statement": "Travel from the upper-left to the lower-right cell by moving up, down, left, or right. A route’s cost is its largest absolute height change on a single move. Return the smallest such cost over all routes. Staying in a single cell costs zero.",
+  "examples": [
+    {
+      "input": "{\"heights\":[[1,10,4],[2,3,6]]}",
+      "output": "3",
+      "explanation": "The bottom-row route has changes 1, 1, and 3."
+    },
+    {
+      "input": "{\"heights\":[[9]]}",
+      "output": "0",
+      "explanation": "There are no steps."
+    },
+    {
+      "input": "{\"heights\":[[8,1,5]]}",
+      "output": "7",
+      "explanation": "A single row forces the step from 8 to 1."
+    }
+  ],
+  "constraints": [
+    "1–100 rows and columns, with heights in [1,1000000]."
+  ],
+  "hints": [
+    "Conceptual: One steep step determines the cost of a route.",
+    "Directional: For a candidate bound, check whether a path exists using only allowed steps.",
+    "Implementation: Binary-search the bound and use a queue traversal for reachability at each candidate."
+  ],
+  "concepts": [
+    "minimax-path",
+    "grid-reachability"
+  ],
+  "skills": [
+    "Minimax path",
+    "grid reachability"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(rows×columns×log H)",
+    "space": "O(rows×columns×log H)"
+  },
+  "complexityAnalysis": "O(rows×columns×log H) time and O(rows×columns) auxiliary space, where H bounds height differences.",
+  "publicTests": [
+    {
+      "name": "NC250-222-P1",
+      "arguments": [
+        [
+          [
+            1,
+            10,
+            4
+          ],
+          [
+            2,
+            3,
+            6
+          ]
+        ]
+      ],
+      "input": {
+        "heights": [
+          [
+            1,
+            10,
+            4
+          ],
+          [
+            2,
+            3,
+            6
+          ]
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-222-P2",
+      "arguments": [
+        [
+          [
+            9
+          ]
+        ]
+      ],
+      "input": {
+        "heights": [
+          [
+            9
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-222-P3",
+      "arguments": [
+        [
+          [
+            8,
+            1,
+            5
+          ]
+        ]
+      ],
+      "input": {
+        "heights": [
+          [
+            8,
+            1,
+            5
+          ]
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minimumEffortPath(heights: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int minimumEffortPath(int[][] heights) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} heights\n * @returns {number}\n */\nfunction minimumEffortPath(heights) {\n  throw new Error('Implement minimumEffortPath');\n}",
+    "typescript": "function minimumEffortPath(heights: number[][]): number {\n  throw new Error('Implement minimumEffortPath');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t minimumEffortPath(IntMatrix heights) {\n    (void)heights;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minimumEffortPath(std::vector<std::vector<int>> heights) {\n    throw std::logic_error(\"Implement minimumEffortPath\");\n}",
+    "csharp": "public class Solution {\n    public int minimumEffortPath(int[][] heights) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $heights\n * @return int\n */\nfunction minimumEffortPath(array $heights): int {\n    throw new LogicException('Implement minimumEffortPath');\n}",
+    "r": "# Parameters: heights (list of integer vectors). Result: integer scalar.\nminimumEffortPath <- function(heights) {\n  stop(\"Implement minimumEffortPath\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "minimumEffortPath",
+    "arguments": [
+      [
+        "heights",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the integer optimum of the maximum edge difference along a path."
+  },
+  "blocks": [
+    {
+      "id": "nc250-222-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-222-statement",
+      "type": "paragraph",
+      "content": "Travel from the upper-left to the lower-right cell by moving up, down, left, or right. A route’s cost is its largest absolute height change on a single move. Return the smallest such cost over all routes. Staying in a single cell costs zero.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-222-contract",
+      "type": "note",
+      "title": "def minimumEffortPath(heights:",
+      "content": "Input: heights (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-222-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 rows and columns, with heights in [1,1000000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-222-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minimumEffortPath(heights: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int minimumEffortPath(int[][] heights) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} heights\n * @returns {number}\n */\nfunction minimumEffortPath(heights) {\n  throw new Error('Implement minimumEffortPath');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minimumEffortPath(heights: number[][]): number {\n  throw new Error('Implement minimumEffortPath');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t minimumEffortPath(IntMatrix heights) {\n    (void)heights;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minimumEffortPath(std::vector<std::vector<int>> heights) {\n    throw std::logic_error(\"Implement minimumEffortPath\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int minimumEffortPath(int[][] heights) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $heights\n * @return int\n */\nfunction minimumEffortPath(array $heights): int {\n    throw new LogicException('Implement minimumEffortPath');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-222-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: heights (list of integer vectors). Result: integer scalar.\nminimumEffortPath <- function(heights) {\n  stop(\"Implement minimumEffortPath\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

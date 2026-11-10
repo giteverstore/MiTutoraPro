@@ -1,0 +1,426 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-192",
+  "title": "LFU Cache",
+  "summary": "Implement a cache with get(key) and put(key,value).",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "LFUCache",
+    "signature": "class LFUCache:",
+    "input": "capacity (int), ops (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "capacity (int), ops (intgrid)",
+    "callable": "LFUCache",
+    "constraints": "1 ≤ capacity ≤ 10000. Keys are in [0,100000], values in [0,1000000000]. At most 200000 calls. Rows [0,key,value] call put and [1,key] call get. Construct once. Serialize only get results.",
+    "output-checking": "Construct LFUCache(capacity) once. Dispatch 0=put(key,value) and 1=get(key). Serialize only get returns. get and updates increase frequency. Eviction uses frequency then least recent use."
+  },
+  "statement": "Implement a cache with get(key) and put(key,value). get returns −1 for a missing key. A new key starts with use count one. A successful get or an update of an existing key increases its use count by one. When a new key needs space, evict the stored key with the smallest use count. Break ties by evicting the least recently used key. Each method must run in O(1) average time.",
+  "examples": [
+    {
+      "input": "{\"capacity\":2,\"ops\":[[0,1,10],[0,2,20],[1,1],[0,3,30],[1,2],[1,3]]}",
+      "output": "[10,-1,30]",
+      "explanation": "Using key 1 protects it from eviction."
+    },
+    {
+      "input": "{\"capacity\":1,\"ops\":[[0,4,8],[0,4,9],[1,4],[0,5,7],[1,4]]}",
+      "output": "[9,-1]",
+      "explanation": "Updating an existing key changes its value and frequency."
+    },
+    {
+      "input": "{\"capacity\":2,\"ops\":[[0,1,10],[0,2,20],[0,3,30],[1,1],[1,2]]}",
+      "output": "[-1,20]",
+      "explanation": "Equal frequencies evict the least recently used key."
+    }
+  ],
+  "constraints": [
+    "1 ≤ capacity ≤ 10000. Keys are in [0,100000], values in [0,1000000000]. At most 200000 calls. Rows [0,key,value] call put and [1,key] call get. Construct once. Serialize only get results."
+  ],
+  "hints": [
+    "Conceptual: Eviction needs both a frequency and a recency rule.",
+    "Directional: Group keys with equal frequency in recency order.",
+    "Implementation: Keep a map to each key’s node, a linked list per frequency, and the smallest active frequency. Move a touched key to the next frequency list."
+  ],
+  "concepts": [
+    "stateful-cache",
+    "frequency-buckets",
+    "linked-lists"
+  ],
+  "skills": [
+    "Stateful cache",
+    "frequency buckets",
+    "linked lists"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(1) average time per get and put. O(C+U+T) storage for the direct-address internal reference, where C is capacity, U is the key domain, and T bounds frequency levels. A hash-map implementation needs O(C) storage.",
+  "publicTests": [
+    {
+      "name": "NC250-192-P1",
+      "arguments": [
+        2,
+        [
+          [
+            0,
+            1,
+            10
+          ],
+          [
+            0,
+            2,
+            20
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            3,
+            30
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "capacity": 2,
+        "ops": [
+          [
+            0,
+            1,
+            10
+          ],
+          [
+            0,
+            2,
+            20
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            3,
+            30
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        10,
+        -1,
+        30
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-192-P2",
+      "arguments": [
+        1,
+        [
+          [
+            0,
+            4,
+            8
+          ],
+          [
+            0,
+            4,
+            9
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            5,
+            7
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "capacity": 1,
+        "ops": [
+          [
+            0,
+            4,
+            8
+          ],
+          [
+            0,
+            4,
+            9
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            5,
+            7
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        9,
+        -1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-192-P3",
+      "arguments": [
+        2,
+        [
+          [
+            0,
+            1,
+            10
+          ],
+          [
+            0,
+            2,
+            20
+          ],
+          [
+            0,
+            3,
+            30
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "capacity": 2,
+        "ops": [
+          [
+            0,
+            1,
+            10
+          ],
+          [
+            0,
+            2,
+            20
+          ],
+          [
+            0,
+            3,
+            30
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        20
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class LFUCache:\n    def __init__(self, capacity: int) -> None:\n        raise NotImplementedError\n\n    def get(self, key: int) -> int:\n        raise NotImplementedError\n\n    def put(self, key: int, value: int) -> None:\n        raise NotImplementedError",
+    "java": "class LFUCache {\n    public LFUCache(int capacity) { throw new UnsupportedOperationException(); }\n    public int get(int key) { throw new UnsupportedOperationException(); }\n    public void put(int key, int value) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class LFUCache {\n  constructor(capacity) { throw new Error('Implement constructor'); }\n  get(key) { throw new Error('Implement get'); }\n  put(key, value) { throw new Error('Implement put'); }\n}",
+    "typescript": "class LFUCache {\n  constructor(capacity: number) { throw new Error('Implement constructor'); }\n  get(key: number): number { throw new Error('Implement get'); }\n  put(key: number, value: number): void { throw new Error('Implement put'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct LFUCache LFUCache;\nLFUCache * lFUCacheCreate(int32_t capacity) { (void)capacity; abort(); }\nint32_t lFUCacheGet(LFUCache * self, int32_t key) { (void)self; (void)key; abort(); }\nvoid lFUCachePut(LFUCache * self, int32_t key, int32_t value) { (void)self; (void)key; (void)value; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass LFUCache {\npublic:\n    LFUCache(int capacity) { throw std::logic_error(\"Implement method\"); }\n    int get(int key) { throw std::logic_error(\"Implement method\"); }\n    void put(int key, int value) { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class LFUCache {\n    public LFUCache(int capacity) { throw new System.NotImplementedException(); }\n    public int get(int key) { throw new System.NotImplementedException(); }\n    public void put(int key, int value) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass LFUCache {\n    public function __construct(int $capacity) { throw new LogicException('Implement method'); }\n    public function get(int $key): int { throw new LogicException('Implement method'); }\n    public function put(int $key, int $value): void { throw new LogicException('Implement method'); }\n}",
+    "r": "LFUCache <- function(capacity) {\n list(\n  get = function(key) stop(\"Implement get\"),\n  put = function(key, value) stop(\"Implement put\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "LFUCache",
+    "arguments": [
+      [
+        "capacity",
+        "int"
+      ],
+      [
+        "ops",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "stateful",
+    "validator": "exact",
+    "notes": "Construct LFUCache(capacity) once. Dispatch 0=put(key,value) and 1=get(key). Serialize only get returns. get and updates increase frequency. Eviction uses frequency then least recent use."
+  },
+  "blocks": [
+    {
+      "id": "nc250-192-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-192-statement",
+      "type": "paragraph",
+      "content": "Implement a cache with get(key) and put(key,value). get returns −1 for a missing key. A new key starts with use count one. A successful get or an update of an existing key increases its use count by one. When a new key needs space, evict the stored key with the smallest use count. Break ties by evicting the least recently used key. Each method must run in O(1) average time.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-192-contract",
+      "type": "note",
+      "title": "class LFUCache:",
+      "content": "Input: capacity (int), ops (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-192-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ capacity ≤ 10000. Keys are in [0,100000], values in [0,1000000000]. At most 200000 calls. Rows [0,key,value] call put and [1,key] call get. Construct once. Serialize only get results.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-192-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class LFUCache:\n    def __init__(self, capacity: int) -> None:\n        raise NotImplementedError\n\n    def get(self, key: int) -> int:\n        raise NotImplementedError\n\n    def put(self, key: int, value: int) -> None:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class LFUCache {\n    public LFUCache(int capacity) { throw new UnsupportedOperationException(); }\n    public int get(int key) { throw new UnsupportedOperationException(); }\n    public void put(int key, int value) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class LFUCache {\n  constructor(capacity) { throw new Error('Implement constructor'); }\n  get(key) { throw new Error('Implement get'); }\n  put(key, value) { throw new Error('Implement put'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class LFUCache {\n  constructor(capacity: number) { throw new Error('Implement constructor'); }\n  get(key: number): number { throw new Error('Implement get'); }\n  put(key: number, value: number): void { throw new Error('Implement put'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct LFUCache LFUCache;\nLFUCache * lFUCacheCreate(int32_t capacity) { (void)capacity; abort(); }\nint32_t lFUCacheGet(LFUCache * self, int32_t key) { (void)self; (void)key; abort(); }\nvoid lFUCachePut(LFUCache * self, int32_t key, int32_t value) { (void)self; (void)key; (void)value; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass LFUCache {\npublic:\n    LFUCache(int capacity) { throw std::logic_error(\"Implement method\"); }\n    int get(int key) { throw std::logic_error(\"Implement method\"); }\n    void put(int key, int value) { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class LFUCache {\n    public LFUCache(int capacity) { throw new System.NotImplementedException(); }\n    public int get(int key) { throw new System.NotImplementedException(); }\n    public void put(int key, int value) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass LFUCache {\n    public function __construct(int $capacity) { throw new LogicException('Implement method'); }\n    public function get(int $key): int { throw new LogicException('Implement method'); }\n    public function put(int $key, int $value): void { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-192-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "LFUCache <- function(capacity) {\n list(\n  get = function(key) stop(\"Implement get\"),\n  put = function(key, value) stop(\"Implement put\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[10,-1,30]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

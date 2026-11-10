@@ -58,7 +58,7 @@ assert(productionActivityVerificationBoundary.enabled === false
 'Production verification and rewards must remain disabled.');
 
 const clientRoots = ['src', 'firebase-content'];
-const protectedMarkers = ['synthetic-square-suite', 'practice-fund-variables-001', 'practice-fund-variables-002'];
+const protectedMarkers = ['synthetic-square-suite'];
 async function filesUnder(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   return (await Promise.all(entries.map(async (entry) => {

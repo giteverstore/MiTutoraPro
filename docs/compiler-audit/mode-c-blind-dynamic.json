@@ -1,0 +1,770 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 168,
+  "matrix": {
+    "BLIND150-004": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22,
+        "wallTimeMs": 166,
+        "outputBytes": 940,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21,
+        "wallTimeMs": 694,
+        "outputBytes": 940,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1669,
+        "wallTimeMs": 1844,
+        "outputBytes": 940,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 426,
+        "wallTimeMs": 5717,
+        "outputBytes": 943,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-004-T02",
+            "status": "wrong_answer",
+            "actual": [
+              [
+                "",
+                ""
+              ],
+              "b",
+              "bb"
+            ],
+            "expected": [
+              [
+                "",
+                ""
+              ],
+              [
+                "b"
+              ],
+              [
+                "bb"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "BLIND150-005": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17,
+        "wallTimeMs": 139,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17,
+        "wallTimeMs": 412,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1428,
+        "wallTimeMs": 1609,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 471,
+        "wallTimeMs": 6247,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-012": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 182,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 458,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1619,
+        "wallTimeMs": 1853,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 515,
+        "wallTimeMs": 6645,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-062": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 170,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16,
+        "wallTimeMs": 560,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1562,
+        "wallTimeMs": 1739,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 484,
+        "wallTimeMs": 6256,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-070": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18,
+        "wallTimeMs": 152,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20,
+        "wallTimeMs": 576,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1589,
+        "wallTimeMs": 1748,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 540,
+        "wallTimeMs": 6858,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-072": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20,
+        "wallTimeMs": 168,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 571,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1908,
+        "wallTimeMs": 2115,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 454,
+        "wallTimeMs": 6616,
+        "outputBytes": 768,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-072-T01",
+            "status": "wrong_answer",
+            "actual": "()",
+            "expected": [
+              "()"
+            ]
+          }
+        ]
+      }
+    },
+    "BLIND150-074": {
+      "javascript": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 27,
+        "wallTimeMs": 170,
+        "outputBytes": 1646,
+        "message": "ReferenceError: partition is not defined\n    at eval (main.js:1833:38)\n    at eval (main.js:1833:127)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18",
+        "failures": [
+          {
+            "id": "BLIND150-074-T01",
+            "status": "runtime_error",
+            "message": "ReferenceError: partition is not defined\n    at eval (main.js:1833:38)\n    at eval (main.js:1833:127)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18"
+          },
+          {
+            "id": "BLIND150-074-T02",
+            "status": "runtime_error",
+            "message": "ReferenceError: partition is not defined\n    at eval (main.js:1833:38)\n    at eval (main.js:1833:127)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18"
+          },
+          {
+            "id": "BLIND150-074-T03",
+            "status": "runtime_error",
+            "message": "ReferenceError: partition is not defined\n    at eval (main.js:1833:37)\n    at eval (main.js:1833:126)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18"
+          }
+        ]
+      },
+      "typescript": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 30,
+        "wallTimeMs": 494,
+        "outputBytes": 1646,
+        "message": "ReferenceError: partition is not defined\n    at eval (main.js:2348:48)\n    at eval (main.js:2348:146)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18",
+        "failures": [
+          {
+            "id": "BLIND150-074-T01",
+            "status": "runtime_error",
+            "message": "ReferenceError: partition is not defined\n    at eval (main.js:2348:48)\n    at eval (main.js:2348:146)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18"
+          },
+          {
+            "id": "BLIND150-074-T02",
+            "status": "runtime_error",
+            "message": "ReferenceError: partition is not defined\n    at eval (main.js:2348:48)\n    at eval (main.js:2348:146)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18"
+          },
+          {
+            "id": "BLIND150-074-T03",
+            "status": "runtime_error",
+            "message": "ReferenceError: partition is not defined\n    at eval (main.js:2348:47)\n    at eval (main.js:2348:145)\n    at executeJavaScriptSource (http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascriptExecution.js:90:13)\n    at async http://127.0.0.1:5173/src/compiler/runtimes/javascript/javascript.worker.js?worker_file&type=module:35:18"
+          }
+        ]
+      },
+      "php": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 1499,
+        "wallTimeMs": 1730,
+        "outputBytes": 1100,
+        "message": "PHP Fatal error:  Uncaught Error: Call to undefined function partition() in /tmp/main.php:1799\nStack trace:\n#0 {main}\n  thrown in /tmp/main.php on line 1799",
+        "failures": [
+          {
+            "id": "BLIND150-074-T01",
+            "status": "runtime_error",
+            "message": "PHP Fatal error:  Uncaught Error: Call to undefined function partition() in /tmp/main.php:1799\nStack trace:\n#0 {main}\n  thrown in /tmp/main.php on line 1799"
+          },
+          {
+            "id": "BLIND150-074-T02",
+            "status": "runtime_error",
+            "message": "PHP Fatal error:  Uncaught Error: Call to undefined function partition() in /tmp/main.php:1799\nStack trace:\n#0 {main}\n  thrown in /tmp/main.php on line 1799"
+          },
+          {
+            "id": "BLIND150-074-T03",
+            "status": "runtime_error",
+            "message": "PHP Fatal error:  Uncaught Error: Call to undefined function partition() in /tmp/main.php:1799\nStack trace:\n#0 {main}\n  thrown in /tmp/main.php on line 1799"
+          }
+        ]
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 499,
+        "wallTimeMs": 6358,
+        "outputBytes": 707,
+        "message": "object 'partition' not found",
+        "failures": [
+          {
+            "id": "BLIND150-074-T01",
+            "status": "runtime_error",
+            "message": "object 'partition' not found"
+          },
+          {
+            "id": "BLIND150-074-T02",
+            "status": "runtime_error",
+            "message": "object 'partition' not found"
+          },
+          {
+            "id": "BLIND150-074-T03",
+            "status": "runtime_error",
+            "message": "object 'partition' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-075": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20,
+        "wallTimeMs": 184,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18,
+        "wallTimeMs": 569,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1489,
+        "wallTimeMs": 1699,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 507,
+        "wallTimeMs": 6291,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-076": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32,
+        "wallTimeMs": 169,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18,
+        "wallTimeMs": 510,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1588,
+        "wallTimeMs": 1759,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 462,
+        "wallTimeMs": 6469,
+        "outputBytes": 804,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-076-T01",
+            "status": "wrong_answer",
+            "actual": [
+              "Q"
+            ],
+            "expected": [
+              [
+                "Q"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "BLIND150-079": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32,
+        "wallTimeMs": 168,
+        "outputBytes": 951,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18,
+        "wallTimeMs": 476,
+        "outputBytes": 951,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1568,
+        "wallTimeMs": 1733,
+        "outputBytes": 951,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 472,
+        "wallTimeMs": 6311,
+        "outputBytes": 956,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-079-T02",
+            "status": "wrong_answer",
+            "actual": "x",
+            "expected": [
+              "x"
+            ]
+          }
+        ]
+      }
+    },
+    "BLIND150-085": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32,
+        "wallTimeMs": 161,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 25,
+        "wallTimeMs": 499,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1437,
+        "wallTimeMs": 1635,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 473,
+        "wallTimeMs": 6172,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-103": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23,
+        "wallTimeMs": 184,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 424,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1432,
+        "wallTimeMs": 1657,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 435,
+        "wallTimeMs": 6285,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-131": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 154,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21,
+        "wallTimeMs": 459,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1542,
+        "wallTimeMs": 1789,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 475,
+        "wallTimeMs": 6565,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-141": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 158,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15,
+        "wallTimeMs": 399,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1518,
+        "wallTimeMs": 1762,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 483,
+        "wallTimeMs": 6413,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

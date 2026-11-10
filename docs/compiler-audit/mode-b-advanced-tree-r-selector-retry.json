@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 12,
+  "matrix": {
+    "BLIND150-051": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 154,
+        "wallTimeMs": 7486,
+        "outputBytes": 683,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-057": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 190,
+        "wallTimeMs": 8031,
+        "outputBytes": 789,
+        "message": "argument must be coercible to non-negative integer",
+        "failures": [
+          {
+            "id": "BLIND150-057-T01",
+            "status": "runtime_error",
+            "message": "argument must be coercible to non-negative integer"
+          },
+          {
+            "id": "BLIND150-057-T03",
+            "status": "runtime_error",
+            "message": "argument must be coercible to non-negative integer"
+          }
+        ]
+      }
+    },
+    "NC250-196": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 157,
+        "wallTimeMs": 8194,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-197": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 156,
+        "wallTimeMs": 8237,
+        "outputBytes": 680,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

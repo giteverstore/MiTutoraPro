@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-190",
+  "title": "Reverse Linked List II",
+  "summary": "Reverse the order of the existing nodes from position left through position right in a singly linked list and return its new head.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "reverseBetween",
+    "signature": "class ListNode:",
+    "input": "head (ints), left (int), right (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "head (ints), left (int), right (int)",
+    "callable": "reverseBetween",
+    "constraints": "1–500 nodes with values in [−500,500]. 1 ≤ left ≤ right ≤ node count. Fixtures serialize the next chain as a value array. The validator also checks node identities, links, unchanged node values, and termination.",
+    "output-checking": "Build an acyclic ListNode chain. Invoke reverseBetween(head,left,right). Verify the complete expected sequence of original node identities and unchanged node values, reject clones, extra nodes and cycles, then serialize values."
+  },
+  "statement": "Reverse the order of the existing nodes from position left through position right in a singly linked list and return its new head. Positions here are one-based. Keep all other nodes in their original relative order. Relink the existing nodes without changing their values.",
+  "examples": [
+    {
+      "input": "{\"head\":[2,4,6,8,10],\"left\":2,\"right\":4}",
+      "output": "[2,8,6,4,10]",
+      "explanation": "Only positions two through four reverse."
+    },
+    {
+      "input": "{\"head\":[3,3,-1],\"left\":1,\"right\":3}",
+      "output": "[-1,3,3]",
+      "explanation": "Even equal-valued nodes must move to the correct identity positions."
+    },
+    {
+      "input": "{\"head\":[9],\"left\":1,\"right\":1}",
+      "output": "[9]",
+      "explanation": "Reversing a one-node interval preserves the node."
+    }
+  ],
+  "constraints": [
+    "1–500 nodes with values in [−500,500]. 1 ≤ left ≤ right ≤ node count. Fixtures serialize the next chain as a value array. The validator also checks node identities, links, unchanged node values, and termination."
+  ],
+  "hints": [
+    "Conceptual: Only the links around and within one interval need to change.",
+    "Directional: Use a temporary predecessor before the head so the interval may start at position one.",
+    "Implementation: Repeatedly detach the node after the interval’s first node and move it immediately after the predecessor."
+  ],
+  "concepts": [
+    "linked-lists",
+    "pointer-mutation"
+  ],
+  "skills": [
+    "Linked lists",
+    "pointer mutation"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary solution space. The identity-checking wrapper uses O(n) audit storage.",
+  "publicTests": [
+    {
+      "name": "NC250-190-P1",
+      "arguments": [
+        [
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        2,
+        4
+      ],
+      "input": {
+        "head": [
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "left": 2,
+        "right": 4
+      },
+      "expected": [
+        2,
+        8,
+        6,
+        4,
+        10
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-190-P2",
+      "arguments": [
+        [
+          3,
+          3,
+          -1
+        ],
+        1,
+        3
+      ],
+      "input": {
+        "head": [
+          3,
+          3,
+          -1
+        ],
+        "left": 1,
+        "right": 3
+      },
+      "expected": [
+        -1,
+        3,
+        3
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-190-P3",
+      "arguments": [
+        [
+          9
+        ],
+        1,
+        1
+      ],
+      "input": {
+        "head": [
+          9
+        ],
+        "left": 1,
+        "right": 1
+      },
+      "expected": [
+        9
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef reverseBetween(head: ListNode | None, left: int, right: int) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseBetween(ListNode head, int left, int right) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @param {number} left\n * @param {number} right\n * @returns {ListNode | null}\n */\nfunction reverseBetween(head, left, right) {\n  throw new Error('Implement reverseBetween');\n}",
+    "typescript": "class ListNode {\n  val: number;\n  next: ListNode | null;\n  constructor(val = 0, next: ListNode | null = null) { this.val = val; this.next = next; }\n}\n\nfunction reverseBetween(head: ListNode | null, left: number, right: number): ListNode | null {\n  throw new Error('Implement reverseBetween');\n}",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * reverseBetween(ListNode * head, int32_t left, int32_t right) {\n    (void)head;\n    (void)left;\n    (void)right;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * reverseBetween(ListNode * head, int left, int right) {\n    (void)head;\n    (void)left;\n    (void)right;\n    throw std::logic_error(\"Implement reverseBetween\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseBetween(ListNode head, int left, int right) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction reverseBetween(?ListNode $head, int $left, int $right): ?ListNode {\n    throw new LogicException('Implement reverseBetween');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL), left (integer scalar), right (integer scalar). Result node environment or NULL.\nreverseBetween <- function(head, left, right) {\n  stop(\"Implement reverseBetween\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "reverseBetween",
+    "arguments": [
+      [
+        "head",
+        "ints"
+      ],
+      [
+        "left",
+        "int"
+      ],
+      [
+        "right",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "node_mutation",
+    "validator": "exact",
+    "notes": "Build an acyclic ListNode chain. Invoke reverseBetween(head,left,right). Verify the complete expected sequence of original node identities and unchanged node values, reject clones, extra nodes and cycles, then serialize values."
+  },
+  "blocks": [
+    {
+      "id": "nc250-190-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-190-statement",
+      "type": "paragraph",
+      "content": "Reverse the order of the existing nodes from position left through position right in a singly linked list and return its new head. Positions here are one-based. Keep all other nodes in their original relative order. Relink the existing nodes without changing their values.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-190-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: head (ints), left (int), right (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-190-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–500 nodes with values in [−500,500]. 1 ≤ left ≤ right ≤ node count. Fixtures serialize the next chain as a value array. The validator also checks node identities, links, unchanged node values, and termination.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-190-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef reverseBetween(head: ListNode | None, left: int, right: int) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseBetween(ListNode head, int left, int right) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} head\n * @param {number} left\n * @param {number} right\n * @returns {ListNode | null}\n */\nfunction reverseBetween(head, left, right) {\n  throw new Error('Implement reverseBetween');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  val: number;\n  next: ListNode | null;\n  constructor(val = 0, next: ListNode | null = null) { this.val = val; this.next = next; }\n}\n\nfunction reverseBetween(head: ListNode | null, left: number, right: number): ListNode | null {\n  throw new Error('Implement reverseBetween');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * reverseBetween(ListNode * head, int32_t left, int32_t right) {\n    (void)head;\n    (void)left;\n    (void)right;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * reverseBetween(ListNode * head, int left, int right) {\n    (void)head;\n    (void)left;\n    (void)right;\n    throw std::logic_error(\"Implement reverseBetween\");\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode reverseBetween(ListNode head, int left, int right) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction reverseBetween(?ListNode $head, int $left, int $right): ?ListNode {\n    throw new LogicException('Implement reverseBetween');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-190-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters head (node environment or NULL), left (integer scalar), right (integer scalar). Result node environment or NULL.\nreverseBetween <- function(head, left, right) {\n  stop(\"Implement reverseBetween\")\n}",
+      "stdin": "",
+      "expectedOutput": "[2,8,6,4,10]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

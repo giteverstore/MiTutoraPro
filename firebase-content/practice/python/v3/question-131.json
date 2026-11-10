@@ -1,0 +1,320 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-131",
+  "title": "Merge Intervals",
+  "summary": "Replace overlapping closed intervals with their union.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Intervals",
+  "category": "dsa",
+  "subtopic": "intervals",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "mergeIntervals",
+    "signature": "def mergeIntervals(intervals:",
+    "input": "`intervals` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`intervals` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "1–10000 pairs [start,end] with 0 ≤ start ≤ end ≤ 10000.",
+    "output-checking": "Check the exact merged interval pairs, allowing any output order."
+  },
+  "statement": "Replace overlapping closed intervals with their union. Return the resulting disjoint intervals. Intervals sharing an endpoint overlap.",
+  "examples": [
+    {
+      "input": "{\"intervals\":[[4,6],[1,4],[9,10]]}",
+      "output": "[[1,6],[9,10]]",
+      "explanation": "The first two intervals meet at 4."
+    },
+    {
+      "input": "{\"intervals\":[[2,2],[2,2]]}",
+      "output": "[[2,2]]",
+      "explanation": "The identical singletons represent one point."
+    },
+    {
+      "input": "{\"intervals\":[[0,4],[1,3]]}",
+      "output": "[[0,4]]",
+      "explanation": "The inner interval contributes no new coverage."
+    }
+  ],
+  "constraints": [
+    "1–10000 pairs [start,end] with 0 ≤ start ≤ end ≤ 10000."
+  ],
+  "hints": [
+    "Conceptual: Put intervals with nearby starts next to each other.",
+    "Directional: Only the last merged interval can overlap the next start in sorted order.",
+    "Implementation: Extend the active end when an interval overlaps. Otherwise emit the active interval and start another."
+  ],
+  "concepts": [
+    "closed-interval-union",
+    "sorting"
+  ],
+  "skills": [
+    "Closed interval union",
+    "sorting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n log n)"
+  },
+  "complexityAnalysis": "O(n log n) time and O(n) extra space when sorting a copy.",
+  "publicTests": [
+    {
+      "name": "BLIND150-131-T01",
+      "arguments": [
+        [
+          [
+            4,
+            6
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            9,
+            10
+          ]
+        ]
+      ],
+      "input": {
+        "intervals": [
+          [
+            4,
+            6
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            9,
+            10
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          6
+        ],
+        [
+          9,
+          10
+        ]
+      ],
+      "validator": "interval_union"
+    },
+    {
+      "name": "BLIND150-131-T02",
+      "arguments": [
+        [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "intervals": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        [
+          2,
+          2
+        ]
+      ],
+      "validator": "interval_union"
+    },
+    {
+      "name": "BLIND150-131-T03",
+      "arguments": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "intervals": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          4
+        ]
+      ],
+      "validator": "interval_union"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def mergeIntervals(intervals: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] mergeIntervals(int[][] intervals) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} intervals\n * @returns {number[][]}\n */\nfunction mergeIntervals(intervals) {\n  throw new Error('Implement mergeIntervals');\n}",
+    "typescript": "function mergeIntervals(intervals: number[][]): number[][] {\n  throw new Error('Implement mergeIntervals');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix mergeIntervals(IntMatrix intervals) {\n    (void)intervals;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> mergeIntervals(std::vector<std::vector<int>> intervals) {\n    throw std::logic_error(\"Implement mergeIntervals\");\n}",
+    "csharp": "public class Solution {\n    public int[][] mergeIntervals(int[][] intervals) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $intervals\n * @return int[][]\n */\nfunction mergeIntervals(array $intervals): array {\n    throw new LogicException('Implement mergeIntervals');\n}",
+    "r": "# Parameters: intervals (list of integer vectors). Result: list of integer vectors.\nmergeIntervals <- function(intervals) {\n  stop(\"Implement mergeIntervals\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-131-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-131-statement",
+      "type": "paragraph",
+      "content": "Replace overlapping closed intervals with their union. Return the resulting disjoint intervals. Intervals sharing an endpoint overlap.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-131-contract",
+      "type": "note",
+      "title": "def mergeIntervals(intervals:",
+      "content": "Input: `intervals` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-131-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 pairs [start,end] with 0 ≤ start ≤ end ≤ 10000.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-131-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def mergeIntervals(intervals: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] mergeIntervals(int[][] intervals) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} intervals\n * @returns {number[][]}\n */\nfunction mergeIntervals(intervals) {\n  throw new Error('Implement mergeIntervals');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function mergeIntervals(intervals: number[][]): number[][] {\n  throw new Error('Implement mergeIntervals');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix mergeIntervals(IntMatrix intervals) {\n    (void)intervals;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> mergeIntervals(std::vector<std::vector<int>> intervals) {\n    throw std::logic_error(\"Implement mergeIntervals\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] mergeIntervals(int[][] intervals) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $intervals\n * @return int[][]\n */\nfunction mergeIntervals(array $intervals): array {\n    throw new LogicException('Implement mergeIntervals');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-131-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: intervals (list of integer vectors). Result: list of integer vectors.\nmergeIntervals <- function(intervals) {\n  stop(\"Implement mergeIntervals\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,6],[9,10]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-248",
+  "title": "Add Binary",
+  "summary": "Add the two nonnegative integers written as binary strings.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "addBinary",
+    "signature": "def addBinary(a:",
+    "input": "a (str), b (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "a (str), b (str)",
+    "callable": "addBinary",
+    "constraints": "Each input contains 1–10000 bits. Neither input has a leading zero unless it equals 0.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Add the two nonnegative integers written as binary strings. Return their sum as a binary string without redundant leading zeros.",
+  "examples": [
+    {
+      "input": "{\"a\":\"1010\",\"b\":\"111\"}",
+      "output": "\"10001\"",
+      "explanation": "Ten plus seven is seventeen."
+    },
+    {
+      "input": "{\"a\":\"0\",\"b\":\"101\"}",
+      "output": "\"101\"",
+      "explanation": "Zero leaves the other input unchanged."
+    },
+    {
+      "input": "{\"a\":\"1111\",\"b\":\"1\"}",
+      "output": "\"10000\"",
+      "explanation": "A carry propagates through all four positions."
+    }
+  ],
+  "constraints": [
+    "Each input contains 1–10000 bits. Neither input has a leading zero unless it equals 0."
+  ],
+  "hints": [
+    "Conceptual: The carry moves from lower to higher positions.",
+    "Directional: Read both strings from their right ends.",
+    "Implementation: Add the two available bits and the carry. Record the remainder modulo two and carry the quotient to the next position."
+  ],
+  "concepts": [
+    "binary-strings",
+    "carry-arithmetic"
+  ],
+  "skills": [
+    "Binary strings",
+    "carry arithmetic"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(max(a,b)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(max(a,b)) time and O(max(a,b)) output storage, where a and b denote lengths.",
+  "publicTests": [
+    {
+      "name": "NC250-248-P1",
+      "arguments": [
+        "1010",
+        "111"
+      ],
+      "input": {
+        "a": "1010",
+        "b": "111"
+      },
+      "expected": "10001",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-248-P2",
+      "arguments": [
+        "0",
+        "101"
+      ],
+      "input": {
+        "a": "0",
+        "b": "101"
+      },
+      "expected": "101",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-248-P3",
+      "arguments": [
+        "1111",
+        "1"
+      ],
+      "input": {
+        "a": "1111",
+        "b": "1"
+      },
+      "expected": "10000",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def addBinary(a: str, b: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String addBinary(String a, String b) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} a\n * @param {string} b\n * @returns {string}\n */\nfunction addBinary(a, b) {\n  throw new Error('Implement addBinary');\n}",
+    "typescript": "function addBinary(a: string, b: string): string {\n  throw new Error('Implement addBinary');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString addBinary(ByteString a, ByteString b) {\n    (void)a;\n    (void)b;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string addBinary(std::string a, std::string b) {\n    throw std::logic_error(\"Implement addBinary\");\n}",
+    "csharp": "public class Solution {\n    public string addBinary(string a, string b) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $a\n * @param string $b\n * @return string\n */\nfunction addBinary(string $a, string $b): string {\n    throw new LogicException('Implement addBinary');\n}",
+    "r": "# Parameters: a (character scalar), b (character scalar). Result: character scalar.\naddBinary <- function(a, b) {\n  stop(\"Implement addBinary\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "addBinary",
+    "arguments": [
+      [
+        "a",
+        "str"
+      ],
+      [
+        "b",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-248-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-248-statement",
+      "type": "paragraph",
+      "content": "Add the two nonnegative integers written as binary strings. Return their sum as a binary string without redundant leading zeros.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-248-contract",
+      "type": "note",
+      "title": "def addBinary(a:",
+      "content": "Input: a (str), b (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-248-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each input contains 1–10000 bits. Neither input has a leading zero unless it equals 0.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-248-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def addBinary(a: str, b: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String addBinary(String a, String b) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} a\n * @param {string} b\n * @returns {string}\n */\nfunction addBinary(a, b) {\n  throw new Error('Implement addBinary');\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function addBinary(a: string, b: string): string {\n  throw new Error('Implement addBinary');\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString addBinary(ByteString a, ByteString b) {\n    (void)a;\n    (void)b;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string addBinary(std::string a, std::string b) {\n    throw std::logic_error(\"Implement addBinary\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string addBinary(string a, string b) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $a\n * @param string $b\n * @return string\n */\nfunction addBinary(string $a, string $b): string {\n    throw new LogicException('Implement addBinary');\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-248-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: a (character scalar), b (character scalar). Result: character scalar.\naddBinary <- function(a, b) {\n  stop(\"Implement addBinary\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"10001\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

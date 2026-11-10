@@ -1,0 +1,341 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 81,
+  "matrix": {
+    "NC250-158": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 177,
+        "wallTimeMs": 26601,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24147,
+        "wallTimeMs": 24646,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8,
+        "wallTimeMs": 218,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 7,
+        "wallTimeMs": 243,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10540,
+        "wallTimeMs": 16836,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 31085,
+        "wallTimeMs": 37509,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28302.4299,
+        "wallTimeMs": 35985,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3020,
+        "wallTimeMs": 3348,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 193,
+        "wallTimeMs": 15148,
+        "outputBytes": 631,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-208": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 175,
+        "wallTimeMs": 26784,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24442,
+        "wallTimeMs": 24906,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 238,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 271,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 0,
+        "wallTimeMs": 1,
+        "outputBytes": 786,
+        "message": "No semantic-collection function adapter is available for \"c\".",
+        "failures": [
+          {
+            "id": "NC250-208-P1",
+            "status": "adapter_error",
+            "message": "No semantic-collection function adapter is available for \"c\"."
+          },
+          {
+            "id": "NC250-208-P2",
+            "status": "adapter_error",
+            "message": "No semantic-collection function adapter is available for \"c\"."
+          },
+          {
+            "id": "NC250-208-P3",
+            "status": "adapter_error",
+            "message": "No semantic-collection function adapter is available for \"c\"."
+          }
+        ]
+      },
+      "cpp": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 0,
+        "wallTimeMs": 0,
+        "outputBytes": 792,
+        "message": "No semantic-collection function adapter is available for \"cpp\".",
+        "failures": [
+          {
+            "id": "NC250-208-P1",
+            "status": "adapter_error",
+            "message": "No semantic-collection function adapter is available for \"cpp\"."
+          },
+          {
+            "id": "NC250-208-P2",
+            "status": "adapter_error",
+            "message": "No semantic-collection function adapter is available for \"cpp\"."
+          },
+          {
+            "id": "NC250-208-P3",
+            "status": "adapter_error",
+            "message": "No semantic-collection function adapter is available for \"cpp\"."
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28097.969999999998,
+        "wallTimeMs": 35732,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3339,
+        "wallTimeMs": 3652,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 180,
+        "wallTimeMs": 14257,
+        "outputBytes": 747,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-215": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 184,
+        "wallTimeMs": 26478,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24058,
+        "wallTimeMs": 24488,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 7,
+        "wallTimeMs": 222,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8,
+        "wallTimeMs": 248,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11200,
+        "wallTimeMs": 17364,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 33118,
+        "wallTimeMs": 39468,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28127.73,
+        "wallTimeMs": 35739,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3098,
+        "wallTimeMs": 3423,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 171,
+        "wallTimeMs": 14201,
+        "outputBytes": 848,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

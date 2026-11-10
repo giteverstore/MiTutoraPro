@@ -1,0 +1,378 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-032",
+  "title": "Time Based Key Value Store",
+  "summary": "Implement TimeMap with set(key, value, timestamp) and get(key, timestamp).",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "TimeMap",
+    "signature": "class TimeMap:",
+    "input": "`ops` (nested string arrays)",
+    "output": "string array."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested string arrays)",
+    "result": "string array.",
+    "constraints": "At most 200,000 calls after construction. Keys and values have 1–100 lowercase English letters or digits. Timestamps are integers in [1, 10,000,000], and set timestamps increase strictly across all keys. The judge sends rows [\"set\", key, value, timestamp] or [\"get\", key, timestamp], with timestamps encoded as decimal strings in the fixture. The callable methods receive integer timestamps. Return the get results in call order.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Implement TimeMap with set(key, value, timestamp) and get(key, timestamp). Set stores a value at that time. Get returns the value from the latest already executed set for the same key at or before the requested time. Return an empty string if nothing qualifies.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[\"set\",\"m\",\"old\",\"4\"],[\"set\",\"m\",\"new\",\"9\"],[\"get\",\"m\",\"8\"],[\"get\",\"m\",\"9\"]]}",
+      "output": "[\"old\",\"new\"]",
+      "explanation": "The query at 8 precedes the update at 9."
+    },
+    {
+      "input": "{\"ops\":[[\"get\",\"lost\",\"5\"],[\"set\",\"x\",\"v\",\"8\"],[\"get\",\"x\",\"7\"]]}",
+      "output": "[\"\",\"\"]",
+      "explanation": "The first key is absent, and the second query is before the first write."
+    },
+    {
+      "input": "{\"ops\":[[\"set\",\"a\",\"x\",\"1\"],[\"set\",\"b\",\"y\",\"3\"],[\"get\",\"a\",\"20\"],[\"get\",\"b\",\"3\"]]}",
+      "output": "[\"x\",\"y\"]",
+      "explanation": "The keys keep separate histories."
+    }
+  ],
+  "constraints": [
+    "At most 200,000 calls after construction. Keys and values have 1–100 lowercase English letters or digits. Timestamps are integers in [1, 10,000,000], and set timestamps increase strictly across all keys. The judge sends rows [\"set\", key, value, timestamp] or [\"get\", key, timestamp], with timestamps encoded as decimal strings in the fixture. The callable methods receive integer timestamps. Return the get results in call order."
+  ],
+  "hints": [
+    "Conceptual: Each key has its own history, and later writes always have greater timestamps.",
+    "Directional: Keep an append-only list of timestamp and value pairs per key.",
+    "Implementation: Binary-search for the first timestamp greater than the query. Use its predecessor, or return an empty string when there is no predecessor."
+  ],
+  "concepts": [
+    "design",
+    "hash-maps",
+    "binary-search",
+    "timestamps"
+  ],
+  "skills": [
+    "Design",
+    "hash maps",
+    "binary search",
+    "timestamps"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "With a hash map and growable arrays, set takes O(1) expected amortized time and get takes O(log k) time for k writes to that key. Storage is O(w) entries for w writes, plus the stored text.",
+  "publicTests": [
+    {
+      "name": "BLIND150-032-T01",
+      "arguments": [
+        [
+          [
+            "set",
+            "m",
+            "old",
+            "4"
+          ],
+          [
+            "set",
+            "m",
+            "new",
+            "9"
+          ],
+          [
+            "get",
+            "m",
+            "8"
+          ],
+          [
+            "get",
+            "m",
+            "9"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "set",
+            "m",
+            "old",
+            "4"
+          ],
+          [
+            "set",
+            "m",
+            "new",
+            "9"
+          ],
+          [
+            "get",
+            "m",
+            "8"
+          ],
+          [
+            "get",
+            "m",
+            "9"
+          ]
+        ]
+      },
+      "expected": [
+        "old",
+        "new"
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-032-T02",
+      "arguments": [
+        [
+          [
+            "get",
+            "lost",
+            "5"
+          ],
+          [
+            "set",
+            "x",
+            "v",
+            "8"
+          ],
+          [
+            "get",
+            "x",
+            "7"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "get",
+            "lost",
+            "5"
+          ],
+          [
+            "set",
+            "x",
+            "v",
+            "8"
+          ],
+          [
+            "get",
+            "x",
+            "7"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        ""
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-032-T03",
+      "arguments": [
+        [
+          [
+            "set",
+            "a",
+            "x",
+            "1"
+          ],
+          [
+            "set",
+            "b",
+            "y",
+            "3"
+          ],
+          [
+            "get",
+            "a",
+            "20"
+          ],
+          [
+            "get",
+            "b",
+            "3"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "set",
+            "a",
+            "x",
+            "1"
+          ],
+          [
+            "set",
+            "b",
+            "y",
+            "3"
+          ],
+          [
+            "get",
+            "a",
+            "20"
+          ],
+          [
+            "get",
+            "b",
+            "3"
+          ]
+        ]
+      },
+      "expected": [
+        "x",
+        "y"
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class TimeMap:\n    def __init__(self) -> None:\n        pass\n\n    def set(self, key: str, value: str, timestamp: int) -> None:\n        raise NotImplementedError\n\n    def get(self, key: str, timestamp: int) -> str:\n        raise NotImplementedError",
+    "java": "class TimeMap {\n    public TimeMap() {}\n    public void set(String key, String value, int timestamp) {\n        throw new UnsupportedOperationException();\n    }\n    public String get(String key, int timestamp) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TimeMap {\n  /** @param {string} key @param {string} value @param {number} timestamp */\n  set(key, value, timestamp) { throw new Error('Implement set'); }\n  /** @param {string} key @param {number} timestamp @returns {string} */\n  get(key, timestamp) { throw new Error('Implement get'); }\n}",
+    "typescript": "class TimeMap {\n  set(key: string, value: string, timestamp: number): void {\n    throw new Error('Implement set');\n  }\n  get(key: string, timestamp: number): string {\n    throw new Error('Implement get');\n  }\n}",
+    "c": "#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct TimeMap TimeMap;\n\nTimeMap *timeMapCreate(void) { abort(); }\nvoid timeMapSet(TimeMap *map, ByteString key, ByteString value, int32_t timestamp) {\n    (void)map; (void)key; (void)value; (void)timestamp;\n    abort();\n}\nByteString timeMapGet(TimeMap *map, ByteString key, int32_t timestamp) {\n    (void)map; (void)key; (void)timestamp;\n    abort();\n}\nvoid timeMapFree(TimeMap *map) { (void)map; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <string>\n\nclass TimeMap {\npublic:\n    void set(std::string key, std::string value, int timestamp) {\n        (void)key; (void)value; (void)timestamp;\n        throw std::logic_error(\"Implement set\");\n    }\n    std::string get(std::string key, int timestamp) {\n        (void)key; (void)timestamp;\n        throw std::logic_error(\"Implement get\");\n    }\n};",
+    "csharp": "public class TimeMap {\n    public void set(string key, string value, int timestamp) {\n        throw new System.NotImplementedException();\n    }\n    public string get(string key, int timestamp) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TimeMap {\n    public function set(string $key, string $value, int $timestamp): void {\n        throw new LogicException('Implement set');\n    }\n    public function get(string $key, int $timestamp): string {\n        throw new LogicException('Implement get');\n    }\n}",
+    "r": "TimeMap <- function() {\n  list(\n    set = function(key, value, timestamp) stop(\"Implement set\"),\n    get = function(key, timestamp) stop(\"Implement get\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-032-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-032-statement",
+      "type": "paragraph",
+      "content": "Implement TimeMap with set(key, value, timestamp) and get(key, timestamp). Set stores a value at that time. Get returns the value from the latest already executed set for the same key at or before the requested time. Return an empty string if nothing qualifies.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-032-contract",
+      "type": "note",
+      "title": "class TimeMap:",
+      "content": "Input: `ops` (nested string arrays)\n\nOutput: string array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-032-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 200,000 calls after construction. Keys and values have 1–100 lowercase English letters or digits. Timestamps are integers in [1, 10,000,000], and set timestamps increase strictly across all keys. The judge sends rows [\"set\", key, value, timestamp] or [\"get\", key, timestamp], with timestamps encoded as decimal strings in the fixture. The callable methods receive integer timestamps. Return the get results in call order.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-032-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class TimeMap:\n    def __init__(self) -> None:\n        pass\n\n    def set(self, key: str, value: str, timestamp: int) -> None:\n        raise NotImplementedError\n\n    def get(self, key: str, timestamp: int) -> str:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class TimeMap {\n    public TimeMap() {}\n    public void set(String key, String value, int timestamp) {\n        throw new UnsupportedOperationException();\n    }\n    public String get(String key, int timestamp) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TimeMap {\n  /** @param {string} key @param {string} value @param {number} timestamp */\n  set(key, value, timestamp) { throw new Error('Implement set'); }\n  /** @param {string} key @param {number} timestamp @returns {string} */\n  get(key, timestamp) { throw new Error('Implement get'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TimeMap {\n  set(key: string, value: string, timestamp: number): void {\n    throw new Error('Implement set');\n  }\n  get(key: string, timestamp: number): string {\n    throw new Error('Implement get');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdint.h>\n#include <stddef.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct TimeMap TimeMap;\n\nTimeMap *timeMapCreate(void) { abort(); }\nvoid timeMapSet(TimeMap *map, ByteString key, ByteString value, int32_t timestamp) {\n    (void)map; (void)key; (void)value; (void)timestamp;\n    abort();\n}\nByteString timeMapGet(TimeMap *map, ByteString key, int32_t timestamp) {\n    (void)map; (void)key; (void)timestamp;\n    abort();\n}\nvoid timeMapFree(TimeMap *map) { (void)map; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n\nclass TimeMap {\npublic:\n    void set(std::string key, std::string value, int timestamp) {\n        (void)key; (void)value; (void)timestamp;\n        throw std::logic_error(\"Implement set\");\n    }\n    std::string get(std::string key, int timestamp) {\n        (void)key; (void)timestamp;\n        throw std::logic_error(\"Implement get\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class TimeMap {\n    public void set(string key, string value, int timestamp) {\n        throw new System.NotImplementedException();\n    }\n    public string get(string key, int timestamp) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TimeMap {\n    public function set(string $key, string $value, int $timestamp): void {\n        throw new LogicException('Implement set');\n    }\n    public function get(string $key, int $timestamp): string {\n        throw new LogicException('Implement get');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-032-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TimeMap <- function() {\n  list(\n    set = function(key, value, timestamp) stop(\"Implement set\"),\n    get = function(key, timestamp) stop(\"Implement get\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[\"old\",\"new\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

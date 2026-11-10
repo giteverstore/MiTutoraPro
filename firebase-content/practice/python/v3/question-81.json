@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-081",
+  "title": "Max Area of Island",
+  "summary": "Find the largest number of land cells in a single island.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "maxAreaOfIsland",
+    "signature": "def maxAreaOfIsland(grid:",
+    "input": "`grid` (nested integer arrays)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`grid` (nested integer arrays)",
+    "result": "integer.",
+    "constraints": "1–50 rows and 1–50 columns. The grid is rectangular and contains only integer 0 and 1 values.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Find the largest number of land cells in a single island. Land is 1 and water is 0. Two land cells belong to the same island when they can reach each other through land using shared edges. Return zero if there is no land.",
+  "examples": [
+    {
+      "input": "{\"grid\":[[1,1,0],[0,0,1]]}",
+      "output": "2",
+      "explanation": "The adjacent pair is larger than the isolated cell."
+    },
+    {
+      "input": "{\"grid\":[[1,0],[0,1]]}",
+      "output": "1",
+      "explanation": "Diagonal cells are separate islands."
+    },
+    {
+      "input": "{\"grid\":[[0,0]]}",
+      "output": "0",
+      "explanation": "There is no land to count."
+    }
+  ],
+  "constraints": [
+    "1–50 rows and 1–50 columns. The grid is rectangular and contains only integer 0 and 1 values."
+  ],
+  "hints": [
+    "Conceptual: An island's area depends on all its reachable cells.",
+    "Directional: Start a flood fill at every land cell that has not been visited.",
+    "Implementation: Mark cells when you add them to the worklist, count each once, and keep the largest completed count."
+  ],
+  "concepts": [
+    "grid-graphs",
+    "components",
+    "flood-fill"
+  ],
+  "skills": [
+    "Grid graphs",
+    "components",
+    "flood fill"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(mn) auxiliary space with iterative flood fill and separate visit marks.",
+  "publicTests": [
+    {
+      "name": "BLIND150-081-T01",
+      "arguments": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-081-T02",
+      "arguments": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-081-T03",
+      "arguments": [
+        [
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def maxAreaOfIsland(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction maxAreaOfIsland(grid) {\n  throw new Error('Implement maxAreaOfIsland');\n}",
+    "typescript": "function maxAreaOfIsland(grid: number[][]): number {\n  throw new Error('Implement maxAreaOfIsland');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t maxAreaOfIsland(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxAreaOfIsland(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement maxAreaOfIsland\");\n}",
+    "csharp": "public class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction maxAreaOfIsland(array $grid): int {\n    throw new LogicException('Implement maxAreaOfIsland');\n}",
+    "r": "# Parameters: grid (list of integer vectors). Result: integer scalar.\nmaxAreaOfIsland <- function(grid) {\n  stop(\"Implement maxAreaOfIsland\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-081-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-081-statement",
+      "type": "paragraph",
+      "content": "Find the largest number of land cells in a single island. Land is 1 and water is 0. Two land cells belong to the same island when they can reach each other through land using shared edges. Return zero if there is no land.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-081-contract",
+      "type": "note",
+      "title": "def maxAreaOfIsland(grid:",
+      "content": "Input: `grid` (nested integer arrays)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-081-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50 rows and 1–50 columns. The grid is rectangular and contains only integer 0 and 1 values.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-081-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def maxAreaOfIsland(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction maxAreaOfIsland(grid) {\n  throw new Error('Implement maxAreaOfIsland');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function maxAreaOfIsland(grid: number[][]): number {\n  throw new Error('Implement maxAreaOfIsland');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t maxAreaOfIsland(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxAreaOfIsland(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement maxAreaOfIsland\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction maxAreaOfIsland(array $grid): int {\n    throw new LogicException('Implement maxAreaOfIsland');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-081-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: grid (list of integer vectors). Result: integer scalar.\nmaxAreaOfIsland <- function(grid) {\n  stop(\"Implement maxAreaOfIsland\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

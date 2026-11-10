@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-203",
+  "title": "Longest Happy String",
+  "summary": "Build a longest possible string using at most a copies of a, b copies of b, and c copies of c.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "longestDiverseString",
+    "signature": "def longestDiverseString(a:",
+    "input": "a (int), b (int), c (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "a (int), b (int), c (int)",
+    "callable": "longestDiverseString",
+    "constraints": "0 ≤ a,b,c ≤ 100 and a+b+c > 0. Unused copies are allowed when necessary. Return a string over a, b, and c.",
+    "output-checking": "Require alphabet a/b/c, per-letter counts within the supplied limits, no triple run, and optimal length min(total, 3*(total-largest_count)+2). Accept every valid optimal string."
+  },
+  "statement": "Build a longest possible string using at most a copies of a, b copies of b, and c copies of c. No three consecutive characters may be equal. Any maximum-length valid string is accepted.",
+  "examples": [
+    {
+      "input": "{\"a\":3,\"b\":1,\"c\":0}",
+      "output": "\"aaba\"",
+      "explanation": "All four copies can be used without a triple."
+    },
+    {
+      "input": "{\"a\":0,\"b\":0,\"c\":5}",
+      "output": "\"cc\"",
+      "explanation": "Only two consecutive cs are legal."
+    },
+    {
+      "input": "{\"a\":1,\"b\":1,\"c\":1}",
+      "output": "\"abc\"",
+      "explanation": "Every letter can be used."
+    }
+  ],
+  "constraints": [
+    "0 ≤ a,b,c ≤ 100 and a+b+c > 0. Unused copies are allowed when necessary. Return a string over a, b, and c."
+  ],
+  "hints": [
+    "Conceptual: A large remaining count is useful unless its next character creates a forbidden run.",
+    "Directional: Choose the most abundant currently allowed character.",
+    "Implementation: Check the previous two characters before appending. If the largest count is blocked, use the next available character. Stop only when every available character is blocked."
+  ],
+  "concepts": [
+    "greedy-construction",
+    "bounded-runs"
+  ],
+  "skills": [
+    "Greedy construction",
+    "bounded runs"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(L)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(L) time and O(1) auxiliary storage, excluding output length L.",
+  "publicTests": [
+    {
+      "name": "NC250-203-P1",
+      "arguments": [
+        3,
+        1,
+        0
+      ],
+      "input": {
+        "a": 3,
+        "b": 1,
+        "c": 0
+      },
+      "expected": "aaba",
+      "validator": "happy"
+    },
+    {
+      "name": "NC250-203-P2",
+      "arguments": [
+        0,
+        0,
+        5
+      ],
+      "input": {
+        "a": 0,
+        "b": 0,
+        "c": 5
+      },
+      "expected": "cc",
+      "validator": "happy"
+    },
+    {
+      "name": "NC250-203-P3",
+      "arguments": [
+        1,
+        1,
+        1
+      ],
+      "input": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      },
+      "expected": "abc",
+      "validator": "happy"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def longestDiverseString(a: int, b: int, c: int) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String longestDiverseString(int a, int b, int c) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @param {number} c\n * @returns {string}\n */\nfunction longestDiverseString(a, b, c) {\n  throw new Error('Implement longestDiverseString');\n}",
+    "typescript": "function longestDiverseString(a: number, b: number, c: number): string {\n  throw new Error('Implement longestDiverseString');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString longestDiverseString(int32_t a, int32_t b, int32_t c) {\n    (void)a;\n    (void)b;\n    (void)c;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string longestDiverseString(int a, int b, int c) {\n    throw std::logic_error(\"Implement longestDiverseString\");\n}",
+    "csharp": "public class Solution {\n    public string longestDiverseString(int a, int b, int c) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $a\n * @param int $b\n * @param int $c\n * @return string\n */\nfunction longestDiverseString(int $a, int $b, int $c): string {\n    throw new LogicException('Implement longestDiverseString');\n}",
+    "r": "# Parameters: a (integer scalar), b (integer scalar), c (integer scalar). Result: character scalar.\nlongestDiverseString <- function(a, b, c) {\n  stop(\"Implement longestDiverseString\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "longestDiverseString",
+    "arguments": [
+      [
+        "a",
+        "int"
+      ],
+      [
+        "b",
+        "int"
+      ],
+      [
+        "c",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "happy",
+    "notes": "Require alphabet a/b/c, per-letter counts within the supplied limits, no triple run, and optimal length min(total, 3*(total-largest_count)+2). Accept every valid optimal string."
+  },
+  "blocks": [
+    {
+      "id": "nc250-203-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-203-statement",
+      "type": "paragraph",
+      "content": "Build a longest possible string using at most a copies of a, b copies of b, and c copies of c. No three consecutive characters may be equal. Any maximum-length valid string is accepted.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-203-contract",
+      "type": "note",
+      "title": "def longestDiverseString(a:",
+      "content": "Input: a (int), b (int), c (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-203-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 ≤ a,b,c ≤ 100 and a+b+c > 0. Unused copies are allowed when necessary. Return a string over a, b, and c.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-203-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def longestDiverseString(a: int, b: int, c: int) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String longestDiverseString(int a, int b, int c) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} a\n * @param {number} b\n * @param {number} c\n * @returns {string}\n */\nfunction longestDiverseString(a, b, c) {\n  throw new Error('Implement longestDiverseString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function longestDiverseString(a: number, b: number, c: number): string {\n  throw new Error('Implement longestDiverseString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString longestDiverseString(int32_t a, int32_t b, int32_t c) {\n    (void)a;\n    (void)b;\n    (void)c;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string longestDiverseString(int a, int b, int c) {\n    throw std::logic_error(\"Implement longestDiverseString\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string longestDiverseString(int a, int b, int c) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $a\n * @param int $b\n * @param int $c\n * @return string\n */\nfunction longestDiverseString(int $a, int $b, int $c): string {\n    throw new LogicException('Implement longestDiverseString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-203-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: a (integer scalar), b (integer scalar), c (integer scalar). Result: character scalar.\nlongestDiverseString <- function(a, b, c) {\n  stop(\"Implement longestDiverseString\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"aaba\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

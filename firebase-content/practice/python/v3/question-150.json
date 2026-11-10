@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-150",
+  "title": "Reverse Integer",
+  "summary": "Reverse the decimal digits of a signed 32-bit integer, preserving its sign.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "reverseInteger",
+    "signature": "def reverseInteger(x:",
+    "input": "`x` (signed 32-bit integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`x` (signed 32-bit integer)",
+    "result": "integer.",
+    "constraints": "−2147483648 ≤ x ≤ 2147483647.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Reverse the decimal digits of a signed 32-bit integer, preserving its sign. Return 0 if the result would be outside the signed 32-bit range. Solve without storing a 64-bit integer.",
+  "examples": [
+    {
+      "input": "{\"x\":407}",
+      "output": "704",
+      "explanation": "The middle zero stays between the reversed digits."
+    },
+    {
+      "input": "{\"x\":-920}",
+      "output": "-29",
+      "explanation": "Preserve the sign and drop the leading zero after reversal."
+    },
+    {
+      "input": "{\"x\":1534236469}",
+      "output": "0",
+      "explanation": "The reversed magnitude exceeds the signed range."
+    }
+  ],
+  "constraints": [
+    "−2147483648 ≤ x ≤ 2147483647."
+  ],
+  "hints": [
+    "Conceptual: Trailing zeros disappear after reversal.",
+    "Directional: Extract signed digits without taking the absolute value of the signed minimum.",
+    "Implementation: Before appending each digit, check the result against the quotient and last-digit bounds for signed 32-bit limits."
+  ],
+  "concepts": [
+    "decimal-reversal",
+    "signed-overflow-guards"
+  ],
+  "skills": [
+    "Decimal reversal",
+    "signed overflow guards"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(number of digits)",
+    "space": "O(number of digits)"
+  },
+  "complexityAnalysis": "O(number of digits) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-150-T01",
+      "arguments": [
+        407
+      ],
+      "input": {
+        "x": 407
+      },
+      "expected": 704,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-150-T02",
+      "arguments": [
+        -920
+      ],
+      "input": {
+        "x": -920
+      },
+      "expected": -29,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-150-T03",
+      "arguments": [
+        1534236469
+      ],
+      "input": {
+        "x": 1534236469
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def reverseInteger(x: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int reverseInteger(int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} x\n * @returns {number}\n */\nfunction reverseInteger(x) {\n  throw new Error('Implement reverseInteger');\n}",
+    "typescript": "function reverseInteger(x: number): number {\n  throw new Error('Implement reverseInteger');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t reverseInteger(int32_t x) {\n    (void)x;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint reverseInteger(int x) {\n    throw std::logic_error(\"Implement reverseInteger\");\n}",
+    "csharp": "public class Solution {\n    public int reverseInteger(int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param signed 32-bit int $x\n * @return int\n */\nfunction reverseInteger(int $x): int {\n    throw new LogicException('Implement reverseInteger');\n}",
+    "r": "# Parameters: x (exact numeric scalar). Result: integer scalar.\nreverseInteger <- function(x) {\n  stop(\"Implement reverseInteger\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-150-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-150-statement",
+      "type": "paragraph",
+      "content": "Reverse the decimal digits of a signed 32-bit integer, preserving its sign. Return 0 if the result would be outside the signed 32-bit range. Solve without storing a 64-bit integer.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-150-contract",
+      "type": "note",
+      "title": "def reverseInteger(x:",
+      "content": "Input: `x` (signed 32-bit integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-150-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "−2147483648 ≤ x ≤ 2147483647.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-150-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def reverseInteger(x: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int reverseInteger(int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} x\n * @returns {number}\n */\nfunction reverseInteger(x) {\n  throw new Error('Implement reverseInteger');\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function reverseInteger(x: number): number {\n  throw new Error('Implement reverseInteger');\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t reverseInteger(int32_t x) {\n    (void)x;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint reverseInteger(int x) {\n    throw std::logic_error(\"Implement reverseInteger\");\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int reverseInteger(int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param signed 32-bit int $x\n * @return int\n */\nfunction reverseInteger(int $x): int {\n    throw new LogicException('Implement reverseInteger');\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-150-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: x (exact numeric scalar). Result: integer scalar.\nreverseInteger <- function(x) {\n  stop(\"Implement reverseInteger\")\n}",
+      "stdin": "",
+      "expectedOutput": "704",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

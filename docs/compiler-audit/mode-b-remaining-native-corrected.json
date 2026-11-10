@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 12,
+  "matrix": {
+    "BLIND150-008": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29263,
+        "wallTimeMs": 33334,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 45271,
+        "wallTimeMs": 48870,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-023": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16790,
+        "wallTimeMs": 18869,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28723,
+        "wallTimeMs": 30813,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

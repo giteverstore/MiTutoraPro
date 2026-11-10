@@ -1,0 +1,353 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-077",
+  "title": "Implement Trie Prefix Tree",
+  "summary": "Build an initially empty Trie with insert, search and startsWith.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Tries",
+  "category": "dsa",
+  "subtopic": "tries",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "Trie",
+    "signature": "class Trie:",
+    "input": "`ops` (nested string arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`ops` (nested string arrays)",
+    "result": "integer array.",
+    "constraints": "At most 30,000 calls. Every word and prefix contains 1–2,000 lowercase English letters. In the fixture, each row is [operation, text]. Only search and startsWith produce results, encoded as 1 or 0 in call order.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Build an initially empty Trie with insert, search and startsWith. Insert stores a word. Search tests whether that entire word was inserted. StartsWith tests whether any stored word begins with the supplied prefix, including an equal word. Duplicate inserts leave the set of words unchanged.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[\"insert\",\"plane\"],[\"search\",\"plan\"],[\"startsWith\",\"plan\"],[\"search\",\"plane\"]]}",
+      "output": "[0,1,1]",
+      "explanation": "The prefix exists without being a complete word."
+    },
+    {
+      "input": "{\"ops\":[[\"search\",\"go\"],[\"insert\",\"go\"],[\"insert\",\"go\"],[\"search\",\"go\"]]}",
+      "output": "[0,1]",
+      "explanation": "The first query precedes insertion. A repeated insert does not remove the word."
+    },
+    {
+      "input": "{\"ops\":[[\"insert\",\"cart\"],[\"insert\",\"car\"],[\"search\",\"car\"],[\"startsWith\",\"cat\"]]}",
+      "output": "[1,0]",
+      "explanation": "Both terminal words coexist, and cat has no path."
+    }
+  ],
+  "constraints": [
+    "At most 30,000 calls. Every word and prefix contains 1–2,000 lowercase English letters. In the fixture, each row is [operation, text]. Only search and startsWith produce results, encoded as 1 or 0 in call order."
+  ],
+  "hints": [
+    "Conceptual: Words with the same prefix can share the first part of their representation.",
+    "Directional: Give each node child links and a flag marking a complete word.",
+    "Implementation: Walk or create edges on insert. For search require the final flag, while startsWith needs only a complete path."
+  ],
+  "concepts": [
+    "tries",
+    "design",
+    "prefix-matching"
+  ],
+  "skills": [
+    "Tries",
+    "design",
+    "prefix matching"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(L)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(L) time per operation for length L and O(S) storage for S distinct prefix nodes, assuming a fixed alphabet or constant-time child lookup.",
+  "publicTests": [
+    {
+      "name": "BLIND150-077-T01",
+      "arguments": [
+        [
+          [
+            "insert",
+            "plane"
+          ],
+          [
+            "search",
+            "plan"
+          ],
+          [
+            "startsWith",
+            "plan"
+          ],
+          [
+            "search",
+            "plane"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "insert",
+            "plane"
+          ],
+          [
+            "search",
+            "plan"
+          ],
+          [
+            "startsWith",
+            "plan"
+          ],
+          [
+            "search",
+            "plane"
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-077-T02",
+      "arguments": [
+        [
+          [
+            "search",
+            "go"
+          ],
+          [
+            "insert",
+            "go"
+          ],
+          [
+            "insert",
+            "go"
+          ],
+          [
+            "search",
+            "go"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "search",
+            "go"
+          ],
+          [
+            "insert",
+            "go"
+          ],
+          [
+            "insert",
+            "go"
+          ],
+          [
+            "search",
+            "go"
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-077-T03",
+      "arguments": [
+        [
+          [
+            "insert",
+            "cart"
+          ],
+          [
+            "insert",
+            "car"
+          ],
+          [
+            "search",
+            "car"
+          ],
+          [
+            "startsWith",
+            "cat"
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            "insert",
+            "cart"
+          ],
+          [
+            "insert",
+            "car"
+          ],
+          [
+            "search",
+            "car"
+          ],
+          [
+            "startsWith",
+            "cat"
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class Trie:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def insert(self, word: str) -> None:\n        raise NotImplementedError\n\n    def search(self, word: str) -> bool:\n        raise NotImplementedError\n\n    def startsWith(self, prefix: str) -> bool:\n        raise NotImplementedError",
+    "java": "class Trie {\n    public Trie() { throw new UnsupportedOperationException(); }\n\n    public void insert(String word) {\n        throw new UnsupportedOperationException();\n    }\n\n    public boolean search(String word) {\n        throw new UnsupportedOperationException();\n    }\n\n    public boolean startsWith(String prefix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class Trie {\n  constructor() { throw new Error('Implement constructor'); }\n\n  /** @param {string} word @returns {void} */\n  insert(word) { throw new Error('Implement insert'); }\n\n  /** @param {string} word @returns {boolean} */\n  search(word) { throw new Error('Implement search'); }\n\n  /** @param {string} prefix @returns {boolean} */\n  startsWith(prefix) { throw new Error('Implement startsWith'); }\n}",
+    "typescript": "class Trie {\n  constructor() { throw new Error('Implement constructor'); }\n\n  insert(word: string): void { throw new Error('Implement insert'); }\n\n  search(word: string): boolean { throw new Error('Implement search'); }\n\n  startsWith(prefix: string): boolean { throw new Error('Implement startsWith'); }\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdlib.h>\n\ntypedef struct Trie Trie;\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nTrie *trieCreate(void) { abort(); }\n\nvoid trieInsert(Trie *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}\n\nbool trieSearch(Trie *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}\n\nbool trieStartsWith(Trie *state, ByteString prefix) {\n    (void)state;\n    (void)prefix;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n\nclass Trie {\npublic:\n    Trie() { throw std::logic_error(\"Implement method\"); }\n\n    void insert(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    bool search(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    bool startsWith(std::string prefix) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+    "csharp": "public class Trie {\n    public Trie() { throw new System.NotImplementedException(); }\n\n    public void insert(string word) {\n        throw new System.NotImplementedException();\n    }\n\n    public bool search(string word) {\n        throw new System.NotImplementedException();\n    }\n\n    public bool startsWith(string prefix) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass Trie {\n    public function __construct() { throw new LogicException('Implement method'); }\n\n    public function insert(string $word): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function search(string $word): bool {\n        throw new LogicException('Implement method');\n    }\n\n    public function startsWith(string $prefix): bool {\n        throw new LogicException('Implement method');\n    }\n}",
+    "r": "Trie <- function() {\n  list(\n    # word is a character scalar. Returns invisible NULL.\n    insert = function(word) stop('Implement insert'),\n    # word is a character scalar. Returns a logical scalar.\n    search = function(word) stop('Implement search'),\n    # prefix is a character scalar. Returns a logical scalar.\n    startsWith = function(prefix) stop('Implement startsWith')\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-077-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-077-statement",
+      "type": "paragraph",
+      "content": "Build an initially empty Trie with insert, search and startsWith. Insert stores a word. Search tests whether that entire word was inserted. StartsWith tests whether any stored word begins with the supplied prefix, including an equal word. Duplicate inserts leave the set of words unchanged.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-077-contract",
+      "type": "note",
+      "title": "class Trie:",
+      "content": "Input: `ops` (nested string arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-077-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 30,000 calls. Every word and prefix contains 1–2,000 lowercase English letters. In the fixture, each row is [operation, text]. Only search and startsWith produce results, encoded as 1 or 0 in call order.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-077-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class Trie:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def insert(self, word: str) -> None:\n        raise NotImplementedError\n\n    def search(self, word: str) -> bool:\n        raise NotImplementedError\n\n    def startsWith(self, prefix: str) -> bool:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class Trie {\n    public Trie() { throw new UnsupportedOperationException(); }\n\n    public void insert(String word) {\n        throw new UnsupportedOperationException();\n    }\n\n    public boolean search(String word) {\n        throw new UnsupportedOperationException();\n    }\n\n    public boolean startsWith(String prefix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class Trie {\n  constructor() { throw new Error('Implement constructor'); }\n\n  /** @param {string} word @returns {void} */\n  insert(word) { throw new Error('Implement insert'); }\n\n  /** @param {string} word @returns {boolean} */\n  search(word) { throw new Error('Implement search'); }\n\n  /** @param {string} prefix @returns {boolean} */\n  startsWith(prefix) { throw new Error('Implement startsWith'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class Trie {\n  constructor() { throw new Error('Implement constructor'); }\n\n  insert(word: string): void { throw new Error('Implement insert'); }\n\n  search(word: string): boolean { throw new Error('Implement search'); }\n\n  startsWith(prefix: string): boolean { throw new Error('Implement startsWith'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdlib.h>\n\ntypedef struct Trie Trie;\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nTrie *trieCreate(void) { abort(); }\n\nvoid trieInsert(Trie *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}\n\nbool trieSearch(Trie *state, ByteString word) {\n    (void)state;\n    (void)word;\n    abort();\n}\n\nbool trieStartsWith(Trie *state, ByteString prefix) {\n    (void)state;\n    (void)prefix;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n\nclass Trie {\npublic:\n    Trie() { throw std::logic_error(\"Implement method\"); }\n\n    void insert(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    bool search(std::string word) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    bool startsWith(std::string prefix) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Trie {\n    public Trie() { throw new System.NotImplementedException(); }\n\n    public void insert(string word) {\n        throw new System.NotImplementedException();\n    }\n\n    public bool search(string word) {\n        throw new System.NotImplementedException();\n    }\n\n    public bool startsWith(string prefix) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass Trie {\n    public function __construct() { throw new LogicException('Implement method'); }\n\n    public function insert(string $word): void {\n        throw new LogicException('Implement method');\n    }\n\n    public function search(string $word): bool {\n        throw new LogicException('Implement method');\n    }\n\n    public function startsWith(string $prefix): bool {\n        throw new LogicException('Implement method');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-077-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "Trie <- function() {\n  list(\n    # word is a character scalar. Returns invisible NULL.\n    insert = function(word) stop('Implement insert'),\n    # word is a character scalar. Returns a logical scalar.\n    search = function(word) stop('Implement search'),\n    # prefix is a character scalar. Returns a logical scalar.\n    startsWith = function(prefix) stop('Implement startsWith')\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

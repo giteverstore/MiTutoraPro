@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-151",
+  "title": "Concatenation of Array",
+  "summary": "Make a new array by writing every value of nums in order, then writing that same sequence a second time.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "getConcatenation",
+    "signature": "def getConcatenation(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Make a new array by writing every value of nums in order, then writing that same sequence a second time.",
+  "examples": [
+    {
+      "input": "{\"nums\":[5,2,8]}",
+      "output": "[5,2,8,5,2,8]",
+      "explanation": "The second half starts again at 5."
+    },
+    {
+      "input": "{\"nums\":[7]}",
+      "output": "[7,7]",
+      "explanation": "A singleton produces two entries."
+    },
+    {
+      "input": "{\"nums\":[9,9,1]}",
+      "output": "[9,9,1,9,9,1]",
+      "explanation": "Repeated values retain both copies in each half."
+    }
+  ],
+  "constraints": [
+    "1–1000 values, each in [1,1000]."
+  ],
+  "hints": [
+    "Conceptual: Both copies have the same order.",
+    "Directional: Allocate twice the original length.",
+    "Implementation: Copy index i into positions i and i+n."
+  ],
+  "concepts": [
+    "arrays",
+    "indexing"
+  ],
+  "skills": [
+    "Arrays",
+    "indexing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) space for the output.",
+  "publicTests": [
+    {
+      "name": "NC250-151-P1",
+      "arguments": [
+        [
+          5,
+          2,
+          8
+        ]
+      ],
+      "input": {
+        "nums": [
+          5,
+          2,
+          8
+        ]
+      },
+      "expected": [
+        5,
+        2,
+        8,
+        5,
+        2,
+        8
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-151-P2",
+      "arguments": [
+        [
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          7
+        ]
+      },
+      "expected": [
+        7,
+        7
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-151-P3",
+      "arguments": [
+        [
+          9,
+          9,
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          9,
+          9,
+          1
+        ]
+      },
+      "expected": [
+        9,
+        9,
+        1,
+        9,
+        9,
+        1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def getConcatenation(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] getConcatenation(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction getConcatenation(nums) {\n  throw new Error('Implement getConcatenation');\n}",
+    "typescript": "function getConcatenation(nums: number[]): number[] {\n  throw new Error('Implement getConcatenation');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray getConcatenation(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> getConcatenation(std::vector<int> nums) {\n    throw std::logic_error(\"Implement getConcatenation\");\n}",
+    "csharp": "public class Solution {\n    public int[] getConcatenation(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction getConcatenation(array $nums): array {\n    throw new LogicException('Implement getConcatenation');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer vector.\ngetConcatenation <- function(nums) {\n  stop(\"Implement getConcatenation\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "getConcatenation",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "ints",
+    "adapter_notes": "Invoke the entry point and serialize its return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-151-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-151-statement",
+      "type": "paragraph",
+      "content": "Make a new array by writing every value of nums in order, then writing that same sequence a second time.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-151-contract",
+      "type": "note",
+      "title": "def getConcatenation(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-151-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 values, each in [1,1000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-151-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def getConcatenation(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] getConcatenation(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction getConcatenation(nums) {\n  throw new Error('Implement getConcatenation');\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function getConcatenation(nums: number[]): number[] {\n  throw new Error('Implement getConcatenation');\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray getConcatenation(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> getConcatenation(std::vector<int> nums) {\n    throw std::logic_error(\"Implement getConcatenation\");\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] getConcatenation(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction getConcatenation(array $nums): array {\n    throw new LogicException('Implement getConcatenation');\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-151-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer vector.\ngetConcatenation <- function(nums) {\n  stop(\"Implement getConcatenation\")\n}",
+      "stdin": "",
+      "expectedOutput": "[5,2,8,5,2,8]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

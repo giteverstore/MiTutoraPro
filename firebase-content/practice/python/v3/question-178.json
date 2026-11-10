@@ -1,0 +1,277 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-178",
+  "title": "Asteroid Collision",
+  "summary": "Objects appear from left to right in the listed order.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "asteroidCollision",
+    "signature": "def asteroidCollision(asteroids:",
+    "input": "asteroids (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "asteroids (ints)",
+    "callable": "asteroidCollision",
+    "constraints": "2–10000 nonzero integers in [−1000,1000].",
+    "output-checking": "Exact typed equality of the returned ints."
+  },
+  "statement": "Objects appear from left to right in the listed order. Positive values move right and negative values move left, all at equal speed. Their absolute values are sizes. When two meet, the smaller disappears. Equal sizes both disappear. Return the surviving signed values in their original relative order.",
+  "examples": [
+    {
+      "input": "{\"asteroids\":[4,2,-3]}",
+      "output": "[4]",
+      "explanation": "The 2 disappears, then the 4 defeats the incoming 3."
+    },
+    {
+      "input": "{\"asteroids\":[6,-6]}",
+      "output": "[]",
+      "explanation": "Equal sizes remove each other."
+    },
+    {
+      "input": "{\"asteroids\":[-2,5]}",
+      "output": "[-2,5]",
+      "explanation": "These objects move away from each other."
+    }
+  ],
+  "constraints": [
+    "2–10000 nonzero integers in [−1000,1000]."
+  ],
+  "hints": [
+    "Conceptual: Only a right-moving object followed by a left-moving object can collide.",
+    "Directional: Keep the surviving prefix in a stack.",
+    "Implementation: For a new negative value, repeatedly resolve collisions with a positive stack top before deciding whether the new value survives."
+  ],
+  "concepts": [
+    "stack",
+    "simulation"
+  ],
+  "skills": [
+    "Stack",
+    "simulation"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary stack space.",
+  "publicTests": [
+    {
+      "name": "NC250-178-P1",
+      "arguments": [
+        [
+          4,
+          2,
+          -3
+        ]
+      ],
+      "input": {
+        "asteroids": [
+          4,
+          2,
+          -3
+        ]
+      },
+      "expected": [
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-178-P2",
+      "arguments": [
+        [
+          6,
+          -6
+        ]
+      ],
+      "input": {
+        "asteroids": [
+          6,
+          -6
+        ]
+      },
+      "expected": [],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-178-P3",
+      "arguments": [
+        [
+          -2,
+          5
+        ]
+      ],
+      "input": {
+        "asteroids": [
+          -2,
+          5
+        ]
+      },
+      "expected": [
+        -2,
+        5
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def asteroidCollision(asteroids: list[int]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] asteroidCollision(int[] asteroids) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} asteroids\n * @returns {number[]}\n */\nfunction asteroidCollision(asteroids) {\n  throw new Error('Implement asteroidCollision');\n}",
+    "typescript": "function asteroidCollision(asteroids: number[]): number[] {\n  throw new Error('Implement asteroidCollision');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray asteroidCollision(IntArray asteroids) {\n    (void)asteroids;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> asteroidCollision(std::vector<int> asteroids) {\n    throw std::logic_error(\"Implement asteroidCollision\");\n}",
+    "csharp": "public class Solution {\n    public int[] asteroidCollision(int[] asteroids) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $asteroids\n * @return int[]\n */\nfunction asteroidCollision(array $asteroids): array {\n    throw new LogicException('Implement asteroidCollision');\n}",
+    "r": "# Parameters: asteroids (integer vector). Result: integer vector.\nasteroidCollision <- function(asteroids) {\n  stop(\"Implement asteroidCollision\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "asteroidCollision",
+    "arguments": [
+      [
+        "asteroids",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-178-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-178-statement",
+      "type": "paragraph",
+      "content": "Objects appear from left to right in the listed order. Positive values move right and negative values move left, all at equal speed. Their absolute values are sizes. When two meet, the smaller disappears. Equal sizes both disappear. Return the surviving signed values in their original relative order.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-178-contract",
+      "type": "note",
+      "title": "def asteroidCollision(asteroids:",
+      "content": "Input: asteroids (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-178-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–10000 nonzero integers in [−1000,1000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-178-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def asteroidCollision(asteroids: list[int]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] asteroidCollision(int[] asteroids) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} asteroids\n * @returns {number[]}\n */\nfunction asteroidCollision(asteroids) {\n  throw new Error('Implement asteroidCollision');\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function asteroidCollision(asteroids: number[]): number[] {\n  throw new Error('Implement asteroidCollision');\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray asteroidCollision(IntArray asteroids) {\n    (void)asteroids;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> asteroidCollision(std::vector<int> asteroids) {\n    throw std::logic_error(\"Implement asteroidCollision\");\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] asteroidCollision(int[] asteroids) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $asteroids\n * @return int[]\n */\nfunction asteroidCollision(array $asteroids): array {\n    throw new LogicException('Implement asteroidCollision');\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-178-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: asteroids (integer vector). Result: integer vector.\nasteroidCollision <- function(asteroids) {\n  stop(\"Implement asteroidCollision\")\n}",
+      "stdin": "",
+      "expectedOutput": "[4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

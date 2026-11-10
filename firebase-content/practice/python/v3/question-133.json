@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-133",
+  "title": "Meeting Rooms",
+  "summary": "Decide whether one person can attend every meeting.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Intervals",
+  "category": "dsa",
+  "subtopic": "intervals",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "canAttendMeetings",
+    "signature": "def canAttendMeetings(intervals:",
+    "input": "`intervals` (nested integer arrays)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`intervals` (nested integer arrays)",
+    "result": "boolean.",
+    "constraints": "0–500 pairs [start,end] with 0 ≤ start < end ≤ 1000000. Input order is arbitrary.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Decide whether one person can attend every meeting. A meeting that ends at a time leaves that time available for a different meeting to start.",
+  "examples": [
+    {
+      "input": "{\"intervals\":[[2,4],[0,2]]}",
+      "output": "true",
+      "explanation": "Attend the meeting starting at 0 first."
+    },
+    {
+      "input": "{\"intervals\":[[0,5],[1,3]]}",
+      "output": "false",
+      "explanation": "The inner meeting conflicts with the longer one."
+    },
+    {
+      "input": "{\"intervals\":[]}",
+      "output": "true",
+      "explanation": "The empty schedule has no conflicts."
+    }
+  ],
+  "constraints": [
+    "0–500 pairs [start,end] with 0 ≤ start < end ≤ 1000000. Input order is arbitrary."
+  ],
+  "hints": [
+    "Conceptual: If two meetings intersect in time, one person cannot attend both.",
+    "Directional: Sort meetings by their starting times.",
+    "Implementation: Compare each start with the preceding end, allowing equality."
+  ],
+  "concepts": [
+    "scheduling",
+    "half-open-intervals"
+  ],
+  "skills": [
+    "Scheduling",
+    "half-open intervals"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n log n)"
+  },
+  "complexityAnalysis": "O(n log n) time and O(n) extra space when sorting a copy.",
+  "publicTests": [
+    {
+      "name": "BLIND150-133-T01",
+      "arguments": [
+        [
+          [
+            2,
+            4
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "intervals": [
+          [
+            2,
+            4
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-133-T02",
+      "arguments": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "intervals": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-133-T03",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "intervals": []
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canAttendMeetings(intervals: list[list[int]]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canAttendMeetings(int[][] intervals) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} intervals\n * @returns {boolean}\n */\nfunction canAttendMeetings(intervals) {\n  throw new Error('Implement canAttendMeetings');\n}",
+    "typescript": "function canAttendMeetings(intervals: number[][]): boolean {\n  throw new Error('Implement canAttendMeetings');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nbool canAttendMeetings(IntMatrix intervals) {\n    (void)intervals;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canAttendMeetings(std::vector<std::vector<int>> intervals) {\n    throw std::logic_error(\"Implement canAttendMeetings\");\n}",
+    "csharp": "public class Solution {\n    public bool canAttendMeetings(int[][] intervals) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $intervals\n * @return bool\n */\nfunction canAttendMeetings(array $intervals): bool {\n    throw new LogicException('Implement canAttendMeetings');\n}",
+    "r": "# Parameters: intervals (list of integer vectors). Result: logical scalar.\ncanAttendMeetings <- function(intervals) {\n  stop(\"Implement canAttendMeetings\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-133-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-133-statement",
+      "type": "paragraph",
+      "content": "Decide whether one person can attend every meeting. A meeting that ends at a time leaves that time available for a different meeting to start.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-133-contract",
+      "type": "note",
+      "title": "def canAttendMeetings(intervals:",
+      "content": "Input: `intervals` (nested integer arrays)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-133-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–500 pairs [start,end] with 0 ≤ start < end ≤ 1000000. Input order is arbitrary.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-133-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canAttendMeetings(intervals: list[list[int]]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canAttendMeetings(int[][] intervals) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} intervals\n * @returns {boolean}\n */\nfunction canAttendMeetings(intervals) {\n  throw new Error('Implement canAttendMeetings');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canAttendMeetings(intervals: number[][]): boolean {\n  throw new Error('Implement canAttendMeetings');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nbool canAttendMeetings(IntMatrix intervals) {\n    (void)intervals;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canAttendMeetings(std::vector<std::vector<int>> intervals) {\n    throw std::logic_error(\"Implement canAttendMeetings\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canAttendMeetings(int[][] intervals) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $intervals\n * @return bool\n */\nfunction canAttendMeetings(array $intervals): bool {\n    throw new LogicException('Implement canAttendMeetings');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-133-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: intervals (list of integer vectors). Result: logical scalar.\ncanAttendMeetings <- function(intervals) {\n  stop(\"Implement canAttendMeetings\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

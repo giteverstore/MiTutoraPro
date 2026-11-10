@@ -1,0 +1,279 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-162",
+  "title": "Subarray Sum Equals K",
+  "summary": "Count the nonempty contiguous segments whose sum equals k.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "subarraySumEqualsK",
+    "signature": "def subarraySumEqualsK(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Count the nonempty contiguous segments whose sum equals k. Segments with different positions count separately.",
+  "examples": [
+    {
+      "input": "{\"nums\":[1,-1,1],\"k\":1}",
+      "output": "3",
+      "explanation": "Two singletons and the whole array work."
+    },
+    {
+      "input": "{\"nums\":[0,0],\"k\":0}",
+      "output": "3",
+      "explanation": "Both one-element segments and the length-two segment work."
+    },
+    {
+      "input": "{\"nums\":[-2,-3,4],\"k\":-5}",
+      "output": "1",
+      "explanation": "Only the first two elements sum to −5."
+    }
+  ],
+  "constraints": [
+    "1–20000 entries in [−1000,1000]. k is in [−10000000,10000000]."
+  ],
+  "hints": [
+    "Conceptual: Subtract two prefix sums to obtain a segment sum.",
+    "Directional: At each boundary, look up how often the required earlier sum occurred.",
+    "Implementation: Seed the empty prefix with frequency one. Count matches before recording the current sum."
+  ],
+  "concepts": [
+    "prefix-sums",
+    "frequency-counting"
+  ],
+  "skills": [
+    "Prefix sums",
+    "frequency counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) expected time and O(n) auxiliary space with a prefix frequency table.",
+  "publicTests": [
+    {
+      "name": "NC250-162-P1",
+      "arguments": [
+        [
+          1,
+          -1,
+          1
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          1,
+          -1,
+          1
+        ],
+        "k": 1
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-162-P2",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        0
+      ],
+      "input": {
+        "nums": [
+          0,
+          0
+        ],
+        "k": 0
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-162-P3",
+      "arguments": [
+        [
+          -2,
+          -3,
+          4
+        ],
+        -5
+      ],
+      "input": {
+        "nums": [
+          -2,
+          -3,
+          4
+        ],
+        "k": -5
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def subarraySumEqualsK(nums: list[int], k: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int subarraySumEqualsK(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number}\n */\nfunction subarraySumEqualsK(nums, k) {\n  throw new Error('Implement subarraySumEqualsK');\n}",
+    "typescript": "function subarraySumEqualsK(nums: number[], k: number): number {\n  throw new Error('Implement subarraySumEqualsK');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t subarraySumEqualsK(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint subarraySumEqualsK(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement subarraySumEqualsK\");\n}",
+    "csharp": "public class Solution {\n    public int subarraySumEqualsK(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int\n */\nfunction subarraySumEqualsK(array $nums, int $k): int {\n    throw new LogicException('Implement subarraySumEqualsK');\n}",
+    "r": "# Parameters: nums (integer vector), k (integer scalar). Result: integer scalar.\nsubarraySumEqualsK <- function(nums, k) {\n  stop(\"Implement subarraySumEqualsK\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "subarraySumEqualsK",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "k",
+        "int"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "int",
+    "adapter_notes": "Invoke the entry point and serialize its return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-162-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-162-statement",
+      "type": "paragraph",
+      "content": "Count the nonempty contiguous segments whose sum equals k. Segments with different positions count separately.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-162-contract",
+      "type": "note",
+      "title": "def subarraySumEqualsK(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-162-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–20000 entries in [−1000,1000]. k is in [−10000000,10000000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-162-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def subarraySumEqualsK(nums: list[int], k: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int subarraySumEqualsK(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number}\n */\nfunction subarraySumEqualsK(nums, k) {\n  throw new Error('Implement subarraySumEqualsK');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function subarraySumEqualsK(nums: number[], k: number): number {\n  throw new Error('Implement subarraySumEqualsK');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t subarraySumEqualsK(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint subarraySumEqualsK(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement subarraySumEqualsK\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int subarraySumEqualsK(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int\n */\nfunction subarraySumEqualsK(array $nums, int $k): int {\n    throw new LogicException('Implement subarraySumEqualsK');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-162-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), k (integer scalar). Result: integer scalar.\nsubarraySumEqualsK <- function(nums, k) {\n  stop(\"Implement subarraySumEqualsK\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

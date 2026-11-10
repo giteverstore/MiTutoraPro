@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-124",
+  "title": "Jump Game II",
+  "summary": "Start at index 0.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "jump",
+    "signature": "def jump(nums:",
+    "input": "`nums` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "integer.",
+    "constraints": "1–10000 values in [0,1000]. The last index is reachable.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Start at index 0. At index i you can jump forward by any positive distance up to nums[i], staying within the array. Return the fewest jumps needed to reach the last index.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,4,0,0,0,0]}",
+      "output": "2",
+      "explanation": "Landing at index 1 gives a direct jump to the end."
+    },
+    {
+      "input": "{\"nums\":[0]}",
+      "output": "0",
+      "explanation": "No jump is needed."
+    },
+    {
+      "input": "{\"nums\":[3,0,0,0]}",
+      "output": "1",
+      "explanation": "Jump directly from the first index to the last."
+    }
+  ],
+  "constraints": [
+    "1–10000 values in [0,1000]. The last index is reachable."
+  ],
+  "hints": [
+    "Conceptual: The destination may already be the starting position.",
+    "Directional: Think of all indices reachable in the same number of jumps as one layer.",
+    "Implementation: Scan the current layer while computing the next boundary. Increment the jump count only when leaving the current layer."
+  ],
+  "concepts": [
+    "minimum-jumps",
+    "frontier-layers"
+  ],
+  "skills": [
+    "Minimum jumps",
+    "frontier layers"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-124-T01",
+      "arguments": [
+        [
+          2,
+          4,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          4,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-124-T02",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-124-T03",
+      "arguments": [
+        [
+          3,
+          0,
+          0,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          3,
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def jump(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int jump(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction jump(nums) {\n  throw new Error('Implement jump');\n}",
+    "typescript": "function jump(nums: number[]): number {\n  throw new Error('Implement jump');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t jump(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint jump(std::vector<int> nums) {\n    throw std::logic_error(\"Implement jump\");\n}",
+    "csharp": "public class Solution {\n    public int jump(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction jump(array $nums): int {\n    throw new LogicException('Implement jump');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\njump <- function(nums) {\n  stop(\"Implement jump\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-124-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-124-statement",
+      "type": "paragraph",
+      "content": "Start at index 0. At index i you can jump forward by any positive distance up to nums[i], staying within the array. Return the fewest jumps needed to reach the last index.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-124-contract",
+      "type": "note",
+      "title": "def jump(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-124-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 values in [0,1000]. The last index is reachable.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-124-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def jump(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int jump(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction jump(nums) {\n  throw new Error('Implement jump');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function jump(nums: number[]): number {\n  throw new Error('Implement jump');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t jump(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint jump(std::vector<int> nums) {\n    throw std::logic_error(\"Implement jump\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int jump(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction jump(array $nums): int {\n    throw new LogicException('Implement jump');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-124-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\njump <- function(nums) {\n  stop(\"Implement jump\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

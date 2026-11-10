@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-152",
+  "title": "Longest Common Prefix",
+  "summary": "Find the longest string that starts every word in strs.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "longestCommonPrefix",
+    "signature": "def longestCommonPrefix(strs:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Find the longest string that starts every word in strs. Return an empty string when no first character is shared.",
+  "examples": [
+    {
+      "input": "{\"strs\":[\"mint\",\"minor\",\"mingle\"]}",
+      "output": "\"min\"",
+      "explanation": "The words first differ after min."
+    },
+    {
+      "input": "{\"strs\":[\"\",\"be\"]}",
+      "output": "\"\"",
+      "explanation": "The empty word cannot share a nonempty prefix."
+    },
+    {
+      "input": "{\"strs\":[\"blue\",\"green\"]}",
+      "output": "\"\"",
+      "explanation": "The first letters differ."
+    }
+  ],
+  "constraints": [
+    "1–200 strings of 0–200 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: A common prefix cannot extend beyond the shortest word.",
+    "Directional: Compare the words at the same character position.",
+    "Implementation: Scan positions of the first word and stop at the first missing or differing character."
+  ],
+  "concepts": [
+    "strings",
+    "prefix-comparison"
+  ],
+  "skills": [
+    "Strings",
+    "prefix comparison"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(total input characters)",
+    "space": "O(total input characters)"
+  },
+  "complexityAnalysis": "O(total input characters) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-152-P1",
+      "arguments": [
+        [
+          "mint",
+          "minor",
+          "mingle"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "mint",
+          "minor",
+          "mingle"
+        ]
+      },
+      "expected": "min",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-152-P2",
+      "arguments": [
+        [
+          "",
+          "be"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "",
+          "be"
+        ]
+      },
+      "expected": "",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-152-P3",
+      "arguments": [
+        [
+          "blue",
+          "green"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "blue",
+          "green"
+        ]
+      },
+      "expected": "",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def longestCommonPrefix(strs: list[str]) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} strs\n * @returns {string}\n */\nfunction longestCommonPrefix(strs) {\n  throw new Error('Implement longestCommonPrefix');\n}",
+    "typescript": "function longestCommonPrefix(strs: string[]): string {\n  throw new Error('Implement longestCommonPrefix');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString longestCommonPrefix(StringArray strs) {\n    (void)strs;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string longestCommonPrefix(std::vector<std::string> strs) {\n    throw std::logic_error(\"Implement longestCommonPrefix\");\n}",
+    "csharp": "public class Solution {\n    public string longestCommonPrefix(string[] strs) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $strs\n * @return string\n */\nfunction longestCommonPrefix(array $strs): string {\n    throw new LogicException('Implement longestCommonPrefix');\n}",
+    "r": "# Parameters: strs (character vector). Result: character scalar.\nlongestCommonPrefix <- function(strs) {\n  stop(\"Implement longestCommonPrefix\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "longestCommonPrefix",
+    "arguments": [
+      [
+        "strs",
+        "strs"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "str",
+    "adapter_notes": "Invoke the entry point and serialize its return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-152-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-152-statement",
+      "type": "paragraph",
+      "content": "Find the longest string that starts every word in strs. Return an empty string when no first character is shared.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-152-contract",
+      "type": "note",
+      "title": "def longestCommonPrefix(strs:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-152-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–200 strings of 0–200 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-152-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def longestCommonPrefix(strs: list[str]) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} strs\n * @returns {string}\n */\nfunction longestCommonPrefix(strs) {\n  throw new Error('Implement longestCommonPrefix');\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function longestCommonPrefix(strs: string[]): string {\n  throw new Error('Implement longestCommonPrefix');\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString longestCommonPrefix(StringArray strs) {\n    (void)strs;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string longestCommonPrefix(std::vector<std::string> strs) {\n    throw std::logic_error(\"Implement longestCommonPrefix\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string longestCommonPrefix(string[] strs) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $strs\n * @return string\n */\nfunction longestCommonPrefix(array $strs): string {\n    throw new LogicException('Implement longestCommonPrefix');\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-152-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: strs (character vector). Result: character scalar.\nlongestCommonPrefix <- function(strs) {\n  stop(\"Implement longestCommonPrefix\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"min\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}
