@@ -1,0 +1,279 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-033",
+  "title": "Median of Two Sorted Arrays",
+  "summary": "Return the median of all entries from both sorted arrays, keeping duplicates.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "findMedianSortedArrays",
+    "signature": "def findMedianSortedArrays(nums1:",
+    "input": "`nums1` (integer array), `nums2` (integer array)",
+    "output": "number."
+  },
+  "contractDetails": {
+    "input": "`nums1` (integer array), `nums2` (integer array)",
+    "result": "number.",
+    "constraints": "Each array contains 0–1,000 nondecreasing integers in [−1,000,000, 1,000,000]. At least one array is nonempty. The result is checked as a finite number and is exact for integers and halves.",
+    "output-checking": "Exact finite numeric equality. Integer and decimal representations of the same value are accepted."
+  },
+  "statement": "Return the median of all entries from both sorted arrays, keeping duplicates. For an odd total, return the middle entry. For an even total, return the arithmetic mean of the two middle entries. Return a numeric result and use logarithmic time.",
+  "examples": [
+    {
+      "input": "{\"nums1\":[-7,1,8],\"nums2\":[-2,4]}",
+      "output": "1",
+      "explanation": "The third value in sorted order is 1."
+    },
+    {
+      "input": "{\"nums1\":[0,4],\"nums2\":[1,9]}",
+      "output": "2.5",
+      "explanation": "The two middle values are 1 and 4."
+    },
+    {
+      "input": "{\"nums1\":[],\"nums2\":[-6,-5]}",
+      "output": "-5.5",
+      "explanation": "With one array empty, average the other array's two values."
+    }
+  ],
+  "constraints": [
+    "Each array contains 0–1,000 nondecreasing integers in [−1,000,000, 1,000,000]. At least one array is nonempty. The result is checked as a finite number and is exact for integers and halves."
+  ],
+  "hints": [
+    "Conceptual: Split the combined values into a lower half and an upper half without merging the arrays.",
+    "Directional: Binary-search how many values the shorter array contributes to the lower half. The total lower-half size determines the other cut.",
+    "Implementation: Compare each left boundary with the opposite right boundary. At a valid partition, use the largest left value and, for an even total, the smallest right value."
+  ],
+  "concepts": [
+    "sorted-arrays",
+    "binary-search",
+    "partitioning"
+  ],
+  "skills": [
+    "Sorted arrays",
+    "binary search",
+    "partitioning"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log(min(m,n)",
+    "space": "O(log(min(m,n)"
+  },
+  "complexityAnalysis": "O(log(min(m,n)+1)) time and O(1) auxiliary space. The search moves only the shorter array's partition.",
+  "publicTests": [
+    {
+      "name": "BLIND150-033-T01",
+      "arguments": [
+        [
+          -7,
+          1,
+          8
+        ],
+        [
+          -2,
+          4
+        ]
+      ],
+      "input": {
+        "nums1": [
+          -7,
+          1,
+          8
+        ],
+        "nums2": [
+          -2,
+          4
+        ]
+      },
+      "expected": 1,
+      "validator": "numeric"
+    },
+    {
+      "name": "BLIND150-033-T02",
+      "arguments": [
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          9
+        ]
+      ],
+      "input": {
+        "nums1": [
+          0,
+          4
+        ],
+        "nums2": [
+          1,
+          9
+        ]
+      },
+      "expected": 2.5,
+      "validator": "numeric"
+    },
+    {
+      "name": "BLIND150-033-T03",
+      "arguments": [
+        [],
+        [
+          -6,
+          -5
+        ]
+      ],
+      "input": {
+        "nums1": [],
+        "nums2": [
+          -6,
+          -5
+        ]
+      },
+      "expected": -5.5,
+      "validator": "numeric"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findMedianSortedArrays(nums1: list[int], nums2: list[int]) -> float:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @returns {number}\n */\nfunction findMedianSortedArrays(nums1, nums2) {\n  throw new Error('Implement findMedianSortedArrays');\n}",
+    "typescript": "function findMedianSortedArrays(nums1: number[], nums2: number[]): number {\n  throw new Error('Implement findMedianSortedArrays');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\ndouble findMedianSortedArrays(IntArray nums1, IntArray nums2) {\n    (void)nums1;\n    (void)nums2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\ndouble findMedianSortedArrays(std::vector<int> nums1, std::vector<int> nums2) {\n    throw std::logic_error(\"Implement findMedianSortedArrays\");\n}",
+    "csharp": "public class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums1\n * @param int[] $nums2\n * @return float\n */\nfunction findMedianSortedArrays(array $nums1, array $nums2): float {\n    throw new LogicException('Implement findMedianSortedArrays');\n}",
+    "r": "# Parameters: nums1 (integer vector), nums2 (integer vector). Result: numeric scalar.\nfindMedianSortedArrays <- function(nums1, nums2) {\n  stop(\"Implement findMedianSortedArrays\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-033-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-033-statement",
+      "type": "paragraph",
+      "content": "Return the median of all entries from both sorted arrays, keeping duplicates. For an odd total, return the middle entry. For an even total, return the arithmetic mean of the two middle entries. Return a numeric result and use logarithmic time.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-033-contract",
+      "type": "note",
+      "title": "def findMedianSortedArrays(nums1:",
+      "content": "Input: `nums1` (integer array), `nums2` (integer array)\n\nOutput: number.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-033-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each array contains 0–1,000 nondecreasing integers in [−1,000,000, 1,000,000]. At least one array is nonempty. The result is checked as a finite number and is exact for integers and halves.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-033-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findMedianSortedArrays(nums1: list[int], nums2: list[int]) -> float:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @returns {number}\n */\nfunction findMedianSortedArrays(nums1, nums2) {\n  throw new Error('Implement findMedianSortedArrays');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findMedianSortedArrays(nums1: number[], nums2: number[]): number {\n  throw new Error('Implement findMedianSortedArrays');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\ndouble findMedianSortedArrays(IntArray nums1, IntArray nums2) {\n    (void)nums1;\n    (void)nums2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\ndouble findMedianSortedArrays(std::vector<int> nums1, std::vector<int> nums2) {\n    throw std::logic_error(\"Implement findMedianSortedArrays\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums1\n * @param int[] $nums2\n * @return float\n */\nfunction findMedianSortedArrays(array $nums1, array $nums2): float {\n    throw new LogicException('Implement findMedianSortedArrays');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-033-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums1 (integer vector), nums2 (integer vector). Result: numeric scalar.\nfindMedianSortedArrays <- function(nums1, nums2) {\n  stop(\"Implement findMedianSortedArrays\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

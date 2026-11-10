@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-157",
+  "title": "Sort an Array",
+  "summary": "Return the input values in ascending order, keeping every repeated occurrence.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "sortArray",
+    "signature": "def sortArray(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Return the input values in ascending order, keeping every repeated occurrence. Implement the sorting logic without calling a built-in sorting routine.",
+  "examples": [
+    {
+      "input": "{\"nums\":[4,-1,4,0]}",
+      "output": "[-1,0,4,4]",
+      "explanation": "Both 4s are retained."
+    },
+    {
+      "input": "{\"nums\":[3]}",
+      "output": "[3]",
+      "explanation": "The only item is already sorted."
+    },
+    {
+      "input": "{\"nums\":[50000,0,-50000]}",
+      "output": "[-50000,0,50000]",
+      "explanation": "Both ends of the value range are supported."
+    }
+  ],
+  "constraints": [
+    "1–50000 entries in [−50000,50000]. Target O(n log n) time or better for this domain."
+  ],
+  "hints": [
+    "Conceptual: Negative and positive values both belong in the output.",
+    "Directional: A bounded value range allows you to count occurrences.",
+    "Implementation: Offset values into a frequency array and emit each value as often as it occurred."
+  ],
+  "concepts": [
+    "sorting",
+    "frequency-buckets"
+  ],
+  "skills": [
+    "Sorting",
+    "frequency buckets"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n+U)",
+    "space": "O(n+U)"
+  },
+  "complexityAnalysis": "O(n+U) time and O(U) auxiliary space for a frequency array over the occupied value range U.",
+  "publicTests": [
+    {
+      "name": "NC250-157-P1",
+      "arguments": [
+        [
+          4,
+          -1,
+          4,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          4,
+          -1,
+          4,
+          0
+        ]
+      },
+      "expected": [
+        -1,
+        0,
+        4,
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-157-P2",
+      "arguments": [
+        [
+          3
+        ]
+      ],
+      "input": {
+        "nums": [
+          3
+        ]
+      },
+      "expected": [
+        3
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-157-P3",
+      "arguments": [
+        [
+          50000,
+          0,
+          -50000
+        ]
+      ],
+      "input": {
+        "nums": [
+          50000,
+          0,
+          -50000
+        ]
+      },
+      "expected": [
+        -50000,
+        0,
+        50000
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def sortArray(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] sortArray(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction sortArray(nums) {\n  throw new Error('Implement sortArray');\n}",
+    "typescript": "function sortArray(nums: number[]): number[] {\n  throw new Error('Implement sortArray');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray sortArray(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> sortArray(std::vector<int> nums) {\n    throw std::logic_error(\"Implement sortArray\");\n}",
+    "csharp": "public class Solution {\n    public int[] sortArray(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction sortArray(array $nums): array {\n    throw new LogicException('Implement sortArray');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer vector.\nsortArray <- function(nums) {\n  stop(\"Implement sortArray\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "sortArray",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "ints",
+    "adapter_notes": "Invoke the entry point and serialize its return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-157-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-157-statement",
+      "type": "paragraph",
+      "content": "Return the input values in ascending order, keeping every repeated occurrence. Implement the sorting logic without calling a built-in sorting routine.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-157-contract",
+      "type": "note",
+      "title": "def sortArray(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-157-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50000 entries in [−50000,50000]. Target O(n log n) time or better for this domain.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-157-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sortArray(nums: list[int]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] sortArray(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[]}\n */\nfunction sortArray(nums) {\n  throw new Error('Implement sortArray');\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function sortArray(nums: number[]): number[] {\n  throw new Error('Implement sortArray');\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray sortArray(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> sortArray(std::vector<int> nums) {\n    throw std::logic_error(\"Implement sortArray\");\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] sortArray(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[]\n */\nfunction sortArray(array $nums): array {\n    throw new LogicException('Implement sortArray');\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-157-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer vector.\nsortArray <- function(nums) {\n  stop(\"Implement sortArray\")\n}",
+      "stdin": "",
+      "expectedOutput": "[-1,0,4,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

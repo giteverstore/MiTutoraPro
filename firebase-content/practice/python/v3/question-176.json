@@ -1,0 +1,371 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-176",
+  "title": "Implement Stack Using Queues",
+  "summary": "Implement MyStack using queue operations.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "MyStack",
+    "signature": "class MyStack:",
+    "input": "ops (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "ops (intgrid)",
+    "callable": "MyStack",
+    "constraints": "At most 100 method calls. 1 ≤ x ≤ 9. pop and top only occur when nonempty. Rows [0,x], [1], [2], [3] mean push, pop, top, empty. Construct once and serialize only the last three methods, encoding booleans as 0 or 1.",
+    "output-checking": "Construct MyStack once. [0,x] calls push, [1] pop, [2] top, [3] empty. Serialize non-void returns in order. Encode bool returns as integer 0 or 1."
+  },
+  "statement": "Implement MyStack using queue operations. push(x) adds the newest value, pop() removes and returns it, top() reads it, and empty() reports whether no values remain. A queue may only append at the back, read/remove at the front, and report size or emptiness.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,2],[0,7],[2],[1],[2]]}",
+      "output": "[7,7,2]",
+      "explanation": "The latest pushed value leaves first."
+    },
+    {
+      "input": "{\"ops\":[[3],[0,4],[3],[1],[3]]}",
+      "output": "[1,0,4,1]",
+      "explanation": "The empty state changes across calls."
+    },
+    {
+      "input": "{\"ops\":[[0,3],[0,3],[1],[1],[3]]}",
+      "output": "[3,3,1]",
+      "explanation": "Repeated values are separate stack entries."
+    }
+  ],
+  "constraints": [
+    "At most 100 method calls. 1 ≤ x ≤ 9. pop and top only occur when nonempty. Rows [0,x], [1], [2], [3] mean push, pop, top, empty. Construct once and serialize only the last three methods, encoding booleans as 0 or 1."
+  ],
+  "hints": [
+    "Conceptual: A queue removes the oldest value, while a stack needs the newest.",
+    "Directional: Reorder the queue after each insertion.",
+    "Implementation: After enqueueing the new value, move every older queued value from front to back. The new value is now at the front."
+  ],
+  "concepts": [
+    "stateful-class",
+    "queues"
+  ],
+  "skills": [
+    "Stateful class",
+    "queues"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "See complexity analysis",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "push is O(n), pop/top/empty are O(1), and storage is O(n).",
+  "publicTests": [
+    {
+      "name": "NC250-176-P1",
+      "arguments": [
+        [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "expected": [
+        7,
+        7,
+        2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-176-P2",
+      "arguments": [
+        [
+          [
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            3
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            3
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        0,
+        4,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-176-P3",
+      "arguments": [
+        [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      "expected": [
+        3,
+        3,
+        1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class MyStack:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def push(self, x: int) -> None:\n        raise NotImplementedError\n\n    def pop(self) -> int:\n        raise NotImplementedError\n\n    def top(self) -> int:\n        raise NotImplementedError\n\n    def empty(self) -> bool:\n        raise NotImplementedError",
+    "java": "class MyStack {\n    public MyStack() { throw new UnsupportedOperationException(); }\n    public void push(int x) { throw new UnsupportedOperationException(); }\n    public int pop() { throw new UnsupportedOperationException(); }\n    public int top() { throw new UnsupportedOperationException(); }\n    public boolean empty() { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class MyStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(x) { throw new Error('Implement push'); }\n  pop() { throw new Error('Implement pop'); }\n  top() { throw new Error('Implement top'); }\n  empty() { throw new Error('Implement empty'); }\n}",
+    "typescript": "class MyStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(x: number): void { throw new Error('Implement push'); }\n  pop(): number { throw new Error('Implement pop'); }\n  top(): number { throw new Error('Implement top'); }\n  empty(): boolean { throw new Error('Implement empty'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct MyStack MyStack;\nMyStack * myStackCreate(void) {  abort(); }\nvoid myStackPush(MyStack * self, int32_t x) { (void)self; (void)x; abort(); }\nint32_t myStackPop(MyStack * self) { (void)self; abort(); }\nint32_t myStackTop(MyStack * self) { (void)self; abort(); }\nbool myStackEmpty(MyStack * self) { (void)self; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass MyStack {\npublic:\n    MyStack() { throw std::logic_error(\"Implement method\"); }\n    void push(int x) { throw std::logic_error(\"Implement method\"); }\n    int pop() { throw std::logic_error(\"Implement method\"); }\n    int top() { throw std::logic_error(\"Implement method\"); }\n    bool empty() { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class MyStack {\n    public MyStack() { throw new System.NotImplementedException(); }\n    public void push(int x) { throw new System.NotImplementedException(); }\n    public int pop() { throw new System.NotImplementedException(); }\n    public int top() { throw new System.NotImplementedException(); }\n    public bool empty() { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass MyStack {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function push(int $x): void { throw new LogicException('Implement method'); }\n    public function pop(): int { throw new LogicException('Implement method'); }\n    public function top(): int { throw new LogicException('Implement method'); }\n    public function empty(): bool { throw new LogicException('Implement method'); }\n}",
+    "r": "MyStack <- function() {\n list(\n  push = function(x) stop(\"Implement push\"),\n  pop = function() stop(\"Implement pop\"),\n  top = function() stop(\"Implement top\"),\n  empty = function() stop(\"Implement empty\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "MyStack",
+    "arguments": [
+      [
+        "ops",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "stateful",
+    "validator": "exact",
+    "notes": "Construct MyStack once. [0,x] calls push, [1] pop, [2] top, [3] empty. Serialize non-void returns in order. Encode bool returns as integer 0 or 1."
+  },
+  "blocks": [
+    {
+      "id": "nc250-176-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-176-statement",
+      "type": "paragraph",
+      "content": "Implement MyStack using queue operations. push(x) adds the newest value, pop() removes and returns it, top() reads it, and empty() reports whether no values remain. A queue may only append at the back, read/remove at the front, and report size or emptiness.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-176-contract",
+      "type": "note",
+      "title": "class MyStack:",
+      "content": "Input: ops (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-176-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 100 method calls. 1 ≤ x ≤ 9. pop and top only occur when nonempty. Rows [0,x], [1], [2], [3] mean push, pop, top, empty. Construct once and serialize only the last three methods, encoding booleans as 0 or 1.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-176-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class MyStack:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def push(self, x: int) -> None:\n        raise NotImplementedError\n\n    def pop(self) -> int:\n        raise NotImplementedError\n\n    def top(self) -> int:\n        raise NotImplementedError\n\n    def empty(self) -> bool:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class MyStack {\n    public MyStack() { throw new UnsupportedOperationException(); }\n    public void push(int x) { throw new UnsupportedOperationException(); }\n    public int pop() { throw new UnsupportedOperationException(); }\n    public int top() { throw new UnsupportedOperationException(); }\n    public boolean empty() { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class MyStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(x) { throw new Error('Implement push'); }\n  pop() { throw new Error('Implement pop'); }\n  top() { throw new Error('Implement top'); }\n  empty() { throw new Error('Implement empty'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class MyStack {\n  constructor() { throw new Error('Implement constructor'); }\n  push(x: number): void { throw new Error('Implement push'); }\n  pop(): number { throw new Error('Implement pop'); }\n  top(): number { throw new Error('Implement top'); }\n  empty(): boolean { throw new Error('Implement empty'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct MyStack MyStack;\nMyStack * myStackCreate(void) {  abort(); }\nvoid myStackPush(MyStack * self, int32_t x) { (void)self; (void)x; abort(); }\nint32_t myStackPop(MyStack * self) { (void)self; abort(); }\nint32_t myStackTop(MyStack * self) { (void)self; abort(); }\nbool myStackEmpty(MyStack * self) { (void)self; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass MyStack {\npublic:\n    MyStack() { throw std::logic_error(\"Implement method\"); }\n    void push(int x) { throw std::logic_error(\"Implement method\"); }\n    int pop() { throw std::logic_error(\"Implement method\"); }\n    int top() { throw std::logic_error(\"Implement method\"); }\n    bool empty() { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class MyStack {\n    public MyStack() { throw new System.NotImplementedException(); }\n    public void push(int x) { throw new System.NotImplementedException(); }\n    public int pop() { throw new System.NotImplementedException(); }\n    public int top() { throw new System.NotImplementedException(); }\n    public bool empty() { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass MyStack {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function push(int $x): void { throw new LogicException('Implement method'); }\n    public function pop(): int { throw new LogicException('Implement method'); }\n    public function top(): int { throw new LogicException('Implement method'); }\n    public function empty(): bool { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-176-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "MyStack <- function() {\n list(\n  push = function(x) stop(\"Implement push\"),\n  pop = function() stop(\"Implement pop\"),\n  top = function() stop(\"Implement top\"),\n  empty = function() stop(\"Implement empty\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[7,7,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

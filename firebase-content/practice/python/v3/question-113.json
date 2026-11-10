@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-113",
+  "title": "Best Time to Buy and Sell Stock with Cooldown",
+  "summary": "Maximize profit from buying and selling one share at a time.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "maxProfitCooldown",
+    "signature": "def maxProfitCooldown(prices:",
+    "input": "`prices` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`prices` (integer array)",
+    "result": "integer.",
+    "constraints": "1–5000 daily prices in [0,1000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Maximize profit from buying and selling one share at a time. After a sale, wait through the next day before buying again. You may skip any day.",
+  "examples": [
+    {
+      "input": "{\"prices\":[1,4,0,5]}",
+      "output": "5",
+      "explanation": "Wait and make the last trade."
+    },
+    {
+      "input": "{\"prices\":[0,4,0,0,3]}",
+      "output": "7",
+      "explanation": "Sell on day 1 and buy again on day 3, using zero-based days."
+    },
+    {
+      "input": "{\"prices\":[8,6,2]}",
+      "output": "0",
+      "explanation": "Skipping every trade beats buying before a fall."
+    }
+  ],
+  "constraints": [
+    "1–5000 daily prices in [0,1000]."
+  ],
+  "hints": [
+    "Conceptual: The previous action determines what you can do today.",
+    "Directional: Separate holding, just sold, and free-to-buy states.",
+    "Implementation: Update all three from the previous day before replacing those values."
+  ],
+  "concepts": [
+    "state-machine-dp",
+    "trading"
+  ],
+  "skills": [
+    "State-machine DP",
+    "trading"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-113-T01",
+      "arguments": [
+        [
+          1,
+          4,
+          0,
+          5
+        ]
+      ],
+      "input": {
+        "prices": [
+          1,
+          4,
+          0,
+          5
+        ]
+      },
+      "expected": 5,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-113-T02",
+      "arguments": [
+        [
+          0,
+          4,
+          0,
+          0,
+          3
+        ]
+      ],
+      "input": {
+        "prices": [
+          0,
+          4,
+          0,
+          0,
+          3
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-113-T03",
+      "arguments": [
+        [
+          8,
+          6,
+          2
+        ]
+      ],
+      "input": {
+        "prices": [
+          8,
+          6,
+          2
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def maxProfitCooldown(prices: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int maxProfitCooldown(int[] prices) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} prices\n * @returns {number}\n */\nfunction maxProfitCooldown(prices) {\n  throw new Error('Implement maxProfitCooldown');\n}",
+    "typescript": "function maxProfitCooldown(prices: number[]): number {\n  throw new Error('Implement maxProfitCooldown');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxProfitCooldown(IntArray prices) {\n    (void)prices;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxProfitCooldown(std::vector<int> prices) {\n    throw std::logic_error(\"Implement maxProfitCooldown\");\n}",
+    "csharp": "public class Solution {\n    public int maxProfitCooldown(int[] prices) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $prices\n * @return int\n */\nfunction maxProfitCooldown(array $prices): int {\n    throw new LogicException('Implement maxProfitCooldown');\n}",
+    "r": "# Parameters: prices (integer vector). Result: integer scalar.\nmaxProfitCooldown <- function(prices) {\n  stop(\"Implement maxProfitCooldown\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-113-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-113-statement",
+      "type": "paragraph",
+      "content": "Maximize profit from buying and selling one share at a time. After a sale, wait through the next day before buying again. You may skip any day.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-113-contract",
+      "type": "note",
+      "title": "def maxProfitCooldown(prices:",
+      "content": "Input: `prices` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-113-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–5000 daily prices in [0,1000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-113-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def maxProfitCooldown(prices: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int maxProfitCooldown(int[] prices) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} prices\n * @returns {number}\n */\nfunction maxProfitCooldown(prices) {\n  throw new Error('Implement maxProfitCooldown');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function maxProfitCooldown(prices: number[]): number {\n  throw new Error('Implement maxProfitCooldown');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxProfitCooldown(IntArray prices) {\n    (void)prices;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxProfitCooldown(std::vector<int> prices) {\n    throw std::logic_error(\"Implement maxProfitCooldown\");\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int maxProfitCooldown(int[] prices) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $prices\n * @return int\n */\nfunction maxProfitCooldown(array $prices): int {\n    throw new LogicException('Implement maxProfitCooldown');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-113-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: prices (integer vector). Result: integer scalar.\nmaxProfitCooldown <- function(prices) {\n  stop(\"Implement maxProfitCooldown\")\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

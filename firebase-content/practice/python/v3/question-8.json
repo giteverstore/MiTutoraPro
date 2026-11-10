@@ -1,0 +1,841 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-008",
+  "title": "Valid Sudoku",
+  "summary": "Inspect the digits already placed on a Sudoku board.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "isValidSudoku",
+    "signature": "def isValidSudoku(board:",
+    "input": "`board` (nested string arrays)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`board` (nested string arrays)",
+    "result": "boolean.",
+    "constraints": "The board is 9×9. Each cell is one string from '.' and '1' through '9'. A dot marks an empty cell. Rows and columns are zero-based in the judge representation.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Inspect the digits already placed on a Sudoku board. Return false if a digit repeats in any row, any column or any of the nine 3×3 boxes. Otherwise return true. A valid partial board does not have to be solvable.",
+  "examples": [
+    {
+      "input": "{\"board\":[[\"6\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\"2\"]]}",
+      "output": "true",
+      "explanation": "The two sixes share no row, column or box."
+    },
+    {
+      "input": "{\"board\":[[\".\",\"4\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\"4\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"]]}",
+      "output": "false",
+      "explanation": "The two fours are in the same upper-left box."
+    },
+    {
+      "input": "{\"board\":[[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\"9\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\"9\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"]]}",
+      "output": "false",
+      "explanation": "Both nines are on row 2."
+    }
+  ],
+  "constraints": [
+    "The board is 9×9. Each cell is one string from '.' and '1' through '9'. A dot marks an empty cell. Rows and columns are zero-based in the judge representation."
+  ],
+  "hints": [
+    "Conceptual: A digit occupies three regions at once.",
+    "Directional: Track digits separately for rows, columns and boxes.",
+    "Implementation: For row r and column c, use box number 3 × floor(r/3) + floor(c/3). Skip dots and reject a digit already present in any of its three regions."
+  ],
+  "concepts": [
+    "matrices",
+    "hash-sets",
+    "sudoku"
+  ],
+  "skills": [
+    "Matrices",
+    "hash sets",
+    "Sudoku"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(81)",
+    "space": "O(81)"
+  },
+  "complexityAnalysis": "O(81) time and O(81) auxiliary space, both O(1) for the fixed board. Each cell participates in three checks.",
+  "publicTests": [
+    {
+      "name": "BLIND150-008-T01",
+      "arguments": [
+        [
+          [
+            "6",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "2"
+          ]
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "6",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "2"
+          ]
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-008-T02",
+      "arguments": [
+        [
+          [
+            ".",
+            "4",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            "4",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ]
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            ".",
+            "4",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            "4",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ]
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-008-T03",
+      "arguments": [
+        [
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "9",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "9"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ]
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "9",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "9"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            ".",
+            "."
+          ]
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def isValidSudoku(board: list[list[str]]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean isValidSudoku(String[][] board) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[][]} board\n * @returns {boolean}\n */\nfunction isValidSudoku(board) {\n  throw new Error('Implement isValidSudoku');\n}",
+    "typescript": "function isValidSudoku(board: string[][]): boolean {\n  throw new Error('Implement isValidSudoku');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nbool isValidSudoku(StringMatrix board) {\n    (void)board;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isValidSudoku(std::vector<std::vector<std::string>> board) {\n    throw std::logic_error(\"Implement isValidSudoku\");\n}",
+    "csharp": "public class Solution {\n    public bool isValidSudoku(string[][] board) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[][] $board\n * @return bool\n */\nfunction isValidSudoku(array $board): bool {\n    throw new LogicException('Implement isValidSudoku');\n}",
+    "r": "# Parameters: board (list of character vectors). Result: logical scalar.\nisValidSudoku <- function(board) {\n  stop(\"Implement isValidSudoku\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-008-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-008-statement",
+      "type": "paragraph",
+      "content": "Inspect the digits already placed on a Sudoku board. Return false if a digit repeats in any row, any column or any of the nine 3×3 boxes. Otherwise return true. A valid partial board does not have to be solvable.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-008-contract",
+      "type": "note",
+      "title": "def isValidSudoku(board:",
+      "content": "Input: `board` (nested string arrays)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-008-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The board is 9×9. Each cell is one string from '.' and '1' through '9'. A dot marks an empty cell. Rows and columns are zero-based in the judge representation.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-008-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def isValidSudoku(board: list[list[str]]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean isValidSudoku(String[][] board) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[][]} board\n * @returns {boolean}\n */\nfunction isValidSudoku(board) {\n  throw new Error('Implement isValidSudoku');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function isValidSudoku(board: string[][]): boolean {\n  throw new Error('Implement isValidSudoku');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nbool isValidSudoku(StringMatrix board) {\n    (void)board;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isValidSudoku(std::vector<std::vector<std::string>> board) {\n    throw std::logic_error(\"Implement isValidSudoku\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool isValidSudoku(string[][] board) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[][] $board\n * @return bool\n */\nfunction isValidSudoku(array $board): bool {\n    throw new LogicException('Implement isValidSudoku');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-008-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: board (list of character vectors). Result: logical scalar.\nisValidSudoku <- function(board) {\n  stop(\"Implement isValidSudoku\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

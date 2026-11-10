@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-244",
+  "title": "Greatest Common Divisor of Strings",
+  "summary": "Find the longest nonempty string whose repeated copies form both input strings exactly.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "gcdOfStrings",
+    "signature": "def gcdOfStrings(str1:",
+    "input": "str1 (str), str2 (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "str1 (str), str2 (str)",
+    "callable": "gcdOfStrings",
+    "constraints": "Each string has 1–1000 uppercase English letters.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Find the longest nonempty string whose repeated copies form both input strings exactly. Return an empty string if there is no common repeated base.",
+  "examples": [
+    {
+      "input": "{\"str1\":\"XYXYXY\",\"str2\":\"XYXY\"}",
+      "output": "\"XY\"",
+      "explanation": "The two strings use three and two copies of XY."
+    },
+    {
+      "input": "{\"str1\":\"MMMM\",\"str2\":\"MM\"}",
+      "output": "\"MM\"",
+      "explanation": "The longer common base uses two Ms."
+    },
+    {
+      "input": "{\"str1\":\"AB\",\"str2\":\"ABA\"}",
+      "output": "\"\"",
+      "explanation": "No prefix tiles both strings completely."
+    }
+  ],
+  "constraints": [
+    "Each string has 1–1000 uppercase English letters."
+  ],
+  "hints": [
+    "Conceptual: A common base must divide both lengths.",
+    "Directional: A shared repetition pattern makes the two concatenation orders equal.",
+    "Implementation: Check that concatenating the strings in either order gives the same result. If so, take a prefix whose length is the greatest common divisor of the two lengths."
+  ],
+  "concepts": [
+    "string-periodicity",
+    "euclidean-algorithm"
+  ],
+  "skills": [
+    "String periodicity",
+    "Euclidean algorithm"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(a+b)",
+    "space": "O(a+b)"
+  },
+  "complexityAnalysis": "O(a+b) time and O(a+b) temporary space when materializing the concatenations. Comparing their characters directly uses O(1) extra state.",
+  "publicTests": [
+    {
+      "name": "NC250-244-P1",
+      "arguments": [
+        "XYXYXY",
+        "XYXY"
+      ],
+      "input": {
+        "str1": "XYXYXY",
+        "str2": "XYXY"
+      },
+      "expected": "XY",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-244-P2",
+      "arguments": [
+        "MMMM",
+        "MM"
+      ],
+      "input": {
+        "str1": "MMMM",
+        "str2": "MM"
+      },
+      "expected": "MM",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-244-P3",
+      "arguments": [
+        "AB",
+        "ABA"
+      ],
+      "input": {
+        "str1": "AB",
+        "str2": "ABA"
+      },
+      "expected": "",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def gcdOfStrings(str1: str, str2: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String gcdOfStrings(String str1, String str2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} str1\n * @param {string} str2\n * @returns {string}\n */\nfunction gcdOfStrings(str1, str2) {\n  throw new Error('Implement gcdOfStrings');\n}",
+    "typescript": "function gcdOfStrings(str1: string, str2: string): string {\n  throw new Error('Implement gcdOfStrings');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString gcdOfStrings(ByteString str1, ByteString str2) {\n    (void)str1;\n    (void)str2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string gcdOfStrings(std::string str1, std::string str2) {\n    throw std::logic_error(\"Implement gcdOfStrings\");\n}",
+    "csharp": "public class Solution {\n    public string gcdOfStrings(string str1, string str2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $str1\n * @param string $str2\n * @return string\n */\nfunction gcdOfStrings(string $str1, string $str2): string {\n    throw new LogicException('Implement gcdOfStrings');\n}",
+    "r": "# Parameters: str1 (character scalar), str2 (character scalar). Result: character scalar.\ngcdOfStrings <- function(str1, str2) {\n  stop(\"Implement gcdOfStrings\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "gcdOfStrings",
+    "arguments": [
+      [
+        "str1",
+        "str"
+      ],
+      [
+        "str2",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-244-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-244-statement",
+      "type": "paragraph",
+      "content": "Find the longest nonempty string whose repeated copies form both input strings exactly. Return an empty string if there is no common repeated base.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-244-contract",
+      "type": "note",
+      "title": "def gcdOfStrings(str1:",
+      "content": "Input: str1 (str), str2 (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-244-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each string has 1–1000 uppercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-244-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def gcdOfStrings(str1: str, str2: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String gcdOfStrings(String str1, String str2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} str1\n * @param {string} str2\n * @returns {string}\n */\nfunction gcdOfStrings(str1, str2) {\n  throw new Error('Implement gcdOfStrings');\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function gcdOfStrings(str1: string, str2: string): string {\n  throw new Error('Implement gcdOfStrings');\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString gcdOfStrings(ByteString str1, ByteString str2) {\n    (void)str1;\n    (void)str2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string gcdOfStrings(std::string str1, std::string str2) {\n    throw std::logic_error(\"Implement gcdOfStrings\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string gcdOfStrings(string str1, string str2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $str1\n * @param string $str2\n * @return string\n */\nfunction gcdOfStrings(string $str1, string $str2): string {\n    throw new LogicException('Implement gcdOfStrings');\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-244-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: str1 (character scalar), str2 (character scalar). Result: character scalar.\ngcdOfStrings <- function(str1, str2) {\n  stop(\"Implement gcdOfStrings\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"XY\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

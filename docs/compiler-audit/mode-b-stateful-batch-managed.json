@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 18,
+  "matrix": {
+    "NC250-156": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15437,
+        "wallTimeMs": 15792,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19067.845,
+        "wallTimeMs": 25346,
+        "outputBytes": 728,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-176": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11947,
+        "wallTimeMs": 12260,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20829.525,
+        "wallTimeMs": 27398,
+        "outputBytes": 738,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-177": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8251,
+        "wallTimeMs": 8529,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6168.305,
+        "wallTimeMs": 8078,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

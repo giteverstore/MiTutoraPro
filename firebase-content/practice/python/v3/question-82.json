@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-082",
+  "title": "Clone Graph",
+  "summary": "Given a reference to node 1 of a connected undirected graph, return the corresponding node in a deep copy.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "cloneGraph",
+    "signature": "class Node:",
+    "input": "`adj` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`adj` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "0–100 vertices. A nonempty input is connected with distinct labels 1 through n, no self-loops, and no repeated neighbors. The empty input is represented by a null node and requires a null return.",
+    "output-checking": "Inspect node identity and relationships before serialization. Compare neighbor labels per vertex in any order.",
+    "callable": "`cloneGraph` accepts and returns a node reference or null. The grid shown here is the wire representation."
+  },
+  "statement": "Given a reference to node 1 of a connected undirected graph, return the corresponding node in a deep copy. Create a new object for every vertex, copy its value, and recreate all neighbor relationships using only copied vertices. Leave the input objects and edges unchanged. The judge shows rows of neighbor labels, one row per label starting at 1. Neighbor order is free in the copy.",
+  "examples": [
+    {
+      "input": "{\"adj\":[[2],[1]]}",
+      "output": "[[2],[1]]",
+      "explanation": "Both new nodes point to one another."
+    },
+    {
+      "input": "{\"adj\":[]}",
+      "output": "[]",
+      "explanation": "A null reference has no graph to copy."
+    },
+    {
+      "input": "{\"adj\":[[2,3],[1,3],[1,2]]}",
+      "output": "[[2,3],[1,3],[1,2]]",
+      "explanation": "Each vertex is copied once even though the triangle offers two routes."
+    }
+  ],
+  "constraints": [
+    "0–100 vertices. A nonempty input is connected with distinct labels 1 through n, no self-loops, and no repeated neighbors. The empty input is represented by a null node and requires a null return."
+  ],
+  "hints": [
+    "Conceptual: The same original vertex can be reached by more than one edge.",
+    "Directional: Use an original-to-copy mapping to share the correct copied object along all incoming edges.",
+    "Implementation: Create the root copy first. During BFS, allocate each neighbor's copy once, then add that copy to the current copy's neighbor list."
+  ],
+  "concepts": [
+    "graphs",
+    "bfs",
+    "deep-copying",
+    "object-identity"
+  ],
+  "skills": [
+    "Graphs",
+    "BFS",
+    "deep copying",
+    "object identity"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(V+E)",
+    "space": "O(V+E)"
+  },
+  "complexityAnalysis": "O(V+E) time and O(V) auxiliary space excluding the copy, using a mapping and a work queue.",
+  "publicTests": [
+    {
+      "name": "BLIND150-082-T01",
+      "arguments": [
+        [
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "adj": [
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        [
+          2
+        ],
+        [
+          1
+        ]
+      ],
+      "validator": "clone_adjacency"
+    },
+    {
+      "name": "BLIND150-082-T02",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "adj": []
+      },
+      "expected": [],
+      "validator": "clone_adjacency"
+    },
+    {
+      "name": "BLIND150-082-T03",
+      "arguments": [
+        [
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "adj": [
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "validator": "clone_adjacency"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class Node:\n    def __init__(self, val: int = 0, neighbors: list[\"Node\"] | None = None):\n        self.val = val\n        self.neighbors = [] if neighbors is None else neighbors\n\ndef cloneGraph(node: Node | None) -> Node | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class GraphNode {\n        public int val;\n        public GraphNode[] neighbors;\n        public GraphNode(int val, int degree) {\n            this.val = val;\n            neighbors = new GraphNode[degree];\n        }\n    }\n    public GraphNode cloneGraph(GraphNode node) {\n        return null;\n    }\n}",
+    "javascript": "class GraphNode {\n  constructor(val = 0, neighbors = []) {\n    this.val = val;\n    this.neighbors = neighbors;\n  }\n}\n\nfunction cloneGraph(node) {\n  throw new Error(\"Not implemented\");\n}",
+    "typescript": "class GraphNode {\n  constructor(public val: number = 0, public neighbors: GraphNode[] = []) {}\n}\n\nfunction cloneGraph(node: GraphNode | null): GraphNode | null {\n  throw new Error(\"Not implemented\");\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct GraphNode {\n    int32_t val;\n    struct GraphNode **neighbors;\n    size_t degree;\n} GraphNode;\n\nGraphNode *cloneGraph(GraphNode *node) {\n    (void)node;\n    return NULL;\n}",
+    "cpp": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct GraphNode {\n    int32_t val;\n    struct GraphNode **neighbors;\n    size_t degree;\n} GraphNode;\n\nGraphNode *cloneGraph(GraphNode *node) {\n    (void)node;\n    return NULL;\n}",
+    "csharp": "public class Solution {\n    public class GraphNode {\n        public int val;\n        public GraphNode[] neighbors;\n        public GraphNode(int val, int degree) {\n            this.val = val;\n            neighbors = new GraphNode[degree];\n        }\n    }\n    public GraphNode cloneGraph(GraphNode node) {\n        return null;\n    }\n}",
+    "php": "<?php\nclass GraphNode {\n    public function __construct(public int $val = 0, public array $neighbors = []) {}\n}\n\nfunction cloneGraph(?GraphNode $node): ?GraphNode {\n    throw new LogicException(\"Not implemented\");\n}",
+    "r": "# Nodes are environments with an integer val and a neighbors list.\n# NULL represents an empty graph.\ncloneGraph <- function(node) {\n  stop(\"Not implemented\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-082-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-082-statement",
+      "type": "paragraph",
+      "content": "Given a reference to node 1 of a connected undirected graph, return the corresponding node in a deep copy. Create a new object for every vertex, copy its value, and recreate all neighbor relationships using only copied vertices. Leave the input objects and edges unchanged. The judge shows rows of neighbor labels, one row per label starting at 1. Neighbor order is free in the copy.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-082-contract",
+      "type": "note",
+      "title": "class Node:",
+      "content": "Input: `adj` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-082-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–100 vertices. A nonempty input is connected with distinct labels 1 through n, no self-loops, and no repeated neighbors. The empty input is represented by a null node and requires a null return.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-082-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class Node:\n    def __init__(self, val: int = 0, neighbors: list[\"Node\"] | None = None):\n        self.val = val\n        self.neighbors = [] if neighbors is None else neighbors\n\ndef cloneGraph(node: Node | None) -> Node | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class GraphNode {\n        public int val;\n        public GraphNode[] neighbors;\n        public GraphNode(int val, int degree) {\n            this.val = val;\n            neighbors = new GraphNode[degree];\n        }\n    }\n    public GraphNode cloneGraph(GraphNode node) {\n        return null;\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class GraphNode {\n  constructor(val = 0, neighbors = []) {\n    this.val = val;\n    this.neighbors = neighbors;\n  }\n}\n\nfunction cloneGraph(node) {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class GraphNode {\n  constructor(public val: number = 0, public neighbors: GraphNode[] = []) {}\n}\n\nfunction cloneGraph(node: GraphNode | null): GraphNode | null {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct GraphNode {\n    int32_t val;\n    struct GraphNode **neighbors;\n    size_t degree;\n} GraphNode;\n\nGraphNode *cloneGraph(GraphNode *node) {\n    (void)node;\n    return NULL;\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct GraphNode {\n    int32_t val;\n    struct GraphNode **neighbors;\n    size_t degree;\n} GraphNode;\n\nGraphNode *cloneGraph(GraphNode *node) {\n    (void)node;\n    return NULL;\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class GraphNode {\n        public int val;\n        public GraphNode[] neighbors;\n        public GraphNode(int val, int degree) {\n            this.val = val;\n            neighbors = new GraphNode[degree];\n        }\n    }\n    public GraphNode cloneGraph(GraphNode node) {\n        return null;\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass GraphNode {\n    public function __construct(public int $val = 0, public array $neighbors = []) {}\n}\n\nfunction cloneGraph(?GraphNode $node): ?GraphNode {\n    throw new LogicException(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-082-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Nodes are environments with an integer val and a neighbors list.\n# NULL represents an empty graph.\ncloneGraph <- function(node) {\n  stop(\"Not implemented\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[2],[1]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

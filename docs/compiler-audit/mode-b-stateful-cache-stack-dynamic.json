@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 30,
+  "matrix": {
+    "BLIND150-042": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 146,
+        "wallTimeMs": 18836,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4,
+        "wallTimeMs": 150,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3,
+        "wallTimeMs": 177,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1122,
+        "wallTimeMs": 1292,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 201,
+        "wallTimeMs": 8787,
+        "outputBytes": 793,
+        "message": "invalid 'envir' argument",
+        "failures": [
+          {
+            "id": "BLIND150-042-T01",
+            "status": "runtime_error",
+            "message": "invalid 'envir' argument"
+          },
+          {
+            "id": "BLIND150-042-T02",
+            "status": "runtime_error",
+            "message": "invalid 'envir' argument"
+          },
+          {
+            "id": "BLIND150-042-T03",
+            "status": "runtime_error",
+            "message": "invalid 'envir' argument"
+          }
+        ]
+      }
+    },
+    "NC250-182": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 247,
+        "wallTimeMs": 21212,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5,
+        "wallTimeMs": 136,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8,
+        "wallTimeMs": 151,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1603,
+        "wallTimeMs": 1762,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 138,
+        "wallTimeMs": 8425,
+        "outputBytes": 789,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

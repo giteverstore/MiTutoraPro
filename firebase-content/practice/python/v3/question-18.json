@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-018",
+  "title": "Permutation in String",
+  "summary": "Return whether any contiguous substring of s2 uses exactly the same letters and multiplicities as s1.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Sliding Window",
+  "category": "dsa",
+  "subtopic": "sliding-window",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "checkInclusion",
+    "signature": "def checkInclusion(s1:",
+    "input": "`s1` (string), `s2` (string)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`s1` (string), `s2` (string)",
+    "result": "boolean.",
+    "constraints": "Both strings have 1–10,000 lowercase English letters.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return whether any contiguous substring of s2 uses exactly the same letters and multiplicities as s1. The matching substring may arrange the letters in any order.",
+  "examples": [
+    {
+      "input": "{\"s1\":\"aab\",\"s2\":\"zaabz\"}",
+      "output": "true",
+      "explanation": "The middle three letters have two a's and one b."
+    },
+    {
+      "input": "{\"s1\":\"abc\",\"s2\":\"axbxc\"}",
+      "output": "false",
+      "explanation": "The needed letters never appear together in a length-three window."
+    },
+    {
+      "input": "{\"s1\":\"xyz\",\"s2\":\"zxy\"}",
+      "output": "true",
+      "explanation": "The entire second string is a valid rearrangement."
+    }
+  ],
+  "constraints": [
+    "Both strings have 1–10,000 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Every candidate substring has the same length as s1.",
+    "Directional: Compare letter counts in a window of that fixed size.",
+    "Implementation: When the window shifts, remove the departing letter and add the incoming one. Return true at the first exact count match."
+  ],
+  "concepts": [
+    "strings",
+    "fixed-window",
+    "frequency-counting"
+  ],
+  "skills": [
+    "Strings",
+    "fixed window",
+    "frequency counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(26(|s1| + |s2|)",
+    "space": "O(26(|s1| + |s2|)"
+  },
+  "complexityAnalysis": "O(26(|s1| + |s2|)) time and O(26) auxiliary space with fixed-size count arrays. Sliding updates avoid recounting entire substrings.",
+  "publicTests": [
+    {
+      "name": "BLIND150-018-T01",
+      "arguments": [
+        "aab",
+        "zaabz"
+      ],
+      "input": {
+        "s1": "aab",
+        "s2": "zaabz"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-018-T02",
+      "arguments": [
+        "abc",
+        "axbxc"
+      ],
+      "input": {
+        "s1": "abc",
+        "s2": "axbxc"
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-018-T03",
+      "arguments": [
+        "xyz",
+        "zxy"
+      ],
+      "input": {
+        "s1": "xyz",
+        "s2": "zxy"
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def checkInclusion(s1: str, s2: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @returns {boolean}\n */\nfunction checkInclusion(s1, s2) {\n  throw new Error('Implement checkInclusion');\n}",
+    "typescript": "function checkInclusion(s1: string, s2: string): boolean {\n  throw new Error('Implement checkInclusion');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool checkInclusion(ByteString s1, ByteString s2) {\n    (void)s1;\n    (void)s2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool checkInclusion(std::string s1, std::string s2) {\n    throw std::logic_error(\"Implement checkInclusion\");\n}",
+    "csharp": "public class Solution {\n    public bool checkInclusion(string s1, string s2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s1\n * @param string $s2\n * @return bool\n */\nfunction checkInclusion(string $s1, string $s2): bool {\n    throw new LogicException('Implement checkInclusion');\n}",
+    "r": "# Parameters: s1 (character scalar), s2 (character scalar). Result: logical scalar.\ncheckInclusion <- function(s1, s2) {\n  stop(\"Implement checkInclusion\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-018-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-018-statement",
+      "type": "paragraph",
+      "content": "Return whether any contiguous substring of s2 uses exactly the same letters and multiplicities as s1. The matching substring may arrange the letters in any order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-018-contract",
+      "type": "note",
+      "title": "def checkInclusion(s1:",
+      "content": "Input: `s1` (string), `s2` (string)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-018-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Both strings have 1–10,000 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-018-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def checkInclusion(s1: str, s2: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s1\n * @param {string} s2\n * @returns {boolean}\n */\nfunction checkInclusion(s1, s2) {\n  throw new Error('Implement checkInclusion');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function checkInclusion(s1: string, s2: string): boolean {\n  throw new Error('Implement checkInclusion');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool checkInclusion(ByteString s1, ByteString s2) {\n    (void)s1;\n    (void)s2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool checkInclusion(std::string s1, std::string s2) {\n    throw std::logic_error(\"Implement checkInclusion\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool checkInclusion(string s1, string s2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s1\n * @param string $s2\n * @return bool\n */\nfunction checkInclusion(string $s1, string $s2): bool {\n    throw new LogicException('Implement checkInclusion');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-018-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s1 (character scalar), s2 (character scalar). Result: logical scalar.\ncheckInclusion <- function(s1, s2) {\n  stop(\"Implement checkInclusion\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-250",
+  "title": "Minimum Array End",
+  "summary": "Consider strictly increasing arrays of n positive integers whose bitwise AND is x.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "minEnd",
+    "signature": "def minEnd(n:",
+    "input": "n (int), x (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), x (int)",
+    "callable": "minEnd",
+    "constraints": "1 ≤ n,x ≤ 100000000. Return an exact integer in a signed 64-bit result slot. Under these bounds the result is below 2^53, so JavaScript, TypeScript, and R can use exact numeric arithmetic if they avoid 32-bit bitwise truncation.",
+    "output-checking": "Return a signed 64-bit integer. Canonical JSON preserves the entire value under the source bounds, which imply result<2^53. JavaScript, TypeScript, and R must avoid 32-bit shifts on the wide result."
+  },
+  "statement": "Consider strictly increasing arrays of n positive integers whose bitwise AND is x. Return the smallest possible final value. Every array entry must contain every set bit of x.",
+  "examples": [
+    {
+      "input": "{\"n\":3,\"x\":10}",
+      "output": "14",
+      "explanation": "The first three supermasks are 10, 11, and 14."
+    },
+    {
+      "input": "{\"n\":1,\"x\":33}",
+      "output": "33",
+      "explanation": "The only element must equal x."
+    },
+    {
+      "input": "{\"n\":100000000,\"x\":67108863}",
+      "output": "6710886399999999",
+      "explanation": "The lowest 26 bits are fixed at one, so the rank is placed above them."
+    }
+  ],
+  "constraints": [
+    "1 ≤ n,x ≤ 100000000. Return an exact integer in a signed 64-bit result slot. Under these bounds the result is below 2^53, so JavaScript, TypeScript, and R can use exact numeric arithmetic if they avoid 32-bit bitwise truncation."
+  ],
+  "hints": [
+    "Conceptual: Every valid element is a supermask of x, and x itself can be the first element.",
+    "Directional: Order the supermasks by filling the zero positions of x.",
+    "Implementation: Use n−1 as a binary rank. Deposit its low-to-high bits into the zero positions of x from low to high."
+  ],
+  "concepts": [
+    "bit-masks",
+    "rank-selection",
+    "exact-integer-arithmetic"
+  ],
+  "skills": [
+    "Bit masks",
+    "rank selection",
+    "exact integer arithmetic"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log n + log x)",
+    "space": "O(log n + log x)"
+  },
+  "complexityAnalysis": "O(log n + log x) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-250-P1",
+      "arguments": [
+        3,
+        10
+      ],
+      "input": {
+        "n": 3,
+        "x": 10
+      },
+      "expected": 14,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-250-P2",
+      "arguments": [
+        1,
+        33
+      ],
+      "input": {
+        "n": 1,
+        "x": 33
+      },
+      "expected": 33,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-250-P3",
+      "arguments": [
+        100000000,
+        67108863
+      ],
+      "input": {
+        "n": 100000000,
+        "x": 67108863
+      },
+      "expected": 6710886399999999,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minEnd(n: int, x: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public long minEnd(int n, int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number} x\n * @returns {number}\n */\nfunction minEnd(n, x) {\n  throw new Error('Implement minEnd');\n}",
+    "typescript": "function minEnd(n: number, x: number): number {\n  throw new Error('Implement minEnd');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint64_t minEnd(int32_t n, int32_t x) {\n    (void)n;\n    (void)x;\n    abort();\n}",
+    "cpp": "#include <cstdint>\n#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::int64_t minEnd(int n, int x) {\n    throw std::logic_error(\"Implement minEnd\");\n}",
+    "csharp": "public class Solution {\n    public long minEnd(int n, int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param int $x\n * @return int\n */\nfunction minEnd(int $n, int $x): int {\n    throw new LogicException('Implement minEnd');\n}",
+    "r": "# Parameters: n (integer scalar), x (integer scalar). Result: exact numeric scalar.\nminEnd <- function(n, x) {\n  stop(\"Implement minEnd\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "minEnd",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "x",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "i64",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Return a signed 64-bit integer. Canonical JSON preserves the entire value under the source bounds, which imply result<2^53. JavaScript, TypeScript, and R must avoid 32-bit shifts on the wide result."
+  },
+  "blocks": [
+    {
+      "id": "nc250-250-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-250-statement",
+      "type": "paragraph",
+      "content": "Consider strictly increasing arrays of n positive integers whose bitwise AND is x. Return the smallest possible final value. Every array entry must contain every set bit of x.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-250-contract",
+      "type": "note",
+      "title": "def minEnd(n:",
+      "content": "Input: n (int), x (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-250-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n,x ≤ 100000000. Return an exact integer in a signed 64-bit result slot. Under these bounds the result is below 2^53, so JavaScript, TypeScript, and R can use exact numeric arithmetic if they avoid 32-bit bitwise truncation.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-250-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minEnd(n: int, x: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public long minEnd(int n, int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number} x\n * @returns {number}\n */\nfunction minEnd(n, x) {\n  throw new Error('Implement minEnd');\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minEnd(n: number, x: number): number {\n  throw new Error('Implement minEnd');\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint64_t minEnd(int32_t n, int32_t x) {\n    (void)n;\n    (void)x;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstdint>\n#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::int64_t minEnd(int n, int x) {\n    throw std::logic_error(\"Implement minEnd\");\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public long minEnd(int n, int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param int $x\n * @return int\n */\nfunction minEnd(int $n, int $x): int {\n    throw new LogicException('Implement minEnd');\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-250-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), x (integer scalar). Result: exact numeric scalar.\nminEnd <- function(n, x) {\n  stop(\"Implement minEnd\")\n}",
+      "stdin": "",
+      "expectedOutput": "14",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 24,
+  "matrix": {
+    "BLIND150-035": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 551,
+        "wallTimeMs": 6481,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-036": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 546,
+        "wallTimeMs": 7100,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-037": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 578,
+        "wallTimeMs": 8106,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-038": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 671,
+        "wallTimeMs": 8551,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-039": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 605,
+        "wallTimeMs": 8379,
+        "outputBytes": 789,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-039-T01",
+            "status": "wrong_answer",
+            "actual": [
+              [
+                4,
+                1,
+                -1
+              ],
+              [
+                7,
+                -1,
+                -1
+              ]
+            ],
+            "expected": [
+              [
+                4,
+                1
+              ],
+              [
+                7,
+                -1
+              ]
+            ]
+          },
+          {
+            "id": "BLIND150-039-T02",
+            "status": "wrong_answer",
+            "actual": [
+              [
+                6,
+                0,
+                -1
+              ]
+            ],
+            "expected": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "id": "BLIND150-039-T03",
+            "status": "wrong_answer",
+            "actual": [
+              [
+                2,
+                2,
+                -1
+              ],
+              [
+                2,
+                0,
+                -1
+              ],
+              [
+                2,
+                1,
+                -1
+              ]
+            ],
+            "expected": [
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                1
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "BLIND150-040": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 664,
+        "wallTimeMs": 8408,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-043": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 687,
+        "wallTimeMs": 8302,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-044": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 618,
+        "wallTimeMs": 8296,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

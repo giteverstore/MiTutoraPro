@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-057",
+  "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+  "summary": "Rebuild the binary tree described by two traversal arrays.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "buildTreeFromTraversals",
+    "signature": "class TreeNode:",
+    "input": "`preorder` (integer array), `inorder` (integer array)",
+    "output": "level-order tree array."
+  },
+  "contractDetails": {
+    "input": "`preorder` (integer array), `inorder` (integer array)",
+    "result": "level-order tree array.",
+    "constraints": "Each array has the same length from 1 to 3,000 and contains the same distinct integers in [−3,000, 3,000]. The traversals are guaranteed to describe a valid tree.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Rebuild the binary tree described by two traversal arrays. Preorder visits root, left, then right. Inorder visits left, root, then right. Return the root of a tree that produces both supplied arrays.",
+  "examples": [
+    {
+      "input": "{\"preorder\":[8,4,6,12],\"inorder\":[4,6,8,12]}",
+      "output": "[8,4,12,null,6]",
+      "explanation": "The inorder sequence places 6 on the right of 4."
+    },
+    {
+      "input": "{\"preorder\":[-2],\"inorder\":[-2]}",
+      "output": "[-2]",
+      "explanation": "The traversals describe one node."
+    },
+    {
+      "input": "{\"preorder\":[3,2,1],\"inorder\":[1,2,3]}",
+      "output": "[3,2,null,1]",
+      "explanation": "Every successive node is a left child."
+    }
+  ],
+  "constraints": [
+    "Each array has the same length from 1 to 3,000 and contains the same distinct integers in [−3,000, 3,000]. The traversals are guaranteed to describe a valid tree."
+  ],
+  "hints": [
+    "Conceptual: The first preorder value is the root, and its inorder position separates the two subtrees.",
+    "Directional: A stack can track ancestors whose inorder turn has not arrived.",
+    "Implementation: For each new preorder node, attach it to the left of the top while that top differs from the next inorder value. Otherwise pop matching ancestors and attach the new node on the right of the last one popped."
+  ],
+  "concepts": [
+    "binary-trees",
+    "traversal-reconstruction",
+    "stacks"
+  ],
+  "skills": [
+    "Binary trees",
+    "traversal reconstruction",
+    "stacks"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(h) auxiliary space excluding the new tree, using an explicit stack.",
+  "publicTests": [
+    {
+      "name": "BLIND150-057-T01",
+      "arguments": [
+        [
+          8,
+          4,
+          6,
+          12
+        ],
+        [
+          4,
+          6,
+          8,
+          12
+        ]
+      ],
+      "input": {
+        "preorder": [
+          8,
+          4,
+          6,
+          12
+        ],
+        "inorder": [
+          4,
+          6,
+          8,
+          12
+        ]
+      },
+      "expected": [
+        8,
+        4,
+        12,
+        null,
+        6
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-057-T02",
+      "arguments": [
+        [
+          -2
+        ],
+        [
+          -2
+        ]
+      ],
+      "input": {
+        "preorder": [
+          -2
+        ],
+        "inorder": [
+          -2
+        ]
+      },
+      "expected": [
+        -2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-057-T03",
+      "arguments": [
+        [
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "input": {
+        "preorder": [
+          3,
+          2,
+          1
+        ],
+        "inorder": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        3,
+        2,
+        null,
+        1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef buildTreeFromTraversals(preorder: list[int], inorder: list[int]) -> TreeNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode buildTreeFromTraversals(int[] preorder, int[] inorder) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {number[]} preorder\n * @param {number[]} inorder\n * @returns {TreeNode | null}\n */\nfunction buildTreeFromTraversals(preorder, inorder) {\n  throw new Error('Implement buildTreeFromTraversals');\n}",
+    "typescript": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction buildTreeFromTraversals(preorder: number[], inorder: number[]): TreeNode | null {\n  throw new Error('Implement buildTreeFromTraversals');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nTreeNode * buildTreeFromTraversals(IntArray preorder, IntArray inorder) {\n    (void)preorder;\n    (void)inorder;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\n\nTreeNode * buildTreeFromTraversals(IntArray preorder, IntArray inorder) {\n    (void)preorder;\n    (void)inorder;\n    throw std::logic_error(\"Implement buildTreeFromTraversals\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode buildTreeFromTraversals(int[] preorder, int[] inorder) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction buildTreeFromTraversals(array $preorder, array $inorder): ?TreeNode {\n    throw new LogicException('Implement buildTreeFromTraversals');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters preorder (integer vector), inorder (integer vector). Result tree environment or NULL.\nbuildTreeFromTraversals <- function(preorder, inorder) {\n  stop(\"Implement buildTreeFromTraversals\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-057-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-057-statement",
+      "type": "paragraph",
+      "content": "Rebuild the binary tree described by two traversal arrays. Preorder visits root, left, then right. Inorder visits left, root, then right. Return the root of a tree that produces both supplied arrays.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-057-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: `preorder` (integer array), `inorder` (integer array)\n\nOutput: level-order tree array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-057-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each array has the same length from 1 to 3,000 and contains the same distinct integers in [−3,000, 3,000]. The traversals are guaranteed to describe a valid tree.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-057-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef buildTreeFromTraversals(preorder: list[int], inorder: list[int]) -> TreeNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode buildTreeFromTraversals(int[] preorder, int[] inorder) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {number[]} preorder\n * @param {number[]} inorder\n * @returns {TreeNode | null}\n */\nfunction buildTreeFromTraversals(preorder, inorder) {\n  throw new Error('Implement buildTreeFromTraversals');\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction buildTreeFromTraversals(preorder: number[], inorder: number[]): TreeNode | null {\n  throw new Error('Implement buildTreeFromTraversals');\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nTreeNode * buildTreeFromTraversals(IntArray preorder, IntArray inorder) {\n    (void)preorder;\n    (void)inorder;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\n\nTreeNode * buildTreeFromTraversals(IntArray preorder, IntArray inorder) {\n    (void)preorder;\n    (void)inorder;\n    throw std::logic_error(\"Implement buildTreeFromTraversals\");\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode buildTreeFromTraversals(int[] preorder, int[] inorder) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction buildTreeFromTraversals(array $preorder, array $inorder): ?TreeNode {\n    throw new LogicException('Implement buildTreeFromTraversals');\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-057-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters preorder (integer vector), inorder (integer vector). Result tree environment or NULL.\nbuildTreeFromTraversals <- function(preorder, inorder) {\n  stop(\"Implement buildTreeFromTraversals\")\n}",
+      "stdin": "",
+      "expectedOutput": "[8,4,12,null,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

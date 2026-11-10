@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-017",
+  "title": "Longest Repeating Character Replacement",
+  "summary": "Choose a contiguous substring and change up to k of its letters to other uppercase English letters.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Sliding Window",
+  "category": "dsa",
+  "subtopic": "sliding-window",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "characterReplacement",
+    "signature": "def characterReplacement(s:",
+    "input": "`s` (string), `k` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`s` (string), `k` (integer)",
+    "result": "integer.",
+    "constraints": "The string has 1–100,000 uppercase English letters. The replacement budget k lies between zero and the string length.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Choose a contiguous substring and change up to k of its letters to other uppercase English letters. Return the largest length you can make uniform.",
+  "examples": [
+    {
+      "input": "{\"s\":\"CCDCAC\",\"k\":2}",
+      "output": "6",
+      "explanation": "Replacing D and A makes all six letters C."
+    },
+    {
+      "input": "{\"s\":\"PQPPQ\",\"k\":1}",
+      "output": "4",
+      "explanation": "PQPP can become PPPP with one change."
+    },
+    {
+      "input": "{\"s\":\"LLMMML\",\"k\":0}",
+      "output": "3",
+      "explanation": "The three consecutive M's are already uniform."
+    }
+  ],
+  "constraints": [
+    "The string has 1–100,000 uppercase English letters. The replacement budget k lies between zero and the string length."
+  ],
+  "hints": [
+    "Conceptual: For a fixed stretch, keep its most common letter and change the rest.",
+    "Directional: Track the count of each letter inside a moving window.",
+    "Implementation: If window length minus its largest count exceeds k, move the left edge inward. Save the widest feasible window."
+  ],
+  "concepts": [
+    "strings",
+    "sliding-window",
+    "frequency-counting"
+  ],
+  "skills": [
+    "Strings",
+    "sliding window",
+    "frequency counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(26n)",
+    "space": "O(26n)"
+  },
+  "complexityAnalysis": "O(26n) time and O(26) auxiliary space, both O(n) time and O(1) space for the fixed alphabet. You can scan all 26 counts after each change.",
+  "publicTests": [
+    {
+      "name": "BLIND150-017-T01",
+      "arguments": [
+        "CCDCAC",
+        2
+      ],
+      "input": {
+        "s": "CCDCAC",
+        "k": 2
+      },
+      "expected": 6,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-017-T02",
+      "arguments": [
+        "PQPPQ",
+        1
+      ],
+      "input": {
+        "s": "PQPPQ",
+        "k": 1
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-017-T03",
+      "arguments": [
+        "LLMMML",
+        0
+      ],
+      "input": {
+        "s": "LLMMML",
+        "k": 0
+      },
+      "expected": 3,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def characterReplacement(s: str, k: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int characterReplacement(String s, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {number} k\n * @returns {number}\n */\nfunction characterReplacement(s, k) {\n  throw new Error('Implement characterReplacement');\n}",
+    "typescript": "function characterReplacement(s: string, k: number): number {\n  throw new Error('Implement characterReplacement');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t characterReplacement(ByteString s, int32_t k) {\n    (void)s;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint characterReplacement(std::string s, int k) {\n    throw std::logic_error(\"Implement characterReplacement\");\n}",
+    "csharp": "public class Solution {\n    public int characterReplacement(string s, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param int $k\n * @return int\n */\nfunction characterReplacement(string $s, int $k): int {\n    throw new LogicException('Implement characterReplacement');\n}",
+    "r": "# Parameters: s (character scalar), k (integer scalar). Result: integer scalar.\ncharacterReplacement <- function(s, k) {\n  stop(\"Implement characterReplacement\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-017-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-017-statement",
+      "type": "paragraph",
+      "content": "Choose a contiguous substring and change up to k of its letters to other uppercase English letters. Return the largest length you can make uniform.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-017-contract",
+      "type": "note",
+      "title": "def characterReplacement(s:",
+      "content": "Input: `s` (string), `k` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-017-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The string has 1–100,000 uppercase English letters. The replacement budget k lies between zero and the string length.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-017-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def characterReplacement(s: str, k: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int characterReplacement(String s, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {number} k\n * @returns {number}\n */\nfunction characterReplacement(s, k) {\n  throw new Error('Implement characterReplacement');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function characterReplacement(s: string, k: number): number {\n  throw new Error('Implement characterReplacement');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t characterReplacement(ByteString s, int32_t k) {\n    (void)s;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint characterReplacement(std::string s, int k) {\n    throw std::logic_error(\"Implement characterReplacement\");\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int characterReplacement(string s, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param int $k\n * @return int\n */\nfunction characterReplacement(string $s, int $k): int {\n    throw new LogicException('Implement characterReplacement');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-017-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), k (integer scalar). Result: integer scalar.\ncharacterReplacement <- function(s, k) {\n  stop(\"Implement characterReplacement\")\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

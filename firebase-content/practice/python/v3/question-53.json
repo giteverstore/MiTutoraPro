@@ -1,0 +1,266 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-053",
+  "title": "Binary Tree Right Side View",
+  "summary": "Return the value of the rightmost node at each depth, starting from the root.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "rightSideView",
+    "signature": "class TreeNode:",
+    "input": "`root` (level-order tree array)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`root` (level-order tree array)",
+    "result": "integer array.",
+    "constraints": "0–100 nodes with integer values in [−100, 100].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return the value of the rightmost node at each depth, starting from the root. If a level has nodes only on the left, its rightmost available node still appears in the view.",
+  "examples": [
+    {
+      "input": "{\"root\":[8,4,9,2]}",
+      "output": "[8,9,2]",
+      "explanation": "The deepest node is visible even though it lies in the left subtree."
+    },
+    {
+      "input": "{\"root\":[3,null,-1]}",
+      "output": "[3,-1]",
+      "explanation": "Both nodes are visible."
+    },
+    {
+      "input": "{\"root\":[]}",
+      "output": "[]",
+      "explanation": "An empty tree has no visible nodes."
+    }
+  ],
+  "constraints": [
+    "0–100 nodes with integer values in [−100, 100]."
+  ],
+  "hints": [
+    "Conceptual: There is exactly one visible node at each nonempty depth.",
+    "Directional: Read levels from left to right and keep the last value from each.",
+    "Implementation: Enqueue the left child before the right child. When the current level ends, record the node you just processed."
+  ],
+  "concepts": [
+    "binary-trees",
+    "breadth-first-search",
+    "level-order"
+  ],
+  "skills": [
+    "Binary trees",
+    "breadth-first search",
+    "level order"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(w) auxiliary space excluding the result, for maximum level width w.",
+  "publicTests": [
+    {
+      "name": "BLIND150-053-T01",
+      "arguments": [
+        [
+          8,
+          4,
+          9,
+          2
+        ]
+      ],
+      "input": {
+        "root": [
+          8,
+          4,
+          9,
+          2
+        ]
+      },
+      "expected": [
+        8,
+        9,
+        2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-053-T02",
+      "arguments": [
+        [
+          3,
+          null,
+          -1
+        ]
+      ],
+      "input": {
+        "root": [
+          3,
+          null,
+          -1
+        ]
+      },
+      "expected": [
+        3,
+        -1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-053-T03",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef rightSideView(root: TreeNode | None) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] rightSideView(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number[]}\n */\nfunction rightSideView(root) {\n  throw new Error('Implement rightSideView');\n}",
+    "typescript": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction rightSideView(root: TreeNode | null): number[] {\n  throw new Error('Implement rightSideView');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray rightSideView(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\n\nIntArray rightSideView(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement rightSideView\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] rightSideView(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction rightSideView(?TreeNode $root): array {\n    throw new LogicException('Implement rightSideView');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result integer vector.\nrightSideView <- function(root) {\n  stop(\"Implement rightSideView\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-053-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-053-statement",
+      "type": "paragraph",
+      "content": "Return the value of the rightmost node at each depth, starting from the root. If a level has nodes only on the left, its rightmost available node still appears in the view.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-053-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: `root` (level-order tree array)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-053-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–100 nodes with integer values in [−100, 100].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-053-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef rightSideView(root: TreeNode | None) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] rightSideView(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number[]}\n */\nfunction rightSideView(root) {\n  throw new Error('Implement rightSideView');\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction rightSideView(root: TreeNode | null): number[] {\n  throw new Error('Implement rightSideView');\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray rightSideView(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\n\nIntArray rightSideView(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement rightSideView\");\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] rightSideView(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction rightSideView(?TreeNode $root): array {\n    throw new LogicException('Implement rightSideView');\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-053-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result integer vector.\nrightSideView <- function(root) {\n  stop(\"Implement rightSideView\")\n}",
+      "stdin": "",
+      "expectedOutput": "[8,9,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

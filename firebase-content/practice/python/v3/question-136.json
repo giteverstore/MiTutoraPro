@@ -1,0 +1,327 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-136",
+  "title": "Rotate Image",
+  "summary": "Turn the square image 90 degrees clockwise by changing its cells in place.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "rotate",
+    "signature": "def rotate(matrix:",
+    "input": "`matrix` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`matrix` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "Square matrix of side 1–20, with integer entries in [−1000,1000].",
+    "output-checking": "Exact typed equality.",
+    "callable": "`rotate` mutates the supplied matrix and returns no value outside R. The runner reads the changed matrix. R returns the changed list of rows."
+  },
+  "statement": "Turn the square image 90 degrees clockwise by changing its cells in place. Use the existing matrix storage. The output shows the changed matrix.",
+  "examples": [
+    {
+      "input": "{\"matrix\":[[1,2],[3,4]]}",
+      "output": "[[3,1],[4,2]]",
+      "explanation": "The left column moves to the top row in reverse order."
+    },
+    {
+      "input": "{\"matrix\":[[-7]]}",
+      "output": "[[-7]]",
+      "explanation": "One cell stays in place."
+    },
+    {
+      "input": "{\"matrix\":[[0,2,0],[3,0,4],[0,5,0]]}",
+      "output": "[[0,3,0],[5,0,2],[0,4,0]]",
+      "explanation": "The top-center pixel moves to the center-right."
+    }
+  ],
+  "constraints": [
+    "Square matrix of side 1–20, with integer entries in [−1000,1000]."
+  ],
+  "hints": [
+    "Conceptual: The top row becomes the right column.",
+    "Directional: Swapping across the main diagonal exchanges rows and columns.",
+    "Implementation: Transpose the matrix, then reverse each row in place."
+  ],
+  "concepts": [
+    "matrix-mutation",
+    "transpose-and-reversal"
+  ],
+  "skills": [
+    "Matrix mutation",
+    "transpose and reversal"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n²)",
+    "space": "O(n²)"
+  },
+  "complexityAnalysis": "O(n²) time and O(1) extra space in a mutable matrix representation.",
+  "publicTests": [
+    {
+      "name": "BLIND150-136-T01",
+      "arguments": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-136-T02",
+      "arguments": [
+        [
+          [
+            -7
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            -7
+          ]
+        ]
+      },
+      "expected": [
+        [
+          -7
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-136-T03",
+      "arguments": [
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            4
+          ],
+          [
+            0,
+            5,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "matrix": [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            4
+          ],
+          [
+            0,
+            5,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          3,
+          0
+        ],
+        [
+          5,
+          0,
+          2
+        ],
+        [
+          0,
+          4,
+          0
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def rotate(matrix: list[list[int]]) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void rotate(int[][] matrix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "function rotate(matrix) {\n  throw new Error(\"Not implemented\");\n}",
+    "typescript": "function rotate(matrix: number[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid rotate(IntMatrix matrix) {\n    (void)matrix;\n}",
+    "cpp": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid rotate(IntMatrix matrix) {\n    (void)matrix;\n}",
+    "csharp": "public class Solution {\n    public void rotate(int[][] matrix) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\nfunction rotate(array &$matrix): void {\n    throw new LogicException(\"Not implemented\");\n}",
+    "r": "# Return the updated list of integer vectors.\nrotate <- function(matrix) {\n  stop(\"Not implemented\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-136-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-136-statement",
+      "type": "paragraph",
+      "content": "Turn the square image 90 degrees clockwise by changing its cells in place. Use the existing matrix storage. The output shows the changed matrix.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-136-contract",
+      "type": "note",
+      "title": "def rotate(matrix:",
+      "content": "Input: `matrix` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-136-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Square matrix of side 1–20, with integer entries in [−1000,1000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-136-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def rotate(matrix: list[list[int]]) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void rotate(int[][] matrix) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "function rotate(matrix) {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function rotate(matrix: number[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid rotate(IntMatrix matrix) {\n    (void)matrix;\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid rotate(IntMatrix matrix) {\n    (void)matrix;\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void rotate(int[][] matrix) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nfunction rotate(array &$matrix): void {\n    throw new LogicException(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-136-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated list of integer vectors.\nrotate <- function(matrix) {\n  stop(\"Not implemented\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[3,1],[4,2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

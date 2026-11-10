@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 36,
+  "matrix": {
+    "NC250-190": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 26760,
+        "wallTimeMs": 27271,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 70495.67499999999,
+        "wallTimeMs": 77622,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 54,
+        "wallTimeMs": 313,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 49,
+        "wallTimeMs": 1544,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3187,
+        "wallTimeMs": 3488,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1178,
+        "wallTimeMs": 15688,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-245": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 14315,
+        "wallTimeMs": 14616,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28734.484900000003,
+        "wallTimeMs": 32122,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24,
+        "wallTimeMs": 156,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18,
+        "wallTimeMs": 440,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1346,
+        "wallTimeMs": 1475,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 517,
+        "wallTimeMs": 6567,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

@@ -1,10 +1,9 @@
 import { ChallengeService } from '../content/services/ChallengeService';
 import { CONTENT_ERROR_CODES, ContentError } from '../content/utils/ContentError';
-import { dailyChallenge as localDailyChallenge } from './challengeData';
 import { kolkataDate } from '../home/challengeCalendar';
 
-const LOCAL_FALLBACK_ENABLED = import.meta.env.DEV
-  && import.meta.env.VITE_ENABLE_LOCAL_CHALLENGE_FALLBACK !== 'false';
+// The legacy challenge bank is intentionally unavailable until the unified bank is imported.
+export const CHALLENGE_BANK_EMPTY = true;
 const challengeService = new ChallengeService();
 
 const DEFAULT_TITLE = 'Daily Coding Challenge';
@@ -26,14 +25,9 @@ export function createChallengeSummary(metadata) {
     reward: Object.freeze({ coins: metadata.rewardCoins, streakIncrement: 1 }),
   });
 }
-
 export function selectLatestPublishedChallenge(metadata) {
   if (!Array.isArray(metadata) || metadata.length === 0) return null;
   return [...metadata].sort((left, right) => right.date.localeCompare(left.date))[0] ?? null;
-}
-
-export function loadChallengeCalendarMetadata() {
-  return challengeService.listMetadata({ query: { filters: [{ field: 'published', value: true }] } });
 }
 
 export function createChallengeContentSource({ service = challengeService } = {}) {
@@ -63,36 +57,27 @@ export function createChallengeContentSource({ service = challengeService } = {}
   });
 }
 
-const contentSource = createChallengeContentSource();
+const contentSource = CHALLENGE_BANK_EMPTY
+  ? createChallengeContentSource({ service: { listMetadata: async () => [] } })
+  : createChallengeContentSource();
 
-export async function loadDailyChallengeByDate(date) {
-  try {
-    return await contentSource.loadDailyChallengeByDate(date);
-  } catch (error) {
-    if (LOCAL_FALLBACK_ENABLED && localDailyChallenge.date === date) return localDailyChallenge;
-    throw error;
-  }
+export function loadChallengeCalendarMetadata() {
+  return contentSource.loadChallengeCalendarMetadata();
 }
 
-export async function loadPublishedChallengeCatalog(throughDate = kolkataDate()) {
+export function loadDailyChallengeByDate(date) {
+  return contentSource.loadDailyChallengeByDate(date);
+}
+
+export function loadPublishedChallengeCatalog(throughDate = kolkataDate()) {
   return contentSource.loadPublishedChallengeCatalog(throughDate);
 }
 
 export async function loadDailyChallenge() {
-  try {
-    const metadata = await challengeService.listMetadata({
-      query: {
-        filters: [{ field: 'published', value: true }],
-      },
-    });
-    if (!metadata.length) {
-      throw new ContentError(CONTENT_ERROR_CODES.metadataMissing, 'Today’s challenge is not available yet.');
-    }
-    const latest = selectLatestPublishedChallenge(metadata);
-    return { ...(await challengeService.getChallengeFromMetadata(latest)).content, version: latest.version };
-  } catch (error) {
-    if (!LOCAL_FALLBACK_ENABLED) throw error;
-    console.warn('[Challenges] Firebase content unavailable; using the development-only local fallback.', error);
-    return localDailyChallenge;
+  const metadata = await loadChallengeCalendarMetadata();
+  if (!metadata.length) {
+    throw new ContentError(CONTENT_ERROR_CODES.metadataMissing, 'Today’s challenge is not available yet.');
   }
+  const latest = selectLatestPublishedChallenge(metadata);
+  return { ...(await challengeService.getChallengeFromMetadata(latest)).content, version: latest.version };
 }

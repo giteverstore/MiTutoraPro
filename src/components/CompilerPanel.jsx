@@ -33,6 +33,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   contract = null,
   onSubmit,
   submitDisabled = false,
+  executionStrategy = null,
 }, forwardedRef) {
   const generatedInstanceId = useId();
   const instanceId = requestedInstanceId ?? `compiler-${generatedInstanceId.replace(/:/g, '')}`;
@@ -55,8 +56,8 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   const executionActionsRef = useRef(null);
   const definitionSession = useCompilerDefinitionSession({ initialCompiler: compiler, compilerManager, instanceId, executionActionsRef, onSourceChanged });
   const { activeCompiler, activeCompilerRef, code, currentCodeRef, replaceConfirmation, isDevelopmentCompilerSwitching, isDirty, setFormattedSource, handleCodeChange, resetEditor, loadDefinition: loadCompilerDefinition, selectDevelopmentCompiler, resolveReplaceConfirmation } = definitionSession;
-  const execution = useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource: setFormattedSource, expandOutput: expandOutputDrawer, verifyExercise, invalidateExerciseVerification, onVerificationChange });
-  const { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, run: showRunFeedback, validateExecution, checkOutput, reset: resetExecution, clearExecution, cancelExecution } = execution;
+  const execution = useCompilerExecution({ compilerManager, settings, instanceId, activeCompilerRef, currentCodeRef, onFormattedSource: setFormattedSource, expandOutput: expandOutputDrawer, verifyExercise, invalidateExerciseVerification, onVerificationChange, executionStrategy });
+  const { isRunning, result, error, executionStatus, verificationStatus, executionTimeMs, compilerEvidence, preview, database, emulator, functionResults, run: showRunFeedback, validateExecution, checkOutput, reset: resetExecution, clearExecution, cancelExecution } = execution;
   executionActionsRef.current = { reset: resetExecution, clear: clearExecution, cancel: cancelExecution };
 
   useEffect(() => {
@@ -215,7 +216,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
         <CompilerOutputRegion
           compiler={activeCompiler}
           drawer={{ ...outputDrawer, expand: expandOutputDrawer }}
-          execution={{ preview, database, emulator, result, error, isRunning, executionTimeMs, executionStatus }}
+          execution={{ preview, database, emulator, result, error, isRunning, executionTimeMs, executionStatus, functionResults }}
           verificationStatus={verificationStatus}
           renderOutput={renderOutput}
           onAskAISelection={onAskAISelection}

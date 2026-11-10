@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-226",
+  "title": "N-th Tribonacci Number",
+  "summary": "Define T0=0 and T1=T2=1.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "tribonacci",
+    "signature": "def tribonacci(n:",
+    "input": "n (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int)",
+    "callable": "tribonacci",
+    "constraints": "0 ≤ n ≤ 37. The result fits a signed 32-bit integer.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Define T0=0 and T1=T2=1. Every later value is the sum of the preceding three. Return Tn.",
+  "examples": [
+    {
+      "input": "{\"n\":0}",
+      "output": "0",
+      "explanation": "The first seed is zero."
+    },
+    {
+      "input": "{\"n\":4}",
+      "output": "4",
+      "explanation": "T3 is 2, so T4 is 1+1+2."
+    },
+    {
+      "input": "{\"n\":37}",
+      "output": "2082876103",
+      "explanation": "The largest allowed index still fits signed 32-bit arithmetic."
+    }
+  ],
+  "constraints": [
+    "0 ≤ n ≤ 37. The result fits a signed 32-bit integer."
+  ],
+  "hints": [
+    "Conceptual: Each term depends on only three earlier terms.",
+    "Directional: Keep a rolling group of three values.",
+    "Implementation: Compute the next sum before shifting the three stored values forward."
+  ],
+  "concepts": [
+    "recurrence",
+    "rolling-state"
+  ],
+  "skills": [
+    "Recurrence",
+    "rolling state"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-226-P1",
+      "arguments": [
+        0
+      ],
+      "input": {
+        "n": 0
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-226-P2",
+      "arguments": [
+        4
+      ],
+      "input": {
+        "n": 4
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-226-P3",
+      "arguments": [
+        37
+      ],
+      "input": {
+        "n": 37
+      },
+      "expected": 2082876103,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def tribonacci(n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int tribonacci(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction tribonacci(n) {\n  throw new Error('Implement tribonacci');\n}",
+    "typescript": "function tribonacci(n: number): number {\n  throw new Error('Implement tribonacci');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t tribonacci(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint tribonacci(int n) {\n    throw std::logic_error(\"Implement tribonacci\");\n}",
+    "csharp": "public class Solution {\n    public int tribonacci(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction tribonacci(int $n): int {\n    throw new LogicException('Implement tribonacci');\n}",
+    "r": "# Parameters: n (integer scalar). Result: integer scalar.\ntribonacci <- function(n) {\n  stop(\"Implement tribonacci\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "tribonacci",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-226-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-226-statement",
+      "type": "paragraph",
+      "content": "Define T0=0 and T1=T2=1. Every later value is the sum of the preceding three. Return Tn.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-226-contract",
+      "type": "note",
+      "title": "def tribonacci(n:",
+      "content": "Input: n (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-226-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 ≤ n ≤ 37. The result fits a signed 32-bit integer.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-226-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def tribonacci(n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int tribonacci(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction tribonacci(n) {\n  throw new Error('Implement tribonacci');\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function tribonacci(n: number): number {\n  throw new Error('Implement tribonacci');\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t tribonacci(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint tribonacci(int n) {\n    throw std::logic_error(\"Implement tribonacci\");\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int tribonacci(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction tribonacci(int $n): int {\n    throw new LogicException('Implement tribonacci');\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-226-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar). Result: integer scalar.\ntribonacci <- function(n) {\n  stop(\"Implement tribonacci\")\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-206",
+  "title": "Sum of All Subsets XOR Total",
+  "summary": "For each selection of input positions, XOR the selected values and add that result to the total.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "subsetXORSum",
+    "signature": "def subsetXORSum(nums:",
+    "input": "nums (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints)",
+    "callable": "subsetXORSum",
+    "constraints": "1–12 entries in [1,20]. Return the exact integer sum.",
+    "output-checking": "Count subsets by original position, including repeated values as independent choices. Serialize the exact integer total."
+  },
+  "statement": "For each selection of input positions, XOR the selected values and add that result to the total. The empty selection contributes zero. Equal values at different positions are separate choices.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,2]}",
+      "output": "4",
+      "explanation": "The two singleton choices each contribute 2."
+    },
+    {
+      "input": "{\"nums\":[7]}",
+      "output": "7",
+      "explanation": "Only the nonempty selection contributes."
+    },
+    {
+      "input": "{\"nums\":[1,2,4]}",
+      "output": "28",
+      "explanation": "Each bit occurs in four of the eight subset XOR values."
+    }
+  ],
+  "constraints": [
+    "1–12 entries in [1,20]. Return the exact integer sum."
+  ],
+  "hints": [
+    "Conceptual: Selections are based on positions, even for equal values.",
+    "Directional: Consider each bit independently.",
+    "Implementation: For a bit present somewhere, toggle one position containing that bit to pair subsets with opposite XOR parity. Multiply the combined OR by 2^(n−1)."
+  ],
+  "concepts": [
+    "subsets",
+    "xor",
+    "bit-contribution"
+  ],
+  "skills": [
+    "Subsets",
+    "XOR",
+    "bit contribution"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space for the bit-contribution reference.",
+  "publicTests": [
+    {
+      "name": "NC250-206-P1",
+      "arguments": [
+        [
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          2
+        ]
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-206-P2",
+      "arguments": [
+        [
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          7
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-206-P3",
+      "arguments": [
+        [
+          1,
+          2,
+          4
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          4
+        ]
+      },
+      "expected": 28,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def subsetXORSum(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int subsetXORSum(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction subsetXORSum(nums) {\n  throw new Error('Implement subsetXORSum');\n}",
+    "typescript": "function subsetXORSum(nums: number[]): number {\n  throw new Error('Implement subsetXORSum');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t subsetXORSum(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint subsetXORSum(std::vector<int> nums) {\n    throw std::logic_error(\"Implement subsetXORSum\");\n}",
+    "csharp": "public class Solution {\n    public int subsetXORSum(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction subsetXORSum(array $nums): int {\n    throw new LogicException('Implement subsetXORSum');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nsubsetXORSum <- function(nums) {\n  stop(\"Implement subsetXORSum\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "subsetXORSum",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Count subsets by original position, including repeated values as independent choices. Serialize the exact integer total."
+  },
+  "blocks": [
+    {
+      "id": "nc250-206-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-206-statement",
+      "type": "paragraph",
+      "content": "For each selection of input positions, XOR the selected values and add that result to the total. The empty selection contributes zero. Equal values at different positions are separate choices.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-206-contract",
+      "type": "note",
+      "title": "def subsetXORSum(nums:",
+      "content": "Input: nums (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-206-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–12 entries in [1,20]. Return the exact integer sum.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-206-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def subsetXORSum(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int subsetXORSum(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction subsetXORSum(nums) {\n  throw new Error('Implement subsetXORSum');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function subsetXORSum(nums: number[]): number {\n  throw new Error('Implement subsetXORSum');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t subsetXORSum(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint subsetXORSum(std::vector<int> nums) {\n    throw std::logic_error(\"Implement subsetXORSum\");\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int subsetXORSum(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction subsetXORSum(array $nums): int {\n    throw new LogicException('Implement subsetXORSum');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-206-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nsubsetXORSum <- function(nums) {\n  stop(\"Implement subsetXORSum\")\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

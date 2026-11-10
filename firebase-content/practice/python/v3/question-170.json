@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-170",
+  "title": "Rotate Array",
+  "summary": "Move every array value k positions to the right, wrapping past the end to the beginning.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "rotateArray",
+    "signature": "def rotateArray(nums:",
+    "input": "nums (ints), k (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), k (int)",
+    "callable": "rotateArray",
+    "constraints": "1–100000 signed 32-bit integers. 0 ≤ k ≤ 100000. Serialize the mutated nums after the void call. R returns the updated vector.",
+    "output-checking": "Call rotateArray(nums,k), then serialize mutated nums. R returns the updated vector and must represent INT32_MIN as exact numeric."
+  },
+  "statement": "Move every array value k positions to the right, wrapping past the end to the beginning. Change the original array.",
+  "examples": [
+    {
+      "input": "{\"nums\":[4,8,2,9],\"k\":1}",
+      "output": "[9,4,8,2]",
+      "explanation": "The last value wraps to the front."
+    },
+    {
+      "input": "{\"nums\":[-2147483648,0,2147483647],\"k\":5}",
+      "output": "[0,2147483647,-2147483648]",
+      "explanation": "Five moves have the same effect as two."
+    },
+    {
+      "input": "{\"nums\":[7],\"k\":0}",
+      "output": "[7]",
+      "explanation": "Zero moves preserve the array."
+    }
+  ],
+  "constraints": [
+    "1–100000 signed 32-bit integers. 0 ≤ k ≤ 100000. Serialize the mutated nums after the void call. R returns the updated vector."
+  ],
+  "hints": [
+    "Conceptual: A full turn leaves the array unchanged.",
+    "Directional: Reduce k modulo the array length. Reversal can move a whole suffix to the front.",
+    "Implementation: Reverse the whole array, then reverse its first k elements and its remaining elements."
+  ],
+  "concepts": [
+    "array-rotation",
+    "reversal"
+  ],
+  "skills": [
+    "Array rotation",
+    "reversal"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space in mutable representations.",
+  "publicTests": [
+    {
+      "name": "NC250-170-P1",
+      "arguments": [
+        [
+          4,
+          8,
+          2,
+          9
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          4,
+          8,
+          2,
+          9
+        ],
+        "k": 1
+      },
+      "expected": [
+        9,
+        4,
+        8,
+        2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-170-P2",
+      "arguments": [
+        [
+          -2147483648,
+          0,
+          2147483647
+        ],
+        5
+      ],
+      "input": {
+        "nums": [
+          -2147483648,
+          0,
+          2147483647
+        ],
+        "k": 5
+      },
+      "expected": [
+        0,
+        2147483647,
+        -2147483648
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-170-P3",
+      "arguments": [
+        [
+          7
+        ],
+        0
+      ],
+      "input": {
+        "nums": [
+          7
+        ],
+        "k": 0
+      },
+      "expected": [
+        7
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def rotateArray(nums: list[int], k: int) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void rotateArray(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {void}\n */\nfunction rotateArray(nums, k) {\n  throw new Error('Implement rotateArray');\n}",
+    "typescript": "function rotateArray(nums: number[], k: number): void {\n  throw new Error('Implement rotateArray');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nvoid rotateArray(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nvoid rotateArray(std::vector<int>& nums, int k) {\n    throw std::logic_error(\"Implement rotateArray\");\n}",
+    "csharp": "public class Solution {\n    public void rotateArray(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return void\n */\nfunction rotateArray(array &$nums, int $k): void {\n    throw new LogicException('Implement rotateArray');\n}",
+    "r": "# Return the updated nums vector.\nrotateArray <- function(nums, k) { stop(\"Implement rotateArray\") }"
+  },
+  "executionMetadata": {
+    "entry": "rotateArray",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "k",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "mutation",
+    "validator": "exact",
+    "notes": "Call rotateArray(nums,k), then serialize mutated nums. R returns the updated vector and must represent INT32_MIN as exact numeric."
+  },
+  "blocks": [
+    {
+      "id": "nc250-170-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-170-statement",
+      "type": "paragraph",
+      "content": "Move every array value k positions to the right, wrapping past the end to the beginning. Change the original array.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-170-contract",
+      "type": "note",
+      "title": "def rotateArray(nums:",
+      "content": "Input: nums (ints), k (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-170-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 signed 32-bit integers. 0 ≤ k ≤ 100000. Serialize the mutated nums after the void call. R returns the updated vector.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-170-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def rotateArray(nums: list[int], k: int) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void rotateArray(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {void}\n */\nfunction rotateArray(nums, k) {\n  throw new Error('Implement rotateArray');\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function rotateArray(nums: number[], k: number): void {\n  throw new Error('Implement rotateArray');\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nvoid rotateArray(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nvoid rotateArray(std::vector<int>& nums, int k) {\n    throw std::logic_error(\"Implement rotateArray\");\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void rotateArray(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return void\n */\nfunction rotateArray(array &$nums, int $k): void {\n    throw new LogicException('Implement rotateArray');\n}",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-170-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated nums vector.\nrotateArray <- function(nums, k) { stop(\"Implement rotateArray\") }",
+      "stdin": "",
+      "expectedOutput": "[9,4,8,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

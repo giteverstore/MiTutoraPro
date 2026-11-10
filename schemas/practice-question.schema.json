@@ -23,7 +23,10 @@
   ],
   "properties": {
     "schemaVersion": { "const": "1.0.0" },
-    "id": { "$ref": "learning-course.schema.json#/$defs/id" },
+    "id": {
+      "type": "string",
+      "pattern": "^(?:[a-z][a-z0-9]*(?:-[a-z0-9]+)*|BLIND150-[0-9]{3}|NC250-[0-9]{3})$"
+    },
     "title": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
     "summary": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
     "language": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
@@ -107,13 +110,38 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name", "arguments", "expected"],
+        "required": ["name", "arguments", "input", "expected", "validator"],
         "properties": {
           "name": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
           "arguments": { "type": "array" },
-          "expected": {}
+          "input": { "type": "object" },
+          "expected": {},
+          "validator": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" }
         }
       }
+    },
+    "statement": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "contractDetails": { "type": "object", "additionalProperties": { "type": "string" } },
+    "complexityAnalysis": { "$ref": "learning-course.schema.json#/$defs/nonEmptyString" },
+    "starterTemplates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "java", "javascript", "typescript", "c", "cpp", "csharp", "php", "r"],
+      "properties": {
+        "python": { "type": "string", "minLength": 1 },
+        "java": { "type": "string", "minLength": 1 },
+        "javascript": { "type": "string", "minLength": 1 },
+        "typescript": { "type": "string", "minLength": 1 },
+        "c": { "type": "string", "minLength": 1 },
+        "cpp": { "type": "string", "minLength": 1 },
+        "csharp": { "type": "string", "minLength": 1 },
+        "php": { "type": "string", "minLength": 1 },
+        "r": { "type": "string", "minLength": 1 }
+      }
+    },
+    "executionMetadata": {
+      "type": "object",
+      "additionalProperties": true
     },
     "implementations": {
       "type": "object",

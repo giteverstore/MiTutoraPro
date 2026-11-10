@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-110",
+  "title": "Partition Equal Subset Sum",
+  "summary": "Determine whether the input elements can be divided into two groups with equal sums.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "canPartition",
+    "signature": "def canPartition(nums:",
+    "input": "`nums` (integer array)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "boolean.",
+    "constraints": "1–200 integers in [1,100].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Determine whether the input elements can be divided into two groups with equal sums. Use every index exactly once across the two groups.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,3,5]}",
+      "output": "true",
+      "explanation": "One group contains 5 and the other contains 2 and 3."
+    },
+    {
+      "input": "{\"nums\":[1,2,7]}",
+      "output": "false",
+      "explanation": "No subset sums to 5."
+    },
+    {
+      "input": "{\"nums\":[2,2,2,2]}",
+      "output": "true",
+      "explanation": "Put two equal values in each group."
+    }
+  ],
+  "constraints": [
+    "1–200 integers in [1,100]."
+  ],
+  "hints": [
+    "Conceptual: Each group must contain half the total.",
+    "Directional: If the total is even, ask which sums one group can reach.",
+    "Implementation: For each element update reachable sums in descending order so that its index is used at most once."
+  ],
+  "concepts": [
+    "subset-sum",
+    "zero-one-choices"
+  ],
+  "skills": [
+    "Subset sum",
+    "zero-one choices"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n × target)",
+    "space": "O(n × target)"
+  },
+  "complexityAnalysis": "O(n × target) time and O(target) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-110-T01",
+      "arguments": [
+        [
+          2,
+          3,
+          5
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          3,
+          5
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-110-T02",
+      "arguments": [
+        [
+          1,
+          2,
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          7
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-110-T03",
+      "arguments": [
+        [
+          2,
+          2,
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canPartition(nums: list[int]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canPartition(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {boolean}\n */\nfunction canPartition(nums) {\n  throw new Error('Implement canPartition');\n}",
+    "typescript": "function canPartition(nums: number[]): boolean {\n  throw new Error('Implement canPartition');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canPartition(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canPartition(std::vector<int> nums) {\n    throw std::logic_error(\"Implement canPartition\");\n}",
+    "csharp": "public class Solution {\n    public bool canPartition(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return bool\n */\nfunction canPartition(array $nums): bool {\n    throw new LogicException('Implement canPartition');\n}",
+    "r": "# Parameters: nums (integer vector). Result: logical scalar.\ncanPartition <- function(nums) {\n  stop(\"Implement canPartition\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-110-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-110-statement",
+      "type": "paragraph",
+      "content": "Determine whether the input elements can be divided into two groups with equal sums. Use every index exactly once across the two groups.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-110-contract",
+      "type": "note",
+      "title": "def canPartition(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-110-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–200 integers in [1,100].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-110-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canPartition(nums: list[int]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canPartition(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {boolean}\n */\nfunction canPartition(nums) {\n  throw new Error('Implement canPartition');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canPartition(nums: number[]): boolean {\n  throw new Error('Implement canPartition');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canPartition(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canPartition(std::vector<int> nums) {\n    throw std::logic_error(\"Implement canPartition\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canPartition(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return bool\n */\nfunction canPartition(array $nums): bool {\n    throw new LogicException('Implement canPartition');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-110-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: logical scalar.\ncanPartition <- function(nums) {\n  stop(\"Implement canPartition\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-042",
+  "title": "LRU Cache",
+  "summary": "Implement a cache that discards the least recently used key when inserting would exceed capacity.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "LRUCache",
+    "signature": "class LRUCache:",
+    "input": "`capacity` (integer), `ops` (nested integer arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`capacity` (integer), `ops` (nested integer arrays)",
+    "result": "integer array.",
+    "constraints": "Capacity is 1–3,000. Keys are integers in [0, 10,000] and values are integers in [0, 100,000]. There are at most 200,000 calls. The judge uses [0, key] for get and [1, key, value] for put. The output records get results only.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Implement a cache that discards the least recently used key when inserting would exceed capacity. Get returns the value for a present key or −1 for a miss. A successful get or any put makes the key most recently used. Putting an existing key replaces its value. Both methods must take average constant time.",
+  "examples": [
+    {
+      "input": "{\"capacity\":2,\"ops\":[[1,4,8],[1,5,9],[0,4],[1,6,3],[0,5]]}",
+      "output": "[8,-1]",
+      "explanation": "Reading 4 makes 5 the eviction victim."
+    },
+    {
+      "input": "{\"capacity\":1,\"ops\":[[1,8,2],[1,8,6],[0,8]]}",
+      "output": "[6]",
+      "explanation": "Updating 8 replaces its value without occupying another slot."
+    },
+    {
+      "input": "{\"capacity\":1,\"ops\":[[0,2],[1,0,0],[0,0]]}",
+      "output": "[-1,0]",
+      "explanation": "Zero is a stored value. A miss returns −1."
+    }
+  ],
+  "constraints": [
+    "Capacity is 1–3,000. Keys are integers in [0, 10,000] and values are integers in [0, 100,000]. There are at most 200,000 calls. The judge uses [0, key] for get and [1, key, value] for put. The output records get results only."
+  ],
+  "hints": [
+    "Conceptual: Eviction depends on recency of successful use, even if a stored value has not changed.",
+    "Directional: Use a lookup table for keys and a doubly linked order from least to most recently used.",
+    "Implementation: On access, detach the entry and append it at the recent end. When over capacity, remove the oldest entry from both structures."
+  ],
+  "concepts": [
+    "design",
+    "hash-maps",
+    "doubly-linked-lists"
+  ],
+  "skills": [
+    "Design",
+    "hash maps",
+    "doubly linked lists"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "O(1)"
+  },
+  "complexityAnalysis": "O(1) average time per call and O(capacity) auxiliary space for a hash table and a recency list.",
+  "publicTests": [
+    {
+      "name": "BLIND150-042-T01",
+      "arguments": [
+        2,
+        [
+          [
+            1,
+            4,
+            8
+          ],
+          [
+            1,
+            5,
+            9
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            6,
+            3
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      ],
+      "input": {
+        "capacity": 2,
+        "ops": [
+          [
+            1,
+            4,
+            8
+          ],
+          [
+            1,
+            5,
+            9
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            6,
+            3
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        8,
+        -1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-042-T02",
+      "arguments": [
+        1,
+        [
+          [
+            1,
+            8,
+            2
+          ],
+          [
+            1,
+            8,
+            6
+          ],
+          [
+            0,
+            8
+          ]
+        ]
+      ],
+      "input": {
+        "capacity": 1,
+        "ops": [
+          [
+            1,
+            8,
+            2
+          ],
+          [
+            1,
+            8,
+            6
+          ],
+          [
+            0,
+            8
+          ]
+        ]
+      },
+      "expected": [
+        6
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-042-T03",
+      "arguments": [
+        1,
+        [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "capacity": 1,
+        "ops": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class LRUCache:\n    def __init__(self, capacity: int):\n        raise NotImplementedError\n\n    def get(self, key: int) -> int:\n        raise NotImplementedError\n\n    def put(self, key: int, value: int) -> None:\n        raise NotImplementedError",
+    "java": "class LRUCache {\n    public LRUCache(int capacity) { throw new UnsupportedOperationException(); }\n    public int get(int key) { throw new UnsupportedOperationException(); }\n    public void put(int key, int value) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class LRUCache {\n  /** @param {number} capacity */\n  constructor(capacity) { throw new Error('Implement constructor'); }\n  /** @param {number} key @returns {number} */\n  get(key) { throw new Error('Implement get'); }\n  /** @param {number} key @param {number} value */\n  put(key, value) { throw new Error('Implement put'); }\n}",
+    "typescript": "class LRUCache {\n  constructor(capacity: number) { throw new Error('Implement constructor'); }\n  get(key: number): number { throw new Error('Implement get'); }\n  put(key: number, value: number): void { throw new Error('Implement put'); }\n}",
+    "c": "#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct LRUCache LRUCache;\nLRUCache *lruCacheCreate(int32_t capacity) { (void)capacity; abort(); }\nint32_t lruCacheGet(LRUCache *cache, int32_t key) { (void)cache; (void)key; abort(); }\nvoid lruCachePut(LRUCache *cache, int32_t key, int32_t value) {\n    (void)cache;\n    (void)key;\n    (void)value;\n    abort();\n}\nvoid lruCacheFree(LRUCache *cache) { (void)cache; abort(); }",
+    "cpp": "#include <stdexcept>\n\nclass LRUCache {\npublic:\n    explicit LRUCache(int capacity) {\n        (void)capacity;\n        throw std::logic_error(\"Implement constructor\");\n    }\n    int get(int key) { (void)key; throw std::logic_error(\"Implement get\"); }\n    void put(int key, int value) {\n        (void)key;\n        (void)value;\n        throw std::logic_error(\"Implement put\");\n    }\n};",
+    "csharp": "public class LRUCache {\n    public LRUCache(int capacity) { throw new System.NotImplementedException(); }\n    public int get(int key) { throw new System.NotImplementedException(); }\n    public void put(int key, int value) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\n\nclass LRUCache {\n    public function __construct(int $capacity) { throw new LogicException('Implement constructor'); }\n    public function get(int $key): int { throw new LogicException('Implement get'); }\n    public function put(int $key, int $value): void { throw new LogicException('Implement put'); }\n}",
+    "r": "LRUCache <- function(capacity) {\n  list(\n    get = function(key) stop(\"Implement get\"),\n    put = function(key, value) stop(\"Implement put\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-042-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-042-statement",
+      "type": "paragraph",
+      "content": "Implement a cache that discards the least recently used key when inserting would exceed capacity. Get returns the value for a present key or −1 for a miss. A successful get or any put makes the key most recently used. Putting an existing key replaces its value. Both methods must take average constant time.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-042-contract",
+      "type": "note",
+      "title": "class LRUCache:",
+      "content": "Input: `capacity` (integer), `ops` (nested integer arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-042-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Capacity is 1–3,000. Keys are integers in [0, 10,000] and values are integers in [0, 100,000]. There are at most 200,000 calls. The judge uses [0, key] for get and [1, key, value] for put. The output records get results only.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-042-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class LRUCache:\n    def __init__(self, capacity: int):\n        raise NotImplementedError\n\n    def get(self, key: int) -> int:\n        raise NotImplementedError\n\n    def put(self, key: int, value: int) -> None:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class LRUCache {\n    public LRUCache(int capacity) { throw new UnsupportedOperationException(); }\n    public int get(int key) { throw new UnsupportedOperationException(); }\n    public void put(int key, int value) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class LRUCache {\n  /** @param {number} capacity */\n  constructor(capacity) { throw new Error('Implement constructor'); }\n  /** @param {number} key @returns {number} */\n  get(key) { throw new Error('Implement get'); }\n  /** @param {number} key @param {number} value */\n  put(key, value) { throw new Error('Implement put'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class LRUCache {\n  constructor(capacity: number) { throw new Error('Implement constructor'); }\n  get(key: number): number { throw new Error('Implement get'); }\n  put(key: number, value: number): void { throw new Error('Implement put'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct LRUCache LRUCache;\nLRUCache *lruCacheCreate(int32_t capacity) { (void)capacity; abort(); }\nint32_t lruCacheGet(LRUCache *cache, int32_t key) { (void)cache; (void)key; abort(); }\nvoid lruCachePut(LRUCache *cache, int32_t key, int32_t value) {\n    (void)cache;\n    (void)key;\n    (void)value;\n    abort();\n}\nvoid lruCacheFree(LRUCache *cache) { (void)cache; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nclass LRUCache {\npublic:\n    explicit LRUCache(int capacity) {\n        (void)capacity;\n        throw std::logic_error(\"Implement constructor\");\n    }\n    int get(int key) { (void)key; throw std::logic_error(\"Implement get\"); }\n    void put(int key, int value) {\n        (void)key;\n        (void)value;\n        throw std::logic_error(\"Implement put\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class LRUCache {\n    public LRUCache(int capacity) { throw new System.NotImplementedException(); }\n    public int get(int key) { throw new System.NotImplementedException(); }\n    public void put(int key, int value) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass LRUCache {\n    public function __construct(int $capacity) { throw new LogicException('Implement constructor'); }\n    public function get(int $key): int { throw new LogicException('Implement get'); }\n    public function put(int $key, int $value): void { throw new LogicException('Implement put'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-042-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "LRUCache <- function(capacity) {\n  list(\n    get = function(key) stop(\"Implement get\"),\n    put = function(key, value) stop(\"Implement put\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[8,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

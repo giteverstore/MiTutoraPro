@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-160",
+  "title": "Best Time to Buy And Sell Stock II",
+  "summary": "Find the largest profit from trading one share at a time across the listed days.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "maxProfitUnlimited",
+    "signature": "def maxProfitUnlimited(prices:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Find the largest profit from trading one share at a time across the listed days. You may complete multiple trades and may sell and buy on the same day. Begin and end without a share.",
+  "examples": [
+    {
+      "input": "{\"prices\":[1,4,2,6]}",
+      "output": "7",
+      "explanation": "Collect gains of 3 and 4."
+    },
+    {
+      "input": "{\"prices\":[7,5,1]}",
+      "output": "0",
+      "explanation": "Do not trade on a falling sequence."
+    },
+    {
+      "input": "{\"prices\":[1,1,4,4]}",
+      "output": "3",
+      "explanation": "Equal prices add no gain."
+    }
+  ],
+  "constraints": [
+    "1–30000 daily prices in [0,10000]."
+  ],
+  "hints": [
+    "Conceptual: Holding through a fall is optional.",
+    "Directional: An increasing run can be split into adjacent gains without changing its profit.",
+    "Implementation: Sum every positive difference between consecutive prices."
+  ],
+  "concepts": [
+    "greedy",
+    "trading"
+  ],
+  "skills": [
+    "Greedy",
+    "trading"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-160-P1",
+      "arguments": [
+        [
+          1,
+          4,
+          2,
+          6
+        ]
+      ],
+      "input": {
+        "prices": [
+          1,
+          4,
+          2,
+          6
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-160-P2",
+      "arguments": [
+        [
+          7,
+          5,
+          1
+        ]
+      ],
+      "input": {
+        "prices": [
+          7,
+          5,
+          1
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-160-P3",
+      "arguments": [
+        [
+          1,
+          1,
+          4,
+          4
+        ]
+      ],
+      "input": {
+        "prices": [
+          1,
+          1,
+          4,
+          4
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def maxProfitUnlimited(prices: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int maxProfitUnlimited(int[] prices) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} prices\n * @returns {number}\n */\nfunction maxProfitUnlimited(prices) {\n  throw new Error('Implement maxProfitUnlimited');\n}",
+    "typescript": "function maxProfitUnlimited(prices: number[]): number {\n  throw new Error('Implement maxProfitUnlimited');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxProfitUnlimited(IntArray prices) {\n    (void)prices;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxProfitUnlimited(std::vector<int> prices) {\n    throw std::logic_error(\"Implement maxProfitUnlimited\");\n}",
+    "csharp": "public class Solution {\n    public int maxProfitUnlimited(int[] prices) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $prices\n * @return int\n */\nfunction maxProfitUnlimited(array $prices): int {\n    throw new LogicException('Implement maxProfitUnlimited');\n}",
+    "r": "# Parameters: prices (integer vector). Result: integer scalar.\nmaxProfitUnlimited <- function(prices) {\n  stop(\"Implement maxProfitUnlimited\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "maxProfitUnlimited",
+    "arguments": [
+      [
+        "prices",
+        "ints"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "int",
+    "adapter_notes": "Invoke the entry point and serialize its return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-160-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-160-statement",
+      "type": "paragraph",
+      "content": "Find the largest profit from trading one share at a time across the listed days. You may complete multiple trades and may sell and buy on the same day. Begin and end without a share.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-160-contract",
+      "type": "note",
+      "title": "def maxProfitUnlimited(prices:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-160-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–30000 daily prices in [0,10000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-160-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def maxProfitUnlimited(prices: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int maxProfitUnlimited(int[] prices) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} prices\n * @returns {number}\n */\nfunction maxProfitUnlimited(prices) {\n  throw new Error('Implement maxProfitUnlimited');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function maxProfitUnlimited(prices: number[]): number {\n  throw new Error('Implement maxProfitUnlimited');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxProfitUnlimited(IntArray prices) {\n    (void)prices;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxProfitUnlimited(std::vector<int> prices) {\n    throw std::logic_error(\"Implement maxProfitUnlimited\");\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int maxProfitUnlimited(int[] prices) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $prices\n * @return int\n */\nfunction maxProfitUnlimited(array $prices): int {\n    throw new LogicException('Implement maxProfitUnlimited');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-160-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: prices (integer vector). Result: integer scalar.\nmaxProfitUnlimited <- function(prices) {\n  stop(\"Implement maxProfitUnlimited\")\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

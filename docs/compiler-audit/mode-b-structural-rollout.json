@@ -1,0 +1,368 @@
+{
+  "schemaVersion": "practice-mode-b-advanced-structural-rollout-v2",
+  "startingActive": 140,
+  "targetCount": 12,
+  "counts": {
+    "tree-bst-quad-tree": 9,
+    "explicit-mutation-audit": 3
+  },
+  "reclassifiedFalsePositives": [
+    {
+      "id": "BLIND150-077",
+      "title": "Implement Trie Prefix Tree",
+      "family": "stateful-object-design",
+      "reason": "Implement Trie is a constructor/method-sequence object contract, not a binary-tree node contract."
+    },
+    {
+      "id": "NC250-221",
+      "title": "Minimum Height Trees",
+      "family": "graph",
+      "reason": "Minimum Height Trees operates on an undirected edge graph; tree appears only in the graph-theory problem name."
+    },
+    {
+      "id": "NC250-223",
+      "title": "Find Critical and Pseudo Critical Edges in Minimum Spanning Tree",
+      "family": "graph",
+      "reason": "Critical and Pseudo-Critical Edges is a weighted MST graph contract, not a node-tree callable."
+    },
+    {
+      "id": "NC250-231",
+      "title": "Unique Paths II",
+      "family": "dynamic-programming-grid",
+      "reason": "Unique Paths II consumes an obstacle matrix; tree/mutation infrastructure is not involved."
+    }
+  ],
+  "newlyActivated": [
+    "BLIND150-051",
+    "BLIND150-052",
+    "BLIND150-053",
+    "BLIND150-057",
+    "BLIND150-059",
+    "NC250-158",
+    "NC250-196",
+    "NC250-197",
+    "NC250-198",
+    "NC250-200",
+    "NC250-208",
+    "NC250-215"
+  ],
+  "finalActive": 152,
+  "runtimeAcceptance": {
+    "passedCells": 108,
+    "failedCells": 0,
+    "blockedCells": 0,
+    "passedFixtureExecutions": 324
+  },
+  "records": [
+    {
+      "id": "BLIND150-051",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "contractFamily": "tree-node-identity",
+      "nodeReferenceNeeds": "two unique-value fixture-node selectors",
+      "resultSource": "returned-node",
+      "identityPolicy": "returned-existing-node",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "BLIND150-052",
+      "title": "Binary Tree Level Order Traversal",
+      "contractFamily": "tree-to-matrix",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "return-value",
+      "identityPolicy": "structure-only",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "BLIND150-053",
+      "title": "Binary Tree Right Side View",
+      "contractFamily": "tree-to-array",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "return-value",
+      "identityPolicy": "structure-only",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "BLIND150-057",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "contractFamily": "arrays-to-new-tree",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "returned-tree",
+      "identityPolicy": "allocate-new-structure",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "BLIND150-059",
+      "title": "Serialize and Deserialize Binary Tree",
+      "contractFamily": "tree-codec-round-trip",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "codec-round-trip",
+      "identityPolicy": "structure-only",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-158",
+      "title": "Sort Colors",
+      "contractFamily": "flat-array-mutation",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "mutated-argument-0",
+      "identityPolicy": "not-applicable",
+      "mutationRequirement": true,
+      "structuralFamily": "explicit-mutation-audit",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-196",
+      "title": "Insert into a Binary Search Tree",
+      "contractFamily": "bst-returned-tree",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "returned-tree",
+      "identityPolicy": "mixed-reuse",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-197",
+      "title": "Delete Node in a BST",
+      "contractFamily": "bst-returned-tree",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "returned-tree",
+      "identityPolicy": "mixed-reuse",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-198",
+      "title": "Construct Quad Tree",
+      "contractFamily": "matrix-to-quad-tree",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "returned-quad-tree",
+      "identityPolicy": "structure-only",
+      "quadTreeRequirement": true,
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-200",
+      "title": "Delete Leaves With a Given Value",
+      "contractFamily": "tree-returned-root",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "returned-tree",
+      "identityPolicy": "mixed-reuse",
+      "structuralFamily": "tree-bst-quad-tree",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "quadTreeRequirement": false,
+      "mutationRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-208",
+      "title": "Permutations II",
+      "contractFamily": "semantic-collection",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "return-value",
+      "identityPolicy": "not-applicable",
+      "mutationRequirement": false,
+      "structuralFamily": "explicit-mutation-audit",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "quadTreeRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    },
+    {
+      "id": "NC250-215",
+      "title": "Verifying An Alien Dictionary",
+      "contractFamily": "plain-return",
+      "nodeReferenceNeeds": "none",
+      "resultSource": "return-value",
+      "identityPolicy": "not-applicable",
+      "mutationRequirement": false,
+      "structuralFamily": "explicit-mutation-audit",
+      "inputShapes": [
+        "array",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "quadTreeRequirement": false,
+      "referenceReadiness": "nine-language-reference-ready",
+      "runtimeAcceptance": {
+        "status": "passed",
+        "passedCells": 9,
+        "requiredCells": 9,
+        "passedFixtures": 27,
+        "requiredFixtures": 27
+      },
+      "active": true,
+      "blocker": null
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-153",
+  "title": "Remove Element",
+  "summary": "Move all values other than val into the beginning of nums and return their count k.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "removeElement",
+    "signature": "def removeElement(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Move all values other than val into the beginning of nums and return their count k. Any order is valid in the first k positions, and the suffix is ignored.",
+  "examples": [
+    {
+      "input": "{\"nums\":[4,1,4,2],\"val\":4}",
+      "output": "[2,1,2]",
+      "explanation": "Two values remain, namely 1 and 2."
+    },
+    {
+      "input": "{\"nums\":[],\"val\":3}",
+      "output": "[0]",
+      "explanation": "There is nothing to retain."
+    },
+    {
+      "input": "{\"nums\":[1,2,3],\"val\":9}",
+      "output": "[3,1,2,3]",
+      "explanation": "Every value remains."
+    }
+  ],
+  "constraints": [
+    "0–100 entries in [0,50]. val is in [0,100]."
+  ],
+  "hints": [
+    "Conceptual: The unused suffix has no constraints.",
+    "Directional: Keep a write position for retained values.",
+    "Implementation: Scan once, copying a value to the write position only when it differs from val."
+  ],
+  "concepts": [
+    "in-place-array-compaction",
+    "two-pointers"
+  ],
+  "skills": [
+    "In-place array compaction",
+    "two pointers"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-153-P1",
+      "arguments": [
+        [
+          4,
+          1,
+          4,
+          2
+        ],
+        4
+      ],
+      "input": {
+        "nums": [
+          4,
+          1,
+          4,
+          2
+        ],
+        "val": 4
+      },
+      "expected": [
+        2,
+        1,
+        2
+      ],
+      "validator": "removed_prefix"
+    },
+    {
+      "name": "NC250-153-P2",
+      "arguments": [
+        [],
+        3
+      ],
+      "input": {
+        "nums": [],
+        "val": 3
+      },
+      "expected": [
+        0
+      ],
+      "validator": "removed_prefix"
+    },
+    {
+      "name": "NC250-153-P3",
+      "arguments": [
+        [
+          1,
+          2,
+          3
+        ],
+        9
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ],
+        "val": 9
+      },
+      "expected": [
+        3,
+        1,
+        2,
+        3
+      ],
+      "validator": "removed_prefix"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def removeElement(nums: list[int], val: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int removeElement(int[] nums, int val) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} val\n * @returns {number}\n */\nfunction removeElement(nums, val) {\n  throw new Error('Implement removeElement');\n}",
+    "typescript": "function removeElement(nums: number[], val: number): number {\n  throw new Error('Implement removeElement');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t removeElement(IntArray nums, int32_t val) {\n    (void)nums;\n    (void)val;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint removeElement(std::vector<int>& nums, int val) {\n    throw std::logic_error(\"Implement removeElement\");\n}",
+    "csharp": "public class Solution {\n    public int removeElement(int[] nums, int val) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $val\n * @return int\n */\nfunction removeElement(array &$nums, int $val): int {\n    throw new LogicException('Implement removeElement');\n}",
+    "r": "# Return list(k = retained_count, nums = updated_vector).\nremoveElement <- function(nums,val) { stop(\"Implement removeElement\") }"
+  },
+  "executionMetadata": {
+    "entry": "removeElement",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "val",
+        "int"
+      ]
+    ],
+    "mode": "mutation",
+    "validator": "removed_prefix",
+    "serialized_type": "ints",
+    "adapter_notes": "Encode the returned count k followed by the first k elements of the mutated array. Match the prefix as a multiset. R returns list(k=..., nums=...)."
+  },
+  "blocks": [
+    {
+      "id": "nc250-153-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-153-statement",
+      "type": "paragraph",
+      "content": "Move all values other than val into the beginning of nums and return their count k. Any order is valid in the first k positions, and the suffix is ignored.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-153-contract",
+      "type": "note",
+      "title": "def removeElement(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-153-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–100 entries in [0,50]. val is in [0,100].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-153-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def removeElement(nums: list[int], val: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int removeElement(int[] nums, int val) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} val\n * @returns {number}\n */\nfunction removeElement(nums, val) {\n  throw new Error('Implement removeElement');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function removeElement(nums: number[], val: number): number {\n  throw new Error('Implement removeElement');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t removeElement(IntArray nums, int32_t val) {\n    (void)nums;\n    (void)val;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint removeElement(std::vector<int>& nums, int val) {\n    throw std::logic_error(\"Implement removeElement\");\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int removeElement(int[] nums, int val) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $val\n * @return int\n */\nfunction removeElement(array &$nums, int $val): int {\n    throw new LogicException('Implement removeElement');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-153-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return list(k = retained_count, nums = updated_vector).\nremoveElement <- function(nums,val) { stop(\"Implement removeElement\") }",
+      "stdin": "",
+      "expectedOutput": "[2,1,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

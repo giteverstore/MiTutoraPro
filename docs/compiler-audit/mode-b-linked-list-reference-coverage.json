@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "practice-mode-b-linked-list-reference-coverage-v1",
+  "languages": [
+    "python",
+    "java",
+    "javascript",
+    "typescript",
+    "c",
+    "cpp",
+    "csharp",
+    "php",
+    "r"
+  ],
+  "targets": {
+    "BLIND150-035": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-036": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-037": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-038": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-039": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-040": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-043": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "BLIND150-044": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "NC250-190": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    },
+    "NC250-245": {
+      "python": true,
+      "java": true,
+      "javascript": true,
+      "typescript": true,
+      "c": true,
+      "cpp": true,
+      "csharp": true,
+      "php": true,
+      "r": true
+    }
+  }
+}

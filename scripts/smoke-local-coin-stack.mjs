@@ -36,7 +36,7 @@ try {
     method: 'POST', headers: { Authorization: `Bearer ${identity.idToken}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(activity),
   });
-  const challenge = { activityType: 'DAILY_CHALLENGE', activityId: 'challenge-balanced-brackets', activityVersion: 'v1' };
+  const challenge = { activityType: 'DAILY_CHALLENGE', activityId: 'challenge-fixture', activityVersion: 'v1' };
   const first = await complete(challenge);
   if (!first.response.ok || first.body?.rewardStatus !== 'credited' || first.body?.rewardAmount !== 20 || first.body?.balance !== 20) {
     throw new Error(`Daily Challenge completion failed (${first.response.status}, ${first.body?.error?.code || first.body?.rewardStatus || 'unknown'}).`);
@@ -45,7 +45,7 @@ try {
   if (!replay.response.ok || replay.body?.completionStatus !== 'already_completed' || replay.body?.rewardStatus !== 'already_claimed') {
     throw new Error('Daily Challenge replay was not idempotent.');
   }
-  const practice = await complete({ activityType: 'PRACTICE', activityId: 'fund-variables-001', activityVersion: 'v2' });
+  const practice = await complete({ activityType: 'PRACTICE', activityId: 'question-fixture', activityVersion: 'v2' });
   if (!practice.response.ok || practice.body?.rewardStatus !== 'credited' || practice.body?.rewardAmount !== 5 || practice.body?.balance !== 25) {
     throw new Error('Practice completion did not credit the canonical five-coin reward.');
   }

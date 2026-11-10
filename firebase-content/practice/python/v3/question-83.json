@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-083",
+  "title": "Walls and Gates",
+  "summary": "Fill each empty room with its shortest walking distance to a gate.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "wallsAndGates",
+    "signature": "def wallsAndGates(rooms:",
+    "input": "`rooms` (nested integer arrays)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`rooms` (nested integer arrays)",
+    "result": "nested integer arrays.",
+    "constraints": "1–250 rows and 1–250 columns. Input entries are −1, 0, or 2147483647.",
+    "output-checking": "Exact typed equality.",
+    "callable": "`wallsAndGates` returns no value outside R. The judge serializes the mutated input. R returns the updated list."
+  },
+  "statement": "Fill each empty room with its shortest walking distance to a gate. The integer 2147483647 marks an empty room, −1 marks a wall, and 0 marks a gate. Move through shared edges only. Leave unreachable rooms at 2147483647 and preserve walls and gates. Mutate the supplied grid where the language permits, or return the updated grid in R.",
+  "examples": [
+    {
+      "input": "{\"rooms\":[[0,2147483647,2147483647,0]]}",
+      "output": "[[0,1,1,0]]",
+      "explanation": "The two rooms reach different nearest gates."
+    },
+    {
+      "input": "{\"rooms\":[[0,-1,2147483647]]}",
+      "output": "[[0,-1,2147483647]]",
+      "explanation": "A wall isolates the empty room."
+    },
+    {
+      "input": "{\"rooms\":[[2147483647,2147483647],[-1,0]]}",
+      "output": "[[2,1],[-1,0]]",
+      "explanation": "The upper-left room reaches the gate through the upper-right room."
+    }
+  ],
+  "constraints": [
+    "1–250 rows and 1–250 columns. Input entries are −1, 0, or 2147483647."
+  ],
+  "hints": [
+    "Conceptual: An empty room's answer may come from any gate.",
+    "Directional: Start one BFS queue with all gates at distance zero.",
+    "Implementation: When the search first reaches an unfilled room, write the current distance plus one and enqueue it."
+  ],
+  "concepts": [
+    "grid-graphs",
+    "multi-source-bfs",
+    "shortest-paths"
+  ],
+  "skills": [
+    "Grid graphs",
+    "multi-source BFS",
+    "shortest paths"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(mn) auxiliary space for the queue.",
+  "publicTests": [
+    {
+      "name": "BLIND150-083-T01",
+      "arguments": [
+        [
+          [
+            0,
+            2147483647,
+            2147483647,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "rooms": [
+          [
+            0,
+            2147483647,
+            2147483647,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          1,
+          1,
+          0
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-083-T02",
+      "arguments": [
+        [
+          [
+            0,
+            -1,
+            2147483647
+          ]
+        ]
+      ],
+      "input": {
+        "rooms": [
+          [
+            0,
+            -1,
+            2147483647
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          -1,
+          2147483647
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-083-T03",
+      "arguments": [
+        [
+          [
+            2147483647,
+            2147483647
+          ],
+          [
+            -1,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "rooms": [
+          [
+            2147483647,
+            2147483647
+          ],
+          [
+            -1,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          2,
+          1
+        ],
+        [
+          -1,
+          0
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def wallsAndGates(rooms: list[list[int]]) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void wallsAndGates(int[][] rooms) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "function wallsAndGates(rooms) {\n  throw new Error(\"Not implemented\");\n}",
+    "typescript": "function wallsAndGates(rooms: number[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid wallsAndGates(IntMatrix rooms) {\n    (void)rooms;\n}",
+    "cpp": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid wallsAndGates(IntMatrix rooms) {\n    (void)rooms;\n}",
+    "csharp": "public class Solution {\n    public void wallsAndGates(int[][] rooms) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\nfunction wallsAndGates(array &$rooms): void {\n    throw new LogicException(\"Not implemented\");\n}",
+    "r": "# Return the updated list of integer vectors.\nwallsAndGates <- function(rooms) {\n  stop(\"Not implemented\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-083-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-083-statement",
+      "type": "paragraph",
+      "content": "Fill each empty room with its shortest walking distance to a gate. The integer 2147483647 marks an empty room, −1 marks a wall, and 0 marks a gate. Move through shared edges only. Leave unreachable rooms at 2147483647 and preserve walls and gates. Mutate the supplied grid where the language permits, or return the updated grid in R.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-083-contract",
+      "type": "note",
+      "title": "def wallsAndGates(rooms:",
+      "content": "Input: `rooms` (nested integer arrays)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-083-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–250 rows and 1–250 columns. Input entries are −1, 0, or 2147483647.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-083-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def wallsAndGates(rooms: list[list[int]]) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void wallsAndGates(int[][] rooms) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "function wallsAndGates(rooms) {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function wallsAndGates(rooms: number[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid wallsAndGates(IntMatrix rooms) {\n    (void)rooms;\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid wallsAndGates(IntMatrix rooms) {\n    (void)rooms;\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void wallsAndGates(int[][] rooms) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nfunction wallsAndGates(array &$rooms): void {\n    throw new LogicException(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-083-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated list of integer vectors.\nwallsAndGates <- function(rooms) {\n  stop(\"Not implemented\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[0,1,1,0]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

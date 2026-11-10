@@ -1,0 +1,575 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 138,
+  "matrix": {
+    "BLIND150-008": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16188,
+        "wallTimeMs": 18483,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 30897,
+        "wallTimeMs": 62418,
+        "outputBytes": 2653,
+        "message": "C++ execution exceeded 30000 ms.",
+        "failures": [
+          {
+            "id": "BLIND150-008-T03",
+            "status": "timeout",
+            "message": "C++ execution exceeded 30000 ms."
+          }
+        ]
+      }
+    },
+    "BLIND150-023": {
+      "c": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 23329,
+        "wallTimeMs": 89965,
+        "outputBytes": 696,
+        "message": "C execution exceeded 30000 ms.",
+        "failures": [
+          {
+            "id": "BLIND150-023-T01",
+            "status": "timeout",
+            "message": "C execution exceeded 30000 ms."
+          },
+          {
+            "id": "BLIND150-023-T03",
+            "status": "timeout",
+            "message": "C execution exceeded 30000 ms."
+          }
+        ]
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 56945,
+        "wallTimeMs": 63418,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-068": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 34909,
+        "wallTimeMs": 38338,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 48522,
+        "wallTimeMs": 53223,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-071": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16335,
+        "wallTimeMs": 18603,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29249,
+        "wallTimeMs": 31504,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-073": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20032,
+        "wallTimeMs": 22488,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29162,
+        "wallTimeMs": 31179,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-084": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16730,
+        "wallTimeMs": 19267,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27862,
+        "wallTimeMs": 30079,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-092": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17930,
+        "wallTimeMs": 20375,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27918,
+        "wallTimeMs": 30218,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-095": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16443,
+        "wallTimeMs": 18660,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 35033,
+        "wallTimeMs": 37734,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-096": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20553,
+        "wallTimeMs": 23309,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 45357,
+        "wallTimeMs": 48216,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-098": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23866,
+        "wallTimeMs": 26383,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 43032,
+        "wallTimeMs": 45486,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-105": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24158,
+        "wallTimeMs": 26774,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 49771,
+        "wallTimeMs": 52400,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-108": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 36676,
+        "wallTimeMs": 39734,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 74931,
+        "wallTimeMs": 79809,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-117": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 25220,
+        "wallTimeMs": 28725,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28349,
+        "wallTimeMs": 30815,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-127": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16296,
+        "wallTimeMs": 18586,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30469,
+        "wallTimeMs": 32980,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-130": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 33826,
+        "wallTimeMs": 37688,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 77013,
+        "wallTimeMs": 81767,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-132": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 45206,
+        "wallTimeMs": 51230,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 64757,
+        "wallTimeMs": 68462,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-133": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 38846,
+        "wallTimeMs": 44486,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 60627,
+        "wallTimeMs": 68587,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-134": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 35336,
+        "wallTimeMs": 39219,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 67050,
+        "wallTimeMs": 70232,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-135": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 38302,
+        "wallTimeMs": 43340,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 70940,
+        "wallTimeMs": 75101,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-137": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 42250,
+        "wallTimeMs": 48128,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 68687,
+        "wallTimeMs": 73063,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-139": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 38811,
+        "wallTimeMs": 43704,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 66975,
+        "wallTimeMs": 70781,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-142": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 38012,
+        "wallTimeMs": 42808,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 64965,
+        "wallTimeMs": 69171,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-150": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 37446,
+        "wallTimeMs": 41761,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 69265,
+        "wallTimeMs": 73908,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

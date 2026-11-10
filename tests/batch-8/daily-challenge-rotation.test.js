@@ -1,10 +1,17 @@
 import { describe, expect, it, vi } from 'vitest';
-import { practiceQuestions } from '../../src/practice/practiceData';
 import { DAILY_CHALLENGE_ROTATION_POLICY, eligiblePracticeQuestions, generateDailyChallengeAssignments } from '../../src/challenges/dailyChallengeRotation';
 import { ChallengeService } from '../../src/content/services/ChallengeService';
 import { createChallengeMetadata } from '../../src/content/models/challengeMetadata';
 
-const catalog = practiceQuestions.map((content) => ({ metadata: { id: content.id, published: true, difficulty: content.difficulty }, content }));
+const question = (id, difficulty) => ({
+  id, title: id, summary: 'Synthetic rotation fixture.', language: 'Python', difficulty,
+  topic: 'fixture', category: 'fixture', estimatedMinutes: 5,
+  blocks: [{ type: 'compiler', language: 'python', starterCode: 'print(1)', expectedOutput: '1' }],
+});
+const catalog = ['easy', 'medium', 'hard'].flatMap((difficulty) => [1, 2].map((index) => {
+  const content = question(`${difficulty}-fixture-${index}`, difficulty);
+  return { metadata: { id: content.id, published: true, difficulty }, content };
+}));
 const range = (startDate, days) => {
   const end = new Date(`${startDate}T00:00:00Z`); end.setUTCDate(end.getUTCDate() + days - 1);
   return end.toISOString().slice(0, 10);
@@ -16,7 +23,7 @@ describe('Daily Challenge Practice rotation', () => {
     const rerun = generateDailyChallengeAssignments({ startDate: '2026-09-13', catalog });
     expect(first).toEqual(rerun);
     expect(first[0]).toMatchObject({ id: '2026-09-13', date: '2026-09-13', published: true, policyVersion: 'daily-practice-rotation-v1', rewardCoins: 20, version: 'v1' });
-    expect(first[0].practiceQuestionId).toMatch(/^fund-/);
+    expect(first[0].practiceQuestionId).toMatch(/-fixture-/);
     expect(first[0]).not.toHaveProperty('blocks');
     expect(first[0]).not.toHaveProperty('examples');
   });
@@ -74,14 +81,14 @@ describe('Daily Challenge Practice rotation', () => {
   });
 
   it('resolves a reference through the canonical Practice source without persisting copied content', async () => {
-    const question = practiceQuestions[0];
-    const source = { getQuestion: vi.fn(async () => ({ content: { ...question, version: 'v2' } })) };
+    const selectedQuestion = catalog[0].content;
+    const source = { getQuestion: vi.fn(async () => ({ content: { ...selectedQuestion, version: 'v2' } })) };
     const repository = { getMetadata: vi.fn(), invalidateMetadata: vi.fn() };
     const service = new ChallengeService(repository, source);
-    const metadata = createChallengeMetadata({ id: '2026-09-13', date: '2026-09-13', practiceQuestionId: question.id, difficulty: question.difficulty, rewardCoins: 20, rewardXp: 0, published: true, policyVersion: 'daily-practice-rotation-v1', version: 'v1' });
+    const metadata = createChallengeMetadata({ id: '2026-09-13', date: '2026-09-13', practiceQuestionId: selectedQuestion.id, difficulty: selectedQuestion.difficulty, rewardCoins: 20, rewardXp: 0, published: true, policyVersion: 'daily-practice-rotation-v1', version: 'v1' });
     const resolved = await service.getChallengeFromMetadata(metadata);
-    expect(source.getQuestion).toHaveBeenCalledWith(question.id);
-    expect(resolved.content).toMatchObject({ id: question.id, date: '2026-09-13', reward: { coins: 20 } });
+    expect(source.getQuestion).toHaveBeenCalledWith(selectedQuestion.id);
+    expect(resolved.content).toMatchObject({ id: selectedQuestion.id, date: '2026-09-13', reward: { coins: 20 } });
     expect(metadata).not.toHaveProperty('blocks');
   });
 

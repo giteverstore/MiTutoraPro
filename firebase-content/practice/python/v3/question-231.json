@@ -1,0 +1,300 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-231",
+  "title": "Unique Paths II",
+  "summary": "Count routes from the upper-left cell to the lower-right cell, moving only down or right.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "uniquePathsWithObstacles",
+    "signature": "def uniquePathsWithObstacles(obstacleGrid:",
+    "input": "obstacleGrid (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "obstacleGrid (intgrid)",
+    "callable": "uniquePathsWithObstacles",
+    "constraints": "1–100 rows and columns, with every entry 0 or 1. The number of complete routes is at most 2000000000.",
+    "output-checking": "Compare the exact path count. An unreachable or blocked destination gives zero. Saturate intermediate counts only at the stated maximum final count."
+  },
+  "statement": "Count routes from the upper-left cell to the lower-right cell, moving only down or right. A 1 marks a cell that cannot be entered. A 0 is traversable. Return zero if the start or destination is blocked.",
+  "examples": [
+    {
+      "input": "{\"obstacleGrid\":[[0,0,0],[0,1,0]]}",
+      "output": "1",
+      "explanation": "Only the top route can reach the last column."
+    },
+    {
+      "input": "{\"obstacleGrid\":[[1]]}",
+      "output": "0",
+      "explanation": "The sole cell is blocked."
+    },
+    {
+      "input": "{\"obstacleGrid\":[[0,0],[0,0]]}",
+      "output": "2",
+      "explanation": "The moves may occur in either order."
+    }
+  ],
+  "constraints": [
+    "1–100 rows and columns, with every entry 0 or 1. The number of complete routes is at most 2000000000."
+  ],
+  "hints": [
+    "Conceptual: A cell can be reached only from its upper or left neighbor.",
+    "Directional: Keep one running count per column.",
+    "Implementation: Reset blocked cells to zero. For every open cell, add its count from above to its current left neighbor’s count."
+  ],
+  "concepts": [
+    "grid-paths",
+    "counting-dp"
+  ],
+  "skills": [
+    "Grid paths",
+    "counting DP"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(rows×columns)",
+    "space": "O(rows×columns)"
+  },
+  "complexityAnalysis": "O(rows×columns) time and O(columns) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-231-P1",
+      "arguments": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "obstacleGrid": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-231-P2",
+      "arguments": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "obstacleGrid": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-231-P3",
+      "arguments": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "obstacleGrid": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def uniquePathsWithObstacles(obstacleGrid: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} obstacleGrid\n * @returns {number}\n */\nfunction uniquePathsWithObstacles(obstacleGrid) {\n  throw new Error('Implement uniquePathsWithObstacles');\n}",
+    "typescript": "function uniquePathsWithObstacles(obstacleGrid: number[][]): number {\n  throw new Error('Implement uniquePathsWithObstacles');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t uniquePathsWithObstacles(IntMatrix obstacleGrid) {\n    (void)obstacleGrid;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint uniquePathsWithObstacles(std::vector<std::vector<int>> obstacleGrid) {\n    throw std::logic_error(\"Implement uniquePathsWithObstacles\");\n}",
+    "csharp": "public class Solution {\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $obstacleGrid\n * @return int\n */\nfunction uniquePathsWithObstacles(array $obstacleGrid): int {\n    throw new LogicException('Implement uniquePathsWithObstacles');\n}",
+    "r": "# Parameters: obstacleGrid (list of integer vectors). Result: integer scalar.\nuniquePathsWithObstacles <- function(obstacleGrid) {\n  stop(\"Implement uniquePathsWithObstacles\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "uniquePathsWithObstacles",
+    "arguments": [
+      [
+        "obstacleGrid",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the exact path count. An unreachable or blocked destination gives zero. Saturate intermediate counts only at the stated maximum final count."
+  },
+  "blocks": [
+    {
+      "id": "nc250-231-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-231-statement",
+      "type": "paragraph",
+      "content": "Count routes from the upper-left cell to the lower-right cell, moving only down or right. A 1 marks a cell that cannot be entered. A 0 is traversable. Return zero if the start or destination is blocked.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-231-contract",
+      "type": "note",
+      "title": "def uniquePathsWithObstacles(obstacleGrid:",
+      "content": "Input: obstacleGrid (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-231-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 rows and columns, with every entry 0 or 1. The number of complete routes is at most 2000000000.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-231-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def uniquePathsWithObstacles(obstacleGrid: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} obstacleGrid\n * @returns {number}\n */\nfunction uniquePathsWithObstacles(obstacleGrid) {\n  throw new Error('Implement uniquePathsWithObstacles');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function uniquePathsWithObstacles(obstacleGrid: number[][]): number {\n  throw new Error('Implement uniquePathsWithObstacles');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t uniquePathsWithObstacles(IntMatrix obstacleGrid) {\n    (void)obstacleGrid;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint uniquePathsWithObstacles(std::vector<std::vector<int>> obstacleGrid) {\n    throw std::logic_error(\"Implement uniquePathsWithObstacles\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $obstacleGrid\n * @return int\n */\nfunction uniquePathsWithObstacles(array $obstacleGrid): int {\n    throw new LogicException('Implement uniquePathsWithObstacles');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-231-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: obstacleGrid (list of integer vectors). Result: integer scalar.\nuniquePathsWithObstacles <- function(obstacleGrid) {\n  stop(\"Implement uniquePathsWithObstacles\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

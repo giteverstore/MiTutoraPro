@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-215",
+  "title": "Verifying An Alien Dictionary",
+  "summary": "Check whether the words are in nondecreasing dictionary order under the alphabet given by order.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "isAlienSorted",
+    "signature": "def isAlienSorted(words:",
+    "input": "words (strs), order (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "words (strs), order (str)",
+    "callable": "isAlienSorted",
+    "constraints": "1–100 words of 1–20 lowercase English letters. order is a permutation of the 26 lowercase English letters.",
+    "output-checking": "Use the supplied alphabet permutation for lexicographic comparisons, including prefix ordering."
+  },
+  "statement": "Check whether the words are in nondecreasing dictionary order under the alphabet given by order. At the first differing character, use its position in order. If one word is a prefix of another, the shorter word belongs first.",
+  "examples": [
+    {
+      "input": "{\"words\":[\"z\",\"a\"],\"order\":\"zyxwvutsrqponmlkjihgfedcba\"}",
+      "output": "true",
+      "explanation": "z precedes a in the reversed alphabet."
+    },
+    {
+      "input": "{\"words\":[\"bear\",\"be\"],\"order\":\"abcdefghijklmnopqrstuvwxyz\"}",
+      "output": "false",
+      "explanation": "The shorter prefix must come first."
+    },
+    {
+      "input": "{\"words\":[\"cab\",\"cat\",\"dog\"],\"order\":\"abcdefghijklmnopqrstuvwxyz\"}",
+      "output": "true",
+      "explanation": "Both adjacent pairs are ordered correctly."
+    }
+  ],
+  "constraints": [
+    "1–100 words of 1–20 lowercase English letters. order is a permutation of the 26 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Dictionary comparison only needs the first differing character.",
+    "Directional: Map each letter to its rank in the supplied alphabet.",
+    "Implementation: Compare adjacent words, handling the shorter-prefix rule when their shared portion is identical."
+  ],
+  "concepts": [
+    "lexicographic-ordering",
+    "character-ranks"
+  ],
+  "skills": [
+    "Lexicographic ordering",
+    "character ranks"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(total word length + 26)",
+    "space": "O(total word length + 26)"
+  },
+  "complexityAnalysis": "O(total word length + 26) time and O(26) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-215-P1",
+      "arguments": [
+        [
+          "z",
+          "a"
+        ],
+        "zyxwvutsrqponmlkjihgfedcba"
+      ],
+      "input": {
+        "words": [
+          "z",
+          "a"
+        ],
+        "order": "zyxwvutsrqponmlkjihgfedcba"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-215-P2",
+      "arguments": [
+        [
+          "bear",
+          "be"
+        ],
+        "abcdefghijklmnopqrstuvwxyz"
+      ],
+      "input": {
+        "words": [
+          "bear",
+          "be"
+        ],
+        "order": "abcdefghijklmnopqrstuvwxyz"
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-215-P3",
+      "arguments": [
+        [
+          "cab",
+          "cat",
+          "dog"
+        ],
+        "abcdefghijklmnopqrstuvwxyz"
+      ],
+      "input": {
+        "words": [
+          "cab",
+          "cat",
+          "dog"
+        ],
+        "order": "abcdefghijklmnopqrstuvwxyz"
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def isAlienSorted(words: list[str], order: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean isAlienSorted(String[] words, String order) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} words\n * @param {string} order\n * @returns {boolean}\n */\nfunction isAlienSorted(words, order) {\n  throw new Error('Implement isAlienSorted');\n}",
+    "typescript": "function isAlienSorted(words: string[], order: string): boolean {\n  throw new Error('Implement isAlienSorted');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nbool isAlienSorted(StringArray words, ByteString order) {\n    (void)words;\n    (void)order;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isAlienSorted(std::vector<std::string> words, std::string order) {\n    throw std::logic_error(\"Implement isAlienSorted\");\n}",
+    "csharp": "public class Solution {\n    public bool isAlienSorted(string[] words, string order) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $words\n * @param string $order\n * @return bool\n */\nfunction isAlienSorted(array $words, string $order): bool {\n    throw new LogicException('Implement isAlienSorted');\n}",
+    "r": "# Parameters: words (character vector), order (character scalar). Result: logical scalar.\nisAlienSorted <- function(words, order) {\n  stop(\"Implement isAlienSorted\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "isAlienSorted",
+    "arguments": [
+      [
+        "words",
+        "strs"
+      ],
+      [
+        "order",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Use the supplied alphabet permutation for lexicographic comparisons, including prefix ordering."
+  },
+  "blocks": [
+    {
+      "id": "nc250-215-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-215-statement",
+      "type": "paragraph",
+      "content": "Check whether the words are in nondecreasing dictionary order under the alphabet given by order. At the first differing character, use its position in order. If one word is a prefix of another, the shorter word belongs first.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-215-contract",
+      "type": "note",
+      "title": "def isAlienSorted(words:",
+      "content": "Input: words (strs), order (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-215-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100 words of 1–20 lowercase English letters. order is a permutation of the 26 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-215-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def isAlienSorted(words: list[str], order: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean isAlienSorted(String[] words, String order) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} words\n * @param {string} order\n * @returns {boolean}\n */\nfunction isAlienSorted(words, order) {\n  throw new Error('Implement isAlienSorted');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function isAlienSorted(words: string[], order: string): boolean {\n  throw new Error('Implement isAlienSorted');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nbool isAlienSorted(StringArray words, ByteString order) {\n    (void)words;\n    (void)order;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isAlienSorted(std::vector<std::string> words, std::string order) {\n    throw std::logic_error(\"Implement isAlienSorted\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool isAlienSorted(string[] words, string order) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $words\n * @param string $order\n * @return bool\n */\nfunction isAlienSorted(array $words, string $order): bool {\n    throw new LogicException('Implement isAlienSorted');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-215-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: words (character vector), order (character scalar). Result: logical scalar.\nisAlienSorted <- function(words, order) {\n  stop(\"Implement isAlienSorted\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

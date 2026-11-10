@@ -32,13 +32,13 @@ function courseFixture(id, version, lessonId) {
 }
 
 function practiceFixture() {
-  const question = { id: 'fund-variables-008', title: 'Reason About Four Values', summary: 'Identify the types.', topic: 'variables', difficulty: 'easy', blocks: [] };
+  const question = { id: 'question-fixture', title: 'Reason About Four Values', summary: 'Identify the types.', topic: 'variables', difficulty: 'easy', blocks: [] };
   const content = bytes(question);
   return {
     question, content,
     records: {
       'contentPublications/practice-python': { status: 'ACTIVE', activeVersion: 'v3', integrityRequired: true },
-      'practiceQuestions/fund-variables-008': { published: true, version: 'v3', storagePath: 'practice/python/question-8.json', contentHash: hash(content) },
+      'practiceQuestions/question-fixture': { published: true, version: 'v3', storagePath: 'practice/python/question-8.json', contentHash: hash(content) },
     },
   };
 }
@@ -111,14 +111,14 @@ describe('composite Tutor content authority', () => {
   });
 
   it.each([
-    ['unknown question', (fixture) => { delete fixture.records['practiceQuestions/fund-variables-008']; }, 'practice-question-not-found'],
+    ['unknown question', (fixture) => { delete fixture.records['practiceQuestions/question-fixture']; }, 'practice-question-not-found'],
     ['inactive version', (fixture) => { fixture.records['contentPublications/practice-python'].activeVersion = 'v2'; }, 'version-invalid'],
-    ['question identity mismatch', (fixture) => { fixture.question.id = 'forged'; fixture.content = bytes(fixture.question); fixture.records['practiceQuestions/fund-variables-008'].contentHash = hash(fixture.content); }, 'content-identity-mismatch'],
-    ['integrity failure', (fixture) => { fixture.records['practiceQuestions/fund-variables-008'].contentHash = '0'.repeat(64); }, 'integrity-mismatch'],
+    ['question identity mismatch', (fixture) => { fixture.question.id = 'forged'; fixture.content = bytes(fixture.question); fixture.records['practiceQuestions/question-fixture'].contentHash = hash(fixture.content); }, 'content-identity-mismatch'],
+    ['integrity failure', (fixture) => { fixture.records['practiceQuestions/question-fixture'].contentHash = '0'.repeat(64); }, 'integrity-mismatch'],
   ])('rejects Practice %s', async (_label, alter, reason) => {
     const fixture = practiceFixture(); alter(fixture); const { db } = database(fixture.records);
     const source = new FirebaseTutorContentSource({ db, loadBytes: async () => fixture.content });
-    await expect(source.get({ surface: 'practice', contentId: 'fund-variables-008' })).rejects.toMatchObject({ code: 'ai/content-unavailable', tutorContentFailureReason: reason });
+    await expect(source.get({ surface: 'practice', contentId: 'question-fixture' })).rejects.toMatchObject({ code: 'ai/content-unavailable', tutorContentFailureReason: reason });
   });
 
   it('rejects mismatched Practice activity membership', async () => {
@@ -179,7 +179,7 @@ describe('composite Tutor content authority', () => {
       canonical: { get: vi.fn(async () => { throw absent; }) },
       fallbackFactory: vi.fn(async () => { throw new Error('internal storage detail'); }),
     });
-    await expect(source.get({ surface: 'practice', contentId: 'fund-variables-008' })).rejects.toMatchObject({ code: 'ai/content-unavailable', status: 503 });
+    await expect(source.get({ surface: 'practice', contentId: 'question-fixture' })).rejects.toMatchObject({ code: 'ai/content-unavailable', status: 503 });
   });
 
   it('classifies missing server-only bucket configuration without reading browser configuration', async () => {
@@ -222,9 +222,9 @@ describe('composite Tutor content authority', () => {
     const fixture = practiceFixture();
     fixture.question.id = 'forged-question';
     fixture.content = bytes(fixture.question);
-    fixture.records['practiceQuestions/fund-variables-008'].contentHash = hash(fixture.content);
+    fixture.records['practiceQuestions/question-fixture'].contentHash = hash(fixture.content);
     const { db } = database(fixture.records);
-    await expect(new FirebaseTutorContentSource({ db, loadBytes: async () => fixture.content }).get({ surface: 'practice', contentId: 'fund-variables-008' }))
+    await expect(new FirebaseTutorContentSource({ db, loadBytes: async () => fixture.content }).get({ surface: 'practice', contentId: 'question-fixture' }))
       .rejects.toMatchObject({ code: 'ai/content-unavailable', tutorContentFailureReason: 'content-identity-mismatch' });
   });
 
@@ -235,12 +235,12 @@ describe('composite Tutor content authority', () => {
       doc: (path) => { const ref = { path }; refs.push(ref); return ref; },
       getAll: vi.fn(async () => [
         snapshot(fixture.records['contentPublications/practice-python'], 'practice-python'),
-        snapshot(fixture.records['practiceQuestions/fund-variables-008'], 'different-question'),
+        snapshot(fixture.records['practiceQuestions/question-fixture'], 'different-question'),
       ]),
     };
-    await expect(new FirebaseTutorContentSource({ db, loadBytes: async () => fixture.content }).get({ surface: 'practice', contentId: 'fund-variables-008' }))
+    await expect(new FirebaseTutorContentSource({ db, loadBytes: async () => fixture.content }).get({ surface: 'practice', contentId: 'question-fixture' }))
       .rejects.toMatchObject({ code: 'ai/content-unavailable', tutorContentFailureReason: 'metadata-identity-mismatch' });
-    expect(refs.map(({ path }) => path)).toEqual(['contentPublications/practice-python', 'practiceQuestions/fund-variables-008']);
+    expect(refs.map(({ path }) => path)).toEqual(['contentPublications/practice-python', 'practiceQuestions/question-fixture']);
   });
 
   it('classifies invalid legacy Course lesson membership without weakening the public activity error', async () => {

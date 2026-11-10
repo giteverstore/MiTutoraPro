@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-154",
+  "title": "Majority Element",
+  "summary": "Return the number that occurs in strictly more than half of the positions.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "majorityElement",
+    "signature": "def majorityElement(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Return the number that occurs in strictly more than half of the positions.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,8,2,2,7]}",
+      "output": "2",
+      "explanation": "Three of the five entries are 2."
+    },
+    {
+      "input": "{\"nums\":[-5]}",
+      "output": "-5",
+      "explanation": "The only value is the majority."
+    },
+    {
+      "input": "{\"nums\":[6,1,1]}",
+      "output": "1",
+      "explanation": "The majority can appear after a different first entry."
+    }
+  ],
+  "constraints": [
+    "1–50000 entries in [−1000000000,1000000000]. A majority always exists."
+  ],
+  "hints": [
+    "Conceptual: A majority survives the removal of pairs of different values.",
+    "Directional: Keep one candidate and a counter for uncancelled votes.",
+    "Implementation: Replace the candidate when the counter reaches zero. Increment on matches and decrement otherwise."
+  ],
+  "concepts": [
+    "boyer-moore-voting",
+    "frequency"
+  ],
+  "skills": [
+    "Boyer–Moore voting",
+    "frequency"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-154-P1",
+      "arguments": [
+        [
+          2,
+          8,
+          2,
+          2,
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          8,
+          2,
+          2,
+          7
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-154-P2",
+      "arguments": [
+        [
+          -5
+        ]
+      ],
+      "input": {
+        "nums": [
+          -5
+        ]
+      },
+      "expected": -5,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-154-P3",
+      "arguments": [
+        [
+          6,
+          1,
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          6,
+          1,
+          1
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def majorityElement(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int majorityElement(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction majorityElement(nums) {\n  throw new Error('Implement majorityElement');\n}",
+    "typescript": "function majorityElement(nums: number[]): number {\n  throw new Error('Implement majorityElement');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t majorityElement(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint majorityElement(std::vector<int> nums) {\n    throw std::logic_error(\"Implement majorityElement\");\n}",
+    "csharp": "public class Solution {\n    public int majorityElement(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction majorityElement(array $nums): int {\n    throw new LogicException('Implement majorityElement');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nmajorityElement <- function(nums) {\n  stop(\"Implement majorityElement\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "majorityElement",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "mode": "function",
+    "validator": "exact",
+    "serialized_type": "int",
+    "adapter_notes": "Invoke the entry point and serialize its return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-154-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-154-statement",
+      "type": "paragraph",
+      "content": "Return the number that occurs in strictly more than half of the positions.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-154-contract",
+      "type": "note",
+      "title": "def majorityElement(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-154-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50000 entries in [−1000000000,1000000000]. A majority always exists.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-154-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def majorityElement(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int majorityElement(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction majorityElement(nums) {\n  throw new Error('Implement majorityElement');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function majorityElement(nums: number[]): number {\n  throw new Error('Implement majorityElement');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t majorityElement(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint majorityElement(std::vector<int> nums) {\n    throw std::logic_error(\"Implement majorityElement\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int majorityElement(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction majorityElement(array $nums): int {\n    throw new LogicException('Implement majorityElement');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-154-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nmajorityElement <- function(nums) {\n  stop(\"Implement majorityElement\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

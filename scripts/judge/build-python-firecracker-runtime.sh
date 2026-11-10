@@ -115,7 +115,7 @@ if test -s "$BUILD_ROOT/secret-content-matches.txt"; then
   exit 1
 fi
 sudo grep -rIlE --binary-files=without-match \
-  'synthetic-square-suite|practice-fund-variables-001|practice-fund-variables-002' \
+  'synthetic-square-suite' \
   "$BUILD_ROOT/rootfs" > "$BUILD_ROOT/protected-content-matches.txt" || true
 if test -s "$BUILD_ROOT/protected-content-matches.txt"; then
   echo 'Protected judge content found in runtime image.' >&2

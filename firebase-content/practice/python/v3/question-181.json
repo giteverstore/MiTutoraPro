@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-181",
+  "title": "Decode String",
+  "summary": "Expand an encoding where k[part] repeats the decoded part k times.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "decodeString",
+    "signature": "def decodeString(s:",
+    "input": "s (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str)",
+    "callable": "decodeString",
+    "constraints": "1–30 characters of valid encoding. Counts are in [1,300]. Digits occur only as counts before opening brackets. Decoded output length is at most 100000.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Expand an encoding where k[part] repeats the decoded part k times. Bracketed parts may contain other repetitions. Ordinary lowercase letters appear unchanged. Return the fully expanded string.",
+  "examples": [
+    {
+      "input": "{\"s\":\"2[x3[y]]\"}",
+      "output": "\"xyyyxyyy\"",
+      "explanation": "Each repeated outer block contains x and three ys."
+    },
+    {
+      "input": "{\"s\":\"a2[bc]z\"}",
+      "output": "\"abcbcz\"",
+      "explanation": "Literal characters remain around the repeated part."
+    },
+    {
+      "input": "{\"s\":\"12[q]\"}",
+      "output": "\"qqqqqqqqqqqq\"",
+      "explanation": "The count may contain multiple digits."
+    }
+  ],
+  "constraints": [
+    "1–30 characters of valid encoding. Counts are in [1,300]. Digits occur only as counts before opening brackets. Decoded output length is at most 100000."
+  ],
+  "hints": [
+    "Conceptual: A closing bracket finishes the most recent unfinished repetition.",
+    "Directional: Save the outer text and count before entering a bracket.",
+    "Implementation: On a closing bracket, repeat the completed inner text by its saved count and append it to the saved outer text."
+  ],
+  "concepts": [
+    "stack",
+    "nested-parsing"
+  ],
+  "skills": [
+    "Stack",
+    "nested parsing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n + dL)",
+    "space": "O(n + dL)"
+  },
+  "complexityAnalysis": "O(n + dL) time and O(n + dL) peak auxiliary space for the internal expansion reference, where L is decoded length and d is nesting depth. A streaming implementation can improve copying costs.",
+  "publicTests": [
+    {
+      "name": "NC250-181-P1",
+      "arguments": [
+        "2[x3[y]]"
+      ],
+      "input": {
+        "s": "2[x3[y]]"
+      },
+      "expected": "xyyyxyyy",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-181-P2",
+      "arguments": [
+        "a2[bc]z"
+      ],
+      "input": {
+        "s": "a2[bc]z"
+      },
+      "expected": "abcbcz",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-181-P3",
+      "arguments": [
+        "12[q]"
+      ],
+      "input": {
+        "s": "12[q]"
+      },
+      "expected": "qqqqqqqqqqqq",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def decodeString(s: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String decodeString(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @returns {string}\n */\nfunction decodeString(s) {\n  throw new Error('Implement decodeString');\n}",
+    "typescript": "function decodeString(s: string): string {\n  throw new Error('Implement decodeString');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString decodeString(ByteString s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string decodeString(std::string s) {\n    throw std::logic_error(\"Implement decodeString\");\n}",
+    "csharp": "public class Solution {\n    public string decodeString(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @return string\n */\nfunction decodeString(string $s): string {\n    throw new LogicException('Implement decodeString');\n}",
+    "r": "# Parameters: s (character scalar). Result: character scalar.\ndecodeString <- function(s) {\n  stop(\"Implement decodeString\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "decodeString",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-181-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-181-statement",
+      "type": "paragraph",
+      "content": "Expand an encoding where k[part] repeats the decoded part k times. Bracketed parts may contain other repetitions. Ordinary lowercase letters appear unchanged. Return the fully expanded string.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-181-contract",
+      "type": "note",
+      "title": "def decodeString(s:",
+      "content": "Input: s (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-181-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–30 characters of valid encoding. Counts are in [1,300]. Digits occur only as counts before opening brackets. Decoded output length is at most 100000.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-181-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def decodeString(s: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String decodeString(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @returns {string}\n */\nfunction decodeString(s) {\n  throw new Error('Implement decodeString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function decodeString(s: string): string {\n  throw new Error('Implement decodeString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString decodeString(ByteString s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string decodeString(std::string s) {\n    throw std::logic_error(\"Implement decodeString\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string decodeString(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @return string\n */\nfunction decodeString(string $s): string {\n    throw new LogicException('Implement decodeString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-181-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar). Result: character scalar.\ndecodeString <- function(s) {\n  stop(\"Implement decodeString\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"xyyyxyyy\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

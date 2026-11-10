@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-234",
+  "title": "Stone Game",
+  "summary": "Two players take turns claiming either end pile.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "stoneGame",
+    "signature": "def stoneGame(piles:",
+    "input": "piles (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "piles (ints)",
+    "callable": "stoneGame",
+    "constraints": "An even number of piles from 2 to 500. Each pile contains 1–500 stones. The total number of stones is odd.",
+    "output-checking": "Exact typed equality of the returned bool."
+  },
+  "statement": "Two players take turns claiming either end pile. Alice moves first, and both play optimally to maximize their own total. Return whether Alice finishes with more stones than Bob.",
+  "examples": [
+    {
+      "input": "{\"piles\":[1,2]}",
+      "output": "true",
+      "explanation": "Alice can claim the larger end pile."
+    },
+    {
+      "input": "{\"piles\":[5,3,7,2]}",
+      "output": "true",
+      "explanation": "Alice can force the original even-index pile set, totaling 12."
+    },
+    {
+      "input": "{\"piles\":[6,2,4,3,1,3]}",
+      "output": "true",
+      "explanation": "The two original index parities total 11 and 8, and Alice can secure the larger total."
+    }
+  ],
+  "constraints": [
+    "An even number of piles from 2 to 500. Each pile contains 1–500 stones. The total number of stones is odd."
+  ],
+  "hints": [
+    "Conceptual: The remaining piles always form one interval.",
+    "Directional: Track the current player’s best advantage on an interval.",
+    "Implementation: Compare taking the left end and taking the right end. Subtract the opponent’s resulting advantage from each chosen pile."
+  ],
+  "concepts": [
+    "interval-dp",
+    "game-theory"
+  ],
+  "skills": [
+    "Interval DP",
+    "game theory"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n²)",
+    "space": "O(n²)"
+  },
+  "complexityAnalysis": "O(n²) time and O(n) auxiliary space for the interval-DP reference. The parity property of this input domain also admits a constant-time result.",
+  "publicTests": [
+    {
+      "name": "NC250-234-P1",
+      "arguments": [
+        [
+          1,
+          2
+        ]
+      ],
+      "input": {
+        "piles": [
+          1,
+          2
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-234-P2",
+      "arguments": [
+        [
+          5,
+          3,
+          7,
+          2
+        ]
+      ],
+      "input": {
+        "piles": [
+          5,
+          3,
+          7,
+          2
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-234-P3",
+      "arguments": [
+        [
+          6,
+          2,
+          4,
+          3,
+          1,
+          3
+        ]
+      ],
+      "input": {
+        "piles": [
+          6,
+          2,
+          4,
+          3,
+          1,
+          3
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def stoneGame(piles: list[int]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean stoneGame(int[] piles) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} piles\n * @returns {boolean}\n */\nfunction stoneGame(piles) {\n  throw new Error('Implement stoneGame');\n}",
+    "typescript": "function stoneGame(piles: number[]): boolean {\n  throw new Error('Implement stoneGame');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool stoneGame(IntArray piles) {\n    (void)piles;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool stoneGame(std::vector<int> piles) {\n    throw std::logic_error(\"Implement stoneGame\");\n}",
+    "csharp": "public class Solution {\n    public bool stoneGame(int[] piles) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $piles\n * @return bool\n */\nfunction stoneGame(array $piles): bool {\n    throw new LogicException('Implement stoneGame');\n}",
+    "r": "# Parameters: piles (integer vector). Result: logical scalar.\nstoneGame <- function(piles) {\n  stop(\"Implement stoneGame\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "stoneGame",
+    "arguments": [
+      [
+        "piles",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-234-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-234-statement",
+      "type": "paragraph",
+      "content": "Two players take turns claiming either end pile. Alice moves first, and both play optimally to maximize their own total. Return whether Alice finishes with more stones than Bob.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-234-contract",
+      "type": "note",
+      "title": "def stoneGame(piles:",
+      "content": "Input: piles (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-234-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "An even number of piles from 2 to 500. Each pile contains 1–500 stones. The total number of stones is odd.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-234-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def stoneGame(piles: list[int]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean stoneGame(int[] piles) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} piles\n * @returns {boolean}\n */\nfunction stoneGame(piles) {\n  throw new Error('Implement stoneGame');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function stoneGame(piles: number[]): boolean {\n  throw new Error('Implement stoneGame');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool stoneGame(IntArray piles) {\n    (void)piles;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool stoneGame(std::vector<int> piles) {\n    throw std::logic_error(\"Implement stoneGame\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool stoneGame(int[] piles) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $piles\n * @return bool\n */\nfunction stoneGame(array $piles): bool {\n    throw new LogicException('Implement stoneGame');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-234-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: piles (integer vector). Result: logical scalar.\nstoneGame <- function(piles) {\n  stop(\"Implement stoneGame\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 72,
+  "matrix": {
+    "BLIND150-035": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16567.15,
+        "wallTimeMs": 18954,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 843,
+        "wallTimeMs": 938,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 334,
+        "wallTimeMs": 4008,
+        "outputBytes": 705,
+        "message": "object 'false' not found",
+        "failures": [
+          {
+            "id": "BLIND150-035-T01",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-035-T02",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-035-T03",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-036": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16904.269800000002,
+        "wallTimeMs": 19182,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 807,
+        "wallTimeMs": 906,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 322,
+        "wallTimeMs": 4149,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-037": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17124.489999999998,
+        "wallTimeMs": 19470,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 818,
+        "wallTimeMs": 918,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 329,
+        "wallTimeMs": 3991,
+        "outputBytes": 646,
+        "message": "object 'false' not found",
+        "failures": [
+          {
+            "id": "BLIND150-037-T01",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-037-T02",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-037-T03",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-038": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17633.815000000002,
+        "wallTimeMs": 19942,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 817,
+        "wallTimeMs": 915,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 339,
+        "wallTimeMs": 3951,
+        "outputBytes": 652,
+        "message": "object 'false' not found",
+        "failures": [
+          {
+            "id": "BLIND150-038-T01",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-038-T02",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-038-T03",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-039": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17217.71,
+        "wallTimeMs": 19504,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 814,
+        "wallTimeMs": 917,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 328,
+        "wallTimeMs": 4032,
+        "outputBytes": 691,
+        "message": "object 'true' not found",
+        "failures": [
+          {
+            "id": "BLIND150-039-T01",
+            "status": "runtime_error",
+            "message": "object 'true' not found"
+          },
+          {
+            "id": "BLIND150-039-T02",
+            "status": "runtime_error",
+            "message": "object 'true' not found"
+          },
+          {
+            "id": "BLIND150-039-T03",
+            "status": "runtime_error",
+            "message": "object 'true' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-040": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16839.885,
+        "wallTimeMs": 19180,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 816,
+        "wallTimeMs": 907,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 288,
+        "wallTimeMs": 3995,
+        "outputBytes": 676,
+        "message": "object 'false' not found",
+        "failures": [
+          {
+            "id": "BLIND150-040-T01",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-040-T02",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-040-T03",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-043": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17097.71,
+        "wallTimeMs": 19384,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 827,
+        "wallTimeMs": 924,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 333,
+        "wallTimeMs": 3920,
+        "outputBytes": 662,
+        "message": "object 'false' not found",
+        "failures": [
+          {
+            "id": "BLIND150-043-T01",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-043-T02",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-043-T03",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          }
+        ]
+      }
+    },
+    "BLIND150-044": {
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17265.2149,
+        "wallTimeMs": 19536,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 803,
+        "wallTimeMs": 894,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 303,
+        "wallTimeMs": 3926,
+        "outputBytes": 691,
+        "message": "object 'false' not found",
+        "failures": [
+          {
+            "id": "BLIND150-044-T01",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-044-T02",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          },
+          {
+            "id": "BLIND150-044-T03",
+            "status": "runtime_error",
+            "message": "object 'false' not found"
+          }
+        ]
+      }
+    }
+  }
+}

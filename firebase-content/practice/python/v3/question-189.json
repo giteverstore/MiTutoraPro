@@ -1,0 +1,294 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-189",
+  "title": "Find in Mountain Array",
+  "summary": "A MountainArray object exposes get(index) and length().",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "findInMountainArray",
+    "signature": "class MountainArray(Protocol):",
+    "input": "target (int), mountainArr (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "target (int), mountainArr (ints)",
+    "callable": "findInMountainArray",
+    "constraints": "3–10000 mountain values, each in [0,1000000000]. target is in the same range. The fixture mountainArr array configures the supplied object and is not a directly readable learner parameter.",
+    "output-checking": "Construct a supplied MountainArray from the fixture. Invoke findInMountainArray(target,mountainArr). get uses zero-based indices and rejects more than 100 calls. Do not pass the raw fixture array to the learner function."
+  },
+  "statement": "A MountainArray object exposes get(index) and length(). Its values rise strictly to one interior peak and then fall strictly. Return the smallest zero-based index containing target, or −1 when absent. Read values only through get, with at most 100 get calls per invocation.",
+  "examples": [
+    {
+      "input": "{\"target\":3,\"mountainArr\":[0,3,7,5,3,1]}",
+      "output": "1",
+      "explanation": "The left occurrence precedes the right occurrence."
+    },
+    {
+      "input": "{\"target\":6,\"mountainArr\":[1,4,8,2]}",
+      "output": "-1",
+      "explanation": "Neither monotone side contains 6."
+    },
+    {
+      "input": "{\"target\":9,\"mountainArr\":[2,9,0]}",
+      "output": "1",
+      "explanation": "The target is the peak."
+    }
+  ],
+  "constraints": [
+    "3–10000 mountain values, each in [0,1000000000]. target is in the same range. The fixture mountainArr array configures the supplied object and is not a directly readable learner parameter."
+  ],
+  "hints": [
+    "Conceptual: The target may occur on both sides, so the smaller index matters.",
+    "Directional: Locate the peak, then search each monotone side.",
+    "Implementation: Use adjacent middle values to binary-search the peak. Search the increasing side first, followed by the decreasing side only if necessary."
+  ],
+  "concepts": [
+    "binary-search",
+    "restricted-interface"
+  ],
+  "skills": [
+    "Binary search",
+    "restricted interface"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log n)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(log n) time and get calls, O(1) auxiliary search state. The wrapper enforces the 100-call budget.",
+  "publicTests": [
+    {
+      "name": "NC250-189-P1",
+      "arguments": [
+        3,
+        [
+          0,
+          3,
+          7,
+          5,
+          3,
+          1
+        ]
+      ],
+      "input": {
+        "target": 3,
+        "mountainArr": [
+          0,
+          3,
+          7,
+          5,
+          3,
+          1
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-189-P2",
+      "arguments": [
+        6,
+        [
+          1,
+          4,
+          8,
+          2
+        ]
+      ],
+      "input": {
+        "target": 6,
+        "mountainArr": [
+          1,
+          4,
+          8,
+          2
+        ]
+      },
+      "expected": -1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-189-P3",
+      "arguments": [
+        9,
+        [
+          2,
+          9,
+          0
+        ]
+      ],
+      "input": {
+        "target": 9,
+        "mountainArr": [
+          2,
+          9,
+          0
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from typing import Protocol\n\nclass MountainArray(Protocol):\n    def get(self, index: int) -> int: ...\n    def length(self) -> int: ...\n\ndef findInMountainArray(target: int, mountainArr: MountainArray) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public interface MountainArray {\n        int get(int index);\n        int length();\n    }\n    public int findInMountainArray(int target, MountainArray mountainArr) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "// mountainArr is supplied and exposes get(index) and length().\nfunction findInMountainArray(target, mountainArr) {\n    throw new Error('Implement findInMountainArray');\n}",
+    "typescript": "interface MountainArray {\n    get(index: number): number;\n    length(): number;\n}\nfunction findInMountainArray(target: number, mountainArr: MountainArray): number {\n    throw new Error('Implement findInMountainArray');\n}",
+    "c": "#include <stdint.h>\n#include <stdlib.h>\ntypedef struct MountainArray MountainArray;\nint32_t mountainArrayGet(MountainArray *self, int32_t index);\nint32_t mountainArrayLength(MountainArray *self);\nint32_t findInMountainArray(int32_t target, MountainArray *mountainArr) {\n    (void)target;\n    (void)mountainArr;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\nclass MountainArray {\npublic:\n    virtual int get(int index) = 0;\n    virtual int length() = 0;\n    virtual ~MountainArray() = default;\n};\nint findInMountainArray(int target, MountainArray& mountainArr) {\n    throw std::logic_error(\"Implement findInMountainArray\");\n}",
+    "csharp": "public class Solution {\n    public interface MountainArray {\n        int get(int index);\n        int length();\n    }\n    public int findInMountainArray(int target, MountainArray mountainArr) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\ninterface MountainArray {\n    public function get(int $index): int;\n    public function length(): int;\n}\nfunction findInMountainArray(int $target, MountainArray $mountainArr): int {\n    throw new LogicException('Implement findInMountainArray');\n}",
+    "r": "# mountainArr is supplied as a list of get(index) and length() methods.\n# get takes a zero-based index. Return an integer scalar.\nfindInMountainArray <- function(target, mountainArr) {\n    stop(\"Implement findInMountainArray\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "findInMountainArray",
+    "arguments": [
+      [
+        "target",
+        "int"
+      ],
+      [
+        "mountainArr",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "supplied_api",
+    "validator": "exact",
+    "notes": "Construct a supplied MountainArray from the fixture. Invoke findInMountainArray(target,mountainArr). get uses zero-based indices and rejects more than 100 calls. Do not pass the raw fixture array to the learner function."
+  },
+  "blocks": [
+    {
+      "id": "nc250-189-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-189-statement",
+      "type": "paragraph",
+      "content": "A MountainArray object exposes get(index) and length(). Its values rise strictly to one interior peak and then fall strictly. Return the smallest zero-based index containing target, or −1 when absent. Read values only through get, with at most 100 get calls per invocation.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-189-contract",
+      "type": "note",
+      "title": "class MountainArray(Protocol):",
+      "content": "Input: target (int), mountainArr (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-189-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "3–10000 mountain values, each in [0,1000000000]. target is in the same range. The fixture mountainArr array configures the supplied object and is not a directly readable learner parameter.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-189-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from typing import Protocol\n\nclass MountainArray(Protocol):\n    def get(self, index: int) -> int: ...\n    def length(self) -> int: ...\n\ndef findInMountainArray(target: int, mountainArr: MountainArray) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public interface MountainArray {\n        int get(int index);\n        int length();\n    }\n    public int findInMountainArray(int target, MountainArray mountainArr) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "// mountainArr is supplied and exposes get(index) and length().\nfunction findInMountainArray(target, mountainArr) {\n    throw new Error('Implement findInMountainArray');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "interface MountainArray {\n    get(index: number): number;\n    length(): number;\n}\nfunction findInMountainArray(target: number, mountainArr: MountainArray): number {\n    throw new Error('Implement findInMountainArray');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdint.h>\n#include <stdlib.h>\ntypedef struct MountainArray MountainArray;\nint32_t mountainArrayGet(MountainArray *self, int32_t index);\nint32_t mountainArrayLength(MountainArray *self);\nint32_t findInMountainArray(int32_t target, MountainArray *mountainArr) {\n    (void)target;\n    (void)mountainArr;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\nclass MountainArray {\npublic:\n    virtual int get(int index) = 0;\n    virtual int length() = 0;\n    virtual ~MountainArray() = default;\n};\nint findInMountainArray(int target, MountainArray& mountainArr) {\n    throw std::logic_error(\"Implement findInMountainArray\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public interface MountainArray {\n        int get(int index);\n        int length();\n    }\n    public int findInMountainArray(int target, MountainArray mountainArr) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\ninterface MountainArray {\n    public function get(int $index): int;\n    public function length(): int;\n}\nfunction findInMountainArray(int $target, MountainArray $mountainArr): int {\n    throw new LogicException('Implement findInMountainArray');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-189-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# mountainArr is supplied as a list of get(index) and length() methods.\n# get takes a zero-based index. Return an integer scalar.\nfindInMountainArray <- function(target, mountainArr) {\n    stop(\"Implement findInMountainArray\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 21,
+  "matrix": {
+    "BLIND150-004": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11572,
+        "wallTimeMs": 11758,
+        "outputBytes": 940,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-072": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6384,
+        "wallTimeMs": 6532,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-074": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 7553,
+        "wallTimeMs": 7854,
+        "outputBytes": 791,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-075": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5979,
+        "wallTimeMs": 6112,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-076": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4381,
+        "wallTimeMs": 4498,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-079": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4911,
+        "wallTimeMs": 5024,
+        "outputBytes": 951,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-131": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4670,
+        "wallTimeMs": 4798,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

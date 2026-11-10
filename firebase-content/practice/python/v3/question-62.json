@@ -1,0 +1,348 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-062",
+  "title": "K Closest Points to Origin",
+  "summary": "Return the k input points nearest to the origin.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "kClosest",
+    "signature": "def kClosest(points:",
+    "input": "`points` (nested integer arrays), `k` (integer)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`points` (nested integer arrays), `k` (integer)",
+    "result": "nested integer arrays.",
+    "constraints": "1 ≤ k ≤ number of points ≤ 10,000. Each coordinate is an integer in [−10,000, 10,000]. The selected multiset is unique.",
+    "output-checking": "Compare the multiset of coordinate pairs, including multiplicities. Output order is free."
+  },
+  "statement": "Return the k input points nearest to the origin. A point is represented as [x, y]. The returned points may appear in any order, and repeated coordinates count with their original multiplicity.",
+  "examples": [
+    {
+      "input": "{\"points\":[[4,1],[0,-2],[1,1]],\"k\":2}",
+      "output": "[[1,1],[0,-2]]",
+      "explanation": "Their squared distances are 2 and 4, below 17."
+    },
+    {
+      "input": "{\"points\":[[0,0],[2,0],[-2,0]],\"k\":1}",
+      "output": "[[0,0]]",
+      "explanation": "The origin has distance zero."
+    },
+    {
+      "input": "{\"points\":[[1,0],[1,0],[9,2]],\"k\":2}",
+      "output": "[[1,0],[1,0]]",
+      "explanation": "Both copies of the nearer point belong in the result."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ number of points ≤ 10,000. Each coordinate is an integer in [−10,000, 10,000]. The selected multiset is unique."
+  ],
+  "hints": [
+    "Conceptual: Comparing squared distances gives the same order as comparing distances.",
+    "Directional: Keep the best k candidates with their squared distances as priorities.",
+    "Implementation: Keep the worst retained point accessible. Replace it when a strictly closer candidate arrives, then output the retained points."
+  ],
+  "concepts": [
+    "priority-queues",
+    "geometry",
+    "squared-distance"
+  ],
+  "skills": [
+    "Priority queues",
+    "geometry",
+    "squared distance"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log(k+1)",
+    "space": "O(n log(k+1)"
+  },
+  "complexityAnalysis": "O(n log(k+1)) time and O(k) auxiliary space with a bounded max heap.",
+  "publicTests": [
+    {
+      "name": "BLIND150-062-T01",
+      "arguments": [
+        [
+          [
+            4,
+            1
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        2
+      ],
+      "input": {
+        "points": [
+          [
+            4,
+            1
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "k": 2
+      },
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          -2
+        ]
+      ],
+      "validator": "closest_points"
+    },
+    {
+      "name": "BLIND150-062-T02",
+      "arguments": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            -2,
+            0
+          ]
+        ],
+        1
+      ],
+      "input": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            -2,
+            0
+          ]
+        ],
+        "k": 1
+      },
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ],
+      "validator": "closest_points"
+    },
+    {
+      "name": "BLIND150-062-T03",
+      "arguments": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        2
+      ],
+      "input": {
+        "points": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "k": 2
+      },
+      "expected": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "validator": "closest_points"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def kClosest(points: list[list[int]], k: int) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} points\n * @param {number} k\n * @returns {number[][]}\n */\nfunction kClosest(points, k) {\n  throw new Error('Implement kClosest');\n}",
+    "typescript": "function kClosest(points: number[][], k: number): number[][] {\n  throw new Error('Implement kClosest');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix kClosest(IntMatrix points, int32_t k) {\n    (void)points;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> kClosest(std::vector<std::vector<int>> points, int k) {\n    throw std::logic_error(\"Implement kClosest\");\n}",
+    "csharp": "public class Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $points\n * @param int $k\n * @return int[][]\n */\nfunction kClosest(array $points, int $k): array {\n    throw new LogicException('Implement kClosest');\n}",
+    "r": "# Parameters: points (list of integer vectors), k (integer scalar). Result: list of integer vectors.\nkClosest <- function(points, k) {\n  stop(\"Implement kClosest\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-062-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-062-statement",
+      "type": "paragraph",
+      "content": "Return the k input points nearest to the origin. A point is represented as [x, y]. The returned points may appear in any order, and repeated coordinates count with their original multiplicity.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-062-contract",
+      "type": "note",
+      "title": "def kClosest(points:",
+      "content": "Input: `points` (nested integer arrays), `k` (integer)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-062-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ number of points ≤ 10,000. Each coordinate is an integer in [−10,000, 10,000]. The selected multiset is unique.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-062-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def kClosest(points: list[list[int]], k: int) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} points\n * @param {number} k\n * @returns {number[][]}\n */\nfunction kClosest(points, k) {\n  throw new Error('Implement kClosest');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function kClosest(points: number[][], k: number): number[][] {\n  throw new Error('Implement kClosest');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix kClosest(IntMatrix points, int32_t k) {\n    (void)points;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> kClosest(std::vector<std::vector<int>> points, int k) {\n    throw std::logic_error(\"Implement kClosest\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $points\n * @param int $k\n * @return int[][]\n */\nfunction kClosest(array $points, int $k): array {\n    throw new LogicException('Implement kClosest');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-062-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: points (list of integer vectors), k (integer scalar). Result: list of integer vectors.\nkClosest <- function(points, k) {\n  stop(\"Implement kClosest\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,1],[0,-2]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

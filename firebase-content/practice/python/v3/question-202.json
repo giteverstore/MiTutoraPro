@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-202",
+  "title": "Reorganize String",
+  "summary": "Rearrange all characters of s so no neighboring positions contain the same character.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "reorganizeString",
+    "signature": "def reorganizeString(s:",
+    "input": "s (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str)",
+    "callable": "reorganizeString",
+    "constraints": "1–500 lowercase English letters. Every occurrence must be retained. Output is checked semantically, not against one chosen arrangement.",
+    "output-checking": "Require an exact character multiset and unequal adjacent characters. Accept any valid rearrangement. Accept the empty string only if no arrangement exists."
+  },
+  "statement": "Rearrange all characters of s so no neighboring positions contain the same character. Return any valid arrangement, or an empty string if none exists.",
+  "examples": [
+    {
+      "input": "{\"s\":\"bbacd\"}",
+      "output": "\"babcd\"",
+      "explanation": "All characters are retained without equal neighbors."
+    },
+    {
+      "input": "{\"s\":\"zzzy\"}",
+      "output": "\"\"",
+      "explanation": "Three zs cannot be separated by only one y."
+    },
+    {
+      "input": "{\"s\":\"m\"}",
+      "output": "\"m\"",
+      "explanation": "A single character already satisfies the condition."
+    }
+  ],
+  "constraints": [
+    "1–500 lowercase English letters. Every occurrence must be retained. Output is checked semantically, not against one chosen arrangement."
+  ],
+  "hints": [
+    "Conceptual: Repeated letters need other letters between them.",
+    "Directional: Prefer the most frequent available letter that differs from the previous letter.",
+    "Implementation: Keep counts and repeatedly choose a permitted largest count, decrementing it after writing. If no letter is permitted while entries remain, return an empty string."
+  ],
+  "concepts": [
+    "frequency-counting",
+    "greedy-scheduling"
+  ],
+  "skills": [
+    "Frequency counting",
+    "greedy scheduling"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(n) time for the fixed 26-letter alphabet and O(1) auxiliary frequency storage, excluding output.",
+  "publicTests": [
+    {
+      "name": "NC250-202-P1",
+      "arguments": [
+        "bbacd"
+      ],
+      "input": {
+        "s": "bbacd"
+      },
+      "expected": "babcd",
+      "validator": "reorganized"
+    },
+    {
+      "name": "NC250-202-P2",
+      "arguments": [
+        "zzzy"
+      ],
+      "input": {
+        "s": "zzzy"
+      },
+      "expected": "",
+      "validator": "reorganized"
+    },
+    {
+      "name": "NC250-202-P3",
+      "arguments": [
+        "m"
+      ],
+      "input": {
+        "s": "m"
+      },
+      "expected": "m",
+      "validator": "reorganized"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def reorganizeString(s: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String reorganizeString(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @returns {string}\n */\nfunction reorganizeString(s) {\n  throw new Error('Implement reorganizeString');\n}",
+    "typescript": "function reorganizeString(s: string): string {\n  throw new Error('Implement reorganizeString');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString reorganizeString(ByteString s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string reorganizeString(std::string s) {\n    throw std::logic_error(\"Implement reorganizeString\");\n}",
+    "csharp": "public class Solution {\n    public string reorganizeString(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @return string\n */\nfunction reorganizeString(string $s): string {\n    throw new LogicException('Implement reorganizeString');\n}",
+    "r": "# Parameters: s (character scalar). Result: character scalar.\nreorganizeString <- function(s) {\n  stop(\"Implement reorganizeString\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "reorganizeString",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "reorganized",
+    "notes": "Require an exact character multiset and unequal adjacent characters. Accept any valid rearrangement. Accept the empty string only if no arrangement exists."
+  },
+  "blocks": [
+    {
+      "id": "nc250-202-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-202-statement",
+      "type": "paragraph",
+      "content": "Rearrange all characters of s so no neighboring positions contain the same character. Return any valid arrangement, or an empty string if none exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-202-contract",
+      "type": "note",
+      "title": "def reorganizeString(s:",
+      "content": "Input: s (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-202-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–500 lowercase English letters. Every occurrence must be retained. Output is checked semantically, not against one chosen arrangement.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-202-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def reorganizeString(s: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String reorganizeString(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @returns {string}\n */\nfunction reorganizeString(s) {\n  throw new Error('Implement reorganizeString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function reorganizeString(s: string): string {\n  throw new Error('Implement reorganizeString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString reorganizeString(ByteString s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string reorganizeString(std::string s) {\n    throw std::logic_error(\"Implement reorganizeString\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string reorganizeString(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @return string\n */\nfunction reorganizeString(string $s): string {\n    throw new LogicException('Implement reorganizeString');\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-202-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar). Result: character scalar.\nreorganizeString <- function(s) {\n  stop(\"Implement reorganizeString\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"babcd\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-216",
+  "title": "Find the Town Judge",
+  "summary": "People are numbered from 1 through n.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "findJudge",
+    "signature": "def findJudge(n:",
+    "input": "n (int), trust (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), trust (intgrid)",
+    "callable": "findJudge",
+    "constraints": "1 ≤ n ≤ 1000. 0–10000 distinct directed trust pairs with endpoints in [1,n] and no self-trust.",
+    "output-checking": "Directed trust edges have one-based labels. Compare the exact judge label or −1."
+  },
+  "statement": "People are numbered from 1 through n. A row [a,b] means a trusts b. Find the person trusted by every other person who trusts nobody. Return that label, or −1 if no such person exists.",
+  "examples": [
+    {
+      "input": "{\"n\":4,\"trust\":[[1,4],[2,4],[3,4],[1,2]]}",
+      "output": "4",
+      "explanation": "Everyone else trusts 4, and 4 trusts nobody."
+    },
+    {
+      "input": "{\"n\":1,\"trust\":[]}",
+      "output": "1",
+      "explanation": "The only person meets both conditions vacuously."
+    },
+    {
+      "input": "{\"n\":3,\"trust\":[[1,2],[2,3],[3,1]]}",
+      "output": "-1",
+      "explanation": "Everyone trusts someone else."
+    }
+  ],
+  "constraints": [
+    "1 ≤ n ≤ 1000. 0–10000 distinct directed trust pairs with endpoints in [1,n] and no self-trust."
+  ],
+  "hints": [
+    "Conceptual: Trust toward and away from a person count differently.",
+    "Directional: Keep counts of incoming and outgoing trust.",
+    "Implementation: Look for someone with n−1 incoming pairs and zero outgoing pairs. With unique pairs, one signed difference per person is enough."
+  ],
+  "concepts": [
+    "directed-graph",
+    "degree-counting"
+  ],
+  "skills": [
+    "Directed graph",
+    "degree counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n+t)",
+    "space": "O(n+t)"
+  },
+  "complexityAnalysis": "O(n+t) time and O(n) auxiliary space, where t is the pair count.",
+  "publicTests": [
+    {
+      "name": "NC250-216-P1",
+      "arguments": [
+        4,
+        [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "n": 4,
+        "trust": [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-216-P2",
+      "arguments": [
+        1,
+        []
+      ],
+      "input": {
+        "n": 1,
+        "trust": []
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-216-P3",
+      "arguments": [
+        3,
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "n": 3,
+        "trust": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "expected": -1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findJudge(n: int, trust: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int findJudge(int n, int[][] trust) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} trust\n * @returns {number}\n */\nfunction findJudge(n, trust) {\n  throw new Error('Implement findJudge');\n}",
+    "typescript": "function findJudge(n: number, trust: number[][]): number {\n  throw new Error('Implement findJudge');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t findJudge(int32_t n, IntMatrix trust) {\n    (void)n;\n    (void)trust;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findJudge(int n, std::vector<std::vector<int>> trust) {\n    throw std::logic_error(\"Implement findJudge\");\n}",
+    "csharp": "public class Solution {\n    public int findJudge(int n, int[][] trust) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $trust\n * @return int\n */\nfunction findJudge(int $n, array $trust): int {\n    throw new LogicException('Implement findJudge');\n}",
+    "r": "# Parameters: n (integer scalar), trust (list of integer vectors). Result: integer scalar.\nfindJudge <- function(n, trust) {\n  stop(\"Implement findJudge\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "findJudge",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "trust",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Directed trust edges have one-based labels. Compare the exact judge label or −1."
+  },
+  "blocks": [
+    {
+      "id": "nc250-216-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-216-statement",
+      "type": "paragraph",
+      "content": "People are numbered from 1 through n. A row [a,b] means a trusts b. Find the person trusted by every other person who trusts nobody. Return that label, or −1 if no such person exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-216-contract",
+      "type": "note",
+      "title": "def findJudge(n:",
+      "content": "Input: n (int), trust (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-216-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n ≤ 1000. 0–10000 distinct directed trust pairs with endpoints in [1,n] and no self-trust.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-216-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findJudge(n: int, trust: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int findJudge(int n, int[][] trust) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number[][]} trust\n * @returns {number}\n */\nfunction findJudge(n, trust) {\n  throw new Error('Implement findJudge');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findJudge(n: number, trust: number[][]): number {\n  throw new Error('Implement findJudge');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t findJudge(int32_t n, IntMatrix trust) {\n    (void)n;\n    (void)trust;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findJudge(int n, std::vector<std::vector<int>> trust) {\n    throw std::logic_error(\"Implement findJudge\");\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int findJudge(int n, int[][] trust) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $trust\n * @return int\n */\nfunction findJudge(int $n, array $trust): int {\n    throw new LogicException('Implement findJudge');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-216-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), trust (list of integer vectors). Result: integer scalar.\nfindJudge <- function(n, trust) {\n  stop(\"Implement findJudge\")\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

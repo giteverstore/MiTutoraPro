@@ -1,0 +1,298 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-088",
+  "title": "Course Schedule II",
+  "summary": "Return an order that completes every course once.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findOrder",
+    "signature": "def findOrder(numCourses:",
+    "input": "`numCourses` (integer), `prerequisites` (nested integer arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`numCourses` (integer), `prerequisites` (nested integer arrays)",
+    "result": "integer array.",
+    "constraints": "1–2000 courses labeled from zero. Up to numCourses × (numCourses − 1) distinct pairs of different valid labels.",
+    "output-checking": "Check the permutation and every prerequisite. Accept an empty array only when a directed cycle prevents completion."
+  },
+  "statement": "Return an order that completes every course once. A pair [course, prerequisite] means the prerequisite must come earlier. Return an empty array if no order can satisfy every pair. Any valid order is accepted.",
+  "examples": [
+    {
+      "input": "{\"numCourses\":4,\"prerequisites\":[[3,1],[1,0]]}",
+      "output": "[0,1,2,3]",
+      "explanation": "Course 2 can move anywhere as long as 0 comes before 1 and 1 before 3."
+    },
+    {
+      "input": "{\"numCourses\":3,\"prerequisites\":[[0,1],[1,2],[2,0]]}",
+      "output": "[]",
+      "explanation": "A directed cycle prevents completion."
+    },
+    {
+      "input": "{\"numCourses\":3,\"prerequisites\":[]}",
+      "output": "[0,1,2]",
+      "explanation": "Every permutation is valid with no prerequisites."
+    }
+  ],
+  "constraints": [
+    "1–2000 courses labeled from zero. Up to numCourses × (numCourses − 1) distinct pairs of different valid labels."
+  ],
+  "hints": [
+    "Conceptual: Only courses whose prerequisites have finished are available.",
+    "Directional: Maintain a queue of courses with no unmet prerequisites.",
+    "Implementation: Append each removed course, decrement its dependents, and return an empty array if the result is incomplete."
+  ],
+  "concepts": [
+    "directed-adjacency",
+    "topological-order"
+  ],
+  "skills": [
+    "Directed adjacency",
+    "topological order"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(V + E)",
+    "space": "O(V + E)"
+  },
+  "complexityAnalysis": "O(V + E) time and space for Kahn’s algorithm.",
+  "publicTests": [
+    {
+      "name": "BLIND150-088-T01",
+      "arguments": [
+        4,
+        [
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 4,
+        "prerequisites": [
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "validator": "course_order"
+    },
+    {
+      "name": "BLIND150-088-T02",
+      "arguments": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 3,
+        "prerequisites": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "expected": [],
+      "validator": "course_order"
+    },
+    {
+      "name": "BLIND150-088-T03",
+      "arguments": [
+        3,
+        []
+      ],
+      "input": {
+        "numCourses": 3,
+        "prerequisites": []
+      },
+      "expected": [
+        0,
+        1,
+        2
+      ],
+      "validator": "course_order"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findOrder(numCourses: int, prerequisites: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @returns {number[]}\n */\nfunction findOrder(numCourses, prerequisites) {\n  throw new Error('Implement findOrder');\n}",
+    "typescript": "function findOrder(numCourses: number, prerequisites: number[][]): number[] {\n  throw new Error('Implement findOrder');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray findOrder(int32_t numCourses, IntMatrix prerequisites) {\n    (void)numCourses;\n    (void)prerequisites;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> findOrder(int numCourses, std::vector<std::vector<int>> prerequisites) {\n    throw std::logic_error(\"Implement findOrder\");\n}",
+    "csharp": "public class Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $numCourses\n * @param nested int[]s $prerequisites\n * @return int[]\n */\nfunction findOrder(int $numCourses, array $prerequisites): array {\n    throw new LogicException('Implement findOrder');\n}",
+    "r": "# Parameters: numCourses (integer scalar), prerequisites (list of integer vectors). Result: integer vector.\nfindOrder <- function(numCourses, prerequisites) {\n  stop(\"Implement findOrder\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-088-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-088-statement",
+      "type": "paragraph",
+      "content": "Return an order that completes every course once. A pair [course, prerequisite] means the prerequisite must come earlier. Return an empty array if no order can satisfy every pair. Any valid order is accepted.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-088-contract",
+      "type": "note",
+      "title": "def findOrder(numCourses:",
+      "content": "Input: `numCourses` (integer), `prerequisites` (nested integer arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-088-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–2000 courses labeled from zero. Up to numCourses × (numCourses − 1) distinct pairs of different valid labels.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-088-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findOrder(numCourses: int, prerequisites: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @returns {number[]}\n */\nfunction findOrder(numCourses, prerequisites) {\n  throw new Error('Implement findOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findOrder(numCourses: number, prerequisites: number[][]): number[] {\n  throw new Error('Implement findOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray findOrder(int32_t numCourses, IntMatrix prerequisites) {\n    (void)numCourses;\n    (void)prerequisites;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> findOrder(int numCourses, std::vector<std::vector<int>> prerequisites) {\n    throw std::logic_error(\"Implement findOrder\");\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $numCourses\n * @param nested int[]s $prerequisites\n * @return int[]\n */\nfunction findOrder(int $numCourses, array $prerequisites): array {\n    throw new LogicException('Implement findOrder');\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-088-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: numCourses (integer scalar), prerequisites (list of integer vectors). Result: integer vector.\nfindOrder <- function(numCourses, prerequisites) {\n  stop(\"Implement findOrder\")\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

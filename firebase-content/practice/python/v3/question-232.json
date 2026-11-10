@@ -1,0 +1,302 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-232",
+  "title": "Minimum Path Sum",
+  "summary": "Find the least total cell value on a route from the upper-left to the lower-right, moving only right or down.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "minPathSum",
+    "signature": "def minPathSum(grid:",
+    "input": "grid (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "grid (intgrid)",
+    "callable": "minPathSum",
+    "constraints": "1–200 rows and columns. Cell values are in [0,200].",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Find the least total cell value on a route from the upper-left to the lower-right, moving only right or down. Include both endpoints in the sum.",
+  "examples": [
+    {
+      "input": "{\"grid\":[[4,1,5],[2,1,1]]}",
+      "output": "7",
+      "explanation": "The path 4→1→1→1 is cheapest."
+    },
+    {
+      "input": "{\"grid\":[[0]]}",
+      "output": "0",
+      "explanation": "The route contains one zero-valued cell."
+    },
+    {
+      "input": "{\"grid\":[[2],[4],[1]]}",
+      "output": "7",
+      "explanation": "A single column forces every cell."
+    }
+  ],
+  "constraints": [
+    "1–200 rows and columns. Cell values are in [0,200]."
+  ],
+  "hints": [
+    "Conceptual: Every route into a cell uses one of two predecessor directions.",
+    "Directional: Keep the cheapest cost for each processed cell.",
+    "Implementation: For each cell, add its value to the smaller reachable cost from above or from the left. A single row of DP storage suffices."
+  ],
+  "concepts": [
+    "grid-optimization",
+    "dynamic-programming"
+  ],
+  "skills": [
+    "Grid optimization",
+    "dynamic programming"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(rows×columns)",
+    "space": "O(rows×columns)"
+  },
+  "complexityAnalysis": "O(rows×columns) time and O(columns) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-232-P1",
+      "arguments": [
+        [
+          [
+            4,
+            1,
+            5
+          ],
+          [
+            2,
+            1,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            4,
+            1,
+            5
+          ],
+          [
+            2,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-232-P2",
+      "arguments": [
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            0
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-232-P3",
+      "arguments": [
+        [
+          [
+            2
+          ],
+          [
+            4
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            2
+          ],
+          [
+            4
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": 7,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minPathSum(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int minPathSum(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction minPathSum(grid) {\n  throw new Error('Implement minPathSum');\n}",
+    "typescript": "function minPathSum(grid: number[][]): number {\n  throw new Error('Implement minPathSum');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t minPathSum(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minPathSum(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement minPathSum\");\n}",
+    "csharp": "public class Solution {\n    public int minPathSum(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction minPathSum(array $grid): int {\n    throw new LogicException('Implement minPathSum');\n}",
+    "r": "# Parameters: grid (list of integer vectors). Result: integer scalar.\nminPathSum <- function(grid) {\n  stop(\"Implement minPathSum\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "minPathSum",
+    "arguments": [
+      [
+        "grid",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-232-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-232-statement",
+      "type": "paragraph",
+      "content": "Find the least total cell value on a route from the upper-left to the lower-right, moving only right or down. Include both endpoints in the sum.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-232-contract",
+      "type": "note",
+      "title": "def minPathSum(grid:",
+      "content": "Input: grid (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-232-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–200 rows and columns. Cell values are in [0,200].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-232-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minPathSum(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int minPathSum(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction minPathSum(grid) {\n  throw new Error('Implement minPathSum');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minPathSum(grid: number[][]): number {\n  throw new Error('Implement minPathSum');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t minPathSum(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minPathSum(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement minPathSum\");\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int minPathSum(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction minPathSum(array $grid): int {\n    throw new LogicException('Implement minPathSum');\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-232-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: grid (list of integer vectors). Result: integer scalar.\nminPathSum <- function(grid) {\n  stop(\"Implement minPathSum\")\n}",
+      "stdin": "",
+      "expectedOutput": "7",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

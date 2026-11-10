@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-168",
+  "title": "Remove Duplicates From Sorted Array",
+  "summary": "Keep one occurrence of each value in a sorted array by editing its prefix.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "removeDuplicates",
+    "signature": "def removeDuplicates(nums:",
+    "input": "nums (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints)",
+    "callable": "removeDuplicates",
+    "constraints": "1–30000 integers in [−100,100], already in nondecreasing order. Serialize [k, ...first_k_values]. R returns list(k=..., nums=updated_vector).",
+    "output-checking": "Call removeDuplicates(nums), then serialize [k, ...nums[:k]]. Check count and sorted prefix exactly. Ignore the suffix. R returns list(k=...,nums=...)."
+  },
+  "statement": "Keep one occurrence of each value in a sorted array by editing its prefix. Return the number k of distinct values. The first k positions must contain those values in increasing order. Ignore the remaining positions.",
+  "examples": [
+    {
+      "input": "{\"nums\":[-2,-2,1,1,4]}",
+      "output": "[3,-2,1,4]",
+      "explanation": "Three distinct values remain in sorted order."
+    },
+    {
+      "input": "{\"nums\":[5,5,5]}",
+      "output": "[1,5]",
+      "explanation": "Only the first occurrence is retained."
+    },
+    {
+      "input": "{\"nums\":[0]}",
+      "output": "[1,0]",
+      "explanation": "The single value is distinct."
+    }
+  ],
+  "constraints": [
+    "1–30000 integers in [−100,100], already in nondecreasing order. Serialize [k, ...first_k_values]. R returns list(k=..., nums=updated_vector)."
+  ],
+  "hints": [
+    "Conceptual: Equal values are next to each other.",
+    "Directional: Use a read position and a separate write position.",
+    "Implementation: Write a value only when it differs from the most recently retained value. Return the final write position."
+  ],
+  "concepts": [
+    "sorted-arrays",
+    "in-place-compaction"
+  ],
+  "skills": [
+    "Sorted arrays",
+    "in-place compaction"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space in mutable representations.",
+  "publicTests": [
+    {
+      "name": "NC250-168-P1",
+      "arguments": [
+        [
+          -2,
+          -2,
+          1,
+          1,
+          4
+        ]
+      ],
+      "input": {
+        "nums": [
+          -2,
+          -2,
+          1,
+          1,
+          4
+        ]
+      },
+      "expected": [
+        3,
+        -2,
+        1,
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-168-P2",
+      "arguments": [
+        [
+          5,
+          5,
+          5
+        ]
+      ],
+      "input": {
+        "nums": [
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": [
+        1,
+        5
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-168-P3",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": [
+        1,
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def removeDuplicates(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int removeDuplicates(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction removeDuplicates(nums) {\n  throw new Error('Implement removeDuplicates');\n}",
+    "typescript": "function removeDuplicates(nums: number[]): number {\n  throw new Error('Implement removeDuplicates');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t removeDuplicates(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint removeDuplicates(std::vector<int>& nums) {\n    throw std::logic_error(\"Implement removeDuplicates\");\n}",
+    "csharp": "public class Solution {\n    public int removeDuplicates(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction removeDuplicates(array &$nums): int {\n    throw new LogicException('Implement removeDuplicates');\n}",
+    "r": "# Return list(k = retained_count, nums = updated_vector).\nremoveDuplicates <- function(nums) { stop(\"Implement removeDuplicates\") }"
+  },
+  "executionMetadata": {
+    "entry": "removeDuplicates",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "mutation",
+    "validator": "exact",
+    "notes": "Call removeDuplicates(nums), then serialize [k, ...nums[:k]]. Check count and sorted prefix exactly. Ignore the suffix. R returns list(k=...,nums=...)."
+  },
+  "blocks": [
+    {
+      "id": "nc250-168-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-168-statement",
+      "type": "paragraph",
+      "content": "Keep one occurrence of each value in a sorted array by editing its prefix. Return the number k of distinct values. The first k positions must contain those values in increasing order. Ignore the remaining positions.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-168-contract",
+      "type": "note",
+      "title": "def removeDuplicates(nums:",
+      "content": "Input: nums (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-168-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–30000 integers in [−100,100], already in nondecreasing order. Serialize [k, ...first_k_values]. R returns list(k=..., nums=updated_vector).",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-168-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def removeDuplicates(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int removeDuplicates(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction removeDuplicates(nums) {\n  throw new Error('Implement removeDuplicates');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function removeDuplicates(nums: number[]): number {\n  throw new Error('Implement removeDuplicates');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t removeDuplicates(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint removeDuplicates(std::vector<int>& nums) {\n    throw std::logic_error(\"Implement removeDuplicates\");\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int removeDuplicates(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction removeDuplicates(array &$nums): int {\n    throw new LogicException('Implement removeDuplicates');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-168-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return list(k = retained_count, nums = updated_vector).\nremoveDuplicates <- function(nums) { stop(\"Implement removeDuplicates\") }",
+      "stdin": "",
+      "expectedOutput": "[3,-2,1,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

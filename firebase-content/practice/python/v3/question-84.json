@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-084",
+  "title": "Rotting Oranges",
+  "summary": "Every minute, each rotten orange rots its fresh neighbors that share an edge.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "orangesRotting",
+    "signature": "def orangesRotting(grid:",
+    "input": "`grid` (nested integer arrays)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`grid` (nested integer arrays)",
+    "result": "integer.",
+    "constraints": "1–10 rows and 1–10 columns. The rectangular grid contains only integer 0, 1, and 2 values.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Every minute, each rotten orange rots its fresh neighbors that share an edge. Cells contain 0 for empty, 1 for fresh, and 2 for rotten. Return the fewest minutes until no fresh orange remains, or −1 if some fresh orange cannot rot.",
+  "examples": [
+    {
+      "input": "{\"grid\":[[2,1,1]]}",
+      "output": "2",
+      "explanation": "The rot advances one cell each minute."
+    },
+    {
+      "input": "{\"grid\":[[2,0,1]]}",
+      "output": "-1",
+      "explanation": "The empty cell blocks spread to the fresh orange."
+    },
+    {
+      "input": "{\"grid\":[[0,2]]}",
+      "output": "0",
+      "explanation": "There is no fresh orange at the start."
+    }
+  ],
+  "constraints": [
+    "1–10 rows and 1–10 columns. The rectangular grid contains only integer 0, 1, and 2 values."
+  ],
+  "hints": [
+    "Conceptual: Rotten oranges spread at the same time, so updates from the current minute should not advance the clock twice.",
+    "Directional: Queue every initially rotten orange and count the fresh oranges.",
+    "Implementation: Assign new neighbors the current minute plus one. When the queue finishes, return −1 if any fresh orange remains."
+  ],
+  "concepts": [
+    "grid-graphs",
+    "multi-source-bfs",
+    "levels"
+  ],
+  "skills": [
+    "Grid graphs",
+    "multi-source BFS",
+    "levels"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn)",
+    "space": "O(mn)"
+  },
+  "complexityAnalysis": "O(mn) time and O(mn) auxiliary space for the queue and visit state.",
+  "publicTests": [
+    {
+      "name": "BLIND150-084-T01",
+      "arguments": [
+        [
+          [
+            2,
+            1,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            2,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-084-T02",
+      "arguments": [
+        [
+          [
+            2,
+            0,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            2,
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": -1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-084-T03",
+      "arguments": [
+        [
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def orangesRotting(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int orangesRotting(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction orangesRotting(grid) {\n  throw new Error('Implement orangesRotting');\n}",
+    "typescript": "function orangesRotting(grid: number[][]): number {\n  throw new Error('Implement orangesRotting');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t orangesRotting(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint orangesRotting(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement orangesRotting\");\n}",
+    "csharp": "public class Solution {\n    public int orangesRotting(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction orangesRotting(array $grid): int {\n    throw new LogicException('Implement orangesRotting');\n}",
+    "r": "# Parameters: grid (list of integer vectors). Result: integer scalar.\norangesRotting <- function(grid) {\n  stop(\"Implement orangesRotting\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-084-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-084-statement",
+      "type": "paragraph",
+      "content": "Every minute, each rotten orange rots its fresh neighbors that share an edge. Cells contain 0 for empty, 1 for fresh, and 2 for rotten. Return the fewest minutes until no fresh orange remains, or −1 if some fresh orange cannot rot.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-084-contract",
+      "type": "note",
+      "title": "def orangesRotting(grid:",
+      "content": "Input: `grid` (nested integer arrays)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-084-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10 rows and 1–10 columns. The rectangular grid contains only integer 0, 1, and 2 values.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-084-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def orangesRotting(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int orangesRotting(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction orangesRotting(grid) {\n  throw new Error('Implement orangesRotting');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function orangesRotting(grid: number[][]): number {\n  throw new Error('Implement orangesRotting');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t orangesRotting(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint orangesRotting(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement orangesRotting\");\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int orangesRotting(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction orangesRotting(array $grid): int {\n    throw new LogicException('Implement orangesRotting');\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-084-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: grid (list of integer vectors). Result: integer scalar.\norangesRotting <- function(grid) {\n  stop(\"Implement orangesRotting\")\n}",
+      "stdin": "",
+      "expectedOutput": "2",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-030",
+  "title": "Find Minimum in Rotated Sorted Array",
+  "summary": "A strictly increasing array has been cyclically shifted.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findMin",
+    "signature": "def findMin(nums:",
+    "input": "`nums` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "integer.",
+    "constraints": "1–5,000 distinct values in [−5,000, 5,000]. The array comes from an increasing array by a cyclic shift.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "A strictly increasing array has been cyclically shifted. Return its smallest value using logarithmic time. A full-length shift leaves the array in increasing order.",
+  "examples": [
+    {
+      "input": "{\"nums\":[11,17,-5,0,9]}",
+      "output": "-5",
+      "explanation": "The wrap occurs just before −5."
+    },
+    {
+      "input": "{\"nums\":[-7,0,3,9]}",
+      "output": "-7",
+      "explanation": "The increasing array starts with its minimum."
+    },
+    {
+      "input": "{\"nums\":[6,2]}",
+      "output": "2",
+      "explanation": "The smaller of the two entries is second."
+    }
+  ],
+  "constraints": [
+    "1–5,000 distinct values in [−5,000, 5,000]. The array comes from an increasing array by a cyclic shift."
+  ],
+  "hints": [
+    "Conceptual: The smallest value is where the array wraps back to the low values.",
+    "Directional: Compare the midpoint with the rightmost remaining value to find which side contains the wrap.",
+    "Implementation: If the midpoint exceeds the right value, move left past it. Otherwise keep the midpoint as the new right bound."
+  ],
+  "concepts": [
+    "rotated-arrays",
+    "binary-search"
+  ],
+  "skills": [
+    "Rotated arrays",
+    "binary search"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log n)",
+    "space": "O(log n)"
+  },
+  "complexityAnalysis": "O(log n) time and O(1) auxiliary space. Each step retains only the half that can contain the minimum.",
+  "publicTests": [
+    {
+      "name": "BLIND150-030-T01",
+      "arguments": [
+        [
+          11,
+          17,
+          -5,
+          0,
+          9
+        ]
+      ],
+      "input": {
+        "nums": [
+          11,
+          17,
+          -5,
+          0,
+          9
+        ]
+      },
+      "expected": -5,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-030-T02",
+      "arguments": [
+        [
+          -7,
+          0,
+          3,
+          9
+        ]
+      ],
+      "input": {
+        "nums": [
+          -7,
+          0,
+          3,
+          9
+        ]
+      },
+      "expected": -7,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-030-T03",
+      "arguments": [
+        [
+          6,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          6,
+          2
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findMin(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int findMin(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction findMin(nums) {\n  throw new Error('Implement findMin');\n}",
+    "typescript": "function findMin(nums: number[]): number {\n  throw new Error('Implement findMin');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findMin(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findMin(std::vector<int> nums) {\n    throw std::logic_error(\"Implement findMin\");\n}",
+    "csharp": "public class Solution {\n    public int findMin(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction findMin(array $nums): int {\n    throw new LogicException('Implement findMin');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nfindMin <- function(nums) {\n  stop(\"Implement findMin\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-030-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-030-statement",
+      "type": "paragraph",
+      "content": "A strictly increasing array has been cyclically shifted. Return its smallest value using logarithmic time. A full-length shift leaves the array in increasing order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-030-contract",
+      "type": "note",
+      "title": "def findMin(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-030-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–5,000 distinct values in [−5,000, 5,000]. The array comes from an increasing array by a cyclic shift.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-030-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findMin(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int findMin(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction findMin(nums) {\n  throw new Error('Implement findMin');\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findMin(nums: number[]): number {\n  throw new Error('Implement findMin');\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findMin(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findMin(std::vector<int> nums) {\n    throw std::logic_error(\"Implement findMin\");\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int findMin(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction findMin(array $nums): int {\n    throw new LogicException('Implement findMin');\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-030-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nfindMin <- function(nums) {\n  stop(\"Implement findMin\")\n}",
+      "stdin": "",
+      "expectedOutput": "-5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-228",
+  "title": "Perfect Squares",
+  "summary": "Write n as a sum of positive perfect squares, allowing repeated squares.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "numSquares",
+    "signature": "def numSquares(n:",
+    "input": "n (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int)",
+    "callable": "numSquares",
+    "constraints": "1 ≤ n ≤ 10000.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Write n as a sum of positive perfect squares, allowing repeated squares. Return the smallest number of summands.",
+  "examples": [
+    {
+      "input": "{\"n\":7}",
+      "output": "4",
+      "explanation": "Four terms are needed, using 4+1+1+1."
+    },
+    {
+      "input": "{\"n\":16}",
+      "output": "1",
+      "explanation": "The input is itself a square."
+    },
+    {
+      "input": "{\"n\":18}",
+      "output": "2",
+      "explanation": "9+9 uses two squares."
+    }
+  ],
+  "constraints": [
+    "1 ≤ n ≤ 10000."
+  ],
+  "hints": [
+    "Conceptual: Choosing one square leaves a smaller remainder.",
+    "Directional: Compute best counts for remainders up to n.",
+    "Implementation: Try each square no larger than the current amount, taking one plus the best count for the leftover amount."
+  ],
+  "concepts": [
+    "dynamic-programming",
+    "perfect-squares"
+  ],
+  "skills": [
+    "Dynamic programming",
+    "perfect squares"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n√n)",
+    "space": "O(n√n)"
+  },
+  "complexityAnalysis": "O(n√n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-228-P1",
+      "arguments": [
+        7
+      ],
+      "input": {
+        "n": 7
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-228-P2",
+      "arguments": [
+        16
+      ],
+      "input": {
+        "n": 16
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-228-P3",
+      "arguments": [
+        18
+      ],
+      "input": {
+        "n": 18
+      },
+      "expected": 2,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def numSquares(n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int numSquares(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction numSquares(n) {\n  throw new Error('Implement numSquares');\n}",
+    "typescript": "function numSquares(n: number): number {\n  throw new Error('Implement numSquares');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t numSquares(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numSquares(int n) {\n    throw std::logic_error(\"Implement numSquares\");\n}",
+    "csharp": "public class Solution {\n    public int numSquares(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction numSquares(int $n): int {\n    throw new LogicException('Implement numSquares');\n}",
+    "r": "# Parameters: n (integer scalar). Result: integer scalar.\nnumSquares <- function(n) {\n  stop(\"Implement numSquares\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "numSquares",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-228-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-228-statement",
+      "type": "paragraph",
+      "content": "Write n as a sum of positive perfect squares, allowing repeated squares. Return the smallest number of summands.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-228-contract",
+      "type": "note",
+      "title": "def numSquares(n:",
+      "content": "Input: n (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-228-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n ≤ 10000.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-228-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def numSquares(n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int numSquares(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction numSquares(n) {\n  throw new Error('Implement numSquares');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function numSquares(n: number): number {\n  throw new Error('Implement numSquares');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t numSquares(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint numSquares(int n) {\n    throw std::logic_error(\"Implement numSquares\");\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int numSquares(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction numSquares(int $n): int {\n    throw new LogicException('Implement numSquares');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-228-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar). Result: integer scalar.\nnumSquares <- function(n) {\n  stop(\"Implement numSquares\")\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

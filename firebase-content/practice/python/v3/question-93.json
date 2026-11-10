@@ -1,0 +1,329 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-093",
+  "title": "Network Delay Time",
+  "summary": "A signal starts at node k.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "networkDelayTime",
+    "signature": "def networkDelayTime(times:",
+    "input": "`times` (nested integer arrays), `n` (integer), `k` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`times` (nested integer arrays), `n` (integer), `k` (integer)",
+    "result": "integer.",
+    "constraints": "1 ≤ k ≤ n ≤ 100. There are 1–6000 directed links, with distinct ordered endpoint pairs, different endpoints in [1,n], and integer weights in [0,100].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "A signal starts at node k. Each row [from, to, travelTime] specifies a directed link. Return when the last node first receives the signal, or −1 if any node is unreachable.",
+  "examples": [
+    {
+      "input": "{\"times\":[[1,2,8],[1,3,2],[3,2,3]],\"n\":3,\"k\":1}",
+      "output": "5",
+      "explanation": "The route through node 3 reaches node 2 sooner than the direct link."
+    },
+    {
+      "input": "{\"times\":[[3,2,0],[2,1,0]],\"n\":3,\"k\":3}",
+      "output": "0",
+      "explanation": "Two zero-time edges deliver the signal immediately."
+    },
+    {
+      "input": "{\"times\":[[1,3,2],[2,3,1]],\"n\":3,\"k\":3}",
+      "output": "-1",
+      "explanation": "Node 3 has no outgoing links and cannot reach the others."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ n ≤ 100. There are 1–6000 directed links, with distinct ordered endpoint pairs, different endpoints in [1,n], and integer weights in [0,100]."
+  ],
+  "hints": [
+    "Conceptual: Each node receives the signal along its fastest directed route.",
+    "Directional: Use Dijkstra’s algorithm to finalize the smallest tentative arrival time first.",
+    "Implementation: Relax only outgoing edges. Return −1 for any unreachable node, otherwise the maximum finalized distance."
+  ],
+  "concepts": [
+    "weighted-directed-graph",
+    "dijkstra",
+    "adjacency-matrix"
+  ],
+  "skills": [
+    "Weighted directed graph",
+    "Dijkstra",
+    "adjacency matrix"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(V² + E)",
+    "space": "O(V² + E)"
+  },
+  "complexityAnalysis": "O(V² + E) time and O(V²) space with a weighted adjacency matrix and a scan for the next vertex.",
+  "publicTests": [
+    {
+      "name": "BLIND150-093-T01",
+      "arguments": [
+        [
+          [
+            1,
+            2,
+            8
+          ],
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            3,
+            2,
+            3
+          ]
+        ],
+        3,
+        1
+      ],
+      "input": {
+        "times": [
+          [
+            1,
+            2,
+            8
+          ],
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            3,
+            2,
+            3
+          ]
+        ],
+        "n": 3,
+        "k": 1
+      },
+      "expected": 5,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-093-T02",
+      "arguments": [
+        [
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ]
+        ],
+        3,
+        3
+      ],
+      "input": {
+        "times": [
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ]
+        ],
+        "n": 3,
+        "k": 3
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-093-T03",
+      "arguments": [
+        [
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            2,
+            3,
+            1
+          ]
+        ],
+        3,
+        3
+      ],
+      "input": {
+        "times": [
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            2,
+            3,
+            1
+          ]
+        ],
+        "n": 3,
+        "k": 3
+      },
+      "expected": -1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def networkDelayTime(times: list[list[int]], n: int, k: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} times\n * @param {number} n\n * @param {number} k\n * @returns {number}\n */\nfunction networkDelayTime(times, n, k) {\n  throw new Error('Implement networkDelayTime');\n}",
+    "typescript": "function networkDelayTime(times: number[][], n: number, k: number): number {\n  throw new Error('Implement networkDelayTime');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t networkDelayTime(IntMatrix times, int32_t n, int32_t k) {\n    (void)times;\n    (void)n;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint networkDelayTime(std::vector<std::vector<int>> times, int n, int k) {\n    throw std::logic_error(\"Implement networkDelayTime\");\n}",
+    "csharp": "public class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $times\n * @param int $n\n * @param int $k\n * @return int\n */\nfunction networkDelayTime(array $times, int $n, int $k): int {\n    throw new LogicException('Implement networkDelayTime');\n}",
+    "r": "# Parameters: times (list of integer vectors), n (integer scalar), k (integer scalar). Result: integer scalar.\nnetworkDelayTime <- function(times, n, k) {\n  stop(\"Implement networkDelayTime\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-093-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-093-statement",
+      "type": "paragraph",
+      "content": "A signal starts at node k. Each row [from, to, travelTime] specifies a directed link. Return when the last node first receives the signal, or −1 if any node is unreachable.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-093-contract",
+      "type": "note",
+      "title": "def networkDelayTime(times:",
+      "content": "Input: `times` (nested integer arrays), `n` (integer), `k` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-093-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ n ≤ 100. There are 1–6000 directed links, with distinct ordered endpoint pairs, different endpoints in [1,n], and integer weights in [0,100].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-093-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def networkDelayTime(times: list[list[int]], n: int, k: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} times\n * @param {number} n\n * @param {number} k\n * @returns {number}\n */\nfunction networkDelayTime(times, n, k) {\n  throw new Error('Implement networkDelayTime');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function networkDelayTime(times: number[][], n: number, k: number): number {\n  throw new Error('Implement networkDelayTime');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t networkDelayTime(IntMatrix times, int32_t n, int32_t k) {\n    (void)times;\n    (void)n;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint networkDelayTime(std::vector<std::vector<int>> times, int n, int k) {\n    throw std::logic_error(\"Implement networkDelayTime\");\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $times\n * @param int $n\n * @param int $k\n * @return int\n */\nfunction networkDelayTime(array $times, int $n, int $k): int {\n    throw new LogicException('Implement networkDelayTime');\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-093-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: times (list of integer vectors), n (integer scalar), k (integer scalar). Result: integer scalar.\nnetworkDelayTime <- function(times, n, k) {\n  stop(\"Implement networkDelayTime\")\n}",
+      "stdin": "",
+      "expectedOutput": "5",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

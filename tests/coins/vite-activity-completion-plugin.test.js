@@ -40,10 +40,10 @@ describe('local activity completion Vite middleware', () => {
   it('parses POST JSON and invokes the real-handler boundary', async () => {
     const handler = vi.fn(async (req, res) => res.status(200).json({ activityId: req.body.activityId }));
     const res = response();
-    await middlewareFor(handler)(request('POST', '{"activityId":"challenge-balanced-brackets"}'), res, vi.fn());
+    await middlewareFor(handler)(request('POST', '{"activityId":"challenge-fixture"}'), res, vi.fn());
     expect(handler).toHaveBeenCalledOnce();
     expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({ activityId: 'challenge-balanced-brackets' });
+    expect(res.body).toEqual({ activityId: 'challenge-fixture' });
   });
 
   it('rejects unsupported methods and malformed JSON before the handler', async () => {

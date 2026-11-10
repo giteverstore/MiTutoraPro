@@ -1,0 +1,408 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-220",
+  "title": "Evaluate Division",
+  "summary": "Each equation row [a,b] states that a divided by b equals the corresponding entry in values.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "calcEquation",
+    "signature": "def calcEquation(equations:",
+    "input": "equations (strgrid), values (numbers), queries (strgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "equations (strgrid), values (numbers), queries (strgrid)",
+    "callable": "calcEquation",
+    "constraints": "1–20 equations and 1–20 queries, each with two names of 1–5 lowercase English letters or digits. There is one positive ratio per equation, at most 20. Equations are consistent and queries do not require division by zero. Finite outputs are checked with absolute and relative tolerance; the source gives no additional magnitude bound for derived ratios.",
+    "output-checking": "Serialize finite numeric ratios in query order. Unknown ratios are exactly −1. Use relative tolerance 1e−7 and absolute tolerance 1e−9 for known ratios. The source has no bound on derived magnitudes beyond the input ratio limits."
+  },
+  "statement": "Each equation row [a,b] states that a divided by b equals the corresponding entry in values. Answer each requested ratio in order. Return −1.0 for an unknown variable or a pair whose ratio cannot be inferred. A known variable divided by itself is 1.0.",
+  "examples": [
+    {
+      "input": "{\"equations\":[[\"x\",\"y\"],[\"y\",\"z\"]],\"values\":[1.5,4],\"queries\":[[\"x\",\"z\"],[\"z\",\"x\"],[\"x\",\"q\"]]}",
+      "output": "[6,0.16666666666666666,-1]",
+      "explanation": "The forward ratios multiply, and reversing the path takes the reciprocal."
+    },
+    {
+      "input": "{\"equations\":[[\"a\",\"b\"]],\"values\":[0.25],\"queries\":[[\"b\",\"a\"],[\"a\",\"a\"]]}",
+      "output": "[4,1]",
+      "explanation": "Reverse a quarter and check a known self-ratio."
+    },
+    {
+      "input": "{\"equations\":[[\"a\",\"b\"],[\"c\",\"d\"]],\"values\":[2,3],\"queries\":[[\"a\",\"d\"],[\"u\",\"u\"]]}",
+      "output": "[-1,-1]",
+      "explanation": "Separate components and unknown variables have no inferred ratio."
+    }
+  ],
+  "constraints": [
+    "1–20 equations and 1–20 queries, each with two names of 1–5 lowercase English letters or digits. There is one positive ratio per equation, at most 20. Equations are consistent and queries do not require division by zero. Finite outputs are checked with absolute and relative tolerance; the source gives no additional magnitude bound for derived ratios."
+  ],
+  "hints": [
+    "Conceptual: A ratio can be reversed by taking its reciprocal.",
+    "Directional: Treat known ratios as directed weighted edges.",
+    "Implementation: Traverse from the numerator, multiplying edge ratios until the denominator is reached. Reject disconnected or unknown endpoints."
+  ],
+  "concepts": [
+    "weighted-graph",
+    "ratios",
+    "reachability"
+  ],
+  "skills": [
+    "Weighted graph",
+    "ratios",
+    "reachability"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(q(V+E)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(q(V+E)) traversal time with adjacency lists, or O(qV²) for the bounded matrix reference, with O(V+E) or O(V²) graph storage respectively. Add logarithms along a path before converting back to a ratio.",
+  "publicTests": [
+    {
+      "name": "NC250-220-P1",
+      "arguments": [
+        [
+          [
+            "x",
+            "y"
+          ],
+          [
+            "y",
+            "z"
+          ]
+        ],
+        [
+          1.5,
+          4
+        ],
+        [
+          [
+            "x",
+            "z"
+          ],
+          [
+            "z",
+            "x"
+          ],
+          [
+            "x",
+            "q"
+          ]
+        ]
+      ],
+      "input": {
+        "equations": [
+          [
+            "x",
+            "y"
+          ],
+          [
+            "y",
+            "z"
+          ]
+        ],
+        "values": [
+          1.5,
+          4
+        ],
+        "queries": [
+          [
+            "x",
+            "z"
+          ],
+          [
+            "z",
+            "x"
+          ],
+          [
+            "x",
+            "q"
+          ]
+        ]
+      },
+      "expected": [
+        6,
+        0.16666666666666666,
+        -1
+      ],
+      "validator": "finite_ratios"
+    },
+    {
+      "name": "NC250-220-P2",
+      "arguments": [
+        [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        [
+          0.25
+        ],
+        [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "a"
+          ]
+        ]
+      ],
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "values": [
+          0.25
+        ],
+        "queries": [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        4,
+        1
+      ],
+      "validator": "finite_ratios"
+    },
+    {
+      "name": "NC250-220-P3",
+      "arguments": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          [
+            "a",
+            "d"
+          ],
+          [
+            "u",
+            "u"
+          ]
+        ]
+      ],
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "values": [
+          2,
+          3
+        ],
+        "queries": [
+          [
+            "a",
+            "d"
+          ],
+          [
+            "u",
+            "u"
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        -1
+      ],
+      "validator": "finite_ratios"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def calcEquation(equations: list[list[str]], values: list[float], queries: list[list[str]]) -> list[float]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[][]} equations\n * @param {number[]} values\n * @param {string[][]} queries\n * @returns {number[]}\n */\nfunction calcEquation(equations, values, queries) {\n  throw new Error('Implement calcEquation');\n}",
+    "typescript": "function calcEquation(equations: string[][], values: number[], queries: string[][]): number[] {\n  throw new Error('Implement calcEquation');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\ntypedef struct { double *data; size_t len; } Numbers;\n\nNumbers calcEquation(StringMatrix equations, Numbers values, StringMatrix queries) {\n    (void)equations;\n    (void)values;\n    (void)queries;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<double> calcEquation(std::vector<std::vector<std::string>> equations, std::vector<double> values, std::vector<std::vector<std::string>> queries) {\n    throw std::logic_error(\"Implement calcEquation\");\n}",
+    "csharp": "public class Solution {\n    public double[] calcEquation(string[][] equations, double[] values, string[][] queries) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[][] $equations\n * @param numeric array $values\n * @param string[][] $queries\n * @return array\n */\nfunction calcEquation(array $equations, array $values, array $queries): array {\n    throw new LogicException('Implement calcEquation');\n}",
+    "r": "# Parameters: equations (list of character vectors), values (numeric vector), queries (list of character vectors). Result: numeric vector.\ncalcEquation <- function(equations, values, queries) {\n  stop(\"Implement calcEquation\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "calcEquation",
+    "arguments": [
+      [
+        "equations",
+        "strgrid"
+      ],
+      [
+        "values",
+        "numbers"
+      ],
+      [
+        "queries",
+        "strgrid"
+      ]
+    ],
+    "serialized_result_type": "numbers",
+    "mode": "function",
+    "validator": "finite_ratios",
+    "notes": "Serialize finite numeric ratios in query order. Unknown ratios are exactly −1. Use relative tolerance 1e−7 and absolute tolerance 1e−9 for known ratios. The source has no bound on derived magnitudes beyond the input ratio limits."
+  },
+  "blocks": [
+    {
+      "id": "nc250-220-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-220-statement",
+      "type": "paragraph",
+      "content": "Each equation row [a,b] states that a divided by b equals the corresponding entry in values. Answer each requested ratio in order. Return −1.0 for an unknown variable or a pair whose ratio cannot be inferred. A known variable divided by itself is 1.0.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-220-contract",
+      "type": "note",
+      "title": "def calcEquation(equations:",
+      "content": "Input: equations (strgrid), values (numbers), queries (strgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-220-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–20 equations and 1–20 queries, each with two names of 1–5 lowercase English letters or digits. There is one positive ratio per equation, at most 20. Equations are consistent and queries do not require division by zero. Finite outputs are checked with absolute and relative tolerance; the source gives no additional magnitude bound for derived ratios.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-220-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def calcEquation(equations: list[list[str]], values: list[float], queries: list[list[str]]) -> list[float]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[][]} equations\n * @param {number[]} values\n * @param {string[][]} queries\n * @returns {number[]}\n */\nfunction calcEquation(equations, values, queries) {\n  throw new Error('Implement calcEquation');\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function calcEquation(equations: string[][], values: number[], queries: string[][]): number[] {\n  throw new Error('Implement calcEquation');\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\ntypedef struct { double *data; size_t len; } Numbers;\n\nNumbers calcEquation(StringMatrix equations, Numbers values, StringMatrix queries) {\n    (void)equations;\n    (void)values;\n    (void)queries;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<double> calcEquation(std::vector<std::vector<std::string>> equations, std::vector<double> values, std::vector<std::vector<std::string>> queries) {\n    throw std::logic_error(\"Implement calcEquation\");\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public double[] calcEquation(string[][] equations, double[] values, string[][] queries) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[][] $equations\n * @param numeric array $values\n * @param string[][] $queries\n * @return array\n */\nfunction calcEquation(array $equations, array $values, array $queries): array {\n    throw new LogicException('Implement calcEquation');\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-220-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: equations (list of character vectors), values (numeric vector), queries (list of character vectors). Result: numeric vector.\ncalcEquation <- function(equations, values, queries) {\n  stop(\"Implement calcEquation\")\n}",
+      "stdin": "",
+      "expectedOutput": "[6,0.16666666666666666,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ Library is the AppShell destination for saved course lessons, Practice questions
 
 ```js
 {
-  id: "practice:practice-even-or-odd",
+  id: "practice:question-example",
   type: "course" | "practice" | "challenge",
   contentId,
   title,

@@ -1,0 +1,363 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-218",
+  "title": "Course Schedule IV",
+  "summary": "An edge [a,b] means course a must precede b.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "checkIfPrerequisite",
+    "signature": "def checkIfPrerequisite(numCourses:",
+    "input": "numCourses (int), prerequisites (intgrid), queries (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "numCourses (int), prerequisites (intgrid), queries (intgrid)",
+    "callable": "checkIfPrerequisite",
+    "constraints": "2–100 zero-based course labels. Prerequisite pairs are distinct, connect different courses, and form an acyclic graph. There are at most n(n−1)/2 prerequisite pairs and 1–10000 queries with distinct endpoints within each query.",
+    "output-checking": "Return query-ordered integer flags, a lossless 0/1 projection of booleans. Prerequisite edges point from the earlier course to the later course."
+  },
+  "statement": "An edge [a,b] means course a must precede b. For each query [u,v], decide whether a chain of one or more prerequisite edges leads from u to v. Return the flags in query order, using 1 for yes and 0 for no.",
+  "examples": [
+    {
+      "input": "{\"numCourses\":4,\"prerequisites\":[[0,1],[1,3]],\"queries\":[[0,3],[3,0],[0,2]]}",
+      "output": "[1,0,0]",
+      "explanation": "Reachability follows the edge direction and includes multi-edge paths."
+    },
+    {
+      "input": "{\"numCourses\":2,\"prerequisites\":[],\"queries\":[[0,1]]}",
+      "output": "[0]",
+      "explanation": "There are no prerequisite paths."
+    },
+    {
+      "input": "{\"numCourses\":3,\"prerequisites\":[[2,0]],\"queries\":[[2,0],[0,2]]}",
+      "output": "[1,0]",
+      "explanation": "The direct relationship works in one direction only."
+    }
+  ],
+  "constraints": [
+    "2–100 zero-based course labels. Prerequisite pairs are distinct, connect different courses, and form an acyclic graph. There are at most n(n−1)/2 prerequisite pairs and 1–10000 queries with distinct endpoints within each query."
+  ],
+  "hints": [
+    "Conceptual: A prerequisite may be indirect.",
+    "Directional: Store whether each ordered pair is reachable.",
+    "Implementation: For each possible intermediate course k, update u→v when both u→k and k→v are already reachable."
+  ],
+  "concepts": [
+    "directed-reachability",
+    "transitive-closure"
+  ],
+  "skills": [
+    "Directed reachability",
+    "transitive closure"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n³+q)",
+    "space": "O(n³+q)"
+  },
+  "complexityAnalysis": "O(n³+q) time and O(n²) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-218-P1",
+      "arguments": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 4,
+        "prerequisites": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "queries": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        0,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-218-P2",
+      "arguments": [
+        2,
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 2,
+        "prerequisites": [],
+        "queries": [
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": [
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-218-P3",
+      "arguments": [
+        3,
+        [
+          [
+            2,
+            0
+          ]
+        ],
+        [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "numCourses": 3,
+        "prerequisites": [
+          [
+            2,
+            0
+          ]
+        ],
+        "queries": [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def checkIfPrerequisite(numCourses: int, prerequisites: list[list[int]], queries: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @param {number[][]} queries\n * @returns {number[]}\n */\nfunction checkIfPrerequisite(numCourses, prerequisites, queries) {\n  throw new Error('Implement checkIfPrerequisite');\n}",
+    "typescript": "function checkIfPrerequisite(numCourses: number, prerequisites: number[][], queries: number[][]): number[] {\n  throw new Error('Implement checkIfPrerequisite');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray checkIfPrerequisite(int32_t numCourses, IntMatrix prerequisites, IntMatrix queries) {\n    (void)numCourses;\n    (void)prerequisites;\n    (void)queries;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> checkIfPrerequisite(int numCourses, std::vector<std::vector<int>> prerequisites, std::vector<std::vector<int>> queries) {\n    throw std::logic_error(\"Implement checkIfPrerequisite\");\n}",
+    "csharp": "public class Solution {\n    public int[] checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $numCourses\n * @param nested int[]s $prerequisites\n * @param nested int[]s $queries\n * @return int[]\n */\nfunction checkIfPrerequisite(int $numCourses, array $prerequisites, array $queries): array {\n    throw new LogicException('Implement checkIfPrerequisite');\n}",
+    "r": "# Parameters: numCourses (integer scalar), prerequisites (list of integer vectors), queries (list of integer vectors). Result: integer vector.\ncheckIfPrerequisite <- function(numCourses, prerequisites, queries) {\n  stop(\"Implement checkIfPrerequisite\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "checkIfPrerequisite",
+    "arguments": [
+      [
+        "numCourses",
+        "int"
+      ],
+      [
+        "prerequisites",
+        "intgrid"
+      ],
+      [
+        "queries",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Return query-ordered integer flags, a lossless 0/1 projection of booleans. Prerequisite edges point from the earlier course to the later course."
+  },
+  "blocks": [
+    {
+      "id": "nc250-218-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-218-statement",
+      "type": "paragraph",
+      "content": "An edge [a,b] means course a must precede b. For each query [u,v], decide whether a chain of one or more prerequisite edges leads from u to v. Return the flags in query order, using 1 for yes and 0 for no.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-218-contract",
+      "type": "note",
+      "title": "def checkIfPrerequisite(numCourses:",
+      "content": "Input: numCourses (int), prerequisites (intgrid), queries (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-218-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–100 zero-based course labels. Prerequisite pairs are distinct, connect different courses, and form an acyclic graph. There are at most n(n−1)/2 prerequisite pairs and 1–10000 queries with distinct endpoints within each query.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-218-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def checkIfPrerequisite(numCourses: int, prerequisites: list[list[int]], queries: list[list[int]]) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @param {number[][]} queries\n * @returns {number[]}\n */\nfunction checkIfPrerequisite(numCourses, prerequisites, queries) {\n  throw new Error('Implement checkIfPrerequisite');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function checkIfPrerequisite(numCourses: number, prerequisites: number[][], queries: number[][]): number[] {\n  throw new Error('Implement checkIfPrerequisite');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntArray checkIfPrerequisite(int32_t numCourses, IntMatrix prerequisites, IntMatrix queries) {\n    (void)numCourses;\n    (void)prerequisites;\n    (void)queries;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> checkIfPrerequisite(int numCourses, std::vector<std::vector<int>> prerequisites, std::vector<std::vector<int>> queries) {\n    throw std::logic_error(\"Implement checkIfPrerequisite\");\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $numCourses\n * @param nested int[]s $prerequisites\n * @param nested int[]s $queries\n * @return int[]\n */\nfunction checkIfPrerequisite(int $numCourses, array $prerequisites, array $queries): array {\n    throw new LogicException('Implement checkIfPrerequisite');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-218-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: numCourses (integer scalar), prerequisites (list of integer vectors), queries (list of integer vectors). Result: integer vector.\ncheckIfPrerequisite <- function(numCourses, prerequisites, queries) {\n  stop(\"Implement checkIfPrerequisite\")\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-013",
+  "title": "Container with Most Water",
+  "summary": "Each array entry gives the height of a vertical line at its zero-based index.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "maxArea",
+    "signature": "def maxArea(height:",
+    "input": "`height` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`height` (integer array)",
+    "result": "integer.",
+    "constraints": "The array has 2–100,000 heights in [0, 10,000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Each array entry gives the height of a vertical line at its zero-based index. Choose two lines as the sides of an upright container. Return the largest area it can hold. For indices i and j with i < j, the width is j − i and the water level is limited by the shorter line.",
+  "examples": [
+    {
+      "input": "{\"height\":[4,1,4]}",
+      "output": "8",
+      "explanation": "The outer walls give width 2 and height 4."
+    },
+    {
+      "input": "{\"height\":[0,7,0,6,1]}",
+      "output": "12",
+      "explanation": "The walls at indices 1 and 3 give width 2 and height 6."
+    },
+    {
+      "input": "{\"height\":[0,5]}",
+      "output": "0",
+      "explanation": "The shorter line has height zero."
+    }
+  ],
+  "constraints": [
+    "The array has 2–100,000 heights in [0, 10,000]."
+  ],
+  "hints": [
+    "Conceptual: A tall line cannot raise the water level above the shorter side.",
+    "Directional: Start with the widest pair. Moving the taller side alone cannot improve the area of that pair.",
+    "Implementation: Record the current area and move the shorter side inward. Either side can move on a tie."
+  ],
+  "concepts": [
+    "arrays",
+    "two-pointers",
+    "area"
+  ],
+  "skills": [
+    "Arrays",
+    "two pointers",
+    "area"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space. Each comparison moves a pointer inward.",
+  "publicTests": [
+    {
+      "name": "BLIND150-013-T01",
+      "arguments": [
+        [
+          4,
+          1,
+          4
+        ]
+      ],
+      "input": {
+        "height": [
+          4,
+          1,
+          4
+        ]
+      },
+      "expected": 8,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-013-T02",
+      "arguments": [
+        [
+          0,
+          7,
+          0,
+          6,
+          1
+        ]
+      ],
+      "input": {
+        "height": [
+          0,
+          7,
+          0,
+          6,
+          1
+        ]
+      },
+      "expected": 12,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-013-T03",
+      "arguments": [
+        [
+          0,
+          5
+        ]
+      ],
+      "input": {
+        "height": [
+          0,
+          5
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def maxArea(height: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int maxArea(int[] height) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} height\n * @returns {number}\n */\nfunction maxArea(height) {\n  throw new Error('Implement maxArea');\n}",
+    "typescript": "function maxArea(height: number[]): number {\n  throw new Error('Implement maxArea');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxArea(IntArray height) {\n    (void)height;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxArea(std::vector<int> height) {\n    throw std::logic_error(\"Implement maxArea\");\n}",
+    "csharp": "public class Solution {\n    public int maxArea(int[] height) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $height\n * @return int\n */\nfunction maxArea(array $height): int {\n    throw new LogicException('Implement maxArea');\n}",
+    "r": "# Parameters: height (integer vector). Result: integer scalar.\nmaxArea <- function(height) {\n  stop(\"Implement maxArea\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-013-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-013-statement",
+      "type": "paragraph",
+      "content": "Each array entry gives the height of a vertical line at its zero-based index. Choose two lines as the sides of an upright container. Return the largest area it can hold. For indices i and j with i < j, the width is j − i and the water level is limited by the shorter line.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-013-contract",
+      "type": "note",
+      "title": "def maxArea(height:",
+      "content": "Input: `height` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-013-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The array has 2–100,000 heights in [0, 10,000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-013-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def maxArea(height: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int maxArea(int[] height) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} height\n * @returns {number}\n */\nfunction maxArea(height) {\n  throw new Error('Implement maxArea');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function maxArea(height: number[]): number {\n  throw new Error('Implement maxArea');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxArea(IntArray height) {\n    (void)height;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxArea(std::vector<int> height) {\n    throw std::logic_error(\"Implement maxArea\");\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int maxArea(int[] height) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $height\n * @return int\n */\nfunction maxArea(array $height): int {\n    throw new LogicException('Implement maxArea');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-013-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: height (integer vector). Result: integer scalar.\nmaxArea <- function(height) {\n  stop(\"Implement maxArea\")\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

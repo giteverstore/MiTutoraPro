@@ -1,0 +1,459 @@
+{
+  "schemaVersion": "practice-mode-b-low-risk-rollout-v1",
+  "previousActive": 8,
+  "newlyActivated": [
+    "BLIND150-009",
+    "BLIND150-027",
+    "BLIND150-099",
+    "BLIND150-111",
+    "BLIND150-123"
+  ],
+  "totalActive": 13,
+  "remainingInactive": 237,
+  "selected": [
+    {
+      "id": "BLIND150-009",
+      "title": "Longest Consecutive Sequence",
+      "category": "dsa",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "comparator": "exact",
+      "adapterFamily": "plain-return",
+      "reason": "Exact scalar result with scalar and/or flat integer-array inputs; no mutation, state, identity, or special serialization.",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8522,
+          "executionTimeMs": 48,
+          "outputBytes": 625
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3657,
+          "executionTimeMs": 3519,
+          "outputBytes": 625
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 60,
+          "executionTimeMs": 3,
+          "outputBytes": 625
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 70,
+          "executionTimeMs": 3,
+          "outputBytes": 625
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6112,
+          "executionTimeMs": 3754,
+          "outputBytes": 625
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14000,
+          "executionTimeMs": 11378,
+          "outputBytes": 625
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8543,
+          "executionTimeMs": 5816.7549,
+          "outputBytes": 625
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1059,
+          "executionTimeMs": 914,
+          "outputBytes": 625
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3814,
+          "executionTimeMs": 93,
+          "outputBytes": 625
+        }
+      },
+      "activationDecision": "activate"
+    },
+    {
+      "id": "BLIND150-027",
+      "title": "Binary Search",
+      "category": "dsa",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "comparator": "exact",
+      "adapterFamily": "plain-return",
+      "reason": "Exact scalar result with scalar and/or flat integer-array inputs; no mutation, state, identity, or special serialization.",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8752,
+          "executionTimeMs": 60,
+          "outputBytes": 653
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3481,
+          "executionTimeMs": 3346,
+          "outputBytes": 653
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 57,
+          "executionTimeMs": 4,
+          "outputBytes": 653
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 72,
+          "executionTimeMs": 4,
+          "outputBytes": 653
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 5629,
+          "executionTimeMs": 3141,
+          "outputBytes": 653
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12135,
+          "executionTimeMs": 9447,
+          "outputBytes": 653
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8097,
+          "executionTimeMs": 5382.4549,
+          "outputBytes": 653
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 911,
+          "executionTimeMs": 804,
+          "outputBytes": 653
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3770,
+          "executionTimeMs": 62,
+          "outputBytes": 653
+        }
+      },
+      "activationDecision": "activate"
+    },
+    {
+      "id": "BLIND150-099",
+      "title": "Climbing Stairs",
+      "category": "dsa",
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "comparator": "exact",
+      "adapterFamily": "plain-return",
+      "reason": "Exact scalar result with scalar and/or flat integer-array inputs; no mutation, state, identity, or special serialization.",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8410,
+          "executionTimeMs": 47,
+          "outputBytes": 556
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3434,
+          "executionTimeMs": 3287,
+          "outputBytes": 556
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56,
+          "executionTimeMs": 3,
+          "outputBytes": 556
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 59,
+          "executionTimeMs": 3,
+          "outputBytes": 556
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 5332,
+          "executionTimeMs": 2898,
+          "outputBytes": 556
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11425,
+          "executionTimeMs": 8613,
+          "outputBytes": 556
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14181,
+          "executionTimeMs": 10991.9699,
+          "outputBytes": 556
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2021,
+          "executionTimeMs": 1731,
+          "outputBytes": 556
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6364,
+          "executionTimeMs": 79,
+          "outputBytes": 556
+        }
+      },
+      "activationDecision": "activate"
+    },
+    {
+      "id": "BLIND150-111",
+      "title": "Unique Paths",
+      "category": "dsa",
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "comparator": "exact",
+      "adapterFamily": "plain-return",
+      "reason": "Exact scalar result with scalar and/or flat integer-array inputs; no mutation, state, identity, or special serialization.",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8478,
+          "executionTimeMs": 52,
+          "outputBytes": 580
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3496,
+          "executionTimeMs": 3352,
+          "outputBytes": 580
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 63,
+          "executionTimeMs": 3,
+          "outputBytes": 580
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 79,
+          "executionTimeMs": 3,
+          "outputBytes": 580
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6167,
+          "executionTimeMs": 3521,
+          "outputBytes": 580
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12206,
+          "executionTimeMs": 9059,
+          "outputBytes": 580
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8412,
+          "executionTimeMs": 5522.334999999999,
+          "outputBytes": 580
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 924,
+          "executionTimeMs": 786,
+          "outputBytes": 580
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3955,
+          "executionTimeMs": 80,
+          "outputBytes": 580
+        }
+      },
+      "activationDecision": "activate"
+    },
+    {
+      "id": "BLIND150-123",
+      "title": "Jump Game",
+      "category": "dsa",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "comparator": "exact",
+      "adapterFamily": "plain-return",
+      "reason": "Exact scalar result with scalar and/or flat integer-array inputs; no mutation, state, identity, or special serialization.",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9432,
+          "executionTimeMs": 52,
+          "outputBytes": 627
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3477,
+          "executionTimeMs": 3336,
+          "outputBytes": 627
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 54,
+          "executionTimeMs": 3,
+          "outputBytes": 627
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 64,
+          "executionTimeMs": 3,
+          "outputBytes": 627
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 5860,
+          "executionTimeMs": 3285,
+          "outputBytes": 627
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12771,
+          "executionTimeMs": 9787,
+          "outputBytes": 627
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8641,
+          "executionTimeMs": 5892.915,
+          "outputBytes": 627
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 896,
+          "executionTimeMs": 788,
+          "outputBytes": 627
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 3795,
+          "executionTimeMs": 90,
+          "outputBytes": 627
+        }
+      },
+      "activationDecision": "activate"
+    }
+  ],
+  "deferred": [
+    {
+      "id": "BLIND150-007",
+      "title": "Product of Array Except Self",
+      "reason": "Deferred until generic native flat-array return serialization is accepted."
+    },
+    {
+      "id": "BLIND150-013",
+      "title": "Container with Most Water",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    },
+    {
+      "id": "BLIND150-014",
+      "title": "Trapping Rain Water",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    },
+    {
+      "id": "BLIND150-020",
+      "title": "Sliding Window Maximum",
+      "reason": "Deferred until generic native flat-array return serialization is accepted."
+    },
+    {
+      "id": "BLIND150-024",
+      "title": "Daily Temperatures",
+      "reason": "Deferred until generic native flat-array return serialization is accepted."
+    },
+    {
+      "id": "BLIND150-025",
+      "title": "Car Fleet",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    },
+    {
+      "id": "BLIND150-026",
+      "title": "Largest Rectangle in Histogram",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    },
+    {
+      "id": "BLIND150-029",
+      "title": "Koko Eating Bananas",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    },
+    {
+      "id": "BLIND150-030",
+      "title": "Find Minimum in Rotated Sorted Array",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    },
+    {
+      "id": "BLIND150-061",
+      "title": "Last Stone Weight",
+      "reason": "Qualified exact scalar candidate deferred to keep the first native-generic rollout bounded."
+    }
+  ]
+}

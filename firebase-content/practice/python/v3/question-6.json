@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-006",
+  "title": "Encode and Decode Strings",
+  "summary": "Implement encode(strs), which turns a list of strings into one string, and decode(encoded), which rebuilds the original list from that string alone.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "encode",
+    "signature": "def encode(strs:",
+    "input": "`strs` (string array)",
+    "output": "string array from decode. Encode returns a string."
+  },
+  "contractDetails": {
+    "input": "`strs` (string array)",
+    "result": "string array from decode. Encode returns a string.",
+    "constraints": "0–99 items, each 0–199 characters. The public NeetCode reference describes a 256-character alphabet as ASCII. Ycoders fixtures interpret it as character codes U+0000–U+00FF, with one code point per byte value. The validator compares the decoded list in its original order. C uses length-bearing byte strings.",
+    "output-checking": "Use the encoder output as the only argument to a fresh decoder and compare its result with the original list. The intermediate encoding must be a string."
+  },
+  "statement": "Implement encode(strs), which turns a list of strings into one string, and decode(encoded), which rebuilds the original list from that string alone. Empty lists, empty items, repeated items and all allowed characters must survive the round trip. The decoder receives an encoding produced by your encoder. The encoding format is your choice.",
+  "examples": [
+    {
+      "input": "{\"strs\":[\"7#\",\"\",\":x\"]}",
+      "output": "[\"7#\",\"\",\":x\"]",
+      "explanation": "Punctuation and the empty item survive with their positions intact."
+    },
+    {
+      "input": "{\"strs\":[]}",
+      "output": "[]",
+      "explanation": "The decoder must reconstruct a list containing zero items."
+    },
+    {
+      "input": "{\"strs\":[\"\",\"\"]}",
+      "output": "[\"\",\"\"]",
+      "explanation": "Two empty payloads still occupy two positions."
+    }
+  ],
+  "constraints": [
+    "0–99 items, each 0–199 characters. The public NeetCode reference describes a 256-character alphabet as ASCII. Ycoders fixtures interpret it as character codes U+0000–U+00FF, with one code point per byte value. The validator compares the decoded list in its original order. C uses length-bearing byte strings."
+  ],
+  "hints": [
+    "Conceptual: The decoder must distinguish an empty list from a list containing one empty string.",
+    "Directional: Store item lengths so a separator inside a payload cannot end the item early.",
+    "Implementation: Write a decimal length followed by a marker and exactly that many characters. Read the length first, then jump past the payload."
+  ],
+  "concepts": [
+    "strings",
+    "framing",
+    "reversible-encoding"
+  ],
+  "skills": [
+    "Strings",
+    "framing",
+    "reversible encoding"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(L + n)",
+    "space": "O(L + n)"
+  },
+  "complexityAnalysis": "O(L + n) time per operation for the length-prefixed representation, with L input characters across n items. A buffered encoder can use O(L + n) auxiliary space and the decoder O(1) excluding output.",
+  "publicTests": [
+    {
+      "name": "BLIND150-006-T01",
+      "arguments": [
+        [
+          "7#",
+          "",
+          ":x"
+        ]
+      ],
+      "input": {
+        "strs": [
+          "7#",
+          "",
+          ":x"
+        ]
+      },
+      "expected": [
+        "7#",
+        "",
+        ":x"
+      ],
+      "validator": "codec"
+    },
+    {
+      "name": "BLIND150-006-T02",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "strs": []
+      },
+      "expected": [],
+      "validator": "codec"
+    },
+    {
+      "name": "BLIND150-006-T03",
+      "arguments": [
+        [
+          "",
+          ""
+        ]
+      ],
+      "input": {
+        "strs": [
+          "",
+          ""
+        ]
+      },
+      "expected": [
+        "",
+        ""
+      ],
+      "validator": "codec"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def encode(strs: list[str]) -> str:\n    raise NotImplementedError\n\ndef decode(encoded: str) -> list[str]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String encode(String[] strs) {\n        throw new UnsupportedOperationException();\n    }\n\n    public String[] decode(String encoded) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} strs\n * @returns {string}\n */\nfunction encode(strs) {\n  throw new Error('Implement encode');\n}\n\n/**\n * @param {string} encoded\n * @returns {string[]}\n */\nfunction decode(encoded) {\n  throw new Error('Implement decode');\n}",
+    "typescript": "function encode(strs: string[]): string {\n  throw new Error('Implement encode');\n}\n\nfunction decode(encoded: string): string[] {\n  throw new Error('Implement decode');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString encode(StringArray strs) {\n    (void)strs;\n    abort();\n}\n\nStringArray decode(ByteString encoded) {\n    (void)encoded;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string encode(std::vector<std::string> strs) {\n    throw std::logic_error(\"Implement encode\");\n}\n\nstd::vector<std::string> decode(std::string encoded) {\n    throw std::logic_error(\"Implement decode\");\n}",
+    "csharp": "public class Solution {\n    public string encode(string[] strs) {\n        throw new System.NotImplementedException();\n    }\n\n    public string[] decode(string encoded) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $strs\n * @return string\n */\nfunction encode(array $strs): string {\n    throw new LogicException('Implement encode');\n}\n\n/**\n * @param string $encoded\n * @return string[]\n */\nfunction decode(string $encoded): array {\n    throw new LogicException('Implement decode');\n}",
+    "r": "# Parameters: strs (list of raw vectors). Result: raw vector.\nencode <- function(strs) {\n  stop(\"Implement encode\")\n}\n\n# Parameters: encoded (raw vector). Result: list of raw vectors.\ndecode <- function(encoded) {\n  stop(\"Implement decode\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-006-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-006-statement",
+      "type": "paragraph",
+      "content": "Implement encode(strs), which turns a list of strings into one string, and decode(encoded), which rebuilds the original list from that string alone. Empty lists, empty items, repeated items and all allowed characters must survive the round trip. The decoder receives an encoding produced by your encoder. The encoding format is your choice.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-006-contract",
+      "type": "note",
+      "title": "def encode(strs:",
+      "content": "Input: `strs` (string array)\n\nOutput: string array from decode. Encode returns a string.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-006-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–99 items, each 0–199 characters. The public NeetCode reference describes a 256-character alphabet as ASCII. Ycoders fixtures interpret it as character codes U+0000–U+00FF, with one code point per byte value. The validator compares the decoded list in its original order. C uses length-bearing byte strings.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-006-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def encode(strs: list[str]) -> str:\n    raise NotImplementedError\n\ndef decode(encoded: str) -> list[str]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String encode(String[] strs) {\n        throw new UnsupportedOperationException();\n    }\n\n    public String[] decode(String encoded) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} strs\n * @returns {string}\n */\nfunction encode(strs) {\n  throw new Error('Implement encode');\n}\n\n/**\n * @param {string} encoded\n * @returns {string[]}\n */\nfunction decode(encoded) {\n  throw new Error('Implement decode');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function encode(strs: string[]): string {\n  throw new Error('Implement encode');\n}\n\nfunction decode(encoded: string): string[] {\n  throw new Error('Implement decode');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString encode(StringArray strs) {\n    (void)strs;\n    abort();\n}\n\nStringArray decode(ByteString encoded) {\n    (void)encoded;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string encode(std::vector<std::string> strs) {\n    throw std::logic_error(\"Implement encode\");\n}\n\nstd::vector<std::string> decode(std::string encoded) {\n    throw std::logic_error(\"Implement decode\");\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string encode(string[] strs) {\n        throw new System.NotImplementedException();\n    }\n\n    public string[] decode(string encoded) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $strs\n * @return string\n */\nfunction encode(array $strs): string {\n    throw new LogicException('Implement encode');\n}\n\n/**\n * @param string $encoded\n * @return string[]\n */\nfunction decode(string $encoded): array {\n    throw new LogicException('Implement decode');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-006-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: strs (list of raw vectors). Result: raw vector.\nencode <- function(strs) {\n  stop(\"Implement encode\")\n}\n\n# Parameters: encoded (raw vector). Result: list of raw vectors.\ndecode <- function(encoded) {\n  stop(\"Implement decode\")\n}",
+      "stdin": "",
+      "expectedOutput": "[\"7#\",\"\",\":x\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

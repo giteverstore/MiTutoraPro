@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 48,
+  "matrix": {
+    "NC250-175": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5258,
+        "wallTimeMs": 5403,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 12884,
+        "wallTimeMs": 15036,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6391.0249,
+        "wallTimeMs": 8972,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4929,
+        "wallTimeMs": 7305,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-178": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5710,
+        "wallTimeMs": 5937,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 13453,
+        "wallTimeMs": 15614,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6433.724900000001,
+        "wallTimeMs": 8983,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4818,
+        "wallTimeMs": 7084,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-180": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 7443,
+        "wallTimeMs": 7646,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15239,
+        "wallTimeMs": 17491,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6548.34,
+        "wallTimeMs": 9141,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4885,
+        "wallTimeMs": 7213,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-181": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5792,
+        "wallTimeMs": 6029,
+        "outputBytes": 665,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 12760,
+        "wallTimeMs": 14802,
+        "outputBytes": 665,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6361.945,
+        "wallTimeMs": 8805,
+        "outputBytes": 665,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4766,
+        "wallTimeMs": 7189,
+        "outputBytes": 665,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

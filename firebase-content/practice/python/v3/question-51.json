@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-051",
+  "title": "Lowest Common Ancestor of a Binary Search Tree",
+  "summary": "Given a binary search tree and two distinct nodes in it, return their lowest common ancestor.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "lowestCommonAncestor",
+    "signature": "class TreeNode:",
+    "input": "`root` (level-order tree array), `p` (integer), `q` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`root` (level-order tree array), `p` (integer), `q` (integer)",
+    "result": "integer.",
+    "constraints": "2–100,000 nodes with distinct integer values in [−1,000,000,000, 1,000,000,000]. The input is a BST. Both target nodes are present and distinct.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Given a binary search tree and two distinct nodes in it, return their lowest common ancestor. A node counts as its own ancestor. The examples use node values to identify p and q, and show the returned node's value. The callable returns the actual ancestor node from the input tree.",
+  "examples": [
+    {
+      "input": "{\"root\":[10,4,15,2,7],\"p\":2,\"q\":7}",
+      "output": "4",
+      "explanation": "The two paths split at node 4."
+    },
+    {
+      "input": "{\"root\":[10,4,15,null,7],\"p\":4,\"q\":7}",
+      "output": "4",
+      "explanation": "Node 4 is an ancestor of 7 and itself."
+    },
+    {
+      "input": "{\"root\":[0,-4,8],\"p\":-4,\"q\":8}",
+      "output": "0",
+      "explanation": "The two nodes are on opposite sides of the root."
+    }
+  ],
+  "constraints": [
+    "2–100,000 nodes with distinct integer values in [−1,000,000,000, 1,000,000,000]. The input is a BST. Both target nodes are present and distinct."
+  ],
+  "hints": [
+    "Conceptual: The search-tree rule places all lower values on one side and all higher values on the other.",
+    "Directional: When both targets are smaller or both are larger than the current node, the ancestor is on that side.",
+    "Implementation: Walk down until the targets split across the current node or one target equals it. Return that node."
+  ],
+  "concepts": [
+    "binary-search-trees",
+    "ancestry",
+    "ordering"
+  ],
+  "skills": [
+    "Binary search trees",
+    "ancestry",
+    "ordering"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(h)",
+    "space": "O(h)"
+  },
+  "complexityAnalysis": "O(h) time and O(1) auxiliary space for tree height h.",
+  "publicTests": [
+    {
+      "name": "BLIND150-051-T01",
+      "arguments": [
+        [
+          10,
+          4,
+          15,
+          2,
+          7
+        ],
+        2,
+        7
+      ],
+      "input": {
+        "root": [
+          10,
+          4,
+          15,
+          2,
+          7
+        ],
+        "p": 2,
+        "q": 7
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-051-T02",
+      "arguments": [
+        [
+          10,
+          4,
+          15,
+          null,
+          7
+        ],
+        4,
+        7
+      ],
+      "input": {
+        "root": [
+          10,
+          4,
+          15,
+          null,
+          7
+        ],
+        "p": 4,
+        "q": 7
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-051-T03",
+      "arguments": [
+        [
+          0,
+          -4,
+          8
+        ],
+        -4,
+        8
+      ],
+      "input": {
+        "root": [
+          0,
+          -4,
+          8
+        ],
+        "p": -4,
+        "q": 8
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef lowestCommonAncestor(root: TreeNode | None, p: TreeNode | None, q: TreeNode | None) -> TreeNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {TreeNode | null} p\n * @param {TreeNode | null} q\n * @returns {TreeNode | null}\n */\nfunction lowestCommonAncestor(root, p, q) {\n  throw new Error('Implement lowestCommonAncestor');\n}",
+    "typescript": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {\n  throw new Error('Implement lowestCommonAncestor');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * p, TreeNode * q) {\n    (void)root;\n    (void)p;\n    (void)q;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * p, TreeNode * q) {\n    (void)root;\n    (void)p;\n    (void)q;\n    throw std::logic_error(\"Implement lowestCommonAncestor\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction lowestCommonAncestor(?TreeNode $root, ?TreeNode $p, ?TreeNode $q): ?TreeNode {\n    throw new LogicException('Implement lowestCommonAncestor');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), p (tree environment or NULL), q (tree environment or NULL). Result tree environment or NULL.\nlowestCommonAncestor <- function(root, p, q) {\n  stop(\"Implement lowestCommonAncestor\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-051-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-051-statement",
+      "type": "paragraph",
+      "content": "Given a binary search tree and two distinct nodes in it, return their lowest common ancestor. A node counts as its own ancestor. The examples use node values to identify p and q, and show the returned node's value. The callable returns the actual ancestor node from the input tree.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-051-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: `root` (level-order tree array), `p` (integer), `q` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-051-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–100,000 nodes with distinct integer values in [−1,000,000,000, 1,000,000,000]. The input is a BST. Both target nodes are present and distinct.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-051-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef lowestCommonAncestor(root: TreeNode | None, p: TreeNode | None, q: TreeNode | None) -> TreeNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {TreeNode | null} p\n * @param {TreeNode | null} q\n * @returns {TreeNode | null}\n */\nfunction lowestCommonAncestor(root, p, q) {\n  throw new Error('Implement lowestCommonAncestor');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {\n  throw new Error('Implement lowestCommonAncestor');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * p, TreeNode * q) {\n    (void)root;\n    (void)p;\n    (void)q;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nTreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * p, TreeNode * q) {\n    (void)root;\n    (void)p;\n    (void)q;\n    throw std::logic_error(\"Implement lowestCommonAncestor\");\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction lowestCommonAncestor(?TreeNode $root, ?TreeNode $p, ?TreeNode $q): ?TreeNode {\n    throw new LogicException('Implement lowestCommonAncestor');\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-051-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), p (tree environment or NULL), q (tree environment or NULL). Result tree environment or NULL.\nlowestCommonAncestor <- function(root, p, q) {\n  stop(\"Implement lowestCommonAncestor\")\n}",
+      "stdin": "",
+      "expectedOutput": "4",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

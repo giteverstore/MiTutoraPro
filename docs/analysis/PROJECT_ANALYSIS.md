@@ -50,7 +50,7 @@ The other material concerns are operational scale (Practice eagerly downloads al
 
 ### Practice and Challenges
 
-- Practice source selection is explicit: development may use the canonical local catalog; otherwise paged metadata is queried from Firestore and a Storage payload is loaded only when its detail is opened.
+- Practice currently uses the bundled learner-safe Q250 catalog until its prepared Firebase v3 payload is separately reviewed and activated. The generic paged Firebase source remains available.
 - Practice reuses BlockRenderer, Monaco, CompilerManager, runtime adapters, output validators, and completion components.
 - Daily Challenges reuse the same execution foundation with independent content/service state.
 
@@ -88,7 +88,7 @@ The other material concerns are operational scale (Practice eagerly downloads al
 
 - Course, Practice, interactive content, and certification exam publishers use Firebase Admin credentials.
 - Course content uses immutable versioned paths.
-- Practice publication writes metadata and 200 versioned Storage objects.
+- The prepared Q250 publication payload contains metadata and 250 versioned Storage objects; it has not been published by this ingestion task.
 - Numerous purpose-built validators cover content counts, schemas, protected content isolation, navigation, compiler integration, exam subsystems, and certification.
 
 ## Trust boundaries
@@ -145,7 +145,7 @@ Python validates as 1 module, 10 sections, 109 lessons, 20 quizzes, and 18 exerc
 
 ## Practice System
 
-The canonical bank has 200 unique Python Fundamentals questions across ten batches. The validator executes Python cases and confirms public/protected test separation; Firebase artifact parity passes. The local source override is development-only. Production renders metadata pages and loads bodies on demand, preserving prior pages when a later page or selected object fails.
+The canonical bank has 250 stable Q250 questions across 18 categories. It includes exactly three learner examples, three public fixtures, three progressive hints, and nine starter templates per question. The bundled source is active until the prepared Firebase v3 payload receives a separate Production publication review.
 
 ## Compiler Architecture
 
@@ -191,7 +191,7 @@ The measured production entry changed from 1,685.00 kB minified / 432.76 kB gzip
 
 Local readiness now includes optional early reCAPTCHA Enterprise App Check initialization with development-only debug-token isolation, a Node.js 22 Functions target, privacy-safe fail-open structured Function telemetry, and a non-mutating content-integrity inventory. Storage rules, legacy hash/metadata migration, Functions deployment, App Check registration/enforcement, dashboards, and alerts remain explicit production rollout steps requiring approval and verification.
 
-Content generators and publisher bundle loaders share deterministic limits derived from Java, Python, and the 200-question Practice corpus. The largest assembled course measured 626,376 bytes against an 8 MiB limit; the largest module measured 317,461 bytes against 2 MiB; the largest Practice question measured 4,248 bytes against 256 KiB. Runtime Storage downloads use type-specific Firebase Web SDK byte ceilings, while publication remains the authoritative rejection boundary.
+Content generators and publisher bundle loaders share deterministic limits derived from Java and Python course content. Historical remediation measurements used the now-removed 200-question Practice corpus: its largest question measured 4,248 bytes against 256 KiB. The largest assembled course measured 626,376 bytes against an 8 MiB limit and the largest module measured 317,461 bytes against 2 MiB. Runtime Storage downloads use type-specific Firebase Web SDK byte ceilings, while publication remains the authoritative rejection boundary.
 
 Dialog semantics and focus lifecycle belong to one portal-backed primitive used by Settings, compiler replacement, certificates, and exam warnings. SettingsService is the sole persisted application-theme owner; one system-preference observer resolves appearance for every surface. Validator commands now distinguish validation and behavior-test entrypoints, and compatibility aliases prevent workflow breakage.
 
@@ -295,9 +295,9 @@ Practice catalog loading is now metadata-first and cursor-paginated. Firestore r
 
 Generated learner artifacts are SHA-256 bound to trusted metadata. Practice questions, course manifests, and course modules are verified before parsing/caching. Publishers upload immutable version objects, download and verify exact hashes, stage a READY record, and only then activate metadata and the version pointer. This is an activation protocol rather than cross-service ACID: failed uploads may leave inactive orphans, but an incomplete version cannot become active.
 
-Practice source selection is explicit. Production is Firebase-only; development `local` and `firebase` selections are authoritative; implicit fallback is opt-in and defaults off.
+Practice currently selects the bundled Q250 source in every environment to prevent legacy remote records from reappearing before Q250 publication. The generic Firebase source remains intact for the later activation task.
 
-## Current Practice production diagnostic checkpoint
+## Historical Practice production diagnostic checkpoint
 
 Practice production content was independently verified healthy: 200 published metadata records, contiguous positions, an ACTIVE v1 pointer, and 200 ACTIVE hash-correct Storage objects. The exact browser SDK query succeeds outside the affected page, but one production browser still reaches the catalog error; `TYPE=terminate` blocking and Brave Shields are not proven causes. Stage-aware diagnostics now distinguish publication reads, metadata queries, metadata normalization, and Storage downloads without logging raw messages, URLs, identities, session data, response bodies, or content. The browser failure remains open until a failing run supplies the sanitized stage/code.
 

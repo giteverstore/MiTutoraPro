@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-021",
+  "title": "Valid Parentheses",
+  "summary": "Read a string of round, square and curly brackets.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "isValid",
+    "signature": "def isValid(s:",
+    "input": "`s` (string)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`s` (string)",
+    "result": "boolean.",
+    "constraints": "The string has 1–10,000 characters. Each character is one of `(`, `)`, `[`, `]`, `{`, `}`.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Read a string of round, square and curly brackets. Return whether every opener is closed by the matching bracket type and whether pairs nest correctly. A closing bracket must match the most recent opener that is still waiting.",
+  "examples": [
+    {
+      "input": "{\"s\":\"[{()}]{}\"}",
+      "output": "true",
+      "explanation": "The inner parentheses close first, then the braces and square brackets. The last pair is independent."
+    },
+    {
+      "input": "{\"s\":\"{[(}])\"}",
+      "output": "false",
+      "explanation": "The first closing brace appears while an opening parenthesis is still waiting."
+    },
+    {
+      "input": "{\"s\":\"([]){\"}",
+      "output": "false",
+      "explanation": "The final opening brace has no partner."
+    }
+  ],
+  "constraints": [
+    "The string has 1–10,000 characters. Each character is one of `(`, `)`, `[`, `]`, `{`, `}`."
+  ],
+  "hints": [
+    "Conceptual: When a bracket closes, the matching opener must be the innermost one still open.",
+    "Directional: Use a stack to remember the opening brackets whose partners have not appeared.",
+    "Implementation: Push each opener. On a closer, fail if the stack is empty or its top has a different type. Require an empty stack after the scan."
+  ],
+  "concepts": [
+    "strings",
+    "stacks",
+    "bracket-matching"
+  ],
+  "skills": [
+    "Strings",
+    "stacks",
+    "bracket matching"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space for n characters. Each opener enters the stack once, and deep nesting can fill it.",
+  "publicTests": [
+    {
+      "name": "BLIND150-021-T01",
+      "arguments": [
+        "[{()}]{}"
+      ],
+      "input": {
+        "s": "[{()}]{}"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-021-T02",
+      "arguments": [
+        "{[(}])"
+      ],
+      "input": {
+        "s": "{[(}])"
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-021-T03",
+      "arguments": [
+        "([]){"
+      ],
+      "input": {
+        "s": "([]){"
+      },
+      "expected": false,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def isValid(s: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean isValid(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @returns {boolean}\n */\nfunction isValid(s) {\n  throw new Error('Implement isValid');\n}",
+    "typescript": "function isValid(s: string): boolean {\n  throw new Error('Implement isValid');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool isValid(ByteString s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isValid(std::string s) {\n    throw std::logic_error(\"Implement isValid\");\n}",
+    "csharp": "public class Solution {\n    public bool isValid(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @return bool\n */\nfunction isValid(string $s): bool {\n    throw new LogicException('Implement isValid');\n}",
+    "r": "# Parameters: s (character scalar). Result: logical scalar.\nisValid <- function(s) {\n  stop(\"Implement isValid\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-021-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-021-statement",
+      "type": "paragraph",
+      "content": "Read a string of round, square and curly brackets. Return whether every opener is closed by the matching bracket type and whether pairs nest correctly. A closing bracket must match the most recent opener that is still waiting.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-021-contract",
+      "type": "note",
+      "title": "def isValid(s:",
+      "content": "Input: `s` (string)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-021-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The string has 1–10,000 characters. Each character is one of `(`, `)`, `[`, `]`, `{`, `}`.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-021-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def isValid(s: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean isValid(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @returns {boolean}\n */\nfunction isValid(s) {\n  throw new Error('Implement isValid');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function isValid(s: string): boolean {\n  throw new Error('Implement isValid');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool isValid(ByteString s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool isValid(std::string s) {\n    throw std::logic_error(\"Implement isValid\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool isValid(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @return bool\n */\nfunction isValid(string $s): bool {\n    throw new LogicException('Implement isValid');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-021-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar). Result: logical scalar.\nisValid <- function(s) {\n  stop(\"Implement isValid\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

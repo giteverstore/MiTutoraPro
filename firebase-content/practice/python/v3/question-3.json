@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-003",
+  "title": "Two Sum",
+  "summary": "Find two entries whose values add up to the target.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "twoSum",
+    "signature": "def twoSum(nums:",
+    "input": "`nums` (integer array), `target` (integer)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array), `target` (integer)",
+    "result": "integer array.",
+    "constraints": "2–10,000 integers. Every entry and the target lie between −1,000,000,000 and 1,000,000,000. Exactly one pair of distinct positions satisfies the sum, ignoring order.",
+    "output-checking": "Accept any order for two distinct, in-range integer indices whose values sum to the target."
+  },
+  "statement": "Find two entries whose values add up to the target. Return their zero-based indices in either order. The entries must come from different positions, even if their values match.",
+  "examples": [
+    {
+      "input": "{\"nums\":[13,4,-3,9],\"target\":6}",
+      "output": "[2,3]",
+      "explanation": "The entries −3 and 9 add to 6."
+    },
+    {
+      "input": "{\"nums\":[5,10,5],\"target\":10}",
+      "output": "[0,2]",
+      "explanation": "The two fives come from different positions."
+    },
+    {
+      "input": "{\"nums\":[-8,-2,6],\"target\":-10}",
+      "output": "[0,1]",
+      "explanation": "The two negative entries add to −10."
+    }
+  ],
+  "constraints": [
+    "2–10,000 integers. Every entry and the target lie between −1,000,000,000 and 1,000,000,000. Exactly one pair of distinct positions satisfies the sum, ignoring order."
+  ],
+  "hints": [
+    "Conceptual: With one value fixed, the other value is determined.",
+    "Directional: Use a map from values to previously visited positions.",
+    "Implementation: At index i, look up target minus the current value before recording the current position."
+  ],
+  "concepts": [
+    "arrays",
+    "hash-maps",
+    "complement-lookup"
+  ],
+  "skills": [
+    "Arrays",
+    "hash maps",
+    "complement lookup"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) expected time and O(n) auxiliary space. A map replaces the inner search with a lookup.",
+  "publicTests": [
+    {
+      "name": "BLIND150-003-T01",
+      "arguments": [
+        [
+          13,
+          4,
+          -3,
+          9
+        ],
+        6
+      ],
+      "input": {
+        "nums": [
+          13,
+          4,
+          -3,
+          9
+        ],
+        "target": 6
+      },
+      "expected": [
+        2,
+        3
+      ],
+      "validator": "two_sum"
+    },
+    {
+      "name": "BLIND150-003-T02",
+      "arguments": [
+        [
+          5,
+          10,
+          5
+        ],
+        10
+      ],
+      "input": {
+        "nums": [
+          5,
+          10,
+          5
+        ],
+        "target": 10
+      },
+      "expected": [
+        0,
+        2
+      ],
+      "validator": "two_sum"
+    },
+    {
+      "name": "BLIND150-003-T03",
+      "arguments": [
+        [
+          -8,
+          -2,
+          6
+        ],
+        -10
+      ],
+      "input": {
+        "nums": [
+          -8,
+          -2,
+          6
+        ],
+        "target": -10
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "validator": "two_sum"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def twoSum(nums: list[int], target: int) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number[]}\n */\nfunction twoSum(nums, target) {\n  throw new Error('Implement twoSum');\n}",
+    "typescript": "function twoSum(nums: number[], target: number): number[] {\n  throw new Error('Implement twoSum');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray twoSum(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> twoSum(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement twoSum\");\n}",
+    "csharp": "public class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int[]\n */\nfunction twoSum(array $nums, int $target): array {\n    throw new LogicException('Implement twoSum');\n}",
+    "r": "# Parameters: nums (integer vector), target (integer scalar). Result: integer vector.\ntwoSum <- function(nums, target) {\n  stop(\"Implement twoSum\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-003-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-003-statement",
+      "type": "paragraph",
+      "content": "Find two entries whose values add up to the target. Return their zero-based indices in either order. The entries must come from different positions, even if their values match.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-003-contract",
+      "type": "note",
+      "title": "def twoSum(nums:",
+      "content": "Input: `nums` (integer array), `target` (integer)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-003-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–10,000 integers. Every entry and the target lie between −1,000,000,000 and 1,000,000,000. Exactly one pair of distinct positions satisfies the sum, ignoring order.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-003-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def twoSum(nums: list[int], target: int) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number[]}\n */\nfunction twoSum(nums, target) {\n  throw new Error('Implement twoSum');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function twoSum(nums: number[], target: number): number[] {\n  throw new Error('Implement twoSum');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray twoSum(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> twoSum(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement twoSum\");\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int[]\n */\nfunction twoSum(array $nums, int $target): array {\n    throw new LogicException('Implement twoSum');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-003-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), target (integer scalar). Result: integer vector.\ntwoSum <- function(nums, target) {\n  stop(\"Implement twoSum\")\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

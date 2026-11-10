@@ -1,0 +1,2774 @@
+{
+  "schemaVersion": "practice-mode-b-large-batch-rollout-v1",
+  "previousActive": 33,
+  "newlyActivated": [
+    "BLIND150-002",
+    "BLIND150-010",
+    "BLIND150-016",
+    "BLIND150-017",
+    "BLIND150-018",
+    "BLIND150-019",
+    "BLIND150-021",
+    "BLIND150-064",
+    "BLIND150-104",
+    "BLIND150-112",
+    "BLIND150-113",
+    "BLIND150-114",
+    "BLIND150-115",
+    "BLIND150-116",
+    "BLIND150-118",
+    "BLIND150-119",
+    "BLIND150-120",
+    "BLIND150-121",
+    "BLIND150-126",
+    "BLIND150-128",
+    "BLIND150-129",
+    "BLIND150-144",
+    "BLIND150-145",
+    "BLIND150-146",
+    "BLIND150-147",
+    "BLIND150-148",
+    "BLIND150-149"
+  ],
+  "newlyActivatedCount": 27,
+  "totalActive": 60,
+  "remainingInactive": 190,
+  "fixtureExecutions": 729,
+  "serializerExtension": "Generic scalar string arguments and JSON-compatible scalar string returns; no comparator or execution-family change.",
+  "selected": [
+    {
+      "id": "BLIND150-002",
+      "title": "Valid Anagram",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15846,
+          "executionTimeMs": 218,
+          "outputBytes": 675
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 25009,
+          "executionTimeMs": 24587,
+          "outputBytes": 675
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 174,
+          "executionTimeMs": 18,
+          "outputBytes": 675
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 694,
+          "executionTimeMs": 23,
+          "outputBytes": 675
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34763,
+          "executionTimeMs": 30668,
+          "outputBytes": 675
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 55160,
+          "executionTimeMs": 51569,
+          "outputBytes": 675
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 51085,
+          "executionTimeMs": 44391.134999999995,
+          "outputBytes": 675
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2279,
+          "executionTimeMs": 2092,
+          "outputBytes": 675
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12264,
+          "executionTimeMs": 654,
+          "outputBytes": 675
+        }
+      }
+    },
+    {
+      "id": "BLIND150-010",
+      "title": "Valid Palindrome",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13710,
+          "executionTimeMs": 157,
+          "outputBytes": 622
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17527,
+          "executionTimeMs": 17260,
+          "outputBytes": 622
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 128,
+          "executionTimeMs": 15,
+          "outputBytes": 622
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 529,
+          "executionTimeMs": 17,
+          "outputBytes": 622
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30445,
+          "executionTimeMs": 27013,
+          "outputBytes": 622
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56050,
+          "executionTimeMs": 53394,
+          "outputBytes": 622
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 55454,
+          "executionTimeMs": 50167.1599,
+          "outputBytes": 622
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2494,
+          "executionTimeMs": 2174,
+          "outputBytes": 622
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7218,
+          "executionTimeMs": 472,
+          "outputBytes": 622
+        }
+      }
+    },
+    {
+      "id": "BLIND150-016",
+      "title": "Longest Substring Without Repeating Characters",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11793,
+          "executionTimeMs": 159,
+          "outputBytes": 578
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 19098,
+          "executionTimeMs": 18662,
+          "outputBytes": 578
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 93,
+          "executionTimeMs": 12,
+          "outputBytes": 578
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 307,
+          "executionTimeMs": 14,
+          "outputBytes": 578
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31062,
+          "executionTimeMs": 27712,
+          "outputBytes": 578
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 54343,
+          "executionTimeMs": 50680,
+          "outputBytes": 578
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 53195,
+          "executionTimeMs": 47320.845,
+          "outputBytes": 578
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1582,
+          "executionTimeMs": 1384,
+          "outputBytes": 578
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7618,
+          "executionTimeMs": 642,
+          "outputBytes": 578
+        }
+      }
+    },
+    {
+      "id": "BLIND150-017",
+      "title": "Longest Repeating Character Replacement",
+      "inputShapes": [
+        "string",
+        "number"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14794,
+          "executionTimeMs": 176,
+          "outputBytes": 620
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17346,
+          "executionTimeMs": 16968,
+          "outputBytes": 620
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 113,
+          "executionTimeMs": 12,
+          "outputBytes": 620
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 418,
+          "executionTimeMs": 17,
+          "outputBytes": 620
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31343,
+          "executionTimeMs": 28132,
+          "outputBytes": 620
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56901,
+          "executionTimeMs": 53811,
+          "outputBytes": 620
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 54940,
+          "executionTimeMs": 49605.4699,
+          "outputBytes": 620
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1711,
+          "executionTimeMs": 1541,
+          "outputBytes": 620
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6748,
+          "executionTimeMs": 460,
+          "outputBytes": 620
+        }
+      }
+    },
+    {
+      "id": "BLIND150-018",
+      "title": "Permutation in String",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15826,
+          "executionTimeMs": 281,
+          "outputBytes": 672
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18530,
+          "executionTimeMs": 18169,
+          "outputBytes": 672
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 128,
+          "executionTimeMs": 17,
+          "outputBytes": 672
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 364,
+          "executionTimeMs": 15,
+          "outputBytes": 672
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31557,
+          "executionTimeMs": 28156,
+          "outputBytes": 672
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 52479,
+          "executionTimeMs": 49783,
+          "outputBytes": 672
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 50502,
+          "executionTimeMs": 44545.86,
+          "outputBytes": 672
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1356,
+          "executionTimeMs": 1238,
+          "outputBytes": 672
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8457,
+          "executionTimeMs": 730,
+          "outputBytes": 672
+        }
+      }
+    },
+    {
+      "id": "BLIND150-019",
+      "title": "Minimum Window Substring",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13163,
+          "executionTimeMs": 174,
+          "outputBytes": 665
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 21705,
+          "executionTimeMs": 21262,
+          "outputBytes": 665
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 196,
+          "executionTimeMs": 23,
+          "outputBytes": 665
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 410,
+          "executionTimeMs": 19,
+          "outputBytes": 665
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34156,
+          "executionTimeMs": 30666,
+          "outputBytes": 665
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 53625,
+          "executionTimeMs": 49873,
+          "outputBytes": 665
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 50200,
+          "executionTimeMs": 45706.64,
+          "outputBytes": 665
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1734,
+          "executionTimeMs": 1580,
+          "outputBytes": 665
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6896,
+          "executionTimeMs": 500,
+          "outputBytes": 665
+        }
+      }
+    },
+    {
+      "id": "BLIND150-021",
+      "title": "Valid Parentheses",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14852,
+          "executionTimeMs": 212,
+          "outputBytes": 633
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 19899,
+          "executionTimeMs": 19617,
+          "outputBytes": 633
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 161,
+          "executionTimeMs": 17,
+          "outputBytes": 633
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 388,
+          "executionTimeMs": 17,
+          "outputBytes": 633
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29536,
+          "executionTimeMs": 26386,
+          "outputBytes": 633
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 57541,
+          "executionTimeMs": 54804,
+          "outputBytes": 633
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 52552,
+          "executionTimeMs": 45699.515,
+          "outputBytes": 633
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1466,
+          "executionTimeMs": 1317,
+          "outputBytes": 633
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7024,
+          "executionTimeMs": 550,
+          "outputBytes": 633
+        }
+      }
+    },
+    {
+      "id": "BLIND150-064",
+      "title": "Task Scheduler",
+      "inputShapes": [
+        "string",
+        "number"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16633,
+          "executionTimeMs": 173,
+          "outputBytes": 628
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17985,
+          "executionTimeMs": 17563,
+          "outputBytes": 628
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 98,
+          "executionTimeMs": 15,
+          "outputBytes": 628
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 313,
+          "executionTimeMs": 16,
+          "outputBytes": 628
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30136,
+          "executionTimeMs": 26305,
+          "outputBytes": 628
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31343,
+          "executionTimeMs": 28918,
+          "outputBytes": 628
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 52856,
+          "executionTimeMs": 47198.9349,
+          "outputBytes": 628
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1823,
+          "executionTimeMs": 1634,
+          "outputBytes": 628
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7279,
+          "executionTimeMs": 442,
+          "outputBytes": 628
+        }
+      }
+    },
+    {
+      "id": "BLIND150-104",
+      "title": "Palindromic Substrings",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14762,
+          "executionTimeMs": 239,
+          "outputBytes": 582
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18109,
+          "executionTimeMs": 17837,
+          "outputBytes": 582
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 96,
+          "executionTimeMs": 14,
+          "outputBytes": 582
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 275,
+          "executionTimeMs": 15,
+          "outputBytes": 582
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18445,
+          "executionTimeMs": 16157,
+          "outputBytes": 582
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29425,
+          "executionTimeMs": 27140,
+          "outputBytes": 582
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 53214,
+          "executionTimeMs": 48060.854999999996,
+          "outputBytes": 582
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1579,
+          "executionTimeMs": 1461,
+          "outputBytes": 582
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8451,
+          "executionTimeMs": 651,
+          "outputBytes": 582
+        }
+      }
+    },
+    {
+      "id": "BLIND150-112",
+      "title": "Longest Common Subsequence",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13603,
+          "executionTimeMs": 165,
+          "outputBytes": 658
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10083,
+          "executionTimeMs": 9865,
+          "outputBytes": 658
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 120,
+          "executionTimeMs": 17,
+          "outputBytes": 658
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 294,
+          "executionTimeMs": 16,
+          "outputBytes": 658
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18502,
+          "executionTimeMs": 16284,
+          "outputBytes": 658
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29929,
+          "executionTimeMs": 27741,
+          "outputBytes": 658
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29866,
+          "executionTimeMs": 26300.954999999998,
+          "outputBytes": 658
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1298,
+          "executionTimeMs": 1179,
+          "outputBytes": 658
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7539,
+          "executionTimeMs": 647,
+          "outputBytes": 658
+        }
+      }
+    },
+    {
+      "id": "BLIND150-113",
+      "title": "Best Time to Buy and Sell Stock with Cooldown",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12629,
+          "executionTimeMs": 176,
+          "outputBytes": 619
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10754,
+          "executionTimeMs": 10554,
+          "outputBytes": 619
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 93,
+          "executionTimeMs": 13,
+          "outputBytes": 619
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 429,
+          "executionTimeMs": 18,
+          "outputBytes": 619
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22754,
+          "executionTimeMs": 19879,
+          "outputBytes": 619
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29658,
+          "executionTimeMs": 27522,
+          "outputBytes": 619
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 28813,
+          "executionTimeMs": 26042.055,
+          "outputBytes": 619
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1748,
+          "executionTimeMs": 1554,
+          "outputBytes": 619
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7593,
+          "executionTimeMs": 593,
+          "outputBytes": 619
+        }
+      }
+    },
+    {
+      "id": "BLIND150-114",
+      "title": "Coin Change II",
+      "inputShapes": [
+        "number",
+        "array"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15569,
+          "executionTimeMs": 178,
+          "outputBytes": 631
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11553,
+          "executionTimeMs": 11218,
+          "outputBytes": 631
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 108,
+          "executionTimeMs": 14,
+          "outputBytes": 631
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 447,
+          "executionTimeMs": 20,
+          "outputBytes": 631
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17583,
+          "executionTimeMs": 15527,
+          "outputBytes": 631
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31940,
+          "executionTimeMs": 29757,
+          "outputBytes": 631
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29334,
+          "executionTimeMs": 26730.97,
+          "outputBytes": 631
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 2055,
+          "executionTimeMs": 1903,
+          "outputBytes": 631
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7872,
+          "executionTimeMs": 568,
+          "outputBytes": 631
+        }
+      }
+    },
+    {
+      "id": "BLIND150-115",
+      "title": "Target Sum",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13025,
+          "executionTimeMs": 201,
+          "outputBytes": 630
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10000,
+          "executionTimeMs": 9685,
+          "outputBytes": 630
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 119,
+          "executionTimeMs": 16,
+          "outputBytes": 630
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 323,
+          "executionTimeMs": 13,
+          "outputBytes": 630
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17886,
+          "executionTimeMs": 15719,
+          "outputBytes": 630
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29263,
+          "executionTimeMs": 26875,
+          "outputBytes": 630
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34074,
+          "executionTimeMs": 29858.345,
+          "outputBytes": 630
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1466,
+          "executionTimeMs": 1335,
+          "outputBytes": 630
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8310,
+          "executionTimeMs": 705,
+          "outputBytes": 630
+        }
+      }
+    },
+    {
+      "id": "BLIND150-116",
+      "title": "Interleaving String",
+      "inputShapes": [
+        "string",
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14217,
+          "executionTimeMs": 169,
+          "outputBytes": 705
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9419,
+          "executionTimeMs": 9091,
+          "outputBytes": 705
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 126,
+          "executionTimeMs": 14,
+          "outputBytes": 705
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 359,
+          "executionTimeMs": 18,
+          "outputBytes": 705
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18935,
+          "executionTimeMs": 16690,
+          "outputBytes": 705
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29249,
+          "executionTimeMs": 27171,
+          "outputBytes": 705
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31116,
+          "executionTimeMs": 27826.69,
+          "outputBytes": 705
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1978,
+          "executionTimeMs": 1784,
+          "outputBytes": 705
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6818,
+          "executionTimeMs": 493,
+          "outputBytes": 705
+        }
+      }
+    },
+    {
+      "id": "BLIND150-118",
+      "title": "Distinct Subsequences",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13942,
+          "executionTimeMs": 253,
+          "outputBytes": 630
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8807,
+          "executionTimeMs": 8636,
+          "outputBytes": 630
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 114,
+          "executionTimeMs": 11,
+          "outputBytes": 630
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 284,
+          "executionTimeMs": 13,
+          "outputBytes": 630
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18082,
+          "executionTimeMs": 15798,
+          "outputBytes": 630
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29107,
+          "executionTimeMs": 27082,
+          "outputBytes": 630
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 33149,
+          "executionTimeMs": 29980.765,
+          "outputBytes": 630
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1174,
+          "executionTimeMs": 1058,
+          "outputBytes": 630
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6614,
+          "executionTimeMs": 600,
+          "outputBytes": 630
+        }
+      }
+    },
+    {
+      "id": "BLIND150-119",
+      "title": "Edit Distance",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15947,
+          "executionTimeMs": 245,
+          "outputBytes": 654
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7549,
+          "executionTimeMs": 7342,
+          "outputBytes": 654
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 172,
+          "executionTimeMs": 19,
+          "outputBytes": 654
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 516,
+          "executionTimeMs": 20,
+          "outputBytes": 654
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18367,
+          "executionTimeMs": 15870,
+          "outputBytes": 654
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29781,
+          "executionTimeMs": 27780,
+          "outputBytes": 654
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30152,
+          "executionTimeMs": 26652.139799999997,
+          "outputBytes": 654
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1997,
+          "executionTimeMs": 1784,
+          "outputBytes": 654
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7813,
+          "executionTimeMs": 712,
+          "outputBytes": 654
+        }
+      }
+    },
+    {
+      "id": "BLIND150-120",
+      "title": "Burst Balloons",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13625,
+          "executionTimeMs": 195,
+          "outputBytes": 588
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10042,
+          "executionTimeMs": 9806,
+          "outputBytes": 588
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 203,
+          "executionTimeMs": 26,
+          "outputBytes": 588
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 491,
+          "executionTimeMs": 16,
+          "outputBytes": 588
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17950,
+          "executionTimeMs": 15829,
+          "outputBytes": 588
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29898,
+          "executionTimeMs": 27862,
+          "outputBytes": 588
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 27630,
+          "executionTimeMs": 24210.549899999998,
+          "outputBytes": 588
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1406,
+          "executionTimeMs": 1268,
+          "outputBytes": 588
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6116,
+          "executionTimeMs": 451,
+          "outputBytes": 588
+        }
+      }
+    },
+    {
+      "id": "BLIND150-121",
+      "title": "Regular Expression Matching",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14287,
+          "executionTimeMs": 186,
+          "outputBytes": 656
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9293,
+          "executionTimeMs": 9109,
+          "outputBytes": 656
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 90,
+          "executionTimeMs": 13,
+          "outputBytes": 656
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 308,
+          "executionTimeMs": 14,
+          "outputBytes": 656
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17931,
+          "executionTimeMs": 15629,
+          "outputBytes": 656
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30930,
+          "executionTimeMs": 28537,
+          "outputBytes": 656
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29966,
+          "executionTimeMs": 27474.34,
+          "outputBytes": 656
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1602,
+          "executionTimeMs": 1475,
+          "outputBytes": 656
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6552,
+          "executionTimeMs": 446,
+          "outputBytes": 656
+        }
+      }
+    },
+    {
+      "id": "BLIND150-126",
+      "title": "Hand of Straights",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 16326,
+          "executionTimeMs": 237,
+          "outputBytes": 687
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7350,
+          "executionTimeMs": 7198,
+          "outputBytes": 687
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 101,
+          "executionTimeMs": 13,
+          "outputBytes": 687
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 283,
+          "executionTimeMs": 15,
+          "outputBytes": 687
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18237,
+          "executionTimeMs": 16080,
+          "outputBytes": 687
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29993,
+          "executionTimeMs": 27775,
+          "outputBytes": 687
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 31454,
+          "executionTimeMs": 28298.8599,
+          "outputBytes": 687
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1407,
+          "executionTimeMs": 1248,
+          "outputBytes": 687
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7751,
+          "executionTimeMs": 557,
+          "outputBytes": 687
+        }
+      }
+    },
+    {
+      "id": "BLIND150-128",
+      "title": "Partition Labels",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "array",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14006,
+          "executionTimeMs": 208,
+          "outputBytes": 628
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10023,
+          "executionTimeMs": 9856,
+          "outputBytes": 628
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 90,
+          "executionTimeMs": 12,
+          "outputBytes": 628
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 276,
+          "executionTimeMs": 15,
+          "outputBytes": 628
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 18618,
+          "executionTimeMs": 16392,
+          "outputBytes": 628
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30547,
+          "executionTimeMs": 28269,
+          "outputBytes": 628
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30132,
+          "executionTimeMs": 27135.4899,
+          "outputBytes": 628
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1886,
+          "executionTimeMs": 1655,
+          "outputBytes": 628
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7767,
+          "executionTimeMs": 548,
+          "outputBytes": 628
+        }
+      }
+    },
+    {
+      "id": "BLIND150-129",
+      "title": "Valid Parenthesis String",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12262,
+          "executionTimeMs": 154,
+          "outputBytes": 606
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9773,
+          "executionTimeMs": 9588,
+          "outputBytes": 606
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 111,
+          "executionTimeMs": 13,
+          "outputBytes": 606
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 283,
+          "executionTimeMs": 13,
+          "outputBytes": 606
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 22428,
+          "executionTimeMs": 19264,
+          "outputBytes": 606
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29683,
+          "executionTimeMs": 27552,
+          "outputBytes": 606
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30764,
+          "executionTimeMs": 27489.6699,
+          "outputBytes": 606
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1221,
+          "executionTimeMs": 1074,
+          "outputBytes": 606
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7347,
+          "executionTimeMs": 664,
+          "outputBytes": 606
+        }
+      }
+    },
+    {
+      "id": "BLIND150-144",
+      "title": "Single Number",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 13649,
+          "executionTimeMs": 191,
+          "outputBytes": 598
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10335,
+          "executionTimeMs": 10135,
+          "outputBytes": 598
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 189,
+          "executionTimeMs": 30,
+          "outputBytes": 598
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 443,
+          "executionTimeMs": 19,
+          "outputBytes": 598
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17897,
+          "executionTimeMs": 15777,
+          "outputBytes": 598
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29443,
+          "executionTimeMs": 27447,
+          "outputBytes": 598
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30768,
+          "executionTimeMs": 26872.1449,
+          "outputBytes": 598
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1778,
+          "executionTimeMs": 1575,
+          "outputBytes": 598
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7264,
+          "executionTimeMs": 479,
+          "outputBytes": 598
+        }
+      }
+    },
+    {
+      "id": "BLIND150-145",
+      "title": "Number of 1 Bits",
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15163,
+          "executionTimeMs": 205,
+          "outputBytes": 560
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 11394,
+          "executionTimeMs": 11149,
+          "outputBytes": 560
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 134,
+          "executionTimeMs": 17,
+          "outputBytes": 560
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 418,
+          "executionTimeMs": 16,
+          "outputBytes": 560
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17804,
+          "executionTimeMs": 15502,
+          "outputBytes": 560
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 24367,
+          "executionTimeMs": 22223,
+          "outputBytes": 560
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 28536,
+          "executionTimeMs": 24157.850000000002,
+          "outputBytes": 560
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1943,
+          "executionTimeMs": 1800,
+          "outputBytes": 560
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7688,
+          "executionTimeMs": 556,
+          "outputBytes": 560
+        }
+      }
+    },
+    {
+      "id": "BLIND150-146",
+      "title": "Counting Bits",
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "array",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 12070,
+          "executionTimeMs": 148,
+          "outputBytes": 622
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 10441,
+          "executionTimeMs": 10218,
+          "outputBytes": 622
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 91,
+          "executionTimeMs": 12,
+          "outputBytes": 622
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 276,
+          "executionTimeMs": 14,
+          "outputBytes": 622
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 17181,
+          "executionTimeMs": 15211,
+          "outputBytes": 622
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 46977,
+          "executionTimeMs": 44075,
+          "outputBytes": 622
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30814,
+          "executionTimeMs": 27698.550000000003,
+          "outputBytes": 622
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1243,
+          "executionTimeMs": 1097,
+          "outputBytes": 622
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 8807,
+          "executionTimeMs": 655,
+          "outputBytes": 622
+        }
+      }
+    },
+    {
+      "id": "BLIND150-147",
+      "title": "Reverse Bits",
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14524,
+          "executionTimeMs": 194,
+          "outputBytes": 610
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9359,
+          "executionTimeMs": 9077,
+          "outputBytes": 610
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 125,
+          "executionTimeMs": 18,
+          "outputBytes": 610
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 386,
+          "executionTimeMs": 21,
+          "outputBytes": 610
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 27600,
+          "executionTimeMs": 24787,
+          "outputBytes": 610
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 44172,
+          "executionTimeMs": 41412,
+          "outputBytes": 610
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 34187,
+          "executionTimeMs": 30053.7099,
+          "outputBytes": 610
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1860,
+          "executionTimeMs": 1681,
+          "outputBytes": 610
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6708,
+          "executionTimeMs": 483,
+          "outputBytes": 610
+        }
+      }
+    },
+    {
+      "id": "BLIND150-148",
+      "title": "Missing Number",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 14446,
+          "executionTimeMs": 190,
+          "outputBytes": 585
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9696,
+          "executionTimeMs": 9451,
+          "outputBytes": 585
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 99,
+          "executionTimeMs": 14,
+          "outputBytes": 585
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 328,
+          "executionTimeMs": 15,
+          "outputBytes": 585
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 27134,
+          "executionTimeMs": 24255,
+          "outputBytes": 585
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 46049,
+          "executionTimeMs": 43664,
+          "outputBytes": 585
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30442,
+          "executionTimeMs": 27674.124900000003,
+          "outputBytes": 585
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1198,
+          "executionTimeMs": 1059,
+          "outputBytes": 585
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 6436,
+          "executionTimeMs": 580,
+          "outputBytes": 585
+        }
+      }
+    },
+    {
+      "id": "BLIND150-149",
+      "title": "Sum of Two Integers",
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "adapterFamily": "plain-return",
+      "comparator": "exact",
+      "activationDecision": "activate",
+      "acceptance": {
+        "python": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 15312,
+          "executionTimeMs": 366,
+          "outputBytes": 592
+        },
+        "java": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 9726,
+          "executionTimeMs": 9573,
+          "outputBytes": 592
+        },
+        "javascript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 134,
+          "executionTimeMs": 16,
+          "outputBytes": 592
+        },
+        "typescript": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 315,
+          "executionTimeMs": 16,
+          "outputBytes": 592
+        },
+        "c": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 29891,
+          "executionTimeMs": 26813,
+          "outputBytes": 592
+        },
+        "cpp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 56051,
+          "executionTimeMs": 52593,
+          "outputBytes": 592
+        },
+        "csharp": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 30628,
+          "executionTimeMs": 27468.28,
+          "outputBytes": 592
+        },
+        "php": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 1972,
+          "executionTimeMs": 1734,
+          "outputBytes": 592
+        },
+        "r": {
+          "status": "PASS",
+          "fixtures": "3/3",
+          "wallTimeMs": 7589,
+          "executionTimeMs": 566,
+          "outputBytes": 592
+        }
+      }
+    }
+  ],
+  "deferred": [
+    {
+      "id": "BLIND150-008",
+      "title": "Valid Sudoku",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-023",
+      "title": "Evaluate Reverse Polish Notation",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-032",
+      "title": "Time Based Key Value Store",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-035",
+      "title": "Merge Two Sorted Lists",
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "linked-list"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-038",
+      "title": "Remove Nth Node from End of List",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "linked-list"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-040",
+      "title": "Add Two Numbers",
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "linked-list",
+        "floating-point"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-042",
+      "title": "LRU Cache",
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-043",
+      "title": "Merge K Sorted Lists",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "linked-list"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-046",
+      "title": "Maximum Depth of Binary Tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-047",
+      "title": "Diameter of Binary Tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-048",
+      "title": "Balanced Binary Tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-049",
+      "title": "Same Tree",
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-050",
+      "title": "Subtree of another Tree",
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-051",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "inputShapes": [
+        "array",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-052",
+      "title": "Binary Tree Level Order Traversal",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-053",
+      "title": "Binary Tree Right Side View",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-054",
+      "title": "Count Good Nodes in Binary Tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-055",
+      "title": "Validate Binary Search Tree",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-056",
+      "title": "Kth Smallest Element in a BST",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-057",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "tree"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-058",
+      "title": "Binary Tree Maximum Path Sum",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-068",
+      "title": "Combination Sum",
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-071",
+      "title": "Subsets II",
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-073",
+      "title": "Word Search",
+      "inputShapes": [
+        "nested-array",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-080",
+      "title": "Number of Islands",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "graph",
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-081",
+      "title": "Max Area of Island",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "graph"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-084",
+      "title": "Rotting Oranges",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-090",
+      "title": "Number of Connected Components in an Undirected Graph",
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "graph"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-091",
+      "title": "Redundant Connection",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-092",
+      "title": "Word Ladder",
+      "inputShapes": [
+        "string",
+        "string",
+        "array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-093",
+      "title": "Network Delay Time",
+      "inputShapes": [
+        "nested-array",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "graph"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-095",
+      "title": "Min Cost to Connect All Points",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-096",
+      "title": "Swim in Rising Water",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-098",
+      "title": "Cheapest Flights Within K Stops",
+      "inputShapes": [
+        "number",
+        "nested-array",
+        "number",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-105",
+      "title": "Decode Ways",
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-108",
+      "title": "Word Break",
+      "inputShapes": [
+        "string",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-117",
+      "title": "Longest Increasing Path in a Matrix",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-127",
+      "title": "Merge Triplets to Form Target Triplet",
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-130",
+      "title": "Insert Interval",
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-132",
+      "title": "Non Overlapping Intervals",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-133",
+      "title": "Meeting Rooms",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-134",
+      "title": "Meeting Rooms II",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-135",
+      "title": "Minimum Interval to Include Each Query",
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-137",
+      "title": "Spiral Matrix",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-139",
+      "title": "Happy Number",
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "boolean",
+      "executionFamily": [
+        "floating-point"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-142",
+      "title": "Multiply Strings",
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-143",
+      "title": "Detect Squares",
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    },
+    {
+      "id": "BLIND150-150",
+      "title": "Reverse Integer",
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "executionFamily": [
+        "floating-point"
+      ],
+      "decision": "inactive",
+      "reason": "Outside this bounded primitive rollout or requires a broader input/serialization review and its own nine-language activation gate."
+    }
+  ]
+}

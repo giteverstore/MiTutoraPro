@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-123",
+  "title": "Jump Game",
+  "summary": "Start at index 0.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "canJump",
+    "signature": "def canJump(nums:",
+    "input": "`nums` (integer array)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "boolean.",
+    "constraints": "1–10000 values, each an integer in [0,100000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Start at index 0. From index i you can move forward by at most nums[i] positions without leaving the array. Decide whether some sequence of moves reaches the last index.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,0,1,0]}",
+      "output": "true",
+      "explanation": "Jump over the first zero, then advance one position."
+    },
+    {
+      "input": "{\"nums\":[1,0,4]}",
+      "output": "false",
+      "explanation": "The only first move lands on a zero."
+    },
+    {
+      "input": "{\"nums\":[0]}",
+      "output": "true",
+      "explanation": "The starting index is already the destination."
+    }
+  ],
+  "constraints": [
+    "1–10000 values, each an integer in [0,100000]."
+  ],
+  "hints": [
+    "Conceptual: A zero matters only if every route must stop there.",
+    "Directional: Track the rightmost reachable index as you scan.",
+    "Implementation: Process only indices at or before the frontier. Extend it with the current index plus its jump limit."
+  ],
+  "concepts": [
+    "reachability",
+    "greedy-frontier"
+  ],
+  "skills": [
+    "Reachability",
+    "greedy frontier"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-123-T01",
+      "arguments": [
+        [
+          2,
+          0,
+          1,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          0,
+          1,
+          0
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-123-T02",
+      "arguments": [
+        [
+          1,
+          0,
+          4
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          0,
+          4
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-123-T03",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canJump(nums: list[int]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canJump(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {boolean}\n */\nfunction canJump(nums) {\n  throw new Error('Implement canJump');\n}",
+    "typescript": "function canJump(nums: number[]): boolean {\n  throw new Error('Implement canJump');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canJump(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canJump(std::vector<int> nums) {\n    throw std::logic_error(\"Implement canJump\");\n}",
+    "csharp": "public class Solution {\n    public bool canJump(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return bool\n */\nfunction canJump(array $nums): bool {\n    throw new LogicException('Implement canJump');\n}",
+    "r": "# Parameters: nums (integer vector). Result: logical scalar.\ncanJump <- function(nums) {\n  stop(\"Implement canJump\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-123-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-123-statement",
+      "type": "paragraph",
+      "content": "Start at index 0. From index i you can move forward by at most nums[i] positions without leaving the array. Decide whether some sequence of moves reaches the last index.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-123-contract",
+      "type": "note",
+      "title": "def canJump(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-123-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 values, each an integer in [0,100000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-123-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canJump(nums: list[int]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canJump(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {boolean}\n */\nfunction canJump(nums) {\n  throw new Error('Implement canJump');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canJump(nums: number[]): boolean {\n  throw new Error('Implement canJump');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canJump(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canJump(std::vector<int> nums) {\n    throw std::logic_error(\"Implement canJump\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canJump(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return bool\n */\nfunction canJump(array $nums): bool {\n    throw new LogicException('Implement canJump');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-123-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: logical scalar.\ncanJump <- function(nums) {\n  stop(\"Implement canJump\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

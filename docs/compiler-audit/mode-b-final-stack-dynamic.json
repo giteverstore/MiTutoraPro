@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 48,
+  "matrix": {
+    "NC250-175": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8,
+        "wallTimeMs": 187,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5,
+        "wallTimeMs": 179,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1479,
+        "wallTimeMs": 1643,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 111,
+        "wallTimeMs": 5198,
+        "outputBytes": 657,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-178": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6,
+        "wallTimeMs": 135,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5,
+        "wallTimeMs": 174,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1304,
+        "wallTimeMs": 1453,
+        "outputBytes": 614,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 161,
+        "wallTimeMs": 6276,
+        "outputBytes": 640,
+        "message": "could not find function \"tail<-\"",
+        "failures": [
+          {
+            "id": "NC250-178-P1",
+            "status": "runtime_error",
+            "message": "could not find function \"tail<-\""
+          },
+          {
+            "id": "NC250-178-P2",
+            "status": "runtime_error",
+            "message": "could not find function \"tail<-\""
+          }
+        ]
+      }
+    },
+    "NC250-180": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 7,
+        "wallTimeMs": 147,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8,
+        "wallTimeMs": 169,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1593,
+        "wallTimeMs": 1836,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 156,
+        "wallTimeMs": 6366,
+        "outputBytes": 646,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-181": {
+      "javascript": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 6,
+        "wallTimeMs": 156,
+        "outputBytes": 666,
+        "message": null,
+        "failures": [
+          {
+            "id": "NC250-181-P1",
+            "status": "wrong_answer",
+            "actual": "2",
+            "expected": "xyyyxyyy"
+          },
+          {
+            "id": "NC250-181-P2",
+            "status": "wrong_answer",
+            "actual": "a2z",
+            "expected": "abcbcz"
+          },
+          {
+            "id": "NC250-181-P3",
+            "status": "wrong_answer",
+            "actual": "12",
+            "expected": "qqqqqqqqqqqq"
+          }
+        ]
+      },
+      "typescript": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 6,
+        "wallTimeMs": 184,
+        "outputBytes": 666,
+        "message": null,
+        "failures": [
+          {
+            "id": "NC250-181-P1",
+            "status": "wrong_answer",
+            "actual": "2",
+            "expected": "xyyyxyyy"
+          },
+          {
+            "id": "NC250-181-P2",
+            "status": "wrong_answer",
+            "actual": "a2z",
+            "expected": "abcbcz"
+          },
+          {
+            "id": "NC250-181-P3",
+            "status": "wrong_answer",
+            "actual": "12",
+            "expected": "qqqqqqqqqqqq"
+          }
+        ]
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1628,
+        "wallTimeMs": 1852,
+        "outputBytes": 665,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 151,
+        "wallTimeMs": 6457,
+        "outputBytes": 665,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

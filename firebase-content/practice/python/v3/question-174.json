@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-174",
+  "title": "Find K Closest Elements",
+  "summary": "Select k entries from sorted arr that are closest to x.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Sliding Window",
+  "category": "dsa",
+  "subtopic": "sliding-window",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findClosestElements",
+    "signature": "def findClosestElements(arr:",
+    "input": "arr (ints), k (int), x (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "arr (ints), k (int), x (int)",
+    "callable": "findClosestElements",
+    "constraints": "1–10000 sorted entries in [−10000,10000]. 1 ≤ k ≤ length(arr). −10000 ≤ x ≤ 10000.",
+    "output-checking": "Exact typed equality of the returned ints."
+  },
+  "statement": "Select k entries from sorted arr that are closest to x. A smaller distance wins. Equal distances prefer the smaller value. Return the selected values in nondecreasing order, keeping selected duplicate occurrences.",
+  "examples": [
+    {
+      "input": "{\"arr\":[1,3,5,7],\"k\":2,\"x\":4}",
+      "output": "[3,5]",
+      "explanation": "The two nearest entries are 3 and 5."
+    },
+    {
+      "input": "{\"arr\":[1,3,5],\"k\":1,\"x\":4}",
+      "output": "[3]",
+      "explanation": "The tie favors 3."
+    },
+    {
+      "input": "{\"arr\":[2,2,6],\"k\":2,\"x\":-4}",
+      "output": "[2,2]",
+      "explanation": "Both copies of the closest value are selected."
+    }
+  ],
+  "constraints": [
+    "1–10000 sorted entries in [−10000,10000]. 1 ≤ k ≤ length(arr). −10000 ≤ x ≤ 10000."
+  ],
+  "hints": [
+    "Conceptual: The selected positions form a contiguous interval of the sorted array.",
+    "Directional: Discard the more distant endpoint until exactly k positions remain.",
+    "Implementation: When endpoint distances tie, remove the right endpoint so the smaller value survives."
+  ],
+  "concepts": [
+    "sorted-window",
+    "tie-breaking"
+  ],
+  "skills": [
+    "Sorted window",
+    "tie-breaking"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(k) output space, with O(1) auxiliary state.",
+  "publicTests": [
+    {
+      "name": "NC250-174-P1",
+      "arguments": [
+        [
+          1,
+          3,
+          5,
+          7
+        ],
+        2,
+        4
+      ],
+      "input": {
+        "arr": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "k": 2,
+        "x": 4
+      },
+      "expected": [
+        3,
+        5
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-174-P2",
+      "arguments": [
+        [
+          1,
+          3,
+          5
+        ],
+        1,
+        4
+      ],
+      "input": {
+        "arr": [
+          1,
+          3,
+          5
+        ],
+        "k": 1,
+        "x": 4
+      },
+      "expected": [
+        3
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-174-P3",
+      "arguments": [
+        [
+          2,
+          2,
+          6
+        ],
+        2,
+        -4
+      ],
+      "input": {
+        "arr": [
+          2,
+          2,
+          6
+        ],
+        "k": 2,
+        "x": -4
+      },
+      "expected": [
+        2,
+        2
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findClosestElements(arr: list[int], k: int, x: int) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[] findClosestElements(int[] arr, int k, int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} arr\n * @param {number} k\n * @param {number} x\n * @returns {number[]}\n */\nfunction findClosestElements(arr, k, x) {\n  throw new Error('Implement findClosestElements');\n}",
+    "typescript": "function findClosestElements(arr: number[], k: number, x: number): number[] {\n  throw new Error('Implement findClosestElements');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray findClosestElements(IntArray arr, int32_t k, int32_t x) {\n    (void)arr;\n    (void)k;\n    (void)x;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> findClosestElements(std::vector<int> arr, int k, int x) {\n    throw std::logic_error(\"Implement findClosestElements\");\n}",
+    "csharp": "public class Solution {\n    public int[] findClosestElements(int[] arr, int k, int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $arr\n * @param int $k\n * @param int $x\n * @return int[]\n */\nfunction findClosestElements(array $arr, int $k, int $x): array {\n    throw new LogicException('Implement findClosestElements');\n}",
+    "r": "# Parameters: arr (integer vector), k (integer scalar), x (integer scalar). Result: integer vector.\nfindClosestElements <- function(arr, k, x) {\n  stop(\"Implement findClosestElements\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "findClosestElements",
+    "arguments": [
+      [
+        "arr",
+        "ints"
+      ],
+      [
+        "k",
+        "int"
+      ],
+      [
+        "x",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-174-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-174-statement",
+      "type": "paragraph",
+      "content": "Select k entries from sorted arr that are closest to x. A smaller distance wins. Equal distances prefer the smaller value. Return the selected values in nondecreasing order, keeping selected duplicate occurrences.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-174-contract",
+      "type": "note",
+      "title": "def findClosestElements(arr:",
+      "content": "Input: arr (ints), k (int), x (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-174-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 sorted entries in [−10000,10000]. 1 ≤ k ≤ length(arr). −10000 ≤ x ≤ 10000.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-174-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findClosestElements(arr: list[int], k: int, x: int) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[] findClosestElements(int[] arr, int k, int x) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} arr\n * @param {number} k\n * @param {number} x\n * @returns {number[]}\n */\nfunction findClosestElements(arr, k, x) {\n  throw new Error('Implement findClosestElements');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findClosestElements(arr: number[], k: number, x: number): number[] {\n  throw new Error('Implement findClosestElements');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray findClosestElements(IntArray arr, int32_t k, int32_t x) {\n    (void)arr;\n    (void)k;\n    (void)x;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<int> findClosestElements(std::vector<int> arr, int k, int x) {\n    throw std::logic_error(\"Implement findClosestElements\");\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[] findClosestElements(int[] arr, int k, int x) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $arr\n * @param int $k\n * @param int $x\n * @return int[]\n */\nfunction findClosestElements(array $arr, int $k, int $x): array {\n    throw new LogicException('Implement findClosestElements');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-174-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: arr (integer vector), k (integer scalar), x (integer scalar). Result: integer vector.\nfindClosestElements <- function(arr, k, x) {\n  stop(\"Implement findClosestElements\")\n}",
+      "stdin": "",
+      "expectedOutput": "[3,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

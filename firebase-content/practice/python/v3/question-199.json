@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-199",
+  "title": "House Robber III",
+  "summary": "Each tree node contains an amount you may collect.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "robTree",
+    "signature": "class TreeNode:",
+    "input": "root (tree)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "root (tree)",
+    "callable": "robTree",
+    "constraints": "1–10000 nodes with values in [0,10000]. Input uses level-order values with null for absent children. Return an integer total.",
+    "output-checking": "Build TreeNode objects from level-order input and invoke robTree(root). Compare the returned integer optimum."
+  },
+  "statement": "Each tree node contains an amount you may collect. Choose nodes with the greatest possible total, with the restriction that a node and its direct parent cannot both be chosen. Return that maximum total.",
+  "examples": [
+    {
+      "input": "{\"root\":[4,1,5,2,3]}",
+      "output": "10",
+      "explanation": "Choose 2, 3, and 5."
+    },
+    {
+      "input": "{\"root\":[2,1,1]}",
+      "output": "2",
+      "explanation": "Either the root or both children achieves the same best total."
+    },
+    {
+      "input": "{\"root\":[0]}",
+      "output": "0",
+      "explanation": "A zero-valued node contributes zero."
+    }
+  ],
+  "constraints": [
+    "1–10000 nodes with values in [0,10000]. Input uses level-order values with null for absent children. Return an integer total."
+  ],
+  "hints": [
+    "Conceptual: Choosing a node affects its children but does not forbid its grandchildren.",
+    "Directional: Keep separate best totals for choosing and skipping each node.",
+    "Implementation: Compute children before their parent. Choosing the parent uses the children’s skip totals. Skipping it uses each child’s better total."
+  ],
+  "concepts": [
+    "tree-dynamic-programming",
+    "independent-set"
+  ],
+  "skills": [
+    "Tree dynamic programming",
+    "independent set"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(n) time and O(h) active traversal state. Fixed-capacity internal buffers allocate O(Nmax) storage, where Nmax=10000; dynamically growing stacks need O(h).",
+  "publicTests": [
+    {
+      "name": "NC250-199-P1",
+      "arguments": [
+        [
+          4,
+          1,
+          5,
+          2,
+          3
+        ]
+      ],
+      "input": {
+        "root": [
+          4,
+          1,
+          5,
+          2,
+          3
+        ]
+      },
+      "expected": 10,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-199-P2",
+      "arguments": [
+        [
+          2,
+          1,
+          1
+        ]
+      ],
+      "input": {
+        "root": [
+          2,
+          1,
+          1
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-199-P3",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "input": {
+        "root": [
+          0
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef robTree(root: TreeNode | None) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int robTree(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number}\n */\nfunction robTree(root) {\n  throw new Error('Implement robTree');\n}",
+    "typescript": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction robTree(root: TreeNode | null): number {\n  throw new Error('Implement robTree');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nint32_t robTree(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nint robTree(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement robTree\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int robTree(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction robTree(?TreeNode $root): int {\n    throw new LogicException('Implement robTree');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result integer scalar.\nrobTree <- function(root) {\n  stop(\"Implement robTree\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "robTree",
+    "arguments": [
+      [
+        "root",
+        "tree"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "tree",
+    "validator": "exact",
+    "notes": "Build TreeNode objects from level-order input and invoke robTree(root). Compare the returned integer optimum."
+  },
+  "blocks": [
+    {
+      "id": "nc250-199-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-199-statement",
+      "type": "paragraph",
+      "content": "Each tree node contains an amount you may collect. Choose nodes with the greatest possible total, with the restriction that a node and its direct parent cannot both be chosen. Return that maximum total.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-199-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: root (tree)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-199-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 nodes with values in [0,10000]. Input uses level-order values with null for absent children. Return an integer total.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-199-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef robTree(root: TreeNode | None) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int robTree(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number}\n */\nfunction robTree(root) {\n  throw new Error('Implement robTree');\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction robTree(root: TreeNode | null): number {\n  throw new Error('Implement robTree');\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nint32_t robTree(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nint robTree(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement robTree\");\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int robTree(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction robTree(?TreeNode $root): int {\n    throw new LogicException('Implement robTree');\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-199-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result integer scalar.\nrobTree <- function(root) {\n  stop(\"Implement robTree\")\n}",
+      "stdin": "",
+      "expectedOutput": "10",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

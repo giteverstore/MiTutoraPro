@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-175",
+  "title": "Baseball Game",
+  "summary": "Maintain a score history.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "calPoints",
+    "signature": "def calPoints(operations:",
+    "input": "operations (strs)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "operations (strs)",
+    "callable": "calPoints",
+    "constraints": "1–1000 operations. Integer tokens are in [−30000,30000]. + always has two earlier retained scores. D and C always have at least one. No explicit source bound is given for intermediate totals. Use exact integer arithmetic. The decimal-string result prevents fixed-width overflow.",
+    "output-checking": "Return a canonical decimal string for the exact integer total. This resolves an absent intermediate bound without restricting the published input domain."
+  },
+  "statement": "Maintain a score history. A decimal integer adds that score. D adds twice the last score, + adds the sum of the last two scores, and C removes the last score. Return the exact sum of the final history as a canonical base-10 string, with a leading minus for negative totals and no redundant zeros.",
+  "examples": [
+    {
+      "input": "{\"operations\":[\"4\",\"2\",\"D\",\"+\"]}",
+      "output": "\"16\"",
+      "explanation": "The history becomes [4,2,4,6]."
+    },
+    {
+      "input": "{\"operations\":[\"-3\",\"D\",\"C\"]}",
+      "output": "\"-3\"",
+      "explanation": "The doubled score is removed."
+    },
+    {
+      "input": "{\"operations\":[\"9\",\"C\"]}",
+      "output": "\"0\"",
+      "explanation": "The final history is empty."
+    }
+  ],
+  "constraints": [
+    "1–1000 operations. Integer tokens are in [−30000,30000]. + always has two earlier retained scores. D and C always have at least one. No explicit source bound is given for intermediate totals. Use exact integer arithmetic. The decimal-string result prevents fixed-width overflow."
+  ],
+  "hints": [
+    "Conceptual: Removing a score can change what later operations refer to.",
+    "Directional: Store the retained scores in a stack.",
+    "Implementation: Apply each operation to the stack top and sum the final stack."
+  ],
+  "concepts": [
+    "stack",
+    "operation-processing"
+  ],
+  "skills": [
+    "Stack",
+    "operation processing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nD)",
+    "space": "O(nD)"
+  },
+  "complexityAnalysis": "O(nD) time and O(nD) auxiliary space for decimal arithmetic, where D is the maximum digit count of a score.",
+  "publicTests": [
+    {
+      "name": "NC250-175-P1",
+      "arguments": [
+        [
+          "4",
+          "2",
+          "D",
+          "+"
+        ]
+      ],
+      "input": {
+        "operations": [
+          "4",
+          "2",
+          "D",
+          "+"
+        ]
+      },
+      "expected": "16",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-175-P2",
+      "arguments": [
+        [
+          "-3",
+          "D",
+          "C"
+        ]
+      ],
+      "input": {
+        "operations": [
+          "-3",
+          "D",
+          "C"
+        ]
+      },
+      "expected": "-3",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-175-P3",
+      "arguments": [
+        [
+          "9",
+          "C"
+        ]
+      ],
+      "input": {
+        "operations": [
+          "9",
+          "C"
+        ]
+      },
+      "expected": "0",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def calPoints(operations: list[str]) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String calPoints(String[] operations) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} operations\n * @returns {string}\n */\nfunction calPoints(operations) {\n  throw new Error('Implement calPoints');\n}",
+    "typescript": "function calPoints(operations: string[]): string {\n  throw new Error('Implement calPoints');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString calPoints(StringArray operations) {\n    (void)operations;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string calPoints(std::vector<std::string> operations) {\n    throw std::logic_error(\"Implement calPoints\");\n}",
+    "csharp": "public class Solution {\n    public string calPoints(string[] operations) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $operations\n * @return string\n */\nfunction calPoints(array $operations): string {\n    throw new LogicException('Implement calPoints');\n}",
+    "r": "# Parameters: operations (character vector). Result: character scalar.\ncalPoints <- function(operations) {\n  stop(\"Implement calPoints\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "calPoints",
+    "arguments": [
+      [
+        "operations",
+        "strs"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Return a canonical decimal string for the exact integer total. This resolves an absent intermediate bound without restricting the published input domain."
+  },
+  "blocks": [
+    {
+      "id": "nc250-175-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-175-statement",
+      "type": "paragraph",
+      "content": "Maintain a score history. A decimal integer adds that score. D adds twice the last score, + adds the sum of the last two scores, and C removes the last score. Return the exact sum of the final history as a canonical base-10 string, with a leading minus for negative totals and no redundant zeros.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-175-contract",
+      "type": "note",
+      "title": "def calPoints(operations:",
+      "content": "Input: operations (strs)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-175-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 operations. Integer tokens are in [−30000,30000]. + always has two earlier retained scores. D and C always have at least one. No explicit source bound is given for intermediate totals. Use exact integer arithmetic. The decimal-string result prevents fixed-width overflow.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-175-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def calPoints(operations: list[str]) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String calPoints(String[] operations) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} operations\n * @returns {string}\n */\nfunction calPoints(operations) {\n  throw new Error('Implement calPoints');\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function calPoints(operations: string[]): string {\n  throw new Error('Implement calPoints');\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nByteString calPoints(StringArray operations) {\n    (void)operations;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string calPoints(std::vector<std::string> operations) {\n    throw std::logic_error(\"Implement calPoints\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string calPoints(string[] operations) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $operations\n * @return string\n */\nfunction calPoints(array $operations): string {\n    throw new LogicException('Implement calPoints');\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-175-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: operations (character vector). Result: character scalar.\ncalPoints <- function(operations) {\n  stop(\"Implement calPoints\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"16\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

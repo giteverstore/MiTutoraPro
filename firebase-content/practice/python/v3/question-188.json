@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-188",
+  "title": "Split Array Largest Sum",
+  "summary": "Split nums into exactly k nonempty contiguous pieces.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "splitArray",
+    "signature": "def splitArray(nums:",
+    "input": "nums (ints), k (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), k (int)",
+    "callable": "splitArray",
+    "constraints": "1–1000 entries in [0,1000000]. 1 ≤ k ≤ min(50,length(nums)).",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Split nums into exactly k nonempty contiguous pieces. Minimize the largest piece sum and return that minimum possible value.",
+  "examples": [
+    {
+      "input": "{\"nums\":[3,1,4,2],\"k\":2}",
+      "output": "6",
+      "explanation": "The two piece sums can be 4 and 6."
+    },
+    {
+      "input": "{\"nums\":[0,0,0],\"k\":2}",
+      "output": "0",
+      "explanation": "Nonempty pieces may have zero sum."
+    },
+    {
+      "input": "{\"nums\":[8,2,5],\"k\":3}",
+      "output": "8",
+      "explanation": "Every entry must be its own piece."
+    }
+  ],
+  "constraints": [
+    "1–1000 entries in [0,1000000]. 1 ≤ k ≤ min(50,length(nums))."
+  ],
+  "hints": [
+    "Conceptual: A maximum allowed sum determines whether a partition is possible.",
+    "Directional: Search the bound and count pieces with a greedy scan.",
+    "Implementation: Use the largest entry as the lower bound and the total sum as the upper bound. Nonnegative values let a partition using fewer than k pieces be split further."
+  ],
+  "concepts": [
+    "binary-search-on-answer",
+    "partitioning"
+  ],
+  "skills": [
+    "Binary search on answer",
+    "partitioning"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log(S+1)",
+    "space": "O(n log(S+1)"
+  },
+  "complexityAnalysis": "O(n log(S+1)) time and O(1) auxiliary space, where S is the total sum.",
+  "publicTests": [
+    {
+      "name": "NC250-188-P1",
+      "arguments": [
+        [
+          3,
+          1,
+          4,
+          2
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          3,
+          1,
+          4,
+          2
+        ],
+        "k": 2
+      },
+      "expected": 6,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-188-P2",
+      "arguments": [
+        [
+          0,
+          0,
+          0
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          0,
+          0,
+          0
+        ],
+        "k": 2
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-188-P3",
+      "arguments": [
+        [
+          8,
+          2,
+          5
+        ],
+        3
+      ],
+      "input": {
+        "nums": [
+          8,
+          2,
+          5
+        ],
+        "k": 3
+      },
+      "expected": 8,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def splitArray(nums: list[int], k: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int splitArray(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number}\n */\nfunction splitArray(nums, k) {\n  throw new Error('Implement splitArray');\n}",
+    "typescript": "function splitArray(nums: number[], k: number): number {\n  throw new Error('Implement splitArray');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t splitArray(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint splitArray(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement splitArray\");\n}",
+    "csharp": "public class Solution {\n    public int splitArray(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int\n */\nfunction splitArray(array $nums, int $k): int {\n    throw new LogicException('Implement splitArray');\n}",
+    "r": "# Parameters: nums (integer vector), k (integer scalar). Result: integer scalar.\nsplitArray <- function(nums, k) {\n  stop(\"Implement splitArray\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "splitArray",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "k",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-188-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-188-statement",
+      "type": "paragraph",
+      "content": "Split nums into exactly k nonempty contiguous pieces. Minimize the largest piece sum and return that minimum possible value.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-188-contract",
+      "type": "note",
+      "title": "def splitArray(nums:",
+      "content": "Input: nums (ints), k (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-188-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–1000 entries in [0,1000000]. 1 ≤ k ≤ min(50,length(nums)).",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-188-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def splitArray(nums: list[int], k: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int splitArray(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number}\n */\nfunction splitArray(nums, k) {\n  throw new Error('Implement splitArray');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function splitArray(nums: number[], k: number): number {\n  throw new Error('Implement splitArray');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t splitArray(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint splitArray(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement splitArray\");\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int splitArray(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int\n */\nfunction splitArray(array $nums, int $k): int {\n    throw new LogicException('Implement splitArray');\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-188-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), k (integer scalar). Result: integer scalar.\nsplitArray <- function(nums, k) {\n  stop(\"Implement splitArray\")\n}",
+      "stdin": "",
+      "expectedOutput": "6",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

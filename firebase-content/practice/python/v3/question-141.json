@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-141",
+  "title": "Pow(x, n)",
+  "summary": "Compute x raised to the integer exponent n.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Math & Geometry",
+  "category": "dsa",
+  "subtopic": "math-and-geometry",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "myPow",
+    "signature": "def myPow(x:",
+    "input": "`x` (number), `n` (signed 32-bit integer)",
+    "output": "number."
+  },
+  "contractDetails": {
+    "input": "`x` (number), `n` (signed 32-bit integer)",
+    "result": "number.",
+    "constraints": "−100 < x < 100, n is signed 32-bit, x is nonzero or n is positive, and the mathematical result lies in [−10000,10000].",
+    "output-checking": "Require a finite numeric result within relative tolerance 10⁻⁶ or absolute tolerance 10⁻¹²."
+  },
+  "statement": "Compute x raised to the integer exponent n. A negative exponent means taking a reciprocal.",
+  "examples": [
+    {
+      "input": "{\"x\":3,\"n\":4}",
+      "output": "81",
+      "explanation": "Four factors of 3 multiply to 81."
+    },
+    {
+      "input": "{\"x\":4,\"n\":-2}",
+      "output": "0.0625",
+      "explanation": "Take the reciprocal of 16."
+    },
+    {
+      "input": "{\"x\":-2,\"n\":3}",
+      "output": "-8",
+      "explanation": "An odd exponent keeps the negative sign."
+    }
+  ],
+  "constraints": [
+    "−100 < x < 100, n is signed 32-bit, x is nonzero or n is positive, and the mathematical result lies in [−10000,10000]."
+  ],
+  "hints": [
+    "Conceptual: Repeated squaring doubles the exponent in one step.",
+    "Directional: Handle negative exponents by using the reciprocal base.",
+    "Implementation: Accumulate the factor when the exponent is odd. Halve the exponent each round and widen it before negating the signed minimum."
+  ],
+  "concepts": [
+    "exponentiation-by-squaring",
+    "floating-point"
+  ],
+  "skills": [
+    "Exponentiation by squaring",
+    "floating point"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log(|n| + 1)",
+    "space": "O(log(|n| + 1)"
+  },
+  "complexityAnalysis": "O(log(|n| + 1)) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-141-T01",
+      "arguments": [
+        3,
+        4
+      ],
+      "input": {
+        "x": 3,
+        "n": 4
+      },
+      "expected": 81,
+      "validator": "pow_close"
+    },
+    {
+      "name": "BLIND150-141-T02",
+      "arguments": [
+        4,
+        -2
+      ],
+      "input": {
+        "x": 4,
+        "n": -2
+      },
+      "expected": 0.0625,
+      "validator": "pow_close"
+    },
+    {
+      "name": "BLIND150-141-T03",
+      "arguments": [
+        -2,
+        3
+      ],
+      "input": {
+        "x": -2,
+        "n": 3
+      },
+      "expected": -8,
+      "validator": "pow_close"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def myPow(x: float, n: int) -> float:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public double myPow(double x, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} x\n * @param {number} n\n * @returns {number}\n */\nfunction myPow(x, n) {\n  throw new Error('Implement myPow');\n}",
+    "typescript": "function myPow(x: number, n: number): number {\n  throw new Error('Implement myPow');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ndouble myPow(double x, int32_t n) {\n    (void)x;\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\ndouble myPow(double x, int n) {\n    throw std::logic_error(\"Implement myPow\");\n}",
+    "csharp": "public class Solution {\n    public double myPow(double x, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param number $x\n * @param signed 32-bit int $n\n * @return float\n */\nfunction myPow(float $x, int $n): float {\n    throw new LogicException('Implement myPow');\n}",
+    "r": "# Parameters: x (numeric scalar), n (exact numeric scalar). Result: numeric scalar.\nmyPow <- function(x, n) {\n  stop(\"Implement myPow\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-141-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-141-statement",
+      "type": "paragraph",
+      "content": "Compute x raised to the integer exponent n. A negative exponent means taking a reciprocal.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-141-contract",
+      "type": "note",
+      "title": "def myPow(x:",
+      "content": "Input: `x` (number), `n` (signed 32-bit integer)\n\nOutput: number.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-141-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "−100 < x < 100, n is signed 32-bit, x is nonzero or n is positive, and the mathematical result lies in [−10000,10000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-141-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def myPow(x: float, n: int) -> float:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public double myPow(double x, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} x\n * @param {number} n\n * @returns {number}\n */\nfunction myPow(x, n) {\n  throw new Error('Implement myPow');\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function myPow(x: number, n: number): number {\n  throw new Error('Implement myPow');\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ndouble myPow(double x, int32_t n) {\n    (void)x;\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\ndouble myPow(double x, int n) {\n    throw std::logic_error(\"Implement myPow\");\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public double myPow(double x, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param number $x\n * @param signed 32-bit int $n\n * @return float\n */\nfunction myPow(float $x, int $n): float {\n    throw new LogicException('Implement myPow');\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-141-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: x (numeric scalar), n (exact numeric scalar). Result: numeric scalar.\nmyPow <- function(x, n) {\n  stop(\"Implement myPow\")\n}",
+      "stdin": "",
+      "expectedOutput": "81",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

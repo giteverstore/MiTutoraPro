@@ -1,0 +1,449 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 84,
+  "matrix": {
+    "BLIND150-004": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 14158,
+        "wallTimeMs": 14527,
+        "outputBytes": 1099,
+        "message": "The function result could not be serialized: Unexpected token 's', ...\"\"value\":[[sun, nus],\"... is not valid JSON",
+        "failures": [
+          {
+            "id": "BLIND150-004-T01",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 's', ...\"\"value\":[[sun, nus],\"... is not valid JSON"
+          },
+          {
+            "id": "BLIND150-004-T02",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'b', ...\"\"value\":[[bb], [, ],\"... is not valid JSON"
+          },
+          {
+            "id": "BLIND150-004-T03",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'm', ...\"\"value\":[[mood, doom\"... is not valid JSON"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 33801.339900000006,
+        "wallTimeMs": 37401,
+        "outputBytes": 940,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-005": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 13667,
+        "wallTimeMs": 13960,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32763.98,
+        "wallTimeMs": 37691,
+        "outputBytes": 707,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-012": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 13766,
+        "wallTimeMs": 14003,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 33564.11,
+        "wallTimeMs": 38179,
+        "outputBytes": 711,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-062": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11120,
+        "wallTimeMs": 11363,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30139.684999999998,
+        "wallTimeMs": 32881,
+        "outputBytes": 827,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-070": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10183,
+        "wallTimeMs": 10379,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27472.510000000002,
+        "wallTimeMs": 31188,
+        "outputBytes": 831,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-072": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 9170,
+        "wallTimeMs": 9380,
+        "outputBytes": 938,
+        "message": "The function result could not be serialized: Unexpected token '(', \"{\"value\":[()]}\" is not valid JSON",
+        "failures": [
+          {
+            "id": "BLIND150-072-T01",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token '(', \"{\"value\":[()]}\" is not valid JSON"
+          },
+          {
+            "id": "BLIND150-072-T02",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token '(', ...\"{\"value\":[(()), ()()\"... is not valid JSON"
+          },
+          {
+            "id": "BLIND150-072-T03",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token '(', ...\"{\"value\":[((())), ((\"... is not valid JSON"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27174.6898,
+        "wallTimeMs": 30686,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-074": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 9556,
+        "wallTimeMs": 9789,
+        "outputBytes": 707,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-074-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-074-T02",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-074-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29805.3898,
+        "wallTimeMs": 32636,
+        "outputBytes": 791,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-075": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 14215,
+        "wallTimeMs": 14603,
+        "outputBytes": 996,
+        "message": "The function result could not be serialized: Unexpected token 'a', \"{\"value\":[a, b, c]}\" is not valid JSON",
+        "failures": [
+          {
+            "id": "BLIND150-075-T01",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'a', \"{\"value\":[a, b, c]}\" is not valid JSON"
+          },
+          {
+            "id": "BLIND150-075-T02",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'w', ...\"{\"value\":[wa, wb, wc\"... is not valid JSON"
+          },
+          {
+            "id": "BLIND150-075-T03",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'p', ...\"{\"value\":[p, q, r, s\"... is not valid JSON"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32056.805,
+        "wallTimeMs": 36790,
+        "outputBytes": 864,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-076": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 13902,
+        "wallTimeMs": 14173,
+        "outputBytes": 687,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-076-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-076-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 33950.115,
+        "wallTimeMs": 37158,
+        "outputBytes": 799,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-079": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 12011,
+        "wallTimeMs": 12302,
+        "outputBytes": 1169,
+        "message": "The function result could not be serialized: Unexpected token 'a', ...\"{\"value\":[ab, abc, a\"... is not valid JSON",
+        "failures": [
+          {
+            "id": "BLIND150-079-T01",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'a', ...\"{\"value\":[ab, abc, a\"... is not valid JSON"
+          },
+          {
+            "id": "BLIND150-079-T02",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'x', \"{\"value\":[x]}\" is not valid JSON"
+          },
+          {
+            "id": "BLIND150-079-T03",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'a', ...\"{\"value\":[a, aa, aaa\"... is not valid JSON"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32064.639900000002,
+        "wallTimeMs": 36320,
+        "outputBytes": 951,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-085": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9598,
+        "wallTimeMs": 9792,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24151.3099,
+        "wallTimeMs": 26377,
+        "outputBytes": 830,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-103": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 7945,
+        "wallTimeMs": 8099,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24928.795,
+        "wallTimeMs": 28216,
+        "outputBytes": 692,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-131": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 7474,
+        "wallTimeMs": 7685,
+        "outputBytes": 748,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-131-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-131-T02",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-131-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22250.4299,
+        "wallTimeMs": 24733,
+        "outputBytes": 768,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-141": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8284,
+        "wallTimeMs": 8496,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22309.1447,
+        "wallTimeMs": 24606,
+        "outputBytes": 617,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 24,
+  "matrix": {
+    "BLIND150-049": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 102,
+        "wallTimeMs": 12732,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9111,
+        "wallTimeMs": 9401,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3,
+        "wallTimeMs": 128,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3665,
+        "wallTimeMs": 6265,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10828,
+        "wallTimeMs": 13998,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11348.105,
+        "wallTimeMs": 15201,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1891,
+        "wallTimeMs": 2109,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 218,
+        "wallTimeMs": 10926,
+        "outputBytes": 668,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

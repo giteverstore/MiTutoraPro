@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-164",
+  "title": "Reverse String",
+  "summary": "Reverse the positions of the characters in s by changing the existing array.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "reverseString",
+    "signature": "def reverseString(s:",
+    "input": "s (strs)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (strs)",
+    "callable": "reverseString",
+    "constraints": "1–100000 elements. Every element is one printable ASCII character. Serialize the mutated character array. R returns the updated character vector.",
+    "output-checking": "Call reverseString(s), then serialize the same mutable character array. R returns the updated vector. Elements are one-character strings in the language-independent fixture."
+  },
+  "statement": "Reverse the positions of the characters in s by changing the existing array. Return no value in languages with mutable arrays. Use constant extra storage.",
+  "examples": [
+    {
+      "input": "{\"s\":[\"c\",\"o\",\"d\",\"e\"]}",
+      "output": "[\"e\",\"d\",\"o\",\"c\"]",
+      "explanation": "The endpoints exchange positions, followed by the middle pair."
+    },
+    {
+      "input": "{\"s\":[\"!\"]}",
+      "output": "[\"!\"]",
+      "explanation": "A single character stays in place."
+    },
+    {
+      "input": "{\"s\":[\"A\",\" \",\"A\"]}",
+      "output": "[\"A\",\" \",\"A\"]",
+      "explanation": "The space is a character and the array is already symmetric."
+    }
+  ],
+  "constraints": [
+    "1–100000 elements. Every element is one printable ASCII character. Serialize the mutated character array. R returns the updated character vector."
+  ],
+  "hints": [
+    "Conceptual: The first and last positions must exchange places.",
+    "Directional: Work inward from both ends.",
+    "Implementation: Swap the endpoint characters and move each endpoint one position toward the center."
+  ],
+  "concepts": [
+    "two-pointers",
+    "in-place-mutation"
+  ],
+  "skills": [
+    "Two pointers",
+    "in-place mutation"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space for mutable arrays.",
+  "publicTests": [
+    {
+      "name": "NC250-164-P1",
+      "arguments": [
+        [
+          "c",
+          "o",
+          "d",
+          "e"
+        ]
+      ],
+      "input": {
+        "s": [
+          "c",
+          "o",
+          "d",
+          "e"
+        ]
+      },
+      "expected": [
+        "e",
+        "d",
+        "o",
+        "c"
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-164-P2",
+      "arguments": [
+        [
+          "!"
+        ]
+      ],
+      "input": {
+        "s": [
+          "!"
+        ]
+      },
+      "expected": [
+        "!"
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-164-P3",
+      "arguments": [
+        [
+          "A",
+          " ",
+          "A"
+        ]
+      ],
+      "input": {
+        "s": [
+          "A",
+          " ",
+          "A"
+        ]
+      },
+      "expected": [
+        "A",
+        " ",
+        "A"
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def reverseString(s: list[str]) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void reverseString(String[] s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} s\n * @returns {void}\n */\nfunction reverseString(s) {\n  throw new Error('Implement reverseString');\n}",
+    "typescript": "function reverseString(s: string[]): void {\n  throw new Error('Implement reverseString');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nvoid reverseString(StringArray s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nvoid reverseString(std::vector<std::string>& s) {\n    throw std::logic_error(\"Implement reverseString\");\n}",
+    "csharp": "public class Solution {\n    public void reverseString(string[] s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $s\n * @return void\n */\nfunction reverseString(array &$s): void {\n    throw new LogicException('Implement reverseString');\n}",
+    "r": "# Return the updated s vector.\nreverseString <- function(s) { stop(\"Implement reverseString\") }"
+  },
+  "executionMetadata": {
+    "entry": "reverseString",
+    "arguments": [
+      [
+        "s",
+        "strs"
+      ]
+    ],
+    "serialized_result_type": "strs",
+    "mode": "mutation",
+    "validator": "exact",
+    "notes": "Call reverseString(s), then serialize the same mutable character array. R returns the updated vector. Elements are one-character strings in the language-independent fixture."
+  },
+  "blocks": [
+    {
+      "id": "nc250-164-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-164-statement",
+      "type": "paragraph",
+      "content": "Reverse the positions of the characters in s by changing the existing array. Return no value in languages with mutable arrays. Use constant extra storage.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-164-contract",
+      "type": "note",
+      "title": "def reverseString(s:",
+      "content": "Input: s (strs)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-164-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 elements. Every element is one printable ASCII character. Serialize the mutated character array. R returns the updated character vector.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-164-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def reverseString(s: list[str]) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void reverseString(String[] s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} s\n * @returns {void}\n */\nfunction reverseString(s) {\n  throw new Error('Implement reverseString');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function reverseString(s: string[]): void {\n  throw new Error('Implement reverseString');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nvoid reverseString(StringArray s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nvoid reverseString(std::vector<std::string>& s) {\n    throw std::logic_error(\"Implement reverseString\");\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void reverseString(string[] s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $s\n * @return void\n */\nfunction reverseString(array &$s): void {\n    throw new LogicException('Implement reverseString');\n}",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-164-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated s vector.\nreverseString <- function(s) { stop(\"Implement reverseString\") }",
+      "stdin": "",
+      "expectedOutput": "[\"e\",\"d\",\"o\",\"c\"]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

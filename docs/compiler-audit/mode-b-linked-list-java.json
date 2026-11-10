@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 24,
+  "matrix": {
+    "BLIND150-035": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6187,
+        "wallTimeMs": 6308,
+        "outputBytes": 741,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-036": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5741,
+        "wallTimeMs": 5879,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-037": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6648,
+        "wallTimeMs": 6821,
+        "outputBytes": 670,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-038": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4999,
+        "wallTimeMs": 5111,
+        "outputBytes": 656,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-039": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5188,
+        "wallTimeMs": 5321,
+        "outputBytes": 750,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-040": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5061,
+        "wallTimeMs": 5175,
+        "outputBytes": 686,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-043": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5423,
+        "wallTimeMs": 5598,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-044": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 5616,
+        "wallTimeMs": 5748,
+        "outputBytes": 729,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

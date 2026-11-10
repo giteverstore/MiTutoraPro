@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "practice-semantic-comparator-validation-v1",
+  "families": [
+    "anagrams",
+    "top-k",
+    "triplets",
+    "closest-points",
+    "ordered-int-rows",
+    "unordered-strings",
+    "ordered-string-rows",
+    "coordinate-set",
+    "longest-palindrome",
+    "interval-set",
+    "float-close",
+    "unordered-unique",
+    "combination-set",
+    "permutation-set",
+    "account-set",
+    "edge-groups"
+  ],
+  "negativePaths": [
+    "wrong-result",
+    "malformed-shape",
+    "missing-values",
+    "extra-values",
+    "wrong-ordering",
+    "alternate-valid-ordering",
+    "duplicate-values",
+    "nan",
+    "infinity",
+    "tolerance-boundaries"
+  ]
+}

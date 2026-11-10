@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-086",
+  "title": "Surrounded Regions",
+  "summary": "Replace every O that lacks an orthogonal path of O cells to the board boundary with X.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "solve",
+    "signature": "def solve(board:",
+    "input": "`board` (nested string arrays)",
+    "output": "nested string arrays."
+  },
+  "contractDetails": {
+    "input": "`board` (nested string arrays)",
+    "result": "nested string arrays.",
+    "constraints": "A rectangular board with 1–200 rows and columns. Each entry is the single letter X or O.",
+    "output-checking": "Exact typed equality.",
+    "callable": "`solve` mutates the board and returns no value outside R. The runner serializes the mutated input. R returns the updated board."
+  },
+  "statement": "Replace every O that lacks an orthogonal path of O cells to the board boundary with X. Keep existing X cells and all boundary-connected O cells. Mutate the supplied board where supported. In R, return the updated board.",
+  "examples": [
+    {
+      "input": "{\"board\":[[\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\"],[\"X\",\"X\",\"X\"]]}",
+      "output": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "explanation": "The center has no path to an edge."
+    },
+    {
+      "input": "{\"board\":[[\"O\",\"X\",\"O\",\"O\"]]}",
+      "output": "[[\"O\",\"X\",\"O\",\"O\"]]",
+      "explanation": "Every entry is on the boundary of a single-row board."
+    },
+    {
+      "input": "{\"board\":[[\"X\",\"X\",\"X\"],[\"O\",\"O\",\"X\"],[\"X\",\"X\",\"X\"]]}",
+      "output": "[[\"X\",\"X\",\"X\"],[\"O\",\"O\",\"X\"],[\"X\",\"X\",\"X\"]]",
+      "explanation": "The interior O survives through the O to its left."
+    }
+  ],
+  "constraints": [
+    "A rectangular board with 1–200 rows and columns. Each entry is the single letter X or O."
+  ],
+  "hints": [
+    "Conceptual: A region that touches the boundary survives.",
+    "Directional: Flood-fill from boundary O cells to mark the cells that survive.",
+    "Implementation: Sweep the board after the flood fill and replace every unmarked O with X."
+  ],
+  "concepts": [
+    "boundary-reachability",
+    "flood-fill",
+    "mutation"
+  ],
+  "skills": [
+    "Boundary reachability",
+    "flood fill",
+    "mutation"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(rows × columns)",
+    "space": "O(rows × columns)"
+  },
+  "complexityAnalysis": "O(rows × columns) time and space for flood fill and visited marks.",
+  "publicTests": [
+    {
+      "name": "BLIND150-086-T01",
+      "arguments": [
+        [
+          [
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "X"
+          ]
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "X"
+          ]
+        ]
+      },
+      "expected": {
+        "gen": "repeat",
+        "args": [
+          [
+            {
+              "gen": "repeat",
+              "args": [
+                [
+                  "X"
+                ],
+                3
+              ]
+            }
+          ],
+          3
+        ]
+      },
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-086-T02",
+      "arguments": [
+        [
+          [
+            "O",
+            "X",
+            "O",
+            "O"
+          ]
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "O",
+            "X",
+            "O",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "X",
+          "O",
+          "O"
+        ]
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-086-T03",
+      "arguments": [
+        [
+          [
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "X"
+          ]
+        ]
+      ],
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "O",
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X"
+        ]
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def solve(board: list[list[str]]) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void solve(String[][] board) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "function solve(board) {\n  throw new Error(\"Not implemented\");\n}",
+    "typescript": "function solve(board: string[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nvoid solve(StringMatrix board) {\n    (void)board;\n}",
+    "cpp": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nvoid solve(StringMatrix board) {\n    (void)board;\n}",
+    "csharp": "public class Solution {\n    public void solve(string[][] board) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\nfunction solve(array &$board): void {\n    throw new LogicException(\"Not implemented\");\n}",
+    "r": "# Return the updated list of character vectors.\nsolve <- function(board) {\n  stop(\"Not implemented\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-086-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-086-statement",
+      "type": "paragraph",
+      "content": "Replace every O that lacks an orthogonal path of O cells to the board boundary with X. Keep existing X cells and all boundary-connected O cells. Mutate the supplied board where supported. In R, return the updated board.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-086-contract",
+      "type": "note",
+      "title": "def solve(board:",
+      "content": "Input: `board` (nested string arrays)\n\nOutput: nested string arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-086-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "A rectangular board with 1–200 rows and columns. Each entry is the single letter X or O.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-086-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def solve(board: list[list[str]]) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void solve(String[][] board) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "function solve(board) {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function solve(board: string[][]): void {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nvoid solve(StringMatrix board) {\n    (void)board;\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\ntypedef struct { StringArray *data; size_t len; } StringMatrix;\n\nvoid solve(StringMatrix board) {\n    (void)board;\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void solve(string[][] board) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nfunction solve(array &$board): void {\n    throw new LogicException(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-086-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated list of character vectors.\nsolve <- function(board) {\n  stop(\"Not implemented\")\n}",
+      "stdin": "",
+      "expectedOutput": "{\"gen\":\"repeat\",\"args\":[[{\"gen\":\"repeat\",\"args\":[[\"X\"],3]}],3]}",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

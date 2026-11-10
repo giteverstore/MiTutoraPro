@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-191",
+  "title": "Design Circular Queue",
+  "summary": "Implement a fixed-capacity FIFO queue whose freed positions can be reused.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "MyCircularQueue",
+    "signature": "class MyCircularQueue:",
+    "input": "k (int), ops (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "k (int), ops (intgrid)",
+    "callable": "MyCircularQueue",
+    "constraints": "1 ≤ k ≤ 1000. At most 3000 calls. Values are in [0,1000]. Rows [0,value], [1], [2], [3], [4], [5] call enQueue, deQueue, Front, Rear, isEmpty, isFull. Construct once with k. Serialize every return, encoding booleans as 0 or 1.",
+    "output-checking": "Construct MyCircularQueue(k) once. Dispatch opcodes 0=enQueue(value), 1=deQueue(), 2=Front(), 3=Rear(), 4=isEmpty(), 5=isFull(). Serialize all returns, with booleans as integer 0/1."
+  },
+  "statement": "Implement a fixed-capacity FIFO queue whose freed positions can be reused. enQueue(value) appends and reports success, deQueue() removes the oldest value and reports success, Front() and Rear() return endpoint values or −1 if empty, and isEmpty() and isFull() return booleans. Do not use a built-in queue.",
+  "examples": [
+    {
+      "input": "{\"k\":2,\"ops\":[[0,5],[0,8],[0,1],[1],[0,1],[2],[3]]}",
+      "output": "[1,1,0,1,1,8,1]",
+      "explanation": "The last insertion reuses a freed slot."
+    },
+    {
+      "input": "{\"k\":1,\"ops\":[[2],[3],[1],[4],[5]]}",
+      "output": "[-1,-1,0,1,0]",
+      "explanation": "All empty-queue operations have defined results."
+    },
+    {
+      "input": "{\"k\":1,\"ops\":[[0,0],[5],[1],[0,7],[2]]}",
+      "output": "[1,1,1,1,7]",
+      "explanation": "The queue can hold zero and be refilled."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ 1000. At most 3000 calls. Values are in [0,1000]. Rows [0,value], [1], [2], [3], [4], [5] call enQueue, deQueue, Front, Rear, isEmpty, isFull. Construct once with k. Serialize every return, encoding booleans as 0 or 1."
+  ],
+  "hints": [
+    "Conceptual: An empty position at the beginning can be used again.",
+    "Directional: Store a front index and a count in a fixed array.",
+    "Implementation: Use modulo capacity for both the write position and the next front position. The count distinguishes full from empty."
+  ],
+  "concepts": [
+    "stateful-class",
+    "ring-buffer"
+  ],
+  "skills": [
+    "Stateful class",
+    "ring buffer"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(1)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(1) time per operation and O(k) storage.",
+  "publicTests": [
+    {
+      "name": "NC250-191-P1",
+      "arguments": [
+        2,
+        [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "k": 2,
+        "ops": [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        8,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-191-P2",
+      "arguments": [
+        1,
+        [
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            1
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ]
+      ],
+      "input": {
+        "k": 1,
+        "ops": [
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            1
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        -1,
+        0,
+        1,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-191-P3",
+      "arguments": [
+        1,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            5
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "k": 1,
+        "ops": [
+          [
+            0,
+            0
+          ],
+          [
+            5
+          ],
+          [
+            1
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        1,
+        1,
+        7
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class MyCircularQueue:\n    def __init__(self, k: int) -> None:\n        raise NotImplementedError\n\n    def enQueue(self, value: int) -> bool:\n        raise NotImplementedError\n\n    def deQueue(self) -> bool:\n        raise NotImplementedError\n\n    def Front(self) -> int:\n        raise NotImplementedError\n\n    def Rear(self) -> int:\n        raise NotImplementedError\n\n    def isEmpty(self) -> bool:\n        raise NotImplementedError\n\n    def isFull(self) -> bool:\n        raise NotImplementedError",
+    "java": "class MyCircularQueue {\n    public MyCircularQueue(int k) { throw new UnsupportedOperationException(); }\n    public boolean enQueue(int value) { throw new UnsupportedOperationException(); }\n    public boolean deQueue() { throw new UnsupportedOperationException(); }\n    public int Front() { throw new UnsupportedOperationException(); }\n    public int Rear() { throw new UnsupportedOperationException(); }\n    public boolean isEmpty() { throw new UnsupportedOperationException(); }\n    public boolean isFull() { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class MyCircularQueue {\n  constructor(k) { throw new Error('Implement constructor'); }\n  enQueue(value) { throw new Error('Implement enQueue'); }\n  deQueue() { throw new Error('Implement deQueue'); }\n  Front() { throw new Error('Implement Front'); }\n  Rear() { throw new Error('Implement Rear'); }\n  isEmpty() { throw new Error('Implement isEmpty'); }\n  isFull() { throw new Error('Implement isFull'); }\n}",
+    "typescript": "class MyCircularQueue {\n  constructor(k: number) { throw new Error('Implement constructor'); }\n  enQueue(value: number): boolean { throw new Error('Implement enQueue'); }\n  deQueue(): boolean { throw new Error('Implement deQueue'); }\n  Front(): number { throw new Error('Implement Front'); }\n  Rear(): number { throw new Error('Implement Rear'); }\n  isEmpty(): boolean { throw new Error('Implement isEmpty'); }\n  isFull(): boolean { throw new Error('Implement isFull'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct MyCircularQueue MyCircularQueue;\nMyCircularQueue * myCircularQueueCreate(int32_t k) { (void)k; abort(); }\nbool myCircularQueueEnQueue(MyCircularQueue * self, int32_t value) { (void)self; (void)value; abort(); }\nbool myCircularQueueDeQueue(MyCircularQueue * self) { (void)self; abort(); }\nint32_t myCircularQueueFront(MyCircularQueue * self) { (void)self; abort(); }\nint32_t myCircularQueueRear(MyCircularQueue * self) { (void)self; abort(); }\nbool myCircularQueueIsEmpty(MyCircularQueue * self) { (void)self; abort(); }\nbool myCircularQueueIsFull(MyCircularQueue * self) { (void)self; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass MyCircularQueue {\npublic:\n    MyCircularQueue(int k) { throw std::logic_error(\"Implement method\"); }\n    bool enQueue(int value) { throw std::logic_error(\"Implement method\"); }\n    bool deQueue() { throw std::logic_error(\"Implement method\"); }\n    int Front() { throw std::logic_error(\"Implement method\"); }\n    int Rear() { throw std::logic_error(\"Implement method\"); }\n    bool isEmpty() { throw std::logic_error(\"Implement method\"); }\n    bool isFull() { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class MyCircularQueue {\n    public MyCircularQueue(int k) { throw new System.NotImplementedException(); }\n    public bool enQueue(int value) { throw new System.NotImplementedException(); }\n    public bool deQueue() { throw new System.NotImplementedException(); }\n    public int Front() { throw new System.NotImplementedException(); }\n    public int Rear() { throw new System.NotImplementedException(); }\n    public bool isEmpty() { throw new System.NotImplementedException(); }\n    public bool isFull() { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass MyCircularQueue {\n    public function __construct(int $k) { throw new LogicException('Implement method'); }\n    public function enQueue(int $value): bool { throw new LogicException('Implement method'); }\n    public function deQueue(): bool { throw new LogicException('Implement method'); }\n    public function Front(): int { throw new LogicException('Implement method'); }\n    public function Rear(): int { throw new LogicException('Implement method'); }\n    public function isEmpty(): bool { throw new LogicException('Implement method'); }\n    public function isFull(): bool { throw new LogicException('Implement method'); }\n}",
+    "r": "MyCircularQueue <- function(k) {\n list(\n  enQueue = function(value) stop(\"Implement enQueue\"),\n  deQueue = function() stop(\"Implement deQueue\"),\n  Front = function() stop(\"Implement Front\"),\n  Rear = function() stop(\"Implement Rear\"),\n  isEmpty = function() stop(\"Implement isEmpty\"),\n  isFull = function() stop(\"Implement isFull\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "MyCircularQueue",
+    "arguments": [
+      [
+        "k",
+        "int"
+      ],
+      [
+        "ops",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "stateful",
+    "validator": "exact",
+    "notes": "Construct MyCircularQueue(k) once. Dispatch opcodes 0=enQueue(value), 1=deQueue(), 2=Front(), 3=Rear(), 4=isEmpty(), 5=isFull(). Serialize all returns, with booleans as integer 0/1."
+  },
+  "blocks": [
+    {
+      "id": "nc250-191-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-191-statement",
+      "type": "paragraph",
+      "content": "Implement a fixed-capacity FIFO queue whose freed positions can be reused. enQueue(value) appends and reports success, deQueue() removes the oldest value and reports success, Front() and Rear() return endpoint values or −1 if empty, and isEmpty() and isFull() return booleans. Do not use a built-in queue.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-191-contract",
+      "type": "note",
+      "title": "class MyCircularQueue:",
+      "content": "Input: k (int), ops (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-191-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ 1000. At most 3000 calls. Values are in [0,1000]. Rows [0,value], [1], [2], [3], [4], [5] call enQueue, deQueue, Front, Rear, isEmpty, isFull. Construct once with k. Serialize every return, encoding booleans as 0 or 1.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-191-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class MyCircularQueue:\n    def __init__(self, k: int) -> None:\n        raise NotImplementedError\n\n    def enQueue(self, value: int) -> bool:\n        raise NotImplementedError\n\n    def deQueue(self) -> bool:\n        raise NotImplementedError\n\n    def Front(self) -> int:\n        raise NotImplementedError\n\n    def Rear(self) -> int:\n        raise NotImplementedError\n\n    def isEmpty(self) -> bool:\n        raise NotImplementedError\n\n    def isFull(self) -> bool:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class MyCircularQueue {\n    public MyCircularQueue(int k) { throw new UnsupportedOperationException(); }\n    public boolean enQueue(int value) { throw new UnsupportedOperationException(); }\n    public boolean deQueue() { throw new UnsupportedOperationException(); }\n    public int Front() { throw new UnsupportedOperationException(); }\n    public int Rear() { throw new UnsupportedOperationException(); }\n    public boolean isEmpty() { throw new UnsupportedOperationException(); }\n    public boolean isFull() { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class MyCircularQueue {\n  constructor(k) { throw new Error('Implement constructor'); }\n  enQueue(value) { throw new Error('Implement enQueue'); }\n  deQueue() { throw new Error('Implement deQueue'); }\n  Front() { throw new Error('Implement Front'); }\n  Rear() { throw new Error('Implement Rear'); }\n  isEmpty() { throw new Error('Implement isEmpty'); }\n  isFull() { throw new Error('Implement isFull'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class MyCircularQueue {\n  constructor(k: number) { throw new Error('Implement constructor'); }\n  enQueue(value: number): boolean { throw new Error('Implement enQueue'); }\n  deQueue(): boolean { throw new Error('Implement deQueue'); }\n  Front(): number { throw new Error('Implement Front'); }\n  Rear(): number { throw new Error('Implement Rear'); }\n  isEmpty(): boolean { throw new Error('Implement isEmpty'); }\n  isFull(): boolean { throw new Error('Implement isFull'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\ntypedef struct MyCircularQueue MyCircularQueue;\nMyCircularQueue * myCircularQueueCreate(int32_t k) { (void)k; abort(); }\nbool myCircularQueueEnQueue(MyCircularQueue * self, int32_t value) { (void)self; (void)value; abort(); }\nbool myCircularQueueDeQueue(MyCircularQueue * self) { (void)self; abort(); }\nint32_t myCircularQueueFront(MyCircularQueue * self) { (void)self; abort(); }\nint32_t myCircularQueueRear(MyCircularQueue * self) { (void)self; abort(); }\nbool myCircularQueueIsEmpty(MyCircularQueue * self) { (void)self; abort(); }\nbool myCircularQueueIsFull(MyCircularQueue * self) { (void)self; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass MyCircularQueue {\npublic:\n    MyCircularQueue(int k) { throw std::logic_error(\"Implement method\"); }\n    bool enQueue(int value) { throw std::logic_error(\"Implement method\"); }\n    bool deQueue() { throw std::logic_error(\"Implement method\"); }\n    int Front() { throw std::logic_error(\"Implement method\"); }\n    int Rear() { throw std::logic_error(\"Implement method\"); }\n    bool isEmpty() { throw std::logic_error(\"Implement method\"); }\n    bool isFull() { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class MyCircularQueue {\n    public MyCircularQueue(int k) { throw new System.NotImplementedException(); }\n    public bool enQueue(int value) { throw new System.NotImplementedException(); }\n    public bool deQueue() { throw new System.NotImplementedException(); }\n    public int Front() { throw new System.NotImplementedException(); }\n    public int Rear() { throw new System.NotImplementedException(); }\n    public bool isEmpty() { throw new System.NotImplementedException(); }\n    public bool isFull() { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass MyCircularQueue {\n    public function __construct(int $k) { throw new LogicException('Implement method'); }\n    public function enQueue(int $value): bool { throw new LogicException('Implement method'); }\n    public function deQueue(): bool { throw new LogicException('Implement method'); }\n    public function Front(): int { throw new LogicException('Implement method'); }\n    public function Rear(): int { throw new LogicException('Implement method'); }\n    public function isEmpty(): bool { throw new LogicException('Implement method'); }\n    public function isFull(): bool { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-191-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "MyCircularQueue <- function(k) {\n list(\n  enQueue = function(value) stop(\"Implement enQueue\"),\n  deQueue = function() stop(\"Implement deQueue\"),\n  Front = function() stop(\"Implement Front\"),\n  Rear = function() stop(\"Implement Rear\"),\n  isEmpty = function() stop(\"Implement isEmpty\"),\n  isFull = function() stop(\"Implement isFull\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[1,1,0,1,1,8,1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

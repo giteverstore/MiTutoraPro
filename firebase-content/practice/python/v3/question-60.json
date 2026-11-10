@@ -1,0 +1,301 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-060",
+  "title": "Kth Largest Element in a Stream",
+  "summary": "Initialize a score stream with nums and a fixed rank k.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "KthLargest",
+    "signature": "class KthLargest:",
+    "input": "`k` (integer), `nums` (integer array), `adds` (integer array)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`k` (integer), `nums` (integer array), `adds` (integer array)",
+    "result": "integer array.",
+    "constraints": "Initial length and number of add calls are each at most 10,000. The initial array may be empty. The rank is from 1 through the initial length plus one. Scores are integers in [−10,000, 10,000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Initialize a score stream with nums and a fixed rank k. Each add call inserts one score and returns the k-th largest score among all scores seen so far. Count equal scores separately. The fixture calls add for each value in adds from left to right and collects every return value.",
+  "examples": [
+    {
+      "input": "{\"k\":2,\"nums\":[8,1],\"adds\":[4,9,9]}",
+      "output": "[4,8,9]",
+      "explanation": "The second-largest score changes after each addition."
+    },
+    {
+      "input": "{\"k\":1,\"nums\":[],\"adds\":[-6,-7,-2]}",
+      "output": "[-6,-6,-2]",
+      "explanation": "Rank one keeps the maximum seen so far."
+    },
+    {
+      "input": "{\"k\":3,\"nums\":[5,5],\"adds\":[5,0,8]}",
+      "output": "[5,5,5]",
+      "explanation": "All copies of 5 occupy separate positions."
+    }
+  ],
+  "constraints": [
+    "Initial length and number of add calls are each at most 10,000. The initial array may be empty. The rank is from 1 through the initial length plus one. Scores are integers in [−10,000, 10,000]."
+  ],
+  "hints": [
+    "Conceptual: A low score can be discarded once at least k scores exceed it.",
+    "Directional: Retain the k largest scores in a min-priority queue so the smallest retained score is accessible.",
+    "Implementation: Insert each score, remove the minimum if the queue grows past k, and return the minimum remaining score."
+  ],
+  "concepts": [
+    "streaming",
+    "bounded-heaps",
+    "order-statistics"
+  ],
+  "skills": [
+    "Streaming",
+    "bounded heaps",
+    "order statistics"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log(k+1)",
+    "space": "O(log(k+1)"
+  },
+  "complexityAnalysis": "O(log(k+1)) time per insertion and O(k) space. Building by inserting m initial values takes O(m log(k+1)) time.",
+  "publicTests": [
+    {
+      "name": "BLIND150-060-T01",
+      "arguments": [
+        2,
+        [
+          8,
+          1
+        ],
+        [
+          4,
+          9,
+          9
+        ]
+      ],
+      "input": {
+        "k": 2,
+        "nums": [
+          8,
+          1
+        ],
+        "adds": [
+          4,
+          9,
+          9
+        ]
+      },
+      "expected": [
+        4,
+        8,
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-060-T02",
+      "arguments": [
+        1,
+        [],
+        [
+          -6,
+          -7,
+          -2
+        ]
+      ],
+      "input": {
+        "k": 1,
+        "nums": [],
+        "adds": [
+          -6,
+          -7,
+          -2
+        ]
+      },
+      "expected": [
+        -6,
+        -6,
+        -2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-060-T03",
+      "arguments": [
+        3,
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          0,
+          8
+        ]
+      ],
+      "input": {
+        "k": 3,
+        "nums": [
+          5,
+          5
+        ],
+        "adds": [
+          5,
+          0,
+          8
+        ]
+      },
+      "expected": [
+        5,
+        5,
+        5
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class KthLargest:\n    def __init__(self, k: int, nums: list[int]) -> None:\n        raise NotImplementedError\n\n    def add(self, value: int) -> int:\n        raise NotImplementedError",
+    "java": "class KthLargest {\n    public KthLargest(int k, int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n\n    public int add(int value) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class KthLargest {\n  /** @param {number} k */\n  /** @param {number[]} nums */\n  constructor(k, nums) {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number} value\n   * @returns {number}\n   */\n  add(value) {\n    throw new Error('Implement add');\n  }\n}",
+    "typescript": "class KthLargest {\n  constructor(k: number, nums: number[]) {\n    throw new Error('Implement constructor');\n  }\n\n  add(value: number): number {\n    throw new Error('Implement add');\n  }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct KthLargest KthLargest;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nKthLargest *kthLargestCreate(int32_t k, IntArray nums) {\n    (void)k;\n    (void)nums;\n    abort();\n}\n\nint32_t kthLargestAdd(KthLargest *stream, int32_t value) {\n    (void)stream;\n    (void)value;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass KthLargest {\npublic:\n    KthLargest(int k, std::vector<int> nums) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    int add(int value) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+    "csharp": "public class KthLargest {\n    public KthLargest(int k, int[] nums) {\n        throw new System.NotImplementedException();\n    }\n\n    public int add(int value) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass KthLargest {\n    public function __construct(int $k, array $nums) {\n        throw new LogicException('Implement method');\n    }\n\n    public function add(int $value): int {\n        throw new LogicException('Implement method');\n    }\n}",
+    "r": "KthLargest <- function(k, nums) {\n  list(\n    # value (integer scalar).\n    # Result integer scalar.\n    add = function(value) stop(\"Implement add\")\n  )\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-060-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-060-statement",
+      "type": "paragraph",
+      "content": "Initialize a score stream with nums and a fixed rank k. Each add call inserts one score and returns the k-th largest score among all scores seen so far. Count equal scores separately. The fixture calls add for each value in adds from left to right and collects every return value.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-060-contract",
+      "type": "note",
+      "title": "class KthLargest:",
+      "content": "Input: `k` (integer), `nums` (integer array), `adds` (integer array)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-060-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Initial length and number of add calls are each at most 10,000. The initial array may be empty. The rank is from 1 through the initial length plus one. Scores are integers in [−10,000, 10,000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-060-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class KthLargest:\n    def __init__(self, k: int, nums: list[int]) -> None:\n        raise NotImplementedError\n\n    def add(self, value: int) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class KthLargest {\n    public KthLargest(int k, int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n\n    public int add(int value) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class KthLargest {\n  /** @param {number} k */\n  /** @param {number[]} nums */\n  constructor(k, nums) {\n    throw new Error('Implement constructor');\n  }\n\n  /**\n   * @param {number} value\n   * @returns {number}\n   */\n  add(value) {\n    throw new Error('Implement add');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class KthLargest {\n  constructor(k: number, nums: number[]) {\n    throw new Error('Implement constructor');\n  }\n\n  add(value: number): number {\n    throw new Error('Implement add');\n  }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct KthLargest KthLargest;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nKthLargest *kthLargestCreate(int32_t k, IntArray nums) {\n    (void)k;\n    (void)nums;\n    abort();\n}\n\nint32_t kthLargestAdd(KthLargest *stream, int32_t value) {\n    (void)stream;\n    (void)value;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass KthLargest {\npublic:\n    KthLargest(int k, std::vector<int> nums) {\n        throw std::logic_error(\"Implement method\");\n    }\n\n    int add(int value) {\n        throw std::logic_error(\"Implement method\");\n    }\n};",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class KthLargest {\n    public KthLargest(int k, int[] nums) {\n        throw new System.NotImplementedException();\n    }\n\n    public int add(int value) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass KthLargest {\n    public function __construct(int $k, array $nums) {\n        throw new LogicException('Implement method');\n    }\n\n    public function add(int $value): int {\n        throw new LogicException('Implement method');\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-060-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "KthLargest <- function(k, nums) {\n  list(\n    # value (integer scalar).\n    # Result integer scalar.\n    add = function(value) stop(\"Implement add\")\n  )\n}",
+      "stdin": "",
+      "expectedOutput": "[4,8,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,340 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-156",
+  "title": "Design HashMap",
+  "summary": "Store integer keys and values without a built-in hash map.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "MyHashMap",
+    "signature": "class MyHashMap:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Store integer keys and values without a built-in hash map. A put replaces any value already stored under that key. A get on an absent key returns −1. Removing an absent key has no effect.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,7,0],[2,7],[2,6]]}",
+      "output": "[0,-1]",
+      "explanation": "Stored zero differs from an absent mapping."
+    },
+    {
+      "input": "{\"ops\":[[0,2,8],[0,2,9],[2,2]]}",
+      "output": "[9]",
+      "explanation": "The second put replaces the first."
+    },
+    {
+      "input": "{\"ops\":[[0,1000000,4],[1,1000000],[2,1000000]]}",
+      "output": "[-1]",
+      "explanation": "Removal clears the mapping."
+    }
+  ],
+  "constraints": [
+    "At most 10000 calls. Keys and values are in [0,1000000]. Rows are [0,key,value] for put, [1,key] for remove, and [2,key] for get."
+  ],
+  "hints": [
+    "Conceptual: Each key has one current mapping.",
+    "Directional: The bounded key range can index an array directly.",
+    "Implementation: Use a presence flag or encode stored values so that the initial slot is distinguishable from value zero."
+  ],
+  "concepts": [
+    "stateful-class",
+    "key-value-storage"
+  ],
+  "skills": [
+    "Stateful class",
+    "key-value storage"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "See complexity analysis",
+    "space": "O(U)"
+  },
+  "complexityAnalysis": "O(U) initialization and space for U=1000001 direct-address slots. O(1) per call.",
+  "publicTests": [
+    {
+      "name": "NC250-156-P1",
+      "arguments": [
+        [
+          [
+            0,
+            7,
+            0
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            6
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            7,
+            0
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            6
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        -1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-156-P2",
+      "arguments": [
+        [
+          [
+            0,
+            2,
+            8
+          ],
+          [
+            0,
+            2,
+            9
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            2,
+            8
+          ],
+          [
+            0,
+            2,
+            9
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-156-P3",
+      "arguments": [
+        [
+          [
+            0,
+            1000000,
+            4
+          ],
+          [
+            1,
+            1000000
+          ],
+          [
+            2,
+            1000000
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            1000000,
+            4
+          ],
+          [
+            1,
+            1000000
+          ],
+          [
+            2,
+            1000000
+          ]
+        ]
+      },
+      "expected": [
+        -1
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class MyHashMap:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def put(self, key: int, value: int) -> None:\n        raise NotImplementedError\n\n    def remove(self, key: int) -> None:\n        raise NotImplementedError\n\n    def get(self, key: int) -> int:\n        raise NotImplementedError",
+    "java": "class MyHashMap {\n    public MyHashMap() { throw new UnsupportedOperationException(); }\n    public void put(int key, int value) { throw new UnsupportedOperationException(); }\n    public void remove(int key) { throw new UnsupportedOperationException(); }\n    public int get(int key) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class MyHashMap {\n  constructor() { throw new Error('Implement constructor'); }\n  put(key, value) { throw new Error('Implement put'); }\n  remove(key) { throw new Error('Implement remove'); }\n  get(key) { throw new Error('Implement get'); }\n}",
+    "typescript": "class MyHashMap {\n  constructor() { throw new Error('Implement constructor'); }\n  put(key: number, value: number): void { throw new Error('Implement put'); }\n  remove(key: number): void { throw new Error('Implement remove'); }\n  get(key: number): number { throw new Error('Implement get'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct MyHashMap MyHashMap;\nMyHashMap * myHashMapCreate(void) {  abort(); }\nvoid myHashMapPut(MyHashMap * self, int32_t key, int32_t value) { (void)self; (void)key; (void)value; abort(); }\nvoid myHashMapRemove(MyHashMap * self, int32_t key) { (void)self; (void)key; abort(); }\nint32_t myHashMapGet(MyHashMap * self, int32_t key) { (void)self; (void)key; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass MyHashMap {\npublic:\n    MyHashMap() { throw std::logic_error(\"Implement method\"); }\n    void put(int key, int value) { throw std::logic_error(\"Implement method\"); }\n    void remove(int key) { throw std::logic_error(\"Implement method\"); }\n    int get(int key) { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class MyHashMap {\n    public MyHashMap() { throw new System.NotImplementedException(); }\n    public void put(int key, int value) { throw new System.NotImplementedException(); }\n    public void remove(int key) { throw new System.NotImplementedException(); }\n    public int get(int key) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass MyHashMap {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function put(int $key, int $value): void { throw new LogicException('Implement method'); }\n    public function remove(int $key): void { throw new LogicException('Implement method'); }\n    public function get(int $key): int { throw new LogicException('Implement method'); }\n}",
+    "r": "MyHashMap <- function() {\n list(\n  put = function(key, value) stop(\"Implement put\"),\n  remove = function(key) stop(\"Implement remove\"),\n  get = function(key) stop(\"Implement get\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "MyHashMap",
+    "arguments": [
+      [
+        "ops",
+        "intgrid"
+      ]
+    ],
+    "mode": "stateful",
+    "validator": "exact",
+    "serialized_type": "ints",
+    "adapter_notes": "Construct MyHashMap once. Read operation rows [0,key,value] put, [1,key] remove, [2,key] get. Serialize only query results in call order."
+  },
+  "blocks": [
+    {
+      "id": "nc250-156-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-156-statement",
+      "type": "paragraph",
+      "content": "Store integer keys and values without a built-in hash map. A put replaces any value already stored under that key. A get on an absent key returns −1. Removing an absent key has no effect.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-156-contract",
+      "type": "note",
+      "title": "class MyHashMap:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-156-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 10000 calls. Keys and values are in [0,1000000]. Rows are [0,key,value] for put, [1,key] for remove, and [2,key] for get.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-156-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class MyHashMap:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def put(self, key: int, value: int) -> None:\n        raise NotImplementedError\n\n    def remove(self, key: int) -> None:\n        raise NotImplementedError\n\n    def get(self, key: int) -> int:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class MyHashMap {\n    public MyHashMap() { throw new UnsupportedOperationException(); }\n    public void put(int key, int value) { throw new UnsupportedOperationException(); }\n    public void remove(int key) { throw new UnsupportedOperationException(); }\n    public int get(int key) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class MyHashMap {\n  constructor() { throw new Error('Implement constructor'); }\n  put(key, value) { throw new Error('Implement put'); }\n  remove(key) { throw new Error('Implement remove'); }\n  get(key) { throw new Error('Implement get'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class MyHashMap {\n  constructor() { throw new Error('Implement constructor'); }\n  put(key: number, value: number): void { throw new Error('Implement put'); }\n  remove(key: number): void { throw new Error('Implement remove'); }\n  get(key: number): number { throw new Error('Implement get'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct MyHashMap MyHashMap;\nMyHashMap * myHashMapCreate(void) {  abort(); }\nvoid myHashMapPut(MyHashMap * self, int32_t key, int32_t value) { (void)self; (void)key; (void)value; abort(); }\nvoid myHashMapRemove(MyHashMap * self, int32_t key) { (void)self; (void)key; abort(); }\nint32_t myHashMapGet(MyHashMap * self, int32_t key) { (void)self; (void)key; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass MyHashMap {\npublic:\n    MyHashMap() { throw std::logic_error(\"Implement method\"); }\n    void put(int key, int value) { throw std::logic_error(\"Implement method\"); }\n    void remove(int key) { throw std::logic_error(\"Implement method\"); }\n    int get(int key) { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class MyHashMap {\n    public MyHashMap() { throw new System.NotImplementedException(); }\n    public void put(int key, int value) { throw new System.NotImplementedException(); }\n    public void remove(int key) { throw new System.NotImplementedException(); }\n    public int get(int key) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass MyHashMap {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function put(int $key, int $value): void { throw new LogicException('Implement method'); }\n    public function remove(int $key): void { throw new LogicException('Implement method'); }\n    public function get(int $key): int { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-156-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "MyHashMap <- function() {\n list(\n  put = function(key, value) stop(\"Implement put\"),\n  remove = function(key) stop(\"Implement remove\"),\n  get = function(key) stop(\"Implement get\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[0,-1]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 3,
+  "matrix": {
+    "BLIND150-071": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 529,
+        "wallTimeMs": 34211,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

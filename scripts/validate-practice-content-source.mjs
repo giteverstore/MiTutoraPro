@@ -30,14 +30,7 @@ assert(
     === PRACTICE_CONTENT_SOURCES.FIREBASE,
   'Production must ignore the local Practice source override.',
 );
-assert(practiceQuestions.length === 200, `Expected 200 canonical local questions; found ${practiceQuestions.length}.`);
-
-const batch10Ids = Array.from({ length: 19 }, (_, index) => `fund-errors-${String(index + 1).padStart(3, '0')}`);
-const localIds = practiceQuestions.map(({ id }) => id);
-assert(
-  JSON.stringify(localIds.slice(181)) === JSON.stringify(batch10Ids),
-  'Batch 10 must be accessible at canonical catalog positions 182 through 200.',
-);
+assert(practiceQuestions.length === 250, `Q250 requires 250 canonical local questions; found ${practiceQuestions.length}.`);
 
 const practicePageSource = await readFile(new URL('../src/practice/PracticePage.jsx', import.meta.url), 'utf8');
 assert(practicePageSource.includes('practiceContentSource.listPage'), 'Practice must load paged metadata through its content source.');
@@ -57,8 +50,7 @@ console.log(JSON.stringify({
   developmentFirebaseDefault: 'passed',
   productionFirebaseEnforcement: 'passed',
   canonicalLocalQuestions: practiceQuestions.length,
-  batch10Range: `${batch10Ids[0]} through ${batch10Ids.at(-1)}`,
-  generatedPositions: '182 through 200',
+  q250BankState: 'bundled-local',
   metadataFirstPagination: 'passed',
   catalogSourceLabel: 'accurate',
 }, null, 2));

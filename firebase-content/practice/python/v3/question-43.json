@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-043",
+  "title": "Merge K Sorted Lists",
+  "summary": "Merge a collection of sorted linked lists into one sorted linked list.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "mergeKLists",
+    "signature": "class ListNode:",
+    "input": "`lists` (nested integer arrays)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`lists` (nested integer arrays)",
+    "result": "integer array.",
+    "constraints": "There are 0–10,000 input lists. Each has at most 500 nodes, and their combined length is at most 10,000. Node values are integers in [−10,000, 10,000]. Each list is nondecreasing.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Merge a collection of sorted linked lists into one sorted linked list. Return its head. Keep every occurrence of each value. Examples show arrays in traversal order.",
+  "examples": [
+    {
+      "input": "{\"lists\":[[2,7],[-3,2],[1,9]]}",
+      "output": "[-3,1,2,2,7,9]",
+      "explanation": "All lists contribute, including both copies of 2."
+    },
+    {
+      "input": "{\"lists\":[[],[4],[]]}",
+      "output": "[4]",
+      "explanation": "Empty lists contribute no nodes."
+    },
+    {
+      "input": "{\"lists\":[]}",
+      "output": "[]",
+      "explanation": "With no input lists, the result is empty."
+    }
+  ],
+  "constraints": [
+    "There are 0–10,000 input lists. Each has at most 500 nodes, and their combined length is at most 10,000. Node values are integers in [−10,000, 10,000]. Each list is nondecreasing."
+  ],
+  "hints": [
+    "Conceptual: Merging two sorted lists at a time can solve the larger problem.",
+    "Directional: Pair lists and merge each pair into a new chain, then repeat in rounds.",
+    "Implementation: Double the span of each merged block after every round. An unpaired final list advances unchanged."
+  ],
+  "concepts": [
+    "linked-lists",
+    "divide-and-conquer",
+    "merging"
+  ],
+  "skills": [
+    "Linked lists",
+    "divide and conquer",
+    "merging"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(k + N log(max(k,2)",
+    "space": "O(k + N log(max(k,2)"
+  },
+  "complexityAnalysis": "O(k + N log(max(k,2))) time and O(k) auxiliary space for k lists and N nodes, using a working array of heads.",
+  "publicTests": [
+    {
+      "name": "BLIND150-043-T01",
+      "arguments": [
+        [
+          [
+            2,
+            7
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            1,
+            9
+          ]
+        ]
+      ],
+      "input": {
+        "lists": [
+          [
+            2,
+            7
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            1,
+            9
+          ]
+        ]
+      },
+      "expected": [
+        -3,
+        1,
+        2,
+        2,
+        7,
+        9
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-043-T02",
+      "arguments": [
+        [
+          [],
+          [
+            4
+          ],
+          []
+        ]
+      ],
+      "input": {
+        "lists": [
+          [],
+          [
+            4
+          ],
+          []
+        ]
+      },
+      "expected": [
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-043-T03",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "lists": []
+      },
+      "expected": [],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef mergeKLists(lists: list[ListNode | None]) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeKLists(ListNode[] lists) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {(ListNode | null)[]} lists\n * @returns {ListNode | null}\n */\nfunction mergeKLists(lists) {\n  throw new Error('Implement mergeKLists');\n}",
+    "typescript": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction mergeKLists(lists: (ListNode | null)[]): ListNode | null {\n  throw new Error('Implement mergeKLists');\n}",
+    "c": "#include <stddef.h>\n#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * mergeKLists(ListNode ** lists, size_t count) {\n    (void)lists;\n    (void)count;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * mergeKLists(ListNode ** lists, std::size_t count) {\n    (void)lists;\n    (void)count;\n    throw std::logic_error(\"Implement mergeKLists\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeKLists(ListNode[] lists) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction mergeKLists(array $lists): ?ListNode {\n    throw new LogicException('Implement mergeKLists');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters lists (list of node environments or NULL entries). Result node environment or NULL.\nmergeKLists <- function(lists) {\n  stop(\"Implement mergeKLists\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-043-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-043-statement",
+      "type": "paragraph",
+      "content": "Merge a collection of sorted linked lists into one sorted linked list. Return its head. Keep every occurrence of each value. Examples show arrays in traversal order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-043-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: `lists` (nested integer arrays)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-043-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "There are 0–10,000 input lists. Each has at most 500 nodes, and their combined length is at most 10,000. Node values are integers in [−10,000, 10,000]. Each list is nondecreasing.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-043-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef mergeKLists(lists: list[ListNode | None]) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeKLists(ListNode[] lists) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {(ListNode | null)[]} lists\n * @returns {ListNode | null}\n */\nfunction mergeKLists(lists) {\n  throw new Error('Implement mergeKLists');\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction mergeKLists(lists: (ListNode | null)[]): ListNode | null {\n  throw new Error('Implement mergeKLists');\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * mergeKLists(ListNode ** lists, size_t count) {\n    (void)lists;\n    (void)count;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * mergeKLists(ListNode ** lists, std::size_t count) {\n    (void)lists;\n    (void)count;\n    throw std::logic_error(\"Implement mergeKLists\");\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode mergeKLists(ListNode[] lists) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction mergeKLists(array $lists): ?ListNode {\n    throw new LogicException('Implement mergeKLists');\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-043-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters lists (list of node environments or NULL entries). Result node environment or NULL.\nmergeKLists <- function(lists) {\n  stop(\"Implement mergeKLists\")\n}",
+      "stdin": "",
+      "expectedOutput": "[-3,1,2,2,7,9]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

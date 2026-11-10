@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-229",
+  "title": "Integer Break",
+  "summary": "Split n into at least two positive integer parts.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "integerBreak",
+    "signature": "def integerBreak(n:",
+    "input": "n (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int)",
+    "callable": "integerBreak",
+    "constraints": "2 ≤ n ≤ 58. Return an exact integer.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Split n into at least two positive integer parts. Return the largest possible product of the parts.",
+  "examples": [
+    {
+      "input": "{\"n\":2}",
+      "output": "1",
+      "explanation": "The only split is 1+1."
+    },
+    {
+      "input": "{\"n\":7}",
+      "output": "12",
+      "explanation": "A split of 3+4 reaches the maximum."
+    },
+    {
+      "input": "{\"n\":58}",
+      "output": "1549681956",
+      "explanation": "Use eighteen 3s and a final factor of 4."
+    }
+  ],
+  "constraints": [
+    "2 ≤ n ≤ 58. Return an exact integer."
+  ],
+  "hints": [
+    "Conceptual: One big part can often be replaced with smaller factors that give a larger product.",
+    "Directional: Parts of size three are especially useful, but a final one wastes a factor.",
+    "Implementation: Take threes while the remainder exceeds four. Use the remaining two, three, or four as the final factor. Handle inputs below four separately."
+  ],
+  "concepts": [
+    "integer-partition",
+    "greedy-product"
+  ],
+  "skills": [
+    "Integer partition",
+    "greedy product"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space for iterative multiplication.",
+  "publicTests": [
+    {
+      "name": "NC250-229-P1",
+      "arguments": [
+        2
+      ],
+      "input": {
+        "n": 2
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-229-P2",
+      "arguments": [
+        7
+      ],
+      "input": {
+        "n": 7
+      },
+      "expected": 12,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-229-P3",
+      "arguments": [
+        58
+      ],
+      "input": {
+        "n": 58
+      },
+      "expected": 1549681956,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def integerBreak(n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int integerBreak(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction integerBreak(n) {\n  throw new Error('Implement integerBreak');\n}",
+    "typescript": "function integerBreak(n: number): number {\n  throw new Error('Implement integerBreak');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t integerBreak(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint integerBreak(int n) {\n    throw std::logic_error(\"Implement integerBreak\");\n}",
+    "csharp": "public class Solution {\n    public int integerBreak(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction integerBreak(int $n): int {\n    throw new LogicException('Implement integerBreak');\n}",
+    "r": "# Parameters: n (integer scalar). Result: integer scalar.\nintegerBreak <- function(n) {\n  stop(\"Implement integerBreak\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "integerBreak",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-229-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-229-statement",
+      "type": "paragraph",
+      "content": "Split n into at least two positive integer parts. Return the largest possible product of the parts.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-229-contract",
+      "type": "note",
+      "title": "def integerBreak(n:",
+      "content": "Input: n (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-229-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2 ≤ n ≤ 58. Return an exact integer.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-229-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def integerBreak(n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int integerBreak(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction integerBreak(n) {\n  throw new Error('Implement integerBreak');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function integerBreak(n: number): number {\n  throw new Error('Implement integerBreak');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t integerBreak(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint integerBreak(int n) {\n    throw std::logic_error(\"Implement integerBreak\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int integerBreak(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction integerBreak(int $n): int {\n    throw new LogicException('Implement integerBreak');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-229-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar). Result: integer scalar.\nintegerBreak <- function(n) {\n  stop(\"Implement integerBreak\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

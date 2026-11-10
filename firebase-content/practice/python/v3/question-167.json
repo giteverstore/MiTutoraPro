@@ -1,0 +1,327 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-167",
+  "title": "Merge Sorted Array",
+  "summary": "Combine two sorted sequences into nums1.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "merge",
+    "signature": "def merge(nums1:",
+    "input": "nums1 (ints), m (int), nums2 (ints), n (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums1 (ints), m (int), nums2 (ints), n (int)",
+    "callable": "merge",
+    "constraints": "nums1 has length m+n and nums2 has length n. 0 ≤ m,n ≤ 200 and 1 ≤ m+n ≤ 200. Real values are in [−1000000000,1000000000]. The real portions are sorted. Serialize nums1 after the void call. R returns the updated vector.",
+    "output-checking": "Call merge(nums1,m,nums2,n), then serialize mutated nums1. R returns the updated vector."
+  },
+  "statement": "Combine two sorted sequences into nums1. Its first m entries are real data and its final n entries are unused zero placeholders. nums2 contains n real entries. Change nums1 to hold all m+n values in nondecreasing order.",
+  "examples": [
+    {
+      "input": "{\"nums1\":[1,5,0,0],\"m\":2,\"nums2\":[2,5],\"n\":2}",
+      "output": "[1,2,5,5]",
+      "explanation": "Both copies of 5 remain."
+    },
+    {
+      "input": "{\"nums1\":[0,0],\"m\":0,\"nums2\":[-3,4],\"n\":2}",
+      "output": "[-3,4]",
+      "explanation": "All stored values come from nums2."
+    },
+    {
+      "input": "{\"nums1\":[-2,0],\"m\":2,\"nums2\":[],\"n\":0}",
+      "output": "[-2,0]",
+      "explanation": "No values need to be merged from nums2."
+    }
+  ],
+  "constraints": [
+    "nums1 has length m+n and nums2 has length n. 0 ≤ m,n ≤ 200 and 1 ≤ m+n ≤ 200. Real values are in [−1000000000,1000000000]. The real portions are sorted. Serialize nums1 after the void call. R returns the updated vector."
+  ],
+  "hints": [
+    "Conceptual: Writing at the front could overwrite unread entries.",
+    "Directional: Fill the available positions from the end.",
+    "Implementation: Compare the last unread real values. Write the larger one into the last free slot and move its read position backward."
+  ],
+  "concepts": [
+    "sorted-arrays",
+    "in-place-merge"
+  ],
+  "skills": [
+    "Sorted arrays",
+    "in-place merge"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(m+n)",
+    "space": "O(m+n)"
+  },
+  "complexityAnalysis": "O(m+n) time and O(1) auxiliary space in mutable representations.",
+  "publicTests": [
+    {
+      "name": "NC250-167-P1",
+      "arguments": [
+        [
+          1,
+          5,
+          0,
+          0
+        ],
+        2,
+        [
+          2,
+          5
+        ],
+        2
+      ],
+      "input": {
+        "nums1": [
+          1,
+          5,
+          0,
+          0
+        ],
+        "m": 2,
+        "nums2": [
+          2,
+          5
+        ],
+        "n": 2
+      },
+      "expected": [
+        1,
+        2,
+        5,
+        5
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-167-P2",
+      "arguments": [
+        [
+          0,
+          0
+        ],
+        0,
+        [
+          -3,
+          4
+        ],
+        2
+      ],
+      "input": {
+        "nums1": [
+          0,
+          0
+        ],
+        "m": 0,
+        "nums2": [
+          -3,
+          4
+        ],
+        "n": 2
+      },
+      "expected": [
+        -3,
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-167-P3",
+      "arguments": [
+        [
+          -2,
+          0
+        ],
+        2,
+        [],
+        0
+      ],
+      "input": {
+        "nums1": [
+          -2,
+          0
+        ],
+        "m": 2,
+        "nums2": [],
+        "n": 0
+      },
+      "expected": [
+        -2,
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def merge(nums1: list[int], m: int, nums2: list[int], n: int) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void merge(int[] nums1, int m, int[] nums2, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums1\n * @param {number} m\n * @param {number[]} nums2\n * @param {number} n\n * @returns {void}\n */\nfunction merge(nums1, m, nums2, n) {\n  throw new Error('Implement merge');\n}",
+    "typescript": "function merge(nums1: number[], m: number, nums2: number[], n: number): void {\n  throw new Error('Implement merge');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nvoid merge(IntArray nums1, int32_t m, IntArray nums2, int32_t n) {\n    (void)nums1;\n    (void)m;\n    (void)nums2;\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nvoid merge(std::vector<int>& nums1, int m, std::vector<int> nums2, int n) {\n    throw std::logic_error(\"Implement merge\");\n}",
+    "csharp": "public class Solution {\n    public void merge(int[] nums1, int m, int[] nums2, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums1\n * @param int $m\n * @param int[] $nums2\n * @param int $n\n * @return void\n */\nfunction merge(array &$nums1, int $m, array $nums2, int $n): void {\n    throw new LogicException('Implement merge');\n}",
+    "r": "# Return the updated nums1 vector.\nmerge <- function(nums1, m, nums2, n) { stop(\"Implement merge\") }"
+  },
+  "executionMetadata": {
+    "entry": "merge",
+    "arguments": [
+      [
+        "nums1",
+        "ints"
+      ],
+      [
+        "m",
+        "int"
+      ],
+      [
+        "nums2",
+        "ints"
+      ],
+      [
+        "n",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "mutation",
+    "validator": "exact",
+    "notes": "Call merge(nums1,m,nums2,n), then serialize mutated nums1. R returns the updated vector."
+  },
+  "blocks": [
+    {
+      "id": "nc250-167-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-167-statement",
+      "type": "paragraph",
+      "content": "Combine two sorted sequences into nums1. Its first m entries are real data and its final n entries are unused zero placeholders. nums2 contains n real entries. Change nums1 to hold all m+n values in nondecreasing order.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-167-contract",
+      "type": "note",
+      "title": "def merge(nums1:",
+      "content": "Input: nums1 (ints), m (int), nums2 (ints), n (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-167-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "nums1 has length m+n and nums2 has length n. 0 ≤ m,n ≤ 200 and 1 ≤ m+n ≤ 200. Real values are in [−1000000000,1000000000]. The real portions are sorted. Serialize nums1 after the void call. R returns the updated vector.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-167-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def merge(nums1: list[int], m: int, nums2: list[int], n: int) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void merge(int[] nums1, int m, int[] nums2, int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums1\n * @param {number} m\n * @param {number[]} nums2\n * @param {number} n\n * @returns {void}\n */\nfunction merge(nums1, m, nums2, n) {\n  throw new Error('Implement merge');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function merge(nums1: number[], m: number, nums2: number[], n: number): void {\n  throw new Error('Implement merge');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nvoid merge(IntArray nums1, int32_t m, IntArray nums2, int32_t n) {\n    (void)nums1;\n    (void)m;\n    (void)nums2;\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nvoid merge(std::vector<int>& nums1, int m, std::vector<int> nums2, int n) {\n    throw std::logic_error(\"Implement merge\");\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void merge(int[] nums1, int m, int[] nums2, int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums1\n * @param int $m\n * @param int[] $nums2\n * @param int $n\n * @return void\n */\nfunction merge(array &$nums1, int $m, array $nums2, int $n): void {\n    throw new LogicException('Implement merge');\n}",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-167-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated nums1 vector.\nmerge <- function(nums1, m, nums2, n) { stop(\"Implement merge\") }",
+      "stdin": "",
+      "expectedOutput": "[1,2,5,5]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

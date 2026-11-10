@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-205",
+  "title": "IPO",
+  "summary": "You may complete at most k distinct projects.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "findMaximizedCapital",
+    "signature": "def findMaximizedCapital(k:",
+    "input": "k (int), w (int), profits (ints), capital (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "k (int), w (int), profits (ints), capital (ints)",
+    "callable": "findMaximizedCapital",
+    "constraints": "1 ≤ k ≤ 100000. There are 1–100000 projects, and the profits and capital arrays have equal length. 0 ≤ w,capital[i] ≤ 1000000000. 0 ≤ profits[i] ≤ 10000. The result fits signed 32-bit range.",
+    "output-checking": "Compare the optimum final integer capital. A project may be used at most once and capital thresholds are eligibility tests, not deductions."
+  },
+  "statement": "You may complete at most k distinct projects. Project i can start when your current capital is at least capital[i]. Finishing it adds profits[i] to your capital without subtracting the eligibility threshold. Return the greatest final capital obtainable from initial capital w.",
+  "examples": [
+    {
+      "input": "{\"k\":2,\"w\":1,\"profits\":[2,5,3],\"capital\":[1,3,2]}",
+      "output": "8",
+      "explanation": "First gain 2, then gain 5. Eligibility thresholds are not expenses."
+    },
+    {
+      "input": "{\"k\":3,\"w\":0,\"profits\":[4,7],\"capital\":[1,2]}",
+      "output": "0",
+      "explanation": "No project can be started."
+    },
+    {
+      "input": "{\"k\":5,\"w\":2,\"profits\":[0,3],\"capital\":[2,2]}",
+      "output": "5",
+      "explanation": "At most two distinct projects exist, including a zero-profit one."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ 100000. There are 1–100000 projects, and the profits and capital arrays have equal length. 0 ≤ w,capital[i] ≤ 1000000000. 0 ≤ profits[i] ≤ 10000. The result fits signed 32-bit range."
+  ],
+  "hints": [
+    "Conceptual: Finishing a feasible project may unlock more projects.",
+    "Directional: Separate the question of affordability from the question of best profit.",
+    "Implementation: Move affordable projects from a capital-ordered structure to a profit max-heap. Complete its best project and repeat, stopping when no project is available."
+  ],
+  "concepts": [
+    "greedy-choice",
+    "two-priority-queues"
+  ],
+  "skills": [
+    "Greedy choice",
+    "two priority queues"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n + k log n)",
+    "space": "O(n log n + k log n)"
+  },
+  "complexityAnalysis": "O(n log n + k log n) time and O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-205-P1",
+      "arguments": [
+        2,
+        1,
+        [
+          2,
+          5,
+          3
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "input": {
+        "k": 2,
+        "w": 1,
+        "profits": [
+          2,
+          5,
+          3
+        ],
+        "capital": [
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": 8,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-205-P2",
+      "arguments": [
+        3,
+        0,
+        [
+          4,
+          7
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "input": {
+        "k": 3,
+        "w": 0,
+        "profits": [
+          4,
+          7
+        ],
+        "capital": [
+          1,
+          2
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-205-P3",
+      "arguments": [
+        5,
+        2,
+        [
+          0,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "input": {
+        "k": 5,
+        "w": 2,
+        "profits": [
+          0,
+          3
+        ],
+        "capital": [
+          2,
+          2
+        ]
+      },
+      "expected": 5,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findMaximizedCapital(k: int, w: int, profits: list[int], capital: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} k\n * @param {number} w\n * @param {number[]} profits\n * @param {number[]} capital\n * @returns {number}\n */\nfunction findMaximizedCapital(k, w, profits, capital) {\n  throw new Error('Implement findMaximizedCapital');\n}",
+    "typescript": "function findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {\n  throw new Error('Implement findMaximizedCapital');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findMaximizedCapital(int32_t k, int32_t w, IntArray profits, IntArray capital) {\n    (void)k;\n    (void)w;\n    (void)profits;\n    (void)capital;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findMaximizedCapital(int k, int w, std::vector<int> profits, std::vector<int> capital) {\n    throw std::logic_error(\"Implement findMaximizedCapital\");\n}",
+    "csharp": "public class Solution {\n    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $k\n * @param int $w\n * @param int[] $profits\n * @param int[] $capital\n * @return int\n */\nfunction findMaximizedCapital(int $k, int $w, array $profits, array $capital): int {\n    throw new LogicException('Implement findMaximizedCapital');\n}",
+    "r": "# Parameters: k (integer scalar), w (integer scalar), profits (integer vector), capital (integer vector). Result: integer scalar.\nfindMaximizedCapital <- function(k, w, profits, capital) {\n  stop(\"Implement findMaximizedCapital\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "findMaximizedCapital",
+    "arguments": [
+      [
+        "k",
+        "int"
+      ],
+      [
+        "w",
+        "int"
+      ],
+      [
+        "profits",
+        "ints"
+      ],
+      [
+        "capital",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the optimum final integer capital. A project may be used at most once and capital thresholds are eligibility tests, not deductions."
+  },
+  "blocks": [
+    {
+      "id": "nc250-205-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-205-statement",
+      "type": "paragraph",
+      "content": "You may complete at most k distinct projects. Project i can start when your current capital is at least capital[i]. Finishing it adds profits[i] to your capital without subtracting the eligibility threshold. Return the greatest final capital obtainable from initial capital w.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-205-contract",
+      "type": "note",
+      "title": "def findMaximizedCapital(k:",
+      "content": "Input: k (int), w (int), profits (ints), capital (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-205-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ 100000. There are 1–100000 projects, and the profits and capital arrays have equal length. 0 ≤ w,capital[i] ≤ 1000000000. 0 ≤ profits[i] ≤ 10000. The result fits signed 32-bit range.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-205-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findMaximizedCapital(k: int, w: int, profits: list[int], capital: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} k\n * @param {number} w\n * @param {number[]} profits\n * @param {number[]} capital\n * @returns {number}\n */\nfunction findMaximizedCapital(k, w, profits, capital) {\n  throw new Error('Implement findMaximizedCapital');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {\n  throw new Error('Implement findMaximizedCapital');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findMaximizedCapital(int32_t k, int32_t w, IntArray profits, IntArray capital) {\n    (void)k;\n    (void)w;\n    (void)profits;\n    (void)capital;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findMaximizedCapital(int k, int w, std::vector<int> profits, std::vector<int> capital) {\n    throw std::logic_error(\"Implement findMaximizedCapital\");\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $k\n * @param int $w\n * @param int[] $profits\n * @param int[] $capital\n * @return int\n */\nfunction findMaximizedCapital(int $k, int $w, array $profits, array $capital): int {\n    throw new LogicException('Implement findMaximizedCapital');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-205-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: k (integer scalar), w (integer scalar), profits (integer vector), capital (integer vector). Result: integer scalar.\nfindMaximizedCapital <- function(k, w, profits, capital) {\n  stop(\"Implement findMaximizedCapital\")\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

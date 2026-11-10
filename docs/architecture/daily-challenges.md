@@ -1,21 +1,15 @@
 # Daily Challenges
 
-Daily Challenges is an AppShell page under `src/challenges/`. It presents one challenge rather than a searchable catalog and remains independent from course and Practice state.
+Daily Challenges remains an AppShell feature under `src/challenges/`. The hub, calendar, history, rewards, completion state, Challenge Pass behavior, routing, content service, rotation policy, and shared compiler workspace remain intact.
 
-## Reused infrastructure
+## Current content state
 
-The problem statement is an ordered block array rendered by `BlockRenderer`. The single compiler block is normalized with `createCompilerData` and passed to the existing `CompilerPanel`, which continues through `CompilerManager`, the registered runtime, and the output validator.
+The standalone legacy coding challenge and checked-in assignment metadata were removed before the unified Q250-backed question bank is imported. The challenge content source is temporarily gated to an empty catalog and does not fall back to bundled coding content.
 
-Challenges does not implement an editor, runtime, terminal, or comparison function.
+The Challenges route remains functional and reports that today's challenge is unavailable. Direct challenge routes fail safely through the existing unavailable state. No replacement or placeholder challenge is bundled.
 
-## Data contract
+The generic challenge schema, repository/service, assignment generator, calendar/reward infrastructure, and Practice-reference model remain available for future publication.
 
-`schemas/daily-challenge.schema.json` references the Learning Engine’s existing block definitions. A daily challenge includes date, catalog metadata, motivation, reward values, and exactly one compiler block. The current mock document and history live in `src/challenges/challengeData.js`.
+## Production data migration note
 
-Run `npm run validate:challenge` to validate the current daily document.
-
-## Completion flow
-
-Running code produces runtime output. The learner must explicitly check that output. When the shared compiler reports `matched`, the page enables `Claim Reward`. Claiming changes the mock completion state, adds the displayed streak increment, and displays the completed state.
-
-Verification and claiming are intentionally separate, and challenge completion does not alter Learning Progress or Practice state. A future repository should persist challenge claims, streaks, and history without coupling them to the Learning Engine.
+No production Daily Challenge records, completions, streaks, unlocks, or rewards were deleted by this repository cleanup. Old published assignments and user records may require a later migration or archival policy before the unified bank is activated.

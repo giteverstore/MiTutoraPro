@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-211",
+  "title": "N Queens II",
+  "summary": "Count placements of n queens on an n×n board such that no two share a row, column, or diagonal.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "totalNQueens",
+    "signature": "def totalNQueens(n:",
+    "input": "n (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int)",
+    "callable": "totalNQueens",
+    "constraints": "1 ≤ n ≤ 9. Return a count, with no board arrangements in the output.",
+    "output-checking": "Compare the number of distinct valid placements, without identifying rotations or reflections."
+  },
+  "statement": "Count placements of n queens on an n×n board such that no two share a row, column, or diagonal. Distinct placements count separately even when related by a rotation or reflection.",
+  "examples": [
+    {
+      "input": "{\"n\":2}",
+      "output": "0",
+      "explanation": "Every placement of two queens shares a row, column, or diagonal."
+    },
+    {
+      "input": "{\"n\":5}",
+      "output": "10",
+      "explanation": "Ten different placements satisfy the attack restrictions."
+    },
+    {
+      "input": "{\"n\":6}",
+      "output": "4",
+      "explanation": "Four placements remain after enforcing both diagonals and columns."
+    }
+  ],
+  "constraints": [
+    "1 ≤ n ≤ 9. Return a count, with no board arrangements in the output."
+  ],
+  "hints": [
+    "Conceptual: Each row must contain exactly one queen.",
+    "Directional: Build one row at a time while tracking blocked columns and diagonals.",
+    "Implementation: Use bit masks for occupied columns and diagonal attacks. Shift the diagonal masks when descending to the next row."
+  ],
+  "concepts": [
+    "backtracking",
+    "bitmasks",
+    "chessboard"
+  ],
+  "skills": [
+    "Backtracking",
+    "bitmasks",
+    "chessboard"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n!)",
+    "space": "O(n!)"
+  },
+  "complexityAnalysis": "O(n!) search time and O(n) auxiliary recursion space.",
+  "publicTests": [
+    {
+      "name": "NC250-211-P1",
+      "arguments": [
+        2
+      ],
+      "input": {
+        "n": 2
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-211-P2",
+      "arguments": [
+        5
+      ],
+      "input": {
+        "n": 5
+      },
+      "expected": 10,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-211-P3",
+      "arguments": [
+        6
+      ],
+      "input": {
+        "n": 6
+      },
+      "expected": 4,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def totalNQueens(n: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int totalNQueens(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction totalNQueens(n) {\n  throw new Error('Implement totalNQueens');\n}",
+    "typescript": "function totalNQueens(n: number): number {\n  throw new Error('Implement totalNQueens');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t totalNQueens(int32_t n) {\n    (void)n;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint totalNQueens(int n) {\n    throw std::logic_error(\"Implement totalNQueens\");\n}",
+    "csharp": "public class Solution {\n    public int totalNQueens(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction totalNQueens(int $n): int {\n    throw new LogicException('Implement totalNQueens');\n}",
+    "r": "# Parameters: n (integer scalar). Result: integer scalar.\ntotalNQueens <- function(n) {\n  stop(\"Implement totalNQueens\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "totalNQueens",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare the number of distinct valid placements, without identifying rotations or reflections."
+  },
+  "blocks": [
+    {
+      "id": "nc250-211-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-211-statement",
+      "type": "paragraph",
+      "content": "Count placements of n queens on an n×n board such that no two share a row, column, or diagonal. Distinct placements count separately even when related by a rotation or reflection.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-211-contract",
+      "type": "note",
+      "title": "def totalNQueens(n:",
+      "content": "Input: n (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-211-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ n ≤ 9. Return a count, with no board arrangements in the output.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-211-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def totalNQueens(n: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int totalNQueens(int n) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @returns {number}\n */\nfunction totalNQueens(n) {\n  throw new Error('Implement totalNQueens');\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function totalNQueens(n: number): number {\n  throw new Error('Implement totalNQueens');\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t totalNQueens(int32_t n) {\n    (void)n;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint totalNQueens(int n) {\n    throw std::logic_error(\"Implement totalNQueens\");\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int totalNQueens(int n) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @return int\n */\nfunction totalNQueens(int $n): int {\n    throw new LogicException('Implement totalNQueens');\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-211-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar). Result: integer scalar.\ntotalNQueens <- function(n) {\n  stop(\"Implement totalNQueens\")\n}",
+      "stdin": "",
+      "expectedOutput": "0",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

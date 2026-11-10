@@ -1,5 +1,7 @@
 # Content Safety Limits
 
+> Historical note (2026-11-07): The measured Practice artifact table below refers to the removed legacy bank. The generic limits remain operational; Q250 is validated against the same limits during ingestion and publication-payload validation.
+
 **Status: CURRENT**
 
 ycoders validates content complexity before publication and applies defensive download ceilings in the browser. `src/content/validation/contentLimits.js` is the single source for course, Practice, and runtime limits.

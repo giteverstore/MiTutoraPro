@@ -1,0 +1,342 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-155",
+  "title": "Design HashSet",
+  "summary": "Build a set of integer keys without a built-in hash set.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "MyHashSet",
+    "signature": "class MyHashSet:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Build a set of integer keys without a built-in hash set. Process operations that add a key, remove a key, or ask whether it is present. Adding a present key or removing an absent key has no additional effect.",
+  "examples": [
+    {
+      "input": "{\"ops\":[[0,2],[2,2],[1,2],[2,2]]}",
+      "output": "[1,0]",
+      "explanation": "The key is present before removal only."
+    },
+    {
+      "input": "{\"ops\":[[1,0],[2,0]]}",
+      "output": "[0]",
+      "explanation": "Removing an absent key has no effect."
+    },
+    {
+      "input": "{\"ops\":[[0,1000000],[0,1000000],[1,1000000],[2,1000000]]}",
+      "output": "[0]",
+      "explanation": "A repeated add does not create a second copy."
+    }
+  ],
+  "constraints": [
+    "At most 10000 calls. Keys are in [0,1000000]. Rows are [0,key] for add, [1,key] for remove, and [2,key] for contains."
+  ],
+  "hints": [
+    "Conceptual: Membership needs one yes-or-no state per key.",
+    "Directional: The bounded key range permits direct addressing.",
+    "Implementation: Let add set the slot and remove clear it. Return its current state for contains."
+  ],
+  "concepts": [
+    "stateful-class",
+    "membership",
+    "direct-addressing"
+  ],
+  "skills": [
+    "Stateful class",
+    "membership",
+    "direct addressing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "See complexity analysis",
+    "space": "O(U)"
+  },
+  "complexityAnalysis": "O(U) initialization and space for direct addressing over U=1000001 keys. O(1) per call.",
+  "publicTests": [
+    {
+      "name": "NC250-155-P1",
+      "arguments": [
+        [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-155-P2",
+      "arguments": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        0
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-155-P3",
+      "arguments": [
+        [
+          [
+            0,
+            1000000
+          ],
+          [
+            0,
+            1000000
+          ],
+          [
+            1,
+            1000000
+          ],
+          [
+            2,
+            1000000
+          ]
+        ]
+      ],
+      "input": {
+        "ops": [
+          [
+            0,
+            1000000
+          ],
+          [
+            0,
+            1000000
+          ],
+          [
+            1,
+            1000000
+          ],
+          [
+            2,
+            1000000
+          ]
+        ]
+      },
+      "expected": [
+        0
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "class MyHashSet:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def add(self, key: int) -> None:\n        raise NotImplementedError\n\n    def remove(self, key: int) -> None:\n        raise NotImplementedError\n\n    def contains(self, key: int) -> bool:\n        raise NotImplementedError",
+    "java": "class MyHashSet {\n    public MyHashSet() { throw new UnsupportedOperationException(); }\n    public void add(int key) { throw new UnsupportedOperationException(); }\n    public void remove(int key) { throw new UnsupportedOperationException(); }\n    public boolean contains(int key) { throw new UnsupportedOperationException(); }\n}",
+    "javascript": "class MyHashSet {\n  constructor() { throw new Error('Implement constructor'); }\n  add(key) { throw new Error('Implement add'); }\n  remove(key) { throw new Error('Implement remove'); }\n  contains(key) { throw new Error('Implement contains'); }\n}",
+    "typescript": "class MyHashSet {\n  constructor() { throw new Error('Implement constructor'); }\n  add(key: number): void { throw new Error('Implement add'); }\n  remove(key: number): void { throw new Error('Implement remove'); }\n  contains(key: number): boolean { throw new Error('Implement contains'); }\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct MyHashSet MyHashSet;\nMyHashSet * myHashSetCreate(void) {  abort(); }\nvoid myHashSetAdd(MyHashSet * self, int32_t key) { (void)self; (void)key; abort(); }\nvoid myHashSetRemove(MyHashSet * self, int32_t key) { (void)self; (void)key; abort(); }\nbool myHashSetContains(MyHashSet * self, int32_t key) { (void)self; (void)key; abort(); }",
+    "cpp": "#include <stdexcept>\n#include <vector>\n\nclass MyHashSet {\npublic:\n    MyHashSet() { throw std::logic_error(\"Implement method\"); }\n    void add(int key) { throw std::logic_error(\"Implement method\"); }\n    void remove(int key) { throw std::logic_error(\"Implement method\"); }\n    bool contains(int key) { throw std::logic_error(\"Implement method\"); }\n};",
+    "csharp": "public class MyHashSet {\n    public MyHashSet() { throw new System.NotImplementedException(); }\n    public void add(int key) { throw new System.NotImplementedException(); }\n    public void remove(int key) { throw new System.NotImplementedException(); }\n    public bool contains(int key) { throw new System.NotImplementedException(); }\n}",
+    "php": "<?php\nclass MyHashSet {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function add(int $key): void { throw new LogicException('Implement method'); }\n    public function remove(int $key): void { throw new LogicException('Implement method'); }\n    public function contains(int $key): bool { throw new LogicException('Implement method'); }\n}",
+    "r": "MyHashSet <- function() {\n list(\n  add = function(key) stop(\"Implement add\"),\n  remove = function(key) stop(\"Implement remove\"),\n  contains = function(key) stop(\"Implement contains\")\n )\n}"
+  },
+  "executionMetadata": {
+    "entry": "MyHashSet",
+    "arguments": [
+      [
+        "ops",
+        "intgrid"
+      ]
+    ],
+    "mode": "stateful",
+    "validator": "exact",
+    "serialized_type": "ints",
+    "adapter_notes": "Construct MyHashSet once. Read operation rows [0,key] add, [1,key] remove, [2,key] contains. Serialize only query results, as integer 0 or 1 in call order."
+  },
+  "blocks": [
+    {
+      "id": "nc250-155-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-155-statement",
+      "type": "paragraph",
+      "content": "Build a set of integer keys without a built-in hash set. Process operations that add a key, remove a key, or ask whether it is present. Adding a present key or removing an absent key has no additional effect.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-155-contract",
+      "type": "note",
+      "title": "class MyHashSet:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-155-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "At most 10000 calls. Keys are in [0,1000000]. Rows are [0,key] for add, [1,key] for remove, and [2,key] for contains.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-155-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "class MyHashSet:\n    def __init__(self) -> None:\n        raise NotImplementedError\n\n    def add(self, key: int) -> None:\n        raise NotImplementedError\n\n    def remove(self, key: int) -> None:\n        raise NotImplementedError\n\n    def contains(self, key: int) -> bool:\n        raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "class MyHashSet {\n    public MyHashSet() { throw new UnsupportedOperationException(); }\n    public void add(int key) { throw new UnsupportedOperationException(); }\n    public void remove(int key) { throw new UnsupportedOperationException(); }\n    public boolean contains(int key) { throw new UnsupportedOperationException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class MyHashSet {\n  constructor() { throw new Error('Implement constructor'); }\n  add(key) { throw new Error('Implement add'); }\n  remove(key) { throw new Error('Implement remove'); }\n  contains(key) { throw new Error('Implement contains'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class MyHashSet {\n  constructor() { throw new Error('Implement constructor'); }\n  add(key: number): void { throw new Error('Implement add'); }\n  remove(key: number): void { throw new Error('Implement remove'); }\n  contains(key: number): boolean { throw new Error('Implement contains'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n#include <stdlib.h>\n\ntypedef struct MyHashSet MyHashSet;\nMyHashSet * myHashSetCreate(void) {  abort(); }\nvoid myHashSetAdd(MyHashSet * self, int32_t key) { (void)self; (void)key; abort(); }\nvoid myHashSetRemove(MyHashSet * self, int32_t key) { (void)self; (void)key; abort(); }\nbool myHashSetContains(MyHashSet * self, int32_t key) { (void)self; (void)key; abort(); }",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\n\nclass MyHashSet {\npublic:\n    MyHashSet() { throw std::logic_error(\"Implement method\"); }\n    void add(int key) { throw std::logic_error(\"Implement method\"); }\n    void remove(int key) { throw std::logic_error(\"Implement method\"); }\n    bool contains(int key) { throw std::logic_error(\"Implement method\"); }\n};",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class MyHashSet {\n    public MyHashSet() { throw new System.NotImplementedException(); }\n    public void add(int key) { throw new System.NotImplementedException(); }\n    public void remove(int key) { throw new System.NotImplementedException(); }\n    public bool contains(int key) { throw new System.NotImplementedException(); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nclass MyHashSet {\n    public function __construct() { throw new LogicException('Implement method'); }\n    public function add(int $key): void { throw new LogicException('Implement method'); }\n    public function remove(int $key): void { throw new LogicException('Implement method'); }\n    public function contains(int $key): bool { throw new LogicException('Implement method'); }\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-155-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "MyHashSet <- function() {\n list(\n  add = function(key) stop(\"Implement add\"),\n  remove = function(key) stop(\"Implement remove\"),\n  contains = function(key) stop(\"Implement contains\")\n )\n}",
+      "stdin": "",
+      "expectedOutput": "[1,0]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-165",
+  "title": "Valid Palindrome II",
+  "summary": "Decide whether deleting zero or one character can leave a string that reads identically from either direction.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "validPalindromeII",
+    "signature": "def validPalindromeII(s:",
+    "input": "s (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "s (str)",
+    "callable": "validPalindromeII",
+    "constraints": "1–100000 lowercase English letters.",
+    "output-checking": "Exact typed equality of the returned bool."
+  },
+  "statement": "Decide whether deleting zero or one character can leave a string that reads identically from either direction.",
+  "examples": [
+    {
+      "input": "{\"s\":\"deeed\"}",
+      "output": "true",
+      "explanation": "No deletion is needed."
+    },
+    {
+      "input": "{\"s\":\"radkar\"}",
+      "output": "true",
+      "explanation": "Remove k to leave radar."
+    },
+    {
+      "input": "{\"s\":\"abcd\"}",
+      "output": "false",
+      "explanation": "Every one-character deletion still leaves a mismatch."
+    }
+  ],
+  "constraints": [
+    "1–100000 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Most mirrored character pairs need no change.",
+    "Directional: At the first mismatch, consider which endpoint could be removed.",
+    "Implementation: Test the remaining interval after skipping the left endpoint and after skipping the right endpoint. Neither test may delete again."
+  ],
+  "concepts": [
+    "two-pointers",
+    "palindrome"
+  ],
+  "skills": [
+    "Two pointers",
+    "palindrome"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-165-P1",
+      "arguments": [
+        "deeed"
+      ],
+      "input": {
+        "s": "deeed"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-165-P2",
+      "arguments": [
+        "radkar"
+      ],
+      "input": {
+        "s": "radkar"
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-165-P3",
+      "arguments": [
+        "abcd"
+      ],
+      "input": {
+        "s": "abcd"
+      },
+      "expected": false,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def validPalindromeII(s: str) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean validPalindromeII(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @returns {boolean}\n */\nfunction validPalindromeII(s) {\n  throw new Error('Implement validPalindromeII');\n}",
+    "typescript": "function validPalindromeII(s: string): boolean {\n  throw new Error('Implement validPalindromeII');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool validPalindromeII(ByteString s) {\n    (void)s;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool validPalindromeII(std::string s) {\n    throw std::logic_error(\"Implement validPalindromeII\");\n}",
+    "csharp": "public class Solution {\n    public bool validPalindromeII(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @return bool\n */\nfunction validPalindromeII(string $s): bool {\n    throw new LogicException('Implement validPalindromeII');\n}",
+    "r": "# Parameters: s (character scalar). Result: logical scalar.\nvalidPalindromeII <- function(s) {\n  stop(\"Implement validPalindromeII\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "validPalindromeII",
+    "arguments": [
+      [
+        "s",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-165-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-165-statement",
+      "type": "paragraph",
+      "content": "Decide whether deleting zero or one character can leave a string that reads identically from either direction.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-165-contract",
+      "type": "note",
+      "title": "def validPalindromeII(s:",
+      "content": "Input: s (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-165-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–100000 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-165-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def validPalindromeII(s: str) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean validPalindromeII(String s) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @returns {boolean}\n */\nfunction validPalindromeII(s) {\n  throw new Error('Implement validPalindromeII');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function validPalindromeII(s: string): boolean {\n  throw new Error('Implement validPalindromeII');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nbool validPalindromeII(ByteString s) {\n    (void)s;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool validPalindromeII(std::string s) {\n    throw std::logic_error(\"Implement validPalindromeII\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool validPalindromeII(string s) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @return bool\n */\nfunction validPalindromeII(string $s): bool {\n    throw new LogicException('Implement validPalindromeII');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-165-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar). Result: logical scalar.\nvalidPalindromeII <- function(s) {\n  stop(\"Implement validPalindromeII\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

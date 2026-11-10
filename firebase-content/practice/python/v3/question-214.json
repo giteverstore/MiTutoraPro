@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-214",
+  "title": "Island Perimeter",
+  "summary": "Each 1 is a unit land square, and each 0 is water.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Graphs",
+  "category": "dsa",
+  "subtopic": "graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "islandPerimeter",
+    "signature": "def islandPerimeter(grid:",
+    "input": "grid (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "grid (intgrid)",
+    "callable": "islandPerimeter",
+    "constraints": "The binary grid has 1–100 rows and columns, exactly one orthogonally connected island, and no enclosed water lakes.",
+    "output-checking": "Use an integer rectangular binary grid. Compare exact exposed-side count, including map boundaries."
+  },
+  "statement": "Each 1 is a unit land square, and each 0 is water. Return the number of square sides on the shoreline. Count land sides facing outside the rectangular map as shoreline too. Squares only share sides horizontally or vertically.",
+  "examples": [
+    {
+      "input": "{\"grid\":[[1,1],[1,0]]}",
+      "output": "8",
+      "explanation": "The three land squares share two sides."
+    },
+    {
+      "input": "{\"grid\":[[1,1]]}",
+      "output": "6",
+      "explanation": "Two side-by-side squares expose six sides."
+    },
+    {
+      "input": "{\"grid\":[[1]]}",
+      "output": "4",
+      "explanation": "The only square exposes all four sides."
+    }
+  ],
+  "constraints": [
+    "The binary grid has 1–100 rows and columns, exactly one orthogonally connected island, and no enclosed water lakes."
+  ],
+  "hints": [
+    "Conceptual: An isolated land square has four exposed sides.",
+    "Directional: A shared side between two land squares removes two perimeter units.",
+    "Implementation: Add four for each land cell and subtract two when its upper or left neighbor is also land."
+  ],
+  "concepts": [
+    "grid",
+    "edge-counting"
+  ],
+  "skills": [
+    "Grid",
+    "edge counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(rows×columns)",
+    "space": "O(rows×columns)"
+  },
+  "complexityAnalysis": "O(rows×columns) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-214-P1",
+      "arguments": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": 8,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-214-P2",
+      "arguments": [
+        [
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 6,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-214-P3",
+      "arguments": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "input": {
+        "grid": [
+          [
+            1
+          ]
+        ]
+      },
+      "expected": 4,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def islandPerimeter(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int islandPerimeter(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction islandPerimeter(grid) {\n  throw new Error('Implement islandPerimeter');\n}",
+    "typescript": "function islandPerimeter(grid: number[][]): number {\n  throw new Error('Implement islandPerimeter');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t islandPerimeter(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint islandPerimeter(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement islandPerimeter\");\n}",
+    "csharp": "public class Solution {\n    public int islandPerimeter(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction islandPerimeter(array $grid): int {\n    throw new LogicException('Implement islandPerimeter');\n}",
+    "r": "# Parameters: grid (list of integer vectors). Result: integer scalar.\nislandPerimeter <- function(grid) {\n  stop(\"Implement islandPerimeter\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "islandPerimeter",
+    "arguments": [
+      [
+        "grid",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Use an integer rectangular binary grid. Compare exact exposed-side count, including map boundaries."
+  },
+  "blocks": [
+    {
+      "id": "nc250-214-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-214-statement",
+      "type": "paragraph",
+      "content": "Each 1 is a unit land square, and each 0 is water. Return the number of square sides on the shoreline. Count land sides facing outside the rectangular map as shoreline too. Squares only share sides horizontally or vertically.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-214-contract",
+      "type": "note",
+      "title": "def islandPerimeter(grid:",
+      "content": "Input: grid (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-214-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "The binary grid has 1–100 rows and columns, exactly one orthogonally connected island, and no enclosed water lakes.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-214-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def islandPerimeter(grid: list[list[int]]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int islandPerimeter(int[][] grid) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[][]} grid\n * @returns {number}\n */\nfunction islandPerimeter(grid) {\n  throw new Error('Implement islandPerimeter');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function islandPerimeter(grid: number[][]): number {\n  throw new Error('Implement islandPerimeter');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t islandPerimeter(IntMatrix grid) {\n    (void)grid;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint islandPerimeter(std::vector<std::vector<int>> grid) {\n    throw std::logic_error(\"Implement islandPerimeter\");\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int islandPerimeter(int[][] grid) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param nested int[]s $grid\n * @return int\n */\nfunction islandPerimeter(array $grid): int {\n    throw new LogicException('Implement islandPerimeter');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-214-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: grid (list of integer vectors). Result: integer scalar.\nislandPerimeter <- function(grid) {\n  stop(\"Implement islandPerimeter\")\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

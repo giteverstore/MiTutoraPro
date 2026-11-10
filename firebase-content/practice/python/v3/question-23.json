@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-023",
+  "title": "Evaluate Reverse Polish Notation",
+  "summary": "Evaluate the expression written as a sequence of tokens.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Stack",
+  "category": "dsa",
+  "subtopic": "stack",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "evalRPN",
+    "signature": "def evalRPN(tokens:",
+    "input": "`tokens` (string array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`tokens` (string array)",
+    "result": "integer.",
+    "constraints": "1–10,000 tokens. Each is +, − (written as ASCII '-'), *, /, or a decimal integer from −200 to 200. The expression is valid, no divisor is zero, and intermediate values and the result fit signed 32-bit integers. Division truncates toward zero.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Evaluate the expression written as a sequence of tokens. Numbers appear before the operators that use them. Each operator consumes the two most recent available values, using the earlier one as its left operand. Return the integer result.",
+  "examples": [
+    {
+      "input": "{\"tokens\":[\"8\",\"3\",\"-\",\"4\",\"*\"]}",
+      "output": "20",
+      "explanation": "Subtract 3 from 8 and multiply by 4."
+    },
+    {
+      "input": "{\"tokens\":[\"-17\",\"4\",\"/\"]}",
+      "output": "-4",
+      "explanation": "Division discards the fractional part toward zero."
+    },
+    {
+      "input": "{\"tokens\":[\"5\",\"2\",\"6\",\"*\",\"+\"]}",
+      "output": "17",
+      "explanation": "Multiply 2 and 6 before adding 5."
+    }
+  ],
+  "constraints": [
+    "1–10,000 tokens. Each is +, − (written as ASCII '-'), *, /, or a decimal integer from −200 to 200. The expression is valid, no divisor is zero, and intermediate values and the result fit signed 32-bit integers. Division truncates toward zero."
+  ],
+  "hints": [
+    "Conceptual: A number can wait until an operator tells you how to use it.",
+    "Directional: Keep pending values in a stack.",
+    "Implementation: Pop the right operand first and the left operand second. Compute the result and push it back."
+  ],
+  "concepts": [
+    "stacks",
+    "arithmetic",
+    "parsing"
+  ],
+  "skills": [
+    "Stacks",
+    "arithmetic",
+    "parsing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(n) auxiliary space for n tokens, since each token causes a constant number of stack operations.",
+  "publicTests": [
+    {
+      "name": "BLIND150-023-T01",
+      "arguments": [
+        [
+          "8",
+          "3",
+          "-",
+          "4",
+          "*"
+        ]
+      ],
+      "input": {
+        "tokens": [
+          "8",
+          "3",
+          "-",
+          "4",
+          "*"
+        ]
+      },
+      "expected": 20,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-023-T02",
+      "arguments": [
+        [
+          "-17",
+          "4",
+          "/"
+        ]
+      ],
+      "input": {
+        "tokens": [
+          "-17",
+          "4",
+          "/"
+        ]
+      },
+      "expected": -4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-023-T03",
+      "arguments": [
+        [
+          "5",
+          "2",
+          "6",
+          "*",
+          "+"
+        ]
+      ],
+      "input": {
+        "tokens": [
+          "5",
+          "2",
+          "6",
+          "*",
+          "+"
+        ]
+      },
+      "expected": 17,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def evalRPN(tokens: list[str]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int evalRPN(String[] tokens) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string[]} tokens\n * @returns {number}\n */\nfunction evalRPN(tokens) {\n  throw new Error('Implement evalRPN');\n}",
+    "typescript": "function evalRPN(tokens: string[]): number {\n  throw new Error('Implement evalRPN');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t evalRPN(StringArray tokens) {\n    (void)tokens;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint evalRPN(std::vector<std::string> tokens) {\n    throw std::logic_error(\"Implement evalRPN\");\n}",
+    "csharp": "public class Solution {\n    public int evalRPN(string[] tokens) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string[] $tokens\n * @return int\n */\nfunction evalRPN(array $tokens): int {\n    throw new LogicException('Implement evalRPN');\n}",
+    "r": "# Parameters: tokens (character vector). Result: integer scalar.\nevalRPN <- function(tokens) {\n  stop(\"Implement evalRPN\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-023-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-023-statement",
+      "type": "paragraph",
+      "content": "Evaluate the expression written as a sequence of tokens. Numbers appear before the operators that use them. Each operator consumes the two most recent available values, using the earlier one as its left operand. Return the integer result.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-023-contract",
+      "type": "note",
+      "title": "def evalRPN(tokens:",
+      "content": "Input: `tokens` (string array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-023-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10,000 tokens. Each is +, − (written as ASCII '-'), *, /, or a decimal integer from −200 to 200. The expression is valid, no divisor is zero, and intermediate values and the result fit signed 32-bit integers. Division truncates toward zero.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-023-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def evalRPN(tokens: list[str]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int evalRPN(String[] tokens) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string[]} tokens\n * @returns {number}\n */\nfunction evalRPN(tokens) {\n  throw new Error('Implement evalRPN');\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function evalRPN(tokens: string[]): number {\n  throw new Error('Implement evalRPN');\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nint32_t evalRPN(StringArray tokens) {\n    (void)tokens;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint evalRPN(std::vector<std::string> tokens) {\n    throw std::logic_error(\"Implement evalRPN\");\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int evalRPN(string[] tokens) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string[] $tokens\n * @return int\n */\nfunction evalRPN(array $tokens): int {\n    throw new LogicException('Implement evalRPN');\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-023-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: tokens (character vector). Result: integer scalar.\nevalRPN <- function(tokens) {\n  stop(\"Implement evalRPN\")\n}",
+      "stdin": "",
+      "expectedOutput": "20",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

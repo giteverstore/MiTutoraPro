@@ -1,0 +1,297 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-050",
+  "title": "Subtree of another Tree",
+  "summary": "Return whether a node of root starts a subtree identical to subRoot.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "isSubtree",
+    "signature": "class TreeNode:",
+    "input": "`root` (level-order tree array), `subRoot` (level-order tree array)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`root` (level-order tree array), `subRoot` (level-order tree array)",
+    "result": "boolean.",
+    "constraints": "Root has 1–2,000 nodes. SubRoot has 1–1,000 nodes. Values are integers in [−10,000, 10,000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return whether a node of root starts a subtree identical to subRoot. The candidate includes every descendant of that node. Matching a subset of its children is insufficient.",
+  "examples": [
+    {
+      "input": "{\"root\":[8,3,9,1,6],\"subRoot\":[3,1,6]}",
+      "output": "true",
+      "explanation": "The left subtree matches in full."
+    },
+    {
+      "input": "{\"root\":[7,4,8,2],\"subRoot\":[4]}",
+      "output": "false",
+      "explanation": "The candidate 4 has an extra descendant."
+    },
+    {
+      "input": "{\"root\":[2,null,4],\"subRoot\":[2,null,4]}",
+      "output": "true",
+      "explanation": "A tree is a subtree of itself."
+    }
+  ],
+  "constraints": [
+    "Root has 1–2,000 nodes. SubRoot has 1–1,000 nodes. Values are integers in [−10,000, 10,000]."
+  ],
+  "hints": [
+    "Conceptual: A matching root value is only a candidate.",
+    "Directional: Scan root and compare subRoot with each candidate using structural equality.",
+    "Implementation: For each comparison, check matching nulls, values, and the two child positions. Continue scanning after a mismatch."
+  ],
+  "concepts": [
+    "binary-trees",
+    "structural-equality",
+    "traversal"
+  ],
+  "skills": [
+    "Binary trees",
+    "structural equality",
+    "traversal"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(nm)",
+    "space": "O(h1+h2)"
+  },
+  "complexityAnalysis": "O(nm) worst-case time for n and m nodes. An iterative scan and comparison use O(h1+h2) auxiliary space for the two tree heights.",
+  "publicTests": [
+    {
+      "name": "BLIND150-050-T01",
+      "arguments": [
+        [
+          8,
+          3,
+          9,
+          1,
+          6
+        ],
+        [
+          3,
+          1,
+          6
+        ]
+      ],
+      "input": {
+        "root": [
+          8,
+          3,
+          9,
+          1,
+          6
+        ],
+        "subRoot": [
+          3,
+          1,
+          6
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-050-T02",
+      "arguments": [
+        [
+          7,
+          4,
+          8,
+          2
+        ],
+        [
+          4
+        ]
+      ],
+      "input": {
+        "root": [
+          7,
+          4,
+          8,
+          2
+        ],
+        "subRoot": [
+          4
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-050-T03",
+      "arguments": [
+        [
+          2,
+          null,
+          4
+        ],
+        [
+          2,
+          null,
+          4
+        ]
+      ],
+      "input": {
+        "root": [
+          2,
+          null,
+          4
+        ],
+        "subRoot": [
+          2,
+          null,
+          4
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef isSubtree(root: TreeNode | None, subRoot: TreeNode | None) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {TreeNode | null} subRoot\n * @returns {boolean}\n */\nfunction isSubtree(root, subRoot) {\n  throw new Error('Implement isSubtree');\n}",
+    "typescript": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {\n  throw new Error('Implement isSubtree');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nbool isSubtree(TreeNode * root, TreeNode * subRoot) {\n    (void)root;\n    (void)subRoot;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nbool isSubtree(TreeNode * root, TreeNode * subRoot) {\n    (void)root;\n    (void)subRoot;\n    throw std::logic_error(\"Implement isSubtree\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public bool isSubtree(TreeNode root, TreeNode subRoot) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction isSubtree(?TreeNode $root, ?TreeNode $subRoot): bool {\n    throw new LogicException('Implement isSubtree');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), subRoot (tree environment or NULL). Result logical scalar.\nisSubtree <- function(root, subRoot) {\n  stop(\"Implement isSubtree\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-050-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-050-statement",
+      "type": "paragraph",
+      "content": "Return whether a node of root starts a subtree identical to subRoot. The candidate includes every descendant of that node. Matching a subset of its children is insufficient.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-050-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: `root` (level-order tree array), `subRoot` (level-order tree array)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-050-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Root has 1–2,000 nodes. SubRoot has 1–1,000 nodes. Values are integers in [−10,000, 10,000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-050-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef isSubtree(root: TreeNode | None, subRoot: TreeNode | None) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @param {TreeNode | null} subRoot\n * @returns {boolean}\n */\nfunction isSubtree(root, subRoot) {\n  throw new Error('Implement isSubtree');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  constructor(public val = 0, public left: TreeNode | null = null, public right: TreeNode | null = null) {}\n}\n\nfunction isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {\n  throw new Error('Implement isSubtree');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nbool isSubtree(TreeNode * root, TreeNode * subRoot) {\n    (void)root;\n    (void)subRoot;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\n\nbool isSubtree(TreeNode * root, TreeNode * subRoot) {\n    (void)root;\n    (void)subRoot;\n    throw std::logic_error(\"Implement isSubtree\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public bool isSubtree(TreeNode root, TreeNode subRoot) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction isSubtree(?TreeNode $root, ?TreeNode $subRoot): bool {\n    throw new LogicException('Implement isSubtree');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-050-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL), subRoot (tree environment or NULL). Result logical scalar.\nisSubtree <- function(root, subRoot) {\n  stop(\"Implement isSubtree\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

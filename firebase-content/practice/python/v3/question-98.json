@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-098",
+  "title": "Cheapest Flights Within K Stops",
+  "summary": "Each flight row gives a departure city, an arrival city, and a price.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findCheapestPrice",
+    "signature": "def findCheapestPrice(n:",
+    "input": "`n` (integer), `flights` (nested integer arrays), `src` (integer), `dst` (integer), `k` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`n` (integer), `flights` (nested integer arrays), `src` (integer), `dst` (integer), `k` (integer)",
+    "result": "integer.",
+    "constraints": "2–100 cities labeled from 0. Up to n(n−1)/2 flights, with different endpoints, distinct ordered endpoint pairs, and integer prices in [1, 10000]. src and dst differ. 0 ≤ k < n.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Each flight row gives a departure city, an arrival city, and a price. Find the cheapest route from src to dst with at most k intermediate stops. Return −1 if no such route exists.",
+  "examples": [
+    {
+      "input": "{\"n\":4,\"flights\":[[0,1,2],[1,2,3],[2,3,4],[0,3,15]],\"src\":0,\"dst\":3,\"k\":1}",
+      "output": "15",
+      "explanation": "The cheaper three-flight route has two stops and exceeds this limit."
+    },
+    {
+      "input": "{\"n\":4,\"flights\":[[0,1,2],[1,2,3],[2,3,4],[0,3,15]],\"src\":0,\"dst\":3,\"k\":2}",
+      "output": "9",
+      "explanation": "With two stops, all three flights fit and cost 9."
+    },
+    {
+      "input": "{\"n\":3,\"flights\":[[1,0,2]],\"src\":0,\"dst\":2,\"k\":1}",
+      "output": "-1",
+      "explanation": "City 0 has no usable departure."
+    }
+  ],
+  "constraints": [
+    "2–100 cities labeled from 0. Up to n(n−1)/2 flights, with different endpoints, distinct ordered endpoint pairs, and integer prices in [1, 10000]. src and dst differ. 0 ≤ k < n."
+  ],
+  "hints": [
+    "Conceptual: A route with k stops uses at most k + 1 flights.",
+    "Directional: Track cheapest prices after each permitted flight count.",
+    "Implementation: Relax from a snapshot of the previous round so a single round cannot chain several flights."
+  ],
+  "concepts": [
+    "directed-weighted-graphs",
+    "bounded-relaxation"
+  ],
+  "skills": [
+    "Directed weighted graphs",
+    "bounded relaxation"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O((k + 1)",
+    "space": "O((k + 1)"
+  },
+  "complexityAnalysis": "O((k + 1)(V + E)) time and O(V) auxiliary space using two cost arrays.",
+  "publicTests": [
+    {
+      "name": "BLIND150-098-T01",
+      "arguments": [
+        4,
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            0,
+            3,
+            15
+          ]
+        ],
+        0,
+        3,
+        1
+      ],
+      "input": {
+        "n": 4,
+        "flights": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            0,
+            3,
+            15
+          ]
+        ],
+        "src": 0,
+        "dst": 3,
+        "k": 1
+      },
+      "expected": 15,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-098-T02",
+      "arguments": [
+        4,
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            0,
+            3,
+            15
+          ]
+        ],
+        0,
+        3,
+        2
+      ],
+      "input": {
+        "n": 4,
+        "flights": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            0,
+            3,
+            15
+          ]
+        ],
+        "src": 0,
+        "dst": 3,
+        "k": 2
+      },
+      "expected": 9,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-098-T03",
+      "arguments": [
+        3,
+        [
+          [
+            1,
+            0,
+            2
+          ]
+        ],
+        0,
+        2,
+        1
+      ],
+      "input": {
+        "n": 3,
+        "flights": [
+          [
+            1,
+            0,
+            2
+          ]
+        ],
+        "src": 0,
+        "dst": 2,
+        "k": 1
+      },
+      "expected": -1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findCheapestPrice(n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} flights\n * @param {number} src\n * @param {number} dst\n * @param {number} k\n * @returns {number}\n */\nfunction findCheapestPrice(n, flights, src, dst, k) {\n  throw new Error('Implement findCheapestPrice');\n}",
+    "typescript": "function findCheapestPrice(n: number, flights: number[][], src: number, dst: number, k: number): number {\n  throw new Error('Implement findCheapestPrice');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t findCheapestPrice(int32_t n, IntMatrix flights, int32_t src, int32_t dst, int32_t k) {\n    (void)n;\n    (void)flights;\n    (void)src;\n    (void)dst;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findCheapestPrice(int n, std::vector<std::vector<int>> flights, int src, int dst, int k) {\n    throw std::logic_error(\"Implement findCheapestPrice\");\n}",
+    "csharp": "public class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $flights\n * @param int $src\n * @param int $dst\n * @param int $k\n * @return int\n */\nfunction findCheapestPrice(int $n, array $flights, int $src, int $dst, int $k): int {\n    throw new LogicException('Implement findCheapestPrice');\n}",
+    "r": "# Parameters: n (integer scalar), flights (list of integer vectors), src (integer scalar), dst (integer scalar), k (integer scalar). Result: integer scalar.\nfindCheapestPrice <- function(n, flights, src, dst, k) {\n  stop(\"Implement findCheapestPrice\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-098-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-098-statement",
+      "type": "paragraph",
+      "content": "Each flight row gives a departure city, an arrival city, and a price. Find the cheapest route from src to dst with at most k intermediate stops. Return −1 if no such route exists.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-098-contract",
+      "type": "note",
+      "title": "def findCheapestPrice(n:",
+      "content": "Input: `n` (integer), `flights` (nested integer arrays), `src` (integer), `dst` (integer), `k` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-098-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2–100 cities labeled from 0. Up to n(n−1)/2 flights, with different endpoints, distinct ordered endpoint pairs, and integer prices in [1, 10000]. src and dst differ. 0 ≤ k < n.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-098-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findCheapestPrice(n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number[][]} flights\n * @param {number} src\n * @param {number} dst\n * @param {number} k\n * @returns {number}\n */\nfunction findCheapestPrice(n, flights, src, dst, k) {\n  throw new Error('Implement findCheapestPrice');\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findCheapestPrice(n: number, flights: number[][], src: number, dst: number, k: number): number {\n  throw new Error('Implement findCheapestPrice');\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nint32_t findCheapestPrice(int32_t n, IntMatrix flights, int32_t src, int32_t dst, int32_t k) {\n    (void)n;\n    (void)flights;\n    (void)src;\n    (void)dst;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findCheapestPrice(int n, std::vector<std::vector<int>> flights, int src, int dst, int k) {\n    throw std::logic_error(\"Implement findCheapestPrice\");\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param nested int[]s $flights\n * @param int $src\n * @param int $dst\n * @param int $k\n * @return int\n */\nfunction findCheapestPrice(int $n, array $flights, int $src, int $dst, int $k): int {\n    throw new LogicException('Implement findCheapestPrice');\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-098-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), flights (list of integer vectors), src (integer scalar), dst (integer scalar), k (integer scalar). Result: integer scalar.\nfindCheapestPrice <- function(n, flights, src, dst, k) {\n  stop(\"Implement findCheapestPrice\")\n}",
+      "stdin": "",
+      "expectedOutput": "15",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

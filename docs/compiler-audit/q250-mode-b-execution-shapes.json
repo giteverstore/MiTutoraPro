@@ -1,0 +1,7048 @@
+{
+  "schemaVersion": "q250-mode-b-audit-v1",
+  "generatedFrom": "src/practice/data/q250PracticeQuestions.json",
+  "questionCount": 250,
+  "activeCount": 214,
+  "inactiveCount": 36,
+  "coverageCounts": {
+    "fully-supported-now": 214,
+    "reference-coverage-evidence": 36
+  },
+  "rolloutGroups": {
+    "fully-supported-now": [
+      "BLIND150-001",
+      "BLIND150-002",
+      "BLIND150-003",
+      "BLIND150-004",
+      "BLIND150-005",
+      "BLIND150-006",
+      "BLIND150-007",
+      "BLIND150-008",
+      "BLIND150-009",
+      "BLIND150-010",
+      "BLIND150-011",
+      "BLIND150-012",
+      "BLIND150-013",
+      "BLIND150-014",
+      "BLIND150-015",
+      "BLIND150-016",
+      "BLIND150-017",
+      "BLIND150-018",
+      "BLIND150-019",
+      "BLIND150-020",
+      "BLIND150-021",
+      "BLIND150-022",
+      "BLIND150-023",
+      "BLIND150-024",
+      "BLIND150-025",
+      "BLIND150-026",
+      "BLIND150-027",
+      "BLIND150-028",
+      "BLIND150-029",
+      "BLIND150-030",
+      "BLIND150-031",
+      "BLIND150-032",
+      "BLIND150-033",
+      "BLIND150-034",
+      "BLIND150-035",
+      "BLIND150-036",
+      "BLIND150-037",
+      "BLIND150-038",
+      "BLIND150-039",
+      "BLIND150-040",
+      "BLIND150-041",
+      "BLIND150-042",
+      "BLIND150-043",
+      "BLIND150-044",
+      "BLIND150-045",
+      "BLIND150-046",
+      "BLIND150-047",
+      "BLIND150-048",
+      "BLIND150-049",
+      "BLIND150-050",
+      "BLIND150-051",
+      "BLIND150-052",
+      "BLIND150-053",
+      "BLIND150-054",
+      "BLIND150-055",
+      "BLIND150-056",
+      "BLIND150-057",
+      "BLIND150-058",
+      "BLIND150-059",
+      "BLIND150-060",
+      "BLIND150-061",
+      "BLIND150-062",
+      "BLIND150-063",
+      "BLIND150-064",
+      "BLIND150-065",
+      "BLIND150-066",
+      "BLIND150-067",
+      "BLIND150-068",
+      "BLIND150-069",
+      "BLIND150-070",
+      "BLIND150-071",
+      "BLIND150-072",
+      "BLIND150-073",
+      "BLIND150-074",
+      "BLIND150-075",
+      "BLIND150-076",
+      "BLIND150-077",
+      "BLIND150-078",
+      "BLIND150-079",
+      "BLIND150-080",
+      "BLIND150-081",
+      "BLIND150-082",
+      "BLIND150-083",
+      "BLIND150-084",
+      "BLIND150-085",
+      "BLIND150-086",
+      "BLIND150-087",
+      "BLIND150-088",
+      "BLIND150-089",
+      "BLIND150-090",
+      "BLIND150-091",
+      "BLIND150-092",
+      "BLIND150-093",
+      "BLIND150-094",
+      "BLIND150-095",
+      "BLIND150-096",
+      "BLIND150-097",
+      "BLIND150-098",
+      "BLIND150-099",
+      "BLIND150-100",
+      "BLIND150-101",
+      "BLIND150-102",
+      "BLIND150-103",
+      "BLIND150-104",
+      "BLIND150-105",
+      "BLIND150-106",
+      "BLIND150-107",
+      "BLIND150-108",
+      "BLIND150-109",
+      "BLIND150-110",
+      "BLIND150-111",
+      "BLIND150-112",
+      "BLIND150-113",
+      "BLIND150-114",
+      "BLIND150-115",
+      "BLIND150-116",
+      "BLIND150-117",
+      "BLIND150-118",
+      "BLIND150-119",
+      "BLIND150-120",
+      "BLIND150-121",
+      "BLIND150-122",
+      "BLIND150-123",
+      "BLIND150-124",
+      "BLIND150-125",
+      "BLIND150-126",
+      "BLIND150-127",
+      "BLIND150-128",
+      "BLIND150-129",
+      "BLIND150-130",
+      "BLIND150-131",
+      "BLIND150-132",
+      "BLIND150-133",
+      "BLIND150-134",
+      "BLIND150-135",
+      "BLIND150-136",
+      "BLIND150-137",
+      "BLIND150-138",
+      "BLIND150-139",
+      "BLIND150-140",
+      "BLIND150-141",
+      "BLIND150-142",
+      "BLIND150-143",
+      "BLIND150-144",
+      "BLIND150-145",
+      "BLIND150-146",
+      "BLIND150-147",
+      "BLIND150-148",
+      "BLIND150-149",
+      "BLIND150-150",
+      "NC250-151",
+      "NC250-152",
+      "NC250-153",
+      "NC250-154",
+      "NC250-155",
+      "NC250-156",
+      "NC250-157",
+      "NC250-158",
+      "NC250-160",
+      "NC250-164",
+      "NC250-165",
+      "NC250-166",
+      "NC250-167",
+      "NC250-168",
+      "NC250-169",
+      "NC250-170",
+      "NC250-172",
+      "NC250-175",
+      "NC250-176",
+      "NC250-177",
+      "NC250-178",
+      "NC250-179",
+      "NC250-180",
+      "NC250-181",
+      "NC250-182",
+      "NC250-183",
+      "NC250-185",
+      "NC250-186",
+      "NC250-187",
+      "NC250-188",
+      "NC250-190",
+      "NC250-191",
+      "NC250-192",
+      "NC250-193",
+      "NC250-194",
+      "NC250-195",
+      "NC250-196",
+      "NC250-197",
+      "NC250-198",
+      "NC250-199",
+      "NC250-200",
+      "NC250-202",
+      "NC250-203",
+      "NC250-206",
+      "NC250-208",
+      "NC250-214",
+      "NC250-215",
+      "NC250-216",
+      "NC250-217",
+      "NC250-218",
+      "NC250-219",
+      "NC250-220",
+      "NC250-221",
+      "NC250-222",
+      "NC250-223",
+      "NC250-224",
+      "NC250-225",
+      "NC250-243",
+      "NC250-244",
+      "NC250-245",
+      "NC250-246",
+      "NC250-247",
+      "NC250-248",
+      "NC250-249"
+    ],
+    "reference-coverage-evidence": [
+      "NC250-159",
+      "NC250-161",
+      "NC250-162",
+      "NC250-163",
+      "NC250-171",
+      "NC250-173",
+      "NC250-174",
+      "NC250-184",
+      "NC250-189",
+      "NC250-201",
+      "NC250-204",
+      "NC250-205",
+      "NC250-207",
+      "NC250-209",
+      "NC250-210",
+      "NC250-211",
+      "NC250-212",
+      "NC250-213",
+      "NC250-226",
+      "NC250-227",
+      "NC250-228",
+      "NC250-229",
+      "NC250-230",
+      "NC250-231",
+      "NC250-232",
+      "NC250-233",
+      "NC250-234",
+      "NC250-235",
+      "NC250-236",
+      "NC250-237",
+      "NC250-238",
+      "NC250-239",
+      "NC250-240",
+      "NC250-241",
+      "NC250-242",
+      "NC250-250"
+    ]
+  },
+  "records": [
+    {
+      "id": "BLIND150-001",
+      "title": "Contains Duplicate",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-002",
+      "title": "Valid Anagram",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-003",
+      "title": "Two Sum",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "two_sum"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-004",
+      "title": "Group Anagrams",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "anagrams"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-005",
+      "title": "Top K Frequent Elements",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "top_k"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-006",
+      "title": "Encode and Decode Strings",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "codec"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "codec-round-trip",
+        "reason": "Encode and Decode Strings is a stateless codec round trip, not a persistent object trace."
+      }
+    },
+    {
+      "id": "BLIND150-007",
+      "title": "Product of Array Except Self",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-008",
+      "title": "Valid Sudoku",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-009",
+      "title": "Longest Consecutive Sequence",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-010",
+      "title": "Valid Palindrome",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-011",
+      "title": "Two Sum II Input Array Is Sorted",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-012",
+      "title": "3Sum",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "triplets"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-013",
+      "title": "Container with Most Water",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-014",
+      "title": "Trapping Rain Water",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-015",
+      "title": "Best Time to Buy and Sell Stock",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-016",
+      "title": "Longest Substring Without Repeating Characters",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-017",
+      "title": "Longest Repeating Character Replacement",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-018",
+      "title": "Permutation in String",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "mutation",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-019",
+      "title": "Minimum Window Substring",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-020",
+      "title": "Sliding Window Maximum",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-021",
+      "title": "Valid Parentheses",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-022",
+      "title": "Min Stack",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-023",
+      "title": "Evaluate Reverse Polish Notation",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-024",
+      "title": "Daily Temperatures",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-025",
+      "title": "Car Fleet",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "array",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-026",
+      "title": "Largest Rectangle in Histogram",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-027",
+      "title": "Binary Search",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-028",
+      "title": "Search a 2D Matrix",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-029",
+      "title": "Koko Eating Bananas",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-030",
+      "title": "Find Minimum in Rotated Sorted Array",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-031",
+      "title": "Search in Rotated Sorted Array",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-032",
+      "title": "Time Based Key Value Store",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-033",
+      "title": "Median of Two Sorted Arrays",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "semantic-comparison",
+        "floating-point"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "numeric"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-034",
+      "title": "Reverse Linked List",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-035",
+      "title": "Merge Two Sorted Lists",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-036",
+      "title": "Linked List Cycle",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-037",
+      "title": "Reorder List",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-038",
+      "title": "Remove Nth Node from End of List",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-039",
+      "title": "Copy List with Random Pointer",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-040",
+      "title": "Add Two Numbers",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "floating-point"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-041",
+      "title": "Find the Duplicate Number",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Find the Duplicate Number is a single array-to-integer function."
+      }
+    },
+    {
+      "id": "BLIND150-042",
+      "title": "LRU Cache",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-043",
+      "title": "Merge K Sorted Lists",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-044",
+      "title": "Reverse Nodes in K Group",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-045",
+      "title": "Invert Binary Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-046",
+      "title": "Maximum Depth of Binary Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-047",
+      "title": "Diameter of Binary Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-048",
+      "title": "Balanced Binary Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-049",
+      "title": "Same Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-050",
+      "title": "Subtree of another Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-051",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-052",
+      "title": "Binary Tree Level Order Traversal",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-053",
+      "title": "Binary Tree Right Side View",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-054",
+      "title": "Count Good Nodes in Binary Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-055",
+      "title": "Validate Binary Search Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-056",
+      "title": "Kth Smallest Element in a BST",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-057",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-058",
+      "title": "Binary Tree Maximum Path Sum",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-059",
+      "title": "Serialize and Deserialize Binary Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "stateful-or-operation-sequence",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-060",
+      "title": "Kth Largest Element in a Stream",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "number",
+        "array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-061",
+      "title": "Last Stone Weight",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-062",
+      "title": "K Closest Points to Origin",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "number"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "closest_points"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-063",
+      "title": "Kth Largest Element in an Array",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-064",
+      "title": "Task Scheduler",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-065",
+      "title": "Design Twitter",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-066",
+      "title": "Find Median from Data Stream",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "median_trace"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-067",
+      "title": "Subsets",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_bag_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-068",
+      "title": "Combination Sum",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_bag_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-069",
+      "title": "Combination Sum II",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "bt_bag_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-070",
+      "title": "Permutations",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "mutation",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_ordered_int_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-071",
+      "title": "Subsets II",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_bag_rows"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-072",
+      "title": "Generate Parentheses",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_strings"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-073",
+      "title": "Word Search",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-074",
+      "title": "Palindrome Partitioning",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_ordered_str_rows"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-075",
+      "title": "Letter Combinations of a Phone Number",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_strings"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-076",
+      "title": "N Queens",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "bt_ordered_str_rows"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-077",
+      "title": "Implement Trie Prefix Tree",
+      "category": "dsa",
+      "topic": "Tries",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "stateful-object-design",
+        "reason": "Implement Trie is a constructor/method-sequence object contract, not a binary-tree node contract."
+      }
+    },
+    {
+      "id": "BLIND150-078",
+      "title": "Design Add and Search Words Data Structure",
+      "category": "dsa",
+      "topic": "Tries",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-079",
+      "title": "Word Search II",
+      "category": "dsa",
+      "topic": "Tries",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "trie_words"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-080",
+      "title": "Number of Islands",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-081",
+      "title": "Max Area of Island",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-082",
+      "title": "Clone Graph",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "semantic-comparison",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "clone_adjacency"
+      ],
+      "specialSerialization": [
+        "graph",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-083",
+      "title": "Walls and Gates",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "stateful-or-operation-sequence",
+        "mutation"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": true,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-084",
+      "title": "Rotting Oranges",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-085",
+      "title": "Pacific Atlantic Water Flow",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "ocean_set"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-086",
+      "title": "Surrounded Regions",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "mutation",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "matrix-mutation",
+        "reason": "Surrounded Regions mutates one board argument and has no constructor or method sequence."
+      }
+    },
+    {
+      "id": "BLIND150-087",
+      "title": "Course Schedule",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-088",
+      "title": "Course Schedule II",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "mutation",
+        "semantic-comparison",
+        "identity-sensitive",
+        "topological-order"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "course_order"
+      ],
+      "specialSerialization": [
+        "graph",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-089",
+      "title": "Graph Valid Tree",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "graph",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "graph",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-090",
+      "title": "Number of Connected Components in an Undirected Graph",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-091",
+      "title": "Redundant Connection",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "graph"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-092",
+      "title": "Word Ladder",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-093",
+      "title": "Network Delay Time",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-094",
+      "title": "Reconstruct Itinerary",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "itinerary"
+      ],
+      "specialSerialization": [
+        "graph",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-095",
+      "title": "Min Cost to Connect All Points",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-096",
+      "title": "Swim in Rising Water",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-097",
+      "title": "Alien Dictionary",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode",
+        "topological-order"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "alien_order"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-098",
+      "title": "Cheapest Flights Within K Stops",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array",
+        "number",
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-099",
+      "title": "Climbing Stairs",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-100",
+      "title": "Min Cost Climbing Stairs",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-101",
+      "title": "House Robber",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-102",
+      "title": "House Robber II",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-103",
+      "title": "Longest Palindromic Substring",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "longest_palindrome"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-104",
+      "title": "Palindromic Substrings",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-105",
+      "title": "Decode Ways",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-106",
+      "title": "Coin Change",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-107",
+      "title": "Maximum Product Subarray",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-108",
+      "title": "Word Break",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-109",
+      "title": "Longest Increasing Subsequence",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-110",
+      "title": "Partition Equal Subset Sum",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-111",
+      "title": "Unique Paths",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-112",
+      "title": "Longest Common Subsequence",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-113",
+      "title": "Best Time to Buy and Sell Stock with Cooldown",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-114",
+      "title": "Coin Change II",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-115",
+      "title": "Target Sum",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-116",
+      "title": "Interleaving String",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-117",
+      "title": "Longest Increasing Path in a Matrix",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-118",
+      "title": "Distinct Subsequences",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-119",
+      "title": "Edit Distance",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-120",
+      "title": "Burst Balloons",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-121",
+      "title": "Regular Expression Matching",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-122",
+      "title": "Maximum Subarray",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-123",
+      "title": "Jump Game",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-124",
+      "title": "Jump Game II",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-125",
+      "title": "Gas Station",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-126",
+      "title": "Hand of Straights",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-127",
+      "title": "Merge Triplets to Form Target Triplet",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-128",
+      "title": "Partition Labels",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-129",
+      "title": "Valid Parenthesis String",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-130",
+      "title": "Insert Interval",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-131",
+      "title": "Merge Intervals",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "interval_union"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-132",
+      "title": "Non Overlapping Intervals",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-133",
+      "title": "Meeting Rooms",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-134",
+      "title": "Meeting Rooms II",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-135",
+      "title": "Minimum Interval to Include Each Query",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-136",
+      "title": "Rotate Image",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence",
+        "mutation"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": true,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-137",
+      "title": "Spiral Matrix",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-138",
+      "title": "Set Matrix Zeroes",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "mutation"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-139",
+      "title": "Happy Number",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "floating-point"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-140",
+      "title": "Plus One",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "floating-point"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-141",
+      "title": "Pow(x, n)",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "floating-point"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "pow_close"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-142",
+      "title": "Multiply Strings",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-143",
+      "title": "Detect Squares",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-144",
+      "title": "Single Number",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-145",
+      "title": "Number of 1 Bits",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-146",
+      "title": "Counting Bits",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-147",
+      "title": "Reverse Bits",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-148",
+      "title": "Missing Number",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-149",
+      "title": "Sum of Two Integers",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "BLIND150-150",
+      "title": "Reverse Integer",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "floating-point"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-151",
+      "title": "Concatenation of Array",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-152",
+      "title": "Longest Common Prefix",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-153",
+      "title": "Remove Element",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "removed_prefix"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-154",
+      "title": "Majority Element",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-155",
+      "title": "Design HashSet",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-156",
+      "title": "Design HashMap",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-157",
+      "title": "Sort an Array",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-158",
+      "title": "Sort Colors",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "mutation"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-159",
+      "title": "Range Sum Query 2D Immutable",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Range Sum Query 2D Immutable has an unaccepted callable/return mapping for nested-array + nested-array -> array; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-160",
+      "title": "Best Time to Buy And Sell Stock II",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-161",
+      "title": "Majority Element II",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": false,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "unordered_unique"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Majority Element II uses validator unordered_unique for array -> array; a test-only independent correct reference is not accepted in all nine runtimes for this imported record. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-162",
+      "title": "Subarray Sum Equals K",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Subarray Sum Equals K has an unaccepted callable/return mapping for array + number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-163",
+      "title": "First Missing Positive",
+      "category": "dsa",
+      "topic": "Arrays & Hashing",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "First Missing Positive has an unaccepted callable/return mapping for array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-164",
+      "title": "Reverse String",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "mutation",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "array-mutation",
+        "reason": "Reverse String is a single in-place array mutation."
+      }
+    },
+    {
+      "id": "NC250-165",
+      "title": "Valid Palindrome II",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-166",
+      "title": "Merge Strings Alternately",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-167",
+      "title": "Merge Sorted Array",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "mutation"
+      ],
+      "inputShapes": [
+        "array",
+        "number",
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "array-mutation",
+        "reason": "Merge Sorted Array is a single in-place array mutation."
+      }
+    },
+    {
+      "id": "NC250-168",
+      "title": "Remove Duplicates From Sorted Array",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "mutation"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "array-mutation-prefix",
+        "reason": "Remove Duplicates is a single mutation with a returned valid-prefix length."
+      }
+    },
+    {
+      "id": "NC250-169",
+      "title": "4Sum",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "quadruplet_set"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "semantic-collection",
+        "reason": "4Sum is a stateless function returning a semantic collection."
+      }
+    },
+    {
+      "id": "NC250-170",
+      "title": "Rotate Array",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": true,
+      "executionFamily": [
+        "mutation"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "array-mutation",
+        "reason": "Rotate Array is a single in-place mutation."
+      }
+    },
+    {
+      "id": "NC250-171",
+      "title": "Boats to Save People",
+      "category": "dsa",
+      "topic": "Two Pointers",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Boats to Save People has an unaccepted callable/return mapping for array + number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-172",
+      "title": "Contains Duplicate II",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Contains Duplicate II is a single array-and-scalar function."
+      }
+    },
+    {
+      "id": "NC250-173",
+      "title": "Minimum Size Subarray Sum",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Minimum Size Subarray Sum has an unaccepted callable/return mapping for number + array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Minimum Size Subarray Sum is a single scalar-returning function."
+      }
+    },
+    {
+      "id": "NC250-174",
+      "title": "Find K Closest Elements",
+      "category": "dsa",
+      "topic": "Sliding Window",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Find K Closest Elements has an unaccepted callable/return mapping for array + number + number -> array; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Find K Closest Elements is a single array-returning function."
+      }
+    },
+    {
+      "id": "NC250-175",
+      "title": "Baseball Game",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-176",
+      "title": "Implement Stack Using Queues",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-177",
+      "title": "Implement Queue using Stacks",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-178",
+      "title": "Asteroid Collision",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-179",
+      "title": "Online Stock Span",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-180",
+      "title": "Simplify Path",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-181",
+      "title": "Decode String",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-182",
+      "title": "Maximum Frequency Stack",
+      "category": "dsa",
+      "topic": "Stack",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-183",
+      "title": "Search Insert Position",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Search Insert Position is a single binary-search function."
+      }
+    },
+    {
+      "id": "NC250-184",
+      "title": "Guess Number Higher Or Lower",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Guess Number Higher Or Lower has an unaccepted callable/return mapping for number + number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-185",
+      "title": "Sqrt(x)",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-186",
+      "title": "Capacity to Ship Packages Within D Days",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-187",
+      "title": "Search In Rotated Sorted Array II",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Search in Rotated Sorted Array II is a single boolean-returning function."
+      }
+    },
+    {
+      "id": "NC250-188",
+      "title": "Split Array Largest Sum",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Split Array Largest Sum is a single scalar-returning function."
+      }
+    },
+    {
+      "id": "NC250-189",
+      "title": "Find in Mountain Array",
+      "category": "dsa",
+      "topic": "Binary Search",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Find in Mountain Array has an unaccepted callable/return mapping for number + array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-190",
+      "title": "Reverse Linked List II",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "stateful-or-operation-sequence",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array",
+        "number",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-191",
+      "title": "Design Circular Queue",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-192",
+      "title": "LFU Cache",
+      "category": "dsa",
+      "topic": "Linked List",
+      "active": true,
+      "executionFamily": [
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-193",
+      "title": "Binary Tree Inorder Traversal",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-194",
+      "title": "Binary Tree Preorder Traversal",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-195",
+      "title": "Binary Tree Postorder Traversal",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-196",
+      "title": "Insert into a Binary Search Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "stateful-or-operation-sequence",
+        "semantic-comparison",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "bst_values"
+      ],
+      "specialSerialization": [
+        "tree",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-197",
+      "title": "Delete Node in a BST",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "stateful-or-operation-sequence",
+        "semantic-comparison",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "bst_values"
+      ],
+      "specialSerialization": [
+        "tree",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-198",
+      "title": "Construct Quad Tree",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "stateful-or-operation-sequence",
+        "semantic-comparison",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "quad_tree"
+      ],
+      "specialSerialization": [
+        "tree",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-199",
+      "title": "House Robber III",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-200",
+      "title": "Delete Leaves With a Given Value",
+      "category": "dsa",
+      "topic": "Trees",
+      "active": true,
+      "executionFamily": [
+        "tree",
+        "stateful-or-operation-sequence",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "tree",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-201",
+      "title": "Single Threaded CPU",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Single Threaded CPU has an unaccepted callable/return mapping for nested-array -> array; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-202",
+      "title": "Reorganize String",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "reorganized"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-203",
+      "title": "Longest Happy String",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "number",
+        "number",
+        "number"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "happy"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-204",
+      "title": "Car Pooling",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Car Pooling has an unaccepted callable/return mapping for nested-array + number -> boolean; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-205",
+      "title": "IPO",
+      "category": "dsa",
+      "topic": "Heap / Priority Queue",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "number",
+        "array",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "IPO has an unaccepted callable/return mapping for number + number + array + array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-206",
+      "title": "Sum of All Subsets XOR Total",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Subset XOR Total is a single scalar-returning function."
+      }
+    },
+    {
+      "id": "NC250-207",
+      "title": "Combinations",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": false,
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "combination_set"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Combinations uses validator combination_set for number + number -> nested-array; a test-only independent correct reference is not accepted in all nine runtimes for this imported record. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-208",
+      "title": "Permutations II",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": true,
+      "executionFamily": [
+        "mutation",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "permutation_set"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-209",
+      "title": "Matchsticks to Square",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Matchsticks to Square has an unaccepted callable/return mapping for array -> boolean; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-210",
+      "title": "Partition to K Equal Sum Subsets",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Partition to K Equal Sum Subsets has an unaccepted callable/return mapping for array + number -> boolean; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-211",
+      "title": "N Queens II",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "N Queens II has an unaccepted callable/return mapping for number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-212",
+      "title": "Word Break II",
+      "category": "dsa",
+      "topic": "Backtracking",
+      "active": false,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "sentence_set"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Word Break II uses validator sentence_set for string + array -> array; a test-only independent correct reference is not accepted in all nine runtimes for this imported record. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-213",
+      "title": "Extra Characters in a String",
+      "category": "dsa",
+      "topic": "Tries",
+      "active": false,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Extra Characters in a String has an unaccepted callable/return mapping for string + array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-214",
+      "title": "Island Perimeter",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-215",
+      "title": "Verifying An Alien Dictionary",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "mutation"
+      ],
+      "inputShapes": [
+        "array",
+        "string"
+      ],
+      "outputShape": "boolean",
+      "mutation": true,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-216",
+      "title": "Find the Town Judge",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-217",
+      "title": "Open The Lock",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "floating-point",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "array",
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-218",
+      "title": "Course Schedule IV",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-219",
+      "title": "Accounts Merge",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "account_set"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-220",
+      "title": "Evaluate Division",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "semantic-comparison",
+        "floating-point"
+      ],
+      "inputShapes": [
+        "nested-array",
+        "array",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "finite_ratios"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "weighted-graph",
+        "reason": "Evaluate Division is a stateless weighted graph query function."
+      }
+    },
+    {
+      "id": "NC250-221",
+      "title": "Minimum Height Trees",
+      "category": "dsa",
+      "topic": "Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "unordered_unique"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "graph",
+        "reason": "Minimum Height Trees operates on an undirected edge graph; tree appears only in the graph-theory problem name."
+      }
+    },
+    {
+      "id": "NC250-222",
+      "title": "Path with Minimum Effort",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-223",
+      "title": "Find Critical and Pseudo Critical Edges in Minimum Spanning Tree",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "semantic-comparison"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "edge_groups"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": {
+        "family": "graph",
+        "reason": "Critical and Pseudo-Critical Edges is a weighted MST graph contract, not a node-tree callable."
+      }
+    },
+    {
+      "id": "NC250-224",
+      "title": "Build a Matrix With Conditions",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph",
+        "semantic-comparison",
+        "identity-sensitive"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array",
+        "nested-array"
+      ],
+      "outputShape": [
+        "nested-array",
+        "array"
+      ],
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "condition_matrix"
+      ],
+      "specialSerialization": [
+        "graph",
+        "identity-sensitive"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-225",
+      "title": "Greatest Common Divisor Traversal",
+      "category": "dsa",
+      "topic": "Advanced Graphs",
+      "active": true,
+      "executionFamily": [
+        "graph"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "graph"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-226",
+      "title": "N-th Tribonacci Number",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "N-th Tribonacci Number has an unaccepted callable/return mapping for number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-227",
+      "title": "Combination Sum IV",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Combination Sum IV has an unaccepted callable/return mapping for array + number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-228",
+      "title": "Perfect Squares",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Perfect Squares has an unaccepted callable/return mapping for number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-229",
+      "title": "Integer Break",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Integer Break has an unaccepted callable/return mapping for number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-230",
+      "title": "Stone Game III",
+      "category": "dsa",
+      "topic": "1-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Stone Game III has an unaccepted callable/return mapping for array -> string; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-231",
+      "title": "Unique Paths II",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Unique Paths II has an unaccepted callable/return mapping for nested-array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": {
+        "family": "dynamic-programming-grid",
+        "reason": "Unique Paths II consumes an obstacle matrix; tree/mutation infrastructure is not involved."
+      }
+    },
+    {
+      "id": "NC250-232",
+      "title": "Minimum Path Sum",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Minimum Path Sum has an unaccepted callable/return mapping for nested-array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-233",
+      "title": "Last Stone Weight II",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Last Stone Weight II has an unaccepted callable/return mapping for array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-234",
+      "title": "Stone Game",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Stone Game has an unaccepted callable/return mapping for array -> boolean; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-235",
+      "title": "Stone Game II",
+      "category": "dsa",
+      "topic": "2-D Dynamic Programming",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Stone Game II has an unaccepted callable/return mapping for array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-236",
+      "title": "Lemonade Change",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Lemonade Change has an unaccepted callable/return mapping for array -> boolean; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-237",
+      "title": "Maximum Sum Circular Subarray",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Maximum Sum Circular Subarray has an unaccepted callable/return mapping for array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-238",
+      "title": "Longest Turbulent Subarray",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Longest Turbulent Subarray has an unaccepted callable/return mapping for array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": {
+        "family": "plain-return",
+        "reason": "Longest Turbulent Subarray is a single scalar-returning function."
+      }
+    },
+    {
+      "id": "NC250-239",
+      "title": "Jump Game VII",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": false,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "number",
+        "number"
+      ],
+      "outputShape": "boolean",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Jump Game VII has an unaccepted callable/return mapping for string + number + number -> boolean; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-240",
+      "title": "Dota2 Senate",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Dota2 Senate has an unaccepted callable/return mapping for string -> string; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-241",
+      "title": "Candy",
+      "category": "dsa",
+      "topic": "Greedy",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Candy has an unaccepted callable/return mapping for array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-242",
+      "title": "Meeting Rooms III",
+      "category": "dsa",
+      "topic": "Intervals",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "nested-array"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Meeting Rooms III has an unaccepted callable/return mapping for number + nested-array -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-243",
+      "title": "Excel Sheet Column Title",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-244",
+      "title": "Greatest Common Divisor of Strings",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-245",
+      "title": "Insert Greatest Common Divisors in Linked List",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "linked-list",
+        "stateful-or-operation-sequence"
+      ],
+      "inputShapes": [
+        "array"
+      ],
+      "outputShape": "array",
+      "mutation": false,
+      "stateful": true,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "linked-list"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-246",
+      "title": "Transpose Matrix",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "nested-array"
+      ],
+      "outputShape": "nested-array",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-247",
+      "title": "Roman to Integer",
+      "category": "dsa",
+      "topic": "Math & Geometry",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "string"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-248",
+      "title": "Add Binary",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "inputShapes": [
+        "string",
+        "string"
+      ],
+      "outputShape": "string",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [
+        "string-or-unicode"
+      ],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-249",
+      "title": "Bitwise AND of Numbers Range",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": true,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "fully-supported-now",
+      "supportedByCurrentModeB": true,
+      "requiresNewAdapter": false,
+      "notes": "Activated representative with browser harness coverage.",
+      "auditReclassification": null
+    },
+    {
+      "id": "NC250-250",
+      "title": "Minimum Array End",
+      "category": "dsa",
+      "topic": "Bit Manipulation",
+      "active": false,
+      "executionFamily": [
+        "plain-return"
+      ],
+      "inputShapes": [
+        "number",
+        "number"
+      ],
+      "outputShape": "number",
+      "mutation": false,
+      "stateful": false,
+      "semanticComparator": [
+        "exact"
+      ],
+      "specialSerialization": [],
+      "coverage": "reference-coverage-evidence",
+      "supportedByCurrentModeB": false,
+      "requiresNewAdapter": false,
+      "notes": "Minimum Array End has an unaccepted callable/return mapping for number + number -> number; accepted nine-language reference coverage is missing even though its value shape appears primitive. No complete 9-runtime x 3-fixture browser matrix exists for this contract, so activation remains disabled.",
+      "auditReclassification": null
+    }
+  ]
+}

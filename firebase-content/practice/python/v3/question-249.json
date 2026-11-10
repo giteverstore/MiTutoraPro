@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-249",
+  "title": "Bitwise AND of Numbers Range",
+  "summary": "Return the bitwise AND of every integer from left through right, including both endpoints.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "rangeBitwiseAnd",
+    "signature": "def rangeBitwiseAnd(left:",
+    "input": "left (int), right (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "left (int), right (int)",
+    "callable": "rangeBitwiseAnd",
+    "constraints": "0 ≤ left ≤ right ≤ 2147483647. Values and result are nonnegative signed 32-bit integers.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Return the bitwise AND of every integer from left through right, including both endpoints.",
+  "examples": [
+    {
+      "input": "{\"left\":12,\"right\":15}",
+      "output": "12",
+      "explanation": "The leading 1100 bits survive the changing low bits."
+    },
+    {
+      "input": "{\"left\":0,\"right\":8}",
+      "output": "0",
+      "explanation": "The range includes zero."
+    },
+    {
+      "input": "{\"left\":2147483646,\"right\":2147483647}",
+      "output": "2147483646",
+      "explanation": "The high bits match, and the last bit clears."
+    }
+  ],
+  "constraints": [
+    "0 ≤ left ≤ right ≤ 2147483647. Values and result are nonnegative signed 32-bit integers."
+  ],
+  "hints": [
+    "Conceptual: A bit survives only if every value in the range contains it.",
+    "Directional: Find the common binary prefix of the endpoints.",
+    "Implementation: Shift both endpoints right until they agree, then restore the removed positions as zeros."
+  ],
+  "concepts": [
+    "bitwise-and",
+    "common-prefix"
+  ],
+  "skills": [
+    "Bitwise AND",
+    "common prefix"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(w)",
+    "space": "O(w)"
+  },
+  "complexityAnalysis": "O(w) time and O(1) auxiliary space for bit width w.",
+  "publicTests": [
+    {
+      "name": "NC250-249-P1",
+      "arguments": [
+        12,
+        15
+      ],
+      "input": {
+        "left": 12,
+        "right": 15
+      },
+      "expected": 12,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-249-P2",
+      "arguments": [
+        0,
+        8
+      ],
+      "input": {
+        "left": 0,
+        "right": 8
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-249-P3",
+      "arguments": [
+        2147483646,
+        2147483647
+      ],
+      "input": {
+        "left": 2147483646,
+        "right": 2147483647
+      },
+      "expected": 2147483646,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def rangeBitwiseAnd(left: int, right: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int rangeBitwiseAnd(int left, int right) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} left\n * @param {number} right\n * @returns {number}\n */\nfunction rangeBitwiseAnd(left, right) {\n  throw new Error('Implement rangeBitwiseAnd');\n}",
+    "typescript": "function rangeBitwiseAnd(left: number, right: number): number {\n  throw new Error('Implement rangeBitwiseAnd');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t rangeBitwiseAnd(int32_t left, int32_t right) {\n    (void)left;\n    (void)right;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint rangeBitwiseAnd(int left, int right) {\n    throw std::logic_error(\"Implement rangeBitwiseAnd\");\n}",
+    "csharp": "public class Solution {\n    public int rangeBitwiseAnd(int left, int right) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $left\n * @param int $right\n * @return int\n */\nfunction rangeBitwiseAnd(int $left, int $right): int {\n    throw new LogicException('Implement rangeBitwiseAnd');\n}",
+    "r": "# Parameters: left (integer scalar), right (integer scalar). Result: integer scalar.\nrangeBitwiseAnd <- function(left, right) {\n  stop(\"Implement rangeBitwiseAnd\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "rangeBitwiseAnd",
+    "arguments": [
+      [
+        "left",
+        "int"
+      ],
+      [
+        "right",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-249-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-249-statement",
+      "type": "paragraph",
+      "content": "Return the bitwise AND of every integer from left through right, including both endpoints.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-249-contract",
+      "type": "note",
+      "title": "def rangeBitwiseAnd(left:",
+      "content": "Input: left (int), right (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-249-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0 ≤ left ≤ right ≤ 2147483647. Values and result are nonnegative signed 32-bit integers.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-249-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def rangeBitwiseAnd(left: int, right: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int rangeBitwiseAnd(int left, int right) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} left\n * @param {number} right\n * @returns {number}\n */\nfunction rangeBitwiseAnd(left, right) {\n  throw new Error('Implement rangeBitwiseAnd');\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function rangeBitwiseAnd(left: number, right: number): number {\n  throw new Error('Implement rangeBitwiseAnd');\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\nint32_t rangeBitwiseAnd(int32_t left, int32_t right) {\n    (void)left;\n    (void)right;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint rangeBitwiseAnd(int left, int right) {\n    throw std::logic_error(\"Implement rangeBitwiseAnd\");\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int rangeBitwiseAnd(int left, int right) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $left\n * @param int $right\n * @return int\n */\nfunction rangeBitwiseAnd(int $left, int $right): int {\n    throw new LogicException('Implement rangeBitwiseAnd');\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-249-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: left (integer scalar), right (integer scalar). Result: integer scalar.\nrangeBitwiseAnd <- function(left, right) {\n  stop(\"Implement rangeBitwiseAnd\")\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 3,
+  "matrix": {
+    "NC250-247": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 163,
+        "wallTimeMs": 6827,
+        "outputBytes": 568,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

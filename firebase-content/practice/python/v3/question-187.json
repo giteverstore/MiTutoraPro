@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-187",
+  "title": "Search In Rotated Sorted Array II",
+  "summary": "Decide whether target occurs in a rotated nondecreasing array.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "searchRotatedII",
+    "signature": "def searchRotatedII(nums:",
+    "input": "nums (ints), target (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), target (int)",
+    "callable": "searchRotatedII",
+    "constraints": "1–5000 entries in [−10000,10000]. target is in the same range. The rotation may leave the sorted array unchanged.",
+    "output-checking": "Exact typed equality of the returned bool."
+  },
+  "statement": "Decide whether target occurs in a rotated nondecreasing array. Rotation keeps the internal order of the two resulting pieces. Repeated values are allowed.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,2,2,0,1,2],\"target\":0}",
+      "output": "true",
+      "explanation": "The target is inside the smaller rotated piece."
+    },
+    {
+      "input": "{\"nums\":[4,4,4],\"target\":3}",
+      "output": "false",
+      "explanation": "Shrinking duplicate boundaries eventually proves absence."
+    },
+    {
+      "input": "{\"nums\":[1],\"target\":1}",
+      "output": "true",
+      "explanation": "A singleton may contain the target."
+    }
+  ],
+  "constraints": [
+    "1–5000 entries in [−10000,10000]. target is in the same range. The rotation may leave the sorted array unchanged."
+  ],
+  "hints": [
+    "Conceptual: Duplicates can hide which half is sorted.",
+    "Directional: Use sorted-half comparisons when the endpoints distinguish the halves.",
+    "Implementation: If the low, middle, and high values match, shrink both ends. Otherwise identify a sorted half and test whether target lies inside its value range."
+  ],
+  "concepts": [
+    "binary-search",
+    "duplicates"
+  ],
+  "skills": [
+    "Binary search",
+    "duplicates"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log n)",
+    "space": "O(log n)"
+  },
+  "complexityAnalysis": "O(log n) time when halves can be distinguished, O(n) worst-case with duplicates, O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-187-P1",
+      "arguments": [
+        [
+          2,
+          2,
+          2,
+          0,
+          1,
+          2
+        ],
+        0
+      ],
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          0,
+          1,
+          2
+        ],
+        "target": 0
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-187-P2",
+      "arguments": [
+        [
+          4,
+          4,
+          4
+        ],
+        3
+      ],
+      "input": {
+        "nums": [
+          4,
+          4,
+          4
+        ],
+        "target": 3
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-187-P3",
+      "arguments": [
+        [
+          1
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          1
+        ],
+        "target": 1
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def searchRotatedII(nums: list[int], target: int) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean searchRotatedII(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {boolean}\n */\nfunction searchRotatedII(nums, target) {\n  throw new Error('Implement searchRotatedII');\n}",
+    "typescript": "function searchRotatedII(nums: number[], target: number): boolean {\n  throw new Error('Implement searchRotatedII');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool searchRotatedII(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool searchRotatedII(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement searchRotatedII\");\n}",
+    "csharp": "public class Solution {\n    public bool searchRotatedII(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return bool\n */\nfunction searchRotatedII(array $nums, int $target): bool {\n    throw new LogicException('Implement searchRotatedII');\n}",
+    "r": "# Parameters: nums (integer vector), target (integer scalar). Result: logical scalar.\nsearchRotatedII <- function(nums, target) {\n  stop(\"Implement searchRotatedII\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "searchRotatedII",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "target",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-187-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-187-statement",
+      "type": "paragraph",
+      "content": "Decide whether target occurs in a rotated nondecreasing array. Rotation keeps the internal order of the two resulting pieces. Repeated values are allowed.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-187-contract",
+      "type": "note",
+      "title": "def searchRotatedII(nums:",
+      "content": "Input: nums (ints), target (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-187-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–5000 entries in [−10000,10000]. target is in the same range. The rotation may leave the sorted array unchanged.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-187-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def searchRotatedII(nums: list[int], target: int) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean searchRotatedII(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {boolean}\n */\nfunction searchRotatedII(nums, target) {\n  throw new Error('Implement searchRotatedII');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function searchRotatedII(nums: number[], target: number): boolean {\n  throw new Error('Implement searchRotatedII');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool searchRotatedII(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool searchRotatedII(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement searchRotatedII\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool searchRotatedII(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return bool\n */\nfunction searchRotatedII(array $nums, int $target): bool {\n    throw new LogicException('Implement searchRotatedII');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-187-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), target (integer scalar). Result: logical scalar.\nsearchRotatedII <- function(nums, target) {\n  stop(\"Implement searchRotatedII\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

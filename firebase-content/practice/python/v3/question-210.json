@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-210",
+  "title": "Partition to K Equal Sum Subsets",
+  "summary": "Determine whether the array positions can be split into exactly k nonempty groups with equal sums.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "canPartitionKSubsets",
+    "signature": "def canPartitionKSubsets(nums:",
+    "input": "nums (ints), k (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), k (int)",
+    "callable": "canPartitionKSubsets",
+    "constraints": "1 ≤ k ≤ length(nums) ≤ 16. Values lie in [1,10000]. Each distinct value appears at most four times.",
+    "output-checking": "Compare boolean feasibility of partitioning all positions into k nonempty equal-sum groups."
+  },
+  "statement": "Determine whether the array positions can be split into exactly k nonempty groups with equal sums. A position belongs to one group. Group members need not be adjacent.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,2,3,3],\"k\":2}",
+      "output": "true",
+      "explanation": "Each group can contain one 2 and one 3."
+    },
+    {
+      "input": "{\"nums\":[2,2,2,2,3,4,5],\"k\":4}",
+      "output": "false",
+      "explanation": "The target is 5, and the value 4 has no partner that can complete it."
+    },
+    {
+      "input": "{\"nums\":[7],\"k\":1}",
+      "output": "true",
+      "explanation": "The only position forms the only group."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ length(nums) ≤ 16. Values lie in [1,10000]. Each distinct value appears at most four times."
+  ],
+  "hints": [
+    "Conceptual: The common sum is fixed by the total and k.",
+    "Directional: Track the positions already used and how full the current group is.",
+    "Implementation: Use a bitmask for used positions. Extend reachable states without exceeding the target, resetting the load to zero whenever a group is filled."
+  ],
+  "concepts": [
+    "bitmask-dp",
+    "equal-sum-subsets"
+  ],
+  "skills": [
+    "Bitmask DP",
+    "equal-sum subsets"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n × 2^n)",
+    "space": "O(n × 2^n)"
+  },
+  "complexityAnalysis": "O(n × 2^n) time and O(2^n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-210-P1",
+      "arguments": [
+        [
+          2,
+          2,
+          3,
+          3
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          2,
+          2,
+          3,
+          3
+        ],
+        "k": 2
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-210-P2",
+      "arguments": [
+        [
+          2,
+          2,
+          2,
+          2,
+          3,
+          4,
+          5
+        ],
+        4
+      ],
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 4
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-210-P3",
+      "arguments": [
+        [
+          7
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          7
+        ],
+        "k": 1
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def canPartitionKSubsets(nums: list[int], k: int) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean canPartitionKSubsets(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {boolean}\n */\nfunction canPartitionKSubsets(nums, k) {\n  throw new Error('Implement canPartitionKSubsets');\n}",
+    "typescript": "function canPartitionKSubsets(nums: number[], k: number): boolean {\n  throw new Error('Implement canPartitionKSubsets');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canPartitionKSubsets(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canPartitionKSubsets(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement canPartitionKSubsets\");\n}",
+    "csharp": "public class Solution {\n    public bool canPartitionKSubsets(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return bool\n */\nfunction canPartitionKSubsets(array $nums, int $k): bool {\n    throw new LogicException('Implement canPartitionKSubsets');\n}",
+    "r": "# Parameters: nums (integer vector), k (integer scalar). Result: logical scalar.\ncanPartitionKSubsets <- function(nums, k) {\n  stop(\"Implement canPartitionKSubsets\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "canPartitionKSubsets",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "k",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "bool",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Compare boolean feasibility of partitioning all positions into k nonempty equal-sum groups."
+  },
+  "blocks": [
+    {
+      "id": "nc250-210-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-210-statement",
+      "type": "paragraph",
+      "content": "Determine whether the array positions can be split into exactly k nonempty groups with equal sums. A position belongs to one group. Group members need not be adjacent.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-210-contract",
+      "type": "note",
+      "title": "def canPartitionKSubsets(nums:",
+      "content": "Input: nums (ints), k (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-210-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ length(nums) ≤ 16. Values lie in [1,10000]. Each distinct value appears at most four times.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-210-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def canPartitionKSubsets(nums: list[int], k: int) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean canPartitionKSubsets(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {boolean}\n */\nfunction canPartitionKSubsets(nums, k) {\n  throw new Error('Implement canPartitionKSubsets');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function canPartitionKSubsets(nums: number[], k: number): boolean {\n  throw new Error('Implement canPartitionKSubsets');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nbool canPartitionKSubsets(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool canPartitionKSubsets(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement canPartitionKSubsets\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool canPartitionKSubsets(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return bool\n */\nfunction canPartitionKSubsets(array $nums, int $k): bool {\n    throw new LogicException('Implement canPartitionKSubsets');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-210-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), k (integer scalar). Result: logical scalar.\ncanPartitionKSubsets <- function(nums, k) {\n  stop(\"Implement canPartitionKSubsets\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

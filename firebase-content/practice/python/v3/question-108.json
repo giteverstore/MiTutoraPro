@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-108",
+  "title": "Word Break",
+  "summary": "Decide whether the entire string can be split into consecutive dictionary words.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "wordBreak",
+    "signature": "def wordBreak(s:",
+    "input": "`s` (string), `wordDict` (string array)",
+    "output": "boolean."
+  },
+  "contractDetails": {
+    "input": "`s` (string), `wordDict` (string array)",
+    "result": "boolean.",
+    "constraints": "1–300 lowercase letters in s. The dictionary has 1–1000 distinct lowercase words of lengths 1–20.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Decide whether the entire string can be split into consecutive dictionary words. A word may be used any number of times.",
+  "examples": [
+    {
+      "input": "{\"s\":\"mintmint\",\"wordDict\":[\"mint\"]}",
+      "output": "true",
+      "explanation": "Use mint twice."
+    },
+    {
+      "input": "{\"s\":\"catsandx\",\"wordDict\":[\"cat\",\"cats\",\"sand\",\"and\"]}",
+      "output": "false",
+      "explanation": "The final x remains unmatched."
+    },
+    {
+      "input": "{\"s\":\"abcd\",\"wordDict\":[\"abc\",\"ab\",\"cd\"]}",
+      "output": "true",
+      "explanation": "Choosing ab leaves the dictionary word cd."
+    }
+  ],
+  "constraints": [
+    "1–300 lowercase letters in s. The dictionary has 1–1000 distinct lowercase words of lengths 1–20."
+  ],
+  "hints": [
+    "Conceptual: A matching prefix is useful only if the rest can also be split.",
+    "Directional: Track which boundaries are reachable from the beginning.",
+    "Implementation: From each reachable boundary, mark the end of every dictionary word that matches there."
+  ],
+  "concepts": [
+    "segmentation",
+    "prefix-reachability"
+  ],
+  "skills": [
+    "Segmentation",
+    "prefix reachability"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n × D × L)",
+    "space": "O(n × D × L)"
+  },
+  "complexityAnalysis": "O(n × D × L) time and O(n) extra space for direct matching. D is dictionary size and L is the longest word length.",
+  "publicTests": [
+    {
+      "name": "BLIND150-108-T01",
+      "arguments": [
+        "mintmint",
+        [
+          "mint"
+        ]
+      ],
+      "input": {
+        "s": "mintmint",
+        "wordDict": [
+          "mint"
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-108-T02",
+      "arguments": [
+        "catsandx",
+        [
+          "cat",
+          "cats",
+          "sand",
+          "and"
+        ]
+      ],
+      "input": {
+        "s": "catsandx",
+        "wordDict": [
+          "cat",
+          "cats",
+          "sand",
+          "and"
+        ]
+      },
+      "expected": false,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-108-T03",
+      "arguments": [
+        "abcd",
+        [
+          "abc",
+          "ab",
+          "cd"
+        ]
+      ],
+      "input": {
+        "s": "abcd",
+        "wordDict": [
+          "abc",
+          "ab",
+          "cd"
+        ]
+      },
+      "expected": true,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def wordBreak(s: str, wordDict: list[str]) -> bool:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public boolean wordBreak(String s, String[] wordDict) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} s\n * @param {string[]} wordDict\n * @returns {boolean}\n */\nfunction wordBreak(s, wordDict) {\n  throw new Error('Implement wordBreak');\n}",
+    "typescript": "function wordBreak(s: string, wordDict: string[]): boolean {\n  throw new Error('Implement wordBreak');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nbool wordBreak(ByteString s, StringArray wordDict) {\n    (void)s;\n    (void)wordDict;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool wordBreak(std::string s, std::vector<std::string> wordDict) {\n    throw std::logic_error(\"Implement wordBreak\");\n}",
+    "csharp": "public class Solution {\n    public bool wordBreak(string s, string[] wordDict) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $s\n * @param string[] $wordDict\n * @return bool\n */\nfunction wordBreak(string $s, array $wordDict): bool {\n    throw new LogicException('Implement wordBreak');\n}",
+    "r": "# Parameters: s (character scalar), wordDict (character vector). Result: logical scalar.\nwordBreak <- function(s, wordDict) {\n  stop(\"Implement wordBreak\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-108-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-108-statement",
+      "type": "paragraph",
+      "content": "Decide whether the entire string can be split into consecutive dictionary words. A word may be used any number of times.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-108-contract",
+      "type": "note",
+      "title": "def wordBreak(s:",
+      "content": "Input: `s` (string), `wordDict` (string array)\n\nOutput: boolean.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-108-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–300 lowercase letters in s. The dictionary has 1–1000 distinct lowercase words of lengths 1–20.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-108-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def wordBreak(s: str, wordDict: list[str]) -> bool:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public boolean wordBreak(String s, String[] wordDict) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} s\n * @param {string[]} wordDict\n * @returns {boolean}\n */\nfunction wordBreak(s, wordDict) {\n  throw new Error('Implement wordBreak');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function wordBreak(s: string, wordDict: string[]): boolean {\n  throw new Error('Implement wordBreak');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\ntypedef struct { ByteString *data; size_t len; } StringArray;\n\nbool wordBreak(ByteString s, StringArray wordDict) {\n    (void)s;\n    (void)wordDict;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nbool wordBreak(std::string s, std::vector<std::string> wordDict) {\n    throw std::logic_error(\"Implement wordBreak\");\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public bool wordBreak(string s, string[] wordDict) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $s\n * @param string[] $wordDict\n * @return bool\n */\nfunction wordBreak(string $s, array $wordDict): bool {\n    throw new LogicException('Implement wordBreak');\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-108-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: s (character scalar), wordDict (character vector). Result: logical scalar.\nwordBreak <- function(s, wordDict) {\n  stop(\"Implement wordBreak\")\n}",
+      "stdin": "",
+      "expectedOutput": "true",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 12,
+  "matrix": {
+    "NC250-190": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20465,
+        "wallTimeMs": 23546,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 34532,
+        "wallTimeMs": 37548,
+        "outputBytes": 710,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-245": {
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21463,
+        "wallTimeMs": 24536,
+        "outputBytes": 650,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 20827,
+        "wallTimeMs": 81882,
+        "outputBytes": 640,
+        "message": "C++ execution exceeded 30000 ms.",
+        "failures": [
+          {
+            "id": "NC250-245-P2",
+            "status": "timeout",
+            "message": "C++ execution exceeded 30000 ms."
+          },
+          {
+            "id": "NC250-245-P3",
+            "status": "timeout",
+            "message": "C++ execution exceeded 30000 ms."
+          }
+        ]
+      }
+    }
+  }
+}

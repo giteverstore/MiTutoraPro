@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-109",
+  "title": "Longest Increasing Subsequence",
+  "summary": "Find the greatest length of a strictly increasing subsequence.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "lengthOfLIS",
+    "signature": "def lengthOfLIS(nums:",
+    "input": "`nums` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "integer.",
+    "constraints": "1–2500 integers in [−10000,10000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Find the greatest length of a strictly increasing subsequence. You may skip elements, but chosen indices must remain in input order.",
+  "examples": [
+    {
+      "input": "{\"nums\":[4,1,6,2,7]}",
+      "output": "3",
+      "explanation": "The subsequence 1, 2, 7 is longest."
+    },
+    {
+      "input": "{\"nums\":[5,5,5]}",
+      "output": "1",
+      "explanation": "Equal values cannot extend a strictly increasing sequence."
+    },
+    {
+      "input": "{\"nums\":[3,-1,0,1]}",
+      "output": "3",
+      "explanation": "Skip 3 and take the remaining values."
+    }
+  ],
+  "constraints": [
+    "1–2500 integers in [−10000,10000]."
+  ],
+  "hints": [
+    "Conceptual: A smaller tail gives future elements more room to extend a sequence.",
+    "Directional: Keep the smallest attainable ending value for each subsequence length.",
+    "Implementation: For each value, replace the first tail at least as large, or extend the tail array if no such entry exists."
+  ],
+  "concepts": [
+    "subsequence",
+    "binary-search"
+  ],
+  "skills": [
+    "Subsequence",
+    "binary search"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n log n)",
+    "space": "O(n log n)"
+  },
+  "complexityAnalysis": "O(n log n) time and O(n) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-109-T01",
+      "arguments": [
+        [
+          4,
+          1,
+          6,
+          2,
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          4,
+          1,
+          6,
+          2,
+          7
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-109-T02",
+      "arguments": [
+        [
+          5,
+          5,
+          5
+        ]
+      ],
+      "input": {
+        "nums": [
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-109-T03",
+      "arguments": [
+        [
+          3,
+          -1,
+          0,
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          3,
+          -1,
+          0,
+          1
+        ]
+      },
+      "expected": 3,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def lengthOfLIS(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int lengthOfLIS(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction lengthOfLIS(nums) {\n  throw new Error('Implement lengthOfLIS');\n}",
+    "typescript": "function lengthOfLIS(nums: number[]): number {\n  throw new Error('Implement lengthOfLIS');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t lengthOfLIS(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint lengthOfLIS(std::vector<int> nums) {\n    throw std::logic_error(\"Implement lengthOfLIS\");\n}",
+    "csharp": "public class Solution {\n    public int lengthOfLIS(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction lengthOfLIS(array $nums): int {\n    throw new LogicException('Implement lengthOfLIS');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nlengthOfLIS <- function(nums) {\n  stop(\"Implement lengthOfLIS\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-109-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-109-statement",
+      "type": "paragraph",
+      "content": "Find the greatest length of a strictly increasing subsequence. You may skip elements, but chosen indices must remain in input order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-109-contract",
+      "type": "note",
+      "title": "def lengthOfLIS(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-109-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–2500 integers in [−10000,10000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-109-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def lengthOfLIS(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int lengthOfLIS(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction lengthOfLIS(nums) {\n  throw new Error('Implement lengthOfLIS');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function lengthOfLIS(nums: number[]): number {\n  throw new Error('Implement lengthOfLIS');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t lengthOfLIS(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint lengthOfLIS(std::vector<int> nums) {\n    throw std::logic_error(\"Implement lengthOfLIS\");\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int lengthOfLIS(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction lengthOfLIS(array $nums): int {\n    throw new LogicException('Implement lengthOfLIS');\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-109-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nlengthOfLIS <- function(nums) {\n  stop(\"Implement lengthOfLIS\")\n}",
+      "stdin": "",
+      "expectedOutput": "3",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

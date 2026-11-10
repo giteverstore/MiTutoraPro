@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-063",
+  "title": "Kth Largest Element in an Array",
+  "summary": "Return the value that occupies position k in descending order, with position one holding the largest value.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Heap / Priority Queue",
+  "category": "dsa",
+  "subtopic": "heap-priority-queue",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "findKthLargest",
+    "signature": "def findKthLargest(nums:",
+    "input": "`nums` (integer array), `k` (integer)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array), `k` (integer)",
+    "result": "integer.",
+    "constraints": "1 ≤ k ≤ array length ≤ 100,000. Values are integers in [−10,000, 10,000].",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Return the value that occupies position k in descending order, with position one holding the largest value. Count duplicate entries separately. Solve without sorting the entire array.",
+  "examples": [
+    {
+      "input": "{\"nums\":[8,2,8,5],\"k\":2}",
+      "output": "8",
+      "explanation": "The two copies of 8 occupy the first two positions."
+    },
+    {
+      "input": "{\"nums\":[-7,-2,-9],\"k\":2}",
+      "output": "-7",
+      "explanation": "The descending order is −2, −7, −9."
+    },
+    {
+      "input": "{\"nums\":[10],\"k\":1}",
+      "output": "10",
+      "explanation": "A singleton has only one rank."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ array length ≤ 100,000. Values are integers in [−10,000, 10,000]."
+  ],
+  "hints": [
+    "Conceptual: Only the count of entries above a value determines how close it is to the requested position.",
+    "Directional: The bounded value range lets you count frequencies by value.",
+    "Implementation: Scan frequencies from the highest value downward, subtracting each count from k until the remaining rank falls within a bucket."
+  ],
+  "concepts": [
+    "order-statistics",
+    "heaps",
+    "counting"
+  ],
+  "skills": [
+    "Order statistics",
+    "heaps",
+    "counting"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n+U)",
+    "space": "O(n+U)"
+  },
+  "complexityAnalysis": "O(n+U) time and O(U) auxiliary space with a counting array, where U is the value-range size.",
+  "publicTests": [
+    {
+      "name": "BLIND150-063-T01",
+      "arguments": [
+        [
+          8,
+          2,
+          8,
+          5
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          8,
+          2,
+          8,
+          5
+        ],
+        "k": 2
+      },
+      "expected": 8,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-063-T02",
+      "arguments": [
+        [
+          -7,
+          -2,
+          -9
+        ],
+        2
+      ],
+      "input": {
+        "nums": [
+          -7,
+          -2,
+          -9
+        ],
+        "k": 2
+      },
+      "expected": -7,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-063-T03",
+      "arguments": [
+        [
+          10
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          10
+        ],
+        "k": 1
+      },
+      "expected": 10,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def findKthLargest(nums: list[int], k: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number}\n */\nfunction findKthLargest(nums, k) {\n  throw new Error('Implement findKthLargest');\n}",
+    "typescript": "function findKthLargest(nums: number[], k: number): number {\n  throw new Error('Implement findKthLargest');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findKthLargest(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findKthLargest(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement findKthLargest\");\n}",
+    "csharp": "public class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int\n */\nfunction findKthLargest(array $nums, int $k): int {\n    throw new LogicException('Implement findKthLargest');\n}",
+    "r": "# Parameters: nums (integer vector), k (integer scalar). Result: integer scalar.\nfindKthLargest <- function(nums, k) {\n  stop(\"Implement findKthLargest\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-063-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-063-statement",
+      "type": "paragraph",
+      "content": "Return the value that occupies position k in descending order, with position one holding the largest value. Count duplicate entries separately. Solve without sorting the entire array.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-063-contract",
+      "type": "note",
+      "title": "def findKthLargest(nums:",
+      "content": "Input: `nums` (integer array), `k` (integer)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-063-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ array length ≤ 100,000. Values are integers in [−10,000, 10,000].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-063-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def findKthLargest(nums: list[int], k: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} k\n * @returns {number}\n */\nfunction findKthLargest(nums, k) {\n  throw new Error('Implement findKthLargest');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function findKthLargest(nums: number[], k: number): number {\n  throw new Error('Implement findKthLargest');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t findKthLargest(IntArray nums, int32_t k) {\n    (void)nums;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint findKthLargest(std::vector<int> nums, int k) {\n    throw std::logic_error(\"Implement findKthLargest\");\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $k\n * @return int\n */\nfunction findKthLargest(array $nums, int $k): int {\n    throw new LogicException('Implement findKthLargest');\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-063-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), k (integer scalar). Result: integer scalar.\nfindKthLargest <- function(nums, k) {\n  stop(\"Implement findKthLargest\")\n}",
+      "stdin": "",
+      "expectedOutput": "8",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

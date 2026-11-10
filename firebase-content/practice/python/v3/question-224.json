@@ -1,0 +1,365 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-224",
+  "title": "Build a Matrix With Conditions",
+  "summary": "Build a k×k matrix containing each value from 1 through k exactly once, with zeros in all other cells.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "Advanced Graphs",
+  "category": "dsa",
+  "subtopic": "advanced-graphs",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "buildMatrix",
+    "signature": "def buildMatrix(k:",
+    "input": "k (int), rowConditions (intgrid), colConditions (intgrid)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "k (int), rowConditions (intgrid), colConditions (intgrid)",
+    "callable": "buildMatrix",
+    "constraints": "2 ≤ k ≤ 400. Each rule list contains 1–10000 pairs of distinct labels in [1,k]. Repeated rules are allowed. A valid result has exactly k rows and k columns.",
+    "output-checking": "Accept any k×k matrix with each label exactly once, valid row and column prerequisites, and zeros elsewhere. Accept an empty matrix only when a prerequisite graph has a cycle."
+  },
+  "statement": "Build a k×k matrix containing each value from 1 through k exactly once, with zeros in all other cells. Each row rule [a,b] places a strictly above b. Each column rule places a strictly left of b. Return any matrix satisfying every rule, or an empty matrix when impossible.",
+  "examples": [
+    {
+      "input": "{\"k\":3,\"rowConditions\":[[1,2]],\"colConditions\":[[2,3]]}",
+      "output": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "explanation": "This diagonal placement meets both rules."
+    },
+    {
+      "input": "{\"k\":2,\"rowConditions\":[[1,2],[2,1]],\"colConditions\":[[1,2]]}",
+      "output": "[]",
+      "explanation": "The row rules require both labels to be above one another."
+    },
+    {
+      "input": "{\"k\":2,\"rowConditions\":[[2,1]],\"colConditions\":[[1,2]]}",
+      "output": "[[0,2],[1,0]]",
+      "explanation": "2 is higher, while 1 is farther left."
+    }
+  ],
+  "constraints": [
+    "2 ≤ k ≤ 400. Each rule list contains 1–10000 pairs of distinct labels in [1,k]. Repeated rules are allowed. A valid result has exactly k rows and k columns."
+  ],
+  "hints": [
+    "Conceptual: Row and column rules can be solved separately.",
+    "Directional: Treat each rule set as its own directed graph.",
+    "Implementation: Topologically order both graphs, then place each label at the intersection of its row position and column position. A cycle in either graph prevents a solution."
+  ],
+  "concepts": [
+    "topological-ordering",
+    "matrix-construction"
+  ],
+  "skills": [
+    "Topological ordering",
+    "matrix construction"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(k²+R+C)",
+    "space": "O(k²+R+C)"
+  },
+  "complexityAnalysis": "O(k²+R+C) time and O(k²) space for adjacency matrices and output, where R and C are rule counts.",
+  "publicTests": [
+    {
+      "name": "NC250-224-P1",
+      "arguments": [
+        3,
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "input": {
+        "k": 3,
+        "rowConditions": [
+          [
+            1,
+            2
+          ]
+        ],
+        "colConditions": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          3
+        ]
+      ],
+      "validator": "condition_matrix"
+    },
+    {
+      "name": "NC250-224-P2",
+      "arguments": [
+        2,
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "k": 2,
+        "rowConditions": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "colConditions": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [],
+      "validator": "condition_matrix"
+    },
+    {
+      "name": "NC250-224-P3",
+      "arguments": [
+        2,
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "input": {
+        "k": 2,
+        "rowConditions": [
+          [
+            2,
+            1
+          ]
+        ],
+        "colConditions": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "validator": "condition_matrix"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def buildMatrix(k: int, rowConditions: list[list[int]], colConditions: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} k\n * @param {number[][]} rowConditions\n * @param {number[][]} colConditions\n * @returns {number[][]}\n */\nfunction buildMatrix(k, rowConditions, colConditions) {\n  throw new Error('Implement buildMatrix');\n}",
+    "typescript": "function buildMatrix(k: number, rowConditions: number[][], colConditions: number[][]): number[][] {\n  throw new Error('Implement buildMatrix');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix buildMatrix(int32_t k, IntMatrix rowConditions, IntMatrix colConditions) {\n    (void)k;\n    (void)rowConditions;\n    (void)colConditions;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> buildMatrix(int k, std::vector<std::vector<int>> rowConditions, std::vector<std::vector<int>> colConditions) {\n    throw std::logic_error(\"Implement buildMatrix\");\n}",
+    "csharp": "public class Solution {\n    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $k\n * @param nested int[]s $rowConditions\n * @param nested int[]s $colConditions\n * @return int[][]\n */\nfunction buildMatrix(int $k, array $rowConditions, array $colConditions): array {\n    throw new LogicException('Implement buildMatrix');\n}",
+    "r": "# Parameters: k (integer scalar), rowConditions (list of integer vectors), colConditions (list of integer vectors). Result: list of integer vectors.\nbuildMatrix <- function(k, rowConditions, colConditions) {\n  stop(\"Implement buildMatrix\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "buildMatrix",
+    "arguments": [
+      [
+        "k",
+        "int"
+      ],
+      [
+        "rowConditions",
+        "intgrid"
+      ],
+      [
+        "colConditions",
+        "intgrid"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "function",
+    "validator": "condition_matrix",
+    "notes": "Accept any k×k matrix with each label exactly once, valid row and column prerequisites, and zeros elsewhere. Accept an empty matrix only when a prerequisite graph has a cycle."
+  },
+  "blocks": [
+    {
+      "id": "nc250-224-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-224-statement",
+      "type": "paragraph",
+      "content": "Build a k×k matrix containing each value from 1 through k exactly once, with zeros in all other cells. Each row rule [a,b] places a strictly above b. Each column rule places a strictly left of b. Return any matrix satisfying every rule, or an empty matrix when impossible.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-224-contract",
+      "type": "note",
+      "title": "def buildMatrix(k:",
+      "content": "Input: k (int), rowConditions (intgrid), colConditions (intgrid)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-224-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "2 ≤ k ≤ 400. Each rule list contains 1–10000 pairs of distinct labels in [1,k]. Repeated rules are allowed. A valid result has exactly k rows and k columns.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-224-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def buildMatrix(k: int, rowConditions: list[list[int]], colConditions: list[list[int]]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} k\n * @param {number[][]} rowConditions\n * @param {number[][]} colConditions\n * @returns {number[][]}\n */\nfunction buildMatrix(k, rowConditions, colConditions) {\n  throw new Error('Implement buildMatrix');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function buildMatrix(k: number, rowConditions: number[][], colConditions: number[][]): number[][] {\n  throw new Error('Implement buildMatrix');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix buildMatrix(int32_t k, IntMatrix rowConditions, IntMatrix colConditions) {\n    (void)k;\n    (void)rowConditions;\n    (void)colConditions;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> buildMatrix(int k, std::vector<std::vector<int>> rowConditions, std::vector<std::vector<int>> colConditions) {\n    throw std::logic_error(\"Implement buildMatrix\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $k\n * @param nested int[]s $rowConditions\n * @param nested int[]s $colConditions\n * @return int[][]\n */\nfunction buildMatrix(int $k, array $rowConditions, array $colConditions): array {\n    throw new LogicException('Implement buildMatrix');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-224-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: k (integer scalar), rowConditions (list of integer vectors), colConditions (list of integer vectors). Result: list of integer vectors.\nbuildMatrix <- function(k, rowConditions, colConditions) {\n  stop(\"Implement buildMatrix\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,0,0],[0,2,0],[0,0,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

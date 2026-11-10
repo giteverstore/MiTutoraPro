@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 48,
+  "matrix": {
+    "NC250-167": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15644,
+        "wallTimeMs": 16197,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6,
+        "wallTimeMs": 133,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3,
+        "wallTimeMs": 262,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8700,
+        "wallTimeMs": 14568,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32957,
+        "wallTimeMs": 39110,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18294.525,
+        "wallTimeMs": 24280,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1577,
+        "wallTimeMs": 1778,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 161,
+        "wallTimeMs": 7928,
+        "outputBytes": 736,
+        "message": null,
+        "failures": []
+      }
+    },
+    "NC250-170": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15061,
+        "wallTimeMs": 15810,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3,
+        "wallTimeMs": 84,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 4,
+        "wallTimeMs": 105,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 6515,
+        "wallTimeMs": 9999,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20588,
+        "wallTimeMs": 24117,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 14241.8049,
+        "wallTimeMs": 18620,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1302,
+        "wallTimeMs": 1503,
+        "outputBytes": 740,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 228,
+        "wallTimeMs": 7230,
+        "outputBytes": 784,
+        "message": "The function result could not be serialized: Unexpected token 'N', ...\"147483647,NA]}\" is not valid JSON",
+        "failures": [
+          {
+            "id": "NC250-170-P2",
+            "status": "serialization_error",
+            "message": "The function result could not be serialized: Unexpected token 'N', ...\"147483647,NA]}\" is not valid JSON"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-169",
+  "title": "4Sum",
+  "summary": "Return every distinct collection of four values whose sum is target and which can be selected from four different positions in nums.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "fourSum",
+    "signature": "def fourSum(nums:",
+    "input": "nums (ints), target (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), target (int)",
+    "callable": "fourSum",
+    "constraints": "1–200 entries in [−1000000000,1000000000]. target is in the same range. Each result has exactly four integers. Duplicate collections are forbidden. Compute sums in at least signed 64-bit arithmetic in fixed-width languages.",
+    "output-checking": "Compare sets of sorted four-tuples. Reject repeated tuples, wrong lengths, missing tuples, invented tuples, and wrong multiplicities. Use 64-bit arithmetic or wider for sums."
+  },
+  "statement": "Return every distinct collection of four values whose sum is target and which can be selected from four different positions in nums. Repeated values may appear when enough copies exist in the input. Any ordering of the collections and their values is allowed.",
+  "examples": [
+    {
+      "input": "{\"nums\":[-3,-1,0,2,4],\"target\":0}",
+      "output": "[[-3,-1,0,4]]",
+      "explanation": "Only this selection sums to zero."
+    },
+    {
+      "input": "{\"nums\":[1,1,1,1,1],\"target\":4}",
+      "output": "[[1,1,1,1]]",
+      "explanation": "Different position choices describe the same collection."
+    },
+    {
+      "input": "{\"nums\":[1000000000,1000000000,1000000000,1000000000],\"target\":-294967296}",
+      "output": "[]",
+      "explanation": "The true sum is 4000000000 and must not wrap to the target."
+    }
+  ],
+  "constraints": [
+    "1–200 entries in [−1000000000,1000000000]. target is in the same range. Each result has exactly four integers. Duplicate collections are forbidden. Compute sums in at least signed 64-bit arithmetic in fixed-width languages."
+  ],
+  "hints": [
+    "Conceptual: Choosing positions is different from choosing distinct values.",
+    "Directional: Sort the values, fix two positions, and search the remaining interval.",
+    "Implementation: Move two endpoints based on the four-value sum. Skip equal choices at each fixed position and after recording a result."
+  ],
+  "concepts": [
+    "sorting",
+    "two-pointers",
+    "duplicate-handling"
+  ],
+  "skills": [
+    "Sorting",
+    "two pointers",
+    "duplicate handling"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n³)",
+    "space": "See complexity analysis"
+  },
+  "complexityAnalysis": "O(n³) time and O(n) sorting storage for the internal reference, excluding the output.",
+  "publicTests": [
+    {
+      "name": "NC250-169-P1",
+      "arguments": [
+        [
+          -3,
+          -1,
+          0,
+          2,
+          4
+        ],
+        0
+      ],
+      "input": {
+        "nums": [
+          -3,
+          -1,
+          0,
+          2,
+          4
+        ],
+        "target": 0
+      },
+      "expected": [
+        [
+          -3,
+          -1,
+          0,
+          4
+        ]
+      ],
+      "validator": "quadruplet_set"
+    },
+    {
+      "name": "NC250-169-P2",
+      "arguments": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        4
+      ],
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "target": 4
+      },
+      "expected": [
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "validator": "quadruplet_set"
+    },
+    {
+      "name": "NC250-169-P3",
+      "arguments": [
+        [
+          1000000000,
+          1000000000,
+          1000000000,
+          1000000000
+        ],
+        -294967296
+      ],
+      "input": {
+        "nums": [
+          1000000000,
+          1000000000,
+          1000000000,
+          1000000000
+        ],
+        "target": -294967296
+      },
+      "expected": [],
+      "validator": "quadruplet_set"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def fourSum(nums: list[int], target: int) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] fourSum(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number[][]}\n */\nfunction fourSum(nums, target) {\n  throw new Error('Implement fourSum');\n}",
+    "typescript": "function fourSum(nums: number[], target: number): number[][] {\n  throw new Error('Implement fourSum');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix fourSum(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> fourSum(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement fourSum\");\n}",
+    "csharp": "public class Solution {\n    public int[][] fourSum(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int[][]\n */\nfunction fourSum(array $nums, int $target): array {\n    throw new LogicException('Implement fourSum');\n}",
+    "r": "# Parameters: nums (integer vector), target (integer scalar). Result: list of integer vectors.\nfourSum <- function(nums, target) {\n  stop(\"Implement fourSum\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "fourSum",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "target",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "function",
+    "validator": "quadruplet_set",
+    "notes": "Compare sets of sorted four-tuples. Reject repeated tuples, wrong lengths, missing tuples, invented tuples, and wrong multiplicities. Use 64-bit arithmetic or wider for sums."
+  },
+  "blocks": [
+    {
+      "id": "nc250-169-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-169-statement",
+      "type": "paragraph",
+      "content": "Return every distinct collection of four values whose sum is target and which can be selected from four different positions in nums. Repeated values may appear when enough copies exist in the input. Any ordering of the collections and their values is allowed.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-169-contract",
+      "type": "note",
+      "title": "def fourSum(nums:",
+      "content": "Input: nums (ints), target (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-169-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–200 entries in [−1000000000,1000000000]. target is in the same range. Each result has exactly four integers. Duplicate collections are forbidden. Compute sums in at least signed 64-bit arithmetic in fixed-width languages.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-169-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def fourSum(nums: list[int], target: int) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] fourSum(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number[][]}\n */\nfunction fourSum(nums, target) {\n  throw new Error('Implement fourSum');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function fourSum(nums: number[], target: number): number[][] {\n  throw new Error('Implement fourSum');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix fourSum(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> fourSum(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement fourSum\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] fourSum(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int[][]\n */\nfunction fourSum(array $nums, int $target): array {\n    throw new LogicException('Implement fourSum');\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-169-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), target (integer scalar). Result: list of integer vectors.\nfourSum <- function(nums, target) {\n  stop(\"Implement fourSum\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[-3,-1,0,4]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

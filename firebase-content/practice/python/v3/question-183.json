@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-183",
+  "title": "Search Insert Position",
+  "summary": "In a strictly increasing integer array, return the zero-based index of target.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Binary Search",
+  "category": "dsa",
+  "subtopic": "binary-search",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "searchInsert",
+    "signature": "def searchInsert(nums:",
+    "input": "nums (ints), target (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints), target (int)",
+    "callable": "searchInsert",
+    "constraints": "1–10000 distinct sorted entries in [−10000,10000]. target is in [−10000,10000]. The insertion position may equal the array length.",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "In a strictly increasing integer array, return the zero-based index of target. If it is absent, return the position where inserting it would keep the array increasing. Use logarithmic time.",
+  "examples": [
+    {
+      "input": "{\"nums\":[-4,0,5],\"target\":0}",
+      "output": "1",
+      "explanation": "The target is already at index 1."
+    },
+    {
+      "input": "{\"nums\":[2,6,9],\"target\":1}",
+      "output": "0",
+      "explanation": "Insert before every existing value."
+    },
+    {
+      "input": "{\"nums\":[2,6,9],\"target\":12}",
+      "output": "3",
+      "explanation": "The new value belongs after the array."
+    }
+  ],
+  "constraints": [
+    "1–10000 distinct sorted entries in [−10000,10000]. target is in [−10000,10000]. The insertion position may equal the array length."
+  ],
+  "hints": [
+    "Conceptual: The answer is the first position whose value is at least the target.",
+    "Directional: Maintain a half-open interval of possible insertion positions.",
+    "Implementation: If the middle value is below target, discard it and everything before it. Otherwise keep the left half including the middle boundary."
+  ],
+  "concepts": [
+    "binary-search",
+    "lower-bound"
+  ],
+  "skills": [
+    "Binary search",
+    "lower bound"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(log n)",
+    "space": "O(log n)"
+  },
+  "complexityAnalysis": "O(log n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-183-P1",
+      "arguments": [
+        [
+          -4,
+          0,
+          5
+        ],
+        0
+      ],
+      "input": {
+        "nums": [
+          -4,
+          0,
+          5
+        ],
+        "target": 0
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-183-P2",
+      "arguments": [
+        [
+          2,
+          6,
+          9
+        ],
+        1
+      ],
+      "input": {
+        "nums": [
+          2,
+          6,
+          9
+        ],
+        "target": 1
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-183-P3",
+      "arguments": [
+        [
+          2,
+          6,
+          9
+        ],
+        12
+      ],
+      "input": {
+        "nums": [
+          2,
+          6,
+          9
+        ],
+        "target": 12
+      },
+      "expected": 3,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def searchInsert(nums: list[int], target: int) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int searchInsert(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number}\n */\nfunction searchInsert(nums, target) {\n  throw new Error('Implement searchInsert');\n}",
+    "typescript": "function searchInsert(nums: number[], target: number): number {\n  throw new Error('Implement searchInsert');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t searchInsert(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint searchInsert(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement searchInsert\");\n}",
+    "csharp": "public class Solution {\n    public int searchInsert(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int\n */\nfunction searchInsert(array $nums, int $target): int {\n    throw new LogicException('Implement searchInsert');\n}",
+    "r": "# Parameters: nums (integer vector), target (integer scalar). Result: integer scalar.\nsearchInsert <- function(nums, target) {\n  stop(\"Implement searchInsert\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "searchInsert",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ],
+      [
+        "target",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-183-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-183-statement",
+      "type": "paragraph",
+      "content": "In a strictly increasing integer array, return the zero-based index of target. If it is absent, return the position where inserting it would keep the array increasing. Use logarithmic time.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-183-contract",
+      "type": "note",
+      "title": "def searchInsert(nums:",
+      "content": "Input: nums (ints), target (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-183-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 distinct sorted entries in [−10000,10000]. target is in [−10000,10000]. The insertion position may equal the array length.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-183-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def searchInsert(nums: list[int], target: int) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int searchInsert(int[] nums, int target) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @param {number} target\n * @returns {number}\n */\nfunction searchInsert(nums, target) {\n  throw new Error('Implement searchInsert');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function searchInsert(nums: number[], target: number): number {\n  throw new Error('Implement searchInsert');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t searchInsert(IntArray nums, int32_t target) {\n    (void)nums;\n    (void)target;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint searchInsert(std::vector<int> nums, int target) {\n    throw std::logic_error(\"Implement searchInsert\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int searchInsert(int[] nums, int target) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @param int $target\n * @return int\n */\nfunction searchInsert(array $nums, int $target): int {\n    throw new LogicException('Implement searchInsert');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-183-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector), target (integer scalar). Result: integer scalar.\nsearchInsert <- function(nums, target) {\n  stop(\"Implement searchInsert\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

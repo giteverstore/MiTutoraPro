@@ -3,9 +3,8 @@ import { FirecrackerExecutionController } from '../../functions/src/python-judge
 import { PYTHON_EXECUTION_POLICY_VERSION, PYTHON_RUNTIME } from '../../functions/src/python-judge/JudgePolicy.js';
 import { LinuxFirecrackerWorker } from '../../functions/src/python-judge/LinuxFirecrackerWorker.js';
 import { ProtectedTestRegistry } from '../../functions/src/python-judge/ProtectedTestRegistry.js';
-import { createInitialPracticeProtectedTestRegistry, createSyntheticPythonJudgeRegistry } from '../../functions/src/python-judge/PracticeProtectedTestRegistry.js';
-import { PythonJudge, PythonJudgeExecutor } from '../../functions/src/python-judge/PythonJudge.js';
-import { PracticeVerifier } from '../../functions/src/activity-verification/PracticeVerifier.js';
+import { createSyntheticPythonJudgeRegistry } from '../../functions/src/python-judge/PracticeProtectedTestRegistry.js';
+import { PythonJudge } from '../../functions/src/python-judge/PythonJudge.js';
 import { CANONICAL_PYTHON_RUNTIME, canonicalPythonRuntimeImage } from '../../functions/src/python-judge/CanonicalPythonRuntime.js';
 
 const manifest = JSON.parse(await readFile('/opt/mitutora-judge/runtime/manifest.json', 'utf8'));
@@ -112,29 +111,12 @@ const sentinelSource = 'def sentinel(action):\n    import os\n    path="/work/MT
 const sentinelJudge = new PythonJudge({ registry: sentinelRegistry, controller: new FirecrackerExecutionController({ worker, runtimeImage }) });
 const sentinelResult = await sentinelJudge.judge(request('synthetic-sentinel', 'synthetic-sentinel-suite', 'd'.repeat(64), 'py-real-sentinel', sentinelSource));
 
-const practice = createInitialPracticeProtectedTestRegistry();
-const practiceCases = [
-  ['fund-variables-001', 'f82864abec10ea3c150af37372e32011ca53fb87868b0d57114230821bc48524', 'practice-fund-variables-001', 'def create_user_label(name, score):\n    return f"{name}: {score}"'],
-  ['fund-variables-002', 'f0705f0c0468fd43cfb4f00c912140625b12cdc0bcbb46dc18f8115a238f65c3', 'practice-fund-variables-002', 'def final_inventory(start, sold, restocked):\n    return start - sold + restocked'],
-];
-const practiceLedger = [];
-for (let index = 0; index < practiceCases.length; index += 1) {
-  const [activityId, contentHash, suiteId, sourceCode] = practiceCases[index];
-  const binding = request(activityId, suiteId, contentHash, `py-real-practice-${index + 1}`, sourceCode, 'v2');
-  const judge = new PythonJudge({ registry: practice, controller: new FirecrackerExecutionController({ worker, runtimeImage }) });
-  const executor = new PythonJudgeExecutor({ judge, resolveBinding: async () => ({ ...binding, sourceCode: undefined }) });
-  const verifier = new PracticeVerifier({ executor });
-  const result = await verifier.verify({ request: { activityType: 'PRACTICE', sourceCode }, activity: { language: 'python', verification: { tests: [{}, {}] } }, limits: { executionTimeoutMs: 10_000 } });
-  practiceLedger.push({ activityId, passed: result.passed, testCount: result.testCount });
-}
-
 const result = Object.freeze({
   runtime: { pythonVersion: manifest.pythonVersion, firecrackerVersion: manifest.firecrackerVersion, guestKernelVersion: manifest.guestKernelVersion },
   digests: { kernel: manifest.kernelDigest, rootfs: manifest.rootfsDigest, runtime: manifest.runtimeDigest },
   synthetic: ledger,
   isolation: { status: securityResult.status, cleanupStatus: securityResult.cleanupStatus, passed: securityResult.status === 'PASS' && securityResult.cleanupStatus === 'VERIFIED' },
   crossRun: { status: sentinelResult.status, cleanupStatus: sentinelResult.cleanupStatus, testsRun: sentinelResult.testsTotal, passed: sentinelResult.status === 'PASS' && sentinelResult.testsPassed === 3 && sentinelResult.cleanupStatus === 'VERIFIED', sentinelLeak: sentinelResult.status === 'PASS' ? 'NO' : 'UNKNOWN' },
-  practice: practiceLedger,
 });
 await writeFile('/tmp/mitutora-python-judge-validation.json', JSON.stringify(result), { mode: 0o600 });
 console.log(JSON.stringify(result));

@@ -1,0 +1,303 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-070",
+  "title": "Permutations",
+  "summary": "Return every ordering of the supplied distinct integers.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "permute",
+    "signature": "def permute(nums:",
+    "input": "`nums` (integer array)",
+    "output": "nested integer arrays."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "nested integer arrays.",
+    "constraints": "1–6 distinct integers in [−10, 10].",
+    "output-checking": "Require every distinct permutation once. Outer order is free and each permutation's internal order is significant."
+  },
+  "statement": "Return every ordering of the supplied distinct integers. Outer result order is free. Order within each permutation is significant.",
+  "examples": [
+    {
+      "input": "{\"nums\":[8,-2]}",
+      "output": "[[8,-2],[-2,8]]",
+      "explanation": "Either value can go first."
+    },
+    {
+      "input": "{\"nums\":[0]}",
+      "output": "[[0]]",
+      "explanation": "A singleton has one ordering."
+    },
+    {
+      "input": "{\"nums\":[1,4,7]}",
+      "output": "[[1,4,7],[1,7,4],[4,1,7],[4,7,1],[7,1,4],[7,4,1]]",
+      "explanation": "There are three choices for the first value and two for the second."
+    }
+  ],
+  "constraints": [
+    "1–6 distinct integers in [−10, 10]."
+  ],
+  "hints": [
+    "Conceptual: A permutation chooses one unused value for each position.",
+    "Directional: Track which input positions are already used.",
+    "Implementation: Mark a value, recurse, then undo the mark. Save an independent copy of every completed ordering."
+  ],
+  "concepts": [
+    "backtracking",
+    "permutations",
+    "used-positions"
+  ],
+  "skills": [
+    "Backtracking",
+    "permutations",
+    "used positions"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n·n!)",
+    "space": "O(n·n!)"
+  },
+  "complexityAnalysis": "O(n·n!) time including output, O(n) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-070-T01",
+      "arguments": [
+        [
+          8,
+          -2
+        ]
+      ],
+      "input": {
+        "nums": [
+          8,
+          -2
+        ]
+      },
+      "expected": [
+        [
+          8,
+          -2
+        ],
+        [
+          -2,
+          8
+        ]
+      ],
+      "validator": "bt_ordered_int_rows"
+    },
+    {
+      "name": "BLIND150-070-T02",
+      "arguments": [
+        [
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": [
+        [
+          0
+        ]
+      ],
+      "validator": "bt_ordered_int_rows"
+    },
+    {
+      "name": "BLIND150-070-T03",
+      "arguments": [
+        [
+          1,
+          4,
+          7
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          4,
+          7
+        ]
+      },
+      "expected": [
+        [
+          1,
+          4,
+          7
+        ],
+        [
+          1,
+          7,
+          4
+        ],
+        [
+          4,
+          1,
+          7
+        ],
+        [
+          4,
+          7,
+          1
+        ],
+        [
+          7,
+          1,
+          4
+        ],
+        [
+          7,
+          4,
+          1
+        ]
+      ],
+      "validator": "bt_ordered_int_rows"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def permute(nums: list[int]) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] permute(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number[][]}\n */\nfunction permute(nums) {\n  throw new Error('Implement permute');\n}",
+    "typescript": "function permute(nums: number[]): number[][] {\n  throw new Error('Implement permute');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix permute(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> permute(std::vector<int> nums) {\n    throw std::logic_error(\"Implement permute\");\n}",
+    "csharp": "public class Solution {\n    public int[][] permute(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int[][]\n */\nfunction permute(array $nums): array {\n    throw new LogicException('Implement permute');\n}",
+    "r": "# Parameters: nums (integer vector). Result: list of integer vectors.\npermute <- function(nums) {\n  stop(\"Implement permute\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-070-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-070-statement",
+      "type": "paragraph",
+      "content": "Return every ordering of the supplied distinct integers. Outer result order is free. Order within each permutation is significant.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-070-contract",
+      "type": "note",
+      "title": "def permute(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: nested integer arrays.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-070-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–6 distinct integers in [−10, 10].",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-070-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def permute(nums: list[int]) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] permute(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number[][]}\n */\nfunction permute(nums) {\n  throw new Error('Implement permute');\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function permute(nums: number[]): number[][] {\n  throw new Error('Implement permute');\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix permute(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> permute(std::vector<int> nums) {\n    throw std::logic_error(\"Implement permute\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] permute(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int[][]\n */\nfunction permute(array $nums): array {\n    throw new LogicException('Implement permute');\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-070-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: list of integer vectors.\npermute <- function(nums) {\n  stop(\"Implement permute\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[8,-2],[-2,8]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

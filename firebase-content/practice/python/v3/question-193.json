@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-193",
+  "title": "Binary Tree Inorder Traversal",
+  "summary": "Return the node values in this recursive visitation order: left subtree, current node, right subtree.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Trees",
+  "category": "dsa",
+  "subtopic": "trees",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "inorderTraversal",
+    "signature": "class TreeNode:",
+    "input": "root (tree)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "root (tree)",
+    "callable": "inorderTraversal",
+    "constraints": "0–100 nodes, each with a value in [−100,100]. Input uses level-order values with null for absent children, omitting trailing nulls. Return an integer array in the required order.",
+    "output-checking": "Build a TreeNode tree from canonical level-order input. Return and compare the inorder integer sequence."
+  },
+  "statement": "Return the node values in this recursive visitation order: left subtree, current node, right subtree. Apply the same rule inside each subtree. An absent child contributes no values.",
+  "examples": [
+    {
+      "input": "{\"root\":[4,2,6,null,3]}",
+      "output": "[2,3,4,6]",
+      "explanation": "The missing left child of 2 contributes no values."
+    },
+    {
+      "input": "{\"root\":[]}",
+      "output": "[]",
+      "explanation": "An empty tree has no visits."
+    },
+    {
+      "input": "{\"root\":[-7]}",
+      "output": "[-7]",
+      "explanation": "A single node appears once."
+    }
+  ],
+  "constraints": [
+    "0–100 nodes, each with a value in [−100,100]. Input uses level-order values with null for absent children, omitting trailing nulls. Return an integer array in the required order."
+  ],
+  "hints": [
+    "Conceptual: Each node has a specific place between its two subtrees.",
+    "Directional: Explore the left subtree before recording its parent.",
+    "Implementation: Use a stack to remember parents while walking left. Pop, record, and then walk right."
+  ],
+  "concepts": [
+    "binary-tree-traversal",
+    "stack"
+  ],
+  "skills": [
+    "Binary tree traversal",
+    "stack"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(h) traversal stack space, excluding O(n) output, where h is tree height.",
+  "publicTests": [
+    {
+      "name": "NC250-193-P1",
+      "arguments": [
+        [
+          4,
+          2,
+          6,
+          null,
+          3
+        ]
+      ],
+      "input": {
+        "root": [
+          4,
+          2,
+          6,
+          null,
+          3
+        ]
+      },
+      "expected": [
+        2,
+        3,
+        4,
+        6
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-193-P2",
+      "arguments": [
+        []
+      ],
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-193-P3",
+      "arguments": [
+        [
+          -7
+        ]
+      ],
+      "input": {
+        "root": [
+          -7
+        ]
+      },
+      "expected": [
+        -7
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorderTraversal(root: TreeNode | None) -> list[int]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] inorderTraversal(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number[]}\n */\nfunction inorderTraversal(root) {\n  throw new Error('Implement inorderTraversal');\n}",
+    "typescript": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction inorderTraversal(root: TreeNode | null): number[] {\n  throw new Error('Implement inorderTraversal');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray inorderTraversal(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+    "cpp": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\n\nIntArray inorderTraversal(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement inorderTraversal\");\n}",
+    "csharp": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] inorderTraversal(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction inorderTraversal(?TreeNode $root): array {\n    throw new LogicException('Implement inorderTraversal');\n}",
+    "r": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result integer vector.\ninorderTraversal <- function(root) {\n  stop(\"Implement inorderTraversal\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "inorderTraversal",
+    "arguments": [
+      [
+        "root",
+        "tree"
+      ]
+    ],
+    "serialized_result_type": "ints",
+    "mode": "tree",
+    "validator": "exact",
+    "notes": "Build a TreeNode tree from canonical level-order input. Return and compare the inorder integer sequence."
+  },
+  "blocks": [
+    {
+      "id": "nc250-193-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-193-statement",
+      "type": "paragraph",
+      "content": "Return the node values in this recursive visitation order: left subtree, current node, right subtree. Apply the same rule inside each subtree. An absent child contributes no values.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-193-contract",
+      "type": "note",
+      "title": "class TreeNode:",
+      "content": "Input: root (tree)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-193-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "0–100 nodes, each with a value in [−100,100]. Input uses level-order values with null for absent children, omitting trailing nulls. Return an integer array in the required order.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-193-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass TreeNode:\n    def __init__(self, val: int = 0, left: TreeNode | None = None, right: TreeNode | None = None):\n        self.val, self.left, self.right = val, left, right\n\ndef inorderTraversal(root: TreeNode | None) -> list[int]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] inorderTraversal(TreeNode root) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class TreeNode {\n  constructor(val = 0, left = null, right = null) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\n/**\n * @param {TreeNode | null} root\n * @returns {number[]}\n */\nfunction inorderTraversal(root) {\n  throw new Error('Implement inorderTraversal');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class TreeNode {\n  val: number; left: TreeNode | null; right: TreeNode | null;\n  constructor(val = 0, left: TreeNode | null = null, right: TreeNode | null = null) { this.val=val; this.left=left; this.right=right; }\n}\n\nfunction inorderTraversal(root: TreeNode | null): number[] {\n  throw new Error('Implement inorderTraversal');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int32_t val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nIntArray inorderTraversal(TreeNode * root) {\n    (void)root;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <cstddef>\n#include <cstdint>\n#include <stdexcept>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left, *right;\n} TreeNode;\ntypedef struct { int *data; std::size_t len; } IntArray;\n\nIntArray inorderTraversal(TreeNode * root) {\n    (void)root;\n    throw std::logic_error(\"Implement inorderTraversal\");\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class TreeNode {\n        public int val;\n        public TreeNode left, right;\n        public TreeNode(int val) { this.val = val; }\n    }\n\n    public int[] inorderTraversal(TreeNode root) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass TreeNode {\n    public function __construct(public int $val = 0, public ?TreeNode $left = null, public ?TreeNode $right = null) {}\n}\n\nfunction inorderTraversal(?TreeNode $root): array {\n    throw new LogicException('Implement inorderTraversal');\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-193-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "TreeNode <- function(val = 0L, left = NULL, right = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node$left <- left\n  node$right <- right\n  node\n}\n\n# Parameters root (tree environment or NULL). Result integer vector.\ninorderTraversal <- function(root) {\n  stop(\"Implement inorderTraversal\")\n}",
+      "stdin": "",
+      "expectedOutput": "[2,3,4,6]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

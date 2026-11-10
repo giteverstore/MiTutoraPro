@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-166",
+  "title": "Merge Strings Alternately",
+  "summary": "Build a string by taking one character from word1, then one from word2, repeating while both have characters.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Two Pointers",
+  "category": "dsa",
+  "subtopic": "two-pointers",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "mergeAlternately",
+    "signature": "def mergeAlternately(word1:",
+    "input": "word1 (str), word2 (str)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "word1 (str), word2 (str)",
+    "callable": "mergeAlternately",
+    "constraints": "Each word contains 1–100 lowercase English letters.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Build a string by taking one character from word1, then one from word2, repeating while both have characters. When one ends, append the unused tail of the other.",
+  "examples": [
+    {
+      "input": "{\"word1\":\"go\",\"word2\":\"cat\"}",
+      "output": "\"gcoat\"",
+      "explanation": "Alternate g,c,o,a, then append t."
+    },
+    {
+      "input": "{\"word1\":\"mint\",\"word2\":\"x\"}",
+      "output": "\"mxint\"",
+      "explanation": "Only the first pair alternates."
+    },
+    {
+      "input": "{\"word1\":\"ab\",\"word2\":\"xy\"}",
+      "output": "\"axby\"",
+      "explanation": "Both words finish together."
+    }
+  ],
+  "constraints": [
+    "Each word contains 1–100 lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Each word must keep its original order.",
+    "Directional: Track the next unread position in each word.",
+    "Implementation: Emit a character from each available word at each position, then continue with the longer word."
+  ],
+  "concepts": [
+    "strings",
+    "two-pointers"
+  ],
+  "skills": [
+    "Strings",
+    "two pointers"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(a+b)",
+    "space": "O(a+b)"
+  },
+  "complexityAnalysis": "O(a+b) time and O(a+b) output space, with O(1) extra indexing state.",
+  "publicTests": [
+    {
+      "name": "NC250-166-P1",
+      "arguments": [
+        "go",
+        "cat"
+      ],
+      "input": {
+        "word1": "go",
+        "word2": "cat"
+      },
+      "expected": "gcoat",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-166-P2",
+      "arguments": [
+        "mint",
+        "x"
+      ],
+      "input": {
+        "word1": "mint",
+        "word2": "x"
+      },
+      "expected": "mxint",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-166-P3",
+      "arguments": [
+        "ab",
+        "xy"
+      ],
+      "input": {
+        "word1": "ab",
+        "word2": "xy"
+      },
+      "expected": "axby",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def mergeAlternately(word1: str, word2: str) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String mergeAlternately(String word1, String word2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} word1\n * @param {string} word2\n * @returns {string}\n */\nfunction mergeAlternately(word1, word2) {\n  throw new Error('Implement mergeAlternately');\n}",
+    "typescript": "function mergeAlternately(word1: string, word2: string): string {\n  throw new Error('Implement mergeAlternately');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString mergeAlternately(ByteString word1, ByteString word2) {\n    (void)word1;\n    (void)word2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string mergeAlternately(std::string word1, std::string word2) {\n    throw std::logic_error(\"Implement mergeAlternately\");\n}",
+    "csharp": "public class Solution {\n    public string mergeAlternately(string word1, string word2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $word1\n * @param string $word2\n * @return string\n */\nfunction mergeAlternately(string $word1, string $word2): string {\n    throw new LogicException('Implement mergeAlternately');\n}",
+    "r": "# Parameters: word1 (character scalar), word2 (character scalar). Result: character scalar.\nmergeAlternately <- function(word1, word2) {\n  stop(\"Implement mergeAlternately\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "mergeAlternately",
+    "arguments": [
+      [
+        "word1",
+        "str"
+      ],
+      [
+        "word2",
+        "str"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-166-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-166-statement",
+      "type": "paragraph",
+      "content": "Build a string by taking one character from word1, then one from word2, repeating while both have characters. When one ends, append the unused tail of the other.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-166-contract",
+      "type": "note",
+      "title": "def mergeAlternately(word1:",
+      "content": "Input: word1 (str), word2 (str)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-166-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each word contains 1–100 lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-166-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def mergeAlternately(word1: str, word2: str) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String mergeAlternately(String word1, String word2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} word1\n * @param {string} word2\n * @returns {string}\n */\nfunction mergeAlternately(word1, word2) {\n  throw new Error('Implement mergeAlternately');\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function mergeAlternately(word1: string, word2: string): string {\n  throw new Error('Implement mergeAlternately');\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString mergeAlternately(ByteString word1, ByteString word2) {\n    (void)word1;\n    (void)word2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string mergeAlternately(std::string word1, std::string word2) {\n    throw std::logic_error(\"Implement mergeAlternately\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string mergeAlternately(string word1, string word2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $word1\n * @param string $word2\n * @return string\n */\nfunction mergeAlternately(string $word1, string $word2): string {\n    throw new LogicException('Implement mergeAlternately');\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-166-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: word1 (character scalar), word2 (character scalar). Result: character scalar.\nmergeAlternately <- function(word1, word2) {\n  stop(\"Implement mergeAlternately\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"gcoat\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

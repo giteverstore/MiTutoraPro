@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-158",
+  "title": "Sort Colors",
+  "summary": "Reorder nums in place so all 0s come first, then all 1s, then all 2s.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Arrays & Hashing",
+  "category": "dsa",
+  "subtopic": "arrays-and-hashing",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "sortColors",
+    "signature": "def sortColors(nums:",
+    "input": "Structured arguments; see public examples.",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {},
+  "statement": "Reorder nums in place so all 0s come first, then all 1s, then all 2s. Keep all occurrences and do not call a library sort.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,0,1,2]}",
+      "output": "[0,1,2,2]",
+      "explanation": "The repeated 2 stays at the end."
+    },
+    {
+      "input": "{\"nums\":[1]}",
+      "output": "[1]",
+      "explanation": "One color is already ordered."
+    },
+    {
+      "input": "{\"nums\":[2,0,2,0]}",
+      "output": "[0,0,2,2]",
+      "explanation": "The middle color may be absent."
+    }
+  ],
+  "constraints": [
+    "1–300 entries, each equal to 0, 1, or 2."
+  ],
+  "hints": [
+    "Conceptual: There are only three kinds of entries.",
+    "Directional: Count each value before filling the array back in.",
+    "Implementation: Write all counted 0s, then 1s, then 2s into the original array."
+  ],
+  "concepts": [
+    "in-place-partition",
+    "three-values"
+  ],
+  "skills": [
+    "In-place partition",
+    "three values"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) extra space in mutable representations.",
+  "publicTests": [
+    {
+      "name": "NC250-158-P1",
+      "arguments": [
+        [
+          2,
+          0,
+          1,
+          2
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          0,
+          1,
+          2
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2,
+        2
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-158-P2",
+      "arguments": [
+        [
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-158-P3",
+      "arguments": [
+        [
+          2,
+          0,
+          2,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          0,
+          2,
+          0
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def sortColors(nums: list[int]) -> None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public void sortColors(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "function sortColors(nums) {\n  throw new Error(\"Not implemented\");\n}",
+    "typescript": "function sortColors(nums: number[]): void {\n  throw new Error(\"Not implemented\");\n}",
+    "c": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid sortColors(IntArray nums) {\n    (void)nums;\n}",
+    "cpp": "#include <stdexcept>\n#include <vector>\nvoid sortColors(std::vector<int>& nums) { (void)nums; throw std::logic_error(\"Implement sortColors\"); }",
+    "csharp": "public class Solution {\n    public void sortColors(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\nfunction sortColors(array &$nums): void {\n    throw new LogicException(\"Not implemented\");\n}",
+    "r": "# Return the updated integer vector.\nsortColors <- function(nums) { stop(\"Implement sortColors\") }"
+  },
+  "executionMetadata": {
+    "entry": "sortColors",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "mode": "mutation",
+    "validator": "exact",
+    "serialized_type": "ints",
+    "adapter_notes": "Serialize the mutated array after the void sortColors call. R returns the updated vector."
+  },
+  "blocks": [
+    {
+      "id": "nc250-158-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-158-statement",
+      "type": "paragraph",
+      "content": "Reorder nums in place so all 0s come first, then all 1s, then all 2s. Keep all occurrences and do not call a library sort.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-158-contract",
+      "type": "note",
+      "title": "def sortColors(nums:",
+      "content": "Input: See public examples.\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-158-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–300 entries, each equal to 0, 1, or 2.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-158-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def sortColors(nums: list[int]) -> None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public void sortColors(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "function sortColors(nums) {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function sortColors(nums: number[]): void {\n  throw new Error(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stddef.h>\n#include <stdint.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nvoid sortColors(IntArray nums) {\n    (void)nums;\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <vector>\nvoid sortColors(std::vector<int>& nums) { (void)nums; throw std::logic_error(\"Implement sortColors\"); }",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public void sortColors(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\nfunction sortColors(array &$nums): void {\n    throw new LogicException(\"Not implemented\");\n}",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-158-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Return the updated integer vector.\nsortColors <- function(nums) { stop(\"Implement sortColors\") }",
+      "stdin": "",
+      "expectedOutput": "[0,1,2,2]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

@@ -80,7 +80,7 @@ describe('Practice cursor pagination', () => {
       'Python', 'Java', 'JavaScript', 'TypeScript', 'C', 'C++', 'PHP', 'R', 'C#',
     ]);
     fireEvent.click(screen.getByRole('option', { name: 'Java' }));
-    await waitFor(() => expect(screen.getByText('No questions match your filters.')).toBeVisible());
+    await waitFor(() => expect(screen.getByText('No practice questions are currently available.')).toBeVisible());
     expect(screen.queryByText('Question 1')).not.toBeInTheDocument();
     expect(listPage).toHaveBeenLastCalledWith(expect.objectContaining({ filters: expect.objectContaining({ language: 'java' }) }));
   });

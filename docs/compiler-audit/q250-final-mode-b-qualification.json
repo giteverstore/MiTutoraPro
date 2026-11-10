@@ -1,0 +1,1854 @@
+{
+  "schemaVersion": "q250-final-mode-b-qualification-v2",
+  "activeQuestions": 214,
+  "inactiveQuestions": 36,
+  "runtimeCells": 1926,
+  "fixtureExecutions": 5778,
+  "passedCells": 1926,
+  "failedCells": 0,
+  "blockedCells": 324,
+  "notTestedFixtureExecutions": 972,
+  "performance": {
+    "python": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 11065,
+      "p95WallTimeMs": 26310,
+      "maxWallTimeMs": 41832,
+      "maxOutputBytes": 2653
+    },
+    "java": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 9543,
+      "p95WallTimeMs": 25420,
+      "maxWallTimeMs": 34501,
+      "maxOutputBytes": 2653
+    },
+    "javascript": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 126,
+      "p95WallTimeMs": 279,
+      "maxWallTimeMs": 574,
+      "maxOutputBytes": 2653
+    },
+    "typescript": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 308,
+      "p95WallTimeMs": 786,
+      "maxWallTimeMs": 1544,
+      "maxOutputBytes": 2653
+    },
+    "c": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 15802,
+      "p95WallTimeMs": 39734,
+      "maxWallTimeMs": 51230,
+      "maxOutputBytes": 2653
+    },
+    "cpp": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 26797,
+      "p95WallTimeMs": 68462,
+      "maxWallTimeMs": 90469,
+      "maxOutputBytes": 2653
+    },
+    "csharp": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 23512,
+      "p95WallTimeMs": 56917,
+      "maxWallTimeMs": 77622,
+      "maxOutputBytes": 2653
+    },
+    "php": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 1525,
+      "p95WallTimeMs": 3358,
+      "maxWallTimeMs": 5526,
+      "maxOutputBytes": 2653
+    },
+    "r": {
+      "cells": 214,
+      "fixtures": 642,
+      "averageWallTimeMs": 7038,
+      "p95WallTimeMs": 15148,
+      "maxWallTimeMs": 29750,
+      "maxOutputBytes": 2653
+    }
+  },
+  "evidenceSources": [
+    "accepted-182-question-checkpoint",
+    "mode-b-advanced-tree-dynamic-retry.json",
+    "mode-b-advanced-tree-r-final-retry.json",
+    "mode-b-advanced-tree-r-selector-retry.json",
+    "mode-b-advanced-tree-remaining-matrix.json",
+    "mode-b-explicit-mutation-native-retry.json",
+    "mode-b-explicit-mutation-targets-matrix.json",
+    "mode-b-final-binary-nonpython.json",
+    "mode-b-final-binary-python.json",
+    "mode-b-final-graphs-nonpython.json",
+    "mode-b-final-graphs-python.json",
+    "mode-b-final-greedy-nonpython.json",
+    "mode-b-final-greedy-python.json",
+    "mode-b-final-mutations-python.json",
+    "mode-b-final-prefix-nonpython.json",
+    "mode-b-final-prefix-python.json",
+    "mode-b-final-primitive-a-nonpython.json",
+    "mode-b-final-primitive-a-python.json",
+    "mode-b-final-primitive-b-nonpython.json",
+    "mode-b-final-primitive-b-python.json",
+    "mode-b-final-primitive-c-nonpython.json",
+    "mode-b-final-primitive-c-python.json",
+    "mode-b-final-primitive-d-nonpython.json",
+    "mode-b-final-primitive-d-python.json",
+    "mode-b-final-primitive-d-r-retry.json",
+    "mode-b-final-stack-dynamic-retry.json",
+    "mode-b-final-stack-dynamic.json",
+    "mode-b-final-stack-managed-native.json",
+    "mode-b-final-stack-python.json",
+    "mode-b-flat-array-batch-runtime-matrix.json",
+    "mode-b-flat-array-java-r-runtime-matrix.json",
+    "mode-b-large-batch-runtime-matrix.json",
+    "mode-b-large-string-smoke.json",
+    "mode-b-linked-list-rollout.json",
+    "mode-b-linked-list-rollout.partial.json",
+    "mode-b-low-risk-batch-runtime-matrix.json",
+    "mode-b-nc250-164-nonpython.json",
+    "mode-b-nc250-167-170-nonpython.json",
+    "mode-b-nc250-170-r.json",
+    "mode-b-nc250-202-r.json",
+    "mode-b-nc250-223-r.json",
+    "mode-b-quad-tree-matrix.json",
+    "mode-b-remaining-runtime-matrix.json",
+    "mode-b-stateful-batch-dynamic.json",
+    "mode-b-stateful-batch-managed.json",
+    "mode-b-stateful-batch-native.json",
+    "mode-b-stateful-batch-python.json",
+    "mode-b-stateful-cache-stack-dynamic.json",
+    "mode-b-stateful-cache-stack-managed.json",
+    "mode-b-stateful-cache-stack-native.json",
+    "mode-b-stateful-foundation-nonpython.json",
+    "mode-b-stateful-foundation-python.json",
+    "mode-b-stateful-hashmap-r-retry.json",
+    "mode-b-stateful-lru-r-retry.json",
+    "mode-b-tree-array-matrix-results.json",
+    "mode-b-tree-balanced-matrix.json",
+    "mode-b-tree-build-r-final.json",
+    "mode-b-tree-diameter-matrix.json",
+    "mode-b-tree-good-nodes-matrix.json",
+    "mode-b-tree-house-robber-matrix.json",
+    "mode-b-tree-inorder-matrix.json",
+    "mode-b-tree-kth-smallest-matrix.json",
+    "mode-b-tree-max-path-matrix.json",
+    "mode-b-tree-nonpython-smoke-matrix.json",
+    "mode-b-tree-pre-post-order-matrix.json",
+    "mode-b-tree-python-smoke-matrix.json",
+    "mode-b-tree-returned-root-matrix.json",
+    "mode-b-tree-same-tree-javascript-matrix.json",
+    "mode-b-tree-same-tree-matrix.json",
+    "mode-b-tree-subtree-matrix.json",
+    "mode-b-tree-valid-bst-matrix.json",
+    "mode-c-runtime-matrix.json",
+    "mode-de-primitive-dynamic.json",
+    "mode-de-primitive-managed.json",
+    "mode-de-primitive-native-retry.json",
+    "mode-de-primitive-native.json",
+    "mode-de-primitive-python.json",
+    "representative-mode-b-runtime-matrix.json"
+  ],
+  "blockerSummary": {
+    "REFERENCE_COVERAGE": 36
+  },
+  "inactive": [
+    {
+      "id": "NC250-159",
+      "title": "Range Sum Query 2D Immutable",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "NumMatrix"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "nested-array",
+          "nested-array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "array"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-161",
+      "title": "Majority Element II",
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "majorityElementThird"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "array"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "unordered_unique"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-162",
+      "title": "Subarray Sum Equals K",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "subarraySumEqualsK"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-163",
+      "title": "First Missing Positive",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "firstMissingPositive"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-171",
+      "title": "Boats to Save People",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "numRescueBoats"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-173",
+      "title": "Minimum Size Subarray Sum",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "minSubArrayLen"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-174",
+      "title": "Find K Closest Elements",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "findClosestElements"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array",
+          "number",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "array"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-184",
+      "title": "Guess Number Higher Or Lower",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "guessNumber"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-189",
+      "title": "Find in Mountain Array",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "findInMountainArray"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-201",
+      "title": "Single Threaded CPU",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "getOrder"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "nested-array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "array"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-204",
+      "title": "Car Pooling",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "carPooling"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "nested-array",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "boolean"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-205",
+      "title": "IPO",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "findMaximizedCapital"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "number",
+          "array",
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-207",
+      "title": "Combinations",
+      "executionFamily": [
+        "semantic-comparison"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "combine"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "nested-array"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "combination_set"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-209",
+      "title": "Matchsticks to Square",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "makesquare"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "boolean"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-210",
+      "title": "Partition to K Equal Sum Subsets",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "canPartitionKSubsets"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "boolean"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-211",
+      "title": "N Queens II",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "totalNQueens"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-212",
+      "title": "Word Break II",
+      "executionFamily": [
+        "semantic-comparison",
+        "string-or-unicode"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "wordBreakSentences"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "string",
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "array"
+      },
+      "serializer": {
+        "ready": true,
+        "families": [
+          "string-or-unicode"
+        ]
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "sentence_set"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-213",
+      "title": "Extra Characters in a String",
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "minExtraChar"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "string",
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": [
+          "string-or-unicode"
+        ]
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-226",
+      "title": "N-th Tribonacci Number",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "tribonacci"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-227",
+      "title": "Combination Sum IV",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "combinationSum4"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-228",
+      "title": "Perfect Squares",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "numSquares"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-229",
+      "title": "Integer Break",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "integerBreak"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-230",
+      "title": "Stone Game III",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "stoneGameIII"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "string"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-231",
+      "title": "Unique Paths II",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "uniquePathsWithObstacles"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "nested-array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-232",
+      "title": "Minimum Path Sum",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "minPathSum"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "nested-array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-233",
+      "title": "Last Stone Weight II",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "lastStoneWeightII"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-234",
+      "title": "Stone Game",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "stoneGame"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "boolean"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-235",
+      "title": "Stone Game II",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "stoneGameII"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-236",
+      "title": "Lemonade Change",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "lemonadeChange"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "boolean"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-237",
+      "title": "Maximum Sum Circular Subarray",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "maxSubarraySumCircular"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-238",
+      "title": "Longest Turbulent Subarray",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "maxTurbulenceSize"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-239",
+      "title": "Jump Game VII",
+      "executionFamily": [
+        "string-or-unicode"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "canReach"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "string",
+          "number",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "boolean"
+      },
+      "serializer": {
+        "ready": true,
+        "families": [
+          "string-or-unicode"
+        ]
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-240",
+      "title": "Dota2 Senate",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "predictPartyVictory"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "string"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "string"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-241",
+      "title": "Candy",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "candy"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-242",
+      "title": "Meeting Rooms III",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "mostBooked"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "nested-array"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    },
+    {
+      "id": "NC250-250",
+      "title": "Minimum Array End",
+      "executionFamily": [
+        "plain-return"
+      ],
+      "callable": {
+        "ready": true,
+        "name": "minEnd"
+      },
+      "arguments": {
+        "ready": true,
+        "shapes": [
+          "number",
+          "number"
+        ]
+      },
+      "result": {
+        "ready": true,
+        "source": "return",
+        "shape": "number"
+      },
+      "serializer": {
+        "ready": true,
+        "families": []
+      },
+      "comparator": {
+        "ready": true,
+        "family": [
+          "exact"
+        ]
+      },
+      "fixturesReady": true,
+      "references": {
+        "python": "MISSING",
+        "java": "MISSING",
+        "javascript": "MISSING",
+        "typescript": "MISSING",
+        "c": "MISSING",
+        "cpp": "MISSING",
+        "csharp": "MISSING",
+        "php": "MISSING",
+        "r": "MISSING"
+      },
+      "blockerCategory": "REFERENCE_COVERAGE",
+      "blocker": "The callable, fixture arguments, result shape, serializer family, and comparator are locally established, but complete 9-language reference/runtime evidence is not accepted yet."
+    }
+  ]
+}

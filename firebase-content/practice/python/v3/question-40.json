@@ -1,0 +1,289 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-040",
+  "title": "Add Two Numbers",
+  "summary": "Add two nonnegative integers stored in linked lists.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Linked List",
+  "category": "dsa",
+  "subtopic": "linked-list",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "addTwoNumbers",
+    "signature": "class ListNode:",
+    "input": "`list1` (integer array), `list2` (integer array)",
+    "output": "integer array."
+  },
+  "contractDetails": {
+    "input": "`list1` (integer array), `list2` (integer array)",
+    "result": "integer array.",
+    "constraints": "Each list has 1–100 nodes and digits in [0, 9]. A number has no leading zero in ordinary decimal notation except the number zero itself.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Add two nonnegative integers stored in linked lists. Each node holds one decimal digit and the units digit comes first. Return a linked list for the sum in the same order. Examples show the list values in traversal order.",
+  "examples": [
+    {
+      "input": "{\"list1\":[8,1],\"list2\":[5,2]}",
+      "output": "[3,4]",
+      "explanation": "18 + 25 is 43."
+    },
+    {
+      "input": "{\"list1\":[9,9],\"list2\":[1]}",
+      "output": "[0,0,1]",
+      "explanation": "The final carry adds a node."
+    },
+    {
+      "input": "{\"list1\":[0],\"list2\":[7,2]}",
+      "output": "[7,2]",
+      "explanation": "Adding zero preserves the other number."
+    }
+  ],
+  "constraints": [
+    "Each list has 1–100 nodes and digits in [0, 9]. A number has no leading zero in ordinary decimal notation except the number zero itself."
+  ],
+  "hints": [
+    "Conceptual: Think of column addition starting at the units digit.",
+    "Directional: Advance along the two lists together and remember a carry.",
+    "Implementation: Treat missing digits as zero, append total mod 10 and carry floor(total/10). Continue until both lists and the carry are exhausted."
+  ],
+  "concepts": [
+    "linked-lists",
+    "arithmetic",
+    "carry"
+  ],
+  "skills": [
+    "Linked lists",
+    "arithmetic",
+    "carry"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(max(m,n)",
+    "space": "O(max(m,n)"
+  },
+  "complexityAnalysis": "O(max(m,n)) time and O(1) auxiliary space, excluding the result, for list lengths m and n.",
+  "publicTests": [
+    {
+      "name": "BLIND150-040-T01",
+      "arguments": [
+        [
+          8,
+          1
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "input": {
+        "list1": [
+          8,
+          1
+        ],
+        "list2": [
+          5,
+          2
+        ]
+      },
+      "expected": [
+        3,
+        4
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-040-T02",
+      "arguments": [
+        [
+          9,
+          9
+        ],
+        [
+          1
+        ]
+      ],
+      "input": {
+        "list1": [
+          9,
+          9
+        ],
+        "list2": [
+          1
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        1
+      ],
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-040-T03",
+      "arguments": [
+        [
+          0
+        ],
+        [
+          7,
+          2
+        ]
+      ],
+      "input": {
+        "list1": [
+          0
+        ],
+        "list2": [
+          7,
+          2
+        ]
+      },
+      "expected": [
+        7,
+        2
+      ],
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef addTwoNumbers(list1: ListNode | None, list2: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode addTwoNumbers(ListNode list1, ListNode list2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} list1\n * @param {ListNode | null} list2\n * @returns {ListNode | null}\n */\nfunction addTwoNumbers(list1, list2) {\n  throw new Error('Implement addTwoNumbers');\n}",
+    "typescript": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction addTwoNumbers(list1: ListNode | null, list2: ListNode | null): ListNode | null {\n  throw new Error('Implement addTwoNumbers');\n}",
+    "c": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * addTwoNumbers(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * addTwoNumbers(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    throw std::logic_error(\"Implement addTwoNumbers\");\n}",
+    "csharp": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode addTwoNumbers(ListNode list1, ListNode list2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction addTwoNumbers(?ListNode $list1, ?ListNode $list2): ?ListNode {\n    throw new LogicException('Implement addTwoNumbers');\n}",
+    "r": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters list1 (node environment or NULL), list2 (node environment or NULL). Result node environment or NULL.\naddTwoNumbers <- function(list1, list2) {\n  stop(\"Implement addTwoNumbers\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-040-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-040-statement",
+      "type": "paragraph",
+      "content": "Add two nonnegative integers stored in linked lists. Each node holds one decimal digit and the units digit comes first. Return a linked list for the sum in the same order. Examples show the list values in traversal order.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-040-contract",
+      "type": "note",
+      "title": "class ListNode:",
+      "content": "Input: `list1` (integer array), `list2` (integer array)\n\nOutput: integer array.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-040-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Each list has 1–100 nodes and digits in [0, 9]. A number has no leading zero in ordinary decimal notation except the number zero itself.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-040-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "from __future__ import annotations\n\nclass ListNode:\n    def __init__(self, val: int = 0, next: ListNode | None = None):\n        self.val = val\n        self.next = next\n\ndef addTwoNumbers(list1: ListNode | None, list2: ListNode | None) -> ListNode | None:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public static class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode addTwoNumbers(ListNode list1, ListNode list2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "class ListNode {\n  constructor(val = 0, next = null) {\n    this.val = val;\n    this.next = next;\n  }\n}\n\n/**\n * @param {ListNode | null} list1\n * @param {ListNode | null} list2\n * @returns {ListNode | null}\n */\nfunction addTwoNumbers(list1, list2) {\n  throw new Error('Implement addTwoNumbers');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "class ListNode {\n  constructor(public val = 0, public next: ListNode | null = null) {}\n}\n\nfunction addTwoNumbers(list1: ListNode | null, list2: ListNode | null): ListNode | null {\n  throw new Error('Implement addTwoNumbers');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct ListNode {\n    int32_t val;\n    struct ListNode *next;\n} ListNode;\n\nListNode * addTwoNumbers(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n};\n\nListNode * addTwoNumbers(ListNode * list1, ListNode * list2) {\n    (void)list1;\n    (void)list2;\n    throw std::logic_error(\"Implement addTwoNumbers\");\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public class ListNode {\n        public int val;\n        public ListNode next;\n        public ListNode(int val, ListNode next) {\n            this.val = val;\n            this.next = next;\n        }\n    }\n\n    public ListNode addTwoNumbers(ListNode list1, ListNode list2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\nclass ListNode {\n    public function __construct(public int $val = 0, public ?ListNode $next = null) {}\n}\n\nfunction addTwoNumbers(?ListNode $list1, ?ListNode $list2): ?ListNode {\n    throw new LogicException('Implement addTwoNumbers');\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-040-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "ListNode <- function(val = 0L, nextNode = NULL) {\n  node <- new.env(parent = emptyenv())\n  node$val <- val\n  node[[\"next\"]] <- nextNode\n  node\n}\n\n# Parameters list1 (node environment or NULL), list2 (node environment or NULL). Result node environment or NULL.\naddTwoNumbers <- function(list1, list2) {\n  stop(\"Implement addTwoNumbers\")\n}",
+      "stdin": "",
+      "expectedOutput": "[3,4]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

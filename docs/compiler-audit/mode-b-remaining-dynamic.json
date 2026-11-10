@@ -1,0 +1,1588 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 345,
+  "matrix": {
+    "BLIND150-008": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28,
+        "wallTimeMs": 241,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 31,
+        "wallTimeMs": 813,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2500,
+        "wallTimeMs": 2731,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 906,
+        "wallTimeMs": 12989,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 294,
+        "wallTimeMs": 24474,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-023": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22,
+        "wallTimeMs": 155,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20,
+        "wallTimeMs": 654,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2041,
+        "wallTimeMs": 2263,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1077,
+        "wallTimeMs": 11653,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 269,
+        "wallTimeMs": 17847,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-068": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17,
+        "wallTimeMs": 178,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22,
+        "wallTimeMs": 479,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2247,
+        "wallTimeMs": 2469,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 660,
+        "wallTimeMs": 9244,
+        "outputBytes": 769,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-068-T03",
+            "status": "wrong_answer",
+            "actual": [
+              [
+                3,
+                8
+              ],
+              11
+            ],
+            "expected": [
+              [
+                3,
+                8
+              ],
+              [
+                11
+              ]
+            ]
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 378,
+        "wallTimeMs": 17747,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-071": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16,
+        "wallTimeMs": 144,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20,
+        "wallTimeMs": 668,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2132,
+        "wallTimeMs": 2314,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 1009,
+        "wallTimeMs": 10283,
+        "outputBytes": 795,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-071-T01",
+            "status": "wrong_answer",
+            "actual": [
+              [],
+              2,
+              [
+                2,
+                2
+              ]
+            ],
+            "expected": [
+              [],
+              [
+                2
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          },
+          {
+            "id": "BLIND150-071-T02",
+            "status": "wrong_answer",
+            "actual": [
+              [],
+              -1,
+              [
+                -1,
+                -1
+              ],
+              [
+                -1,
+                -1,
+                0
+              ],
+              [
+                -1,
+                0
+              ],
+              0
+            ],
+            "expected": [
+              [],
+              [
+                0
+              ],
+              [
+                -1
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                -1,
+                -1
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          {
+            "id": "BLIND150-071-T03",
+            "status": "wrong_answer",
+            "actual": [
+              [],
+              7
+            ],
+            "expected": [
+              [],
+              [
+                7
+              ]
+            ]
+          }
+        ]
+      },
+      "python": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 316,
+        "wallTimeMs": 17838,
+        "outputBytes": 812,
+        "message": null,
+        "failures": [
+          {
+            "id": "BLIND150-071-T01",
+            "status": "wrong_answer",
+            "actual": [
+              [],
+              [
+                2
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2
+              ]
+            ],
+            "expected": [
+              [],
+              [
+                2
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          },
+          {
+            "id": "BLIND150-071-T02",
+            "status": "wrong_answer",
+            "actual": [
+              [],
+              [
+                0
+              ],
+              [
+                0,
+                -1
+              ],
+              [
+                0,
+                -1,
+                -1
+              ],
+              [
+                0,
+                -1
+              ],
+              [
+                -1
+              ],
+              [
+                -1,
+                -1
+              ],
+              [
+                -1
+              ]
+            ],
+            "expected": [
+              [],
+              [
+                0
+              ],
+              [
+                -1
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                -1,
+                -1
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "BLIND150-073": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24,
+        "wallTimeMs": 207,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24,
+        "wallTimeMs": 593,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2901,
+        "wallTimeMs": 3161,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 875,
+        "wallTimeMs": 9828,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 424,
+        "wallTimeMs": 21718,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-084": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 101,
+        "wallTimeMs": 574,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29,
+        "wallTimeMs": 786,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1630,
+        "wallTimeMs": 1803,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 687,
+        "wallTimeMs": 9813,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 333,
+        "wallTimeMs": 19333,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-092": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23,
+        "wallTimeMs": 160,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 42,
+        "wallTimeMs": 712,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2103,
+        "wallTimeMs": 2306,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 860,
+        "wallTimeMs": 13550,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 356,
+        "wallTimeMs": 17675,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-095": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 18,
+        "wallTimeMs": 146,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27,
+        "wallTimeMs": 561,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1985,
+        "wallTimeMs": 2192,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 683,
+        "wallTimeMs": 9698,
+        "outputBytes": 831,
+        "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'",
+        "failures": [
+          {
+            "id": "BLIND150-095-T01",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-095-T02",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-095-T03",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 488,
+        "wallTimeMs": 18709,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-096": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28,
+        "wallTimeMs": 222,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30,
+        "wallTimeMs": 545,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2143,
+        "wallTimeMs": 2374,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 905,
+        "wallTimeMs": 10597,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 365,
+        "wallTimeMs": 18756,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-098": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21,
+        "wallTimeMs": 176,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24,
+        "wallTimeMs": 752,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2449,
+        "wallTimeMs": 2907,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 970,
+        "wallTimeMs": 12282,
+        "outputBytes": 994,
+        "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'",
+        "failures": [
+          {
+            "id": "BLIND150-098-T01",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-098-T02",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-098-T03",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 475,
+        "wallTimeMs": 18283,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-105": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 39,
+        "wallTimeMs": 366,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24,
+        "wallTimeMs": 584,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2300,
+        "wallTimeMs": 2523,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 744,
+        "wallTimeMs": 9730,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 314,
+        "wallTimeMs": 18176,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-108": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 20,
+        "wallTimeMs": 135,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21,
+        "wallTimeMs": 446,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1859,
+        "wallTimeMs": 2013,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 737,
+        "wallTimeMs": 11256,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 352,
+        "wallTimeMs": 20001,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-117": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 19,
+        "wallTimeMs": 137,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 13,
+        "wallTimeMs": 394,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1206,
+        "wallTimeMs": 1339,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 933,
+        "wallTimeMs": 10860,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 439,
+        "wallTimeMs": 27490,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-127": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 26,
+        "wallTimeMs": 204,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23,
+        "wallTimeMs": 708,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1982,
+        "wallTimeMs": 2178,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 544,
+        "wallTimeMs": 7849,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 375,
+        "wallTimeMs": 17465,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-130": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32,
+        "wallTimeMs": 185,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24,
+        "wallTimeMs": 565,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1570,
+        "wallTimeMs": 1768,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 801,
+        "wallTimeMs": 9280,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 503,
+        "wallTimeMs": 22824,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-132": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28,
+        "wallTimeMs": 279,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 32,
+        "wallTimeMs": 707,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2890,
+        "wallTimeMs": 3150,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 1839,
+        "wallTimeMs": 25454,
+        "outputBytes": 838,
+        "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'",
+        "failures": [
+          {
+            "id": "BLIND150-132-T01",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-132-T02",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-132-T03",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 409,
+        "wallTimeMs": 23038,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-133": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28,
+        "wallTimeMs": 218,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27,
+        "wallTimeMs": 659,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2237,
+        "wallTimeMs": 2481,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 884,
+        "wallTimeMs": 10721,
+        "outputBytes": 754,
+        "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'",
+        "failures": [
+          {
+            "id": "BLIND150-133-T01",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-133-T02",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 367,
+        "wallTimeMs": 19425,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-134": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22,
+        "wallTimeMs": 174,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21,
+        "wallTimeMs": 463,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1763,
+        "wallTimeMs": 1967,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 949,
+        "wallTimeMs": 12020,
+        "outputBytes": 750,
+        "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'",
+        "failures": [
+          {
+            "id": "BLIND150-134-T01",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-134-T03",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 337,
+        "wallTimeMs": 21633,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-135": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22,
+        "wallTimeMs": 175,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28,
+        "wallTimeMs": 596,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2944,
+        "wallTimeMs": 3252,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 982,
+        "wallTimeMs": 11391,
+        "outputBytes": 891,
+        "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'",
+        "failures": [
+          {
+            "id": "BLIND150-135-T01",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-135-T02",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          },
+          {
+            "id": "BLIND150-135-T03",
+            "status": "runtime_error",
+            "message": "values must be type 'integer',\n but FUN(X[[1]]) result is type 'double'"
+          }
+        ]
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 451,
+        "wallTimeMs": 23355,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-137": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 25,
+        "wallTimeMs": 203,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23,
+        "wallTimeMs": 709,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2142,
+        "wallTimeMs": 2404,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 905,
+        "wallTimeMs": 10431,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 295,
+        "wallTimeMs": 18353,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-139": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 21,
+        "wallTimeMs": 149,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27,
+        "wallTimeMs": 697,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1985,
+        "wallTimeMs": 2209,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 820,
+        "wallTimeMs": 13934,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 433,
+        "wallTimeMs": 20525,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-142": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23,
+        "wallTimeMs": 196,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 39,
+        "wallTimeMs": 891,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 3522,
+        "wallTimeMs": 3786,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 902,
+        "wallTimeMs": 12387,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 537,
+        "wallTimeMs": 23564,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-150": {
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 35,
+        "wallTimeMs": 269,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 25,
+        "wallTimeMs": 777,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2532,
+        "wallTimeMs": 2755,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1212,
+        "wallTimeMs": 16669,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      },
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 345,
+        "wallTimeMs": 26423,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

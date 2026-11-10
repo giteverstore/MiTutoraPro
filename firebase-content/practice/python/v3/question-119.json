@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-119",
+  "title": "Edit Distance",
+  "summary": "Find the minimum number of single-character insertions, deletions, and replacements needed to transform word1 into word2.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "2-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "2-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "minDistance",
+    "signature": "def minDistance(word1:",
+    "input": "`word1` (string), `word2` (string)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`word1` (string), `word2` (string)",
+    "result": "integer.",
+    "constraints": "Both strings have lengths 0–500 and contain lowercase English letters.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "Find the minimum number of single-character insertions, deletions, and replacements needed to transform word1 into word2. Each operation costs one.",
+  "examples": [
+    {
+      "input": "{\"word1\":\"cat\",\"word2\":\"cut\"}",
+      "output": "1",
+      "explanation": "Replace a with u."
+    },
+    {
+      "input": "{\"word1\":\"\",\"word2\":\"mint\"}",
+      "output": "4",
+      "explanation": "Insert all four letters."
+    },
+    {
+      "input": "{\"word1\":\"boats\",\"word2\":\"boat\"}",
+      "output": "1",
+      "explanation": "Delete the final s."
+    }
+  ],
+  "constraints": [
+    "Both strings have lengths 0–500 and contain lowercase English letters."
+  ],
+  "hints": [
+    "Conceptual: Transforming a string to empty requires one deletion per character.",
+    "Directional: Compare the possible operations at the ends of two prefixes.",
+    "Implementation: Initialize the empty-prefix states. For unequal final letters, add one to the cheapest deletion, insertion, or replacement state."
+  ],
+  "concepts": [
+    "edit-distance",
+    "string-alignment"
+  ],
+  "skills": [
+    "Edit distance",
+    "string alignment"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(mn + m + n)",
+    "space": "O(mn + m + n)"
+  },
+  "complexityAnalysis": "O(mn + m + n) time and O(n) space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-119-T01",
+      "arguments": [
+        "cat",
+        "cut"
+      ],
+      "input": {
+        "word1": "cat",
+        "word2": "cut"
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-119-T02",
+      "arguments": [
+        "",
+        "mint"
+      ],
+      "input": {
+        "word1": "",
+        "word2": "mint"
+      },
+      "expected": 4,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-119-T03",
+      "arguments": [
+        "boats",
+        "boat"
+      ],
+      "input": {
+        "word1": "boats",
+        "word2": "boat"
+      },
+      "expected": 1,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def minDistance(word1: str, word2: str) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int minDistance(String word1, String word2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {string} word1\n * @param {string} word2\n * @returns {number}\n */\nfunction minDistance(word1, word2) {\n  throw new Error('Implement minDistance');\n}",
+    "typescript": "function minDistance(word1: string, word2: string): number {\n  throw new Error('Implement minDistance');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t minDistance(ByteString word1, ByteString word2) {\n    (void)word1;\n    (void)word2;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minDistance(std::string word1, std::string word2) {\n    throw std::logic_error(\"Implement minDistance\");\n}",
+    "csharp": "public class Solution {\n    public int minDistance(string word1, string word2) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param string $word1\n * @param string $word2\n * @return int\n */\nfunction minDistance(string $word1, string $word2): int {\n    throw new LogicException('Implement minDistance');\n}",
+    "r": "# Parameters: word1 (character scalar), word2 (character scalar). Result: integer scalar.\nminDistance <- function(word1, word2) {\n  stop(\"Implement minDistance\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-119-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-119-statement",
+      "type": "paragraph",
+      "content": "Find the minimum number of single-character insertions, deletions, and replacements needed to transform word1 into word2. Each operation costs one.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-119-contract",
+      "type": "note",
+      "title": "def minDistance(word1:",
+      "content": "Input: `word1` (string), `word2` (string)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-119-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "Both strings have lengths 0–500 and contain lowercase English letters.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-119-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def minDistance(word1: str, word2: str) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int minDistance(String word1, String word2) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {string} word1\n * @param {string} word2\n * @returns {number}\n */\nfunction minDistance(word1, word2) {\n  throw new Error('Implement minDistance');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function minDistance(word1: string, word2: string): number {\n  throw new Error('Implement minDistance');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nint32_t minDistance(ByteString word1, ByteString word2) {\n    (void)word1;\n    (void)word2;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint minDistance(std::string word1, std::string word2) {\n    throw std::logic_error(\"Implement minDistance\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int minDistance(string word1, string word2) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param string $word1\n * @param string $word2\n * @return int\n */\nfunction minDistance(string $word1, string $word2): int {\n    throw new LogicException('Implement minDistance');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-119-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: word1 (character scalar), word2 (character scalar). Result: integer scalar.\nminDistance <- function(word1, word2) {\n  stop(\"Implement minDistance\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

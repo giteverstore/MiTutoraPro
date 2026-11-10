@@ -4,8 +4,8 @@ import { MvpCanonicalActivityResolver } from '../../functions/src/coins/MvpCanon
 import { MvpActivityRewardClaimService } from '../../functions/src/coins/MvpActivityRewardClaimService.js';
 
 const principal = { authenticated: true, uid: 'learner-a' };
-const practice = { id: 'fund-variables-001', version: 'v2', published: true };
-const challenge = { id: 'challenge-balanced-brackets', version: 'v1', date: '2026-08-01', published: true };
+const practice = { id: 'question-fixture', version: 'v2', published: true };
+const challenge = { id: 'challenge-fixture', version: 'v1', date: '2026-08-01', published: true };
 
 function dependencies({ entries, practiceMetadata = practice, challengeMetadata = challenge } = {}) {
   const ledger = { claimActivityReward: vi.fn(async (_mutation, _claim, options) => {
@@ -75,7 +75,7 @@ describe('MVP locally verified activity reward boundary', () => {
     const [mutation, claim] = ledger.claimActivityReward.mock.calls[0];
     expect(mutation).toMatchObject({ uid: 'learner-a', amount: 7, policyVersion: 'mvp-test-v1', sourceId: practice.id });
     expect(claim.data).toMatchObject({ ownerUid: 'learner-a', activityVersion: 'v2', evidenceAssurance: 'LOCAL_VERIFIED_ACTIVITY', policyVersion: 'mvp-test-v1' });
-    expect(claim.path).not.toContain('fund-variables-001');
+    expect(claim.path).not.toContain('question-fixture');
   });
 
   it('binds Daily Challenge claims to the canonical occurrence date', async () => {

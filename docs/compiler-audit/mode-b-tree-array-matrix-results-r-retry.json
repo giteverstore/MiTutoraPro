@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 6,
+  "matrix": {
+    "BLIND150-052": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 102,
+        "wallTimeMs": 14968,
+        "outputBytes": 3090,
+        "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^",
+        "failures": [
+          {
+            "id": "BLIND150-052-T01",
+            "status": "runtime_error",
+            "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^"
+          },
+          {
+            "id": "BLIND150-052-T02",
+            "status": "runtime_error",
+            "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^"
+          },
+          {
+            "id": "BLIND150-052-T03",
+            "status": "runtime_error",
+            "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^"
+          }
+        ]
+      }
+    },
+    "BLIND150-053": {
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 93,
+        "wallTimeMs": 15200,
+        "outputBytes": 3060,
+        "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^",
+        "failures": [
+          {
+            "id": "BLIND150-053-T01",
+            "status": "runtime_error",
+            "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^"
+          },
+          {
+            "id": "BLIND150-053-T02",
+            "status": "runtime_error",
+            "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^"
+          },
+          {
+            "id": "BLIND150-053-T03",
+            "status": "runtime_error",
+            "message": "<text>:21:599: unexpected ';'\n21: ft;if(pos<=length(ns))node$right<-ns[[pos]];pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};for(candidate in ns)if(!is.null(candidate))original[[length(original)+1]]<<-candida\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^"
+          }
+        ]
+      }
+    }
+  }
+}

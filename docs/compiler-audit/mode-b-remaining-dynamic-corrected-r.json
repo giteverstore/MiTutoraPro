@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 24,
+  "matrix": {
+    "BLIND150-068": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1153,
+        "wallTimeMs": 13394,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-071": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 869,
+        "wallTimeMs": 12941,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-095": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1662,
+        "wallTimeMs": 25851,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-098": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 840,
+        "wallTimeMs": 29750,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-132": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 626,
+        "wallTimeMs": 13513,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-133": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 1047,
+        "wallTimeMs": 14577,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-134": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 969,
+        "wallTimeMs": 14443,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-135": {
+      "r": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 793,
+        "wallTimeMs": 14396,
+        "outputBytes": 763,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

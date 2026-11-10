@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 54,
+  "matrix": {
+    "BLIND150-052": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 192,
+        "wallTimeMs": 25895,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 23929,
+        "wallTimeMs": 24395,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11,
+        "wallTimeMs": 254,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 12,
+        "wallTimeMs": 369,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11319,
+        "wallTimeMs": 17390,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30879,
+        "wallTimeMs": 37483,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 28715.045,
+        "wallTimeMs": 36517,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2909,
+        "wallTimeMs": 3234,
+        "outputBytes": 701,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 88,
+        "wallTimeMs": 14622,
+        "outputBytes": 3027,
+        "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^",
+        "failures": [
+          {
+            "id": "BLIND150-052-T01",
+            "status": "runtime_error",
+            "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^"
+          },
+          {
+            "id": "BLIND150-052-T02",
+            "status": "runtime_error",
+            "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^"
+          },
+          {
+            "id": "BLIND150-052-T03",
+            "status": "runtime_error",
+            "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^"
+          }
+        ]
+      }
+    },
+    "BLIND150-053": {
+      "python": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 217,
+        "wallTimeMs": 26104,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24957,
+        "wallTimeMs": 25424,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "javascript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9,
+        "wallTimeMs": 213,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "typescript": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11,
+        "wallTimeMs": 302,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "c": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11246,
+        "wallTimeMs": 17647,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "cpp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29337,
+        "wallTimeMs": 35927,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 29151.7399,
+        "wallTimeMs": 37154,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "php": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 2892,
+        "wallTimeMs": 3211,
+        "outputBytes": 639,
+        "message": null,
+        "failures": []
+      },
+      "r": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 92,
+        "wallTimeMs": 14133,
+        "outputBytes": 2997,
+        "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^",
+        "failures": [
+          {
+            "id": "BLIND150-053-T01",
+            "status": "runtime_error",
+            "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^"
+          },
+          {
+            "id": "BLIND150-053-T02",
+            "status": "runtime_error",
+            "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^"
+          },
+          {
+            "id": "BLIND150-053-T03",
+            "status": "runtime_error",
+            "message": "<text>:21:578: unexpected ';'\n21: t))q[[length(q)+1]]<-node$left;node$right<-if(pos<=length(ns))ns[[pos]] else NULL;pos<-pos+1;if(!is.null(node$right))q[[length(q)+1]]<-node$right};original<<-c(original,Filter(Negate(is.null),\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^"
+          }
+        ]
+      }
+    }
+  }
+}

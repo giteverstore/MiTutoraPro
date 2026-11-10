@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "BLIND150-148",
+  "title": "Missing Number",
+  "summary": "An array of length n contains distinct numbers drawn from 0 through n.",
+  "language": "Python",
+  "difficulty": "easy",
+  "topic": "Bit Manipulation",
+  "category": "dsa",
+  "subtopic": "bit-manipulation",
+  "questionType": "implementation",
+  "estimatedMinutes": 20,
+  "xp": 30,
+  "contract": {
+    "functionName": "missingNumber",
+    "signature": "def missingNumber(nums:",
+    "input": "`nums` (integer array)",
+    "output": "integer."
+  },
+  "contractDetails": {
+    "input": "`nums` (integer array)",
+    "result": "integer.",
+    "constraints": "1–10000 values. Each value is in [0,n] and occurs at most once. XOR may use 32-bit words.",
+    "output-checking": "Exact typed equality."
+  },
+  "statement": "An array of length n contains distinct numbers drawn from 0 through n. Return the missing number.",
+  "examples": [
+    {
+      "input": "{\"nums\":[2,0]}",
+      "output": "1",
+      "explanation": "The only unused value in [0,2] is 1."
+    },
+    {
+      "input": "{\"nums\":[1]}",
+      "output": "0",
+      "explanation": "Zero is missing."
+    },
+    {
+      "input": "{\"nums\":[0,1]}",
+      "output": "2",
+      "explanation": "The missing value can be n."
+    }
+  ],
+  "constraints": [
+    "1–10000 values. Each value is in [0,n] and occurs at most once. XOR may use 32-bit words."
+  ],
+  "hints": [
+    "Conceptual: There is one more possible value than input elements.",
+    "Directional: Cancel the present values against a complete enumeration.",
+    "Implementation: Start with n and XOR each index with the value at that index."
+  ],
+  "concepts": [
+    "xor-cancellation",
+    "range-indexing"
+  ],
+  "skills": [
+    "XOR cancellation",
+    "range indexing"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) extra space.",
+  "publicTests": [
+    {
+      "name": "BLIND150-148-T01",
+      "arguments": [
+        [
+          2,
+          0
+        ]
+      ],
+      "input": {
+        "nums": [
+          2,
+          0
+        ]
+      },
+      "expected": 1,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-148-T02",
+      "arguments": [
+        [
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 0,
+      "validator": "exact"
+    },
+    {
+      "name": "BLIND150-148-T03",
+      "arguments": [
+        [
+          0,
+          1
+        ]
+      ],
+      "input": {
+        "nums": [
+          0,
+          1
+        ]
+      },
+      "expected": 2,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def missingNumber(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int missingNumber(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction missingNumber(nums) {\n  throw new Error('Implement missingNumber');\n}",
+    "typescript": "function missingNumber(nums: number[]): number {\n  throw new Error('Implement missingNumber');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t missingNumber(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint missingNumber(std::vector<int> nums) {\n    throw std::logic_error(\"Implement missingNumber\");\n}",
+    "csharp": "public class Solution {\n    public int missingNumber(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction missingNumber(array $nums): int {\n    throw new LogicException('Implement missingNumber');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nmissingNumber <- function(nums) {\n  stop(\"Implement missingNumber\")\n}"
+  },
+  "blocks": [
+    {
+      "id": "blind150-148-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "blind150-148-statement",
+      "type": "paragraph",
+      "content": "An array of length n contains distinct numbers drawn from 0 through n. Return the missing number.",
+      "format": "markdown"
+    },
+    {
+      "id": "blind150-148-contract",
+      "type": "note",
+      "title": "def missingNumber(nums:",
+      "content": "Input: `nums` (integer array)\n\nOutput: integer.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-148-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–10000 values. Each value is in [0,n] and occurs at most once. XOR may use 32-bit words.",
+      "format": "plain"
+    },
+    {
+      "id": "blind150-148-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def missingNumber(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int missingNumber(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction missingNumber(nums) {\n  throw new Error('Implement missingNumber');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function missingNumber(nums: number[]): number {\n  throw new Error('Implement missingNumber');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t missingNumber(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint missingNumber(std::vector<int> nums) {\n    throw std::logic_error(\"Implement missingNumber\");\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int missingNumber(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction missingNumber(array $nums): int {\n    throw new LogicException('Implement missingNumber');\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "blind150-148-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nmissingNumber <- function(nums) {\n  stop(\"Implement missingNumber\")\n}",
+      "stdin": "",
+      "expectedOutput": "1",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

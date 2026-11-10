@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-207",
+  "title": "Combinations",
+  "summary": "List every selection of k different integers from 1 through n.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Backtracking",
+  "category": "dsa",
+  "subtopic": "backtracking",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "combine",
+    "signature": "def combine(n:",
+    "input": "n (int), k (int)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "n (int), k (int)",
+    "callable": "combine",
+    "constraints": "1 ≤ k ≤ n ≤ 20. Return arrays of exactly k integers.",
+    "output-checking": "Compare complete sets of sorted tuples. Reject missing, repeated, or invalid combinations. Both outer ordering and order within a tuple are irrelevant."
+  },
+  "statement": "List every selection of k different integers from 1 through n. A selection is determined by its members. Return each selection once. Both collection order and member order are unrestricted.",
+  "examples": [
+    {
+      "input": "{\"n\":3,\"k\":2}",
+      "output": "[[1,2],[1,3],[2,3]]",
+      "explanation": "There are three distinct two-value choices."
+    },
+    {
+      "input": "{\"n\":3,\"k\":3}",
+      "output": "[[1,2,3]]",
+      "explanation": "All values must be chosen."
+    },
+    {
+      "input": "{\"n\":2,\"k\":1}",
+      "output": "[[1],[2]]",
+      "explanation": "Each value gives a separate singleton."
+    }
+  ],
+  "constraints": [
+    "1 ≤ k ≤ n ≤ 20. Return arrays of exactly k integers."
+  ],
+  "hints": [
+    "Conceptual: Changing the order of selected values does not create a new choice.",
+    "Directional: Build selections in increasing order to avoid duplicates.",
+    "Implementation: Carry the smallest eligible next value. Stop trying a candidate when the remaining range cannot fill the remaining slots."
+  ],
+  "concepts": [
+    "combinations",
+    "backtracking"
+  ],
+  "skills": [
+    "Combinations",
+    "backtracking"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(k × C(n,k)",
+    "space": "O(k × C(n,k)"
+  },
+  "complexityAnalysis": "O(k × C(n,k)) time including output and O(k) auxiliary recursion space.",
+  "publicTests": [
+    {
+      "name": "NC250-207-P1",
+      "arguments": [
+        3,
+        2
+      ],
+      "input": {
+        "n": 3,
+        "k": 2
+      },
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "validator": "combination_set"
+    },
+    {
+      "name": "NC250-207-P2",
+      "arguments": [
+        3,
+        3
+      ],
+      "input": {
+        "n": 3,
+        "k": 3
+      },
+      "expected": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "validator": "combination_set"
+    },
+    {
+      "name": "NC250-207-P3",
+      "arguments": [
+        2,
+        1
+      ],
+      "input": {
+        "n": 2,
+        "k": 1
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "validator": "combination_set"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def combine(n: int, k: int) -> list[list[int]]:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int[][] combine(int n, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number} n\n * @param {number} k\n * @returns {number[][]}\n */\nfunction combine(n, k) {\n  throw new Error('Implement combine');\n}",
+    "typescript": "function combine(n: number, k: number): number[][] {\n  throw new Error('Implement combine');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix combine(int32_t n, int32_t k) {\n    (void)n;\n    (void)k;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> combine(int n, int k) {\n    throw std::logic_error(\"Implement combine\");\n}",
+    "csharp": "public class Solution {\n    public int[][] combine(int n, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int $n\n * @param int $k\n * @return int[][]\n */\nfunction combine(int $n, int $k): array {\n    throw new LogicException('Implement combine');\n}",
+    "r": "# Parameters: n (integer scalar), k (integer scalar). Result: list of integer vectors.\ncombine <- function(n, k) {\n  stop(\"Implement combine\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "combine",
+    "arguments": [
+      [
+        "n",
+        "int"
+      ],
+      [
+        "k",
+        "int"
+      ]
+    ],
+    "serialized_result_type": "intgrid",
+    "mode": "function",
+    "validator": "combination_set",
+    "notes": "Compare complete sets of sorted tuples. Reject missing, repeated, or invalid combinations. Both outer ordering and order within a tuple are irrelevant."
+  },
+  "blocks": [
+    {
+      "id": "nc250-207-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-207-statement",
+      "type": "paragraph",
+      "content": "List every selection of k different integers from 1 through n. A selection is determined by its members. Return each selection once. Both collection order and member order are unrestricted.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-207-contract",
+      "type": "note",
+      "title": "def combine(n:",
+      "content": "Input: n (int), k (int)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-207-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1 ≤ k ≤ n ≤ 20. Return arrays of exactly k integers.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-207-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def combine(n: int, k: int) -> list[list[int]]:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int[][] combine(int n, int k) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number} n\n * @param {number} k\n * @returns {number[][]}\n */\nfunction combine(n, k) {\n  throw new Error('Implement combine');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function combine(n: number, k: number): number[][] {\n  throw new Error('Implement combine');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { IntArray *data; size_t len; } IntMatrix;\n\nIntMatrix combine(int32_t n, int32_t k) {\n    (void)n;\n    (void)k;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::vector<std::vector<int>> combine(int n, int k) {\n    throw std::logic_error(\"Implement combine\");\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int[][] combine(int n, int k) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int $n\n * @param int $k\n * @return int[][]\n */\nfunction combine(int $n, int $k): array {\n    throw new LogicException('Implement combine');\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-207-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: n (integer scalar), k (integer scalar). Result: list of integer vectors.\ncombine <- function(n, k) {\n  stop(\"Implement combine\")\n}",
+      "stdin": "",
+      "expectedOutput": "[[1,2],[1,3],[2,3]]",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

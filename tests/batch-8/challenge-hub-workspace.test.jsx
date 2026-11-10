@@ -68,20 +68,20 @@ describe('Daily Challenge Hub', () => {
   });
 
   it('renders the real today card and history without the monolithic workspace', () => {
-    state.resource = { data: [entry('2026-09-13', 'Balanced Brackets'), entry('2026-09-12', 'Count Vowels'), entry('2026-09-11', 'Rotate a List'), entry('2026-09-14', 'Future Challenge')], error: null, loading: false };
+    state.resource = { data: [entry('2026-09-13', 'Current Fixture'), entry('2026-09-12', 'Previous Fixture'), entry('2026-09-11', 'Older Fixture'), entry('2026-09-14', 'Future Challenge')], error: null, loading: false };
     state.activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: '2026-09-12', completionStatus: 'COMPLETED' }];
     const open = vi.fn();
     render(<ChallengeHub onOpenChallenge={open} />);
 
     expect(document.querySelector('.challenge-today-card')).not.toHaveClass('is-completed');
-    expect(screen.getByRole('heading', { name: 'Balanced Brackets' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Current Fixture' })).toBeInTheDocument();
     expect(screen.queryByText(/~15 min/i)).not.toBeInTheDocument();
     expect(screen.queryByText('+20 coins')).not.toBeInTheDocument();
     expect(screen.getByText('Medium')).toHaveClass('difficulty-badge', 'difficulty-badge--medium');
     fireEvent.click(screen.getByRole('button', { name: /Start Today.s Challenge/ }));
     expect(open).toHaveBeenCalledWith('2026-09-13');
-    expect(screen.getByText('Count Vowels')).toBeInTheDocument();
-    expect(screen.getByText('Rotate a List')).toBeInTheDocument();
+    expect(screen.getByText('Previous Fixture')).toBeInTheDocument();
+    expect(screen.getByText('Older Fixture')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Review' })).toBeInTheDocument();
     expect(screen.getByText('Missed')).toBeInTheDocument();
     expect(screen.queryByText('Future Challenge')).not.toBeInTheDocument();
@@ -91,7 +91,7 @@ describe('Daily Challenge Hub', () => {
   });
 
   it('renders canonical completed state and review navigation without a Start action', () => {
-    state.resource = { data: [entry('2026-09-13', 'Balanced Brackets')], error: null, loading: false };
+    state.resource = { data: [entry('2026-09-13', 'Current Fixture')], error: null, loading: false };
     state.activity.completions = [{ activityType: 'DAILY_CHALLENGE', occurrenceDate: '2026-09-13', completionStatus: 'COMPLETED' }];
     const open = vi.fn();
     render(<ChallengeHub onOpenChallenge={open} />);
@@ -113,7 +113,7 @@ describe('Daily Challenge Hub', () => {
 
 describe('dated Daily Challenge workspace', () => {
   it('reuses immersive problem, hints, compiler and shared drawer surfaces', () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     const back = vi.fn();
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={back} />);
     expect(screen.getByText('Solve this focused challenge.')).toBeInTheDocument();
@@ -132,7 +132,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('offers exactly the shared nine languages and keeps AI unavailable', () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: 'Compiler language' }));
     expect(screen.getAllByRole('menuitemradio').map((option) => option.textContent)).toEqual([
@@ -143,7 +143,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('minimizes through the shared toolbar without exposing any AI route', () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: 'Minimize compiler' }));
     expect(screen.getByRole('button', { name: /^Compiler$/ })).toBeVisible();
@@ -152,7 +152,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('completes today once through the canonical activity client after verification', async () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 4 } });
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -165,7 +165,7 @@ describe('dated Daily Challenge workspace', () => {
     const dialog = screen.getByRole('dialog', { name: 'Daily Coding Challenge Completed!' });
     expect(within(dialog).getByRole('heading', { name: 'Daily Coding Challenge Completed!' })).toBeVisible();
     expect(document.querySelector('.completion-celebration')).toBeInTheDocument();
-    expect(within(dialog).queryByText('Balanced Brackets')).not.toBeInTheDocument();
+    expect(within(dialog).queryByText('Current Fixture')).not.toBeInTheDocument();
     expect(dialog).toHaveTextContent('Completion Streak: 4 Days');
     expect(dialog).toHaveTextContent('+20 coins earned');
     expect(dialog.querySelector('.challenge-completion-dialog-reward img.coin-icon')).toHaveAttribute('src', expect.stringContaining('golden_coin_4k_transparent.png'));
@@ -184,7 +184,7 @@ describe('dated Daily Challenge workspace', () => {
 
   it('uses singular Day and a static fire fallback for reduced motion', async () => {
     window.matchMedia = vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() });
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 35, streak: { currentStreak: 1 } });
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
@@ -196,7 +196,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('keeps the completion popup dismissal-only without navigating away', async () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 2 } });
     const back = vi.fn();
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={back} />);
@@ -209,7 +209,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('closes the completion popup with Escape without navigating away', async () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     state.complete.mockResolvedValue({ completionStatus: 'completed', rewardStatus: 'credited', rewardAmount: 20, streak: { currentStreak: 2 } });
     const back = vi.fn();
     render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={back} />);
@@ -221,7 +221,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('does not celebrate duplicate or failed canonical completion attempts', async () => {
-    state.resource = { data: content('2026-09-13', 'Balanced Brackets'), error: null, loading: false };
+    state.resource = { data: content('2026-09-13', 'Current Fixture'), error: null, loading: false };
     state.complete.mockResolvedValueOnce({ completionStatus: 'already_completed', rewardStatus: 'already_credited', rewardAmount: 0, streak: { currentStreak: 3 } });
     const { unmount } = render(<ChallengeWorkspace occurrenceDate="2026-09-13" onBack={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
@@ -239,7 +239,7 @@ describe('dated Daily Challenge workspace', () => {
   });
 
   it('keeps historical content in review mode and cannot issue completion', () => {
-    state.resource = { data: content('2026-09-12', 'Count Vowels'), error: null, loading: false };
+    state.resource = { data: content('2026-09-12', 'Previous Fixture'), error: null, loading: false };
     render(<ChallengeWorkspace occurrenceDate="2026-09-12" onBack={vi.fn()} />);
     expect(screen.getByText('Review mode')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled();

@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-237",
+  "title": "Maximum Sum Circular Subarray",
+  "summary": "Find the largest sum of a nonempty consecutive segment in a circular array.",
+  "language": "Python",
+  "difficulty": "medium",
+  "topic": "Greedy",
+  "category": "dsa",
+  "subtopic": "greedy",
+  "questionType": "implementation",
+  "estimatedMinutes": 35,
+  "xp": 50,
+  "contract": {
+    "functionName": "maxSubarraySumCircular",
+    "signature": "def maxSubarraySumCircular(nums:",
+    "input": "nums (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "nums (ints)",
+    "callable": "maxSubarraySumCircular",
+    "constraints": "1–30000 integers in [−30000,30000].",
+    "output-checking": "Exact typed equality of the returned int."
+  },
+  "statement": "Find the largest sum of a nonempty consecutive segment in a circular array. A segment may cross from the last element to the first, but it cannot use any position more than once.",
+  "examples": [
+    {
+      "input": "{\"nums\":[8,-5,4]}",
+      "output": "12",
+      "explanation": "The last and first values are adjacent around the circle."
+    },
+    {
+      "input": "{\"nums\":[-7,-2,-4]}",
+      "output": "-2",
+      "explanation": "The best nonempty choice is the single −2."
+    },
+    {
+      "input": "{\"nums\":[1,2,3]}",
+      "output": "6",
+      "explanation": "Taking the whole array is optimal."
+    }
+  ],
+  "constraints": [
+    "1–30000 integers in [−30000,30000]."
+  ],
+  "hints": [
+    "Conceptual: A wrapping segment leaves one ordinary gap.",
+    "Directional: Compute both the largest ordinary sum and the smallest ordinary sum.",
+    "Implementation: Compare the best ordinary segment with total minus the smallest segment. When all values are negative, keep the best nonempty ordinary segment."
+  ],
+  "concepts": [
+    "kadane-recurrence",
+    "circular-arrays"
+  ],
+  "skills": [
+    "Kadane recurrence",
+    "circular arrays"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space.",
+  "publicTests": [
+    {
+      "name": "NC250-237-P1",
+      "arguments": [
+        [
+          8,
+          -5,
+          4
+        ]
+      ],
+      "input": {
+        "nums": [
+          8,
+          -5,
+          4
+        ]
+      },
+      "expected": 12,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-237-P2",
+      "arguments": [
+        [
+          -7,
+          -2,
+          -4
+        ]
+      ],
+      "input": {
+        "nums": [
+          -7,
+          -2,
+          -4
+        ]
+      },
+      "expected": -2,
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-237-P3",
+      "arguments": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 6,
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def maxSubarraySumCircular(nums: list[int]) -> int:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction maxSubarraySumCircular(nums) {\n  throw new Error('Implement maxSubarraySumCircular');\n}",
+    "typescript": "function maxSubarraySumCircular(nums: number[]): number {\n  throw new Error('Implement maxSubarraySumCircular');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxSubarraySumCircular(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxSubarraySumCircular(std::vector<int> nums) {\n    throw std::logic_error(\"Implement maxSubarraySumCircular\");\n}",
+    "csharp": "public class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction maxSubarraySumCircular(array $nums): int {\n    throw new LogicException('Implement maxSubarraySumCircular');\n}",
+    "r": "# Parameters: nums (integer vector). Result: integer scalar.\nmaxSubarraySumCircular <- function(nums) {\n  stop(\"Implement maxSubarraySumCircular\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "maxSubarraySumCircular",
+    "arguments": [
+      [
+        "nums",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "int",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-237-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-237-statement",
+      "type": "paragraph",
+      "content": "Find the largest sum of a nonempty consecutive segment in a circular array. A segment may cross from the last element to the first, but it cannot use any position more than once.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-237-contract",
+      "type": "note",
+      "title": "def maxSubarraySumCircular(nums:",
+      "content": "Input: nums (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-237-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–30000 integers in [−30000,30000].",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-237-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def maxSubarraySumCircular(nums: list[int]) -> int:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} nums\n * @returns {number}\n */\nfunction maxSubarraySumCircular(nums) {\n  throw new Error('Implement maxSubarraySumCircular');\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function maxSubarraySumCircular(nums: number[]): number {\n  throw new Error('Implement maxSubarraySumCircular');\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\n\nint32_t maxSubarraySumCircular(IntArray nums) {\n    (void)nums;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nint maxSubarraySumCircular(std::vector<int> nums) {\n    throw std::logic_error(\"Implement maxSubarraySumCircular\");\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $nums\n * @return int\n */\nfunction maxSubarraySumCircular(array $nums): int {\n    throw new LogicException('Implement maxSubarraySumCircular');\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-237-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: nums (integer vector). Result: integer scalar.\nmaxSubarraySumCircular <- function(nums) {\n  stop(\"Implement maxSubarraySumCircular\")\n}",
+      "stdin": "",
+      "expectedOutput": "12",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}

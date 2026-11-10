@@ -1,0 +1,602 @@
+{
+  "schemaVersion": "practice-mode-b-runtime-matrix-v1",
+  "fixtureExecutions": 138,
+  "matrix": {
+    "BLIND150-008": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11628,
+        "wallTimeMs": 11855,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 39044.215,
+        "wallTimeMs": 42577,
+        "outputBytes": 2653,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-023": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 31492,
+        "wallTimeMs": 32165,
+        "outputBytes": 688,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 29171.69,
+        "wallTimeMs": 103226,
+        "outputBytes": 711,
+        "message": "The .NET runtime failed to initialize.",
+        "failures": [
+          {
+            "id": "BLIND150-023-T01",
+            "status": "adapter_error",
+            "message": "The .NET runtime failed to initialize."
+          },
+          {
+            "id": "BLIND150-023-T02",
+            "status": "timeout",
+            "message": "C# execution exceeded 30000 ms."
+          }
+        ]
+      }
+    },
+    "BLIND150-068": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 17323,
+        "wallTimeMs": 17774,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 49578.4399,
+        "wallTimeMs": 56406,
+        "outputBytes": 764,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-071": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 26318,
+        "wallTimeMs": 26855,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 34268.090000000004,
+        "wallTimeMs": 40166,
+        "outputBytes": 782,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-073": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11495,
+        "wallTimeMs": 11719,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27352.739999999998,
+        "wallTimeMs": 29943,
+        "outputBytes": 733,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-084": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 10010,
+        "wallTimeMs": 10226,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30669.035,
+        "wallTimeMs": 34923,
+        "outputBytes": 612,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-092": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 8725,
+        "wallTimeMs": 8944,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27565.8498,
+        "wallTimeMs": 31644,
+        "outputBytes": 811,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-095": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9153,
+        "wallTimeMs": 9391,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30599.975,
+        "wallTimeMs": 33834,
+        "outputBytes": 669,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-096": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9346,
+        "wallTimeMs": 9546,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 26476.2348,
+        "wallTimeMs": 29610,
+        "outputBytes": 621,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-098": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11249,
+        "wallTimeMs": 11418,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30674.465,
+        "wallTimeMs": 34881,
+        "outputBytes": 836,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-105": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11778,
+        "wallTimeMs": 12007,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 43467.2699,
+        "wallTimeMs": 47578,
+        "outputBytes": 580,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-108": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 16250,
+        "wallTimeMs": 16525,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 39918.175,
+        "wallTimeMs": 43799,
+        "outputBytes": 775,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-117": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15329,
+        "wallTimeMs": 15611,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 41170.69,
+        "wallTimeMs": 45258,
+        "outputBytes": 635,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-127": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 15255,
+        "wallTimeMs": 15523,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 57015.264899999995,
+        "wallTimeMs": 62543,
+        "outputBytes": 762,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-130": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 25124,
+        "wallTimeMs": 25755,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 62445.83499999999,
+        "wallTimeMs": 69817,
+        "outputBytes": 792,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-132": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 0,
+        "fixtures": 3,
+        "executionTimeMs": 14312,
+        "wallTimeMs": 14660,
+        "outputBytes": 706,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-132-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-132-T02",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-132-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24869.510000000002,
+        "wallTimeMs": 29302,
+        "outputBytes": 676,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-133": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 11745,
+        "wallTimeMs": 11977,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 27964.989800000003,
+        "wallTimeMs": 32218,
+        "outputBytes": 660,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-134": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 9797,
+        "wallTimeMs": 10042,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 62308.2448,
+        "wallTimeMs": 69954,
+        "outputBytes": 642,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-135": {
+      "java": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 1,
+        "fixtures": 3,
+        "executionTimeMs": 22714,
+        "wallTimeMs": 23069,
+        "outputBytes": 763,
+        "message": "dereferencing a null pointer",
+        "failures": [
+          {
+            "id": "BLIND150-135-T01",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          },
+          {
+            "id": "BLIND150-135-T03",
+            "status": "runtime_error",
+            "message": "dereferencing a null pointer"
+          }
+        ]
+      },
+      "csharp": {
+        "status": "error",
+        "allPassed": false,
+        "passed": 2,
+        "fixtures": 3,
+        "executionTimeMs": 46397.734899999996,
+        "wallTimeMs": 82403,
+        "outputBytes": 764,
+        "message": "C# execution exceeded 30000 ms.",
+        "failures": [
+          {
+            "id": "BLIND150-135-T03",
+            "status": "timeout",
+            "message": "C# execution exceeded 30000 ms."
+          }
+        ]
+      }
+    },
+    "BLIND150-137": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22400,
+        "wallTimeMs": 22963,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 50615.345,
+        "wallTimeMs": 56687,
+        "outputBytes": 753,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-139": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 30470,
+        "wallTimeMs": 30854,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 52911.3,
+        "wallTimeMs": 65715,
+        "outputBytes": 590,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-142": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 22017,
+        "wallTimeMs": 22427,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 55265.634900000005,
+        "wallTimeMs": 60491,
+        "outputBytes": 667,
+        "message": null,
+        "failures": []
+      }
+    },
+    "BLIND150-150": {
+      "java": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 24097,
+        "wallTimeMs": 24565,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      },
+      "csharp": {
+        "status": "success",
+        "allPassed": true,
+        "passed": 3,
+        "fixtures": 3,
+        "executionTimeMs": 69526.63,
+        "wallTimeMs": 77599,
+        "outputBytes": 596,
+        "message": null,
+        "failures": []
+      }
+    }
+  }
+}

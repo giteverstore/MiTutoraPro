@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "NC250-230",
+  "title": "Stone Game III",
+  "summary": "Alice and Bob alternate, starting with Alice.",
+  "language": "Python",
+  "difficulty": "hard",
+  "topic": "1-D Dynamic Programming",
+  "category": "dsa",
+  "subtopic": "1-d-dynamic-programming",
+  "questionType": "implementation",
+  "estimatedMinutes": 50,
+  "xp": 80,
+  "contract": {
+    "functionName": "stoneGameIII",
+    "signature": "def stoneGameIII(stoneValue:",
+    "input": "stoneValue (ints)",
+    "output": "Structured result; see public examples."
+  },
+  "contractDetails": {
+    "input": "stoneValue (ints)",
+    "callable": "stoneGameIII",
+    "constraints": "1–50000 values in [−1000,1000]. A player must take at least one available stone on each turn.",
+    "output-checking": "Exact typed equality of the returned str."
+  },
+  "statement": "Alice and Bob alternate, starting with Alice. Each turn removes one, two, or three remaining stones from the front and adds their signed values to that player’s score. Both play optimally. Return Alice, Bob, or Tie according to the final scores.",
+  "examples": [
+    {
+      "input": "{\"stoneValue\":[2]}",
+      "output": "\"Alice\"",
+      "explanation": "Alice takes the positive stone."
+    },
+    {
+      "input": "{\"stoneValue\":[-3]}",
+      "output": "\"Bob\"",
+      "explanation": "Alice must take a negative score."
+    },
+    {
+      "input": "{\"stoneValue\":[4,1,2,7]}",
+      "output": "\"Tie\"",
+      "explanation": "Taking the first three gives Alice 7 and leaves Bob 7."
+    }
+  ],
+  "constraints": [
+    "1–50000 values in [−1000,1000]. A player must take at least one available stone on each turn."
+  ],
+  "hints": [
+    "Conceptual: Taking more now changes what the other player can take next.",
+    "Directional: Track the best score advantage from each starting position.",
+    "Implementation: For every legal take length, subtract the other player’s best suffix advantage from the value just taken. Keep the largest difference."
+  ],
+  "concepts": [
+    "game-dp",
+    "score-difference"
+  ],
+  "skills": [
+    "Game DP",
+    "score difference"
+  ],
+  "prerequisites": [],
+  "expectedComplexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "complexityAnalysis": "O(n) time and O(1) auxiliary space using four rolling slots.",
+  "publicTests": [
+    {
+      "name": "NC250-230-P1",
+      "arguments": [
+        [
+          2
+        ]
+      ],
+      "input": {
+        "stoneValue": [
+          2
+        ]
+      },
+      "expected": "Alice",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-230-P2",
+      "arguments": [
+        [
+          -3
+        ]
+      ],
+      "input": {
+        "stoneValue": [
+          -3
+        ]
+      },
+      "expected": "Bob",
+      "validator": "exact"
+    },
+    {
+      "name": "NC250-230-P3",
+      "arguments": [
+        [
+          4,
+          1,
+          2,
+          7
+        ]
+      ],
+      "input": {
+        "stoneValue": [
+          4,
+          1,
+          2,
+          7
+        ]
+      },
+      "expected": "Tie",
+      "validator": "exact"
+    }
+  ],
+  "starterTemplates": {
+    "python": "def stoneGameIII(stoneValue: list[int]) -> str:\n    raise NotImplementedError",
+    "java": "public class Solution {\n    public String stoneGameIII(int[] stoneValue) {\n        throw new UnsupportedOperationException();\n    }\n}",
+    "javascript": "/**\n * @param {number[]} stoneValue\n * @returns {string}\n */\nfunction stoneGameIII(stoneValue) {\n  throw new Error('Implement stoneGameIII');\n}",
+    "typescript": "function stoneGameIII(stoneValue: number[]): string {\n  throw new Error('Implement stoneGameIII');\n}",
+    "c": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString stoneGameIII(IntArray stoneValue) {\n    (void)stoneValue;\n    abort();\n}",
+    "cpp": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string stoneGameIII(std::vector<int> stoneValue) {\n    throw std::logic_error(\"Implement stoneGameIII\");\n}",
+    "csharp": "public class Solution {\n    public string stoneGameIII(int[] stoneValue) {\n        throw new System.NotImplementedException();\n    }\n}",
+    "php": "<?php\n\n/**\n * @param int[] $stoneValue\n * @return string\n */\nfunction stoneGameIII(array $stoneValue): string {\n    throw new LogicException('Implement stoneGameIII');\n}",
+    "r": "# Parameters: stoneValue (integer vector). Result: character scalar.\nstoneGameIII <- function(stoneValue) {\n  stop(\"Implement stoneGameIII\")\n}"
+  },
+  "executionMetadata": {
+    "entry": "stoneGameIII",
+    "arguments": [
+      [
+        "stoneValue",
+        "ints"
+      ]
+    ],
+    "serialized_result_type": "str",
+    "mode": "function",
+    "validator": "exact",
+    "notes": "Invoke entry with named inputs in argument order and serialize the return value."
+  },
+  "blocks": [
+    {
+      "id": "nc250-230-heading",
+      "type": "heading",
+      "level": 2,
+      "text": "Problem Statement"
+    },
+    {
+      "id": "nc250-230-statement",
+      "type": "paragraph",
+      "content": "Alice and Bob alternate, starting with Alice. Each turn removes one, two, or three remaining stones from the front and adds their signed values to that player’s score. Both play optimally. Return Alice, Bob, or Tie according to the final scores.",
+      "format": "markdown"
+    },
+    {
+      "id": "nc250-230-contract",
+      "type": "note",
+      "title": "def stoneGameIII(stoneValue:",
+      "content": "Input: stoneValue (ints)\n\nOutput: See public examples.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-230-constraints",
+      "type": "note",
+      "title": "Constraints",
+      "content": "1–50000 values in [−1000,1000]. A player must take at least one available stone on each turn.",
+      "format": "plain"
+    },
+    {
+      "id": "nc250-230-compiler-python",
+      "type": "compiler",
+      "language": "python",
+      "starterCode": "def stoneGameIII(stoneValue: list[int]) -> str:\n    raise NotImplementedError",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-java",
+      "type": "compiler",
+      "language": "java",
+      "starterCode": "public class Solution {\n    public String stoneGameIII(int[] stoneValue) {\n        throw new UnsupportedOperationException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-javascript",
+      "type": "compiler",
+      "language": "javascript",
+      "starterCode": "/**\n * @param {number[]} stoneValue\n * @returns {string}\n */\nfunction stoneGameIII(stoneValue) {\n  throw new Error('Implement stoneGameIII');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-typescript",
+      "type": "compiler",
+      "language": "typescript",
+      "starterCode": "function stoneGameIII(stoneValue: number[]): string {\n  throw new Error('Implement stoneGameIII');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-c",
+      "type": "compiler",
+      "language": "c",
+      "starterCode": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdlib.h>\n\ntypedef struct { int32_t *data; size_t len; } IntArray;\ntypedef struct { unsigned char *data; size_t len; } ByteString;\n\nByteString stoneGameIII(IntArray stoneValue) {\n    (void)stoneValue;\n    abort();\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-cpp",
+      "type": "compiler",
+      "language": "cpp",
+      "starterCode": "#include <stdexcept>\n#include <string>\n#include <vector>\n\nstd::string stoneGameIII(std::vector<int> stoneValue) {\n    throw std::logic_error(\"Implement stoneGameIII\");\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-csharp",
+      "type": "compiler",
+      "language": "csharp",
+      "starterCode": "public class Solution {\n    public string stoneGameIII(int[] stoneValue) {\n        throw new System.NotImplementedException();\n    }\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-php",
+      "type": "compiler",
+      "language": "php",
+      "starterCode": "<?php\n\n/**\n * @param int[] $stoneValue\n * @return string\n */\nfunction stoneGameIII(array $stoneValue): string {\n    throw new LogicException('Implement stoneGameIII');\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    },
+    {
+      "id": "nc250-230-compiler-r",
+      "type": "compiler",
+      "language": "r",
+      "starterCode": "# Parameters: stoneValue (integer vector). Result: character scalar.\nstoneGameIII <- function(stoneValue) {\n  stop(\"Implement stoneGameIII\")\n}",
+      "stdin": "",
+      "expectedOutput": "\"Alice\"",
+      "validator": "normalized",
+      "runLabel": "Run Code",
+      "resetLabel": "Reset"
+    }
+  ]
+}
