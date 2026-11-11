@@ -379,7 +379,7 @@ describe('Library navigation and discovery', () => {
     expect(footerCss).toMatch(/\.card-footer-meta\s*\{[^}]*justify-content:\s*flex-start;[^}]*flex-wrap:\s*nowrap;[^}]*gap:\s*var\(--space-2\);[^}]*padding-top:\s*2\.5rem;[^}]*font-size:\s*\.75rem/);
     expect(footerCss).toMatch(/\.card-footer-meta svg\s*\{[^}]*width:\s*var\(--icon-xs\);[^}]*height:\s*var\(--icon-xs\)/);
     expect(css).toMatch(/\.home-recent-grid\s*\{[^}]*grid-template-columns:\s*repeat\(5, minmax\(0, 14\.8125rem\)\);[^}]*justify-content:\s*start/);
-    expect(css).toMatch(/\.home-dashboard-grid \.home-recent\s*\{\s*grid-area:\s*recent/);
+    expect(css).toMatch(/\.home-dashboard-aside\s*\{[^}]*display:\s*grid;[^}]*min-width:\s*0;/);
   });
 
   it('renders a footer-only, non-interactive Coming Soon Course even with stale progress data', () => {

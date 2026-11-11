@@ -1,0 +1,2157 @@
+{
+  "id": "module-3",
+  "title": "Repeating Tasks (Loops)",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-3-1-range-function",
+      "number": "3.1",
+      "title": "range() Function",
+      "summary": "Module 3: Repeating Tasks (Loops)\n\n3.1 range() Function:",
+      "status": "available",
+      "estimatedMinutes": 12,
+      "blocks": [
+        {
+          "id": "lesson-3-1-range-function-block-001",
+          "type": "paragraph",
+          "content": "Module 3: Repeating Tasks (Loops)\n\n3.1 range() Function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-002",
+          "type": "paragraph",
+          "content": "The range() Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-003",
+          "type": "paragraph",
+          "content": "Imagine you had to write down all the numbers from 1 to 1,000. Typing that by hand would take forever and get really boring!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-004",
+          "type": "paragraph",
+          "content": "Luckily, Python has a built-in magic number-generator called the range() function.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-005",
+          "type": "paragraph",
+          "content": "Instead of writing out numbers one by one, range() instantly generates a sequence of whole numbers for you:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-006",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-007",
+          "type": "paragraph",
+          "content": "The Golden \"Stop-Before\" Rule",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-008",
+          "type": "paragraph",
+          "content": "In range(start, stop), Python starts at the start number, but stops one step before reaching the stop number! That is why range(2, 7) stops at 6, not 7.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see what happens when you give range() only one number!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-010",
+          "type": "paragraph",
+          "content": "range() with One Argument",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-011",
+          "type": "paragraph",
+          "content": "When you pass only one single number into range(), Python assumes that number is the stop value, and it automatically starts counting from 0:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-012",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-013",
+          "type": "paragraph",
+          "content": "Why Coders Love Starting at 0",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-014",
+          "type": "paragraph",
+          "content": "Computers are built around zero-based indexing. Passing range(n) runs your loop exactly n times (from 0 to n - 1).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-015",
+          "type": "paragraph",
+          "content": "Quiz: Single Argument range()",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-016",
+          "type": "paragraph",
+          "content": "What will be the output of the following code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-017",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-018",
+          "type": "paragraph",
+          "content": "| A: 1 2 3 on separate lines |\n| Incorrect, give it another shot! With one argument, range() always starts counting at 0, not 1. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-019",
+          "type": "paragraph",
+          "content": "| B: 0 1 2 on separate lines |\n| Correct Answer! 🎉\nrange(3) starts at 0 and generates 3 numbers: 0, 1, and 2 (stopping before 3). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-020",
+          "type": "paragraph",
+          "content": "| C: 0 1 2 3 on separate lines |\n| Incorrect, give it another shot! Remember the stop-before rule: the stop number 3 is excluded. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-021",
+          "type": "paragraph",
+          "content": "| D: 3 |\n| Incorrect, give it another shot! range() produces a sequence of numbers, not just the stop value. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-022",
+          "type": "paragraph",
+          "content": "The Step Argument",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-023",
+          "type": "paragraph",
+          "content": "What if you don’t want to count by ones? What if you want to count by twos, fives, or tens?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-024",
+          "type": "paragraph",
+          "content": "You can add a third number called the step:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-025",
+          "type": "paragraph",
+          "content": "Think of the step like playing hopscotch—it tells Python how many tiles to skip forward on each jump:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-026",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-027",
+          "type": "paragraph",
+          "content": "Here, Python starts at 2, adds 2 each time (), and stops before reaching 11.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-028",
+          "type": "paragraph",
+          "content": "Practice: Multiples of Five",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-029",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-030",
+          "type": "paragraph",
+          "content": "Write a program using range() with the step argument to print the multiples of 5 from 5 up to 25 (including 25).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-031",
+          "type": "paragraph",
+          "content": "Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-032",
+          "type": "paragraph",
+          "content": "start is 5",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-033",
+          "type": "paragraph",
+          "content": "step is 5",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-034",
+          "type": "paragraph",
+          "content": "Remember the stop-before rule: to include 25, your stop value should be 26 or 30!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-035",
+          "type": "paragraph",
+          "content": "for num in range(5, 26, 5):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-036",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-037",
+          "type": "paragraph",
+          "content": "Reverse Sequence (Counting Backwards)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-038",
+          "type": "paragraph",
+          "content": "You can also use range() to count backwards!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-039",
+          "type": "paragraph",
+          "content": "To make a countdown sequence:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-040",
+          "type": "paragraph",
+          "content": "Make your start number larger than your stop number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-041",
+          "type": "paragraph",
+          "content": "Use a negative number for the step (like -1 or -2):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-042",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-043",
+          "type": "paragraph",
+          "content": "How It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-044",
+          "type": "paragraph",
+          "content": "Python starts at 5, subtracts 1 each turn, and stops right before reaching 0 (so 1 is the last number printed).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-045",
+          "type": "paragraph",
+          "content": "Practice: Arcade Countdown Timer",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-046",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-047",
+          "type": "paragraph",
+          "content": "A game shows a 10-second warning countdown before the gates close.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-048",
+          "type": "paragraph",
+          "content": "Write a program using range() that counts down backwards from 10 to 1 by ones, and prints Time is up! after the loop finishes.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-049",
+          "type": "paragraph",
+          "content": "Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-050",
+          "type": "paragraph",
+          "content": "Use range(10, 0, -1)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-051",
+          "type": "paragraph",
+          "content": "Put print(\"Time is up!\") outside the loop without indentation.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-052",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-053",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Mars Habitat Altitude Steps",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-054",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-055",
+          "type": "paragraph",
+          "content": "An automated space probe is descending from an altitude of 50 kilometers down to the Mars landing zone at 10 kilometers.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-056",
+          "type": "paragraph",
+          "content": "The onboard telemetry system must report the probe's altitude every 10 kilometers during the descent (, , , , ).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-057",
+          "type": "paragraph",
+          "content": "After reaching  km, the system switches to thruster touchdown mode and displays: Touchdown thrusters engaged!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-058",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-059",
+          "type": "paragraph",
+          "content": "Use a for loop with a reverse range() using a negative step of -10:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-060",
+          "type": "paragraph",
+          "content": "Inside the loop, print: Altitude: [altitude] km",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-061",
+          "type": "paragraph",
+          "content": "Outside the loop, print: Touchdown thrusters engaged!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-1-range-function-block-062",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-2-python-for-loop",
+      "number": "3.2",
+      "title": "Python for Loop",
+      "summary": "Introduction to Loops",
+      "status": "available",
+      "estimatedMinutes": 17,
+      "blocks": [
+        {
+          "id": "lesson-3-2-python-for-loop-block-001",
+          "type": "paragraph",
+          "content": "3.2 Python for Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-002",
+          "type": "paragraph",
+          "content": "Introduction to Loops",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-003",
+          "type": "paragraph",
+          "content": "Imagine your coach asks you to do 50 jumping jacks. You do one, count in your head, do another, count again, and keep repeating until you reach 50.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-004",
+          "type": "paragraph",
+          "content": "In programming, when you want your computer to repeat an action again and again, you use a loop.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-005",
+          "type": "paragraph",
+          "content": "Without loops, if you wanted to print a message 100 times, you would have to write print() 100 times! With a loop, you write the instruction once, and Python repeats it 10, 1,000, or even a million times in the blink of an eye.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-006",
+          "type": "paragraph",
+          "content": "Click Next Lesson to meet our first loop: the while loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-007",
+          "type": "paragraph",
+          "content": "The while Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-008",
+          "type": "paragraph",
+          "content": "A while loop repeats a block of code as long as a condition remains True.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-009",
+          "type": "paragraph",
+          "content": "Think of it like a parent saying: \"While your room is messy, keep cleaning!\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-010",
+          "type": "paragraph",
+          "content": "Basic Syntax:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-011",
+          "type": "paragraph",
+          "content": "Figure: Check Condition",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-012",
+          "type": "paragraph",
+          "content": "The Rule of the Counter:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-013",
+          "type": "paragraph",
+          "content": "If the condition never becomes False, the loop will run forever (an infinite loop!). To stop the loop, you must change something inside the loop—like updating a counter variable (count += 1).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-014",
+          "type": "paragraph",
+          "content": "Example: The while Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-015",
+          "type": "paragraph",
+          "content": "Let’s watch a counter loop from 1 to 4:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-016",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-017",
+          "type": "paragraph",
+          "content": "Step-by-Step Breakdown:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-018",
+          "type": "paragraph",
+          "content": "Turn 1: count is 1 ( is True). Prints Lap 1. count becomes 2.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-019",
+          "type": "paragraph",
+          "content": "Turn 2: count is 2 ( is True). Prints Lap 2. count becomes 3.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-020",
+          "type": "paragraph",
+          "content": "Turn 3: count is 3 ( is True). Prints Lap 3. count becomes 4.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-021",
+          "type": "paragraph",
+          "content": "Turn 4: count is 4 ( is True). Prints Lap 4. count becomes 5.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-022",
+          "type": "paragraph",
+          "content": "Turn 5: count is 5 ( is False). The loop stops, and the race finishes!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-023",
+          "type": "paragraph",
+          "content": "Quiz: Counting Loop Turns",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-024",
+          "type": "paragraph",
+          "content": "How many times will print(\"Sparky\") run in this program?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-025",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-026",
+          "type": "paragraph",
+          "content": "| A: 2 times |\n| Incorrect, give it another shot! Trace the values: pet_count will be 0, 1, and 2 before reaching 3. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-027",
+          "type": "paragraph",
+          "content": "| B: 3 times |\n| Correct Answer! 🎉 The loop runs for pet_count = 0, pet_count = 1, and pet_count = 2. When it hits 3, the condition 3 < 3 becomes False! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-028",
+          "type": "paragraph",
+          "content": "| C: 4 times |\n| Incorrect, give it another shot! Because the operator is < (strictly less than), 3 is not included. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-029",
+          "type": "paragraph",
+          "content": "| D: Infinite times |\n| Incorrect, give it another shot! pet_count += 1 updates the variable each turn, so it will safely stop. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-030",
+          "type": "paragraph",
+          "content": "Practice: Cheer Squad Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-031",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-032",
+          "type": "paragraph",
+          "content": "Write a program using a while loop that prints the cheer Go Team! 📣 exactly 5 times:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-033",
+          "type": "paragraph",
+          "content": "Initialize a counter variable i = 1.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-034",
+          "type": "paragraph",
+          "content": "Write a while loop with the condition i <= 5.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-035",
+          "type": "paragraph",
+          "content": "Inside the loop, print Go Team! 📣 and increase i by 1 (i += 1).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-036",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-037",
+          "type": "paragraph",
+          "content": "Example: Counting Backwards",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-038",
+          "type": "paragraph",
+          "content": "You can also count down by subtracting inside the loop:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-039",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-040",
+          "type": "paragraph",
+          "content": "Practice: Print Numbers from 1 to n",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-041",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-042",
+          "type": "paragraph",
+          "content": "Ask the user for an integer n and print the numbers starting from 1 up to n using a while loop.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-043",
+          "type": "paragraph",
+          "content": "Get input: n = int(input(\"Enter target number: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-044",
+          "type": "paragraph",
+          "content": "Initialize current = 1.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-045",
+          "type": "paragraph",
+          "content": "While current <= n, print current and add 1 to current.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-046",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-047",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Robot Battery Charger",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-048",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-049",
+          "type": "paragraph",
+          "content": "A helper robot at school has plugged into its charging dock:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-050",
+          "type": "paragraph",
+          "content": "Its starting battery level is 70%.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-051",
+          "type": "paragraph",
+          "content": "Every charge cycle increases the battery by 10%.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-052",
+          "type": "paragraph",
+          "content": "The dock should keep charging while battery is strictly less than 100%.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-053",
+          "type": "paragraph",
+          "content": "When the battery reaches 100%, the dock displays: Battery fully charged at 100%! 🔋",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-054",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-055",
+          "type": "paragraph",
+          "content": "Initialize battery = 70.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-056",
+          "type": "paragraph",
+          "content": "Use a while loop with condition battery < 100:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-057",
+          "type": "paragraph",
+          "content": "Print: Charging... current level: [battery]%",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-058",
+          "type": "paragraph",
+          "content": "Increase battery += 10",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-059",
+          "type": "paragraph",
+          "content": "Outside the loop, print: Battery fully charged at 100%! 🔋",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-060",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-061",
+          "type": "paragraph",
+          "content": "Repeated User Input Until Exit (Sentinel Loop)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-062",
+          "type": "paragraph",
+          "content": "Sometimes you don't know in advance how many times a loop should run. You want it to keep asking the user questions until they choose to stop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-063",
+          "type": "paragraph",
+          "content": "A special stopping value is called a sentinel value (like typing 0 or \"exit\"):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-064",
+          "type": "paragraph",
+          "content": "Sample Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-065",
+          "type": "paragraph",
+          "content": "When the user types quit, the condition word != \"quit\" becomes False, and the loop gracefully ends!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-066",
+          "type": "paragraph",
+          "content": "Example: Sum of Numbers Until 0",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-067",
+          "type": "paragraph",
+          "content": "Let’s build an interactive calculator that adds up numbers entered by the user until they type 0:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-068",
+          "type": "paragraph",
+          "content": "Sample Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-069",
+          "type": "paragraph",
+          "content": "Quiz: The Accumulator Trap",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-070",
+          "type": "paragraph",
+          "content": "What is wrong with this code designed to sum numbers?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-071",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-072",
+          "type": "paragraph",
+          "content": "| A: total += number is invalid syntax. |\n| Incorrect, give it another shot! += is completely valid Python shorthand. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-073",
+          "type": "paragraph",
+          "content": "| B: total = 0 is inside the loop, so it resets every turn. |\n| Correct Answer! 🎉 Putting total = 0 inside the loop erases the sum on every turn! An accumulator must always be initialized before/outside the loop. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-074",
+          "type": "paragraph",
+          "content": "| C: The while condition cannot compare with 0. |\n| Incorrect, give it another shot! number != 0 is a standard comparison. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-075",
+          "type": "paragraph",
+          "content": "| D: A NameError will occur. |\n| Incorrect, give it another shot! total is defined inside, but it loses previous additions. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-076",
+          "type": "paragraph",
+          "content": "Practice: Piggy Bank Coin Counter",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-077",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-078",
+          "type": "paragraph",
+          "content": "You are counting coins in a digital piggy bank! Write a program that keeps asking the user to deposit coins (in cents) until they enter 0.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-079",
+          "type": "paragraph",
+          "content": "Create a variable savings = 0 before the loop.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-080",
+          "type": "paragraph",
+          "content": "Ask for the first deposit: coin = int(input(\"Deposit coins in cents (0 to finish): \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-081",
+          "type": "paragraph",
+          "content": "Use a while coin != 0: loop:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-082",
+          "type": "paragraph",
+          "content": "Add coin to savings.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-083",
+          "type": "paragraph",
+          "content": "Ask for the next coin deposit: coin = int(input(\"Deposit coins in cents (0 to finish): \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-084",
+          "type": "paragraph",
+          "content": "After the loop ends, print: Total saved in bank: [savings] cents.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-2-python-for-loop-block-085",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-3-python-while-loop",
+      "number": "3.3",
+      "title": "Python while Loop",
+      "summary": "3.3 Python while Loop",
+      "status": "available",
+      "estimatedMinutes": 26,
+      "blocks": [
+        {
+          "id": "lesson-3-3-python-while-loop-block-001",
+          "type": "paragraph",
+          "content": "3.3 Python while Loop\n\nFor Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-003",
+          "type": "paragraph",
+          "content": "In the previous lesson, you used a while loop to repeat code as long as a condition was true.\n\nNow, meet Python's most popular loop: the for loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-005",
+          "type": "paragraph",
+          "content": "A for loop is built to travel through a sequence of items one by one from start to finish.\n\nThink of it like an amusement park ride inspector checking each roller-coaster cart in order:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-007",
+          "type": "paragraph",
+          "content": "Check Cart 1\n\nCheck Cart 2",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-009",
+          "type": "paragraph",
+          "content": "Check Cart 3\n\nAll done!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-011",
+          "type": "paragraph",
+          "content": "Whenever you have a list, a word, or a range of numbers, a for loop visits each item automatically without you having to manually manage counters!\n\nClick Next Lesson to see a for loop in action.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-013",
+          "type": "paragraph",
+          "content": "Example: The for Loop\n\nYou already know that text strings are made of individual letters arranged in order. That makes a string a sequence!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-015",
+          "type": "paragraph",
+          "content": "Watch what happens when we loop through a word:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-017",
+          "type": "paragraph",
+          "content": "Why Did It Run 4 Times?\n\nBecause \"Nova\" has 4 letters (N, o, v, a). For each character in the string, the for loop runs its indented code once!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-019",
+          "type": "paragraph",
+          "content": "Access Elements\n\nA for loop doesn’t just repeat code—it lets you inspect the exact element it is currently looking at!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-021",
+          "type": "paragraph",
+          "content": "In for letter in hero_name:, the variable letter holds a new character on every single turn:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-023",
+          "type": "paragraph",
+          "content": "Turn 1: char is \"B\"\n\nTurn 2: char is \"o\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-025",
+          "type": "paragraph",
+          "content": "Turn 3: char is \"l\"\n\nTurn 4: char is \"t\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-027",
+          "type": "paragraph",
+          "content": "You can name this loop variable anything you want (like letter, char, or item).\n\nQuiz: Tracking Loop Elements",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-029",
+          "type": "paragraph",
+          "content": "Look at the following code:\n\nWhat is the value of letter during the 3rd iteration (turn) of the loop?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-031",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: T |\n| Incorrect, give it another shot! \"T\" is the 1st character of the string. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-033",
+          "type": "paragraph",
+          "content": "| B: i |\n| Incorrect, give it another shot! \"i\" is the 2nd character of the string. |\n\n| C: g |\n| Correct Answer! 🎉 In the 3rd iteration, the loop visits the 3rd letter of \"Tiger\", which is \"g\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-035",
+          "type": "paragraph",
+          "content": "| D: Tiger |\n| Incorrect, give it another shot! The loop variable holds one single character at a time, not the entire word. |\n\nPractice: Secret Spy Spelling",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-037",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA secret spy agency transmits codenames letter-by-letter over radio:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-039",
+          "type": "paragraph",
+          "content": "Ask the user to enter a secret codename: code = input(\"Enter codename: \").\n\nUse a for loop to inspect each character in code.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-041",
+          "type": "paragraph",
+          "content": "Print: Letter: followed by that character.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-043",
+          "type": "paragraph",
+          "content": "List Sequence\n\nIn Python, the most famous sequence of all is a List.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-045",
+          "type": "paragraph",
+          "content": "A list allows you to store multiple items inside a single variable! You create a list by placing items inside square brackets [ ] separated by commas:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-047",
+          "type": "paragraph",
+          "content": "Figure: A backpack with 3 labeled slots holding 'Apple', 'Mango', and 'Banana'\n\nClick Next Lesson to see how a for loop explores a list!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-049",
+          "type": "paragraph",
+          "content": "Iterate Over a List\n\nUsing a for loop to visit every item in a list is called iteration. It's the cleanest way to process collections of data:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-051",
+          "type": "paragraph",
+          "content": "Output\n\nPython automatically starts at the first item, moves through to the last, and stops cleanly when finished!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-053",
+          "type": "paragraph",
+          "content": "The range() Sequence\n\nWhat if you want to loop a set number of times without writing a list of words?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-055",
+          "type": "paragraph",
+          "content": "That’s where range() comes in! range() produces an automated sequence of numbers ready for a for loop:\n\nClick Next Lesson to combine for loops with range()!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-057",
+          "type": "paragraph",
+          "content": "Using for Loop with range()\n\nCombining for with range() is the standard way to count in Python:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-059",
+          "type": "paragraph",
+          "content": "Output\n\nNotice how clean this is compared to a while loop: no counter setup (i = 1) and no manual updating (i += 1) needed!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-061",
+          "type": "paragraph",
+          "content": "Quiz: Loop with range()\n\nWhat will be displayed by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-063",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: 3 4 5 6 7 |\n| Incorrect, give it another shot! Don't forget that inside the loop, the code prints num + 1! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-065",
+          "type": "paragraph",
+          "content": "| B: 4 5 6 7 |\n| Correct Answer! 🎉 range(3, 7) generates . Adding  to each prints ! |\n\n| C: 4 5 6 7 8 |\n| Incorrect, give it another shot! Remember that range(3, 7) excludes the stop value 7. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-067",
+          "type": "paragraph",
+          "content": "| D: 3 4 5 6 |\n| Incorrect, give it another shot! The code adds 1 to each number before printing. |\n\nPractice: Counting Up to n",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-069",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program that takes an integer n from the user and prints all numbers starting from 0 up to n - 1 using range(n).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-071",
+          "type": "paragraph",
+          "content": "Hints:\n\nn = int(input(\"Enter number: \"))",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-073",
+          "type": "paragraph",
+          "content": "for i in range(n):\n\nprint(i)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-075",
+          "type": "paragraph",
+          "content": "Example:\n\nSum of Natural Numbers",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-077",
+          "type": "paragraph",
+          "content": "Natural numbers are the positive counting numbers:\n\nSuppose you want to find the sum of all natural numbers up to :",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-079",
+          "type": "paragraph",
+          "content": "How do we teach a computer to calculate this for any number  (even up to )?\n\nWe use the accumulator pattern with a for loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-081",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see the step-by-step logic.\n\nLogic to Find Sum of Natural Numbers",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-083",
+          "type": "paragraph",
+          "content": "Here are the 4 logical steps:\n\nGet  from the user: n = int(input(\"Enter n: \"))",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-085",
+          "type": "paragraph",
+          "content": "Initialize total outside the loop: total = 0 (your basket starts empty).\n\nLoop from 1 to : Use range(1, n + 1) so  is included!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-087",
+          "type": "paragraph",
+          "content": "Add to total on each turn: total += i\n\nSample Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-089",
+          "type": "paragraph",
+          "content": "Practice: Product of Numbers (Factorial)\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-091",
+          "type": "paragraph",
+          "content": "The product of all numbers from  up to  is called a Factorial ():\n\nWrite a program that:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-093",
+          "type": "paragraph",
+          "content": "Takes a positive integer: n = int(input(\"Enter positive integer: \")).\n\nStarts an accumulator named product = 1 (start at 1, because multiplying by 0 gives 0!).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-095",
+          "type": "paragraph",
+          "content": "Loops through range(1, n + 1) and multiplies: product *= i.\n\nPrints product after the loop.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-097",
+          "type": "paragraph",
+          "content": "Example:\n\nUsing if Statement Inside a Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-099",
+          "type": "paragraph",
+          "content": "What if you want to examine numbers in a loop and only print the ones that meet a special condition?\n\nYou can place an if statement directly inside your for loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-101",
+          "type": "paragraph",
+          "content": "Let's find all even numbers between  and :\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-103",
+          "type": "paragraph",
+          "content": "On odd numbers, num % 2 == 0 is False, so Python quietly skips the print()!\n\nQuiz: Filtering Inside Loops",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-105",
+          "type": "paragraph",
+          "content": "What will be displayed by this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-107",
+          "type": "paragraph",
+          "content": "| A: 5 10 15 |\n| Incorrect, give it another shot! Remember the stop-before rule: range(1, 15) stops at 14, so 15 is never reached. |\n\n| B: 5 10 |\n| Correct Answer! 🎉 Only 5 and 10 are multiples of 5 within the range from 1 to 14! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-109",
+          "type": "paragraph",
+          "content": "| C: 0 5 10 |\n| Incorrect, give it another shot! range(1, 15) starts at 1, not 0. |\n\n| D: All numbers from 1 to 14 |\n| Incorrect, give it another shot! The if condition filters out all numbers that are not divisible by 5. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-111",
+          "type": "paragraph",
+          "content": "Practice: Multiples of 3 Hunter\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-113",
+          "type": "paragraph",
+          "content": "Write a program that prints all numbers divisible by 3 between 1 and n (inclusive):\n\nAsk the user for an integer: n = int(input(\"Enter maximum number: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-115",
+          "type": "paragraph",
+          "content": "Use a for loop through range(1, n + 1).\n\nInside the loop, check if num % 3 == 0.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-117",
+          "type": "paragraph",
+          "content": "If True, print num.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-119",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Sports Training Lap Qualifier\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-121",
+          "type": "paragraph",
+          "content": "A track-and-field junior athlete runs 5 practice laps. Their coach timed each lap in seconds:\n\nThe coach wants to find all laps that were faster than 60 seconds (time < 60) to award speed badges:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-123",
+          "type": "paragraph",
+          "content": "Every time a lap qualifies, print: Qualified Lap: [time]s\n\nAfter checking all laps, print: Lap review completed!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-125",
+          "type": "paragraph",
+          "content": "Your Task:\n\nCreate the list: lap_times = [58, 62, 54, 65, 59].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-127",
+          "type": "paragraph",
+          "content": "Loop through lap_times using a for loop.\n\nCheck if lap < 60 with an if statement, and print the qualified lap.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-3-python-while-loop-block-129",
+          "type": "paragraph",
+          "content": "Outside the loop, print the completion message.\n\nExample:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-4-loop-controls-break-and-continue",
+      "number": "3.4",
+      "title": "Loop Controls (break and continue)",
+      "summary": "3.4 Loop Controls (break and continue)",
+      "status": "available",
+      "estimatedMinutes": 20,
+      "blocks": [
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-001",
+          "type": "paragraph",
+          "content": "3.4 Loop Controls (break and continue)\n\nIntroduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-003",
+          "type": "paragraph",
+          "content": "Usually, a loop runs until its condition becomes False or until it reaches the end of a list.\n\nBut in real-world programs, unexpected things happen:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-005",
+          "type": "paragraph",
+          "content": "What if a game character loses all lives? You want to stop the game loop immediately, without waiting for the timer to run out!\n\nWhat if an inspection robot spots a cracked egg on a conveyor belt? You want to skip packing that one egg and jump straight to the next one!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-007",
+          "type": "paragraph",
+          "content": "To take precise control of your loops, Python provides two special steering wheels:\n\nbreak: The Emergency Brake (stops and exits the loop immediately).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-009",
+          "type": "paragraph",
+          "content": "continue: The Skip Button (skips the rest of the current turn and jumps to the next turn).\n\nClick Next Lesson to learn about break!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-011",
+          "type": "paragraph",
+          "content": "The break Statement\n\nThe break statement immediately stops a loop in its tracks. As soon as Python hits break, it abandons the loop completely and jumps down to the code outside the loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-013",
+          "type": "paragraph",
+          "content": "Output\n\nNotice What Happened:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-015",
+          "type": "paragraph",
+          "content": "Even though range(1, 10) was ready to count all the way to 9, as soon as number reached 4, break ran, and the loop stopped instantly!\n\nBreak with if...else Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-017",
+          "type": "paragraph",
+          "content": "In real code, break is almost always placed inside an if statement to look for a specific trigger condition.\n\nLet’s search for a target item in an inventory:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-019",
+          "type": "paragraph",
+          "content": "Output\n\nOnce the key was found, there was no need to check \"Torch\" or \"Rope\"—the loop exited right away!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-021",
+          "type": "paragraph",
+          "content": "Quiz: Evaluating break\n\nHow many times will print(\"Scanning...\") run in this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-023",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: 8 times |\n| Incorrect, give it another shot! break stops the loop early when i == 3. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-025",
+          "type": "paragraph",
+          "content": "| B: 7 times |\n| Incorrect, give it another shot! range(1, 8) would run 7 times normally, but the break cuts it short. |\n\n| C: 3 times |\n| Correct Answer! 🎉 It prints for i = 1, i = 2, and i = 3. Right after printing on turn 3, the if i == 3 trigger fires the break! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-027",
+          "type": "paragraph",
+          "content": "| D: 2 times |\n| Incorrect, give it another shot! Notice that the print() statement comes before the if check. |\n\nPractice: Stop at Multiples of 5",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-029",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program that prints numbers from 1 to 20, but stops the moment it reaches a number divisible by 5:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-031",
+          "type": "paragraph",
+          "content": "Loop through range(1, 21).\n\nPrint the current number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-033",
+          "type": "paragraph",
+          "content": "If the number is divisible by 5 (num % 5 == 0), exit the loop using break.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-035",
+          "type": "paragraph",
+          "content": "Example: The while True + break Pattern\n\nProfessional developers often create loops using while True: (an intentional infinite loop) and use break to exit when the user types a quit command:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-037",
+          "type": "paragraph",
+          "content": "Sample Output\n\nThis pattern is much cleaner than writing complicated while conditions!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-039",
+          "type": "paragraph",
+          "content": "The continue Statement\n\nWhile break completely quits the loop, continue simply skips the rest of the current turn and jumps straight to the next one!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-041",
+          "type": "paragraph",
+          "content": "Think of it like a music player hitting the \"Next Track\" button:\n\nbreak = Pressing STOP (music shuts off completely).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-043",
+          "type": "paragraph",
+          "content": "continue = Pressing SKIP (skips only this song and plays the next).\n\nFigure: continue triggered ---> Skip remaining lines below ---> Jump to next turn of loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-045",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see continue in action!\n\nExample: The continue Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-047",
+          "type": "paragraph",
+          "content": "Let’s print numbers from 1 to 5, but skip the unlucky number 3:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-049",
+          "type": "paragraph",
+          "content": "What Happened to 3?\n\nWhen num was 3, continue ran. Python immediately skipped print(num) and leaped right to num = 4!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-051",
+          "type": "paragraph",
+          "content": "Quiz: Predicting continue Output\n\nWhat will be displayed by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-053",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: P Y T H O N on separate lines |\n| Incorrect, give it another shot! When letter == \"H\", continue skips the print() statement for that letter. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-055",
+          "type": "paragraph",
+          "content": "| B: P Y T on separate lines |\n| Incorrect, give it another shot! continue does not stop the loop like break—it keeps going with \"O\" and \"N\". |\n\n| C: P Y T O N on separate lines |\n| Correct Answer! 🎉 Only \"H\" is skipped! The loop continues running and finishes printing \"O\" and \"N\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-057",
+          "type": "paragraph",
+          "content": "| D: An error occurs. |\n| Incorrect, give it another shot! continue is standard, valid Python inside any loop. |\n\nPractice: Skip Multiples of 3",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-059",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program that loops through numbers from 1 to 10:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-061",
+          "type": "paragraph",
+          "content": "Use a for loop with range(1, 11).\n\nIf a number is divisible by 3 (num % 3 == 0), skip it using continue.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-063",
+          "type": "paragraph",
+          "content": "Otherwise, print the number.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-065",
+          "type": "paragraph",
+          "content": "Example: Combining break and continue\n\nReal-world algorithms frequently use both tools together!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-067",
+          "type": "paragraph",
+          "content": "Suppose an automated fruit sorter processes weights in grams:\n\nIf a fruit weight is negative (invalid sensor error), skip it using continue.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-069",
+          "type": "paragraph",
+          "content": "If a weight of 0 is seen (the conveyor belt has stopped), end the loop using break.\n\nOtherwise, add the weight to our total shipment:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-071",
+          "type": "paragraph",
+          "content": "Output\n\n(Calculates: . Skipped , stopped at , ignored  and ).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-073",
+          "type": "paragraph",
+          "content": "Quiz: break and continue Combo\n\nLook at this code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-075",
+          "type": "paragraph",
+          "content": "What numbers will be printed?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-077",
+          "type": "paragraph",
+          "content": "| A: 2 4 6 8 |\n| Incorrect, give it another shot! Notice that x == 0 triggers a break, which prevents 8 from ever being processed. |\n\n| B: 2 4 6 |\n| Correct Answer! 🎉 2 and 4 print. 7 is odd, so continue skips it. 6 prints. 0 triggers break, stopping the loop immediately! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-079",
+          "type": "paragraph",
+          "content": "| C: 2 4 7 6 |\n| Incorrect, give it another shot! 7 % 2 != 0 is True, so continue skips 7. |\n\n| D: 2 4 6 0 |\n| Incorrect, give it another shot! 0 causes a break before reaching the print(x) statement. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-081",
+          "type": "paragraph",
+          "content": "Practice: Filter Positive Scores\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-083",
+          "type": "paragraph",
+          "content": "You are scoring an archery tournament:\n\nscores = [10, 8, -1, 9, 0, 10, 7]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-085",
+          "type": "paragraph",
+          "content": "Initialize total = 0.\n\nLoop through scores:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-087",
+          "type": "paragraph",
+          "content": "If a score is negative (score < 0), skip it using continue.\n\nIf a score is 0, stop the tournament using break.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-089",
+          "type": "paragraph",
+          "content": "Otherwise, add the score to total.\n\nPrint: Tournament Score: followed by total.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-091",
+          "type": "paragraph",
+          "content": "Example:\n\n(Calculates: )",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-093",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Space Cargo Oxygen Cannister QC\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-095",
+          "type": "paragraph",
+          "content": "A space station quality inspector checks oxygen cannisters:\n\nEmpty Cannister (level == 0): Defective! Skip it with continue and report: Skipping empty cannister.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-097",
+          "type": "paragraph",
+          "content": "Emergency Halt Signal (level == -999): Contamination alert! Halt testing immediately with break and report: CONTAMINATION DETECTED! HALTING INSPECTION.\n\nGood Cannisters: Report: Approved: [level]%",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-099",
+          "type": "paragraph",
+          "content": "Your Task\n\nWrite the loop to process the cannisters list and match the expected output.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue-block-101",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-3-5-nested-loops",
+      "number": "3.5",
+      "title": "Nested Loops",
+      "summary": "What happens when you put a loop inside another loop? You get a Nested Loop!",
+      "status": "available",
+      "estimatedMinutes": 17,
+      "blocks": [
+        {
+          "id": "lesson-3-5-nested-loops-block-001",
+          "type": "paragraph",
+          "content": "3.5 Nested Loops",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-002",
+          "type": "paragraph",
+          "content": "Introduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-003",
+          "type": "paragraph",
+          "content": "What happens when you put a loop inside another loop? You get a Nested Loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-004",
+          "type": "paragraph",
+          "content": "Think of real-life examples where one cycle contains another smaller cycle:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-005",
+          "type": "paragraph",
+          "content": "A Clock: For every 1 hour that passes (outer loop), the minute hand must cycle through 60 minutes (inner loop).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-006",
+          "type": "paragraph",
+          "content": "A Calendar: For each month (outer loop), you live through all 30 days (inner loop).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-007",
+          "type": "paragraph",
+          "content": "Sports Practice: Your coach tells you to do 3 sets (outer loop) of 5 jumping jacks (inner loop).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-008",
+          "type": "paragraph",
+          "content": "In Python:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-009",
+          "type": "paragraph",
+          "content": "The Outer Loop controls how many big rounds you do.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-010",
+          "type": "paragraph",
+          "content": "The Inner Loop runs completely from start to finish on every single turn of the outer loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-011",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how Python runs a nested loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-012",
+          "type": "paragraph",
+          "content": "Example: The Nested Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-013",
+          "type": "paragraph",
+          "content": "Let’s watch a workout coach program with 2 sets of 3 pushups:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-014",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-015",
+          "type": "paragraph",
+          "content": "The Golden Math Rule of Nested Loops:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-016",
+          "type": "paragraph",
+          "content": "Here,  completed!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-017",
+          "type": "paragraph",
+          "content": "Quiz: Total Iterations",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-018",
+          "type": "paragraph",
+          "content": "How many times in total will print(\"Sparkle ✨\") execute in this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-019",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-020",
+          "type": "paragraph",
+          "content": "| A: 7 times |\n| Incorrect, give it another shot! Don't add the numbers (). Remember that the inner loop runs completely for every turn of the outer loop! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-021",
+          "type": "paragraph",
+          "content": "| B: 12 times |\n| Correct Answer! 🎉 The outer loop runs 3 times, and for each of those 3 times, the inner loop runs 4 times:  total times! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-022",
+          "type": "paragraph",
+          "content": "| C: 4 times |\n| Incorrect, give it another shot! The inner loop runs 4 times per outer turn, not just once. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-023",
+          "type": "paragraph",
+          "content": "| D: 3 times |\n| Incorrect, give it another shot! 3 is only the number of outer loop turns. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-024",
+          "type": "paragraph",
+          "content": "Quiz: Variable Values in Nested Loops",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-025",
+          "type": "paragraph",
+          "content": "Look at this nested loop:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-026",
+          "type": "paragraph",
+          "content": "What will be the exact output?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-027",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-028",
+          "type": "paragraph",
+          "content": "| A: 1A 2B |\n| Incorrect, give it another shot! For row = 1, the inner loop must finish both \"A\" and \"B\" before row can become 2. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-029",
+          "type": "paragraph",
+          "content": "| B: 1A 1B 2A 2B on separate lines |\n| Correct Answer! 🎉 When row is 1, col runs through \"A\" and \"B\" (1A, 1B). Then row becomes 2, and col runs through \"A\" and \"B\" again (2A, 2B)! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-030",
+          "type": "paragraph",
+          "content": "| C: 12 AB on separate lines |\n| Incorrect, give it another shot! The print statement combines the current row and col together. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-031",
+          "type": "paragraph",
+          "content": "| D: An IndentationError occurs. |\n| Incorrect, give it another shot! The double indentation for the inner loop is formatted properly. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-032",
+          "type": "paragraph",
+          "content": "Practice: Treasure Map Coordinates",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-033",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-034",
+          "type": "paragraph",
+          "content": "A video game map has a grid with 2 rows and 3 columns. Write a program using nested for loops to display every tile coordinate on the map:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-035",
+          "type": "paragraph",
+          "content": "Outer loop: for row in range(1, 3): (Rows 1 and 2).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-036",
+          "type": "paragraph",
+          "content": "Inner loop: for col in range(1, 4): (Columns 1, 2, and 3).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-037",
+          "type": "paragraph",
+          "content": "Inside the inner loop, print: Tile: (row, col).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-038",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-039",
+          "type": "paragraph",
+          "content": "Practice: Mini Multiplication Matrix",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-040",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-041",
+          "type": "paragraph",
+          "content": "Write a program using nested loops to generate a mini multiplication table for numbers 1 and 2 multiplied by 1, 2, and 3:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-042",
+          "type": "paragraph",
+          "content": "Outer loop iterates a from 1 to 2: range(1, 3)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-043",
+          "type": "paragraph",
+          "content": "Inner loop iterates b from 1 to 3: range(1, 4)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-044",
+          "type": "paragraph",
+          "content": "Print: [a] * [b] = [a * b]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-045",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-046",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Space Station Solar Wing Inspection",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-047",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-048",
+          "type": "paragraph",
+          "content": "An automated maintenance drone is inspecting the solar wings of an international space station:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-049",
+          "type": "paragraph",
+          "content": "The station has 2 wings: [\"Wing-A\", \"Wing-B\"].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-050",
+          "type": "paragraph",
+          "content": "Each wing contains 3 sensor panels: [\"Panel-1\", \"Panel-2\", \"Panel-3\"].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-051",
+          "type": "paragraph",
+          "content": "For every panel on each wing, the drone scans the unit and prints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-052",
+          "type": "paragraph",
+          "content": "Inspecting [wing] -> [panel]: Operational ✅",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-053",
+          "type": "paragraph",
+          "content": "When all panels on all wings have been scanned, print:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-054",
+          "type": "paragraph",
+          "content": "Full Station Solar Diagnostic: 100% Complete!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-055",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-056",
+          "type": "paragraph",
+          "content": "Create the two lists: wings = [\"Wing-A\", \"Wing-B\"] and panels = [\"Panel-1\", \"Panel-2\", \"Panel-3\"].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-057",
+          "type": "paragraph",
+          "content": "Write a nested for loop:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-058",
+          "type": "paragraph",
+          "content": "Outer loop: for wing in wings:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-059",
+          "type": "paragraph",
+          "content": "Inner loop: for panel in panels:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-060",
+          "type": "paragraph",
+          "content": "Print the inspection line using an f-string.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-061",
+          "type": "paragraph",
+          "content": "Print the final diagnostic line outside both loops.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-062",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-063",
+          "type": "paragraph",
+          "content": "Module 3 Wrap-Up & Milestone Unlocked! 🏆",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-064",
+          "type": "paragraph",
+          "content": "🎉 MASSIVE CONGRATULATIONS! 🎉",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-065",
+          "type": "paragraph",
+          "content": "You have officially conquered Module 3: Repetition & Sequences!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-066",
+          "type": "paragraph",
+          "content": "When you started, your code could only run in a straight line or make single choices. Now, you have unlocked the power of automation—making your computer repeat tasks thousands of times without breaking a sweat!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-067",
+          "type": "paragraph",
+          "content": "Recap",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-068",
+          "type": "paragraph",
+          "content": "Your Module 3 Superpowers Recap:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-069",
+          "type": "paragraph",
+          "content": "The range() Machine: Instantly generates number sequences forward, with custom steps, or counting backwards (range(start, stop, step)).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-070",
+          "type": "paragraph",
+          "content": "The while Loop: Keeps running as long as a condition is True—perfect for games, battery chargers, and countdowns.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-071",
+          "type": "paragraph",
+          "content": "The Sentinel Loop: Keeps asking for user input until they decide to stop (like typing 0 or \"quit\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-072",
+          "type": "paragraph",
+          "content": "The for Loop: Glides effortlessly through text strings, lists, and number sequences.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-073",
+          "type": "paragraph",
+          "content": "The Accumulator Pattern: Collects totals, sums natural numbers, and computes factorials (total += item).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-074",
+          "type": "paragraph",
+          "content": "Loop Controls:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-075",
+          "type": "paragraph",
+          "content": "break: The emergency brake that stops a loop instantly.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-076",
+          "type": "paragraph",
+          "content": "continue: The skip button that hops past bad data to the next turn.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-077",
+          "type": "paragraph",
+          "content": "Nested Loops: Puts loops inside loops to scan grids, coordinates, and multi-round workout sets.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-078",
+          "type": "paragraph",
+          "content": "Up Next: Module 4 — Storing & Organizing Collections 🎒",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-079",
+          "type": "paragraph",
+          "content": "Until now, each of our variables held just one value at a time (like score = 100 or name = \"Aria\"). But what if you’re building a video game and need to store:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-080",
+          "type": "paragraph",
+          "content": "An inventory of 50 potions, swords, and shields?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-081",
+          "type": "paragraph",
+          "content": "A leaderboard of top 100 player scores?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-082",
+          "type": "paragraph",
+          "content": "A player profile matching usernames to secret passcodes?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-083",
+          "type": "paragraph",
+          "content": "In Module 4: Storing & Organizing Collections, you’ll learn Python's ultimate storage tools:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-084",
+          "type": "paragraph",
+          "content": "Lists ([ ]): Ordered, flexible backpacks where you can add, remove, and sort items.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-085",
+          "type": "paragraph",
+          "content": "Tuples (( )): Locked treasure chests for coordinates and permanent data that never changes.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-086",
+          "type": "paragraph",
+          "content": "Dictionaries ({ }): Super-fast lookup phonebooks that link keys to values (like {\"Hero\": \"SuperNova\", \"Health\": 100}).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-3-5-nested-loops-block-087",
+          "type": "paragraph",
+          "content": "Click Start Module 4 to step into Storing & Organizing Collections!",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

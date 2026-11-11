@@ -1,0 +1,3086 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "python-basics-practice",
+  "slug": "python-basics-practice",
+  "title": "Python Basics Practice",
+  "description": "A beginner Python programming practice course with one programming question per lesson.",
+  "locale": "en",
+  "status": "published",
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "Y Coders"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 456,
+    "tags": [
+      "python",
+      "practice",
+      "beginner",
+      "programming"
+    ],
+    "updatedAt": "2026-11-11T00:00:00.000Z"
+  },
+  "navigation": {
+    "defaultLessonId": "question-1",
+    "sequence": "module-order",
+    "skipLockedLessons": false,
+    "labels": {
+      "previous": "Previous Question",
+      "next": "Next Question",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-2",
+      "title": "Introduction to Python",
+      "initiallyExpanded": true,
+      "lessons": [
+        {
+          "id": "question-1",
+          "number": "2.1",
+          "title": "Community Garden Harvest Distribution",
+          "summary": "A community urban farm distributes its weekly harvest of organic tomatoes among registered volunteer families after setting aside a fraction for the community kitchen. Write a program to calculate the exact weight of tomatoes each volunteer",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-1-block-001",
+              "type": "paragraph",
+              "content": "Question 1 · Page 2.1\n\nCommunity Garden Harvest Distribution",
+              "format": "plain"
+            },
+            {
+              "id": "question-1-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA community urban farm distributes its weekly harvest of organic tomatoes among registered volunteer families after setting aside a fraction for the community kitchen. Write a program to calculate the exact weight of tomatoes each volunteer family receives.",
+              "format": "plain"
+            },
+            {
+              "id": "question-1-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Accept an integer input representing the total number of volunteer families and assign it to total_volunteers.\n2. Accept an integer input representing the total harvested weight in kilograms and assign it to harvest_weight.\n3. Calculate the reserve quantity for the community kitchen, which is 10% of harvest_weight.\n4. Deduct the reserve quantity from harvest_weight to determine the distributable harvest.\n5. Divide the distributable harvest equally among the total volunteer families and display the result.",
+              "format": "plain"
+            },
+            {
+              "id": "question-1-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: An integer representing total_volunteers\nSecond line: An integer representing harvest_weight",
+              "format": "plain"
+            },
+            {
+              "id": "question-1-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single floating-point number representing each volunteer family's share in kilograms.\n22.5",
+              "format": "plain"
+            },
+            {
+              "id": "question-1-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n4\n100",
+              "format": "plain"
+            },
+            {
+              "id": "question-1-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntotal_volunteers > 0\nharvest_weight >= 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-2",
+          "number": "2.2",
+          "title": "Hydraulic Reservoir Fluid Variance",
+          "summary": "An automated municipal water station compares the target fluid volume against the actual measured fluid volume in a storage tank at the end of a pumping cycle. Write a program to determine the volume variance, where a negative variance sign",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-2-block-001",
+              "type": "paragraph",
+              "content": "Question 2 · Page 2.2\n\nHydraulic Reservoir Fluid Variance",
+              "format": "plain"
+            },
+            {
+              "id": "question-2-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAn automated municipal water station compares the target fluid volume against the actual measured fluid volume in a storage tank at the end of a pumping cycle. Write a program to determine the volume variance, where a negative variance signifies a fluid shortfall below the targeted capacity.",
+              "format": "plain"
+            },
+            {
+              "id": "question-2-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Accept two integer inputs: target_volume followed by actual_volume.\n2. Compute the volume variance by evaluating: actual_volume - target_volume.\n3. Display the resulting variance as a signed integer.",
+              "format": "plain"
+            },
+            {
+              "id": "question-2-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: An integer representing target_volume (liters)\nSecond line: An integer representing actual_volume (liters)",
+              "format": "plain"
+            },
+            {
+              "id": "question-2-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single signed integer representing the variance. A negative output indicates that the actual volume fell below the target.\n-3000",
+              "format": "plain"
+            },
+            {
+              "id": "question-2-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n25000\n22000",
+              "format": "plain"
+            },
+            {
+              "id": "question-2-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntarget_volume >= 0\nactual_volume >= 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-3",
+          "number": "2.3",
+          "title": "Laboratory Chemical Mass Conversion",
+          "summary": "A pharmaceutical compounding laboratory receives bulk raw active ingredients measured in kilograms and requires automated preparation logs to reflect the exact mass in grams. Write a program to convert the measured mass from kilograms to gr",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-3-block-001",
+              "type": "paragraph",
+              "content": "Question 3 · Page 2.3\n\nLaboratory Chemical Mass Conversion",
+              "format": "plain"
+            },
+            {
+              "id": "question-3-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA pharmaceutical compounding laboratory receives bulk raw active ingredients measured in kilograms and requires automated preparation logs to reflect the exact mass in grams. Write a program to convert the measured mass from kilograms to grams.",
+              "format": "plain"
+            },
+            {
+              "id": "question-3-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Accept an integer input representing the raw material mass in kilograms and store it in mass_kg.\n2. Convert the mass into grams by multiplying mass_kg by 1000.\n3. Display the computed mass in grams as an integer.",
+              "format": "plain"
+            },
+            {
+              "id": "question-3-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing mass_kg.",
+              "format": "plain"
+            },
+            {
+              "id": "question-3-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the equivalent mass in grams.\n7000",
+              "format": "plain"
+            },
+            {
+              "id": "question-3-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n7",
+              "format": "plain"
+            },
+            {
+              "id": "question-3-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nmass_kg >= 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-4",
+          "number": "2.4",
+          "title": "Data Center Network Bandwidth Monitor",
+          "summary": "A cloud computing data center monitors high-speed telemetry links to calculate the average network transfer throughput between two regional server clusters over a sustained backup interval. Write a program to compute the data transfer speed",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-4-block-001",
+              "type": "paragraph",
+              "content": "Question 4 · Page 2.4\n\nData Center Network Bandwidth Monitor",
+              "format": "plain"
+            },
+            {
+              "id": "question-4-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA cloud computing data center monitors high-speed telemetry links to calculate the average network transfer throughput between two regional server clusters over a sustained backup interval. Write a program to compute the data transfer speed in gigabits per second (Gbps) based on the total data transmitted and the elapsed duration in seconds.",
+              "format": "plain"
+            },
+            {
+              "id": "question-4-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Accept a floating-point input representing the total transmitted data volume in gigabits and store it in total_data_gb.\n2. Accept a floating-point input representing the total transmission duration in seconds and store it in duration_seconds.\n3. Compute the throughput speed using the formula:\nTransfer Speed = total_data_gb / duration_seconds\n4. Output the resulting transfer speed as a floating-point number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-4-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A float representing total_data_gb\nSecond line: A float representing duration_seconds",
+              "format": "plain"
+            },
+            {
+              "id": "question-4-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single floating-point number representing the transfer speed in gigabits per second (Gbps).\n50.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-4-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n150.0\n3.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-4-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntotal_data_gb >= 0.0\nduration_seconds > 0.0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-5",
+          "number": "2.5",
+          "title": "Microbial Culture Population Expansion",
+          "summary": "A biotechnology research laboratory tracks the compounding growth of a bacterial culture in an incubator. Given an initial base cell count, an hourly percentage growth factor, and the total observation period in hours, write a program to ca",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-5-block-001",
+              "type": "paragraph",
+              "content": "Question 5 · Page 2.5\n\nMicrobial Culture Population Expansion",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA biotechnology research laboratory tracks the compounding growth of a bacterial culture in an incubator. Given an initial base cell count, an hourly percentage growth factor, and the total observation period in hours, write a program to calculate the net cell increase and the final total population count.",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nFinal Population = initial_cells * (1 + growth_percentage / 100) ** observation_hours\nNet Growth = Final Population - initial_cells",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Accept three floating-point inputs: initial_cells, growth_percentage, and observation_hours.\n2. Calculate the final total population using the compounding growth formula.\n3. Calculate the net cell growth by subtracting initial_cells from the final population.\n4. Display the net growth and the final population on separate lines as floating-point numbers.",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A float representing initial_cells\nSecond line: A float representing growth_percentage\nThird line: A float representing observation_hours",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFirst line: A float representing net cell growth\nSecond line: A float representing the final total cell count\n1050.0\n6050.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n5000.0\n10.0\n2.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-5-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\ninitial_cells >= 0.0\ngrowth_percentage >= 0.0\nobservation_hours >= 0.0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-6",
+          "number": "2.6",
+          "title": "School Solar Panel Surface Area",
+          "summary": "The science club at school is setting up a rectangular solar panel on the roof to power their weather station. To find out how much sunlight it can catch, they need to know its surface area. Write a program to calculate the area of the sola",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-6-block-001",
+              "type": "paragraph",
+              "content": "Question 6 · Page 2.6\n\nSchool Solar Panel Surface Area",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nThe science club at school is setting up a rectangular solar panel on the roof to power their weather station. To find out how much sunlight it can catch, they need to know its surface area. Write a program to calculate the area of the solar panel.",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nArea = length * width",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a float input for the length of the solar panel in meters and store it in panel_length.\n2. Take a float input for the width of the solar panel in meters and store it in panel_width.\n3. Calculate the area by multiplying panel_length by panel_width.\n4. Display the calculated area as a float.",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A float representing panel_length (in meters)\nSecond line: A float representing panel_width (in meters)",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single float representing the total area in square meters.\n26.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n6.5\n4.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-6-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\npanel_length > 0.0\npanel_width > 0.0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-7",
+          "number": "2.7",
+          "title": "Track Team Sprint Trial Average",
+          "summary": "During sports day trials, a school track coach records the finish times for a runner across three separate 100-meter sprint attempts. Write a program to calculate the runner's average sprint time in seconds.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-7-block-001",
+              "type": "paragraph",
+              "content": "Question 7 · Page 2.7\n\nTrack Team Sprint Trial Average",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring sports day trials, a school track coach records the finish times for a runner across three separate 100-meter sprint attempts. Write a program to calculate the runner's average sprint time in seconds.",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nAverage Time = (trial_1 + trial_2 + trial_3) / 3",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take three float inputs representing sprint times in seconds: trial_1, trial_2, and trial_3.\n2. Calculate the average sprint time by adding all three times together and dividing the sum by 3.\n3. Display the calculated average time as a float.",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A float representing trial_1\nSecond line: A float representing trial_2\nThird line: A float representing trial_3",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single float representing the average sprint time in seconds.\n82.5",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n85.0\n72.5\n90.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-7-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\ntrial_1 > 0.0\ntrial_2 > 0.0\ntrial_3 > 0.0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-8",
+          "number": "2.8",
+          "title": "Robotics Club Gear Pack Distribution",
+          "summary": "A school robotics club receives a large tub of precision gears to build gearboxes for an upcoming STEM challenge. The club mentor wants to distribute the gears equally among all participating student teams and keep the leftover gears in a s",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-8-block-001",
+              "type": "paragraph",
+              "content": "Question 8 · Page 2.8\n\nRobotics Club Gear Pack Distribution",
+              "format": "plain"
+            },
+            {
+              "id": "question-8-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA school robotics club receives a large tub of precision gears to build gearboxes for an upcoming STEM challenge. The club mentor wants to distribute the gears equally among all participating student teams and keep the leftover gears in a spare parts bin. Write a program to calculate how many gears each team receives and how many gears are left over.",
+              "format": "plain"
+            },
+            {
+              "id": "question-8-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the total number of gears available and store it in total_gears.\n2. Take an integer input for the number of student teams and store it in total_teams.\n3. Calculate the number of whole gears each team receives using integer division (//).\n4. Calculate the number of remaining leftover gears using the modulus operator (%).\n5. Display the gears per team and the remaining gears on separate lines.",
+              "format": "plain"
+            },
+            {
+              "id": "question-8-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: An integer representing total_gears\nSecond line: An integer representing total_teams",
+              "format": "plain"
+            },
+            {
+              "id": "question-8-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFirst line: An integer representing the number of gears each team gets\nSecond line: An integer representing the number of leftover gears\n7\n3",
+              "format": "plain"
+            },
+            {
+              "id": "question-8-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n45\n6",
+              "format": "plain"
+            },
+            {
+              "id": "question-8-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntotal_gears >= 0\ntotal_teams > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-9",
+          "number": "2.9",
+          "title": "Esports Team Roster Slot Swap",
+          "summary": "In a school esports tournament, two teammates decide to trade their player badge handles before the match begins. To perform the swap safely in the registration system without losing any text, the program uses a temporary holding variable c",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-9-block-001",
+              "type": "paragraph",
+              "content": "Question 9 · Page 2.9\n\nEsports Team Roster Slot Swap",
+              "format": "plain"
+            },
+            {
+              "id": "question-9-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school esports tournament, two teammates decide to trade their player badge handles before the match begins. To perform the swap safely in the registration system without losing any text, the program uses a temporary holding variable called temp_badge. Write a program to swap the two player badge names.",
+              "format": "plain"
+            },
+            {
+              "id": "question-9-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take two string inputs from the user and store them in slot_one and slot_two.\n2. Swap the values stored in slot_one and slot_two using a third temporary variable named temp_badge.\n3. Display the updated value of slot_one on the first line.\n4. Display the updated value of slot_two on the second line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-9-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A string representing slot_one\nSecond line: A string representing slot_two",
+              "format": "plain"
+            },
+            {
+              "id": "question-9-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFirst line: The new string stored in slot_one (originally slot_two)\nSecond line: The new string stored in slot_two (originally slot_one)\nWorld\nHello",
+              "format": "plain"
+            },
+            {
+              "id": "question-9-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nHello\nWorld",
+              "format": "plain"
+            },
+            {
+              "id": "question-9-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nInput strings can contain alphanumeric characters and common symbols.\nThe swap must use the temporary variable temp_badge.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-3",
+      "title": "Decision Making and Loops",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-10",
+          "number": "3.1",
+          "title": "Submersible Research Drone Depth Sensor",
+          "summary": "A marine science club is testing an underwater exploration drone in a tidal lagoon. The drone's vertical sensor reports its position in meters relative to sea level. A reading of zero or higher means the drone is on or above the water surfa",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-10-block-001",
+              "type": "paragraph",
+              "content": "Question 10 · Page 3.1\n\nSubmersible Research Drone Depth Sensor",
+              "format": "plain"
+            },
+            {
+              "id": "question-10-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA marine science club is testing an underwater exploration drone in a tidal lagoon. The drone's vertical sensor reports its position in meters relative to sea level. A reading of zero or higher means the drone is on or above the water surface, while a reading below zero means it is submerged underwater. Write a program to check whether the drone is surfaced or submerged based on its depth reading.",
+              "format": "plain"
+            },
+            {
+              "id": "question-10-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input representing the position reading and store it in sensor_reading.\n2. If sensor_reading is greater than or equal to 0, print \"Surfaced\".\n3. Otherwise, print \"Submerged\".",
+              "format": "plain"
+            },
+            {
+              "id": "question-10-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing sensor_reading.",
+              "format": "plain"
+            },
+            {
+              "id": "question-10-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nPrint \"Surfaced\" if the reading is 0 or greater, otherwise print \"Submerged\".\nSubmerged",
+              "format": "plain"
+            },
+            {
+              "id": "question-10-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n-5",
+              "format": "plain"
+            },
+            {
+              "id": "question-10-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nsensor_reading is an integer.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-11",
+          "number": "3.2",
+          "title": "Electric Scooter Battery Gauge Validator",
+          "summary": "A smart electric scooter has a digital dashboard display that shows its battery charge level as a percentage. The dashboard computer needs to check if the battery sensor reading is valid and whether the scooter has enough charge for high-sp",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-11-block-001",
+              "type": "paragraph",
+              "content": "Question 11 · Page 3.2\n\nElectric Scooter Battery Gauge Validator",
+              "format": "plain"
+            },
+            {
+              "id": "question-11-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA smart electric scooter has a digital dashboard display that shows its battery charge level as a percentage. The dashboard computer needs to check if the battery sensor reading is valid and whether the scooter has enough charge for high-speed sport mode. Write a program to evaluate the battery charge reading.",
+              "format": "plain"
+            },
+            {
+              "id": "question-11-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input representing the battery percentage and store it in battery_level.\n2. If battery_level is less than 0 or greater than 120 (accounting for sensor calibration errors), print \"Invalid Reading\".\n3. If battery_level is greater than or equal to 18, print \"Ready to Ride\".\n4. Otherwise (when the reading is between 0 and 17), print \"Low Battery\".",
+              "format": "plain"
+            },
+            {
+              "id": "question-11-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing battery_level.",
+              "format": "plain"
+            },
+            {
+              "id": "question-11-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\n- Print \"Invalid Reading\" if battery_level is less than 0 or greater than 120.\n- Print \"Ready to Ride\" if battery_level is 18 or higher (and not greater than 120).\n- Print \"Low Battery\" otherwise.\nInvalid Reading",
+              "format": "plain"
+            },
+            {
+              "id": "question-11-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n150",
+              "format": "plain"
+            },
+            {
+              "id": "question-11-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nbattery_level is an integer.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-12",
+          "number": "3.3",
+          "title": "Arcade Prize Token Bundler",
+          "summary": "At a gaming arcade, prize tokens can only be redeemed for mystery gift boxes if they are collected in full bundles of 10 tokens. Any loose tokens that do not complete a pack of 10 cannot be redeemed for the box. Write a program to check whe",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-12-block-001",
+              "type": "paragraph",
+              "content": "Question 12 · Page 3.3\n\nArcade Prize Token Bundler",
+              "format": "plain"
+            },
+            {
+              "id": "question-12-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt a gaming arcade, prize tokens can only be redeemed for mystery gift boxes if they are collected in full bundles of 10 tokens. Any loose tokens that do not complete a pack of 10 cannot be redeemed for the box. Write a program to check whether a player's total token count can be formed into complete bundles of 10 with zero tokens left over.",
+              "format": "plain"
+            },
+            {
+              "id": "question-12-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the total number of tokens and store it in token_count.\n2. Check if token_count is evenly divisible by 10 using the modulus operator (token_count % 10 == 0).\n3. If it divides evenly by 10 with no remainder, print \"Complete Pack\".\n4. Otherwise, print \"Incomplete Pack\".",
+              "format": "plain"
+            },
+            {
+              "id": "question-12-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing token_count.",
+              "format": "plain"
+            },
+            {
+              "id": "question-12-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nPrint \"Complete Pack\" if token_count is a multiple of 10, otherwise print \"Incomplete Pack\".\nComplete Pack",
+              "format": "plain"
+            },
+            {
+              "id": "question-12-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n70",
+              "format": "plain"
+            },
+            {
+              "id": "question-12-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntoken_count >= 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-13",
+          "number": "3.4",
+          "title": "Space Club Solar System Planet Finder",
+          "summary": "In the school astronomy club, members use a computer catalog to identify planets based on their position from the Sun, starting with 1 for the closest planet. Write a program that takes a planet's order number from 1 to 7 and prints the nam",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-13-block-001",
+              "type": "paragraph",
+              "content": "Question 13 · Page 3.4\n\nSpace Club Solar System Planet Finder",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn the school astronomy club, members use a computer catalog to identify planets based on their position from the Sun, starting with 1 for the closest planet. Write a program that takes a planet's order number from 1 to 7 and prints the name of the planet.",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-003",
+              "type": "paragraph",
+              "content": "Rules\n\n1 -> Mercury\n2 -> Venus\n3 -> Earth\n4 -> Mars\n5 -> Jupiter\n6 -> Saturn\n7 -> Uranus",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input between 1 and 7 and store it in planet_code.\n2. If planet_code is 1, print \"Mercury\".\n3. If planet_code is 2, print \"Venus\".\n4. If planet_code is 3, print \"Earth\".\n5. If planet_code is 4, print \"Mars\".\n6. If planet_code is 5, print \"Jupiter\".\n7. If planet_code is 6, print \"Saturn\".\n8. If planet_code is 7, print \"Uranus\".",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing planet_code (from 1 to 7).",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nThe name of the planet corresponding to the entered number.\nVenus",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n2",
+              "format": "plain"
+            },
+            {
+              "id": "question-13-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\n1 <= planet_code <= 7",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-14",
+          "number": "3.5",
+          "title": "Senior Robotics League Entry Check",
+          "summary": "The national youth robotics championship hosts a special advanced division for autonomous rover design. To join this senior division, a student participant must be at least 18 years old on the day of registration. Write a program to check i",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-14-block-001",
+              "type": "paragraph",
+              "content": "Question 14 · Page 3.5\n\nSenior Robotics League Entry Check",
+              "format": "plain"
+            },
+            {
+              "id": "question-14-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nThe national youth robotics championship hosts a special advanced division for autonomous rover design. To join this senior division, a student participant must be at least 18 years old on the day of registration. Write a program to check if a student qualifies for the senior division based on their age.",
+              "format": "plain"
+            },
+            {
+              "id": "question-14-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the participant's age and store it in participant_age.\n2. If participant_age is greater than or equal to 18, print \"Qualified\".\n3. Otherwise, print \"Not Qualified\".",
+              "format": "plain"
+            },
+            {
+              "id": "question-14-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing participant_age.",
+              "format": "plain"
+            },
+            {
+              "id": "question-14-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nPrint \"Qualified\" if participant_age is 18 or older, otherwise print \"Not Qualified\".\nQualified",
+              "format": "plain"
+            },
+            {
+              "id": "question-14-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n20",
+              "format": "plain"
+            },
+            {
+              "id": "question-14-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nparticipant_age > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-15",
+          "number": "3.6",
+          "title": "School Eco-Festival Badge Awarder",
+          "summary": "During the annual school eco-festival, students earn activity points by completing green challenges. An automated kiosk awards a digital badge based on how many points a student submits. Write a program to check the student's points and pri",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-15-block-001",
+              "type": "paragraph",
+              "content": "Question 15 · Page 3.6\n\nSchool Eco-Festival Badge Awarder",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring the annual school eco-festival, students earn activity points by completing green challenges. An automated kiosk awards a digital badge based on how many points a student submits. Write a program to check the student's points and print the correct badge name.",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-003",
+              "type": "paragraph",
+              "content": "Rules\n\n1. If the score is divisible by both 7 and 10, print \"EarthHero\".\n2. If the score is divisible only by 7, print \"EcoStar\".\n3. If the score is divisible only by 10, print \"GreenShield\".\n4. If none of these rules apply, print the original score number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the total points and store it in reward_points.\n2. Check if reward_points is divisible by both 7 and 10 (reward_points % 7 == 0 and reward_points % 10 == 0). If true, print \"EarthHero\".\n3. Otherwise, check if reward_points is divisible by 7 (reward_points % 7 == 0). If true, print \"EcoStar\".\n4. Otherwise, check if reward_points is divisible by 10 (reward_points % 10 == 0). If true, print \"GreenShield\".\n5. If none of the conditions match, print the integer value of reward_points.",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing reward_points.",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA string badge name (\"EarthHero\", \"EcoStar\", or \"GreenShield\"), or the original integer if none apply.\nEarthHero",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n70",
+              "format": "plain"
+            },
+            {
+              "id": "question-15-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\nreward_points > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-16",
+          "number": "3.7",
+          "title": "Youth Coding Club Hardware Grant Waiver",
+          "summary": "A regional STEM education center provides project funding grants for student robotics teams. If a team submits a project proposal with a student leadership rating of 60 or higher out of 100, the center awards a special 10% fee waiver discou",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-16-block-001",
+              "type": "paragraph",
+              "content": "Question 16 · Page 3.7\n\nYouth Coding Club Hardware Grant Waiver",
+              "format": "plain"
+            },
+            {
+              "id": "question-16-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nA regional STEM education center provides project funding grants for student robotics teams. If a team submits a project proposal with a student leadership rating of 60 or higher out of 100, the center awards a special 10% fee waiver discount on the total hardware kit bill. If the rating is below 60, no fee waiver discount is given. Write a program to calculate the discount amount awarded to the team.",
+              "format": "plain"
+            },
+            {
+              "id": "question-16-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a float input for the hardware kit cost and store it in kit_cost.\n2. Take an integer input for the team's leadership score and store it in leadership_score.\n3. If leadership_score is greater than or equal to 60, calculate the discount amount as 10% of kit_cost (kit_cost * 0.10).\n4. Otherwise, set the discount amount to 0.0.\n5. Display the discount amount as a float.",
+              "format": "plain"
+            },
+            {
+              "id": "question-16-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A float representing kit_cost\nSecond line: An integer representing leadership_score",
+              "format": "plain"
+            },
+            {
+              "id": "question-16-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single float representing the discount amount.\n250.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-16-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n2500.0\n65",
+              "format": "plain"
+            },
+            {
+              "id": "question-16-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nkit_cost >= 0.0\nleadership_score >= 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-17",
+          "number": "3.8",
+          "title": "Drone Obstacle Course Fastest Lap",
+          "summary": "At the school STEM fair, three students pilot their mini-drones through a timed obstacle course. Each pilot's total run time is recorded in whole seconds. Write a program to find the fastest (smallest) completion time among the three pilots",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-17-block-001",
+              "type": "paragraph",
+              "content": "Question 17 · Page 3.8\n\nDrone Obstacle Course Fastest Lap",
+              "format": "plain"
+            },
+            {
+              "id": "question-17-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt the school STEM fair, three students pilot their mini-drones through a timed obstacle course. Each pilot's total run time is recorded in whole seconds. Write a program to find the fastest (smallest) completion time among the three pilots using an if...elif...else structure.",
+              "format": "plain"
+            },
+            {
+              "id": "question-17-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take three integer inputs representing the finish times in seconds and store them in time1, time2, and time3.\n2. Use an if...elif...else structure to compare the three times and identify the smallest time:\n- Check if time1 is less than or equal to both time2 and time3.\n- Otherwise, check if time2 is less than or equal to time3.\n- Otherwise, identify time3 as the smallest.\n3. Print the smallest time value as an integer.",
+              "format": "plain"
+            },
+            {
+              "id": "question-17-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: An integer representing time1\nSecond line: An integer representing time2\nThird line: An integer representing time3",
+              "format": "plain"
+            },
+            {
+              "id": "question-17-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the lowest completion time.\n18",
+              "format": "plain"
+            },
+            {
+              "id": "question-17-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n25\n18\n30",
+              "format": "plain"
+            },
+            {
+              "id": "question-17-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntime1 > 0\ntime2 > 0\ntime3 > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-18",
+          "number": "3.9",
+          "title": "School Sports Club Preference Check",
+          "summary": "During sports club sign-up week, students can vote for their favorite outdoor activity. The club system recognizes votes for either football or badminton in both capitalized and lowercase spellings. Write a program to check the entered spor",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-18-block-001",
+              "type": "paragraph",
+              "content": "Question 18 · Page 3.9\n\nSchool Sports Club Preference Check",
+              "format": "plain"
+            },
+            {
+              "id": "question-18-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring sports club sign-up week, students can vote for their favorite outdoor activity. The club system recognizes votes for either football or badminton in both capitalized and lowercase spellings. Write a program to check the entered sport name and display an encouraging message, or show nothing if any other sport is entered.",
+              "format": "plain"
+            },
+            {
+              "id": "question-18-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a string input from the user and store it in sport_choice.\n2. If sport_choice is \"Football\" or \"football\", print:\nI choose Football\n3. If sport_choice is \"Badminton\" or \"badminton\", print:\nI choose Badminton\n4. For any other input, do not print anything.",
+              "format": "plain"
+            },
+            {
+              "id": "question-18-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single line containing a string representing sport_choice.",
+              "format": "plain"
+            },
+            {
+              "id": "question-18-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line message if the sport matches one of the two choices, otherwise no output.\nI choose Football",
+              "format": "plain"
+            },
+            {
+              "id": "question-18-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nFootball",
+              "format": "plain"
+            },
+            {
+              "id": "question-18-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nsport_choice contains only alphabetic characters.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-19",
+          "number": "3.10",
+          "title": "Science Club Battery Pack Batch Calculator",
+          "summary": "The school electronics club prepares small robot kits. Each completed kit needs a specific number of rechargeable AA batteries. The club mentor wants to know how many total batteries are needed to pack 1, 2, 3, 4, and 5 complete kits. Write",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-19-block-001",
+              "type": "paragraph",
+              "content": "Question 19 · Page 3.10\n\nScience Club Battery Pack Batch Calculator",
+              "format": "plain"
+            },
+            {
+              "id": "question-19-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nThe school electronics club prepares small robot kits. Each completed kit needs a specific number of rechargeable AA batteries. The club mentor wants to know how many total batteries are needed to pack 1, 2, 3, 4, and 5 complete kits. Write a program to calculate and print the total battery count for 1 to 5 kits.",
+              "format": "plain"
+            },
+            {
+              "id": "question-19-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the number of batteries required per robot kit and store it in batteries_per_kit.\n2. Use a for loop that iterates through the numbers 1 to 5.\n3. In each step of the loop, multiply the current kit number (from 1 to 5) by batteries_per_kit.\n4. Print each calculated total on a separate line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-19-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing batteries_per_kit.",
+              "format": "plain"
+            },
+            {
+              "id": "question-19-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFive lines, each showing the total number of batteries needed for 1, 2, 3, 4, and 5 kits respectively.\n6\n12\n18\n24\n30",
+              "format": "plain"
+            },
+            {
+              "id": "question-19-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n6",
+              "format": "plain"
+            },
+            {
+              "id": "question-19-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nbatteries_per_kit > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-20",
+          "number": "3.11",
+          "title": "School Sports Day Two-Cone Drill Marker Counter",
+          "summary": "During physical education class, the coach sets up an obstacle agility course using numbered checkpoints. At each consecutive checkpoint, the coach places an increasing pair of colored boundary cones (2 cones at the 1st checkpoint, 4 at the",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-20-block-001",
+              "type": "paragraph",
+              "content": "Question 20 · Page 3.11\n\nSchool Sports Day Two-Cone Drill Marker Counter",
+              "format": "plain"
+            },
+            {
+              "id": "question-20-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring physical education class, the coach sets up an obstacle agility course using numbered checkpoints. At each consecutive checkpoint, the coach places an increasing pair of colored boundary cones (2 cones at the 1st checkpoint, 4 at the 2nd, 6 at the 3rd, and so on). Given the total number of checkpoints n, write a program using a for loop to calculate the total number of cones used across all n checkpoints.",
+              "format": "plain"
+            },
+            {
+              "id": "question-20-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input representing the total number of checkpoints and store it in n.\n2. Initialize an accumulator variable to keep track of the total cone count.\n3. Use a for loop to generate the first n positive even numbers (2, 4, 6, ..., 2*n) and add each number to the total count.\n4. Display the final total sum of cones as an integer.",
+              "format": "plain"
+            },
+            {
+              "id": "question-20-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing n.",
+              "format": "plain"
+            },
+            {
+              "id": "question-20-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the sum of the first n even numbers.\n30",
+              "format": "plain"
+            },
+            {
+              "id": "question-20-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n5",
+              "format": "plain"
+            },
+            {
+              "id": "question-20-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nn > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-21",
+          "number": "3.12",
+          "title": "School Track Relay Baton Distance Markers",
+          "summary": "During athletics training, a school track coach places 5 distance markers along a running lane. Each consecutive marker is placed at an interval equal to the base distance a student can sprint in one relay leg. Write a program using a for l",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-21-block-001",
+              "type": "paragraph",
+              "content": "Question 21 · Page 3.12\n\nSchool Track Relay Baton Distance Markers",
+              "format": "plain"
+            },
+            {
+              "id": "question-21-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring athletics training, a school track coach places 5 distance markers along a running lane. Each consecutive marker is placed at an interval equal to the base distance a student can sprint in one relay leg. Write a program using a for loop to calculate and display the position of all 5 markers in meters from the starting line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-21-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the distance of a single relay leg in meters and store it in leg_distance.\n2. Use a for loop that iterates through the numbers 1 to 5.\n3. In each step of the loop, calculate the marker distance by multiplying the current step number (1 to 5) by leg_distance.\n4. Print each marker distance on a separate line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-21-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing leg_distance.",
+              "format": "plain"
+            },
+            {
+              "id": "question-21-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFive lines, each showing the distance marker position for steps 1, 2, 3, 4, and 5 respectively.\n6\n12\n18\n24\n30",
+              "format": "plain"
+            },
+            {
+              "id": "question-21-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n6",
+              "format": "plain"
+            },
+            {
+              "id": "question-21-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nleg_distance > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-22",
+          "number": "3.13",
+          "title": "Cyber Club Secret Passcode Security Validator",
+          "summary": "In a school cybersecurity workshop, students design a digital safe that opens only with special \"unbreakable\" passcodes. An unbreakable passcode is a positive whole number greater than 1 that cannot be split evenly into equal groups by any ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-22-block-001",
+              "type": "paragraph",
+              "content": "Question 22 · Page 3.13\n\nCyber Club Secret Passcode Security Validator",
+              "format": "plain"
+            },
+            {
+              "id": "question-22-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school cybersecurity workshop, students design a digital safe that opens only with special \"unbreakable\" passcodes. An unbreakable passcode is a positive whole number greater than 1 that cannot be split evenly into equal groups by any number other than 1 and itself (a prime number). Write a program that uses a flag variable to determine whether an entered passcode number is unbreakable (prime) or breakable (not prime).",
+              "format": "plain"
+            },
+            {
+              "id": "question-22-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the passcode number and store it in passcode.\n2. Initialize an integer variable named flag to 0.\n3. Use a loop that starts at 2 and runs up to passcode - 1:\n- In each step, check if passcode divides evenly by the current loop number (using the modulus operator %).\n- If it divides evenly with a remainder of 0, change the value of flag to 1.\n4. After the loop finishes, check the value of flag:\n- If flag is equal to 1, print \"Breakable Code\".\n- Otherwise, print \"Unbreakable Code\".",
+              "format": "plain"
+            },
+            {
+              "id": "question-22-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing passcode (where passcode > 1).",
+              "format": "plain"
+            },
+            {
+              "id": "question-22-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nPrint \"Unbreakable Code\" if the number is prime, or \"Breakable Code\" if it is divisible by any number in the range.\nUnbreakable Code",
+              "format": "plain"
+            },
+            {
+              "id": "question-22-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n7",
+              "format": "plain"
+            },
+            {
+              "id": "question-22-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\npasscode > 1",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-23",
+          "number": "3.14",
+          "title": "Amusement Park Ticket Serial Code Length Checker",
+          "summary": "At a theme park, game booths scan serial code numbers printed on student ride tickets. The scanner computer needs to count how many digits are in the ticket code using repeated division so it can verify the ticket format. Write a program us",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-23-block-001",
+              "type": "paragraph",
+              "content": "Question 23 · Page 3.14\n\nAmusement Park Ticket Serial Code Length Checker",
+              "format": "plain"
+            },
+            {
+              "id": "question-23-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt a theme park, game booths scan serial code numbers printed on student ride tickets. The scanner computer needs to count how many digits are in the ticket code using repeated division so it can verify the ticket format. Write a program using a while loop to count and display the total number of digits in the serial code.",
+              "format": "plain"
+            },
+            {
+              "id": "question-23-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a positive integer input for the ticket code and store it in serial_code.\n2. Create an integer variable named digit_count and give it a starting value of 0.\n3. Use a while loop that keeps running as long as serial_code is not equal to 0.\n4. Inside the loop:\n- Divide serial_code by 10 using integer division (//) to remove its last digit in each step.\n- Increase digit_count by 1.\n5. After the loop stops, print the final value of digit_count.",
+              "format": "plain"
+            },
+            {
+              "id": "question-23-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single positive integer representing serial_code.",
+              "format": "plain"
+            },
+            {
+              "id": "question-23-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the total number of digits in the entered number.\n3",
+              "format": "plain"
+            },
+            {
+              "id": "question-23-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n556",
+              "format": "plain"
+            },
+            {
+              "id": "question-23-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nserial_code > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-24",
+          "number": "3.15",
+          "title": "Track and Field Yellow Hurdle Station Locator",
+          "summary": "During the school sports day obstacle course, numbered hurdles are arranged in a straight lane from station 1 to station n. Only the odd-numbered hurdles are painted bright yellow for a special jumping relay, while all even-numbered hurdles",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-24-block-001",
+              "type": "paragraph",
+              "content": "Question 24 · Page 3.15\n\nTrack and Field Yellow Hurdle Station Locator",
+              "format": "plain"
+            },
+            {
+              "id": "question-24-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring the school sports day obstacle course, numbered hurdles are arranged in a straight lane from station 1 to station n. Only the odd-numbered hurdles are painted bright yellow for a special jumping relay, while all even-numbered hurdles are skipped. Write a program using a loop to find and display all the yellow hurdle station numbers from 1 to n.",
+              "format": "plain"
+            },
+            {
+              "id": "question-24-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the total number of hurdle stations and store it in total_hurdles.\n2. Run a loop that goes through each station number from 1 to total_hurdles.\n3. Check if the current station number is even (divisible by 2). If it is even, skip it.\n4. Print each odd-numbered station on a new line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-24-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing total_hurdles.",
+              "format": "plain"
+            },
+            {
+              "id": "question-24-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA sequence of integers, each on a new line, showing all odd numbers from 1 up to total_hurdles.\n1\n3\n5\n7\n9",
+              "format": "plain"
+            },
+            {
+              "id": "question-24-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n10",
+              "format": "plain"
+            },
+            {
+              "id": "question-24-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ntotal_hurdles >= 1",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-25",
+          "number": "3.16",
+          "title": "School Reading Marathon Minute Logger",
+          "summary": "During the school reading challenge, students log the number of minutes they spend reading each book chapter. To finish entering their daily log and exit the recording system, they enter a negative number (such as -1) as a stop signal. Writ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-25-block-001",
+              "type": "paragraph",
+              "content": "Question 25 · Page 3.16\n\nSchool Reading Marathon Minute Logger",
+              "format": "plain"
+            },
+            {
+              "id": "question-25-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring the school reading challenge, students log the number of minutes they spend reading each book chapter. To finish entering their daily log and exit the recording system, they enter a negative number (such as -1) as a stop signal. Write a program using a while True loop to display all valid reading minute entries, stopping immediately without printing the negative exit number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-25-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Run a while loop that is always True (while True).\n2. Inside the loop, take an integer input and store it in reading_minutes.\n3. If reading_minutes is less than 0 (a negative number), stop and exit the loop immediately using a break statement.\n4. Otherwise, print the value of reading_minutes.\n5. Make sure the negative exit number is never printed.",
+              "format": "plain"
+            },
+            {
+              "id": "question-25-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA series of integers entered one per line, ending with a negative integer.",
+              "format": "plain"
+            },
+            {
+              "id": "question-25-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nEach valid non-negative integer printed on a separate line. The negative number must not appear in the output.\n10\n25\n7",
+              "format": "plain"
+            },
+            {
+              "id": "question-25-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n10\n25\n7\n-1",
+              "format": "plain"
+            },
+            {
+              "id": "question-25-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nValid reading entries are integers >= 0.\nThe loop stops on the first integer < 0.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-26",
+          "number": "3.17",
+          "title": "Sports Equipment Paired Item Scanner",
+          "summary": "During after-school sports cleanup, a student helper scans batches of training items (such as shuttlecocks, tennis balls, and wristbands) into the inventory system. The system only logs batches that can be split evenly into pairs (even numb",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-26-block-001",
+              "type": "paragraph",
+              "content": "Question 26 · Page 3.17\n\nSports Equipment Paired Item Scanner",
+              "format": "plain"
+            },
+            {
+              "id": "question-26-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring after-school sports cleanup, a student helper scans batches of training items (such as shuttlecocks, tennis balls, and wristbands) into the inventory system. The system only logs batches that can be split evenly into pairs (even numbers). If a student enters an odd quantity, the scanner skips it. When the helper enters 0, the scanning session ends completely. Write a program using a while True loop to print only the even batch counts until 0 is entered.",
+              "format": "plain"
+            },
+            {
+              "id": "question-26-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Run a loop that repeats indefinitely (while True).\n2. Take an integer input on each pass and store it in item_count.\n3. If item_count is equal to 0, stop and exit the loop immediately using a break statement.\n4. If item_count is odd (item_count % 2 != 0), skip the rest of the loop step using a continue statement.\n5. If item_count is even and not 0, print the value of item_count.",
+              "format": "plain"
+            },
+            {
+              "id": "question-26-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA series of integers entered one per line, ending with 0.",
+              "format": "plain"
+            },
+            {
+              "id": "question-26-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nOnly the even integers printed on separate lines. Odd numbers and the sentinel value 0 must not be printed.\n12\n8\n10",
+              "format": "plain"
+            },
+            {
+              "id": "question-26-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n12\n7\n8\n5\n10\n0",
+              "format": "plain"
+            },
+            {
+              "id": "question-26-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nInputs are non-negative integers.\nThe program terminates when item_count is 0.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-27",
+          "number": "3.18",
+          "title": "Botany Club Sunflower Spiral Counter",
+          "summary": "In an outdoor science club investigation, students study how sunflower seed spirals follow nature's famous growth pattern, starting with 0 and 1, where each new number is the sum of the previous two numbers (0, 1, 1, 2, 3, 5, 8, ...). Write",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-27-block-001",
+              "type": "paragraph",
+              "content": "Question 27 · Page 3.18\n\nBotany Club Sunflower Spiral Counter",
+              "format": "plain"
+            },
+            {
+              "id": "question-27-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an outdoor science club investigation, students study how sunflower seed spirals follow nature's famous growth pattern, starting with 0 and 1, where each new number is the sum of the previous two numbers (0, 1, 1, 2, 3, 5, 8, ...). Write a program using a loop to display the first n numbers of this spiral sequence.",
+              "format": "plain"
+            },
+            {
+              "id": "question-27-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take an integer input for the total number of terms to display and store it in n.\n2. Initialize two integer variables: term1 = 0 and term2 = 1.\n3. Use a loop that runs n times:\n- Print the current value of term1 on a new line.\n- Calculate the next term by adding term1 and term2.\n- Update term1 to hold the value of term2.\n- Update term2 to hold the newly calculated next term.",
+              "format": "plain"
+            },
+            {
+              "id": "question-27-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing n.",
+              "format": "plain"
+            },
+            {
+              "id": "question-27-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nThe first n numbers of the sequence, each printed on a separate line.\n0\n1\n1\n2\n3\n5",
+              "format": "plain"
+            },
+            {
+              "id": "question-27-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n6",
+              "format": "plain"
+            },
+            {
+              "id": "question-27-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nn >= 1\n4: Functions",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-4",
+      "title": "Functions",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-28",
+          "number": "4.1",
+          "title": "High Altitude Drone Pilot Certification Validator",
+          "summary": "At an aerial robotics training academy, students can apply to fly advanced high-altitude observation drones only if they meet the required minimum flight crew age of 18 years. Write a program using a custom function to check whether an appl",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-28-block-001",
+              "type": "paragraph",
+              "content": "Question 28 · Page 4.1\n\nHigh Altitude Drone Pilot Certification Validator",
+              "format": "plain"
+            },
+            {
+              "id": "question-28-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt an aerial robotics training academy, students can apply to fly advanced high-altitude observation drones only if they meet the required minimum flight crew age of 18 years. Write a program using a custom function to check whether an applicant qualifies for the high-altitude certificate.",
+              "format": "plain"
+            },
+            {
+              "id": "question-28-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named check_eligibility(age) that takes a single parameter named age.\n2. Inside the function:\n- Check if age is greater than or equal to 18.\n- If age is greater than or equal to 18, print \"Eligible\".\n- Otherwise, print \"Not Eligible\".\n3. Outside the function (in the main program):\n- Take an integer input for the applicant's age and store it in applicant_age.\n- Call the function check_eligibility(applicant_age) by passing applicant_age as the argument.",
+              "format": "plain"
+            },
+            {
+              "id": "question-28-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing applicant_age.",
+              "format": "plain"
+            },
+            {
+              "id": "question-28-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nPrint \"Eligible\" if the applicant is 18 or older, otherwise print \"Not Eligible\".\nEligible",
+              "format": "plain"
+            },
+            {
+              "id": "question-28-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n20",
+              "format": "plain"
+            },
+            {
+              "id": "question-28-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\napplicant_age > 0",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-29",
+          "number": "4.2",
+          "title": "Esports Duo Jersey Number Uniqueness Check",
+          "summary": "In a school esports tournament, two teammates on a duo team must choose different jersey numbers so the match referee can tell them apart on stream. Write a program using a custom function that receives two jersey numbers and returns True i",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-29-block-001",
+              "type": "paragraph",
+              "content": "Question 29 · Page 4.2\n\nEsports Duo Jersey Number Uniqueness Check",
+              "format": "plain"
+            },
+            {
+              "id": "question-29-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school esports tournament, two teammates on a duo team must choose different jersey numbers so the match referee can tell them apart on stream. Write a program using a custom function that receives two jersey numbers and returns True if they are different, or False if they match.",
+              "format": "plain"
+            },
+            {
+              "id": "question-29-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named is_different(num1, num2) that accepts two arguments.\n2. Inside the function:\n- Check if num1 and num2 are not equal.\n- If they are different, return True.\n- Otherwise, return False.\n3. Outside the function (in the main program):\n- Take two integer inputs from the user and store them in jersey1 and jersey2.\n- Call is_different(jersey1, jersey2) by passing the two inputs as arguments.\n- Print the boolean value returned by the function.",
+              "format": "plain"
+            },
+            {
+              "id": "question-29-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: An integer representing jersey1\nSecond line: An integer representing jersey2",
+              "format": "plain"
+            },
+            {
+              "id": "question-29-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single boolean value (True if the numbers are different, or False if they are identical).\nTrue",
+              "format": "plain"
+            },
+            {
+              "id": "question-29-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n10\n20",
+              "format": "plain"
+            },
+            {
+              "id": "question-29-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\njersey1 and jersey2 are integers.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-30",
+          "number": "4.3",
+          "title": "Robotics Arena Match Start Chime",
+          "summary": "At the school robotics competition arena, an automated announcer system sounds a standard digital cheer message right before each round kicks off. To make sure every team in the pit area hears the announcement clearly, the system runs a cus",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-30-block-001",
+              "type": "paragraph",
+              "content": "Question 30 · Page 4.3\n\nRobotics Arena Match Start Chime",
+              "format": "plain"
+            },
+            {
+              "id": "question-30-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt the school robotics competition arena, an automated announcer system sounds a standard digital cheer message right before each round kicks off. To make sure every team in the pit area hears the announcement clearly, the system runs a custom function twice in a row. Write a program that defines a function to print the arena cheer message and calls that function two times.",
+              "format": "plain"
+            },
+            {
+              "id": "question-30-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named cheer_message() that takes no arguments.\n2. Inside the function, print:\nReady Set Code\n3. Outside the function (in the main program), call cheer_message() two times in a row.",
+              "format": "plain"
+            },
+            {
+              "id": "question-30-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-30-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nTwo lines, each displaying the exact message printed by calling the function.\nReady Set Code\nReady Set Code",
+              "format": "plain"
+            },
+            {
+              "id": "question-30-block-006",
+              "type": "paragraph",
+              "content": "Constraints\n\nThe message must be printed by invoking the function twice, not by writing two separate print statements in the main program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-31",
+          "number": "4.4",
+          "title": "Esports Player Tag and Handle Formatter",
+          "summary": "At the school gaming championship, each competitor registers their squad clan tag and their personal in-game handle. The tournament broadcast overlay uses a custom function to join these two details into a single badge line separated by a s",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-31-block-001",
+              "type": "paragraph",
+              "content": "Question 31 · Page 4.4\n\nEsports Player Tag and Handle Formatter",
+              "format": "plain"
+            },
+            {
+              "id": "question-31-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt the school gaming championship, each competitor registers their squad clan tag and their personal in-game handle. The tournament broadcast overlay uses a custom function to join these two details into a single badge line separated by a space. Write a program using a function to format and print a player's complete tournament tag.",
+              "format": "plain"
+            },
+            {
+              "id": "question-31-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named display_player_tag(clan_tag, player_handle) that takes two arguments: clan_tag and player_handle.\n2. Inside the function, print clan_tag and player_handle on a single line with a single space between them.\n3. Outside the function (in the main program):\n- Take a string input for the clan tag and store it in tag_name.\n- Take a string input for the player handle and store it in handle_name.\n- Call display_player_tag(tag_name, handle_name) by passing both variables as arguments.",
+              "format": "plain"
+            },
+            {
+              "id": "question-31-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A string representing tag_name\nSecond line: A string representing handle_name",
+              "format": "plain"
+            },
+            {
+              "id": "question-31-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line containing both strings separated by a space.\nBengaluru Karnataka",
+              "format": "plain"
+            },
+            {
+              "id": "question-31-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nBengaluru\nKarnataka",
+              "format": "plain"
+            },
+            {
+              "id": "question-31-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nInput strings can contain alphanumeric characters and common symbols.\nThe function must print the two strings separated by exactly one space.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-32",
+          "number": "4.5",
+          "title": "Space Agency Radio Frequency Security Validator",
+          "summary": "In a youth aerospace coding challenge, students write an automated frequency checker for satellite communication links. A transmission frequency number is considered \"secure\" (a prime number) if it is greater than 1 and cannot be split into",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-32-block-001",
+              "type": "paragraph",
+              "content": "Question 32 · Page 4.5\n\nSpace Agency Radio Frequency Security Validator",
+              "format": "plain"
+            },
+            {
+              "id": "question-32-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a youth aerospace coding challenge, students write an automated frequency checker for satellite communication links. A transmission frequency number is considered \"secure\" (a prime number) if it is greater than 1 and cannot be split into equal whole segments by any number other than 1 and itself. Write a program using a custom function to test whether an entered frequency number is prime.",
+              "format": "plain"
+            },
+            {
+              "id": "question-32-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named check_prime(number) that accepts a single parameter named number.\n2. Inside the function:\n- Create an integer variable named flag and set it to 0.\n- Run a loop starting from 2 up to number - 1.\n- In each step of the loop, check if number is evenly divisible by the current loop counter (number % i == 0).\n- If it is evenly divisible, set flag to 1.\n- After the loop finishes, check the value of flag:\n- If flag is equal to 1, print \"Not a Prime Number\".\n- Otherwise, print \"Prime Number\".\n3. Outside the function (in the main program):\n- Take an integer input for the frequency number and store it in number.\n- Call the function check_prime(number) by passing number as the argument.",
+              "format": "plain"
+            },
+            {
+              "id": "question-32-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing number (where number > 1).",
+              "format": "plain"
+            },
+            {
+              "id": "question-32-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nPrint \"Prime Number\" if the number is prime, or \"Not a Prime Number\" if it has any divisor in the range.\nPrime Number",
+              "format": "plain"
+            },
+            {
+              "id": "question-32-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n7",
+              "format": "plain"
+            },
+            {
+              "id": "question-32-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nnumber > 1\nThe primality testing and message printing must be performed inside the function check_prime().",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-33",
+          "number": "4.6",
+          "title": "Robotics Arena Solar Tile Surface Area Calculator",
+          "summary": "In a junior engineering competition, students build a solar-powered rover track covered with square solar floor tiles. The energy monitoring system uses a custom function to calculate the surface area of each square tile given the length of",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-33-block-001",
+              "type": "paragraph",
+              "content": "Question 33 · Page 4.6\n\nRobotics Arena Solar Tile Surface Area Calculator",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a junior engineering competition, students build a solar-powered rover track covered with square solar floor tiles. The energy monitoring system uses a custom function to calculate the surface area of each square tile given the length of one side. Write a program using a function with a return value to calculate and print the square tile's surface area.",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nArea = side_length * side_length",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named calculate_square(arg1) that takes one parameter named arg1.\n2. Inside the function, calculate the square of arg1 and return the result.\n3. Outside the function (in the main program):\n- Take an integer input for the tile side length and store it in num.\n- Call calculate_square(num) by passing num as the argument.\n- Print the value returned by the function.",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing num.",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the square of the input value.\n36",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n6",
+              "format": "plain"
+            },
+            {
+              "id": "question-33-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\nnum >= 0\nThe calculation must be returned by the function calculate_square and printed from the main program.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-34",
+          "number": "4.7",
+          "title": "Esports Tournament Badge Profile Display",
+          "summary": "At the regional junior esports league, the match registration system generates digital player profiles. Each profile requires a pilot name and their assigned gaming guild. The system uses a dedicated function to print both pieces of informa",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-34-block-001",
+              "type": "paragraph",
+              "content": "Question 34 · Page 4.7\n\nEsports Tournament Badge Profile Display",
+              "format": "plain"
+            },
+            {
+              "id": "question-34-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt the regional junior esports league, the match registration system generates digital player profiles. Each profile requires a pilot name and their assigned gaming guild. The system uses a dedicated function to print both pieces of information on separate lines. Write a program that uses a function to display a fixed lead pilot's name alongside their entered guild name.",
+              "format": "plain"
+            },
+            {
+              "id": "question-34-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\nStep 1:\n- Create a function named display_profile(player_name, guild_name).\n- Inside the function, print player_name and guild_name on two separate lines.\nStep 2:\nOutside of the function (in the main program):\n- Take a string input from the user and store it in guild_name.\n- Call the display_profile() function by passing the literal string \"Alex\" as the first argument and the guild_name variable as the second argument.",
+              "format": "plain"
+            },
+            {
+              "id": "question-34-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single string representing guild_name.",
+              "format": "plain"
+            },
+            {
+              "id": "question-34-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFirst line: Alex\nSecond line: The string entered for guild_name\nAlex\nOxford",
+              "format": "plain"
+            },
+            {
+              "id": "question-34-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nOxford",
+              "format": "plain"
+            },
+            {
+              "id": "question-34-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nguild_name is a non-empty string.\nThe function display_profile must accept exactly two arguments and print each on a new line.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-35",
+          "number": "4.8",
+          "title": "Science Fair Domino Chain Reaction Counter",
+          "summary": "In a STEM club physics experiment, students arrange rows of colorful domino tiles for an energy transfer demonstration. The first row has 1 domino, the second row has 2 dominoes, the third row has 3 dominoes, and so on, continuing all the w",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-35-block-001",
+              "type": "paragraph",
+              "content": "Question 35 · Page 4.8\n\nScience Fair Domino Chain Reaction Counter",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a STEM club physics experiment, students arrange rows of colorful domino tiles for an energy transfer demonstration. The first row has 1 domino, the second row has 2 dominoes, the third row has 3 dominoes, and so on, continuing all the way up to row n. The club needs a program with a dedicated function to calculate and return the total number of dominoes needed for all n rows combined.",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nTotal = 1 + 2 + 3 + ... + n",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named find_sum(n) that accepts a single parameter named n.\n2. Inside the function:\n- Calculate the sum of all whole numbers from 1 to n (using a loop accumulator or summation formula).\n- Return the calculated total.\n3. Outside the function (in the main program):\n- Take an integer input for the total number of rows and store it in number.\n- Call the function find_sum(number) by passing number as the argument.\n- Print the returned total value.",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the sum of all natural numbers from 1 up to number.\n45",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n9",
+              "format": "plain"
+            },
+            {
+              "id": "question-35-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\nnumber >= 1\nThe summation must be calculated inside find_sum() and returned to the main program for printing.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-36",
+          "number": "4.9",
+          "title": "STEM Greenhouse Planter Bed Area Calculator",
+          "summary": "In an environmental science project, students build rectangular planter boxes for growing microgreens. Each planter box is built with a standard fixed width of 12.5 centimeters, while the length varies depending on the shelf space available",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-36-block-001",
+              "type": "paragraph",
+              "content": "Question 36 · Page 4.9\n\nSTEM Greenhouse Planter Bed Area Calculator",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an environmental science project, students build rectangular planter boxes for growing microgreens. Each planter box is built with a standard fixed width of 12.5 centimeters, while the length varies depending on the shelf space available. The project tracker uses a dedicated function to calculate and return the total surface area of any planter bed.",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nArea = length * width",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Define a function named compute_area(length, width) that accepts two float parameters: length and width.\n2. Inside the function, multiply length by width to compute the area, and return the result.\n3. Outside the function (in the main program):\n- Take a float input for the length of the planter box and store it in length.\n- Create a float variable named width and assign it the value 12.5.\n- Call the function compute_area(length, width) by passing length and width as arguments.\n- Print the returned area value as a float.",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single float representing length.",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single float representing the computed surface area.\n210.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n16.8",
+              "format": "plain"
+            },
+            {
+              "id": "question-36-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\nlength > 0.0\nwidth is fixed at 12.5\nThe area must be calculated inside compute_area() and returned to the caller.\n5: Collections",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-5",
+      "title": "Collections",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-37",
+          "number": "5.1",
+          "title": "Game Zone Level-Up Energy Gem Tracker",
+          "summary": "In an arcade obstacle game, a player earns energy gems on consecutive checkpoint stages. The player's inventory list already contains checkpoint gem levels [2, 4, 6]. When the player clears the next stage, the game asks for the new stage ge",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-37-block-001",
+              "type": "paragraph",
+              "content": "Question 37 · Page 5.1\n\nGame Zone Level-Up Energy Gem Tracker",
+              "format": "plain"
+            },
+            {
+              "id": "question-37-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an arcade obstacle game, a player earns energy gems on consecutive checkpoint stages. The player's inventory list already contains checkpoint gem levels [2, 4, 6]. When the player clears the next stage, the game asks for the new stage gem rating and adds it directly to the end of the existing collection. Write a program to append this new score and display the updated gem list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-37-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a list named even_numbers containing the integer elements: 2, 4, and 6.\n2. Take an integer input from the user and store it in number.\n3. Use the list append() method to add number to the end of the even_numbers list.\n4. Print the updated even_numbers list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-37-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-37-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nThe updated list printed in Python list format showing all four items.\n[2, 4, 6, 8]",
+              "format": "plain"
+            },
+            {
+              "id": "question-37-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n8",
+              "format": "plain"
+            },
+            {
+              "id": "question-37-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nnumber is an integer.\nThe list even_numbers must be modified using the append() method.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-38",
+          "number": "5.2",
+          "title": "Coding Quest Badge Point Total Calculator",
+          "summary": "During a 5-day school coding challenge, a student earns reward badges with varying point values each day. The recorded badge points earned across all five days are stored in a list: [4, 7, 2, 6, 1]. Write a program that uses a loop to trave",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-38-block-001",
+              "type": "paragraph",
+              "content": "Question 38 · Page 5.2\n\nCoding Quest Badge Point Total Calculator",
+              "format": "plain"
+            },
+            {
+              "id": "question-38-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nDuring a 5-day school coding challenge, a student earns reward badges with varying point values each day. The recorded badge points earned across all five days are stored in a list: [4, 7, 2, 6, 1]. Write a program that uses a loop to traverse the list, calculate the total points earned, and display the final sum.",
+              "format": "plain"
+            },
+            {
+              "id": "question-38-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a list named my_list and assign [4, 7, 2, 6, 1] to it.\n2. Declare an integer variable named total and initialize it to 0.\n3. Use a for loop to iterate over each item in my_list.\n4. Inside the loop, add each item's value to total.\n5. After the loop completes, print the value of total.",
+              "format": "plain"
+            },
+            {
+              "id": "question-38-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-38-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the sum of all elements in the list.\n20",
+              "format": "plain"
+            },
+            {
+              "id": "question-38-block-006",
+              "type": "paragraph",
+              "content": "Constraints\n\nmy_list must be initialized with the exact elements [4, 7, 2, 6, 1].\nThe calculation must be done by looping through each item and accumulating the sum.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-39",
+          "number": "5.3",
+          "title": "Treasure Hunt Secret Passcode Boundary Check",
+          "summary": "In a school mystery scavenger hunt, team clues are written as one-word passcodes. A clue passcode is considered \"balanced\" if its very first character matches its very last character (such as \"mom\" or \"radar\"). Write a program using string ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-39-block-001",
+              "type": "paragraph",
+              "content": "Question 39 · Page 5.3\n\nTreasure Hunt Secret Passcode Boundary Check",
+              "format": "plain"
+            },
+            {
+              "id": "question-39-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school mystery scavenger hunt, team clues are written as one-word passcodes. A clue passcode is considered \"balanced\" if its very first character matches its very last character (such as \"mom\" or \"radar\"). Write a program using string indexing to check whether the first and last letters of a given passcode match.",
+              "format": "plain"
+            },
+            {
+              "id": "question-39-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a string input from the user and assign it to a variable named check.\n2. Use sequence indexing to check if the first character (at index 0) and the last character (at index -1) of check are equal.\n3. If the characters match, print:\nEqual\n4. Otherwise, print:\nNot Equal",
+              "format": "plain"
+            },
+            {
+              "id": "question-39-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single string representing check.",
+              "format": "plain"
+            },
+            {
+              "id": "question-39-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line printing \"Equal\" if the first and last characters are identical, or \"Not Equal\" if they differ.\nEqual",
+              "format": "plain"
+            },
+            {
+              "id": "question-39-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nmom",
+              "format": "plain"
+            },
+            {
+              "id": "question-39-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ncheck is a non-empty string with at least one character.\nThe character comparison is case-sensitive.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-40",
+          "number": "5.4",
+          "title": "School Robotics LED Signal Light Sequence",
+          "summary": "In a middle school robotics workshop, an autonomous line-follower rover tests its multi-color signal tower before driving through an obstacle course. The light tower cycles through a pre-programmed list of colored warning signals: \"red\", \"b",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-40-block-001",
+              "type": "paragraph",
+              "content": "Question 40 · Page 5.4\n\nSchool Robotics LED Signal Light Sequence",
+              "format": "plain"
+            },
+            {
+              "id": "question-40-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a middle school robotics workshop, an autonomous line-follower rover tests its multi-color signal tower before driving through an obstacle course. The light tower cycles through a pre-programmed list of colored warning signals: \"red\", \"blue\", \"green\", and \"yellow\". Write a program using a for loop to iterate through the signal list and display each light color on a separate line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-40-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a list named colors containing four string items: \"red\", \"blue\", \"green\", and \"yellow\".\n2. Use a for loop to iterate through each item in the colors list.\n3. Inside the loop, print each color name on a separate line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-40-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-40-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFour lines, each showing one color from the list in original order:\nred\nblue\ngreen\nyellow",
+              "format": "plain"
+            },
+            {
+              "id": "question-40-block-006",
+              "type": "paragraph",
+              "content": "Sample Output\n\nred\nblue\ngreen\nyellow",
+              "format": "plain"
+            },
+            {
+              "id": "question-40-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ncolors must contain the exact four strings: \"red\", \"blue\", \"green\", \"yellow\".\nEach element must be printed sequentially using a for loop.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-41",
+          "number": "5.5",
+          "title": "School Sports Day Paired Runner Bib Filter",
+          "summary": "At the annual inter-house athletics meet, runners for the two-person relay race are assigned jersey bib numbers. The race marshal needs to identify and display only the even bib numbers from the registered heat list so those runners can lin",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-41-block-001",
+              "type": "paragraph",
+              "content": "Question 41 · Page 5.5\n\nSchool Sports Day Paired Runner Bib Filter",
+              "format": "plain"
+            },
+            {
+              "id": "question-41-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt the annual inter-house athletics meet, runners for the two-person relay race are assigned jersey bib numbers. The race marshal needs to identify and display only the even bib numbers from the registered heat list so those runners can line up at lane position A. The assigned heat numbers are stored in a list: 2, 4, 7, 8, 11, 12, 15, 18. Write a program using a for loop to check and display only the even numbers.",
+              "format": "plain"
+            },
+            {
+              "id": "question-41-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a list named numbers containing the integers: 2, 4, 7, 8, 11, 12, 15, 18.\n2. Use a for loop to iterate through each item in the numbers list.\n3. Inside the loop, check if the current item is an even number (divisible by 2 with no remainder).\n4. If it is even, print the number on a separate line.\n5. Skip all odd numbers so they are not displayed.",
+              "format": "plain"
+            },
+            {
+              "id": "question-41-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-41-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nFive lines, each showing an even integer from the list in original order:\n2\n4\n8\n12\n18",
+              "format": "plain"
+            },
+            {
+              "id": "question-41-block-006",
+              "type": "paragraph",
+              "content": "Sample Output\n\n2\n4\n8\n12\n18",
+              "format": "plain"
+            },
+            {
+              "id": "question-41-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nnumbers must contain the exact elements: [2, 4, 7, 8, 11, 12, 15, 18].\nThe filtering must be performed using a loop and a conditional check inside the loop.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-42",
+          "number": "5.6",
+          "title": "Robotics Arena Obstacle Course Return Path Reverser",
+          "summary": "In a school robotics maze challenge, an autonomous rover drives through a forward path, logging distance waypoint markers into a list: [5, 10, 15, 20]. To return safely back to the starting bay, the rover's navigation program must reverse t",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-42-block-001",
+              "type": "paragraph",
+              "content": "Question 42 · Page 5.6\n\nRobotics Arena Obstacle Course Return Path Reverser",
+              "format": "plain"
+            },
+            {
+              "id": "question-42-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school robotics maze challenge, an autonomous rover drives through a forward path, logging distance waypoint markers into a list: [5, 10, 15, 20]. To return safely back to the starting bay, the rover's navigation program must reverse the order of these waypoints by inspecting the original list indices from end to beginning and building a new return list. Write a program using reverse index looping to create and display this reversed path list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-42-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a list named my_list containing the integers: [5, 10, 15, 20].\n2. Create a new empty list named reverse_list.\n3. Use a for loop with a range function to iterate through the index positions of my_list in reverse order (starting from the last index down to 0).\n4. Inside the loop, retrieve the element at each reverse index and add it to reverse_list using the append() method.\n5. After the loop finishes, print reverse_list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-42-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-42-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single list in Python format showing the elements in reverse order:\n[20, 15, 10, 5]",
+              "format": "plain"
+            },
+            {
+              "id": "question-42-block-006",
+              "type": "paragraph",
+              "content": "Sample Output\n\n[20, 15, 10, 5]",
+              "format": "plain"
+            },
+            {
+              "id": "question-42-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nmy_list must be initialized with [5, 10, 15, 20].\nThe reversal must be achieved by iterating through the indices in reverse order and appending elements to reverse_list.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-43",
+          "number": "5.7",
+          "title": "Space Explorer Satellite Telemetry Banner Slicer",
+          "summary": "In a junior space engineering workshop, a miniature satellite transmits a test sequence of status signal characters stored inside a list: ['c', 'o', 'd', 'i', 'n', 'g', 'p', 'r', 'o', 'g']. To isolate the main science payload message, the g",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-43-block-001",
+              "type": "paragraph",
+              "content": "Question 43 · Page 5.7\n\nSpace Explorer Satellite Telemetry Banner Slicer",
+              "format": "plain"
+            },
+            {
+              "id": "question-43-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a junior space engineering workshop, a miniature satellite transmits a test sequence of status signal characters stored inside a list: ['c', 'o', 'd', 'i', 'n', 'g', 'p', 'r', 'o', 'g']. To isolate the main science payload message, the ground receiver program must remove the two prefix characters at the start and the final trailing checksum character at the end using list slicing. Write a program to extract the sublist starting from the third character up through the second-last character and display the resulting list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-43-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a list named my_list with the characters: 'c', 'o', 'd', 'i', 'n', 'g', 'p', 'r', 'o', 'g'.\n2. Use Python list slicing syntax [start:stop] to extract a new list that starts at the third item (index 2) and includes items up through the second-last item.\n3. Assign the sliced sublist to a new variable.\n4. Print the newly created list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-43-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-43-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line displaying the sliced list:\n['d', 'i', 'n', 'g', 'p', 'r', 'o']",
+              "format": "plain"
+            },
+            {
+              "id": "question-43-block-006",
+              "type": "paragraph",
+              "content": "Constraints\n\nmy_list must be initialized with the exact 10 character elements provided.\nThe extraction must be performed using list slice notation.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-44",
+          "number": "5.8",
+          "title": "School Spelling Bee Target Letter Frequency Counter",
+          "summary": "In a school word puzzle tournament, contestants analyze words by counting how many times a chosen target letter appears inside a mystery word. For instance, in the word \"banana\", the vowel \"a\" appears exactly 3 times. Write a program using ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-44-block-001",
+              "type": "paragraph",
+              "content": "Question 44 · Page 5.8\n\nSchool Spelling Bee Target Letter Frequency Counter",
+              "format": "plain"
+            },
+            {
+              "id": "question-44-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school word puzzle tournament, contestants analyze words by counting how many times a chosen target letter appears inside a mystery word. For instance, in the word \"banana\", the vowel \"a\" appears exactly 3 times. Write a program using a loop and an accumulator counter to find and display how many times a chosen target character appears inside an entered word.",
+              "format": "plain"
+            },
+            {
+              "id": "question-44-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a string input for the word and store it in string1.\n2. Take a single-character string input for the target letter to find and store it in character1.\n3. Create an integer variable named count and initialize it to 0.\n4. Use a for loop to iterate through every character in string1.\n5. Inside the loop, check if the current character matches character1:\n- If it matches, increase count by 1.\n6. After the loop completes, print the value of count.",
+              "format": "plain"
+            },
+            {
+              "id": "question-44-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A string representing string1\nSecond line: A single character representing character1",
+              "format": "plain"
+            },
+            {
+              "id": "question-44-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single integer representing the total number of times character1 appears in string1.\n3",
+              "format": "plain"
+            },
+            {
+              "id": "question-44-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nbanana\na",
+              "format": "plain"
+            },
+            {
+              "id": "question-44-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\ncharacter1 is a single alphabetic character.\nComparisons are case-sensitive.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-45",
+          "number": "5.9",
+          "title": "Coding Club Fun Word Remix Tool",
+          "summary": "In an after-school programming lab, students experiment with remixing computer science terms to create playful team nicknames. The club system starts with the baseline word \"concatenate\". The program asks the student for a substitute word s",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-45-block-001",
+              "type": "paragraph",
+              "content": "Question 45 · Page 5.9\n\nCoding Club Fun Word Remix Tool",
+              "format": "plain"
+            },
+            {
+              "id": "question-45-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an after-school programming lab, students experiment with remixing computer science terms to create playful team nicknames. The club system starts with the baseline word \"concatenate\". The program asks the student for a substitute word snippet and swaps out the inner letters \"cat\" with whatever text the user enters. Write a program using the string replace() method to create and display this remixed word.",
+              "format": "plain"
+            },
+            {
+              "id": "question-45-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a string variable named word and assign it the value \"concatenate\".\n2. Take a string input from the user and store it in a variable named replacement.\n3. Use the string replace() method on word to replace every occurrence of \"cat\" with the text stored in replacement.\n4. Print the newly formed string.",
+              "format": "plain"
+            },
+            {
+              "id": "question-45-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single string representing replacement.",
+              "format": "plain"
+            },
+            {
+              "id": "question-45-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nThe resulting remixed string after replacing \"cat\" with the input string.\ncondogenate",
+              "format": "plain"
+            },
+            {
+              "id": "question-45-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\ndog",
+              "format": "plain"
+            },
+            {
+              "id": "question-45-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nreplacement is a non-empty string.\nThe replacement must be performed using the string replace() method.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-46",
+          "number": "5.10",
+          "title": "Esports Player GamerTag Assembler",
+          "summary": "In an online multiplayer coding arcade, new players customize their display tags by choosing a prefix title and a hero name. The game registration terminal needs to combine these two words directly into a single continuous GamerTag using st",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-46-block-001",
+              "type": "paragraph",
+              "content": "Question 46 · Page 5.10\n\nEsports Player GamerTag Assembler",
+              "format": "plain"
+            },
+            {
+              "id": "question-46-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an online multiplayer coding arcade, new players customize their display tags by choosing a prefix title and a hero name. The game registration terminal needs to combine these two words directly into a single continuous GamerTag using string concatenation. Write a program to read both parts and display the joined tag.",
+              "format": "plain"
+            },
+            {
+              "id": "question-46-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a string input for the first word and store it in first_string.\n2. Take a string input for the second word and store it in second_string.\n3. Concatenate first_string and second_string using the + operator, and store the combined text in a variable named result.\n4. Print the value of result.",
+              "format": "plain"
+            },
+            {
+              "id": "question-46-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A string representing first_string\nSecond line: A string representing second_string",
+              "format": "plain"
+            },
+            {
+              "id": "question-46-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line containing the two input strings joined directly together with no extra spaces.\nHelloWorld",
+              "format": "plain"
+            },
+            {
+              "id": "question-46-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nHello\nWorld",
+              "format": "plain"
+            },
+            {
+              "id": "question-46-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nfirst_string and second_string are non-empty strings.\nThe concatenation must be performed using the + operator.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-47",
+          "number": "5.11",
+          "title": "Rocket Launch Mission Stopwatch Formatter",
+          "summary": "At a student aerospace science exhibition, a mission control countdown console records flight elapsed time across three separate input channels: hours, minutes, and seconds. To show the elapsed mission duration on the main telemetry screen,",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-47-block-001",
+              "type": "paragraph",
+              "content": "Question 47 · Page 5.11\n\nRocket Launch Mission Stopwatch Formatter",
+              "format": "plain"
+            },
+            {
+              "id": "question-47-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nAt a student aerospace science exhibition, a mission control countdown console records flight elapsed time across three separate input channels: hours, minutes, and seconds. To show the elapsed mission duration on the main telemetry screen, the system joins these three readings into a standard digital clock display separated by colons. Write a program to read the three time values and display the combined timestamp.",
+              "format": "plain"
+            },
+            {
+              "id": "question-47-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take three string inputs in order and store them in variables named hour, minute, and second.\n2. Join the three string values using the string concatenation operator (+) with a colon (\":\") between each unit to match the format hour:minute:second.\n3. Print the formatted time string.",
+              "format": "plain"
+            },
+            {
+              "id": "question-47-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A string representing hour\nSecond line: A string representing minute\nThird line: A string representing second",
+              "format": "plain"
+            },
+            {
+              "id": "question-47-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line displaying the time formatted as hour:minute:second.\n10:30:45",
+              "format": "plain"
+            },
+            {
+              "id": "question-47-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n10\n30\n45",
+              "format": "plain"
+            },
+            {
+              "id": "question-47-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nhour, minute, and second are input as strings.\nThe formatted text must use colons as delimiters.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-48",
+          "number": "5.12",
+          "title": "Esports Team Motto Uniqueness Validator",
+          "summary": "In an inter-school gaming championship, two rival teams submit their team mottos to the tournament registry. To avoid confusion during live streaming, the registration system must ensure that both mottos are distinct, ignoring any differenc",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-48-block-001",
+              "type": "paragraph",
+              "content": "Question 48 · Page 5.12\n\nEsports Team Motto Uniqueness Validator",
+              "format": "plain"
+            },
+            {
+              "id": "question-48-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an inter-school gaming championship, two rival teams submit their team mottos to the tournament registry. To avoid confusion during live streaming, the registration system must ensure that both mottos are distinct, ignoring any differences in uppercase or lowercase letters (for example, \"Victory\" and \"victory\" are treated as the same). Write a program that converts both mottos to lowercase and checks whether they are different.",
+              "format": "plain"
+            },
+            {
+              "id": "question-48-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take two string inputs from the user and assign them to variables named str1 and str2 respectively.\n2. Convert both str1 and str2 to lowercase using the lower() method.\n3. Compare the two lowercase strings using the inequality operator (!=).\n4. If the two strings are different, print:\nDifferent\n5. Otherwise (if they match), print:\nSame",
+              "format": "plain"
+            },
+            {
+              "id": "question-48-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nFirst line: A string representing str1\nSecond line: A string representing str2",
+              "format": "plain"
+            },
+            {
+              "id": "question-48-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line printing \"Different\" if the strings differ in lowercase, or \"Same\" if they are identical.\nDifferent",
+              "format": "plain"
+            },
+            {
+              "id": "question-48-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nApple\nOrange",
+              "format": "plain"
+            },
+            {
+              "id": "question-48-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nstr1 and str2 are non-empty strings.\nComparison must be case-insensitive (both strings converted to lowercase before checking).",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-49",
+          "number": "5.13",
+          "title": "Robotics League Team Roster Directory Merger",
+          "summary": "In a regional STEM hackathon, two neighboring school coding clubs join forces to form a unified alliance team. The lead coordinator maintains club member registries where each student's locker ID number serves as a unique key linked to thei",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-49-block-001",
+              "type": "paragraph",
+              "content": "Question 49 · Page 5.13\n\nRobotics League Team Roster Directory Merger",
+              "format": "plain"
+            },
+            {
+              "id": "question-49-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a regional STEM hackathon, two neighboring school coding clubs join forces to form a unified alliance team. The lead coordinator maintains club member registries where each student's locker ID number serves as a unique key linked to their first name. The registry holds member directory A with {101: 'Rahul', 102: 'Priya', 103: 'Amit'} and directory B with {104: 'Neha', 105: 'Rohan'}. Write a program that uses the update() method to merge directory B into directory A and display the combined alliance roster.",
+              "format": "plain"
+            },
+            {
+              "id": "question-49-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a dictionary named A containing the following key-value pairs:\n{101: 'Rahul', 102: 'Priya', 103: 'Amit'}\n2. Create a second dictionary named B containing the following key-value pairs:\n{104: 'Neha', 105: 'Rohan'}\n3. Merge dictionary B into dictionary A using the dictionary update() method.\n4. Print the updated dictionary A.",
+              "format": "plain"
+            },
+            {
+              "id": "question-49-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-49-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line displaying the combined dictionary in Python dictionary format:\n{101: 'Rahul', 102: 'Priya', 103: 'Amit', 104: 'Neha', 105: 'Rohan'}",
+              "format": "plain"
+            },
+            {
+              "id": "question-49-block-006",
+              "type": "paragraph",
+              "content": "Sample Output\n\n{101: 'Rahul', 102: 'Priya', 103: 'Amit', 104: 'Neha', 105: 'Rohan'}",
+              "format": "plain"
+            },
+            {
+              "id": "question-49-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nDictionaries A and B must be initialized with the exact integer keys and string values specified.\nThe merge must be performed using the update() method.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-50",
+          "number": "5.14",
+          "title": "Makerspace Equipment Catalog Builder",
+          "summary": "In a middle school innovation lab, students organize a checkout catalog for hardware tools and accessories. The lab assistant needs a program that prompts for the name and price tag of 3 different items, stores each item as a key-value pair",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-50-block-001",
+              "type": "paragraph",
+              "content": "Question 50 · Page 5.14\n\nMakerspace Equipment Catalog Builder",
+              "format": "plain"
+            },
+            {
+              "id": "question-50-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a middle school innovation lab, students organize a checkout catalog for hardware tools and accessories. The lab assistant needs a program that prompts for the name and price tag of 3 different items, stores each item as a key-value pair inside a dictionary, and prints the completed catalog. Write a program using a loop to collect these 3 items and build the dictionary.",
+              "format": "plain"
+            },
+            {
+              "id": "question-50-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create an empty dictionary named products.\n2. Use a for loop that iterates 3 times (from 1 to 3, inclusive).\n3. Inside each iteration of the loop:\n- Take a string input for the item name and store it in a variable named product.\n- Take a string input for the item cost and store it in a variable named price.\n- Add this pair to the products dictionary using product as the key and price as the value.\n4. After the loop completes, print the products dictionary.",
+              "format": "plain"
+            },
+            {
+              "id": "question-50-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nSix lines total, consisting of 3 pairs of string inputs:\n- Line 1: Product 1 name\n- Line 2: Product 1 price\n- Line 3: Product 2 name\n- Line 4: Product 2 price\n- Line 5: Product 3 name\n- Line 6: Product 3 price",
+              "format": "plain"
+            },
+            {
+              "id": "question-50-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line displaying the dictionary with 3 key-value pairs formatted as strings.\n{'Laptop': '50000', 'Mouse': '800', 'Keyboard': '1500'}",
+              "format": "plain"
+            },
+            {
+              "id": "question-50-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nLaptop\n50000\nMouse\n800\nKeyboard\n1500",
+              "format": "plain"
+            },
+            {
+              "id": "question-50-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nThe dictionary must be populated dynamically inside the loop.\nBoth product and price are stored as string types.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-51",
+          "number": "5.15",
+          "title": "Robotics Challenge Speed Trial Score Board",
+          "summary": "In an after-school STEM workshop, students compete in a timed obstacle run. The scoreboard system stores the final trial score of each participant mapped to their first name in a dictionary: \"Rahul\" with a score of 85, and \"Priya\" with a sc",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-51-block-001",
+              "type": "paragraph",
+              "content": "Question 51 · Page 5.15\n\nRobotics Challenge Speed Trial Score Board",
+              "format": "plain"
+            },
+            {
+              "id": "question-51-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn an after-school STEM workshop, students compete in a timed obstacle run. The scoreboard system stores the final trial score of each participant mapped to their first name in a dictionary: \"Rahul\" with a score of 85, and \"Priya\" with a score of 92. The event coordinator needs a program that iterates through the dictionary using a for loop, extracts each participant's score using their name key, and displays only the numerical scores. Write a program to display these scores line by line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-51-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a dictionary named student_marks with the following key-value pairs:\n{\"Rahul\": 85, \"Priya\": 92}\n2. Use a for loop to iterate through the keys of student_marks.\n3. Inside the loop, access the value associated with each key using dictionary indexing and print only that value on a separate line.",
+              "format": "plain"
+            },
+            {
+              "id": "question-51-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-51-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nTwo lines, each displaying the score value for a student:\n85\n92",
+              "format": "plain"
+            },
+            {
+              "id": "question-51-block-006",
+              "type": "paragraph",
+              "content": "Sample Output\n\n85\n92",
+              "format": "plain"
+            },
+            {
+              "id": "question-51-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nstudent_marks must be initialized with the exact keys and values {\"Rahul\": 85, \"Priya\": 92}.\nValues must be accessed and printed by iterating over the dictionary using a loop.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-52",
+          "number": "5.16",
+          "title": "Secret Codebook Cipher Key Validator",
+          "summary": "In a school mystery puzzle club, agents decode hidden clues using a quick-reference codebook stored in a digital dictionary. The cipher book links single-letter code keys to secret codenames: {\"a\": \"apple\", \"b\": \"banana\", \"c\": \"cherry\"}. Wh",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-52-block-001",
+              "type": "paragraph",
+              "content": "Question 52 · Page 5.16\n\nSecret Codebook Cipher Key Validator",
+              "format": "plain"
+            },
+            {
+              "id": "question-52-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school mystery puzzle club, agents decode hidden clues using a quick-reference codebook stored in a digital dictionary. The cipher book links single-letter code keys to secret codenames: {\"a\": \"apple\", \"b\": \"banana\", \"c\": \"cherry\"}. When a player types in a clue letter, the program searches through all the dictionary keys using a loop and a status flag to verify if that key exists. Write a program using a loop, a flag variable, and early loop termination to search for an entered key.",
+              "format": "plain"
+            },
+            {
+              "id": "question-52-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Create a dictionary named my_dict containing the following key-value pairs:\n{\"a\": \"apple\", \"b\": \"banana\", \"c\": \"cherry\"}\n2. Take a string input from the user and store it in a variable named data.\n3. Create a boolean variable named flag and set it to False.\n4. Use a for loop to iterate through the keys of my_dict.\n5. Inside the loop, check if the current key matches data:\n- If it matches, set flag to True and exit the loop immediately using break.\n6. Outside the loop, check the value of flag:\n- If flag is True, print:\nKey found\n- Otherwise, print:\nKey not found",
+              "format": "plain"
+            },
+            {
+              "id": "question-52-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single string representing data.",
+              "format": "plain"
+            },
+            {
+              "id": "question-52-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\n\"Key found\" if the key exists in the dictionary, or \"Key not found\" if it does not.\nKey found",
+              "format": "plain"
+            },
+            {
+              "id": "question-52-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\nb",
+              "format": "plain"
+            },
+            {
+              "id": "question-52-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nmy_dict must be initialized with the exact key-value pairs specified.\nThe search must use a loop over dictionary keys with a flag and break statement.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-53",
+          "number": "5.17",
+          "title": "Word Scramble Game Character Tile Converter",
+          "summary": "In a school digital board game, players enter a secret keyword that the game board breaks down into individual letter tiles so they can be rearranged on a virtual grid. The game engine uses the built-in list() constructor to split an entere",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-53-block-001",
+              "type": "paragraph",
+              "content": "Question 53 · Page 5.17\n\nWord Scramble Game Character Tile Converter",
+              "format": "plain"
+            },
+            {
+              "id": "question-53-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a school digital board game, players enter a secret keyword that the game board breaks down into individual letter tiles so they can be rearranged on a virtual grid. The game engine uses the built-in list() constructor to split an entered word string into a sequence of individual character items. Write a program to read a word from the user, convert it into a list of characters, and display the resulting list.",
+              "format": "plain"
+            },
+            {
+              "id": "question-53-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Take a string input from the user and assign it to a variable named language.\n2. Use the built-in list() constructor to convert the string in language into a list of characters, and assign the result to a variable named list1.\n3. Print the newly created list list1.",
+              "format": "plain"
+            },
+            {
+              "id": "question-53-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single string representing language.",
+              "format": "plain"
+            },
+            {
+              "id": "question-53-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single line displaying the list of individual characters in Python list format.\n['p', 'y', 't', 'h', 'o', 'n']",
+              "format": "plain"
+            },
+            {
+              "id": "question-53-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\npython",
+              "format": "plain"
+            },
+            {
+              "id": "question-53-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nlanguage is a non-empty string.\nThe conversion must be done using the list() constructor.\n6: Modules",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "module-6",
+      "title": "Modules",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-54",
+          "number": "6.1",
+          "title": "STEM 3D Voxel Cube Dimension Calculator",
+          "summary": "In a middle school 3D game design club, students create custom cube-shaped blocks called voxels. To figure out the side length of any cubic storage crate from its total volume, the game engine calculates the cube root of the volume using th",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-54-block-001",
+              "type": "paragraph",
+              "content": "Question 54 · Page 6.1\n\nSTEM 3D Voxel Cube Dimension Calculator",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a middle school 3D game design club, students create custom cube-shaped blocks called voxels. To figure out the side length of any cubic storage crate from its total volume, the game engine calculates the cube root of the volume using the standard math library. Write a program that imports the math module, reads the volume of a cube, and calculates its side length using fractional exponentiation with the pow() function.",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nside_length = math.pow(number, 1/3)",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Import the math module at the top of your program.\n2. Take a numerical input from the user representing the total volume and store it in a variable named number.\n3. Calculate the cube root of number using the math.pow() function with 1/3 as the power exponent.\n4. Print the calculated cube root as a floating-point number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single number representing the volume stored in number.",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single floating-point number representing the cube root.\n3.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n27",
+              "format": "plain"
+            },
+            {
+              "id": "question-54-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\nnumber >= 0\nThe calculation must be performed using the pow() function from the math module with an exponent of 1/3.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-55",
+          "number": "6.2",
+          "title": "Robotics Arena Square Floor Tile Checker",
+          "summary": "In a middle school STEM robotics arena, an autonomous vacuum rover operates best inside perfectly square testing zones made of identical 1x1 floor tiles. When the team manager supplies a total count of square floor tiles, the testing platfo",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-55-block-001",
+              "type": "paragraph",
+              "content": "Question 55 · Page 6.2\n\nRobotics Arena Square Floor Tile Checker",
+              "format": "plain"
+            },
+            {
+              "id": "question-55-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a middle school STEM robotics arena, an autonomous vacuum rover operates best inside perfectly square testing zones made of identical 1x1 floor tiles. When the team manager supplies a total count of square floor tiles, the testing platform checks whether the total can form a solid, complete square arena with no tiles left over. A number is a perfect square if its square root has a remainder of zero when divided by 1. Write a program to check whether a given tile count is a perfect square.",
+              "format": "plain"
+            },
+            {
+              "id": "question-55-block-003",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Import the math module at the top of your program.\n2. Take an integer input from the user and store it in a variable named number.\n3. Calculate the square root of number using the math.sqrt() function and assign the result to square_root.\n4. Use the % operator with 1 on square_root to calculate the decimal remainder, and store the result in a variable named check_remainder.\n5. If check_remainder is equal to 0, print:\nPerfect Square\n6. Otherwise, print:\nNot a Perfect Square",
+              "format": "plain"
+            },
+            {
+              "id": "question-55-block-004",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing number\n.",
+              "format": "plain"
+            },
+            {
+              "id": "question-55-block-005",
+              "type": "paragraph",
+              "content": "Expected Output\n\n\"Perfect Square\" if the number is a perfect square, or \"Not a Perfect Square\" if it is not.\nPerfect Square",
+              "format": "plain"
+            },
+            {
+              "id": "question-55-block-006",
+              "type": "paragraph",
+              "content": "Sample Input\n\n49",
+              "format": "plain"
+            },
+            {
+              "id": "question-55-block-007",
+              "type": "paragraph",
+              "content": "Constraints\n\nnumber > 0\nThe square root must be calculated using the math.sqrt() function.\nThe whole-number check must use the % 1 remainder operation.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-56",
+          "number": "6.3",
+          "title": "School Weather Station Temperature Benchmark Analyzer",
+          "summary": "In a middle school environmental science club, students track daily temperature variations using a digital sensor array. Over a 5-day monitoring run, the sensors recorded temperature milestone readings of 5, 10, 15, 20, and 25 degrees. To f",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-56-block-001",
+              "type": "paragraph",
+              "content": "Question 56 · Page 6.3\n\nSchool Weather Station Temperature Benchmark Analyzer",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a middle school environmental science club, students track daily temperature variations using a digital sensor array. Over a 5-day monitoring run, the sensors recorded temperature milestone readings of 5, 10, 15, 20, and 25 degrees. To find the baseline average for their weekly science report, the students use Python's built-in statistics library to calculate the mean of these readings. Write a program that imports the statistics module, creates the dataset, and prints the mean value.",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nMean = sum of all values / total number of values",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Import the statistics module at the top of your program.\n2. Create a list containing the numbers 5, 10, 15, 20, and 25, and assign it to a variable named data_set.\n3. Use the statistics.mean() function to compute the average of the items in data_set.\n4. Print the calculated mean value.",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nNo user input is required.",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single number representing the arithmetic mean of the dataset.",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-007",
+              "type": "paragraph",
+              "content": "Sample Output\n\n15",
+              "format": "plain"
+            },
+            {
+              "id": "question-56-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\ndata_set must contain the exact elements: [5, 10, 15, 20, 25].\nThe average must be computed using the mean() function from the statistics module.",
+              "format": "plain"
+            }
+          ]
+        },
+        {
+          "id": "question-57",
+          "number": "6.4",
+          "title": "Minecraft Cubic Storage Chest Volume Calculator",
+          "summary": "In a student game development workshop, players design custom cubic storage chests for their virtual base camps. To determine how many resource units a chest can hold, the crafting engine calculates the cube of the side length using Python'",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": [
+            {
+              "id": "question-57-block-001",
+              "type": "paragraph",
+              "content": "Question 57 · Page 6.4\n\nMinecraft Cubic Storage Chest Volume Calculator",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-002",
+              "type": "paragraph",
+              "content": "Program Description\n\nIn a student game development workshop, players design custom cubic storage chests for their virtual base camps. To determine how many resource units a chest can hold, the crafting engine calculates the cube of the side length using Python's math module. Write a program that imports the math module, takes an integer side length from the user, and computes the total volume by raising the number to the third power using the pow() function.",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-003",
+              "type": "paragraph",
+              "content": "Formula\n\nVolume = math.pow(num, 3)",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-004",
+              "type": "paragraph",
+              "content": "Requirements\n\n1. Import the math module at the top of your program.\n2. Take an integer input from the user representing side length and assign it to a variable named num.\n3. Calculate the cube of num using the pow() function from the math module with 3 as the exponent.\n4. Print the resulting calculated volume as a float.",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-005",
+              "type": "paragraph",
+              "content": "Input\n\nA single integer representing num.",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-006",
+              "type": "paragraph",
+              "content": "Expected Output\n\nA single floating-point number representing the cube of the entered value.\n125.0",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-007",
+              "type": "paragraph",
+              "content": "Sample Input\n\n5",
+              "format": "plain"
+            },
+            {
+              "id": "question-57-block-008",
+              "type": "paragraph",
+              "content": "Constraints\n\nnum is an integer.\nThe calculation must be performed using the pow() function of the math module.",
+              "format": "plain"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

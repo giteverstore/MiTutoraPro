@@ -1,0 +1,594 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "python-basics-practice",
+  "slug": "python-basics-practice",
+  "title": "Python Basics Practice",
+  "description": "A beginner Python programming practice course with one programming question per lesson.",
+  "locale": "en",
+  "status": "published",
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "Y Coders"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 456,
+    "tags": [
+      "python",
+      "practice",
+      "beginner",
+      "programming"
+    ],
+    "updatedAt": "2026-11-11T00:00:00.000Z"
+  },
+  "navigation": {
+    "defaultLessonId": "question-1",
+    "sequence": "module-order",
+    "skipLockedLessons": false,
+    "labels": {
+      "previous": "Previous Question",
+      "next": "Next Question",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-2",
+      "title": "Introduction to Python",
+      "initiallyExpanded": true,
+      "lessons": [
+        {
+          "id": "question-1",
+          "number": "2.1",
+          "title": "Community Garden Harvest Distribution",
+          "summary": "A community urban farm distributes its weekly harvest of organic tomatoes among registered volunteer families after setting aside a fraction for the community kitchen. Write a program to calculate the exact weight of tomatoes each volunteer",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-2",
+          "number": "2.2",
+          "title": "Hydraulic Reservoir Fluid Variance",
+          "summary": "An automated municipal water station compares the target fluid volume against the actual measured fluid volume in a storage tank at the end of a pumping cycle. Write a program to determine the volume variance, where a negative variance sign",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-3",
+          "number": "2.3",
+          "title": "Laboratory Chemical Mass Conversion",
+          "summary": "A pharmaceutical compounding laboratory receives bulk raw active ingredients measured in kilograms and requires automated preparation logs to reflect the exact mass in grams. Write a program to convert the measured mass from kilograms to gr",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-4",
+          "number": "2.4",
+          "title": "Data Center Network Bandwidth Monitor",
+          "summary": "A cloud computing data center monitors high-speed telemetry links to calculate the average network transfer throughput between two regional server clusters over a sustained backup interval. Write a program to compute the data transfer speed",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-5",
+          "number": "2.5",
+          "title": "Microbial Culture Population Expansion",
+          "summary": "A biotechnology research laboratory tracks the compounding growth of a bacterial culture in an incubator. Given an initial base cell count, an hourly percentage growth factor, and the total observation period in hours, write a program to ca",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-6",
+          "number": "2.6",
+          "title": "School Solar Panel Surface Area",
+          "summary": "The science club at school is setting up a rectangular solar panel on the roof to power their weather station. To find out how much sunlight it can catch, they need to know its surface area. Write a program to calculate the area of the sola",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-7",
+          "number": "2.7",
+          "title": "Track Team Sprint Trial Average",
+          "summary": "During sports day trials, a school track coach records the finish times for a runner across three separate 100-meter sprint attempts. Write a program to calculate the runner's average sprint time in seconds.",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-8",
+          "number": "2.8",
+          "title": "Robotics Club Gear Pack Distribution",
+          "summary": "A school robotics club receives a large tub of precision gears to build gearboxes for an upcoming STEM challenge. The club mentor wants to distribute the gears equally among all participating student teams and keep the leftover gears in a s",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-9",
+          "number": "2.9",
+          "title": "Esports Team Roster Slot Swap",
+          "summary": "In a school esports tournament, two teammates decide to trade their player badge handles before the match begins. To perform the swap safely in the registration system without losing any text, the program uses a temporary holding variable c",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-3",
+      "title": "Decision Making and Loops",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-10",
+          "number": "3.1",
+          "title": "Submersible Research Drone Depth Sensor",
+          "summary": "A marine science club is testing an underwater exploration drone in a tidal lagoon. The drone's vertical sensor reports its position in meters relative to sea level. A reading of zero or higher means the drone is on or above the water surfa",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-11",
+          "number": "3.2",
+          "title": "Electric Scooter Battery Gauge Validator",
+          "summary": "A smart electric scooter has a digital dashboard display that shows its battery charge level as a percentage. The dashboard computer needs to check if the battery sensor reading is valid and whether the scooter has enough charge for high-sp",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-12",
+          "number": "3.3",
+          "title": "Arcade Prize Token Bundler",
+          "summary": "At a gaming arcade, prize tokens can only be redeemed for mystery gift boxes if they are collected in full bundles of 10 tokens. Any loose tokens that do not complete a pack of 10 cannot be redeemed for the box. Write a program to check whe",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-13",
+          "number": "3.4",
+          "title": "Space Club Solar System Planet Finder",
+          "summary": "In the school astronomy club, members use a computer catalog to identify planets based on their position from the Sun, starting with 1 for the closest planet. Write a program that takes a planet's order number from 1 to 7 and prints the nam",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-14",
+          "number": "3.5",
+          "title": "Senior Robotics League Entry Check",
+          "summary": "The national youth robotics championship hosts a special advanced division for autonomous rover design. To join this senior division, a student participant must be at least 18 years old on the day of registration. Write a program to check i",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-15",
+          "number": "3.6",
+          "title": "School Eco-Festival Badge Awarder",
+          "summary": "During the annual school eco-festival, students earn activity points by completing green challenges. An automated kiosk awards a digital badge based on how many points a student submits. Write a program to check the student's points and pri",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-16",
+          "number": "3.7",
+          "title": "Youth Coding Club Hardware Grant Waiver",
+          "summary": "A regional STEM education center provides project funding grants for student robotics teams. If a team submits a project proposal with a student leadership rating of 60 or higher out of 100, the center awards a special 10% fee waiver discou",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-17",
+          "number": "3.8",
+          "title": "Drone Obstacle Course Fastest Lap",
+          "summary": "At the school STEM fair, three students pilot their mini-drones through a timed obstacle course. Each pilot's total run time is recorded in whole seconds. Write a program to find the fastest (smallest) completion time among the three pilots",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-18",
+          "number": "3.9",
+          "title": "School Sports Club Preference Check",
+          "summary": "During sports club sign-up week, students can vote for their favorite outdoor activity. The club system recognizes votes for either football or badminton in both capitalized and lowercase spellings. Write a program to check the entered spor",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-19",
+          "number": "3.10",
+          "title": "Science Club Battery Pack Batch Calculator",
+          "summary": "The school electronics club prepares small robot kits. Each completed kit needs a specific number of rechargeable AA batteries. The club mentor wants to know how many total batteries are needed to pack 1, 2, 3, 4, and 5 complete kits. Write",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-20",
+          "number": "3.11",
+          "title": "School Sports Day Two-Cone Drill Marker Counter",
+          "summary": "During physical education class, the coach sets up an obstacle agility course using numbered checkpoints. At each consecutive checkpoint, the coach places an increasing pair of colored boundary cones (2 cones at the 1st checkpoint, 4 at the",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-21",
+          "number": "3.12",
+          "title": "School Track Relay Baton Distance Markers",
+          "summary": "During athletics training, a school track coach places 5 distance markers along a running lane. Each consecutive marker is placed at an interval equal to the base distance a student can sprint in one relay leg. Write a program using a for l",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-22",
+          "number": "3.13",
+          "title": "Cyber Club Secret Passcode Security Validator",
+          "summary": "In a school cybersecurity workshop, students design a digital safe that opens only with special \"unbreakable\" passcodes. An unbreakable passcode is a positive whole number greater than 1 that cannot be split evenly into equal groups by any ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-23",
+          "number": "3.14",
+          "title": "Amusement Park Ticket Serial Code Length Checker",
+          "summary": "At a theme park, game booths scan serial code numbers printed on student ride tickets. The scanner computer needs to count how many digits are in the ticket code using repeated division so it can verify the ticket format. Write a program us",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-24",
+          "number": "3.15",
+          "title": "Track and Field Yellow Hurdle Station Locator",
+          "summary": "During the school sports day obstacle course, numbered hurdles are arranged in a straight lane from station 1 to station n. Only the odd-numbered hurdles are painted bright yellow for a special jumping relay, while all even-numbered hurdles",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-25",
+          "number": "3.16",
+          "title": "School Reading Marathon Minute Logger",
+          "summary": "During the school reading challenge, students log the number of minutes they spend reading each book chapter. To finish entering their daily log and exit the recording system, they enter a negative number (such as -1) as a stop signal. Writ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-26",
+          "number": "3.17",
+          "title": "Sports Equipment Paired Item Scanner",
+          "summary": "During after-school sports cleanup, a student helper scans batches of training items (such as shuttlecocks, tennis balls, and wristbands) into the inventory system. The system only logs batches that can be split evenly into pairs (even numb",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-27",
+          "number": "3.18",
+          "title": "Botany Club Sunflower Spiral Counter",
+          "summary": "In an outdoor science club investigation, students study how sunflower seed spirals follow nature's famous growth pattern, starting with 0 and 1, where each new number is the sum of the previous two numbers (0, 1, 1, 2, 3, 5, 8, ...). Write",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-4",
+      "title": "Functions",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-28",
+          "number": "4.1",
+          "title": "High Altitude Drone Pilot Certification Validator",
+          "summary": "At an aerial robotics training academy, students can apply to fly advanced high-altitude observation drones only if they meet the required minimum flight crew age of 18 years. Write a program using a custom function to check whether an appl",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-29",
+          "number": "4.2",
+          "title": "Esports Duo Jersey Number Uniqueness Check",
+          "summary": "In a school esports tournament, two teammates on a duo team must choose different jersey numbers so the match referee can tell them apart on stream. Write a program using a custom function that receives two jersey numbers and returns True i",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-30",
+          "number": "4.3",
+          "title": "Robotics Arena Match Start Chime",
+          "summary": "At the school robotics competition arena, an automated announcer system sounds a standard digital cheer message right before each round kicks off. To make sure every team in the pit area hears the announcement clearly, the system runs a cus",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-31",
+          "number": "4.4",
+          "title": "Esports Player Tag and Handle Formatter",
+          "summary": "At the school gaming championship, each competitor registers their squad clan tag and their personal in-game handle. The tournament broadcast overlay uses a custom function to join these two details into a single badge line separated by a s",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-32",
+          "number": "4.5",
+          "title": "Space Agency Radio Frequency Security Validator",
+          "summary": "In a youth aerospace coding challenge, students write an automated frequency checker for satellite communication links. A transmission frequency number is considered \"secure\" (a prime number) if it is greater than 1 and cannot be split into",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-33",
+          "number": "4.6",
+          "title": "Robotics Arena Solar Tile Surface Area Calculator",
+          "summary": "In a junior engineering competition, students build a solar-powered rover track covered with square solar floor tiles. The energy monitoring system uses a custom function to calculate the surface area of each square tile given the length of",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-34",
+          "number": "4.7",
+          "title": "Esports Tournament Badge Profile Display",
+          "summary": "At the regional junior esports league, the match registration system generates digital player profiles. Each profile requires a pilot name and their assigned gaming guild. The system uses a dedicated function to print both pieces of informa",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-35",
+          "number": "4.8",
+          "title": "Science Fair Domino Chain Reaction Counter",
+          "summary": "In a STEM club physics experiment, students arrange rows of colorful domino tiles for an energy transfer demonstration. The first row has 1 domino, the second row has 2 dominoes, the third row has 3 dominoes, and so on, continuing all the w",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-36",
+          "number": "4.9",
+          "title": "STEM Greenhouse Planter Bed Area Calculator",
+          "summary": "In an environmental science project, students build rectangular planter boxes for growing microgreens. Each planter box is built with a standard fixed width of 12.5 centimeters, while the length varies depending on the shelf space available",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-5",
+      "title": "Collections",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-37",
+          "number": "5.1",
+          "title": "Game Zone Level-Up Energy Gem Tracker",
+          "summary": "In an arcade obstacle game, a player earns energy gems on consecutive checkpoint stages. The player's inventory list already contains checkpoint gem levels [2, 4, 6]. When the player clears the next stage, the game asks for the new stage ge",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-38",
+          "number": "5.2",
+          "title": "Coding Quest Badge Point Total Calculator",
+          "summary": "During a 5-day school coding challenge, a student earns reward badges with varying point values each day. The recorded badge points earned across all five days are stored in a list: [4, 7, 2, 6, 1]. Write a program that uses a loop to trave",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-39",
+          "number": "5.3",
+          "title": "Treasure Hunt Secret Passcode Boundary Check",
+          "summary": "In a school mystery scavenger hunt, team clues are written as one-word passcodes. A clue passcode is considered \"balanced\" if its very first character matches its very last character (such as \"mom\" or \"radar\"). Write a program using string ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-40",
+          "number": "5.4",
+          "title": "School Robotics LED Signal Light Sequence",
+          "summary": "In a middle school robotics workshop, an autonomous line-follower rover tests its multi-color signal tower before driving through an obstacle course. The light tower cycles through a pre-programmed list of colored warning signals: \"red\", \"b",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-41",
+          "number": "5.5",
+          "title": "School Sports Day Paired Runner Bib Filter",
+          "summary": "At the annual inter-house athletics meet, runners for the two-person relay race are assigned jersey bib numbers. The race marshal needs to identify and display only the even bib numbers from the registered heat list so those runners can lin",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-42",
+          "number": "5.6",
+          "title": "Robotics Arena Obstacle Course Return Path Reverser",
+          "summary": "In a school robotics maze challenge, an autonomous rover drives through a forward path, logging distance waypoint markers into a list: [5, 10, 15, 20]. To return safely back to the starting bay, the rover's navigation program must reverse t",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-43",
+          "number": "5.7",
+          "title": "Space Explorer Satellite Telemetry Banner Slicer",
+          "summary": "In a junior space engineering workshop, a miniature satellite transmits a test sequence of status signal characters stored inside a list: ['c', 'o', 'd', 'i', 'n', 'g', 'p', 'r', 'o', 'g']. To isolate the main science payload message, the g",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-44",
+          "number": "5.8",
+          "title": "School Spelling Bee Target Letter Frequency Counter",
+          "summary": "In a school word puzzle tournament, contestants analyze words by counting how many times a chosen target letter appears inside a mystery word. For instance, in the word \"banana\", the vowel \"a\" appears exactly 3 times. Write a program using ",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-45",
+          "number": "5.9",
+          "title": "Coding Club Fun Word Remix Tool",
+          "summary": "In an after-school programming lab, students experiment with remixing computer science terms to create playful team nicknames. The club system starts with the baseline word \"concatenate\". The program asks the student for a substitute word s",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-46",
+          "number": "5.10",
+          "title": "Esports Player GamerTag Assembler",
+          "summary": "In an online multiplayer coding arcade, new players customize their display tags by choosing a prefix title and a hero name. The game registration terminal needs to combine these two words directly into a single continuous GamerTag using st",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-47",
+          "number": "5.11",
+          "title": "Rocket Launch Mission Stopwatch Formatter",
+          "summary": "At a student aerospace science exhibition, a mission control countdown console records flight elapsed time across three separate input channels: hours, minutes, and seconds. To show the elapsed mission duration on the main telemetry screen,",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-48",
+          "number": "5.12",
+          "title": "Esports Team Motto Uniqueness Validator",
+          "summary": "In an inter-school gaming championship, two rival teams submit their team mottos to the tournament registry. To avoid confusion during live streaming, the registration system must ensure that both mottos are distinct, ignoring any differenc",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-49",
+          "number": "5.13",
+          "title": "Robotics League Team Roster Directory Merger",
+          "summary": "In a regional STEM hackathon, two neighboring school coding clubs join forces to form a unified alliance team. The lead coordinator maintains club member registries where each student's locker ID number serves as a unique key linked to thei",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-50",
+          "number": "5.14",
+          "title": "Makerspace Equipment Catalog Builder",
+          "summary": "In a middle school innovation lab, students organize a checkout catalog for hardware tools and accessories. The lab assistant needs a program that prompts for the name and price tag of 3 different items, stores each item as a key-value pair",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-51",
+          "number": "5.15",
+          "title": "Robotics Challenge Speed Trial Score Board",
+          "summary": "In an after-school STEM workshop, students compete in a timed obstacle run. The scoreboard system stores the final trial score of each participant mapped to their first name in a dictionary: \"Rahul\" with a score of 85, and \"Priya\" with a sc",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-52",
+          "number": "5.16",
+          "title": "Secret Codebook Cipher Key Validator",
+          "summary": "In a school mystery puzzle club, agents decode hidden clues using a quick-reference codebook stored in a digital dictionary. The cipher book links single-letter code keys to secret codenames: {\"a\": \"apple\", \"b\": \"banana\", \"c\": \"cherry\"}. Wh",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-53",
+          "number": "5.17",
+          "title": "Word Scramble Game Character Tile Converter",
+          "summary": "In a school digital board game, players enter a secret keyword that the game board breaks down into individual letter tiles so they can be rearranged on a virtual grid. The game engine uses the built-in list() constructor to split an entere",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-6",
+      "title": "Modules",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-54",
+          "number": "6.1",
+          "title": "STEM 3D Voxel Cube Dimension Calculator",
+          "summary": "In a middle school 3D game design club, students create custom cube-shaped blocks called voxels. To figure out the side length of any cubic storage crate from its total volume, the game engine calculates the cube root of the volume using th",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-55",
+          "number": "6.2",
+          "title": "Robotics Arena Square Floor Tile Checker",
+          "summary": "In a middle school STEM robotics arena, an autonomous vacuum rover operates best inside perfectly square testing zones made of identical 1x1 floor tiles. When the team manager supplies a total count of square floor tiles, the testing platfo",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-56",
+          "number": "6.3",
+          "title": "School Weather Station Temperature Benchmark Analyzer",
+          "summary": "In a middle school environmental science club, students track daily temperature variations using a digital sensor array. Over a 5-day monitoring run, the sensors recorded temperature milestone readings of 5, 10, 15, 20, and 25 degrees. To f",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        },
+        {
+          "id": "question-57",
+          "number": "6.4",
+          "title": "Minecraft Cubic Storage Chest Volume Calculator",
+          "summary": "In a student game development workshop, players design custom cubic storage chests for their virtual base camps. To determine how many resource units a chest can hold, the crafting engine calculates the cube of the side length using Python'",
+          "status": "available",
+          "estimatedMinutes": 8,
+          "blocks": []
+        }
+      ]
+    }
+  ],
+  "moduleFiles": [
+    "module-1.json",
+    "module-2.json",
+    "module-3.json",
+    "module-4.json",
+    "module-5.json"
+  ]
+}

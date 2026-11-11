@@ -1,0 +1,233 @@
+{
+  "id": "module-6",
+  "title": "Modules",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "question-54",
+      "number": "6.1",
+      "title": "STEM 3D Voxel Cube Dimension Calculator",
+      "summary": "In a middle school 3D game design club, students create custom cube-shaped blocks called voxels. To figure out the side length of any cubic storage crate from its total volume, the game engine calculates the cube root of the volume using th",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-54-block-001",
+          "type": "paragraph",
+          "content": "Question 54 · Page 6.1\n\nSTEM 3D Voxel Cube Dimension Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a middle school 3D game design club, students create custom cube-shaped blocks called voxels. To figure out the side length of any cubic storage crate from its total volume, the game engine calculates the cube root of the volume using the standard math library. Write a program that imports the math module, reads the volume of a cube, and calculates its side length using fractional exponentiation with the pow() function.",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nside_length = math.pow(number, 1/3)",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Import the math module at the top of your program.\n2. Take a numerical input from the user representing the total volume and store it in a variable named number.\n3. Calculate the cube root of number using the math.pow() function with 1/3 as the power exponent.\n4. Print the calculated cube root as a floating-point number.",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nA single number representing the volume stored in number.",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single floating-point number representing the cube root.\n3.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n27",
+          "format": "plain"
+        },
+        {
+          "id": "question-54-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumber >= 0\nThe calculation must be performed using the pow() function from the math module with an exponent of 1/3.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-55",
+      "number": "6.2",
+      "title": "Robotics Arena Square Floor Tile Checker",
+      "summary": "In a middle school STEM robotics arena, an autonomous vacuum rover operates best inside perfectly square testing zones made of identical 1x1 floor tiles. When the team manager supplies a total count of square floor tiles, the testing platfo",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-55-block-001",
+          "type": "paragraph",
+          "content": "Question 55 · Page 6.2\n\nRobotics Arena Square Floor Tile Checker",
+          "format": "plain"
+        },
+        {
+          "id": "question-55-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a middle school STEM robotics arena, an autonomous vacuum rover operates best inside perfectly square testing zones made of identical 1x1 floor tiles. When the team manager supplies a total count of square floor tiles, the testing platform checks whether the total can form a solid, complete square arena with no tiles left over. A number is a perfect square if its square root has a remainder of zero when divided by 1. Write a program to check whether a given tile count is a perfect square.",
+          "format": "plain"
+        },
+        {
+          "id": "question-55-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Import the math module at the top of your program.\n2. Take an integer input from the user and store it in a variable named number.\n3. Calculate the square root of number using the math.sqrt() function and assign the result to square_root.\n4. Use the % operator with 1 on square_root to calculate the decimal remainder, and store the result in a variable named check_remainder.\n5. If check_remainder is equal to 0, print:\nPerfect Square\n6. Otherwise, print:\nNot a Perfect Square",
+          "format": "plain"
+        },
+        {
+          "id": "question-55-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing number\n.",
+          "format": "plain"
+        },
+        {
+          "id": "question-55-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\n\"Perfect Square\" if the number is a perfect square, or \"Not a Perfect Square\" if it is not.\nPerfect Square",
+          "format": "plain"
+        },
+        {
+          "id": "question-55-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n49",
+          "format": "plain"
+        },
+        {
+          "id": "question-55-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumber > 0\nThe square root must be calculated using the math.sqrt() function.\nThe whole-number check must use the % 1 remainder operation.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-56",
+      "number": "6.3",
+      "title": "School Weather Station Temperature Benchmark Analyzer",
+      "summary": "In a middle school environmental science club, students track daily temperature variations using a digital sensor array. Over a 5-day monitoring run, the sensors recorded temperature milestone readings of 5, 10, 15, 20, and 25 degrees. To f",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-56-block-001",
+          "type": "paragraph",
+          "content": "Question 56 · Page 6.3\n\nSchool Weather Station Temperature Benchmark Analyzer",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a middle school environmental science club, students track daily temperature variations using a digital sensor array. Over a 5-day monitoring run, the sensors recorded temperature milestone readings of 5, 10, 15, 20, and 25 degrees. To find the baseline average for their weekly science report, the students use Python's built-in statistics library to calculate the mean of these readings. Write a program that imports the statistics module, creates the dataset, and prints the mean value.",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nMean = sum of all values / total number of values",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Import the statistics module at the top of your program.\n2. Create a list containing the numbers 5, 10, 15, 20, and 25, and assign it to a variable named data_set.\n3. Use the statistics.mean() function to compute the average of the items in data_set.\n4. Print the calculated mean value.",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single number representing the arithmetic mean of the dataset.",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-007",
+          "type": "paragraph",
+          "content": "Sample Output\n\n15",
+          "format": "plain"
+        },
+        {
+          "id": "question-56-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\ndata_set must contain the exact elements: [5, 10, 15, 20, 25].\nThe average must be computed using the mean() function from the statistics module.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-57",
+      "number": "6.4",
+      "title": "Minecraft Cubic Storage Chest Volume Calculator",
+      "summary": "In a student game development workshop, players design custom cubic storage chests for their virtual base camps. To determine how many resource units a chest can hold, the crafting engine calculates the cube of the side length using Python'",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-57-block-001",
+          "type": "paragraph",
+          "content": "Question 57 · Page 6.4\n\nMinecraft Cubic Storage Chest Volume Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a student game development workshop, players design custom cubic storage chests for their virtual base camps. To determine how many resource units a chest can hold, the crafting engine calculates the cube of the side length using Python's math module. Write a program that imports the math module, takes an integer side length from the user, and computes the total volume by raising the number to the third power using the pow() function.",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nVolume = math.pow(num, 3)",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Import the math module at the top of your program.\n2. Take an integer input from the user representing side length and assign it to a variable named num.\n3. Calculate the cube of num using the pow() function from the math module with 3 as the exponent.\n4. Print the resulting calculated volume as a float.",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing num.",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single floating-point number representing the cube of the entered value.\n125.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n5",
+          "format": "plain"
+        },
+        {
+          "id": "question-57-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nnum is an integer.\nThe calculation must be performed using the pow() function of the math module.",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

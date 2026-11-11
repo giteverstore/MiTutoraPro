@@ -1,0 +1,1827 @@
+{
+  "id": "module-5",
+  "title": "Reusable Code (Functions)",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-5-1-python-functions",
+      "number": "5.1",
+      "title": "Python Functions",
+      "summary": "Welcome to Module 5! 🧙‍♂️",
+      "status": "available",
+      "estimatedMinutes": 13,
+      "blocks": [
+        {
+          "id": "lesson-5-1-python-functions-block-001",
+          "type": "paragraph",
+          "content": "5.1 Python Functions",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-002",
+          "type": "paragraph",
+          "content": "Welcome to Module 5! 🧙‍♂️",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-003",
+          "type": "paragraph",
+          "content": "Imagine you are playing a video game where your character has a special double-flip kick. Every time you press the special button, your character performs the exact same sequence of 5 cool moves.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-004",
+          "type": "paragraph",
+          "content": "The game developers didn't rewrite those 5 moves thousands of times—they packaged them inside a single shortcut button!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-005",
+          "type": "paragraph",
+          "content": "In Python, that shortcut button is called a Function.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-006",
+          "type": "paragraph",
+          "content": "A Function is a reusable block of code that performs a specific task. You write the instructions once, give it a name, and then you can trigger that entire block of code whenever you want with a single line!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-007",
+          "type": "paragraph",
+          "content": "Click Next Lesson to create your very first function!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-008",
+          "type": "paragraph",
+          "content": "Creating a Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-009",
+          "type": "paragraph",
+          "content": "To create a function, Python uses the special keyword def (short for define):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-010",
+          "type": "paragraph",
+          "content": "Basic Syntax:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-011",
+          "type": "paragraph",
+          "content": "Figure: def keyword ----> function_name() ----> colon (:) ----> 4 spaces indented body",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-012",
+          "type": "paragraph",
+          "content": "Let’s write a function that sounds an alarm for a spaceship:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-013",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-014",
+          "type": "paragraph",
+          "content": "Why didn't anything print? Defining a function is just like writing down a recipe in a notebook—it doesn't bake the cake yet!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-015",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how we actually trigger it!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-016",
+          "type": "paragraph",
+          "content": "Call a Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-017",
+          "type": "paragraph",
+          "content": "To make a function run its code, you must call (or invoke) it by typing its name followed by parentheses ():",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-018",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-019",
+          "type": "paragraph",
+          "content": "When Python reaches space_alarm(), it pauses what it was doing, jumps up to run the code inside space_alarm, and then continues down to print(\"System ready.\")!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-020",
+          "type": "paragraph",
+          "content": "Working of a Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-021",
+          "type": "paragraph",
+          "content": "Here is what happens behind the scenes in 3 simple steps:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-022",
+          "type": "paragraph",
+          "content": "The Call: Python sees space_alarm() and leaps up to the def space_alarm(): block.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-023",
+          "type": "paragraph",
+          "content": "The Execution: Python runs all the indented lines inside the function one by one from top to bottom.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-024",
+          "type": "paragraph",
+          "content": "The Return: Once the function finishes its last line, Python hops back to where it left off and runs the next line of code below the function call.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-025",
+          "type": "paragraph",
+          "content": "Click Next Lesson for a quick knowledge check!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-026",
+          "type": "paragraph",
+          "content": "Quiz: Function Essentials",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-027",
+          "type": "paragraph",
+          "content": "Which of the following statements about Python functions is true?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-028",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-029",
+          "type": "paragraph",
+          "content": "| A: A function runs automatically the moment you define it with def. |\n| Incorrect, give it another shot! Defining a function only sets up the blueprint. It will not run until you call it. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-030",
+          "type": "paragraph",
+          "content": "| B: You can only call a function once in a program. |\n| Incorrect, give it another shot! You can call a function as many times as you like throughout your code! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-031",
+          "type": "paragraph",
+          "content": "| C: A function is a reusable block of code that runs when called. |\n| Correct Answer! 🎉 Functions allow you to group related code together and reuse it whenever you need it by calling its name! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-032",
+          "type": "paragraph",
+          "content": "| D: In Python, functions are created using the function keyword. |\n| Incorrect, give it another shot! In Python, we define functions using the keyword def, not function. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-033",
+          "type": "paragraph",
+          "content": "Using a Function Multiple Times",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-034",
+          "type": "paragraph",
+          "content": "The true superpower of a function is reusability. Instead of copy-pasting code, you just call the function as many times as you want!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-035",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-036",
+          "type": "paragraph",
+          "content": "If you ever want to change the victory message, you only have to edit it in one place (inside the def block), and every call updates automatically!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-037",
+          "type": "paragraph",
+          "content": "Function Call Inside a Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-038",
+          "type": "paragraph",
+          "content": "Want to run a function 5 times in a row? Don't write 5 separate lines—call your function inside a loop!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-039",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-040",
+          "type": "paragraph",
+          "content": "Beginner Mistake to Avoid:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-041",
+          "type": "paragraph",
+          "content": "Never define your function inside a loop! Always define the function once at the top of your file, and then put only the call (robot_beep()) inside the loop.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-042",
+          "type": "paragraph",
+          "content": "Quiz: Tracking Function Calls",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-043",
+          "type": "paragraph",
+          "content": "What will be displayed by this program?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-044",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-045",
+          "type": "paragraph",
+          "content": "| A: ✨ Sparkle! printed 2 times |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-046",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Don't forget the first cast_spell() call that happens before the loop! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-047",
+          "type": "paragraph",
+          "content": "| B: ✨ Sparkle! printed 3 times |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-048",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉 It is called 1 time before the loop, and 2 times inside the loop:  total times! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-049",
+          "type": "paragraph",
+          "content": "| C: ✨ Sparkle! printed 1 time |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-050",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The loop runs 2 more times, calling the function on each turn. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-051",
+          "type": "paragraph",
+          "content": "| D: Nothing will be printed. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-052",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The function is called multiple times, so the message prints. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-053",
+          "type": "paragraph",
+          "content": "Practice: Launch Countdown Cheer",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-054",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-055",
+          "type": "paragraph",
+          "content": "1. Define a function named cheer() that prints these two lines:\n     Line 1: 3... 2... 1...\n     Line 2: Go Team Python! 🚀",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-056",
+          "type": "paragraph",
+          "content": "2. Outside the function, call cheer() twice in a row.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-057",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-058",
+          "type": "paragraph",
+          "content": "Practice: Drone Radar Pulse in a Loop",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-059",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-060",
+          "type": "paragraph",
+          "content": "1. Define a function named radar_ping() that prints:\n     Scanning sector... Radar Clear ✅",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-061",
+          "type": "paragraph",
+          "content": "2. Below the function, use a for loop with range(4) to call radar_ping() exactly 4 times.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-062",
+          "type": "paragraph",
+          "content": "Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-063",
+          "type": "paragraph",
+          "content": "def radar_ping():",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-064",
+          "type": "paragraph",
+          "content": "print(\"Scanning sector... Radar Clear ✅\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-065",
+          "type": "paragraph",
+          "content": "for i in range(4):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-066",
+          "type": "paragraph",
+          "content": "radar_ping()",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-1-python-functions-block-067",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-5-2-arguments-function-return-values",
+      "number": "5.2",
+      "title": "Arguments Function & Return Values",
+      "summary": "5.2 Arguments Function & Return Values",
+      "status": "available",
+      "estimatedMinutes": 18,
+      "blocks": [
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-001",
+          "type": "paragraph",
+          "content": "5.2 Arguments Function & Return Values",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-002",
+          "type": "paragraph",
+          "content": "Function Arguments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-003",
+          "type": "paragraph",
+          "content": "In the previous lesson, our space_alarm() function printed the exact same message every single time. But what if you want your function to be flexible and work with different players, speeds, or items?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-004",
+          "type": "paragraph",
+          "content": "We can feed custom information into a function using Arguments!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-005",
+          "type": "paragraph",
+          "content": "Think of a function like a vending machine slot. You drop something into the slot (the argument), and the machine uses it inside:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-006",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-007",
+          "type": "paragraph",
+          "content": "Parameter: The placeholder variable inside def greet_hero(hero_name):.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-008",
+          "type": "paragraph",
+          "content": "Argument: The actual value you pass when calling it: greet_hero(\"Aria\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-009",
+          "type": "paragraph",
+          "content": "Working of the Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-010",
+          "type": "paragraph",
+          "content": "Here is what happens step by step when you pass an argument:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-011",
+          "type": "paragraph",
+          "content": "Figure: Working of the Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-012",
+          "type": "paragraph",
+          "content": "When you call greet_hero(\"Leo\"), the exact same function runs, but hero_name now holds \"Leo\"!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-013",
+          "type": "paragraph",
+          "content": "Click Next Lesson for a quick quiz!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-014",
+          "type": "paragraph",
+          "content": "Quiz: Function Arguments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-015",
+          "type": "paragraph",
+          "content": "What will be displayed by this program?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-016",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-017",
+          "type": "paragraph",
+          "content": "| A: 25 followed by 40 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-018",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The function adds 10 to the incoming points before printing. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-019",
+          "type": "paragraph",
+          "content": "| B: 35 followed by 50 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-020",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉 On the first call, . On the second call, ! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-021",
+          "type": "paragraph",
+          "content": "| C: 35 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-022",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Don't forget that the function is called twice with two different numbers. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-023",
+          "type": "paragraph",
+          "content": "| D: A TypeError occurs. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-024",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Passing an integer to boost_score matches its single parameter perfectly. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-025",
+          "type": "paragraph",
+          "content": "Passing Multiple Arguments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-026",
+          "type": "paragraph",
+          "content": "You aren’t limited to just one argument! You can pass multiple values into a function by separating them with commas ,:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-027",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-028",
+          "type": "paragraph",
+          "content": "Rule of Order:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-029",
+          "type": "paragraph",
+          "content": "The arguments you pass match the parameters in the exact same order:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-030",
+          "type": "paragraph",
+          "content": "The 1st argument goes into the 1st parameter (herb).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-031",
+          "type": "paragraph",
+          "content": "The 2nd argument goes into the 2nd parameter (liquid).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-032",
+          "type": "paragraph",
+          "content": "Practice: Player Stat Card",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-033",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-034",
+          "type": "paragraph",
+          "content": "Define a function named display_card(player_name, level) that prints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-035",
+          "type": "paragraph",
+          "content": "Player: [player_name] | Level: [level]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-036",
+          "type": "paragraph",
+          "content": "Outside the function, call display_card() with the arguments \"Shadow\" and 12.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-037",
+          "type": "paragraph",
+          "content": "Call it again with \"Cyber\" and 25.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-038",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-039",
+          "type": "paragraph",
+          "content": "The Return Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-040",
+          "type": "paragraph",
+          "content": "Inside a function, you can use the return statement.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-041",
+          "type": "paragraph",
+          "content": "The return statement does something very dramatic:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-042",
+          "type": "paragraph",
+          "content": "It instantly ends the function.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-043",
+          "type": "paragraph",
+          "content": "It sends control of the program right back to where the function was called.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-044",
+          "type": "paragraph",
+          "content": "Any lines written after a return statement are completely unreachable!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-045",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see this in action.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-046",
+          "type": "paragraph",
+          "content": "Example: The Return Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-047",
+          "type": "paragraph",
+          "content": "Watch what happens when Python hits a return keyword:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-048",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-049",
+          "type": "paragraph",
+          "content": "Because return immediately exited the function, print(\"This line will NEVER run!\") was completely ignored!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-050",
+          "type": "paragraph",
+          "content": "Return Statement at the End",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-051",
+          "type": "paragraph",
+          "content": "By default, every Python function naturally finishes and exits after running its very last line.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-052",
+          "type": "paragraph",
+          "content": "Therefore, writing an empty return at the very end of a function is optional:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-053",
+          "type": "paragraph",
+          "content": "Both versions behave identically. But return has a much bigger superpower: sending values back!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-054",
+          "type": "paragraph",
+          "content": "Return Value From Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-055",
+          "type": "paragraph",
+          "content": "Until now, our functions only printed text inside their own bodies. But real functions act like calculators—they compute an answer and hand it back to your main code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-056",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-057",
+          "type": "paragraph",
+          "content": "Instead of printing inside the function, return boosted tosses 100 back, and my_reward catches it like a baseball glove!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-058",
+          "type": "paragraph",
+          "content": "Working of the Return Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-059",
+          "type": "paragraph",
+          "content": "Here is the exact journey of a return value:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-060",
+          "type": "paragraph",
+          "content": "Now you can use my_reward in math, save it to a file, or compare it with other scores!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-061",
+          "type": "paragraph",
+          "content": "Quiz: Catching the Return Value",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-062",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-063",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-064",
+          "type": "paragraph",
+          "content": "| A: 5 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-065",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The function adds 10 to n before returning it. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-066",
+          "type": "paragraph",
+          "content": "| B: 15 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-067",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉 . The function returns 15, which is stored in result and printed. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-068",
+          "type": "paragraph",
+          "content": "| C: result |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-069",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! result is a variable holding the returned number, not text. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-070",
+          "type": "paragraph",
+          "content": "| D: Nothing is printed. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-071",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! print(result) prints the value that was caught. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-072",
+          "type": "paragraph",
+          "content": "Practice: Rectangle Area Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-073",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-074",
+          "type": "paragraph",
+          "content": "Define a function named calculate_area(length, width) that computes the area by multiplying length * width and returns the result.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-075",
+          "type": "paragraph",
+          "content": "Outside the function, call calculate_area(8, 5) and store the returned value in a variable named room_area.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-076",
+          "type": "paragraph",
+          "content": "Print: Total Area: followed by room_area.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-077",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-078",
+          "type": "paragraph",
+          "content": "Why Use Arguments & Return Value?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-079",
+          "type": "paragraph",
+          "content": "Using arguments and return values turns your function into a clean Black Box:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-080",
+          "type": "paragraph",
+          "content": "Figure: Input (Arguments) ───> [ FUNCTION MACHINE ] ───> Output (Return Value)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-081",
+          "type": "paragraph",
+          "content": "Why This Is Great Programming:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-082",
+          "type": "paragraph",
+          "content": "Separation of Work: The function only focuses on doing the math or logic. It doesn't worry about printing or asking for inputs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-083",
+          "type": "paragraph",
+          "content": "True Reusability: You can use the returned value anywhere—add it to a leaderboard, send it across the internet, or feed it into another function!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-084",
+          "type": "paragraph",
+          "content": "No Clutter: You don't know the thousands of lines of code inside Python's built-in len() or max(), but you can use them because you know what inputs to give and what output they return!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-085",
+          "type": "paragraph",
+          "content": "Example: Arcade XP Bonus Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-086",
+          "type": "paragraph",
+          "content": "Let's build a modular function that calculates game XP with a mystery multiplier:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-087",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values-block-088",
+          "type": "paragraph",
+          "content": "Because compute_bonus_xp returned numbers instead of just printing them, we were able to add both rounds together into a grand total!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-5-3-variable-scope-local-vs-global",
+      "number": "5.3",
+      "title": "Variable Scope (Local vs Global)",
+      "summary": "5.3 Variable Scope (Local vs Global)",
+      "status": "available",
+      "estimatedMinutes": 12,
+      "blocks": [
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-001",
+          "type": "paragraph",
+          "content": "5.3 Variable Scope (Local vs Global)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-002",
+          "type": "paragraph",
+          "content": "Global Variable",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-003",
+          "type": "paragraph",
+          "content": "In programming, Scope refers to where in your code a variable can be seen and used.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-004",
+          "type": "paragraph",
+          "content": "Think of a Global Variable like a giant public clock in the middle of a town square:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-005",
+          "type": "paragraph",
+          "content": "Anyone walking through the town can look up and see what time it is.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-006",
+          "type": "paragraph",
+          "content": "Any house or shop in the town can use that time.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-007",
+          "type": "paragraph",
+          "content": "A variable created in your main code outside of any function is called a Global Variable. It belongs to the whole program, and any function can read its value!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-008",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see a global variable in action!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-009",
+          "type": "paragraph",
+          "content": "Example: Global Variable",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-010",
+          "type": "paragraph",
+          "content": "Let’s create a global variable to store a video game’s world title:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-011",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-012",
+          "type": "paragraph",
+          "content": "Notice that game_title was read smoothly both inside show_banner() and outside in the main program!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-013",
+          "type": "paragraph",
+          "content": "Quiz: Global Variable Reading",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-014",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen when this code runs?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-015",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-016",
+          "type": "paragraph",
+          "content": "| A: score_limit |\n| Incorrect, give it another shot! score_limit is a variable, so its stored numerical value is printed. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-017",
+          "type": "paragraph",
+          "content": "| B: 500 |\n| Correct Answer! 🎉 score_limit is a global variable, so functions can easily read and display its value! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-018",
+          "type": "paragraph",
+          "content": "| C: A NameError occurs. |\n| Incorrect, give it another shot! Global variables are fully visible inside functions. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-019",
+          "type": "paragraph",
+          "content": "| D: None |\n| Incorrect, give it another shot! The print statement inside the function prints 500. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-020",
+          "type": "paragraph",
+          "content": "Quiz: Scope Visibility",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-021",
+          "type": "paragraph",
+          "content": "Which of the following variables is a global variable in this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-022",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-023",
+          "type": "paragraph",
+          "content": "| A: fuel |\n| Incorrect, give it another shot! fuel is created inside the function explore(), making it a local variable. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-024",
+          "type": "paragraph",
+          "content": "| B: planet |\n| Correct Answer! 🎉 planet is defined out in the open (outside the function), which makes it a global variable! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-025",
+          "type": "paragraph",
+          "content": "| C: Both planet and fuel |\n| Incorrect, give it another shot! Only variables created outside functions are global. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-026",
+          "type": "paragraph",
+          "content": "| D: Neither variable |\n| Incorrect, give it another shot! planet is accessible across the entire file. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-027",
+          "type": "paragraph",
+          "content": "Local Variable",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-028",
+          "type": "paragraph",
+          "content": "Now, what about variables created inside a function?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-029",
+          "type": "paragraph",
+          "content": "Think of a Local Variable like a secret notebook locked inside your personal bedroom desk drawer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-030",
+          "type": "paragraph",
+          "content": "You can read and write in it while you are in your room.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-031",
+          "type": "paragraph",
+          "content": "But nobody outside on the street can see it!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-032",
+          "type": "paragraph",
+          "content": "Any variable created inside a function's indented body is called a Local Variable. It is born when the function starts running, and it is completely destroyed the moment the function finishes!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-033",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see what happens when you try to peek inside!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-034",
+          "type": "paragraph",
+          "content": "Example: Local Variable",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-035",
+          "type": "paragraph",
+          "content": "Watch what happens when we try to use a local variable from outside its function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-036",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-037",
+          "type": "paragraph",
+          "content": "Why Did It Crash?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-038",
+          "type": "paragraph",
+          "content": "Because secret_code was local to secret_mission(). The moment the function ended, secret_code vanished from memory! The outside world has no idea it ever existed.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-039",
+          "type": "paragraph",
+          "content": "Why Is Local Scope Important?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-040",
+          "type": "paragraph",
+          "content": "You might wonder: \"Why doesn't Python just make every variable global?\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-041",
+          "type": "paragraph",
+          "content": "Here are the 3 big reasons why local variables are a lifesaver:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-042",
+          "type": "paragraph",
+          "content": "No Name Clashes: If you name a variable total inside one function, and another programmer names a variable total inside a different function, they will never clash or overwrite each other!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-043",
+          "type": "paragraph",
+          "content": "Self-Contained Code: Functions are independent little machines. You can copy a function into another game without worrying about breaking existing variables.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-044",
+          "type": "paragraph",
+          "content": "Memory Cleanup: Once a function finishes its work, Python wipes its local variables clean to free up memory on your device!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-045",
+          "type": "paragraph",
+          "content": "Quiz: Local Variable Mystery",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-046",
+          "type": "paragraph",
+          "content": "What will be the output of this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-047",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-048",
+          "type": "paragraph",
+          "content": "| A: 25000 |\n| Incorrect, give it another shot! speed was created inside launch_probe(), so it ceases to exist outside the function. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-049",
+          "type": "paragraph",
+          "content": "| B: speed |\n| Incorrect, give it another shot! print(speed) tries to look up the variable name, not print text. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-050",
+          "type": "paragraph",
+          "content": "| C: NameError: name 'speed' is not defined |\n| Correct Answer! 🎉 Because speed is a local variable, it cannot be accessed outside the function. Python raises a NameError! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-051",
+          "type": "paragraph",
+          "content": "| D: 0 |\n| Incorrect, give it another shot! Python will not invent a default value for an out-of-scope variable. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-052",
+          "type": "paragraph",
+          "content": "Quiz: Independent Twin Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-053",
+          "type": "paragraph",
+          "content": "Look closely at these two functions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-054",
+          "type": "paragraph",
+          "content": "What will be displayed?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-055",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-056",
+          "type": "paragraph",
+          "content": "| A: 10 followed by 50 |\n| Correct Answer! 🎉 Each function has its own private, local coins variable. They are completely independent and do not interfere with each other! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-057",
+          "type": "paragraph",
+          "content": "| B: 50 followed by 50 |\n| Incorrect, give it another shot! player_two does not overwrite the coins inside player_one. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-058",
+          "type": "paragraph",
+          "content": "| C: 10 followed by 10 |\n| Incorrect, give it another shot! player_two() runs its own local assignment coins = 50. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global-block-059",
+          "type": "paragraph",
+          "content": "| D: A NameError occurs due to duplicate variable names. |\n| Incorrect, give it another shot! Python allows different functions to use the exact same variable names without any error. |",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-5-4-think-functions",
+      "number": "5.4",
+      "title": "Think Functions",
+      "summary": "When professional coders look at a big problem, they don't start typing random lines of code immediately. They pause and think in functions!",
+      "status": "available",
+      "estimatedMinutes": 11,
+      "blocks": [
+        {
+          "id": "lesson-5-4-think-functions-block-001",
+          "type": "paragraph",
+          "content": "5.4 Think Functions",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-002",
+          "type": "paragraph",
+          "content": "Think Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-003",
+          "type": "paragraph",
+          "content": "When professional coders look at a big problem, they don't start typing random lines of code immediately. They pause and think in functions!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-004",
+          "type": "paragraph",
+          "content": "Thinking in functions means treating your problem like designing a mini factory machine:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-005",
+          "type": "paragraph",
+          "content": "Whenever you build a function, ask yourself the 3 Golden Questions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-006",
+          "type": "paragraph",
+          "content": "What Inputs (Arguments) does it need?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-007",
+          "type": "paragraph",
+          "content": "What ingredients or numbers does the machine need to do its job?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-008",
+          "type": "paragraph",
+          "content": "What Process (Logic) happens inside?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-009",
+          "type": "paragraph",
+          "content": "Does it need a loop, an if-else condition, or a math calculation?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-010",
+          "type": "paragraph",
+          "content": "What Output (Return Value) should it give back?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-011",
+          "type": "paragraph",
+          "content": "What is the final answer it tosses back to the main program?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-012",
+          "type": "paragraph",
+          "content": "If you can answer these three questions, writing the code is super easy!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-013",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see this thinking process in action.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-014",
+          "type": "paragraph",
+          "content": "Example: Sum of Numbers from 1 to n",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-015",
+          "type": "paragraph",
+          "content": "The Goal: Write a program to calculate the sum of all natural numbers up to  (for example, if , sum is ).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-016",
+          "type": "paragraph",
+          "content": "Applying the 3 Golden Questions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-017",
+          "type": "paragraph",
+          "content": "Arguments: We only need one input: n (the target number).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-018",
+          "type": "paragraph",
+          "content": "Process: Start a total accumulator at 0, and use a for loop from 1 to n to add each number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-019",
+          "type": "paragraph",
+          "content": "Return Value: Return the final total.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-020",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-021",
+          "type": "paragraph",
+          "content": "Practice: Compute the Factorial",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-022",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-023",
+          "type": "paragraph",
+          "content": "The factorial of a positive integer  is the product of all integers from  up to :",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-024",
+          "type": "paragraph",
+          "content": "Step 1: Define a function named compute_factorial(n):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-025",
+          "type": "paragraph",
+          "content": "Initialize an accumulator: product = 1 (start at 1, because multiplying by 0 gives 0!).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-026",
+          "type": "paragraph",
+          "content": "Use a for loop with range(1, n + 1): multiply product *= i.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-027",
+          "type": "paragraph",
+          "content": "Return product.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-028",
+          "type": "paragraph",
+          "content": "Step 2: Outside the function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-029",
+          "type": "paragraph",
+          "content": "Call compute_factorial(5) and store the result in result.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-030",
+          "type": "paragraph",
+          "content": "Print result.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-031",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-032",
+          "type": "paragraph",
+          "content": "(Because )",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-033",
+          "type": "paragraph",
+          "content": "Practice: Find the Champion Score",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-034",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-035",
+          "type": "paragraph",
+          "content": "Write a function that finds the highest score among three tournament players.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-036",
+          "type": "paragraph",
+          "content": "Step 1: Define a function named get_highest(score1, score2, score3):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-037",
+          "type": "paragraph",
+          "content": "It takes three arguments.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-038",
+          "type": "paragraph",
+          "content": "Use an if-elif-else block to determine the largest number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-039",
+          "type": "paragraph",
+          "content": "Return the largest score.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-040",
+          "type": "paragraph",
+          "content": "Step 2: Outside the function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-041",
+          "type": "paragraph",
+          "content": "Call get_highest(85, 98, 92) and store the return value in champion.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-042",
+          "type": "paragraph",
+          "content": "Print: Top Score: followed by champion.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-043",
+          "type": "paragraph",
+          "content": "Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-044",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-045",
+          "type": "paragraph",
+          "content": "Example: Checking Even or Odd (Boolean Return)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-046",
+          "type": "paragraph",
+          "content": "Whenever a function answers a \"Yes or No\" question, it's a best practice to return a Boolean (True or False)!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-047",
+          "type": "paragraph",
+          "content": "The 3 Golden Questions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-048",
+          "type": "paragraph",
+          "content": "Argument: A single whole number number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-049",
+          "type": "paragraph",
+          "content": "Process: Check if number % 2 == 0.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-050",
+          "type": "paragraph",
+          "content": "Return Value: Return True if even, and False if odd.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-051",
+          "type": "paragraph",
+          "content": "Sample Output 1",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-052",
+          "type": "paragraph",
+          "content": "Sample Output 2",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-4-think-functions-block-053",
+          "type": "paragraph",
+          "content": "Because is_even(num) returns a clean True or False, you can plug it straight into an if statement like a puzzle piece!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-5-5-revision-functions",
+      "number": "5.5",
+      "title": "Revision Functions",
+      "summary": "5.5 Revision Functions",
+      "status": "available",
+      "estimatedMinutes": 6,
+      "blocks": [
+        {
+          "id": "lesson-5-5-revision-functions-block-001",
+          "type": "paragraph",
+          "content": "5.5 Revision Functions",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-002",
+          "type": "paragraph",
+          "content": "Revision 1 (Defining, Arguments & Return Values)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-003",
+          "type": "paragraph",
+          "content": "Welcome to your Functions recap! Let's review the core mechanics of building reusable Python tools:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-004",
+          "type": "paragraph",
+          "content": "1. Defining & Calling a Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-005",
+          "type": "paragraph",
+          "content": "def function_name():: Defines the blueprint. Code inside is indented by 4 spaces.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-006",
+          "type": "paragraph",
+          "content": "function_name(): Actually calls and triggers the code to run.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-007",
+          "type": "paragraph",
+          "content": "Reusability: Write once, run as many times as you want—even inside loops!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-008",
+          "type": "paragraph",
+          "content": "2. Arguments (Inputs)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-009",
+          "type": "paragraph",
+          "content": "Feed dynamic data into your function using parameters inside the parentheses: def greet(name):.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-010",
+          "type": "paragraph",
+          "content": "Pass multiple values separated by commas: def speed_calc(distance, time):.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-011",
+          "type": "paragraph",
+          "content": "3. The return Statement (Outputs)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-012",
+          "type": "paragraph",
+          "content": "Instantly ends the function and hands a value back to the caller.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-013",
+          "type": "paragraph",
+          "content": "Any code written after return inside the function is never executed!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-014",
+          "type": "paragraph",
+          "content": "print() vs return: print() only shows words on the screen, but return gives the value back to your program so you can save it, do math with it, or store it in a variable!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-015",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-016",
+          "type": "paragraph",
+          "content": "Click Next Lesson for Part 2 of our functions revision!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-017",
+          "type": "paragraph",
+          "content": "Revision 2 (Variable Scope & Thinking in Functions)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-018",
+          "type": "paragraph",
+          "content": "In the second half of this module, you learned how to organize your code like a professional software engineer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-019",
+          "type": "paragraph",
+          "content": "1. Variable Scope (Local vs Global)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-020",
+          "type": "paragraph",
+          "content": "Global Variables: Defined outside functions. Visible to the entire file like a clock in a town square.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-021",
+          "type": "paragraph",
+          "content": "Local Variables: Created inside a function's body. Born when the function starts, and destroyed the moment the function finishes! Trying to print a local variable outside causes a NameError.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-022",
+          "type": "paragraph",
+          "content": "No Clashes: Different functions can use the exact same variable names (like total = 0) without interfering with each other.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-023",
+          "type": "paragraph",
+          "content": "2. The 3 Golden Questions (Thinking in Functions)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-024",
+          "type": "paragraph",
+          "content": "Before writing any complex code, plan your function using these three steps:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-025",
+          "type": "paragraph",
+          "content": "Inputs (Arguments): What information does my function need to receive?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-026",
+          "type": "paragraph",
+          "content": "Process (Logic): What math, loop, or if-else check does it perform inside?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-027",
+          "type": "paragraph",
+          "content": "Outputs (Return Value): What answer does it toss back to the main program?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-5-5-revision-functions-block-028",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

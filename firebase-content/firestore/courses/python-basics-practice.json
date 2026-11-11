@@ -1,0 +1,16 @@
+{
+  "id": "python-basics-practice",
+  "slug": "python-basics-practice",
+  "title": "Python Basics Practice",
+  "description": "A beginner Python programming practice course with one programming question per lesson.",
+  "thumbnail": "/assets/course-cards/python-basics-practice.png",
+  "language": "python",
+  "domain": "programming",
+  "difficulty": "beginner",
+  "estimatedMinutes": 456,
+  "moduleCount": 5,
+  "lessonCount": 57,
+  "published": true,
+  "version": "v1",
+  "storagePath": "course-content/python-basics-practice"
+}

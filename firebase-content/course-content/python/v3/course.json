@@ -1,0 +1,431 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "python",
+  "slug": "python",
+  "title": "Python Foundations",
+  "description": "Beginner-friendly Python foundations covering syntax, variables, data types, operators, input, conditionals, loops, collections, functions, modules, projects, revision, and final assessment.",
+  "locale": "en-IN",
+  "status": "published",
+  "metadata": {
+    "version": "3.0.0",
+    "authors": [
+      {
+        "name": "YCoders"
+      }
+    ],
+    "level": "beginner",
+    "estimatedMinutes": 644,
+    "tags": [
+      "python",
+      "programming",
+      "foundations",
+      "beginner"
+    ],
+    "createdAt": "2026-11-11T00:00:00.000Z",
+    "updatedAt": "2026-11-11T00:00:00.000Z"
+  },
+  "navigation": {
+    "defaultLessonId": "lesson-1-1-introduction-to-python",
+    "sequence": "module-order",
+    "skipLockedLessons": false,
+    "labels": {
+      "previous": "Previous Lesson",
+      "next": "Next Lesson",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-1",
+      "title": "Getting Started with Python",
+      "initiallyExpanded": true,
+      "lessons": [
+        {
+          "id": "lesson-1-1-introduction-to-python",
+          "number": "1.1",
+          "title": "Introduction to Python",
+          "summary": "Module 1: Getting Started with Python\n\n1.1 Introduction to Python",
+          "status": "available",
+          "estimatedMinutes": 16,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-2-displaying-output",
+          "number": "1.2",
+          "title": "Displaying Output",
+          "summary": "1.2 Displaying Output",
+          "status": "available",
+          "estimatedMinutes": 33,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-3-comments",
+          "number": "1.3",
+          "title": "Comments",
+          "summary": "1.3 Comments\n\nIntroduction to Comments",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-4-understanding-variables",
+          "number": "1.4",
+          "title": "Understanding Variables",
+          "summary": "1.4 Understanding Variables",
+          "status": "available",
+          "estimatedMinutes": 30,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-5-data-type",
+          "number": "1.5",
+          "title": "Data Type",
+          "summary": "Introduction to Data Types",
+          "status": "available",
+          "estimatedMinutes": 15,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators",
+          "number": "1.6",
+          "title": "Arithmetic Operators",
+          "summary": "1.6  Arithmetic Operators",
+          "status": "available",
+          "estimatedMinutes": 34,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-7-getting-user-input",
+          "number": "1.7",
+          "title": "Getting user Input",
+          "summary": "1.7 Getting user Input\n\nUser Input Intro",
+          "status": "available",
+          "estimatedMinutes": 18,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-8-type-conversion",
+          "number": "1.8",
+          "title": "Type Conversion",
+          "summary": "Intro to Type Conversion",
+          "status": "available",
+          "estimatedMinutes": 24,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice",
+          "number": "1.9",
+          "title": "Introduction Examples & Practice",
+          "summary": "1.9 Introduction Examples & Practice",
+          "status": "available",
+          "estimatedMinutes": 19,
+          "blocks": []
+        },
+        {
+          "id": "lesson-1-10-revision",
+          "number": "1.10",
+          "title": "Revision",
+          "summary": "Revision 1 (Output, Comments & Variables)",
+          "status": "available",
+          "estimatedMinutes": 11,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-2",
+      "title": "Making Decisions (Conditionals)",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-2-1-python-booleans",
+          "number": "2.1",
+          "title": "Python Booleans",
+          "summary": "Module 2: Making Decisions (Conditionals)\n\n2.1 Python Booleans:",
+          "status": "available",
+          "estimatedMinutes": 11,
+          "blocks": []
+        },
+        {
+          "id": "lesson-2-2-comparison-operators",
+          "number": "2.2",
+          "title": "Comparison Operators",
+          "summary": "2.2 Comparison Operators",
+          "status": "available",
+          "estimatedMinutes": 28,
+          "blocks": []
+        },
+        {
+          "id": "lesson-2-3-logical-operators",
+          "number": "2.3",
+          "title": "Logical Operators",
+          "summary": "2.3 Logical Operators",
+          "status": "available",
+          "estimatedMinutes": 23,
+          "blocks": []
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements",
+          "number": "2.4",
+          "title": "if-else and elif Statements",
+          "summary": "2.4 if-else and elif Statements",
+          "status": "available",
+          "estimatedMinutes": 40,
+          "blocks": []
+        },
+        {
+          "id": "lesson-2-5-project",
+          "number": "2.5",
+          "title": "Project",
+          "summary": "Project",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-3",
+      "title": "Repeating Tasks (Loops)",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-3-1-range-function",
+          "number": "3.1",
+          "title": "range() Function",
+          "summary": "Module 3: Repeating Tasks (Loops)\n\n3.1 range() Function:",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "blocks": []
+        },
+        {
+          "id": "lesson-3-2-python-for-loop",
+          "number": "3.2",
+          "title": "Python for Loop",
+          "summary": "Introduction to Loops",
+          "status": "available",
+          "estimatedMinutes": 17,
+          "blocks": []
+        },
+        {
+          "id": "lesson-3-3-python-while-loop",
+          "number": "3.3",
+          "title": "Python while Loop",
+          "summary": "3.3 Python while Loop",
+          "status": "available",
+          "estimatedMinutes": 26,
+          "blocks": []
+        },
+        {
+          "id": "lesson-3-4-loop-controls-break-and-continue",
+          "number": "3.4",
+          "title": "Loop Controls (break and continue)",
+          "summary": "3.4 Loop Controls (break and continue)",
+          "status": "available",
+          "estimatedMinutes": 20,
+          "blocks": []
+        },
+        {
+          "id": "lesson-3-5-nested-loops",
+          "number": "3.5",
+          "title": "Nested Loops",
+          "summary": "What happens when you put a loop inside another loop? You get a Nested Loop!",
+          "status": "available",
+          "estimatedMinutes": 17,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-4",
+      "title": "Storing & Organizing Collections",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-4-1-strings-in-depth",
+          "number": "4.1",
+          "title": "Strings in Depth",
+          "summary": "Module 4: Storing & Organizing Collections\n4.1 Strings in Depth",
+          "status": "available",
+          "estimatedMinutes": 27,
+          "blocks": []
+        },
+        {
+          "id": "lesson-4-2-lists",
+          "number": "4.2",
+          "title": "Lists",
+          "summary": "Introduction to Lists",
+          "status": "available",
+          "estimatedMinutes": 33,
+          "blocks": []
+        },
+        {
+          "id": "lesson-4-3-tuples",
+          "number": "4.3",
+          "title": "Tuples",
+          "summary": "Introduction to Tuples",
+          "status": "available",
+          "estimatedMinutes": 21,
+          "blocks": []
+        },
+        {
+          "id": "lesson-4-4-python-sets",
+          "number": "4.4",
+          "title": "Python Sets",
+          "summary": "Imagine you collect superhero stickers. If your friend gives you a sticker you already have, you don’t need two identical stickers in your album—you only care about having one unique copy of each!",
+          "status": "available",
+          "estimatedMinutes": 18,
+          "blocks": []
+        },
+        {
+          "id": "lesson-4-5-dictionaries",
+          "number": "4.5",
+          "title": "Dictionaries",
+          "summary": "In lists and tuples, you look up items using index numbers like 0, 1, or 2.",
+          "status": "available",
+          "estimatedMinutes": 18,
+          "blocks": []
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions",
+          "number": "4.6",
+          "title": "Data Structure Conversions",
+          "summary": "4.6 Data Structure Conversions",
+          "status": "available",
+          "estimatedMinutes": 15,
+          "blocks": []
+        },
+        {
+          "id": "lesson-4-7-revision",
+          "number": "4.7",
+          "title": "Revision",
+          "summary": "Example 1: Revisiting Strings & Lists (Units 4.1 & 4.2)",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-5",
+      "title": "Reusable Code (Functions)",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-5-1-python-functions",
+          "number": "5.1",
+          "title": "Python Functions",
+          "summary": "Welcome to Module 5! 🧙‍♂️",
+          "status": "available",
+          "estimatedMinutes": 13,
+          "blocks": []
+        },
+        {
+          "id": "lesson-5-2-arguments-function-return-values",
+          "number": "5.2",
+          "title": "Arguments Function & Return Values",
+          "summary": "5.2 Arguments Function & Return Values",
+          "status": "available",
+          "estimatedMinutes": 18,
+          "blocks": []
+        },
+        {
+          "id": "lesson-5-3-variable-scope-local-vs-global",
+          "number": "5.3",
+          "title": "Variable Scope (Local vs Global)",
+          "summary": "5.3 Variable Scope (Local vs Global)",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "blocks": []
+        },
+        {
+          "id": "lesson-5-4-think-functions",
+          "number": "5.4",
+          "title": "Think Functions",
+          "summary": "When professional coders look at a big problem, they don't start typing random lines of code immediately. They pause and think in functions!",
+          "status": "available",
+          "estimatedMinutes": 11,
+          "blocks": []
+        },
+        {
+          "id": "lesson-5-5-revision-functions",
+          "number": "5.5",
+          "title": "Revision Functions",
+          "summary": "5.5 Revision Functions",
+          "status": "available",
+          "estimatedMinutes": 6,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-6",
+      "title": "Going Beyond & Building Real Stuff",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-6-1-using-modules",
+          "number": "6.1",
+          "title": "Using Modules",
+          "summary": "Imagine a carpenter building a dining table. When they need to smooth a wooden board, they don't invent sandpaper or build an electric saw from raw steel—they simply reach into their toolbox and pick the ready-made tool!",
+          "status": "available",
+          "estimatedMinutes": 11,
+          "blocks": []
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous",
+          "number": "6.2",
+          "title": "Useful Built-ins & Miscellaneous",
+          "summary": "6.2 Useful Built-ins & Miscellaneous",
+          "status": "available",
+          "estimatedMinutes": 12,
+          "blocks": []
+        },
+        {
+          "id": "lesson-6-3-project",
+          "number": "6.3",
+          "title": "Project",
+          "summary": "6.3 Project\n       Bingo Game",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-7",
+      "title": "Final Assessment",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "lesson-7-1-python-fundamentals-test",
+          "number": "7.1",
+          "title": "Python Fundamentals Test",
+          "summary": "Python Fundamentals Test",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "blocks": []
+        },
+        {
+          "id": "lesson-7-2-course-completion-and-certificate",
+          "number": "7.2",
+          "title": "Course Completion and Certificate",
+          "summary": "Module 7: Final Assessment\n7.1 Python Fundamentals Test\n7.2 Course Completion and Certificate",
+          "status": "available",
+          "estimatedMinutes": 5,
+          "blocks": []
+        }
+      ]
+    }
+  ],
+  "moduleFiles": [
+    "module-1.json",
+    "module-2.json",
+    "module-3.json",
+    "module-4.json",
+    "module-5.json",
+    "module-6.json",
+    "module-7.json"
+  ]
+}

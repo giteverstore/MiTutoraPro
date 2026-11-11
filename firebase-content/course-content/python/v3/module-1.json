@@ -1,0 +1,4583 @@
+{
+  "id": "module-1",
+  "title": "Getting Started with Python",
+  "initiallyExpanded": true,
+  "lessons": [
+    {
+      "id": "lesson-1-1-introduction-to-python",
+      "number": "1.1",
+      "title": "Introduction to Python",
+      "summary": "Module 1: Getting Started with Python\n\n1.1 Introduction to Python",
+      "status": "available",
+      "estimatedMinutes": 16,
+      "blocks": [
+        {
+          "id": "lesson-1-1-introduction-to-python-block-001",
+          "type": "paragraph",
+          "content": "Module 1: Getting Started with Python\n\n1.1 Introduction to Python",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-002",
+          "type": "paragraph",
+          "content": "Python Introduction\n\nWelcome to the world of coding! 🚀",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-003",
+          "type": "paragraph",
+          "content": "You are about to learn Python—one of the most popular, creative, and beginner-friendly programming languages on the planet.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-004",
+          "type": "paragraph",
+          "content": "Think of programming as giving superpowers to your computer. Just like you use English or Hindi to talk to your friends, you use Python to tell your computer, phone, or robot exactly what to do.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-005",
+          "type": "paragraph",
+          "content": "You do not need to write any code on this page. Just get ready for an exciting adventure!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-006",
+          "type": "paragraph",
+          "content": "When you're ready, click Next Lesson to discover what makes Python so special.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-007",
+          "type": "paragraph",
+          "content": "Features of Python",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-008",
+          "type": "paragraph",
+          "content": "Why do millions of young creators choose Python? Here are four reasons:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-009",
+          "type": "paragraph",
+          "content": "Reads Like Plain English: Python code is clean and simple. You don't have to memorize strange, confusing symbols.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-010",
+          "type": "paragraph",
+          "content": "Super Versatile: You can use Python to build games, craft websites, analyze space data, or create smart AI bots.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-011",
+          "type": "paragraph",
+          "content": "Beginner-Friendly: Python gives friendly clues when you make a mistake, helping you fix your code quickly.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-012",
+          "type": "paragraph",
+          "content": "Works Everywhere: A Python program written on Windows runs smoothly on a Mac, Linux, or even a tiny mini-computer like a Raspberry Pi.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-013",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see what real-world things you can build with Python!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-014",
+          "type": "paragraph",
+          "content": "Why Python?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-015",
+          "type": "paragraph",
+          "content": "Python isn't just for learning—it powers some of the coolest tools and games in the world!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-016",
+          "type": "paragraph",
+          "content": "Video Games: Game developers use Python to script mechanics and design characters.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-017",
+          "type": "paragraph",
+          "content": "Space Exploration: NASA and rocket scientists use Python to track satellites and study distant planets.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-018",
+          "type": "paragraph",
+          "content": "Entertainment: Platforms like YouTube, Netflix, and Spotify use Python to stream your favorite videos and suggest music.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-019",
+          "type": "paragraph",
+          "content": "Artificial Intelligence (AI): Python is the #1 language used to teach computers how to recognize faces, drive autonomous cars, and chat like real people.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-020",
+          "type": "paragraph",
+          "content": "If you can imagine it, you can build it with Python!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-021",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how a computer actually runs your code.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-022",
+          "type": "paragraph",
+          "content": "How Python programs execute",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-023",
+          "type": "paragraph",
+          "content": "Have you ever wondered what happens after you click the Run button?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-024",
+          "type": "paragraph",
+          "content": "Computers do not speak human languages. They only understand 0s and 1s. That's where the Python Interpreter comes in!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-025",
+          "type": "paragraph",
+          "content": "You write the code in the code editor (e.g., in simple English words).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-026",
+          "type": "paragraph",
+          "content": "The Interpreter translates it: Python reads your instructions line by line, from top to bottom, like reading a comic book.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-027",
+          "type": "paragraph",
+          "content": "The Computer executes it: Your computer follows the instructions instantly and displays the result on your screen",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-028",
+          "type": "paragraph",
+          "content": "Figure: Code Editor (print) ---> Python Interpreter (Translator) ---> Console Screen",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-029",
+          "type": "paragraph",
+          "content": "Now that you know how it works behind the scenes, let's write your first command! Click Next Lesson.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-030",
+          "type": "paragraph",
+          "content": "The print() function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-031",
+          "type": "paragraph",
+          "content": "To make your computer speak or show a message on the screen, Python gives you a special command called the print() function.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-032",
+          "type": "paragraph",
+          "content": "Whatever you place inside the parentheses ( ) and quotation marks \" \" will be displayed in the output console.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-033",
+          "type": "paragraph",
+          "content": "All you need to do is click the Run Code button.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-034",
+          "type": "paragraph",
+          "content": "How It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-035",
+          "type": "paragraph",
+          "content": "print: The name of the Python action (always in lowercase).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-036",
+          "type": "paragraph",
+          "content": "( ) Parentheses: The container that holds what you want to show.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-037",
+          "type": "paragraph",
+          "content": "\" \" Quotation Marks: Tell Python that this is literal text (called a string), so Python prints it exactly as typed, without the quotes.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-038",
+          "type": "paragraph",
+          "content": "Figure: Print Hey Welcome to Y Coders",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-039",
+          "type": "paragraph",
+          "content": "Be Careful:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-040",
+          "type": "paragraph",
+          "content": "Python is case-sensitive!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-041",
+          "type": "paragraph",
+          "content": "print(\"Hey\") is correct.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-042",
+          "type": "paragraph",
+          "content": "Print(\"Hey\") with a capital P will cause a NameError because Python doesn't recognize it.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-043",
+          "type": "paragraph",
+          "content": "Click Next Lesson to learn how to leave secret notes in your code.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-044",
+          "type": "paragraph",
+          "content": "Comments (#) & Code Readability",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-045",
+          "type": "paragraph",
+          "content": "As your programs grow, you'll want to add notes to remind yourself—or your teammates—what your code does. In Python, these notes are called comments.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-046",
+          "type": "paragraph",
+          "content": "To create a comment, start the line with the # symbol (hash / pound sign):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-047",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-048",
+          "type": "paragraph",
+          "content": "Why Comments Matter:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-049",
+          "type": "paragraph",
+          "content": "Python completely ignores anything that comes after #. It will never appear on the output screen.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-050",
+          "type": "paragraph",
+          "content": "Comments make your code clean, readable, and easy to understand when you come back to it next week.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-051",
+          "type": "paragraph",
+          "content": "Click Next Lesson to test your knowledge with a quick quiz!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-052",
+          "type": "paragraph",
+          "content": "Quiz: Displaying Messages",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-053",
+          "type": "paragraph",
+          "content": "Which of the following lines of code will successfully display Welcome, Gamer! on the screen?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-054",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-055",
+          "type": "paragraph",
+          "content": "Practice: Your First Python Program",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-056",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-057",
+          "type": "paragraph",
+          "content": "You are setting up the control console for a brand-new space explorer robot. Write a Python program that greets the crew with the exact message:\nMission Control: All systems ready!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-058",
+          "type": "paragraph",
+          "content": "Instructions & Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-059",
+          "type": "paragraph",
+          "content": "Use the print() function with lowercase letters.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-060",
+          "type": "paragraph",
+          "content": "Put parentheses ( ) right after print.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-061",
+          "type": "paragraph",
+          "content": "Wrap your message inside double quotation marks \" \".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-062",
+          "type": "paragraph",
+          "content": "Make sure your spelling, punctuation, and spaces match the expected output.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-063",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-064",
+          "type": "paragraph",
+          "content": "Quiz: Spot the Comment",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-065",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen when this code runs?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-066",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-067",
+          "type": "paragraph",
+          "content": "A: Level 1 Completed! followed by Starting Level 2...\nIncorrect, give it another shot!\nThe first line begins with #, which makes it a comment. Python completely ignores it.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-068",
+          "type": "paragraph",
+          "content": "B: Starting Level 2...\nCorrect Answer! 🎉\nBecause the first line starts with #, Python skips it completely and only runs the second line.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-069",
+          "type": "paragraph",
+          "content": "C: # print(\"Level 1 Completed!\")\nIncorrect, give it another shot!\nComments are never printed to the screen. They are invisible notes for human coders.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-070",
+          "type": "paragraph",
+          "content": "D: An error occurs.\nIncorrect, give it another shot!\nThe code is 100% valid Python. Commenting out code is a normal and useful feature.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-071",
+          "type": "paragraph",
+          "content": "Chapter Review",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-072",
+          "type": "paragraph",
+          "content": "Congratulations! 🏆",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-073",
+          "type": "paragraph",
+          "content": "You've officially written and understood your first Python programs!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-074",
+          "type": "paragraph",
+          "content": "Figure: Course Flow",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-075",
+          "type": "paragraph",
+          "content": "Here is a quick recap of the superpowers you unlocked in Chapter 1:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-076",
+          "type": "paragraph",
+          "content": "Python: A friendly, powerful coding language that reads like plain English.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-077",
+          "type": "paragraph",
+          "content": "Interpreter: Reads your code line by line from top to bottom and runs it.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-078",
+          "type": "paragraph",
+          "content": "print(\"message\"): The command to display text on the screen. Always remember lowercase print, parentheses (), and quotation marks \"\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-079",
+          "type": "paragraph",
+          "content": "Comments (#): Notes for humans that Python ignores. Use them to make your code neat and easy to understand.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-1-introduction-to-python-block-080",
+          "type": "paragraph",
+          "content": "Ready for Chapter 2? In the next chapter, we'll dive into Data Types & Variables and learn how computers remember game scores and player names!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-2-displaying-output",
+      "number": "1.2",
+      "title": "Displaying Output",
+      "summary": "1.2 Displaying Output",
+      "status": "available",
+      "estimatedMinutes": 33,
+      "blocks": [
+        {
+          "id": "lesson-1-2-displaying-output-block-001",
+          "type": "paragraph",
+          "content": "1.2 Displaying Output\n\nOutput Intro",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-003",
+          "type": "paragraph",
+          "content": "Welcome to your next coding level! 🎮\n\nIn programming, output is everything your computer displays back to you on the screen—like a high score, a game dialogue, or a mission alert.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-005",
+          "type": "paragraph",
+          "content": "So far, you’ve displayed simple greetings. In this chapter, you’ll unlock real console mastery: formatting messages cleanly, printing numbers alongside words, handling line breaks, and using Python’s superpower: f-strings!\n\nNo code needed on this page. Click Next Lesson to get started!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-007",
+          "type": "paragraph",
+          "content": "Printing Numbers & Text\n\nPython treats plain words and pure numbers differently:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-009",
+          "type": "paragraph",
+          "content": "Text (Strings): Must always be wrapped in quotation marks \" \".\n\nNumbers: Can be printed directly without quotes!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-011",
+          "type": "paragraph",
+          "content": "Output\n\nWhy This Matters",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-013",
+          "type": "paragraph",
+          "content": "When you put numbers in quotes like \"100\", Python sees them as plain letters (like a sticker). When you write 100 without quotes, Python recognizes it as a real number you can calculate with!\n\nClick Next Lesson to discover how to write longer stories across multiple lines.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-015",
+          "type": "paragraph",
+          "content": "Multiline Strings\n\nWhat if you want to print a long poem, a character speech, or ASCII banner art without writing print() ten times?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-017",
+          "type": "paragraph",
+          "content": "Python gives you a special trick: Triple Quotes (\"\"\" or ''').\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-019",
+          "type": "paragraph",
+          "content": "Anything inside \"\"\" keeps its exact layout—including every enter, blank line, and space!\n\nClick Next Lesson to test this out with a quiz.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-021",
+          "type": "paragraph",
+          "content": "Quiz: Multiline Strings\n\nWhich symbol allows you to write a single string that spans across multiple lines?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-023",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: \"\"\" (Triple quotes)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-025",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nWrapping text between triple quotes \"\"\" or ''' lets you write across multiple lines freely.\n\nB: // (Double forward slash)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-027",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nIn Python, // is an arithmetic division operator, not a text symbol.\n\nC: ### (Triple hash)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-029",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nA hash symbol # creates comments, which Python ignores completely.\n\nD: (( )) (Double parentheses)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-031",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nParentheses group instructions; they do not create multiline text.\n\nPractice: Multiline Quest Notice",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-033",
+          "type": "paragraph",
+          "content": "Problem Description\n\nYou are making an adventure game. Use a single print() statement with triple quotes to display this quest notice board:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-035",
+          "type": "paragraph",
+          "content": "Plaintext\n\nHints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-037",
+          "type": "paragraph",
+          "content": "Write print(\"\"\" on the top.\n\nType the three lines exactly as shown.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-039",
+          "type": "paragraph",
+          "content": "Close the message with \"\"\").\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-041",
+          "type": "paragraph",
+          "content": "Print Multiple Values\n\nYou don’t have to create separate print() lines for every item. You can display multiple values inside a single print() by separating them with a comma ,.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-043",
+          "type": "paragraph",
+          "content": "Output\n\nHow It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-045",
+          "type": "paragraph",
+          "content": "Every time Python sees a comma , inside print(), it automatically adds a single space between the items. You can mix words and numbers freely!\n\nClick Next Lesson to test your eye on commas!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-047",
+          "type": "paragraph",
+          "content": "Quiz: The Comma Separator\n\nWhat will be displayed on the screen when this code runs?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-049",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: Apples:5Coins:20",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-051",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nPython automatically adds a single space between items separated by commas.\n\nB: Apples: 5 Coins: 20",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-053",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nThe commas place a neat space between each word and number.\n\nC: Apples: ,5, Coins: ,20",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-055",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nThe commas inside print() act as separators; they do not appear on screen.\n\nD: An error occurs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-057",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nPassing multiple arguments separated by commas is standard, valid Python.\n\nPractice: Race Track Scoreboard",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-059",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program that uses a single print() function to display a race car's position and speed in one line:\nCar: 7   Speed: 180",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-061",
+          "type": "paragraph",
+          "content": "Hints:\n\nUse one print() statement.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-063",
+          "type": "paragraph",
+          "content": "Pass four items separated by commas: \"Car:\", 7, \"Speed:\", and 180.\n\nPut quotation marks only on text, not on the numbers.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-065",
+          "type": "paragraph",
+          "content": "Example:\n\nPrint Newline (\\n)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-067",
+          "type": "paragraph",
+          "content": "Want your output to drop down to the next line without writing multiple print() commands? Use the magic escape code: \\n (newline).\n\nThink of \\n like pressing the Enter key on your keyboard right in the middle of your sentence!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-069",
+          "type": "paragraph",
+          "content": "Output\n\nClick Next Lesson for a quick check!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-071",
+          "type": "paragraph",
+          "content": "Quiz: Newline Mystery\n\nWhat will be the output of the following line?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-073",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: Red Blue Green on one line",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-075",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\n\\n doesn't insert a space; it pushes the next word to a brand-new line.\n\nB: Red\\nBlue\\nGreen",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-077",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\nPython treats \\n as an action command, not ordinary text letters.\n\nC: Three lines with Red, then Blue, then Green",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-079",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nEach \\n acts like pressing Enter, splitting the three colors onto their own lines.\n\nD: An error occurs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-081",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot!\n\\n is a completely valid escape sequence in Python.\n\nPractice: Detective Badge",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-083",
+          "type": "paragraph",
+          "content": "Problem Description\n\nUsing only one print() statement and the newline character \\n, display the following badge on two separate lines:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-085",
+          "type": "paragraph",
+          "content": "Line 1: Detective: Sherlock\n\nLine 2: Case: The Stolen Gem",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-087",
+          "type": "paragraph",
+          "content": "Hints:\n\nWrite \"Detective: Sherlock\\nCase: The Stolen Gem\" inside print().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-089",
+          "type": "paragraph",
+          "content": "Do not leave spaces immediately around \\n unless you want extra indentation.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-091",
+          "type": "paragraph",
+          "content": "Common Errors When Printing\n\nEvery coder runs into bugs—here are 3 common ones to watch out for:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-093",
+          "type": "paragraph",
+          "content": "1. Forgetting the Comma:\n\nFix: Put a comma , between different values: print(\"Coins:\", 50).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-095",
+          "type": "paragraph",
+          "content": "2. Mixing Up Slashes:\n\nFix: Always use backslash \\n, not forward slash /n.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-097",
+          "type": "paragraph",
+          "content": "3. Mismatched Quotes:\n\nFix: Match double quotes with double quotes \"...\" or single with single '...'.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-099",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how we print variables!\n\nPrint Strings & Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-101",
+          "type": "paragraph",
+          "content": "In programming, a variable is like a labeled toy box that holds a value (like a score or a pet’s name).\n\nYou can combine a descriptive text label with a variable using a comma ,:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-103",
+          "type": "paragraph",
+          "content": "Output\n\nNotice that the label \"My dog:\" is in quotes because it’s text, but pet_name is not in quotes so Python looks inside the box to find \"Bolt\"!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-105",
+          "type": "paragraph",
+          "content": "Quiz: Quotes or No Quotes?\n\nLook at this code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-107",
+          "type": "paragraph",
+          "content": "What will appear on the screen?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-109",
+          "type": "paragraph",
+          "content": "A: SuperNova on both lines\n\nIncorrect, give it another shot!\nThe first print(\"hero\") has quotes, so it prints the word hero.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-111",
+          "type": "paragraph",
+          "content": "B: hero followed by SuperNova\n\nCorrect Answer! 🎉\n\"hero\" prints literal letters. hero without quotes retrieves the value stored inside the variable.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-113",
+          "type": "paragraph",
+          "content": "C: hero on both lines\n\nIncorrect, give it another shot!\nThe second print(hero) accesses the variable's value, which is SuperNova.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-115",
+          "type": "paragraph",
+          "content": "D: An error occurs on line 2.\n\nIncorrect, give it another shot!\nBoth statements are completely valid Python.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-117",
+          "type": "paragraph",
+          "content": "Practice: Space Cadet ID\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-119",
+          "type": "paragraph",
+          "content": "Create two variables:\n\ncadet_name with the value \"Astra\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-121",
+          "type": "paragraph",
+          "content": "rank with the value 1\n\nThen, print them using two separate print() statements to match the expected output.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-123",
+          "type": "paragraph",
+          "content": "Hints:\n\nprint(\"Cadet:\", cadet_name)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-125",
+          "type": "paragraph",
+          "content": "print(\"Rank:\", rank)\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-127",
+          "type": "paragraph",
+          "content": "Practice: Wizard Inventory\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-129",
+          "type": "paragraph",
+          "content": "Create three variables:\n\nspell with the value \"Freeze\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-131",
+          "type": "paragraph",
+          "content": "potions with the value 3\n\npower with the value 9.8",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-133",
+          "type": "paragraph",
+          "content": "Use a single print() statement to display all three values with labels in one row:\nSpell: Freeze Potions: 3 Power: 9.8\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-135",
+          "type": "paragraph",
+          "content": "Python f-strings\n\nWhile commas work fine, Python has a much cooler and cleaner way to mix variables and text: f-strings (formatted strings)!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-137",
+          "type": "paragraph",
+          "content": "To use an f-string:\n\nPut the letter f right before the quotation mark.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-139",
+          "type": "paragraph",
+          "content": "Put any variable name inside curly braces { }.\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-141",
+          "type": "paragraph",
+          "content": "Python automatically replaces {character} with \"Pikachu\" and {hp} with 120. It reads like a complete, natural sentence!\n\nClick Next Lesson to see how to save formatted text into a new variable!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-143",
+          "type": "paragraph",
+          "content": "New Variables Using f-strings\n\nYou don’t have to print an f-string right away. You can store the formatted result inside a brand-new variable and use it whenever you need!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-145",
+          "type": "paragraph",
+          "content": "Output\n\nHere, the variable forecast now stores the combined sentence. This is super helpful for building automated notifications and game dialogues!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-147",
+          "type": "paragraph",
+          "content": "Quiz: Spot the f-string Bug\n\nWhat is the output of the following code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-149",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: Your total score is 50\nIncorrect, give it another shot! Notice what is missing before the quotation mark: there is no f!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-151",
+          "type": "paragraph",
+          "content": "B: Your total score is {score}\nCorrect Answer! 🎉\nBecause the letter f was omitted before \", Python treats {score} as normal text instead of evaluating the variable!\n\nC: Your total score is score\nIncorrect, give it another shot! Without f, Python prints the curly braces { } literally as typed.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-153",
+          "type": "paragraph",
+          "content": "D: A SyntaxError occurs.\nIncorrect, give it another shot! Plain text inside quotes with curly braces is legal Python text, so no error is thrown.\n\nPractice: Victory Banner",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-155",
+          "type": "paragraph",
+          "content": "Problem Description\n\nYou are celebrating a game tournament victory!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-157",
+          "type": "paragraph",
+          "content": "1. Create a variable winner with the value \"Team Alpha\".\n\n2. Create a variable trophies with the value 4.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-159",
+          "type": "paragraph",
+          "content": "3. Create a new variable named banner using an f-string that formats the message:\n\nCongrats to Team Alpha for winning 4 trophies!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-161",
+          "type": "paragraph",
+          "content": "4. Print the banner variable.\n\nHints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-163",
+          "type": "paragraph",
+          "content": "banner = f\"Congrats to {winner} for winning {trophies} trophies!\"\n\nprint(banner)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-2-displaying-output-block-165",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario based question",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-3-comments",
+      "number": "1.3",
+      "title": "Comments",
+      "summary": "1.3 Comments\n\nIntroduction to Comments",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "lesson-1-3-comments-block-001",
+          "type": "paragraph",
+          "content": "1.3 Comments\n\nIntroduction to Comments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-002",
+          "type": "paragraph",
+          "content": "Imagine you are doing a science experiment at school and writing notes in your lab notebook. You write down measurements, but you also write short notes to explain what those numbers mean.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-003",
+          "type": "paragraph",
+          "content": "In Python, you can do the exact same thing using comments.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-004",
+          "type": "paragraph",
+          "content": "Suppose you write this line to record the temperature of a greenhouse:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-005",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-006",
+          "type": "paragraph",
+          "content": "If you forgot the # symbol and just typed:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-007",
+          "type": "paragraph",
+          "content": "Python would get confused and throw a SyntaxError because it tries to run your English notes as code!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-008",
+          "type": "paragraph",
+          "content": "Comments allow you to add helpful explanations directly inside your file without affecting how your program works.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how Python handles comments behind the scenes.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-010",
+          "type": "paragraph",
+          "content": "Understanding Python Comments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-011",
+          "type": "paragraph",
+          "content": "Whenever the Python interpreter sees the # symbol, it treats everything after it on that line as invisible. It simply skips right past it!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-012",
+          "type": "paragraph",
+          "content": "Let's look at a smart baking timer program:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-013",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-014",
+          "type": "paragraph",
+          "content": "What Happened Here?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-015",
+          "type": "paragraph",
+          "content": "Lines 1 and 4 start with #, so Python skips them completely.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-016",
+          "type": "paragraph",
+          "content": "In Line 3, Python executes print(25) and ignores # Minutes left to bake.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-017",
+          "type": "paragraph",
+          "content": "The comments help anyone reading the recipe code understand what it does, but they never clutter the output screen.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-018",
+          "type": "paragraph",
+          "content": "Click Next Lesson to learn the different ways to write comments!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-019",
+          "type": "paragraph",
+          "content": "Types of Comments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-020",
+          "type": "paragraph",
+          "content": "Coders use comments in three main ways depending on how much they want to explain:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-021",
+          "type": "paragraph",
+          "content": "1. Single-Line Comments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-022",
+          "type": "paragraph",
+          "content": "The entire line is dedicated to an explanation. It starts with #:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-023",
+          "type": "paragraph",
+          "content": "2. Inline Comments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-024",
+          "type": "paragraph",
+          "content": "A quick note placed at the end of an active line of code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-025",
+          "type": "paragraph",
+          "content": "3. Multi-Line Notes",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-026",
+          "type": "paragraph",
+          "content": "When you have a longer explanation, you can put a # at the start of each line:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-027",
+          "type": "paragraph",
+          "content": "Click Next Lesson to test your knowledge with a quiz!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-028",
+          "type": "paragraph",
+          "content": "Quiz: Identifying Comments",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-029",
+          "type": "paragraph",
+          "content": "A student wrote a program to track a Mars rover. Which of the following lines will be completely ignored by Python when the program runs?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-030",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-031",
+          "type": "paragraph",
+          "content": "A: print(\"Signal status: Connected\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-032",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! This is a valid print() statement without a leading #, so Python executes it and displays the message.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-033",
+          "type": "paragraph",
+          "content": "B: # Transmitting signal to rover",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-034",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nBecause the line begins with #, Python treats the entire line as a comment and skips it completely.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-035",
+          "type": "paragraph",
+          "content": "C: 1500",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-036",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! 1500 is inside the print() function, so it will be displayed on the screen.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-037",
+          "type": "paragraph",
+          "content": "D: Distance in kilometers",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-038",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! While this text is ignored, it is only part of an inline comment, not the entire line.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-039",
+          "type": "paragraph",
+          "content": "Quiz: Output Prediction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-040",
+          "type": "paragraph",
+          "content": "A marine biologist is logging ocean dolphin sightings with this code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-041",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-042",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-043",
+          "type": "paragraph",
+          "content": "A: All three dolphin pod lines will be printed.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-044",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Lines 1 and 3 start with #, which comments them out so they cannot run.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-045",
+          "type": "paragraph",
+          "content": "B: Dolphin Pod 2: 12 sightings",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-046",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nOnly Line 2 is executable code. Lines 1 and 3 are commented out, so Python ignores them completely.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-047",
+          "type": "paragraph",
+          "content": "C: # print(\"Dolphin Pod 1: 8 sightings\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-048",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! The # prevents the line from executing or showing up on the output console.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-049",
+          "type": "paragraph",
+          "content": "D: A SyntaxError occurs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-3-comments-block-050",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! \"Commenting out\" lines of code is a standard technique used by developers to temporarily disable code without deleting it.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-4-understanding-variables",
+      "number": "1.4",
+      "title": "Understanding Variables",
+      "summary": "1.4 Understanding Variables",
+      "status": "available",
+      "estimatedMinutes": 30,
+      "blocks": [
+        {
+          "id": "lesson-1-4-understanding-variables-block-001",
+          "type": "paragraph",
+          "content": "1.4 Understanding Variables\n\nVariable Introduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-003",
+          "type": "paragraph",
+          "content": "So far, we have printed fixed numbers and words directly to the screen. But what if you need to remember information and use it later—like a player's score, the temperature of an incubator, or the name of a space probe?\n\nThis is where variables come in!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-005",
+          "type": "paragraph",
+          "content": "Think of a variable as a labeled storage box. You put a sticky label on the outside (the variable's name) and place an item inside (the value). Whenever your program needs that item, it just looks up the box by its label!\n\nFigure: A labeled box with the label \"player_name\" holding the card \"Leo\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-007",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how to create your first variable box!\n\nCreate Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-009",
+          "type": "paragraph",
+          "content": "Creating a variable in Python is called assignment. You write the variable name, use the equals sign =, and then give it a value:\n\nHow It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-011",
+          "type": "paragraph",
+          "content": "planet: The name of your variable (the label on the box).\n\n=: The assignment operator. It tells Python: \"Take the value on the right and store it inside the box on the left.\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-013",
+          "type": "paragraph",
+          "content": "\"Mars\": The data being stored.\n\nPython stores this information in memory instantly.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-015",
+          "type": "paragraph",
+          "content": "Click Next Lesson for a quick check!\n\nQuiz: Spot the Variable",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-017",
+          "type": "paragraph",
+          "content": "In the following line of code, what is the variable name?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-019",
+          "type": "paragraph",
+          "content": "A: 120\nIncorrect, give it another shot! 120 is the numerical value stored inside the variable, not the variable's name.\n\nB: speed\nCorrect Answer! 🎉\nspeed is the label used to identify and store the value in memory.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-021",
+          "type": "paragraph",
+          "content": "C: =\nIncorrect, give it another shot! The = symbol is the assignment operator used to put the value into the variable.\n\nD: \"speed\"\nIncorrect, give it another shot! Variable names are never written inside quotation marks.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-023",
+          "type": "paragraph",
+          "content": "Printing Variables\n\nTo see what is stored inside a variable box, pass its name directly to the print() function without quotation marks:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-025",
+          "type": "paragraph",
+          "content": "Output\n\nNotice the Difference:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-027",
+          "type": "paragraph",
+          "content": "print(\"dino_name\") with quotes prints the literal word dino_name.\n\nprint(dino_name) without quotes tells Python to open the box and print T-Rex!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-029",
+          "type": "paragraph",
+          "content": "Quiz: Variable vs Text\n\nWhat will be displayed on the screen when this code runs?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-031",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: Falcon on both lines",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-033",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! The first statement has quotes around \"animal\", so it prints the letters literally.\n\nB: animal followed by Falcon",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-035",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\n\"animal\" prints as plain text, while animal retrieves the stored value \"Falcon\".\n\nC: animal on both lines",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-037",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! The second statement accesses the variable, which holds \"Falcon\".\n\nD: A NameError occurs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-039",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Both statements are completely valid Python.\n\nA Common Error: Using Variables Before Creating Them",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-041",
+          "type": "paragraph",
+          "content": "What happens if you ask Python to open a box that does not exist yet?\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-043",
+          "type": "paragraph",
+          "content": "Why This Error Happens:\n\nPython reads your code from top to bottom. Because energy_level was never given a value with =, Python has no idea what it is!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-045",
+          "type": "paragraph",
+          "content": "How to Fix It:\n\nAlways define and assign your variable before you try to print or use it:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-047",
+          "type": "paragraph",
+          "content": "Quiz: Identifying the Error\n\nWhy does the following code cause an error?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-049",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: Variable names cannot store text.\nIncorrect, give it another shot! Variables can hold text, numbers, and many other data types.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-051",
+          "type": "paragraph",
+          "content": "B: captain is printed before it is created.\nCorrect Answer! 🎉\nPython executes line by line. When line 1 runs, captain has not been created yet, raising a NameError.\n\nC: The word print must be capitalized.\nIncorrect, give it another shot! print() must always be lowercase.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-053",
+          "type": "paragraph",
+          "content": "D: Missing double quotes around captain in line 2.\nIncorrect, give it another shot! Line 2 correctly assigns the string \"Aria\" to captain.\n\nPractice: Print Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-055",
+          "type": "paragraph",
+          "content": "Problem Description\n\nYou are recording facts about the solar system.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-057",
+          "type": "paragraph",
+          "content": "1. Create a variable named highest_mountain and store the string \"Olympus Mons\".\n\n2. Create a variable named height_km and store the number 21.9.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-059",
+          "type": "paragraph",
+          "content": "3. Print highest_mountain on the first line.\n\n4. Print height_km on the second line.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-061",
+          "type": "paragraph",
+          "content": "Hints:\n\nDo not put quotes around the variable names inside print().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-063",
+          "type": "paragraph",
+          "content": "Keep the text \"Olympus Mons\" inside quotes, but write the number 21.9 directly.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-065",
+          "type": "paragraph",
+          "content": "Assigning Value (One Variable to Another)\n\nYou can copy the value from one variable directly into another variable:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-067",
+          "type": "paragraph",
+          "content": "Output\n\nHow It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-069",
+          "type": "paragraph",
+          "content": "Figure: Assign Value of snack2 to snack1\n\nQuiz: Copying Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-071",
+          "type": "paragraph",
+          "content": "What is the output of the following code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-073",
+          "type": "paragraph",
+          "content": "A: Lemonade\nIncorrect, give it another shot! drink1 was updated to drink2's value (\"Mango Juice\") on line 3.\n\nB: Water\nIncorrect, give it another shot! drink2 was changed to \"Water\" later, but that does not retroactively change drink1.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-075",
+          "type": "paragraph",
+          "content": "C: Mango Juice\nCorrect Answer! 🎉\nOn line 3, drink1 received a copy of \"Mango Juice\". Changing drink2 afterward does not affect drink1.\n\nD: An error occurs.\nIncorrect, give it another shot! All lines are valid variable assignments.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-077",
+          "type": "paragraph",
+          "content": "Practice: Team Captain Handoff\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-079",
+          "type": "paragraph",
+          "content": "Write a program to transfer a role from one person to another:\n\n1. Create a variable named lead_runner with the value \"Kiran\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-081",
+          "type": "paragraph",
+          "content": "2. Create a variable named backup_runner with the value \"Zoya\".\n\n3. Assign the value of backup_runner to lead_runner.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-083",
+          "type": "paragraph",
+          "content": "4. Print lead_runner.\n\nHints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-085",
+          "type": "paragraph",
+          "content": "Use lead_runner = backup_runner to copy the value.\n\nPrint lead_runner to verify the new value.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-087",
+          "type": "paragraph",
+          "content": "Example:\n\nA Common Error: Assigning Undefined Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-089",
+          "type": "paragraph",
+          "content": "Look closely at this assignment:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-091",
+          "type": "paragraph",
+          "content": "Why This Happens:\n\nIn Python, the variable on the right side of = must already exist! You cannot copy data from an empty, non-existent box into another box.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-093",
+          "type": "paragraph",
+          "content": "Rule to Remember:\n\nLeft side of =: The box you are filling.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-095",
+          "type": "paragraph",
+          "content": "Right side of =: The value or existing box you are taking from.\n\nChange Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-097",
+          "type": "paragraph",
+          "content": "Why are they called variables? Because their values can vary (change) over time!\n\nWhen you put a new value into an existing variable, the old value is replaced:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-099",
+          "type": "paragraph",
+          "content": "Output\n\nThe original value 100 is overwritten by 45. A variable only holds one value at a time!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-101",
+          "type": "paragraph",
+          "content": "Figure: Change Values Stored in Variable\n\nQuiz: Tracking Variable Updates",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-103",
+          "type": "paragraph",
+          "content": "What will be displayed at the end of this program?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-105",
+          "type": "paragraph",
+          "content": "A: 22 28 19\nIncorrect, give it another shot! Variables do not remember their full history; only the most recent value is stored.\n\nB: 19\nCorrect Answer! 🎉\nEach assignment overwrites the previous one. The final value stored is 19.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-107",
+          "type": "paragraph",
+          "content": "C: 22\nIncorrect, give it another shot! 22 was replaced when temperature = 28 executed.\n\nD: 28\nIncorrect, give it another shot! 28 was replaced on the next line when temperature = 19 ran.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-109",
+          "type": "paragraph",
+          "content": "Practice: Pet Growth Tracker\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-111",
+          "type": "paragraph",
+          "content": "Write a program to track a rescue puppy's weight over two months:\n\n1. Create a variable puppy_weight and set it to 4.5.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-113",
+          "type": "paragraph",
+          "content": "2. Print puppy_weight.\n\n3. Update puppy_weight to 7.2.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-115",
+          "type": "paragraph",
+          "content": "4. Print puppy_weight again.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-117",
+          "type": "paragraph",
+          "content": "Swapping Two Variables\n\nSuppose you have two cups:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-119",
+          "type": "paragraph",
+          "content": "Cup A has Orange Juice.\n\nCup B has Apple Juice.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-121",
+          "type": "paragraph",
+          "content": "How do you swap them so Cup A gets Apple Juice and Cup B gets Orange Juice without spilling anything?\n\nYou need a third, empty helper cup (temp)!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-123",
+          "type": "paragraph",
+          "content": "Here is how you do it in Python:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-125",
+          "type": "paragraph",
+          "content": "Without temp, writing cup_a = cup_b directly would overwrite Cup A's original drink, and it would be lost forever!\n\nFigure: Swapping Two Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-127",
+          "type": "paragraph",
+          "content": "Practice: Swap Backpack Slots\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-129",
+          "type": "paragraph",
+          "content": "A hiking explorer packed gear in the wrong pockets:\n\npocket_left = \"Compass\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-131",
+          "type": "paragraph",
+          "content": "pocket_right = \"Water Bottle\"\n\nUse a temporary helper variable temp to swap the contents so pocket_left has \"Water Bottle\" and pocket_right has \"Compass\". Then print both variables.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-133",
+          "type": "paragraph",
+          "content": "Hints:\n\ntemp = pocket_left",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-135",
+          "type": "paragraph",
+          "content": "pocket_left = pocket_right\n\npocket_right = temp",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-137",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario-Based Question: Space Station Air Quality",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-139",
+          "type": "paragraph",
+          "content": "Scenario\n\nAn environmental sensor on an international space station logs oxygen levels.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-141",
+          "type": "paragraph",
+          "content": "At 08:00 AM, the sensor measures an oxygen percentage of 21.2 and stores it in a variable named oxygen_level.\n\nAt 12:00 PM, after a spacewalk airlock cycle, the oxygen level dips slightly to 19.8. The astronaut logs this new value into oxygen_level.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-143",
+          "type": "paragraph",
+          "content": "The mission director needs an alert banner displayed on the terminal using an f-string:\n\nCurrent Station Oxygen: 19.8%",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-145",
+          "type": "paragraph",
+          "content": "Your Task:\n\nCreate oxygen_level = 21.2.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-147",
+          "type": "paragraph",
+          "content": "Update oxygen_level = 19.8.\n\nPrint the alert banner using an f-string to match the expected output.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-4-understanding-variables-block-149",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-5-data-type",
+      "number": "1.5",
+      "title": "Data Type",
+      "summary": "Introduction to Data Types",
+      "status": "available",
+      "estimatedMinutes": 15,
+      "blocks": [
+        {
+          "id": "lesson-1-5-data-type-block-001",
+          "type": "paragraph",
+          "content": "1.5 Data Type",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-002",
+          "type": "paragraph",
+          "content": "Introduction to Data Types",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-003",
+          "type": "paragraph",
+          "content": "In real life, different items serve different purposes. You can wear a jacket, but you can't drink it. You can drink a glass of water, but you can't wear it!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-004",
+          "type": "paragraph",
+          "content": "Computers work the exact same way. When you give information to Python, it needs to know what kind of data it is so it knows what it is allowed to do with it.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-005",
+          "type": "paragraph",
+          "content": "For example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-006",
+          "type": "paragraph",
+          "content": "You can do math with numbers (like 10 + 5 = 15).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-007",
+          "type": "paragraph",
+          "content": "But you can’t subtract a pet's name from a shoe size!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-008",
+          "type": "paragraph",
+          "content": "In Python, the category or form of data you give to a variable is called its Data Type.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to discover the four most important data types every coder uses!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-010",
+          "type": "paragraph",
+          "content": "List of Data Types",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-011",
+          "type": "paragraph",
+          "content": "Python has four primary building-block data types that you'll use constantly:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-012",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see these four data types in action!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-013",
+          "type": "paragraph",
+          "content": "Example: Checking Data Types",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-014",
+          "type": "paragraph",
+          "content": "Let's create one variable for each data type:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-015",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-016",
+          "type": "paragraph",
+          "content": "Cool Python Secret:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-017",
+          "type": "paragraph",
+          "content": "If you ever want Python to tell you the data type of any variable, wrap it in the type() function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-018",
+          "type": "paragraph",
+          "content": "Click Next Lesson to test your knowledge with a quiz!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-019",
+          "type": "paragraph",
+          "content": "Quiz: Spot the Float",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-020",
+          "type": "paragraph",
+          "content": "Which of the following values is treated as a float (floating-point number) in Python?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-021",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-022",
+          "type": "paragraph",
+          "content": "A: 42",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-023",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! 42 is a whole number without a decimal point, making it an integer (int).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-024",
+          "type": "paragraph",
+          "content": "B: \"3.14\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-025",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Because 3.14 is wrapped inside quotation marks, Python treats it as a string (str), not a number!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-026",
+          "type": "paragraph",
+          "content": "C: 18.0",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-027",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nEven though .0 has zero value after the decimal, the presence of the decimal point makes it a floating-point number (float).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-028",
+          "type": "paragraph",
+          "content": "D: True",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-029",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! True is a boolean (bool), which represents a true/false condition.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-030",
+          "type": "paragraph",
+          "content": "Quiz: The Quote Trap",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-031",
+          "type": "paragraph",
+          "content": "Look at this line of code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-032",
+          "type": "paragraph",
+          "content": "What is the data type of the variable goals?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-033",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-034",
+          "type": "paragraph",
+          "content": "A: int (Integer)\nIncorrect, give it another shot! Look closely at the quotation marks around \"10\". Quotation marks always turn values into text.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-035",
+          "type": "paragraph",
+          "content": "B: str (String)\nCorrect Answer! 🎉\nAny value enclosed in quotation marks \" \" is always recognized as a string (str) by Python.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-036",
+          "type": "paragraph",
+          "content": "C: float\nIncorrect, give it another shot! A float must have a decimal point and must not be enclosed in quotes.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-037",
+          "type": "paragraph",
+          "content": "D: bool",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-038",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Booleans can only be True or False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-039",
+          "type": "paragraph",
+          "content": "Practice: Wildlife Sanctuary Animal Profile",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-040",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-041",
+          "type": "paragraph",
+          "content": "Create a profile card for a cheetah living in a wildlife reserve:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-042",
+          "type": "paragraph",
+          "content": "Create a string variable animal with the value \"Cheetah\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-043",
+          "type": "paragraph",
+          "content": "Create an integer variable speed_kmh with the value 110.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-044",
+          "type": "paragraph",
+          "content": "Create a float variable weight_kg with the value 52.4.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-045",
+          "type": "paragraph",
+          "content": "Create a boolean variable is_wild with the value True.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-046",
+          "type": "paragraph",
+          "content": "Print all four variables on separate lines in that order.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-047",
+          "type": "paragraph",
+          "content": "Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-048",
+          "type": "paragraph",
+          "content": "Do not put quotes around speed_kmh, weight_kg, or is_wild.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-049",
+          "type": "paragraph",
+          "content": "True must have a capital T without quotation marks.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-050",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-051",
+          "type": "paragraph",
+          "content": "Practice: Science Lab Sensor Reading",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-052",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-053",
+          "type": "paragraph",
+          "content": "A student is recording an experiment in a chemistry lab:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-054",
+          "type": "paragraph",
+          "content": "Create a variable chemical and assign it the string \"Distilled Water\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-055",
+          "type": "paragraph",
+          "content": "Create a variable ph_level and assign it the float value 7.0.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-056",
+          "type": "paragraph",
+          "content": "Create a variable test_number and assign it the integer value 3.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-057",
+          "type": "paragraph",
+          "content": "Use a single print() statement with commas to display all three values with labels:\nChemical: Distilled Water pH: 7.0 Test: 3",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-058",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-059",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Mars Exploration Rover",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-060",
+          "type": "paragraph",
+          "content": "Scenario:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-061",
+          "type": "paragraph",
+          "content": "NASA's engineering team is preparing the telemetry readout for a new Mars rover called Curiosity-II. The dashboard computer needs to display the rover's initial launch statistics.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-062",
+          "type": "paragraph",
+          "content": "Here is the telemetry data:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-063",
+          "type": "paragraph",
+          "content": "Rover Name: \"Curiosity-II\" (String)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-064",
+          "type": "paragraph",
+          "content": "Days in Orbit: 180 (Integer)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-065",
+          "type": "paragraph",
+          "content": "Battery Voltage: 28.6 (Float)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-066",
+          "type": "paragraph",
+          "content": "Solar Panels Deployed: True (Boolean)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-067",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-068",
+          "type": "paragraph",
+          "content": "Create variables for all four telemetry values with descriptive names: rover_name, days_in_orbit, battery_voltage, and solar_active.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-069",
+          "type": "paragraph",
+          "content": "Use f-strings to display the dashboard in two lines:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-070",
+          "type": "paragraph",
+          "content": "Line 1: Rover: Curiosity-II | Mission Days: 180",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-071",
+          "type": "paragraph",
+          "content": "Line 2: Voltage: 28.6V | Solar Active: True",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-072",
+          "type": "paragraph",
+          "content": "Hints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-073",
+          "type": "paragraph",
+          "content": "print(f\"Rover: {rover_name} | Mission Days: {days_in_orbit}\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-074",
+          "type": "paragraph",
+          "content": "print(f\"Voltage: {battery_voltage}V | Solar Active: {solar_active}\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-5-data-type-block-075",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-6-arithmetic-operators",
+      "number": "1.6",
+      "title": "Arithmetic Operators",
+      "summary": "1.6  Arithmetic Operators",
+      "status": "available",
+      "estimatedMinutes": 34,
+      "blocks": [
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-001",
+          "type": "paragraph",
+          "content": "1.6  Arithmetic Operators\n\nOperators Introduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-003",
+          "type": "paragraph",
+          "content": "Welcome to your computer's calculator engine! ⚡\n\nUntil now, we’ve used Python to store and display information. But computers became famous because they can do millions of calculations in a split second.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-005",
+          "type": "paragraph",
+          "content": "To do math, Python uses special symbols called operators.\n\nThink of an operator as a math tool:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-007",
+          "type": "paragraph",
+          "content": "The numbers you work on are called operands.\n\nThe symbol that tells Python what to do is the operator.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-009",
+          "type": "paragraph",
+          "content": "For example, in 8 + 4, 8 and 4 are operands, and + is the operator!\n\nClick Next Lesson to meet the core arithmetic operators.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-011",
+          "type": "paragraph",
+          "content": "Arithmetic Operators\n\nArithmetic operators handle all the everyday math calculations you learn in school:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-013",
+          "type": "paragraph",
+          "content": "Let’s explore them one by one! Click Next Lesson to start with addition.\n\n+ Operator",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-015",
+          "type": "paragraph",
+          "content": "The + operator adds numbers together. You can store the sum inside a variable:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-017",
+          "type": "paragraph",
+          "content": "You can also chain multiple values: total = 10 + 20 + 35.\n\nPrint Operators (Addition)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-019",
+          "type": "paragraph",
+          "content": "You don’t always need to create a new variable. You can perform addition directly inside the print() statement:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-021",
+          "type": "paragraph",
+          "content": "Python computes the math first, and then prints the final answer to the screen!\n\nQuiz: Addition Check",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-023",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen when this code runs?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-025",
+          "type": "paragraph",
+          "content": "A: 851510\n\nIncorrect, give it another shot! Because these are numbers (not strings inside quotes), Python adds them mathematically instead of joining the text.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-027",
+          "type": "paragraph",
+          "content": "B: 110\n\nCorrect Answer! 🎉",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-029",
+          "type": "paragraph",
+          "content": ", and . Python evaluates the entire addition expression.\n\nC: 100",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-031",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Don't forget the extra + 10 at the end of the calculation.\n\nD: An error occurs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-033",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Adding integers together is completely valid Python.\n\nPractice: Wildlife Census",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-035",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA nature sanctuary has two herds of deer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-037",
+          "type": "paragraph",
+          "content": "north_herd = 38\n\nsouth_herd = 44",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-039",
+          "type": "paragraph",
+          "content": "Calculate the total number of deer by adding both herds and store the result in a variable named total_deer. Print total_deer.\n\nHints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-041",
+          "type": "paragraph",
+          "content": "total_deer = north_herd + south_herd\n\nprint(total_deer)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-043",
+          "type": "paragraph",
+          "content": "Example:\n\nPractice: Book Fair Total",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-045",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA student bought two books at a school fair:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-047",
+          "type": "paragraph",
+          "content": "Science book costs $14.50\n\nArt book costs $9.25",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-049",
+          "type": "paragraph",
+          "content": "Write a program that uses a single print() statement to directly calculate and display the total price.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-051",
+          "type": "paragraph",
+          "content": "- Operator\n\nThe - operator subtracts the used water from the total water in the tank.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-053",
+          "type": "paragraph",
+          "content": "Output\n\nHere, the - operator subtracts the used water (175 liters) from the total water in the tank (500 liters).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-055",
+          "type": "paragraph",
+          "content": "The result, 325 liters, is stored in the remaining variable and then displayed using print().\n\nQuiz: Subtraction With Decimals",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-057",
+          "type": "paragraph",
+          "content": "What is the output of this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-059",
+          "type": "paragraph",
+          "content": "A: 37\nIncorrect, give it another shot! Because the operands are floats with decimal points, the output will also be a floating-point number.\n\nB: 37.5\nCorrect Answer! 🎉\n . Since floats are used, Python keeps the decimal place in the answer.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-061",
+          "type": "paragraph",
+          "content": "C: 38.5\nIncorrect, give it another shot! Check your subtraction:  gives . |\n\nD: A TypeError occurs.\nIncorrect, give it another shot! Python can subtract floating-point numbers smoothly without errors. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-063",
+          "type": "paragraph",
+          "content": "Practice: Running Race Time Difference\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-065",
+          "type": "paragraph",
+          "content": "Two runners completed a 400m race:\n\nrunner1_time = 54.8 seconds",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-067",
+          "type": "paragraph",
+          "content": "runner2_time = 51.2 seconds\n\nCalculate how many seconds faster Runner 2 was by subtracting runner2_time from runner1_time. Store the answer in time_diff and print it.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-069",
+          "type": "paragraph",
+          "content": "Example:\n\n* Operator",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-071",
+          "type": "paragraph",
+          "content": "The * (asterisk) symbol is used for multiplication:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-073",
+          "type": "paragraph",
+          "content": "Print Operators (Multiplication)\n\nYou can multiply numbers and print the product immediately:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-075",
+          "type": "paragraph",
+          "content": "Output\n\nNotice that multiplying a float (2.5) with an integer (4) produces a float (10.0).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-077",
+          "type": "paragraph",
+          "content": "Practice: Solar Panel Energy\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-079",
+          "type": "paragraph",
+          "content": "A solar panel produces 35 watts of clean electricity per hour:\n\nCreate a variable watts_per_hour = 35.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-081",
+          "type": "paragraph",
+          "content": "Create a variable hours = 8.\n\nCalculate the total energy generated by multiplying them and store it in daily_energy.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-083",
+          "type": "paragraph",
+          "content": "Print daily_energy.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-085",
+          "type": "paragraph",
+          "content": "Practice: Fruit Basket Weight\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-087",
+          "type": "paragraph",
+          "content": "Each melon weighs 2.4 kilograms. Write a program to calculate the total weight of 6 melons in a single print() statement.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-089",
+          "type": "paragraph",
+          "content": "/ Operator\n\nThe / (forward slash) operator divides one number by another.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-091",
+          "type": "paragraph",
+          "content": "Output\n\nSuper Important Python Rule",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-093",
+          "type": "paragraph",
+          "content": "The division operator / always returns a float (a number with a decimal point), even if the numbers divide perfectly! That is why 20 / 4 gives 5.0 and not 5.\n\nQuiz: Division Result Type",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-095",
+          "type": "paragraph",
+          "content": "What is the exact output of print(18 / 3)?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-097",
+          "type": "paragraph",
+          "content": "A: 6\nIncorrect, give it another shot! In Python, the / division operator always outputs a float containing a decimal point. |\n\nB: 6.0\nCorrect Answer! 🎉\nPython's / operator always returns a float, so  is displayed as 6.0. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-099",
+          "type": "paragraph",
+          "content": "C: 6.3\nIncorrect, give it another shot!  divided by  divides evenly to . |\n\nD: A ZeroDivisionError occurs.\nIncorrect, give it another shot! A ZeroDivisionError only happens if you try to divide by zero! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-101",
+          "type": "paragraph",
+          "content": "Practice: Splitting Picnic Expenses\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-103",
+          "type": "paragraph",
+          "content": "Four friends went to an amusement park and spent a total of $96.00 on tickets.\n\nCreate total_cost = 96.0.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-105",
+          "type": "paragraph",
+          "content": "Create friends_count = 4.\n\nDivide total_cost by friends_count to find each friend's share and store it in share.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-107",
+          "type": "paragraph",
+          "content": "Print share.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-109",
+          "type": "paragraph",
+          "content": "// and % Operators\n\nSometimes you don’t want decimal division. You want to divide items like sharing candies or packs of stickers!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-111",
+          "type": "paragraph",
+          "content": "Python gives you two companion operators:\n\n1.  // (Floor Division / Quotient): Tells you how many whole times a number fits.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-113",
+          "type": "paragraph",
+          "content": "2.  % (Modulo / Remainder): Tells you what is left over after equal division.\n\nImagine dividing 19 cookies among 4 kids:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-115",
+          "type": "paragraph",
+          "content": "Output\n\nPractice: Packing Egg Cartons",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-117",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA farm collected 53 fresh eggs. Each egg carton holds 12 eggs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-119",
+          "type": "paragraph",
+          "content": "Create total_eggs = 53.\n\nCreate carton_capacity = 12.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-121",
+          "type": "paragraph",
+          "content": "Calculate how many full cartons can be packed using // and store in full_cartons.\n\nCalculate how many eggs are left over using % and store in leftover_eggs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-123",
+          "type": "paragraph",
+          "content": "Print full_cartons on line 1, and leftover_eggs on line 2.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-125",
+          "type": "paragraph",
+          "content": "** Operator (Exponentiation / Power)\n\nThe ** operator raises a number to the power of another number ().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-127",
+          "type": "paragraph",
+          "content": "In math,  means . In Python, you write 5 ** 3!\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-129",
+          "type": "paragraph",
+          "content": "Lets take another example\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-131",
+          "type": "paragraph",
+          "content": "Quiz: Power Up\n\nWhat will be displayed on the screen when this code runs?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-133",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\nA: 8\nIncorrect, give it another shot! , but ** means power, not multiplication!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-135",
+          "type": "paragraph",
+          "content": "B: 16\nCorrect Answer! 🎉\n .\n\nC: 24\nIncorrect, give it another shot! ** calculates exponential power, not text combination.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-137",
+          "type": "paragraph",
+          "content": "D: 6\nIncorrect, give it another shot! , but ** is the exponentiation operator. |\n\nPractice: Area of a Square Garden",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-139",
+          "type": "paragraph",
+          "content": "Problem Description\n\nThe side of a square vegetable garden is 8 meters. The formula for the area of a square is:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-141",
+          "type": "paragraph",
+          "content": "1.  Create a variable side = 8.\n\n2.  Calculate the area using the ** operator and store it in area.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-143",
+          "type": "paragraph",
+          "content": "3.  Print area.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-145",
+          "type": "paragraph",
+          "content": "Practice: Square Root Magic\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-147",
+          "type": "paragraph",
+          "content": "Did you know that raising a number to the power of 0.5 calculates its square root? For example, .\n\nWrite a program that takes number = 81, calculates its square root using ** 0.5, stores it in root, and prints root.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-149",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario-Based Question: Space Shuttle Fuel Log",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-151",
+          "type": "paragraph",
+          "content": "Scenario\n\nA space station supply shuttle is preparing for launch:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-153",
+          "type": "paragraph",
+          "content": "Base fuel weight needed: 4500 kg\n\nSafety reserve fuel: 850 kg",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-155",
+          "type": "paragraph",
+          "content": "Burn rate during atmospheric climb: 150 kg per minute\n\nThe climb takes 6 minutes",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-157",
+          "type": "paragraph",
+          "content": "Your Task:\n\nCreate base_fuel = 4500 and reserve_fuel = 850.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-159",
+          "type": "paragraph",
+          "content": "Calculate total initial fuel by adding them: initial_fuel = base_fuel + reserve_fuel.\n\nCalculate the fuel consumed during the climb: consumed_fuel = 150 * 6.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-161",
+          "type": "paragraph",
+          "content": "Calculate the remaining fuel: remaining_fuel = initial_fuel - consumed_fuel.\n\nPrint the result using an f-string:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-163",
+          "type": "paragraph",
+          "content": "Shuttle Fuel Remaining: 4450 kg\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-165",
+          "type": "paragraph",
+          "content": "Arithmetic Assignment Operators\n\nCoders frequently update existing variables. For example, if you collect 10 more coins:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-167",
+          "type": "paragraph",
+          "content": "Because writing coins = coins + 10 is repetitive, Python provides a convenient shorthand called arithmetic assignment operators:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-169",
+          "type": "paragraph",
+          "content": "The += operator takes the current value, adds the new number, and saves the result right back into the variable!\n\nList of Arithmetic Assignment Operators",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-6-arithmetic-operators-block-171",
+          "type": "paragraph",
+          "content": "Here is your handy shortcut cheat-sheet for arithmetic assignments:\n\nThese shortcuts make your code faster to type, cleaner to read, and less prone to typing errors!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-7-getting-user-input",
+      "number": "1.7",
+      "title": "Getting user Input",
+      "summary": "1.7 Getting user Input\n\nUser Input Intro",
+      "status": "available",
+      "estimatedMinutes": 18,
+      "blocks": [
+        {
+          "id": "lesson-1-7-getting-user-input-block-001",
+          "type": "paragraph",
+          "content": "1.7 Getting user Input\n\nUser Input Intro",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-002",
+          "type": "paragraph",
+          "content": "Until now, our programs have had all their values pre-written inside the code. But real apps aren’t static—they talk to you!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-003",
+          "type": "paragraph",
+          "content": "Search engines ask what you want to search for.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-004",
+          "type": "paragraph",
+          "content": "Games ask for your character’s name.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-005",
+          "type": "paragraph",
+          "content": "Calculator apps ask for the numbers you want to add.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-006",
+          "type": "paragraph",
+          "content": "When a program asks a human for information while running, that information is called user input.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-007",
+          "type": "paragraph",
+          "content": "With user input, your programs become alive, interactive, and personalized!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-008",
+          "type": "paragraph",
+          "content": "Click Next Lesson to learn how to make your computer ask questions!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-009",
+          "type": "paragraph",
+          "content": "Take User Input",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-010",
+          "type": "paragraph",
+          "content": "In Python, we collect information from the keyboard using the input() function.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-011",
+          "type": "paragraph",
+          "content": "You can put a friendly prompt message inside the parentheses:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-012",
+          "type": "paragraph",
+          "content": "Sample Interaction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-013",
+          "type": "paragraph",
+          "content": "How It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-014",
+          "type": "paragraph",
+          "content": "1.  Python prints Enter astronaut name: and pauses.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-015",
+          "type": "paragraph",
+          "content": "2.  It waits for the user to type something on the keyboard and press the Enter key.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-016",
+          "type": "paragraph",
+          "content": "3.  Whatever the user types is saved directly into the variable pilot_name!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-017",
+          "type": "paragraph",
+          "content": "Practice: Robot Welcome Message",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-018",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-019",
+          "type": "paragraph",
+          "content": "Write a program that asks for the user's favorite hobby and prints an excited message.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-020",
+          "type": "paragraph",
+          "content": "1.  Use input(\"What is your favorite hobby? \") and store the answer in a variable named hobby.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-021",
+          "type": "paragraph",
+          "content": "2.  Print: That sounds awesome! I want to try followed by their hobby.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-022",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-023",
+          "type": "paragraph",
+          "content": "Use input() With Numbers",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-024",
+          "type": "paragraph",
+          "content": "Here is a super important rule that every coder must remember:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-025",
+          "type": "paragraph",
+          "content": "The input() function ALWAYS returns text (a string), even if the user types digits!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-026",
+          "type": "paragraph",
+          "content": "Look at what happens if you try to do math with raw input:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-027",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-028",
+          "type": "paragraph",
+          "content": "TypeError: can only concatenate str (not \"int\") to str",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-029",
+          "type": "paragraph",
+          "content": "Because age is stored as the string \"12\" instead of the number 12, Python cannot add 1 to it!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-030",
+          "type": "paragraph",
+          "content": "The Solution:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-031",
+          "type": "paragraph",
+          "content": "Convert the string into an integer using int() or into a float using float():",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-032",
+          "type": "paragraph",
+          "content": "Sample Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-033",
+          "type": "paragraph",
+          "content": "A General Tip: Convert in One Step",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-034",
+          "type": "paragraph",
+          "content": "Instead of taking two lines to ask and then convert, professional Python coders combine them into one neat line:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-035",
+          "type": "paragraph",
+          "content": "Here, input() gets the text from the user, and int() or float() converts it immediately before saving it into your variable!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-036",
+          "type": "paragraph",
+          "content": "Quiz: What Does input() Return?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-037",
+          "type": "paragraph",
+          "content": "Look at this line of code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-038",
+          "type": "paragraph",
+          "content": "If the user types 500 and presses Enter, what is the data type stored inside score?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-039",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-040",
+          "type": "paragraph",
+          "content": "A: int (Integer)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-041",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! input() never creates integers automatically, even if the user only types digits. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-042",
+          "type": "paragraph",
+          "content": "B: float",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-043",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! input() does not convert values to decimals on its own. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-044",
+          "type": "paragraph",
+          "content": "C: str (String)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-045",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\ninput() always captures keyboard input as a string (str). If the user types 500, it is saved as \"500\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-046",
+          "type": "paragraph",
+          "content": "D: bool",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-047",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! input() never produces boolean values directly. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-048",
+          "type": "paragraph",
+          "content": "Practice: Dog Age Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-049",
+          "type": "paragraph",
+          "content": "Problem Description: One human year is roughly equal to 7 dog years!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-050",
+          "type": "paragraph",
+          "content": "1.  Ask the user for their dog's human age as an integer using int(input(\"Enter dog's age in   human years: \")) and store it in human_years.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-051",
+          "type": "paragraph",
+          "content": "2.  Multiply human_years by 7 and store it in dog_years.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-052",
+          "type": "paragraph",
+          "content": "3.  Print: In dog years, your pet is: followed by dog_years.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-053",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-054",
+          "type": "paragraph",
+          "content": "Taking Multiple Inputs",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-055",
+          "type": "paragraph",
+          "content": "Real programs often need more than one piece of information. You can simply call input() multiple times in sequence:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-056",
+          "type": "paragraph",
+          "content": "Sample Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-057",
+          "type": "paragraph",
+          "content": "Python asks the first question, waits for Enter, and then asks the second question!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-058",
+          "type": "paragraph",
+          "content": "Quiz: Two Number Addition",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-059",
+          "type": "paragraph",
+          "content": "What will be displayed if a user enters 10 for the first prompt and 20 for the second prompt in this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-060",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-061",
+          "type": "paragraph",
+          "content": "A: 30",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-062",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! Notice that num1 and num2 were not converted with int(). They are both strings!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-063",
+          "type": "paragraph",
+          "content": "B: 1020",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-064",
+          "type": "paragraph",
+          "content": "Correct Answer! 🎉\nBecause both values are strings (\"10\" and \"20\"), the + operator joins the text together instead of doing math!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-065",
+          "type": "paragraph",
+          "content": "C: 10 20",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-066",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! The + operator joins strings directly without adding extra spaces.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-067",
+          "type": "paragraph",
+          "content": "D: A TypeError occurs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-068",
+          "type": "paragraph",
+          "content": "Incorrect, give it another shot! In Python, adding two strings with + is completely legal—it performs string concatenation.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-069",
+          "type": "paragraph",
+          "content": "Practice: Custom Sports Jersey",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-070",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-071",
+          "type": "paragraph",
+          "content": "Write a program to design a personalized soccer jersey:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-072",
+          "type": "paragraph",
+          "content": "1.  Ask the user for their player name: input(\"Enter jersey name: \") and store it in player_name.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-073",
+          "type": "paragraph",
+          "content": "2.  Ask for their jersey number:\n      int(input(\"Enter jersey number: \")) and store it in jersey_num.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-074",
+          "type": "paragraph",
+          "content": "3.  Print a single formatted line using an f-string:\n      Jersey: [player_name] | Number: [jersey_num]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-075",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-076",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: School Green Club Tree Tracker",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-077",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-078",
+          "type": "paragraph",
+          "content": "The school Eco-Club is hosting a weekend tree planting drive. Each volunteer plants saplings, and the club president wants a small software tool to calculate the carbon offset:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-079",
+          "type": "paragraph",
+          "content": "Each newly planted tree absorbs approximately 22.5 kg of carbon dioxide () per year.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-080",
+          "type": "paragraph",
+          "content": "The tool should ask the volunteer for their name and the number of trees they planted today.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-081",
+          "type": "paragraph",
+          "content": "It should calculate total  absorption: .",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-082",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-083",
+          "type": "paragraph",
+          "content": "Get volunteer name: volunteer = input(\"Volunteer Name: \").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-084",
+          "type": "paragraph",
+          "content": "Get tree count as an integer: trees = int(input(\"Trees planted: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-085",
+          "type": "paragraph",
+          "content": "Calculate co2_absorbed = trees * 22.5.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-086",
+          "type": "paragraph",
+          "content": "Print the final certificate line using an f-string:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-087",
+          "type": "paragraph",
+          "content": "Thank you [volunteer]! Your trees will absorb [co2_absorbed] kg of CO2 per year.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-7-getting-user-input-block-088",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-8-type-conversion",
+      "number": "1.8",
+      "title": "Type Conversion",
+      "summary": "Intro to Type Conversion",
+      "status": "available",
+      "estimatedMinutes": 24,
+      "blocks": [
+        {
+          "id": "lesson-1-8-type-conversion-block-001",
+          "type": "paragraph",
+          "content": "1.8 Type Conversion\n\nIntro to Type Conversion",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-003",
+          "type": "paragraph",
+          "content": "In coding, data doesn't always arrive in the exact form you need.\n\nA user types the number 25, but Python hands it to you as the text string \"25\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-005",
+          "type": "paragraph",
+          "content": "A stopwatch measures a race time of 14.8 seconds, but your leaderboard only awards whole-second points.\n\nWhen you transform data from one data type into another, it is called Type Conversion (or data type transformation).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-007",
+          "type": "paragraph",
+          "content": "It's like melting ice into liquid water: the core information is still there, but its state has changed so you can use it in a brand-new way!\n\nClick Next Lesson to learn the two ways Python converts data.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-009",
+          "type": "paragraph",
+          "content": "Type Casting vs Type Coercion\n\nThere are two distinct ways data types change in Python:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-011",
+          "type": "paragraph",
+          "content": "Type Coercion (Implicit / Automatic):\n\nPython does the work for you automatically behind the scenes.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-013",
+          "type": "paragraph",
+          "content": "You don’t write any special conversion commands.\n\nExample: When you add an integer and a float, Python quietly upgrades the integer to a float so no decimal precision is lost.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-015",
+          "type": "paragraph",
+          "content": "Type Casting (Explicit / Manual):\n\nYou specifically command Python to change the data type using conversion functions like int(), float(), or str().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-017",
+          "type": "paragraph",
+          "content": "Example: Converting text input into a number using int(\"50\").\n\nClick Next Lesson to see automatic conversion in action!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-019",
+          "type": "paragraph",
+          "content": "Implicit Type Conversion\n\nLook at what happens when you combine an integer with a float:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-021",
+          "type": "paragraph",
+          "content": "Output\n\nHow It Works",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-023",
+          "type": "paragraph",
+          "content": "Python automatically promotes 4 into 4.0 before performing the addition. It does this to make sure your answer keeps its decimal accuracy without you having to lift a finger!\n\nQuiz: Implicit Conversion Check",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-025",
+          "type": "paragraph",
+          "content": "What will be the data type and output of result in this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-027",
+          "type": "paragraph",
+          "content": "| A: 12 (int) |\n| Incorrect, give it another shot! When adding an integer and a float, Python converts the result to a float to protect precision. |\n\n| B: 12.0 (float) |\n| Correct Answer! 🎉\nPython automatically coerces score to 10.0, resulting in a floating-point sum of 12.0. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-029",
+          "type": "paragraph",
+          "content": "| C: \"12.0\" (string) |\n| Incorrect, give it another shot! Mathematical operations between numbers never produce text strings. |\n\n| D: A TypeError occurs. |\n| Incorrect, give it another shot! Python seamlessly adds integers and floats together. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-031",
+          "type": "paragraph",
+          "content": "Convert Integer (Explicit int())\n\nWhen you want to convert values into whole numbers yourself, you use the int() function.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-033",
+          "type": "paragraph",
+          "content": "You simply place whatever you want to convert inside its parentheses:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-035",
+          "type": "paragraph",
+          "content": "In computer logic, True corresponds to 1 (switch ON) and False corresponds to 0 (switch OFF)!\n\nPractice: Boolean to Integer Status",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-037",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA smart security light has two sensor states:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-039",
+          "type": "paragraph",
+          "content": "motion_detected = True\n\ndoor_open = False",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-041",
+          "type": "paragraph",
+          "content": "Convert both boolean variables to integers using int() and print them on separate lines.\n\nHints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-043",
+          "type": "paragraph",
+          "content": "print(int(motion_detected))\n\nprint(int(door_open))",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-045",
+          "type": "paragraph",
+          "content": "Example:\n\nConverting Floats to Integers",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-047",
+          "type": "paragraph",
+          "content": "When you pass a floating-point number into int(), something very specific happens:\n\nPython simply chops off (truncates) the decimal part completely! It does NOT round to the nearest number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-049",
+          "type": "paragraph",
+          "content": "Output\n\nNotice that even though 14.99 is practically 15, int() doesn't care about rounding—it simply discards .99 and leaves only the whole number 14.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-051",
+          "type": "paragraph",
+          "content": "Quiz: Chopping the Decimals\n\nWhat is the output of the following line of code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-053",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: 13 |\n| Incorrect, give it another shot! , but Python converts each float before adding them! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-055",
+          "type": "paragraph",
+          "content": "| B: 12 |\n| Correct Answer! 🎉\n int(9.8) truncates to 9, and int(3.2) truncates to 3. ! |\n\n| C: 13.0 |\n| Incorrect, give it another shot! Adding two integers always produces an integer, not a float. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-057",
+          "type": "paragraph",
+          "content": "| D: 12.0 |\n| Incorrect, give it another shot! Both values were converted to integers first, so no decimal is printed. |\n\nPractice: Full Laps Completed",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-059",
+          "type": "paragraph",
+          "content": "Problem Description: A drone completed 8.75 laps around an obstacle course before its battery ran low.\n\nCreate a variable total_laps = 8.75.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-061",
+          "type": "paragraph",
+          "content": "Convert total_laps to a whole integer using int() to find the number of fully completed laps, and store it in full_laps.\n\nPrint: Full laps completed: followed by full_laps.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-063",
+          "type": "paragraph",
+          "content": "Example:\n\nConverting Numeric Strings to Integers",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-065",
+          "type": "paragraph",
+          "content": "You can also convert text strings into numbers, as long as the text contains only valid whole numbers:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-067",
+          "type": "paragraph",
+          "content": "Watch Out For ValueErrors:\n\nIf the string contains letters or a decimal point, int() will crash with an error!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-069",
+          "type": "paragraph",
+          "content": "int(\"Hello\") ❌ ValueError (not a number!)\n\nint(\"45.6\") ❌ ValueError (has a decimal! To convert \"45.6\", you must use float(\"45.6\") first).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-071",
+          "type": "paragraph",
+          "content": "Quiz: Valid String Conversion\n\nWhich of the following string conversions will run successfully without an error?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-073",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: int(\"Twenty-Five\") |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-075",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! English word numbers cannot be read by int(). Only numeric digits work. |\n\n| B: int(\"100\") |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-077",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉\n\n\"100\" contains only digits representing a whole number, so int() converts it into 100 cleanly. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-079",
+          "type": "paragraph",
+          "content": "| C: int(\"50.5\") |\n\n| Incorrect, give it another shot! int() cannot directly convert a string with a decimal point. It raises a ValueError. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-081",
+          "type": "paragraph",
+          "content": "| D: int(\"12A\") |\n\n| Incorrect, give it another shot! The letter A prevents Python from reading it as a pure base-10 number. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-083",
+          "type": "paragraph",
+          "content": "Practice: Ticket Sales Calculation\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-085",
+          "type": "paragraph",
+          "content": "A museum kiosk received two ticket orders stored as text strings:\n\nmorning_tickets = \"14\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-087",
+          "type": "paragraph",
+          "content": "afternoon_tickets = \"26\"\n\nConvert both strings to integers using int(), add them together to calculate total_tickets, and print total_tickets.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-089",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario-Based Question: Arcade Prize Counter",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-091",
+          "type": "paragraph",
+          "content": "Scenario\n\nAt an amusement arcade, players earn game points on their digital cards.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-093",
+          "type": "paragraph",
+          "content": "A player scanned their card, and the machine returned their points as a float: raw_points = 248.85.\n\nAt the prize counter, tickets are only awarded for full, whole points (the arcade chops off any decimal fractions).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-095",
+          "type": "paragraph",
+          "content": "Each prize costs 50 tickets.\n\nYour Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-097",
+          "type": "paragraph",
+          "content": "Create raw_points = 248.85.\n\nConvert raw_points into an integer named tickets using int().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-099",
+          "type": "paragraph",
+          "content": "Calculate how many prizes the player can claim using floor division //: prizes = tickets // 50.\n\nCalculate leftover tickets using modulo %: leftover = tickets % 50.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-101",
+          "type": "paragraph",
+          "content": "Display the result in two lines using f-strings:\n\nLine 1: Total Tickets: [tickets]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-103",
+          "type": "paragraph",
+          "content": "Line 2: Prizes Won: [prizes] | Leftover Tickets: [leftover]\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-105",
+          "type": "paragraph",
+          "content": "Revision & Summary: Chapter 1 Master Checklist\n\nCongratulations! 🏆 You have completed the foundational core of Python!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-107",
+          "type": "paragraph",
+          "content": "Here is your master cheat-sheet for everything you’ve mastered:\n\nOutput (print): Displays text and calculations. Use commas , for spaces or \\n for line breaks.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-109",
+          "type": "paragraph",
+          "content": "Modern Formatting (f-strings): Combine variables and words cleanly: f\"Hello {name}!\".\n\nComments (#): Human notes that Python skips.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-111",
+          "type": "paragraph",
+          "content": "Variables: Labeled storage boxes for data. Reassign values with = or swap using a helper temp.\n\nData Types:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-113",
+          "type": "paragraph",
+          "content": "int: Whole numbers (10, -3)\n\nfloat: Decimals (3.14, 0.5)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-115",
+          "type": "paragraph",
+          "content": "str: Text in quotes (\"Python\")\n\nbool: True/False logic switches",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-117",
+          "type": "paragraph",
+          "content": "Arithmetic Operators: +, -, *, / (always float), // (quotient), % (remainder), ** (powers).\n\nUser Input (input()): Collects user responses from the keyboard as strings by default.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-119",
+          "type": "paragraph",
+          "content": "Type Conversion:\n\nImplicit (Coercion): Python automatically converts int + float into float.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-8-type-conversion-block-121",
+          "type": "paragraph",
+          "content": "Explicit (Casting): Use int(), float(), or str() to manually change data types.\n\nYou are now 100% ready to move on to Chapter 2: Making Decisions (Conditionals & Logic)!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-9-introduction-examples-practice",
+      "number": "1.9",
+      "title": "Introduction Examples & Practice",
+      "summary": "1.9 Introduction Examples & Practice",
+      "status": "available",
+      "estimatedMinutes": 19,
+      "blocks": [
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-001",
+          "type": "paragraph",
+          "content": "1.9 Introduction Examples & Practice",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-002",
+          "type": "paragraph",
+          "content": "Introduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-003",
+          "type": "paragraph",
+          "content": "Take a moment to give yourself a huge high-five! 🌟",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-004",
+          "type": "paragraph",
+          "content": "You now know all the essential building blocks of Python:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-005",
+          "type": "paragraph",
+          "content": "Gathering information with input()",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-006",
+          "type": "paragraph",
+          "content": "Transforming text into numbers with float() and int()",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-007",
+          "type": "paragraph",
+          "content": "Calculating results using math operators (+, -, *, /, **)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-008",
+          "type": "paragraph",
+          "content": "Displaying polished answers with f-strings",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-009",
+          "type": "paragraph",
+          "content": "In this final unit of Module 1, we are going to combine all these superpowers together to build real, practical mini-programs that solve real-world problems!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-010",
+          "type": "paragraph",
+          "content": "Click Next Lesson to build your first unit converter!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-011",
+          "type": "paragraph",
+          "content": "Convert Pound to Kg",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-012",
+          "type": "paragraph",
+          "content": "In many parts of the world, weights are measured in pounds (lbs), while science labs and hospitals use kilograms (kg).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-013",
+          "type": "paragraph",
+          "content": "The conversion rule is:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-014",
+          "type": "paragraph",
+          "content": "Here is how we build an interactive weight converter in Python:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-015",
+          "type": "paragraph",
+          "content": "Sample Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-016",
+          "type": "paragraph",
+          "content": "How It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-017",
+          "type": "paragraph",
+          "content": "1.  input() prompts the user for the weight.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-018",
+          "type": "paragraph",
+          "content": "2.  float() converts the entered text into a decimal number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-019",
+          "type": "paragraph",
+          "content": "3.  We multiply by 0.454 to get kilograms and display the result neatly with an f-string!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-020",
+          "type": "paragraph",
+          "content": "Practice: Inches to Centimeters",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-021",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-022",
+          "type": "paragraph",
+          "content": "Write a program to convert a measurement from inches to centimeters (cm).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-023",
+          "type": "paragraph",
+          "content": "Formula:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-024",
+          "type": "paragraph",
+          "content": "1.  Ask the user for the length in inches as a float: inches = float(input(\"Enter length in inches: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-025",
+          "type": "paragraph",
+          "content": "2.  Multiply inches by 2.54 and store the result in cm.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-026",
+          "type": "paragraph",
+          "content": "3.  Print the result using an f-string: Length in cm: [cm].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-027",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-028",
+          "type": "paragraph",
+          "content": "Quiz: Unit Conversion Math",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-029",
+          "type": "paragraph",
+          "content": "A student wrote this line to convert a distance from kilometers to meters ():",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-030",
+          "type": "paragraph",
+          "content": "If the user enters 3, what will happen?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-031",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-032",
+          "type": "paragraph",
+          "content": "| A: 3000 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-033",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Look closely at km: it was captured as a string \"3\" without being converted by float() or int(). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-034",
+          "type": "paragraph",
+          "content": "| B: The number 3 repeated one thousand times! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-035",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-036",
+          "type": "paragraph",
+          "content": "In Python, multiplying a text string by an integer repeats the text! To do real math, the code must use float(input(...)). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-037",
+          "type": "paragraph",
+          "content": "| C: 3000.0 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-038",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! String multiplication produces repeated text, not a floating-point number. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-039",
+          "type": "paragraph",
+          "content": "| D: A ZeroDivisionError occurs. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-040",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! There is no division in this code. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-041",
+          "type": "paragraph",
+          "content": "Practice: Hours to Seconds Converter",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-042",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-043",
+          "type": "paragraph",
+          "content": "How many seconds are in an astronaut's spacewalk?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-044",
+          "type": "paragraph",
+          "content": "Therefore:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-045",
+          "type": "paragraph",
+          "content": "Write a program that:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-046",
+          "type": "paragraph",
+          "content": "1.  Asks the user for hours as a float: hours = float(input(\"Enter hours: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-047",
+          "type": "paragraph",
+          "content": "2.  Calculates the total seconds: seconds = hours * 3600.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-048",
+          "type": "paragraph",
+          "content": "3.  Displays the output: Total seconds: [seconds].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-049",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-050",
+          "type": "paragraph",
+          "content": "Find the Cube Root",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-051",
+          "type": "paragraph",
+          "content": "The cube root of a number is the value that, when multiplied by itself three times, gives the original number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-052",
+          "type": "paragraph",
+          "content": "In mathematics, finding a cube root is the same as raising a number to the power of :",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-053",
+          "type": "paragraph",
+          "content": "In Python, we use the ** operator with parentheses around (1/3):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-054",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-055",
+          "type": "paragraph",
+          "content": "Crucial Parentheses Warning:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-056",
+          "type": "paragraph",
+          "content": "Always write ** (1/3) with parentheses! If you write number ** 1 / 3, Python calculates number ** 1 first, and then divides the answer by 3, giving the wrong answer!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-057",
+          "type": "paragraph",
+          "content": "Quiz: Parentheses in Exponents",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-058",
+          "type": "paragraph",
+          "content": "What does Python calculate if you write 27 ** 1 / 3 without parentheses?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-059",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-060",
+          "type": "paragraph",
+          "content": "| A: 3.0 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-061",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! 3.0 is the true cube root of 27, which requires parentheses: 27 ** (1/3). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-062",
+          "type": "paragraph",
+          "content": "| B: 9.0 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-063",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-064",
+          "type": "paragraph",
+          "content": "Without parentheses, Python evaluates exponentiation before division: , and then ! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-065",
+          "type": "paragraph",
+          "content": "| C: 27 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-066",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The division by 3 still runs after the exponentiation. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-067",
+          "type": "paragraph",
+          "content": "| D: A SyntaxError occurs. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-068",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The expression is completely valid Python, but it gives an unexpected mathematical result. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-069",
+          "type": "paragraph",
+          "content": "Practice: Find the Cube Root of User Input",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-070",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-071",
+          "type": "paragraph",
+          "content": "Write an interactive program that asks the user for a number, calculates its cube root, and prints the answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-072",
+          "type": "paragraph",
+          "content": "1.  Get a float number from the user: val = float(input(\"Enter number: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-073",
+          "type": "paragraph",
+          "content": "2.  Compute the cube root: root = val ** (1/3).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-074",
+          "type": "paragraph",
+          "content": "3.  Print: Cube root: [root].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-075",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-076",
+          "type": "paragraph",
+          "content": "Practice: Side of a Storage Crate",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-077",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-078",
+          "type": "paragraph",
+          "content": "A shipping warehouse stores cubic crates. The formula for the volume of a cube is:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-079",
+          "type": "paragraph",
+          "content": "If you know the volume, you can find the length of each side by taking the cube root of the volume:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-080",
+          "type": "paragraph",
+          "content": "Write a program that:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-081",
+          "type": "paragraph",
+          "content": "Sets volume = 343.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-082",
+          "type": "paragraph",
+          "content": "Calculates the side length using side = volume ** (1/3).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-083",
+          "type": "paragraph",
+          "content": "Prints the side length using an f-string:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-084",
+          "type": "paragraph",
+          "content": "Side length of crate: [side] meters",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-085",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-086",
+          "type": "paragraph",
+          "content": "Revision : The Complete Coder's Formula",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-087",
+          "type": "paragraph",
+          "content": "Congratulations on completing Module 1! 🎓",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-088",
+          "type": "paragraph",
+          "content": "You have transformed from a complete beginner into someone who can write real, interactive programs. Here are the 4 golden rules to carry forward into Module 2:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-089",
+          "type": "paragraph",
+          "content": "1.  Always Match Quotes & Parentheses: Every ( needs a ), and every \" needs a closing \".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-090",
+          "type": "paragraph",
+          "content": "2.  Handle User Input Carefully: Always remember that input() gives you text. Convert with int()   or float() before doing any math.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-091",
+          "type": "paragraph",
+          "content": "3.  Use Parentheses for Complex Math: Expressions like exponents (** (1/3)) or discounts need parentheses to ensure Python calculates in the right order.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-092",
+          "type": "paragraph",
+          "content": "4.  Use f-strings for Clear Readouts: Combine your labels and variables seamlessly: print(f\"Result: {answer}\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-9-introduction-examples-practice-block-093",
+          "type": "paragraph",
+          "content": "You are now fully equipped and ready for Module 2: Decisions & Loops (If/Else & Logic)!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-1-10-revision",
+      "number": "1.10",
+      "title": "Revision",
+      "summary": "Revision 1 (Output, Comments & Variables)",
+      "status": "available",
+      "estimatedMinutes": 11,
+      "blocks": [
+        {
+          "id": "lesson-1-10-revision-block-001",
+          "type": "paragraph",
+          "content": "1.10 Revision",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-002",
+          "type": "paragraph",
+          "content": "Revision 1 (Output, Comments & Variables)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-003",
+          "type": "paragraph",
+          "content": "Welcome to your grand review! Let’s revisit the foundational coding blocks you unlocked in the first half of this module:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-004",
+          "type": "paragraph",
+          "content": "1. Displaying Output (print())",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-005",
+          "type": "paragraph",
+          "content": "print(\"message\"): Sends text to the screen. Text must always be inside quotation marks \" \".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-006",
+          "type": "paragraph",
+          "content": "Multiple Values with Commas: print(\"Level:\", 5) puts a neat space between each item.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-007",
+          "type": "paragraph",
+          "content": "Newline (\\n): Acts like pressing the Enter key: print(\"Line 1\\nLine 2\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-008",
+          "type": "paragraph",
+          "content": "Triple Quotes (\"\"\"...\"\"\"): Keeps long paragraphs and art formatted across multiple lines.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-009",
+          "type": "paragraph",
+          "content": "2. Comments (#)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-010",
+          "type": "paragraph",
+          "content": "Starts with #: print(\"Hello\") # This is a human note.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-011",
+          "type": "paragraph",
+          "content": "Python completely ignores comments. Use them to make your code clear, readable, and easy to understand.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-012",
+          "type": "paragraph",
+          "content": "3. Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-013",
+          "type": "paragraph",
+          "content": "Labeled boxes that hold data in computer memory using =: player_name = \"Kiran\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-014",
+          "type": "paragraph",
+          "content": "Updating Variables: Variables only hold one value at a time; assigning a new value replaces the old one.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-015",
+          "type": "paragraph",
+          "content": "Swapping Variables: To swap two variables without losing data, always use a third helper variable (temp).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-016",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-017",
+          "type": "paragraph",
+          "content": "Click Next Lesson for Part 2 of our grand revision!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-018",
+          "type": "paragraph",
+          "content": "Revision 2 (Data Types, Math, Input & Casting)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-019",
+          "type": "paragraph",
+          "content": "In the second half of this module, you turned your computer into an interactive calculating powerhouse:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-020",
+          "type": "paragraph",
+          "content": "1. Core Data Types",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-021",
+          "type": "paragraph",
+          "content": "int: Whole numbers without decimals (15, -3, 0).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-022",
+          "type": "paragraph",
+          "content": "float: Numbers with decimals (3.14, 19.99, 0.0).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-023",
+          "type": "paragraph",
+          "content": "str: Text strings inside quotes (\"Rocket\", \"42\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-024",
+          "type": "paragraph",
+          "content": "bool: Logic switches (True or False).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-025",
+          "type": "paragraph",
+          "content": "2. Arithmetic Operators",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-026",
+          "type": "paragraph",
+          "content": "+ (Add), - (Subtract), * (Multiply)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-027",
+          "type": "paragraph",
+          "content": "/ (Division — always gives a float, e.g., 10 / 2 is 5.0)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-028",
+          "type": "paragraph",
+          "content": "// (Floor division — returns the whole quotient)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-029",
+          "type": "paragraph",
+          "content": "% (Modulo — returns the leftover remainder)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-030",
+          "type": "paragraph",
+          "content": "** (Exponentiation / Power — e.g., 4 ** 2 is 16, 64 ** (1/2) is square root)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-031",
+          "type": "paragraph",
+          "content": "Shorthands: score += 10 is a quicker way to write score = score + 10.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-032",
+          "type": "paragraph",
+          "content": "3. User Input & Type Conversion",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-033",
+          "type": "paragraph",
+          "content": "input(\"prompt\"): Pauses and waits for the user to type on the keyboard. Always returns a string!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-034",
+          "type": "paragraph",
+          "content": "Type Casting: Wrap input in int() or float() to do math:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-035",
+          "type": "paragraph",
+          "content": "f-strings: The cleanest way to format output: f\"Total cost: ${price}\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-036",
+          "type": "paragraph",
+          "content": "Click Next Lesson to claim your achievement!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-037",
+          "type": "paragraph",
+          "content": "Congratulations! 🏆",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-038",
+          "type": "paragraph",
+          "content": "🎉 YOU OFFICIALLY DID IT! 🎉",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-039",
+          "type": "paragraph",
+          "content": "You have completed the entire Module 1: Python Fundamentals!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-040",
+          "type": "paragraph",
+          "content": "Take a look at everything you can now do:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-041",
+          "type": "paragraph",
+          "content": "Write and run real Python scripts from scratch.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-042",
+          "type": "paragraph",
+          "content": "Debug syntax errors, missing quotes, and misspelled names like a pro.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-043",
+          "type": "paragraph",
+          "content": "Design interactive apps that ask users questions and respond in real time.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-044",
+          "type": "paragraph",
+          "content": "Calculate complex formulas for unit conversions, square roots, and geometry.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-045",
+          "type": "paragraph",
+          "content": "You have built a rock-solid foundation that will stay with you throughout your programming journey!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-046",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see what exciting mysteries await in Module 2!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-047",
+          "type": "paragraph",
+          "content": "Next up! (Module 2 Preview)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-048",
+          "type": "paragraph",
+          "content": "Ready for your next big upgrade?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-049",
+          "type": "paragraph",
+          "content": "Right now, your programs follow a straight line from top to bottom. Every single line of code runs in order, no matter what.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-050",
+          "type": "paragraph",
+          "content": "In Module 2: Flow Control & Logic, you will teach your programs how to think and make decisions on their own:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-051",
+          "type": "paragraph",
+          "content": "Conditionals (if, elif, else): Make your program choose different paths (e.g., \"If player has key, open treasure chest; otherwise, sound the alarm!\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-052",
+          "type": "paragraph",
+          "content": "Comparison Operators (==, !=, <, >): Check if scores match, pass codes are correct, or temperatures are too high.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-053",
+          "type": "paragraph",
+          "content": "Logical Operators (and, or, not): Combine multiple conditions just like a detective solving a mystery.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-054",
+          "type": "paragraph",
+          "content": "Interactive Mini-Games: Use your decision-making powers to build a real Rock-Paper-Scissors game and a Text Adventure Quest!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-1-10-revision-block-055",
+          "type": "paragraph",
+          "content": "When you're ready to level up, click Start Module 2!",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

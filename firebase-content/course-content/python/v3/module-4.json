@@ -1,0 +1,2945 @@
+{
+  "id": "module-4",
+  "title": "Storing & Organizing Collections",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-4-1-strings-in-depth",
+      "number": "4.1",
+      "title": "Strings in Depth",
+      "summary": "Module 4: Storing & Organizing Collections\n4.1 Strings in Depth",
+      "status": "available",
+      "estimatedMinutes": 27,
+      "blocks": [
+        {
+          "id": "lesson-4-1-strings-in-depth-block-001",
+          "type": "paragraph",
+          "content": "Module 4: Storing & Organizing Collections\n4.1 Strings in Depth\n\nCollections",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-003",
+          "type": "paragraph",
+          "content": "Welcome to Module 4! 🎒\n\nUntil now, each of our variables held just a single piece of data (like score = 100 or speed = 45.5).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-005",
+          "type": "paragraph",
+          "content": "In this module, you will learn about Collections. A collection is a container that lets you store and organize multiple pieces of data together under one name!\n\nYou actually already know the most famous collection in Python: the String! A string is an ordered collection of characters (letters, numbers, spaces, and emojis) all linked together like cars on a train.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-007",
+          "type": "paragraph",
+          "content": "Click Next Lesson to inspect strings under a microscope!\n\nPython Strings",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-009",
+          "type": "paragraph",
+          "content": "In Python, a string is an ordered sequence of characters wrapped in quotation marks.\n\nEvery single letter, number, punctuation mark, and space has its own specific spot in line:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-011",
+          "type": "paragraph",
+          "content": "Output\n\nThe len() function counts every single character in the collection—including blank spaces!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-013",
+          "type": "paragraph",
+          "content": "Creating Strings\n\nPython gives you three ways to create strings:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-015",
+          "type": "paragraph",
+          "content": "Double Quotes (\" \"): phrase = \"Space Station\"\n\nSingle Quotes (' '): phrase = 'Space Station'",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-017",
+          "type": "paragraph",
+          "content": "Triple Quotes (\"\"\" \"\"\" or ''' '''): Perfect for multiline dialogues, poems, or ASCII art!\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-019",
+          "type": "paragraph",
+          "content": "Concatenate Strings (Join)\n\nTo glue two or more strings together into one long sentence, use the + operator:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-021",
+          "type": "paragraph",
+          "content": "Output\n\n(Remember: Python does not add a space automatically with +. You must add \" \" yourself if you want a space between words!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-023",
+          "type": "paragraph",
+          "content": "Escape Sequences\n\nWhat happens if you want quotation marks inside your text sentence?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-025",
+          "type": "paragraph",
+          "content": "If you type print(\"He said \"Hello!\" to me\"), Python gets confused by the extra quotes. To fix this, use an escape sequence with a backslash \\:\n\n\\\": Prints a literal double quote without confusing Python.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-027",
+          "type": "paragraph",
+          "content": "\\': Prints a literal single quote / apostrophe.\n\n\\n: Pushes the following text to a brand-new line.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-029",
+          "type": "paragraph",
+          "content": "\\t: Inserts a tab (4 spaces).\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-031",
+          "type": "paragraph",
+          "content": "Quiz: Escape Sequences\n\nWhat will be displayed on the screen by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-033",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: Gold\\nSilver |\n| Incorrect, give it another shot! \\n is an escape sequence that Python interprets as an Enter key action. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-035",
+          "type": "paragraph",
+          "content": "| B: Gold Silver on one line |\n| Incorrect, give it another shot! \\n creates a line break, not a space. |\n\n| C: Gold and Silver on separate lines |\n| Correct Answer! 🎉 \\n inserts a newline, placing Gold on the first line and Silver on the next. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-037",
+          "type": "paragraph",
+          "content": "| D: A SyntaxError occurs. |\n| Incorrect, give it another shot! \\n is completely valid Python syntax. |\n\nPractice: Character Dialogue",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-039",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program that displays the following exact speech line using escape quotes (\\\"):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-041",
+          "type": "paragraph",
+          "content": "The robot said, \"All systems operational!\"\n\nHints:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-043",
+          "type": "paragraph",
+          "content": "Wrap the entire string in \"...\"\n\nPut a backslash before the inside quotes: \\\"All systems operational!\\\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-045",
+          "type": "paragraph",
+          "content": "Example:\n\nAccess Characters of a String",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-047",
+          "type": "paragraph",
+          "content": "Because a string is an ordered collection, every character has an address number called an index:\n\nPlaintext",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-049",
+          "type": "paragraph",
+          "content": "String:   P  Y  T  H  O  N\n\nIndex:    0  1  2  3  4  5",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-051",
+          "type": "paragraph",
+          "content": "Neg:     -6 -5 -4 -3 -2 -1\n\nZero-Based Indexing: The first character is always at index [0].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-053",
+          "type": "paragraph",
+          "content": "Negative Indexing: Index [-1] gives the very last character, [-2] gives the second-last, and so on!\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-055",
+          "type": "paragraph",
+          "content": "Watch Out For IndexError:\n\nIf you try to read game[50], Python will throw an IndexError: string index out of range because there is no 50th character!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-057",
+          "type": "paragraph",
+          "content": "Quiz: Index Lookup\n\nWhat is the output of the following code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-059",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: R followed by t |\n| Incorrect, give it another shot! Remember that indexing starts at 0, so vehicle[0] is \"R\", not vehicle[1]. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-061",
+          "type": "paragraph",
+          "content": "| B: o followed by t |\n| Correct Answer! 🎉 Index 1 is the second letter (\"o\"), and index -1 is the last letter (\"t\"). |\n\n| C: o followed by e |\n| Incorrect, give it another shot! [-1] is the very last character, which is \"t\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-063",
+          "type": "paragraph",
+          "content": "| D: Rocket |\n| Incorrect, give it another shot! Square brackets access individual characters, not the full string. |\n\nPractice: First & Last Badge",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-065",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA space academy creates a short emblem using the first and last letters of a planet's name:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-067",
+          "type": "paragraph",
+          "content": "Create a variable planet = \"Jupiter\".\n\nExtract the first letter using planet[0].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-069",
+          "type": "paragraph",
+          "content": "Extract the last letter using planet[-1].\n\nPrint both letters on separate lines.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-071",
+          "type": "paragraph",
+          "content": "Example:\n\nChange Characters of a String (Immutability)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-073",
+          "type": "paragraph",
+          "content": "Here is a big surprise:\n\nStrings in Python are IMMUTABLE (unchangeable)! Once created, you cannot swap out individual letters directly.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-075",
+          "type": "paragraph",
+          "content": "Look at what happens if you try to change a typo directly:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-077",
+          "type": "paragraph",
+          "content": "How Coders Change Strings:\n\nInstead of editing the old string, you create a brand-new string by combining slices:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-079",
+          "type": "paragraph",
+          "content": "Slice Strings\n\nWhat if you want to grab an entire chunk of a string (like the first 3 letters)?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-081",
+          "type": "paragraph",
+          "content": "You use Slicing:\n\nstart is included.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-083",
+          "type": "paragraph",
+          "content": "stop is excluded (stops one index before!).\n\nConvenient Shortcuts:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-085",
+          "type": "paragraph",
+          "content": "text[:4]: Omit start to begin from the very first letter (index 0).\n\ntext[3:]: Omit stop to slice all the way to the end!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-087",
+          "type": "paragraph",
+          "content": "text[:]: Copies the entire string.\n\nExample: String Slicing",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-089",
+          "type": "paragraph",
+          "content": "Let’s slice a superhero title:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-091",
+          "type": "paragraph",
+          "content": "Quiz: Slicing Slices\n\nWhat is the output of the following slice?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-093",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: scov |\n| Incorrect, give it another shot! Trace the indexes: index 0 is 'D', 1 is 'i', 2 is 's', 3 is 'c'. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-095",
+          "type": "paragraph",
+          "content": "| B: cove |\n| Correct Answer! 🎉 Index 3 is 'c', 4 is 'o', 5 is 'v', and 6 is 'e' (stops before index 7). |\n\n| C: cover |\n| Incorrect, give it another shot! Remember the stop index 7 ('r') is excluded! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-097",
+          "type": "paragraph",
+          "content": "| D: iscovery |\n| Incorrect, give it another shot! The slice starts at index 3, skipping the first three letters. |\n\nString Methods",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-099",
+          "type": "paragraph",
+          "content": "Python strings come equipped with awesome built-in superpower tools called methods:\n\n.upper(): Converts all letters to uppercase: \"cat\".upper()  \"CAT\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-101",
+          "type": "paragraph",
+          "content": ".lower(): Converts all letters to lowercase: \"DOG\".lower()  \"dog\"\n\n.replace(old, new): Swaps words: \"red car\".replace(\"red\", \"blue\")  \"blue car\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-103",
+          "type": "paragraph",
+          "content": ".find(sub): Returns the index position of where a word starts: \"Galaxy\".find(\"lax\")  2\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-105",
+          "type": "paragraph",
+          "content": "Quiz: The .replace() Method\n\nWhat will be displayed by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-107",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: Super Mario |\n| Incorrect, give it another shot! .replace() swaps the target word with the new replacement. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-109",
+          "type": "paragraph",
+          "content": "| B: Super Luigi |\n| Correct Answer! 🎉 \"Mario\" is replaced by \"Luigi\", printing Super Luigi! |\n\n| C: Luigi |\n| Incorrect, give it another shot! Only the matching word is replaced; the rest of the string remains unchanged. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-111",
+          "type": "paragraph",
+          "content": "| D: An error occurs. |\n| Incorrect, give it another shot! .replace() is a standard string method. |\n\nPractice: Gamer Tag Formatter",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-113",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWhen a player registers, their tag needs to be formatted into uppercase with dashes:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-115",
+          "type": "paragraph",
+          "content": "Create a variable tag = \"shadow ninja\".\n\nConvert the tag to uppercase using .upper().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-117",
+          "type": "paragraph",
+          "content": "Replace the space \" \" with a hyphen \"-\" using .replace().\n\nPrint the final gamer tag.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-119",
+          "type": "paragraph",
+          "content": "Hints:\n\nformatted = tag.upper().replace(\" \", \"-\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-121",
+          "type": "paragraph",
+          "content": "print(formatted)\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-123",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Secret Agent Censor Tool\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-125",
+          "type": "paragraph",
+          "content": "A secret intelligence bureau needs to sanitize confidential messages before transmitting them over open radio:\n\nOriginal transmission: message = \"Agent 007 is at Location Alpha\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-127",
+          "type": "paragraph",
+          "content": "The agency must censor the agent's code: replace \"007\" with \"REDACTED\".\n\nThe agency must broadcast the final censored message in full UPPERCASE.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-129",
+          "type": "paragraph",
+          "content": "Your Task:\n\nCreate message = \"Agent 007 is at Location Alpha\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-131",
+          "type": "paragraph",
+          "content": "Replace \"007\" with \"REDACTED\": censored = message.replace(\"007\", \"REDACTED\").\n\nConvert the censored message to uppercase: final_broadcast = censored.upper().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-1-strings-in-depth-block-133",
+          "type": "paragraph",
+          "content": "Print final_broadcast.\n\nExample:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-2-lists",
+      "number": "4.2",
+      "title": "Lists",
+      "summary": "Introduction to Lists",
+      "status": "available",
+      "estimatedMinutes": 33,
+      "blocks": [
+        {
+          "id": "lesson-4-2-lists-block-001",
+          "type": "paragraph",
+          "content": "4.2 Lists\n\nIntroduction to Lists",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-003",
+          "type": "paragraph",
+          "content": "Imagine you are playing an adventure game. Your character collects a sword, a shield, two health potions, and a map.\n\nIf you had to create a separate variable for each item (item1 = \"Sword\", item2 = \"Shield\", item3 = \"Potion\"...), your code would become huge, messy, and hard to manage!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-005",
+          "type": "paragraph",
+          "content": "In Python, we solve this using a List.\n\nA list is like a magic adventurer's backpack. It allows you to store, organize, and carry dozens of items inside a single variable!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-007",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how to pack your first list!\n\nCreating Lists",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-009",
+          "type": "paragraph",
+          "content": "You create a list by placing items inside square brackets [ ] and separating each item with a comma ,:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-011",
+          "type": "paragraph",
+          "content": "Cool List Powers:\n\nA list can hold any number of items.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-013",
+          "type": "paragraph",
+          "content": "A list can hold mixed data types (str, int, float, bool).\n\nA list can hold duplicate items ([5, 5, 10, 5]).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-015",
+          "type": "paragraph",
+          "content": "List Length\n\nTo find out how many items are packed inside a list, pass the list into the len() function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-017",
+          "type": "paragraph",
+          "content": "Output\n\nQuiz: Counting List Elements",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-019",
+          "type": "paragraph",
+          "content": "What is the output of the following code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-021",
+          "type": "paragraph",
+          "content": "| A: 3 |\n| Incorrect, give it another shot! Lists allow duplicate items, so \"Bravery\" is counted each time it appears. |\n\n| B: 4 |\n| Correct Answer! 🎉 There are 4 total elements packed inside the brackets. len() counts every single item. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-023",
+          "type": "paragraph",
+          "content": "| C: 5 |\n| Incorrect, give it another shot! Count the items separated by commas: there are exactly 4 items. |\n\n| D: None |\n| Incorrect, give it another shot! len() returns an integer representing the size of the list. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-025",
+          "type": "paragraph",
+          "content": "Practice: Favorite Sports Roster\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-027",
+          "type": "paragraph",
+          "content": "Create a list named sports containing 4 of your favorite sports (e.g., \"Soccer\", \"Basketball\", \"Tennis\", \"Cricket\").\n\nUse len(sports) to count the items and store the count in a variable named total_sports.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-029",
+          "type": "paragraph",
+          "content": "Print: My sports count: followed by total_sports.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-031",
+          "type": "paragraph",
+          "content": "Access List Items\n\nLists are ordered, meaning every item sits in a numbered slot called an index.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-033",
+          "type": "paragraph",
+          "content": "Just like strings, list indexing starts at 0:\n\nPlaintext",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-035",
+          "type": "paragraph",
+          "content": "List:   [\"Potion\", \"Shield\", \"Boots\"]\n\nIndex:      [0]       [1]      [2]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-037",
+          "type": "paragraph",
+          "content": "To grab an item from a slot, put its index inside square brackets:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-039",
+          "type": "paragraph",
+          "content": "Watch Out For IndexError:\n\nIf you try to access inventory[5], Python will crash with an IndexError: list index out of range because slot 5 does not exist!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-041",
+          "type": "paragraph",
+          "content": "Quiz: Slot Machine Index\n\nWhat will be displayed by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-043",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: Banana |\n| Incorrect, give it another shot! \"Banana\" is at index [1] because the first item starts at index [0]. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-045",
+          "type": "paragraph",
+          "content": "| B: Cherry |\n| Correct Answer! 🎉 Slot [0] is \"Apple\", slot [1] is \"Banana\", and slot [2] is \"Cherry\"! |\n\n| C: Date |\n| Incorrect, give it another shot! \"Date\" is the 4th item, located at index [3]. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-047",
+          "type": "paragraph",
+          "content": "| D: Apple |\n| Incorrect, give it another shot! \"Apple\" is at index [0]. |\n\nPractice: Space Crew Roster",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-049",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA space crew has three astronauts:crew = [\"Aria\", \"Leo\", \"Maya\"] Write a program to access and print:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-051",
+          "type": "paragraph",
+          "content": "The Commander (the first astronaut at index 0)\n\nThe Pilot (the third astronaut at index 2) Print each on a separate line.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-053",
+          "type": "paragraph",
+          "content": "Example:\n\nNegative Indexing",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-055",
+          "type": "paragraph",
+          "content": "What if you have a massive list of 1,000 items and want to grab the very last item? You don't have to count all the way to 999!\n\nPython supports negative indexing from the back:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-057",
+          "type": "paragraph",
+          "content": "[-1]: The very last item!\n\n[-2]: The second-to-last item.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-059",
+          "type": "paragraph",
+          "content": "[-3]: The third-to-last item.\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-061",
+          "type": "paragraph",
+          "content": "Quiz: Negative Index Challenge\n\nWhat is the output of this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-063",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: Blue |\n| Incorrect, give it another shot! colors[-1] is \"Yellow\", and colors[-2] is \"Blue\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-065",
+          "type": "paragraph",
+          "content": "| B: Green |\n| Correct Answer! 🎉 Counting backwards: -1 is \"Yellow\", -2 is \"Blue\", and -3 is \"Green\"! |\n\n| C: Red |\n| Incorrect, give it another shot! \"Red\" is the first item, which is [-4]. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-067",
+          "type": "paragraph",
+          "content": "| D: An error occurs. |\n| Incorrect, give it another shot! Python fully supports negative indexing. |\n\nSlicing of a List",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-069",
+          "type": "paragraph",
+          "content": "To extract a smaller sublist from a bigger list, we use slicing:\n\nstart is included.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-071",
+          "type": "paragraph",
+          "content": "stop is excluded (stops one slot before!).\n\nClick Next Lesson to see slicing in action!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-073",
+          "type": "paragraph",
+          "content": "Example: List Slicing\n\nLet’s slice a list of race car positions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-075",
+          "type": "paragraph",
+          "content": "Output\n\nNotice that index 4 (\"Turbo\") was excluded!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-077",
+          "type": "paragraph",
+          "content": "Quiz: Slicing Slices\n\nWhat is the output of the following code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-079",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: [10, 20, 30, 40] |\n| Incorrect, give it another shot! The stop index 3 (40) is excluded from the slice. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-081",
+          "type": "paragraph",
+          "content": "| B: [10, 20, 30] |\n| Correct Answer! 🎉 Index 0 is 10, index 1 is 20, and index 2 is 30 (stops before 3). |\n\n| C: [20, 30, 40] |\n| Incorrect, give it another shot! The slice starts at index 0, not 1. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-083",
+          "type": "paragraph",
+          "content": "| D: [10, 20] |\n| Incorrect, give it another shot! Index 2 (30) is included. |\n\nOmit Start and End Index",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-085",
+          "type": "paragraph",
+          "content": "You can leave out either the start or stop index for handy shortcuts:\n\nOmit start ([:3]): Slices from the very beginning up to index 2:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-087",
+          "type": "paragraph",
+          "content": "Omit stop ([2:]): Slices from index 2 all the way to the end:\n\nOmit both ([:]): Makes a complete copy of the whole list!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-089",
+          "type": "paragraph",
+          "content": "Practice: Top Scorers Slice\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-091",
+          "type": "paragraph",
+          "content": "A leaderboard has five scores:\n  scores = [100, 95, 88, 72, 60]\n\nUse slicing to extract the top 3 scores using [:3] and print them.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-093",
+          "type": "paragraph",
+          "content": "Use slicing to extract the last 2 scores using [-2:] and print them.\n\nExample",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-095",
+          "type": "paragraph",
+          "content": "Delete Items from List\n\nUnlike strings, lists are mutable! You can easily remove items using the del keyword:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-097",
+          "type": "paragraph",
+          "content": "Output\n\nThe item is wiped from memory, and the items behind it slide forward to close the gap!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-099",
+          "type": "paragraph",
+          "content": "Example: Deleting the Entire List\n\nYou can also delete an entire list variable using del:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-101",
+          "type": "paragraph",
+          "content": "Output\n\nMethods of List",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-103",
+          "type": "paragraph",
+          "content": "Python lists come packed with built-in action methods:\n\nClick Next Lesson to see .append() and .insert() in action!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-105",
+          "type": "paragraph",
+          "content": "Example: Appending and Inserting\n\nWatch how our inventory grows dynamically:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-107",
+          "type": "paragraph",
+          "content": "Output\n\nPractice: Building a Superhero Team",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-109",
+          "type": "paragraph",
+          "content": "Problem Description:\n\nStart with an empty list: team = [].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-111",
+          "type": "paragraph",
+          "content": "Add \"Batman\" using .append().\n\nAdd \"Flash\" using .append().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-113",
+          "type": "paragraph",
+          "content": "Insert \"Superman\" right at the front (index 0) using .insert().\n\nPrint the team list.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-115",
+          "type": "paragraph",
+          "content": "Example:\n\nChange Items of List",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-117",
+          "type": "paragraph",
+          "content": "Because lists are mutable, you can replace any item by assigning a new value to its index slot:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-119",
+          "type": "paragraph",
+          "content": "Quiz: Modifying an Element\n\nLook at this code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-121",
+          "type": "paragraph",
+          "content": "What will be displayed?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-123",
+          "type": "paragraph",
+          "content": "| A: ['Cat', 'Dog', 'Parrot'] |\n\n| Correct Answer! 🎉 The item at index 2 (\"Fish\") is replaced with \"Parrot\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-125",
+          "type": "paragraph",
+          "content": "| B: ['Cat', 'Parrot', 'Fish'] |\n\n| Incorrect, give it another shot! Index 1 is \"Dog\", but the code updated index 2. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-127",
+          "type": "paragraph",
+          "content": "| C: ['Parrot', 'Dog', 'Fish'] |\n\n| Incorrect, give it another shot! Index 0 is \"Cat\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-129",
+          "type": "paragraph",
+          "content": "| D: A TypeError occurs. |\n\n| Incorrect, give it another shot! Lists are mutable, so item assignment is 100% legal. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-131",
+          "type": "paragraph",
+          "content": "Using for Loop with List\n\nThe cleanest way to visit every item in a list is with a for loop:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-133",
+          "type": "paragraph",
+          "content": "Output\n\nUsing while Loop with List",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-135",
+          "type": "paragraph",
+          "content": "You can also loop through a list with a while loop by tracking an index counter from 0 to len(list) - 1:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-137",
+          "type": "paragraph",
+          "content": "Quiz: Looping Lists\n\nHow many times does this loop run?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-139",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: 3 times |\n| Correct Answer! 🎉 The list has 3 elements, so the for loop executes exactly 3 times. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-141",
+          "type": "paragraph",
+          "content": "| B: 2 times |\n| Incorrect, give it another shot! The loop visits all 3 items in the list. |\n\n| C: 4 times |\n| Incorrect, give it another shot! There are only 3 elements. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-143",
+          "type": "paragraph",
+          "content": "| D: Infinite times |\n| Incorrect, give it another shot! A for loop over a list terminates automatically when all items have been visited. |\n\nCheck Elements in List (in and not in)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-145",
+          "type": "paragraph",
+          "content": "Want to know if an item exists inside a list without writing a loop? Use the in operator!\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-147",
+          "type": "paragraph",
+          "content": "Practice: Treasure Vault Key Check\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-149",
+          "type": "paragraph",
+          "content": "Create a list of keys found in a dungeon:\n\nkeys = [\"Bronze\", \"Silver\", \"Iron\"]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-151",
+          "type": "paragraph",
+          "content": "Check if \"Gold\" is in keys using an if-else statement:\n\nIf \"Gold\" in keys: print Vault unlocked!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-153",
+          "type": "paragraph",
+          "content": "Else: print Gold key missing! Keep searching.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-155",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Minecraft Inventory Manager\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-157",
+          "type": "paragraph",
+          "content": "You are coding an inventory manager for a voxel building game:\n\nYour starting hotbar contains:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-159",
+          "type": "paragraph",
+          "content": "hotbar = [\"Pickaxe\", \"Torch\", \"Cobblestone\", \"Apple\"]\n\nStep 1: You eat the apple in slot 3 (del hotbar[3]).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-161",
+          "type": "paragraph",
+          "content": "Step 2: You pick up a diamond sword and add it to the end using .append(\"Diamond Sword\").\n\nStep 3: You equip a shield in the very first slot (index 0) using .insert(0, \"Shield\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-163",
+          "type": "paragraph",
+          "content": "Step 4: Print the updated hotbar.\n\nStep 5: Check if \"Diamond Sword\" is in hotbar. If True, print: Equipped for battle: True.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-2-lists-block-165",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-3-tuples",
+      "number": "4.3",
+      "title": "Tuples",
+      "summary": "Introduction to Tuples",
+      "status": "available",
+      "estimatedMinutes": 21,
+      "blocks": [
+        {
+          "id": "lesson-4-3-tuples-block-001",
+          "type": "paragraph",
+          "content": "4.3 Tuples\n\nIntroduction to Tuples",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-003",
+          "type": "paragraph",
+          "content": "In the previous lesson, you learned about Lists—flexible backpacks where you can add, change, and remove items whenever you want.\n\nNow, imagine you are storing something permanent that should never be changed accidentally:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-005",
+          "type": "paragraph",
+          "content": "The GPS coordinates of a secret island: (12.97, 77.59)\n\nThe three primary colors: (\"Red\", \"Green\", \"Blue\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-007",
+          "type": "paragraph",
+          "content": "The screen resolution of a game monitor: (1920, 1080)\n\nFor permanent data, Python gives us Tuples!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-009",
+          "type": "paragraph",
+          "content": "A tuple is an ordered collection of items, just like a list. But there is one big difference: Tuples are IMMUTABLE (unchangeable). Once created, its items are locked in stone forever!\n\nClick Next Lesson to see how to create a tuple!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-011",
+          "type": "paragraph",
+          "content": "Creating Tuples\n\nTo create a tuple, place items inside round parentheses ( ) separated by commas:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-013",
+          "type": "paragraph",
+          "content": "Output\n\nThe One-Item Tuple Secret:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-015",
+          "type": "paragraph",
+          "content": "If you write item = (\"Gold\"), Python thinks it's just a regular string! To create a tuple with only one item, you must add a trailing comma:\n\nsingle_item = (\"Gold\",) # Now Python knows it's a tuple!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-017",
+          "type": "paragraph",
+          "content": "Tuple Length\n\nJust like lists and strings, you can find out how many items are locked inside a tuple using the built-in len() function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-019",
+          "type": "paragraph",
+          "content": "Output\n\nAccess Tuple Items",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-021",
+          "type": "paragraph",
+          "content": "Because tuples are ordered, each item sits at a numbered index, starting at 0:\n\nPlaintext",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-023",
+          "type": "paragraph",
+          "content": "Tuple:   (\"Mercury\", \"Venus\", \"Earth\")\n\nIndex:       [0]       [1]      [2]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-025",
+          "type": "paragraph",
+          "content": "Neg:        [-3]      [-2]     [-1]\n\nTo fetch an item, put its index inside square brackets [ ]:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-027",
+          "type": "paragraph",
+          "content": "Output\n\nQuiz: Tuple Indexing",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-029",
+          "type": "paragraph",
+          "content": "What will be displayed by this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-031",
+          "type": "paragraph",
+          "content": "| A: 13 |\n| Incorrect, give it another shot! Remember that indexing starts at 0 ([0] is 7, [1] is 13). |\n\n| B: 21 |\n| Correct Answer! 🎉 Index 0 is 7, index 1 is 13, and index 2 is 21! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-033",
+          "type": "paragraph",
+          "content": "| C: 42 |\n| Incorrect, give it another shot! 42 is at index 3. |\n\n| D: A TypeError occurs. |\n| Incorrect, give it another shot! Accessing tuple items using [] is completely valid. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-035",
+          "type": "paragraph",
+          "content": "Practice: Space Capsule Coordinates\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-037",
+          "type": "paragraph",
+          "content": "A space explorer probe transmits its 3D target coordinates:\n\ntarget = (45.8, 12.4, 98.2)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-039",
+          "type": "paragraph",
+          "content": "Access the X-coordinate (index 0) and store it in x.\n\nAccess the Y-coordinate (index 1) and store it in y.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-041",
+          "type": "paragraph",
+          "content": "Print: X: [x] | Y: [y] using an f-string.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-043",
+          "type": "paragraph",
+          "content": "Practice: Negative Indexing with Animals\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-045",
+          "type": "paragraph",
+          "content": "Create a tuple containing 4 wildlife animals:\n\nwildlife = (\"Tiger\", \"Elephant\", \"Leopard\", \"Cheetah\")",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-047",
+          "type": "paragraph",
+          "content": "Use negative indexing [-1] to fetch the last animal and print it.\n\nUse negative indexing [-2] to fetch the second-to-last animal and print it.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-049",
+          "type": "paragraph",
+          "content": "Example:\n\nSlicing of a Tuple",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-051",
+          "type": "paragraph",
+          "content": "Just like lists, you can extract a sub-tuple using slicing ([start:stop]):\n\nThe start index is included.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-053",
+          "type": "paragraph",
+          "content": "The stop index is excluded.\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-055",
+          "type": "paragraph",
+          "content": "Shortcuts:\n\nscores[:3]: Slices from the start up to index 2: (88, 92, 79).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-057",
+          "type": "paragraph",
+          "content": "scores[3:]: Slices from index 3 to the very end: (95, 84, 91).\n\nQuiz: Tuple Slice Check",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-059",
+          "type": "paragraph",
+          "content": "What is the output of the following slice?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-061",
+          "type": "paragraph",
+          "content": "| A: ('C', 'D', 'E') |\n| Incorrect, give it another shot! Remember that the stop index 4 is excluded. |\n\n| B: ('C', 'D') |\n| Correct Answer! 🎉 Index 2 is 'C', and index 3 is 'D'. It stops right before index 4! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-063",
+          "type": "paragraph",
+          "content": "| C: ('B', 'C') |\n| Incorrect, give it another shot! The slice starts at index 2, which is 'C'. |\n\n| D: ('B', 'C', 'D') |\n| Incorrect, give it another shot! Index 1 is 'B', but the slice starts at 2. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-065",
+          "type": "paragraph",
+          "content": "Delete Items of Tuple\n\nBecause tuples are immutable, you cannot delete individual items:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-067",
+          "type": "paragraph",
+          "content": "Output\n\nPython blocks you from deleting individual items to keep your data safe! However, you can delete the entire tuple variable from memory using del colors.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-069",
+          "type": "paragraph",
+          "content": "Practice: Deleting a Whole Tuple\n\nProblem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-071",
+          "type": "paragraph",
+          "content": "Create a tuple named temp_pass = (1, 2, 3, 4).\n\nDelete the entire tuple variable using del temp_pass.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-073",
+          "type": "paragraph",
+          "content": "Print: Tuple deleted successfully!\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-075",
+          "type": "paragraph",
+          "content": "Change Items of Tuple\n\nWhat happens if you try to replace an item inside a tuple?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-077",
+          "type": "paragraph",
+          "content": "Output\n\nWhy is this a Great Feature?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-079",
+          "type": "paragraph",
+          "content": "In large games or scientific software, tuples act as safety vaults. If another programmer accidentally tries to change game rules or coordinates, Python stops them with an error!\n\nHow to Update:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-081",
+          "type": "paragraph",
+          "content": "You cannot edit the tuple, but you can assign a brand-new tuple to the same variable name:\n\nPractice: Coordinate Update",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-083",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA drone waypoint is stored as a tuple:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-085",
+          "type": "paragraph",
+          "content": "waypoint = (10, 20)\n\nBecause you cannot edit waypoint[0], update the drone's position by assigning a brand-new tuple (30, 40) to waypoint. Then print waypoint.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-087",
+          "type": "paragraph",
+          "content": "Example:\n\nIterate Through a Tuple",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-089",
+          "type": "paragraph",
+          "content": "Just like lists, you can glide through every item of a tuple using a for loop:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-091",
+          "type": "paragraph",
+          "content": "Checking Membership (in and not in):\n\nQuiz: Tuple Membership",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-093",
+          "type": "paragraph",
+          "content": "What will be the output of this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-095",
+          "type": "paragraph",
+          "content": "| A: True |\n| Incorrect, give it another shot! \"Earth\" is not inside the planets tuple. |\n\n| B: False |\n| Correct Answer! 🎉 The in operator checks if \"Earth\" exists in planets. Since it is not there, it returns False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-097",
+          "type": "paragraph",
+          "content": "| C: None |\n| Incorrect, give it another shot! The in operator always returns a Boolean (True or False). |\n\n| D: A TypeError occurs. |\n| Incorrect, give it another shot! Membership testing works smoothly on tuples. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-099",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: GPS Treasure Waypoint Vault\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-101",
+          "type": "paragraph",
+          "content": "An underwater treasure exploration submarine uses fixed GPS location waypoints that must never be altered during a dive:\n\nWaypoint coordinates: vault_location = (14.25, 78.90, -150) (Latitude, Longitude, Depth in meters).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-103",
+          "type": "paragraph",
+          "content": "Step 1: Print the total number of coordinate values using len().\n\nStep 2: Extract the depth reading using negative index [-1] and print: Submarine Depth: -150 meters.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-3-tuples-block-105",
+          "type": "paragraph",
+          "content": "Step 3: Use a for loop to print each coordinate with the label: Coordinate: [val].\n\nExample:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-4-python-sets",
+      "number": "4.4",
+      "title": "Python Sets",
+      "summary": "Imagine you collect superhero stickers. If your friend gives you a sticker you already have, you don’t need two identical stickers in your album—you only care about having one unique copy of each!",
+      "status": "available",
+      "estimatedMinutes": 18,
+      "blocks": [
+        {
+          "id": "lesson-4-4-python-sets-block-001",
+          "type": "paragraph",
+          "content": "4.4 Python Sets",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-002",
+          "type": "paragraph",
+          "content": "Python Sets",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-003",
+          "type": "paragraph",
+          "content": "Imagine you collect superhero stickers. If your friend gives you a sticker you already have, you don’t need two identical stickers in your album—you only care about having one unique copy of each!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-004",
+          "type": "paragraph",
+          "content": "In Python, this is exactly what a Set does!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-005",
+          "type": "paragraph",
+          "content": "A Set is a special collection with two superpowers:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-006",
+          "type": "paragraph",
+          "content": "No Duplicates Allowed: A set automatically throws away any duplicate items. Every item inside is guaranteed to be 100% unique!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-007",
+          "type": "paragraph",
+          "content": "Unordered: Items don’t sit in numbered index slots like lists or tuples. They float inside the collection like marbles in a bag.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-008",
+          "type": "paragraph",
+          "content": "Click Next Lesson to create your first set!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-009",
+          "type": "paragraph",
+          "content": "Creating Sets",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-010",
+          "type": "paragraph",
+          "content": "You create a set by placing items inside curly braces { } separated by commas:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-011",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-012",
+          "type": "paragraph",
+          "content": "Notice that the repeated 2s and 3s were instantly erased! Also, the order might look scrambled on your screen because sets are unordered.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-013",
+          "type": "paragraph",
+          "content": "The Empty Set Trap:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-014",
+          "type": "paragraph",
+          "content": "Writing {} creates an empty Dictionary, not a set! To create an empty set, you must use the set() function:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-015",
+          "type": "paragraph",
+          "content": "empty_chest = set() # The correct way to make an empty set!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-016",
+          "type": "paragraph",
+          "content": "Quiz: Duplicate Eraser",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-017",
+          "type": "paragraph",
+          "content": "How many items will be in this set when it is created?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-018",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-019",
+          "type": "paragraph",
+          "content": "| A: 5 |\n| Incorrect, give it another shot! Sets never store duplicate items. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-020",
+          "type": "paragraph",
+          "content": "| B: 3 |\n| Correct Answer! 🎉 The unique items are \"Ruby\", \"Diamond\", and \"Emerald\". All repeated copies are automatically removed, leaving exactly 3 items! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-021",
+          "type": "paragraph",
+          "content": "| C: 2 |\n| Incorrect, give it another shot! There are three different gem names in the collection. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-022",
+          "type": "paragraph",
+          "content": "| D: A TypeError occurs. |\n| Incorrect, give it another shot! Writing duplicate values in a set is valid—Python just cleans them up for you. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-023",
+          "type": "paragraph",
+          "content": "Add and Update Sets",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-024",
+          "type": "paragraph",
+          "content": "Because sets do not have index slots like [0], you cannot use indexing to change items. Instead, Python gives us two methods:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-025",
+          "type": "paragraph",
+          "content": ".add(item): Adds a single new item.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-026",
+          "type": "paragraph",
+          "content": ".update(collection): Adds multiple items at once from a list or another set!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-027",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-028",
+          "type": "paragraph",
+          "content": "Notice that \"Knight\" was not added a second time because sets keep everything unique!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-029",
+          "type": "paragraph",
+          "content": "Practice: Building a Rare Mineral Collection",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-030",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-031",
+          "type": "paragraph",
+          "content": "Create an empty set named minerals using set().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-032",
+          "type": "paragraph",
+          "content": "Add \"Quartz\" using .add().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-033",
+          "type": "paragraph",
+          "content": "Add \"Amethyst\" using .add().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-034",
+          "type": "paragraph",
+          "content": "Try adding \"Quartz\" again (to see duplicate handling).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-035",
+          "type": "paragraph",
+          "content": "Print the minerals set.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-036",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-037",
+          "type": "paragraph",
+          "content": "Check if an Item Exists (in and not in)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-038",
+          "type": "paragraph",
+          "content": "Sets are lightning-fast at searching! You can check if an item exists inside a set using in:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-039",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-040",
+          "type": "paragraph",
+          "content": "Quiz: Fast Membership Check",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-041",
+          "type": "paragraph",
+          "content": "What will be displayed by this code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-042",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-043",
+          "type": "paragraph",
+          "content": "| A: Hero can teleport! |\n| Incorrect, give it another shot! \"Teleport\" is not in the abilities set, so the if condition evaluates to False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-044",
+          "type": "paragraph",
+          "content": "| B: Ability locked. |\n| Correct Answer! 🎉 Because \"Teleport\" is not inside the set, Python runs the else block! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-045",
+          "type": "paragraph",
+          "content": "| C: Both messages |\n| Incorrect, give it another shot! Only one branch of an if-else statement can run. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-046",
+          "type": "paragraph",
+          "content": "| D: A KeyError occurs. |\n| Incorrect, give it another shot! Using in on a set safely returns False without causing an error. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-047",
+          "type": "paragraph",
+          "content": "Set Operators: Union (|)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-048",
+          "type": "paragraph",
+          "content": "What if two players want to combine their card collections into one big master deck?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-049",
+          "type": "paragraph",
+          "content": "You use the Union operator (|)!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-050",
+          "type": "paragraph",
+          "content": "The Union combines all items from both sets, automatically discarding any shared duplicates:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-051",
+          "type": "paragraph",
+          "content": "Plaintext",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-052",
+          "type": "paragraph",
+          "content": "Set A: {\"Dog\", \"Cat\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-053",
+          "type": "paragraph",
+          "content": "Set B: {\"Cat\", \"Parrot\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-054",
+          "type": "paragraph",
+          "content": "Union: {\"Dog\", \"Cat\", \"Parrot\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-055",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-056",
+          "type": "paragraph",
+          "content": "\"Leo\" was on both teams, but appears only once in the union!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-057",
+          "type": "paragraph",
+          "content": "Sets Intersection (&)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-058",
+          "type": "paragraph",
+          "content": "What if you want to find the items that two friends have in common?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-059",
+          "type": "paragraph",
+          "content": "You use the Intersection operator (&)!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-060",
+          "type": "paragraph",
+          "content": "The Intersection returns a new set containing ONLY the items that appear in BOTH sets:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-061",
+          "type": "paragraph",
+          "content": "Figure: Two overlapping circles - the shared middle section is the intersection",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-062",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-063",
+          "type": "paragraph",
+          "content": "Delete Items from Sets (.discard())",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-064",
+          "type": "paragraph",
+          "content": "To remove an item from a set, use the .discard() method:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-065",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-066",
+          "type": "paragraph",
+          "content": "Why .discard() is Awesome:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-067",
+          "type": "paragraph",
+          "content": "If the item doesn't exist, .discard() safely does nothing without crashing your program!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-068",
+          "type": "paragraph",
+          "content": "Practice: Shared Club Equipment",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-069",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-070",
+          "type": "paragraph",
+          "content": "Two science clubs share laboratory sensors:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-071",
+          "type": "paragraph",
+          "content": "club1_sensors = {\"Laser\", \"Microscope\", \"Scale\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-072",
+          "type": "paragraph",
+          "content": "club2_sensors = {\"Telescope\", \"Microscope\", \"Compass\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-073",
+          "type": "paragraph",
+          "content": "Use the intersection operator & to find the sensors owned by both clubs: shared = club1_sensors & club2_sensors.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-074",
+          "type": "paragraph",
+          "content": "Print: Shared equipment: followed by shared.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-075",
+          "type": "paragraph",
+          "content": "Discard \"Scale\" from club1_sensors using .discard().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-076",
+          "type": "paragraph",
+          "content": "Print updated club1_sensors.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-077",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-078",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Trading Card Swap Meet",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-079",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-080",
+          "type": "paragraph",
+          "content": "Two collectors are trading creature battle cards:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-081",
+          "type": "paragraph",
+          "content": "Alex's Deck: {\"Dragon\", \"Phoenix\", \"Golem\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-082",
+          "type": "paragraph",
+          "content": "Sam's Deck: {\"Phoenix\", \"Griffin\", \"Golem\", \"Hydra\"}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-083",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-084",
+          "type": "paragraph",
+          "content": "Create both sets: alex_deck and sam_deck.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-085",
+          "type": "paragraph",
+          "content": "Find all cards available between both collectors using Union |:\ntotal_unique_cards = alex_deck | sam_deck",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-086",
+          "type": "paragraph",
+          "content": "Find which cards both collectors already have in common using Intersection &:\nduplicate_cards = alex_deck & sam_deck",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-087",
+          "type": "paragraph",
+          "content": "Print:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-088",
+          "type": "paragraph",
+          "content": "Line 1: All Unique Cards: [total_unique_cards]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-089",
+          "type": "paragraph",
+          "content": "Line 2: Cards in Common: [duplicate_cards]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-4-python-sets-block-090",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-5-dictionaries",
+      "number": "4.5",
+      "title": "Dictionaries",
+      "summary": "In lists and tuples, you look up items using index numbers like 0, 1, or 2.",
+      "status": "available",
+      "estimatedMinutes": 18,
+      "blocks": [
+        {
+          "id": "lesson-4-5-dictionaries-block-001",
+          "type": "paragraph",
+          "content": "4.5 Dictionaries",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-002",
+          "type": "paragraph",
+          "content": "Python Dictionaries",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-003",
+          "type": "paragraph",
+          "content": "In lists and tuples, you look up items using index numbers like 0, 1, or 2.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-004",
+          "type": "paragraph",
+          "content": "But what if you want to look up an item by its name instead of a number?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-005",
+          "type": "paragraph",
+          "content": "In a real dictionary, you look up a Word to find its Definition.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-006",
+          "type": "paragraph",
+          "content": "In a contact list, you look up a Friend's Name to find their Phone Number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-007",
+          "type": "paragraph",
+          "content": "In a video game, you look up a Stat Name (like \"Speed\") to find its Value (like 85).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-008",
+          "type": "paragraph",
+          "content": "For this, Python gives us one of its most powerful collections: the Dictionary!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-009",
+          "type": "paragraph",
+          "content": "A dictionary stores information in Key-Value Pairs:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-010",
+          "type": "paragraph",
+          "content": "Key: The unique label you search for (e.g., \"Health\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-011",
+          "type": "paragraph",
+          "content": "Value: The data attached to that label (e.g., 100).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-012",
+          "type": "paragraph",
+          "content": "Click Next Lesson to create your first dictionary!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-013",
+          "type": "paragraph",
+          "content": "Create Dictionaries",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-014",
+          "type": "paragraph",
+          "content": "You create a dictionary by placing key: value pairs inside curly braces { }, separated by commas:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-015",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-016",
+          "type": "paragraph",
+          "content": "Golden Rules for Dictionary Keys:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-017",
+          "type": "paragraph",
+          "content": "Keys must be unique: You cannot have two identical keys in the same dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-018",
+          "type": "paragraph",
+          "content": "Keys must be immutable: Keys can be strings, numbers, or tuples—but never lists!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-019",
+          "type": "paragraph",
+          "content": "Practice: Robot Companion Spec Sheet",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-020",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-021",
+          "type": "paragraph",
+          "content": "Create a dictionary named robot that stores the following four specifications:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-022",
+          "type": "paragraph",
+          "content": "\"model\": \"Robo-Explorer\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-023",
+          "type": "paragraph",
+          "content": "\"battery\": 95",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-024",
+          "type": "paragraph",
+          "content": "\"weight_kg\": 12.5",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-025",
+          "type": "paragraph",
+          "content": "\"camera_on\": True",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-026",
+          "type": "paragraph",
+          "content": "Print the robot dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-027",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-028",
+          "type": "paragraph",
+          "content": "Dictionary Length",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-029",
+          "type": "paragraph",
+          "content": "Just like lists and tuples, you can count how many key-value pairs are stored inside a dictionary using len():",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-030",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-031",
+          "type": "paragraph",
+          "content": "Each key: value pair counts as one single item.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-032",
+          "type": "paragraph",
+          "content": "Access Dictionary Values",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-033",
+          "type": "paragraph",
+          "content": "To retrieve a value from a dictionary, put the Key name inside square brackets [ ]:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-034",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-035",
+          "type": "paragraph",
+          "content": "Watch Out For KeyError:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-036",
+          "type": "paragraph",
+          "content": "If you ask for a key that does not exist (like space_rover[\"fuel\"]), Python crashes with a KeyError!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-037",
+          "type": "paragraph",
+          "content": "Quiz: Accessing Keys",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-038",
+          "type": "paragraph",
+          "content": "Look at this dictionary:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-039",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-040",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-041",
+          "type": "paragraph",
+          "content": "| A: species |\n| Incorrect, give it another shot! Square brackets look up the value stored under the key. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-042",
+          "type": "paragraph",
+          "content": "| B: Dog |\n| Correct Answer! 🎉 The key \"species\" points directly to the value \"Dog\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-043",
+          "type": "paragraph",
+          "content": "| C: Milo |\n| Incorrect, give it another shot! \"Milo\" belongs to the key \"name\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-044",
+          "type": "paragraph",
+          "content": "| D: A KeyError occurs. |\n| Incorrect, give it another shot! \"species\" is a valid key in the dictionary. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-045",
+          "type": "paragraph",
+          "content": "Add and Update Items",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-046",
+          "type": "paragraph",
+          "content": "Dictionaries are mutable! Adding a new pair or updating an old one uses the exact same syntax:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-047",
+          "type": "paragraph",
+          "content": "If the key already exists: It overwrites the old value with the new one.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-048",
+          "type": "paragraph",
+          "content": "If the key does NOT exist: It creates a brand-new item!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-049",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-050",
+          "type": "paragraph",
+          "content": "Practice: Pet Care Check-in",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-051",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-052",
+          "type": "paragraph",
+          "content": "Create a dictionary:\npuppy = {\"name\": \"Biscuit\", \"energy\": 80}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-053",
+          "type": "paragraph",
+          "content": "Update the \"energy\" key to 95 after feeding.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-054",
+          "type": "paragraph",
+          "content": "Add a new key \"is_happy\" with the Boolean value True.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-055",
+          "type": "paragraph",
+          "content": "Print the updated puppy dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-056",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-057",
+          "type": "paragraph",
+          "content": "Delete Dictionary Item",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-058",
+          "type": "paragraph",
+          "content": "To remove a key-value pair from a dictionary, use the del statement:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-059",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-060",
+          "type": "paragraph",
+          "content": "Both the key \"color\" and its value \"Blue\" are erased together!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-061",
+          "type": "paragraph",
+          "content": "Practice: Inventory Clean-Up",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-062",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-063",
+          "type": "paragraph",
+          "content": "A player uses up an old map:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-064",
+          "type": "paragraph",
+          "content": "gear = {\"Sword\": 1, \"Shield\": 1, \"Old Map\": 1}",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-065",
+          "type": "paragraph",
+          "content": "Delete the \"Old Map\" entry using del.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-066",
+          "type": "paragraph",
+          "content": "Print the gear dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-067",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-068",
+          "type": "paragraph",
+          "content": "Dictionary Methods",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-069",
+          "type": "paragraph",
+          "content": "Python dictionaries come equipped with handy methods:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-070",
+          "type": "paragraph",
+          "content": ".get(key): Retrieves a value safely. If the key doesn't exist, instead of crashing with a KeyError, it returns None!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-071",
+          "type": "paragraph",
+          "content": ".clear(): Wipes out all items, leaving an empty {}.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-072",
+          "type": "paragraph",
+          "content": ".copy(): Creates a duplicate copy of the dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-073",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-074",
+          "type": "paragraph",
+          "content": "Iterate Through a Dictionary",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-075",
+          "type": "paragraph",
+          "content": "When you use a for loop on a dictionary, it loops through the KEYS by default:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-076",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-077",
+          "type": "paragraph",
+          "content": "Check if a Key Exists (in and not in)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-078",
+          "type": "paragraph",
+          "content": "You can use the in operator to see if a specific key exists before trying to access it:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-079",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-080",
+          "type": "paragraph",
+          "content": "(Note: in checks whether the key exists—it does not search the values!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-081",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Wizard Spellbook Vault",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-082",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-083",
+          "type": "paragraph",
+          "content": "You are programming a magical spellbook inventory:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-084",
+          "type": "paragraph",
+          "content": "Step 1: Add a new spell \"Heal\" with a power value of 40.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-085",
+          "type": "paragraph",
+          "content": "Step 2: Upgrade \"Fireball\" by changing its power to 65.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-086",
+          "type": "paragraph",
+          "content": "Step 3: Use an if check with in: if \"Lightning\" is in spellbook, print: Lightning spell power: 75.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-087",
+          "type": "paragraph",
+          "content": "Step 4: Loop through the entire spellbook and print each spell and its power:\nSpell: [key] | Power: [value]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-5-dictionaries-block-088",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-6-data-structure-conversions",
+      "number": "4.6",
+      "title": "Data Structure Conversions",
+      "summary": "4.6 Data Structure Conversions",
+      "status": "available",
+      "estimatedMinutes": 15,
+      "blocks": [
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-001",
+          "type": "paragraph",
+          "content": "4.6 Data Structure Conversions",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-002",
+          "type": "paragraph",
+          "content": "Python Conversion",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-003",
+          "type": "paragraph",
+          "content": "You’ve now met the four main collection types in Python:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-004",
+          "type": "paragraph",
+          "content": "Lists ([ ]): Changeable and ordered.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-005",
+          "type": "paragraph",
+          "content": "Tuples (( )): Locked and unchangeable.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-006",
+          "type": "paragraph",
+          "content": "Sets ({ }): Unordered and duplicate-free.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-007",
+          "type": "paragraph",
+          "content": "Dictionaries ({k: v}): Labeled key-value lookups.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-008",
+          "type": "paragraph",
+          "content": "Sometimes you start with one collection type, but need to shape-shift it into another:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-009",
+          "type": "paragraph",
+          "content": "You have a locked tuple, but you need to add an item to it  Convert to a list!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-010",
+          "type": "paragraph",
+          "content": "You have a list full of messy duplicate entries  Convert to a set to clean them!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-011",
+          "type": "paragraph",
+          "content": "Python provides four built-in conversion functions: list(), tuple(), set(), and dict().",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-012",
+          "type": "paragraph",
+          "content": "Click Next Lesson to start converting!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-013",
+          "type": "paragraph",
+          "content": "The list() Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-014",
+          "type": "paragraph",
+          "content": "The list() function converts other collections into a flexible, editable list:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-015",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-016",
+          "type": "paragraph",
+          "content": "(Note: When you convert a dictionary to a list, Python extracts only the keys!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-017",
+          "type": "paragraph",
+          "content": "Quiz: Converting to List",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-018",
+          "type": "paragraph",
+          "content": "What will be the output of the following code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-019",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-020",
+          "type": "paragraph",
+          "content": "| A: <class 'tuple'> |\n| Incorrect, give it another shot! list() converts the data into a list, not a tuple. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-021",
+          "type": "paragraph",
+          "content": "| B: <class 'list'> |\n| Correct Answer! 🎉 The list() function transforms the set into a list, so its type is <class 'list'>. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-022",
+          "type": "paragraph",
+          "content": "| C: <class 'set'> |\n| Incorrect, give it another shot! The original data was a set, but list() converted it. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-023",
+          "type": "paragraph",
+          "content": "| D: A TypeError occurs. |\n| Incorrect, give it another shot! Converting a set into a list is completely legal Python. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-024",
+          "type": "paragraph",
+          "content": "The tuple() Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-025",
+          "type": "paragraph",
+          "content": "The tuple() function locks any collection into an immutable (unchangeable) tuple:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-026",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-027",
+          "type": "paragraph",
+          "content": "Use tuple() whenever you finish building a list and want to freeze it permanently so it cannot be altered!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-028",
+          "type": "paragraph",
+          "content": "Practice: Locking High Scores",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-029",
+          "type": "paragraph",
+          "content": "Problem Description:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-030",
+          "type": "paragraph",
+          "content": "Create a list of the top 3 arcade scores:\nhigh_scores = [950, 880, 720]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-031",
+          "type": "paragraph",
+          "content": "Convert high_scores into an unchangeable tuple using tuple() and store it in permanent_records.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-032",
+          "type": "paragraph",
+          "content": "Print permanent_records.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-033",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-034",
+          "type": "paragraph",
+          "content": "The set() Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-035",
+          "type": "paragraph",
+          "content": "The set() function converts any collection into an unordered set of unique elements:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-036",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-037",
+          "type": "paragraph",
+          "content": "Any duplicate values in the original list or tuple are instantly cleaned up!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-038",
+          "type": "paragraph",
+          "content": "Practice: Finding Unique Letters",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-039",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-040",
+          "type": "paragraph",
+          "content": "Write a program that takes the string \"ABRACADABRA\" and finds all its unique individual letters using set():",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-041",
+          "type": "paragraph",
+          "content": "spell = \"ABRACADABRA\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-042",
+          "type": "paragraph",
+          "content": "Convert spell to a set using set() and store in unique_letters.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-043",
+          "type": "paragraph",
+          "content": "Print unique_letters.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-044",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-045",
+          "type": "paragraph",
+          "content": "The dict() Function",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-046",
+          "type": "paragraph",
+          "content": "To create a dictionary using the dict() function, you must provide data arranged in pairs:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-047",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-048",
+          "type": "paragraph",
+          "content": "Each inner pair becomes a key: value entry inside the new dictionary!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-049",
+          "type": "paragraph",
+          "content": "Quiz: Dictionary Conversion Rule",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-050",
+          "type": "paragraph",
+          "content": "Which of the following will convert into a valid dictionary without errors?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-051",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-052",
+          "type": "paragraph",
+          "content": "| A: dict([\"Apple\", \"Banana\"]) |\n| Incorrect, give it another shot! Dictionaries require pairs (key and value). Single words cannot become key-value entries. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-053",
+          "type": "paragraph",
+          "content": "| B: dict([(\"Gold\", 50), (\"Silver\", 25)]) |\n| Correct Answer! 🎉 Each element is a 2-item tuple representing a key and a value, so dict() builds a valid dictionary! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-054",
+          "type": "paragraph",
+          "content": "| C: dict([1, 2, 3]) |\n| Incorrect, give it another shot! Individual numbers do not have matching values. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-055",
+          "type": "paragraph",
+          "content": "| D: dict(100) |\n| Incorrect, give it another shot! A single integer is not an iterable collection. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-056",
+          "type": "paragraph",
+          "content": "Remove Duplicate Items from a List (The Pro Trick)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-057",
+          "type": "paragraph",
+          "content": "Have you ever wondered how professional Python coders remove duplicates from a list in one single line?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-058",
+          "type": "paragraph",
+          "content": "They combine set() and list() together!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-059",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-060",
+          "type": "paragraph",
+          "content": "Clean ticket list: [105, 108, 110, 102]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-061",
+          "type": "paragraph",
+          "content": "set(raffle_tickets) discards all repeated ticket numbers.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-062",
+          "type": "paragraph",
+          "content": "list(...) turns the unique items right back into a friendly list!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-063",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: School Science Fair Badge Deduplication",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-064",
+          "type": "paragraph",
+          "content": "Scenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-065",
+          "type": "paragraph",
+          "content": "Students entering a school science fair scanned their digital ID tags at different project booths. Because students visited multiple booths, the sign-in list contains lots of duplicate student IDs:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-066",
+          "type": "paragraph",
+          "content": "The fair organizers need two things:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-067",
+          "type": "paragraph",
+          "content": "A clean, duplicate-free list of all unique student IDs.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-068",
+          "type": "paragraph",
+          "content": "A permanent, locked tuple containing these unique IDs so the official attendance record can never be altered.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-069",
+          "type": "paragraph",
+          "content": "Your Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-070",
+          "type": "paragraph",
+          "content": "Create raw_checkins = [42, 15, 88, 42, 19, 15, 93, 88, 42].",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-071",
+          "type": "paragraph",
+          "content": "Convert raw_checkins to a set to remove duplicates, and turn it back into a list named unique_students:\nunique_students = list(set(raw_checkins))",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-072",
+          "type": "paragraph",
+          "content": "Convert unique_students into an immutable tuple named locked_attendance:\nlocked_attendance = tuple(unique_students)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-073",
+          "type": "paragraph",
+          "content": "Print:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-074",
+          "type": "paragraph",
+          "content": "Line 1: Unique students count: followed by len(locked_attendance)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-075",
+          "type": "paragraph",
+          "content": "Line 2: Official Record: followed by locked_attendance",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-6-data-structure-conversions-block-076",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-4-7-revision",
+      "number": "4.7",
+      "title": "Revision",
+      "summary": "Example 1: Revisiting Strings & Lists (Units 4.1 & 4.2)",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "blocks": [
+        {
+          "id": "lesson-4-7-revision-block-001",
+          "type": "paragraph",
+          "content": "4.7 Revision",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-002",
+          "type": "paragraph",
+          "content": "Example 1: Revisiting Strings & Lists (Units 4.1 & 4.2)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-003",
+          "type": "paragraph",
+          "content": "Let's review the exact examples we used to master Strings and Lists:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-004",
+          "type": "paragraph",
+          "content": "1. Strings in Action (From Unit 4.1)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-005",
+          "type": "paragraph",
+          "content": "Accessing & Slicing: From \"SuperHero\", we used [0:5] to slice \"Super\" and [5:] to get \"Hero\".",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-006",
+          "type": "paragraph",
+          "content": "String Methods: We used .upper() and .replace() on \"Apollo 11\" and \"shadow ninja\":",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-007",
+          "type": "paragraph",
+          "content": "2. Lists in Action (From Unit 4.2)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-008",
+          "type": "paragraph",
+          "content": "Dynamic Inventory: We packed [\"Potion\", \"Shield\", \"Boots\"] and accessed index [0] (\"Potion\") and [-1] (\"Boots\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-009",
+          "type": "paragraph",
+          "content": "Modifying & Methods: We replaced \"Banana\" with \"Mango\", added \"Archer\" with .append(), and inserted \"Healer\" at the front:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-010",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-011",
+          "type": "paragraph",
+          "content": "Example 2: Revisiting Tuples, Sets, Dictionaries & Conversions (Units 4.3 to 4.6)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-012",
+          "type": "paragraph",
+          "content": "Now, let's bring back our exact examples for Tuples, Sets, Dictionaries, and Conversions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-013",
+          "type": "paragraph",
+          "content": "1. Tuples (From Unit 4.3)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-014",
+          "type": "paragraph",
+          "content": "We locked podium medals (\"Gold\", \"Silver\", \"Bronze\") and coordinates (10, 20, 30). Attempting to do podium[1] = \"Plat\" raised a TypeError because tuples are immutable!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-015",
+          "type": "paragraph",
+          "content": "2. Sets (From Unit 4.4)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-016",
+          "type": "paragraph",
+          "content": "We compared our gaming libraries using Intersection (&) and Union (|):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-017",
+          "type": "paragraph",
+          "content": "3. Dictionaries (From Unit 4.5)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-018",
+          "type": "paragraph",
+          "content": "We built our hero profile using key-value pairs and updated stats:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-019",
+          "type": "paragraph",
+          "content": "4. Conversions (From Unit 4.6)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-020",
+          "type": "paragraph",
+          "content": "We used the legendary one-line duplicate cleaner on raffle tickets:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-4-7-revision-block-021",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

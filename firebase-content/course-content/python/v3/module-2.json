@@ -1,0 +1,1761 @@
+{
+  "id": "module-2",
+  "title": "Making Decisions (Conditionals)",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-2-1-python-booleans",
+      "number": "2.1",
+      "title": "Python Booleans",
+      "summary": "Module 2: Making Decisions (Conditionals)\n\n2.1 Python Booleans:",
+      "status": "available",
+      "estimatedMinutes": 11,
+      "blocks": [
+        {
+          "id": "lesson-2-1-python-booleans-block-001",
+          "type": "paragraph",
+          "content": "Module 2: Making Decisions (Conditionals)\n\n2.1 Python Booleans:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-002",
+          "type": "paragraph",
+          "content": "Introduction to Booleans",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-003",
+          "type": "paragraph",
+          "content": "Welcome to Module 2! 🧠",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-004",
+          "type": "paragraph",
+          "content": "In Module 1, your programs followed a straight line from top to bottom, running every single command in order. But in real life, computers have to make choices all the time:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-005",
+          "type": "paragraph",
+          "content": "Is the player’s health zero? If yes, show \"Game Over!\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-006",
+          "type": "paragraph",
+          "content": "Did the user type the correct password? If yes, unlock the phone.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-007",
+          "type": "paragraph",
+          "content": "Is the room temperature above 30°C? If yes, turn on the air conditioner.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-008",
+          "type": "paragraph",
+          "content": "To make smart decisions, computers need a way to answer simple Yes or No questions. In programming, we do this using a special data type called Booleans.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to discover how Booleans work!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-010",
+          "type": "paragraph",
+          "content": "Understanding Booleans",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-011",
+          "type": "paragraph",
+          "content": "A Boolean (named after the mathematician George Boole) is the simplest data type in Python. Unlike numbers that can be infinite, a Boolean can hold only one of two possible values:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-012",
+          "type": "paragraph",
+          "content": "True (represents YES / ON)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-013",
+          "type": "paragraph",
+          "content": "False (represents NO / OFF)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-014",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-015",
+          "type": "paragraph",
+          "content": "Two Golden Rules for Booleans:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-016",
+          "type": "paragraph",
+          "content": "Always Capitalize the First Letter: You must write True and False with a capital T and F. Writing true or false in lowercase will cause a NameError.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-017",
+          "type": "paragraph",
+          "content": "Booleans Are Not Strings: Never wrap them in quotes!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-018",
+          "type": "paragraph",
+          "content": "True is a real Boolean.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-019",
+          "type": "paragraph",
+          "content": "\"True\" is just plain text (a string).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-020",
+          "type": "paragraph",
+          "content": "Booleans Are Reserved Keywords: You cannot use True or False as variable names (e.g., True = 50 will throw a SyntaxError).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-021",
+          "type": "paragraph",
+          "content": "Click Next Lesson to test your knowledge with a quiz!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-022",
+          "type": "paragraph",
+          "content": "Quiz: Spot the Boolean",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-023",
+          "type": "paragraph",
+          "content": "Look at the following lines of code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-024",
+          "type": "paragraph",
+          "content": "Which variable actually stores a Boolean value?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-025",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-026",
+          "type": "paragraph",
+          "content": "| A: Both status1 and status2 |\n| Incorrect, give it another shot! Look closely at the quotation marks around \"True\". Quotes always turn data into text strings. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-027",
+          "type": "paragraph",
+          "content": "| B: status1 |\n| Incorrect, give it another shot! status1 has quotation marks \" \", so Python treats it as a string (str). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-028",
+          "type": "paragraph",
+          "content": "| C: status2 |\n| Correct Answer! 🎉\nstatus2 stores True without quotation marks and with a capital T, which is Python's official Boolean value. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-029",
+          "type": "paragraph",
+          "content": "| D: Neither variable |\n| Incorrect, give it another shot! status2 is a 100% valid Boolean. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-030",
+          "type": "paragraph",
+          "content": "Quiz: Keyword Rules",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-031",
+          "type": "paragraph",
+          "content": "What will happen if you run this line of code?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-032",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-033",
+          "type": "paragraph",
+          "content": "| A: It creates a variable named False storing \"Offline\". |\n| Incorrect, give it another shot! False is a protected keyword in Python that cannot be reassigned. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-034",
+          "type": "paragraph",
+          "content": "| B: It prints \"Offline\". |\n| Incorrect, give it another shot! There is no print() command, and the line cannot execute. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-035",
+          "type": "paragraph",
+          "content": "| C: A SyntaxError occurs. |\n| Correct Answer! 🎉\n False is a special reserved keyword. Python will stop and report: SyntaxError: cannot assign to False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-036",
+          "type": "paragraph",
+          "content": "| D: It converts \"Offline\" to a Boolean. |\n| Incorrect, give it another shot! Assignment with = does not perform type conversion. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-037",
+          "type": "paragraph",
+          "content": "Boolean Expressions",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-038",
+          "type": "paragraph",
+          "content": "How do we actually get True or False in real code? We ask Python questions using Boolean Expressions!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-039",
+          "type": "paragraph",
+          "content": "A Boolean expression is any piece of code that Python evaluates and answers with either True or False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-040",
+          "type": "paragraph",
+          "content": "Think of it like asking a referee:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-041",
+          "type": "paragraph",
+          "content": "\"Is 10 greater than 5?\"  The referee says: True",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-042",
+          "type": "paragraph",
+          "content": "\"Is 3 equal to 8?\"  The referee says: False",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-043",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see how we compare values and variables to create these expressions!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-044",
+          "type": "paragraph",
+          "content": "Compare Values/Variables",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-045",
+          "type": "paragraph",
+          "content": "To compare values, we use comparison operators. One of the most common is the greater than operator: >.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-046",
+          "type": "paragraph",
+          "content": "Let's test if an amusement park visitor is tall enough for a roller coaster:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-047",
+          "type": "paragraph",
+          "content": "Sample Output 1",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-048",
+          "type": "paragraph",
+          "content": "Sample Output 2",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-049",
+          "type": "paragraph",
+          "content": "How It Works:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-050",
+          "type": "paragraph",
+          "content": "The expression height_cm > 120 asks: \"Is the entered height greater than 120?\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-051",
+          "type": "paragraph",
+          "content": "If the user enters 135, Python evaluates 135 > 120 as True.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-052",
+          "type": "paragraph",
+          "content": "If the user enters 110, Python evaluates 110 > 120 as False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-1-python-booleans-block-053",
+          "type": "paragraph",
+          "content": "The resulting answer (True or False) is stored right inside the variable is_tall_enough!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-2-2-comparison-operators",
+      "number": "2.2",
+      "title": "Comparison Operators",
+      "summary": "2.2 Comparison Operators",
+      "status": "available",
+      "estimatedMinutes": 28,
+      "blocks": [
+        {
+          "id": "lesson-2-2-comparison-operators-block-001",
+          "type": "paragraph",
+          "content": "2.2 Comparison Operators\n\nIntroduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-003",
+          "type": "paragraph",
+          "content": "Have you ever compared two things to make a decision?\n\nIs my score higher than the high score?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-005",
+          "type": "paragraph",
+          "content": "Is the temperature cold enough for a jacket?\n\nDid I enter the exact secret passkey?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-007",
+          "type": "paragraph",
+          "content": "In Python, we compare two quantities using Comparison Operators.\n\nA comparison operator takes two values, compares them, and reports back a simple verdict: True or False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see the complete toolkit of comparison operators!\n\nList of Comparison Operators",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-011",
+          "type": "paragraph",
+          "content": "Python gives you six standard comparison tools:\n\nLet's master them step by step!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-013",
+          "type": "paragraph",
+          "content": "Comparison Operators: > and >=\n\n> (Strictly Greater Than): Returns True only if the left number is strictly bigger than the right number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-015",
+          "type": "paragraph",
+          "content": ">= (Greater Than or Equal To): Returns True if the left number is bigger OR exactly equal to the right number.\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-017",
+          "type": "paragraph",
+          "content": "Notice that speed > 60 is False, but speed >= 60 is True because the = part allows a tie!\n\nQuiz: Greater Than Checks",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-019",
+          "type": "paragraph",
+          "content": "What will be displayed when this code runs?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-021",
+          "type": "paragraph",
+          "content": "| A: False |\n\n| Incorrect, give it another shot! In Python, the integer 90 has the exact same numeric value as   the float 90.0. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-023",
+          "type": "paragraph",
+          "content": "| B: True |\n\n| Correct Answer! 🎉\n  is equal to , and the >= operator allows equality! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-025",
+          "type": "paragraph",
+          "content": "| C: A TypeError occurs. |\n\n| Incorrect, give it another shot! Python can safely compare integers and floats without any errors. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-027",
+          "type": "paragraph",
+          "content": "| D: None |\n\n| Incorrect, give it another shot! Comparison expressions always evaluate to a Boolean (True or False). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-029",
+          "type": "paragraph",
+          "content": "Comparison Operators: < and <=\n\n< (Strictly Less Than): Returns True only if the left value is smaller than the right value.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-031",
+          "type": "paragraph",
+          "content": "<= (Less Than or Equal To): Returns True if the left value is smaller OR equal to the right value.\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-033",
+          "type": "paragraph",
+          "content": "Quiz: Less Than Evaluation\n\nWhat is the output of the following comparison?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-035",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: True |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-037",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot!  is equal to , not strictly smaller than . |\n\n| B: False |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-039",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉\nBecause < is strictly less than, 25 < 25 evaluates to False. For it to be True, you would need <=. |\n\n| C: 25 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-041",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Comparisons always return a Boolean (True or False), never the number itself. |\n\n| D: 0 |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-043",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Python returns the Boolean False, not the integer 0. |\n\nComparison Operators: ==",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-045",
+          "type": "paragraph",
+          "content": "To check if two values are equal, Python uses double equals ==.\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-047",
+          "type": "paragraph",
+          "content": "Crucial Warning:\n\n= (Single Equals): Used for assignment (putting a value inside a variable).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-049",
+          "type": "paragraph",
+          "content": "== (Double Equals): Used for comparison (asking: \"Are these two equal?\").\n\nComparison Operators: !=",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-051",
+          "type": "paragraph",
+          "content": "The != operator means Not Equal To. Think of the exclamation mark ! as meaning \"NOT\".\n\nIt returns:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-053",
+          "type": "paragraph",
+          "content": "True if the two values are different.\n\nFalse if the two values are identical.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-055",
+          "type": "paragraph",
+          "content": "Output\n\nQuiz: Testing Equality and Difference",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-057",
+          "type": "paragraph",
+          "content": "What will be displayed by these two lines?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-059",
+          "type": "paragraph",
+          "content": "| A: True followed by True |\n\n| Incorrect, give it another shot! If two numbers are equal, they cannot also be \"not equal\". |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-061",
+          "type": "paragraph",
+          "content": "| B: False followed by True |\n\n| Incorrect, give it another shot!  is definitely True. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-063",
+          "type": "paragraph",
+          "content": "| C: True followed by False |\n\n| Correct Answer! 🎉\n  is True. Because they are identical,  is False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-065",
+          "type": "paragraph",
+          "content": "| D: False followed by False |\n\n| Incorrect, give it another shot! One of these two conditions must be True. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-067",
+          "type": "paragraph",
+          "content": "Using == and != With Strings\n\nYou can also compare text strings with == and !=. But keep in mind:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-069",
+          "type": "paragraph",
+          "content": "Capitalization Matters (Case-Sensitive):\n\n\"Falcon\" == \"Falcon\"  True",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-071",
+          "type": "paragraph",
+          "content": "\"Falcon\" == \"falcon\"  False (capital F is different from small f!)\n\nData Types Matter:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-073",
+          "type": "paragraph",
+          "content": "\"10\" == 10  False (a text string is never equal to a number!)\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-075",
+          "type": "paragraph",
+          "content": "Quiz: String Matching\n\nWhat is the output of the following comparison?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-077",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: True |\n| Incorrect, give it another shot! String comparisons in Python are strictly case-sensitive. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-079",
+          "type": "paragraph",
+          "content": "| B: False |\n| Correct Answer!\n🎉 Because \"Cyber\" starts with an uppercase C and \"cyber\" starts with a lowercase c, Python sees them as different text! |\n\n| C: A SyntaxError occurs. |\n| Incorrect, give it another shot! Comparing strings with == is completely legal Python. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-081",
+          "type": "paragraph",
+          "content": "| D: \"Cyber\" |\n| Incorrect, give it another shot! Comparisons always return Booleans (True or False). |\n\nPractice: Password Verification",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-083",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program to verify a security password:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-085",
+          "type": "paragraph",
+          "content": "Create a variable saved_pass = \"CosmicRocket7\".\n\nAsk the user to enter their password: entered_pass = input(\"Enter password: \").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-087",
+          "type": "paragraph",
+          "content": "Check if the entered password matches the saved password using ==.\n\nPrint: Password match: followed by the Boolean result.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-089",
+          "type": "paragraph",
+          "content": "Example:\n\nBuilding Logic",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-091",
+          "type": "paragraph",
+          "content": "Now that we know the symbols, let’s use them to build real-world logic!\n\nCheck if a number is positive:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-093",
+          "type": "paragraph",
+          "content": "In math, a number is positive if it is strictly greater than 0:\n\nSample Output 1",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-095",
+          "type": "paragraph",
+          "content": "Sample Output 2\n\nLet’s see another example.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-097",
+          "type": "paragraph",
+          "content": "Building Logic\n\nCheck if Number is Even or Odd",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-099",
+          "type": "paragraph",
+          "content": "How do we check if an integer is even or odd?\n\nRecall the modulo operator % from Module 1, which calculates the leftover remainder:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-101",
+          "type": "paragraph",
+          "content": "When an even number is divided by 2, it divides cleanly with 0 remainder (, remainder = 0).\n\nWhen an odd number is divided by 2, it always leaves a remainder of 1 (, remainder = 1).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-103",
+          "type": "paragraph",
+          "content": "Figure: Even Number vs Odd Number\n\nClick Next Lesson to write the code for this logic!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-105",
+          "type": "paragraph",
+          "content": "Building Logic: Is the Number Odd?\n\nLet's create a script that outputs True if the user inputs an odd integer, and False if the input is an even number.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-107",
+          "type": "paragraph",
+          "content": "To achieve this, we first need to determine what is left over after dividing our input by 2:\n\nNext, we test whether this remainder is different from zero. A non-zero result confirms that the value is odd:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-109",
+          "type": "paragraph",
+          "content": "Now, let's put everything together into a complete script:\n\nSample Run 1",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-111",
+          "type": "paragraph",
+          "content": "Sample Run 2\n\nQuiz: Modulo Logic",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-113",
+          "type": "paragraph",
+          "content": "What will be displayed by this line of code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-115",
+          "type": "paragraph",
+          "content": "| A: 0 |\n\n| Incorrect, give it another shot! 24 % 2 is 0, but 0 == 0 evaluates to a Boolean! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-117",
+          "type": "paragraph",
+          "content": "| B: True |\n\n| Correct Answer! 🎉\n divides by  with a remainder of . Since  is True, the output is True (meaning 24 is even!). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-119",
+          "type": "paragraph",
+          "content": "| C: False |\n\n| Incorrect, give it another shot! 24 is an even number, so the remainder is indeed 0. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-121",
+          "type": "paragraph",
+          "content": "| D: 24 |\n\n| Incorrect, give it another shot! == returns a Boolean, not the original number. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-123",
+          "type": "paragraph",
+          "content": "Practice: Divisibility by 5\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-125",
+          "type": "paragraph",
+          "content": "A number is divisible by 5 if it leaves a remainder of 0 when divided by 5 (number % 5 == 0).\n\nAsk the user for an integer: n = int(input(\"Enter number: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-127",
+          "type": "paragraph",
+          "content": "Check if the number is divisible by 5 using n % 5 == 0 and store the result in divisible_by_5.\n\nPrint: Divisible by 5: followed by divisible_by_5.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-129",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario-Based Question: Space Arena Drone Qualifier",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-131",
+          "type": "paragraph",
+          "content": "Scenario\n\nTo qualify for the Junior Drone Obstacle Championship:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-133",
+          "type": "paragraph",
+          "content": "The drone's weight must be less than or equal to 250 grams (weight <= 250).\n\nIts top speed must be strictly greater than 45 km/h (speed > 45).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-135",
+          "type": "paragraph",
+          "content": "Your Task:\n\nGet the drone's weight as an integer: weight = int(input(\"Enter weight (g): \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-137",
+          "type": "paragraph",
+          "content": "Get the drone's top speed as an integer: speed = int(input(\"Enter speed (km/h): \")).\n\nPrint two checks using comparison operators:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-139",
+          "type": "paragraph",
+          "content": "Line 1: Weight Approved: followed by weight <= 250\n\nLine 2: Speed Approved: followed by speed > 45",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-2-comparison-operators-block-141",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-2-3-logical-operators",
+      "number": "2.3",
+      "title": "Logical Operators",
+      "summary": "2.3 Logical Operators",
+      "status": "available",
+      "estimatedMinutes": 23,
+      "blocks": [
+        {
+          "id": "lesson-2-3-logical-operators-block-001",
+          "type": "paragraph",
+          "content": "2.3 Logical Operators\n\nIntroduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-003",
+          "type": "paragraph",
+          "content": "In the previous lesson, we checked one condition at a time (like score > 80).\n\nBut real-world decisions usually require checking more than one thing at the same time:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-005",
+          "type": "paragraph",
+          "content": "To ride the mega roller-coaster, you must be taller than 130 cm AND wearing a safety belt.\n\nTo get into a weekend coding workshop, you need a student pass OR a guest invitation.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-007",
+          "type": "paragraph",
+          "content": "To launch a drone outdoors, it must NOT be raining.\n\nWhen you need to combine two or more conditions together, Python uses Logical Operators.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to meet the three logical operators!\n\nList of Logical Operators",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-011",
+          "type": "paragraph",
+          "content": "Python gives you three simple, English-like words to combine conditions:\n\nLet’s explore each operator one by one!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-013",
+          "type": "paragraph",
+          "content": "Logical Operator: and\n\nThe and operator is strict. Both conditions on either side must evaluate to True. If even one condition is False, the entire result becomes False!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-015",
+          "type": "paragraph",
+          "content": "Plaintext\n\nTrue  and True   ---> True  (Both agree!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-017",
+          "type": "paragraph",
+          "content": "True  and False  ---> False (One failed!)\n\nFalse and True   ---> False (One failed!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-019",
+          "type": "paragraph",
+          "content": "False and False  ---> False (Both failed!)\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-021",
+          "type": "paragraph",
+          "content": "Example: Loan Program (School Robotics Kit Loan)\n\nSchool labs allow students to borrow expensive robotics gear only if they satisfy two requirements:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-023",
+          "type": "paragraph",
+          "content": "They must be in Grade 6 or higher (grade >= 6).\n\nThey must have a signed permission slip (has_permission == \"yes\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-025",
+          "type": "paragraph",
+          "content": "Sample Output 1\n\nSample Output 2",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-027",
+          "type": "paragraph",
+          "content": "Even though the student in Sample 2 had permission, their grade was below 6. With and, if one part fails, the whole answer is False!\n\nQuiz: Evaluating and",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-029",
+          "type": "paragraph",
+          "content": "What will be the output of the following line of code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-031",
+          "type": "paragraph",
+          "content": "| A: True |\n\n| Incorrect, give it another shot! Look closely at the second part:  is False. The and operator requires both sides to be True. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-033",
+          "type": "paragraph",
+          "content": "| B: False |\n\n| Correct Answer! 🎉\n is True, but  is False. Since one side is False, True and False gives False! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-035",
+          "type": "paragraph",
+          "content": "| C: None |\n\n| Incorrect, give it another shot! Logical operations always return a Boolean. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-037",
+          "type": "paragraph",
+          "content": "| D: A SyntaxError occurs. |\n\n| Incorrect, give it another shot! Parentheses around comparison expressions are standard, valid Python. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-039",
+          "type": "paragraph",
+          "content": "Practice: Junior Astronomy Camp\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-041",
+          "type": "paragraph",
+          "content": "A student qualifies for the Star-Gazing Overnight Camp if:\n\nTheir age is 12 or older (age >= 12)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-043",
+          "type": "paragraph",
+          "content": "They have attended at least 3 prior workshops (workshops >= 3)\n\nWrite a program that:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-045",
+          "type": "paragraph",
+          "content": "Asks for age as an integer: age = int(input(\"Enter age: \")).\n\nAsks for workshops completed: workshops = int(input(\"Enter workshops: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-047",
+          "type": "paragraph",
+          "content": "Evaluates if the student qualifies using and and stores it in qualifies.\n\nPrints: Camp Qualified: followed by qualifies.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-049",
+          "type": "paragraph",
+          "content": "Example:\n\nLogical Operator: or",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-051",
+          "type": "paragraph",
+          "content": "Unlike and, the or operator is generous. It only needs at least one condition to be True:\n\nPlaintext",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-053",
+          "type": "paragraph",
+          "content": "True  or True   ---> True  (Both are good!)\n\nTrue  or False  ---> True  (One is good enough!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-055",
+          "type": "paragraph",
+          "content": "False or True   ---> True  (One is good enough!)\n\nFalse or False  ---> False (Only False if both fail!)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-057",
+          "type": "paragraph",
+          "content": "Suppose a museum offers free entry if a visitor is under 10 years old OR visiting on Sunday:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-059",
+          "type": "paragraph",
+          "content": "Even though it’s Wednesday, the visitor gets in free because their age is under 10!\n\nQuiz: Evaluating or",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-061",
+          "type": "paragraph",
+          "content": "What is the output of the following line?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-063",
+          "type": "paragraph",
+          "content": "| A: False |\n\n| Incorrect, give it another shot! While  is False, the right-hand condition  is True. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-065",
+          "type": "paragraph",
+          "content": "| B: True |\n\n| Correct Answer! 🎉\nThe or operator returns True as long as at least one side is True. Here,  satisfies it! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-067",
+          "type": "paragraph",
+          "content": "| C: 20 |\n\n| Incorrect, give it another shot! Logical operators return Booleans (True or False), never numbers. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-069",
+          "type": "paragraph",
+          "content": "| D: A TypeError occurs. |\n\n| Incorrect, give it another shot! Comparing numbers and combining them with or is completely valid Python. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-071",
+          "type": "paragraph",
+          "content": "Practice: Arcade Discount Token\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-073",
+          "type": "paragraph",
+          "content": "An arcade offers a bonus gift card if a gamer:\n\nPlays more than 5 games (games > 5), OR",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-075",
+          "type": "paragraph",
+          "content": "Has a VIP membership (is_vip == \"yes\")\n\nWrite a program that:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-077",
+          "type": "paragraph",
+          "content": "Takes the number of games played: games = int(input(\"Games played: \")).\n\nTakes VIP status: is_vip = input(\"VIP member (yes/no): \").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-079",
+          "type": "paragraph",
+          "content": "Checks eligibility using or and stores it in gets_bonus.\n\nPrints: Bonus Gift Card: followed by gets_bonus.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-081",
+          "type": "paragraph",
+          "content": "Example:\n\nLogical Operator: not",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-083",
+          "type": "paragraph",
+          "content": "The not operator works on a single condition and simply reverses it:\n\nnot True becomes False",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-085",
+          "type": "paragraph",
+          "content": "not False becomes True\n\nThink of it like an invert switch on a toy:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-087",
+          "type": "paragraph",
+          "content": "Plaintext\n\nOriginal: is_raining = True   ---> not is_raining is False",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-089",
+          "type": "paragraph",
+          "content": "Original: is_raining = False  ---> not is_raining is True\n\nClick Next Lesson to see not in action!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-091",
+          "type": "paragraph",
+          "content": "Example: The not Operator\n\nLet's check if a science lab sensor reports an anomaly:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-093",
+          "type": "paragraph",
+          "content": "Output\n\nPractice: Battery Low Warning",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-095",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA solar weather station has a sensor:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-097",
+          "type": "paragraph",
+          "content": "is_battery_full = False\n\nUse the not operator to flip is_battery_full and assign the result to a variable called needs_charging. Then print needs_charging.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-099",
+          "type": "paragraph",
+          "content": "Hints:\n\nneeds_charging = not is_battery_full",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-101",
+          "type": "paragraph",
+          "content": "print(needs_charging)\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-103",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Mars Habitat Airlock Security\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-105",
+          "type": "paragraph",
+          "content": "An astronaut wants to step through the space habitat airlock. The automated hatch computer will only unlock if:\n\nThe external atmospheric storm alert is inactive (not storm_alert).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-107",
+          "type": "paragraph",
+          "content": "AND the astronaut has their helmet sealed (helmet_sealed == \"yes\").\n\nAND either their oxygen tank is above 50% (oxygen_level > 50) OR they have a backup safety tether attached (has_tether == \"yes\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-109",
+          "type": "paragraph",
+          "content": "Your Task:\n\nCreate the sensor values:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-111",
+          "type": "paragraph",
+          "content": "storm_alert = False\n\nhelmet_sealed = \"yes\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-113",
+          "type": "paragraph",
+          "content": "oxygen_level = 40\n\nhas_tether = \"yes\"",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-115",
+          "type": "paragraph",
+          "content": "Combine all conditions into a single Boolean check named airlock_clear:\n\nPrint: Airlock Hatch Clearance: followed by airlock_clear.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-3-logical-operators-block-117",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-2-4-if-else-and-elif-statements",
+      "number": "2.4",
+      "title": "if-else and elif Statements",
+      "summary": "2.4 if-else and elif Statements",
+      "status": "available",
+      "estimatedMinutes": 40,
+      "blocks": [
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-001",
+          "type": "paragraph",
+          "content": "2.4 if-else and elif Statements\n\nThe if Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-003",
+          "type": "paragraph",
+          "content": "Until now, your programs printed True or False. But a real app doesn't just print a verdict—it takes action!\n\nAn if statement allows your program to make a decision:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-005",
+          "type": "paragraph",
+          "content": "If the condition is True, Python runs the special code block inside it.\n\nIf the condition is False, Python completely skips that code and moves on!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-007",
+          "type": "paragraph",
+          "content": "Basic Syntax:\n\nNotice the Two Magic Details:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-009",
+          "type": "paragraph",
+          "content": "The Colon (:): Every if line must end with a colon.\n\nIndentation (4 spaces): The code belonging to the if block must be pushed inward with spaces (indented). That’s how Python knows what code belongs inside the decision!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-011",
+          "type": "paragraph",
+          "content": "Example: The if Statement\n\nLet's check if a science lab greenhouse heater needs to be turned on:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-013",
+          "type": "paragraph",
+          "content": "Sample Output 1 (Cold Day)\n\nSample Output 2 (Warm Day)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-015",
+          "type": "paragraph",
+          "content": "When the temperature was 22.0, temperature < 15 was False. Python completely skipped the two indented lines!\n\nQuiz: Predicting the if Block",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-017",
+          "type": "paragraph",
+          "content": "What will be displayed on the screen when this code runs?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-019",
+          "type": "paragraph",
+          "content": "| A: Bonus Mystery Box Unlocked!\n followed by Thank you for playing! |\n\n| Incorrect, give it another shot! coins is 50, which is not greater than or equal to 100. The if condition evaluates to False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-021",
+          "type": "paragraph",
+          "content": "| B: Thank you for playing! |\n| Correct Answer! 🎉\nBecause 50 >= 100 is False, the indented line is skipped. The unindented line at the end always runs! |\n\n| C: Nothing will be printed. |\n| Incorrect, give it another shot! The last print() is outside the if block, so it executes normally. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-023",
+          "type": "paragraph",
+          "content": "| D: An IndentationError occurs. |\n| Incorrect, give it another shot! The indentation is formatted properly. |\n\nPractice: High Score Alert",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-025",
+          "type": "paragraph",
+          "content": "Problem Description\n\nThe all-time high score on an arcade machine is 500.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-027",
+          "type": "paragraph",
+          "content": "Ask the player for their score as an integer: score = int(input(\"Enter your score: \")).\n\nWrite an if statement to check if score > 500.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-029",
+          "type": "paragraph",
+          "content": "If True, print: NEW RECORD BROKEN!\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-031",
+          "type": "paragraph",
+          "content": "Practice: Smart Garden Water Reminder\n\nProblem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-033",
+          "type": "paragraph",
+          "content": "A smart moisture sensor checks garden soil:\n\nAsk for soil moisture percentage: moisture = int(input(\"Moisture percentage: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-035",
+          "type": "paragraph",
+          "content": "If moisture < 20, print: Soil is dry. Please water the plants!\n\nAlways print Sensor check finished. at the end (outside the if block).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-037",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario-Based Question: Robotics Obstacle Sensor",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-039",
+          "type": "paragraph",
+          "content": "Scenario:\n\nA mini delivery robot is navigating a school hallway. Its ultrasonic sensor detects the distance to the nearest wall in centimeters.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-041",
+          "type": "paragraph",
+          "content": "If the distance is strictly less than 30 cm (distance < 30), the robot must sound an alarm and stop:\n\nLine 1: Obstacle Detected!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-043",
+          "type": "paragraph",
+          "content": "Line 2: Halting wheels immediately.\n\nThe status report Navigation sensor active. must always be printed regardless of the distance.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-045",
+          "type": "paragraph",
+          "content": "Your Task:\n\nGet distance: distance = float(input(\"Distance to obstacle (cm): \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-047",
+          "type": "paragraph",
+          "content": "Write the if block for distance < 30 with the two alert lines.\n\nPrint the final status line outside the if.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-049",
+          "type": "paragraph",
+          "content": "Example:\n\nUsing Multiple if Statements",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-051",
+          "type": "paragraph",
+          "content": "You can write several independent if statements in a row. Python will evaluate every single one of them in order from top to bottom:\n\nOutput",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-053",
+          "type": "paragraph",
+          "content": "Notice that both Check 1 and Check 2 were True, so both printed! Only Check 3 was skipped because  is False.\n\nQuiz: Multiple if Execution",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-055",
+          "type": "paragraph",
+          "content": "How many messages will be printed by this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-057",
+          "type": "paragraph",
+          "content": "| A: 1 message |\n\n| Incorrect, give it another shot! Each if statement is independent and checked on its own. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-059",
+          "type": "paragraph",
+          "content": "| B: 2 messages |\n\n| Incorrect, give it another shot! Check all three conditions for energy = 90. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-061",
+          "type": "paragraph",
+          "content": "| C: 3 messages |\n\n| Correct Answer! 🎉\n90 is greater than 30, greater than 60, and greater than 80. All three conditions are True, so all 3 messages print! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-063",
+          "type": "paragraph",
+          "content": "| D: 0 messages |\n\n| Incorrect, give it another shot! At least one condition is clearly True. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-065",
+          "type": "paragraph",
+          "content": "The else Statement\n\nWhat if you want to take one action when a condition is True, and a different action when it is False?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-067",
+          "type": "paragraph",
+          "content": "Instead of writing two separate if checks, you pair an if with an else:\n\nBasic Syntax:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-069",
+          "type": "paragraph",
+          "content": "The else keyword needs no condition and ends with a colon :. It acts as a safety net that catches everything when if is False.\n\nExample: The else Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-071",
+          "type": "paragraph",
+          "content": "Let's check if an explorer has enough keys to unlock a treasure vault:\n\nSample Output 1",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-073",
+          "type": "paragraph",
+          "content": "Sample Output 2\n\nExactly one block will run—never both, and never neither!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-075",
+          "type": "paragraph",
+          "content": "Quiz: if-else Choice\n\nWhat will be displayed if the user enters 15?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-077",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:\n\n| A: Eligible to vote |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-079",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot!  is False, so the if block is skipped. |\n\n| B: Both messages will be printed. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-081",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! In an if-else structure, only one block can execute. |\n\n| C: Too young to vote |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-083",
+          "type": "paragraph",
+          "content": "| Correct Answer! 🎉\nBecause 15 >= 18 is False, Python immediately executes the else block! |\n\n| D: An error occurs. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-085",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The code is 100% valid Python. |\n\nPractice: Pass / Retake Exam Checker",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-087",
+          "type": "paragraph",
+          "content": "Problem Description\n\nThe passing mark in a coding quiz is 50 points out of 100.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-089",
+          "type": "paragraph",
+          "content": "Ask the student for their score: score = int(input(\"Enter quiz score: \")).\n\nIf score >= 50, print: Congratulations, you passed!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-091",
+          "type": "paragraph",
+          "content": "Otherwise (else), print: Keep practicing, retake scheduled.\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-093",
+          "type": "paragraph",
+          "content": "Example: if-else with Strings\n\nYou can also use if-else with text:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-095",
+          "type": "paragraph",
+          "content": "Sample Output\n\nPractice: Even or Odd Decider",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-097",
+          "type": "paragraph",
+          "content": "Problem Description\n\nWrite a program that determines if a number entered by the user is even or odd:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-099",
+          "type": "paragraph",
+          "content": "Get an integer: num = int(input(\"Enter a number: \")).\n\nCheck if num % 2 == 0.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-101",
+          "type": "paragraph",
+          "content": "If True, print: The number is even.\n\nOtherwise (else), print: The number is odd.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-103",
+          "type": "paragraph",
+          "content": "Example:\n\nScenario-Based Question: Safari Park Admission",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-105",
+          "type": "paragraph",
+          "content": "Scenario\n\nA wildlife safari park charges different ticket rates:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-107",
+          "type": "paragraph",
+          "content": "Child ticket (age 12 or below): $10\n\nStandard ticket (age above 12): $25",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-109",
+          "type": "paragraph",
+          "content": "Your Task:\n\nGet the visitor's age: age = int(input(\"Visitor age: \")).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-111",
+          "type": "paragraph",
+          "content": "Use an if-else statement to determine the ticket price:\n\nIf age <= 12, print: Ticket Price: $10",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-113",
+          "type": "paragraph",
+          "content": "Otherwise (else), print: Ticket Price: $25\n\nExample:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-115",
+          "type": "paragraph",
+          "content": "The elif Statement\n\nWhat if a situation has three or more possible outcomes?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-117",
+          "type": "paragraph",
+          "content": "Cold, Warm, or Hot\n\nRed, Yellow, or Green",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-119",
+          "type": "paragraph",
+          "content": "Gold, Silver, or Bronze medal\n\nFor multiple choices, Python gives us elif (short for \"else if\"):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-121",
+          "type": "paragraph",
+          "content": "Basic Syntax:\n\nPython checks from top to bottom and stops at the first condition that matches!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-123",
+          "type": "paragraph",
+          "content": "Example: The elif Statement\n\nLet's simulate a traffic signal:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-125",
+          "type": "paragraph",
+          "content": "Sample Output 1\n\nSample Output 2",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-127",
+          "type": "paragraph",
+          "content": "Quiz: Evaluating elif Flow\n\nLook at this temperature classifier:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-129",
+          "type": "paragraph",
+          "content": "What will be printed?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-131",
+          "type": "paragraph",
+          "content": "| A: Scorching |\n\n| Incorrect, give it another shot!  is False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-133",
+          "type": "paragraph",
+          "content": "| B: Pleasant |\n| Correct Answer! 🎉\nThe first condition () is False, so Python tests the second condition (). That is True, so it prints Pleasant and stops checking the rest! |\n\n| C: Pleasant followed by Chilly |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-135",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! Once an elif matches, Python skips all remaining branches. |\n\n| D: Freezing |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-137",
+          "type": "paragraph",
+          "content": "| Incorrect, give it another shot! The else block only runs if every single previous condition was False. |\n\nPractice: Game Medal Ranker",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-139",
+          "type": "paragraph",
+          "content": "Problem Description\n\nA racing tournament awards ranks based on position:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-141",
+          "type": "paragraph",
+          "content": "Ask the player for their position: pos = int(input(\"Enter finish position: \")).\n\nWrite an if-elif-else structure:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-143",
+          "type": "paragraph",
+          "content": "If pos == 1: print Gold Trophy!\n\nElif pos == 2: print Silver Trophy!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-145",
+          "type": "paragraph",
+          "content": "Elif pos == 3: print Bronze Trophy!\n\nElse: print Participation Certificate!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-147",
+          "type": "paragraph",
+          "content": "Example:\n\nQuiz: if-elif-else Priority",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-149",
+          "type": "paragraph",
+          "content": "What is the output of this code?\n\nTap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-151",
+          "type": "paragraph",
+          "content": "| A: Grade A |\n\n| Incorrect, give it another shot!  is False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-153",
+          "type": "paragraph",
+          "content": "| B: Grade B |\n\n| Correct Answer! 🎉\n is False, but  is True. Python prints Grade B and skips Grade C and Grade D! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-155",
+          "type": "paragraph",
+          "content": "| C: Grade B and Grade C |\n\n| Incorrect, give it another shot! Python only runs the first matching branch in an if-elif-else chain. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-157",
+          "type": "paragraph",
+          "content": "| D: Grade D |\n\n| Incorrect, give it another shot! The else branch only runs if all conditions are False. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-159",
+          "type": "paragraph",
+          "content": "Scenario-Based Question: Solar Battery Energy Alert\n\nScenario",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-161",
+          "type": "paragraph",
+          "content": "A space station's solar storage battery percentage is monitored by an automated system:\n\nAbove 80%: Battery status: Optimal",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-163",
+          "type": "paragraph",
+          "content": "Between 40% and 80% (inclusive): Battery status: Normal\n\nBetween 15% and 39% (inclusive): Battery status: Low - Conserve power!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-165",
+          "type": "paragraph",
+          "content": "Below 15%: Battery status: Critical Emergency!\n\nYour Task:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-167",
+          "type": "paragraph",
+          "content": "Get the battery level: battery = int(input(\"Enter battery level (%): \")).\n\nBuild an if-elif-else chain to print the exact status message shown above.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-169",
+          "type": "paragraph",
+          "content": "Example:\n\nDefining Variables Inside If…else",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-171",
+          "type": "paragraph",
+          "content": "Be very careful when creating a new variable inside an if statement!\n\nLook at this dangerous code:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-173",
+          "type": "paragraph",
+          "content": "Output\n\nWhy Did This Crash?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-175",
+          "type": "paragraph",
+          "content": "Because points > 50 was False, the indented line rank = \"Master\" never ran. The variable rank was never created in computer memory! When Python reached print(rank), it panicked because rank didn't exist!\n\nClick Next Lesson to see how smart coders solve this!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-177",
+          "type": "paragraph",
+          "content": "Ensuring Variable Initialization\n\nTo make sure your variables always exist, choose one of these two bulletproof patterns:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-179",
+          "type": "paragraph",
+          "content": "Pattern 1: Set a Default Value First (Recommended)\n\nCreate the variable before the if statement so it always exists:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-181",
+          "type": "paragraph",
+          "content": "Pattern 2: Use an else Safety Net\n\nMake sure the variable is created in both the if and the else branches:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-183",
+          "type": "paragraph",
+          "content": "Common Errors in Decision Making\n\nWatch out for these 3 common bugs when writing conditions:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-185",
+          "type": "paragraph",
+          "content": "1. Forgetting the Colon (:):\n\nFix: Always put a colon : at the end of if, elif, and else lines.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-187",
+          "type": "paragraph",
+          "content": "2. Confusing = and ==:\n\nFix: Use == (double equals) to check equality!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-189",
+          "type": "paragraph",
+          "content": "3. Mismatched Indentation:\n\nFix: Always indent statements inside the block by 4 spaces.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-191",
+          "type": "paragraph",
+          "content": "Revision: The Decision-Making Cheat Sheet\n\nHere is your master recap for controlling program flow:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-193",
+          "type": "paragraph",
+          "content": "if: Checks a condition. Runs its block only if the condition is True.\n\nelse: Runs when the if condition is False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-195",
+          "type": "paragraph",
+          "content": "elif: Adds extra conditions to check in order. Only the first True branch runs.\n\nIndentation (4 spaces): Tells Python which statements belong inside which branch.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-4-if-else-and-elif-statements-block-197",
+          "type": "paragraph",
+          "content": "Colons (:): Must be placed at the end of every if, elif, and else statement.\n\nVariable Safety: Always initialize variables before an if block, or ensure they are assigned in an else branch to avoid NameError!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-2-5-project",
+      "number": "2.5",
+      "title": "Project",
+      "summary": "Project",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "blocks": [
+        {
+          "id": "lesson-2-5-project-block-001",
+          "type": "paragraph",
+          "content": "2.5 Project",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-2-5-project-block-002",
+          "type": "paragraph",
+          "content": "Simple Calculator",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

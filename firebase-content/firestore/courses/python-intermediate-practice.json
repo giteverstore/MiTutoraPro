@@ -1,0 +1,16 @@
+{
+  "id": "python-intermediate-practice",
+  "slug": "python-intermediate-practice",
+  "title": "Python Intermediate Practice",
+  "description": "Intermediate Python programming practice with one programming question per lesson.",
+  "thumbnail": "/assets/course-cards/python-intermediate-practice.png",
+  "language": "python",
+  "domain": "programming",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 200,
+  "moduleCount": 3,
+  "lessonCount": 20,
+  "published": true,
+  "version": "v1",
+  "storagePath": "course-content/python-intermediate-practice"
+}

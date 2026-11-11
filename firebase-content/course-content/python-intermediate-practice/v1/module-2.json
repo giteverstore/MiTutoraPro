@@ -1,0 +1,435 @@
+{
+  "id": "module-3",
+  "title": "Python OOP",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "question-10",
+      "number": "3.1",
+      "title": "Esports Arena Gaming Workstation Spec Checker",
+      "summary": "In a middle school esports and digital design lab, students manage powerful gaming workstations for video editing and game programming. Each workstation is modeled as an object containing hardware specifications such as system memory (RAM i",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-10-block-001",
+          "type": "paragraph",
+          "content": "Question 10 · Page 3.1\n\nEsports Arena Gaming Workstation Spec Checker",
+          "format": "plain"
+        },
+        {
+          "id": "question-10-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a middle school esports and digital design lab, students manage powerful gaming workstations for video editing and game programming. Each workstation is modeled as an object containing hardware specifications such as system memory (RAM in gigabytes) and high-speed drive capacity (storage in gigabytes). To verify workstation specs during tournament setup, the lab uses an object-oriented Python program where a Laptop class defines an initialization constructor and a display method. Write a program to define the class, instantiate a workstation object with 16 GB RAM and 512 GB storage, and print its specifications.",
+          "format": "plain"
+        },
+        {
+          "id": "question-10-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a class named Laptop.\n2. Inside the Laptop class:\n- Create an __init__() constructor method that accepts self, ram, and storage as parameters, and initializes instance attributes for ram and storage.\n- Create an instance method named print_attributes(self) that prints the value of self.ram on the first line and self.storage on the second line.\n3. Outside the class:\n- Create an object of the Laptop class named laptop1, passing 16 for ram and 512 for storage.\n- Call the print_attributes() method using the laptop1 object.",
+          "format": "plain"
+        },
+        {
+          "id": "question-10-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-10-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nTwo lines displaying the workstation's hardware attributes:\n16\n512",
+          "format": "plain"
+        },
+        {
+          "id": "question-10-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\n16\n512",
+          "format": "plain"
+        },
+        {
+          "id": "question-10-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe class must be named Laptop.\nThe attributes must be initialized within __init__() and printed via print_attributes().\nThe object must be named laptop1 with ram=16 and storage=512.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-11",
+      "number": "3.2",
+      "title": "Drone Flight Vector Coordinate Adder",
+      "summary": "In a school autonomous drone navigation project, flight paths are plotted on a 2D grid plane using (x, y) coordinates. When a drone completes an initial scouting hop and immediately performs a secondary relocation step, the flight computer ",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-11-block-001",
+          "type": "paragraph",
+          "content": "Question 11 · Page 3.2\n\nDrone Flight Vector Coordinate Adder",
+          "format": "plain"
+        },
+        {
+          "id": "question-11-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a school autonomous drone navigation project, flight paths are plotted on a 2D grid plane using (x, y) coordinates. When a drone completes an initial scouting hop and immediately performs a secondary relocation step, the flight computer determines its final landing position by adding the two displacement vectors together. To handle this cleanly using object-oriented programming, each point on the map is represented as an instance of a Coordinate class, and adding two coordinate objects produces a brand new Coordinate object representing the combined destination. Write an object-oriented program to define the class, instantiate two points, calculate their sum, and display the final coordinates.",
+          "format": "plain"
+        },
+        {
+          "id": "question-11-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a class named Coordinate.\n2. Inside the Coordinate class:\n- Create an __init__() constructor method that accepts self, x, and y, and initializes self.x and self.y.\n- Create an instance method named add_coordinates(self, other) that:\n* Adds self.x and other.x to calculate the new x value.\n* Adds self.y and other.y to calculate the new y value.\n* Creates and returns a new Coordinate object initialized with these two summed values.\n3. Outside the class:\n- Create an object named c1 of the Coordinate class with x = 5 and y = 6.\n- Create a second object named c2 of the Coordinate class with x = 7 and y = 9.\n- Call the add_coordinates() method on c1 passing c2 as the argument, and assign the returned object to a variable named c3.\n- Print the x attribute of c3 on the first line.\n- Print the y attribute of c3 on the second line.",
+          "format": "plain"
+        },
+        {
+          "id": "question-11-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-11-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nTwo lines displaying the summed x and y coordinate values:\n12\n15",
+          "format": "plain"
+        },
+        {
+          "id": "question-11-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\n12\n15",
+          "format": "plain"
+        },
+        {
+          "id": "question-11-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe class must be named Coordinate.\nThe add_coordinates method must return a new instance of Coordinate.\nCoordinates c1 must be initialized with (5, 6) and c2 with (7, 9).",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-12",
+      "number": "3.3",
+      "title": "Aeronautics Model Glider Triangular Wing Area Calculator",
+      "summary": "In an after-school junior rocketry and aeronautics club, students design lightweight balsa wood gliders. Each glider uses triangular stabilizing wing fins, and students need to calculate the wing's surface area to verify lift capability dur",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-12-block-001",
+          "type": "paragraph",
+          "content": "Question 12 · Page 3.3\n\nAeronautics Model Glider Triangular Wing Area Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an after-school junior rocketry and aeronautics club, students design lightweight balsa wood gliders. Each glider uses triangular stabilizing wing fins, and students need to calculate the wing's surface area to verify lift capability during wind tunnel tests. To structure aerodynamic components systematically, the flight simulation software models each fin as an object of a Triangle class that stores the base length and height, along with a method to calculate and return the surface area. Write an object-oriented program that reads the base and height dimensions from the user, creates a Triangle object, and displays the calculated wing area.",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\narea = 1/2 * base * height",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a class named Triangle.\n2. Inside the Triangle class:\n- Create an __init__() constructor method that accepts self, base, and height, and initializes instance attributes for base and height.\n- Create an instance method named get_area(self) that computes and returns the area of the triangle using the formula (1/2 * self.base * self.height).\n3. Outside the class:\n- Take two integer inputs from the user and assign them to variables named base and height respectively.\n- Create an object of the Triangle class using the entered base and height values.\n- Call the get_area() method on the object to retrieve the calculated area.\n- Print the returned area value.",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: An integer representing base\nSecond line: An integer representing height",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single floating-point number representing the computed area.\n12.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n6\n4",
+          "format": "plain"
+        },
+        {
+          "id": "question-12-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nbase > 0, height > 0 (both are integers).\nThe class must be named Triangle and implement both __init__() and get_area().\nThe area must be returned by get_area() and printed outside the class.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-13",
+      "number": "3.4",
+      "title": "STEM Coding Challenge Round Score Analyzer",
+      "summary": "In an after-school computer science club, students compete in a five-round algorithmic puzzle tournament. To track individual participant performance, the tournament management software models each participant as an object of a Student clas",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-13-block-001",
+          "type": "paragraph",
+          "content": "Question 13 · Page 3.4\n\nSTEM Coding Challenge Round Score Analyzer",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an after-school computer science club, students compete in a five-round algorithmic puzzle tournament. To track individual participant performance, the tournament management software models each participant as an object of a Student class. This class stores a list of round scores and includes an instance method to compute the participant's overall average score using Python's built-in sum() and len() functions. Write an object-oriented program that defines this class, creates a student object initialized with a predefined score list, calculates the average score, and displays the result.",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\naverage = sum(scores) / len(scores)",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a class named Student.\n2. Inside the Student class:\n- Create an __init__() constructor method that accepts self and scores, and initializes an instance attribute named scores.\n- Create an instance method named get_scores_average(self) that calculates and returns the average of the items in self.scores using the built-in sum() and len() functions.\n3. Outside the class:\n- Create a list containing the integer items 60, 70, 80, 90, and 100, and assign it to a variable named scores.\n- Create an object of the Student class named s1, passing scores as its argument.\n- Call the get_scores_average() method using the s1 object, and store the returned value in a variable named average.\n- Print the average variable.",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single floating-point number representing the computed average score:\n80.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-007",
+          "type": "paragraph",
+          "content": "Sample Output\n\n80.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-13-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe class must be named Student.\nThe average must be computed inside get_scores_average() using sum() and len().\nThe list scores must contain the exact elements: [60, 70, 80, 90, 100].",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-14",
+      "number": "3.5",
+      "title": "Smart Device Hardware Component Composition Inspector",
+      "summary": "In a high school robotics and hardware design course, students learn how complex devices are assembled from modular hardware parts. Instead of combining everything into one massive blueprint, professional programmers use an object-oriented ",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-14-block-001",
+          "type": "paragraph",
+          "content": "Question 14 · Page 3.5\n\nSmart Device Hardware Component Composition Inspector",
+          "format": "plain"
+        },
+        {
+          "id": "question-14-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a high school robotics and hardware design course, students learn how complex devices are assembled from modular hardware parts. Instead of combining everything into one massive blueprint, professional programmers use an object-oriented technique called composition, where an object of one class is created inside another class. In this mobile hardware model, a Phone object contains its own internal Battery object. When a new phone is manufactured, its constructor automatically equips it with a battery rated at 5000 mAh capacity. Write an object-oriented program that defines both classes, constructs a phone with its internal battery component, and displays the battery capacity.",
+          "format": "plain"
+        },
+        {
+          "id": "question-14-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a class named Battery:\n- Create an __init__() constructor method that takes self and capacity, and initializes an instance attribute named capacity.\n2. Define a class named Phone:\n- Create an __init__() constructor method that takes self and model, and initializes an instance attribute named model.\n- Inside the __init__() method of Phone, create an object of the Battery class with a capacity of 5000 and assign it to an instance attribute named battery.\n- Create an instance method named get_capacity(self) that prints the capacity attribute of the internal battery object (self.battery.capacity).\n3. Outside both classes:\n- Create an object of the Phone class with the model attribute set to \"Galaxy\".\n- Call the get_capacity() method on this phone object.",
+          "format": "plain"
+        },
+        {
+          "id": "question-14-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-14-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the capacity of the battery object:\n5000",
+          "format": "plain"
+        },
+        {
+          "id": "question-14-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\n5000",
+          "format": "plain"
+        },
+        {
+          "id": "question-14-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe classes must be named Battery and Phone.\nThe battery attribute of Phone must be assigned an instance of Battery initialized with 5000.\nThe output must be generated by calling get_capacity() on the Phone instance.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-15",
+      "number": "3.6",
+      "title": "Autonomous Transportation Fleet Inheritance Simulator",
+      "summary": "In a junior robotics automotive simulation, vehicles share core operating systems through object-oriented inheritance. A general base class models common vehicle features like power ignition, while specialized child classes represent specif",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-15-block-001",
+          "type": "paragraph",
+          "content": "Question 15 · Page 3.6\n\nAutonomous Transportation Fleet Inheritance Simulator",
+          "format": "plain"
+        },
+        {
+          "id": "question-15-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a junior robotics automotive simulation, vehicles share core operating systems through object-oriented inheritance. A general base class models common vehicle features like power ignition, while specialized child classes represent specific vehicle types like electric passenger cars. Because the child class inherits all methods from its parent class, an instance of the derived class can directly execute actions defined in the base class without needing to rewrite any code. Write an object-oriented program that defines a base Vehicle class and an inheriting Car class, instantiates a Car object, and calls the inherited starting method.",
+          "format": "plain"
+        },
+        {
+          "id": "question-15-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a base class named Vehicle:\n- Inside Vehicle, create an instance method named start(self) that prints:\nVehicle can start\n2. Define a derived class named Car that inherits from Vehicle:\n- Inside Car, create an instance method named drive(self) that prints:\nCar can drive\n3. Outside the classes:\n- Create an object of the Car class.\n- Call the start() method using this Car object.",
+          "format": "plain"
+        },
+        {
+          "id": "question-15-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-15-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the message from the base class method:\nVehicle can start",
+          "format": "plain"
+        },
+        {
+          "id": "question-15-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\nVehicle can start",
+          "format": "plain"
+        },
+        {
+          "id": "question-15-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe base class must be named Vehicle and contain start().\nThe derived class must be named Car, inherit from Vehicle, and contain drive().\nThe call to start() must be executed directly through the instantiated Car object.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-16",
+      "number": "3.7",
+      "title": "Smart Rover Ignition Delegation System",
+      "summary": "In an autonomous robotics laboratory, students program an intelligent ground rover fleet using object-oriented inheritance. When a specialized electric car model boots up, its ignition sequence needs to trigger the underlying core power sys",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-16-block-001",
+          "type": "paragraph",
+          "content": "Question 16 · Page 3.7\n\nSmart Rover Ignition Delegation System",
+          "format": "plain"
+        },
+        {
+          "id": "question-16-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an autonomous robotics laboratory, students program an intelligent ground rover fleet using object-oriented inheritance. When a specialized electric car model boots up, its ignition sequence needs to trigger the underlying core power systems defined in the parent vehicle framework before running any custom checks. In Python, when a child class overrides a method that already exists in its parent class, it can still invoke the parent's version using the built-in super() function. Write an object-oriented program that defines a base Vehicle class and a child Car class, uses super() inside the child class's start method to trigger the parent class startup procedure, and executes the sequence.",
+          "format": "plain"
+        },
+        {
+          "id": "question-16-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a base class named Vehicle:\n- Inside Vehicle, create an instance method named start(self) that prints:\nVehicle is starting\n2. Define a derived class named Car that inherits from Vehicle:\n- Inside Car, create an instance method named drive(self) that prints:\nI can drive\n- Inside Car, create an instance method named start(self).\n- Inside this Car.start(self) method, call the parent class's start() method using the super() function.\n3. Outside the classes:\n- Create an object of the Car class.\n- Call the start() method using this Car object.",
+          "format": "plain"
+        },
+        {
+          "id": "question-16-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-16-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the message produced by the base class start method:\nVehicle is starting",
+          "format": "plain"
+        },
+        {
+          "id": "question-16-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\nVehicle is starting",
+          "format": "plain"
+        },
+        {
+          "id": "question-16-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe base class must be named Vehicle and the derived class must be named Car.\nCar must inherit from Vehicle.\nCar.start() must explicitly invoke Vehicle.start() using super().start().",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-17",
+      "number": "3.8",
+      "title": "STEM Robotics Arena Floor Boundary and Surface Calculator",
+      "summary": "In an after-school junior robotics league, students construct rectangular competition arenas for autonomous obstacle courses. Before laying down sensory guide tape along the outer border and protective rubber tiling across the floor, the fi",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-17-block-001",
+          "type": "paragraph",
+          "content": "Question 17 · Page 3.8\n\nSTEM Robotics Arena Floor Boundary and Surface Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "question-17-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an after-school junior robotics league, students construct rectangular competition arenas for autonomous obstacle courses. Before laying down sensory guide tape along the outer border and protective rubber tiling across the floor, the field management software needs to calculate both the floor area and total perimeter boundary. The system models the arena layout using an object-oriented Rectangle class equipped with methods to compute both metrics. Write a program that reads the arena dimensions from the user, creates a Rectangle object, and prints the computed area and perimeter.\nFormulas:\nArea = length * width\nPerimeter = 2 * (length + width)",
+          "format": "plain"
+        },
+        {
+          "id": "question-17-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a class named Rectangle:\n- Create an __init__() constructor method that accepts self, length, and width, and initializes them as instance attributes.\n- Create an instance method named compute_area(self) that calculates and returns the area of the rectangle.\n- Create an instance method named compute_perimeter(self) that calculates and returns the perimeter of the rectangle.\n2. Outside the class:\n- Take two integer inputs from the user representing length and width respectively.\n- Create an object of the Rectangle class by passing length and width as arguments.\n- Call the compute_area() method on the object and print the returned area on the first line.\n- Call the compute_perimeter() method on the object and print the returned perimeter on the second line.",
+          "format": "plain"
+        },
+        {
+          "id": "question-17-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: An integer representing length\nSecond line: An integer representing width",
+          "format": "plain"
+        },
+        {
+          "id": "question-17-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nTwo lines total:\nLine 1: An integer representing the computed area\nLine 2: An integer representing the computed perimeter\n15\n16",
+          "format": "plain"
+        },
+        {
+          "id": "question-17-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n5\n3",
+          "format": "plain"
+        },
+        {
+          "id": "question-17-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nlength > 0, width > 0 (both are integers).\nThe class must be named Rectangle and implement __init__(), compute_area(), and compute_perimeter().\nBoth compute_area() and compute_perimeter() must return their calculated values to be printed outside the class.\n4: Exception Handling",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

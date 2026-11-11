@@ -1,6 +1,8 @@
 // Only artwork with an unambiguous match to an existing Course is listed here.
 const COURSE_CARD_ARTWORK = Object.freeze({
   python: '/assets/course-cards/python-basics.webp',
+  'python-basics-practice': '/assets/course-cards/python-basics-practice.png',
+  'python-intermediate-practice': '/assets/course-cards/python-intermediate-practice.png',
   java: '/assets/course-cards/java-basics.webp',
   'practical-git-and-github': '/assets/course-cards/git.webp',
   'ai-prompt-tutorial': '/assets/course-cards/ai-prompt-tutorial.webp',

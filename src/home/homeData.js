@@ -20,6 +20,8 @@ const domainNames = [
 
 const languageNames = [
   'Python',
+  'Python Basics Practice',
+  'Python Intermediate Practice',
   'Java',
   'C++',
   'JavaScript',
@@ -41,6 +43,24 @@ const courseDetails = {
     level: 'Beginner',
     duration: '12h 32m',
     lessonCount: 109,
+    available: true,
+  },
+  'Python Basics Practice': {
+    id: 'python-basics-practice',
+    title: 'Python Basics Practice',
+    description: 'Practice beginner Python programming with one focused question per lesson.',
+    level: 'Beginner',
+    duration: '7h 36m',
+    lessonCount: 57,
+    available: true,
+  },
+  'Python Intermediate Practice': {
+    id: 'python-intermediate-practice',
+    title: 'Python Intermediate Practice',
+    description: 'Practice intermediate Python, object-oriented programming, and exception handling.',
+    level: 'Intermediate',
+    duration: '3h 20m',
+    lessonCount: 20,
     available: true,
   },
   Java: {

@@ -3,7 +3,12 @@ export const COURSE_SOURCES = Object.freeze({
   legacy: 'legacy',
 });
 
-const knownLegacyCourseIds = new Set(['python', 'java']);
+const knownLegacyCourseIds = new Set([
+  'python',
+  'java',
+  'python-basics-practice',
+  'python-intermediate-practice',
+]);
 
 export function getCourseSource(courseId) {
   return knownLegacyCourseIds.has(String(courseId ?? '')) ? COURSE_SOURCES.legacy : null;

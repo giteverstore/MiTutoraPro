@@ -208,6 +208,12 @@
   gap: clamp(var(--space-7), 3vw, var(--space-10));
 }
 
+.home-dashboard-aside {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-5);
+}
+
 .home-dashboard-primary>.home-section {
   min-width: 0;
   margin-bottom: 0;
@@ -238,6 +244,115 @@
   border: 1px solid #d3dce6;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xs);
+}
+
+.coming-soon-carousel {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #d3dce6;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  isolation: isolate;
+}
+
+.coming-soon-carousel__viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.coming-soon-carousel__track {
+  display: flex;
+  width: 100%;
+  transform: translateX(calc(var(--coming-soon-slide) * -100%));
+  transition: transform 500ms ease;
+  will-change: transform;
+}
+
+.coming-soon-carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.coming-soon-carousel__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1212 / 1297;
+  object-fit: contain;
+  user-select: none;
+}
+
+.coming-soon-carousel__arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, white 45%, transparent);
+  border-radius: var(--radius-full);
+  color: white;
+  background: color-mix(in srgb, black 42%, transparent);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.coming-soon-carousel__arrow:hover {
+  background: color-mix(in srgb, black 60%, transparent);
+}
+
+.coming-soon-carousel__arrow:focus-visible,
+.coming-soon-carousel__dots button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.coming-soon-carousel__arrow--previous { left: var(--space-2); }
+.coming-soon-carousel__arrow--next { right: var(--space-2); }
+
+.coming-soon-carousel__dots {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: var(--space-3);
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.coming-soon-carousel__dots button {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, white 50%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, black 18%, transparent);
+  cursor: pointer;
+  transition: width 200ms ease, background-color 200ms ease;
+}
+
+.coming-soon-carousel__dots button[aria-pressed="true"] {
+  width: 1.25rem;
+  background: white;
+}
+
+[data-theme="dark"] .coming-soon-carousel {
+  border-color: var(--color-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coming-soon-carousel__track,
+  .coming-soon-carousel__dots button {
+    transition: none;
+  }
 }
 
 .challenge-calendar-redeem {
@@ -1496,18 +1611,6 @@
   fill: var(--color-border);
 }
 
-@media (min-width: 1360px) {
-  .home-dashboard-grid {
-    grid-template-areas: "statistics calendar" "continue calendar" "recent recent";
-  }
-
-  .home-dashboard-primary { display: contents; }
-  .home-dashboard-grid .home-statistics { grid-area: statistics; }
-  .home-dashboard-grid .home-continue { grid-area: continue; }
-  .home-dashboard-grid .home-recent { grid-area: recent; }
-  .home-dashboard-grid .challenge-calendar-card { grid-area: calendar; }
-}
-
 .home-course-empty {
   display: grid;
   min-height: 0;
@@ -1707,31 +1810,15 @@
 
 @media (max-width: 1359px) {
   .home-dashboard-grid {
-    grid-template: "statistics" auto "calendar" auto "continue" auto "recent" auto / minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-8);
   }
 
   .home-dashboard-primary {
-    display: contents;
+    display: grid;
   }
 
-  .home-statistics {
-    grid-area: statistics;
-  }
-
-  .home-continue {
-    grid-area: continue;
-  }
-
-  .home-recent {
-    grid-area: recent;
-  }
-
-  .challenge-calendar-card {
-    grid-area: calendar;
-  }
-
-  .challenge-calendar-card {
+  .home-dashboard-aside {
     width: min(100%, 32rem);
   }
 
@@ -1771,6 +1858,10 @@
   .home-page-label,
   .home-profile div {
     display: none;
+  }
+
+  .home-dashboard-aside {
+    width: 100%;
   }
 
   .home-main {

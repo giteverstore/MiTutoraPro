@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import React from 'react';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../src/auth/AuthService', () => ({ authService: {} }));
@@ -25,15 +25,31 @@ describe('M4.2 subscription plan actions', () => {
     expect(window.location.search).toBe('?section=subscription');
   });
 
-  it('renders all canonical plan CTAs as one-time production purchase actions', async () => {
+  it('renders Free, toggle-driven Premium, and Enterprise cards with the requested pricing', async () => {
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} repositoryFactory={() => ({ getCurrent: async () => free })} />);
     expect(subscriptionPlanPresentation.map(({ planId }) => planId)).toEqual(['monthly', 'half_yearly', 'annual']);
     expect(await screen.findByText('Free', { selector: 'strong' })).toBeTruthy();
     expect(screen.getByText('No active Premium subscription')).toBeTruthy();
     expect(screen.queryByText('Subscription status is unavailable.')).toBeNull();
-    expect(screen.getAllByRole('button', { name: 'Buy Premium' })).toHaveLength(3);
-    screen.getAllByRole('button', { name: 'Buy Premium' }).forEach((button) => expect(button.disabled).toBe(false));
-    expect(screen.getAllByText('Secure one-time payment. No auto-renewal.')).toHaveLength(3);
+    expect(screen.getAllByRole('article')).toHaveLength(3);
+    expect(screen.getByRole('button', { name: 'Buy Premium' }).disabled).toBe(false);
+    expect(screen.getByRole('button', { name: 'Contact Sales' }).disabled).toBe(true);
+    expect(screen.getByText('Secure one-time payment. No auto-renewal.')).toBeTruthy();
+    expect(screen.getByText('₹11,988').tagName).toBe('DEL');
+    expect(screen.getByText('₹1,999')).toBeTruthy();
+    expect(screen.getByText('83% OFF')).toBeTruthy();
+    expect(screen.getByText('BEST VALUE')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '6 Months' }));
+    expect(screen.getByRole('button', { name: '6 Months' }).getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByText('₹5,994').tagName).toBe('DEL');
+    expect(screen.getByText('₹1,499')).toBeTruthy();
+    expect(screen.getByText('75% OFF')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Monthly' }));
+    expect(screen.getByText('₹999')).toBeTruthy();
+    expect(screen.queryByText(/% OFF/)).toBeNull();
+    const freeCard = screen.getByRole('heading', { name: 'Free' }).closest('article');
+    expect(within(freeCard).queryByText('Certificates')).toBeNull();
+    expect(within(freeCard).queryByText('AI Tutor')).toBeNull();
     expect(screen.getByRole('link', { name: 'Terms' }).getAttribute('href')).toBe('/terms');
     expect(screen.getByRole('link', { name: 'Refund Policy' }).getAttribute('href')).toBe('/refund-policy');
   });
@@ -45,15 +61,19 @@ describe('M4.2 subscription plan actions', () => {
     const getCurrent = vi.fn().mockResolvedValueOnce(free).mockResolvedValueOnce(premium);
     render(<SubscriptionPanel developmentGrantsEnabled currentUser={user} tokenProvider={async () => 'emulator-token'} repositoryFactory={() => ({ getCurrent })} fetchImpl={fetchImpl} />);
     await screen.findByText('Free', { selector: 'strong' });
-    const buttons = screen.getAllByRole('button', { name: 'Get Premium' });
-    fireEvent.click(buttons[0]);
-    fireEvent.click(buttons[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Monthly' }));
+    const button = screen.getByRole('button', { name: 'Get Premium' });
+    fireEvent.click(button);
+    fireEvent.click(button);
     await waitFor(() => expect(fetchImpl).toHaveBeenCalledTimes(1));
     expect(screen.getByRole('button', { name: /Granting/ }).disabled).toBe(true);
     expect(screen.getByText('Free', { selector: 'strong' })).toBeTruthy();
     release({ ok: true });
     expect(await screen.findByText('Premium', { selector: 'strong' })).toBeTruthy();
     expect(screen.getByText(/Current plan: monthly .* expires/)).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Current Plan' }).disabled).toBe(true);
+    fireEvent.click(screen.getByRole('button', { name: 'Annual' }));
+    expect(screen.getByRole('button', { name: 'Get Premium' }).disabled).toBe(false);
     const request = JSON.parse(fetchImpl.mock.calls[0][1].body);
     expect(request).toEqual({ planId: 'monthly', requestId: 'request-ui-idempotency-0001' });
     expect(fetchImpl.mock.calls[0][1].headers).toEqual({ Authorization: 'Bearer emulator-token', 'Content-Type': 'application/json' });
@@ -63,7 +83,7 @@ describe('M4.2 subscription plan actions', () => {
   it('keeps development-grant missing auth sanitized and suppresses fetch', async () => {
     const fetchImpl = vi.fn();
     render(<SubscriptionPanel developmentGrantsEnabled currentUser={user} tokenProvider={async () => null} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Get Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Get Premium' }));
     expect((await screen.findByRole('alert')).textContent).toBe('The development grant was rejected.');
     expect(fetchImpl).not.toHaveBeenCalled();
   });
@@ -77,7 +97,8 @@ describe('M4.2 subscription plan actions', () => {
     const open = vi.fn();
     class Checkout { constructor(options) { checkoutOptions = options; } open() { open(); } }
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Monthly' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     await waitFor(() => expect(checkoutOptions).toBeTruthy());
     expect(open).toHaveBeenCalledOnce();
     expect(screen.getByText('Free', { selector: 'strong' })).toBeTruthy();
@@ -91,7 +112,7 @@ describe('M4.2 subscription plan actions', () => {
   it('does not request an order when Checkout script loading fails', async () => {
     const fetchImpl = vi.fn(); const tokenProvider = vi.fn(); const logger = { warn: vi.fn() };
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={tokenProvider} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => { throw new Error('blocked'); }} logger={logger} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     const alert = await screen.findByRole('alert');
     expect(alert.dataset.paymentFailureCategory).toBe('CHECKOUT_SCRIPT_LOAD_FAILED');
     expect(alert.textContent).toBe('Checkout could not be started. No payment was confirmed.');
@@ -103,7 +124,7 @@ describe('M4.2 subscription plan actions', () => {
   it('does not request an order when Checkout global is unavailable', async () => {
     const fetchImpl = vi.fn(); const tokenProvider = vi.fn();
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={tokenProvider} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => undefined} logger={{ warn: vi.fn() }} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('CHECKOUT_GLOBAL_UNAVAILABLE');
     expect(tokenProvider).not.toHaveBeenCalled();
     expect(fetchImpl).not.toHaveBeenCalled();
@@ -112,7 +133,7 @@ describe('M4.2 subscription plan actions', () => {
   it('does not request an order when Firebase token acquisition fails', async () => {
     const fetchImpl = vi.fn(); const Checkout = vi.fn();
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => { throw new Error('private auth detail'); }} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('AUTH_TOKEN_FAILED');
     expect(fetchImpl).not.toHaveBeenCalled();
     expect(Checkout).not.toHaveBeenCalled();
@@ -123,7 +144,7 @@ describe('M4.2 subscription plan actions', () => {
     const logger = { warn: vi.fn() };
     const fetchImpl = vi.fn(async () => ({ ok: false, status: 503, json: async () => ({ error: { code: 'payment/unavailable' } }) }));
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={logger} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_HTTP_FAILED');
     expect(fetchImpl).toHaveBeenCalledOnce();
     expect(Checkout).not.toHaveBeenCalled();
@@ -136,7 +157,7 @@ describe('M4.2 subscription plan actions', () => {
     vi.stubGlobal('crypto', {});
     const Checkout = vi.fn(); const fetchImpl = vi.fn();
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_REQUEST_ID_FAILED');
     expect(fetchImpl).not.toHaveBeenCalled();
     expect(Checkout).not.toHaveBeenCalled();
@@ -146,7 +167,7 @@ describe('M4.2 subscription plan actions', () => {
     const Checkout = vi.fn(); const logger = { warn: vi.fn() };
     const fetchImpl = vi.fn(async () => { throw Object.assign(new Error('private detail'), { name: 'TypeError' }); });
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={logger} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_TRANSPORT_FAILED');
     expect(logger.warn).toHaveBeenCalledWith('payment-checkout-failure', {
       category: 'ORDER_TRANSPORT_FAILED', endpoint: '/api/payments/orders', method: 'POST', exceptionName: 'TypeError',
@@ -158,14 +179,14 @@ describe('M4.2 subscription plan actions', () => {
     const Checkout = vi.fn();
     const fetchImpl = vi.fn(async () => ({ ok: true, json: async () => ({ providerOrderId: 'order_12345678' }) }));
     render(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={user} tokenProvider={async () => 'firebase-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={fetchImpl} checkoutLoader={async () => Checkout} logger={{ warn: vi.fn() }} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Buy Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Buy Premium' }));
     expect((await screen.findByRole('alert')).dataset.paymentFailureCategory).toBe('ORDER_RESPONSE_INVALID');
     expect(Checkout).not.toHaveBeenCalled();
   });
 
   it('keeps FREE on grant or entitlement-read failure', async () => {
     const { rerender } = render(<SubscriptionPanel developmentGrantsEnabled currentUser={user} tokenProvider={async () => 'emulator-token'} repositoryFactory={() => ({ getCurrent: async () => free })} fetchImpl={async () => ({ ok: false })} />);
-    fireEvent.click((await screen.findAllByRole('button', { name: 'Get Premium' }))[0]);
+    fireEvent.click(await screen.findByRole('button', { name: 'Get Premium' }));
     expect((await screen.findByRole('alert')).textContent).toContain('rejected');
     expect(screen.getByText('Free', { selector: 'strong' })).toBeTruthy();
     rerender(<SubscriptionPanel developmentGrantsEnabled={false} currentUser={{ uid: 'another-user' }} repositoryFactory={() => ({ getCurrent: async () => { throw new Error('unavailable'); } })} />);

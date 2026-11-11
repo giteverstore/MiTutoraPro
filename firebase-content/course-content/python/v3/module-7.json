@@ -1,0 +1,39 @@
+{
+  "id": "module-7",
+  "title": "Final Assessment",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-7-1-python-fundamentals-test",
+      "number": "7.1",
+      "title": "Python Fundamentals Test",
+      "summary": "Python Fundamentals Test",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "blocks": [
+        {
+          "id": "lesson-7-1-python-fundamentals-test-content",
+          "type": "paragraph",
+          "content": "Python Fundamentals Test",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-7-2-course-completion-and-certificate",
+      "number": "7.2",
+      "title": "Course Completion and Certificate",
+      "summary": "Module 7: Final Assessment\n7.1 Python Fundamentals Test\n7.2 Course Completion and Certificate",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "blocks": [
+        {
+          "id": "lesson-7-2-course-completion-and-certificate-block-001",
+          "type": "paragraph",
+          "content": "Module 7: Final Assessment\n7.1 Python Fundamentals Test\n7.2 Course Completion and Certificate",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

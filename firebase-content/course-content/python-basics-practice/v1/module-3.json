@@ -1,0 +1,487 @@
+{
+  "id": "module-4",
+  "title": "Functions",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "question-28",
+      "number": "4.1",
+      "title": "High Altitude Drone Pilot Certification Validator",
+      "summary": "At an aerial robotics training academy, students can apply to fly advanced high-altitude observation drones only if they meet the required minimum flight crew age of 18 years. Write a program using a custom function to check whether an appl",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-28-block-001",
+          "type": "paragraph",
+          "content": "Question 28 · Page 4.1\n\nHigh Altitude Drone Pilot Certification Validator",
+          "format": "plain"
+        },
+        {
+          "id": "question-28-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nAt an aerial robotics training academy, students can apply to fly advanced high-altitude observation drones only if they meet the required minimum flight crew age of 18 years. Write a program using a custom function to check whether an applicant qualifies for the high-altitude certificate.",
+          "format": "plain"
+        },
+        {
+          "id": "question-28-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named check_eligibility(age) that takes a single parameter named age.\n2. Inside the function:\n- Check if age is greater than or equal to 18.\n- If age is greater than or equal to 18, print \"Eligible\".\n- Otherwise, print \"Not Eligible\".\n3. Outside the function (in the main program):\n- Take an integer input for the applicant's age and store it in applicant_age.\n- Call the function check_eligibility(applicant_age) by passing applicant_age as the argument.",
+          "format": "plain"
+        },
+        {
+          "id": "question-28-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing applicant_age.",
+          "format": "plain"
+        },
+        {
+          "id": "question-28-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nPrint \"Eligible\" if the applicant is 18 or older, otherwise print \"Not Eligible\".\nEligible",
+          "format": "plain"
+        },
+        {
+          "id": "question-28-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n20",
+          "format": "plain"
+        },
+        {
+          "id": "question-28-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\napplicant_age > 0",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-29",
+      "number": "4.2",
+      "title": "Esports Duo Jersey Number Uniqueness Check",
+      "summary": "In a school esports tournament, two teammates on a duo team must choose different jersey numbers so the match referee can tell them apart on stream. Write a program using a custom function that receives two jersey numbers and returns True i",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-29-block-001",
+          "type": "paragraph",
+          "content": "Question 29 · Page 4.2\n\nEsports Duo Jersey Number Uniqueness Check",
+          "format": "plain"
+        },
+        {
+          "id": "question-29-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a school esports tournament, two teammates on a duo team must choose different jersey numbers so the match referee can tell them apart on stream. Write a program using a custom function that receives two jersey numbers and returns True if they are different, or False if they match.",
+          "format": "plain"
+        },
+        {
+          "id": "question-29-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named is_different(num1, num2) that accepts two arguments.\n2. Inside the function:\n- Check if num1 and num2 are not equal.\n- If they are different, return True.\n- Otherwise, return False.\n3. Outside the function (in the main program):\n- Take two integer inputs from the user and store them in jersey1 and jersey2.\n- Call is_different(jersey1, jersey2) by passing the two inputs as arguments.\n- Print the boolean value returned by the function.",
+          "format": "plain"
+        },
+        {
+          "id": "question-29-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: An integer representing jersey1\nSecond line: An integer representing jersey2",
+          "format": "plain"
+        },
+        {
+          "id": "question-29-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single boolean value (True if the numbers are different, or False if they are identical).\nTrue",
+          "format": "plain"
+        },
+        {
+          "id": "question-29-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n10\n20",
+          "format": "plain"
+        },
+        {
+          "id": "question-29-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\njersey1 and jersey2 are integers.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-30",
+      "number": "4.3",
+      "title": "Robotics Arena Match Start Chime",
+      "summary": "At the school robotics competition arena, an automated announcer system sounds a standard digital cheer message right before each round kicks off. To make sure every team in the pit area hears the announcement clearly, the system runs a cus",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-30-block-001",
+          "type": "paragraph",
+          "content": "Question 30 · Page 4.3\n\nRobotics Arena Match Start Chime",
+          "format": "plain"
+        },
+        {
+          "id": "question-30-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nAt the school robotics competition arena, an automated announcer system sounds a standard digital cheer message right before each round kicks off. To make sure every team in the pit area hears the announcement clearly, the system runs a custom function twice in a row. Write a program that defines a function to print the arena cheer message and calls that function two times.",
+          "format": "plain"
+        },
+        {
+          "id": "question-30-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named cheer_message() that takes no arguments.\n2. Inside the function, print:\nReady Set Code\n3. Outside the function (in the main program), call cheer_message() two times in a row.",
+          "format": "plain"
+        },
+        {
+          "id": "question-30-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-30-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nTwo lines, each displaying the exact message printed by calling the function.\nReady Set Code\nReady Set Code",
+          "format": "plain"
+        },
+        {
+          "id": "question-30-block-006",
+          "type": "paragraph",
+          "content": "Constraints\n\nThe message must be printed by invoking the function twice, not by writing two separate print statements in the main program.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-31",
+      "number": "4.4",
+      "title": "Esports Player Tag and Handle Formatter",
+      "summary": "At the school gaming championship, each competitor registers their squad clan tag and their personal in-game handle. The tournament broadcast overlay uses a custom function to join these two details into a single badge line separated by a s",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-31-block-001",
+          "type": "paragraph",
+          "content": "Question 31 · Page 4.4\n\nEsports Player Tag and Handle Formatter",
+          "format": "plain"
+        },
+        {
+          "id": "question-31-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nAt the school gaming championship, each competitor registers their squad clan tag and their personal in-game handle. The tournament broadcast overlay uses a custom function to join these two details into a single badge line separated by a space. Write a program using a function to format and print a player's complete tournament tag.",
+          "format": "plain"
+        },
+        {
+          "id": "question-31-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named display_player_tag(clan_tag, player_handle) that takes two arguments: clan_tag and player_handle.\n2. Inside the function, print clan_tag and player_handle on a single line with a single space between them.\n3. Outside the function (in the main program):\n- Take a string input for the clan tag and store it in tag_name.\n- Take a string input for the player handle and store it in handle_name.\n- Call display_player_tag(tag_name, handle_name) by passing both variables as arguments.",
+          "format": "plain"
+        },
+        {
+          "id": "question-31-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: A string representing tag_name\nSecond line: A string representing handle_name",
+          "format": "plain"
+        },
+        {
+          "id": "question-31-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line containing both strings separated by a space.\nBengaluru Karnataka",
+          "format": "plain"
+        },
+        {
+          "id": "question-31-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\nBengaluru\nKarnataka",
+          "format": "plain"
+        },
+        {
+          "id": "question-31-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nInput strings can contain alphanumeric characters and common symbols.\nThe function must print the two strings separated by exactly one space.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-32",
+      "number": "4.5",
+      "title": "Space Agency Radio Frequency Security Validator",
+      "summary": "In a youth aerospace coding challenge, students write an automated frequency checker for satellite communication links. A transmission frequency number is considered \"secure\" (a prime number) if it is greater than 1 and cannot be split into",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-32-block-001",
+          "type": "paragraph",
+          "content": "Question 32 · Page 4.5\n\nSpace Agency Radio Frequency Security Validator",
+          "format": "plain"
+        },
+        {
+          "id": "question-32-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a youth aerospace coding challenge, students write an automated frequency checker for satellite communication links. A transmission frequency number is considered \"secure\" (a prime number) if it is greater than 1 and cannot be split into equal whole segments by any number other than 1 and itself. Write a program using a custom function to test whether an entered frequency number is prime.",
+          "format": "plain"
+        },
+        {
+          "id": "question-32-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named check_prime(number) that accepts a single parameter named number.\n2. Inside the function:\n- Create an integer variable named flag and set it to 0.\n- Run a loop starting from 2 up to number - 1.\n- In each step of the loop, check if number is evenly divisible by the current loop counter (number % i == 0).\n- If it is evenly divisible, set flag to 1.\n- After the loop finishes, check the value of flag:\n- If flag is equal to 1, print \"Not a Prime Number\".\n- Otherwise, print \"Prime Number\".\n3. Outside the function (in the main program):\n- Take an integer input for the frequency number and store it in number.\n- Call the function check_prime(number) by passing number as the argument.",
+          "format": "plain"
+        },
+        {
+          "id": "question-32-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing number (where number > 1).",
+          "format": "plain"
+        },
+        {
+          "id": "question-32-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nPrint \"Prime Number\" if the number is prime, or \"Not a Prime Number\" if it has any divisor in the range.\nPrime Number",
+          "format": "plain"
+        },
+        {
+          "id": "question-32-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n7",
+          "format": "plain"
+        },
+        {
+          "id": "question-32-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumber > 1\nThe primality testing and message printing must be performed inside the function check_prime().",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-33",
+      "number": "4.6",
+      "title": "Robotics Arena Solar Tile Surface Area Calculator",
+      "summary": "In a junior engineering competition, students build a solar-powered rover track covered with square solar floor tiles. The energy monitoring system uses a custom function to calculate the surface area of each square tile given the length of",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-33-block-001",
+          "type": "paragraph",
+          "content": "Question 33 · Page 4.6\n\nRobotics Arena Solar Tile Surface Area Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a junior engineering competition, students build a solar-powered rover track covered with square solar floor tiles. The energy monitoring system uses a custom function to calculate the surface area of each square tile given the length of one side. Write a program using a function with a return value to calculate and print the square tile's surface area.",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nArea = side_length * side_length",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named calculate_square(arg1) that takes one parameter named arg1.\n2. Inside the function, calculate the square of arg1 and return the result.\n3. Outside the function (in the main program):\n- Take an integer input for the tile side length and store it in num.\n- Call calculate_square(num) by passing num as the argument.\n- Print the value returned by the function.",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing num.",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single integer representing the square of the input value.\n36",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n6",
+          "format": "plain"
+        },
+        {
+          "id": "question-33-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nnum >= 0\nThe calculation must be returned by the function calculate_square and printed from the main program.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-34",
+      "number": "4.7",
+      "title": "Esports Tournament Badge Profile Display",
+      "summary": "At the regional junior esports league, the match registration system generates digital player profiles. Each profile requires a pilot name and their assigned gaming guild. The system uses a dedicated function to print both pieces of informa",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-34-block-001",
+          "type": "paragraph",
+          "content": "Question 34 · Page 4.7\n\nEsports Tournament Badge Profile Display",
+          "format": "plain"
+        },
+        {
+          "id": "question-34-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nAt the regional junior esports league, the match registration system generates digital player profiles. Each profile requires a pilot name and their assigned gaming guild. The system uses a dedicated function to print both pieces of information on separate lines. Write a program that uses a function to display a fixed lead pilot's name alongside their entered guild name.",
+          "format": "plain"
+        },
+        {
+          "id": "question-34-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\nStep 1:\n- Create a function named display_profile(player_name, guild_name).\n- Inside the function, print player_name and guild_name on two separate lines.\nStep 2:\nOutside of the function (in the main program):\n- Take a string input from the user and store it in guild_name.\n- Call the display_profile() function by passing the literal string \"Alex\" as the first argument and the guild_name variable as the second argument.",
+          "format": "plain"
+        },
+        {
+          "id": "question-34-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nA single string representing guild_name.",
+          "format": "plain"
+        },
+        {
+          "id": "question-34-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nFirst line: Alex\nSecond line: The string entered for guild_name\nAlex\nOxford",
+          "format": "plain"
+        },
+        {
+          "id": "question-34-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\nOxford",
+          "format": "plain"
+        },
+        {
+          "id": "question-34-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nguild_name is a non-empty string.\nThe function display_profile must accept exactly two arguments and print each on a new line.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-35",
+      "number": "4.8",
+      "title": "Science Fair Domino Chain Reaction Counter",
+      "summary": "In a STEM club physics experiment, students arrange rows of colorful domino tiles for an energy transfer demonstration. The first row has 1 domino, the second row has 2 dominoes, the third row has 3 dominoes, and so on, continuing all the w",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-35-block-001",
+          "type": "paragraph",
+          "content": "Question 35 · Page 4.8\n\nScience Fair Domino Chain Reaction Counter",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a STEM club physics experiment, students arrange rows of colorful domino tiles for an energy transfer demonstration. The first row has 1 domino, the second row has 2 dominoes, the third row has 3 dominoes, and so on, continuing all the way up to row n. The club needs a program with a dedicated function to calculate and return the total number of dominoes needed for all n rows combined.",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nTotal = 1 + 2 + 3 + ... + n",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named find_sum(n) that accepts a single parameter named n.\n2. Inside the function:\n- Calculate the sum of all whole numbers from 1 to n (using a loop accumulator or summation formula).\n- Return the calculated total.\n3. Outside the function (in the main program):\n- Take an integer input for the total number of rows and store it in number.\n- Call the function find_sum(number) by passing number as the argument.\n- Print the returned total value.",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing number.",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single integer representing the sum of all natural numbers from 1 up to number.\n45",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n9",
+          "format": "plain"
+        },
+        {
+          "id": "question-35-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumber >= 1\nThe summation must be calculated inside find_sum() and returned to the main program for printing.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-36",
+      "number": "4.9",
+      "title": "STEM Greenhouse Planter Bed Area Calculator",
+      "summary": "In an environmental science project, students build rectangular planter boxes for growing microgreens. Each planter box is built with a standard fixed width of 12.5 centimeters, while the length varies depending on the shelf space available",
+      "status": "available",
+      "estimatedMinutes": 8,
+      "blocks": [
+        {
+          "id": "question-36-block-001",
+          "type": "paragraph",
+          "content": "Question 36 · Page 4.9\n\nSTEM Greenhouse Planter Bed Area Calculator",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an environmental science project, students build rectangular planter boxes for growing microgreens. Each planter box is built with a standard fixed width of 12.5 centimeters, while the length varies depending on the shelf space available. The project tracker uses a dedicated function to calculate and return the total surface area of any planter bed.",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nArea = length * width",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named compute_area(length, width) that accepts two float parameters: length and width.\n2. Inside the function, multiply length by width to compute the area, and return the result.\n3. Outside the function (in the main program):\n- Take a float input for the length of the planter box and store it in length.\n- Create a float variable named width and assign it the value 12.5.\n- Call the function compute_area(length, width) by passing length and width as arguments.\n- Print the returned area value as a float.",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nA single float representing length.",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single float representing the computed surface area.\n210.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n16.8",
+          "format": "plain"
+        },
+        {
+          "id": "question-36-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nlength > 0.0\nwidth is fixed at 12.5\nThe area must be calculated inside compute_area() and returned to the caller.\n5: Collections",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

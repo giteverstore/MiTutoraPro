@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "python-intermediate-practice",
+  "slug": "python-intermediate-practice",
+  "title": "Python Intermediate Practice",
+  "description": "Intermediate Python programming practice with one programming question per lesson.",
+  "locale": "en",
+  "status": "published",
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "Y Coders"
+      }
+    ],
+    "level": "intermediate",
+    "estimatedMinutes": 200,
+    "tags": [
+      "python",
+      "practice",
+      "intermediate",
+      "oop",
+      "exceptions"
+    ],
+    "updatedAt": "2026-11-11T00:00:00.000Z"
+  },
+  "navigation": {
+    "defaultLessonId": "question-1",
+    "sequence": "module-order",
+    "skipLockedLessons": false,
+    "labels": {
+      "previous": "Previous Question",
+      "next": "Next Question",
+      "progress": "Course progress",
+      "currentLesson": "Current lesson"
+    }
+  },
+  "modules": [
+    {
+      "id": "module-2",
+      "title": "Write Pythonic Code",
+      "initiallyExpanded": true,
+      "lessons": [
+        {
+          "id": "question-1",
+          "number": "2.1",
+          "title": "Drone Delivery Package Weight Sorter",
+          "summary": "In a junior aerospace robotics challenge, an autonomous delivery drone scans a batch of incoming cargo parcels. The parcel weights in kilograms are recorded in a list: 15, 22, 31, 18, and 24. For a balanced dual-rotor test flight, the drone",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-2",
+          "number": "2.2",
+          "title": "Pixel Art Mosaic Square Grid Generator",
+          "summary": "In a junior digital art academy, students build square pixel patterns layer by layer. For an artwork containing n concentric tiers, the number of mosaic tiles needed for each tier corresponds to the square of its tier index (Tier 1 needs 1 ",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-3",
+          "number": "2.3",
+          "title": "STEM Physics Lab Solar Panel Area Lookup Table",
+          "summary": "In a middle school green energy workshop, students test square mini solar panels of varying edge dimensions measured in decimeters: 1, 2, 3, 4, and 5. To quickly calculate energy output, the monitoring computer builds a lookup table where e",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-4",
+          "number": "2.4",
+          "title": "Game Engine Instant Shield Power Multiplier",
+          "summary": "In an arcade obstacle game, a spaceship can activate a turbo shield whose defensive energy is calculated as the square of the power crystal level fed into it. The game engine uses an inline anonymous lambda function to rapidly compute this ",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-5",
+          "number": "2.5",
+          "title": "Dual Sensor Pulse Calibration Combiner",
+          "summary": "In an after-school electronics lab, students connect two optical distance sensors to an autonomous rover. Each sensor outputs a raw signal value, and the rover's guidance computer normalizes them by calculating the square root of each readi",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-6",
+          "number": "2.6",
+          "title": "Esports Arena Player Badge Profile Initializer",
+          "summary": "In a school esports tournament, new players register their profile at a digital check-in terminal. The terminal's badge generator uses a function that stores standard default information: if a player supplies their username but skips enteri",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-7",
+          "number": "2.7",
+          "title": "Robotics Wheel Speed Telemetry Logger",
+          "summary": "In a school autonomous vehicle laboratory, students test dual-motor drive wheels on a mini rover. The rover's diagnostic console includes a reporting function that prints motor rotational speeds for two test channels. In Python, programmers",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-8",
+          "number": "2.8",
+          "title": "Esports Quest Reward Token Accumulator",
+          "summary": "In an adventure role-playing video game, players complete various mini-challenges that reward bonus power tokens. Depending on the quest completed, a player might receive one, three, five, or any flexible number of reward bundles. The game'",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-9",
+          "number": "2.9",
+          "title": "STEM Innovation Club Member Profile Logger",
+          "summary": "In a high school science club, new student leaders are registered into a central database. Because different student roles require different profile tags (such as squad role, specialized skills, or grade level), the club's registration prog",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-3",
+      "title": "Python OOP",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-10",
+          "number": "3.1",
+          "title": "Esports Arena Gaming Workstation Spec Checker",
+          "summary": "In a middle school esports and digital design lab, students manage powerful gaming workstations for video editing and game programming. Each workstation is modeled as an object containing hardware specifications such as system memory (RAM i",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-11",
+          "number": "3.2",
+          "title": "Drone Flight Vector Coordinate Adder",
+          "summary": "In a school autonomous drone navigation project, flight paths are plotted on a 2D grid plane using (x, y) coordinates. When a drone completes an initial scouting hop and immediately performs a secondary relocation step, the flight computer ",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-12",
+          "number": "3.3",
+          "title": "Aeronautics Model Glider Triangular Wing Area Calculator",
+          "summary": "In an after-school junior rocketry and aeronautics club, students design lightweight balsa wood gliders. Each glider uses triangular stabilizing wing fins, and students need to calculate the wing's surface area to verify lift capability dur",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-13",
+          "number": "3.4",
+          "title": "STEM Coding Challenge Round Score Analyzer",
+          "summary": "In an after-school computer science club, students compete in a five-round algorithmic puzzle tournament. To track individual participant performance, the tournament management software models each participant as an object of a Student clas",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-14",
+          "number": "3.5",
+          "title": "Smart Device Hardware Component Composition Inspector",
+          "summary": "In a high school robotics and hardware design course, students learn how complex devices are assembled from modular hardware parts. Instead of combining everything into one massive blueprint, professional programmers use an object-oriented ",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-15",
+          "number": "3.6",
+          "title": "Autonomous Transportation Fleet Inheritance Simulator",
+          "summary": "In a junior robotics automotive simulation, vehicles share core operating systems through object-oriented inheritance. A general base class models common vehicle features like power ignition, while specialized child classes represent specif",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-16",
+          "number": "3.7",
+          "title": "Smart Rover Ignition Delegation System",
+          "summary": "In an autonomous robotics laboratory, students program an intelligent ground rover fleet using object-oriented inheritance. When a specialized electric car model boots up, its ignition sequence needs to trigger the underlying core power sys",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-17",
+          "number": "3.8",
+          "title": "STEM Robotics Arena Floor Boundary and Surface Calculator",
+          "summary": "In an after-school junior robotics league, students construct rectangular competition arenas for autonomous obstacle courses. Before laying down sensory guide tape along the outer border and protective rubber tiling across the floor, the fi",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "id": "module-4",
+      "title": "Exception Handling",
+      "initiallyExpanded": false,
+      "lessons": [
+        {
+          "id": "question-18",
+          "number": "4.1",
+          "title": "Robotics Lab Modular Component Slot Selector",
+          "summary": "In an after-school technology workshop, students store spare sensory parts in an automated storage carousel. The carousel has compartments organized by index holding four items: \"Apple\", \"Mango\", \"Banana\", and \"Orange\" (representing labeled",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-19",
+          "number": "4.2",
+          "title": "International Summit Capital City Registry Lookup",
+          "summary": "In a middle school Model United Nations conference, student delegates use an interactive computer terminal to quickly check national capital cities. The terminal stores a dictionary linking country names to their respective capitals: India ",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        },
+        {
+          "id": "question-20",
+          "number": "4.3",
+          "title": "Robotics Distance Offset Calibration Safeguard",
+          "summary": "In a middle school robotics navigation lab, students calibrate the laser rangefinders of their delivery rovers. The calibration program calculates the relative distance step by subtracting a secondary sensor reading (number2) from the prima",
+          "status": "available",
+          "estimatedMinutes": 10,
+          "blocks": []
+        }
+      ]
+    }
+  ],
+  "moduleFiles": [
+    "module-1.json",
+    "module-2.json",
+    "module-3.json"
+  ]
+}

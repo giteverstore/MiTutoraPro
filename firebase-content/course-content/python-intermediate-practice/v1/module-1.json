@@ -1,0 +1,487 @@
+{
+  "id": "module-2",
+  "title": "Write Pythonic Code",
+  "initiallyExpanded": true,
+  "lessons": [
+    {
+      "id": "question-1",
+      "number": "2.1",
+      "title": "Drone Delivery Package Weight Sorter",
+      "summary": "In a junior aerospace robotics challenge, an autonomous delivery drone scans a batch of incoming cargo parcels. The parcel weights in kilograms are recorded in a list: 15, 22, 31, 18, and 24. For a balanced dual-rotor test flight, the drone",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-1-block-001",
+          "type": "paragraph",
+          "content": "Question 1 · Page 2.1\n\nDrone Delivery Package Weight Sorter",
+          "format": "plain"
+        },
+        {
+          "id": "question-1-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a junior aerospace robotics challenge, an autonomous delivery drone scans a batch of incoming cargo parcels. The parcel weights in kilograms are recorded in a list: 15, 22, 31, 18, and 24. For a balanced dual-rotor test flight, the drone's flight computer needs to extract only the even-numbered package weights into a separate dispatch list using Python's list comprehension. Write a program to filter and display the even weights.",
+          "format": "plain"
+        },
+        {
+          "id": "question-1-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Create a list containing the integer items 15, 22, 31, 18, and 24, and assign it to a variable named numbers.\n2. Use list comprehension to create a new list that contains only the even numbers (numbers divisible by 2 with no remainder) from the numbers list.\n3. Assign the filtered list to a new variable.\n4. Print the newly created list.",
+          "format": "plain"
+        },
+        {
+          "id": "question-1-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-1-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the filtered list in Python list format:\n[22, 18, 24]",
+          "format": "plain"
+        },
+        {
+          "id": "question-1-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\n[22, 18, 24]",
+          "format": "plain"
+        },
+        {
+          "id": "question-1-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumbers must be initialized with the exact elements: [15, 22, 31, 18, 24].\nThe filtering must be performed strictly using list comprehension syntax with an if condition.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-2",
+      "number": "2.2",
+      "title": "Pixel Art Mosaic Square Grid Generator",
+      "summary": "In a junior digital art academy, students build square pixel patterns layer by layer. For an artwork containing n concentric tiers, the number of mosaic tiles needed for each tier corresponds to the square of its tier index (Tier 1 needs 1 ",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-2-block-001",
+          "type": "paragraph",
+          "content": "Question 2 · Page 2.2\n\nPixel Art Mosaic Square Grid Generator",
+          "format": "plain"
+        },
+        {
+          "id": "question-2-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a junior digital art academy, students build square pixel patterns layer by layer. For an artwork containing n concentric tiers, the number of mosaic tiles needed for each tier corresponds to the square of its tier index (Tier 1 needs 1 tile, Tier 2 needs 4 tiles, Tier 3 needs 9 tiles, and so forth). The graphics engine needs a program that prompts for the total number of tiers n and produces a list containing the square values for all tiers from 1 to n using list comprehension. Write a program to generate and display this list.",
+          "format": "plain"
+        },
+        {
+          "id": "question-2-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Take an integer input from the user and assign it to a variable named n.\n2. Use list comprehension to create a list of the squares of numbers from 1 to n (inclusive).\n3. Assign the resulting list of squares to a new variable.\n4. Print the newly created list.",
+          "format": "plain"
+        },
+        {
+          "id": "question-2-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nA single positive integer representing n.",
+          "format": "plain"
+        },
+        {
+          "id": "question-2-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the list of squares in Python list format.\n[1, 4, 9, 16]",
+          "format": "plain"
+        },
+        {
+          "id": "question-2-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n4",
+          "format": "plain"
+        },
+        {
+          "id": "question-2-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nn is a positive integer (n >= 1).\nThe list of squares must be constructed using list comprehension.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-3",
+      "number": "2.3",
+      "title": "STEM Physics Lab Solar Panel Area Lookup Table",
+      "summary": "In a middle school green energy workshop, students test square mini solar panels of varying edge dimensions measured in decimeters: 1, 2, 3, 4, and 5. To quickly calculate energy output, the monitoring computer builds a lookup table where e",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-3-block-001",
+          "type": "paragraph",
+          "content": "Question 3 · Page 2.3\n\nSTEM Physics Lab Solar Panel Area Lookup Table",
+          "format": "plain"
+        },
+        {
+          "id": "question-3-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a middle school green energy workshop, students test square mini solar panels of varying edge dimensions measured in decimeters: 1, 2, 3, 4, and 5. To quickly calculate energy output, the monitoring computer builds a lookup table where each panel's edge length serves as a key mapped to its total surface area (side length multiplied by side length). Write a program that uses dictionary comprehension to map each dimension from the list to its squared area and display the completed dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "question-3-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Create a list containing the integer items 1, 2, 3, 4, and 5, and assign it to a variable named numbers.\n2. Use dictionary comprehension to create a new dictionary where:\n- Each key is an item from the numbers list.\n- Each corresponding value is equal to the key multiplied by itself (key * key).\n3. Assign the new dictionary to a variable.\n4. Print the dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "question-3-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nNo user input is required.",
+          "format": "plain"
+        },
+        {
+          "id": "question-3-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the dictionary in standard Python dictionary format:\n{1: 1, 2: 4, 3: 9, 4: 16, 5: 25}",
+          "format": "plain"
+        },
+        {
+          "id": "question-3-block-006",
+          "type": "paragraph",
+          "content": "Sample Output\n\n{1: 1, 2: 4, 3: 9, 4: 16, 5: 25}",
+          "format": "plain"
+        },
+        {
+          "id": "question-3-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumbers must be initialized with the exact elements: [1, 2, 3, 4, 5].\nThe dictionary must be generated using dictionary comprehension syntax.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-4",
+      "number": "2.4",
+      "title": "Game Engine Instant Shield Power Multiplier",
+      "summary": "In an arcade obstacle game, a spaceship can activate a turbo shield whose defensive energy is calculated as the square of the power crystal level fed into it. The game engine uses an inline anonymous lambda function to rapidly compute this ",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-4-block-001",
+          "type": "paragraph",
+          "content": "Question 4 · Page 2.4\n\nGame Engine Instant Shield Power Multiplier",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an arcade obstacle game, a spaceship can activate a turbo shield whose defensive energy is calculated as the square of the power crystal level fed into it. The game engine uses an inline anonymous lambda function to rapidly compute this value without needing a full formal function definition. Write a program that creates a lambda function to compute the square of an entered number, takes an integer power level from the user, and prints the result.",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\npower_shield = num_square(number)",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Create a lambda function that takes one parameter and returns its square (the number multiplied by itself).\n2. Assign this lambda function to a variable named num_square.\n3. Take an integer input from the user and store it in a variable named number.\n4. Call the num_square lambda function passing number as its argument.\n5. Print the value returned by the lambda function.",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nA single integer representing number.",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single integer representing the square of the input number.\n25",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n5",
+          "format": "plain"
+        },
+        {
+          "id": "question-4-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nnumber is an integer.\nThe calculation must be performed by defining and calling the lambda function num_square.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-5",
+      "number": "2.5",
+      "title": "Dual Sensor Pulse Calibration Combiner",
+      "summary": "In an after-school electronics lab, students connect two optical distance sensors to an autonomous rover. Each sensor outputs a raw signal value, and the rover's guidance computer normalizes them by calculating the square root of each readi",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-5-block-001",
+          "type": "paragraph",
+          "content": "Question 5 · Page 2.5\n\nDual Sensor Pulse Calibration Combiner",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an after-school electronics lab, students connect two optical distance sensors to an autonomous rover. Each sensor outputs a raw signal value, and the rover's guidance computer normalizes them by calculating the square root of each reading and adding them together. To make this calculation quick and compact, the system uses a two-parameter lambda function. Write a program that creates a lambda function to compute the sum of the square roots of two numbers, takes two integer sensor readings from the user, and displays the combined result.",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-003",
+          "type": "paragraph",
+          "content": "Formula\n\nresult = compute(n1, n2) where compute returns (n1 ** 0.5) + (n2 ** 0.5)",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-004",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Create a lambda function that accepts two parameters and returns the sum of the square roots of both numbers (using the ** 0.5 exponent operator).\n2. Assign this lambda function to a variable named compute.\n3. Take two integer inputs from the user and store them in variables named n1 and n2 respectively.\n4. Call the compute lambda function with n1 and n2 as arguments.\n5. Print the resulting calculated value.",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-005",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: An integer representing n1\nSecond line: An integer representing n2",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-006",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single floating-point number representing the sum of the square roots of n1 and n2.\n5.0",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-007",
+          "type": "paragraph",
+          "content": "Sample Input\n\n4\n9",
+          "format": "plain"
+        },
+        {
+          "id": "question-5-block-008",
+          "type": "paragraph",
+          "content": "Constraints\n\nn1 >= 0, n2 >= 0\nThe calculation must be performed by defining and calling the lambda function compute.\nSquare roots should be computed using exponentiation (** 0.5).",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-6",
+      "number": "2.6",
+      "title": "Esports Arena Player Badge Profile Initializer",
+      "summary": "In a school esports tournament, new players register their profile at a digital check-in terminal. The terminal's badge generator uses a function that stores standard default information: if a player supplies their username but skips enteri",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-6-block-001",
+          "type": "paragraph",
+          "content": "Question 6 · Page 2.6\n\nEsports Arena Player Badge Profile Initializer",
+          "format": "plain"
+        },
+        {
+          "id": "question-6-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a school esports tournament, new players register their profile at a digital check-in terminal. The terminal's badge generator uses a function that stores standard default information: if a player supplies their username but skips entering their tournament division age, the system automatically assigns them to the default senior division age of 18. Write a program that defines a function with default parameter values, prompts for a player username, and calls the function supplying only the username so the default age is applied.",
+          "format": "plain"
+        },
+        {
+          "id": "question-6-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named display that takes two parameters: name and age.\n2. Set the default value of name to \"Unknown\" and the default value of age to 18.\n3. Inside the display function:\n- Print the value of name on the first line.\n- Print the value of age on the second line.\n4. Outside the function:\n- Take a string input from the user and assign it to a variable named user_name.\n- Call the display function passing user_name as the first argument, allowing age to automatically take its default value.",
+          "format": "plain"
+        },
+        {
+          "id": "question-6-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nA single string representing user_name.",
+          "format": "plain"
+        },
+        {
+          "id": "question-6-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nTwo lines:\nLine 1: The entered user_name\nLine 2: The default age value (18)\nRahul\n18",
+          "format": "plain"
+        },
+        {
+          "id": "question-6-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\nRahul",
+          "format": "plain"
+        },
+        {
+          "id": "question-6-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nuser_name is a non-empty string.\nThe function must use default parameter values: name=\"Unknown\" and age=18.\nThe function call must supply only user_name as an argument.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-7",
+      "number": "2.7",
+      "title": "Robotics Wheel Speed Telemetry Logger",
+      "summary": "In a school autonomous vehicle laboratory, students test dual-motor drive wheels on a mini rover. The rover's diagnostic console includes a reporting function that prints motor rotational speeds for two test channels. In Python, programmers",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-7-block-001",
+          "type": "paragraph",
+          "content": "Question 7 · Page 2.7\n\nRobotics Wheel Speed Telemetry Logger",
+          "format": "plain"
+        },
+        {
+          "id": "question-7-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a school autonomous vehicle laboratory, students test dual-motor drive wheels on a mini rover. The rover's diagnostic console includes a reporting function that prints motor rotational speeds for two test channels. In Python, programmers often pass values using keyword arguments so that values are explicitly assigned to specific parameter names without having to rely on the order in which they are typed. Write a program that defines a function with two parameters, reads two integer motor speeds from the user, and invokes the function using named keyword arguments.",
+          "format": "plain"
+        },
+        {
+          "id": "question-7-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named print_numbers that accepts two parameters: arg1 and arg2.\n2. Inside the print_numbers function:\n- Print the value of arg1 on the first line.\n- Print the value of arg2 on the second line.\n3. Outside the function:\n- Take two integer inputs from the user and store them in variables named n1 and n2 respectively.\n- Call the print_numbers function using keyword arguments such that arg1 is explicitly assigned the value of n1 and arg2 is assigned the value of n2 (e.g., arg1=n1, arg2=n2 or arg2=n2, arg1=n1).",
+          "format": "plain"
+        },
+        {
+          "id": "question-7-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: An integer representing n1\nSecond line: An integer representing n2",
+          "format": "plain"
+        },
+        {
+          "id": "question-7-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nTwo lines:\nLine 1: The value of arg1 (equal to n1)\nLine 2: The value of arg2 (equal to n2)\n2\n4",
+          "format": "plain"
+        },
+        {
+          "id": "question-7-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n2\n4",
+          "format": "plain"
+        },
+        {
+          "id": "question-7-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nn1 and n2 are integers.\nThe function invocation must explicitly use keyword arguments (arg1=..., arg2=...).",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-8",
+      "number": "2.8",
+      "title": "Esports Quest Reward Token Accumulator",
+      "summary": "In an adventure role-playing video game, players complete various mini-challenges that reward bonus power tokens. Depending on the quest completed, a player might receive one, three, five, or any flexible number of reward bundles. The game'",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-8-block-001",
+          "type": "paragraph",
+          "content": "Question 8 · Page 2.8\n\nEsports Quest Reward Token Accumulator",
+          "format": "plain"
+        },
+        {
+          "id": "question-8-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn an adventure role-playing video game, players complete various mini-challenges that reward bonus power tokens. Depending on the quest completed, a player might receive one, three, five, or any flexible number of reward bundles. The game's scoring engine uses a flexible helper function with variable arguments (*args) that can accept any count of numbers and compute their total sum. Write a program that defines this variable-argument function, takes three individual integer scores from the user, passes them to the function, and displays the total sum.",
+          "format": "plain"
+        },
+        {
+          "id": "question-8-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named add_numbers that can take an arbitrary number of positional arguments (zero or more) using the *args parameter syntax.\n2. Inside the add_numbers function:\n- Calculate the sum of all numerical values passed into the function.\n- Return the calculated total sum.\n3. Outside the function:\n- Take three integer inputs from the user.\n- Call the add_numbers function passing these three integers as arguments.\n- Print the value returned by the function.",
+          "format": "plain"
+        },
+        {
+          "id": "question-8-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nThree lines total, each containing a single integer:\n- Line 1: First integer\n- Line 2: Second integer\n- Line 3: Third integer",
+          "format": "plain"
+        },
+        {
+          "id": "question-8-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single integer representing the sum of the three entered numbers.\n30",
+          "format": "plain"
+        },
+        {
+          "id": "question-8-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\n5\n10\n15",
+          "format": "plain"
+        },
+        {
+          "id": "question-8-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nInputs are integers.\nThe add_numbers function must be defined using variable positional arguments (*args).\nThe function must return the sum rather than printing it directly inside the function.",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "question-9",
+      "number": "2.9",
+      "title": "STEM Innovation Club Member Profile Logger",
+      "summary": "In a high school science club, new student leaders are registered into a central database. Because different student roles require different profile tags (such as squad role, specialized skills, or grade level), the club's registration prog",
+      "status": "available",
+      "estimatedMinutes": 10,
+      "blocks": [
+        {
+          "id": "question-9-block-001",
+          "type": "paragraph",
+          "content": "Question 9 · Page 2.9\n\nSTEM Innovation Club Member Profile Logger",
+          "format": "plain"
+        },
+        {
+          "id": "question-9-block-002",
+          "type": "paragraph",
+          "content": "Program Description\n\nIn a high school science club, new student leaders are registered into a central database. Because different student roles require different profile tags (such as squad role, specialized skills, or grade level), the club's registration program uses a flexible function with variable keyword arguments (**kwargs). In Python, using **kwargs automatically packs all keyword arguments into a dictionary. Write a program that defines this flexible function, prompts the user for a member's name and department, and displays the resulting packed profile dictionary.",
+          "format": "plain"
+        },
+        {
+          "id": "question-9-block-003",
+          "type": "paragraph",
+          "content": "Requirements\n\n1. Define a function named employee_info that accepts an arbitrary number of keyword arguments using the **kwargs parameter syntax.\n2. Inside the employee_info function:\n- Print the dictionary containing all passed keyword arguments.\n3. Outside the function:\n- Take a string input from the user and store it in a variable named name.\n- Take a second string input from the user and store it in a variable named department.\n- Call the employee_info function using explicit keyword arguments:\nemployee_info(name=name, department=department)",
+          "format": "plain"
+        },
+        {
+          "id": "question-9-block-004",
+          "type": "paragraph",
+          "content": "Input\n\nFirst line: A string representing name\nSecond line: A string representing department",
+          "format": "plain"
+        },
+        {
+          "id": "question-9-block-005",
+          "type": "paragraph",
+          "content": "Expected Output\n\nA single line displaying the keyword arguments packed into a Python dictionary.\n{'name': 'Rahul', 'department': 'Sales'}",
+          "format": "plain"
+        },
+        {
+          "id": "question-9-block-006",
+          "type": "paragraph",
+          "content": "Sample Input\n\nRahul\nSales",
+          "format": "plain"
+        },
+        {
+          "id": "question-9-block-007",
+          "type": "paragraph",
+          "content": "Constraints\n\nname and department are non-empty strings.\nThe function must be defined using variable keyword arguments (**kwargs).\nThe function call must pass arguments using name=name and department=department.\n3: Python OOP",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}

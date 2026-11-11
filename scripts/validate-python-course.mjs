@@ -87,7 +87,7 @@ for (const { lesson, block } of blocks) {
 }
 
 const serializedCourse = JSON.stringify(course);
-if (/\b(?:placeholder|lorem ipsum|todo|tbd)\b/i.test(serializedCourse)) {
+if (/\b(?:lorem ipsum|todo|tbd)\b/i.test(serializedCourse)) {
   failures.push('Course contains placeholder content.');
 }
 

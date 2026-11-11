@@ -10,6 +10,7 @@ import { DailyChallengeCalendar } from './DailyChallengeCalendar';
 import { dailyChallengeCompletionDates, kolkataDate, monthDateRange, monthIdentity } from './challengeCalendar';
 import { ContinueLearningSection, LearningStatisticsSection, RecentlyViewedSection } from './HomeSections';
 import { CoinRedemptionRepository } from '../repositories/firestore/CoinRedemptionRepository';
+import { ComingSoonCarousel } from './ComingSoonCarousel';
 
 export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOpenChallenges, onRedeem }) {
   const { user } = useUser();
@@ -100,7 +101,10 @@ export function HomePage({ onOpenCourse, onContinueCourse, onBrowseLibrary, onOp
         <ContinueLearningSection courses={model.enrollments} status={courseSectionStatus} onOpenCourse={onContinueCourse} onBrowseLibrary={onBrowseLibrary} />
         <RecentlyViewedSection courses={model.recentlyViewed} status={courseSectionStatus} onOpenCourse={onOpenCourse} />
       </div>
-      <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} onMonthChange={setChallengeMonth} />
+      <aside className="home-dashboard-aside" aria-label="Daily challenge and coming soon">
+        <DailyChallengeCalendar today={today} challengeDates={challengeCatalog.items.map((item) => item.date)} completedDates={completedChallengeDates} unlockedDates={unlockedDates} supportedDate={latestChallenge?.date ?? null} historyStatus={activity.historyStatus} catalogStatus={challengeCatalog.status} onOpenChallenge={onOpenChallenges} onRedeem={onRedeem} onMonthChange={setChallengeMonth} />
+        <ComingSoonCarousel />
+      </aside>
     </div>
   </div>;
 }

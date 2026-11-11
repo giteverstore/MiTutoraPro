@@ -226,8 +226,8 @@ describe('Daily Challenge calendar UI', () => {
 
   it('retains a full-width mobile layout without horizontal overflow rules', () => {
     const css = readFileSync('src/styles/pages/home.css', 'utf8');
-    expect(css).toMatch(/@media \(max-width: 1000px\)[\s\S]*"statistics" auto "calendar" auto "continue" auto "recent"/);
-    expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*\.challenge-calendar-card \{[\s\S]*?width: 100%/);
+    expect(css).toMatch(/@media \(max-width: 1359px\)[\s\S]*\.home-dashboard-grid \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/);
+    expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*\.home-dashboard-aside \{[\s\S]*?width: 100%/);
     expect(css).toMatch(/\.challenge-calendar-grid \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: repeat\(7, minmax\(0, 1fr\)\)/);
   });
 });
@@ -260,7 +260,7 @@ describe('compact Home presentation', () => {
     expect(css).toContain('margin-bottom: clamp(var(--space-5), 2vw, var(--space-7));');
     expect(css).toMatch(/\.home-dashboard-grid \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: minmax\(0, 1fr\) minmax\(18rem, 21rem\)/);
     expect(css).toMatch(/\.home-dashboard-primary \{[\s\S]*?display: grid;[\s\S]*?min-width: 0;[\s\S]*?gap: clamp\(var\(--space-7\), 3vw, var\(--space-10\)\)/);
-    expect(css).toMatch(/\.home-dashboard-primary \{\s*display: contents;/);
+    expect(css).toMatch(/\.home-dashboard-aside \{[\s\S]*?display: grid;[\s\S]*?min-width: 0;/);
     expect(css).toMatch(/\.home-continue-grid \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
     expect(css).toMatch(/@media \(max-width: 700px\)[\s\S]*?\.home-continue-grid \{[\s\S]*?grid-template-columns: 1fr/);
     expect(css).toMatch(/\.home-course-empty \{[\s\S]*?min-height: 0;/);

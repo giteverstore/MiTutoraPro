@@ -11,9 +11,11 @@ const manifest = JSON.parse(await readFile(resolve(bundleRoot, 'course.json'), '
 const modules = await Promise.all(manifest.moduleFiles.map(async (file) =>
   JSON.parse(await readFile(resolve(bundleRoot, file), 'utf8'))));
 
-assert.deepEqual(manifest.moduleFiles, ['module-1.json']);
-assert.equal(manifest.modules.length, 1);
-assert.equal(manifest.modules[0].sections.length, 10);
+assert.deepEqual(
+  manifest.moduleFiles,
+  Array.from({ length: publishingMetadata.moduleCount }, (_, index) => `module-${index + 1}.json`),
+);
+assert.equal(manifest.modules.length, publishingMetadata.moduleCount);
 assert.equal(manifest.modules.every((module) => moduleLessons(module)
   .every((lesson) => Array.isArray(lesson.blocks) && lesson.blocks.length === 0)), true);
 
@@ -38,15 +40,11 @@ assert.deepEqual(
 
 const lessons = modules.flatMap(moduleLessons);
 const blocks = lessons.flatMap((lesson) => lesson.blocks);
-assert.deepEqual(modules[0].sections.map((section) => section.lessons.length), [6, 12, 5, 19, 14, 20, 9, 9, 7, 8]);
-assert.equal(lessons.length, 109);
-assert.equal(blocks.filter((block) => block.type === 'quiz').length, 20);
-assert.equal(blocks.filter((block) => block.type === 'exercise').length, 18);
-assert.equal(blocks.filter((block) => block.type === 'compiler').length, 63);
+assert.equal(lessons.length, publishingMetadata.lessonCount);
 
 console.log(JSON.stringify({
   modules: modules.length,
-  sections: modules[0].sections.length,
+  sections: modules.reduce((total, module) => total + (module.sections?.length ?? 0), 0),
   lessons: lessons.length,
   blocks: blocks.length,
   quizzes: blocks.filter((block) => block.type === 'quiz').length,

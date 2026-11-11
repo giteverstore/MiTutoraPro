@@ -1,0 +1,745 @@
+{
+  "id": "module-6",
+  "title": "Going Beyond & Building Real Stuff",
+  "initiallyExpanded": false,
+  "lessons": [
+    {
+      "id": "lesson-6-1-using-modules",
+      "number": "6.1",
+      "title": "Using Modules",
+      "summary": "Imagine a carpenter building a dining table. When they need to smooth a wooden board, they don't invent sandpaper or build an electric saw from raw steel—they simply reach into their toolbox and pick the ready-made tool!",
+      "status": "available",
+      "estimatedMinutes": 11,
+      "blocks": [
+        {
+          "id": "lesson-6-1-using-modules-block-001",
+          "type": "paragraph",
+          "content": "6.1 Using Modules",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-002",
+          "type": "paragraph",
+          "content": "Introduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-003",
+          "type": "paragraph",
+          "content": "Imagine a carpenter building a dining table. When they need to smooth a wooden board, they don't invent sandpaper or build an electric saw from raw steel—they simply reach into their toolbox and pick the ready-made tool!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-004",
+          "type": "paragraph",
+          "content": "In Python, that pre-built toolbox is called a Module.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-005",
+          "type": "paragraph",
+          "content": "A Module is a file packed with ready-to-use functions written by other experienced developers. Instead of writing long, difficult formulas for daily tasks—like calculating compound interest, measuring construction areas, or generating random invoice numbers—you simply import the module and use its tools right away!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-006",
+          "type": "paragraph",
+          "content": "Python comes with built-in modules for everyday livelihood tasks:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-007",
+          "type": "paragraph",
+          "content": "math: For carpentry, construction, and money calculations.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-008",
+          "type": "paragraph",
+          "content": "random: For lucky draws, raffle contests, and team selectors.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-009",
+          "type": "paragraph",
+          "content": "csv: For reading grocery store inventories and school spreadsheets.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-010",
+          "type": "paragraph",
+          "content": "Click Next Lesson to open your first digital toolbox!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-011",
+          "type": "paragraph",
+          "content": "Importing Modules",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-012",
+          "type": "paragraph",
+          "content": "To use a module in your program, write the import keyword at the very top of your code.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-013",
+          "type": "paragraph",
+          "content": "Let’s import Python's built-in math module to solve two common real-life problems:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-014",
+          "type": "paragraph",
+          "content": "Once imported, we use dot notation (module_name.function()) to call its tools:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-015",
+          "type": "paragraph",
+          "content": "math.ceil(number): Rounds a decimal UP to the nearest whole integer.\nReal life: If a fruit juice recipe needs 3.2 oranges, you cannot buy 0.2 of an orange at the fruit market—you must buy 4 full oranges!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-016",
+          "type": "paragraph",
+          "content": "math.sqrt(number): Finds the square root.\nReal life: If a square room has an area of 64 square meters, how long is one wall?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-017",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-018",
+          "type": "paragraph",
+          "content": "Quiz: Calling Tools Correctly",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-019",
+          "type": "paragraph",
+          "content": "A school cafeteria manager wants to calculate the square root of 144 milk cartons using the math module. Which line of code will run without an error?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-020",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-021",
+          "type": "paragraph",
+          "content": "| A: cartons = sqrt(144) |\n| Incorrect, give it another shot! Because the code used import math, Python requires the prefix math.sqrt() so it knows which module the function belongs to. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-022",
+          "type": "paragraph",
+          "content": "| B: cartons = math.sqrt(144) |\n| Correct Answer! 🎉 When importing a whole module, you always access its functions using dot notation: math.sqrt(). |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-023",
+          "type": "paragraph",
+          "content": "| C: cartons = math(sqrt(144)) |\n| Incorrect, give it another shot! A module is not a function that you wrap around other code. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-024",
+          "type": "paragraph",
+          "content": "| D: cartons = math->sqrt(144) |\n| Incorrect, give it another shot! Python uses a dot ., not an arrow ->. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-025",
+          "type": "paragraph",
+          "content": "Renaming Modules (import ... as)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-026",
+          "type": "paragraph",
+          "content": "In daily business or store accounting, you might have to call math functions dozens of times. Typing math. over and over can slow you down.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-027",
+          "type": "paragraph",
+          "content": "To make coding faster, Python lets you give the module a short nickname using the as keyword:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-028",
+          "type": "paragraph",
+          "content": "Now, instead of typing math.ceil(), you simply type m.ceil()!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-029",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-030",
+          "type": "paragraph",
+          "content": "Important Rule:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-031",
+          "type": "paragraph",
+          "content": "Once you rename a module with as m, you must use m. If you type math.sqrt(), Python will raise a NameError because it now only recognizes the nickname m!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-032",
+          "type": "paragraph",
+          "content": "Practice: School Picnic Bus Planner",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-033",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-034",
+          "type": "paragraph",
+          "content": "A school is taking 75 students on an annual picnic. Each mini-bus can carry 20 students.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-035",
+          "type": "paragraph",
+          "content": "Import the math module using the nickname m: import math as m.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-036",
+          "type": "paragraph",
+          "content": "Calculate the exact buses needed: 75 / 20 (which equals 3.75).",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-037",
+          "type": "paragraph",
+          "content": "Because you cannot rent 0.75 of a bus, use m.ceil() to round up to the next whole number of buses needed.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-038",
+          "type": "paragraph",
+          "content": "Store the answer in buses_needed and print: Total buses to rent: followed by buses_needed.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-039",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-040",
+          "type": "paragraph",
+          "content": "The from…import Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-041",
+          "type": "paragraph",
+          "content": "What if you only need one specific tool from a module and don't want to type any prefix at all?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-042",
+          "type": "paragraph",
+          "content": "You use the from ... import statement!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-043",
+          "type": "paragraph",
+          "content": "This brings only the chosen tool directly into your program's workspace:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-044",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-045",
+          "type": "paragraph",
+          "content": "Notice that we wrote ceil(4.1) and sqrt(100) directly without any math. prefix!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-046",
+          "type": "paragraph",
+          "content": "Practice: Classroom Floor Tile Measurement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-047",
+          "type": "paragraph",
+          "content": "Problem Description",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-048",
+          "type": "paragraph",
+          "content": "A local mason is tiling a square classroom floor:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-049",
+          "type": "paragraph",
+          "content": "Use from math import sqrt, ceil to import only those two tools.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-050",
+          "type": "paragraph",
+          "content": "The classroom floor area is 81 square meters. Find the side length of the room using sqrt(81) and store it in side_length.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-051",
+          "type": "paragraph",
+          "content": "The tile boxes needed comes out to 14.2 boxes. Round up to the nearest whole box using ceil(14.2) and store it in boxes_to_order.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-052",
+          "type": "paragraph",
+          "content": "Print:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-053",
+          "type": "paragraph",
+          "content": "Line 1: Classroom side length: [side_length] meters",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-054",
+          "type": "paragraph",
+          "content": "Line 2: Boxes of tiles to order: [boxes_to_order]",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-1-using-modules-block-055",
+          "type": "paragraph",
+          "content": "Example:",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-6-2-useful-built-ins-miscellaneous",
+      "number": "6.2",
+      "title": "Useful Built-ins & Miscellaneous",
+      "summary": "6.2 Useful Built-ins & Miscellaneous",
+      "status": "available",
+      "estimatedMinutes": 12,
+      "blocks": [
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-001",
+          "type": "paragraph",
+          "content": "6.2 Useful Built-ins & Miscellaneous",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-002",
+          "type": "paragraph",
+          "content": "Introduction",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-003",
+          "type": "paragraph",
+          "content": "As you build practical programs for daily life, you don't always need big new tools. Sometimes, knowing a few small \"handy tricks\" makes your code shorter, cleaner, and bug-free!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-004",
+          "type": "paragraph",
+          "content": "In this lesson, we will explore four essential everyday Python concepts:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-005",
+          "type": "paragraph",
+          "content": "Assignment Operators: Quick shortcuts for adding up grocery bills and pocket money.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-006",
+          "type": "paragraph",
+          "content": "Truthy & Falsy Values: How Python automatically checks whether a shopping bag or bank balance is empty.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-007",
+          "type": "paragraph",
+          "content": "The None Keyword: How computers represent an empty shelf or an unassigned receipt.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-008",
+          "type": "paragraph",
+          "content": "The pass Statement: The \"under-construction\" sign that keeps your code from crashing while you plan new features.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-009",
+          "type": "paragraph",
+          "content": "Click Next Lesson to learn your first math shortcut!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-010",
+          "type": "paragraph",
+          "content": "Assignment Operators",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-011",
+          "type": "paragraph",
+          "content": "In a local grocery shop, when a customer adds a pack of biscuits to their cart, the cashier doesn't rewrite the entire receipt—they simply add to the existing total.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-012",
+          "type": "paragraph",
+          "content": "Instead of writing bill = bill + 20, Python gives you assignment shortcuts:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-013",
+          "type": "paragraph",
+          "content": "These shortcuts save typing, reduce mistakes, and make your code look professional!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-014",
+          "type": "paragraph",
+          "content": "Example: Daily Household Grocery Bill",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-015",
+          "type": "paragraph",
+          "content": "Let’s watch a grocery store cashier ring up daily items using assignment shortcuts:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-016",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-017",
+          "type": "paragraph",
+          "content": "Notice how clean the code looks: bill += 3 updates the running total directly in one smooth step!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-018",
+          "type": "paragraph",
+          "content": "Truthy & Falsy",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-019",
+          "type": "paragraph",
+          "content": "In Python, every single piece of data can be tested in an if condition, even if it is not explicitly True or False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-020",
+          "type": "paragraph",
+          "content": "Think of it like checking a customer's shopping cart:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-021",
+          "type": "paragraph",
+          "content": "If the cart is completely empty, it acts like False.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-022",
+          "type": "paragraph",
+          "content": "If the cart has even one item, it acts like True!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-023",
+          "type": "paragraph",
+          "content": "Python calls these Truthy and Falsy values:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-024",
+          "type": "paragraph",
+          "content": "The Falsy Values (Things that act like False):",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-025",
+          "type": "paragraph",
+          "content": "0 and 0.0 (zero balance)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-026",
+          "type": "paragraph",
+          "content": "\"\" (empty text string)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-027",
+          "type": "paragraph",
+          "content": "[] (empty shopping list)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-028",
+          "type": "paragraph",
+          "content": "{} (empty inventory dictionary)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-029",
+          "type": "paragraph",
+          "content": "None (empty / no value)",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-030",
+          "type": "paragraph",
+          "content": "False",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-031",
+          "type": "paragraph",
+          "content": "The Truthy Values:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-032",
+          "type": "paragraph",
+          "content": "Everything else! Any number other than zero (like 5 or -12), and any non-empty text (like \"Apples\").",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-033",
+          "type": "paragraph",
+          "content": "Click Next Lesson to see why this is super helpful in daily life!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-034",
+          "type": "paragraph",
+          "content": "Example: Checking an Empty Shopping Basket",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-035",
+          "type": "paragraph",
+          "content": "Because empty collections are falsy, you can check if a customer has items in their cart in a single, natural line:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-036",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-037",
+          "type": "paragraph",
+          "content": "The Common Truthy Trap to Avoid:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-038",
+          "type": "paragraph",
+          "content": "Look at this common beginner mistake when comparing prices:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-039",
+          "type": "paragraph",
+          "content": "A beginner thinks this checks if both fruits cost more than 50. But Python actually checks:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-040",
+          "type": "paragraph",
+          "content": "Is apple_price > 50?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-041",
+          "type": "paragraph",
+          "content": "AND is orange_price truthy (non-zero)?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-042",
+          "type": "paragraph",
+          "content": "Because orange_price is a number like 40, it is always truthy! To do real price comparisons, always write out both sides clearly: if apple_price > 50 and orange_price > 50:.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-043",
+          "type": "paragraph",
+          "content": "Quiz: Evaluating Truthy & Falsy",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-044",
+          "type": "paragraph",
+          "content": "A bakery manager wrote this code to check inventory:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-045",
+          "type": "paragraph",
+          "content": "What will appear on the bakery display?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-046",
+          "type": "paragraph",
+          "content": "Tap an option below to answer:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-047",
+          "type": "paragraph",
+          "content": "| A: Fresh bread available today! |\n| Incorrect, give it another shot! bread_loaves is 0. In Python, the number 0 is a falsy value! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-048",
+          "type": "paragraph",
+          "content": "| B: Sold out! Baking fresh batch tomorrow. |\n| Correct Answer! 🎉 Because 0 evaluates to False, the if block is skipped and the else block executes! |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-049",
+          "type": "paragraph",
+          "content": "| C: Both messages |\n| Incorrect, give it another shot! Only one branch of an if-else statement can run. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-050",
+          "type": "paragraph",
+          "content": "| D: A TypeError occurs. |\n| Incorrect, give it another shot! Testing numbers directly in an if condition is completely legal Python. |",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-051",
+          "type": "paragraph",
+          "content": "The None Keyword",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-052",
+          "type": "paragraph",
+          "content": "What if a store shelf has no product placed on it yet, or a customer hasn't selected a home delivery address?",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-053",
+          "type": "paragraph",
+          "content": "In Python, we represent the complete absence of a value with the keyword None.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-054",
+          "type": "paragraph",
+          "content": "None does not mean zero 0, and it does not mean an empty string \"\"—it literally means \"Nothing exists here\":",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-055",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-056",
+          "type": "paragraph",
+          "content": "Also, if you write a function that performs an action (like printing a receipt) without an explicit return statement, Python automatically returns None!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-057",
+          "type": "paragraph",
+          "content": "The pass Statement",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-058",
+          "type": "paragraph",
+          "content": "Imagine a carpenter building a house: they build the walls first, but they leave an open doorway space where the wooden door will be installed next week.",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-059",
+          "type": "paragraph",
+          "content": "In Python, if you write an if statement, loop, or function, Python does not allow you to leave its body empty. Even leaving a comment causes an IndentationError!",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-060",
+          "type": "paragraph",
+          "content": "To leave a clean \"under-construction\" placeholder without crashing your program, use the pass keyword:",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-061",
+          "type": "paragraph",
+          "content": "Output",
+          "format": "plain"
+        },
+        {
+          "id": "lesson-6-2-useful-built-ins-miscellaneous-block-062",
+          "type": "paragraph",
+          "content": "The pass statement does nothing when executed, but it keeps Python happy and prevents your program from crashing while you plan your next steps!",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "id": "lesson-6-3-project",
+      "number": "6.3",
+      "title": "Project",
+      "summary": "6.3 Project\n       Bingo Game",
+      "status": "available",
+      "estimatedMinutes": 5,
+      "blocks": [
+        {
+          "id": "lesson-6-3-project-block-001",
+          "type": "paragraph",
+          "content": "6.3 Project\n       Bingo Game",
+          "format": "plain"
+        }
+      ]
+    }
+  ]
+}
