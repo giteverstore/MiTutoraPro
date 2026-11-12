@@ -48,6 +48,7 @@ const courseDetails = {
   'Python Basics Practice': {
     id: 'python-basics-practice',
     title: 'Python Basics Practice',
+    filter: 'Python',
     description: 'Practice beginner Python programming with one focused question per lesson.',
     level: 'Beginner',
     duration: '7h 36m',
@@ -57,6 +58,7 @@ const courseDetails = {
   'Python Intermediate Practice': {
     id: 'python-intermediate-practice',
     title: 'Python Intermediate Practice',
+    filter: 'Python',
     description: 'Practice intermediate Python, object-oriented programming, and exception handling.',
     level: 'Intermediate',
     duration: '3h 20m',
@@ -123,7 +125,7 @@ function createCourse(name, kind, index) {
     progress: details.progress ?? 0,
     badge: details.badge,
     available: details.available ?? false,
-    filter: name,
+    filter: details.filter ?? name,
     kind,
     source: getCourseSource(details.id ?? `${kind}-${toId(name)}`),
   };

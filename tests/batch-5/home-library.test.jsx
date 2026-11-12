@@ -270,6 +270,20 @@ describe('Library navigation and discovery', () => {
     expect(css).toMatch(/\.library-course-card>h3 \{[\s\S]*?-webkit-line-clamp: 2/);
   });
 
+  it('groups all three independent Python courses under one Python section', () => {
+    const pythonIds = ['python', 'python-basics-practice', 'python-intermediate-practice'];
+    const pythonCourses = browseCatalog.languages.filter(({ id }) => pythonIds.includes(id));
+
+    expect(pythonCourses.map(({ id }) => id)).toEqual(pythonIds);
+    expect(pythonCourses.map(({ filter }) => filter)).toEqual(['Python', 'Python', 'Python']);
+
+    const grouped = groupLibraryCourses(browseCatalog.languages, [...new Set(browseCatalog.languages.map(({ filter }) => filter))], 'all', '');
+    const pythonGroup = grouped.languageGroups.find(({ language }) => language === 'Python');
+    expect(pythonGroup.courses.map(({ id }) => id)).toEqual(pythonIds);
+    expect(grouped.languageGroups.some(({ language }) => language === 'Python Basics Practice')).toBe(false);
+    expect(grouped.languageGroups.some(({ language }) => language === 'Python Intermediate Practice')).toBe(false);
+  });
+
   it('groups unavailable courses once in source order without changing available language order or card navigation', () => {
     const courses = [
       { id: 'python', title: 'Python Foundations', filter: 'Python', kind: 'languages', available: true },
