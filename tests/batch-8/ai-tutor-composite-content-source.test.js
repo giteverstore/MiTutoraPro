@@ -62,6 +62,8 @@ describe('composite Tutor content authority', () => {
   it.each([
     ['python', 'v2', 'lesson-1-1-introduction-to-python'],
     ['java', 'v1', 'java-lesson-1-1-1-getting-started-with-java'],
+    ['python-basics-practice', 'v1', 'question-1'],
+    ['python-intermediate-practice', 'v1', 'question-1'],
   ])('resolves approved legacy Course %s from its learner metadata authority and manifest', async (id, version, lessonId) => {
     const fixture = courseFixture(id, version, lessonId);
     const { db } = database(fixture.records);

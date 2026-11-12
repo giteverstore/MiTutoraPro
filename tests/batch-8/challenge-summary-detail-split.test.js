@@ -63,6 +63,46 @@ describe('Challenge summary/detail request boundary', () => {
     expect(service.getChallengeFromMetadata).toHaveBeenCalledWith(selected);
   });
 
+  it('keeps a valid current assignment visible when historical content is broken', async () => {
+    const brokenHistory = metadata(11);
+    const current = metadata(12);
+    const service = {
+      listMetadata: vi.fn(async () => [brokenHistory, current]),
+      getChallengeFromMetadata: vi.fn(async (item) => {
+        if (item === brokenHistory) throw new Error('missing historical Practice artifact');
+        return { metadata: item, content: { id: item.practiceQuestionId, blocks: [{ type: 'compiler' }] } };
+      }),
+    };
+    const source = createChallengeContentSource({ service });
+
+    await expect(source.loadPublishedChallengeCatalog(current.date)).resolves.toEqual([
+      expect.objectContaining({ metadata: brokenHistory, content: expect.objectContaining({ title: brokenHistory.title }) }),
+      expect.objectContaining({ metadata: current, content: expect.objectContaining({ title: current.title }) }),
+    ]);
+    expect(service.getChallengeFromMetadata).not.toHaveBeenCalled();
+    await expect(source.loadDailyChallengeByDate(current.date)).resolves.toMatchObject({
+      activityId: current.id,
+      version: current.version,
+    });
+  });
+
+  it('reports a missing or broken current assignment without changing its identity contract', async () => {
+    const current = metadata(12);
+    const missing = createChallengeContentSource({ service: { listMetadata: vi.fn(async () => []), getChallengeFromMetadata: vi.fn() } });
+    await expect(missing.loadDailyChallengeByDate(current.date)).rejects.toMatchObject({
+      code: 'content/metadata-missing',
+    });
+
+    const failure = new Error('Practice artifact missing');
+    const broken = createChallengeContentSource({
+      service: {
+        listMetadata: vi.fn(async () => [current]),
+        getChallengeFromMetadata: vi.fn(async () => { throw failure; }),
+      },
+    });
+    await expect(broken.loadDailyChallengeByDate(current.date)).rejects.toBe(failure);
+  });
+
   it('keeps Practice and Storage detail resolution on demand', async () => {
     const question = { id: 'practice-one', blocks: [{ type: 'compiler' }] };
     const practiceService = { getQuestion: vi.fn(async () => ({ content: question })) };

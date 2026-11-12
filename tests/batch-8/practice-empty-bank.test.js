@@ -15,10 +15,10 @@ describe('Q250 Practice bank', () => {
     expect(source).toContain('PRACTICE_CONTENT_SOURCES.LOCAL');
   });
 
-  it('exposes an intentionally empty Daily Challenge catalog', async () => {
+  it('loads Daily Challenge assignments from their published metadata authority', async () => {
     const source = await readFile('src/challenges/challengeContentSource.js', 'utf8');
-    expect(source).toContain('export const CHALLENGE_BANK_EMPTY = true;');
-    expect(source).toContain('listMetadata: async () => []');
+    expect(source).not.toContain('CHALLENGE_BANK_EMPTY');
+    expect(source).toContain('const contentSource = createChallengeContentSource();');
   });
 
   it('contains 250 generated Practice artifacts while Daily Challenges remain empty', async () => {

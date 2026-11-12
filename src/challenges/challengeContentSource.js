@@ -2,8 +2,6 @@ import { ChallengeService } from '../content/services/ChallengeService';
 import { CONTENT_ERROR_CODES, ContentError } from '../content/utils/ContentError';
 import { kolkataDate } from '../home/challengeCalendar';
 
-// The legacy challenge bank is intentionally unavailable until the unified bank is imported.
-export const CHALLENGE_BANK_EMPTY = true;
 const challengeService = new ChallengeService();
 
 const DEFAULT_TITLE = 'Daily Coding Challenge';
@@ -57,9 +55,7 @@ export function createChallengeContentSource({ service = challengeService } = {}
   });
 }
 
-const contentSource = CHALLENGE_BANK_EMPTY
-  ? createChallengeContentSource({ service: { listMetadata: async () => [] } })
-  : createChallengeContentSource();
+const contentSource = createChallengeContentSource();
 
 export function loadChallengeCalendarMetadata() {
   return contentSource.loadChallengeCalendarMetadata();

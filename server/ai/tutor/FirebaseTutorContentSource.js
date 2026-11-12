@@ -3,7 +3,12 @@ import { AIServiceError } from '../AIServiceError.js';
 import { createDefaultFirestore } from '../../firestore/createDefaultFirestore.js';
 import { attachTutorContentFailure } from './tutorContentDiagnostics.js';
 
-const LEGACY_COURSES = new Set(['python', 'java']);
+const LEGACY_COURSES = new Set([
+  'python',
+  'java',
+  'python-basics-practice',
+  'python-intermediate-practice',
+]);
 const SHA256 = /^[a-f0-9]{64}$/u;
 const VERSION = /^v[1-9]\d*$/u;
 const STORAGE_PATH = /^[a-z0-9][a-z0-9._/-]*\.json$/u;
