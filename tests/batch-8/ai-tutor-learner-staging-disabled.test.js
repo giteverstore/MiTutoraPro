@@ -4,6 +4,7 @@ import { viteAITutorPlugin } from '../../server/ai/viteAITutorPlugin.js';
 import { createTutorFeatureGate } from '../../server/ai/tutor/tutorFeatureGate.js';
 import {
   LEARNER_STAGING_DISABLED_BOUNDARY,
+  requiresFederatedTutorCredentials,
   resolveTutorRuntimeProfile,
   TUTOR_RUNTIME_PROFILES,
 } from '../../server/ai/tutor/tutorRuntimeConfig.js';
@@ -58,6 +59,7 @@ describe('learner-staging-disabled AI Tutor runtime profile', () => {
     expect(profile).not.toHaveProperty('wif');
     expect(profile).not.toHaveProperty('quotaDatabaseId');
     expect(profile).not.toHaveProperty('runtimeServiceAccountEmail');
+    expect(requiresFederatedTutorCredentials(stagingEnvironment())).toBe(false);
   });
 
   it.each([

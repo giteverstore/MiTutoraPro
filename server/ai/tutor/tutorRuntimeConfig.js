@@ -162,7 +162,9 @@ export function isManagedTutorRuntime(environment = process.env) {
 }
 
 export function requiresFederatedTutorCredentials(environment = process.env) {
-  return isManagedTutorRuntime(environment)
+  const profile = resolveTutorRuntimeProfile(environment);
+  return profile !== null
+    && profile.capabilities?.tutorWif !== false
     && (productionEnvironment(environment) || isVercelDeployedTutorEnvironment(environment));
 }
 
