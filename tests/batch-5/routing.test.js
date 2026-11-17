@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { deriveAuthenticatedRouteState, parseAppRoute, routePage, routePath, resetApplicationPageScroll, writeAppRoute } from '../../src/routing/appRoutes';
-import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, HASHED_ASSET_CACHE_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, PRIVATE_API_CACHE_ROUTE, createVercelConfig } from '../../vercel.mjs';
+import { ADMIN_PUBLIC_CONTENT_LIST_ROUTE, ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE, COMPILER_ISOLATION_ROUTE, HASHED_ASSET_CACHE_ROUTE, JAVASCRIPT_LEARNER_WORKER_ROUTE, PRIVATE_API_CACHE_ROUTE, V2_PILOT_API_ROUTE, createVercelConfig } from '../../vercel.mjs';
 import { API_SECURITY_ROUTE, DOCUMENT_SECURITY_ROUTE } from '../../config/securityHeaderPolicy.mjs';
 
 const pageRoutes = [
@@ -135,6 +135,7 @@ describe('Vercel SPA routing contract', () => {
       JAVASCRIPT_LEARNER_WORKER_ROUTE,
       ADMIN_PUBLIC_CONTENT_LIST_ROUTE,
       ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE,
+      V2_PILOT_API_ROUTE,
       { src: '/api/compiler(?:/(.*))?', dest: '/api/compiler?path=$1' },
       { handle: 'filesystem' },
       { src: '/((?!api(?:/|$)|assets(?:/|$)|vendor(?:/|$)|src(?:/|$)|node_modules(?:/|$)|@[^/]+(?:/|$))[^.]*)', dest: '/index.html' },
@@ -178,5 +179,14 @@ describe('Vercel SPA routing contract', () => {
     expect(destinationFor('/api/admin-content/public', 'POST')).toBeNull();
     expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_LIST_ROUTE);
     expect(createVercelConfig('compiler').routes).not.toContain(ADMIN_PUBLIC_CONTENT_DETAIL_ROUTE);
+  });
+
+  it.each([
+    ['/api/v2-pilot/courses/course-a', '/api/internal-v2-pilot?pilotPath=courses/course-a'],
+    ['/api/v2-pilot/courses/course-a/versions/2', '/api/internal-v2-pilot?pilotPath=courses/course-a/versions/2'],
+    ['/api/v2-pilot/courses/course-a/versions/2/assets/hero', '/api/internal-v2-pilot?pilotPath=courses/course-a/versions/2/assets/hero'],
+    ['/api/v2-pilot/progress/course-a/versions/2', '/api/internal-v2-pilot?pilotPath=progress/course-a/versions/2'],
+  ])('rewrites the public multi-segment V2 pilot route %s', (request, destination) => {
+    expect(destinationFor(request)).toBe(destination);
   });
 });

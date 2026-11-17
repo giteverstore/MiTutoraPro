@@ -19,7 +19,7 @@ describe('Vercel Hobby function budget', () => {
     expect(entrypoints).toContain('api/compiler.js');
     expect(entrypoints.filter((entry) => entry === 'api/compiler.js' || entry.startsWith('api/compiler/'))).toEqual(['api/compiler.js']);
     expect(entrypoints.filter((entry) => entry.startsWith('api/payments/'))).toEqual(['api/payments/[...path].js']);
-    expect(entrypoints.filter((entry) => entry.startsWith('api/v2-pilot/'))).toEqual(['api/v2-pilot/[...path].js']);
+    expect(entrypoints.filter((entry) => entry.includes('v2-pilot'))).toEqual(['api/internal-v2-pilot.js']);
     expect(entrypoints.length).toBeLessThanOrEqual(10);
   });
 });
