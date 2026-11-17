@@ -27,13 +27,17 @@ export function CourseRoute({
   onLessonRoute,
   onStartExam,
   anonymous = false,
+  loaderRepository = null,
+  progressRepositoryOverride = null,
+  trustedCompletionService = undefined,
+  pilot = false,
 }) {
   const user = useUser({ optional: true })?.user;
   const [pin, setPin] = useState({ status: anonymous || !user?.id ? 'ready' : 'loading', version: null });
   useEffect(() => { phase5Mark('course:route-mounted', { courseId }); }, [courseId]);
   useEffect(() => {
     let active = true;
-    if (anonymous || !user?.id) { setPin({ status: 'ready', version: null }); return () => { active = false; }; }
+    if (anonymous || pilot || !user?.id) { setPin({ status: 'ready', version: null }); return () => { active = false; }; }
     setPin({ status: 'loading', version: null });
     phase5Mark('course:pin:start', { courseId });
     progressRepository.load(user.id, courseId).then((record) => {
@@ -52,6 +56,7 @@ export function CourseRoute({
       courseId={courseId}
       contentVersion={pin.version}
       initialLessonId={initialLessonId}
+      repository={loaderRepository}
     >
       <LoadedCourseApplication
         stage={stage}
@@ -62,6 +67,9 @@ export function CourseRoute({
         onStartExam={onStartExam}
         anonymous={anonymous}
         initialStoredProgress={pin.storedProgress}
+        progressRepositoryOverride={progressRepositoryOverride}
+        trustedCompletionService={trustedCompletionService}
+        pilot={pilot}
       />
     </CourseLoaderProvider>
   );
@@ -76,6 +84,9 @@ function LoadedCourseApplication({
   onStartExam,
   anonymous,
   initialStoredProgress,
+  progressRepositoryOverride,
+  trustedCompletionService,
+  pilot,
 }) {
   const courseLoader = useCourseLoader();
   const user = useUser({ optional: true })?.user;
@@ -92,12 +103,14 @@ function LoadedCourseApplication({
       course={courseLoader.currentCourse}
       userId={user.id}
       initialLessonId={courseLoader.currentLesson?.id}
-      initialCompletedLessons={user.completedLessons}
-      initialVisitedLessons={user.visitedLessons}
-      initialBookmarks={user.bookmarks}
-      initialStoredProgress={initialStoredProgress}
+      initialCompletedLessons={pilot ? [] : user.completedLessons}
+      initialVisitedLessons={pilot ? [] : user.visitedLessons}
+      initialBookmarks={pilot ? [] : user.bookmarks}
+      initialStoredProgress={pilot ? undefined : initialStoredProgress}
+      repository={progressRepositoryOverride ?? undefined}
+      trustedCompletionService={trustedCompletionService}
     >
-      <ProgressProfileSync />
+      {pilot ? null : <ProgressProfileSync />}
       {stage === 'overview' ? (
         <CourseOverviewPage
           course={courseLoader.currentCourse}

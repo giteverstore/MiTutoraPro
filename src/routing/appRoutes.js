@@ -31,6 +31,14 @@ export function parseAppRoute(pathname = '/') {
     if (!courseId || (match[2] && !lessonId)) return { kind: 'not-found' };
     return { kind: lessonId ? 'course-lesson' : 'course-overview', courseId, lessonId };
   }
+  match = path.match(/^\/pilot\/v2\/courses\/([^/]+)(?:\/versions\/(\d+))?(?:\/lesson\/([^/]+))?$/);
+  if (match) {
+    const contentId = decodeId(match[1]);
+    const publicationVersion = match[2] ? Number(match[2]) : undefined;
+    const lessonId = match[3] ? decodeId(match[3]) : null;
+    if (!contentId || (match[2] && (!Number.isSafeInteger(publicationVersion) || publicationVersion < 1)) || (match[3] && !lessonId)) return { kind: 'not-found' };
+    return { kind: 'v2-pilot-course', namespace: 'v2', contentType: 'course', contentId, publicationVersion, lessonId };
+  }
   match = path.match(/^\/projects\/([^/]+)(?:\/(workspace))?$/);
   if (match) {
     const projectId = decodeId(match[1]);
@@ -47,6 +55,11 @@ export function routePath(route) {
   if (route.kind === 'certificate-verification') return `/verify/${encodeURIComponent(route.credentialId)}`;
   if (route.kind === 'course-overview') return `/courses/${encodeURIComponent(route.courseId)}`;
   if (route.kind === 'course-lesson') return `/courses/${encodeURIComponent(route.courseId)}/lesson/${encodeURIComponent(route.lessonId)}`;
+  if (route.kind === 'v2-pilot-course') {
+    const version = route.publicationVersion ? `/versions/${route.publicationVersion}` : '';
+    const lesson = route.lessonId ? `/lesson/${encodeURIComponent(route.lessonId)}` : '';
+    return `/pilot/v2/courses/${encodeURIComponent(route.contentId)}${version}${lesson}`;
+  }
   if (route.kind === 'practice-question') return `/practice/${encodeURIComponent(route.questionId)}`;
   if (route.kind === 'challenge-daily') return `/challenges/daily/${route.date}`;
   if (route.kind === 'project-overview') return `/projects/${encodeURIComponent(route.projectId)}`;

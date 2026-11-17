@@ -39,6 +39,7 @@ const SetupVerificationExperience = lazyNamedExport(
   'SetupVerificationExperience',
 );
 const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'CourseRoute');
+const V2PilotCoursePage = lazyNamedExport(() => import('./v2-pilot/V2PilotCoursePage'), 'V2PilotCoursePage');
 const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
 const PublicPage = lazyNamedExport(() => import('./public/PublicPages'), 'PublicPage');
 const PublicBrowseApplication = lazyNamedExport(() => import('./public/PublicBrowseApplication'), 'PublicBrowseApplication');
@@ -182,6 +183,7 @@ function AuthenticatedApplication({ user }) {
   const [initialRoute] = useState(() => parseAppRoute(window.location.pathname));
   const [initialRouteState] = useState(() => deriveAuthenticatedRouteState(initialRoute));
   const [activeCourseId, setActiveCourseId] = useState(initialRouteState.activeCourseId);
+  const [v2PilotRoute, setV2PilotRoute] = useState(() => initialRoute.kind === 'v2-pilot-course' ? initialRoute : null);
   const [courseStage, setCourseStage] = useState(initialRouteState.courseStage);
   const [activePage, setActivePage] = useState(initialRouteState.activePage);
   const [navigationTarget, setNavigationTarget] = useState(initialRouteState.navigationTarget);
@@ -197,6 +199,7 @@ function AuthenticatedApplication({ user }) {
 
   const applyRoute = (route) => {
     const next = deriveAuthenticatedRouteState(route);
+    setV2PilotRoute(route.kind === 'v2-pilot-course' ? route : null);
     setRouteNotFound(next.routeNotFound);
     setActiveCourseId(next.activeCourseId);
     setCourseStage(next.courseStage);
@@ -222,6 +225,7 @@ function AuthenticatedApplication({ user }) {
     setNavigationTarget(null);
     setActivePage(page);
     setActiveCourseId(null);
+    setV2PilotRoute(null);
     setRouteNotFound(false);
     writeAppRoute({ kind: 'page', page });
   };
@@ -243,6 +247,7 @@ function AuthenticatedApplication({ user }) {
   const openCourseOverview = (courseId) => {
     phase5Mark('navigation:start', { kind: 'course', courseId });
     recentCourseRepository.record(user.id, courseId);
+    setV2PilotRoute(null);
     setLaunchLessonId(null);
     setActiveCourseId(courseId);
     setCourseStage('overview');
@@ -250,6 +255,7 @@ function AuthenticatedApplication({ user }) {
   };
 
   const continueCourse = (courseId, lessonId) => {
+    setV2PilotRoute(null);
     recentCourseRepository.record(user.id, courseId);
     setLaunchLessonId(lessonId ?? null);
     setActiveCourseId(courseId);
@@ -299,6 +305,18 @@ function AuthenticatedApplication({ user }) {
         </Suspense>
       </DomainErrorBoundary>
     );
+  }
+
+  if (v2PilotRoute) {
+    const route = v2PilotRoute;
+    return <Suspense fallback={<CourseLoadState state="loading" />}><V2PilotCoursePage
+      contentId={route.contentId}
+      publicationVersion={route.publicationVersion}
+      lessonId={route.lessonId}
+      shadow={new URLSearchParams(window.location.search).get('shadow') === 'true'}
+      onExit={() => navigateTo({ kind: 'page', page: 'home' })}
+      onLessonRoute={(lessonId) => navigateTo({ ...route, lessonId: lessonId ?? null }, { replace: true })}
+    /></Suspense>;
   }
 
   if (!activeCourseId) {

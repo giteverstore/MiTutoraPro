@@ -9,6 +9,7 @@ const suites = Object.freeze({
   content: { emulator: 'firestore', port: 8080, projectId: 'demo-content-rules', test: 'tests/firestore/content.rules.test.mjs' },
   certification: { emulator: 'firestore', port: 8080, projectId: 'demo-certification-rules', test: 'tests/firestore/certification.rules.test.mjs' },
   projects: { emulator: 'firestore', port: 8080, projectId: 'demo-projects-rules', test: 'tests/firestore/projects.rules.test.mjs' },
+  'v2-progress': { emulator: 'firestore', port: 8080, projectId: 'demo-v2-progress-rules', test: 'tests/firestore/v2-progress.rules.test.mjs' },
   storage: { emulator: 'storage', port: 9199, projectId: 'demo-storage-rules', test: 'tests/storage/content.rules.test.mjs' },
 });
 const suiteName = process.argv[2];

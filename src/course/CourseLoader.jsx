@@ -30,6 +30,7 @@ export function CourseLoaderProvider({
   contentVersion = null,
   initialLessonId = null,
   cacheWindow = COURSE_SESSION_DEFAULT_CACHE_WINDOW,
+  repository = null,
 }) {
   const initialLessonIdRef = useRef(initialLessonId);
   const courseDocumentRef = useRef(null);
@@ -83,7 +84,9 @@ export function CourseLoaderProvider({
 
       try {
         phase5Mark('course:metadata:start', { courseId, pinned: contentVersion != null });
-        const loadedMetadata = await loadCourseMetadata(controller.signal, courseId, contentVersion);
+        const loadMetadata = repository?.loadMetadata ?? loadCourseMetadata;
+        const loadDocument = repository?.loadDocument ?? loadCourseDocument;
+        const loadedMetadata = await loadMetadata(controller.signal, courseId, contentVersion);
         phase5Mark('course:metadata:end', { courseId, provider: loadedMetadata.provider });
         phase5Mark('course:document:start', { courseId });
         const {
@@ -91,7 +94,7 @@ export function CourseLoaderProvider({
           courseEntry,
           initialModuleNumber,
           provider,
-        } = await loadCourseDocument(
+        } = await loadDocument(
           loadedMetadata,
           courseId,
           controller.signal,
@@ -149,7 +152,7 @@ export function CourseLoaderProvider({
 
     loadCourse();
     return () => controller.abort();
-  }, [cacheWindow, contentVersion, courseId, createSessionCourseModel]);
+  }, [cacheWindow, contentVersion, courseId, createSessionCourseModel, repository]);
 
   useEffect(() => {
     if (!courseSession) return undefined;
