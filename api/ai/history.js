@@ -8,12 +8,14 @@ import { createDefaultTutorQuotaGuard } from '../../server/ai/tutor/tutorQuota.j
 import { publicAIError } from '../../server/ai/explainHandler.js';
 import { AIServiceError } from '../../server/ai/AIServiceError.js';
 import { createServerTiming } from '../../server/http/serverTiming.js';
+import { isTutorBackendDisabled } from '../../server/ai/tutor/tutorRuntimeConfig.js';
 
 export function createAIHistoryHandler({ environment = process.env, authenticator = firebaseAITutorAuthenticator, credentialFactory = createVercelGoogleCredentialContext, scopeResolver = createTutorScopeResolver(), storeFactory, premiumAccessGuardFactory = (env, credentials) => createPremiumAccessGuard(env, { authClient: credentials.authClient }) } = {}) {
   return async function handler(request, response) {
     const timing = createServerTiming();
     if (request.method !== 'GET') { response.setHeader('Allow', 'GET'); timing.apply(response, { include: ['total'] }); return response.status(405).json({ error: { code: 'ai/method-not-allowed', message: 'Use GET for Tutor history.' } }); }
     try {
+      if (isTutorBackendDisabled(environment)) throw new AIServiceError('ai/disabled', 'The AI Tutor is not available right now.', { status: 503 });
       const finishWif = timing.start('wif'); const credentials = credentialFactory({ request, environment }); await credentials.preflight(); finishWif();
       const finishAuth = timing.start('auth'); const principal = await authenticator.authenticate(request, { environment, googleCredentials: credentials }); finishAuth();
       const measure = async (name, operation) => {

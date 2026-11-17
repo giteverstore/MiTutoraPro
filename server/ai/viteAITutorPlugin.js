@@ -8,6 +8,7 @@ import { firebaseAITutorAuthenticator } from './auth/FirebaseAITutorAuthenticato
 import { createHttpRequestLifecycle } from './httpRequestLifecycle.js';
 import { createDefaultTutorQuotaGuard } from './tutor/tutorQuota.js';
 import { createTutorFeatureGate } from './tutor/tutorFeatureGate.js';
+import { isTutorBackendDisabled } from './tutor/tutorRuntimeConfig.js';
 import { createPremiumAccessGuard } from '../subscriptions/PremiumAccessGuard.js';
 import { writeJsonResponse } from '../http/writeJsonResponse.js';
 
@@ -25,12 +26,13 @@ const readBody = (request) => new Promise((resolve, reject) => {
   request.on('error', reject);
 });
 
-export function viteAITutorPlugin(environment, {
-  authenticator = firebaseAITutorAuthenticator,
-  quotaGuard = createDefaultTutorQuotaGuard(environment),
-  featureGate = createTutorFeatureGate(environment),
-  premiumAccessGuard = null,
-} = {}) {
+export function viteAITutorPlugin(environment, options = {}) {
+  const authenticator = options.authenticator ?? firebaseAITutorAuthenticator;
+  const featureGate = options.featureGate ?? createTutorFeatureGate(environment);
+  const backendDisabled = isTutorBackendDisabled(environment);
+  const quotaGuardFactory = options.quotaGuardFactory ?? createDefaultTutorQuotaGuard;
+  const quotaGuard = options.quotaGuard ?? (backendDisabled ? null : quotaGuardFactory(environment));
+  const premiumAccessGuard = options.premiumAccessGuard ?? null;
   return {
     name: 'mi-tutora-ai-tutor-api',
     configureServer(server) {
@@ -38,6 +40,7 @@ export function viteAITutorPlugin(environment, {
         if (request.method !== 'POST') return writeJsonResponse(response, 405, { error: { code: 'ai/method-not-allowed', message: 'Use POST for AI explanations.' } });
         const lifecycle = createHttpRequestLifecycle(request, response);
         try {
+          if (backendDisabled) featureGate.assertEnabled();
           const principal = await authenticator.authenticate(request);
           await (premiumAccessGuard ?? createPremiumAccessGuard(environment)).assertPremium(principal);
           let body;

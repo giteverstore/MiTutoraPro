@@ -5,6 +5,8 @@ export const APPROVED_FIREBASE_PROJECT_ID = 'mi-tutora-pro';
 export const APPROVED_TUTOR_QUOTA_DATABASE_ID = 'ai-tutor-quota';
 export const APPROVED_VALIDATION_FIREBASE_PROJECT_ID = 'mi-tutora-ai-val-260904-k7m3';
 export const APPROVED_VALIDATION_TUTOR_QUOTA_DATABASE_ID = 'ai-tutor-quota-validation';
+export const APPROVED_LEARNER_STAGING_FIREBASE_PROJECT_ID = 'ycoders-v2-staging';
+export const LEARNER_STAGING_DISABLED_BOUNDARY = 'learner-staging-disabled';
 const FIRESTORE_DATABASE_ID_PATTERN = /^[a-z][a-z0-9-]{2,61}[a-z0-9]$/;
 
 export const TUTOR_RUNTIME_PROFILES = Object.freeze({
@@ -45,7 +47,70 @@ export const TUTOR_RUNTIME_PROFILES = Object.freeze({
       providerId: 'vercel-validation-preview',
     }),
   }),
+  [LEARNER_STAGING_DISABLED_BOUNDARY]: Object.freeze({
+    boundary: LEARNER_STAGING_DISABLED_BOUNDARY,
+    projectId: APPROVED_LEARNER_STAGING_FIREBASE_PROJECT_ID,
+    vercel: Object.freeze({
+      teamSlug: 'avinashabbigeris-projects',
+      teamId: 'team_JWeTI30xjnERJbMpLUkgTpzV',
+      projectName: 'ycoders-learner-staging',
+      projectId: 'prj_AZ45waZW70SNXP1VkgBHiU8CRNR4',
+      environment: 'preview',
+      subject: 'owner:avinashabbigeris-projects:project:ycoders-learner-staging:environment:preview',
+    }),
+    capabilities: Object.freeze({
+      providerAccess: false,
+      modelInvocation: false,
+      quotaBackend: false,
+      tutorServiceIdentity: false,
+      tutorWif: false,
+      tutorPersistence: false,
+      externalAIRequests: false,
+    }),
+  }),
 });
+
+const LEARNER_STAGING_FORBIDDEN_CONFIGURATION = Object.freeze([
+  'AI_PROVIDER',
+  'AI_MODEL',
+  'AI_TUTOR_APPROVED_PROVIDER',
+  'AI_TUTOR_APPROVED_MODEL',
+  'HF_TOKEN',
+  'HUGGINGFACE_API_KEY',
+  'OPENAI_API_KEY',
+  'GEMINI_API_KEY',
+  'GOOGLE_GENERATIVE_AI_API_KEY',
+  'DEEPINFRA_API_KEY',
+  'AI_TUTOR_QUOTA_BACKEND',
+  'AI_TUTOR_QUOTA_DATABASE_ID',
+  'AI_TUTOR_QUOTA_IDENTITY_SALT',
+  'GOOGLE_WIF_AUDIENCE',
+  'GOOGLE_WIF_SERVICE_ACCOUNT_EMAIL',
+  'FIREBASE_SERVICE_ACCOUNT_JSON',
+]);
+
+function configured(environment, name) {
+  return String(environment[name] ?? '').trim() !== '';
+}
+
+function validateLearnerStagingDisabledProfile(environment, profile) {
+  const projectId = String(environment.FIREBASE_PROJECT_ID || environment.GCLOUD_PROJECT || '').trim();
+  const vercelProjectName = String(environment.VERCEL_PROJECT_NAME ?? '').trim();
+  const vercelProjectId = String(environment.VERCEL_PROJECT_ID ?? '').trim();
+  if (projectId !== profile.projectId
+    || vercelProjectName !== profile.vercel.projectName
+    || vercelProjectId !== profile.vercel.projectId) {
+    throw new AIServiceError('ai/not-configured', 'AI Tutor learner staging identity does not match the approved deployment.', { status: 503 });
+  }
+  if (environment.AI_TUTOR_ENABLED !== 'false'
+    || String(environment.AI_TUTOR_ROLLOUT_PERCENTAGE ?? '').trim() !== '0') {
+    throw new AIServiceError('ai/not-configured', 'AI Tutor must remain disabled for learner staging.', { status: 503 });
+  }
+  const contradiction = LEARNER_STAGING_FORBIDDEN_CONFIGURATION.find((name) => configured(environment, name));
+  if (contradiction) {
+    throw new AIServiceError('ai/not-configured', `AI Tutor learner staging forbids ${contradiction}.`, { status: 503 });
+  }
+}
 
 function productionEnvironment(environment) {
   const vercelEnvironment = String(environment.VERCEL_ENV ?? '').trim();
@@ -82,7 +147,14 @@ export function resolveTutorRuntimeProfile(environment = process.env) {
     && vercelEnvironment !== approvedVercelEnvironment) {
     throw new AIServiceError('ai/not-configured', 'AI Tutor runtime boundary does not match the deployment.', { status: 503 });
   }
+  if (boundary === LEARNER_STAGING_DISABLED_BOUNDARY) {
+    validateLearnerStagingDisabledProfile(environment, profile);
+  }
   return profile;
+}
+
+export function isTutorBackendDisabled(environment = process.env) {
+  return resolveTutorRuntimeProfile(environment)?.capabilities?.modelInvocation === false;
 }
 
 export function isManagedTutorRuntime(environment = process.env) {

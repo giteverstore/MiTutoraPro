@@ -10,6 +10,8 @@ import { createPremiumAccessGuard } from '../../server/subscriptions/PremiumAcce
 import { createTutorScopeResolver } from '../../server/ai/tutor/resolveTutorScope.js';
 import { FirestoreTutorExperienceStore } from '../../server/ai/tutor/FirestoreTutorExperienceStore.js';
 import { TutorExperienceService } from '../../server/ai/tutor/TutorExperienceService.js';
+import { isTutorBackendDisabled } from '../../server/ai/tutor/tutorRuntimeConfig.js';
+import { AIServiceError } from '../../server/ai/AIServiceError.js';
 
 function createRequestQuotaGuard(environment, googleCredentials) {
   return createDefaultTutorQuotaGuard(environment, {
@@ -51,6 +53,9 @@ export function createAIExplainHandler({
     }
     const lifecycle = createHttpRequestLifecycle(request, response);
     try {
+      if (isTutorBackendDisabled(environment)) {
+        throw new AIServiceError('ai/disabled', 'The AI Tutor is not available right now.', { status: 503 });
+      }
       const googleCredentials = credentialFactory({ request, environment });
       await googleCredentials.preflight();
       const principal = await authenticator.authenticate(request, { environment, googleCredentials });
