@@ -3,6 +3,10 @@ import { Image as ImageIcon } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
 import { authService } from '../../auth/AuthService';
 
+export function v2AssetDeliveryUrl(delivery) {
+  return `/api/v2-pilot/courses/${encodeURIComponent(delivery.contentId)}/versions/${delivery.publicationVersion}/assets/${encodeURIComponent(delivery.assetId)}`;
+}
+
 function V2PilotImage({ delivery, alt, caption, loading }) {
   const [state, setState] = useState({ src: null, error: false });
   useEffect(() => {
@@ -13,7 +17,7 @@ function V2PilotImage({ delivery, alt, caption, loading }) {
       try {
         const token = await authService.getIdToken();
         if (!token) throw new Error('Authentication required.');
-        const response = await fetch(`/api/v2-pilot/courses/${encodeURIComponent(delivery.contentId)}/versions/${delivery.publicationVersion}/assets/${encodeURIComponent(delivery.assetId)}`, {
+        const response = await fetch(v2AssetDeliveryUrl(delivery), {
           signal: controller.signal,
           headers: { Authorization: `Bearer ${token}` },
         });

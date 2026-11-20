@@ -215,6 +215,13 @@ export function CourseLoaderProvider({
     }
   }, [courseNavigation, currentCourse]);
 
+  useEffect(() => {
+    initialLessonIdRef.current = initialLessonId;
+    if (status === 'ready' && initialLessonId && initialLessonId !== currentLessonId) {
+      void selectLesson(initialLessonId);
+    }
+  }, [currentLessonId, initialLessonId, selectLesson, status]);
+
   const goToPreviousLesson = useCallback(() => {
     if (lessonState.previousLesson) selectLesson(lessonState.previousLesson.id);
   }, [lessonState.previousLesson, selectLesson]);

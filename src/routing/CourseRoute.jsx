@@ -52,7 +52,7 @@ export function CourseRoute({
   if (pin.status === 'loading') return <CourseLoadState state="loading" />;
   return (
     <CourseLoaderProvider
-      key={`${courseId}:${pin.version ?? 'active'}:${initialLessonId ?? 'overview'}`}
+      key={`${courseId}:${pin.version ?? 'active'}:${pilot ? 'pilot-session' : initialLessonId ?? 'overview'}`}
       courseId={courseId}
       contentVersion={pin.version}
       initialLessonId={initialLessonId}

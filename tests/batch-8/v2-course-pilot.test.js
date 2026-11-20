@@ -1,8 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { parseAppRoute, routePath } from '../../src/routing/appRoutes';
 import { createV2CourseIdentity, v2ProgressKey } from '../../src/v2-pilot/contentIdentity';
 import { isV2CoursePilotEnabled } from '../../src/v2-pilot/featureGate';
-import { V2CourseRepository } from '../../src/v2-pilot/V2CourseRepository';
+import { adaptV2CourseForLearner, V2CourseRepository } from '../../src/v2-pilot/V2CourseRepository';
+import { createCourseOverviewModel } from '../../src/course/createCourseOverviewModel';
+import { CourseLoaderProvider, useCourseLoader } from '../../src/course/CourseLoader';
+import { v2AssetDeliveryUrl } from '../../src/components/blocks/ImageBlock';
 import { createV2ProgressRepository } from '../../src/v2-pilot/v2ProgressRepository';
 
 describe('E10.3 V2 Course pilot identity and feature gate', () => {
@@ -64,6 +69,76 @@ describe('V2 learner repository', () => {
     const repository = new V2CourseRepository({ tokenProvider: async () => 'token', fetchImpl: async () => ({ ok: false, status: 404, headers: new Headers(), json: async () => ({ error: { code: 'v2/not-found', message: 'Missing.' } }) }) });
     await expect(repository.load({ contentId: 'missing' })).rejects.toMatchObject({ code: 'v2/not-found', status: 404 });
   });
+
+  it('maps the immutable pilot blocks and metadata into the learner model', () => {
+    const identity = createV2CourseIdentity({ contentId: 'course-a', publicationVersion: 1 });
+    const rich = (id, content) => ({ id, type: 'richText', data: { document: { type: 'doc', content } } });
+    const delivered = {
+      courseId: 'course-a', title: 'V2 Staging Pilot Course', description: 'Pilot.', difficulty: 'beginner',
+      estimatedMinutes: 40,
+      learningOutcomes: ['Explain how a versioned V2 Course reaches the learner runtime.', 'Run a small TypeScript example and identify its output.'],
+      prerequisites: ['Basic familiarity with JavaScript'],
+      modules: [{ id: 'module-one', title: 'V2 Pilot Fundamentals', organization: 'sections', sections: [{
+        id: 'section-one', title: 'Pilot Basics', lessons: [
+          { id: 'lesson-one', title: 'Understanding V2 Delivery', estimatedMinutes: 20, blocks: [
+            rich('rich-one', [
+              { type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Welcome to the V2 Pilot' }] },
+              { type: 'paragraph', content: [{ type: 'text', text: 'This lesson verifies that immutable V2 Course content can move safely from Editor Studio to the learner runtime.' }] },
+            ]),
+            { id: 'code-one', type: 'code', data: { language: 'typescript', filename: 'src/pilot.ts', code: 'const publicationVersion: number = 1\n\nconsole.log(`Running V2 publication ${publicationVersion}`)' } },
+            { id: 'image-one', type: 'image', data: { assetId: 'ea6bc02a-d508-462f-8808-2e7b22982dba', alt: 'Ycoders V2 staging pilot course illustration', caption: 'Staging-only image used to verify version-bound asset delivery.', delivery: { kind: 'versioned-v2-asset', namespace: 'v2', contentId: 'course-a', publicationVersion: 1, assetId: 'ea6bc02a-d508-462f-8808-2e7b22982dba' } } },
+          ] },
+          { id: 'lesson-two', title: 'Running the Pilot Example', estimatedMinutes: 20, blocks: [
+            rich('rich-two', [
+              { type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Run the Example' }] },
+              { type: 'paragraph', content: [{ type: 'text', text: 'Review the code, identify the publication version, and confirm the expected console output.' }] },
+              { type: 'bulletList', content: [
+                { type: 'listItem', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Read the version constant.' }] }] },
+                { type: 'listItem', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Inspect the template string.' }] }] },
+                { type: 'listItem', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Confirm the displayed version is 1.' }] }] },
+              ] },
+            ]),
+            { id: 'code-two', type: 'code', data: { language: 'typescript', filename: 'src/check.ts', code: 'export function formatVersion(version: number): string {\n  return `V2 publication ${version}`\n}\n\nconsole.log(formatVersion(1))' } },
+          ] },
+        ],
+      }] }],
+    };
+    const adapted = adaptV2CourseForLearner(delivered, identity);
+    const [first, second] = adapted.modules[0].sections[0].lessons;
+    expect(adapted.modules[0].sections[0].lessons).toHaveLength(2);
+    expect(first.blocks).toEqual(expect.arrayContaining([
+      expect.objectContaining({ type: 'heading', text: 'Welcome to the V2 Pilot' }),
+      expect.objectContaining({ type: 'paragraph', content: expect.stringContaining('immutable V2 Course') }),
+      expect.objectContaining({ type: 'code', language: 'typescript', filename: 'src/pilot.ts', code: 'const publicationVersion: number = 1\n\nconsole.log(`Running V2 publication ${publicationVersion}`)' }),
+      expect.objectContaining({ type: 'image', alt: 'Ycoders V2 staging pilot course illustration', caption: 'Staging-only image used to verify version-bound asset delivery.', delivery: expect.objectContaining({ publicationVersion: 1, assetId: 'ea6bc02a-d508-462f-8808-2e7b22982dba' }) }),
+    ]));
+    expect(second.blocks).toEqual(expect.arrayContaining([
+      expect.objectContaining({ type: 'heading', text: 'Run the Example' }),
+      expect.objectContaining({ type: 'list', style: 'unordered', items: ['Read the version constant.', 'Inspect the template string.', 'Confirm the displayed version is 1.'] }),
+      expect.objectContaining({ type: 'code', language: 'typescript', filename: 'src/check.ts', code: 'export function formatVersion(version: number): string {\n  return `V2 publication ${version}`\n}\n\nconsole.log(formatVersion(1))' }),
+    ]));
+    const overview = createCourseOverviewModel(adapted, { completedLessons: [] });
+    expect(overview).toMatchObject({ estimatedDuration: '40 min', certificateAvailable: false, skills: delivered.learningOutcomes, prerequisites: delivered.prerequisites });
+    const image = first.blocks.find(({ type }) => type === 'image');
+    expect(v2AssetDeliveryUrl(image.delivery)).toBe('/api/v2-pilot/courses/course-a/versions/1/assets/ea6bc02a-d508-462f-8808-2e7b22982dba');
+    expect(v2AssetDeliveryUrl(image.delivery)).not.toContain('editor-v2-published-assets');
+  });
+
+  it('leaves legacy Course certification behavior unchanged', () => {
+    const progress = { completedLessons: [] };
+    const legacy = { id: 'legacy', title: 'Legacy', status: 'published', metadata: {}, modules: [] };
+    expect(createCourseOverviewModel(legacy, progress).certificateAvailable).toBe(true);
+    expect(createCourseOverviewModel({ ...legacy, status: 'archived' }, progress).certificateAvailable).toBe(false);
+  });
+
+  it('derives duration from two distinct lessons when the delivery omits a total', () => {
+    const identity = createV2CourseIdentity({ contentId: 'course-a', publicationVersion: 1 });
+    const adapted = adaptV2CourseForLearner({ courseId: 'course-a', modules: [{ id: 'm', lessons: [
+      { id: 'one', estimatedMinutes: 15, blocks: [] }, { id: 'two', estimatedMinutes: 25, blocks: [] },
+    ] }] }, identity);
+    expect(adapted.metadata.estimatedMinutes).toBe(40);
+    expect(adapted.modules[0].lessons.map(({ id }) => id)).toEqual(['one', 'two']);
+  });
 });
 
 describe('V2 progress isolation', () => {
@@ -85,5 +160,34 @@ describe('V2 progress isolation', () => {
     const repository = createV2ProgressRepository({ contentId: 'course-a', publicationVersion: 1 }, { fetchImpl, persist: false });
     await repository.save('learner', 'course-a', { completedLessons: ['l1'] });
     expect(fetchImpl).not.toHaveBeenCalled();
+  });
+});
+
+describe('V2 lesson navigation reuse', () => {
+  function CurrentLesson() {
+    const loader = useCourseLoader();
+    return React.createElement('span', null, loader.currentLesson?.id ?? loader.status);
+  }
+
+  it('switches lessons locally without reloading the version-pinned Course', async () => {
+    const repository = {
+      loadMetadata: vi.fn(async () => ({ courses: [{ id: 'course-a', version: 1 }], provider: 'v2-pilot' })),
+      loadDocument: vi.fn(async () => ({
+        provider: 'v2-pilot', courseEntry: { id: 'course-a', version: 1 },
+        course: { id: 'course-a', title: 'Pilot', defaultLessonId: 'lesson-one', navigation: { defaultLessonId: 'lesson-one' }, modules: [{ id: 'module-one', lessons: [
+          { id: 'lesson-one', title: 'One', blocks: [] }, { id: 'lesson-two', title: 'Two', blocks: [] },
+        ] }] },
+      })),
+    };
+    const view = (lessonId) => React.createElement(CourseLoaderProvider, {
+      courseId: 'course-a', contentVersion: 1, initialLessonId: lessonId, repository,
+    }, React.createElement(CurrentLesson));
+    const rendered = render(view('lesson-one'));
+    await screen.findByText('lesson-one');
+    rendered.rerender(view('lesson-two'));
+    await screen.findByText('lesson-two');
+    expect(repository.loadMetadata).toHaveBeenCalledTimes(1);
+    expect(repository.loadDocument).toHaveBeenCalledTimes(1);
+    expect(repository.loadMetadata.mock.calls[0][2]).toBe(1);
   });
 });

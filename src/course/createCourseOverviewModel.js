@@ -17,9 +17,11 @@ export function createCourseOverviewModel(course, progress) {
   const lessons = course.modules.flatMap(getModuleLessons);
   const blocks = lessons.flatMap((lesson) => lesson.blocks ?? []);
   const completedSet = new Set(progress.completedLessons);
-  const skills = [...new Set(course.metadata?.tags ?? [])]
-    .filter((tag) => !['beginner', 'intermediate', 'advanced'].includes(tag.toLowerCase()))
-    .map(titleCase);
+  const skills = course.learningOutcomes?.length
+    ? [...new Set(course.learningOutcomes)]
+    : [...new Set(course.metadata?.tags ?? [])]
+      .filter((tag) => !['beginner', 'intermediate', 'advanced'].includes(tag.toLowerCase()))
+      .map(titleCase);
 
   return {
     id: course.id,
@@ -31,7 +33,7 @@ export function createCourseOverviewModel(course, progress) {
     lessonCount: course.contentLoadState?.totalLessonCount ?? lessons.length,
     quizCount: blocks.filter(({ type }) => type === 'quiz').length,
     exerciseCount: blocks.filter(({ type }) => type === 'exercise').length,
-    certificateAvailable: course.status !== 'archived',
+    certificateAvailable: course.certificationAvailable ?? course.status !== 'archived',
     skills: skills.length ? skills : ['Core concepts', 'Practical problem solving'],
     prerequisites: course.prerequisites?.length ? course.prerequisites : course.metadata?.level === 'beginner'
       ? ['No prior programming experience required', 'A computer and a willingness to practise']

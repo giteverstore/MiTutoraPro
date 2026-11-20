@@ -2,26 +2,69 @@ import { authService } from '../auth/AuthService';
 import { createV2CourseIdentity } from './contentIdentity';
 import { V2CourseError } from './V2CourseError';
 
-export function resolveV2CourseAssets(course, identity) {
+function richTextValue(node) {
+  return (node?.content ?? []).map((child) => child.type === 'hardBreak' ? '\n' : child.text ?? richTextValue(child)).join('');
+}
+
+function richTextBlocks(block) {
+  const document = block.data?.document;
+  if (document?.type !== 'doc') return [];
+  return (document.content ?? []).flatMap((node, index) => {
+    const id = `${block.id}:rich-${index}`;
+    if (node.type === 'heading') return [{ id, type: 'heading', level: node.attrs?.level, text: richTextValue(node) }];
+    if (node.type === 'paragraph') return [{ id, type: 'paragraph', content: richTextValue(node), format: 'plain' }];
+    if (node.type === 'bulletList' || node.type === 'orderedList') return [{
+      id,
+      type: 'list',
+      style: node.type === 'orderedList' ? 'ordered' : 'unordered',
+      items: (node.content ?? []).map(richTextValue),
+    }];
+    if (node.type === 'blockquote') return [{ id, type: 'paragraph', content: richTextValue(node), format: 'plain' }];
+    return [];
+  });
+}
+
+function adaptV2Block(block, identity) {
+  if (block.type === 'richText') return richTextBlocks(block);
+  const flattened = { ...block, ...(block.data ?? {}) };
+  delete flattened.data;
+  if (block.type !== 'image' || flattened.delivery?.kind !== 'versioned-v2-asset') return [flattened];
+  const descriptor = flattened.delivery;
+  if (descriptor.namespace !== 'v2' || descriptor.contentId !== identity.contentId
+    || descriptor.publicationVersion !== identity.publicationVersion || !descriptor.assetId) {
+    return [{ ...flattened, src: null }];
+  }
+  return [{ ...flattened, src: null, delivery: { ...descriptor, contentId: identity.contentId, publicationVersion: identity.publicationVersion } }];
+}
+
+export function adaptV2CourseForLearner(course, identity) {
   const adaptLesson = (lesson) => ({
     ...lesson,
-    blocks: (lesson.blocks ?? []).map((block) => {
-      if (block.type !== 'image' || block.delivery?.kind !== 'versioned-v2-asset') return block;
-      const descriptor = block.delivery;
-      if (descriptor.namespace !== 'v2' || descriptor.contentId !== identity.contentId
-        || descriptor.publicationVersion !== identity.publicationVersion || !descriptor.assetId) {
-        return { ...block, src: null };
-      }
-      return { ...block, src: null, delivery: { ...descriptor, contentId: identity.contentId, publicationVersion: identity.publicationVersion } };
-    }),
+    blocks: (lesson.blocks ?? []).flatMap((block) => adaptV2Block(block, identity)),
   });
+  const modules = (course.modules ?? []).map((module) => module.sections?.length
+    ? { ...module, sections: module.sections.map((section) => ({ ...section, lessons: (section.lessons ?? []).map(adaptLesson) })) }
+    : { ...module, lessons: (module.lessons ?? []).map(adaptLesson) });
+  const lessons = modules.flatMap((module) => module.sections?.length
+    ? module.sections.flatMap((section) => section.lessons ?? [])
+    : module.lessons ?? []);
   return {
     ...course,
-    modules: (course.modules ?? []).map((module) => module.sections?.length
-      ? { ...module, sections: module.sections.map((section) => ({ ...section, lessons: (section.lessons ?? []).map(adaptLesson) })) }
-      : { ...module, lessons: (module.lessons ?? []).map(adaptLesson) }),
+    id: course.id ?? course.courseId,
+    metadata: {
+      ...course.metadata,
+      level: course.metadata?.level ?? course.difficulty,
+      estimatedMinutes: course.metadata?.estimatedMinutes ?? course.estimatedMinutes
+        ?? lessons.reduce((total, lesson) => total + (Number(lesson.estimatedMinutes) || 0), 0),
+    },
+    learningOutcomes: course.learningOutcomes ?? course.outcomes ?? [],
+    prerequisites: course.prerequisites ?? course.courseMetadata?.prerequisites ?? [],
+    certificationAvailable: false,
+    modules,
   };
 }
+
+export const resolveV2CourseAssets = adaptV2CourseForLearner;
 
 async function parseResponse(response) {
   const body = await response.json().catch(() => null);
