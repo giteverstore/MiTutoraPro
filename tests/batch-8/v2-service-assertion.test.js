@@ -1,7 +1,7 @@
 import { generateKeyPairSync, verify } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import { HttpV2DeliveryTransport } from '../../server/v2-pilot/V2PilotGateway';
-import { LocalTestServiceAssertionProvider, ServiceAssertionError, StagingWifServiceAssertionProvider, createServiceAssertionProvider } from '../../server/v2-pilot/ServiceAssertion';
+import { LocalTestServiceAssertionProvider, ServiceAssertionError, StagingWifServiceAssertionProvider, createServiceAssertionProvider, createV2GatewayFirebaseCredentialContext } from '../../server/v2-pilot/ServiceAssertion';
 
 const keys = generateKeyPairSync('ed25519');
 const environment = { VERCEL_ENV:'preview', FIREBASE_PROJECT_ID:'demo-ycoders-learner', V2_GATEWAY_TRUST_ENVIRONMENT:'emulator', V2_DELIVERY_SERVICE_URL:'http://127.0.0.1:4400' };
@@ -49,6 +49,16 @@ describe('learner gateway service assertions', () => {
     const provider=new StagingWifServiceAssertionProvider({environment:{VERCEL_ENV:'preview',FIREBASE_PROJECT_ID:'ycoders-staging',V2_GATEWAY_WIF_AUDIENCE:'//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/vercel/providers/mitutora',V2_GATEWAY_SERVICE_ACCOUNT_EMAIL:'learner-gateway@ycoders-staging.iam.gserviceaccount.com',V2_GATEWAY_GOOGLE_TOKEN_AUDIENCE:'https://editor-staging.example.com'},tokenSource:async()=>'vercel-oidc',IdentityPoolClientClass:Source,ImpersonatedClass:ImpersonatedClient});
     await expect(provider.authorization({targetUrl:'https://editor-staging.example.com/api/v2/gateway/courses/a'})).resolves.toBe('Bearer google-id-token');
     expect(await sourceOptions.subject_token_supplier.getSubjectToken()).toBe('vercel-oidc');expect(impersonatedOptions.targetPrincipal).toBe('learner-gateway@ycoders-staging.iam.gserviceaccount.com');
+  });
+  it('reuses the exact staging WIF identity as a Firebase Admin credential', async()=>{
+    let impersonatedOptions;
+    class Source{}
+    class ImpersonatedClient{constructor(options){impersonatedOptions=options;this.credentials={expiry_date:Date.now()+600_000}}async getAccessToken(){return {token:'google-access-token'}}}
+    const environment={VERCEL_ENV:'preview',FIREBASE_PROJECT_ID:'ycoders-staging',V2_GATEWAY_SERVICE_AUTH_MODE:'staging-wif',V2_GATEWAY_WIF_AUDIENCE:'//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/vercel/providers/mitutora',V2_GATEWAY_SERVICE_ACCOUNT_EMAIL:'learner-gateway@ycoders-staging.iam.gserviceaccount.com',V2_GATEWAY_GOOGLE_TOKEN_AUDIENCE:'https://editor-staging.example.com'};
+    const provider=new StagingWifServiceAssertionProvider({environment,tokenSource:async()=>'vercel-oidc',IdentityPoolClientClass:Source,ImpersonatedClass:ImpersonatedClient});
+    await expect(provider.firebaseCredential().getAccessToken()).resolves.toMatchObject({access_token:'google-access-token'});
+    expect(impersonatedOptions.targetPrincipal).toBe('learner-gateway@ycoders-staging.iam.gserviceaccount.com');
+    expect(createV2GatewayFirebaseCredentialContext({environment:{V2_GATEWAY_SERVICE_AUTH_MODE:'off'}})).toEqual({mode:'adc',firebaseCredential:null});
   });
   it('does not allow staging WIF in production or demo projects',()=>{for(const env of [{VERCEL_ENV:'production',FIREBASE_PROJECT_ID:'real'},{VERCEL_ENV:'preview',FIREBASE_PROJECT_ID:'demo-local'}])expect(()=>new StagingWifServiceAssertionProvider({environment:env})).toThrow(/staging wif/i)});
 });

@@ -37,6 +37,17 @@ describe('V2 pilot learner gateway', () => {
     expect(response.statusCode).toBe(200); expect(transport.request).toHaveBeenCalledWith(expect.objectContaining({ mode: 'active' }), expect.any(Object));
   });
 
+  it('passes the request-scoped keyless credential to Firebase token verification', async () => {
+    const firebaseCredential = { getAccessToken: vi.fn() };
+    const verifyToken = vi.fn(async () => ({ uid: 'learner-1' }));
+    const transport = { request: vi.fn(async () => ({ contentId: 'course-a', publicationVersion: 1, course: { modules: [] } })) };
+    const handler = createV2PilotGatewayHandler({ environment, verifyToken, transport, credentialFactory: () => ({ mode: 'wif', firebaseCredential }), logger: {} });
+    const response = responseRecorder();
+    await handler({ method: 'GET', headers: { authorization: 'Bearer learner-token' }, query: { path: 'course-a' } }, response);
+    expect(response.statusCode).toBe(200);
+    expect(verifyToken).toHaveBeenCalledWith('learner-token', expect.objectContaining({ environment, googleCredentials: { mode: 'wif', firebaseCredential } }));
+  });
+
   it('preserves exact versions and version-bound asset tuples', async () => {
     const transport = { request: vi.fn(async (target) => target.kind === 'asset' ? { bytes: Buffer.from('image'), contentType: 'image/png' } : ({ contentId: target.contentId, publicationVersion: target.publicationVersion, course: { modules: [] } })) };
     const handler = createV2PilotGatewayHandler({ environment, verifyToken: async () => ({ uid: 'learner-1' }), transport, logger: {} });

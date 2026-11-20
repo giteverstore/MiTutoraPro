@@ -47,14 +47,35 @@ export class StagingWifServiceAssertionProvider {
     if (!WIF_AUDIENCE.test(audience) || !SERVICE_ACCOUNT.test(serviceAccount) || !/^https:\/\/[^/]+$/.test(targetAudience)) throw new ServiceAssertionError('v2/service-auth-unconfigured','Staging WIF configuration is incomplete.');
     return { audience, serviceAccount, targetAudience };
   }
+  createImpersonatedClient() {
+    const source = new this.IdentityPoolClientClass({ type:'external_account', audience:this.configuration.audience, subject_token_type:'urn:ietf:params:oauth:token-type:jwt', token_url:'https://sts.googleapis.com/v1/token', subject_token_supplier:{ getSubjectToken:()=>this.tokenSource() }, scopes:['https://www.googleapis.com/auth/cloud-platform'] });
+    return new this.ImpersonatedClass({ sourceClient:source, targetPrincipal:this.configuration.serviceAccount, targetScopes:['https://www.googleapis.com/auth/cloud-platform'], lifetime:600 });
+  }
+  firebaseCredential() {
+    const impersonated = this.createImpersonatedClient();
+    return Object.freeze({
+      async getAccessToken() {
+        const result = await impersonated.getAccessToken();
+        const accessToken = result?.token ?? impersonated.credentials?.access_token;
+        if (typeof accessToken !== 'string' || !accessToken) throw new ServiceAssertionError('v2/service-auth-unavailable','Google service identity could not be obtained.');
+        const expiryDate = Number(impersonated.credentials?.expiry_date);
+        return { access_token: accessToken, expires_in: Number.isFinite(expiryDate) ? Math.max(1, Math.floor((expiryDate-Date.now())/1000)) : 600 };
+      },
+    });
+  }
   async authorization({ targetUrl }) {
     if (new URL(targetUrl).origin !== this.configuration.targetAudience) throw new ServiceAssertionError('v2/service-audience-mismatch','Editor gateway origin does not match the configured token audience.');
-    const source = new this.IdentityPoolClientClass({ type:'external_account', audience:this.configuration.audience, subject_token_type:'urn:ietf:params:oauth:token-type:jwt', token_url:'https://sts.googleapis.com/v1/token', subject_token_supplier:{ getSubjectToken:()=>this.tokenSource() }, scopes:['https://www.googleapis.com/auth/cloud-platform'] });
-    const impersonated = new this.ImpersonatedClass({ sourceClient:source, targetPrincipal:this.configuration.serviceAccount, targetScopes:['https://www.googleapis.com/auth/cloud-platform'], lifetime:600 });
+    const impersonated = this.createImpersonatedClient();
     const token = await impersonated.fetchIdToken(this.configuration.targetAudience, { includeEmail:true });
     if (!token) throw new ServiceAssertionError('v2/service-auth-unavailable','Google service identity could not be obtained.');
     return `Bearer ${token}`;
   }
+}
+
+export function createV2GatewayFirebaseCredentialContext({ environment=process.env }={}) {
+  if (String(environment.V2_GATEWAY_SERVICE_AUTH_MODE??'') !== 'staging-wif') return Object.freeze({ mode:'adc', firebaseCredential:null });
+  const provider = new StagingWifServiceAssertionProvider({ environment });
+  return Object.freeze({ mode:'wif', firebaseCredential:provider.firebaseCredential() });
 }
 
 export function createServiceAssertionProvider(environment = process.env) {

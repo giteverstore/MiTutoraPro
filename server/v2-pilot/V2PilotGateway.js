@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { verifyFirebaseIdToken } from '../ai/auth/FirebaseAITutorAuthenticator.js';
-import { createServiceAssertionProvider, ServiceAssertionError } from './ServiceAssertion.js';
+import { createServiceAssertionProvider, createV2GatewayFirebaseCredentialContext, ServiceAssertionError } from './ServiceAssertion.js';
 
 const SAFE_ID = /^[a-z0-9][a-z0-9._-]{0,127}$/i;
 
@@ -76,14 +76,15 @@ function publicError(error, correlationId) {
   return { status: known ? error.status : 500, body: { ok: false, error: { code: known ? error.code : 'v2/internal', message: known ? error.message : 'The V2 pilot request could not be completed.', correlationId } } };
 }
 
-export function createV2PilotGatewayHandler({ environment = process.env, verifyToken, transport = new HttpV2DeliveryTransport(environment), logger = console } = {}) {
+export function createV2PilotGatewayHandler({ environment = process.env, verifyToken, transport = new HttpV2DeliveryTransport(environment), credentialFactory = createV2GatewayFirebaseCredentialContext, logger = console } = {}) {
   return async function handler(request, response) {
     const correlationId = randomUUID(); const started = Date.now(); let target;
     try {
       if (request.method !== 'GET') { response.setHeader('Allow', 'GET'); throw new V2PilotGatewayError('v2/method-not-allowed', 'Use GET for V2 pilot delivery.', 405); }
       if (!isServerV2PilotEnabled(environment)) throw new V2PilotGatewayError('v2/pilot-disabled', 'The V2 Course pilot is disabled.', 404);
       target = parseRequestPath(request);
-      const principal = await authenticate(request, { environment, verifyToken });
+      const googleCredentials = credentialFactory({ request, environment });
+      const principal = await authenticate(request, { environment, verifyToken, googleCredentials });
       assertPilotEntitlement({ uid: principal.uid, contentId: target.contentId }, environment);
       const delivered = await transport.request(target, { signal: request.signal, correlationId });
       logger.info?.('v2_pilot.delivery', { correlationId, namespace: 'v2', contentType: 'course', contentId: target.contentId, requestedPublicationVersion: target.publicationVersion, resolvedPublicationVersion: delivered.publicationVersion ?? target.publicationVersion, mode: target.mode, kind: target.kind, outcome: 'success', latencyMs: Date.now() - started });

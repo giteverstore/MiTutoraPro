@@ -18,7 +18,7 @@ async function loadAdminAuth(environment = process.env) {
 }
 
 export async function verifyFirebaseIdToken(token, { environment = process.env, googleCredentials } = {}) {
-  if (!requiresFederatedTutorCredentials(environment)) {
+  if (!googleCredentials?.firebaseCredential && !requiresFederatedTutorCredentials(environment)) {
     const auth = await loadAdminAuth(environment);
     return auth.verifyIdToken(token, true);
   }
