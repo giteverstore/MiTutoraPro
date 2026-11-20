@@ -77,6 +77,39 @@ describe('explicit Course lesson completion', () => {
     expect(onNext).toHaveBeenCalledOnce();
   });
 
+  it('shows only the available boundary navigation for restored completed V2 lessons', () => {
+    progress.completedLessons = ['lesson-1', 'lesson-2'];
+    const onPrevious = vi.fn();
+    const onNext = vi.fn();
+    const view = render(<LessonFooter
+      lesson={{ id: 'lesson-1', blocks: [] }}
+      previousLesson={null}
+      nextLesson={{ id: 'lesson-2', title: 'Running the Pilot Example' }}
+      onPrevious={onPrevious}
+      onNext={onNext}
+      lessonCount={2}
+      currentLessonIndex={0}
+    />);
+    expect(screen.getAllByText('Lesson completed')).toHaveLength(2);
+    expect(screen.getByRole('button', { name: 'Previous Lesson' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Next Lesson' }));
+    expect(onNext).toHaveBeenCalledOnce();
+
+    view.rerender(<LessonFooter
+      lesson={{ id: 'lesson-2', blocks: [] }}
+      previousLesson={{ id: 'lesson-1', title: 'Understanding V2 Delivery' }}
+      nextLesson={null}
+      onPrevious={onPrevious}
+      onNext={onNext}
+      lessonCount={2}
+      currentLessonIndex={1}
+    />);
+    expect(screen.getAllByText('Lesson completed')).toHaveLength(2);
+    fireEvent.click(screen.getByRole('button', { name: 'Previous Lesson' }));
+    expect(onPrevious).toHaveBeenCalledOnce();
+    expect(screen.getByRole('button', { name: 'Course Complete' })).toBeDisabled();
+  });
+
   it('keeps the solution disclosure native and aligns expanded content to one inset', () => {
     const { container } = render(<SolutionBlock title="View solution" description="Explain it." language="js" code="return true;" />);
     const details = container.querySelector('details');

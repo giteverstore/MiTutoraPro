@@ -4,9 +4,15 @@ import { createV2ProgressRepository } from './v2ProgressRepository';
 export function createV2CourseLoaderRepository({ identity, repository, shadow = false } = {}) {
   const requested = createV2CourseIdentity(identity);
   let delivery = null;
+  let progressRepository = null;
   const requireDelivery = () => {
     if (!delivery) throw new Error('The V2 Course must resolve before its document or progress can be used.');
     return delivery;
+  };
+  const requireProgressRepository = () => {
+    const resolved = requireDelivery();
+    progressRepository ??= createV2ProgressRepository(resolved.identity, { persist: !shadow });
+    return progressRepository;
   };
   return Object.freeze({
     async loadMetadata(signal) {
@@ -19,16 +25,13 @@ export function createV2CourseLoaderRepository({ identity, repository, shadow = 
     },
     progressRepository: Object.freeze({
       load(userId) {
-        const resolved = requireDelivery();
-        return createV2ProgressRepository(resolved.identity, { persist: !shadow }).load(userId);
+        return requireProgressRepository().load(userId);
       },
       save(userId, courseId, progress) {
-        const resolved = requireDelivery();
-        return createV2ProgressRepository(resolved.identity, { persist: !shadow }).save(userId, courseId, progress);
+        return requireProgressRepository().save(userId, courseId, progress);
       },
       clear(userId) {
-        const resolved = requireDelivery();
-        return createV2ProgressRepository(resolved.identity, { persist: !shadow }).clear(userId);
+        return requireProgressRepository().clear(userId);
       },
     }),
   });

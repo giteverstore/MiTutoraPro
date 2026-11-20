@@ -224,7 +224,7 @@ export function Layout({ courseLoader }) {
         onThemeToggle={() => { void toggleTheme().catch(() => undefined); }}
         theme={theme}
         lessonProgress={lessonProgressScope && lessonProgressScope.index >= 0 ? {
-          current: lessonProgressScope.index + 1,
+          current: lessonProgressScope.lessons.filter((lesson) => completedLessonIds.has(lesson.id)).length,
           total: lessonProgressScope.lessons.length,
         } : null}
         bookmark={lessonBookmark}

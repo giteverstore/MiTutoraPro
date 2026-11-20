@@ -120,7 +120,7 @@ export function LearningProgressProvider({
 
   const completeLesson = useCallback(async (lessonId) => {
     if (progress.completedLessons.includes(lessonId)) return;
-    if (course.publishedVersion) {
+    if (course.publishedVersion && trustedCompletionService.persistence !== 'progress-repository') {
       await trustedCompletionService.recordLessonCompletion(course.id, course.publishedVersion, lessonId);
       updateProgress((current) => current.completedLessons.includes(lessonId)
         ? current

@@ -1,6 +1,8 @@
+import { getModuleLessons } from './courseStructure';
+
 export function createCourseNavigation(course) {
   const entries = course.modules.flatMap((module) =>
-    module.lessons.map((lesson) => ({ lesson, module })),
+    getModuleLessons(module).map((lesson) => ({ lesson, module })),
   );
   const entryByLessonId = new Map(
     entries.map((entry, index) => [entry.lesson.id, { ...entry, index }]),

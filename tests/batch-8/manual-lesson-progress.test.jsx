@@ -77,4 +77,17 @@ describe('manual Course lesson progress', () => {
     expect(screen.getByTestId('count')).toHaveTextContent('0');
     expect(repository.save).not.toHaveBeenCalled();
   });
+
+  it('persists V2 published completion through its version-aware progress repository', async () => {
+    const repository = { load: vi.fn().mockResolvedValue({ completedLessons: [], revision: 3 }), save: vi.fn().mockResolvedValue({ completedLessons: ['lesson-1'], revision: 4 }) };
+    const trustedCompletionService = { persistence: 'progress-repository', recordLessonCompletion: vi.fn() };
+    let progress;
+    function Capture() { progress = useLearningProgress(); return <span data-testid="count">{progress.completedLessonCount}</span>; }
+    render(<LearningProgressProvider course={{ ...course, publishedVersion: 1 }} userId="learner" repository={repository} trustedCompletionService={trustedCompletionService}><Capture /></LearningProgressProvider>);
+    await waitFor(() => expect(progress.status).toBe('ready'));
+    await act(async () => { await progress.completeLesson('lesson-1'); });
+    expect(repository.save).toHaveBeenCalledWith('learner', 'manual-course', expect.objectContaining({ completedLessons: ['lesson-1'], contentVersion: 1 }));
+    expect(trustedCompletionService.recordLessonCompletion).not.toHaveBeenCalled();
+    expect(screen.getByTestId('count')).toHaveTextContent('1');
+  });
 });

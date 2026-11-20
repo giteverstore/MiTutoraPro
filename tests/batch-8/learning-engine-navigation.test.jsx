@@ -51,7 +51,7 @@ describe('Learning Engine navigation alignment', () => {
     expect(screen.getByText('Lesson progress')).toBeInTheDocument();
     expect(screen.getByText('4 of 6')).toBeInTheDocument();
     expect(screen.getByRole('progressbar', { name: 'Lesson progress: 4 of 6' })).toHaveAttribute('aria-valuenow', '4');
-    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemin', '1');
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemin', '0');
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '6');
     expect(screen.getByRole('progressbar').firstElementChild).toHaveStyle({ width: '66.66666666666666%' });
     expect(screen.queryByText('42%')).not.toBeInTheDocument();
@@ -65,10 +65,11 @@ describe('Learning Engine navigation alignment', () => {
   });
 
   it.each([
+    [0, 6, '0 of 6', '0%'],
     [1, 6, '1 of 6', '16.666666666666664%'],
     [3, 6, '3 of 6', '50%'],
     [6, 6, '6 of 6', '100%'],
-  ])('shows current subsection position %i of %i', (current, total, text, width) => {
+  ])('shows completed subsection progress %i of %i', (current, total, text, width) => {
     render(<TopNavigation {...props()} lessonProgress={{ current, total }} />);
     expect(screen.getByText(text)).toBeVisible();
     expect(screen.getByRole('progressbar').firstElementChild).toHaveStyle({ width });

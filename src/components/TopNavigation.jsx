@@ -22,7 +22,7 @@ export function TopNavigation({
   const hasLessonProgress = Number.isInteger(lessonProgress?.current)
     && Number.isInteger(lessonProgress?.total)
     && lessonProgress.total > 0
-    && lessonProgress.current >= 1
+    && lessonProgress.current >= 0
     && lessonProgress.current <= lessonProgress.total;
   const lessonProgressText = hasLessonProgress
     ? `${lessonProgress.current} of ${lessonProgress.total}`
@@ -62,7 +62,7 @@ export function TopNavigation({
               role="progressbar"
               aria-label={`Lesson progress: ${lessonProgressText}`}
               aria-valuenow={lessonProgress.current}
-              aria-valuemin="1"
+              aria-valuemin="0"
               aria-valuemax={lessonProgress.total}
             >
               <span style={{ width: `${lessonProgressPercent}%` }} />

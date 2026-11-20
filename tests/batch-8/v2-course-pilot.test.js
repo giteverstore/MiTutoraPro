@@ -10,6 +10,9 @@ import { CourseLoaderProvider, useCourseLoader } from '../../src/course/CourseLo
 import { v2AssetDeliveryUrl } from '../../src/components/blocks/ImageBlock';
 import { BlockRenderer } from '../../src/components/BlockRenderer';
 import { createV2ProgressRepository } from '../../src/v2-pilot/v2ProgressRepository';
+import { deriveProgress } from '../../src/progress/learningProgressModel';
+import { createCourseNavigation } from '../../src/course/courseNavigation';
+import { Sidebar } from '../../src/components/Sidebar';
 
 describe('E10.3 V2 Course pilot identity and feature gate', () => {
   it('is disabled by default and cannot be enabled in production', () => {
@@ -172,6 +175,66 @@ describe('V2 progress isolation', () => {
     await repository.save('learner', 'course-a', { completedLessons: ['l1'] });
     expect(fetchImpl).not.toHaveBeenCalled();
   });
+
+  it('serializes progress writes against the latest authoritative revision', async () => {
+    let revision = 4;
+    const requestBodies = [];
+    const fetchImpl = vi.fn(async (_url, options) => {
+      if (options.method === 'GET') return { ok: true, json: async () => ({ ok: true, data: { completedLessons: [], revision } }) };
+      const body = JSON.parse(options.body);
+      requestBodies.push(body);
+      expect(body.revision).toBe(revision);
+      revision += 1;
+      return { ok: true, json: async () => ({ ok: true, data: { ...body, revision } }) };
+    });
+    const repository = createV2ProgressRepository(
+      { contentId: 'course-a', publicationVersion: 1 },
+      { fetchImpl, tokenProvider: async () => 'learner-token' },
+    );
+    await repository.load('learner');
+    await Promise.all([
+      repository.save('learner', 'course-a', { completedLessons: ['lesson-one'], bookmarks: [] }),
+      repository.save('learner', 'course-a', { completedLessons: ['lesson-one', 'lesson-two'], bookmarks: ['lesson-two'] }),
+    ]);
+    expect(requestBodies.map(({ revision: value }) => value)).toEqual([4, 5]);
+    expect(requestBodies[1].completedLessons).toEqual(['lesson-one', 'lesson-two']);
+  });
+
+  it('restores every completion surface from the same V2 completed lesson set', () => {
+    const lessons = [
+      { id: 'lesson-one', title: 'Understanding V2 Delivery', blocks: [] },
+      { id: 'lesson-two', title: 'Running the Pilot Example', blocks: [] },
+    ];
+    const course = {
+      id: 'course-a', name: 'Pilot', sidebar: { closeLabel: 'Close' }, ui: { shortcuts: { close: 'Escape' } },
+      modules: [{ id: 'module-one', title: 'Fundamentals', meta: '', initiallyOpen: true, sections: [{ id: 'section-one', title: 'Pilot Basics', initiallyExpanded: true, lessons }] }],
+    };
+    const progress = deriveProgress(course, { completedLessons: lessons.map(({ id }) => id), bookmarks: ['lesson-two'] });
+    expect(progress.completedLessons).toEqual(['lesson-one', 'lesson-two']);
+    expect(progress.sequentialCompletedLessons).toBe(2);
+
+    const view = render(React.createElement(Sidebar, {
+      course, currentLessonId: null, onSelectLesson: vi.fn(), isLoading: false,
+      completedLessonIds: new Set(progress.completedLessons), visitedLessonIds: new Set(progress.visitedLessons),
+      completedCount: progress.sequentialCompletedLessons, lessonCount: 2,
+      completedModuleIds: new Set(progress.completedModules), estimatedTimeRemaining: progress.estimatedTimeRemaining,
+      isOpen: true, onClose: vi.fn(), isCollapsed: false, onToggleCollapsed: vi.fn(), isOverlay: false,
+    }));
+    const queries = within(view.container);
+    expect(queries.getByText('2 of 2 lessons')).toBeInTheDocument();
+    expect(queries.getByText('2/2')).toBeInTheDocument();
+    expect(view.container.querySelectorAll('.lesson-link.is-complete')).toHaveLength(2);
+  });
+
+  it('uses the ordered section lesson sequence for V2 Previous and Next targets', () => {
+    const course = { modules: [{ id: 'module-one', sections: [{ id: 'section-one', lessons: [
+      { id: 'lesson-one', title: 'Understanding V2 Delivery', blocks: [] },
+      { id: 'lesson-two', title: 'Running the Pilot Example', blocks: [] },
+    ] }] }] };
+    const navigation = createCourseNavigation(course);
+    expect(navigation.getState('lesson-one')).toMatchObject({ previousLesson: null, nextLesson: { id: 'lesson-two' } });
+    expect(navigation.getState('lesson-two')).toMatchObject({ previousLesson: { id: 'lesson-one' }, nextLesson: null });
+  });
 });
 
 describe('V2 lesson navigation reuse', () => {
@@ -181,7 +244,8 @@ describe('V2 lesson navigation reuse', () => {
     React.useEffect(() => { if (loader.currentLesson?.id) transitions?.push(loader.currentLesson.id); }, [loader.currentLesson?.id, transitions]);
     return React.createElement(React.Fragment, null,
       React.createElement('span', null, lessonId),
-      React.createElement('button', { type: 'button', onClick: () => loader.selectLesson('lesson-two') }, 'Select lesson two'));
+      React.createElement('button', { type: 'button', disabled: !loader.previousLesson, onClick: loader.goToPreviousLesson }, 'Previous lesson'),
+      React.createElement('button', { type: 'button', disabled: !loader.nextLesson, onClick: loader.goToNextLesson }, 'Next lesson'));
   }
 
   it('switches lessons locally without reloading the version-pinned Course', async () => {
@@ -224,11 +288,18 @@ describe('V2 lesson navigation reuse', () => {
     const rendered = render(view('lesson-one'));
     const renderedQueries = within(rendered.container);
     await renderedQueries.findByText('lesson-one');
-    fireEvent.click(renderedQueries.getByRole('button', { name: 'Select lesson two' }));
+    fireEvent.click(renderedQueries.getByRole('button', { name: 'Next lesson' }));
     await renderedQueries.findByText('lesson-two');
     await waitFor(() => expect(transitions).toEqual(['lesson-one', 'lesson-two']));
     rendered.rerender(view('lesson-two'));
     await waitFor(() => expect(transitions).toEqual(['lesson-one', 'lesson-two']));
+    expect(routePath({ kind: 'v2-pilot-course', contentId: 'course-a', publicationVersion: 1, lessonId: 'lesson-two' }))
+      .toBe('/pilot/v2/courses/course-a/versions/1/lesson/lesson-two');
+    fireEvent.click(renderedQueries.getByRole('button', { name: 'Previous lesson' }));
+    await renderedQueries.findByText('lesson-one');
+    await waitFor(() => expect(transitions).toEqual(['lesson-one', 'lesson-two', 'lesson-one']));
+    rendered.rerender(view('lesson-one'));
+    await waitFor(() => expect(transitions).toEqual(['lesson-one', 'lesson-two', 'lesson-one']));
     expect(repository.loadMetadata).toHaveBeenCalledTimes(1);
     expect(repository.loadDocument).toHaveBeenCalledTimes(1);
   });
