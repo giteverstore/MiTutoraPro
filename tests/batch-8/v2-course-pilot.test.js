@@ -29,6 +29,27 @@ describe('E10.3 V2 Course pilot identity and feature gate', () => {
 
 describe('V2 learner repository', () => {
   const course = { id: 'course-a', modules: [{ id: 'm1', lessons: [{ id: 'l1', blocks: [{ type: 'image', delivery: { kind: 'versioned-v2-asset', namespace: 'v2', contentId: 'course-a', publicationVersion: 3, assetId: 'hero' } }] }] }] };
+  it('invokes the browser fetch implementation with the global receiver', async () => {
+    const browserFetch = vi.fn(function browserFetch(url) {
+      if (this !== globalThis) throw new TypeError('fetch requires the Window receiver');
+      return Promise.resolve({
+        ok: true,
+        headers: new Headers(),
+        json: async () => ({ ok: true, data: { namespace: 'v2', contentType: 'course', contentId: 'course-a', publicationVersion: 3, course } }),
+      });
+    });
+    vi.stubGlobal('fetch', browserFetch);
+    try {
+      const repository = new V2CourseRepository({ tokenProvider: async () => 'learner-token' });
+      await expect(repository.load({ contentId: 'course-a' })).resolves.toMatchObject({ contentId: 'course-a' });
+      expect(browserFetch).toHaveBeenCalledWith('/api/v2-pilot/courses/course-a', expect.objectContaining({
+        headers: expect.objectContaining({ Authorization: 'Bearer learner-token' }),
+      }));
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
   it('loads active and exact publications without legacy fallback', async () => {
     const fetchImpl = vi.fn(async (url) => ({ ok: true, headers: new Headers(), json: async () => ({ ok: true, data: { namespace: 'v2', contentType: 'course', contentId: 'course-a', publicationVersion: 3, course } }) }));
     const repository = new V2CourseRepository({ tokenProvider: async () => 'learner-token', fetchImpl });

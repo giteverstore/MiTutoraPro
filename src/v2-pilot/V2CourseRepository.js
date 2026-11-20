@@ -37,7 +37,7 @@ async function parseResponse(response) {
 export class V2CourseRepository {
   constructor({ tokenProvider = () => authService.getIdToken(), fetchImpl = globalThis.fetch } = {}) {
     this.tokenProvider = tokenProvider;
-    this.fetch = fetchImpl;
+    this.fetch = fetchImpl === globalThis.fetch ? (...args) => globalThis.fetch(...args) : fetchImpl;
   }
 
   async load(identity, { signal, shadow = false } = {}) {
