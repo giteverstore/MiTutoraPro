@@ -8,6 +8,7 @@ import { adaptV2CourseForLearner, V2CourseRepository } from '../../src/v2-pilot/
 import { createCourseOverviewModel } from '../../src/course/createCourseOverviewModel';
 import { CourseLoaderProvider, useCourseLoader } from '../../src/course/CourseLoader';
 import { v2AssetDeliveryUrl } from '../../src/components/blocks/ImageBlock';
+import { BlockRenderer } from '../../src/components/BlockRenderer';
 import { createV2ProgressRepository } from '../../src/v2-pilot/v2ProgressRepository';
 
 describe('E10.3 V2 Course pilot identity and feature gate', () => {
@@ -122,6 +123,16 @@ describe('V2 learner repository', () => {
     const image = first.blocks.find(({ type }) => type === 'image');
     expect(v2AssetDeliveryUrl(image.delivery)).toBe('/api/v2-pilot/courses/course-a/versions/1/assets/ea6bc02a-d508-462f-8808-2e7b22982dba');
     expect(v2AssetDeliveryUrl(image.delivery)).not.toContain('editor-v2-published-assets');
+    const list = second.blocks.find(({ type }) => type === 'list');
+    render(React.createElement(BlockRenderer, { lesson: { blocks: [list] }, emptyState: {} }));
+    const renderedList = screen.getByRole('list');
+    expect(renderedList).toHaveClass('lesson-content-list');
+    expect(renderedList).not.toHaveClass('lesson-list');
+    expect(screen.getAllByRole('listitem').map((item) => item.textContent)).toEqual([
+      'Read the version constant.',
+      'Inspect the template string.',
+      'Confirm the displayed version is 1.',
+    ]);
   });
 
   it('leaves legacy Course certification behavior unchanged', () => {

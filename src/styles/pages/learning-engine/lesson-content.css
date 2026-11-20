@@ -157,6 +157,18 @@
   margin-bottom: 0;
 }
 
+.lesson-content-list {
+  max-width: 68ch;
+  padding-left: var(--space-6);
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  line-height: 1.65;
+}
+
+.lesson-content-list li+li {
+  margin-top: var(--space-2);
+}
+
 .lesson-completion-footer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(10rem, auto) minmax(0, 1fr);
