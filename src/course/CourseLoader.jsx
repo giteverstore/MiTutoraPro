@@ -33,6 +33,7 @@ export function CourseLoaderProvider({
   repository = null,
 }) {
   const initialLessonIdRef = useRef(initialLessonId);
+  const appliedRouteLessonIdRef = useRef(initialLessonId);
   const courseDocumentRef = useRef(null);
   const courseEntryRef = useRef(null);
   const sessionRef = useRef(null);
@@ -217,7 +218,9 @@ export function CourseLoaderProvider({
 
   useEffect(() => {
     initialLessonIdRef.current = initialLessonId;
-    if (status === 'ready' && initialLessonId && initialLessonId !== currentLessonId) {
+    if (status !== 'ready' || appliedRouteLessonIdRef.current === initialLessonId) return;
+    appliedRouteLessonIdRef.current = initialLessonId;
+    if (initialLessonId && initialLessonId !== currentLessonId) {
       void selectLesson(initialLessonId);
     }
   }, [currentLessonId, initialLessonId, selectLesson, status]);

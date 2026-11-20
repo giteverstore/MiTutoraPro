@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { parseAppRoute, routePath } from '../../src/routing/appRoutes';
 import { createV2CourseIdentity, v2ProgressKey } from '../../src/v2-pilot/contentIdentity';
 import { isV2CoursePilotEnabled } from '../../src/v2-pilot/featureGate';
@@ -175,9 +175,13 @@ describe('V2 progress isolation', () => {
 });
 
 describe('V2 lesson navigation reuse', () => {
-  function CurrentLesson() {
+  function CurrentLesson({ transitions = null }) {
     const loader = useCourseLoader();
-    return React.createElement('span', null, loader.currentLesson?.id ?? loader.status);
+    const lessonId = loader.currentLesson?.id ?? loader.status;
+    React.useEffect(() => { if (loader.currentLesson?.id) transitions?.push(loader.currentLesson.id); }, [loader.currentLesson?.id, transitions]);
+    return React.createElement(React.Fragment, null,
+      React.createElement('span', null, lessonId),
+      React.createElement('button', { type: 'button', onClick: () => loader.selectLesson('lesson-two') }, 'Select lesson two'));
   }
 
   it('switches lessons locally without reloading the version-pinned Course', async () => {
@@ -194,11 +198,38 @@ describe('V2 lesson navigation reuse', () => {
       courseId: 'course-a', contentVersion: 1, initialLessonId: lessonId, repository,
     }, React.createElement(CurrentLesson));
     const rendered = render(view('lesson-one'));
-    await screen.findByText('lesson-one');
+    const renderedQueries = within(rendered.container);
+    await renderedQueries.findByText('lesson-one');
     rendered.rerender(view('lesson-two'));
-    await screen.findByText('lesson-two');
+    await renderedQueries.findByText('lesson-two');
     expect(repository.loadMetadata).toHaveBeenCalledTimes(1);
     expect(repository.loadDocument).toHaveBeenCalledTimes(1);
     expect(repository.loadMetadata.mock.calls[0][2]).toBe(1);
+  });
+
+  it('does not let a stale route prop revert a locally selected lesson before the URL catches up', async () => {
+    const transitions = [];
+    const repository = {
+      loadMetadata: vi.fn(async () => ({ courses: [{ id: 'course-a', version: 1 }], provider: 'v2-pilot' })),
+      loadDocument: vi.fn(async () => ({
+        provider: 'v2-pilot', courseEntry: { id: 'course-a', version: 1 },
+        course: { id: 'course-a', title: 'Pilot', defaultLessonId: 'lesson-one', navigation: { defaultLessonId: 'lesson-one' }, modules: [{ id: 'module-one', lessons: [
+          { id: 'lesson-one', title: 'One', blocks: [] }, { id: 'lesson-two', title: 'Two', blocks: [] },
+        ] }] },
+      })),
+    };
+    const view = (lessonId) => React.createElement(CourseLoaderProvider, {
+      courseId: 'course-a', contentVersion: 1, initialLessonId: lessonId, repository,
+    }, React.createElement(CurrentLesson, { transitions }));
+    const rendered = render(view('lesson-one'));
+    const renderedQueries = within(rendered.container);
+    await renderedQueries.findByText('lesson-one');
+    fireEvent.click(renderedQueries.getByRole('button', { name: 'Select lesson two' }));
+    await renderedQueries.findByText('lesson-two');
+    await waitFor(() => expect(transitions).toEqual(['lesson-one', 'lesson-two']));
+    rendered.rerender(view('lesson-two'));
+    await waitFor(() => expect(transitions).toEqual(['lesson-one', 'lesson-two']));
+    expect(repository.loadMetadata).toHaveBeenCalledTimes(1);
+    expect(repository.loadDocument).toHaveBeenCalledTimes(1);
   });
 });
