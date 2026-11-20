@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
+import { readFileSync } from 'node:fs';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { parseAppRoute, routePath } from '../../src/routing/appRoutes';
 import { createV2CourseIdentity, v2ProgressKey } from '../../src/v2-pilot/contentIdentity';
@@ -26,6 +27,15 @@ describe('E10.3 V2 Course pilot identity and feature gate', () => {
     expect(identity).toEqual({ namespace: 'v2', contentType: 'course', contentId: 'same-id', publicationVersion: 2 });
     expect(v2ProgressKey(identity)).toBe('v2:course:same-id:version:2');
     expect(() => v2ProgressKey({ contentId: 'same-id' })).toThrow(/exact publicationVersion/);
+  });
+
+  it('fits the pilot banner and learning shell inside one dynamic viewport', () => {
+    const css = readFileSync('src/v2-pilot/v2-pilot.css', 'utf8');
+    expect(css).toMatch(/\.v2-pilot-shell\s*\{[^}]*height:\s*100dvh;[^}]*grid-template-rows:\s*auto minmax\(0, 1fr\);[^}]*overflow:\s*hidden;/s);
+    expect(css).toMatch(/\.v2-pilot-shell\s*>\s*\.app-shell\s*\{[^}]*height:\s*100%;[^}]*min-height:\s*0;/s);
+    expect(css).toMatch(/\.v2-pilot-shell \.workspace\s*\{[^}]*height:\s*calc\(100% - var\(--topbar-height\)\);/s);
+    expect(css).toMatch(/\.v2-pilot-shell \.lesson-completion-footer\s*\{[^}]*env\(safe-area-inset-bottom\)/s);
+    expect(css).toMatch(/@media \(max-width:\s*40rem\)[\s\S]*?\.v2-pilot-banner\s*\{[^}]*flex-wrap:\s*wrap;/s);
   });
 
   it('parses only the explicit pilot namespace route', () => {
