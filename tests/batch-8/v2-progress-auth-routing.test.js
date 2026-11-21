@@ -44,4 +44,20 @@ describe('V2 progress authentication ordering', () => {
     expect(transport.request).toHaveBeenCalledWith(expect.objectContaining({ contentId: 'course-a', publicationVersion: 2, mode: 'exact' }), expect.objectContaining({ correlationId: expect.any(String) }));
     expect(store.save).toHaveBeenCalledWith('learner-1', { contentId: 'course-a', publicationVersion: 2 }, { completedLessons: ['lesson-1'] }, new Set(['lesson-1']));
   });
+
+  it('maps persistence infrastructure failure to availability instead of authentication', async () => {
+    const logger = { warn: vi.fn() };
+    const handler = createV2ProgressHandler({
+      environment,
+      verifyToken: vi.fn(async () => ({ uid: 'learner-1' })),
+      authCredentialFactory: () => ({ firebaseCredential: {} }),
+      progressCredentialFactory: () => ({ firebaseCredential: {} }),
+      firestoreFactory: vi.fn(async () => { throw Object.assign(new Error('denied'), { code: 7 }); }),
+      logger,
+    });
+    const response = responseRecorder(); await handler(request(), response);
+    expect(response).toMatchObject({ statusCode: 503, body: { error: { code: 'v2/progress-unavailable' } } });
+    expect(logger.warn).toHaveBeenCalledWith('v2_progress.failure', expect.objectContaining({ stage: 'firestore-client', errorCode: '7', publicCode: 'v2/progress-unavailable' }));
+    expect(JSON.stringify(logger.warn.mock.calls)).not.toContain('learner-token');
+  });
 });

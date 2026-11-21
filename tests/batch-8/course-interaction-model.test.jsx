@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { LessonFooter } from '../../src/components/LessonFooter.jsx';
 import { QuizBlock } from '../../src/components/blocks/QuizBlock.jsx';
 import { ExerciseBlock } from '../../src/components/blocks/ExerciseBlock.jsx';
+import { parseAppRoute } from '../../src/routing/appRoutes.js';
 
 const progress = {
   quizScores: {},
@@ -36,6 +37,13 @@ describe('Course learner interaction model', () => {
     expect(screen.queryByText(/Complete Lesson|Lesson completed|Saving|Try Again/i)).not.toBeInTheDocument();
   });
 
+  it('keeps an exact-version V2 passive route navigation-only', () => {
+    expect(parseAppRoute('/pilot/v2/courses/course-a/versions/2/lesson/lesson-a')).toMatchObject({ kind:'v2-pilot-course', publicationVersion:2, lessonId:'lesson-a' });
+    render(<LessonFooter previousLesson={{ id:'one' }} nextLesson={{ id:'three' }} onPrevious={vi.fn()} onNext={vi.fn()} lessonCount={3} currentLessonIndex={1} />);
+    expect(screen.getByRole('button',{name:'Previous Lesson'})).toBeEnabled();
+    expect(screen.getByRole('button',{name:'Next Lesson'})).toBeEnabled();
+    expect(screen.queryByText(/Complete Lesson|Lesson completed|Saving|Try Again/i)).not.toBeInTheDocument();
+  });
   it('uses Check Answer as the quiz\'s only validation action', () => {
     render(<QuizBlock blockId="quiz-1" question="Two plus two?" options={[{ id: 'four', text: 'Four' }]} correctOptionIds={['four']} />);
     fireEvent.click(screen.getByRole('radio', { name: 'Four' }));
