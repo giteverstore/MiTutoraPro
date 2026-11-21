@@ -16,6 +16,7 @@ import { BookmarkToggle } from '../bookmarks/BookmarkToggle';
 import { createPracticeBookmark } from '../bookmarks/bookmarkModel';
 import { resolvePracticeExecutionContract } from '../compiler/function-mode/functionExecutionContract';
 import { createFunctionExecutionStrategy } from '../compiler/function-mode/functionExecutionStrategy';
+import { PracticeWorkspaceFrame } from './PracticeWorkspaceFrame';
 
 export function PracticeDetail({ question, solved, onBack, onComplete, requireAuthentication = false, onRequireAuth = () => {}, allowBookmark = false }) {
   const [completion, setCompletion] = useState({ pending: false, rewardStatus: null, rewardAmount: 0, error: null });
@@ -68,7 +69,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
   }, []);
 
   return <div className="practice-immersive-shell" data-theme={theme} data-brand-theme={brandTheme}>
-    <div className={`practice-immersive-workspace coding-workspace ${isCompilerMinimized ? 'is-compiler-minimized' : 'has-compiler'}`} data-immersive-coding-workspace="practice" ref={compilerResize.workspaceRef} style={{ '--compiler-width': `${compilerResize.value}px`, '--lesson-pane-min': `${LAYOUT_SIZE.lesson.min}px` }}>
+    <PracticeWorkspaceFrame minimized={isCompilerMinimized} workspaceRef={compilerResize.workspaceRef} compilerWidth={compilerResize.value} lessonPaneMin={LAYOUT_SIZE.lesson.min}>
       <section className="practice-main-region coding-workspace__content">
         <LearningWorkspaceToolbar activeView={activeWorkspace} onViewChange={setActiveWorkspace} compilerMinimized={isCompilerMinimized} onRestoreCompiler={toggleCompiler} primaryView="question" primaryLabel="Question" panelPrefix="practice">
           {allowBookmark ? <BookmarkToggle bookmark={createPracticeBookmark(question)} iconOnly className="practice-workspace-bookmark" /> : null}
@@ -99,7 +100,7 @@ export function PracticeDetail({ question, solved, onBack, onComplete, requireAu
         errorBoundary={{ name: 'practice-compiler', title: 'The code workspace could not be displayed.', description: 'The problem statement is still available. Retry the workspace when you are ready.', resetKeys: [question.id] }}
         resize={{ label: 'Resize problem and compiler panes', min: LAYOUT_SIZE.compiler.min, max: compilerResize.max, value: compilerResize.value, onPointerDown: compilerResize.startDragging, onKeyDown: compilerResize.handleKeyDown }}
       />
-    </div>
+    </PracticeWorkspaceFrame>
     <CompletionCelebration event={celebration} />
   </div>;
 }

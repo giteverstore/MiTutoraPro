@@ -6,6 +6,7 @@ import { parseAppRoute, routePath } from '../../src/routing/appRoutes';
 vi.mock('../../src/auth/AuthService', () => ({ authService: { getIdToken: vi.fn(async () => 'token') } }));
 vi.mock('../../src/compiler/CompilerProvider', () => ({ useCompilerManager: () => ({ execute:vi.fn() }) }));
 vi.mock('../../src/components/MonacoCodeEditor', () => ({ default:({ value, onChange, editor }) => <textarea aria-label={editor.ariaLabel} value={value} onChange={(event) => onChange(event.target.value)} /> }));
+vi.mock('../../src/compiler/languages/supportedLanguages', () => ({ getSupportedCompilerLanguage:(id)=>({ id, label:id }), sortCompilerLanguageOptions:(items)=>items }));
 
 let V2PracticeRepository, parseLearnerPractice, V2PilotPracticePage;
 afterEach(cleanup);
@@ -44,18 +45,26 @@ describe('V2 Practice pilot', () => {
   it('renders an editable local workspace and runs without persistence actions', async () => {
     const repository = { load:vi.fn(async () => envelope) };
     const executionClient = vi.fn(async ({ language, source }) => ({ status:'passed', message:'1/1 public tests passed', tests:[{ id:'test-1', label:`${language} values`, status:'passed', actual:3, expected:3 }], source }));
-    render(<V2PilotPracticePage contentId="practice-a" publicationVersion={2} repository={repository} onExit={() => {}} executionClient={executionClient} />);
+    const { container }=render(<V2PilotPracticePage contentId="practice-a" publicationVersion={2} repository={repository} onExit={() => {}} executionClient={executionClient} />);
     expect(await screen.findByRole('heading', { name:'Sum Two Integers' })).toBeInTheDocument();
+    expect(container.querySelector('.practice-immersive-workspace')).toBeInTheDocument();
+    expect(screen.getByLabelText('V2 Practice compiler')).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name:'Output' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name:'Expected' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name:'Tests' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name:'Errors' })).toBeInTheDocument();
     expect(screen.getByText('Return their sum.')).toBeInTheDocument();
     expect(screen.getByLabelText('python Practice editor').value).toContain('def add');
-    fireEvent.change(screen.getByLabelText('Language'), { target:{ value:'javascript' } });
+    fireEvent.click(screen.getByRole('button', { name:'Compiler language' }));
+    fireEvent.click(await screen.findByRole('menuitemradio', { name:'JavaScript' }));
     await waitFor(() => expect(screen.getByLabelText('javascript Practice editor').value).toContain('function add'));
     fireEvent.change(screen.getByLabelText('javascript Practice editor'), { target:{ value:'function add(a, b) { return a + b; }' } });
-    fireEvent.click(screen.getByRole('button', { name:'Run' }));
+    fireEvent.click(screen.getByRole('button', { name:'Run code' }));
     await waitFor(() => expect(executionClient).toHaveBeenCalledWith(expect.objectContaining({ language:'javascript', source:'function add(a, b) { return a + b; }' })));
-    expect(await screen.findByText('1/1 public tests passed')).toBeInTheDocument();
+    expect(await screen.findByText(/Test 1\s+Passed/)).toBeInTheDocument();
     expect(screen.queryByText(/reference solution/i)).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name:/submit|verify/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name:/check output/i })).not.toBeInTheDocument();
   });
   it('allows another Run after failure and error without making persistence requests', async () => {
     const repository = { load:vi.fn(async () => envelope) };
@@ -63,9 +72,9 @@ describe('V2 Practice pilot', () => {
       .mockResolvedValueOnce({ status:'failed', message:'0/1 public tests passed', tests:[{ id:'test-1', label:'positive values', status:'failed', expected:3, actual:0 }] })
       .mockResolvedValueOnce({ status:'error', message:'SyntaxError', tests:[{ id:'test-1', label:'positive values', status:'error', errorKind:'compile', message:'SyntaxError' }] });
     render(<V2PilotPracticePage contentId="practice-a" publicationVersion={2} repository={repository} onExit={() => {}} executionClient={executionClient} />);
-    const run=await screen.findByRole('button',{ name:'Run' });
+    const run=await screen.findByRole('button',{ name:'Run code' });
     fireEvent.click(run);
-    expect(await screen.findByText('0/1 public tests passed')).toBeInTheDocument();
+    expect(await screen.findByText(/Test 1\s+Failed/)).toBeInTheDocument();
     fireEvent.click(run);
     await waitFor(()=>expect(executionClient).toHaveBeenCalledTimes(2));
     expect(await screen.findByText('SyntaxError')).toBeInTheDocument();
