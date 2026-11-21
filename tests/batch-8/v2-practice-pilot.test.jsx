@@ -48,6 +48,10 @@ describe('V2 Practice pilot', () => {
     const { container }=render(<V2PilotPracticePage contentId="practice-a" publicationVersion={2} repository={repository} onExit={() => {}} executionClient={executionClient} />);
     expect(await screen.findByRole('heading', { name:'Sum Two Integers' })).toBeInTheDocument();
     expect(container.querySelector('.practice-immersive-workspace')).toBeInTheDocument();
+    expect(container.querySelector('.practice-immersive-workspace.has-compiler')).toBeInTheDocument();
+    expect(container.querySelector('.practice-main-region.coding-workspace__content')).toBeInTheDocument();
+    expect(container.querySelector('.practice-compiler-dock.coding-workspace__compiler')).toBeInTheDocument();
+    expect(container.querySelector('.compiler-workspace-editor-only .compiler-editor-view')).toBeInTheDocument();
     expect(screen.getByLabelText('V2 Practice compiler')).toBeInTheDocument();
     expect(screen.getByRole('tab', { name:'Output' })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name:'Expected' })).toBeInTheDocument();
