@@ -18,6 +18,14 @@
 .v2-practice-code-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .v2-practice-code-heading select { margin-left: .5rem; }
 .v2-practice-back { display: block; max-width: 58rem; margin: 0 auto 1rem; }
+.v2-practice-workspace { max-width: 58rem; margin: 0 auto 1rem; padding: 1.25rem; background:#fff; border:1px solid #dde2ec; border-radius:1rem; }
+.v2-practice-editor { height: 24rem; overflow:hidden; border:1px solid #cbd5e1; border-radius:.7rem; }
+.v2-practice-run { display:flex; align-items:center; gap:1rem; margin-top:1rem; }
+.v2-practice-run button { min-width:7rem; padding:.65rem 1rem; border:0; border-radius:.55rem; color:#fff; background:#3157d5; font-weight:700; }
+.v2-practice-run button:disabled { opacity:.65; }
+.v2-practice-results { margin-top:1rem; }
+.v2-practice-results li[data-status='passed'] { color:#087443; }
+.v2-practice-results li[data-status='failed'], .v2-practice-results li[data-status='error'] { color:#b42318; }
 
 .v2-pilot-banner {
   display: flex;
