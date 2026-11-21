@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createV2PilotGatewayHandler, isServerV2PilotEnabled } from '../../server/v2-pilot/V2PilotGateway';
+import { createV2PilotGatewayHandler, createV2PracticePilotGatewayHandler, isServerV2PilotEnabled } from '../../server/v2-pilot/V2PilotGateway';
 
 function responseRecorder() {
   return { headers: {}, statusCode: null, body: null, setHeader(key, value) { this.headers[key] = value; }, status(value) { this.statusCode = value; return this; }, json(value) { this.body = value; return value; }, send(value) { this.body = value; return value; } };
@@ -53,5 +53,21 @@ describe('V2 pilot learner gateway', () => {
     const handler = createV2PilotGatewayHandler({ environment, verifyToken: async () => ({ uid: 'learner-1' }), transport, logger: {} });
     let response = responseRecorder(); await handler({ method: 'GET', headers: { authorization: 'Bearer valid' }, query: { path: 'course-a/versions/2' } }, response); expect(response.body.data.publicationVersion).toBe(2);
     response = responseRecorder(); await handler({ method: 'GET', headers: { authorization: 'Bearer valid' }, query: { path: 'course-a/versions/2/assets/hero' } }, response); expect(transport.request).toHaveBeenLastCalledWith(expect.objectContaining({ contentId: 'course-a', publicationVersion: 2, assetId: 'hero' }), expect.any(Object));
+  });
+});
+
+describe('V2 Practice pilot learner gateway', () => {
+  const practiceEnvironment = { V2_PRACTICE_PILOT_ENABLED:'true', VERCEL_ENV:'preview', V2_PRACTICE_PILOT_UIDS:'learner-1', V2_PRACTICE_PILOT_CONTENT_IDS:'practice-a' };
+  it('uses only the Practice-specific allowlists', async () => {
+    const transport = { request:vi.fn(async () => ({ contentId:'practice-a', publicationVersion:1, practice:{} })) };
+    const handler = createV2PracticePilotGatewayHandler({ environment:practiceEnvironment, verifyToken:async () => ({ uid:'learner-1' }), transport, logger:{} });
+    const response = responseRecorder(); await handler({ method:'GET', headers:{ authorization:'Bearer valid' }, query:{ path:'practice-a' } }, response);
+    expect(response.statusCode).toBe(200); expect(transport.request).toHaveBeenCalledWith(expect.objectContaining({ contentType:'practice' }), expect.any(Object));
+  });
+  it('rejects a Practice that appears only on the Course allowlist', async () => {
+    const transport = { request:vi.fn() }, environment = { ...practiceEnvironment, V2_PRACTICE_PILOT_CONTENT_IDS:'', V2_COURSE_PILOT_CONTENT_IDS:'practice-a' };
+    const handler = createV2PracticePilotGatewayHandler({ environment, verifyToken:async () => ({ uid:'learner-1' }), transport, logger:{} });
+    const response = responseRecorder(); await handler({ method:'GET', headers:{ authorization:'Bearer valid' }, query:{ path:'practice-a' } }, response);
+    expect(response.statusCode).toBe(403); expect(transport.request).not.toHaveBeenCalled();
   });
 });

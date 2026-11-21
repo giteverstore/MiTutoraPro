@@ -40,6 +40,7 @@ const SetupVerificationExperience = lazyNamedExport(
 );
 const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'CourseRoute');
 const V2PilotCoursePage = lazyNamedExport(() => import('./v2-pilot/V2PilotCoursePage'), 'V2PilotCoursePage');
+const V2PilotPracticePage = lazyNamedExport(() => import('./v2-pilot/V2PilotPracticePage'), 'V2PilotPracticePage');
 const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
 const PublicPage = lazyNamedExport(() => import('./public/PublicPages'), 'PublicPage');
 const PublicBrowseApplication = lazyNamedExport(() => import('./public/PublicBrowseApplication'), 'PublicBrowseApplication');
@@ -183,7 +184,7 @@ function AuthenticatedApplication({ user }) {
   const [initialRoute] = useState(() => parseAppRoute(window.location.pathname));
   const [initialRouteState] = useState(() => deriveAuthenticatedRouteState(initialRoute));
   const [activeCourseId, setActiveCourseId] = useState(initialRouteState.activeCourseId);
-  const [v2PilotRoute, setV2PilotRoute] = useState(() => initialRoute.kind === 'v2-pilot-course' ? initialRoute : null);
+  const [v2PilotRoute, setV2PilotRoute] = useState(() => ['v2-pilot-course', 'v2-pilot-practice'].includes(initialRoute.kind) ? initialRoute : null);
   const [courseStage, setCourseStage] = useState(initialRouteState.courseStage);
   const [activePage, setActivePage] = useState(initialRouteState.activePage);
   const [navigationTarget, setNavigationTarget] = useState(initialRouteState.navigationTarget);
@@ -199,7 +200,7 @@ function AuthenticatedApplication({ user }) {
 
   const applyRoute = (route) => {
     const next = deriveAuthenticatedRouteState(route);
-    setV2PilotRoute(route.kind === 'v2-pilot-course' ? route : null);
+    setV2PilotRoute(['v2-pilot-course', 'v2-pilot-practice'].includes(route.kind) ? route : null);
     setRouteNotFound(next.routeNotFound);
     setActiveCourseId(next.activeCourseId);
     setCourseStage(next.courseStage);
@@ -309,6 +310,7 @@ function AuthenticatedApplication({ user }) {
 
   if (v2PilotRoute) {
     const route = v2PilotRoute;
+    if (route.kind === 'v2-pilot-practice') return <Suspense fallback={<CourseLoadState state="loading" />}><V2PilotPracticePage contentId={route.contentId} publicationVersion={route.publicationVersion} onExit={() => navigateTo({ kind: 'page', page: 'home' })} /></Suspense>;
     return <Suspense fallback={<CourseLoadState state="loading" />}><V2PilotCoursePage
       contentId={route.contentId}
       publicationVersion={route.publicationVersion}

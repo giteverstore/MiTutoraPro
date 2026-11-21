@@ -16,8 +16,8 @@ describe('Practice Mode B function execution', () => {
     expect(contract).toMatchObject({ version: 'practice-function-v1', executionMode: 'function', questionId: 'BLIND150-001' });
     expect(contract.fixtures).toHaveLength(3);
     expect(resolvePracticeExecutionContract(q250.find(({ id }) => id === 'BLIND150-002'))).toMatchObject({ adapter: 'plain-return' });
-    expect(q250.filter((entry) => resolvePracticeExecutionContract(entry))).toHaveLength(191);
-    expect(ACTIVATED_FUNCTION_QUESTION_IDS).toHaveLength(191);
+    expect(q250.filter((entry) => resolvePracticeExecutionContract(entry))).toHaveLength(214);
+    expect(ACTIVATED_FUNCTION_QUESTION_IDS).toHaveLength(214);
     expect(ACTIVATED_FUNCTION_QUESTION_IDS).toEqual(expect.arrayContaining([
       'BLIND150-046',
       'BLIND150-047',

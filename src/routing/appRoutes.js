@@ -39,6 +39,13 @@ export function parseAppRoute(pathname = '/') {
     if (!contentId || (match[2] && (!Number.isSafeInteger(publicationVersion) || publicationVersion < 1)) || (match[3] && !lessonId)) return { kind: 'not-found' };
     return { kind: 'v2-pilot-course', namespace: 'v2', contentType: 'course', contentId, publicationVersion, lessonId };
   }
+  match = path.match(/^\/pilot\/v2\/practice\/([^/]+)(?:\/versions\/(\d+))?$/);
+  if (match) {
+    const contentId = decodeId(match[1]);
+    const publicationVersion = match[2] ? Number(match[2]) : undefined;
+    if (!contentId || (match[2] && (!Number.isSafeInteger(publicationVersion) || publicationVersion < 1))) return { kind: 'not-found' };
+    return { kind: 'v2-pilot-practice', namespace: 'v2', contentType: 'practice', contentId, publicationVersion };
+  }
   match = path.match(/^\/projects\/([^/]+)(?:\/(workspace))?$/);
   if (match) {
     const projectId = decodeId(match[1]);
@@ -59,6 +66,10 @@ export function routePath(route) {
     const version = route.publicationVersion ? `/versions/${route.publicationVersion}` : '';
     const lesson = route.lessonId ? `/lesson/${encodeURIComponent(route.lessonId)}` : '';
     return `/pilot/v2/courses/${encodeURIComponent(route.contentId)}${version}${lesson}`;
+  }
+  if (route.kind === 'v2-pilot-practice') {
+    const version = route.publicationVersion ? `/versions/${route.publicationVersion}` : '';
+    return `/pilot/v2/practice/${encodeURIComponent(route.contentId)}${version}`;
   }
   if (route.kind === 'practice-question') return `/practice/${encodeURIComponent(route.questionId)}`;
   if (route.kind === 'challenge-daily') return `/challenges/daily/${route.date}`;

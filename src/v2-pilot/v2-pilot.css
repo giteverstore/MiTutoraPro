@@ -8,6 +8,17 @@
   overflow: hidden;
 }
 
+.v2-practice-preview { overflow: auto; padding: clamp(1rem, 4vw, 3rem); background: #f7f8fb; color: #172033; }
+.v2-practice-preview > header, .v2-practice-preview > section { max-width: 58rem; margin: 0 auto 1rem; padding: 1.25rem; background: #fff; border: 1px solid #dde2ec; border-radius: 1rem; }
+.v2-practice-preview h1 { margin: .25rem 0; font-size: clamp(2rem, 5vw, 3.25rem); }
+.v2-practice-kicker { text-transform: capitalize; color: #5b6475; }
+.v2-practice-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.v2-practice-tags span { padding: .25rem .55rem; border-radius: 999px; background: #edf1ff; }
+.v2-practice-preview pre { overflow: auto; padding: 1rem; border-radius: .7rem; background: #111827; color: #f9fafb; }
+.v2-practice-code-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.v2-practice-code-heading select { margin-left: .5rem; }
+.v2-practice-back { display: block; max-width: 58rem; margin: 0 auto 1rem; }
+
 .v2-pilot-banner {
   display: flex;
   min-height: 2.5rem;

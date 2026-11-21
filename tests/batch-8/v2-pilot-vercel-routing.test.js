@@ -25,6 +25,13 @@ describe('Vercel V2 pilot internal dispatcher', () => {
     expect(output).toMatchObject({ statusCode: 401, body: { error: { code: 'v2/auth-required' } } });
   });
 
+  it('dispatches Practice through its isolated handler and allowlist boundary', async () => {
+    const practiceHandler = vi.fn((_request, response) => response.status(200).json({ ok:true }));
+    const handler = createV2PilotApiHandler({ courseHandler:vi.fn(), practiceHandler, progressHandler:vi.fn() });
+    const input = request('practice/practice-a/versions/2'); await handler(input, responseRecorder());
+    expect(practiceHandler).toHaveBeenCalledOnce(); expect(input.query.path).toBe('practice-a/versions/2');
+  });
+
   it.each(['GET', 'PUT'])('dispatches progress %s without changing its method', async (method) => {
     const progressHandler = vi.fn((_request, response) => response.status(401).json({ error: { code: 'v2/auth-invalid' } }));
     const handler = createV2PilotApiHandler({ courseHandler: vi.fn(), progressHandler });

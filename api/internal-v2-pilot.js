@@ -1,4 +1,4 @@
-import { createV2PilotGatewayHandler } from '../server/v2-pilot/V2PilotGateway.js';
+import { createV2PilotGatewayHandler, createV2PracticePilotGatewayHandler } from '../server/v2-pilot/V2PilotGateway.js';
 import { createV2ProgressHandler } from '../server/v2-pilot/V2ProgressHandler.js';
 
 export const config = { maxDuration: 60 };
@@ -34,6 +34,7 @@ function pathSegments(request) {
 
 export function createV2PilotApiHandler({
   courseHandler = createV2PilotGatewayHandler(),
+  practiceHandler = createV2PracticePilotGatewayHandler(),
   progressHandler = createV2ProgressHandler(),
 } = {}) {
   return function v2PilotApi(request, response) {
@@ -42,6 +43,10 @@ export function createV2PilotApiHandler({
     if (resource === 'courses' && contentId) {
       request.query = { ...request.query, path: [contentId, segment, version, ...remainder].filter(Boolean).join('/') };
       return courseHandler(request, response);
+    }
+    if (resource === 'practice' && contentId) {
+      request.query = { ...request.query, path: [contentId, segment, version, ...remainder].filter(Boolean).join('/') };
+      return practiceHandler(request, response);
     }
     if (resource === 'progress' && contentId && segment === 'versions' && /^\d+$/.test(version ?? '') && remainder.length === 0) {
       request.query = { ...request.query, contentId, version };

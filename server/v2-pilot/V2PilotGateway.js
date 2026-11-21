@@ -8,18 +8,20 @@ export class V2PilotGatewayError extends Error {
   constructor(code, message, status = 500, cause) { super(message, { cause }); this.code = code; this.status = status; }
 }
 
-export function isServerV2PilotEnabled(environment = process.env) {
-  const enabled = String(environment.V2_COURSE_PILOT_ENABLED ?? '').toLowerCase() === 'true';
+export function isServerV2PilotEnabled(environment = process.env, contentType = 'course') {
+  const prefix = contentType === 'practice' ? 'V2_PRACTICE_PILOT' : 'V2_COURSE_PILOT';
+  const enabled = String(environment[`${prefix}_ENABLED`] ?? '').toLowerCase() === 'true';
   const deployment = String(environment.VERCEL_ENV ?? environment.YCODERS_ENVIRONMENT ?? '').toLowerCase();
   return enabled && ['development', 'preview', 'staging', 'test'].includes(deployment);
 }
 
 function allowlist(value) { return new Set(String(value ?? '').split(',').map((item) => item.trim()).filter(Boolean)); }
 
-export function assertPilotEntitlement({ uid, contentId }, environment = process.env) {
-  const learners = allowlist(environment.V2_COURSE_PILOT_UIDS);
-  const courses = allowlist(environment.V2_COURSE_PILOT_CONTENT_IDS);
-  if (!learners.has(uid) || !courses.has(contentId)) throw new V2PilotGatewayError('v2/access-denied', 'This account is not entitled to the requested V2 pilot Course.', 403);
+export function assertPilotEntitlement({ uid, contentId, contentType = 'course' }, environment = process.env) {
+  const prefix = contentType === 'practice' ? 'V2_PRACTICE_PILOT' : 'V2_COURSE_PILOT';
+  const learners = allowlist(environment[`${prefix}_UIDS`]);
+  const content = allowlist(environment[`${prefix}_CONTENT_IDS`]);
+  if (!learners.has(uid) || !content.has(contentId)) throw new V2PilotGatewayError('v2/access-denied', `This account is not entitled to the requested V2 pilot ${contentType === 'practice' ? 'Practice' : 'Course'}.`, 403);
 }
 
 async function authenticate(request, options) {
@@ -56,7 +58,8 @@ export class HttpV2DeliveryTransport {
     if (!base) throw new V2PilotGatewayError('v2/upstream-unconfigured', 'V2 delivery service trust is not configured.', 503);
     const version = target.publicationVersion ? `/versions/${target.publicationVersion}` : '';
     const asset = target.kind === 'asset' ? `/assets/${encodeURIComponent(target.assetId)}` : '';
-    const path = `/api/v2/gateway/courses/${encodeURIComponent(target.contentId)}${version}${asset}`;
+    const resource = target.contentType === 'practice' ? 'practice' : 'courses';
+    const path = `/api/v2/gateway/${resource}/${encodeURIComponent(target.contentId)}${version}${asset}`;
     let authorization;
     try { authorization = await this.serviceAssertionProvider.authorization({ method:'GET', path, correlationId, targetUrl:`${base}${path}` }); }
     catch (cause) { if (cause instanceof ServiceAssertionError) throw new V2PilotGatewayError(cause.code, cause.message, 503, cause); throw cause; }
@@ -76,26 +79,30 @@ function publicError(error, correlationId) {
   return { status: known ? error.status : 500, body: { ok: false, error: { code: known ? error.code : 'v2/internal', message: known ? error.message : 'The V2 pilot request could not be completed.', correlationId } } };
 }
 
-export function createV2PilotGatewayHandler({ environment = process.env, verifyToken, transport = new HttpV2DeliveryTransport(environment), credentialFactory = createV2GatewayFirebaseCredentialContext, logger = console } = {}) {
+export function createV2PilotGatewayHandler({ environment = process.env, verifyToken, transport = new HttpV2DeliveryTransport(environment), credentialFactory = createV2GatewayFirebaseCredentialContext, logger = console, contentType = 'course' } = {}) {
   return async function handler(request, response) {
     const correlationId = randomUUID(); const started = Date.now(); let target;
     try {
       if (request.method !== 'GET') { response.setHeader('Allow', 'GET'); throw new V2PilotGatewayError('v2/method-not-allowed', 'Use GET for V2 pilot delivery.', 405); }
-      if (!isServerV2PilotEnabled(environment)) throw new V2PilotGatewayError('v2/pilot-disabled', 'The V2 Course pilot is disabled.', 404);
-      target = parseRequestPath(request);
+      if (!isServerV2PilotEnabled(environment, contentType)) throw new V2PilotGatewayError('v2/pilot-disabled', `The V2 ${contentType === 'practice' ? 'Practice' : 'Course'} pilot is disabled.`, 404);
+      target = { ...parseRequestPath(request), contentType };
       const googleCredentials = credentialFactory({ request, environment });
       const principal = await authenticate(request, { environment, verifyToken, googleCredentials });
-      assertPilotEntitlement({ uid: principal.uid, contentId: target.contentId }, environment);
+      assertPilotEntitlement({ uid: principal.uid, contentId: target.contentId, contentType }, environment);
       const delivered = await transport.request(target, { signal: request.signal, correlationId });
-      logger.info?.('v2_pilot.delivery', { correlationId, namespace: 'v2', contentType: 'course', contentId: target.contentId, requestedPublicationVersion: target.publicationVersion, resolvedPublicationVersion: delivered.publicationVersion ?? target.publicationVersion, mode: target.mode, kind: target.kind, outcome: 'success', latencyMs: Date.now() - started });
+      logger.info?.('v2_pilot.delivery', { correlationId, namespace: 'v2', contentType, contentId: target.contentId, requestedPublicationVersion: target.publicationVersion, resolvedPublicationVersion: delivered.publicationVersion ?? target.publicationVersion, mode: target.mode, kind: target.kind, outcome: 'success', latencyMs: Date.now() - started });
       response.setHeader('X-Correlation-Id', correlationId);
       if (target.kind === 'asset') { response.setHeader('Content-Type', delivered.contentType); response.setHeader('Cache-Control', 'private, no-store'); return response.status(200).send(delivered.bytes); }
       return response.status(200).json({ ok: true, data: delivered });
     } catch (error) {
       const result = publicError(error, correlationId);
-      logger.warn?.('v2_pilot.delivery', { correlationId, namespace: 'v2', contentType: 'course', contentId: target?.contentId ?? null, requestedPublicationVersion: target?.publicationVersion ?? null, mode: target?.mode ?? null, outcome: 'failure', code: result.body.error.code, latencyMs: Date.now() - started });
+      logger.warn?.('v2_pilot.delivery', { correlationId, namespace: 'v2', contentType, contentId: target?.contentId ?? null, requestedPublicationVersion: target?.publicationVersion ?? null, mode: target?.mode ?? null, outcome: 'failure', code: result.body.error.code, latencyMs: Date.now() - started });
       response.setHeader('X-Correlation-Id', correlationId);
       return response.status(result.status).json(result.body);
     }
   };
+}
+
+export function createV2PracticePilotGatewayHandler(options = {}) {
+  return createV2PilotGatewayHandler({ ...options, contentType: 'practice' });
 }
