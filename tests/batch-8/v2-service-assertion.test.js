@@ -9,7 +9,7 @@ const environment = { VERCEL_ENV:'preview', FIREBASE_PROJECT_ID:'demo-ycoders-le
 describe('learner gateway service assertions', () => {
   it('keeps progress persistence on a distinct configured identity', () => {
     const environment={VERCEL_ENV:'preview',FIREBASE_PROJECT_ID:'ycoders-v2-staging',V2_GATEWAY_WIF_AUDIENCE:'//iam.googleapis.com/projects/417214322239/locations/global/workloadIdentityPools/ycoders-vercel-staging/providers/vercel-preview',V2_GATEWAY_GOOGLE_TOKEN_AUDIENCE:'https://editor.example',V2_PROGRESS_SERVICE_AUTH_MODE:'staging-wif',V2_PROGRESS_SERVICE_ACCOUNT_EMAIL:'ycoders-progress-staging@ycoders-v2-staging.iam.gserviceaccount.com'};
-    expect(createV2ProgressFirebaseCredentialContext({environment})).toMatchObject({mode:'wif',firebaseCredential:{getAccessToken:expect.any(Function)}});
+    expect(createV2ProgressFirebaseCredentialContext({environment})).toMatchObject({mode:'wif',authClient:expect.any(Object),firebaseCredential:{getAccessToken:expect.any(Function)}});
     expect(environment.V2_GATEWAY_SERVICE_ACCOUNT_EMAIL).toBeUndefined();
   });
   it('creates a short-lived request-bound assertion separate from the learner token', async () => {

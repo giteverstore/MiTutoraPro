@@ -51,8 +51,7 @@ export class StagingWifServiceAssertionProvider {
     const source = new this.IdentityPoolClientClass({ type:'external_account', audience:this.configuration.audience, subject_token_type:'urn:ietf:params:oauth:token-type:jwt', token_url:'https://sts.googleapis.com/v1/token', subject_token_supplier:{ getSubjectToken:()=>this.tokenSource() }, scopes:['https://www.googleapis.com/auth/cloud-platform'] });
     return new this.ImpersonatedClass({ sourceClient:source, targetPrincipal:this.configuration.serviceAccount, targetScopes:['https://www.googleapis.com/auth/cloud-platform'], lifetime:600 });
   }
-  firebaseCredential() {
-    const impersonated = this.createImpersonatedClient();
+  firebaseCredential(impersonated = this.createImpersonatedClient()) {
     return Object.freeze({
       async getAccessToken() {
         const result = await impersonated.getAccessToken();
@@ -82,7 +81,8 @@ export function createV2ProgressFirebaseCredentialContext({ environment=process.
   if (String(environment.V2_PROGRESS_SERVICE_AUTH_MODE??'') !== 'staging-wif') return Object.freeze({ mode:'adc', firebaseCredential:null });
   const progressEnvironment = { ...environment, V2_GATEWAY_SERVICE_AUTH_MODE:'staging-wif', V2_GATEWAY_SERVICE_ACCOUNT_EMAIL:environment.V2_PROGRESS_SERVICE_ACCOUNT_EMAIL };
   const provider = new StagingWifServiceAssertionProvider({ environment:progressEnvironment });
-  return Object.freeze({ mode:'wif', firebaseCredential:provider.firebaseCredential() });
+  const authClient = provider.createImpersonatedClient();
+  return Object.freeze({ mode:'wif', authClient, firebaseCredential:provider.firebaseCredential(authClient) });
 }
 
 export function createServiceAssertionProvider(environment = process.env) {

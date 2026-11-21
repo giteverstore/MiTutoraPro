@@ -8,7 +8,7 @@ export async function createDefaultFirestore(environment = process.env, googleCr
   firebaseAppFactory = createRequestFirebaseApp,
 } = {}) {
   const projectId = String(environment.FIREBASE_PROJECT_ID || environment.GCLOUD_PROJECT || '').trim();
-  if (requiresFederatedTutorCredentials(environment)) {
+  if (requiresFederatedTutorCredentials(environment) || googleCredentials?.authClient) {
     if (!projectId || !googleCredentials?.authClient) throw new TypeError('A deployed WIF credential is required.');
     const db = new FirestoreClient({ projectId, databaseId: '(default)', authClient: googleCredentials.authClient });
     return Object.freeze({ db, async close() { await db.terminate(); } });
