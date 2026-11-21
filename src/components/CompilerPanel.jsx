@@ -64,6 +64,12 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
     onExecutionStateChange?.(isRunning ? 'running' : executionStatus === 'error' ? 'failed' : 'ready');
   }, [executionStatus, isRunning, onExecutionStateChange]);
 
+  const runWithLessonVerification = useCallback(async (executionOverride = null) => {
+    const record = await showRunFeedback(executionOverride);
+    if (record && activityType === 'lesson' && record.definition.exerciseId) validateExecution(record);
+    return record;
+  }, [activityType, showRunFeedback, validateExecution]);
+
   const handleSelectionChange = useCallback(async (selection) => {
     const version = selectionVersionRef.current + 1;
     selectionVersionRef.current = version;
@@ -160,12 +166,12 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
   useEffect(() => {
     const handleKeyboardRun = (event) => {
       if (event.detail?.instanceId === instanceId && panelRef.current?.getClientRects().length && activeCompilerRef.current.runtimeAvailable !== false) {
-        showRunFeedback();
+        runWithLessonVerification();
       }
     };
     window.addEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
     return () => window.removeEventListener(COMPILER_EVENTS.run, handleKeyboardRun);
-  }, [instanceId, showRunFeedback]);
+  }, [instanceId, runWithLessonVerification]);
 
   const submit = useCallback(async () => {
     if (!onSubmit || submittingRef.current || submitDisabled || activeCompilerRef.current.runtimeAvailable === false) return;
@@ -196,7 +202,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           isRunning={isRunning}
           executionStatus={executionStatus}
           verificationStatus={verificationStatus}
-          onRun={showRunFeedback}
+          onRun={runWithLessonVerification}
           onReset={resetEditor}
           languageSelector={effectiveLanguageSelector}
           isCompilerMinimized={isCompilerMinimized}
@@ -222,7 +228,7 @@ export const CompilerPanel = forwardRef(function CompilerPanel({
           onAskAISelection={onAskAISelection}
           publicTests={publicTests}
           contract={contract}
-          onCheckOutput={onSubmit ? undefined : checkOutput}
+          onCheckOutput={onSubmit || (activityType === 'lesson' && activeCompiler.exerciseId) ? undefined : checkOutput}
         />
       </div>
       <ConfirmDialog

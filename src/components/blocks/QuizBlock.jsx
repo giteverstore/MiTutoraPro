@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Lightbulb } from 'lucide-react';
+import { ChevronRight, Lightbulb } from 'lucide-react';
 import { ICON_SIZE } from '../../design-system/theme';
+import { useLearningProgress } from '../../progress/LearningProgressContext';
 
 export function QuizBlock({ kicker, title, description, question, options = [], correctOptionIds = [], blockId, selectionMode = 'single', explanation, validationRef }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [feedback, setFeedback] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { recordQuizScore } = useLearningProgress();
 
   const handleSelection = (optionId) => {
     setIsSubmitted(false);
@@ -23,10 +25,11 @@ export function QuizBlock({ kicker, title, description, question, options = [], 
     const correctSelections = selectedOptions.filter((id) => correctOptionIds.includes(id));
     const isCorrect = selectedOptions.length === correctOptionIds.length
       && correctSelections.length === correctOptionIds.length;
+    recordQuizScore(blockId, correctSelections.length, correctOptionIds.length, isCorrect, selectedOptions);
     setIsSubmitted(true);
-    setFeedback(isCorrect ? '' : 'Not quite. Review the lesson and try again.');
+    setFeedback(isCorrect ? 'Correct — nicely done.' : 'Not quite. Review the lesson and try again.');
     return isCorrect;
-  }, [correctOptionIds, selectedOptions]);
+  }, [blockId, correctOptionIds, recordQuizScore, selectedOptions]);
 
   useEffect(() => {
     if (!validationRef) return undefined;
@@ -56,6 +59,9 @@ export function QuizBlock({ kicker, title, description, question, options = [], 
           </div>
         ) : <p className="activity-feedback" role="alert">This quiz has no answer options.</p>}
       </div>
+      <button className="button button--primary inline-action" type="button" disabled={!options.length} onClick={validateSelection}>
+        Check Answer <ChevronRight size={ICON_SIZE.base} />
+      </button>
     </section>
   );
 }

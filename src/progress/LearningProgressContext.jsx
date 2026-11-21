@@ -14,6 +14,18 @@ import { createInitialProgress, deriveProgress, getCourseLessons, getModuleIdFor
 
 const LearningProgressContext = createContext(null);
 
+function addAssessmentLessonCompletion(course, progress, assessmentId) {
+  const entry = getCourseLessons(course).find(({ lesson }) => lesson.blocks.some((block) => block.id === assessmentId));
+  if (!entry) return progress;
+  const assessments = entry.lesson.blocks.filter((block) => block.type === 'quiz' || block.type === 'exercise');
+  if (!assessments.length) return progress;
+  const allPassed = assessments.every((block) => block.type === 'quiz'
+    ? progress.quizScores[block.id]?.passed === true
+    : progress.exerciseCompletion[block.id]?.completed === true);
+  if (!allPassed || progress.completedLessons.includes(entry.lesson.id)) return progress;
+  return { ...progress, completedLessons: [...progress.completedLessons, entry.lesson.id] };
+}
+
 export function LearningProgressProvider({
   children,
   course,
@@ -157,7 +169,7 @@ export function LearningProgressProvider({
   ) => {
     updateProgress((current) => {
       const previous = current.quizScores[quizId];
-      return {
+      const next = {
         ...current,
         quizScores: {
           ...current.quizScores,
@@ -172,56 +184,45 @@ export function LearningProgressProvider({
           },
         },
       };
+      return passed ? addAssessmentLessonCompletion(course, next, quizId) : next;
     });
-  }, [updateProgress]);
+  }, [course, updateProgress]);
 
-  const completeExercise = useCallback((exerciseId) => {
+  const verifyExercise = useCallback((exerciseId, verification) => {
     updateProgress((current) => {
-      const exercise = current.exerciseCompletion[exerciseId];
-      if (exercise?.completed) return current;
-      return {
+      const next = {
         ...current,
         exerciseCompletion: {
           ...current.exerciseCompletion,
           [exerciseId]: {
-            ...exercise,
+            ...current.exerciseCompletion[exerciseId],
             completed: true,
-            completedAt: new Date().toISOString(),
+            completedAt: current.exerciseCompletion[exerciseId]?.completedAt ?? new Date().toISOString(),
+            verified: true,
+            expectedOutput: verification.expectedOutput,
+            programOutput: verification.programOutput,
+            sourceCode: verification.sourceCode,
+            compilerId: verification.compilerId,
+            verifiedAt: new Date().toISOString(),
           },
         },
       };
+      return addAssessmentLessonCompletion(course, next, exerciseId);
     });
-  }, [updateProgress]);
-
-  const verifyExercise = useCallback((exerciseId, verification) => {
-    updateProgress((current) => ({
-      ...current,
-      exerciseCompletion: {
-        ...current.exerciseCompletion,
-        [exerciseId]: {
-          ...current.exerciseCompletion[exerciseId],
-          completed: current.exerciseCompletion[exerciseId]?.completed ?? false,
-          verified: true,
-          expectedOutput: verification.expectedOutput,
-          programOutput: verification.programOutput,
-          sourceCode: verification.sourceCode,
-          compilerId: verification.compilerId,
-          verifiedAt: new Date().toISOString(),
-        },
-      },
-    }));
-  }, [updateProgress]);
+  }, [course, updateProgress]);
 
   const invalidateExerciseVerification = useCallback((exerciseId) => {
     updateProgress((current) => {
       const exercise = current.exerciseCompletion[exerciseId];
-      if (!exercise?.verified || exercise.completed) return current;
+      if (!exercise?.verified && !exercise?.completed) return current;
       return {
         ...current,
         exerciseCompletion: {
           ...current.exerciseCompletion,
           [exerciseId]: {
             ...exercise,
+            completed: false,
+            completedAt: null,
             verified: false,
             verifiedAt: null,
           },
@@ -289,7 +290,6 @@ export function LearningProgressProvider({
     completeLesson,
     markLessonVisited,
     recordQuizScore,
-    completeExercise,
     verifyExercise,
     invalidateExerciseVerification,
     toggleBookmark,
@@ -308,7 +308,6 @@ export function LearningProgressProvider({
     completeLesson,
     markLessonVisited,
     recordQuizScore,
-    completeExercise,
     verifyExercise,
     invalidateExerciseVerification,
     toggleBookmark,
