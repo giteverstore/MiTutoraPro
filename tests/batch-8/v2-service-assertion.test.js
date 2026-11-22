@@ -1,7 +1,7 @@
 import { generateKeyPairSync, verify } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import { HttpV2DeliveryTransport } from '../../server/v2-pilot/V2PilotGateway';
-import { LocalTestServiceAssertionProvider, ServiceAssertionError, StagingWifServiceAssertionProvider, createServiceAssertionProvider, createV2GatewayFirebaseCredentialContext, createV2ProgressFirebaseCredentialContext } from '../../server/v2-pilot/ServiceAssertion';
+import { LocalTestServiceAssertionProvider, ServiceAssertionError, StagingWifServiceAssertionProvider, createServiceAssertionProvider, createV2ChallengeFirebaseCredentialContext, createV2GatewayFirebaseCredentialContext, createV2ProgressFirebaseCredentialContext } from '../../server/v2-pilot/ServiceAssertion';
 
 const keys = generateKeyPairSync('ed25519');
 const environment = { VERCEL_ENV:'preview', FIREBASE_PROJECT_ID:'demo-ycoders-learner', V2_GATEWAY_TRUST_ENVIRONMENT:'emulator', V2_DELIVERY_SERVICE_URL:'http://127.0.0.1:4400' };
@@ -12,6 +12,7 @@ describe('learner gateway service assertions', () => {
     expect(createV2ProgressFirebaseCredentialContext({environment})).toMatchObject({mode:'wif',authClient:expect.any(Object),firebaseCredential:{getAccessToken:expect.any(Function)}});
     expect(environment.V2_GATEWAY_SERVICE_ACCOUNT_EMAIL).toBeUndefined();
   });
+  it('keeps Challenge assignment writes on their dedicated identity',()=>{const environment={VERCEL_ENV:'preview',FIREBASE_PROJECT_ID:'ycoders-v2-staging',V2_GATEWAY_WIF_AUDIENCE:'//iam.googleapis.com/projects/417214322239/locations/global/workloadIdentityPools/ycoders-vercel-staging/providers/vercel-preview',V2_GATEWAY_GOOGLE_TOKEN_AUDIENCE:'https://editor.example',V2_CHALLENGE_SERVICE_AUTH_MODE:'staging-wif',V2_CHALLENGE_SERVICE_ACCOUNT_EMAIL:'ycoders-challenge-staging@ycoders-v2-staging.iam.gserviceaccount.com'};expect(createV2ChallengeFirebaseCredentialContext({environment})).toMatchObject({mode:'wif',authClient:expect.any(Object),firebaseCredential:{getAccessToken:expect.any(Function)}});expect(environment.V2_GATEWAY_SERVICE_ACCOUNT_EMAIL).toBeUndefined();});
   it('creates a short-lived request-bound assertion separate from the learner token', async () => {
     const provider = new LocalTestServiceAssertionProvider({ environment, privateKey:keys.privateKey, now:()=>1_000_000 });
     const authorization = await provider.authorization({ method:'GET', path:'/api/v2/gateway/courses/course-a', correlationId:'correlation-1', targetUrl:'http://127.0.0.1:4400/api/v2/gateway/courses/course-a' });

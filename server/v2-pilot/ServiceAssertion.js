@@ -93,6 +93,14 @@ export function createV2PracticeStateFirebaseCredentialContext({ environment=pro
   return Object.freeze({ mode:'wif', authClient, firebaseCredential:provider.firebaseCredential(authClient) });
 }
 
+export function createV2ChallengeFirebaseCredentialContext({ environment=process.env }={}) {
+  if (String(environment.V2_CHALLENGE_SERVICE_AUTH_MODE??'') !== 'staging-wif') return Object.freeze({ mode:'adc', firebaseCredential:null });
+  const challengeEnvironment = { ...environment, V2_GATEWAY_SERVICE_AUTH_MODE:'staging-wif', V2_GATEWAY_SERVICE_ACCOUNT_EMAIL:environment.V2_CHALLENGE_SERVICE_ACCOUNT_EMAIL };
+  const provider = new StagingWifServiceAssertionProvider({ environment:challengeEnvironment });
+  const authClient = provider.createImpersonatedClient();
+  return Object.freeze({ mode:'wif', authClient, firebaseCredential:provider.firebaseCredential(authClient) });
+}
+
 export function createServiceAssertionProvider(environment = process.env) {
   const mode=String(environment.V2_GATEWAY_SERVICE_AUTH_MODE??'');
   if (mode === 'staging-wif') return new StagingWifServiceAssertionProvider({ environment });
