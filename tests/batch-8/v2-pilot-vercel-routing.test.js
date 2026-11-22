@@ -41,6 +41,13 @@ describe('Vercel V2 pilot internal dispatcher', () => {
     expect(input).toMatchObject({ method, url: '/api/v2-pilot/progress/course-a/versions/3', query: { contentId: 'course-a', version: '3' } });
   });
 
+  it.each([['PUT','practice-state/practice-a/versions/2',null],['POST','practice-state/practice-a/versions/2/complete','complete']])('dispatches Practice state %s through the consolidated function',async(method,path,operation)=>{
+    const practiceStateHandler=vi.fn((_request,response)=>response.status(200).json({ok:true}));
+    const handler=createV2PilotApiHandler({courseHandler:vi.fn(),practiceHandler:vi.fn(),progressHandler:vi.fn(),practiceStateHandler});
+    const input=request(path,{method});await handler(input,responseRecorder());
+    expect(practiceStateHandler).toHaveBeenCalledOnce();expect(input.query).toMatchObject({contentId:'practice-a',version:'2',operation});
+  });
+
   it.each(['courses', 'progress/course-a', 'unknown/course-a'])('returns an application-level 404 for malformed route %s', async (path) => {
     const handler = createV2PilotApiHandler({ courseHandler: vi.fn(), progressHandler: vi.fn() });
     const output = responseRecorder(); await handler(request(path), output);

@@ -1,5 +1,6 @@
 import { createV2PilotGatewayHandler, createV2PracticePilotGatewayHandler } from '../server/v2-pilot/V2PilotGateway.js';
 import { createV2ProgressHandler } from '../server/v2-pilot/V2ProgressHandler.js';
+import { createV2PracticeStateHandler } from '../server/v2-pilot/V2PracticeStateHandler.js';
 
 export const config = { maxDuration: 60 };
 
@@ -36,6 +37,7 @@ export function createV2PilotApiHandler({
   courseHandler = createV2PilotGatewayHandler(),
   practiceHandler = createV2PracticePilotGatewayHandler(),
   progressHandler = createV2ProgressHandler(),
+  practiceStateHandler = createV2PracticeStateHandler(),
 } = {}) {
   return function v2PilotApi(request, response) {
     reconstructV2PilotPublicRequest(request);
@@ -51,6 +53,10 @@ export function createV2PilotApiHandler({
     if (resource === 'progress' && contentId && segment === 'versions' && /^\d+$/.test(version ?? '') && remainder.length === 0) {
       request.query = { ...request.query, contentId, version };
       return progressHandler(request, response);
+    }
+    if (resource === 'practice-state' && contentId && segment === 'versions' && /^\d+$/.test(version ?? '') && (remainder.length === 0 || (remainder.length === 1 && remainder[0] === 'complete'))) {
+      request.query = { ...request.query, contentId, version, operation: remainder[0] ?? null };
+      return practiceStateHandler(request, response);
     }
     return response.status(404).json({ ok: false, error: { code: 'v2/route-not-found', message: 'The V2 pilot API route does not exist.' } });
   };
