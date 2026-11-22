@@ -61,6 +61,7 @@ export function createV2PilotApiHandler({
       return practiceStateHandler(request, response);
     }
     if (resource === 'challenges' && contentId === 'daily' && segment === 'today' && version === undefined) return dailyChallengeHandler(request, response);
+    if (resource === 'challenges' && contentId === 'daily' && /^\d{4}-\d{2}-\d{2}$/.test(segment ?? '') && version === undefined) { request.query={...request.query,challengeDate:segment}; return dailyChallengeHandler(request,response); }
     return response.status(404).json({ ok: false, error: { code: 'v2/route-not-found', message: 'The V2 pilot API route does not exist.' } });
   };
 }

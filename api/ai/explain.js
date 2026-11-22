@@ -59,6 +59,7 @@ export function createAIExplainHandler({
       const googleCredentials = credentialFactory({ request, environment });
       await googleCredentials.preflight();
       const principal = await authenticator.authenticate(request, { environment, googleCredentials });
+      if (String(request.body?.activityType ?? '').toUpperCase() === 'DAILY_CHALLENGE' || request.body?.challengeAssignmentId) throw new AIServiceError('challenge.ai-disabled', 'AI Tutor is disabled for Daily Challenges.', { status: 403 });
       const premiumAccessGuard = premiumAccessGuardFactory(environment, googleCredentials);
       const entitlement = await premiumAccessGuard.assertPremium(principal);
       const tutorScope = await scopeResolver({ body: request.body, principal, signal: lifecycle.signal, environment, credentials: googleCredentials });

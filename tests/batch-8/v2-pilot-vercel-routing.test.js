@@ -49,6 +49,7 @@ describe('Vercel V2 pilot internal dispatcher', () => {
   });
 
   it('dispatches today\'s Daily Challenge through the consolidated function',async()=>{const dailyChallengeHandler=vi.fn((_request,response)=>response.status(200).json({ok:true}));const handler=createV2PilotApiHandler({courseHandler:vi.fn(),practiceHandler:vi.fn(),progressHandler:vi.fn(),practiceStateHandler:vi.fn(),dailyChallengeHandler});const input=request('challenges/daily/today');await handler(input,responseRecorder());expect(dailyChallengeHandler).toHaveBeenCalledOnce();expect(input.url).toBe('/api/v2-pilot/challenges/daily/today');});
+  it('dispatches a historical Daily Challenge date through the consolidated function',async()=>{const dailyChallengeHandler=vi.fn((_request,response)=>response.status(200).json({ok:true}));const handler=createV2PilotApiHandler({courseHandler:vi.fn(),practiceHandler:vi.fn(),progressHandler:vi.fn(),practiceStateHandler:vi.fn(),dailyChallengeHandler});const input=request('challenges/daily/2026-11-22');await handler(input,responseRecorder());expect(dailyChallengeHandler).toHaveBeenCalledOnce();expect(input.query.challengeDate).toBe('2026-11-22');});
 
   it.each(['courses', 'progress/course-a', 'unknown/course-a'])('returns an application-level 404 for malformed route %s', async (path) => {
     const handler = createV2PilotApiHandler({ courseHandler: vi.fn(), progressHandler: vi.fn() });

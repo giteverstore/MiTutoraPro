@@ -41,6 +41,7 @@ const SetupVerificationExperience = lazyNamedExport(
 const CourseRoute = lazyNamedExport(() => import('./routing/CourseRoute'), 'CourseRoute');
 const V2PilotCoursePage = lazyNamedExport(() => import('./v2-pilot/V2PilotCoursePage'), 'V2PilotCoursePage');
 const V2PilotPracticePage = lazyNamedExport(() => import('./v2-pilot/V2PilotPracticePage'), 'V2PilotPracticePage');
+const V2DailyChallengePage = lazyNamedExport(() => import('./v2-pilot/V2DailyChallengePage'), 'V2DailyChallengePage');
 const PublicCertificateVerificationPage = lazyNamedExport(() => import('./certificates/PublicCertificateVerificationPage'), 'PublicCertificateVerificationPage');
 const PublicPage = lazyNamedExport(() => import('./public/PublicPages'), 'PublicPage');
 const PublicBrowseApplication = lazyNamedExport(() => import('./public/PublicBrowseApplication'), 'PublicBrowseApplication');
@@ -357,7 +358,7 @@ function AuthenticatedApplication({ user }) {
               : { kind: 'page', page: 'practice' })}
           />
         ) : activePage === 'challenges' ? (
-          <ChallengesPage
+          navigationTarget?.page === 'challenges' && navigationTarget.date ? <V2DailyChallengePage date={navigationTarget.date} onExit={() => navigateTo({ kind: 'page', page: 'challenges' })} /> : <ChallengesPage
             occurrenceDate={navigationTarget?.page === 'challenges' ? navigationTarget.date : null}
             onOpenChallenge={(date) => navigateTo({ kind: 'challenge-daily', page: 'challenges', date })}
             onBack={() => navigateTo({ kind: 'page', page: 'challenges' })}

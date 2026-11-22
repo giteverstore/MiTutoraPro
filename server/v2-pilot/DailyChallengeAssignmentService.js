@@ -113,6 +113,14 @@ export class HttpChallengeCandidateSource {
 export class DailyChallengeAssignmentService {
   constructor({ repository, context, now = () => new Date(), correlationId = randomUUID } = {}) { this.repository = repository; this.context = context; this.now = now; this.correlationId = correlationId; }
   async getOrCreateToday() { return this.getOrCreate(challengeDateAt(this.now())); }
+  async getHistorical(challengeDate) {
+    const today=challengeDateAt(this.now());
+    if(challengeDate>today)throw new V2ChallengeAssignmentError('v2/challenge-date-future','Future Daily Challenges are not available.',422);
+    const policyId=String(this.context.environment?.V2_CHALLENGE_POLICY_CONTENT_ID??'');
+    const assignment=await this.repository.getHistoricalById(createV2ChallengeAssignmentId(policyId,challengeDate));
+    if(!assignment)throw new V2ChallengeAssignmentError('v2/challenge-assignment-not-found','The Daily Challenge assignment is unavailable.',404);
+    return {created:false,assignment};
+  }
   async getOrCreate(challengeDate) {
     const { policy, candidates, guards } = await this.context.resolve();
     const existing = await this.repository.getByScope(policy.id, challengeDate); if (existing) return { created: false, assignment: existing };
